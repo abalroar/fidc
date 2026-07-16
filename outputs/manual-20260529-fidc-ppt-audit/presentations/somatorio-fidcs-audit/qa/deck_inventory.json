@@ -1,0 +1,4301 @@
+{
+  "slide_count": 19,
+  "chart_count": 44,
+  "slides": [
+    {
+      "slide": 1,
+      "texts": [
+        "Mercado de FIDCs",
+        "Visão consolidada e por fundo — Data-base abr/26",
+        "Análise Setorial de Crédito"
+      ],
+      "charts": []
+    },
+    {
+      "slide": 2,
+      "texts": [
+        "01 —",
+        "Visão consolidada",
+        "PL, carteira, risco e duration agregados"
+      ],
+      "charts": []
+    },
+    {
+      "slide": 3,
+      "texts": [
+        "Soma de FIDCs — Consolidado",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 3 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 7.708 mm",
+        "NPL OVER 1D EX-360 21,3%",
+        "NPL OVER 30D EX-360 16,2%",
+        "NPL OVER 60D EX-360 13,3%",
+        "NPL OVER 90D EX-360 11,6%",
+        "DURATION 12,8 meses",
+        "PL total: R$ 5.311 mm"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart1.xml",
+          "title": "PL por classe",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1743.3667634481935,
+                1774.0491713587403,
+                1838.891448583161,
+                "...",
+                1874.1471439694383,
+                2220.6553617158324,
+                2516.6491040178566
+              ],
+              "min": 1743.3667634481935,
+              "max": 2516.6491040178566,
+              "last": 2516.6491040178566,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 2,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1369.6781285262618,
+                2788.292265694901,
+                2874.222401057654,
+                "...",
+                3233.0722813831903,
+                2895.9251926229954,
+                2794.317221902406
+              ],
+              "min": 1369.6781285262618,
+              "max": 3321.130668895092,
+              "last": 2794.317221902406,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 3
+        },
+        {
+          "path": "ppt/charts/chart2.xml",
+          "title": "% Subordinação Total ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.30272441992297283,
+                0.6111519808490012,
+                0.6098356057464195,
+                "...",
+                0.6330401522974363,
+                0.5659891087247955,
+                0.5261310266768956
+              ],
+              "min": 0.30272441992297283,
+              "max": 0.6366918510743523,
+              "last": 0.5261310266768956,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 3
+        },
+        {
+          "path": "ppt/charts/chart3.xml",
+          "title": "NPL Over 90d ex-360 / Carteira",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.203241128664442,
+                0.20532843922510693,
+                0.19230999872033686,
+                "...",
+                0.12396617654474211,
+                0.11772290767358512,
+                0.1158790443591625
+              ],
+              "min": 0.1158790443591625,
+              "max": 0.20532843922510693,
+              "last": 0.1158790443591625,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 3
+        },
+        {
+          "path": "ppt/charts/chart4.xml",
+          "title": "Cobertura PDD / NPL Over 90d ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1.813818632525225,
+                1.7787957111566135,
+                1.789443514223742,
+                "...",
+                2.777360374267228,
+                2.989086665698178,
+                3.1089411067139765
+              ],
+              "min": 1.7787957111566135,
+              "max": 3.1089411067139765,
+              "last": 3.1089411067139765,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 3
+        }
+      ]
+    },
+    {
+      "slide": 4,
+      "texts": [
+        "Soma de FIDCs — Consolidado",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 4 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 7.708 mm",
+        "NPL OVER 1D EX-360 21,3%",
+        "NPL OVER 30D EX-360 16,2%",
+        "NPL OVER 60D EX-360 13,3%",
+        "NPL OVER 90D EX-360 11,6%",
+        "DURATION 12,8 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart5.xml",
+          "title": "Carteira ex-360",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                6512.9677614600005,
+                6446.303437200001,
+                6573.558584840001,
+                "...",
+                7304.3321350900005,
+                7674.89324665,
+                7707.88409854
+              ],
+              "min": 6446.303437200001,
+              "max": 7707.88409854,
+              "last": 7707.88409854,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 4
+        },
+        {
+          "path": "ppt/charts/chart6.xml",
+          "title": "Crescimento YoY carteira ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                -0.004951217118691176,
+                0.0005584018377828848,
+                -0.04089236875435399,
+                "...",
+                0.057793577054137124,
+                0.1957579270286105,
+                0.18346725806794684
+              ],
+              "min": -0.04089236875435399,
+              "max": 0.1957579270286105,
+              "last": 0.18346725806794684,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 4
+        },
+        {
+          "path": "ppt/charts/chart7.xml",
+          "title": "NPL ex-360 por severidade",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% carteira ex-360",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.10384328815691678,
+                0.08755580306426843,
+                0.08070949785456479,
+                "...",
+                0.06453614387623842,
+                0.07389471970408805,
+                0.09681502505873824
+              ],
+              "min": 0.06453614387623842,
+              "max": 0.10384328815691678,
+              "last": 0.09681502505873824,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.21833549140910077,
+                0.203241128664442,
+                0.20532843922510693,
+                "...",
+                0.12396617654474211,
+                0.11772290767358512,
+                0.11587904435916249
+              ],
+              "min": 0.11587904435916249,
+              "max": 0.21833549140910077,
+              "last": 0.11587904435916249,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 2,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 4
+        },
+        {
+          "path": "ppt/charts/chart8.xml",
+          "title": "Roll rates",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.04078088545947007,
+                0.038002201884504594,
+                0.03957492063100167,
+                "...",
+                0.02423991364765153,
+                0.02381771735911439,
+                0.022701598434492973
+              ],
+              "min": 0.022701598434492973,
+              "max": 0.04078088545947007,
+              "last": 0.022701598434492973,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.03978506439109137,
+                0.037654909813136066,
+                0.03719986411910597,
+                "...",
+                0.02567558642419949,
+                0.026439974928252123,
+                0.022806007373243148
+              ],
+              "min": 0.022806007373243148,
+              "max": 0.03978506439109137,
+              "last": 0.022806007373243148,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.037718616393491805,
+                0.036767492575304914,
+                0.03651115850377647,
+                "...",
+                0.02225221353596386,
+                0.021846229378060134,
+                0.02516612985386027
+              ],
+              "min": 0.021846229378060134,
+              "max": 0.037718616393491805,
+              "last": 0.02516612985386027,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.03332831679322208,
+                0.03448685728391629,
+                0.035754462631517644,
+                "...",
+                0.025139238590387403,
+                0.021033194685767115,
+                0.020540022148805067
+              ],
+              "min": 0.020540022148805067,
+              "max": 0.035754462631517644,
+              "last": 0.020540022148805067,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 4
+        }
+      ]
+    },
+    {
+      "slide": 5,
+      "texts": [
+        "Soma de FIDCs — Consolidado",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 5 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 7.708 mm",
+        "NPL OVER 1D EX-360 21,3%",
+        "NPL OVER 30D EX-360 16,2%",
+        "NPL OVER 60D EX-360 13,3%",
+        "NPL OVER 90D EX-360 11,6%",
+        "DURATION 12,8 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart9.xml",
+          "title": "Duration por FIDC",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "meses",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                6.054818402326661,
+                6.591591823623745,
+                6.539951727055054,
+                "...",
+                12.384071829440511,
+                12.5403263898454,
+                12.79758718971643
+              ],
+              "min": 6.054818402326661,
+              "max": 12.79758718971643,
+              "last": 12.79758718971643,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                17.50650944304337,
+                17.31157095298466,
+                16.140540409279218,
+                "...",
+                24.087694276282093,
+                24.016548053966357,
+                24.167549314436787
+              ],
+              "min": 12.595393370323348,
+              "max": 24.167549314436787,
+              "last": 24.167549314436787,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1.7712461283163992,
+                1.744069967362881,
+                1.8873704130398423,
+                "...",
+                2.35231008028938,
+                2.54984792954288,
+                2.5418056106449067
+              ],
+              "min": 1.744069967362881,
+              "max": 2.54984792954288,
+              "last": 2.5418056106449067,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                3.001797618153323,
+                3.714243990244453,
+                3.386964420223396,
+                "...",
+                1.9511232246176773,
+                2.632176893958698,
+                2.442043176187739
+              ],
+              "min": 1.9511232246176773,
+              "max": 3.714243990244453,
+              "last": 2.442043176187739,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "ratio_or_percent_chart_without_percent_axis_format"
+          ],
+          "slide": 5
+        },
+        {
+          "path": "ppt/charts/chart10.xml",
+          "title": "Cohorts recentes",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% saldo a vencer 30d",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Mês de maturação",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 6,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.291756654311809,
+                0.20816118769203487,
+                0.19110199976995068,
+                0.1536698445369603,
+                0.13075092489732465,
+                0.12293320036568572
+              ],
+              "min": 0.12293320036568572,
+              "max": 0.291756654311809,
+              "last": 0.12293320036568572,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 5,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.322744306371302,
+                0.23877538979561408,
+                0.16852721925393396,
+                0.18382307447839302,
+                0.17496670760893518
+              ],
+              "min": 0.16852721925393396,
+              "max": 0.322744306371302,
+              "last": 0.17496670760893518,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.3055675080272989,
+                0.16493106519789275,
+                0.15787424364902397,
+                0.15116818754787265
+              ],
+              "min": 0.15116818754787265,
+              "max": 0.3055675080272989,
+              "last": 0.15116818754787265,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 3,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.2484566932552181,
+                0.16968754424595991,
+                0.16208660158389537
+              ],
+              "min": 0.16208660158389537,
+              "max": 0.2484566932552181,
+              "last": 0.16208660158389537,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 2,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.39565812635407854,
+                0.3035710257125144
+              ],
+              "min": 0.3035710257125144,
+              "max": 0.39565812635407854,
+              "last": 0.3035710257125144,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 1,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.43197828207614725
+              ],
+              "min": 0.43197828207614725,
+              "max": 0.43197828207614725,
+              "last": 0.43197828207614725,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 5
+        }
+      ]
+    },
+    {
+      "slide": 6,
+      "texts": [
+        "Soma de FIDCs — Consolidado",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 6 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 7.708 mm",
+        "NPL OVER 1D EX-360 21,3%",
+        "NPL OVER 30D EX-360 16,2%",
+        "NPL OVER 60D EX-360 13,3%",
+        "NPL OVER 90D EX-360 11,6%",
+        "DURATION 12,8 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart11.xml",
+          "title": "Roll 61-90 por mês do ano",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 9,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.04078088545947007,
+                0.038002201884504594,
+                0.03957492063100167,
+                "...",
+                0.028119618237480788,
+                0.029636929484611035,
+                0.02983172484147946
+              ],
+              "min": 0.028119618237480788,
+              "max": 0.04078088545947007,
+              "last": 0.02983172484147946,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.031929855370879764,
+                0.02423991364765153,
+                0.02381771735911439,
+                0.022701598434492973
+              ],
+              "min": 0.022701598434492973,
+              "max": 0.031929855370879764,
+              "last": 0.022701598434492973,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 6
+        },
+        {
+          "path": "ppt/charts/chart12.xml",
+          "title": "Roll 91-120 por mês do ano",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 9,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.03978506439109137,
+                0.037654909813136066,
+                0.03719986411910597,
+                "...",
+                0.02614015964990176,
+                0.02735671059311567,
+                0.031239390594936852
+              ],
+              "min": 0.02614015964990176,
+              "max": 0.03978506439109137,
+              "last": 0.031239390594936852,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.027738568058111125,
+                0.02567558642419949,
+                0.026439974928252123,
+                0.022806007373243148
+              ],
+              "min": 0.022806007373243148,
+              "max": 0.027738568058111125,
+              "last": 0.022806007373243148,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 6
+        },
+        {
+          "path": "ppt/charts/chart13.xml",
+          "title": "Roll 121-150 por mês do ano",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 9,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.037718616393491805,
+                0.036767492575304914,
+                0.03651115850377647,
+                "...",
+                0.028942509136946806,
+                0.024414945295739603,
+                0.02690130998852567
+              ],
+              "min": 0.024414945295739603,
+              "max": 0.037718616393491805,
+              "last": 0.02690130998852567,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.028998772651940397,
+                0.02225221353596386,
+                0.021846229378060134,
+                0.02516612985386027
+              ],
+              "min": 0.021846229378060134,
+              "max": 0.028998772651940397,
+              "last": 0.02516612985386027,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 6
+        },
+        {
+          "path": "ppt/charts/chart14.xml",
+          "title": "Roll 151-180 por mês do ano",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 9,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.03332831679322208,
+                0.03448685728391629,
+                0.035754462631517644,
+                "...",
+                0.02548272505394279,
+                0.027262922014222937,
+                0.022667043306485238
+              ],
+              "min": 0.022667043306485238,
+              "max": 0.035754462631517644,
+              "last": 0.022667043306485238,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "Jan",
+                "Fev",
+                "Mar",
+                "...",
+                "Out",
+                "Nov",
+                "Dez"
+              ],
+              "values_sample": [
+                0.02567309526894665,
+                0.025139238590387403,
+                0.021033194685767115,
+                0.020540022148805067
+              ],
+              "min": 0.020540022148805067,
+              "max": 0.02567309526894665,
+              "last": 0.020540022148805067,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 6
+        }
+      ]
+    },
+    {
+      "slide": 7,
+      "texts": [
+        "02 —",
+        "Mercado Crédito FIDC",
+        "Mercado Crédito Fundo de Investimento em Direitos Creditórios Resp. Ltda."
+      ],
+      "charts": []
+    },
+    {
+      "slide": 8,
+      "texts": [
+        "Mercado Crédito FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 8 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 3.667 mm",
+        "NPL OVER 1D EX-360 9,5%",
+        "NPL OVER 30D EX-360 7,2%",
+        "NPL OVER 60D EX-360 5,6%",
+        "NPL OVER 90D EX-360 4,5%",
+        "DURATION 24,2 meses",
+        "PL total: R$ 2.827 mm",
+        "Outlier: dado mai/25 inconsistente na CVM"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart15.xml",
+          "title": "PL por classe",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                103.8543699166,
+                135.43291872971866,
+                197.82682493050083,
+                "...",
+                299.9999594498012,
+                501.7033036384995,
+                798.1055610241001
+              ],
+              "min": 103.8543699166,
+              "max": 798.1055610241001,
+              "last": 798.1055610241001,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 2,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.0,
+                1559.8429829840015,
+                1641.2408264558255,
+                "...",
+                2422.1518284402005,
+                2181.2733641614996,
+                2028.6934302186
+              ],
+              "min": 0.0,
+              "max": 2463.4479247610184,
+              "last": 2028.6934302186,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 8
+        },
+        {
+          "path": "ppt/charts/chart16.xml",
+          "title": "% Subordinação Total ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": "0.7",
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.0,
+                0.9201115767274234,
+                0.8924309147661981,
+                "...",
+                0.8897930817875751,
+                0.8130049695699032,
+                0.717647958945628
+              ],
+              "min": 0.0,
+              "max": 0.9201115767274234,
+              "last": 0.717647958945628,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 8
+        },
+        {
+          "path": "ppt/charts/chart17.xml",
+          "title": "NPL Over 90d ex-360 / Carteira",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.028104575649408017,
+                0.027089874368866996,
+                0.02450240297661272,
+                "...",
+                0.025431022484627867,
+                0.03727232061818225,
+                0.04526686324480536
+              ],
+              "min": 0.011689853679378848,
+              "max": 0.04526686324480536,
+              "last": 0.04526686324480536,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 8
+        },
+        {
+          "path": "ppt/charts/chart18.xml",
+          "title": "Cobertura PDD / NPL Over 90d ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                4.302140800011312,
+                4.578350327002181,
+                4.6520474970079775,
+                "...",
+                8.93001820870932,
+                6.820413064195594,
+                5.91231226666343
+              ],
+              "min": 4.302140800011312,
+              "max": 10.55650393444622,
+              "last": 5.91231226666343,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 8
+        }
+      ]
+    },
+    {
+      "slide": 9,
+      "texts": [
+        "Mercado Crédito FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 9 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 3.667 mm",
+        "NPL OVER 1D EX-360 9,5%",
+        "NPL OVER 30D EX-360 7,2%",
+        "NPL OVER 60D EX-360 5,6%",
+        "NPL OVER 90D EX-360 4,5%",
+        "DURATION 24,2 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart19.xml",
+          "title": "Carteira ex-360",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1547.4443249099998,
+                1637.93624548,
+                1847.65988127,
+                "...",
+                3441.12689975,
+                3560.5811537600002,
+                3666.6520064
+              ],
+              "min": 1547.4443249099998,
+              "max": 3666.6520064,
+              "last": 3666.6520064,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 2,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 9
+        },
+        {
+          "path": "ppt/charts/chart20.xml",
+          "title": "Crescimento YoY carteira ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1.0131118603011289,
+                1.1552434501741269,
+                1.0826238330950733,
+                "...",
+                1.3603448629500061,
+                1.446992329775022,
+                1.3694888063990636
+              ],
+              "min": 1.0131118603011289,
+              "max": 1.545050985757981,
+              "last": 1.3694888063990636,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 9
+        },
+        {
+          "path": "ppt/charts/chart21.xml",
+          "title": "NPL ex-360 por severidade",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% carteira ex-360",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.01737021570166237,
+                0.01549570847463728,
+                0.017313052588451734,
+                "...",
+                0.041336771983135574,
+                0.04104987749419851,
+                0.04963099129188198
+              ],
+              "min": 0.01549570847463728,
+              "max": 0.06996078562691689,
+              "last": 0.04963099129188198,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 4,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.034218340710306105,
+                0.02810457564940802,
+                0.027089874368866992,
+                "...",
+                0.025431022484627856,
+                0.037272320618182246,
+                0.04526686324480536
+              ],
+              "min": 0.011689853679378848,
+              "max": 0.04526686324480536,
+              "last": 0.04526686324480536,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 9
+        },
+        {
+          "path": "ppt/charts/chart22.xml",
+          "title": "Roll rates",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.006026571472880069,
+                0.005027267562016982,
+                0.005691177714981846,
+                "...",
+                0.016969193897736833,
+                0.01324008322968387,
+                0.012623229074833925
+              ],
+              "min": 0.004462974160270884,
+              "max": 0.02166448944829168,
+              "last": 0.012623229074833925,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.007074049208244979,
+                0.005327632048231221,
+                0.004988847436870422,
+                "...",
+                0.011071513476603298,
+                0.01819056124373409,
+                0.012787698237762662
+              ],
+              "min": 0.0042989630746535475,
+              "max": 0.01819056124373409,
+              "last": 0.012787698237762662,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.006150285551696946,
+                0.006354961205047294,
+                0.005180922692361465,
+                "...",
+                0.00804040136731716,
+                0.009379411586372172,
+                0.017747977697588683
+              ],
+              "min": 0.0028915183499402665,
+              "max": 0.017747977697588683,
+              "last": 0.017747977697588683,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.007153597934950257,
+                0.005336825254809404,
+                0.006280126836724234,
+                "...",
+                0.00604595669361715,
+                0.007803252935376126,
+                0.009108537802570389
+              ],
+              "min": 0.0023032119796920266,
+              "max": 0.010623812848810038,
+              "last": 0.009108537802570389,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 9
+        }
+      ]
+    },
+    {
+      "slide": 10,
+      "texts": [
+        "Mercado Crédito FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 10 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 3.667 mm",
+        "NPL OVER 1D EX-360 9,5%",
+        "NPL OVER 30D EX-360 7,2%",
+        "NPL OVER 60D EX-360 5,6%",
+        "NPL OVER 90D EX-360 4,5%",
+        "DURATION 24,2 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart23.xml",
+          "title": "Duration por FIDC",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "meses",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                17.50650944304337,
+                17.31157095298466,
+                16.140540409279218,
+                "...",
+                24.087694276282093,
+                24.016548053966357,
+                24.167549314436787
+              ],
+              "min": 12.595393370323348,
+              "max": 24.167549314436787,
+              "last": 24.167549314436787,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "ratio_or_percent_chart_without_percent_axis_format"
+          ],
+          "slide": 10
+        },
+        {
+          "path": "ppt/charts/chart24.xml",
+          "title": "Cohorts recentes",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% saldo a vencer 30d",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Mês de maturação",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 6,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.32039494964436327,
+                0.242607640973688,
+                0.2265045919548963,
+                0.11575387679117032,
+                0.09806276760959061,
+                0.09523075275792561
+              ],
+              "min": 0.09523075275792561,
+              "max": 0.32039494964436327,
+              "last": 0.09523075275792561,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 5,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.3520620174449012,
+                0.27223939147029963,
+                0.16994637130876022,
+                0.18217835767995297,
+                0.17774588621892462
+              ],
+              "min": 0.16994637130876022,
+              "max": 0.3520620174449012,
+              "last": 0.17774588621892462,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.3674632248380297,
+                0.14758935785776947,
+                0.13715737490487556,
+                0.13247100421808358
+              ],
+              "min": 0.13247100421808358,
+              "max": 0.3674632248380297,
+              "last": 0.13247100421808358,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 3,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.18781606711751164,
+                0.14516630413360207,
+                0.13943932966289221
+              ],
+              "min": 0.13943932966289221,
+              "max": 0.18781606711751164,
+              "last": 0.13943932966289221,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 2,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.6410871319307044,
+                0.5693930099229207
+              ],
+              "min": 0.5693930099229207,
+              "max": 0.6410871319307044,
+              "last": 0.5693930099229207,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 1,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.6462126269527917
+              ],
+              "min": 0.6462126269527917,
+              "max": 0.6462126269527917,
+              "last": 0.6462126269527917,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 10
+        }
+      ]
+    },
+    {
+      "slide": 11,
+      "texts": [
+        "03 —",
+        "Mercado Crédito I Brasil FIDC",
+        "Mercado Crédito I Brasil FIDC Segmento Financeiro Resp. Ltda."
+      ],
+      "charts": []
+    },
+    {
+      "slide": 12,
+      "texts": [
+        "Mercado Crédito I Brasil FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 12 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 1.412 mm",
+        "NPL OVER 1D EX-360 39,3%",
+        "NPL OVER 30D EX-360 34,0%",
+        "NPL OVER 60D EX-360 30,2%",
+        "NPL OVER 90D EX-360 27,8%",
+        "DURATION 2,5 meses",
+        "PL total: R$ 762 mm"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart25.xml",
+          "title": "PL por classe",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                574.3201203415937,
+                574.6733455026215,
+                575.7861872858606,
+                "...",
+                509.5365127730372,
+                510.8061605967328,
+                510.47080292575646
+              ],
+              "min": 509.5365127730372,
+              "max": 575.7861872858606,
+              "last": 510.47080292575646,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 4,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                549.897558475662,
+                490.52611955489954,
+                524.5606325940287,
+                "...",
+                238.1937093299899,
+                232.9021249005957,
+                251.7264092295064
+              ],
+              "min": 224.62983290216624,
+              "max": 549.897558475662,
+              "last": 251.7264092295064,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 12
+        },
+        {
+          "path": "ppt/charts/chart26.xml",
+          "title": "% Subordinação Total ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.48913797537376974,
+                0.4605016585329511,
+                0.47672299670694995,
+                "...",
+                0.31855568059783773,
+                0.3131632790772201,
+                0.33026414385356967
+              ],
+              "min": 0.3054229694829734,
+              "max": 0.48913797537376974,
+              "last": 0.33026414385356967,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 12
+        },
+        {
+          "path": "ppt/charts/chart27.xml",
+          "title": "NPL Over 90d ex-360 / Carteira",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.3425944787236449,
+                0.3459680416804358,
+                0.3372446442129744,
+                "...",
+                0.3014076470349053,
+                0.28898438043460234,
+                0.277868644104372
+              ],
+              "min": 0.277868644104372,
+              "max": 0.3459680416804358,
+              "last": 0.277868644104372,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 12
+        },
+        {
+          "path": "ppt/charts/chart28.xml",
+          "title": "Cobertura PDD / NPL Over 90d ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1.348086419917937,
+                1.3391316963688962,
+                1.3501270367340386,
+                "...",
+                1.6284971433276219,
+                1.7127393882038675,
+                1.7530646772921863
+              ],
+              "min": 1.3375752596436847,
+              "max": 1.7530646772921863,
+              "last": 1.7530646772921863,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 12
+        }
+      ]
+    },
+    {
+      "slide": 13,
+      "texts": [
+        "Mercado Crédito I Brasil FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 13 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 1.412 mm",
+        "NPL OVER 1D EX-360 39,3%",
+        "NPL OVER 30D EX-360 34,0%",
+        "NPL OVER 60D EX-360 30,2%",
+        "NPL OVER 90D EX-360 27,8%",
+        "DURATION 2,5 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart29.xml",
+          "title": "Carteira ex-360",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                2028.7298976099999,
+                1889.83176224,
+                1831.50349637,
+                "...",
+                1423.4358808099998,
+                1412.26381518,
+                1411.83140881
+              ],
+              "min": 1411.83140881,
+              "max": 2028.7298976099999,
+              "last": 1411.83140881,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 2,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 13
+        },
+        {
+          "path": "ppt/charts/chart30.xml",
+          "title": "Crescimento YoY carteira ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                -0.281177050850943,
+                -0.2945880496163952,
+                -0.3040876657492946,
+                "...",
+                -0.37292020182181185,
+                -0.34780164350901766,
+                -0.304081134470761
+              ],
+              "min": -0.39935553575212646,
+              "max": -0.281177050850943,
+              "last": -0.304081134470761,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 13
+        },
+        {
+          "path": "ppt/charts/chart31.xml",
+          "title": "NPL ex-360 por severidade",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% carteira ex-360",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.13014266892356688,
+                0.12418343021805767,
+                0.12903264649419918,
+                "...",
+                0.09266305308036982,
+                0.11199966378791633,
+                0.11502388507341565
+              ],
+              "min": 0.09266305308036982,
+              "max": 0.1310341591779898,
+              "last": 0.11502388507341565,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 4,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.32812120156764574,
+                0.3425944787236449,
+                0.3459680416804358,
+                "...",
+                0.3014076470349053,
+                0.28898438043460234,
+                0.27786864410437195
+              ],
+              "min": 0.27786864410437195,
+              "max": 0.3459680416804358,
+              "last": 0.27786864410437195,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 13
+        },
+        {
+          "path": "ppt/charts/chart32.xml",
+          "title": "Roll rates",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.05762037462210387,
+                0.05092353719509341,
+                0.05354600140883783,
+                "...",
+                0.040535484687985006,
+                0.051699797769925004,
+                0.04061566908976513
+              ],
+              "min": 0.040535484687985006,
+              "max": 0.061921107630300634,
+              "last": 0.04061566908976513,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.05371760377195687,
+                0.05515594118295657,
+                0.04919480789969479,
+                "...",
+                0.04583362243486393,
+                0.0479827608414531,
+                0.04992170837736667
+              ],
+              "min": 0.04583362243486393,
+              "max": 0.06277542442260683,
+              "last": 0.04992170837736667,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.04600481731691136,
+                0.05175409474055213,
+                0.05364569662263108,
+                "...",
+                0.05028094310116663,
+                0.044237119689453964,
+                0.04658982301320966
+              ],
+              "min": 0.044237119689453964,
+              "max": 0.06190487537913698,
+              "last": 0.04658982301320966,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.04425744006386252,
+                0.04443024578151362,
+                0.05038842252470381,
+                "...",
+                0.06294458444742619,
+                0.04852732827010664,
+                0.04291951060902727
+              ],
+              "min": 0.04291951060902727,
+              "max": 0.06294458444742619,
+              "last": 0.04291951060902727,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 13
+        }
+      ]
+    },
+    {
+      "slide": 14,
+      "texts": [
+        "Mercado Crédito I Brasil FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 14 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 1.412 mm",
+        "NPL OVER 1D EX-360 39,3%",
+        "NPL OVER 30D EX-360 34,0%",
+        "NPL OVER 60D EX-360 30,2%",
+        "NPL OVER 90D EX-360 27,8%",
+        "DURATION 2,5 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart33.xml",
+          "title": "Duration por FIDC",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "meses",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1.7712461283163992,
+                1.744069967362881,
+                1.8873704130398423,
+                "...",
+                2.35231008028938,
+                2.54984792954288,
+                2.5418056106449067
+              ],
+              "min": 1.744069967362881,
+              "max": 2.54984792954288,
+              "last": 2.5418056106449067,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "ratio_or_percent_chart_without_percent_axis_format",
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 14
+        },
+        {
+          "path": "ppt/charts/chart34.xml",
+          "title": "Cohorts recentes",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% saldo a vencer 30d",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Mês de maturação",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 6,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.3732769645308428,
+                0.18745718867539904,
+                0.18011002000589663,
+                0.17316331719145547,
+                0.1671315942637437,
+                0.16215355528258915
+              ],
+              "min": 0.16215355528258915,
+              "max": 0.3732769645308428,
+              "last": 0.16215355528258915,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 5,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.3414113290310019,
+                0.2464953634955038,
+                0.19034066154048465,
+                0.22531050291864768,
+                0.21876974709067537
+              ],
+              "min": 0.19034066154048465,
+              "max": 0.3414113290310019,
+              "last": 0.21876974709067537,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.32071918259695453,
+                0.19701691330835966,
+                0.19582283808552817,
+                0.18908798560563903
+              ],
+              "min": 0.18908798560563903,
+              "max": 0.32071918259695453,
+              "last": 0.18908798560563903,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 3,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.2987002965182442,
+                0.1954064702175776,
+                0.18675849973224246
+              ],
+              "min": 0.18675849973224246,
+              "max": 0.2987002965182442,
+              "last": 0.18675849973224246,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 2,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.36341462977240385,
+                0.2440910400966327
+              ],
+              "min": 0.2440910400966327,
+              "max": 0.36341462977240385,
+              "last": 0.2440910400966327,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 1,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.32318188193954567
+              ],
+              "min": 0.32318188193954567,
+              "max": 0.32318188193954567,
+              "last": 0.32318188193954567,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 14
+        }
+      ]
+    },
+    {
+      "slide": 15,
+      "texts": [
+        "04 —",
+        "Mercado Crédito II Brasil FIDC",
+        "Mercado Crédito II Brasil Fundo de Investimento em Direitos Creditórios Resp. Ltda."
+      ],
+      "charts": []
+    },
+    {
+      "slide": 16,
+      "texts": [
+        "Mercado Crédito II Brasil FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 16 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 2.629 mm",
+        "NPL OVER 1D EX-360 28,0%",
+        "NPL OVER 30D EX-360 19,3%",
+        "NPL OVER 60D EX-360 14,9%",
+        "NPL OVER 90D EX-360 12,7%",
+        "DURATION 2,4 meses",
+        "PL total: R$ 1.722 mm"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart35.xml",
+          "title": "PL por classe",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                1065.1922731900002,
+                1063.9429071264,
+                1065.2784363668,
+                "...",
+                1064.6106717466,
+                1208.1458974806,
+                1208.0727400679998
+              ],
+              "min": 1063.2910781703413,
+              "max": 1208.1458974806,
+              "last": 1208.0727400679998,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 4,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                819.7805700506001,
+                737.923163156,
+                708.4209420078001,
+                "...",
+                572.726743613,
+                481.74970356089995,
+                513.8973824543
+              ],
+              "min": 481.74970356089995,
+              "max": 819.7805700506001,
+              "last": 513.8973824543,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 16
+        },
+        {
+          "path": "ppt/charts/chart36.xml",
+          "title": "% Subordinação Total ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.434902019733709,
+                0.40952967607945495,
+                0.39940387643353537,
+                "...",
+                0.34979242481344547,
+                0.2850777017775138,
+                0.2984295637102832
+              ],
+              "min": 0.2850777017775138,
+              "max": 0.434902019733709,
+              "last": 0.2984295637102832,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 16
+        },
+        {
+          "path": "ppt/charts/chart37.xml",
+          "title": "NPL Over 90d ex-360 / Carteira",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.21129589501672552,
+                0.23011507574818096,
+                0.21264222538269328,
+                "...",
+                0.1594184676423754,
+                0.1342231543684227,
+                0.12736770446711285
+              ],
+              "min": 0.12736770446711285,
+              "max": 0.23011507574818096,
+              "last": 0.12736770446711285,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 16
+        },
+        {
+          "path": "ppt/charts/chart38.xml",
+          "title": "Cobertura PDD / NPL Over 90d ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "mai/25",
+                "jun/25",
+                "jul/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                2.117042166474503,
+                1.9866854229628257,
+                2.0183591947341197,
+                "...",
+                2.660311130921626,
+                3.0234036925144356,
+                3.307859264948755
+              ],
+              "min": 1.9866854229628257,
+              "max": 3.307859264948755,
+              "last": 3.307859264948755,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 16
+        }
+      ]
+    },
+    {
+      "slide": 17,
+      "texts": [
+        "Mercado Crédito II Brasil FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 17 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 2.629 mm",
+        "NPL OVER 1D EX-360 28,0%",
+        "NPL OVER 30D EX-360 19,3%",
+        "NPL OVER 60D EX-360 14,9%",
+        "NPL OVER 90D EX-360 12,7%",
+        "DURATION 2,4 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart39.xml",
+          "title": "Carteira ex-360",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "R$ mm",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                2936.79353894,
+                2918.53542948,
+                2894.3952071999997,
+                "...",
+                2439.7693545300003,
+                2702.04827771,
+                2629.40068333
+              ],
+              "min": 2429.07461544,
+              "max": 2936.79353894,
+              "last": 2629.40068333,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 17
+        },
+        {
+          "path": "ppt/charts/chart40.xml",
+          "title": "Crescimento YoY carteira ex-360",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 12,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                -0.0385895498951232,
+                -0.07119103808811156,
+                -0.14567133029529544,
+                "...",
+                -0.23215336441778323,
+                -0.03427887830445642,
+                -0.1046695491304267
+              ],
+              "min": -0.2604531251760217,
+              "max": -0.03427887830445642,
+              "last": -0.1046695491304267,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 17
+        },
+        {
+          "path": "ppt/charts/chart41.xml",
+          "title": "NPL ex-360 por severidade",
+          "types": [
+            "barChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% carteira ex-360",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.13123980892409418,
+                0.10427987196448923,
+                0.09060139263555649,
+                "...",
+                0.08084716558299347,
+                0.0972593993741385,
+                0.15283524005594257
+              ],
+              "min": 0.08084716558299347,
+              "max": 0.15283524005594257,
+              "last": 0.15283524005594257,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 3,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "barChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.23951011148842313,
+                0.21129589501672552,
+                0.23011507574818096,
+                "...",
+                0.1594184676423754,
+                0.1342231543684227,
+                0.12736770446711285
+              ],
+              "min": 0.12736770446711285,
+              "max": 0.23951011148842313,
+              "last": 0.12736770446711285,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 2,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 17
+        },
+        {
+          "path": "ppt/charts/chart42.xml",
+          "title": "Roll rates",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "%",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.05197224056231162,
+                0.05255511668145289,
+                0.058333602858373884,
+                "...",
+                0.028133531238675326,
+                0.02811619669325495,
+                0.031470068710956305
+              ],
+              "min": 0.02811619669325495,
+              "max": 0.058333602858373884,
+              "last": 0.031470068710956305,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.05046947093804394,
+                0.04682298067233995,
+                0.05185929876323829,
+                "...",
+                0.037239445170821325,
+                0.029506396380653305,
+                0.026547506524581165
+              ],
+              "min": 0.026547506524581165,
+              "max": 0.05185929876323829,
+              "last": 0.026547506524581165,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.04870711407520146,
+                0.04509824531617106,
+                0.04527937107075254,
+                "...",
+                0.027312891724762013,
+                0.02935753263974252,
+                0.027015659320724316
+              ],
+              "min": 0.026140288681500395,
+              "max": 0.05066245268084988,
+              "last": 0.027015659320724316,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                0.037532768306390886,
+                0.04287934157645937,
+                0.0437417468808812,
+                "...",
+                0.027426452613462507,
+                0.025099803124638664,
+                0.026585935840508158
+              ],
+              "min": 0.023794035065027988,
+              "max": 0.05161941204637022,
+              "last": 0.026585935840508158,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 17
+        }
+      ]
+    },
+    {
+      "slide": 18,
+      "texts": [
+        "Mercado Crédito II Brasil FIDC",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 18 de 19",
+        "CARTEIRA EX-360 · ABR/26 R$ 2.629 mm",
+        "NPL OVER 1D EX-360 28,0%",
+        "NPL OVER 30D EX-360 19,3%",
+        "NPL OVER 60D EX-360 14,9%",
+        "NPL OVER 90D EX-360 12,7%",
+        "DURATION 2,4 meses"
+      ],
+      "charts": [
+        {
+          "path": "ppt/charts/chart43.xml",
+          "title": "Duration por FIDC",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "meses",
+              "format": "#,##0.0",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Competência",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 13,
+              "categories_sample": [
+                "abr/25",
+                "mai/25",
+                "jun/25",
+                "...",
+                "fev/26",
+                "mar/26",
+                "abr/26"
+              ],
+              "values_sample": [
+                3.001797618153323,
+                3.714243990244453,
+                3.386964420223396,
+                "...",
+                1.9511232246176773,
+                2.632176893958698,
+                2.442043176187739
+              ],
+              "min": 1.9511232246176773,
+              "max": 3.714243990244453,
+              "last": 2.442043176187739,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [
+            "ratio_or_percent_chart_without_percent_axis_format",
+            "values_look_like_decimal_percent_or_ratio_but_axis_may_show_raw_number"
+          ],
+          "slide": 18
+        },
+        {
+          "path": "ppt/charts/chart44.xml",
+          "title": "Cohorts recentes",
+          "types": [
+            "lineChart"
+          ],
+          "axes": [
+            {
+              "axis": "valAx",
+              "title": "% saldo a vencer 30d",
+              "format": "0.0%",
+              "sourceLinked": "0",
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            },
+            {
+              "axis": "catAx",
+              "title": "Mês de maturação",
+              "format": "",
+              "sourceLinked": null,
+              "min": null,
+              "max": null,
+              "majorUnit": null
+            }
+          ],
+          "series": [
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 6,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.23054995651221902,
+                0.19841457654396946,
+                0.17555216738067428,
+                0.16617083207529293,
+                0.13099995459239525,
+                0.11863246242935789
+              ],
+              "min": 0.11863246242935789,
+              "max": 0.23054995651221902,
+              "last": 0.11863246242935789,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 5,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.28821275197958535,
+                0.2064571182766545,
+                0.15593381281102042,
+                0.16354309919060145,
+                0.14973786005551143
+              ],
+              "min": 0.14973786005551143,
+              "max": 0.28821275197958535,
+              "last": 0.14973786005551143,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 4,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.24338416341207292,
+                0.1584606737496157,
+                0.15039577207272212,
+                0.1420047236092868
+              ],
+              "min": 0.1420047236092868,
+              "max": 0.24338416341207292,
+              "last": 0.1420047236092868,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 3,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.2709157157724757,
+                0.175829025578964,
+                0.1672588137357952
+              ],
+              "min": 0.1672588137357952,
+              "max": 0.2709157157724757,
+              "last": 0.1672588137357952,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 2,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.3526540621058096,
+                0.2693068683421242
+              ],
+              "min": 0.2693068683421242,
+              "max": 0.3526540621058096,
+              "last": 0.2693068683421242,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            },
+            {
+              "type": "lineChart",
+              "name": "",
+              "n_values": 1,
+              "categories_sample": [
+                "M1",
+                "M2",
+                "M3",
+                "M4",
+                "M5",
+                "M6"
+              ],
+              "values_sample": [
+                0.4272566631607735
+              ],
+              "min": 0.4272566631607735,
+              "max": 0.4272566631607735,
+              "last": 0.4272566631607735,
+              "has_series_dLbls": true,
+              "series_dLbl_count": 1,
+              "has_chart_dLbls": false,
+              "chart_dLbl_showVal": null
+            }
+          ],
+          "issue_flags": [],
+          "slide": 18
+        }
+      ]
+    },
+    {
+      "slide": 19,
+      "texts": [
+        "Síntese — Pontos de atenção e destaques",
+        "Data-base: abr/26",
+        "Fonte: CVM Fundos.NET | Elaboração: Toma Conta",
+        "Página 19 de 19",
+        "Pontos de atenção",
+        "• [INSERIR PONTO 1]",
+        "• [INSERIR PONTO 2]",
+        "• [INSERIR PONTO 3]",
+        "Destaques positivos",
+        "• [INSERIR PONTO 1]",
+        "• [INSERIR PONTO 2]",
+        "• [INSERIR PONTO 3]"
+      ],
+      "charts": []
+    }
+  ]
+}

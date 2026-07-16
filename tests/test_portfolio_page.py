@@ -10,6 +10,18 @@ from tabs import portfolio_page
 
 
 class PortfolioPageTests(unittest.TestCase):
+    def test_portfolio_views_end_with_document_curation(self) -> None:
+        self.assertEqual(
+            (
+                "Estrutura",
+                "Crédito e prazo",
+                "Inadimplência",
+                "Rentabilidade",
+                "Curadoria de Leitura (Documentos)",
+            ),
+            portfolio_page.PORTFOLIO_VIEW_TABS,
+        )
+
     def test_loading_overlay_identifies_portfolio_period_fund_count_and_stages(self) -> None:
         portfolio = PortfolioRecord(
             id="portfolio-1",

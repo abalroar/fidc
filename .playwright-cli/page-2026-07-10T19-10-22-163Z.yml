@@ -1,0 +1,73 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - heading "tomaconta fidcs" [level=1] [ref=e12]
+      - generic [ref=e13]: por matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e4279] [cursor=pointer]:
+        - paragraph [ref=e4283]: Sobre
+      - button [ref=e4284] [cursor=pointer]:
+        - paragraph [ref=e4288]: Indústria
+      - button [ref=e4289] [cursor=pointer]:
+        - paragraph [ref=e4293]: Carteira
+      - button [ref=e4294] [cursor=pointer]:
+        - paragraph [ref=e4298]: Regulamentos
+      - button [ref=e4299] [cursor=pointer]:
+        - paragraph [ref=e4303]: Estratégia
+      - button [ref=e4304] [cursor=pointer]:
+        - paragraph [ref=e4308]: Cloudwalk
+      - button [ref=e4309] [cursor=pointer]:
+        - paragraph [ref=e4313]: Glossário
+      - button [ref=e4314] [cursor=pointer]:
+        - paragraph [ref=e4318]: Modelagem
+    - generic [ref=e4320]:
+      - radiogroup "Janela móvel" [ref=e4325] [cursor=pointer]:
+        - generic [ref=e4326]:
+          - radio "3M"
+          - paragraph [ref=e4329]: 3M
+        - generic [ref=e4330]:
+          - radio "6M"
+          - paragraph [ref=e4333]: 6M
+        - generic [ref=e4334]:
+          - radio "9M"
+          - paragraph [ref=e4337]: 9M
+        - generic [ref=e4338]:
+          - radio "12M" [checked]
+          - paragraph [ref=e4341]: 12M
+        - generic [ref=e4342]:
+          - radio "24M"
+          - paragraph [ref=e4345]: 24M
+        - generic [ref=e4346]:
+          - radio "36M"
+          - paragraph [ref=e4349]: 36M
+      - button [ref=e4354] [cursor=pointer]:
+        - paragraph [ref=e4358]: Personalizar →
+    - paragraph [ref=e4359]: jul-25 → jun-26
+    - paragraph [ref=e4362]:
+      - strong [ref=e4363]: Criar nova seleção
+    - generic [ref=e4366]:
+      - generic [ref=e4368]:
+        - paragraph [ref=e4372]: Nome da seleção
+        - textbox "Nome da seleção" [ref=e4375]:
+          - /placeholder: "Ex.: Crédito High Yield"
+      - generic [ref=e4377]:
+        - generic [ref=e4378]:
+          - paragraph [ref=e4381]: Fundos
+          - button "Help for Fundos" [ref=e4385] [cursor=pointer]
+        - generic [ref=e4391]:
+          - generic [ref=e4392]:
+            - combobox "Fundos" [ref=e4394]
+            - generic: Choose options
+          - img "open" [ref=e4396] [cursor=pointer]
+      - generic [ref=e4399]:
+        - paragraph [ref=e4403]: CNPJs adicionais
+        - textbox "CNPJs adicionais" [ref=e4406]:
+          - /placeholder: 00.000.000/0000-00 (um por linha)
+      - generic [ref=e4408]:
+        - button [ref=e4414] [cursor=pointer]:
+          - paragraph [ref=e4418]: Salvar nova seleção
+        - button [ref=e4424] [cursor=pointer]:
+          - paragraph [ref=e4428]: Cancelar
+    - alert [ref=e4432]:
+      - paragraph [ref=e4437]: Crie ou selecione uma carteira para iniciar as análises.

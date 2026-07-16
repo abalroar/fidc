@@ -1,0 +1,43 @@
+Slide size: 1600x900.
+
+Background:
+- Main: warm paper (#F7F3EA).
+- Cover / section emphasis: deep ink (#101820).
+- Data panels: white or pale stone, no heavy rounded-card look.
+
+Typography:
+- Use Aptos/Arial-compatible sans for all text.
+- Claim titles: 34-48px, bold, high contrast.
+- Kicker: 12-14px all caps, tracked by spacing, centered with a small marker rule.
+- Body: 16-22px.
+- Labels: 11-14px.
+
+Palette:
+- Ink #101820 for text and dark backgrounds.
+- Paper #F7F3EA and white #FFFFFF.
+- Copper #C66A32 for primary volume marks.
+- Teal #237B7B for CDI/spread dots and secondary proof.
+- Blue #365D85 for document/cobertura proof.
+- Green #557A46 for completed status.
+- Red #9A3B3B only for caveats and partial downloads.
+
+Chart grammar:
+- Direct labels; avoid legends when labels fit.
+- Volumes in R$ bi with one decimal.
+- Percentages with one decimal.
+- Bars encode volume/count; dots encode CDI+ or practice share.
+- Dotted/secondary tracks indicate incomplete spread coverage.
+
+Table grammar:
+- Dark header, alternating paper/white rows, thin white separators.
+- First column bold.
+- No decorative table boxes beyond data grouping.
+
+Footer/source:
+- Quiet footer on every slide with source and page marker.
+
+Banned motifs:
+- No unverified logos.
+- No stock imagery.
+- No decorative blobs/orbs.
+- No generic SaaS dashboard cards.

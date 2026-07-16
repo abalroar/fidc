@@ -1,0 +1,133 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e988] [cursor=pointer]:
+        - paragraph [ref=f1e992]: Sobre
+      - button [ref=f1e993] [cursor=pointer]:
+        - paragraph [ref=f1e997]: Indústria
+      - button [ref=f1e998] [cursor=pointer]:
+        - paragraph [ref=f1e1002]: Secundário
+      - button [ref=f1e1003] [cursor=pointer]:
+        - paragraph [ref=f1e1007]: Carteira
+      - button [ref=f1e1008] [cursor=pointer]:
+        - paragraph [ref=f1e1012]: Regulamentos
+      - button [ref=f1e1013] [cursor=pointer]:
+        - paragraph [ref=f1e1017]: Cloudwalk
+      - button [ref=f1e1018] [cursor=pointer]:
+        - paragraph [ref=f1e1022]: Glossário
+      - button [ref=f1e1023] [cursor=pointer]:
+        - paragraph [ref=f1e1027]: Modelagem
+    - generic [ref=f1e1029]:
+      - generic [ref=f1e1032]:
+        - heading "Carteira" [level=1] [ref=f1e1033]
+        - paragraph [ref=f1e1034]: Risco, retorno e documentação das seleções salvas.
+      - generic [ref=f1e1036]:
+        - radiogroup "button group" [ref=f1e1041]:
+          - button [ref=f1e1042] [cursor=pointer]:
+            - paragraph [ref=f1e1046]: 3M
+          - button [ref=f1e1047] [cursor=pointer]:
+            - paragraph [ref=f1e1051]: 6M
+          - button [ref=f1e1052] [cursor=pointer]:
+            - paragraph [ref=f1e1056]: 9M
+          - button [ref=f1e1057] [cursor=pointer]:
+            - paragraph [ref=f1e1061]: 12M
+          - button [ref=f1e1062] [cursor=pointer]:
+            - paragraph [ref=f1e1066]: 24M
+          - button [ref=f1e1067] [cursor=pointer]:
+            - paragraph [ref=f1e1071]: 36M
+        - button "tune Personalizar" [ref=f1e1076] [cursor=pointer]:
+          - generic [ref=f1e1078]:
+            - generic [ref=f1e1079]: tune
+            - paragraph [ref=f1e1082]: Personalizar
+      - paragraph [ref=f1e1087]: jul-25 → jun-26
+      - generic [ref=f1e1089]:
+        - generic [ref=f1e1091]:
+          - generic [ref=f1e1095]:
+            - generic [ref=f1e1096]:
+              - generic [ref=f1e1097]: MELI (FIDCs Mercado Crédito 0, I e II)
+              - combobox "Selected MELI (FIDCs Mercado Crédito 0, I e II). Seleção ativa" [ref=f1e1099]
+            - img "open" [ref=f1e1101]
+          - generic [ref=f1e1108]:
+            - img:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Dec 292024
+                    - generic: Jan 122025
+                    - generic: Jan 26
+                    - generic: Feb 9
+                  - generic:
+                    - generic: "0"
+                    - generic: 20M
+                    - generic: 40M
+                    - generic: 60M
+                    - generic: 80M
+                    - generic: 100M
+                    - generic: 120M
+                    - generic: 140M
+                    - generic: 160M
+            - img:
+              - generic: Volume (R$)
+            - toolbar [ref=f1e1122]:
+              - button "Download plot as a PNG" [ref=f1e1124] [cursor=pointer]
+              - generic [ref=f1e1127]:
+                - button "Zoom" [ref=f1e1128] [cursor=pointer]
+                - button "Pan" [ref=f1e1131] [cursor=pointer]
+              - generic [ref=f1e1134]:
+                - button "Zoom in" [ref=f1e1135] [cursor=pointer]
+                - button "Zoom out" [ref=f1e1138] [cursor=pointer]
+                - button "Autoscale" [ref=f1e1141] [cursor=pointer]
+                - button "Reset axes" [ref=f1e1144] [cursor=pointer]
+              - button "Fullscreen" [ref=f1e1148] [cursor=pointer]
+        - generic [ref=f1e1152]:
+          - heading "Taxa média mensal" [level=2] [ref=f1e1158]:
+            - text: Taxa média mensal
+            - generic [ref=f1e1159]:
+              - link "Link to heading":
+                - /url: "#taxa-media-mensal"
+          - generic [ref=f1e1165]:
+            - img:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic: Jan 52025
+                    - generic: Jan 12
+                    - generic: Jan 19
+                    - generic: Jan 26
+                    - generic: Feb 2
+                  - generic:
+                    - generic: "15.7"
+                    - generic: "15.8"
+                    - generic: "15.9"
+                    - generic: "16"
+                    - generic: "16.1"
+            - img:
+              - generic: Taxa (% a.a., ponderada por volume)
+            - toolbar [ref=f1e1179]:
+              - button "Download plot as a PNG" [ref=f1e1181] [cursor=pointer]
+              - generic [ref=f1e1184]:
+                - button "Zoom" [ref=f1e1185] [cursor=pointer]
+                - button "Pan" [ref=f1e1188] [cursor=pointer]
+              - generic [ref=f1e1191]:
+                - button "Zoom in" [ref=f1e1192] [cursor=pointer]
+                - button "Zoom out" [ref=f1e1195] [cursor=pointer]
+                - button "Autoscale" [ref=f1e1198] [cursor=pointer]
+                - button "Reset axes" [ref=f1e1201] [cursor=pointer]
+              - button "Fullscreen" [ref=f1e1205] [cursor=pointer]
+      - group [ref=f1e1210]:
+        - generic "keyboard_arrow_right Gerenciar carteiras salvas" [ref=f1e1211] [cursor=pointer]:
+          - generic [ref=f1e1212]:
+            - generic [ref=f1e1213]: keyboard_arrow_right
+            - paragraph [ref=f1e1217]: Gerenciar carteiras salvas
+      - generic [ref=f1e1222]:
+        - generic [ref=f1e1223]: MELI (FIDCs Mercado Crédito 0, I e II)
+        - generic [ref=f1e1224]: 07/2025 a 06/2026
+      - heading "Diagnóstico da carteira" [level=2] [ref=f1e1232]:
+        - text: Diagnóstico da carteira
+        - generic [ref=f1e1233]:
+          - link "Link to heading":
+            - /url: "#diagnostico-da-carteira"

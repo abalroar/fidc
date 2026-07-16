@@ -1,0 +1,1728 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/29gr2p8n",
+    "id": "29gr2p8n",
+    "slide": 10,
+    "layoutId": "/ppt/slideLayouts/slideLayout7.xml",
+    "layoutName": "Blank",
+    "layoutType": "blank",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1279.97,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office",
+    "colors": {
+      "accent1": "#4F81BD",
+      "accent2": "#C0504D",
+      "accent3": "#9BBB59",
+      "accent4": "#8064A2",
+      "accent5": "#4BACC6",
+      "accent6": "#F79646",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#1F497D",
+      "lt2": "#EEECE1",
+      "hlink": "#0000FF",
+      "folHlink": "#800080"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Arial",
+      "Calibri"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout7.xml",
+      "name": "Blank",
+      "type": "blank",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/2",
+          "id": "2",
+          "name": "Date Placeholder 1",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/3",
+          "id": "3",
+          "name": "Footer Placeholder 2",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "layout",
+          "aid": "template/layout//ppt/slideLayouts/slideLayout7.xml/4",
+          "id": "4",
+          "name": "Slide Number Placeholder 3",
+          "bbox": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": [
+        {
+          "order": 1,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/2",
+          "id": "2",
+          "name": "Title Placeholder 1",
+          "bbox": [
+            48,
+            28.83,
+            864,
+            120
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 2,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/3",
+          "id": "3",
+          "name": "Text Placeholder 2",
+          "bbox": [
+            48,
+            168,
+            864,
+            475.17
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "vertical": 1,
+            "autoFit": "shrinkText",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 3,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/4",
+          "id": "4",
+          "name": "Date Placeholder 3",
+          "bbox": [
+            48,
+            667.33,
+            224,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 4,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/5",
+          "id": "5",
+          "name": "Footer Placeholder 4",
+          "bbox": [
+            328,
+            667.33,
+            304,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        },
+        {
+          "order": 5,
+          "kind": "shape",
+          "scope": "master",
+          "aid": "template/master//ppt/slideMasters/slideMaster1.xml/6",
+          "id": "6",
+          "name": "Slide Number Placeholder 5",
+          "bbox": [
+            688,
+            667.33,
+            224,
+            38.33
+          ],
+          "geometry": "rect",
+          "resolvedTextStyle": {
+            "anchor": 2,
+            "vertical": 1,
+            "verticalAlignment": "middle",
+            "insets": {
+              "top": 4.8,
+              "right": 9.6,
+              "bottom": 4.8,
+              "left": 9.6
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/9gr2p8nq",
+      "id": "2",
+      "name": "Rectangle 1",
+      "bbox": [
+        0,
+        0,
+        1279.97,
+        720
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#F8F7F3"
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/gvy90je9",
+      "id": "3",
+      "name": "Rectangle 2",
+      "bbox": [
+        52.8,
+        41.28,
+        7.68,
+        21.12
+      ],
+      "geometry": "rect",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": ""
+          }
+        ]
+      },
+      "fillColor": "#FF6F00"
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/r2p8nqxs",
+      "id": "4",
+      "name": "TextBox 3",
+      "bbox": [
+        69.12,
+        37.44,
+        326.4,
+        24
+      ],
+      "geometry": "rect",
+      "text": "CUSTO TESOURARIA",
+      "textPreview": "CUSTO TESOURARIA",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CUSTO TESOURARIA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CUSTO TESOURARIA",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CUSTO TESOURARIA",
+              "fontSize": 10,
+              "typeface": "Arial",
+              "color": "#0057A6",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/2hwfyxob",
+      "id": "5",
+      "name": "TextBox 4",
+      "bbox": [
+        52.8,
+        84.48,
+        1075.2,
+        69.12
+      ],
+      "geometry": "rect",
+      "text": "Custo unitário melhora em 2026 nas duas leituras: CDI+ e % do CDI",
+      "textPreview": "Custo unitário melhora em 2026 nas duas leituras: CDI+ e % do CDI",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Custo unitário melhora em 2026 nas duas leituras: CDI+ e % do CDI"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Custo unitário melhora em 2026 nas duas leituras: CDI+ e % do CDI",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Custo unitário melhora em 2026 nas duas leituras: CDI+ e % do CDI",
+              "fontSize": 29.33,
+              "typeface": "Arial",
+              "color": "#00234E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/94fu18jq",
+      "id": "6",
+      "name": "Rounded Rectangle 5",
+      "bbox": [
+        74.88,
+        165.12,
+        203.52,
+        86.4
+      ],
+      "geometry": "roundRect",
+      "text": "CDI+1,28%\n2025 unitário\n109,3% do CDI",
+      "textPreview": "CDI+1,28% | 2025 unitário | 109,3% do CDI",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 7.68,
+          "right": 7.68,
+          "bottom": 0,
+          "left": 11.52
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CDI+1,28%"
+          },
+          {
+            "index": 2,
+            "text": "2025 unitário"
+          },
+          {
+            "index": 3,
+            "text": "109,3% do CDI"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CDI+1,28%",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CDI+1,28%",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#00234E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "2025 unitário",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2025 unitário",
+              "fontSize": 9.6,
+              "typeface": "Arial",
+              "color": "#111827",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "109,3% do CDI",
+          "runs": [
+            {
+              "index": 1,
+              "text": "109,3% do CDI",
+              "fontSize": 8.8,
+              "typeface": "Arial",
+              "color": "#5D6874"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E1DCD4"
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kjm1cfa9",
+      "id": "7",
+      "name": "Rounded Rectangle 6",
+      "bbox": [
+        304.32,
+        165.12,
+        203.52,
+        86.4
+      ],
+      "geometry": "roundRect",
+      "text": "CDI+1,16%\n2026 unitário\n108,4% do CDI",
+      "textPreview": "CDI+1,16% | 2026 unitário | 108,4% do CDI",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 7.68,
+          "right": 7.68,
+          "bottom": 0,
+          "left": 11.52
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CDI+1,16%"
+          },
+          {
+            "index": 2,
+            "text": "2026 unitário"
+          },
+          {
+            "index": 3,
+            "text": "108,4% do CDI"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CDI+1,16%",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "CDI+1,16%",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#00234E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "2026 unitário",
+          "runs": [
+            {
+              "index": 1,
+              "text": "2026 unitário",
+              "fontSize": 9.6,
+              "typeface": "Arial",
+              "color": "#111827",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "108,4% do CDI",
+          "runs": [
+            {
+              "index": 1,
+              "text": "108,4% do CDI",
+              "fontSize": 8.8,
+              "typeface": "Arial",
+              "color": "#5D6874"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E1DCD4"
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/rqd4vmtw",
+      "id": "8",
+      "name": "Rounded Rectangle 7",
+      "bbox": [
+        533.76,
+        165.12,
+        203.52,
+        86.4
+      ],
+      "geometry": "roundRect",
+      "text": "-12 bps\nVariação\n-1,0 p,p, do CDI",
+      "textPreview": "-12 bps | Variação | -1,0 p,p, do CDI",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 7.68,
+          "right": 7.68,
+          "bottom": 0,
+          "left": 11.52
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "-12 bps"
+          },
+          {
+            "index": 2,
+            "text": "Variação"
+          },
+          {
+            "index": 3,
+            "text": "-1,0 p,p, do CDI"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "-12 bps",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "-12 bps",
+              "fontSize": 20,
+              "typeface": "Arial",
+              "color": "#00234E",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 2,
+          "text": "Variação",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Variação",
+              "fontSize": 9.6,
+              "typeface": "Arial",
+              "color": "#111827",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        },
+        {
+          "index": 3,
+          "text": "-1,0 p,p, do CDI",
+          "runs": [
+            {
+              "index": 1,
+              "text": "-1,0 p,p, do CDI",
+              "fontSize": 8.8,
+              "typeface": "Arial",
+              "color": "#5D6874"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E1DCD4"
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/25kb6xkf",
+      "id": "9",
+      "name": "TextBox 8",
+      "bbox": [
+        81.6,
+        271.68,
+        201.6,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "CDI+ bruto, em bps",
+      "textPreview": "CDI+ bruto, em bps",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "CDI+ bruto, em bps"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "CDI+ bruto, em bps",
+          "runs": [
+            {
+              "index": 1,
+              "text": "CDI+ bruto, em bps",
+              "fontSize": 9.6,
+              "typeface": "Arial",
+              "color": "#5D6874",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "kind": "chart",
+      "scope": "slide",
+      "aid": "ch/3itgfmlk",
+      "id": "17",
+      "name": "Chart 9",
+      "bbox": [
+        81.6,
+        292.8,
+        561.6,
+        254.4
+      ],
+      "chartType": "bar"
+    },
+    {
+      "order": 10,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/32lszqtc",
+      "id": "18",
+      "name": "Table 10",
+      "bbox": [
+        705.6,
+        165.12,
+        489.6,
+        69.12
+      ],
+      "text": "Cenário | Custo bruto | CDI puro | % CDI | Spread R$ | CDI+ impl.\n2025 | R$1,28 bi | R$1,17 bi | 109,3% | R$110 mi | 1,28%\n2026 run-rate | R$2,09 bi | R$1,93 bi | 108,4% | R$162 mi | 1,16%",
+      "textPreview": "Cenário | Custo bruto | CDI puro | % CDI | Spread R$ | CDI+ impl. | 2025 | R$1,28 bi | R$1,17 bi | 109,3% | R$110 mi | 1,28% | 2026 run-r...",
+      "rows": 3,
+      "cols": 6,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            705.6,
+            165.12,
+            113.67,
+            24
+          ],
+          "text": "Cenário",
+          "textPreview": "Cenário",
+          "fillColor": "#00234E",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Cenário",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Cenário",
+                  "fontSize": 8.8,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            819.27,
+            165.12,
+            74.7,
+            24
+          ],
+          "text": "Custo bruto",
+          "textPreview": "Custo bruto",
+          "fillColor": "#00234E",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Custo bruto",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Custo bruto",
+                  "fontSize": 8.8,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            893.97,
+            165.12,
+            69.83,
+            24
+          ],
+          "text": "CDI puro",
+          "textPreview": "CDI puro",
+          "fillColor": "#00234E",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "CDI puro",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "CDI puro",
+                  "fontSize": 8.8,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            963.8,
+            165.12,
+            77.13,
+            24
+          ],
+          "text": "% CDI",
+          "textPreview": "% CDI",
+          "fillColor": "#00234E",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "% CDI",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "% CDI",
+                  "fontSize": 8.8,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 5,
+          "bbox": [
+            1040.93,
+            165.12,
+            87.69,
+            24
+          ],
+          "text": "Spread R$",
+          "textPreview": "Spread R$",
+          "fillColor": "#00234E",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Spread R$",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Spread R$",
+                  "fontSize": 8.8,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 1,
+          "column": 6,
+          "bbox": [
+            1128.62,
+            165.12,
+            66.58,
+            24
+          ],
+          "text": "CDI+ impl.",
+          "textPreview": "CDI+ impl.",
+          "fillColor": "#00234E",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "CDI+ impl.",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "CDI+ impl.",
+                  "fontSize": 8.8,
+                  "typeface": "Arial",
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            705.6,
+            189.12,
+            113.67,
+            22.56
+          ],
+          "text": "2025",
+          "textPreview": "2025",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "2025",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "2025",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            819.27,
+            189.12,
+            74.7,
+            22.56
+          ],
+          "text": "R$1,28 bi",
+          "textPreview": "R$1,28 bi",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$1,28 bi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$1,28 bi",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            893.97,
+            189.12,
+            69.83,
+            22.56
+          ],
+          "text": "R$1,17 bi",
+          "textPreview": "R$1,17 bi",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$1,17 bi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$1,17 bi",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            963.8,
+            189.12,
+            77.13,
+            22.56
+          ],
+          "text": "109,3%",
+          "textPreview": "109,3%",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "109,3%",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "109,3%",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 2,
+          "column": 5,
+          "bbox": [
+            1040.93,
+            189.12,
+            87.69,
+            22.56
+          ],
+          "text": "R$110 mi",
+          "textPreview": "R$110 mi",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$110 mi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$110 mi",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 2,
+          "column": 6,
+          "bbox": [
+            1128.62,
+            189.12,
+            66.58,
+            22.56
+          ],
+          "text": "1,28%",
+          "textPreview": "1,28%",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "1,28%",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "1,28%",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            705.6,
+            211.68,
+            113.67,
+            22.56
+          ],
+          "text": "2026 run-rate",
+          "textPreview": "2026 run-rate",
+          "fillColor": "#F6F8FB",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "2026 run-rate",
+              "resolvedTextStyle": {
+                "alignment": "left"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "2026 run-rate",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            819.27,
+            211.68,
+            74.7,
+            22.56
+          ],
+          "text": "R$2,09 bi",
+          "textPreview": "R$2,09 bi",
+          "fillColor": "#F6F8FB",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$2,09 bi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$2,09 bi",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            893.97,
+            211.68,
+            69.83,
+            22.56
+          ],
+          "text": "R$1,93 bi",
+          "textPreview": "R$1,93 bi",
+          "fillColor": "#F6F8FB",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$1,93 bi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$1,93 bi",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            963.8,
+            211.68,
+            77.13,
+            22.56
+          ],
+          "text": "108,4%",
+          "textPreview": "108,4%",
+          "fillColor": "#F6F8FB",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "108,4%",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "108,4%",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 17,
+          "row": 3,
+          "column": 5,
+          "bbox": [
+            1040.93,
+            211.68,
+            87.69,
+            22.56
+          ],
+          "text": "R$162 mi",
+          "textPreview": "R$162 mi",
+          "fillColor": "#F6F8FB",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$162 mi",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$162 mi",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "row": 3,
+          "column": 6,
+          "bbox": [
+            1128.62,
+            211.68,
+            66.58,
+            22.56
+          ],
+          "text": "1,16%",
+          "textPreview": "1,16%",
+          "fillColor": "#F6F8FB",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "1,16%",
+              "resolvedTextStyle": {
+                "alignment": "right"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "1,16%",
+                  "fontSize": 8.33,
+                  "typeface": "Arial",
+                  "color": "#111827"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m94fu18j",
+      "id": "12",
+      "name": "Rounded Rectangle 11",
+      "bbox": [
+        705.6,
+        326.4,
+        489.6,
+        103.68
+      ],
+      "geometry": "roundRect",
+      "text": "Memória CDI+: resolve s com CDI_mês composto e spread aditivo por dias úteis. Memória % CDI: resolve k em Custo = soma Saldo_i x [(1+CDI_trecho)^k - 1].",
+      "textPreview": "Memória CDI+: resolve s com CDI_mês composto e spread aditivo por dias úteis. Memória % CDI: resolve k em Custo = soma Saldo_i x [(1+CDI_...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 9.6,
+          "right": 15.36,
+          "bottom": 0,
+          "left": 17.28
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Memória CDI+: resolve s com CDI_mês composto e spread aditivo por dias úteis. Memória %"
+          },
+          {
+            "index": 2,
+            "text": "CDI: resolve k em Custo = soma Saldo_i x [(1+CDI_trecho)^k - 1]."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Memória CDI+: resolve s com CDI_mês composto e spread aditivo por dias úteis. Memória % CDI: resolve k em Custo = soma Saldo_i x [(1+CDI_trecho)^k - 1].",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Memória CDI+: resolve s com CDI_mês composto e spread aditivo por dias úteis. Memória % CDI: resolve k em Custo = soma Saldo_i x [(1+CDI_trecho)^k - 1].",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#111827"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E1DCD4"
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/fu18jqh0",
+      "id": "13",
+      "name": "Rounded Rectangle 12",
+      "bbox": [
+        705.6,
+        458.88,
+        489.6,
+        105.6
+      ],
+      "geometry": "roundRect",
+      "text": "Leitura para comitê: o custo absoluto sobe porque a base utilizada cresce, especialmente com Bela, mas o preço unitário bruto melhora levemente. Isso sugere gestão eficiente de spread, ainda dependente de benchmark externo e confirmação da Tesouraria.",
+      "textPreview": "Leitura para comitê: o custo absoluto sobe porque a base utilizada cresce, especialmente com Bela, mas o preço unitário bruto melhora lev...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 9.6,
+          "right": 15.36,
+          "bottom": 0,
+          "left": 17.28
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Leitura para comitê: o custo absoluto sobe porque a base utilizada cresce, especialmente com"
+          },
+          {
+            "index": 2,
+            "text": "Bela, mas o preço unitário bruto melhora levemente. Isso sugere gestão eficiente de spread,"
+          },
+          {
+            "index": 3,
+            "text": "ainda dependente de benchmark externo e confirmação da Tesouraria."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Leitura para comitê: o custo absoluto sobe porque a base utilizada cresce, especialmente com Bela, mas o preço unitário bruto melhora levemente. Isso sugere gestão eficiente de spread, ainda dependente de benchmark externo e confirmação da Tesouraria.",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Leitura para comitê: o custo absoluto sobe porque a base utilizada cresce, especialmente com Bela, mas o preço unitário bruto melhora levemente. Isso sugere gestão eficiente de spread, ainda dependente de benchmark externo e confirmação da Tesouraria.",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#111827"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E1DCD4"
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/83itgfml",
+      "id": "14",
+      "name": "Rounded Rectangle 13",
+      "bbox": [
+        81.6,
+        574.08,
+        561.6,
+        55.68
+      ],
+      "geometry": "roundRect",
+      "text": "Resultado: % CDI bruto cai de 109,3% para 108,4%; CDI+ bruto cai de 1,28% para 1,16%.",
+      "textPreview": "Resultado: % CDI bruto cai de 109,3% para 108,4%; CDI+ bruto cai de 1,28% para 1,16%.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "lt1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "insets": {
+          "top": 9.6,
+          "right": 15.36,
+          "bottom": 0,
+          "left": 17.28
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Resultado: % CDI bruto cai de 109,3% para 108,4%; CDI+ bruto cai de 1,28% para 1,16%."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Resultado: % CDI bruto cai de 109,3% para 108,4%; CDI+ bruto cai de 1,28% para 1,16%.",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Resultado: % CDI bruto cai de 109,3% para 108,4%; CDI+ bruto cai de 1,28% para 1,16%.",
+              "fontSize": 10.67,
+              "typeface": "Arial",
+              "color": "#111827"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "fillColor": "#FFFFFF",
+      "lineColor": "#E1DCD4"
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/xobm58z2",
+      "id": "15",
+      "name": "TextBox 14",
+      "bbox": [
+        52.8,
+        687.36,
+        892.8,
+        15.36
+      ],
+      "geometry": "rect",
+      "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+      "textPreview": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: TomaConta FIDCs / IME CVM; documentos regulatórios locais; B3/Cetip MediaCDI. Valores em R$ nominais.",
+              "fontSize": 7.73,
+              "typeface": "Arial",
+              "color": "#5D6874"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qxs72x4n",
+      "id": "16",
+      "name": "TextBox 15",
+      "bbox": [
+        1198.08,
+        683.52,
+        33.6,
+        17.28
+      ],
+      "geometry": "rect",
+      "text": "09",
+      "textPreview": "09",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "wrap": "none",
+        "autoFit": "resizeShapeToFitText",
+        "insets": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "09"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "09",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "09",
+              "fontSize": 8.67,
+              "typeface": "Arial",
+              "color": "#5D6874"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

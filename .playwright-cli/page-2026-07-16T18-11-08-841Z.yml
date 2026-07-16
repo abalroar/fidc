@@ -1,0 +1,69 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e227] [cursor=pointer]:
+        - paragraph [ref=e231]: Sobre
+      - button [ref=e232] [cursor=pointer]:
+        - paragraph [ref=e236]: Dados da Indústria
+      - button [ref=e237] [cursor=pointer]:
+        - paragraph [ref=e241]: Dados de Carteira
+      - button [ref=e242] [cursor=pointer]:
+        - paragraph [ref=e246]: Cloudwalk
+      - button [ref=e247] [cursor=pointer]:
+        - paragraph [ref=e251]: Glossário
+      - button [ref=e252] [cursor=pointer]:
+        - paragraph [ref=e256]: Modelagem
+    - generic [ref=e48]:
+      - generic [ref=e51]:
+        - heading "Dados de Carteira" [level=1] [ref=e52]
+        - paragraph [ref=e53]: Analise carteiras salvas ou consulte um FIDC diretamente pelo CNPJ.
+      - generic [ref=e55]:
+        - radiogroup "button group" [ref=e60]:
+          - button [ref=e257] [cursor=pointer]:
+            - paragraph [ref=e261]: 3M
+          - button [ref=e262] [cursor=pointer]:
+            - paragraph [ref=e266]: 6M
+          - button [ref=e267] [cursor=pointer]:
+            - paragraph [ref=e271]: 9M
+          - button [ref=e272] [cursor=pointer]:
+            - paragraph [ref=e276]: 12M
+          - button [ref=e277] [cursor=pointer]:
+            - paragraph [ref=e281]: 24M
+          - button [ref=e282] [cursor=pointer]:
+            - paragraph [ref=e286]: 36M
+        - button "tune Personalizar" [ref=e95] [cursor=pointer]:
+          - generic [ref=e97]:
+            - generic [ref=e98]: tune
+            - paragraph [ref=e101]: Personalizar
+      - paragraph [ref=e106]: jul-25 → jun-26
+      - generic [ref=e108]:
+        - heading "Escolha o que analisar" [level=4] [ref=e114]:
+          - text: Escolha o que analisar
+          - generic [ref=e115]:
+            - link "Link to heading":
+              - /url: "#escolha-o-que-analisar"
+        - paragraph [ref=e120]: Carregue uma carteira salva, consulte um CNPJ sem cadastro ou crie uma nova carteira.
+        - radiogroup "button group" [ref=e123]:
+          - button [ref=e287] [cursor=pointer]:
+            - paragraph [ref=e291]: Carteira salva
+          - button [ref=e292] [cursor=pointer]:
+            - paragraph [ref=e296]: CNPJ específico
+          - button [ref=e297] [cursor=pointer]:
+            - paragraph [ref=e301]: Nova carteira
+        - generic [ref=e140]:
+          - generic [ref=e144]:
+            - paragraph [ref=e148]: Carteira salva
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - generic [ref=e302]: BTG Pactual (Fundos Consolidados 1T26)
+                - combobox "Selected BTG Pactual (Fundos Consolidados 1T26). Carteira salva" [active] [ref=e303]
+              - generic [ref=e154]:
+                - button "Clear value" [ref=e304] [cursor=pointer]
+                - img "open" [ref=e155]
+          - button [ref=e161] [cursor=pointer]:
+            - paragraph [ref=e165]: Carregar carteira
+        - paragraph [ref=e170]: 54 carteiras disponíveis.

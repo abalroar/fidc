@@ -1,0 +1,159 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e1137] [cursor=pointer]:
+        - paragraph [ref=e1141]: Sobre
+      - button [ref=e1142] [cursor=pointer]:
+        - paragraph [ref=e1146]: Indústria
+      - button [ref=e1147] [cursor=pointer]:
+        - paragraph [ref=e1151]: Secundário
+      - button [ref=e1152] [cursor=pointer]:
+        - paragraph [ref=e1156]: Carteira
+      - button [ref=e1157] [cursor=pointer]:
+        - paragraph [ref=e1161]: Regulamentos
+      - button [ref=e1162] [cursor=pointer]:
+        - paragraph [ref=e1166]: Cloudwalk
+      - button [ref=e1167] [cursor=pointer]:
+        - paragraph [ref=e1171]: Glossário
+      - button [ref=e1172] [cursor=pointer]:
+        - paragraph [ref=e1176]: Modelagem
+    - generic [ref=e126]:
+      - generic [ref=e131]:
+        - heading "Indústria" [level=1] [ref=e133]:
+          - text: Indústria
+          - generic [ref=e134]:
+            - link "Link to heading":
+              - /url: "#sobre"
+        - paragraph [ref=e135]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=e140]:
+        - generic [ref=e141]: "Fonte: CVM e ANBIMA"
+        - generic [ref=e142]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=e143]: "Cobertura: 4.224 veículos"
+      - generic [ref=e145]:
+        - tablist [ref=e147]:
+          - tab [ref=e148] [cursor=pointer]:
+            - paragraph [ref=e150]: Executivo
+          - tab [ref=e151] [cursor=pointer]:
+            - paragraph [ref=e153]: Ofertas
+          - tab [ref=e154] [cursor=pointer]:
+            - paragraph [ref=e156]: Prestadores
+          - tab [active] [selected] [ref=e157] [cursor=pointer]:
+            - paragraph [ref=e159]: Cedentes
+          - tab [ref=e160] [cursor=pointer]:
+            - paragraph [ref=e162]: Investidores
+          - tab [ref=e163] [cursor=pointer]:
+            - paragraph [ref=e165]: "> R$5 bi"
+          - tab [ref=e166] [cursor=pointer]:
+            - paragraph [ref=e168]: Dados e exportações
+        - tabpanel "Cedentes" [ref=e1277]:
+          - generic [ref=e1278]:
+            - heading "Cedentes e originadores nomináveis" [level=2] [ref=e1284]:
+              - text: Cedentes e originadores nomináveis
+              - generic [ref=e1285]:
+                - link "Link to heading":
+                  - /url: "#cedentes-e-originadores-nominaveis"
+            - generic [ref=e1286]: "Ranking conservador: somente nomes acionados por evidência nominal no emissor, lastro ou devedor identificado. O restante do volume permanece explicitamente não identificado."
+            - generic [ref=e1292]:
+              - paragraph [ref=e1296]: Período
+              - generic [ref=e1298]:
+                - generic [ref=e1299]:
+                  - generic [ref=e1300]: 2026YTD
+                  - combobox "Selected 2026YTD. Período" [ref=e1302]
+                - img "open" [ref=e1304]
+            - generic [ref=e1310]:
+              - generic [ref=e1311]:
+                - generic [ref=e1312]: Cobertura nominal
+                - generic [ref=e1313]: 33,2%
+                - generic [ref=e1314]: do volume válido
+              - generic [ref=e1315]:
+                - generic [ref=e1316]: Nomes identificados
+                - generic [ref=e1317]: "17"
+                - generic [ref=e1318]: 2026YTD
+              - generic [ref=e1319]:
+                - generic [ref=e1320]: Volume identificado
+                - generic [ref=e1321]: R$ 24,6 bi
+                - generic [ref=e1322]: regras de alta confiança
+            - generic [ref=e1325]:
+              - generic [ref=e1327]:
+                - button "Show data" [ref=e1330] [cursor=pointer]
+                - button "Fullscreen" [ref=e1336] [cursor=pointer]
+              - generic [ref=e1340]:
+                - generic "Vega visualization" [ref=e1341]:
+                  - img [ref=e1342]:
+                    - generic [ref=e1347]:
+                      - generic "X-axis titled 'Volume (R$ bi)' for a linear scale with values from 0 to 6" [ref=e1348]:
+                        - generic [ref=e1350]:
+                          - generic:
+                            - generic: "0.0"
+                            - generic: "0.2"
+                            - generic: "0.4"
+                            - generic: "0.6"
+                            - generic: "0.8"
+                            - generic: "1.0"
+                            - generic: "1.2"
+                            - generic: "1.4"
+                            - generic: "1.6"
+                            - generic: "1.8"
+                            - generic: "2.0"
+                            - generic: "2.2"
+                            - generic: "2.4"
+                            - generic: "2.6"
+                            - generic: "2.8"
+                            - generic: "3.0"
+                            - generic: "3.2"
+                            - generic: "3.4"
+                            - generic: "3.6"
+                            - generic: "3.8"
+                            - generic: "4.0"
+                            - generic: "4.2"
+                            - generic: "4.4"
+                            - generic: "4.6"
+                            - generic: "4.8"
+                            - generic: "5.0"
+                            - generic: "5.2"
+                            - generic: "5.4"
+                          - generic: Volume (R$ bi)
+                      - 'generic "Y-axis for a discrete scale with 15 values: CloudWalk, Banco BV, Agibank, Banco Volkswagen, Solfácil, ending with Asaas" [ref=e1351]':
+                        - generic [ref=e1353]:
+                          - generic:
+                            - generic: CloudWalk
+                            - generic: Banco BV
+                            - generic: Agibank
+                            - generic: Banco Volkswagen
+                            - generic: Solfácil
+                            - generic: Creditas
+                            - generic: Mercado Pago / Mercado Crédito
+                            - generic: Banco Pine
+                            - generic: PicPay
+                            - generic: PagSeguro
+                            - generic: ICred
+                            - generic: Pravaler
+                            - generic: iFood
+                            - generic: Verdecard
+                            - generic: Asaas
+                      - generic [ref=e1354]:
+                        - 'generic "Volume (R$ bi): 5.5; originator_group: CloudWalk; offers: 1" [ref=e1362]'
+                        - 'generic "Volume (R$ bi): 3.35; originator_group: Banco BV; offers: 1" [ref=e1370]'
+                        - 'generic "Volume (R$ bi): 2.5; originator_group: Agibank; offers: 1" [ref=e1378]'
+                        - 'generic "Volume (R$ bi): 2; originator_group: Banco Volkswagen; offers: 1" [ref=e1386]'
+                        - 'generic "Volume (R$ bi): 1.5055; originator_group: Solfácil; offers: 3" [ref=e1394]'
+                        - 'generic "Volume (R$ bi): 1.5; originator_group: Creditas; offers: 1" [ref=e1402]'
+                        - 'generic "Volume (R$ bi): 1.5; originator_group: Mercado Pago / Mercado Crédito; offers: 1" [ref=e1410]'
+                        - 'generic "Volume (R$ bi): 1.25; originator_group: Banco Pine; offers: 1" [ref=e1418]'
+                        - 'generic "Volume (R$ bi): 1.25; originator_group: PicPay; offers: 1" [ref=e1426]'
+                        - 'generic "Volume (R$ bi): 1; originator_group: PagSeguro; offers: 1" [ref=e1434]'
+                        - 'generic "Volume (R$ bi): 0.73125; originator_group: ICred; offers: 1" [ref=e1442]'
+                        - 'generic "Volume (R$ bi): 0.708335747; originator_group: Pravaler; offers: 4" [ref=e1450]'
+                        - 'generic "Volume (R$ bi): 0.6; originator_group: iFood; offers: 1" [ref=e1458]'
+                        - 'generic "Volume (R$ bi): 0.45; originator_group: Verdecard; offers: 1" [ref=e1466]'
+                        - 'generic "Volume (R$ bi): 0.38; originator_group: Asaas; offers: 1" [ref=e1474]'
+                - group "Click to view actions"
+            - generic [ref=e1484]:
+              - button "Show/hide columns" [ref=e1488] [cursor=pointer]
+              - button "Download as CSV" [ref=e1494] [cursor=pointer]
+              - button "Search" [ref=e1500] [cursor=pointer]
+              - button "Fullscreen" [ref=e1506] [cursor=pointer]

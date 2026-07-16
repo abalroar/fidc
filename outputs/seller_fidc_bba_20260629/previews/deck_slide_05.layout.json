@@ -1,0 +1,1126 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/hrz5dw",
+    "id": "hrz5dw",
+    "slide": 5,
+    "layoutId": "85b3f756-4225-4960-b03e-e65165ff85ef",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F8FA",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "85b3f756-4225-4960-b03e-e65165ff85ef",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/svu9knih",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        60
+      ],
+      "geometry": "rect",
+      "fillColor": "#001E62",
+      "lineColor": "#001E62",
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/za1gvy90",
+      "id": "2",
+      "bbox": [
+        54,
+        18,
+        320,
+        20
+      ],
+      "geometry": "rect",
+      "text": "FIDC Sellers | Itaú BBA",
+      "textPreview": "FIDC Sellers | Itaú BBA",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FIDC Sellers | Itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FIDC Sellers | Itaú BBA",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#FFFFFF",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FIDC Sellers | Itaú BBA",
+              "fontSize": 11,
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ap4r65wj",
+      "id": "3",
+      "bbox": [
+        54,
+        76,
+        820,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Reconcilição das posições Itaú BBA",
+      "textPreview": "Reconcilição das posições Itaú BBA",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reconcilição das posições Itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reconcilição das posições Itaú BBA",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reconcilição das posições Itaú BBA",
+              "fontSize": 26,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/hoza1gvy",
+      "id": "4",
+      "bbox": [
+        54,
+        125,
+        90,
+        5
+      ],
+      "geometry": "rect",
+      "fillColor": "#EC7000",
+      "lineColor": "#EC7000",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/p8nqxs72",
+      "id": "5",
+      "bbox": [
+        70,
+        155,
+        1140,
+        205
+      ],
+      "text": "Data | Risco | Emissão | Participação | Status\n23/11/2023 | R$ 150,5 mm | Sênior 3ª série | 75,3% | Parcialmente confirmado\n26/05/2025 | R$ 762,0 mm | Sênior 5ª série | 50,0% | Confirmado com divergência de vencimento",
+      "textPreview": "Data | Risco | Emissão | Participação | Status | 23/11/2023 | R$ 150,5 mm | Sênior 3ª série | 75,3% | Parcialmente confirmado | 26/05/202...",
+      "rows": 3,
+      "cols": 5,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            70,
+            155,
+            120,
+            68.33
+          ],
+          "text": "Data",
+          "textPreview": "Data",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Data",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Data",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            190,
+            155,
+            130,
+            68.33
+          ],
+          "text": "Risco",
+          "textPreview": "Risco",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Risco",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Risco",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            320,
+            155,
+            230,
+            68.33
+          ],
+          "text": "Emissão",
+          "textPreview": "Emissão",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Emissão",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Emissão",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 1,
+          "column": 4,
+          "bbox": [
+            550,
+            155,
+            130,
+            68.33
+          ],
+          "text": "Participação",
+          "textPreview": "Participação",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Participação",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Participação",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 1,
+          "column": 5,
+          "bbox": [
+            680,
+            155,
+            530,
+            68.33
+          ],
+          "text": "Status",
+          "textPreview": "Status",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Status",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Status",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            70,
+            223.33,
+            120,
+            68.33
+          ],
+          "text": "23/11/2023",
+          "textPreview": "23/11/2023",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "23/11/2023",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "23/11/2023",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            190,
+            223.33,
+            130,
+            68.33
+          ],
+          "text": "R$ 150,5 mm",
+          "textPreview": "R$ 150,5 mm",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 150,5 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 150,5 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            320,
+            223.33,
+            230,
+            68.33
+          ],
+          "text": "Sênior 3ª série",
+          "textPreview": "Sênior 3ª série",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Sênior 3ª série",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Sênior 3ª série",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 2,
+          "column": 4,
+          "bbox": [
+            550,
+            223.33,
+            130,
+            68.33
+          ],
+          "text": "75,3%",
+          "textPreview": "75,3%",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "75,3%",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "75,3%",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 2,
+          "column": 5,
+          "bbox": [
+            680,
+            223.33,
+            530,
+            68.33
+          ],
+          "text": "Parcialmente confirmado",
+          "textPreview": "Parcialmente confirmado",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Parcialmente confirmado",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Parcialmente confirmado",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            70,
+            291.67,
+            120,
+            68.33
+          ],
+          "text": "26/05/2025",
+          "textPreview": "26/05/2025",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "26/05/2025",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "26/05/2025",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            190,
+            291.67,
+            130,
+            68.33
+          ],
+          "text": "R$ 762,0 mm",
+          "textPreview": "R$ 762,0 mm",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "R$ 762,0 mm",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "R$ 762,0 mm",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            320,
+            291.67,
+            230,
+            68.33
+          ],
+          "text": "Sênior 5ª série",
+          "textPreview": "Sênior 5ª série",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Sênior 5ª série",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Sênior 5ª série",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 3,
+          "column": 4,
+          "bbox": [
+            550,
+            291.67,
+            130,
+            68.33
+          ],
+          "text": "50,0%",
+          "textPreview": "50,0%",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "50,0%",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "50,0%",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 3,
+          "column": 5,
+          "bbox": [
+            680,
+            291.67,
+            530,
+            68.33
+          ],
+          "text": "Confirmado com divergência de vencimento",
+          "textPreview": "Confirmado com divergência de vencimento",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Confirmado com divergência de vencimento",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Confirmado com divergência de vencimento",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zidonyd0",
+      "id": "6",
+      "bbox": [
+        70,
+        410,
+        540,
+        115
+      ],
+      "geometry": "rect",
+      "fillColor": "#FFF3E6",
+      "lineColor": "#EC7000",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/a1gvy90j",
+      "id": "7",
+      "bbox": [
+        86,
+        422,
+        508,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Tranche 23/11/2023",
+      "textPreview": "Tranche 23/11/2023",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Tranche 23/11/2023"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Tranche 23/11/2023",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Tranche 23/11/2023",
+              "fontSize": 11,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lszqtcj6",
+      "id": "8",
+      "bbox": [
+        86,
+        448,
+        508,
+        67
+      ],
+      "geometry": "rect",
+      "text": "Reconciliada à Sênior 3ª série por data e volume; o vencimento 15/09/2026 é do insumo BBA e não foi confirmado nos PDFs locais.",
+      "textPreview": "Reconciliada à Sênior 3ª série por data e volume; o vencimento 15/09/2026 é do insumo BBA e não foi confirmado nos PDFs locais.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#172033",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reconciliada à Sênior 3ª série por data e volume; o vencimento 15/09/2026 é do insumo BBA e não foi confirmado nos"
+          },
+          {
+            "index": 2,
+            "text": "PDFs locais."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reconciliada à Sênior 3ª série por data e volume; o vencimento 15/09/2026 é do insumo BBA e não foi confirmado nos PDFs locais.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#172033"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reconciliada à Sênior 3ª série por data e volume; o vencimento 15/09/2026 é do insumo BBA e não foi confirmado nos PDFs locais.",
+              "fontSize": 10,
+              "color": "#172033"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/s72x4nap",
+      "id": "9",
+      "bbox": [
+        670,
+        410,
+        540,
+        115
+      ],
+      "geometry": "rect",
+      "fillColor": "#FFF3E6",
+      "lineColor": "#EC7000",
+      "lineWidth": 1.2
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/idonyd0z",
+      "id": "10",
+      "bbox": [
+        686,
+        422,
+        508,
+        20
+      ],
+      "geometry": "rect",
+      "text": "Tranche 26/05/2025",
+      "textPreview": "Tranche 26/05/2025",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Tranche 26/05/2025"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Tranche 26/05/2025",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Tranche 26/05/2025",
+              "fontSize": 11,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/byhgn29g",
+      "id": "11",
+      "bbox": [
+        686,
+        448,
+        508,
+        67
+      ],
+      "geometry": "rect",
+      "text": "Reconciliada à Sênior 5ª série. Documento 912093 traz amortização final em 15/05/2028, divergente do vencimento BBA 26/05/2028.",
+      "textPreview": "Reconciliada à Sênior 5ª série. Documento 912093 traz amortização final em 15/05/2028, divergente do vencimento BBA 26/05/2028.",
+      "resolvedFontSize": 10,
+      "resolvedTextStyle": {
+        "fontSize": 10,
+        "typeface": "+mn-lt",
+        "color": "#172033",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reconciliada à Sênior 5ª série. Documento 912093 traz amortização final em 15/05/2028, divergente do vencimento"
+          },
+          {
+            "index": 2,
+            "text": "BBA 26/05/2028."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reconciliada à Sênior 5ª série. Documento 912093 traz amortização final em 15/05/2028, divergente do vencimento BBA 26/05/2028.",
+          "resolvedTextStyle": {
+            "fontSize": 10,
+            "color": "#172033"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reconciliada à Sênior 5ª série. Documento 912093 traz amortização final em 15/05/2028, divergente do vencimento BBA 26/05/2028.",
+              "fontSize": 10,
+              "color": "#172033"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0je9cvix",
+      "id": "12",
+      "bbox": [
+        54,
+        690,
+        980,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Fonte: bba_reconciliation.csv; insumo fixo Itaú BBA; documentos 558803/559856 e 912093.",
+      "textPreview": "Fonte: bba_reconciliation.csv; insumo fixo Itaú BBA; documentos 558803/559856 e 912093.",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: bba_reconciliation.csv; insumo fixo Itaú BBA; documentos 558803/559856 e 912093."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: bba_reconciliation.csv; insumo fixo Itaú BBA; documentos 558803/559856 e 912093.",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: bba_reconciliation.csv; insumo fixo Itaú BBA; documentos 558803/559856 e 912093.",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/t47y1kre",
+      "id": "13",
+      "bbox": [
+        1160,
+        690,
+        80,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Confidencial",
+      "textPreview": "Confidencial",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Confidencial"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Confidencial",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Confidencial",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

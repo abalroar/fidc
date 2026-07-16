@@ -20,6 +20,7 @@ from services.dashboard_ui import (
 from tabs import tab_about, tab_modelo_fidc
 from tabs.tab_dashboard_meli import _normalise_audit_identifier_columns
 from tabs.tab_cloudwalk_financial_cost import CLOUDWALK_VIEW_TABS
+from tabs.tab_estimativas_modelagem import ESTIMATES_MODELING_VIEWS
 from tabs.tab_industry_study import (
     INDUSTRY_EXECUTIVE_CHARTS,
     INDUSTRY_HOLDER_PL_CUTS_MM,
@@ -168,6 +169,10 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
         "Caixa",
         "Dados e exportações",
     )
+    assert ESTIMATES_MODELING_VIEWS == (
+        ("custo_cedente", "Custo Financeiro do Cedente"),
+        ("vencimentario_premissas", "Vencimentário e Premissas"),
+    )
     assert INDUSTRY_EXECUTIVE_CHARTS == (
         "industry-executive-pl",
         "industry-executive-relevant-offers",
@@ -194,16 +199,24 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
 
 def test_routes_and_exports_remain_available() -> None:
     app_source = (ROOT / "app.py").read_text(encoding="utf-8")
-    for route in ("sobre", "industria", "carteira", "cloudwalk", "glossario", "modelagem"):
+    for route in ("sobre", "industria", "carteira", "estimativas", "glossario"):
         assert f'("{route}",' in app_source
+    assert '("cloudwalk",' not in app_source
+    assert '("modelagem",' not in app_source
+    assert '"cloudwalk": "estimativas"' in app_source
+    assert '"modelagem": "estimativas"' in app_source
+    assert '"cloudwalk": VIEW_CEDENT_COST' in app_source
+    assert '"modelagem": VIEW_MATURITY_ASSUMPTIONS' in app_source
     assert '("secundario",' not in app_source
     assert '("regulamentos",' not in app_source
     assert '("industria", "Dados da Indústria")' in app_source
     assert '("carteira", "Dados de Carteira")' in app_source
+    assert '("estimativas", "Estimativas e Modelagem")' in app_source
 
     source_expectations = {
         "tabs/tab_industry_study.py": ("PPTX", "XLSX", "Baixar CSV"),
         "tabs/tab_cloudwalk_financial_cost.py": ("Baixar memória XLSX", "Baixar PPTX", "Baixar pacote CSV"),
+        "tabs/tab_estimativas_modelagem.py": ("Custo Financeiro do Cedente", "Vencimentário e Premissas"),
         "tabs/tab_deep_dive.py": (
             "Curadoria de Leitura (Documentos)",
             "Prompt usado para atualizar este artefato",
@@ -215,6 +228,18 @@ def test_routes_and_exports_remain_available() -> None:
         source = (ROOT / relative_path).read_text(encoding="utf-8")
         for label in expected_labels:
             assert label in source
+
+
+def test_app_brand_is_centered_and_uses_the_shared_orange() -> None:
+    app_source = (ROOT / "app.py").read_text(encoding="utf-8")
+
+    assert '<h1 class="fidc-app-title">toma.conta fidcs</h1>' in app_source
+    assert '<p class="fidc-app-author">by matheus prates, cfa</p>' in app_source
+    assert ".fidc-app-header {" in app_source
+    assert "text-align: center;" in app_source
+    assert "flex-direction: column;" in app_source
+    assert "color: #ff5a00 !important;" in app_source
+    assert "font-family: 'IBM Plex Sans', sans-serif !important;" in app_source
 
 
 def test_portfolio_context_switch_hides_stale_results_until_refresh_finishes() -> None:

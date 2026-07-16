@@ -1,0 +1,34 @@
+Thesis:
+The platform can already produce a director-grade map of the FIDC market since Jan-2024, but the board-ready conclusion depends on disciplined manual QA of classification, pricing deduplication, and regulation clauses.
+
+Audience:
+Directors evaluating whether one month of AI-assisted work can produce a defensible FIDC market diagnostic.
+
+One-line arc:
+Start with market size, isolate new CVM-born issuers, show the document-reading engine, compare practices equal-weight by subtype, then turn the evidence into a manual review plan.
+
+Slides:
+1. The study now has enough coverage to move from market sizing to subtype diagnostics.
+   Proof: KPI rail from final run summary.
+2. FIDC issuance has remained above R$100bn/year, with 2026YTD still dominated by open registrations.
+   Proof: period volume bars.
+3. CVM-born issuers since Jan-2024 are not marginal; they drive a majority of 2025 and 2026YTD closed volume.
+   Proof: stacked born-vs-legacy bars.
+4. The document engine reached 764 CNPJs and 4,557 regulations, making manual review targeted rather than blind.
+   Proof: coverage pipeline and download status.
+5. The taxonomy is usable, but the unclassified tail is now the manual-review queue.
+   Proof: sector count bars and gap callout.
+6. Common practices differ by subtype; equal-weight reading avoids letting large FIDCs dominate.
+   Proof: practices heatmap.
+7. Subordination is widely referenced, but numeric extraction still needs legal QA.
+   Proof: feature share plus numeric median table.
+8. Pricing can be shown as volume bars plus CDI+ dots, but spread coverage is uneven.
+   Proof: chart by sector/quota.
+9. The ecosystem has role-specific leaders; administrator, custodian and manager concentration vary by subtype.
+   Proof: participant ranking tables.
+10. Cedentes and sacados can be pre-screened at scale, but only as candidates.
+    Proof: candidate counts and context queue.
+11. The manual review should be managed as four waves with explicit QA gates.
+    Proof: wave operating model.
+12. Director decision: fund the hard month around QA, deduplication, and repeatable sector playbooks.
+    Proof: next-step plan and caveats.

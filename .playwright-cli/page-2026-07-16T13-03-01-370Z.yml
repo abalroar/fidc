@@ -1,0 +1,163 @@
+- generic [ref=f3e3]:
+  - banner
+  - generic [ref=f3e6]:
+    - generic [ref=f3e11]:
+      - generic [ref=f3e12]: tomaconta fidcs
+      - generic [ref=f3e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f3e16]:
+      - button [ref=f3e81] [cursor=pointer]:
+        - paragraph [ref=f3e85]: Sobre
+      - button [ref=f3e86] [cursor=pointer]:
+        - paragraph [ref=f3e90]: Indústria
+      - button [ref=f3e91] [cursor=pointer]:
+        - paragraph [ref=f3e95]: Secundário
+      - button [ref=f3e96] [cursor=pointer]:
+        - paragraph [ref=f3e100]: Carteira
+      - button [ref=f3e101] [cursor=pointer]:
+        - paragraph [ref=f3e105]: Regulamentos
+      - button [ref=f3e106] [cursor=pointer]:
+        - paragraph [ref=f3e110]: Cloudwalk
+      - button [ref=f3e111] [cursor=pointer]:
+        - paragraph [ref=f3e115]: Glossário
+      - button [ref=f3e116] [cursor=pointer]:
+        - paragraph [ref=f3e120]: Modelagem
+    - generic [ref=f3e122]:
+      - generic [ref=f3e125]:
+        - heading "Indústria" [level=1] [ref=f3e126]
+        - paragraph [ref=f3e127]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=f3e132]:
+        - generic [ref=f3e133]: "Fonte: CVM e ANBIMA"
+        - generic [ref=f3e134]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=f3e135]: "Cobertura: 4.224 veículos"
+      - generic [ref=f3e137]:
+        - tablist [ref=f3e139]:
+          - tab [selected] [ref=f3e140] [cursor=pointer]:
+            - paragraph [ref=f3e142]: Executivo
+          - tab [ref=f3e143] [cursor=pointer]:
+            - paragraph [ref=f3e145]: Ofertas
+          - tab [ref=f3e146] [cursor=pointer]:
+            - paragraph [ref=f3e148]: Prestadores
+          - tab [ref=f3e149] [cursor=pointer]:
+            - paragraph [ref=f3e151]: Cedentes
+          - tab [ref=f3e152] [cursor=pointer]:
+            - paragraph [ref=f3e154]: Investidores
+          - tab [ref=f3e155] [cursor=pointer]:
+            - paragraph [ref=f3e157]: "> R$5 bi"
+          - tab [ref=f3e158] [cursor=pointer]:
+            - paragraph [ref=f3e160]: Dados e exportações
+        - tabpanel "Executivo" [ref=f3e163]:
+          - generic [ref=f3e164]:
+            - generic [ref=f3e169]:
+              - generic [ref=f3e170]:
+                - generic [ref=f3e171]: PL ex-FIC
+                - generic [ref=f3e172]: R$ 880 bi
+                - generic [ref=f3e173]: 21,6% em 12m
+              - generic [ref=f3e174]:
+                - generic [ref=f3e175]: Captação líquida 12m
+                - generic [ref=f3e176]: R$ 220 bi
+                - generic [ref=f3e177]: captações − resgates − amortizações
+              - generic [ref=f3e178]:
+                - generic [ref=f3e179]: Contas de cotistas
+                - generic [ref=f3e180]: 446 mil
+                - generic [ref=f3e181]: contas por classe, não CPFs únicos
+              - generic [ref=f3e182]:
+                - generic [ref=f3e183]: Inad. ajustada
+                - generic [ref=f3e184]: 5,8%
+                - generic [ref=f3e185]: bruta 8,0%
+              - generic [ref=f3e186]:
+                - generic [ref=f3e187]: Itaú em tickets >R$300 mi
+                - generic [ref=f3e188]: "#2"
+                - generic [ref=f3e189]: 16,7% do volume 2026YTD
+              - generic [ref=f3e190]:
+                - generic [ref=f3e191]: Admin./custódia Itaú
+                - generic [ref=f3e192]: 1,9%
+                - generic [ref=f3e193]: share nas ofertas >R$300 mi em 2026YTD
+            - generic [ref=f3e194]: "Tese: o Itaú já é competitivo na originação de tickets relevantes; o espaço econômico está na conversão desses mandatos em administração, custódia e distribuição institucional."
+            - generic [ref=f3e200]:
+              - generic [ref=f3e205]:
+                - generic [ref=f3e207]:
+                  - button "Show data" [ref=f3e210] [cursor=pointer]
+                  - button "Fullscreen" [ref=f3e216] [cursor=pointer]
+                - generic [ref=f3e220]:
+                  - generic "Vega visualization" [ref=f3e221]:
+                    - img [ref=f3e222]:
+                      - generic [ref=f3e227]:
+                        - generic "X-axis for a time scale with values from June/20 to May/26" [ref=f3e231]:
+                          - generic [ref=f3e233]:
+                            - generic:
+                              - generic: Jul/20
+                              - generic: Oct/20
+                              - generic: Jan/21
+                              - generic: Apr/21
+                              - generic: Jul/21
+                              - generic: Oct/21
+                              - generic: Jan/22
+                              - generic: Apr/22
+                              - generic: Jul/22
+                              - generic: Oct/22
+                              - generic: Jan/23
+                              - generic: Apr/23
+                              - generic: Jul/23
+                              - generic: Oct/23
+                              - generic: Jan/24
+                              - generic: Apr/24
+                              - generic: Jul/24
+                              - generic: Oct/24
+                              - generic: Jan/25
+                              - generic: Apr/25
+                              - generic: Jul/25
+                              - generic: Oct/25
+                              - generic: Jan/26
+                              - generic: Apr/26
+                        - generic "Y-axis titled 'R$ bi' for a linear scale with values from 0 to 900" [ref=f3e234]:
+                          - generic [ref=f3e236]:
+                            - generic:
+                              - generic: "0"
+                              - generic: "200"
+                              - generic: "400"
+                              - generic: "600"
+                              - generic: "800"
+                            - generic: R$ bi
+                        - 'generic "mes: Jun/20; R$ bi: 216.963412181; Competência: 2020-06; PL ex-FIC (R$ bi): 217.0" [ref=f3e238]'
+                        - generic [ref=f3e241]:
+                          - generic "Title text 'PL da indústria ex-FIC'": PL da indústria ex-FIC
+                  - group "Click to view actions"
+              - generic [ref=f3e251]:
+                - generic [ref=f3e253]:
+                  - button "Show data" [ref=f3e256] [cursor=pointer]
+                  - button "Fullscreen" [ref=f3e262] [cursor=pointer]
+                - generic [ref=f3e266]:
+                  - generic "Vega visualization" [ref=f3e267]:
+                    - img [ref=f3e268]:
+                      - generic [ref=f3e273]:
+                        - 'generic "X-axis for a discrete scale with 3 values: 2024, 2025, 2026YTD" [ref=f3e277]':
+                          - generic [ref=f3e279]:
+                            - generic:
+                              - generic: "2024"
+                              - generic: "2025"
+                              - generic: 2026YTD
+                        - generic "Y-axis titled 'R$ bi' for a linear scale with values from 0 to 65" [ref=f3e280]:
+                          - generic [ref=f3e282]:
+                            - generic:
+                              - generic: "0"
+                              - generic: "20"
+                              - generic: "40"
+                              - generic: "60"
+                            - generic: R$ bi
+                        - generic [ref=f3e283]:
+                          - 'generic "period: 2024; R$ bi: 55.8018269224; Série: Mercado" [ref=f3e284]'
+                          - 'generic "period: 2025; R$ bi: 62.2347174208; Série: Mercado" [ref=f3e285]'
+                          - 'generic "period: 2026YTD; R$ bi: 40.1279909367; Série: Mercado" [ref=f3e286]'
+                          - 'generic "period: 2024; R$ bi: 10.950623; Série: Itaú coordenador" [ref=f3e287]'
+                          - 'generic "period: 2025; R$ bi: 16.7138294536; Série: Itaú coordenador" [ref=f3e288]'
+                          - 'generic "period: 2026YTD; R$ bi: 6.710065806; Série: Itaú coordenador" [ref=f3e289]'
+                        - 'generic "Symbol legend titled '' '' for fill color with 2 values: Mercado, Itaú coordenador" [ref=f3e290]':
+                          - generic [ref=f3e296]:
+                            - generic [ref=f3e297]: Mercado
+                            - generic [ref=f3e299]: Itaú coordenador
+                        - generic [ref=f3e303]:
+                          - generic "Title text 'Ofertas acima de R$ 300 mi'": Ofertas acima de R$ 300 mi
+                  - group "Click to view actions"
+            - generic [ref=f3e313]:
+              - strong [ref=f3e314]: Junho/26 é prévia
+              - generic [ref=f3e315]: 1.990 veículos · R$ 336,9 bi de PL · 47,1% dos veículos e 35,2% do PL da competência anterior. Rankings e KPIs consolidados permanecem em maio/26.

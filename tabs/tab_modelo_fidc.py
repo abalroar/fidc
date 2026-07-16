@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 from dataclasses import dataclass, replace
@@ -10,7 +11,7 @@ from datetime import date, datetime, timedelta
 from html import escape
 from io import BytesIO
 import tempfile
-from zipfile import ZipFile
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import altair as alt
 from openpyxl.styles import Alignment
@@ -18,7 +19,7 @@ import pandas as pd
 import streamlit as st
 
 from data_loader import load_model_inputs
-from services.dashboard_ui import render_page_header
+from services.dashboard_ui import diagnostics_enabled, render_page_header
 from services.fidc_model import (
     AMORTIZATION_MODE_BULLET,
     AMORTIZATION_MODE_LINEAR,
@@ -204,6 +205,14 @@ _MODEL_CSS = """
     line-height: 1.58;
     margin-top: 0.55rem;
     max-width: 58rem;
+}
+
+.fidc-model-purpose {
+    color: #68727d;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    margin: 0 0 0.75rem;
+    max-width: 72rem;
 }
 
 .fidc-model-section-title {
@@ -1237,7 +1246,12 @@ def _text_number_input(
     decimals: int = 2,
     help_text: str | None = None,
 ) -> str:
-    return st.text_input(label, value=_format_input_value(default, decimals), key=key, help=help_text)
+    return _text_input_with_session_default(
+        label,
+        default_value=_format_input_value(default, decimals),
+        key=key,
+        help_text=help_text,
+    )
 
 
 def _text_brl_input(
@@ -1248,7 +1262,12 @@ def _text_brl_input(
     decimals: int = 2,
     help_text: str | None = None,
 ) -> str:
-    return st.text_input(label, value=_format_brl_input_value(default, decimals), key=key, help=help_text)
+    return _text_input_with_session_default(
+        label,
+        default_value=_format_brl_input_value(default, decimals),
+        key=key,
+        help_text=help_text,
+    )
 
 
 def _text_percent_input(
@@ -1259,7 +1278,29 @@ def _text_percent_input(
     decimals: int = 2,
     help_text: str | None = None,
 ) -> str:
-    return st.text_input(label, value=_format_percent_input_value(default, decimals), key=key, help=help_text)
+    return _text_input_with_session_default(
+        label,
+        default_value=_format_percent_input_value(default, decimals),
+        key=key,
+        help_text=help_text,
+    )
+
+
+def _text_input_with_session_default(
+    label: str,
+    *,
+    default_value: str,
+    key: str,
+    help_text: str | None,
+) -> str:
+    kwargs: dict[str, object] = {"key": key, "help": help_text}
+    if key not in st.session_state:
+        kwargs["value"] = default_value
+    return st.text_input(label, **kwargs)
+
+
+def _session_widget_index(key: str, default_index: int = 0) -> int | None:
+    return None if key in st.session_state else default_index
 
 
 def _build_dataframe(results) -> pd.DataFrame:
@@ -2423,6 +2464,93 @@ def _build_model_dashboard_pptx_bytes_pptxgen(
         return pptx_bytes
 
 
+_PPTX_CHART_AXIS_ID_RE = re.compile(rb'(<c:(?:axId|crossAx)\b[^>]*\bval=")(-?\d+)(")')
+_PPTX_CHART_AXID_RE = re.compile(rb'<c:axId\b[^>]*\bval="(-?\d+)"')
+
+
+def _normalize_pptx_unsigned_chart_ids(pptx_bytes: bytes) -> bytes:
+    """Keep chart axis IDs positive and inside Office's signed-32 comfort zone."""
+    source = BytesIO(pptx_bytes)
+    target = BytesIO()
+
+    with ZipFile(source, "r") as zin, ZipFile(target, "w", compression=ZIP_DEFLATED) as zout:
+        for item in zin.infolist():
+            payload = zin.read(item.filename)
+            if item.filename.startswith("ppt/charts/") and item.filename.endswith(".xml"):
+                axis_values = list(dict.fromkeys(_PPTX_CHART_AXID_RE.findall(payload)))
+                axis_id_map = {
+                    old: str(1_000_000 + axis_index).encode("ascii")
+                    for axis_index, old in enumerate(axis_values, start=1)
+                }
+
+                def normalize(match: re.Match[bytes]) -> bytes:
+                    value = match.group(2)
+                    return match.group(1) + axis_id_map.get(value, value) + match.group(3)
+
+                payload = _PPTX_CHART_AXIS_ID_RE.sub(normalize, payload)
+            zout.writestr(item, payload)
+    return target.getvalue()
+
+
+def _build_model_dashboard_pptx_bytes_python(
+    *,
+    kpi_cards: list[dict[str, str]],
+    revolvency_cards: list[dict[str, str]],
+    premissas_summary_df: pd.DataFrame,
+    timeline_frame: pd.DataFrame | None,
+    balance_chart_df: pd.DataFrame,
+    protection_chart_df: pd.DataFrame,
+) -> bytes:
+    try:
+        from pptx import Presentation
+        from pptx.chart.data import CategoryChartData
+        from pptx.dml.color import RGBColor
+        from pptx.enum.chart import XL_CHART_TYPE, XL_DATA_LABEL_POSITION, XL_LEGEND_POSITION, XL_MARKER_STYLE
+        from pptx.enum.shapes import MSO_AUTO_SHAPE_TYPE
+        from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
+        from pptx.util import Inches, Pt
+    except ImportError as exc:  # pragma: no cover - environment guard
+        raise RuntimeError("Dependência python-pptx não instalada.") from exc
+
+    prs = Presentation()
+    prs.slide_width = Inches(13.333)
+    prs.slide_height = Inches(7.5)
+    layout = prs.slide_layouts[6]
+    deps = {
+        "CategoryChartData": CategoryChartData,
+        "RGBColor": RGBColor,
+        "XL_CHART_TYPE": XL_CHART_TYPE,
+        "XL_DATA_LABEL_POSITION": XL_DATA_LABEL_POSITION,
+        "XL_LEGEND_POSITION": XL_LEGEND_POSITION,
+        "XL_MARKER_STYLE": XL_MARKER_STYLE,
+        "MSO_AUTO_SHAPE_TYPE": MSO_AUTO_SHAPE_TYPE,
+        "MSO_ANCHOR": MSO_ANCHOR,
+        "PP_ALIGN": PP_ALIGN,
+        "Inches": Inches,
+        "Pt": Pt,
+    }
+
+    _ppt_add_committee_premissas_slide(prs, layout, premissas_summary_df, timeline_frame, **deps)
+    _ppt_add_committee_lock_slide(prs, layout, premissas_summary_df, timeline_frame, **deps)
+    _ppt_add_committee_outputs_slide(
+        prs,
+        layout,
+        _committee_cards(kpi_cards, revolvency_cards),
+        balance_chart_df,
+        protection_chart_df,
+        timeline_frame,
+        **deps,
+    )
+    for page, slide in enumerate(prs.slides, start=1):
+        _ppt_add_footer(slide, page, len(prs.slides), **deps)
+
+    output = BytesIO()
+    prs.save(output)
+    pptx_bytes = _normalize_pptx_unsigned_chart_ids(output.getvalue())
+    _assert_native_office_charts(pptx_bytes)
+    return pptx_bytes
+
+
 def _build_model_dashboard_pptx_bytes(
     *,
     kpi_cards: list[dict[str, str]],
@@ -2444,7 +2572,14 @@ def _build_model_dashboard_pptx_bytes(
     if pptxgen_bytes is not None:
         return pptxgen_bytes
 
-    raise RuntimeError("Dependência Node/pptxgenjs não localizada para gerar PPTX com gráficos nativos do Office.")
+    return _build_model_dashboard_pptx_bytes_python(
+        kpi_cards=kpi_cards,
+        revolvency_cards=revolvency_cards,
+        premissas_summary_df=premissas_summary_df,
+        timeline_frame=timeline_frame,
+        balance_chart_df=balance_chart_df,
+        protection_chart_df=protection_chart_df,
+    )
 
 
 def _ppt_add_committee_header(slide, title: str, **deps) -> None:
@@ -3661,6 +3796,7 @@ def _render_curve_source_controls(
         st.selectbox(
             "Origem da curva de juros",
             CURVE_SOURCE_OPTIONS,
+            index=_session_widget_index("modelo_curve_source"),
             key="modelo_curve_source",
             help=(
                 "A curva DI/Pré remunera cotas pós-fixadas e calcula o Pre DI na duration. "
@@ -3678,6 +3814,7 @@ def _render_curve_source_controls(
         st.selectbox(
             "Metodologia de interpolação",
             INTERPOLATION_OPTIONS,
+            index=_session_widget_index("modelo_interpolation_label"),
             key="modelo_interpolation_label",
             help=(
                 "Flat Forward 252 preserva a composição financeira em dias úteis entre vértices. "
@@ -3687,6 +3824,7 @@ def _render_curve_source_controls(
         st.selectbox(
             "Calendário de dias úteis",
             CALENDAR_SOURCE_OPTIONS,
+            index=_session_widget_index("modelo_calendar_source"),
             key="modelo_calendar_source",
             help=(
                 "O calendário oficial usa a página pública da B3 para anos publicados e projeção explícita para anos futuros. "
@@ -3995,11 +4133,17 @@ def _chart_definition_caption(kind: str) -> str:
     raise ValueError(f"Tipo de legenda de gráfico inválido: {kind}")
 
 
-def _render_model_header() -> None:
+def _render_model_header(*, embedded: bool = False) -> None:
     st.markdown(_MODEL_CSS, unsafe_allow_html=True)
-    render_page_header(
-        "Modelagem",
-        "Cenários de rentabilidade, subordinação, fluxo e perdas de crédito.",
+    if not embedded:
+        render_page_header(
+            "Vencimentário e Premissas",
+            "Fluxos, remuneração das cotas, subordinação e cenários de perda de uma estrutura FIDC.",
+        )
+    st.markdown(
+        '<p class="fidc-model-purpose">Projete o vencimentário da carteira e das cotas, teste premissas de crédito '
+        "e acompanhe a proteção econômica da estrutura.</p>",
+        unsafe_allow_html=True,
     )
 
 
@@ -4163,10 +4307,10 @@ def _revolvency_cards_data(metrics: _RevolvencyMetrics) -> list[dict[str, str]]:
     ]
 
 
-def render_tab_modelo_fidc() -> None:
+def render_tab_modelo_fidc(*, embedded: bool = False) -> None:
     inputs = _load_inputs("model_data.json")
 
-    _render_model_header()
+    _render_model_header(embedded=embedded)
     source_errors = _validate_model_inputs(inputs)
     if source_errors:
         st.error("Fonte local do modelo incompleta: " + "; ".join(source_errors) + ".")
@@ -4225,7 +4369,7 @@ def render_tab_modelo_fidc() -> None:
             taxa_cessao_input_mode = st.radio(
                 "Entrada da taxa da carteira",
                 [CESSION_INPUT_DISCOUNT, CESSION_INPUT_MONTHLY],
-                index=1,
+                index=_session_widget_index("modelo_taxa_cessao_input_mode", 1),
                 horizontal=True,
                 key="modelo_taxa_cessao_input_mode",
                 help="Escolha entre informar deságio no prazo médio ou taxa efetiva mensal da carteira.",
@@ -4266,166 +4410,175 @@ def render_tab_modelo_fidc() -> None:
                     decimals=2,
                     help_text=HELP_CUSTO_MINIMO,
                 )
-            st.markdown("##### Crédito e provisão")
-            model_view = st.radio(
-                "Sub-aba do modelo",
-                [MODEL_VIEW_GERAL, MODEL_VIEW_MC3],
-                horizontal=True,
-                key="modelo_view",
-                help="Use a sub-aba MC3 para abrir o fluxo já focado no modelo de Cartões.",
-            )
-            mc3_forcado = model_view == MODEL_VIEW_MC3
-            credit_model_label = st.selectbox(
-                "Metodologia de crédito",
-                list(CREDIT_MODEL_LABELS),
-                index=list(CREDIT_MODEL_LABELS).index(CREDIT_LABEL_MC3) if mc3_forcado else 0,
-                key="modelo_credit_model",
-                disabled=mc3_forcado,
-                help="Define se a perda vem de NPL 90+ por ciclo ou de migração mensal entre faixas de atraso.",
-            )
-            if mc3_forcado:
-                st.caption(
-                    "Sub-aba MC3 ativa: preset de cartões com safras mensais, Over90, PDD 100% e "
-                    "write-off em 360 dias desde atraso. A PDD pode ser linear prospectiva ou reconhecida no NPL 90-360."
+            with st.expander("Crédito e provisão", expanded=False):
+                st.caption("Metodologia de perda, PDD, LGD e parâmetros específicos do produto.")
+                model_view = st.radio(
+                    "Sub-aba do modelo",
+                    [MODEL_VIEW_GERAL, MODEL_VIEW_MC3],
+                    index=_session_widget_index("modelo_view"),
+                    horizontal=True,
+                    key="modelo_view",
+                    help="Use a sub-aba MC3 para abrir o fluxo já focado no modelo de Cartões.",
                 )
-            pdd_method_label = st.selectbox(
-                "Metodologia de reconhecimento da PDD",
-                list(PDD_METHOD_LABELS),
-                index=list(PDD_METHOD_LABELS).index(PDD_METHOD_NAMES[DEFAULT_METODOLOGIA_PDD]),
-                key="modelo_pdd_method",
-                help=(
-                    "NPL 90-360 reconhece a despesa quando o atraso entra no bucket regulatório. "
-                    "PDD linear prospectiva antecipa a perda esperada em parcelas mensais durante o lag até NPL 90."
-                ),
-            )
-            common_credit_a, common_credit_b, common_credit_c = st.columns(3)
-            with common_credit_a:
-                npl90_lag_text = _text_number_input(
-                    "Lag até NPL 90+ (meses)",
-                    default=DEFAULT_NPL90_LAG_MESES,
-                    key="modelo_npl90_lag_meses",
-                    decimals=0,
-                    help_text="Meses entre a perda esperada do ciclo e sua entrada no estoque NPL 90+.",
+                mc3_forcado = model_view == MODEL_VIEW_MC3
+                credit_model_label = st.selectbox(
+                    "Metodologia de crédito",
+                    list(CREDIT_MODEL_LABELS),
+                    index=_session_widget_index(
+                        "modelo_credit_model",
+                        list(CREDIT_MODEL_LABELS).index(CREDIT_LABEL_MC3) if mc3_forcado else 0,
+                    ),
+                    key="modelo_credit_model",
+                    disabled=mc3_forcado,
+                    help="Define se a perda vem de NPL 90+ por ciclo ou de migração mensal entre faixas de atraso.",
                 )
-            with common_credit_b:
-                cobertura_npl90_text = _text_percent_input(
-                    "Cobertura mínima NPL 90+ (%)",
-                    default=DEFAULT_COBERTURA_NPL90 * 100.0,
-                    key="modelo_cobertura_npl90_pct",
-                    decimals=1,
-                    help_text="Percentual mínimo do estoque NPL 90+ coberto por provisão, multiplicado pela LGD no cálculo.",
+                if mc3_forcado:
+                    st.caption(
+                        "Sub-aba MC3 ativa: preset de cartões com safras mensais, Over90, PDD 100% e "
+                        "write-off em 360 dias desde atraso. A PDD pode ser linear prospectiva ou reconhecida no NPL 90-360."
+                    )
+                pdd_method_label = st.selectbox(
+                    "Metodologia de reconhecimento da PDD",
+                    list(PDD_METHOD_LABELS),
+                    index=_session_widget_index(
+                        "modelo_pdd_method",
+                        list(PDD_METHOD_LABELS).index(PDD_METHOD_NAMES[DEFAULT_METODOLOGIA_PDD]),
+                    ),
+                    key="modelo_pdd_method",
+                    help=(
+                        "NPL 90-360 reconhece a despesa quando o atraso entra no bucket regulatório. "
+                        "PDD linear prospectiva antecipa a perda esperada em parcelas mensais durante o lag até NPL 90."
+                    ),
                 )
-            with common_credit_c:
-                lgd_text = _text_percent_input(
-                    "LGD econômica (%)",
-                    default=DEFAULT_LGD * 100.0,
-                    key="modelo_lgd_pct",
-                    decimals=1,
-                    help_text="Percentual do NPL 90+ não recuperado e tratado como perda econômica.",
-                )
-            if credit_model_label in (CREDIT_LABEL_NPL90, CREDIT_LABEL_MC3):
-                perda_ciclo_text = _text_percent_input(
-                    "NPL 90+ esperado por ciclo (% dos recebíveis que vencem)",
-                    default=DEFAULT_PERDA_CICLO * 100.0,
-                    key="modelo_perda_ciclo_pct",
-                    decimals=2,
-                    help_text="Percentual do principal que vence no período e migra para NPL 90+ após o lag.",
-                )
-                if credit_model_label == CREDIT_LABEL_MC3:
-                    mc3_a, mc3_b = st.columns(2)
-                    with mc3_a:
-                        renegociado_pct_text = _text_percent_input(
-                            "Renegociado (% dos recebíveis que vencem)",
-                            default=DEFAULT_RENEGOCIADO_PCT * 100.0,
-                            key="modelo_mc3_renegociado_pct",
-                            decimals=2,
-                            help_text="Parcela renegociada no período que entra integralmente na base de PDD do MC3.",
-                        )
-                    with mc3_b:
-                        maturacao_over90_cap_text = _text_percent_input(
-                            "Teto maturação Over90 por safra (%)",
-                            default=DEFAULT_MATURACAO_OVER90_CAP * 100.0,
-                            key="modelo_mc3_maturacao_over90_cap",
-                            decimals=1,
-                            help_text="Limite máximo de maturação para Over90 aplicado ao principal que vence no período.",
-                        )
+                common_credit_a, common_credit_b, common_credit_c = st.columns(3)
+                with common_credit_a:
+                    npl90_lag_text = _text_number_input(
+                        "Lag até NPL 90+ (meses)",
+                        default=DEFAULT_NPL90_LAG_MESES,
+                        key="modelo_npl90_lag_meses",
+                        decimals=0,
+                        help_text="Meses entre a perda esperada do ciclo e sua entrada no estoque NPL 90+.",
+                    )
+                with common_credit_b:
+                    cobertura_npl90_text = _text_percent_input(
+                        "Cobertura mínima NPL 90+ (%)",
+                        default=DEFAULT_COBERTURA_NPL90 * 100.0,
+                        key="modelo_cobertura_npl90_pct",
+                        decimals=1,
+                        help_text="Percentual mínimo do estoque NPL 90+ coberto por provisão, multiplicado pela LGD no cálculo.",
+                    )
+                with common_credit_c:
+                    lgd_text = _text_percent_input(
+                        "LGD econômica (%)",
+                        default=DEFAULT_LGD * 100.0,
+                        key="modelo_lgd_pct",
+                        decimals=1,
+                        help_text="Percentual do NPL 90+ não recuperado e tratado como perda econômica.",
+                    )
+                if credit_model_label in (CREDIT_LABEL_NPL90, CREDIT_LABEL_MC3):
+                    perda_ciclo_text = _text_percent_input(
+                        "NPL 90+ esperado por ciclo (% dos recebíveis que vencem)",
+                        default=DEFAULT_PERDA_CICLO * 100.0,
+                        key="modelo_perda_ciclo_pct",
+                        decimals=2,
+                        help_text="Percentual do principal que vence no período e migra para NPL 90+ após o lag.",
+                    )
+                    if credit_model_label == CREDIT_LABEL_MC3:
+                        mc3_a, mc3_b = st.columns(2)
+                        with mc3_a:
+                            renegociado_pct_text = _text_percent_input(
+                                "Renegociado (% dos recebíveis que vencem)",
+                                default=DEFAULT_RENEGOCIADO_PCT * 100.0,
+                                key="modelo_mc3_renegociado_pct",
+                                decimals=2,
+                                help_text="Parcela renegociada no período que entra integralmente na base de PDD do MC3.",
+                            )
+                        with mc3_b:
+                            maturacao_over90_cap_text = _text_percent_input(
+                                "Teto maturação Over90 por safra (%)",
+                                default=DEFAULT_MATURACAO_OVER90_CAP * 100.0,
+                                key="modelo_mc3_maturacao_over90_cap",
+                                decimals=1,
+                                help_text="Limite máximo de maturação para Over90 aplicado ao principal que vence no período.",
+                            )
+                    else:
+                        renegociado_pct_text = "0,00%"
+                        maturacao_over90_cap_text = f"{DEFAULT_MATURACAO_OVER90_CAP * 100:.1f}%".replace(".", ",")
+                    roll_adimplente_text = roll_1_30_text = roll_31_60_text = roll_61_90_text = "0,00%"
+                    recuperacao_90_text = writeoff_90_text = "0,00%"
                 else:
+                    perda_ciclo_text = "0,00%"
                     renegociado_pct_text = "0,00%"
                     maturacao_over90_cap_text = f"{DEFAULT_MATURACAO_OVER90_CAP * 100:.1f}%".replace(".", ",")
-                roll_adimplente_text = roll_1_30_text = roll_31_60_text = roll_61_90_text = "0,00%"
-                recuperacao_90_text = writeoff_90_text = "0,00%"
-            else:
-                perda_ciclo_text = "0,00%"
-                renegociado_pct_text = "0,00%"
-                maturacao_over90_cap_text = f"{DEFAULT_MATURACAO_OVER90_CAP * 100:.1f}%".replace(".", ",")
-                roll_a, roll_b = st.columns(2)
-                with roll_a:
-                    roll_adimplente_text = _text_percent_input(
-                        "Rolagem atual → 1-30 (% a.m.)",
-                        default=DEFAULT_ROLAGEM_ADIMPLENTE_1_30 * 100.0,
-                        key="modelo_roll_adimplente_1_30_pct",
+                    roll_a, roll_b = st.columns(2)
+                    with roll_a:
+                        roll_adimplente_text = _text_percent_input(
+                            "Rolagem atual → 1-30 (% a.m.)",
+                            default=DEFAULT_ROLAGEM_ADIMPLENTE_1_30 * 100.0,
+                            key="modelo_roll_adimplente_1_30_pct",
+                            decimals=2,
+                            help_text="Percentual mensal da carteira adimplente que entra em atraso de 1 a 30 dias.",
+                        )
+                        roll_31_60_text = _text_percent_input(
+                            "Rolagem 31-60 → 61-90 (% a.m.)",
+                            default=DEFAULT_ROLAGEM_31_60_61_90 * 100.0,
+                            key="modelo_roll_31_60_61_90_pct",
+                            decimals=2,
+                            help_text="Percentual mensal do bucket 31-60 que migra para atraso de 61 a 90 dias.",
+                        )
+                        recuperacao_90_text = _text_percent_input(
+                            "Recuperação 90+ (% a.m.)",
+                            default=DEFAULT_RECUPERACAO_90_PLUS * 100.0,
+                            key="modelo_recuperacao_90_plus_pct",
+                            decimals=2,
+                            help_text="Percentual mensal do estoque 90+ que é recuperado em caixa.",
+                        )
+                    with roll_b:
+                        roll_1_30_text = _text_percent_input(
+                            "Rolagem 1-30 → 31-60 (% a.m.)",
+                            default=DEFAULT_ROLAGEM_1_30_31_60 * 100.0,
+                            key="modelo_roll_1_30_31_60_pct",
+                            decimals=2,
+                            help_text="Percentual mensal do bucket 1-30 que migra para atraso de 31 a 60 dias.",
+                        )
+                        roll_61_90_text = _text_percent_input(
+                            "Rolagem 61-90 → 90+ (% a.m.)",
+                            default=DEFAULT_ROLAGEM_61_90_90_PLUS * 100.0,
+                            key="modelo_roll_61_90_90_plus_pct",
+                            decimals=2,
+                            help_text="Percentual mensal do bucket 61-90 que migra para NPL 90+.",
+                        )
+                        writeoff_90_text = _text_percent_input(
+                            "Write-off 90+ (% a.m.)",
+                            default=DEFAULT_WRITEOFF_90_PLUS * 100.0,
+                            key="modelo_writeoff_90_plus_pct",
+                            decimals=2,
+                            help_text="Percentual mensal do estoque 90+ baixado contra provisão.",
+                        )
+                enhancement_a, enhancement_b = st.columns(2)
+                with enhancement_a:
+                    agio_aquisicao_text = _text_percent_input(
+                        "Ágio (% sobre face)",
+                        default=DEFAULT_AGIO_AQUISICAO * 100.0,
+                        key="modelo_agio_aquisicao_pct",
                         decimals=2,
-                        help_text="Percentual mensal da carteira adimplente que entra em atraso de 1 a 30 dias.",
+                        help_text="Prêmio pago sobre o valor de face; reduz a taxa de cessão efetiva e aumenta o EAD.",
                     )
-                    roll_31_60_text = _text_percent_input(
-                        "Rolagem 31-60 → 61-90 (% a.m.)",
-                        default=DEFAULT_ROLAGEM_31_60_61_90 * 100.0,
-                        key="modelo_roll_31_60_61_90_pct",
+                with enhancement_b:
+                    excesso_spread_base = st.radio(
+                        "Base do excesso de spread",
+                        ["% a.m.", "% a.a. base 252 dias úteis"],
+                        horizontal=True,
+                        key="modelo_excesso_spread_base",
+                        help="Escolha a periodicidade do piso adicional exigido sobre a remuneração da SEN.",
+                    )
+                    excesso_spread_text = _text_percent_input(
+                        "Excesso de spread sobre SEN",
+                        default=DEFAULT_EXCESSO_SPREAD_SENIOR_AM * 100.0,
+                        key="modelo_excesso_spread_senior",
                         decimals=2,
-                        help_text="Percentual mensal do bucket 31-60 que migra para atraso de 61 a 90 dias.",
+                        help_text="Piso adicional ao CDI + spread da SEN; a taxa da carteira não fica abaixo desse CDI+.",
                     )
-                    recuperacao_90_text = _text_percent_input(
-                        "Recuperação 90+ (% a.m.)",
-                        default=DEFAULT_RECUPERACAO_90_PLUS * 100.0,
-                        key="modelo_recuperacao_90_plus_pct",
-                        decimals=2,
-                        help_text="Percentual mensal do estoque 90+ que é recuperado em caixa.",
-                    )
-                with roll_b:
-                    roll_1_30_text = _text_percent_input(
-                        "Rolagem 1-30 → 31-60 (% a.m.)",
-                        default=DEFAULT_ROLAGEM_1_30_31_60 * 100.0,
-                        key="modelo_roll_1_30_31_60_pct",
-                        decimals=2,
-                        help_text="Percentual mensal do bucket 1-30 que migra para atraso de 31 a 60 dias.",
-                    )
-                    roll_61_90_text = _text_percent_input(
-                        "Rolagem 61-90 → 90+ (% a.m.)",
-                        default=DEFAULT_ROLAGEM_61_90_90_PLUS * 100.0,
-                        key="modelo_roll_61_90_90_plus_pct",
-                        decimals=2,
-                        help_text="Percentual mensal do bucket 61-90 que migra para NPL 90+.",
-                    )
-                    writeoff_90_text = _text_percent_input(
-                        "Write-off 90+ (% a.m.)",
-                        default=DEFAULT_WRITEOFF_90_PLUS * 100.0,
-                        key="modelo_writeoff_90_plus_pct",
-                        decimals=2,
-                        help_text="Percentual mensal do estoque 90+ baixado contra provisão.",
-                    )
-            enhancement_a, enhancement_b = st.columns(2)
-            with enhancement_a:
-                agio_aquisicao_text = _text_percent_input(
-                    "Ágio (% sobre face)",
-                    default=DEFAULT_AGIO_AQUISICAO * 100.0,
-                    key="modelo_agio_aquisicao_pct",
-                    decimals=2,
-                    help_text="Prêmio pago sobre o valor de face; reduz a taxa de cessão efetiva e aumenta o EAD.",
-                )
-            with enhancement_b:
-                excesso_spread_base = st.radio(
-                    "Base do excesso de spread",
-                    ["% a.m.", "% a.a. base 252 dias úteis"],
-                    horizontal=True,
-                    help="Escolha a periodicidade do piso adicional exigido sobre a remuneração da SEN.",
-                )
-                excesso_spread_text = _text_percent_input(
-                    "Excesso de spread sobre SEN",
-                    default=DEFAULT_EXCESSO_SPREAD_SENIOR_AM * 100.0,
-                    key="modelo_excesso_spread_senior",
-                    decimals=2,
-                    help_text="Piso adicional ao CDI + spread da SEN; a taxa da carteira não fica abaixo desse CDI+.",
-                )
 
             st.markdown("##### Estrutura de PL")
             prop_a, prop_b, prop_c = st.columns(3)
@@ -4465,6 +4618,8 @@ def render_tab_modelo_fidc() -> None:
             senior_mode_label = st.selectbox(
                 "Remuneração cota sênior/SEN",
                 ["Pós-fixada: CDI + spread aditivo", "Pré-fixada: taxa % a.a."],
+                index=_session_widget_index("modelo_senior_mode"),
+                key="modelo_senior_mode",
                 help=(
                     "Pós-fixada soma o spread ao CDI; por exemplo, 1,35% significa CDI + 1,35% a.a., "
                     "não 101,35% do CDI."
@@ -4491,6 +4646,8 @@ def render_tab_modelo_fidc() -> None:
                 mezz_mode_label = st.selectbox(
                     "Remuneração cota mezanino/MEZZ",
                     ["Pós-fixada: CDI + spread aditivo", "Pré-fixada: taxa % a.a."],
+                    index=_session_widget_index("modelo_mezz_mode"),
+                    key="modelo_mezz_mode",
                     help=(
                         "Pós-fixada soma o spread ao CDI; por exemplo, 5,00% significa CDI + 5,00% a.a., "
                         "não 105,00% do CDI."
@@ -4525,6 +4682,8 @@ def render_tab_modelo_fidc() -> None:
                     "Pós-fixada: CDI + spread aditivo (taxa-alvo)",
                     "Pré-fixada: taxa % a.a. (taxa-alvo)",
                 ],
+                index=_session_widget_index("modelo_sub_mode"),
+                key="modelo_sub_mode",
                 help="A SUB absorve o residual econômico; taxas-alvo ficam explícitas sem criar pagamento programado.",
             )
             sub_rate_text = "0,00"
@@ -4559,7 +4718,7 @@ def render_tab_modelo_fidc() -> None:
                 date_schedule_label = st.selectbox(
                     "Cronograma do fluxo",
                     [DATE_SCHEDULE_WORKBOOK, DATE_SCHEDULE_MONTHLY],
-                    index=1,
+                    index=_session_widget_index("modelo_date_schedule", 1),
                     key="modelo_date_schedule",
                     help=(
                         "A grade semestral padrão mantém datas espaçadas por semestre. "
@@ -4598,6 +4757,7 @@ def render_tab_modelo_fidc() -> None:
                     portfolio_mode_label = st.selectbox(
                         "Originação da carteira",
                         [PORTFOLIO_MODE_REVOLVING, PORTFOLIO_MODE_STATIC],
+                        index=_session_widget_index("modelo_portfolio_mode"),
                         key="modelo_portfolio_mode",
                         help=(
                             "No modo revolvente, o principal recebido repõe a carteira existente e o excesso de caixa "
@@ -4689,7 +4849,7 @@ def render_tab_modelo_fidc() -> None:
                     senior_amort_label = st.selectbox(
                         "Amortização principal SEN",
                         list(AMORTIZATION_LABELS),
-                        index=1,
+                        index=_session_widget_index("modelo_amort_senior", 1),
                         key="modelo_amort_senior",
                         help="Define quando e como o principal da SEN é amortizado no waterfall.",
                     )
@@ -4712,7 +4872,7 @@ def render_tab_modelo_fidc() -> None:
                         mezz_amort_label = st.selectbox(
                             "Amortização principal MEZZ",
                             list(AMORTIZATION_LABELS),
-                            index=1,
+                            index=_session_widget_index("modelo_amort_mezz", 1),
                             key="modelo_amort_mezz",
                             help="Define quando e como o principal da MEZZ é amortizado no waterfall.",
                         )
@@ -4736,6 +4896,7 @@ def render_tab_modelo_fidc() -> None:
                     senior_interest_label = st.selectbox(
                         "Pagamento de juros SEN",
                         list(INTEREST_LABELS),
+                        index=_session_widget_index("modelo_juros_senior"),
                         key="modelo_juros_senior",
                         help="Define se os juros da SEN são pagos periodicamente, após carência ou no vencimento.",
                     )
@@ -4744,6 +4905,7 @@ def render_tab_modelo_fidc() -> None:
                         mezz_interest_label = st.selectbox(
                             "Pagamento de juros MEZZ",
                             list(INTEREST_LABELS),
+                            index=_session_widget_index("modelo_juros_mezz"),
                             key="modelo_juros_mezz",
                             help="Define se os juros da MEZZ são pagos periodicamente, após carência ou no vencimento.",
                         )
@@ -5021,58 +5183,59 @@ def render_tab_modelo_fidc() -> None:
         selic_aa_por_ano=effective_selic_aa_por_ano,
     )
 
-    if agio_aquisicao > 0.0:
+    with st.expander("Premissas utilizadas", expanded=False):
+        if agio_aquisicao > 0.0:
+            st.caption(
+                "Equivalência da taxa da carteira: "
+                f"Taxa de Cessão nominal {_format_percent(tx_cessao_desagio_nominal)} menos ágio "
+                f"{_format_percent(agio_aquisicao)} = taxa efetiva {_format_percent(tx_cessao_desagio)} "
+                f"no prazo médio de {_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
+                f"Taxa Mensal efetiva {_format_percent(tx_cessao_am)} | "
+                f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+            )
+        else:
+            st.caption(
+                "Equivalência da taxa da carteira: "
+                f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} no prazo médio de "
+                f"{_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
+                f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
+                f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+            )
+        if modelo_credito == CREDIT_MODEL_NPL90:
+            st.caption(
+                "Crédito e provisão: "
+                f"NPL 90+ esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
+                f"lag {npl90_lag_meses} meses; cobertura mínima {_format_percent(cobertura_minima_npl90)} "
+                f"do NPL 90+ com LGD {_format_percent(lgd)}."
+            )
+        elif modelo_credito == CREDIT_MODEL_MC3_CARTOES:
+            st.caption(
+                "Crédito e provisão (MC3): "
+                f"Over90 esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
+                f"Reneg {_format_percent(renegociado_pct)} com PDD de 100%; "
+                f"teto de maturação Over90 {_format_percent(maturacao_over90_cap)} por safra."
+            )
+        else:
+            st.caption(
+                "Crédito e provisão: migração mensal por faixas de atraso até NPL 90+, "
+                f"cobertura mínima {_format_percent(cobertura_minima_npl90)} e LGD {_format_percent(lgd)}. "
+                "Recuperações entram como caixa; write-offs baixam a carteira contra provisão."
+            )
         st.caption(
-            "Equivalência da taxa da carteira: "
-            f"Taxa de Cessão nominal {_format_percent(tx_cessao_desagio_nominal)} menos ágio "
-            f"{_format_percent(agio_aquisicao)} = taxa efetiva {_format_percent(tx_cessao_desagio)} "
-            f"no prazo médio de {_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
-            f"Taxa Mensal efetiva {_format_percent(tx_cessao_am)} | "
-            f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+            "Sofisticações da carteira: "
+            f"ágio sobre face {_format_percent(agio_aquisicao)}; "
+            f"excesso de spread SEN {_format_percent(excesso_spread_senior_am)} a.m. "
+            f"({_format_percent(excesso_spread_senior_aa)} a.a. base 252). "
+            "Por ser um piso, a taxa aplicada usa o maior valor entre a taxa informada e CDI + spread da SEN + excesso."
         )
-    else:
         st.caption(
-            "Equivalência da taxa da carteira: "
-            f"Taxa de Cessão {_format_percent(tx_cessao_desagio)} no prazo médio de "
-            f"{_format_number_br(prazo_medio_recebiveis_meses, 1)} meses | "
-            f"Taxa Mensal {_format_percent(tx_cessao_am)} | "
-            f"Taxa anual base 252 {_format_percent(tx_cessao_aa_equivalente)}."
+            "Caixa pós-revolvência: "
+            + "; ".join(
+                f"{_selic_year_label(year, [projection_year for projection_year, _ in user_selic_aa_por_ano])}: {_format_percent(rate)} a.a."
+                for year, rate in user_selic_aa_por_ano
+            )
+            + ". Esta curva remunera apenas o caixa excedente quando a carteira entra em runoff."
         )
-    if modelo_credito == CREDIT_MODEL_NPL90:
-        st.caption(
-            "Crédito e provisão: "
-            f"NPL 90+ esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
-            f"lag {npl90_lag_meses} meses; cobertura mínima {_format_percent(cobertura_minima_npl90)} "
-            f"do NPL 90+ com LGD {_format_percent(lgd)}."
-        )
-    elif modelo_credito == CREDIT_MODEL_MC3_CARTOES:
-        st.caption(
-            "Crédito e provisão (MC3): "
-            f"Over90 esperado {_format_percent(perda_ciclo)} dos recebíveis que vencem; "
-            f"Reneg {_format_percent(renegociado_pct)} com PDD de 100%; "
-            f"teto de maturação Over90 {_format_percent(maturacao_over90_cap)} por safra."
-        )
-    else:
-        st.caption(
-            "Crédito e provisão: migração mensal por faixas de atraso até NPL 90+, "
-            f"cobertura mínima {_format_percent(cobertura_minima_npl90)} e LGD {_format_percent(lgd)}. "
-            "Recuperações entram como caixa; write-offs baixam a carteira contra provisão."
-        )
-    st.caption(
-        "Sofisticações da carteira: "
-        f"ágio sobre face {_format_percent(agio_aquisicao)}; "
-        f"excesso de spread SEN {_format_percent(excesso_spread_senior_am)} a.m. "
-        f"({_format_percent(excesso_spread_senior_aa)} a.a. base 252). "
-        "Por ser um piso, a taxa aplicada usa o maior valor entre a taxa informada e CDI + spread da SEN + excesso."
-    )
-    st.caption(
-        "Caixa pós-revolvência: "
-        + "; ".join(
-            f"{_selic_year_label(year, [projection_year for projection_year, _ in user_selic_aa_por_ano])}: {_format_percent(rate)} a.a."
-            for year, rate in user_selic_aa_por_ano
-        )
-        + ". Esta curva remunera apenas o caixa excedente quando a carteira entra em runoff."
-    )
 
     try:
         if calendar_source_label == CALENDAR_SOURCE_B3_OFFICIAL:
@@ -5426,23 +5589,33 @@ def render_tab_modelo_fidc() -> None:
         loss_chart_df=loss_chart_df,
         protection_chart_df=protection_display_chart_df,
     )
-    pptx_bytes = _build_model_dashboard_pptx_bytes(
-        kpi_cards=kpi_cards,
-        revolvency_cards=revolvency_cards,
-        premissas_summary_df=premissas_summary_df,
-        timeline_frame=frame,
-        balance_chart_df=balance_chart_df,
-        loss_chart_df=loss_chart_df,
-        protection_chart_df=protection_display_chart_df,
-    )
-    with st.expander("Dados e exportações", expanded=False):
-        st.download_button(
-            "Exportar deck de comitê (PPTX)",
-            data=pptx_bytes,
-            file_name="modelo_fidc_dashboard.pptx",
-            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            width="stretch",
+    pptx_bytes: bytes | None = None
+    pptx_error: Exception | None = None
+    try:
+        pptx_bytes = _build_model_dashboard_pptx_bytes(
+            kpi_cards=kpi_cards,
+            revolvency_cards=revolvency_cards,
+            premissas_summary_df=premissas_summary_df,
+            timeline_frame=frame,
+            balance_chart_df=balance_chart_df,
+            loss_chart_df=loss_chart_df,
+            protection_chart_df=protection_display_chart_df,
         )
+    except Exception as exc:  # noqa: BLE001
+        pptx_error = exc
+    with st.expander("Dados e exportações", expanded=False):
+        if pptx_bytes is not None:
+            st.download_button(
+                "Exportar deck de comitê (PPTX)",
+                data=pptx_bytes,
+                file_name="modelo_fidc_dashboard.pptx",
+                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                width="stretch",
+            )
+        else:
+            st.warning("O PPTX não pôde ser preparado neste ambiente; Excel e CSV permanecem disponíveis.")
+            if diagnostics_enabled() and pptx_error is not None:
+                st.caption(f"{type(pptx_error).__name__}: {pptx_error}")
         st.download_button(
             "Baixar timeline CSV",
             data=csv,

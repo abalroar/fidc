@@ -1,0 +1,65 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - heading "tomaconta fidcs" [level=1] [ref=e12]
+      - generic [ref=e13]: por matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button "Sobre" [ref=e118] [cursor=pointer]:
+        - paragraph [ref=e122]: Sobre
+      - button "Indústria" [ref=e123] [cursor=pointer]:
+        - paragraph [ref=e127]: Indústria
+      - button "Carteira" [ref=e128] [cursor=pointer]:
+        - paragraph [ref=e132]: Carteira
+      - button "Regulamentos" [ref=e133] [cursor=pointer]:
+        - paragraph [ref=e137]: Regulamentos
+      - button "Estratégia" [ref=e138] [cursor=pointer]:
+        - paragraph [ref=e142]: Estratégia
+      - button "Cloudwalk" [ref=e143] [cursor=pointer]:
+        - paragraph [ref=e147]: Cloudwalk
+      - button "Glossário" [ref=e148] [cursor=pointer]:
+        - paragraph [ref=e152]: Glossário
+      - button "Modelagem" [ref=e153] [cursor=pointer]:
+        - paragraph [ref=e157]: Modelagem
+    - generic [ref=e61]:
+      - generic [ref=e62]: Indústria FIDCs
+      - generic [ref=e66]: Crescimento, fluxos e concentração
+      - generic [ref=e67]: Série CVM reconstruída de 2013 até 2026-05, com PL, captação líquida, cotistas, inadimplência e administradores. Universo CVM pode divergir da ANBIMA; metodologia no rodapé.
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e164]: PL total
+        - generic [ref=e165]: R$ 959 bi
+        - generic [ref=e166]: R$ 880 bi ex-FIC-FIDC · +22,5% em 12m
+      - generic [ref=e167]:
+        - generic [ref=e168]: Captação líquida 12m
+        - generic [ref=e169]: R$ 220 bi
+        - generic [ref=e170]: captações − resgates − amortizações
+      - generic [ref=e171]:
+        - generic [ref=e172]: Veículos reportantes
+        - generic [ref=e173]: "4.224"
+        - generic [ref=e174]: +772 em 12m
+      - generic [ref=e175]:
+        - generic [ref=e176]: Contas de cotistas
+        - generic [ref=e177]: 446 mil
+        - generic [ref=e178]: +90,3% em 12m
+      - generic [ref=e179]:
+        - generic [ref=e180]: Inadimplência ajustada
+        - generic [ref=e181]: 5,8%
+        - generic [ref=e182]: "bruta: 8,0%"
+      - generic [ref=e183]:
+        - generic [ref=e184]: Top 5 administradores
+        - generic [ref=e185]: 52,4%
+        - generic [ref=e186]: do PL administrado
+    - generic [ref=e84]:
+      - generic [ref=e85]: Investimento de Desenvolvimento
+      - generic [ref=e86]: "Estimativa baseada em commits do GitHub: sessões de trabalho + Overhead de Sessão por sessão. Total = horas entre commits + overhead."
+    - group [ref=e89]:
+      - generic "keyboard_arrow_right Parâmetros de estimativa" [ref=e90] [cursor=pointer]:
+        - generic [ref=e91]:
+          - generic [ref=e93]: keyboard_arrow_right
+          - paragraph [ref=e96]: Parâmetros de estimativa
+    - button "Recalcular estimativa" [ref=e99] [cursor=pointer]:
+      - paragraph [ref=e103]: Recalcular estimativa
+    - generic [ref=e108]: abalroar/fidc
+    - alert [ref=e112]:
+      - paragraph [ref=e117]: Clique em Recalcular estimativa para criar o primeiro cache local desta seção.

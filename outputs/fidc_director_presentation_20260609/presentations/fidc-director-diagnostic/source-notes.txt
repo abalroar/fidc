@@ -1,0 +1,32 @@
+Source ledger
+
+Primary data:
+- outputs/fidc_issuance_study_20260609/summary.json
+- outputs/fidc_issuance_study_20260609/fidc_public_offers_2024_2026ytd.csv
+- outputs/fidc_issuance_study_20260609/fidc_cvm_born_since_2024.csv
+- outputs/fidc_director_deep_diagnostic_20260609/summary.json
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_regulatory_feature_matrix.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_feature_prevalence_by_sector.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_subordination_distribution_by_sector.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_pricing_tranches.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_pricing_summary_by_sector_quota.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_market_participants_by_sector.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_cedentes_sacados_candidates.csv
+- outputs/fidc_director_deep_diagnostic_20260609/fidc_manual_review_queue_enriched.csv
+- outputs/fidc_director_deep_diagnostic_20260609/download_review_documents_status.csv
+
+Source date:
+- As of 2026-06-09.
+
+Identity assets:
+- None used.
+
+Chart implementation:
+- Authored editable PowerPoint shapes/text rather than static images.
+- This gives native-editability and avoids rasterizing labels. It is not a linked Excel chart.
+
+Important limitations:
+- Sector classification is a structured heuristic and needs manual review.
+- Regulatory feature detection is text-based and should be treated as triage.
+- Cedentes/sacados are candidates extracted from local text context.
+- Pricing rows may include duplicated announcements/terms and require deduplication.

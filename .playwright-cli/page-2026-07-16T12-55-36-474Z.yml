@@ -1,0 +1,187 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e22736] [cursor=pointer]:
+        - paragraph [ref=f1e22740]: Sobre
+      - button [ref=f1e22741] [cursor=pointer]:
+        - paragraph [ref=f1e22745]: Indústria
+      - button [ref=f1e22746] [cursor=pointer]:
+        - paragraph [ref=f1e22750]: Secundário
+      - button [ref=f1e22751] [cursor=pointer]:
+        - paragraph [ref=f1e22755]: Carteira
+      - button [ref=f1e22756] [cursor=pointer]:
+        - paragraph [ref=f1e22760]: Regulamentos
+      - button [ref=f1e22761] [cursor=pointer]:
+        - paragraph [ref=f1e22765]: Cloudwalk
+      - button [ref=f1e22766] [cursor=pointer]:
+        - paragraph [ref=f1e22770]: Glossário
+      - button [ref=f1e22771] [cursor=pointer]:
+        - paragraph [ref=f1e22775]: Modelagem
+    - generic [ref=f1e22116]:
+      - generic [ref=f1e22119]:
+        - heading "Cloudwalk" [level=1] [ref=f1e22120]
+        - paragraph [ref=f1e22121]: Custo financeiro dos FIDCs, amortizações, captações e carry de caixa/LFT.
+      - generic [ref=f1e22124]:
+        - generic [ref=f1e22126]:
+          - generic [ref=f1e22130]:
+            - generic [ref=f1e22131]:
+              - paragraph [ref=f1e22134]: Ano-base
+              - button "Help for Ano-base" [ref=f1e22138] [cursor=pointer]
+            - generic [ref=f1e22142]:
+              - spinbutton "Ano-base" [ref=f1e22145]: "2026"
+              - generic [ref=f1e22146]:
+                - button [ref=f1e22147] [cursor=pointer]
+                - button [ref=f1e22150] [cursor=pointer]
+          - generic [ref=f1e22156]:
+            - generic [ref=f1e22157]:
+              - paragraph [ref=f1e22160]: Data inicial
+              - button "Help for Data inicial" [ref=f1e22164] [cursor=pointer]
+            - textbox "Select a date." [ref=f1e22171]:
+              - /placeholder: YYYY-MM-DD
+              - text: 2026–01–01
+            - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+            - paragraph: Selected date is 2026–01–01. Select the second date.
+          - generic [ref=f1e22175]:
+            - generic [ref=f1e22176]:
+              - paragraph [ref=f1e22179]: Data final
+              - button "Help for Data final" [ref=f1e22183] [cursor=pointer]
+            - textbox "Select a date." [ref=f1e22190]:
+              - /placeholder: YYYY-MM-DD
+              - text: 2026–12–31
+            - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+            - paragraph: Selected date is 2026–12–31. Select the second date.
+        - group [ref=f1e22193]:
+          - generic "keyboard_arrow_down Opções avançadas" [ref=f1e22639] [cursor=pointer]:
+            - generic [ref=f1e22195]:
+              - generic [ref=f1e22640]: keyboard_arrow_down
+              - paragraph [ref=f1e22200]: Opções avançadas
+          - generic [ref=f1e22643]:
+            - generic [ref=f1e22645]:
+              - generic [ref=f1e22649]:
+                - generic [ref=f1e22650]:
+                  - paragraph [ref=f1e22653]: Caixa/LFT (x CDI)
+                  - button "Help for Caixa/LFT (x CDI)" [ref=f1e22657] [cursor=pointer]
+                - generic [ref=f1e22661]:
+                  - spinbutton "Caixa/LFT (x CDI)" [ref=f1e22664]: "0.90"
+                  - generic [ref=f1e22665]:
+                    - button [ref=f1e22666] [cursor=pointer]
+                    - button [ref=f1e22669] [cursor=pointer]
+              - generic [ref=f1e22675]:
+                - generic [ref=f1e22676]:
+                  - paragraph [ref=f1e22679]: CDI fallback B3
+                  - button "Help for CDI fallback B3" [ref=f1e22683] [cursor=pointer]
+                - textbox "Select a date." [ref=f1e22690]:
+                  - /placeholder: YYYY-MM-DD
+                  - text: 2026–07–16
+                - paragraph: Press the down arrow key to interact with the calendar and select a date. Press the escape button to close the calendar.
+                - paragraph: Selected date is 2026–07–16. Select the second date.
+            - paragraph [ref=f1e22695]:
+              - strong [ref=f1e22696]: CDI+ manual por série
+            - generic [ref=f1e22701]:
+              - button "Show/hide columns" [ref=f1e22705] [cursor=pointer]
+              - button "Download as CSV" [ref=f1e22711] [cursor=pointer]
+              - button "Search" [ref=f1e22717] [cursor=pointer]
+              - button "Fullscreen" [ref=f1e22723] [cursor=pointer]
+        - button [ref=f1e22204] [cursor=pointer]:
+          - paragraph [ref=f1e22208]: Atualizar estimativa
+      - generic [ref=f1e22446]:
+        - generic [ref=f1e22447]: "Fonte: B3/Cetip MediaCDI diário composto por mês"
+        - generic [ref=f1e22448]: "Base até: 2026-01-01 a 2026-12-31"
+        - generic [ref=f1e22449]: "Cobertura: 27 séries mapeadas"
+      - generic [ref=f1e22451]:
+        - generic [ref=f1e22456]:
+          - paragraph [ref=f1e22459]: Despesa bruta
+          - paragraph [ref=f1e22462]: R$ 2.29 bi
+        - generic [ref=f1e22467]:
+          - paragraph [ref=f1e22470]: Custo líquido
+          - paragraph [ref=f1e22473]: R$ 2.15 bi
+        - generic [ref=f1e22478]:
+          - paragraph [ref=f1e22481]: Aplicação caixa/LFT
+          - paragraph [ref=f1e22484]: R$ 2.09 bi
+        - generic [ref=f1e22489]:
+          - paragraph [ref=f1e22492]: Rendimento caixa/LFT
+          - paragraph [ref=f1e22495]: R$ 139.8 mi
+        - generic [ref=f1e22500]:
+          - paragraph [ref=f1e22503]: Saldo médio
+          - paragraph [ref=f1e22506]: R$ 15.82 bi
+        - generic [ref=f1e22511]:
+          - paragraph [ref=f1e22514]: CDI+ implícito
+          - paragraph [ref=f1e22517]: CDI+1.14% a.a.
+      - generic [ref=f1e22240]: "CDI usado: 14.61% a.a. equivalente (B3/Cetip MediaCDI diário composto por mês). Spread ponderado por saldo médio: CDI+1.15% a.a.."
+      - generic [ref=f1e22519]:
+        - generic [ref=f1e22520]:
+          - tablist [ref=f1e22522]:
+            - tab [ref=f1e22523] [cursor=pointer]:
+              - paragraph [ref=f1e22525]: Resumo
+            - tab [active] [selected] [ref=f1e22526] [cursor=pointer]:
+              - paragraph [ref=f1e22528]: Séries
+            - tab [ref=f1e22529] [cursor=pointer]:
+              - paragraph [ref=f1e22531]: Mensal
+            - tab [ref=f1e22532] [cursor=pointer]:
+              - paragraph [ref=f1e22534]: Waterfall
+            - tab [ref=f1e22535] [cursor=pointer]:
+              - paragraph [ref=f1e22537]: Caixa
+            - tab [ref=f1e22538] [cursor=pointer]:
+              - paragraph [ref=f1e22540]: Dados e exportações
+          - tabpanel "Séries" [ref=f1e22776]:
+            - generic [ref=f1e22777]:
+              - heading "Preço por série" [level=2] [ref=f1e22783]:
+                - text: Preço por série
+                - generic [ref=f1e22784]:
+                  - link "Link to heading":
+                    - /url: "#preco-por-serie"
+              - generic [ref=f1e22787]:
+                - generic [ref=f1e22789]:
+                  - button "Show data" [ref=f1e22792] [cursor=pointer]
+                  - button "Fullscreen" [ref=f1e22798] [cursor=pointer]
+                - generic [ref=f1e22802]:
+                  - generic "Vega visualization" [ref=f1e22803]:
+                    - img [ref=f1e22804]:
+                      - generic [ref=f1e22809]:
+                        - generic "X-axis titled 'Custo bruto estimado' for a linear scale with values from 0 to 1,300,000,000" [ref=f1e22810]:
+                          - generic [ref=f1e22812]:
+                            - generic:
+                              - generic: "0"
+                              - generic: 200,000,000
+                              - generic: 400,000,000
+                              - generic: 600,000,000
+                              - generic: 800,000,000
+                              - generic: 1,000,000,000
+                              - generic: 1,200,000,000
+                            - generic: Custo bruto estimado
+                        - 'generic "Y-axis titled ''FIDC'' for a discrete scale with 10 values: CLOUDWALK BELA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO, CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO, CLOUDWALK A.I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO, CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO, CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS, ending with CLOUDWALK AKIRA II FIDC" [ref=f1e22813]':
+                          - generic [ref=f1e22815]:
+                            - generic:
+                              - generic: CLOUDWALK BEL…
+                              - generic: CLOUDWALK PI F…
+                              - generic: CLOUDWALK A.I. …
+                              - generic: CLOUDWALK BIG …
+                              - generic: CLOUDWALK AKI…
+                              - generic: CLOUDWALK BIG …
+                              - generic: CLOUDWALK BIG …
+                              - generic: CLOUDWALK BIG …
+                              - generic: CLOUDWALK KIC…
+                              - generic: CLOUDWALK AKI…
+                            - generic: FIDC
+                        - generic [ref=f1e22816]:
+                          - 'generic "Custo bruto estimado: 1268715573.65; FIDC: CLOUDWALK BELA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 1,268,715,574; Saldo médio: 8,841,095,890" [ref=f1e22817]'
+                          - 'generic "Custo bruto estimado: 458327358.92; FIDC: CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 458,327,359; Saldo médio: 3,141,592,654" [ref=f1e22818]'
+                          - 'generic "Custo bruto estimado: 282984394.64; FIDC: CLOUDWALK A.I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 282,984,395; Saldo médio: 1,940,000,000" [ref=f1e22819]'
+                          - 'generic "Custo bruto estimado: 124741890.56; FIDC: CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 124,741,891; Saldo médio: 855,061,644" [ref=f1e22820]'
+                          - 'generic "Custo bruto estimado: 44063648.29; FIDC: CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS; Custo: 44,063,648; Saldo médio: 302,397,260" [ref=f1e22821]'
+                          - 'generic "Custo bruto estimado: 42160465.39; FIDC: CLOUDWALK BIG PICTURE II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 42,160,465; Saldo médio: 283,558,904" [ref=f1e22822]'
+                          - 'generic "Custo bruto estimado: 38016629.41; FIDC: CLOUDWALK BIG PICTURE IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 38,016,629; Saldo médio: 233,863,014" [ref=f1e22823]'
+                          - 'generic "Custo bruto estimado: 21161833.53; FIDC: CLOUDWALK BIG PICTURE III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO; Custo: 21,161,834; Saldo médio: 138,856,164" [ref=f1e22824]'
+                          - 'generic "Custo bruto estimado: 10204542.29; FIDC: CLOUDWALK KICK ASS I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS; Custo: 10,204,542; Saldo médio: 69,893,151" [ref=f1e22825]'
+                          - 'generic "Custo bruto estimado: 2459071.23; FIDC: CLOUDWALK AKIRA II FIDC; Custo: 2,459,071; Saldo médio: 16,630,296" [ref=f1e22826]'
+                  - group "Click to view actions"
+              - generic [ref=f1e22836]:
+                - button "Show/hide columns" [ref=f1e22840] [cursor=pointer]
+                - button "Download as CSV" [ref=f1e22846] [cursor=pointer]
+                - button "Search" [ref=f1e22852] [cursor=pointer]
+                - button "Fullscreen" [ref=f1e22858] [cursor=pointer]
+        - button "Scroll tabs right" [ref=f1e22635] [cursor=pointer]

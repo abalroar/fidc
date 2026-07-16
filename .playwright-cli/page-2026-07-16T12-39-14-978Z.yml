@@ -1,0 +1,191 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e699] [cursor=pointer]:
+        - paragraph [ref=e703]: Sobre
+      - button [ref=e704] [cursor=pointer]:
+        - paragraph [ref=e708]: Indústria
+      - button [ref=e709] [cursor=pointer]:
+        - paragraph [ref=e713]: Secundário
+      - button [ref=e714] [cursor=pointer]:
+        - paragraph [ref=e718]: Carteira
+      - button [ref=e719] [cursor=pointer]:
+        - paragraph [ref=e723]: Regulamentos
+      - button [ref=e724] [cursor=pointer]:
+        - paragraph [ref=e728]: Cloudwalk
+      - button [ref=e729] [cursor=pointer]:
+        - paragraph [ref=e733]: Glossário
+      - button [ref=e734] [cursor=pointer]:
+        - paragraph [ref=e738]: Modelagem
+    - generic [ref=e126]:
+      - generic [ref=e131]:
+        - heading "Indústria" [level=1] [ref=e133]:
+          - text: Indústria
+          - generic [ref=e134]:
+            - link "Link to heading":
+              - /url: "#sobre"
+        - paragraph [ref=e135]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=e140]:
+        - generic [ref=e141]: "Fonte: CVM e ANBIMA"
+        - generic [ref=e142]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=e143]: "Cobertura: 4.224 veículos"
+      - generic [ref=e145]:
+        - tablist [ref=e147]:
+          - tab [ref=e148] [cursor=pointer]:
+            - paragraph [ref=e150]: Executivo
+          - tab [selected] [ref=e151] [cursor=pointer]:
+            - paragraph [ref=e153]: Ofertas
+          - tab [ref=e154] [cursor=pointer]:
+            - paragraph [ref=e156]: Prestadores
+          - tab [ref=e157] [cursor=pointer]:
+            - paragraph [ref=e159]: Cedentes
+          - tab [ref=e160] [cursor=pointer]:
+            - paragraph [ref=e162]: Investidores
+          - tab [ref=e163] [cursor=pointer]:
+            - paragraph [ref=e165]: "> R$5 bi"
+          - tab [ref=e166] [cursor=pointer]:
+            - paragraph [ref=e168]: Dados e exportações
+        - tabpanel "Ofertas" [ref=e324]:
+          - generic [ref=e325]:
+            - heading "Atividade primária e tickets relevantes" [level=2] [ref=e331]:
+              - text: Atividade primária e tickets relevantes
+              - generic [ref=e332]:
+                - link "Link to heading":
+                  - /url: "#atividade-primaria-e-tickets-relevantes"
+            - generic [ref=e333]: Oferta válida = registro não revogado, suspenso ou caducado. Oferta inicial é o campo oficial da CVM; ofertas subsequentes permanecem na atividade total de DCM.
+            - generic [ref=e342]:
+              - button "Show/hide columns" [ref=e346] [cursor=pointer]
+              - button "Download as CSV" [ref=e352] [cursor=pointer]
+              - button "Search" [ref=e358] [cursor=pointer]
+              - button "Fullscreen" [ref=e364] [cursor=pointer]
+            - generic [ref=e380]:
+              - generic [ref=e381]:
+                - generic [ref=e382]: Itaú coordenação
+                - generic [ref=e383]: "#2"
+                - generic [ref=e384]: 16,7%
+              - generic [ref=e385]:
+                - generic [ref=e386]: Volume Itaú
+                - generic [ref=e387]: R$ 6,7 bi
+                - generic [ref=e388]: 2026YTD > R$300 mi
+              - generic [ref=e389]:
+                - generic [ref=e390]: Administração Itaú
+                - generic [ref=e391]: 1,9%
+                - generic [ref=e392]: nas ofertas relevantes
+              - generic [ref=e393]:
+                - generic [ref=e394]: Custódia Itaú
+                - generic [ref=e395]: 1,9%
+                - generic [ref=e396]: nas ofertas relevantes
+              - generic [ref=e397]:
+                - generic [ref=e398]: Monoestrutura
+                - generic [ref=e399]: 52,1%
+                - generic [ref=e400]: mesmo grupo em adm./gestão/custódia
+              - generic [ref=e401]:
+                - generic [ref=e402]: Mediana cotistas Itaú
+                - generic [ref=e403]: "44"
+                - generic [ref=e404]: ofertas encerradas com composição
+            - generic [ref=e406]:
+              - generic [ref=e410]:
+                - paragraph [ref=e414]: Período
+                - generic [ref=e416]:
+                  - generic [ref=e417]:
+                    - generic [ref=e418]: 2026YTD
+                    - combobox "Selected 2026YTD. Período" [ref=e420]
+                  - img "open" [ref=e422]
+              - generic [ref=e427]:
+                - paragraph [ref=e431]: Ticket
+                - generic [ref=e433]:
+                  - generic [ref=e434]:
+                    - generic [ref=e435]: ">= R$ 300 mi"
+                    - combobox "Selected >= R$ 300 mi. Ticket" [ref=e437]
+                  - img "open" [ref=e439]
+              - generic [ref=e444]:
+                - paragraph [ref=e448]: Papel
+                - generic [ref=e450]:
+                  - generic [ref=e451]:
+                    - generic [ref=e452]: administrador
+                    - combobox "Selected administrador. Papel" [active] [ref=e739]
+                  - img "open" [ref=e456]
+              - generic [ref=e461]:
+                - paragraph [ref=e465]: Segmento
+                - generic [ref=e467]:
+                  - generic [ref=e468]:
+                    - generic [ref=e469]: Todos
+                    - combobox "Selected Todos. Segmento" [ref=e471]
+                  - img "open" [ref=e473]
+            - generic [ref=e477]:
+              - generic [ref=e479]:
+                - button "Show data" [ref=e482] [cursor=pointer]
+                - button "Fullscreen" [ref=e488] [cursor=pointer]
+              - generic [ref=e492]:
+                - generic "Vega visualization" [ref=e740]:
+                  - img [ref=e741]:
+                    - generic [ref=e746]:
+                      - generic "X-axis titled 'R$ bi' for a linear scale with values from 0 to 9" [ref=e747]:
+                        - generic [ref=e749]:
+                          - generic:
+                            - generic: "0.0"
+                            - generic: "1.0"
+                            - generic: "2.0"
+                            - generic: "3.0"
+                            - generic: "4.0"
+                            - generic: "5.0"
+                            - generic: "6.0"
+                            - generic: "7.0"
+                            - generic: "8.0"
+                            - generic: "9.0"
+                            - generic: "0.5"
+                            - generic: "1.5"
+                            - generic: "2.5"
+                            - generic: "3.5"
+                            - generic: "4.5"
+                            - generic: "5.5"
+                            - generic: "6.5"
+                            - generic: "7.5"
+                            - generic: "8.5"
+                          - generic: R$ bi
+                      - 'generic "Y-axis for a discrete scale with 15 values: Oliveira Trust, Bradesco, Daycoval, Genial, Vert, ending with Qitech Corretora De Titulos E Valores Mobiliarios" [ref=e750]':
+                        - generic [ref=e752]:
+                          - generic:
+                            - generic: Oliveira Trust
+                            - generic: Bradesco
+                            - generic: Daycoval
+                            - generic: Genial
+                            - generic: Vert
+                            - generic: QI Tech
+                            - generic: BTG Pactual
+                            - generic: Singulare
+                            - generic: XP
+                            - generic: Limine Trust
+                            - generic: Itaú
+                            - generic: Vórtx
+                            - generic: Santander
+                            - generic: BRL Trust
+                            - generic: Qitech Corretora De Titulos E Valores Mobiliarios
+                      - generic [ref=e753]:
+                        - 'generic "R$ bi: 8.14329189022; participant: Oliveira Trust; volume_bi: 8.14; share: 20.3%; offers: 9" [ref=e761]'
+                        - 'generic "R$ bi: 7.5; participant: Bradesco; volume_bi: 7.50; share: 18.7%; offers: 2" [ref=e769]'
+                        - 'generic "R$ bi: 6.525; participant: Daycoval; volume_bi: 6.53; share: 16.3%; offers: 5" [ref=e777]'
+                        - 'generic "R$ bi: 3.5805; participant: Genial; volume_bi: 3.58; share: 8.9%; offers: 4" [ref=e785]'
+                        - 'generic "R$ bi: 3.41025; participant: Vert; volume_bi: 3.41; share: 8.5%; offers: 5" [ref=e793]'
+                        - 'generic "R$ bi: 2.1; participant: QI Tech; volume_bi: 2.10; share: 5.2%; offers: 5" [ref=e801]'
+                        - 'generic "R$ bi: 2.0979489875; participant: BTG Pactual; volume_bi: 2.10; share: 5.2%; offers: 4" [ref=e809]'
+                        - 'generic "R$ bi: 1.601; participant: Singulare; volume_bi: 1.60; share: 4.0%; offers: 2" [ref=e817]'
+                        - 'generic "R$ bi: 1.45; participant: XP; volume_bi: 1.45; share: 3.6%; offers: 2" [ref=e825]'
+                        - 'generic "R$ bi: 1.05; participant: Limine Trust; volume_bi: 1.05; share: 2.6%; offers: 2" [ref=e833]'
+                        - 'generic "R$ bi: 0.755000059; participant: Itaú; volume_bi: 0.76; share: 1.9%; offers: 2" [ref=e841]'
+                        - 'generic "R$ bi: 0.548; participant: Vórtx; volume_bi: 0.55; share: 1.4%; offers: 1" [ref=e849]'
+                        - 'generic "R$ bi: 0.502; participant: Santander; volume_bi: 0.50; share: 1.3%; offers: 1" [ref=e857]'
+                        - 'generic "R$ bi: 0.5; participant: BRL Trust; volume_bi: 0.50; share: 1.2%; offers: 1" [ref=e865]'
+                        - 'generic "R$ bi: 0.365; participant: Qitech Corretora De Titulos E Valores Mobiliarios; volume_bi: 0.36; share: 0.9%; offers: 1" [ref=e873]'
+                      - generic [ref=e876]:
+                        - generic "Title text 'Ranking de administrador · 2026YTD'": Ranking de administrador · 2026YTD
+                - group "Click to view actions"
+            - generic [ref=e639]:
+              - button "Show/hide columns" [ref=e643] [cursor=pointer]
+              - button "Download as CSV" [ref=e649] [cursor=pointer]
+              - button "Search" [ref=e655] [cursor=pointer]
+              - button "Fullscreen" [ref=e661] [cursor=pointer]

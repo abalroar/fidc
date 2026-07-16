@@ -1,0 +1,74 @@
+- generic [ref=f1e3]:
+  - banner
+  - generic [ref=f1e6]:
+    - generic [ref=f1e11]:
+      - generic [ref=f1e12]: tomaconta fidcs
+      - generic [ref=f1e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=f1e16]:
+      - button [ref=f1e21461] [cursor=pointer]:
+        - paragraph [ref=f1e21465]: Sobre
+      - button [ref=f1e21466] [cursor=pointer]:
+        - paragraph [ref=f1e21470]: Indústria
+      - button [ref=f1e21471] [cursor=pointer]:
+        - paragraph [ref=f1e21475]: Secundário
+      - button [ref=f1e21476] [cursor=pointer]:
+        - paragraph [ref=f1e21480]: Carteira
+      - button [ref=f1e21481] [cursor=pointer]:
+        - paragraph [ref=f1e21485]: Regulamentos
+      - button [ref=f1e21486] [cursor=pointer]:
+        - paragraph [ref=f1e21490]: Cloudwalk
+      - button [ref=f1e21491] [cursor=pointer]:
+        - paragraph [ref=f1e21495]: Glossário
+      - button [ref=f1e21496] [cursor=pointer]:
+        - paragraph [ref=f1e21500]: Modelagem
+    - generic [ref=f1e21502]:
+      - generic [ref=f1e21505]:
+        - heading "Regulamentos" [level=1] [ref=f1e21506]
+        - paragraph [ref=f1e21507]: Emissões, prazos, custos e critérios documentais relevantes para a carteira.
+      - group [ref=f1e21510]:
+        - generic "keyboard_arrow_right Waterfall Cloudwalk" [ref=f1e21511] [cursor=pointer]:
+          - generic [ref=f1e21512]:
+            - generic [ref=f1e21513]: keyboard_arrow_right
+            - paragraph [ref=f1e21517]: Waterfall Cloudwalk
+      - generic [ref=f1e21519]:
+        - paragraph [ref=f1e21523]: Carteira
+        - generic [ref=f1e21525]:
+          - generic [ref=f1e21526]:
+            - generic [ref=f1e21527]: Todos os pacotes
+            - combobox "Selected Todos os pacotes. Carteira" [ref=f1e21529]
+          - img "open" [ref=f1e21531]
+      - generic [ref=f1e21534]:
+        - paragraph [ref=f1e21538]: Pacote regulatório
+        - generic [ref=f1e21540]:
+          - generic [ref=f1e21541]:
+            - generic [ref=f1e21542]: Curadoria FIDC Investcred (Credsystem) · 2026-06-01T15:42:08-03:00
+            - combobox "Selected Curadoria FIDC Investcred (Credsystem) · 2026-06-01T15:42:08-03:00. Pacote regulatório" [ref=f1e21544]
+          - img "open" [ref=f1e21546]
+      - generic [ref=f1e21552]:
+        - generic [ref=f1e21553]: 1 fundo(s)
+        - generic [ref=f1e21554]: 2026-06-01T15:42:08-03:00
+        - generic [ref=f1e21555]: Extração offline local · CVM/Fundos.NET · IME cache
+        - generic [ref=f1e21556]: Uso interno
+      - heading "Emissões por tipo de cota" [level=4] [ref=f1e21562]:
+        - text: Emissões por tipo de cota
+        - generic [ref=f1e21563]:
+          - link "Link to heading":
+            - /url: "#emissoes-por-tipo-de-cota"
+      - generic [ref=f1e21568]:
+        - button "Show/hide columns" [ref=f1e21572] [cursor=pointer]
+        - button "Download as CSV" [ref=f1e21578] [cursor=pointer]
+        - button "Search" [ref=f1e21584] [cursor=pointer]
+        - button "Fullscreen" [ref=f1e21590] [cursor=pointer]
+      - generic [ref=f1e21602]: Volumes monetários são somados apenas quando o campo documental está identificado. Quantidades, prazos e custos/remuneração preservam lacunas explícitas em vez de virar zero.
+      - group [ref=f1e21609]:
+        - generic "keyboard_arrow_right Detalhe documental das emissões" [ref=f1e21610] [cursor=pointer]:
+          - generic [ref=f1e21611]:
+            - generic [ref=f1e21612]: keyboard_arrow_right
+            - paragraph [ref=f1e21616]: Detalhe documental das emissões
+      - generic [ref=f1e21618]:
+        - paragraph [ref=f1e21622]: Tabela regulatória
+        - generic [ref=f1e21624]:
+          - generic [ref=f1e21625]:
+            - generic [ref=f1e21626]: Comparativo principal
+            - combobox "Selected Comparativo principal. Tabela regulatória" [ref=f1e21628]
+          - img "open" [ref=f1e21630]

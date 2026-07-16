@@ -1,0 +1,82 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e1137] [cursor=pointer]:
+        - paragraph [ref=e1141]: Sobre
+      - button [ref=e1142] [cursor=pointer]:
+        - paragraph [ref=e1146]: Indústria
+      - button [ref=e1147] [cursor=pointer]:
+        - paragraph [ref=e1151]: Secundário
+      - button [ref=e1152] [cursor=pointer]:
+        - paragraph [ref=e1156]: Carteira
+      - button [ref=e1157] [cursor=pointer]:
+        - paragraph [ref=e1161]: Regulamentos
+      - button [ref=e1162] [cursor=pointer]:
+        - paragraph [ref=e1166]: Cloudwalk
+      - button [ref=e1167] [cursor=pointer]:
+        - paragraph [ref=e1171]: Glossário
+      - button [ref=e1172] [cursor=pointer]:
+        - paragraph [ref=e1176]: Modelagem
+    - generic [ref=e126]:
+      - generic [ref=e131]:
+        - heading "Indústria" [level=1] [ref=e133]:
+          - text: Indústria
+          - generic [ref=e134]:
+            - link "Link to heading":
+              - /url: "#sobre"
+        - paragraph [ref=e135]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=e140]:
+        - generic [ref=e141]: "Fonte: CVM e ANBIMA"
+        - generic [ref=e142]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=e143]: "Cobertura: 4.224 veículos"
+      - generic [ref=e145]:
+        - tablist [ref=e147]:
+          - tab [ref=e148] [cursor=pointer]:
+            - paragraph [ref=e150]: Executivo
+          - tab [ref=e151] [cursor=pointer]:
+            - paragraph [ref=e153]: Ofertas
+          - tab [ref=e154] [cursor=pointer]:
+            - paragraph [ref=e156]: Prestadores
+          - tab [ref=e157] [cursor=pointer]:
+            - paragraph [ref=e159]: Cedentes
+          - tab [ref=e160] [cursor=pointer]:
+            - paragraph [ref=e162]: Investidores
+          - tab [active] [selected] [ref=e163] [cursor=pointer]:
+            - paragraph [ref=e165]: "> R$5 bi"
+          - tab [ref=e166] [cursor=pointer]:
+            - paragraph [ref=e168]: Dados e exportações
+        - tabpanel "> R$5 bi" [ref=e1722]:
+          - generic [ref=e1723]:
+            - heading "FIDCs acima de R$ 5 bilhões" [level=2] [ref=e1729]:
+              - text: FIDCs acima de R$ 5 bilhões
+              - generic [ref=e1730]:
+                - link "Link to heading":
+                  - /url: "#fidcs-acima-de-r-5-bilhoes"
+            - generic [ref=e1735]:
+              - generic [ref=e1736]:
+                - generic [ref=e1737]: Fundos
+                - generic [ref=e1738]: "16"
+                - generic [ref=e1739]: corte maio/26
+              - generic [ref=e1740]:
+                - generic [ref=e1741]: PL coberto
+                - generic [ref=e1742]: R$ 200,1 bi
+                - generic [ref=e1743]: 16 maiores veículos
+              - generic [ref=e1744]:
+                - generic [ref=e1745]: Classificação publicável
+                - generic [ref=e1746]: 16/16
+                - generic [ref=e1747]: confiança alta
+            - generic [ref=e1752]:
+              - button "Show/hide columns" [ref=e1756] [cursor=pointer]
+              - button "Download as CSV" [ref=e1762] [cursor=pointer]
+              - button "Search" [ref=e1768] [cursor=pointer]
+              - button "Fullscreen" [ref=e1774] [cursor=pointer]
+            - generic [ref=e1786]: "CloudWalk confirma a necessidade do duplo rótulo: ANBIMA AGRO, INDUSTRIA E COMERCIO / CREDITO CORPORATIVO; lastro econômico Arranjos de pagamento/adquirência."
+            - group [ref=e1793]:
+              - generic "keyboard_arrow_right Dados e exportações" [ref=e1794] [cursor=pointer]:
+                - generic [ref=e1795]:
+                  - generic [ref=e1796]: keyboard_arrow_right
+                  - paragraph [ref=e1800]: Dados e exportações

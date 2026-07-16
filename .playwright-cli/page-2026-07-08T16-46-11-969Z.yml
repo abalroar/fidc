@@ -1,0 +1,738 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e19]:
+      - heading "tomaconta fidcs" [level=1] [ref=e20]
+      - generic [ref=e21]: por matheus prates, cfa
+    - radiogroup "button group" [ref=e23]:
+      - button "Sobre" [ref=e125] [cursor=pointer]:
+        - paragraph [ref=e129]: Sobre
+      - button "Indústria" [ref=e130] [cursor=pointer]:
+        - paragraph [ref=e134]: Indústria
+      - button "Carteira" [ref=e135] [cursor=pointer]:
+        - paragraph [ref=e139]: Carteira
+      - button "Regulamentos" [ref=e140] [cursor=pointer]:
+        - paragraph [ref=e144]: Regulamentos
+      - button "Estratégia" [ref=e145] [cursor=pointer]:
+        - paragraph [ref=e149]: Estratégia
+      - button "Cloudwalk" [ref=e150] [cursor=pointer]:
+        - paragraph [ref=e154]: Cloudwalk
+      - button "Glossário" [ref=e155] [cursor=pointer]:
+        - paragraph [ref=e159]: Glossário
+      - button "Modelagem" [ref=e160] [cursor=pointer]:
+        - paragraph [ref=e164]: Modelagem
+    - generic [ref=e68]:
+      - generic [ref=e69]: Indústria FIDCs
+      - generic [ref=e73]: Crescimento, fluxos e concentração
+      - generic [ref=e74]: Série CVM reconstruída de 2013 até 2026-05, com PL, captação líquida, cotistas, inadimplência e administradores. Universo CVM pode divergir da ANBIMA; metodologia no rodapé.
+    - generic [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e171]: PL total
+        - generic [ref=e172]: R$ 959 bi
+        - generic [ref=e173]: R$ 880 bi ex-FIC-FIDC · +22,5% em 12m
+      - generic [ref=e174]:
+        - generic [ref=e175]: Captação líquida 12m
+        - generic [ref=e176]: R$ 220 bi
+        - generic [ref=e177]: captações − resgates − amortizações
+      - generic [ref=e178]:
+        - generic [ref=e179]: Veículos reportantes
+        - generic [ref=e180]: "4.224"
+        - generic [ref=e181]: +772 em 12m
+      - generic [ref=e182]:
+        - generic [ref=e183]: Contas de cotistas
+        - generic [ref=e184]: 446 mil
+        - generic [ref=e185]: +90,3% em 12m
+      - generic [ref=e186]:
+        - generic [ref=e187]: Inadimplência ajustada
+        - generic [ref=e188]: 5,8%
+        - generic [ref=e189]: "bruta: 8,0%"
+      - generic [ref=e190]:
+        - generic [ref=e191]: Top 5 administradores
+        - generic [ref=e192]: 52,4%
+        - generic [ref=e193]: do PL administrado
+    - generic [ref=e195]:
+      - tablist [ref=e197]:
+        - tab "Universo" [ref=e198] [cursor=pointer]:
+          - paragraph [ref=e200]: Universo
+        - tab "Base granular" [ref=e201] [cursor=pointer]:
+          - paragraph [ref=e203]: Base granular
+        - tab "Emissões" [ref=e204] [cursor=pointer]:
+          - paragraph [ref=e206]: Emissões
+        - tab "Documentos" [ref=e207] [cursor=pointer]:
+          - paragraph [ref=e209]: Documentos
+        - tab "Critérios" [ref=e210] [cursor=pointer]:
+          - paragraph [ref=e212]: Critérios
+        - tab "Heatmaps" [ref=e213] [cursor=pointer]:
+          - paragraph [ref=e215]: Heatmaps
+        - tab "Cedentes" [ref=e216] [cursor=pointer]:
+          - paragraph [ref=e218]: Cedentes
+        - tab "Deep Dive" [ref=e219] [cursor=pointer]:
+          - paragraph [ref=e221]: Deep Dive
+        - tab "Pipeline" [active] [selected] [ref=e222] [cursor=pointer]:
+          - paragraph [ref=e224]: Pipeline
+      - tabpanel "Pipeline" [ref=e2406]:
+        - generic [ref=e2407]:
+          - generic [ref=e2412]: Pipeline mensal e cockpit de atualização
+          - generic [ref=e2417]: "Índice consolidado dos módulos da aba Indústria: base granular mensal, emissões, documentos, cedentes, critérios, fingerprints, freshness e comandos de refresh."
+          - generic [ref=e2422]:
+            - generic [ref=e2423]:
+              - generic [ref=e2424]: Módulos ok
+              - generic [ref=e2425]: 8/8
+              - generic [ref=e2426]: gerado 2026-07-08
+            - generic [ref=e2427]:
+              - generic [ref=e2428]: Artefatos presentes
+              - generic [ref=e2429]: 44/44
+              - generic [ref=e2430]: 0 ausentes
+            - generic [ref=e2431]:
+              - generic [ref=e2432]: Competência IME
+              - generic [ref=e2433]: "202605"
+              - generic [ref=e2434]: snapshot granular
+            - generic [ref=e2435]:
+              - generic [ref=e2436]: Snapshot FIDCs
+              - generic [ref=e2437]: "4.219"
+              - generic [ref=e2438]: base unificada
+            - generic [ref=e2439]:
+              - generic [ref=e2440]: Cedentes
+              - generic [ref=e2441]: "99"
+              - generic [ref=e2442]: FIDCs com evidência
+            - generic [ref=e2443]:
+              - generic [ref=e2444]: Sub mínima
+              - generic [ref=e2445]: 10,0%
+              - generic [ref=e2446]: 21 FIDCs
+          - generic [ref=e2448]:
+            - tablist [ref=e2450]:
+              - tab "Módulos" [selected] [ref=e2451] [cursor=pointer]:
+                - paragraph [ref=e2453]: Módulos
+              - tab "Refresh mensal" [ref=e2454] [cursor=pointer]:
+                - paragraph [ref=e2456]: Refresh mensal
+              - tab "Artefatos" [ref=e2457] [cursor=pointer]:
+                - paragraph [ref=e2459]: Artefatos
+              - tab "Manifesto" [ref=e2460] [cursor=pointer]:
+                - paragraph [ref=e2462]: Manifesto
+            - tabpanel "Módulos" [ref=e2465]:
+              - generic [ref=e2466]:
+                - generic [ref=e2471]:
+                  - button "Show/hide columns" [ref=e2475] [cursor=pointer]:
+                    - img [ref=e2476]
+                  - button "Download as CSV" [ref=e2481] [cursor=pointer]:
+                    - img [ref=e2482]
+                  - button "Search" [ref=e2487] [cursor=pointer]:
+                    - img [ref=e2488]
+                  - button "Fullscreen" [ref=e2493] [cursor=pointer]:
+                    - img [ref=e2494]
+                - generic [ref=e2507]:
+                  - generic [ref=e2509]:
+                    - button "Show data" [ref=e2512] [cursor=pointer]:
+                      - img [ref=e2513]
+                    - button "Fullscreen" [ref=e2518] [cursor=pointer]:
+                      - img [ref=e2519]
+                  - generic [ref=e2522]:
+                    - generic "Vega visualization" [ref=e2523]:
+                      - img [ref=e2524]:
+                        - generic [ref=e2529]:
+                          - generic "X-axis titled 'módulos' for a linear scale with values from 0 to 8" [ref=e2533]:
+                            - generic [ref=e2535]:
+                              - generic:
+                                - generic: "0.0"
+                                - generic: "0.2"
+                                - generic: "0.4"
+                                - generic: "0.6"
+                                - generic: "0.8"
+                                - generic: "1.0"
+                                - generic: "1.2"
+                                - generic: "1.4"
+                                - generic: "1.6"
+                                - generic: "1.8"
+                                - generic: "2.0"
+                                - generic: "2.2"
+                                - generic: "2.4"
+                                - generic: "2.6"
+                                - generic: "2.8"
+                                - generic: "3.0"
+                                - generic: "3.2"
+                                - generic: "3.4"
+                                - generic: "3.6"
+                                - generic: "3.8"
+                                - generic: "4.0"
+                                - generic: "4.2"
+                                - generic: "4.4"
+                                - generic: "4.6"
+                                - generic: "4.8"
+                                - generic: "5.0"
+                                - generic: "5.2"
+                                - generic: "5.4"
+                                - generic: "5.6"
+                                - generic: "5.8"
+                                - generic: "6.0"
+                                - generic: "6.2"
+                                - generic: "6.4"
+                                - generic: "6.6"
+                                - generic: "6.8"
+                                - generic: "7.0"
+                                - generic: "7.2"
+                                - generic: "7.4"
+                                - generic: "7.6"
+                                - generic: "7.8"
+                                - generic: "8.0"
+                              - generic:
+                                - generic: módulos
+                          - 'generic "Y-axis for a discrete scale with 1 value: ok" [ref=e2536]':
+                            - generic [ref=e2538]:
+                              - generic:
+                                - generic: ok
+                          - 'generic "módulos: 8; Status: ok; Módulos: 8" [ref=e2547]'
+                    - group "Click to view actions":
+                      - img [ref=e2549] [cursor=pointer]
+          - group [ref=e2555]:
+            - generic "keyboard_arrow_right Manifesto legado de cedentes" [ref=e2556] [cursor=pointer]:
+              - generic [ref=e2557]:
+                - generic [ref=e2559]: keyboard_arrow_right
+                - paragraph [ref=e2562]: Manifesto legado de cedentes
+    - generic [ref=e704]: Patrimônio líquido da indústria
+    - generic [ref=e709]: Soma do PL de todos os veículos reportantes (Tab IV), em R$ bilhões. A linha preta remove FIC-FIDC para reduzir dupla contagem potencial; picos de um único mês por veículo são excluídos.
+    - generic [ref=e711]:
+      - generic [ref=e713]:
+        - button "Show data" [ref=e716] [cursor=pointer]:
+          - img [ref=e717]
+        - button "Fullscreen" [ref=e722] [cursor=pointer]:
+          - img [ref=e723]
+      - generic [ref=e726]:
+        - generic "Vega visualization" [ref=e727]:
+          - img [ref=e728]:
+            - generic [ref=e733]:
+              - generic "X-axis for a time scale with values from January/13 to May/26" [ref=e737]:
+                - generic [ref=e739]:
+                  - generic:
+                    - generic: Jan/13
+                    - generic: Apr/13
+                    - generic: Jul/13
+                    - generic: Oct/13
+                    - generic: Jan/14
+                    - generic: Apr/14
+                    - generic: Jul/14
+                    - generic: Oct/14
+                    - generic: Jan/15
+                    - generic: Apr/15
+                    - generic: Jul/15
+                    - generic: Oct/15
+                    - generic: Jan/16
+                    - generic: Apr/16
+                    - generic: Jul/16
+                    - generic: Oct/16
+                    - generic: Jan/17
+                    - generic: Apr/17
+                    - generic: Jul/17
+                    - generic: Oct/17
+                    - generic: Jan/18
+                    - generic: Apr/18
+                    - generic: Jul/18
+                    - generic: Oct/18
+                    - generic: Jan/19
+                    - generic: Apr/19
+                    - generic: Jul/19
+                    - generic: Oct/19
+                    - generic: Jan/20
+                    - generic: Apr/20
+                    - generic: Jul/20
+                    - generic: Oct/20
+                    - generic: Jan/21
+                    - generic: Apr/21
+                    - generic: Jul/21
+                    - generic: Oct/21
+                    - generic: Jan/22
+                    - generic: Apr/22
+                    - generic: Jul/22
+                    - generic: Oct/22
+                    - generic: Jan/23
+                    - generic: Apr/23
+                    - generic: Jul/23
+                    - generic: Oct/23
+                    - generic: Jan/24
+                    - generic: Apr/24
+                    - generic: Jul/24
+                    - generic: Oct/24
+                    - generic: Jan/25
+                    - generic: Apr/25
+                    - generic: Jul/25
+                    - generic: Oct/25
+                    - generic: Jan/26
+                    - generic: Apr/26
+              - generic "Y-axis titled 'R$ bi' for a linear scale with values from 0 to 1,000" [ref=e740]:
+                - generic [ref=e742]:
+                  - generic:
+                    - generic: "0"
+                    - generic: "200"
+                    - generic: "400"
+                    - generic: "600"
+                    - generic: "800"
+                    - generic: 1,000
+                  - generic:
+                    - generic: R$ bi
+              - 'generic "mes: Jan/13; R$ bi: 69.0519908165; competência: 2013-01; PL total (R$ bi): 69.1; PL ex-FIC-FIDC (R$ bi): 68.3" [ref=e744]'
+              - generic [ref=e745]:
+                - 'generic "mes: Jan/13; R$ bi: 69.0519908165; serie: FIDCs + FIC-FIDCs; competência: 2013-01; série: FIDCs + FIC-FIDCs; PL (R$ bi): 69.1" [ref=e750]'
+                - 'generic "mes: Jan/13; R$ bi: 68.2513378064; serie: Somente FIDCs (ex-FIC-FIDCs); competência: 2013-01; série: Somente FIDCs (ex-FIC-FIDCs); PL (R$ bi): 68.3" [ref=e755]'
+              - 'generic "Symbol legend for stroke color and strokeDash with 2 values: FIDCs + FIC-FIDCs, Somente FIDCs (ex-FIC-FIDCs)" [ref=e756]':
+                - generic [ref=e762]:
+                  - generic [ref=e764]:
+                    - generic:
+                      - generic: FIDCs + FIC-FIDCs
+                  - generic [ref=e766]:
+                    - generic:
+                      - generic: Somente FIDCs (ex-FIC-FI…
+        - group "Click to view actions":
+          - img [ref=e768] [cursor=pointer]
+    - generic [ref=e773]:
+      - generic [ref=e775]:
+        - generic [ref=e780]: Captação líquida mensal
+        - generic [ref=e785]: Captações − resgates − amortizações (Tab X.4), últimos 48 meses. Laranja = entrada líquida; preto = saída líquida.
+        - generic [ref=e788]:
+          - generic [ref=e790]:
+            - button "Show data" [ref=e793] [cursor=pointer]:
+              - img [ref=e794]
+            - button "Fullscreen" [ref=e799] [cursor=pointer]:
+              - img [ref=e800]
+          - generic [ref=e803]:
+            - generic "Vega visualization" [ref=e804]:
+              - img [ref=e805]:
+                - generic [ref=e810]:
+                  - generic "X-axis for a time scale with values from May/22 to May/26" [ref=e814]:
+                    - generic [ref=e816]:
+                      - generic:
+                        - generic: Jul/22
+                        - generic: Oct/22
+                        - generic: Jan/23
+                        - generic: Apr/23
+                        - generic: Jul/23
+                        - generic: Oct/23
+                        - generic: Jan/24
+                        - generic: Apr/24
+                        - generic: Jul/24
+                        - generic: Oct/24
+                        - generic: Jan/25
+                        - generic: Apr/25
+                        - generic: Jul/25
+                        - generic: Oct/25
+                        - generic: Jan/26
+                        - generic: Apr/26
+                  - generic "Y-axis titled 'R$ bi' for a linear scale with values from −20 to 80" [ref=e817]:
+                    - generic [ref=e819]:
+                      - generic:
+                        - generic: "0"
+                        - generic: −20
+                        - generic: "20"
+                        - generic: "40"
+                        - generic: "60"
+                        - generic: "80"
+                      - generic:
+                        - generic: R$ bi
+                  - generic [ref=e820]:
+                    - 'generic "mes: Jun/22; R$ bi: −8.217196784; sinal: saída líquida; competência: 2022-06; captação líq. (R$ bi): −8.22" [ref=e828]'
+                    - 'generic "mes: Jul/22; R$ bi: −19.6139596379; sinal: saída líquida; competência: 2022-07; captação líq. (R$ bi): −19.61" [ref=e836]'
+                    - 'generic "mes: Aug/22; R$ bi: −9.87516101672; sinal: saída líquida; competência: 2022-08; captação líq. (R$ bi): −9.88" [ref=e844]'
+                    - 'generic "mes: Sep/22; R$ bi: 4.83896733758; sinal: entrada líquida; competência: 2022-09; captação líq. (R$ bi): 4.84" [ref=e852]'
+                    - 'generic "mes: Oct/22; R$ bi: 3.03602768636; sinal: entrada líquida; competência: 2022-10; captação líq. (R$ bi): 3.04" [ref=e860]'
+                    - 'generic "mes: Nov/22; R$ bi: 17.3183702868; sinal: entrada líquida; competência: 2022-11; captação líq. (R$ bi): 17.32" [ref=e868]'
+                    - 'generic "mes: Dec/22; R$ bi: 3.83102966979; sinal: entrada líquida; competência: 2022-12; captação líq. (R$ bi): 3.83" [ref=e876]'
+                    - 'generic "mes: Jan/23; R$ bi: −2.66933721272; sinal: saída líquida; competência: 2023-01; captação líq. (R$ bi): −2.67" [ref=e884]'
+                    - 'generic "mes: Feb/23; R$ bi: 1.98417711941; sinal: entrada líquida; competência: 2023-02; captação líq. (R$ bi): 1.98" [ref=e892]'
+                    - 'generic "mes: Mar/23; R$ bi: 7.55726616855; sinal: entrada líquida; competência: 2023-03; captação líq. (R$ bi): 7.56" [ref=e900]'
+                    - 'generic "mes: Apr/23; R$ bi: 11.8919117652; sinal: entrada líquida; competência: 2023-04; captação líq. (R$ bi): 11.89" [ref=e908]'
+                    - 'generic "mes: May/23; R$ bi: −9.76454355753; sinal: saída líquida; competência: 2023-05; captação líq. (R$ bi): −9.76" [ref=e916]'
+                    - 'generic "mes: Jun/23; R$ bi: 0.252826376667; sinal: entrada líquida; competência: 2023-06; captação líq. (R$ bi): 0.25" [ref=e924]'
+                    - 'generic "mes: Jul/23; R$ bi: 9.65338700323; sinal: entrada líquida; competência: 2023-07; captação líq. (R$ bi): 9.65" [ref=e932]'
+                    - 'generic "mes: Aug/23; R$ bi: −3.10251613106; sinal: saída líquida; competência: 2023-08; captação líq. (R$ bi): −3.10" [ref=e940]'
+                    - 'generic "mes: Sep/23; R$ bi: 2.94424747351; sinal: entrada líquida; competência: 2023-09; captação líq. (R$ bi): 2.94" [ref=e948]'
+                    - 'generic "mes: Oct/23; R$ bi: 16.0692344964; sinal: entrada líquida; competência: 2023-10; captação líq. (R$ bi): 16.07" [ref=e956]'
+                    - 'generic "mes: Nov/23; R$ bi: 11.0939080486; sinal: entrada líquida; competência: 2023-11; captação líq. (R$ bi): 11.09" [ref=e964]'
+                    - 'generic "mes: Dec/23; R$ bi: 12.2221139831; sinal: entrada líquida; competência: 2023-12; captação líq. (R$ bi): 12.22" [ref=e972]'
+                    - 'generic "mes: Jan/24; R$ bi: 5.91330869702; sinal: entrada líquida; competência: 2024-01; captação líq. (R$ bi): 5.91" [ref=e980]'
+                    - 'generic "mes: Feb/24; R$ bi: −2.31956378312; sinal: saída líquida; competência: 2024-02; captação líq. (R$ bi): −2.32" [ref=e988]'
+                    - 'generic "mes: Mar/24; R$ bi: 6.96175813037; sinal: entrada líquida; competência: 2024-03; captação líq. (R$ bi): 6.96" [ref=e996]'
+                    - 'generic "mes: Apr/24; R$ bi: 39.7751456026; sinal: entrada líquida; competência: 2024-04; captação líq. (R$ bi): 39.78" [ref=e1004]'
+                    - 'generic "mes: May/24; R$ bi: 2.56677101839; sinal: entrada líquida; competência: 2024-05; captação líq. (R$ bi): 2.57" [ref=e1012]'
+                    - 'generic "mes: Jun/24; R$ bi: 5.29612720567; sinal: entrada líquida; competência: 2024-06; captação líq. (R$ bi): 5.30" [ref=e1020]'
+                    - 'generic "mes: Jul/24; R$ bi: 48.0490748539; sinal: entrada líquida; competência: 2024-07; captação líq. (R$ bi): 48.05" [ref=e1028]'
+                    - 'generic "mes: Aug/24; R$ bi: 11.0610093963; sinal: entrada líquida; competência: 2024-08; captação líq. (R$ bi): 11.06" [ref=e1036]'
+                    - 'generic "mes: Sep/24; R$ bi: 9.45977584001; sinal: entrada líquida; competência: 2024-09; captação líq. (R$ bi): 9.46" [ref=e1044]'
+                    - 'generic "mes: Oct/24; R$ bi: 29.6175983123; sinal: entrada líquida; competência: 2024-10; captação líq. (R$ bi): 29.62" [ref=e1052]'
+                    - 'generic "mes: Nov/24; R$ bi: 44.7235565381; sinal: entrada líquida; competência: 2024-11; captação líq. (R$ bi): 44.72" [ref=e1060]'
+                    - 'generic "mes: Dec/24; R$ bi: 70.775541033; sinal: entrada líquida; competência: 2024-12; captação líq. (R$ bi): 70.78" [ref=e1068]'
+                    - 'generic "mes: Jan/25; R$ bi: −2.48833788959; sinal: saída líquida; competência: 2025-01; captação líq. (R$ bi): −2.49" [ref=e1076]'
+                    - 'generic "mes: Feb/25; R$ bi: 8.9287396687; sinal: entrada líquida; competência: 2025-02; captação líq. (R$ bi): 8.93" [ref=e1084]'
+                    - 'generic "mes: Mar/25; R$ bi: 8.11452494945; sinal: entrada líquida; competência: 2025-03; captação líq. (R$ bi): 8.11" [ref=e1092]'
+                    - 'generic "mes: Apr/25; R$ bi: 11.3773105643; sinal: entrada líquida; competência: 2025-04; captação líq. (R$ bi): 11.38" [ref=e1100]'
+                    - 'generic "mes: May/25; R$ bi: 14.1583104262; sinal: entrada líquida; competência: 2025-05; captação líq. (R$ bi): 14.16" [ref=e1108]'
+                    - 'generic "mes: Jun/25; R$ bi: 66.0047033561; sinal: entrada líquida; competência: 2025-06; captação líq. (R$ bi): 66.00" [ref=e1116]'
+                    - 'generic "mes: Jul/25; R$ bi: 10.1072034184; sinal: entrada líquida; competência: 2025-07; captação líq. (R$ bi): 10.11" [ref=e1124]'
+                    - 'generic "mes: Aug/25; R$ bi: 6.46205111565; sinal: entrada líquida; competência: 2025-08; captação líq. (R$ bi): 6.46" [ref=e1132]'
+                    - 'generic "mes: Sep/25; R$ bi: 10.6557704834; sinal: entrada líquida; competência: 2025-09; captação líq. (R$ bi): 10.66" [ref=e1140]'
+                    - 'generic "mes: Oct/25; R$ bi: 14.6537127358; sinal: entrada líquida; competência: 2025-10; captação líq. (R$ bi): 14.65" [ref=e1148]'
+                    - 'generic "mes: Nov/25; R$ bi: 5.65080150508; sinal: entrada líquida; competência: 2025-11; captação líq. (R$ bi): 5.65" [ref=e1156]'
+                    - 'generic "mes: Dec/25; R$ bi: 32.2000356278; sinal: entrada líquida; competência: 2025-12; captação líq. (R$ bi): 32.20" [ref=e1164]'
+                    - 'generic "mes: Jan/26; R$ bi: 6.53301901145; sinal: entrada líquida; competência: 2026-01; captação líq. (R$ bi): 6.53" [ref=e1172]'
+                    - 'generic "mes: Feb/26; R$ bi: 7.58537711701; sinal: entrada líquida; competência: 2026-02; captação líq. (R$ bi): 7.59" [ref=e1180]'
+                    - 'generic "mes: Mar/26; R$ bi: 22.3746784016; sinal: entrada líquida; competência: 2026-03; captação líq. (R$ bi): 22.37" [ref=e1188]'
+                    - 'generic "mes: Apr/26; R$ bi: 16.9753943885; sinal: entrada líquida; competência: 2026-04; captação líq. (R$ bi): 16.98" [ref=e1196]'
+                    - 'generic "mes: May/26; R$ bi: 20.3760972932; sinal: entrada líquida; competência: 2026-05; captação líq. (R$ bi): 20.38" [ref=e1204]'
+                  - 'generic "Symbol legend titled '' '' for fill color with 2 values: entrada líquida, saída líquida" [ref=e1205]':
+                    - generic [ref=e1211]:
+                      - generic [ref=e1213]:
+                        - generic:
+                          - generic: entrada líquida
+                      - generic [ref=e1215]:
+                        - generic:
+                          - generic: saída líquida
+            - group "Click to view actions":
+              - img [ref=e1217] [cursor=pointer]
+      - generic [ref=e1222]:
+        - generic [ref=e1227]: Contas de cotistas
+        - generic [ref=e1232]: Mil contas por classe/série (Tab X.1) — não são CPFs únicos. O salto pós-2024 reflete o acesso do varejo via RCVM 175.
+        - generic [ref=e1235]:
+          - generic [ref=e1237]:
+            - button "Show data" [ref=e1240] [cursor=pointer]:
+              - img [ref=e1241]
+            - button "Fullscreen" [ref=e1246] [cursor=pointer]:
+              - img [ref=e1247]
+          - generic [ref=e1250]:
+            - generic "Vega visualization" [ref=e1251]:
+              - img [ref=e1252]:
+                - generic [ref=e1257]:
+                  - generic "X-axis for a time scale with values from January/13 to May/26" [ref=e1261]:
+                    - generic [ref=e1263]:
+                      - generic:
+                        - generic: Jan/13
+                        - generic: Jan/14
+                        - generic: Jan/15
+                        - generic: Jan/16
+                        - generic: Jan/17
+                        - generic: Jan/18
+                        - generic: Jan/19
+                        - generic: Jan/20
+                        - generic: Jan/21
+                        - generic: Jan/22
+                        - generic: Jan/23
+                        - generic: Jan/24
+                        - generic: Jan/25
+                        - generic: Jan/26
+                  - generic "Y-axis titled 'mil contas' for a linear scale with values from 0 to 450" [ref=e1264]:
+                    - generic [ref=e1266]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "100"
+                        - generic: "200"
+                        - generic: "300"
+                        - generic: "400"
+                      - generic:
+                        - generic: mil contas
+                  - 'generic "mes: Jan/13; mil contas: 21.46; competência: 2013-01" [ref=e1268]'
+            - group "Click to view actions":
+              - img [ref=e1270] [cursor=pointer]
+    - generic [ref=e1275]:
+      - generic [ref=e1277]:
+        - generic [ref=e1282]: Inadimplência da carteira
+        - generic [ref=e1287]: "% da carteira de direitos creditórios (Tab I). Laranja = ajustada (inadimplência de cada veículo limitada à própria carteira); preto = bruta (como reportada, NPL a valor de face)."
+        - generic [ref=e1290]:
+          - generic [ref=e1292]:
+            - button "Show data" [ref=e1295] [cursor=pointer]:
+              - img [ref=e1296]
+            - button "Fullscreen" [ref=e1301] [cursor=pointer]:
+              - img [ref=e1302]
+          - generic [ref=e1305]:
+            - generic "Vega visualization" [ref=e1306]:
+              - img [ref=e1307]:
+                - generic [ref=e1312]:
+                  - generic "X-axis for a time scale with values from January/13 to May/26" [ref=e1316]:
+                    - generic [ref=e1318]:
+                      - generic:
+                        - generic: Jan/13
+                        - generic: Jan/14
+                        - generic: Jan/15
+                        - generic: Jan/16
+                        - generic: Jan/17
+                        - generic: Jan/18
+                        - generic: Jan/19
+                        - generic: Jan/20
+                        - generic: Jan/21
+                        - generic: Jan/22
+                        - generic: Jan/23
+                        - generic: Jan/24
+                        - generic: Jan/25
+                        - generic: Jan/26
+                  - generic "Y-axis titled '% da carteira' for a linear scale with values from 0 to 35" [ref=e1319]:
+                    - generic [ref=e1321]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "10"
+                        - generic: "20"
+                        - generic: "30"
+                      - generic:
+                        - generic: "% da carteira"
+                  - generic [ref=e1322]:
+                    - 'generic "mes: Jan/13; % da carteira: 1.61933146646; serie: ajustada; competência: 2013-01; série: ajustada; %: 1.6" [ref=e1327]'
+                    - 'generic "mes: Jan/13; % da carteira: 2.41531545983; serie: bruta; competência: 2013-01; série: bruta; %: 2.4" [ref=e1332]'
+                  - 'generic "Symbol legend titled '' '' for stroke color with 2 values: ajustada, bruta" [ref=e1333]':
+                    - generic [ref=e1339]:
+                      - generic [ref=e1341]:
+                        - generic:
+                          - generic: ajustada
+                      - generic [ref=e1343]:
+                        - generic:
+                          - generic: bruta
+            - group "Click to view actions":
+              - img [ref=e1345] [cursor=pointer]
+      - generic [ref=e1350]:
+        - generic [ref=e1355]: Concentração de administradores
+        - generic [ref=e1360]: Participação no PL total administrado. Laranja = top 10 administradores; preto = top 5 administradores.
+        - generic [ref=e1363]:
+          - generic [ref=e1365]:
+            - button "Show data" [ref=e1368] [cursor=pointer]:
+              - img [ref=e1369]
+            - button "Fullscreen" [ref=e1374] [cursor=pointer]:
+              - img [ref=e1375]
+          - generic [ref=e1378]:
+            - generic "Vega visualization" [ref=e1379]:
+              - img [ref=e1380]:
+                - generic [ref=e1385]:
+                  - generic "X-axis for a time scale with values from January/13 to May/26" [ref=e1389]:
+                    - generic [ref=e1391]:
+                      - generic:
+                        - generic: Jan/13
+                        - generic: Jan/14
+                        - generic: Jan/15
+                        - generic: Jan/16
+                        - generic: Jan/17
+                        - generic: Jan/18
+                        - generic: Jan/19
+                        - generic: Jan/20
+                        - generic: Jan/21
+                        - generic: Jan/22
+                        - generic: Jan/23
+                        - generic: Jan/24
+                        - generic: Jan/25
+                        - generic: Jan/26
+                  - generic "Y-axis titled '% do PL' for a linear scale with values from 0 to 90" [ref=e1392]:
+                    - generic [ref=e1394]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "20"
+                        - generic: "40"
+                        - generic: "60"
+                        - generic: "80"
+                      - generic:
+                        - generic: "% do PL"
+                  - generic [ref=e1395]:
+                    - 'generic "mes: Jan/13; % do PL: 82.950000928; serie: top 10; competência: 2013-01; série: top 10; %: 83.0" [ref=e1400]'
+                    - 'generic "mes: Jan/13; % do PL: 65.0487529746; serie: top 5; competência: 2013-01; série: top 5; %: 65.0" [ref=e1405]'
+                  - 'generic "Symbol legend titled '' '' for stroke color with 2 values: top 10, top 5" [ref=e1406]':
+                    - generic [ref=e1412]:
+                      - generic [ref=e1414]:
+                        - generic:
+                          - generic: top 10
+                      - generic [ref=e1416]:
+                        - generic:
+                          - generic: top 5
+            - group "Click to view actions":
+              - img [ref=e1418] [cursor=pointer]
+    - generic [ref=e1423]:
+      - generic [ref=e1425]:
+        - generic [ref=e1430]: Carteira por tipo de recebível
+        - generic [ref=e1435]: R$ bilhões em 2026-05 · classificação oficial da Tab II.
+        - generic [ref=e1438]:
+          - generic [ref=e1440]:
+            - button "Show data" [ref=e1443] [cursor=pointer]:
+              - img [ref=e1444]
+            - button "Fullscreen" [ref=e1449] [cursor=pointer]:
+              - img [ref=e1450]
+          - generic [ref=e1453]:
+            - generic "Vega visualization" [ref=e1454]:
+              - img [ref=e1455]:
+                - generic [ref=e1460]:
+                  - generic "X-axis titled 'R$ bi' for a linear scale with values from 0 to 350" [ref=e1464]:
+                    - generic [ref=e1466]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "20"
+                        - generic: "40"
+                        - generic: "60"
+                        - generic: "80"
+                        - generic: "100"
+                        - generic: "120"
+                        - generic: "140"
+                        - generic: "160"
+                        - generic: "180"
+                        - generic: "200"
+                        - generic: "220"
+                        - generic: "240"
+                        - generic: "260"
+                        - generic: "280"
+                        - generic: "300"
+                        - generic: "320"
+                        - generic: "340"
+                      - generic:
+                        - generic: R$ bi
+                  - 'generic "Y-axis for a discrete scale with 10 values: Financeiro, Comercial, Cartao de credito, Industrial, Servicos, ending with Factoring" [ref=e1467]':
+                    - generic [ref=e1469]:
+                      - generic:
+                        - generic: Financeiro
+                        - generic: Comercial
+                        - generic: Cartao de credito
+                        - generic: Industrial
+                        - generic: Servicos
+                        - generic: Setor publico
+                        - generic: Acoes judiciais
+                        - generic: Agronegocio
+                        - generic: Imobiliario
+                        - generic: Factoring
+                  - generic [ref=e1470]:
+                    - 'generic "R$ bi: 311.597544547; segmento: Financeiro" [ref=e1478]'
+                    - 'generic "R$ bi: 116.431147103; segmento: Comercial" [ref=e1486]'
+                    - 'generic "R$ bi: 77.8496152595; segmento: Cartao de credito" [ref=e1494]'
+                    - 'generic "R$ bi: 74.1266080757; segmento: Industrial" [ref=e1502]'
+                    - 'generic "R$ bi: 70.0637076626; segmento: Servicos" [ref=e1510]'
+                    - 'generic "R$ bi: 38.8323370773; segmento: Setor publico" [ref=e1518]'
+                    - 'generic "R$ bi: 27.3155288317; segmento: Acoes judiciais" [ref=e1526]'
+                    - 'generic "R$ bi: 9.31907568865; segmento: Agronegocio" [ref=e1534]'
+                    - 'generic "R$ bi: 3.14082932857; segmento: Imobiliario" [ref=e1542]'
+                    - 'generic "R$ bi: 0.08783373547; segmento: Factoring" [ref=e1550]'
+            - group "Click to view actions":
+              - img [ref=e1552] [cursor=pointer]
+      - generic [ref=e1557]:
+        - generic [ref=e1562]: Top 10 administradores por PL
+        - generic [ref=e1567]: R$ bilhões em 2026-05 (Tab I + IV, auditável mês a mês).
+        - generic [ref=e1570]:
+          - generic [ref=e1572]:
+            - button "Show data" [ref=e1575] [cursor=pointer]:
+              - img [ref=e1576]
+            - button "Fullscreen" [ref=e1581] [cursor=pointer]:
+              - img [ref=e1582]
+          - generic [ref=e1585]:
+            - generic "Vega visualization" [ref=e1586]:
+              - img [ref=e1587]:
+                - generic [ref=e1592]:
+                  - generic "X-axis titled 'R$ bi' for a linear scale with values from 0 to 160" [ref=e1596]:
+                    - generic [ref=e1598]:
+                      - generic:
+                        - generic: "0"
+                        - generic: "20"
+                        - generic: "40"
+                        - generic: "60"
+                        - generic: "80"
+                        - generic: "100"
+                        - generic: "120"
+                        - generic: "140"
+                        - generic: "160"
+                      - generic:
+                        - generic: R$ bi
+                  - 'generic "Y-axis for a discrete scale with 10 values: BTG PACTUAL SERVIÇOS FINANCEIROS DTVM, QI CTVM, OLIVEIRA TRUST DTVM, BB GESTAO DE RECURSOS DTVM S.A, BANCO DAYCOVAL, ending with HEMERA DTVM" [ref=e1599]':
+                    - generic [ref=e1601]:
+                      - generic:
+                        - generic: BTG PACTUAL SERVIÇOS FINANCEIROS DTVM
+                        - generic: QI CTVM
+                        - generic: OLIVEIRA TRUST DTVM
+                        - generic: BB GESTAO DE RECURSOS DTVM S.A
+                        - generic: BANCO DAYCOVAL
+                        - generic: BEM - DTVM
+                        - generic: CBSF DTVM
+                        - generic: INTRAG DTVM
+                        - generic: GENIAL INVESTIMENTOS CVM
+                        - generic: HEMERA DTVM
+                  - generic [ref=e1602]:
+                    - 'generic "R$ bi: 146.427014609; nome_curto: BTG PACTUAL SERVIÇOS FINANCEIROS DTVM; administrador: BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM; PL (R$ bi): 146.4; veículos: 430" [ref=e1610]'
+                    - 'generic "R$ bi: 139.239433515; nome_curto: QI CTVM; administrador: QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.; PL (R$ bi): 139.2; veículos: 821" [ref=e1618]'
+                    - 'generic "R$ bi: 97.6771035824; nome_curto: OLIVEIRA TRUST DTVM; administrador: OLIVEIRA TRUST DTVM S.A.; PL (R$ bi): 97.7; veículos: 156" [ref=e1626]'
+                    - 'generic "R$ bi: 60.9007464433; nome_curto: BB GESTAO DE RECURSOS DTVM S.A; administrador: BB GESTAO DE RECURSOS DTVM S.A; PL (R$ bi): 60.9; veículos: 3" [ref=e1634]'
+                    - 'generic "R$ bi: 57.6833852334; nome_curto: BANCO DAYCOVAL; administrador: BANCO DAYCOVAL S.A.; PL (R$ bi): 57.7; veículos: 398" [ref=e1642]'
+                    - 'generic "R$ bi: 51.3838399032; nome_curto: BEM - DTVM; administrador: BEM - DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA.; PL (R$ bi): 51.4; veículos: 46" [ref=e1650]'
+                    - 'generic "R$ bi: 42.9615243827; nome_curto: CBSF DTVM; administrador: CBSF DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.; PL (R$ bi): 43.0; veículos: 80" [ref=e1658]'
+                    - 'generic "R$ bi: 31.60979776; nome_curto: INTRAG DTVM; administrador: INTRAG DTVM LTDA.; PL (R$ bi): 31.6; veículos: 40" [ref=e1666]'
+                    - 'generic "R$ bi: 30.7559540777; nome_curto: GENIAL INVESTIMENTOS CVM; administrador: GENIAL INVESTIMENTOS CORRETORA DE VALORES MOBILIÁRIOS S.A.; PL (R$ bi): 30.8; veículos: 83" [ref=e1674]'
+                    - 'generic "R$ bi: 24.5467448695; nome_curto: HEMERA DTVM; administrador: HEMERA DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA; PL (R$ bi): 24.5; veículos: 127" [ref=e1682]'
+            - group "Click to view actions":
+              - img [ref=e1684] [cursor=pointer]
+    - generic [ref=e1692]: Curadoria regulatória do universo
+    - generic [ref=e1697]: Leitura documental estruturada para cedentes/sacados, subordinação mínima e critérios monitoráveis. As contagens abaixo são de curadoria, não de informação obrigatória padronizada no IME.
+    - generic [ref=e1702]:
+      - generic [ref=e1703]:
+        - generic [ref=e1704]: CNPJs no SQLite
+        - generic [ref=e1705]: "7.399"
+        - generic [ref=e1706]: data-base 2026-06-09
+      - generic [ref=e1707]:
+        - generic [ref=e1708]: Matrizes lidas
+        - generic [ref=e1709]: "764"
+        - generic [ref=e1710]: regulamentos/documentos parseados
+      - generic [ref=e1711]:
+        - generic [ref=e1712]: Cedente/originador
+        - generic [ref=e1713]: "135"
+        - generic [ref=e1714]: FIDCs com menção nomeada
+      - generic [ref=e1715]:
+        - generic [ref=e1716]: Sacado/devedor
+        - generic [ref=e1717]: "84"
+        - generic [ref=e1718]: FIDCs com menção nomeada
+      - generic [ref=e1719]:
+        - generic [ref=e1720]: Sub mínima mediana
+        - generic [ref=e1721]: 10,0%
+        - generic [ref=e1722]: 31 regras · 21 FIDCs
+      - generic [ref=e1723]:
+        - generic [ref=e1724]: Critérios all FIDCs
+        - generic [ref=e1725]: "183"
+        - generic [ref=e1726]: 56 FIDCs com evidência
+    - generic [ref=e1731]:
+      - text: "Sub mínima: mediana dos percentuais mínimos extraídos em"
+      - code [ref=e1732]: all_fidcs_criteria_monitoraveis_ime.csv
+      - text: ; intervalo interquartil 7,0%–25,0%. Quando há mais de um percentual na mesma regra, usa-se o menor valor explícito como mínimo conservador.
+    - generic [ref=e1734]:
+      - generic [ref=e1736]:
+        - paragraph [ref=e1741]:
+          - strong [ref=e1742]: Cobertura por setor
+        - generic [ref=e1747]:
+          - button "Show/hide columns" [ref=e1751] [cursor=pointer]:
+            - img [ref=e1752]
+          - button "Download as CSV" [ref=e1757] [cursor=pointer]:
+            - img [ref=e1758]
+          - button "Search" [ref=e1763] [cursor=pointer]:
+            - img [ref=e1764]
+          - button "Fullscreen" [ref=e1769] [cursor=pointer]:
+            - img [ref=e1770]
+      - generic [ref=e1782]:
+        - paragraph [ref=e1787]:
+          - strong [ref=e1788]: Cedente, sacado e consultora
+        - generic [ref=e1793]:
+          - button "Show/hide columns" [ref=e1797] [cursor=pointer]:
+            - img [ref=e1798]
+          - button "Download as CSV" [ref=e1803] [cursor=pointer]:
+            - img [ref=e1804]
+          - button "Search" [ref=e1809] [cursor=pointer]:
+            - img [ref=e1810]
+          - button "Fullscreen" [ref=e1815] [cursor=pointer]:
+            - img [ref=e1816]
+    - generic [ref=e1828]:
+      - tablist [ref=e1830]:
+        - tab "Sub mínima" [selected] [ref=e1831] [cursor=pointer]:
+          - paragraph [ref=e1833]: Sub mínima
+        - tab "Critérios" [ref=e1834] [cursor=pointer]:
+          - paragraph [ref=e1836]: Critérios
+        - tab "Cedentes" [ref=e1837] [cursor=pointer]:
+          - paragraph [ref=e1839]: Cedentes
+        - tab "Fila" [ref=e1840] [cursor=pointer]:
+          - paragraph [ref=e1842]: Fila
+      - tabpanel "Sub mínima" [ref=e1845]:
+        - generic [ref=e1851]:
+          - button "Show/hide columns" [ref=e1855] [cursor=pointer]:
+            - img [ref=e1856]
+          - button "Download as CSV" [ref=e1861] [cursor=pointer]:
+            - img [ref=e1862]
+          - button "Search" [ref=e1867] [cursor=pointer]:
+            - img [ref=e1868]
+          - button "Fullscreen" [ref=e1873] [cursor=pointer]:
+            - img [ref=e1874]
+    - group [ref=e1887]:
+      - generic "keyboard_arrow_right Dados anuais (dezembro de cada ano)" [ref=e1888] [cursor=pointer]:
+        - generic [ref=e1889]:
+          - generic [ref=e1891]: keyboard_arrow_right
+          - paragraph [ref=e1894]: Dados anuais (dezembro de cada ano)
+    - group [ref=e1897]:
+      - generic "keyboard_arrow_right Metodologia, fontes e limitações" [ref=e1898] [cursor=pointer]:
+        - generic [ref=e1899]:
+          - generic [ref=e1901]: keyboard_arrow_right
+          - paragraph [ref=e1904]: Metodologia, fontes e limitações

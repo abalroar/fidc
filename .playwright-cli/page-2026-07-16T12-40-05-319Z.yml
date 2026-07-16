@@ -1,0 +1,187 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e1137] [cursor=pointer]:
+        - paragraph [ref=e1141]: Sobre
+      - button [ref=e1142] [cursor=pointer]:
+        - paragraph [ref=e1146]: Indústria
+      - button [ref=e1147] [cursor=pointer]:
+        - paragraph [ref=e1151]: Secundário
+      - button [ref=e1152] [cursor=pointer]:
+        - paragraph [ref=e1156]: Carteira
+      - button [ref=e1157] [cursor=pointer]:
+        - paragraph [ref=e1161]: Regulamentos
+      - button [ref=e1162] [cursor=pointer]:
+        - paragraph [ref=e1166]: Cloudwalk
+      - button [ref=e1167] [cursor=pointer]:
+        - paragraph [ref=e1171]: Glossário
+      - button [ref=e1172] [cursor=pointer]:
+        - paragraph [ref=e1176]: Modelagem
+    - generic [ref=e126]:
+      - generic [ref=e131]:
+        - heading "Indústria" [level=1] [ref=e133]:
+          - text: Indústria
+          - generic [ref=e134]:
+            - link "Link to heading":
+              - /url: "#sobre"
+        - paragraph [ref=e135]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=e140]:
+        - generic [ref=e141]: "Fonte: CVM e ANBIMA"
+        - generic [ref=e142]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=e143]: "Cobertura: 4.224 veículos"
+      - generic [ref=e145]:
+        - tablist [ref=e147]:
+          - tab [ref=e148] [cursor=pointer]:
+            - paragraph [ref=e150]: Executivo
+          - tab [ref=e151] [cursor=pointer]:
+            - paragraph [ref=e153]: Ofertas
+          - tab [ref=e154] [cursor=pointer]:
+            - paragraph [ref=e156]: Prestadores
+          - tab [ref=e157] [cursor=pointer]:
+            - paragraph [ref=e159]: Cedentes
+          - tab [active] [selected] [ref=e160] [cursor=pointer]:
+            - paragraph [ref=e162]: Investidores
+          - tab [ref=e163] [cursor=pointer]:
+            - paragraph [ref=e165]: "> R$5 bi"
+          - tab [ref=e166] [cursor=pointer]:
+            - paragraph [ref=e168]: Dados e exportações
+        - tabpanel "Investidores" [ref=e1518]:
+          - generic [ref=e1519]:
+            - heading "Concentração e perfil da colocação" [level=2] [ref=e1525]:
+              - text: Concentração e perfil da colocação
+              - generic [ref=e1526]:
+                - link "Link to heading":
+                  - /url: "#concentracao-e-perfil-da-colocacao"
+            - generic [ref=e1531]:
+              - generic [ref=e1532]:
+                - generic [ref=e1533]: Ofertas c/ composição
+                - generic [ref=e1534]: "209"
+                - generic [ref=e1535]: 2026YTD
+              - generic [ref=e1536]:
+                - generic [ref=e1537]: 1 investidor
+                - generic [ref=e1538]: 30,1%
+                - generic [ref=e1539]: ofertas encerradas com dado
+              - generic [ref=e1540]:
+                - generic [ref=e1541]: Mediana
+                - generic [ref=e1542]: "3"
+                - generic [ref=e1543]: investidores por oferta
+              - generic [ref=e1544]:
+                - generic [ref=e1545]: Cobertura
+                - generic [ref=e1546]: 95,9%
+                - generic [ref=e1547]: ofertas encerradas
+            - generic [ref=e1549]:
+              - generic [ref=e1554]:
+                - generic [ref=e1556]:
+                  - button "Show data" [ref=e1559] [cursor=pointer]
+                  - button "Fullscreen" [ref=e1565] [cursor=pointer]
+                - generic [ref=e1569]:
+                  - generic "Vega visualization" [ref=e1570]:
+                    - img [ref=e1571]:
+                      - generic [ref=e1576]:
+                        - 'generic "X-axis for a discrete scale with 3 values: 2024, 2025, 2026YTD" [ref=e1580]':
+                          - generic [ref=e1582]:
+                            - generic:
+                              - generic: "2024"
+                              - generic: "2025"
+                              - generic: 2026YTD
+                        - generic "Y-axis titled '% das ofertas' for a linear scale with values from 0% to 100%" [ref=e1583]:
+                          - generic [ref=e1585]:
+                            - generic:
+                              - generic: 0%
+                              - generic: 20%
+                              - generic: 40%
+                              - generic: 60%
+                              - generic: 80%
+                              - generic: 100%
+                            - generic: "% das ofertas"
+                        - generic [ref=e1586]:
+                          - 'generic "period: 2024; % das ofertas: 26.976365%; investor_bucket: 1 investidor; offer_share: 27.0%" [ref=e1587]'
+                          - 'generic "period: 2024; % das ofertas: 14.751426%; investor_bucket: 2 investidores; offer_share: 14.8%" [ref=e1588]'
+                          - 'generic "period: 2024; % das ofertas: 12.387938%; investor_bucket: 21+ investidores; offer_share: 12.4%" [ref=e1589]'
+                          - 'generic "period: 2024; % das ofertas: 22.330888%; investor_bucket: 3-5 investidores; offer_share: 22.3%" [ref=e1590]'
+                          - 'generic "period: 2024; % das ofertas: 23.553382%; investor_bucket: 6-20 investidores; offer_share: 23.6%" [ref=e1591]'
+                          - 'generic "period: 2025; % das ofertas: 27.781617%; investor_bucket: 1 investidor; offer_share: 27.8%" [ref=e1592]'
+                          - 'generic "period: 2025; % das ofertas: 14.789219%; investor_bucket: 2 investidores; offer_share: 14.8%" [ref=e1593]'
+                          - 'generic "period: 2025; % das ofertas: 11.679337%; investor_bucket: 21+ investidores; offer_share: 11.7%" [ref=e1594]'
+                          - 'generic "period: 2025; % das ofertas: 21.147201%; investor_bucket: 3-5 investidores; offer_share: 21.1%" [ref=e1595]'
+                          - 'generic "period: 2025; % das ofertas: 24.602626%; investor_bucket: 6-20 investidores; offer_share: 24.6%" [ref=e1596]'
+                          - 'generic "period: 2026YTD; % das ofertas: 30.143541%; investor_bucket: 1 investidor; offer_share: 30.1%" [ref=e1597]'
+                          - 'generic "period: 2026YTD; % das ofertas: 16.267943%; investor_bucket: 2 investidores; offer_share: 16.3%" [ref=e1598]'
+                          - 'generic "period: 2026YTD; % das ofertas: 14.832536%; investor_bucket: 21+ investidores; offer_share: 14.8%" [ref=e1599]'
+                          - 'generic "period: 2026YTD; % das ofertas: 17.703349%; investor_bucket: 3-5 investidores; offer_share: 17.7%" [ref=e1600]'
+                          - 'generic "period: 2026YTD; % das ofertas: 21.052632%; investor_bucket: 6-20 investidores; offer_share: 21.1%" [ref=e1601]'
+                        - 'generic "Symbol legend titled '' '' for fill color with 5 values: 1 investidor, 2 investidores, 3-5 investidores, 6-20 investidores, 21+ investidores" [ref=e1602]':
+                          - generic [ref=e1608]:
+                            - generic [ref=e1609]: 1 investidor
+                            - generic [ref=e1611]: 2 investidores
+                            - generic [ref=e1613]: 3-5 investidores
+                            - generic [ref=e1615]: 6-20 investidores
+                            - generic [ref=e1617]: 21+ investidores
+                        - generic [ref=e1621]:
+                          - generic "Title text 'Número de investidores por oferta'": Número de investidores por oferta
+                  - group "Click to view actions"
+              - generic [ref=e1631]:
+                - generic [ref=e1633]:
+                  - button "Show data" [ref=e1636] [cursor=pointer]
+                  - button "Fullscreen" [ref=e1642] [cursor=pointer]
+                - generic [ref=e1646]:
+                  - generic "Vega visualization" [ref=e1647]:
+                    - img [ref=e1648]:
+                      - generic [ref=e1653]:
+                        - generic "X-axis titled 'R$ bi, proxy' for a linear scale with values from 0 to 24" [ref=e1654]:
+                          - generic [ref=e1656]:
+                            - generic:
+                              - generic: "0"
+                              - generic: "2"
+                              - generic: "4"
+                              - generic: "6"
+                              - generic: "8"
+                              - generic: "10"
+                              - generic: "12"
+                              - generic: "14"
+                              - generic: "16"
+                              - generic: "18"
+                              - generic: "20"
+                              - generic: "22"
+                              - generic: "24"
+                            - generic: R$ bi, proxy
+                        - 'generic "Y-axis for a discrete scale with 8 values: Fundos de investimento, Instituições financeiras, Pessoa natural, Demais pessoas jurídicas, Clubes de investimento, ending with Investidor estrangeiro" [ref=e1657]':
+                          - generic [ref=e1659]:
+                            - generic:
+                              - generic: Fundos de investimento
+                              - generic: Instituições financeiras
+                              - generic: Pessoa natural
+                              - generic: Demais pessoas jurídicas
+                              - generic: Clubes de investimento
+                              - generic: Seguradoras
+                              - generic: Previdência
+                              - generic: Investidor estrangeiro
+                        - generic [ref=e1660]:
+                          - 'generic "R$ bi, proxy: 22.5678711285; investor_type: Fundos de investimento; valor_bi: 22.57; value_share: 73.5%" [ref=e1668]'
+                          - 'generic "R$ bi, proxy: 6.57982106431; investor_type: Instituições financeiras; valor_bi: 6.58; value_share: 21.4%" [ref=e1676]'
+                          - 'generic "R$ bi, proxy: 1.10109153253; investor_type: Pessoa natural; valor_bi: 1.10; value_share: 3.6%" [ref=e1684]'
+                          - 'generic "R$ bi, proxy: 0.280813178385; investor_type: Demais pessoas jurídicas; valor_bi: 0.28; value_share: 0.9%" [ref=e1692]'
+                          - 'generic "R$ bi, proxy: 0.151; investor_type: Clubes de investimento; valor_bi: 0.15; value_share: 0.5%" [ref=e1700]'
+                          - 'generic "R$ bi, proxy: 0.013174; investor_type: Seguradoras; valor_bi: 0.01; value_share: 0.0%" [ref=e1708]'
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - 'generic "R$ bi, proxy: 0; investor_type: Previdência; valor_bi: 0.00; value_share: 0.0%"'
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - generic:
+                                    - generic:
+                                      - 'generic "R$ bi, proxy: 0; investor_type: Investidor estrangeiro; valor_bi: 0.00; value_share: 0.0%"'
+                        - generic [ref=e1711]:
+                          - generic "Title text 'Composição por tipo · 2026YTD'": Composição por tipo · 2026YTD
+                  - group "Click to view actions"
+            - generic [ref=e1717]: 2.438 ofertas encerradas mencionam infraestrutura/mercado de negociação. Isso indica elegibilidade contratual, não volume negociado, giro ou velocidade de venda. Turnover secundário exige negócios da B3/ANBIMA em base transacional.

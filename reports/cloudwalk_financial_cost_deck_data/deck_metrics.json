@@ -1,0 +1,108 @@
+{
+  "cost_summary": [
+    {
+      "estimativa": "1_snapshot_pl_sem_amortizacao",
+      "descricao": "Saldo remunerado na data snapshot vezes CDI+spread por todo o ano; não reflete amortizações/captações intraperíodo.",
+      "despesa_financeira_bruta": 1783876622.25,
+      "receita_antecipacao_gross_up_sugerida": 1783876622.25,
+      "rendimento_caixa_lft": 0.0,
+      "despesa_financeira_liquida": 1783876622.25,
+      "saldo_base": 11586594560.49,
+      "linhas_incluidas": 16,
+      "linhas_sem_spread": 0,
+      "saldo_snapshot_sem_spread": 0,
+      "periodo_inicio": "2025-01-01",
+      "periodo_fim": "2025-12-31",
+      "snapshot_date": "2025-12-31",
+      "cdi_aa": 0.14324265,
+      "cdi_source": "B3/Cetip MediaCDI mensal composto",
+      "cdi_monthly_compounded": true,
+      "cash_yield_cdi_factor": 1.0
+    },
+    {
+      "estimativa": "2_programado_bruto_com_amortizacao",
+      "descricao": "Custo bruto por linha com saldo diário aproximado, cronogramas de amortização e captações dentro do período.",
+      "despesa_financeira_bruta": 1276854065.61,
+      "receita_antecipacao_gross_up_sugerida": 1276854065.61,
+      "rendimento_caixa_lft": 0.0,
+      "despesa_financeira_liquida": 1276854065.61,
+      "saldo_base": 8624140392.94,
+      "linhas_incluidas": 16,
+      "linhas_sem_spread": 0,
+      "saldo_snapshot_sem_spread": 0,
+      "periodo_inicio": "2025-01-01",
+      "periodo_fim": "2025-12-31",
+      "snapshot_date": "2025-12-31",
+      "cdi_aa": 0.14324265,
+      "cdi_source": "B3/Cetip MediaCDI mensal composto",
+      "cdi_monthly_compounded": true,
+      "cash_yield_cdi_factor": 1.0
+    },
+    {
+      "estimativa": "3_programado_liquido_caixa_lft",
+      "descricao": "Custo bruto programado menos rendimento CDI estimado sobre caixa/LFT: maior entre caixa+títulos reportados e proxy PL-recebíveis.",
+      "despesa_financeira_bruta": 1276854065.61,
+      "receita_antecipacao_gross_up_sugerida": 1276854065.61,
+      "rendimento_caixa_lft": 227715713.73,
+      "despesa_financeira_liquida": 1049138351.88,
+      "saldo_base": 8624140392.94,
+      "linhas_incluidas": 16,
+      "linhas_sem_spread": 0,
+      "saldo_snapshot_sem_spread": 0,
+      "periodo_inicio": "2025-01-01",
+      "periodo_fim": "2025-12-31",
+      "snapshot_date": "2025-12-31",
+      "cdi_aa": 0.14324265,
+      "cdi_source": "B3/Cetip MediaCDI mensal composto",
+      "cdi_monthly_compounded": true,
+      "cash_yield_cdi_factor": 1.0
+    }
+  ],
+  "pl_waterfall_summary": [
+    {
+      "pl_inicial": 14296813449.64,
+      "captacoes": 44400000.0,
+      "resgates": 0.0,
+      "amortizacoes": 2410041292.67,
+      "accrual_rentabilidade_residual": 839802576.79,
+      "pl_final": 12770974733.76,
+      "fundos": 10,
+      "fundos_com_ime": 10,
+      "start_comp": "12/2024",
+      "max_end_comp": "12/2025"
+    }
+  ],
+  "duration_2025": {
+    "months": 12,
+    "avg_stock": 8116472721.173862,
+    "duration_stock_day_weighted": 187.80830317162253,
+    "duration_flow_implied": 114.99084101230949,
+    "tpv_period": 25763030491.37044,
+    "annualized_tpv": 25763030491.37044,
+    "latest_stock": 11223353977.159998,
+    "latest_duration": 96.87181142620223,
+    "latest_annualized_tpv": 42288093319.945465
+  },
+  "duration_2025_apr_dec": {
+    "months": 9,
+    "avg_stock": 9387717500.21331,
+    "duration_stock_day_weighted": 103.05601707048139,
+    "duration_flow_implied": 102.40951136336047,
+    "tpv_period": 25208813890.330692,
+    "annualized_tpv": 33458971163.52983,
+    "latest_stock": 11223353977.159998,
+    "latest_duration": 96.87181142620223,
+    "latest_annualized_tpv": 42288093319.945465
+  },
+  "duration_2026_jan_apr": {
+    "months": 4,
+    "avg_stock": 11219481891.569752,
+    "duration_stock_day_weighted": 99.89445947357117,
+    "duration_flow_implied": 99.73710319068994,
+    "tpv_period": 13498866358.834106,
+    "annualized_tpv": 41059051841.45374,
+    "latest_stock": 6897706515.740001,
+    "latest_duration": 108.93296011247364,
+    "latest_annualized_tpv": 23112039511.692375
+  }
+}

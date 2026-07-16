@@ -1,0 +1,961 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/d6ktpk",
+    "id": "d6ktpk",
+    "slide": 9,
+    "layoutId": "85b3f756-4225-4960-b03e-e65165ff85ef",
+    "layoutName": "Title Slide",
+    "layoutType": "title",
+    "masterLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+    "masterLayoutName": "Master",
+    "backgroundColor": "#F7F8FA",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "ChatGPT",
+    "colors": {
+      "accent1": "#156082",
+      "accent2": "#E97132",
+      "accent3": "#196B24",
+      "accent4": "#0F9ED5",
+      "accent5": "#A02B93",
+      "accent6": "#4EA72E",
+      "bg1": "#FFFFFF",
+      "bg2": "#000000",
+      "tx1": "#1F1F1F",
+      "tx2": "#FFFFFF",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#0E2841",
+      "lt2": "#E8E8E8",
+      "hlink": "#467886",
+      "folHlink": "#96607D"
+    },
+    "typefaces": [
+      "+mn-lt"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "85b3f756-4225-4960-b03e-e65165ff85ef",
+      "name": "Title Slide",
+      "type": "title",
+      "parentLayoutId": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "bf344aa5-5967-4d3b-8891-640101c1433e",
+      "name": "Master",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ahoza1gv",
+      "id": "1",
+      "bbox": [
+        0,
+        0,
+        1280,
+        60
+      ],
+      "geometry": "rect",
+      "fillColor": "#001E62",
+      "lineColor": "#001E62",
+      "lineWidth": 0
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/l87ed8ba",
+      "id": "2",
+      "bbox": [
+        54,
+        18,
+        320,
+        20
+      ],
+      "geometry": "rect",
+      "text": "FIDC Sellers | Itaú BBA",
+      "textPreview": "FIDC Sellers | Itaú BBA",
+      "resolvedFontSize": 11,
+      "resolvedTextStyle": {
+        "fontSize": 11,
+        "typeface": "+mn-lt",
+        "color": "#FFFFFF",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "FIDC Sellers | Itaú BBA"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "FIDC Sellers | Itaú BBA",
+          "resolvedTextStyle": {
+            "fontSize": 11,
+            "color": "#FFFFFF",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "FIDC Sellers | Itaú BBA",
+              "fontSize": 11,
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sneloj2t",
+      "id": "3",
+      "bbox": [
+        54,
+        76,
+        820,
+        44
+      ],
+      "geometry": "rect",
+      "text": "Diligências abertas e pontos para comitê",
+      "textPreview": "Diligências abertas e pontos para comitê",
+      "resolvedFontSize": 26,
+      "resolvedTextStyle": {
+        "fontSize": 26,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Diligências abertas e pontos para comitê"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Diligências abertas e pontos para comitê",
+          "resolvedTextStyle": {
+            "fontSize": 26,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Diligências abertas e pontos para comitê",
+              "fontSize": 26,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3ex0nuxc",
+      "id": "4",
+      "bbox": [
+        54,
+        125,
+        90,
+        5
+      ],
+      "geometry": "rect",
+      "fillColor": "#EC7000",
+      "lineColor": "#EC7000",
+      "lineWidth": 0
+    },
+    {
+      "order": 5,
+      "kind": "table",
+      "scope": "slide",
+      "aid": "tb/ra5gbq1o",
+      "id": "5",
+      "bbox": [
+        70,
+        155,
+        1140,
+        360
+      ],
+      "text": "Tema | Ponto | Impacto no material\nSéries 3/4 2023 | Suplemento/calendário específico não disponível nos PDFs locais. | Vencimento BBA 15/09/2026 mantido como insumo fixo, com confirmação documental pendente.\nSérie 5 2025 | Vencimento BBA 26/05/2028 diverge da amortização final documentada em 15/05/2028. | Waterfall usa cronograma documental e sinaliza a divergência.\nPagamentos realizados | Campos CAPTA_RESGA_AMORTI do IME vieram zerados. | Valores exatos de caixa marcados como não disponíveis; validação por VNU e cronograma.\nRelatórios sem PDF local | Informes trimestrais, ratings e DFs constam no inventário sem arquivo local. | Não usados para números estruturais sem validação documental adicional.",
+      "textPreview": "Tema | Ponto | Impacto no material | Séries 3/4 2023 | Suplemento/calendário específico não disponível nos PDFs locais. | Vencimento BBA ...",
+      "rows": 5,
+      "cols": 3,
+      "cells": [
+        {
+          "index": 1,
+          "row": 1,
+          "column": 1,
+          "bbox": [
+            70,
+            155,
+            180,
+            72
+          ],
+          "text": "Tema",
+          "textPreview": "Tema",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Tema",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Tema",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 2,
+          "row": 1,
+          "column": 2,
+          "bbox": [
+            250,
+            155,
+            570,
+            72
+          ],
+          "text": "Ponto",
+          "textPreview": "Ponto",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Ponto",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Ponto",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 3,
+          "row": 1,
+          "column": 3,
+          "bbox": [
+            820,
+            155,
+            390,
+            72
+          ],
+          "text": "Impacto no material",
+          "textPreview": "Impacto no material",
+          "fillColor": "#001E62",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Impacto no material",
+              "resolvedTextStyle": {
+                "fontSize": 9,
+                "color": "#FFFFFF",
+                "bold": true
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Impacto no material",
+                  "fontSize": 9,
+                  "color": "#FFFFFF",
+                  "bold": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 4,
+          "row": 2,
+          "column": 1,
+          "bbox": [
+            70,
+            227,
+            180,
+            72
+          ],
+          "text": "Séries 3/4 2023",
+          "textPreview": "Séries 3/4 2023",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Séries 3/4 2023",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Séries 3/4 2023",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 5,
+          "row": 2,
+          "column": 2,
+          "bbox": [
+            250,
+            227,
+            570,
+            72
+          ],
+          "text": "Suplemento/calendário específico não disponível nos PDFs locais.",
+          "textPreview": "Suplemento/calendário específico não disponível nos PDFs locais.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Suplemento/calendário específico não disponível nos PDFs locais.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Suplemento/calendário específico não disponível nos PDFs locais.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "row": 2,
+          "column": 3,
+          "bbox": [
+            820,
+            227,
+            390,
+            72
+          ],
+          "text": "Vencimento BBA 15/09/2026 mantido como insumo fixo, com confirmação documental pendente.",
+          "textPreview": "Vencimento BBA 15/09/2026 mantido como insumo fixo, com confirmação documental pendente.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Vencimento BBA 15/09/2026 mantido como insumo fixo, com confirmação documental pendente.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Vencimento BBA 15/09/2026 mantido como insumo fixo, com confirmação documental pendente.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 7,
+          "row": 3,
+          "column": 1,
+          "bbox": [
+            70,
+            299,
+            180,
+            72
+          ],
+          "text": "Série 5 2025",
+          "textPreview": "Série 5 2025",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Série 5 2025",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Série 5 2025",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 8,
+          "row": 3,
+          "column": 2,
+          "bbox": [
+            250,
+            299,
+            570,
+            72
+          ],
+          "text": "Vencimento BBA 26/05/2028 diverge da amortização final documentada em 15/05/2028.",
+          "textPreview": "Vencimento BBA 26/05/2028 diverge da amortização final documentada em 15/05/2028.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Vencimento BBA 26/05/2028 diverge da amortização final documentada em 15/05/2028.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Vencimento BBA 26/05/2028 diverge da amortização final documentada em 15/05/2028.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 9,
+          "row": 3,
+          "column": 3,
+          "bbox": [
+            820,
+            299,
+            390,
+            72
+          ],
+          "text": "Waterfall usa cronograma documental e sinaliza a divergência.",
+          "textPreview": "Waterfall usa cronograma documental e sinaliza a divergência.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Waterfall usa cronograma documental e sinaliza a divergência.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Waterfall usa cronograma documental e sinaliza a divergência.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 10,
+          "row": 4,
+          "column": 1,
+          "bbox": [
+            70,
+            371,
+            180,
+            72
+          ],
+          "text": "Pagamentos realizados",
+          "textPreview": "Pagamentos realizados",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Pagamentos realizados",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Pagamentos realizados",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 11,
+          "row": 4,
+          "column": 2,
+          "bbox": [
+            250,
+            371,
+            570,
+            72
+          ],
+          "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados.",
+          "textPreview": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Campos CAPTA_RESGA_AMORTI do IME vieram zerados.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "row": 4,
+          "column": 3,
+          "bbox": [
+            820,
+            371,
+            390,
+            72
+          ],
+          "text": "Valores exatos de caixa marcados como não disponíveis; validação por VNU e cronograma.",
+          "textPreview": "Valores exatos de caixa marcados como não disponíveis; validação por VNU e cronograma.",
+          "fillColor": "#FAFBFC",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Valores exatos de caixa marcados como não disponíveis; validação por VNU e cronograma.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Valores exatos de caixa marcados como não disponíveis; validação por VNU e cronograma.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "row": 5,
+          "column": 1,
+          "bbox": [
+            70,
+            443,
+            180,
+            72
+          ],
+          "text": "Relatórios sem PDF local",
+          "textPreview": "Relatórios sem PDF local",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Relatórios sem PDF local",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Relatórios sem PDF local",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "row": 5,
+          "column": 2,
+          "bbox": [
+            250,
+            443,
+            570,
+            72
+          ],
+          "text": "Informes trimestrais, ratings e DFs constam no inventário sem arquivo local.",
+          "textPreview": "Informes trimestrais, ratings e DFs constam no inventário sem arquivo local.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Informes trimestrais, ratings e DFs constam no inventário sem arquivo local.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Informes trimestrais, ratings e DFs constam no inventário sem arquivo local.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "row": 5,
+          "column": 3,
+          "bbox": [
+            820,
+            443,
+            390,
+            72
+          ],
+          "text": "Não usados para números estruturais sem validação documental adicional.",
+          "textPreview": "Não usados para números estruturais sem validação documental adicional.",
+          "fillColor": "#FFFFFF",
+          "paragraphs": [
+            {
+              "index": 1,
+              "text": "Não usados para números estruturais sem validação documental adicional.",
+              "resolvedTextStyle": {
+                "fontSize": 8.2,
+                "color": "#172033"
+              },
+              "runs": [
+                {
+                  "index": 1,
+                  "text": "Não usados para números estruturais sem validação documental adicional.",
+                  "fontSize": 8.2,
+                  "color": "#172033"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lkjm1cfa",
+      "id": "6",
+      "bbox": [
+        70,
+        555,
+        220,
+        22
+      ],
+      "geometry": "rect",
+      "text": "Entregáveis gerados",
+      "textPreview": "Entregáveis gerados",
+      "resolvedFontSize": 14,
+      "resolvedTextStyle": {
+        "fontSize": 14,
+        "typeface": "+mn-lt",
+        "color": "#001E62",
+        "bold": true,
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Entregáveis gerados"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Entregáveis gerados",
+          "resolvedTextStyle": {
+            "fontSize": 14,
+            "color": "#001E62",
+            "bold": true
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Entregáveis gerados",
+              "fontSize": 14,
+              "color": "#001E62",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/szqtcj6t",
+      "id": "7",
+      "bbox": [
+        70,
+        585,
+        900,
+        26
+      ],
+      "geometry": "rect",
+      "text": "5 Excels editáveis por tema + deck PowerPoint com gráficos nativos; waterfall BBA em laranja e waterfall do fundo inteiro com PL residual.",
+      "textPreview": "5 Excels editáveis por tema + deck PowerPoint com gráficos nativos; waterfall BBA em laranja e waterfall do fundo inteiro com PL residual.",
+      "resolvedFontSize": 12,
+      "resolvedTextStyle": {
+        "fontSize": 12,
+        "typeface": "+mn-lt",
+        "color": "#172033",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5 Excels editáveis por tema + deck PowerPoint com gráficos nativos; waterfall BBA em laranja e waterfall do fundo inteiro com PL residual."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5 Excels editáveis por tema + deck PowerPoint com gráficos nativos; waterfall BBA em laranja e waterfall do fundo inteiro com PL residual.",
+          "resolvedTextStyle": {
+            "fontSize": 12,
+            "color": "#172033"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5 Excels editáveis por tema + deck PowerPoint com gráficos nativos; waterfall BBA em laranja e waterfall do fundo inteiro com PL residual.",
+              "fontSize": 12,
+              "color": "#172033"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/3itgfmlk",
+      "id": "8",
+      "bbox": [
+        54,
+        690,
+        980,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Fonte: metadata.json e arquivos de suporte gerados.",
+      "textPreview": "Fonte: metadata.json e arquivos de suporte gerados.",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fonte: metadata.json e arquivos de suporte gerados."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fonte: metadata.json e arquivos de suporte gerados.",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fonte: metadata.json e arquivos de suporte gerados.",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ex0nuxc3",
+      "id": "9",
+      "bbox": [
+        1160,
+        690,
+        80,
+        18
+      ],
+      "geometry": "rect",
+      "text": "Confidencial",
+      "textPreview": "Confidencial",
+      "resolvedFontSize": 8,
+      "resolvedTextStyle": {
+        "fontSize": 8,
+        "typeface": "+mn-lt",
+        "color": "#6B7280",
+        "alignment": "left",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Confidencial"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Confidencial",
+          "resolvedTextStyle": {
+            "fontSize": 8,
+            "color": "#6B7280"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "Confidencial",
+              "fontSize": 8,
+              "color": "#6B7280"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ],
+      "lineWidth": 0
+    }
+  ],
+  "composeRuns": []
+}

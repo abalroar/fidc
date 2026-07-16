@@ -1,0 +1,176 @@
+- generic [ref=e3]:
+  - banner
+  - generic [ref=e6]:
+    - generic [ref=e11]:
+      - generic [ref=e12]: tomaconta fidcs
+      - generic [ref=e13]: matheus prates, cfa
+    - radiogroup "button group" [ref=e16]:
+      - button [ref=e1137] [cursor=pointer]:
+        - paragraph [ref=e1141]: Sobre
+      - button [ref=e1142] [cursor=pointer]:
+        - paragraph [ref=e1146]: Indústria
+      - button [ref=e1147] [cursor=pointer]:
+        - paragraph [ref=e1151]: Secundário
+      - button [ref=e1152] [cursor=pointer]:
+        - paragraph [ref=e1156]: Carteira
+      - button [ref=e1157] [cursor=pointer]:
+        - paragraph [ref=e1161]: Regulamentos
+      - button [ref=e1162] [cursor=pointer]:
+        - paragraph [ref=e1166]: Cloudwalk
+      - button [ref=e1167] [cursor=pointer]:
+        - paragraph [ref=e1171]: Glossário
+      - button [ref=e1172] [cursor=pointer]:
+        - paragraph [ref=e1176]: Modelagem
+    - generic [ref=e126]:
+      - generic [ref=e131]:
+        - heading "Indústria" [level=1] [ref=e133]:
+          - text: Indústria
+          - generic [ref=e134]:
+            - link "Link to heading":
+              - /url: "#sobre"
+        - paragraph [ref=e135]: Estoque, emissões, participantes e investidores de FIDCs.
+      - generic [ref=e140]:
+        - generic [ref=e141]: "Fonte: CVM e ANBIMA"
+        - generic [ref=e142]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+        - generic [ref=e143]: "Cobertura: 4.224 veículos"
+      - generic [ref=e145]:
+        - tablist [ref=e147]:
+          - tab [ref=e148] [cursor=pointer]:
+            - paragraph [ref=e150]: Executivo
+          - tab [ref=e151] [cursor=pointer]:
+            - paragraph [ref=e153]: Ofertas
+          - tab [selected] [ref=e154] [cursor=pointer]:
+            - paragraph [ref=e156]: Prestadores
+          - tab [ref=e157] [cursor=pointer]:
+            - paragraph [ref=e159]: Cedentes
+          - tab [ref=e160] [cursor=pointer]:
+            - paragraph [ref=e162]: Investidores
+          - tab [ref=e163] [cursor=pointer]:
+            - paragraph [ref=e165]: "> R$5 bi"
+          - tab [ref=e166] [cursor=pointer]:
+            - paragraph [ref=e168]: Dados e exportações
+        - tabpanel "Prestadores" [ref=e882]:
+          - generic [ref=e883]:
+            - heading "Prestadores e delta de ranking" [level=2] [ref=e889]:
+              - text: Prestadores e delta de ranking
+              - generic [ref=e890]:
+                - link "Link to heading":
+                  - /url: "#prestadores-e-delta-de-ranking"
+            - generic [ref=e892]:
+              - generic [ref=e896]:
+                - paragraph [ref=e900]: Papel
+                - generic [ref=e902]:
+                  - generic [ref=e903]:
+                    - generic [ref=e904]: administrador
+                    - combobox "Selected administrador. Papel" [ref=e906]
+                  - img "open" [ref=e908]
+              - generic [ref=e913]:
+                - paragraph [ref=e917]: Segmento CVM
+                - generic [ref=e919]:
+                  - generic [ref=e920]:
+                    - generic [ref=e921]: Todos
+                    - combobox "Selected Todos. Segmento CVM" [ref=e923]
+                  - img "open" [ref=e925]
+              - generic [ref=e930]:
+                - paragraph [ref=e934]: Métrica
+                - generic [ref=e936]:
+                  - generic [ref=e937]:
+                    - generic [ref=e938]: Fundos
+                    - combobox "Selected Fundos. Métrica" [active] [ref=e1177]
+                  - img "open" [ref=e942]
+              - generic [ref=e947]:
+                - paragraph [ref=e951]: Top
+                - generic [ref=e953]:
+                  - generic [ref=e954]:
+                    - generic [ref=e955]: "10"
+                    - combobox "Selected 10. Top" [ref=e957]
+                  - img "open" [ref=e959]
+            - generic [ref=e963]:
+              - generic [ref=e965]:
+                - button "Show data" [ref=e968] [cursor=pointer]
+                - button "Fullscreen" [ref=e974] [cursor=pointer]
+              - generic [ref=e978]:
+                - generic "Vega visualization" [ref=e1178]:
+                  - img [ref=e1179]:
+                    - generic [ref=e1184]:
+                      - generic "X-axis titled 'Fundos' for a linear scale with values from 0 to 900" [ref=e1185]:
+                        - generic [ref=e1187]:
+                          - generic:
+                            - generic: "0"
+                            - generic: "20"
+                            - generic: "40"
+                            - generic: "60"
+                            - generic: "80"
+                            - generic: "100"
+                            - generic: "120"
+                            - generic: "140"
+                            - generic: "160"
+                            - generic: "180"
+                            - generic: "200"
+                            - generic: "220"
+                            - generic: "240"
+                            - generic: "260"
+                            - generic: "280"
+                            - generic: "300"
+                            - generic: "320"
+                            - generic: "340"
+                            - generic: "360"
+                            - generic: "380"
+                            - generic: "400"
+                            - generic: "420"
+                            - generic: "440"
+                            - generic: "460"
+                            - generic: "480"
+                            - generic: "500"
+                            - generic: "520"
+                            - generic: "540"
+                            - generic: "560"
+                            - generic: "580"
+                            - generic: "600"
+                            - generic: "620"
+                            - generic: "640"
+                            - generic: "660"
+                            - generic: "680"
+                            - generic: "700"
+                            - generic: "720"
+                            - generic: "740"
+                            - generic: "760"
+                            - generic: "780"
+                            - generic: "800"
+                            - generic: "820"
+                            - generic: "840"
+                            - generic: "860"
+                            - generic: "880"
+                            - generic: "900"
+                          - generic: Fundos
+                      - 'generic "Y-axis for a discrete scale with 10 values: QI Tech, BTG Pactual, Daycoval, Id Corretora De Titulos E Valores Mobiliarios, Planner Corretora De Valores, ending with Genial" [ref=e1188]':
+                        - generic [ref=e1190]:
+                          - generic:
+                            - generic: QI Tech
+                            - generic: BTG Pactual
+                            - generic: Daycoval
+                            - generic: Id Corretora De Titulos E Valores Mobiliarios
+                            - generic: Planner Corretora De Valores
+                            - generic: Vórtx
+                            - generic: Limine Trust
+                            - generic: Oliveira Trust
+                            - generic: BRL Trust
+                            - generic: Genial
+                      - generic [ref=e1191]:
+                        - 'generic "Fundos: 821; Participante: QI Tech; Posição: 1; Valor: 821.0" [ref=e1199]'
+                        - 'generic "Fundos: 427; Participante: BTG Pactual; Posição: 2; Valor: 427.0" [ref=e1207]'
+                        - 'generic "Fundos: 398; Participante: Daycoval; Posição: 3; Valor: 398.0" [ref=e1215]'
+                        - 'generic "Fundos: 295; Participante: Id Corretora De Titulos E Valores Mobiliarios; Posição: 4; Valor: 295.0" [ref=e1223]'
+                        - 'generic "Fundos: 184; Participante: Planner Corretora De Valores; Posição: 5; Valor: 184.0" [ref=e1231]'
+                        - 'generic "Fundos: 177; Participante: Vórtx; Posição: 6; Valor: 177.0" [ref=e1239]'
+                        - 'generic "Fundos: 163; Participante: Limine Trust; Posição: 7; Valor: 163.0" [ref=e1247]'
+                        - 'generic "Fundos: 156; Participante: Oliveira Trust; Posição: 8; Valor: 156.0" [ref=e1255]'
+                        - 'generic "Fundos: 138; Participante: BRL Trust; Posição: 9; Valor: 138.0" [ref=e1263]'
+                        - 'generic "Fundos: 138; Participante: Genial; Posição: 10; Valor: 138.0" [ref=e1271]'
+                - group "Click to view actions"
+            - generic [ref=e1082]:
+              - button "Show/hide columns" [ref=e1086] [cursor=pointer]
+              - button "Download as CSV" [ref=e1092] [cursor=pointer]
+              - button "Search" [ref=e1098] [cursor=pointer]
+              - button "Fullscreen" [ref=e1104] [cursor=pointer]
+            - generic [ref=e1116]: histórico mensal do Informe Mensal CVM.

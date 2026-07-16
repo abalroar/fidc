@@ -1,0 +1,169 @@
+- generic:
+  - generic:
+    - generic [ref=e3]:
+      - banner
+      - generic [ref=e6]:
+        - generic [ref=e11]:
+          - generic [ref=e12]: tomaconta fidcs
+          - generic [ref=e13]: matheus prates, cfa
+        - radiogroup "button group" [ref=e16]:
+          - button [ref=e699] [cursor=pointer]:
+            - paragraph [ref=e703]: Sobre
+          - button [ref=e704] [cursor=pointer]:
+            - paragraph [ref=e708]: Indústria
+          - button [ref=e709] [cursor=pointer]:
+            - paragraph [ref=e713]: Secundário
+          - button [ref=e714] [cursor=pointer]:
+            - paragraph [ref=e718]: Carteira
+          - button [ref=e719] [cursor=pointer]:
+            - paragraph [ref=e723]: Regulamentos
+          - button [ref=e724] [cursor=pointer]:
+            - paragraph [ref=e728]: Cloudwalk
+          - button [ref=e729] [cursor=pointer]:
+            - paragraph [ref=e733]: Glossário
+          - button [ref=e734] [cursor=pointer]:
+            - paragraph [ref=e738]: Modelagem
+        - generic [ref=e126]:
+          - generic [ref=e131]:
+            - heading "Indústria" [level=1] [ref=e133]:
+              - text: Indústria
+              - generic [ref=e134]:
+                - link "Link to heading":
+                  - /url: "#sobre"
+            - paragraph [ref=e135]: Estoque, emissões, participantes e investidores de FIDCs.
+          - generic [ref=e140]:
+            - generic [ref=e141]: "Fonte: CVM e ANBIMA"
+            - generic [ref=e142]: "Base até: Maio/26 (estoque) | 15/07/2026 (ofertas)"
+            - generic [ref=e143]: "Cobertura: 4.224 veículos"
+          - generic [ref=e145]:
+            - tablist [ref=e147]:
+              - tab [ref=e148] [cursor=pointer]:
+                - paragraph [ref=e150]: Executivo
+              - tab [ref=e151] [cursor=pointer]:
+                - paragraph [ref=e153]: Ofertas
+              - tab [selected] [ref=e154] [cursor=pointer]:
+                - paragraph [ref=e156]: Prestadores
+              - tab [ref=e157] [cursor=pointer]:
+                - paragraph [ref=e159]: Cedentes
+              - tab [ref=e160] [cursor=pointer]:
+                - paragraph [ref=e162]: Investidores
+              - tab [ref=e163] [cursor=pointer]:
+                - paragraph [ref=e165]: "> R$5 bi"
+              - tab [ref=e166] [cursor=pointer]:
+                - paragraph [ref=e168]: Dados e exportações
+            - tabpanel "Prestadores" [ref=e882]:
+              - generic [ref=e883]:
+                - heading "Prestadores e delta de ranking" [level=2] [ref=e889]:
+                  - text: Prestadores e delta de ranking
+                  - generic [ref=e890]:
+                    - link "Link to heading":
+                      - /url: "#prestadores-e-delta-de-ranking"
+                - generic [ref=e892]:
+                  - generic [ref=e896]:
+                    - paragraph [ref=e900]: Papel
+                    - generic [ref=e902]:
+                      - generic [ref=e903]:
+                        - generic [ref=e904]: administrador
+                        - combobox "Selected administrador. Papel" [ref=e906]
+                      - img "open" [ref=e908]
+                  - generic [ref=e913]:
+                    - paragraph [ref=e917]: Segmento CVM
+                    - generic [ref=e919]:
+                      - generic [ref=e920]:
+                        - generic [ref=e921]: Todos
+                        - combobox "Selected Todos. Segmento CVM" [ref=e923]
+                      - img "open" [ref=e925]
+                  - generic [ref=e930]:
+                    - paragraph [ref=e934]: Métrica
+                    - generic [ref=e936]:
+                      - generic [ref=e937]:
+                        - generic [ref=e938]: PL
+                        - combobox "Selected PL. Métrica" [expanded] [active] [ref=e940]
+                      - img "open" [ref=e942]
+                  - generic [ref=e947]:
+                    - paragraph [ref=e951]: Top
+                    - generic [ref=e953]:
+                      - generic [ref=e954]:
+                        - generic [ref=e955]: "10"
+                        - combobox "Selected 10. Top" [ref=e957]
+                      - img "open" [ref=e959]
+                - generic [ref=e963]:
+                  - generic [ref=e965]:
+                    - button "Show data" [ref=e968] [cursor=pointer]
+                    - button "Fullscreen" [ref=e974] [cursor=pointer]
+                  - generic [ref=e978]:
+                    - generic "Vega visualization" [ref=e979]:
+                      - img [ref=e980]:
+                        - generic [ref=e985]:
+                          - generic "X-axis titled 'R$ bi' for a linear scale with values from 0 to 160" [ref=e986]:
+                            - generic [ref=e988]:
+                              - generic:
+                                - generic: "0"
+                                - generic: "5"
+                                - generic: "10"
+                                - generic: "15"
+                                - generic: "20"
+                                - generic: "25"
+                                - generic: "30"
+                                - generic: "35"
+                                - generic: "40"
+                                - generic: "45"
+                                - generic: "50"
+                                - generic: "55"
+                                - generic: "60"
+                                - generic: "65"
+                                - generic: "70"
+                                - generic: "75"
+                                - generic: "80"
+                                - generic: "85"
+                                - generic: "90"
+                                - generic: "95"
+                                - generic: "100"
+                                - generic: "105"
+                                - generic: "110"
+                                - generic: "115"
+                                - generic: "120"
+                                - generic: "125"
+                                - generic: "130"
+                                - generic: "135"
+                                - generic: "140"
+                                - generic: "145"
+                                - generic: "150"
+                                - generic: "155"
+                                - generic: "160"
+                              - generic: R$ bi
+                          - 'generic "Y-axis for a discrete scale with 10 values: BTG Pactual, QI Tech, Oliveira Trust, Banco do Brasil, Daycoval, ending with Hemera" [ref=e989]':
+                            - generic [ref=e991]:
+                              - generic:
+                                - generic: BTG Pactual
+                                - generic: QI Tech
+                                - generic: Oliveira Trust
+                                - generic: Banco do Brasil
+                                - generic: Daycoval
+                                - generic: Genial
+                                - generic: Bradesco
+                                - generic: CBSF
+                                - generic: Itaú
+                                - generic: Hemera
+                          - generic [ref=e992]:
+                            - 'generic "R$ bi: 146.427014609; Participante: BTG Pactual; Posição: 1; Valor: 146.4" [ref=e1000]'
+                            - 'generic "R$ bi: 139.239433515; Participante: QI Tech; Posição: 2; Valor: 139.2" [ref=e1008]'
+                            - 'generic "R$ bi: 97.6771035824; Participante: Oliveira Trust; Posição: 3; Valor: 97.7" [ref=e1016]'
+                            - 'generic "R$ bi: 60.9007464433; Participante: Banco do Brasil; Posição: 4; Valor: 60.9" [ref=e1024]'
+                            - 'generic "R$ bi: 57.6833852334; Participante: Daycoval; Posição: 5; Valor: 57.7" [ref=e1032]'
+                            - 'generic "R$ bi: 51.7630050171; Participante: Genial; Posição: 6; Valor: 51.8" [ref=e1040]'
+                            - 'generic "R$ bi: 51.3838399032; Participante: Bradesco; Posição: 7; Valor: 51.4" [ref=e1048]'
+                            - 'generic "R$ bi: 42.9615243827; Participante: CBSF; Posição: 8; Valor: 43.0" [ref=e1056]'
+                            - 'generic "R$ bi: 31.60979776; Participante: Itaú; Posição: 9; Valor: 31.6" [ref=e1064]'
+                            - 'generic "R$ bi: 24.5467448695; Participante: Hemera; Posição: 10; Valor: 24.5" [ref=e1072]'
+                    - group "Click to view actions"
+                - generic [ref=e1082]:
+                  - button "Show/hide columns" [ref=e1086] [cursor=pointer]
+                  - button "Download as CSV" [ref=e1092] [cursor=pointer]
+                  - button "Search" [ref=e1098] [cursor=pointer]
+                  - button "Fullscreen" [ref=e1104] [cursor=pointer]
+                - generic [ref=e1116]: histórico mensal do Informe Mensal CVM.
+    - list [ref=e1124]:
+      - generic [ref=e1126]:
+        - option "PL" [selected] [ref=e1127] [cursor=pointer]
+        - option "Fundos" [ref=e1132] [cursor=pointer]
