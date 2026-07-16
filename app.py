@@ -39,11 +39,14 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-header {
-    align-items: baseline;
+    align-items: center;
     display: flex;
-    gap: 0.55rem;
-    margin: 0.2rem 0 0.7rem;
-    text-align: left;
+    flex-direction: column;
+    gap: 0.2rem;
+    justify-content: center;
+    margin: 0.35rem auto 1rem;
+    max-width: 64rem;
+    text-align: center;
 }
 
 .fidc-app-kicker {
@@ -57,21 +60,23 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
 }
 
 .fidc-app-title {
-    color: #12171d !important;
-    font-size: 1.24rem !important;
-    font-weight: 650 !important;
+    color: #ff5a00 !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-size: 2.25rem !important;
+    font-weight: 500 !important;
     letter-spacing: 0 !important;
-    line-height: 1.2 !important;
+    line-height: 1.08 !important;
     margin: 0 !important;
 }
 
 .fidc-app-author {
-    color: #9aa3ad !important;
-    font-size: 0.75rem !important;
+    color: #7b8590 !important;
+    font-family: 'IBM Plex Sans', sans-serif !important;
+    font-size: 0.82rem !important;
     font-weight: 400 !important;
     letter-spacing: 0 !important;
     line-height: 1.3 !important;
-    margin-top: 0.7rem !important;
+    margin: 0 !important;
 }
 
 .fidc-app-subtitle {
@@ -271,7 +276,7 @@ html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRa
     }
 
     .fidc-app-title {
-        font-size: 1.15rem !important;
+        font-size: 1.8rem !important;
     }
 
     .fidc-app-subtitle {
@@ -355,8 +360,8 @@ st.markdown(_APP_CSS, unsafe_allow_html=True)
 st.markdown(
     """
     <div class="fidc-app-header">
-      <div class="fidc-app-title">tomaconta fidcs</div>
-      <div class="fidc-app-author">matheus prates, cfa</div>
+      <h1 class="fidc-app-title">toma.conta fidcs</h1>
+      <p class="fidc-app-author">by matheus prates, cfa</p>
     </div>
     """,
     unsafe_allow_html=True,

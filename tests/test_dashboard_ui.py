@@ -230,6 +230,18 @@ def test_routes_and_exports_remain_available() -> None:
             assert label in source
 
 
+def test_app_brand_is_centered_and_uses_the_shared_orange() -> None:
+    app_source = (ROOT / "app.py").read_text(encoding="utf-8")
+
+    assert '<h1 class="fidc-app-title">toma.conta fidcs</h1>' in app_source
+    assert '<p class="fidc-app-author">by matheus prates, cfa</p>' in app_source
+    assert ".fidc-app-header {" in app_source
+    assert "text-align: center;" in app_source
+    assert "flex-direction: column;" in app_source
+    assert "color: #ff5a00 !important;" in app_source
+    assert "font-family: 'IBM Plex Sans', sans-serif !important;" in app_source
+
+
 def test_portfolio_context_switch_hides_stale_results_until_refresh_finishes() -> None:
     source = (ROOT / "tabs/portfolio_page.py").read_text(encoding="utf-8")
 
