@@ -399,7 +399,7 @@ st.markdown(
     """
     <div class="fidc-app-header">
       <h1 class="fidc-app-title">toma.conta fidcs</h1>
-      <p class="fidc-app-author">by matheus prates, cfa</p>
+      <p class="fidc-app-author">por matheus prates, cfa</p>
     </div>
     """,
     unsafe_allow_html=True,
