@@ -1437,7 +1437,12 @@ def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFram
         )
 
 
-def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
+def _render_credit_risk_section(
+    dashboard: FundonetDashboardData,
+    *,
+    show_technical_details: bool = True,
+    stack_charts: bool = False,
+) -> None:
     _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
@@ -1451,7 +1456,10 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
         default_pct_chart_df.empty
         or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
     )
-    credit_col, coverage_col = st.columns([0.62, 0.38])
+    if stack_charts:
+        credit_col, coverage_col = st.container(), st.container()
+    else:
+        credit_col, coverage_col = st.columns([0.62, 0.38])
     with credit_col:
         if _credit_chart_all_zero:
             st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
@@ -1490,6 +1498,7 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                     color_range=[COVERAGE_LINE_COLOR],
                     show_point_labels=False,
                     show_end_labels=True,
+                    end_label_padding=54,
                     point_size=64,
                     reference_value=100.0,
                     reference_label="100% (paridade)",
@@ -1497,6 +1506,8 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 ),
                 width="stretch",
             )
+    if not show_technical_details:
+        return
     with st.expander("Detalhe técnico do aging", expanded=False):
         aging_history_df = dashboard.default_aging_history_df.copy()
         _render_chart_heading(st, "Aging")
@@ -3863,6 +3874,7 @@ def _line_history_chart(
     show_point_labels: bool = True,
     show_end_labels: bool = False,
     end_label_text_column: str | None = None,
+    end_label_padding: int = 96,
     point_label_font_size: int = 12,
     point_label_font_weight: int = 600,
     point_size: int = 58,
@@ -3973,7 +3985,9 @@ def _line_history_chart(
         )
         if end_labels is not None:
             layered = layered + end_labels
-        layered = layered.properties(padding={"left": 8, "right": 96, "top": 8, "bottom": 8})
+        layered = layered.properties(
+            padding={"left": 8, "right": max(int(end_label_padding), 0), "top": 8, "bottom": 8}
+        )
     if limit_value is None:
         return _style_altair_chart(layered)
 

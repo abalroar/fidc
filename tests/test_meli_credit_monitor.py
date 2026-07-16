@@ -296,6 +296,12 @@ class MeliCreditMonitorTest(unittest.TestCase):
             {
                 "consolidated_monthly": base_monthly,
                 "fund_monthly": {"00000000000000": base_monthly},
+                "metadata": {
+                    "temporal_loaded_funds": 1,
+                    "temporal_expected_funds": 1,
+                    "temporal_common_month_count": 7,
+                    "temporal_requested_month_count": 7,
+                },
             },
         )()
 
@@ -309,6 +315,13 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertTrue(zipfile.is_zipfile(BytesIO(pptx_bytes)))
         legacy_prs = Presentation(BytesIO(pptx_bytes))
         self.assertEqual(11, len(legacy_prs.slides))
+        cover_text = "\n".join(
+            shape.text
+            for shape in legacy_prs.slides[0].shapes
+            if getattr(shape, "has_text_frame", False)
+        )
+        self.assertIn("1/1 fundos", cover_text)
+        self.assertIn("7/7 competências comuns", cover_text)
         self.assertFalse(
             any(
                 getattr(shape, "has_table", False)

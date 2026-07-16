@@ -608,16 +608,10 @@ def build_excel_export_bytes(outputs: MercadoLivreOutputs) -> bytes:
 
     _write_dataframe_sheet(workbook.create_sheet("Auditoria"), build_validation_table(outputs))
     _write_dataframe_sheet(workbook.create_sheet("Warnings"), outputs.warnings_df)
-    metadata_df = pd.DataFrame(
-        [
-            {
-                "chave": key,
-                "valor": json.dumps(value, ensure_ascii=False) if isinstance(value, (dict, list)) else value,
-            }
-            for key, value in outputs.metadata.items()
-        ]
+    _write_dataframe_sheet(
+        workbook.create_sheet("Metadados"),
+        _metadata_export_frame(getattr(outputs, "metadata", {}) or {}),
     )
-    _write_dataframe_sheet(workbook.create_sheet("Metadados"), metadata_df)
     workbook.save(buffer)
     return buffer.getvalue()
 
@@ -664,6 +658,10 @@ def build_full_variable_excel_export_bytes(outputs: MercadoLivreOutputs) -> byte
             table_name=_unique_excel_table_name(f"Rentabilidade_{cnpj}", used_table_names),
         )
 
+    _write_dataframe_sheet(
+        workbook.create_sheet("Metadados"),
+        _metadata_export_frame(getattr(outputs, "metadata", {}) or {}),
+    )
     workbook.save(buffer)
     return buffer.getvalue()
 
@@ -680,6 +678,10 @@ def build_full_variable_csv_zip_bytes(outputs: MercadoLivreOutputs) -> bytes:
             token = _safe_path_token(f"{cnpj}_{name}").lower()
             frame = build_full_variable_export_matrix(monthly_df, period_labels=period_labels)
             archive.writestr(f"{token}.csv", frame.to_csv(index=False).encode("utf-8-sig"))
+        archive.writestr(
+            "metadados.csv",
+            _metadata_export_frame(getattr(outputs, "metadata", {}) or {}).to_csv(index=False).encode("utf-8-sig"),
+        )
     return buffer.getvalue()
 
 
@@ -719,6 +721,8 @@ def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> byt
     summary_ws.title = "Resumo exibido"
     data_ws = workbook.create_sheet("Dados gráficos")
     charts_ws = workbook.create_sheet("Gráficos")
+    metadata_ws = workbook.create_sheet("Metadados")
+    _write_dataframe_sheet(metadata_ws, _metadata_export_frame(getattr(outputs, "metadata", {}) or {}))
 
     monthly = outputs.consolidated_monthly.copy()
     if monthly.empty:
@@ -742,6 +746,22 @@ def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> byt
     buffer = BytesIO()
     workbook.save(buffer)
     return buffer.getvalue()
+
+
+def _metadata_export_frame(metadata: dict[str, Any]) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "chave": key,
+                "valor": (
+                    json.dumps(value, ensure_ascii=False, default=str)
+                    if isinstance(value, (dict, list, tuple))
+                    else value
+                ),
+            }
+            for key, value in metadata.items()
+        ]
+    )
 
 
 def _write_snapshot_summary(ws, monthly: pd.DataFrame, period_labels: list[str]) -> None:

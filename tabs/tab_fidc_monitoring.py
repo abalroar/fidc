@@ -161,19 +161,36 @@ _CSS = """
     padding-bottom: 5px;
     margin-bottom: 12px;
 }
-.monitor-wide-section {
-    margin: 0 0 8px 0;
+.monitor-coverage-banner {
+    align-items: center;
+    background: #FAFAFA;
+    border-bottom: 1px solid #D9D9D9;
+    border-left: 4px solid #1F1F1F;
+    border-top: 1px solid #D9D9D9;
+    color: #4F4F4F;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.76rem;
+    gap: 0.35rem 1rem;
+    line-height: 1.35;
+    margin: 0.35rem 0 0.55rem 0;
+    padding: 0.48rem 0.68rem;
 }
-.monitor-wide-section summary {
-    background: #000000;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 13px;
+.monitor-coverage-banner--attention { border-left-color: #FF6200; }
+.monitor-coverage-banner strong { color: #1F1F1F; }
+.monitor-col-title,
+.monitor-col-meta { display: block; }
+.monitor-col-title {
+    font-size: 0.73rem;
     font-weight: 700;
+    line-height: 1.2;
+}
+.monitor-col-meta {
+    color: #737373;
+    font-size: 0.62rem;
+    font-weight: 500;
     line-height: 1.25;
-    list-style-position: inside;
-    padding: 7px 9px;
-    white-space: normal;
+    margin-top: 0.22rem;
 }
 .monitor-wide-table {
     border-collapse: collapse;
@@ -223,6 +240,16 @@ _CSS = """
 }
 .monitor-wide-table tr:hover td {
     background: #F4F1EA;
+}
+.monitor-wide-table tr.monitor-section-row th {
+    background: #000000;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 0.74rem;
+    font-weight: 700;
+    padding: 0.42rem 0.55rem;
+    position: static;
+    text-align: left;
 }
 .monitor-fund-title {
     color: #1f1f1f;
@@ -319,7 +346,11 @@ def render_tab_fidc_monitoring(
     if use_tabs:
         cockpit_tab, regulatory_tab = st.tabs(["Cockpit", "Regulatório"])
         with cockpit_tab:
-            _render_cockpit_tab(success_outputs)
+            _render_cockpit_tab(
+                success_outputs,
+                period=period,
+                expected_total=len(selected_portfolio.funds),
+            )
         with regulatory_tab:
             _render_regulatory_base_tab(regulatory_outputs)
         return
@@ -346,7 +377,11 @@ def render_portfolio_cockpit_snapshot(
     if not success_outputs:
         st.caption("Sem indicadores por fundo para a competência de referência.")
         return False
-    _render_cockpit_tab(success_outputs)
+    _render_cockpit_tab(
+        success_outputs,
+        period=period,
+        expected_total=len(selected_portfolio.funds),
+    )
     return True
 
 
@@ -650,13 +685,31 @@ def _available_competencias_from_wide(wide_df: pd.DataFrame) -> list[str]:
     return available or competencias
 
 
-def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
+def _render_cockpit_tab(
+    outputs: list[dict[str, Any]],
+    *,
+    period: ImePeriodSelection | None = None,
+    expected_total: int | None = None,
+) -> None:
     reference, reference_count, reference_total = _portfolio_reference_competencia(outputs)
     if not reference:
-        st.info("Não há competência disponível para montar o cockpit.")
+        st.warning(
+            "Não há uma competência comum a todos os fundos carregados. "
+            "O consolidado foi suprimido para evitar mistura de datas."
+        )
+        st.dataframe(_cockpit_availability_table(outputs), width="stretch", hide_index=True)
         return
-    _ = reference_count, reference_total
-    st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
+    st.markdown(
+        _render_cockpit_table_html(
+            outputs,
+            reference,
+            reference_count=reference_count,
+            reference_total=reference_total,
+            expected_total=expected_total,
+            requested_end=period.end_month if period is not None else None,
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool = False) -> None:
@@ -947,35 +1000,91 @@ def _limit_status(value: float | None, limit: float | None, *, higher_is_better:
     return "OK" if value <= limit else "Alerta"
 
 
-def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> str:
+def _render_cockpit_table_html(
+    outputs: list[dict[str, Any]],
+    latest: str,
+    *,
+    reference_count: int | None = None,
+    reference_total: int | None = None,
+    expected_total: int | None = None,
+    requested_end: date | None = None,
+) -> str:
+    outputs = sorted(outputs, key=lambda item: str(item.get("display_name") or item.get("cnpj") or "").lower())
+    loaded_total = int(reference_total if reference_total is not None else len(outputs))
+    reference_count = int(reference_count if reference_count is not None else loaded_total)
+    expected_total = max(int(expected_total or loaded_total), loaded_total)
+    scope_complete = reference_count == loaded_total == expected_total
+    latest_individual = max(
+        (value for value in (_latest_competencia(item) for item in outputs) if value),
+        key=parse_competencia_label,
+        default=None,
+    )
+    requested_end_label = _format_month_date_label(requested_end) if requested_end is not None else None
+    reference_label = _format_competencia_label(latest)
+    latest_individual_label = _format_competencia_label(latest_individual) if latest_individual else "N/D"
+    is_current = scope_complete and (requested_end_label is None or requested_end_label == reference_label)
+    banner_class = "monitor-coverage-banner" if is_current else "monitor-coverage-banner monitor-coverage-banner--attention"
+    banner_parts = [
+        f"<strong>Competência comum: {escape(reference_label)}</strong>",
+        f"<span>Escopo: {reference_count}/{expected_total} fundos</span>",
+        f"<span>Último informe individual: {escape(latest_individual_label)}</span>",
+    ]
+    if requested_end_label:
+        banner_parts.append(f"<span>Fim solicitado: {escape(requested_end_label)}</span>")
+    if not scope_complete:
+        banner_parts.append("<span>Consolidado indisponível por cobertura parcial</span>")
+
     fund_width = 172
-    min_width = max(460 + fund_width * (len(outputs) + 1), 980)
-    html = [f"<div class='monitor-wide-wrapper' style='min-width: 100%; --monitor-table-min-width: {min_width}px;'>"]
+    min_width = max(370 + fund_width * len(outputs), 920)
+    html = [f"<div class='{banner_class}'>{''.join(banner_parts)}</div>"]
+    html.append(f"<div class='monitor-wide-wrapper' style='min-width: 100%; --monitor-table-min-width: {min_width}px;'>")
     by_section: dict[str, list[CockpitMetric]] = {}
     for metric in _COCKPIT_METRICS:
         by_section.setdefault(metric.section, []).append(metric)
 
+    html.append(f"<table class='monitor-wide-table' style='min-width: {min_width}px;'>")
+    html.append("<colgroup><col style='width: 230px;'><col style='width: 140px;'>")
+    html.extend(f"<col style='width: {fund_width}px;'>" for _ in outputs)
+    html.append("</colgroup><thead><tr><th class='label-col'>Indicador</th>")
+    consolidated_meta = (
+        f"{reference_label} · {reference_count}/{expected_total} fundos"
+        if scope_complete
+        else f"N/D · {reference_count}/{expected_total} fundos"
+    )
+    html.append(
+        "<th><span class='monitor-col-title'>Consolidado</span>"
+        f"<span class='monitor-col-meta'>{escape(consolidated_meta)}</span></th>"
+    )
+    for item in outputs:
+        full_name = str(item["display_name"])
+        header_name = _compact_cockpit_fund_name(full_name)
+        item_latest = _latest_competencia(item)
+        item_latest_label = _format_competencia_label(item_latest) if item_latest else "N/D"
+        meta = (
+            f"Competência {reference_label}"
+            if item_latest == latest
+            else f"Exibido {reference_label} · último {item_latest_label}"
+        )
+        html.append(
+            f"<th title='{escape(full_name)}'><span class='monitor-col-title'>{escape(header_name)}</span>"
+            f"<span class='monitor-col-meta'>{escape(meta)}</span></th>"
+        )
+    html.append("</tr></thead><tbody>")
     for section, metrics in by_section.items():
-        html.append(f"<details class='monitor-wide-section' open style='min-width: {min_width}px;'>")
-        html.append(f"<summary>{escape(section)}</summary>")
-        html.append(f"<table class='monitor-wide-table' style='min-width: {min_width}px;'>")
-        html.append("<colgroup><col style='width: 230px;'><col style='width: 120px;'>")
-        html.extend(f"<col style='width: {fund_width}px;'>" for _ in outputs)
-        html.append("</colgroup><thead><tr><th class='label-col'>Nome</th><th>Consolidado</th>")
-        for item in outputs:
-            html.append(f"<th>{escape(str(item['display_name']))}</th>")
-        html.append("</tr></thead><tbody>")
+        html.append(
+            f"<tr class='monitor-section-row'><th colspan='{len(outputs) + 2}'>{escape(section)}</th></tr>"
+        )
         for metric in metrics:
             row_class = "destaque" if metric.indicator in {"PL (R$)", "Vencidos Over 90 d / Crédito", "PDD / Venc > 90 d"} else ""
             html.append(f"<tr class='{row_class}'>")
             html.append(f"<td class='label'>{escape(metric.label)}</td>")
-            html.append(f"<td>{escape(_format_metric_value(_aggregate_metric(metric, outputs, latest), metric.unit))}</td>")
+            aggregate_value = _aggregate_metric(metric, outputs, latest) if scope_complete else pd.NA
+            html.append(f"<td>{escape(_format_metric_value(aggregate_value, metric.unit))}</td>")
             for item in outputs:
                 value = _metric_numeric(item, metric.indicator, latest)
                 html.append(f"<td>{escape(_format_metric_value(value, metric.unit))}</td>")
             html.append("</tr>")
-        html.append("</tbody></table></details>")
-    html.append("</div>")
+    html.append("</tbody></table></div>")
     return "\n".join(html)
 
 
@@ -983,29 +1092,28 @@ def _aggregate_metric(metric: CockpitMetric, outputs: list[dict[str, Any]], comp
     if metric.aggregate == "none":
         return pd.NA
     if metric.aggregate == "sum":
-        values = [_metric_numeric(item, metric.indicator, competencia) for item in outputs]
-        total = _sum_numbers(values)
+        total = _strict_metric_sum(outputs, metric.indicator, competencia)
         return pd.NA if total is None else total
     if metric.aggregate == "dircred_pl":
-        dircred = _sum_numbers([_metric_numeric(item, "Dir Cred (R$ MM)", competencia) for item in outputs])
-        pl = _sum_numbers([_metric_numeric(item, "PL (R$)", competencia) for item in outputs])
+        dircred = _strict_metric_sum(outputs, "Dir Cred (R$ MM)", competencia)
+        pl = _strict_metric_sum(outputs, "PL (R$)", competencia)
         return _safe_ratio(dircred, (pl / 1_000_000.0) if pl is not None else None)
     if metric.aggregate.startswith("over") and metric.aggregate.endswith("_credito"):
         prefix = metric.aggregate.removesuffix("_credito").replace("over", "Vencidos Over ") + " d (R$ MM)"
-        vencidos = _sum_numbers([_metric_numeric(item, prefix, competencia) for item in outputs])
-        dircred = _sum_numbers([_metric_numeric(item, "Dir Cred (R$ MM)", competencia) for item in outputs])
+        vencidos = _strict_metric_sum(outputs, prefix, competencia)
+        dircred = _strict_metric_sum(outputs, "Dir Cred (R$ MM)", competencia)
         return _safe_ratio(vencidos, dircred)
     if metric.aggregate == "pdd_credito":
-        pdd = _sum_numbers([_metric_numeric(item, "PDD (R$ MM)", competencia) for item in outputs])
-        dircred = _sum_numbers([_metric_numeric(item, "Dir Cred (R$ MM)", competencia) for item in outputs])
+        pdd = _strict_metric_sum(outputs, "PDD (R$ MM)", competencia)
+        dircred = _strict_metric_sum(outputs, "Dir Cred (R$ MM)", competencia)
         return _safe_ratio(pdd, dircred)
     if metric.aggregate == "pdd_over90":
-        pdd = _sum_numbers([_metric_numeric(item, "PDD (R$ MM)", competencia) for item in outputs])
-        over90 = _sum_numbers([_metric_numeric(item, "Vencidos Over 90 d (R$ MM)", competencia) for item in outputs])
+        pdd = _strict_metric_sum(outputs, "PDD (R$ MM)", competencia)
+        over90 = _strict_metric_sum(outputs, "Vencidos Over 90 d (R$ MM)", competencia)
         return _safe_ratio(pdd, over90)
     if metric.aggregate == "recompras_credito":
-        recomp = _sum_numbers([_metric_numeric(item, "Recompras (R$ MM)", competencia) for item in outputs])
-        dircred = _sum_numbers([_metric_numeric(item, "Dir Cred (R$ MM)", competencia) for item in outputs])
+        recomp = _strict_metric_sum(outputs, "Recompras (R$ MM)", competencia)
+        dircred = _strict_metric_sum(outputs, "Dir Cred (R$ MM)", competencia)
         return _safe_ratio(recomp, dircred)
     if metric.aggregate == "weighted_pl":
         weighted = 0.0
@@ -1014,7 +1122,7 @@ def _aggregate_metric(metric: CockpitMetric, outputs: list[dict[str, Any]], comp
             value = _metric_numeric(item, metric.indicator, competencia)
             pl = _metric_numeric(item, "PL (R$)", competencia)
             if value is None or pl is None:
-                continue
+                return pd.NA
             weighted += value * pl
             weight_sum += pl
         return pd.NA if weight_sum <= 0 else weighted / weight_sum
@@ -1037,11 +1145,15 @@ def _metric_numeric(item: dict[str, Any], indicator: str, competencia: str | Non
     return float(value)
 
 
-def _sum_numbers(values: list[float | None]) -> float | None:
-    clean = [float(value) for value in values if value is not None and pd.notna(value)]
-    if not clean:
+def _strict_metric_sum(
+    outputs: list[dict[str, Any]],
+    indicator: str,
+    competencia: str,
+) -> float | None:
+    values = [_metric_numeric(item, indicator, competencia) for item in outputs]
+    if not values or any(value is None or pd.isna(value) for value in values):
         return None
-    return float(sum(clean))
+    return float(sum(float(value) for value in values if value is not None))
 
 
 def _safe_ratio(numerator: float | None, denominator: float | None) -> object:
@@ -1053,7 +1165,7 @@ def _safe_ratio(numerator: float | None, denominator: float | None) -> object:
 def _format_metric_value(value: object, unit: str) -> str:
     numeric = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
     if pd.isna(numeric):
-        return "-"
+        return "N/D"
     if unit == "R$ bruto":
         return _format_brl(float(numeric))
     if unit == "R$ MM":
@@ -1063,6 +1175,21 @@ def _format_metric_value(value: object, unit: str) -> str:
     if unit == "%":
         return f"{_format_decimal(float(numeric), 2)}%"
     return _format_decimal(float(numeric), 2)
+
+
+def _compact_cockpit_fund_name(value: str, *, max_chars: int = 58) -> str:
+    text = re.sub(r"\s+", " ", str(value or "").strip())
+    replacements = (
+        (r"FUNDO DE INVESTIMENTO EM DIREITOS CREDIT[ÓO]RIOS", "FIDC"),
+        (r"DE RESPONSABILIDADE LIMITADA", ""),
+        (r"RESPONSABILIDADE LIMITADA", ""),
+    )
+    for pattern, replacement in replacements:
+        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+    text = re.sub(r"\s+", " ", text).strip(" -")
+    if len(text) <= max_chars:
+        return text
+    return f"{text[: max_chars - 3].rstrip()}..."
 
 
 def _format_brl(value: float) -> str:
@@ -1099,7 +1226,7 @@ def _format_period_label(period: ImePeriodSelection) -> str:
 def _portfolio_reference_competencia(
     outputs: list[dict[str, Any]],
     *,
-    min_coverage_pct: float = 0.8,
+    min_coverage_pct: float = 1.0,
 ) -> tuple[str | None, int, int]:
     total = len([item for item in outputs if item.get("tables") is not None])
     if total <= 0:
@@ -1116,13 +1243,27 @@ def _portfolio_reference_competencia(
     for competencia in ordered:
         if coverage.get(competencia, 0) >= required:
             return competencia, coverage.get(competencia, 0), total
-    latest = ordered[0]
-    return latest, coverage.get(latest, 0), total
+    return None, max(coverage.values(), default=0), total
 
 
 def _latest_competencia(item: dict[str, Any]) -> str | None:
-    competencias = list(item.get("competencias") or [])
-    return competencias[-1] if competencias else None
+    competencias = [str(value) for value in (item.get("competencias") or []) if str(value or "").strip()]
+    return max(competencias, key=parse_competencia_label) if competencias else None
+
+
+def _cockpit_availability_table(outputs: list[dict[str, Any]]) -> pd.DataFrame:
+    rows = []
+    for item in sorted(outputs, key=lambda value: str(value.get("display_name") or value.get("cnpj") or "").lower()):
+        competencias = [str(value) for value in (item.get("competencias") or []) if str(value or "").strip()]
+        rows.append(
+            {
+                "CNPJ": item.get("cnpj") or "N/D",
+                "Fundo": item.get("display_name") or item.get("cnpj") or "N/D",
+                "Última competência": _format_competencia_label(_latest_competencia(item) or "N/D"),
+                "Competências carregadas": len(competencias),
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _session_key(portfolio: PortfolioRecord, period: ImePeriodSelection, cache_months: int) -> str:

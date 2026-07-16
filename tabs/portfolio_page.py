@@ -31,31 +31,95 @@ class PortfolioPageBlock:
 _PORTFOLIO_PAGE_CSS = """
 <style>
 .portfolio-center-header {
-    border-bottom: 1px solid #dde3ea;
-    margin: 0.25rem 0 0.85rem 0;
-    padding-bottom: 0.7rem;
+    border-bottom: 2px solid #1F1F1F;
+    margin: 0.2rem 0 0.55rem 0;
+    padding-bottom: 0.6rem;
 }
 .portfolio-center-title {
-    color: #283241;
-    font-size: 1.22rem;
+    color: #1F1F1F;
+    font-size: 1.18rem;
     font-weight: 700;
     line-height: 1.25;
     margin: 0;
 }
 .portfolio-center-meta {
-    color: #6f7a87;
+    color: #6B6B6B;
     display: flex;
     flex-wrap: wrap;
-    font-size: 0.78rem;
+    font-size: 0.74rem;
     gap: 0.45rem;
     line-height: 1.35;
-    margin-top: 0.35rem;
+    margin-top: 0.3rem;
 }
 .portfolio-center-meta span {
-    background: #f8f9fa;
-    border: 1px solid #eceff3;
-    border-radius: 999px;
-    padding: 0.18rem 0.55rem;
+    border-left: 3px solid #FF6200;
+    padding: 0.08rem 0.45rem;
+}
+.portfolio-block-header {
+    align-items: baseline;
+    border-top: 1px solid #BFBFBF;
+    display: flex;
+    gap: 0.55rem;
+    margin: 1.35rem 0 0.65rem 0;
+    padding-top: 0.65rem;
+}
+.portfolio-block-index {
+    color: #FF6200;
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.portfolio-block-title {
+    color: #1F1F1F;
+    font-size: 1.04rem;
+    font-weight: 700;
+    line-height: 1.25;
+}
+.fidc-section {
+    font-size: 1rem !important;
+    margin: 1rem 0 0.45rem 0 !important;
+}
+.fidc-chart-title {
+    font-size: 0.88rem !important;
+    line-height: 1.3 !important;
+}
+div[data-testid="stExpander"] details {
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    box-shadow: none;
+}
+div[data-testid="stExpander"] summary {
+    min-height: 2.3rem;
+    padding: 0.42rem 0.65rem;
+}
+div[data-testid="stExpander"] summary p {
+    color: #2F2F2F;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+div[data-testid="stDownloadButton"] button,
+div[data-testid="stButton"] button {
+    border-radius: 4px;
+    font-size: 0.78rem;
+    min-height: 2.25rem;
+}
+div[data-testid="stCaptionContainer"] p {
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+@media (max-width: 700px) {
+    div[data-testid="stHorizontalBlock"] {
+        flex-direction: column !important;
+        gap: 0.65rem !important;
+    }
+    div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+        flex: 1 1 100% !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    .portfolio-block-header { margin-top: 1.05rem; }
 }
 </style>
 """
@@ -163,6 +227,7 @@ def _render_section(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
 ) -> None:
+    _render_portfolio_block_header(section)
     if section == SECTION_AGING:
         carteira_tab.render_portfolio_aging_analysis(
             selected_portfolio=selected_portfolio,
@@ -197,6 +262,25 @@ def _render_section(
             show_curation_tools=False,
             compact=True,
         )
+
+
+def _render_portfolio_block_header(section: str) -> None:
+    block = _BLOCK_BY_ID.get(section)
+    if block is None:
+        return
+    visible_sections = DEFAULT_SECTIONS
+    index = next((idx for idx, item in enumerate(visible_sections, start=1) if item == section), 0)
+    if not index:
+        index = next((idx for idx, item in enumerate(_BLOCKS, start=1) if item.section_id == section), 0)
+    st.markdown(
+        f"""
+<div class="portfolio-block-header">
+  <span class="portfolio-block-index">{index:02d}</span>
+  <span class="portfolio-block-title">{escape(block.title)}</span>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
 
 
 def _format_section_option(section: str) -> str:

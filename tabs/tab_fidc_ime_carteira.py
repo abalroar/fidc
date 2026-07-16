@@ -12,7 +12,12 @@ import pandas as pd
 import streamlit as st
 
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
-from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
+from services.fundonet_portfolio_dashboard import (
+    PortfolioDashboardBundle,
+    PortfolioPeriodCoverage,
+    build_portfolio_dashboard_bundle,
+    build_portfolio_period_coverage,
+)
 from services.ime_loader import load_or_extract_informe, peek_cached_informe
 from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
@@ -34,6 +39,97 @@ from tabs.ime_portfolio_support import (
 
 
 PARTIAL_CACHE_STATUSES = {"partial_hit", "github_cache_partial"}
+
+_PORTFOLIO_COVERAGE_CSS = """
+<style>
+.portfolio-period-status {
+    background: #FAFAFA;
+    border-bottom: 1px solid #D9D9D9;
+    border-left: 4px solid #1F1F1F;
+    border-top: 1px solid #D9D9D9;
+    display: grid;
+    gap: 0;
+    grid-template-columns: repeat(5, minmax(112px, 1fr));
+    margin: 0.45rem 0 0.6rem 0;
+}
+.portfolio-period-status--parcial,
+.portfolio-period-status--defasado,
+.portfolio-period-status--indisponivel {
+    border-left-color: #FF6200;
+}
+.portfolio-period-status__item {
+    border-right: 1px solid #E5E5E5;
+    min-width: 0;
+    padding: 0.55rem 0.7rem;
+}
+.portfolio-period-status__item:last-child { border-right: 0; }
+.portfolio-period-status__label {
+    color: #6B6B6B;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+.portfolio-period-status__value {
+    color: #1F1F1F;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 0.18rem;
+    overflow-wrap: anywhere;
+}
+.portfolio-period-alert {
+    background: #FFF7F0;
+    border-bottom: 1px solid #FFD4B8;
+    border-top: 1px solid #FFD4B8;
+    color: #3F3F3F;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    margin: 0 0 0.65rem 0;
+    padding: 0.48rem 0.72rem;
+}
+.portfolio-period-alert strong { color: #1F1F1F; }
+.portfolio-period-timeline {
+    display: grid;
+    gap: 4px;
+    grid-template-columns: repeat(12, minmax(54px, 1fr));
+    margin: 0 0 0.75rem 0;
+    overflow-x: auto;
+}
+.portfolio-period-month {
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-top: 3px solid #1F1F1F;
+    color: #4F4F4F;
+    min-width: 54px;
+    padding: 0.28rem 0.3rem;
+    text-align: center;
+}
+.portfolio-period-month--missing {
+    background: #FFF7F0;
+    border-color: #FFD4B8;
+    border-top-color: #FF6200;
+}
+.portfolio-period-month__label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+.portfolio-period-month__status {
+    color: #7A7A7A;
+    display: block;
+    font-size: 0.6rem;
+    line-height: 1.15;
+    margin-top: 0.12rem;
+}
+@media (max-width: 900px) {
+    .portfolio-period-status { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+    .portfolio-period-status__item { border-bottom: 1px solid #E5E5E5; }
+    .portfolio-period-timeline { grid-template-columns: repeat(12, 64px); }
+}
+</style>
+"""
 
 
 def render_tab_fidc_ime_carteira(period: ImePeriodSelection | None = None) -> None:
@@ -151,6 +247,7 @@ def render_portfolio_aging_analysis(
     period: ImePeriodSelection,
     section_mode: str = "tabs",
 ) -> None:
+    st.markdown(_PORTFOLIO_COVERAGE_CSS, unsafe_allow_html=True)
     runtime_state = ensure_portfolio_ime_data(selected_portfolio=selected_portfolio, period=period)
 
     _render_loaded_portfolio_analysis(
@@ -948,7 +1045,12 @@ def _render_portfolio_aggregate_analysis(
         for fund in selected_portfolio.funds
         if fund.cnpj not in dashboards_by_cnpj
     ]
-    excluded_competencias = _portfolio_missing_competencias_for_period(bundle=bundle, period=period)
+    period_coverage = build_portfolio_period_coverage(
+        bundle=bundle,
+        requested_competencias=_expected_competencias_for_period(period),
+        total_selected_funds=total_selected,
+    )
+    excluded_competencias = list(period_coverage.missing_common_competencias)
 
     def _render_executive_view() -> None:
         if section_mode == "tabs":
@@ -958,38 +1060,46 @@ def _render_portfolio_aggregate_analysis(
                 loaded_count=loaded_count,
                 total_selected=total_selected,
             )
+        _render_portfolio_period_status(
+            coverage=period_coverage,
+            excluded_funds=excluded_funds,
+        )
         _render_portfolio_aggregate_pptx_export_button(
             selected_portfolio=selected_portfolio,
             bundle=bundle,
             period=period,
+            coverage=period_coverage,
         )
         if dashboard_errors:
-            with st.expander("Fundos excluídos por falha no dashboard base", expanded=False):
-                for cnpj, message in dashboard_errors.items():
-                    st.caption(f"**{cnpj}** — {message}")
+            st.caption(
+                f"{len(dashboard_errors)} fundo(s) foram excluídos por falha no dashboard base; "
+                "os detalhes estão na auditoria temporal."
+            )
         ime_tab._render_financial_snapshot_cards(bundle.dashboard)
         ime_tab._render_structural_risk_section(
             bundle.dashboard,
             slot_key=f"portfolio_agg_{selected_portfolio.id}",
         )
-        ime_tab._render_credit_risk_section(bundle.dashboard)
+        ime_tab._render_credit_risk_section(
+            bundle.dashboard,
+            show_technical_details=False,
+            stack_charts=True,
+        )
         ime_tab._render_liquidity_risk_section(
             bundle.dashboard,
             show_duration_history_chart=False,
-        )
-        ime_tab._render_calculation_memory_section(
-            bundle.dashboard,
-            slot_key=f"portfolio_agg_{selected_portfolio.id}",
         )
 
     def _render_technical_view() -> None:
         _render_portfolio_aggregate_audit(
             bundle=bundle,
+            period_coverage=period_coverage,
             selected_portfolio=selected_portfolio,
             loaded_count=loaded_count,
             total_selected=total_selected,
             excluded_funds=excluded_funds,
             excluded_competencias=excluded_competencias,
+            dashboard_errors=dashboard_errors,
             compact=section_mode != "tabs",
         )
 
@@ -1002,6 +1112,7 @@ def _render_portfolio_aggregate_analysis(
         return
 
     _render_executive_view()
+    _render_technical_view()
 
 
 def _render_portfolio_aggregate_header(
@@ -1027,6 +1138,7 @@ def _render_portfolio_aggregate_pptx_export_button(
     selected_portfolio: PortfolioRecord,
     bundle: PortfolioDashboardBundle,
     period: ImePeriodSelection,
+    coverage: PortfolioPeriodCoverage,
 ) -> None:
     try:
         from services.fundonet_ppt_export import build_dashboard_pptx_bytes
@@ -1038,6 +1150,7 @@ def _render_portfolio_aggregate_pptx_export_button(
         pptx_bytes = build_dashboard_pptx_bytes(
             bundle.dashboard,
             requested_period_label=getattr(period, "label", None),
+            coverage_label=_portfolio_export_coverage_label(coverage),
         )
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Não foi possível montar os slides da carteira agregada: {exc}")
@@ -1045,28 +1158,117 @@ def _render_portfolio_aggregate_pptx_export_button(
 
     file_token = selected_portfolio.id[:8] or "carteira"
     st.download_button(
-        "Exportar deck de comitê da carteira (PPTX)",
+        "Exportar PPTX",
         data=pptx_bytes,
         file_name=f"relatorio_carteira_agregada_{file_token}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         help="Deck executivo em PowerPoint com a visão agregada da carteira carregada.",
         key=f"ime_portfolio_aggregate_pptx::{selected_portfolio.id}",
+        icon=":material/download:",
+        width="content",
     )
 
 
-def _render_portfolio_period_coverage_warning(
+def _render_portfolio_period_status(
     *,
-    bundle: PortfolioDashboardBundle,
-    period: ImePeriodSelection,
+    coverage: PortfolioPeriodCoverage,
+    excluded_funds: list[str],
 ) -> None:
-    expected_competencias = ime_tab._competencia_labels_between(period.start_month, period.end_month)
-    common_competencias = set(str(value) for value in bundle.dashboard.competencias)
-    missing_competencias = [competencia for competencia in expected_competencias if competencia not in common_competencias]
-    if not missing_competencias:
-        return
-    st.warning(
-        "A carteira agregada usa apenas competências comuns aos fundos incluídos. "
-        "Consulte a auditoria técnica para a lista de competências fora da interseção."
+    requested = coverage.requested_competencias
+    requested_label = (
+        f"{ime_tab._format_competencia_label(requested[0])} a {ime_tab._format_competencia_label(requested[-1])}"
+        if requested
+        else "N/D"
+    )
+    latest_common = ime_tab._format_competencia_label(coverage.latest_common_competencia or "N/D")
+    latest_available = ime_tab._format_competencia_label(coverage.latest_available_competencia or "N/D")
+    common_count = len(coverage.common_competencias)
+    requested_count = len(requested)
+    block_label = (
+        f"{coverage.complete_blocks}/{coverage.total_blocks}"
+        if coverage.total_blocks
+        else "N/D"
+    )
+    items = [
+        ("Janela solicitada", requested_label),
+        ("Competência consolidada", latest_common),
+        ("Último informe individual", latest_available),
+        ("Fundos no consolidado", f"{coverage.loaded_funds}/{coverage.total_selected_funds}"),
+        ("Meses comuns | blocos", f"{common_count}/{requested_count} | {block_label}"),
+    ]
+    items_html = "".join(
+        "<div class='portfolio-period-status__item'>"
+        f"<div class='portfolio-period-status__label'>{escape(label)}</div>"
+        f"<div class='portfolio-period-status__value'>{escape(value)}</div>"
+        "</div>"
+        for label, value in items
+    )
+    st.markdown(
+        f"<div class='portfolio-period-status portfolio-period-status--{escape(coverage.status)}'>{items_html}</div>",
+        unsafe_allow_html=True,
+    )
+
+    common_set = set(coverage.common_competencias)
+    timeline_html = "".join(
+        "<div class='portfolio-period-month"
+        f"{' portfolio-period-month--missing' if competencia not in common_set else ''}'>"
+        f"<span class='portfolio-period-month__label'>{escape(ime_tab._format_competencia_label(competencia))}</span>"
+        f"<span class='portfolio-period-month__status'>{'Comum' if competencia in common_set else 'Ausente'}</span>"
+        "</div>"
+        for competencia in requested
+    )
+    if timeline_html:
+        st.markdown(f"<div class='portfolio-period-timeline'>{timeline_html}</div>", unsafe_allow_html=True)
+
+    alert = _portfolio_period_alert_text(coverage=coverage, excluded_funds=excluded_funds)
+    if alert:
+        st.markdown(f"<div class='portfolio-period-alert'>{alert}</div>", unsafe_allow_html=True)
+
+
+def _portfolio_period_alert_text(
+    *,
+    coverage: PortfolioPeriodCoverage,
+    excluded_funds: list[str],
+) -> str:
+    if coverage.status == "completo":
+        return ""
+    details: list[str] = []
+    if coverage.status == "defasado":
+        details.append(
+            "A fotografia consolidada foi recuada para a última competência comum; "
+            "informes individuais mais recentes não entram no total."
+        )
+    if coverage.missing_common_competencias:
+        missing = ", ".join(
+            ime_tab._format_competencia_label(value)
+            for value in coverage.missing_common_competencias
+        )
+        details.append(f"Competências sem cobertura integral: {missing}.")
+    if excluded_funds:
+        details.append(f"Fundos fora do consolidado: {', '.join(excluded_funds)}.")
+    incomplete = coverage.fund_status_df[
+        coverage.fund_status_df.get("status", pd.Series(dtype="object")).astype(str).ne("Completo")
+    ] if not coverage.fund_status_df.empty else pd.DataFrame()
+    if not incomplete.empty:
+        fund_details = "; ".join(
+            f"{row['fundo']} até {ime_tab._format_competencia_label(row.get('competencia_final') or 'N/D')}"
+            for row in incomplete.to_dict("records")
+        )
+        details.append(f"Situação individual: {fund_details}.")
+    if coverage.total_blocks and coverage.complete_blocks < coverage.total_blocks:
+        details.append(
+            f"Na competência consolidada, {coverage.complete_blocks}/{coverage.total_blocks} blocos estão completos."
+        )
+    if not details:
+        details.append("A cobertura não é integral; consulte a auditoria temporal antes de comparar os totais.")
+    return f"<strong>Base comparável {escape(coverage.status)}.</strong> {escape(' '.join(details))}"
+
+
+def _portfolio_export_coverage_label(coverage: PortfolioPeriodCoverage) -> str:
+    return (
+        f"Cobertura {coverage.loaded_funds}/{coverage.total_selected_funds} fundos; "
+        f"{len(coverage.common_competencias)}/{len(coverage.requested_competencias)} competências comuns; "
+        f"{coverage.complete_blocks}/{coverage.total_blocks or 0} blocos completos"
     )
 
 
@@ -1083,51 +1285,69 @@ def _portfolio_missing_competencias_for_period(
 def _render_portfolio_aggregate_audit(
     *,
     bundle: PortfolioDashboardBundle,
+    period_coverage: PortfolioPeriodCoverage,
     selected_portfolio: PortfolioRecord,
     loaded_count: int,
     total_selected: int,
     excluded_funds: list[str],
     excluded_competencias: list[str],
+    dashboard_errors: dict[str, str],
     compact: bool = False,
 ) -> None:
-    _ = loaded_count, total_selected
+    _ = loaded_count, total_selected, excluded_competencias
 
     def _render_scope_and_coverage() -> None:
-        st.markdown("**Fundos incluídos no agregado**")
+        st.markdown("##### Disponibilidade por fundo")
         st.dataframe(
-            _format_portfolio_scope_table(bundle.fund_scope_df),
+            _format_portfolio_fund_status_table(period_coverage.fund_status_df),
             width="stretch",
             hide_index=True,
         )
         if excluded_funds:
-            st.markdown("**Fundos fora do agregado atual**")
+            st.markdown("##### Fundos fora do agregado")
+            included_cnpjs = set(bundle.fund_scope_df.get("cnpj", pd.Series(dtype="object")).astype(str))
+            error_rows = [
+                {
+                    "CNPJ": fund.cnpj,
+                    "Fundo": fund.display_name,
+                    "Motivo": dashboard_errors.get(fund.cnpj, "Falha de carregamento ou processamento"),
+                }
+                for fund in selected_portfolio.funds
+                if fund.cnpj not in included_cnpjs
+            ]
             st.dataframe(
-                pd.DataFrame({"Fundo": excluded_funds}),
+                pd.DataFrame(error_rows),
                 width="stretch",
                 hide_index=True,
             )
-        if excluded_competencias:
-            st.markdown("**Competências fora da interseção comum**")
-            st.dataframe(
-                pd.DataFrame(
-                    {
-                        "Competência": [
-                            ime_tab._format_competencia_label(value)
-                            for value in excluded_competencias
-                        ]
-                    }
-                ),
-                width="stretch",
-                hide_index=True,
-            )
-        st.markdown("**Cobertura por bloco e competência**")
+        st.markdown("##### Matriz fundo × competência")
         st.dataframe(
-            _format_portfolio_coverage_table(bundle.coverage_df),
+            _format_portfolio_availability_matrix(period_coverage.availability_matrix_df),
+            width="stretch",
+            hide_index=True,
+        )
+        st.caption("Disponível significa que o fundo possui dado-base naquela competência; Ausente nunca é tratado como zero.")
+
+        st.markdown(
+            "##### Cobertura por bloco na competência "
+            f"{ime_tab._format_competencia_label(period_coverage.latest_common_competencia or 'N/D')}"
+        )
+        latest_coverage_df = (
+            bundle.coverage_df[
+                bundle.coverage_df["competencia"].astype(str)
+                == str(period_coverage.latest_common_competencia)
+            ].copy()
+            if period_coverage.latest_common_competencia and not bundle.coverage_df.empty
+            else pd.DataFrame()
+        )
+        st.dataframe(
+            _format_portfolio_coverage_table(latest_coverage_df),
             width="stretch",
             hide_index=True,
         )
 
     def _render_reconciliation() -> None:
+        st.markdown("##### Reconciliação do consolidado")
         st.dataframe(
             _format_portfolio_reconciliation_table(bundle.reconciliation_df),
             width="stretch",
@@ -1135,19 +1355,20 @@ def _render_portfolio_aggregate_audit(
         )
 
     def _render_methodology_notes() -> None:
+        st.markdown("##### Regras metodológicas")
         for note in bundle.dashboard.methodology_notes:
             st.markdown(f"- {note}")
 
-    if compact:
-        return
-
-    with st.expander("Escopo e cobertura da carteira", expanded=False):
+    def _render_all() -> None:
         _render_scope_and_coverage()
-    with st.expander("Reconciliação do consolidado", expanded=False):
         _render_reconciliation()
-    ime_tab._render_audit_section(bundle.dashboard)
-    with st.expander("Notas metodológicas da carteira", expanded=False):
         _render_methodology_notes()
+
+    if compact:
+        with st.expander("Auditoria temporal e metodológica", expanded=False):
+            _render_all()
+        return
+    _render_all()
 
 
 def _format_portfolio_scope_table(scope_df: pd.DataFrame) -> pd.DataFrame:
@@ -1163,6 +1384,84 @@ def _format_portfolio_scope_table(scope_df: pd.DataFrame) -> pd.DataFrame:
             "competencias_carregadas": "Competências carregadas",
         }
     )
+
+
+def _format_portfolio_fund_status_table(status_df: pd.DataFrame) -> pd.DataFrame:
+    columns = [
+        "CNPJ",
+        "Fundo",
+        "Última competência",
+        "Defasagem",
+        "Cobertura",
+        "Competências ausentes",
+        "Status",
+    ]
+    if status_df.empty:
+        return pd.DataFrame(columns=columns)
+    output = status_df.copy()
+    output["cnpj"] = output["cnpj"].astype(str)
+    output["fundo"] = output["fundo"].map(_compact_portfolio_fund_name)
+    output["competencia_final"] = output["competencia_final"].map(ime_tab._format_competencia_label)
+    output["defasagem_meses"] = output["defasagem_meses"].map(
+        lambda value: "N/D" if pd.isna(value) else f"{int(value)} mês(es)"
+    )
+    output["cobertura_pct"] = output["cobertura_pct"].map(
+        lambda value: f"{float(value):.1f}%".replace(".", ",") if pd.notna(value) else "N/D"
+    )
+    output["competencias_ausentes"] = output["competencias_ausentes"].map(
+        lambda value: ", ".join(
+            ime_tab._format_competencia_label(item.strip())
+            for item in str(value or "").split(",")
+            if item.strip()
+        )
+        or "Nenhuma"
+    )
+    return output.rename(
+        columns={
+            "cnpj": "CNPJ",
+            "fundo": "Fundo",
+            "competencia_final": "Última competência",
+            "defasagem_meses": "Defasagem",
+            "cobertura_pct": "Cobertura",
+            "competencias_ausentes": "Competências ausentes",
+            "status": "Status",
+        }
+    )[columns]
+
+
+def _format_portfolio_availability_matrix(matrix_df: pd.DataFrame) -> pd.DataFrame:
+    if matrix_df.empty:
+        return pd.DataFrame(columns=["CNPJ", "Fundo"])
+    output = matrix_df.copy()
+    output["cnpj"] = output["cnpj"].astype(str)
+    output["fundo"] = output["fundo"].map(_compact_portfolio_fund_name)
+    rename_map = {"cnpj": "CNPJ", "fundo": "Fundo"}
+    rename_map.update(
+        {
+            column: ime_tab._format_competencia_label(column)
+            for column in output.columns
+            if column not in {"cnpj", "fundo"}
+        }
+    )
+    return output.rename(columns=rename_map)
+
+
+def _compact_portfolio_fund_name(value: object) -> str:
+    name = " ".join(str(value or "").split())
+    replacements = (
+        ("FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA", "FIDC"),
+        ("FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS DE RESPONSABILIDADE LIMITADA", "FIDC"),
+        ("FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA", "FIDC"),
+        ("FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS RESPONSABILIDADE LIMITADA", "FIDC"),
+        ("FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS", "FIDC"),
+        ("FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS", "FIDC"),
+    )
+    compact = name
+    for source, target in replacements:
+        compact = compact.replace(source, target)
+    if compact.endswith(" DE RESPONSABILIDADE LIMITADA"):
+        compact = compact[: -len(" DE RESPONSABILIDADE LIMITADA")]
+    return " ".join(compact.split())
 
 
 def _format_portfolio_coverage_table(coverage_df: pd.DataFrame) -> pd.DataFrame:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Sequence
 
 import pandas as pd
 
@@ -56,9 +57,26 @@ _QUOTA_MACRO_ORDER = {
 class PortfolioDashboardBundle:
     dashboard: FundonetDashboardData
     fund_scope_df: pd.DataFrame
+    availability_df: pd.DataFrame
     coverage_df: pd.DataFrame
     reconciliation_df: pd.DataFrame
     temporal_rule: str
+
+
+@dataclass(frozen=True)
+class PortfolioPeriodCoverage:
+    requested_competencias: tuple[str, ...]
+    common_competencias: tuple[str, ...]
+    missing_common_competencias: tuple[str, ...]
+    latest_common_competencia: str | None
+    latest_available_competencia: str | None
+    loaded_funds: int
+    total_selected_funds: int
+    complete_blocks: int
+    total_blocks: int
+    status: str
+    fund_status_df: pd.DataFrame
+    availability_matrix_df: pd.DataFrame
 
 
 def build_portfolio_dashboard_bundle(
@@ -70,6 +88,7 @@ def build_portfolio_dashboard_bundle(
         raise ValueError("Nenhum fundo carregado para montar a visão agregada da carteira.")
 
     fund_scope_df = _build_fund_scope_df(dashboards_by_cnpj)
+    availability_df = _build_fund_availability_df(dashboards_by_cnpj)
     common_competencias = _common_competencias(dashboards_by_cnpj)
     if not common_competencias:
         raise ValueError("Os fundos carregados não compartilham nenhuma competência em comum.")
@@ -293,6 +312,7 @@ def build_portfolio_dashboard_bundle(
     return PortfolioDashboardBundle(
         dashboard=dashboard,
         fund_scope_df=fund_scope_df,
+        availability_df=availability_df,
         coverage_df=coverage_df,
         reconciliation_df=reconciliation_df,
         temporal_rule="intersecao_estrita_ultima_competencia_comum",
@@ -313,6 +333,160 @@ def _build_fund_scope_df(dashboards_by_cnpj: dict[str, tuple[str, FundonetDashbo
             }
         )
     return pd.DataFrame(rows).sort_values(["fundo", "cnpj"]).reset_index(drop=True)
+
+
+def _build_fund_availability_df(
+    dashboards_by_cnpj: dict[str, tuple[str, FundonetDashboardData]],
+) -> pd.DataFrame:
+    rows: list[dict[str, object]] = []
+    for cnpj, (display_name, dashboard) in dashboards_by_cnpj.items():
+        for competencia in dashboard.competencias:
+            rows.append(
+                {
+                    "cnpj": cnpj,
+                    "fundo": display_name,
+                    "competencia": str(competencia),
+                    "disponivel": True,
+                }
+            )
+    if not rows:
+        return pd.DataFrame(columns=["cnpj", "fundo", "competencia", "disponivel"])
+    return (
+        pd.DataFrame(rows)
+        .sort_values(["fundo", "cnpj", "competencia"], key=lambda col: col.map(single._competencia_sort_key) if col.name == "competencia" else col)
+        .reset_index(drop=True)
+    )
+
+
+def build_portfolio_period_coverage(
+    *,
+    bundle: PortfolioDashboardBundle,
+    requested_competencias: Sequence[str],
+    total_selected_funds: int | None = None,
+) -> PortfolioPeriodCoverage:
+    requested = tuple(
+        sorted(
+            {str(value) for value in requested_competencias if str(value or "").strip()},
+            key=single._competencia_sort_key,
+        )
+    )
+    requested_set = set(requested)
+    common = tuple(value for value in requested if value in set(bundle.dashboard.competencias))
+    missing_common = tuple(value for value in requested if value not in set(common))
+    loaded_funds = int(len(bundle.fund_scope_df))
+    total_selected = max(int(total_selected_funds or loaded_funds), loaded_funds)
+    latest_common = common[-1] if common else None
+
+    availability_by_cnpj: dict[str, set[str]] = {}
+    if not bundle.availability_df.empty:
+        for cnpj, group in bundle.availability_df.groupby("cnpj", sort=False):
+            availability_by_cnpj[str(cnpj)] = {
+                str(value)
+                for value in group["competencia"].tolist()
+                if str(value or "").strip()
+            }
+
+    requested_end = requested[-1] if requested else None
+    latest_values: list[str] = []
+    fund_rows: list[dict[str, object]] = []
+    matrix_rows: list[dict[str, object]] = []
+    for row in bundle.fund_scope_df.to_dict("records"):
+        cnpj = str(row.get("cnpj") or "")
+        fundo = str(row.get("fundo") or cnpj)
+        available_all = availability_by_cnpj.get(cnpj, set())
+        available_for_request = sorted(
+            [
+                value
+                for value in available_all
+                if requested_end is None or single._competencia_sort_key(value) <= single._competencia_sort_key(requested_end)
+            ],
+            key=single._competencia_sort_key,
+        )
+        latest_for_request = available_for_request[-1] if available_for_request else None
+        if latest_for_request:
+            latest_values.append(latest_for_request)
+        found_requested = [value for value in requested if value in available_all]
+        missing_requested = [value for value in requested if value not in available_all]
+        lag_months = _competencia_lag_months(requested_end, latest_for_request)
+        if requested and latest_for_request != requested_end:
+            fund_status = "Defasado"
+        elif missing_requested:
+            fund_status = "Com lacunas"
+        else:
+            fund_status = "Completo"
+        fund_rows.append(
+            {
+                "cnpj": cnpj,
+                "fundo": fundo,
+                "competencia_inicial": row.get("competencia_inicial"),
+                "competencia_final": latest_for_request or row.get("competencia_final"),
+                "defasagem_meses": lag_months,
+                "competencias_encontradas": len(found_requested),
+                "competencias_solicitadas": len(requested),
+                "cobertura_pct": (len(found_requested) / len(requested) * 100.0) if requested else 0.0,
+                "competencias_ausentes": ", ".join(missing_requested),
+                "status": fund_status,
+            }
+        )
+        matrix_row: dict[str, object] = {"cnpj": cnpj, "fundo": fundo}
+        matrix_row.update(
+            {
+                competencia: "Disponível" if competencia in available_all else "Ausente"
+                for competencia in requested
+            }
+        )
+        matrix_rows.append(matrix_row)
+
+    latest_available = max(latest_values, key=single._competencia_sort_key) if latest_values else None
+    latest_block_rows = (
+        bundle.coverage_df[bundle.coverage_df["competencia"].astype(str) == str(latest_common)].copy()
+        if latest_common and not bundle.coverage_df.empty
+        else pd.DataFrame()
+    )
+    total_blocks = int(len(latest_block_rows))
+    complete_blocks = (
+        int(latest_block_rows["status"].astype(str).eq("Completo").sum())
+        if total_blocks and "status" in latest_block_rows.columns
+        else 0
+    )
+
+    scope_complete = loaded_funds == total_selected
+    timeline_complete = bool(requested) and not missing_common
+    blocks_complete = total_blocks > 0 and complete_blocks == total_blocks
+    if latest_common is None:
+        status = "indisponivel"
+    elif requested_end and latest_common != requested_end:
+        status = "defasado"
+    elif scope_complete and timeline_complete and blocks_complete:
+        status = "completo"
+    else:
+        status = "parcial"
+
+    return PortfolioPeriodCoverage(
+        requested_competencias=requested,
+        common_competencias=common,
+        missing_common_competencias=missing_common,
+        latest_common_competencia=latest_common,
+        latest_available_competencia=latest_available,
+        loaded_funds=loaded_funds,
+        total_selected_funds=total_selected,
+        complete_blocks=complete_blocks,
+        total_blocks=total_blocks,
+        status=status,
+        fund_status_df=pd.DataFrame(fund_rows),
+        availability_matrix_df=pd.DataFrame(matrix_rows),
+    )
+
+
+def _competencia_lag_months(requested_end: str | None, latest: str | None) -> int | None:
+    if not requested_end or not latest:
+        return None
+    try:
+        end_month, end_year = (int(value) for value in requested_end.split("/", maxsplit=1))
+        latest_month, latest_year = (int(value) for value in latest.split("/", maxsplit=1))
+    except (TypeError, ValueError):
+        return None
+    return max((end_year - latest_year) * 12 + end_month - latest_month, 0)
 
 
 def _common_competencias(dashboards_by_cnpj: dict[str, tuple[str, FundonetDashboardData]]) -> list[str]:

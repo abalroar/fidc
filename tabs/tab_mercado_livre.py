@@ -82,7 +82,7 @@ _SOMATORIO_FIDCS_UI_CSS = """
 <style>
 .chart-title {
     color: #000000;
-    font-size: clamp(16px, 1.45vw, 18px);
+    font-size: 17px;
     font-weight: 600;
     line-height: 1.25;
     margin: 8px 0 4px 0;
@@ -162,23 +162,6 @@ _SOMATORIO_FIDCS_UI_CSS = """
     padding-bottom: 4px;
     margin-bottom: 10px;
 }
-.wide-section {
-    margin: 0 0 8px 0;
-}
-.wide-section summary {
-    background: #000000;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.25;
-    list-style-position: inside;
-    padding: 7px 9px;
-    white-space: normal;
-}
-.wide-section summary::marker {
-    color: #FFFFFF;
-}
 .wide-table {
     width: 100%;
     border-collapse: collapse;
@@ -239,6 +222,16 @@ _SOMATORIO_FIDCS_UI_CSS = """
 }
 .wide-table tr:hover td {
     background: #F4F1EA;
+}
+.wide-table tr.wide-section-row th {
+    background: #000000;
+    border: 0;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 7px 9px;
+    position: static;
+    text-align: left;
 }
 </style>
 """
@@ -458,6 +451,61 @@ def _tag_outputs_requested_period(outputs, *, requested_period: ImePeriodSelecti
             "calculation_period_start": calculation_period.start_month.isoformat(),
             "calculation_period_end": calculation_period.end_month.isoformat(),
             "calculation_lookback_months": YOY_LOOKBACK_MONTHS,
+        }
+    )
+    return replace(outputs, metadata=metadata)
+
+
+def _tag_outputs_temporal_coverage(outputs):  # noqa: ANN001
+    metadata = dict(getattr(outputs, "metadata", {}) or {})
+    display_months = _metadata_months(outputs, "display_period_months")
+    if not display_months:
+        display_months = _available_competencia_months(outputs.consolidated_monthly)
+    expected_labels = [value.strftime("%m/%Y") for value in display_months]
+    expected_set = set(expected_labels)
+    available_by_cnpj: dict[str, set[str]] = {}
+    fund_rows: list[dict[str, object]] = []
+    for cnpj, frame in outputs.fund_monthly.items():
+        available_months = _available_competencia_months(frame)
+        available_labels = {value.strftime("%m/%Y") for value in available_months}
+        available_by_cnpj[str(cnpj)] = available_labels
+        found = [value for value in expected_labels if value in available_labels]
+        missing = [value for value in expected_labels if value not in available_labels]
+        latest = max(available_months, default=None)
+        fund_rows.append(
+            {
+                "cnpj": str(cnpj),
+                "ultima_competencia": latest.strftime("%m/%Y") if latest else "",
+                "competencias_encontradas": len(found),
+                "competencias_solicitadas": len(expected_labels),
+                "competencias_ausentes": missing,
+            }
+        )
+    common_labels = (
+        [
+            value
+            for value in expected_labels
+            if all(value in available for available in available_by_cnpj.values())
+        ]
+        if available_by_cnpj
+        else []
+    )
+    requested_funds = metadata.get("requested_funds") or metadata.get("funds") or []
+    expected_funds = len(requested_funds) if isinstance(requested_funds, list) else len(available_by_cnpj)
+    metadata.update(
+        {
+            "temporal_coverage_rule": "intersecao_estrita_por_competencia; ausencias_nao_sao_zero",
+            "temporal_requested_competencias": expected_labels,
+            "temporal_common_competencias": common_labels,
+            "temporal_missing_common_competencias": [
+                value for value in expected_labels if value not in set(common_labels)
+            ],
+            "temporal_latest_common_competencia": common_labels[-1] if common_labels else "",
+            "temporal_loaded_funds": len(available_by_cnpj),
+            "temporal_expected_funds": max(expected_funds, len(available_by_cnpj)),
+            "temporal_fund_status": fund_rows,
+            "temporal_requested_month_count": len(expected_set),
+            "temporal_common_month_count": len(common_labels),
         }
     )
     return replace(outputs, metadata=metadata)
@@ -696,6 +744,7 @@ def _render_outputs(
     if show_guide:
         _render_somatorio_fidcs_guide()
     display_outputs = _render_loaded_period_window(outputs, show_caption=use_tabs)
+    display_outputs = _tag_outputs_temporal_coverage(display_outputs)
     monitor_outputs = _build_credit_monitor_for_display(outputs=outputs, display_outputs=display_outputs)
     research_outputs = build_meli_research_outputs(monitor_outputs)
     verification_report = verify_meli_research_outputs(monitor_outputs, research_outputs)
@@ -719,14 +768,14 @@ def _render_outputs(
             key=f"ml_pptx_completo_download::{selected_portfolio.id}",
             use_container_width=True,
         )
-        with st.expander("Downloads", expanded=False):
+        with st.popover("Exportar dados", icon=":material/download:"):
             st.download_button(
                 "Resumo (Excel)",
                 data=snapshot_bytes,
                 file_name=f"somatorio_fidcs_resumo_exibido_{_safe_file_token(selected_portfolio.name)}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key=f"ml_snapshot_excel_download::{selected_portfolio.id}",
-                use_container_width=True,
+                width="stretch",
             )
             st.download_button(
                 "Base completa (Excel)",
@@ -734,7 +783,7 @@ def _render_outputs(
                 file_name=f"somatorio_fidcs_base_completa_{file_token}.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 key=f"ml_full_matrix_excel_download::{selected_portfolio.id}",
-                use_container_width=True,
+                width="stretch",
             )
             st.download_button(
                 "Base completa (CSV)",
@@ -742,7 +791,7 @@ def _render_outputs(
                 file_name=f"somatorio_fidcs_base_completa_{file_token}.zip",
                 mime="application/zip",
                 key=f"ml_full_matrix_csv_download::{selected_portfolio.id}",
-                use_container_width=True,
+                width="stretch",
             )
 
         if not use_tabs:
@@ -795,9 +844,9 @@ def _render_outputs(
             _render_credit_view()
         return
 
-    st.markdown("### Base analítica da carteira")
+    st.markdown("#### Base analítica")
     _render_base_view()
-    st.markdown("### Carteira de Crédito")
+    st.markdown("#### Crédito")
     _render_credit_view()
 
 
@@ -1335,45 +1384,34 @@ def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
     period_columns = order_period_columns_desc(df_wide.columns)
     table_min_width = max(620 + 96 * len(period_columns), 920)
     colgroup = _wide_table_colgroup(period_columns)
-    html: list[str] = []
-    html.append(f"<div class='wide-table-wrapper' style='min-width: 100%; --wide-table-min-width: {table_min_width}px;'>")
+    html: list[str] = [
+        f"<div class='wide-table-wrapper' style='min-width: 100%; --wide-table-min-width: {table_min_width}px;'>",
+        f"<table class='wide-table' style='min-width: {table_min_width}px;'>",
+        colgroup,
+        "<thead><tr>",
+        "<th class='label-col'>Métrica</th>",
+    ]
+    html.extend(f"<th>{escape(column)}</th>" for column in period_columns)
+    html.extend(["<th class='formula-col'>Memória / fórmula</th>", "</tr></thead><tbody>"])
     current_block = ""
-    section_rows: list[pd.Series] = []
-
-    def flush_section() -> None:
-        if not current_block:
-            return
-        html.append(f"<details class='wide-section' style='min-width: {table_min_width}px;'>")
-        html.append(f"<summary>{escape(_section_label(current_block))}</summary>")
-        html.append(f"<table class='wide-table' style='min-width: {table_min_width}px;'>")
-        html.append(colgroup)
-        html.append("<thead><tr>")
-        html.append("<th class='label-col'>Métrica</th>")
-        for column in period_columns:
-            html.append(f"<th>{escape(column)}</th>")
-        html.append("<th class='formula-col'>Memória / fórmula</th>")
-        html.append("</tr></thead><tbody>")
-        for item in section_rows:
-            metric = str(item.get("Métrica") or "").strip()
-            formula = str(item.get("Memória / fórmula") or "").strip()
-            row_class = _wide_table_metric_class(metric)
-            html.append(f"<tr class='{row_class}'>")
-            html.append(f"<td class='label'>{escape(metric)}</td>")
-            for column in period_columns:
-                html.append(f"<td>{escape(_dense_wide_value(item.get(column)))}</td>")
-            html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
-            html.append("</tr>")
-        html.append("</tbody></table></details>")
-
     for _, row in df_wide.iterrows():
         block = str(row.get("Bloco") or "").strip()
         if block and block != current_block:
-            flush_section()
             current_block = block
-            section_rows = []
-        section_rows.append(row)
-    flush_section()
-    html.append("</div>")
+            html.append(
+                f"<tr class='wide-section-row'><th colspan='{len(period_columns) + 2}'>"
+                f"{escape(_section_label(current_block))}</th></tr>"
+            )
+        metric = str(row.get("Métrica") or "").strip()
+        formula = str(row.get("Memória / fórmula") or "").strip()
+        row_class = _wide_table_metric_class(metric)
+        html.append(f"<tr class='{row_class}'>")
+        html.append(f"<td class='label'>{escape(metric)}</td>")
+        for column in period_columns:
+            html.append(f"<td>{escape(_dense_wide_value(row.get(column)))}</td>")
+        html.append(f"<td class='formula'>{escape(_dense_wide_value(formula))}</td>")
+        html.append("</tr>")
+    html.append("</tbody></table></div>")
     return "\n".join(html)
 
 

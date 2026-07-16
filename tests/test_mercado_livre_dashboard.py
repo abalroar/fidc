@@ -46,6 +46,7 @@ from tabs.tab_mercado_livre import (
     _build_credit_monitor_for_display,
     _period_with_yoy_lookback,
     _tag_outputs_requested_period,
+    _tag_outputs_temporal_coverage,
     _filter_outputs_by_competencia_months,
     _display_wide_table,
     _render_wide_table_html,
@@ -339,6 +340,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("Resumo exibido", snapshot_workbook.sheetnames)
         self.assertIn("Dados gráficos", snapshot_workbook.sheetnames)
         self.assertIn("Gráficos", snapshot_workbook.sheetnames)
+        self.assertIn("Metadados", snapshot_workbook.sheetnames)
         self.assertGreaterEqual(len(snapshot_workbook["Gráficos"]._charts), 2)
 
         pptx_bytes = build_pptx_export_bytes(outputs)
@@ -441,7 +443,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         workbook = load_workbook(BytesIO(excel_bytes), data_only=True)
         self.assertIn("Consolidado", workbook.sheetnames)
         self.assertEqual(
-            ["Consolidado", "FIDC A", "Rent - FIDC A", "FIDC B", "Rent - FIDC B"],
+            ["Consolidado", "FIDC A", "Rent - FIDC A", "FIDC B", "Rent - FIDC B", "Metadados"],
             workbook.sheetnames,
         )
         consolidated = workbook["Consolidado"]
@@ -494,6 +496,7 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         csv_zip = build_full_variable_csv_zip_bytes(outputs)
         with zipfile.ZipFile(BytesIO(csv_zip)) as archive:
             self.assertIn("consolidado.csv", archive.namelist())
+            self.assertIn("metadados.csv", archive.namelist())
             self.assertTrue(any(name.endswith("fidc_a.csv") for name in archive.namelist()))
             csv_payload = archive.read("consolidado.csv").decode("utf-8-sig")
         self.assertIn("Nome original da variável", csv_payload)
@@ -621,16 +624,15 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         html = _render_wide_table_html(wide)
 
         self.assertIn("wide-table-wrapper", html)
-        self.assertIn("<details class='wide-section' style=", html)
-        self.assertNotIn("<details class='wide-section' open", html)
+        self.assertNotIn("<details", html)
         self.assertIn("<col class='label-col-width' style='width: 280px;'>", html)
-        self.assertEqual(4, html.count("<col class='period-col-width' style='width: 96px;'>"))
+        self.assertEqual(2, html.count("<col class='period-col-width' style='width: 96px;'>"))
         self.assertIn("<col class='formula-col-width' style='width: 340px;'>", html)
-        self.assertIn("<summary>PL FIDC</summary>", html)
+        self.assertIn("<tr class='wide-section-row'><th colspan='4'>PL FIDC</th></tr>", html)
         self.assertIn("PL FIDC", html)
         self.assertIn("1.500,0 MM", html)
         self.assertIn("27,2%", html)
-        self.assertIn("<summary>Visão Ex-Vencidos &gt; 360d</summary>", html)
+        self.assertIn("<tr class='wide-section-row'><th colspan='4'>Visão Ex-Vencidos &gt; 360d</th></tr>", html)
         self.assertIn("<tr class='destaque'>\n<td class='label'>NPL Over 90d Ex 360 / Carteira Ex 360</td>", html)
         self.assertIn("<tr class='destaque'>\n<td class='label'>PDD / NPL Over 90d Ex 360</td>", html)
         self.assertNotIn(">N/D<", html)
@@ -943,6 +945,41 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual("12M", tagged.metadata["requested_window_option"])
         self.assertEqual("2025-05-01", tagged.metadata["requested_period_start"])
         self.assertEqual("2024-05-01", tagged.metadata["calculation_period_start"])
+
+    def test_export_metadata_records_internal_temporal_gap_by_fund(self) -> None:
+        months_a = pd.to_datetime(["2026-01-01", "2026-02-01", "2026-03-01"])
+        months_b = pd.to_datetime(["2026-01-01", "2026-03-01"])
+        frame_a = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "02/2026", "03/2026"],
+                "competencia_dt": months_a,
+            }
+        )
+        frame_b = pd.DataFrame(
+            {
+                "competencia": ["01/2026", "03/2026"],
+                "competencia_dt": months_b,
+            }
+        )
+        outputs = MercadoLivreOutputs(
+            fund_monthly={"1": frame_a, "2": frame_b},
+            fund_wide={},
+            consolidated_monthly=frame_a,
+            consolidated_wide=pd.DataFrame(),
+            warnings_df=pd.DataFrame(),
+            metadata={
+                "display_period_months": [value.date().isoformat() for value in months_a],
+                "requested_funds": ["1", "2"],
+            },
+        )
+
+        tagged = _tag_outputs_temporal_coverage(outputs)
+
+        self.assertEqual("03/2026", tagged.metadata["temporal_latest_common_competencia"])
+        self.assertEqual(["02/2026"], tagged.metadata["temporal_missing_common_competencias"])
+        self.assertEqual(2, tagged.metadata["temporal_loaded_funds"])
+        fund_b = next(item for item in tagged.metadata["temporal_fund_status"] if item["cnpj"] == "2")
+        self.assertEqual(["02/2026"], fund_b["competencias_ausentes"])
 
     def test_credit_monitor_keeps_yoy_values_after_display_filter(self) -> None:
         months = pd.date_range("2025-01-01", "2026-12-01", freq="MS")

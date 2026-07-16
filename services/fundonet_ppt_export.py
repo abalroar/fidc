@@ -98,6 +98,7 @@ def build_dashboard_pptx_bytes(
     *,
     generated_at: datetime | None = None,
     requested_period_label: str | None = None,
+    coverage_label: str | None = None,
     return_months: int | None = None,
 ) -> bytes:
     try:
@@ -1033,10 +1034,12 @@ def build_dashboard_pptx_bytes(
         if requested_period_label and requested_period_label != dashboard.fund_info.get("periodo_analisado")
         else ""
     )
+    coverage_text = f"  |  {coverage_label}" if coverage_label else ""
     subtitle = (
         f"{data_base_label}"
         f"  ·  {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
         f"{requested_period_text}"
+        f"{coverage_text}"
     )
 
     def add_slide_header(slide, section_title: str) -> None:  # noqa: ANN001
@@ -1102,7 +1105,10 @@ def build_dashboard_pptx_bytes(
 
     add_cover_slide(
         title=title_fund,
-        subtitle_text=f"Data-base {data_base_label} | {dashboard.fund_info.get('periodo_analisado', 'N/D')}",
+        subtitle_text=(
+            f"Data-base {data_base_label} | {dashboard.fund_info.get('periodo_analisado', 'N/D')}"
+            f"{' | ' + coverage_label if coverage_label else ''}"
+        ),
         scope_text=f"Visão executiva — {scope_label}",
     )
 

@@ -140,6 +140,7 @@ def build_somatorio_fidcs_pptx_bytes(
     # Data-base: último mês do consolidado
     con_monthly = _last_12m(getattr(outputs, "consolidated_monthly", pd.DataFrame()))
     data_base = _detect_data_base(con_monthly)
+    temporal_coverage = _temporal_coverage_label(getattr(outputs, "metadata", {}) or {})
 
     # Mapa fund_cnpj → DataFrames
     fund_monthly_map = {
@@ -169,7 +170,7 @@ def build_somatorio_fidcs_pptx_bytes(
         return page[0]
 
     # ---- Slide 1: Capa ----
-    _add_cover(prs, layout, data_base, **deps)
+    _add_cover(prs, layout, data_base, temporal_coverage=temporal_coverage, **deps)
     next_page()
 
     # ---- Slide 2: Divisor 01 ----
@@ -244,7 +245,17 @@ def build_somatorio_fidcs_pptx_bytes(
 # STRUCTURAL SLIDES
 # ===========================================================================
 
-def _add_cover(prs, layout, data_base: str, *, Inches, Pt, RGBColor, **_kw) -> None:
+def _add_cover(
+    prs,
+    layout,
+    data_base: str,
+    *,
+    temporal_coverage: str = "",
+    Inches,
+    Pt,
+    RGBColor,
+    **_kw,
+) -> None:
     slide = prs.slides.add_slide(layout)
     fill = slide.background.fill
     fill.solid()
@@ -263,6 +274,8 @@ def _add_cover(prs, layout, data_base: str, *, Inches, Pt, RGBColor, **_kw) -> N
 
     # Subtítulo
     subtitle = f"Visão consolidada e por fundo — Data-base {data_base}"
+    if temporal_coverage:
+        subtitle = f"{subtitle} | {temporal_coverage}"
     _textbox(slide, subtitle,
              left=1.0, top=3.50, width=10.5, height=0.45,
              size=18, bold=False, color=_SUBTITLE_FG, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
@@ -272,6 +285,22 @@ def _add_cover(prs, layout, data_base: str, *, Inches, Pt, RGBColor, **_kw) -> N
              left=_SW - 5.5, top=_SH - 0.50, width=5.0, height=0.35,
              size=10, bold=False, color=_SUBTITLE_FG,
              align_right=True, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
+
+
+def _temporal_coverage_label(metadata: dict[str, Any]) -> str:
+    loaded = metadata.get("temporal_loaded_funds")
+    expected = metadata.get("temporal_expected_funds")
+    common = metadata.get("temporal_common_month_count")
+    requested = metadata.get("temporal_requested_month_count")
+    if loaded is None and common is None:
+        return ""
+    fund_label = f"{loaded}/{expected} fundos" if loaded is not None and expected is not None else ""
+    month_label = (
+        f"{common}/{requested} competências comuns"
+        if common is not None and requested is not None
+        else ""
+    )
+    return " | ".join(value for value in [fund_label, month_label] if value)
 
 
 def _add_divider(

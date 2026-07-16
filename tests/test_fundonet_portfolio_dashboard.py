@@ -2,13 +2,18 @@ from __future__ import annotations
 
 from dataclasses import replace
 from pathlib import Path
+from types import SimpleNamespace
 import tempfile
 import unittest
 
 import pandas as pd
 
 from services.fundonet_dashboard import FundonetDashboardData, build_dashboard_data
-from services.fundonet_portfolio_dashboard import build_portfolio_dashboard_bundle
+from services.fundonet_portfolio_dashboard import (
+    PortfolioDashboardBundle,
+    build_portfolio_dashboard_bundle,
+    build_portfolio_period_coverage,
+)
 
 
 _MATURITY_ORDER = {
@@ -169,6 +174,84 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
         self.assertEqual("Alinhado", reconciliation_lookup.loc["subordinacao_pct", "status"])
         self.assertEqual("Divergente", reconciliation_lookup.loc["maturity_vs_dc_a_vencer", "status"])
         self.assertEqual("Alinhado", reconciliation_lookup.loc["aging_vs_inadimplencia", "status"])
+
+        period_coverage = build_portfolio_period_coverage(
+            bundle=bundle,
+            requested_competencias=["01/2026", "02/2026"],
+            total_selected_funds=2,
+        )
+        self.assertEqual("defasado", period_coverage.status)
+        self.assertEqual("01/2026", period_coverage.latest_common_competencia)
+        self.assertEqual(("02/2026",), period_coverage.missing_common_competencias)
+        fund_status = period_coverage.fund_status_df.set_index("fundo")
+        self.assertEqual("Completo", fund_status.loc["Fundo A", "status"])
+        self.assertEqual("Defasado", fund_status.loc["Fundo B", "status"])
+        self.assertEqual(1, fund_status.loc["Fundo B", "defasagem_meses"])
+
+    def test_period_coverage_marks_internal_gap_without_hiding_latest_month(self) -> None:
+        scope_df = pd.DataFrame(
+            [
+                {
+                    "cnpj": "11111111000111",
+                    "fundo": "Fundo A",
+                    "competencia_inicial": "01/2026",
+                    "competencia_final": "03/2026",
+                    "competencias_carregadas": 3,
+                },
+                {
+                    "cnpj": "22222222000122",
+                    "fundo": "Fundo B",
+                    "competencia_inicial": "01/2026",
+                    "competencia_final": "03/2026",
+                    "competencias_carregadas": 2,
+                },
+            ]
+        )
+        availability_df = pd.DataFrame(
+            [
+                {"cnpj": "11111111000111", "fundo": "Fundo A", "competencia": competencia, "disponivel": True}
+                for competencia in ["01/2026", "02/2026", "03/2026"]
+            ]
+            + [
+                {"cnpj": "22222222000122", "fundo": "Fundo B", "competencia": competencia, "disponivel": True}
+                for competencia in ["01/2026", "03/2026"]
+            ]
+        )
+        coverage_df = pd.DataFrame(
+            [
+                {
+                    "competencia": "03/2026",
+                    "block_id": "estrutura",
+                    "block": "Estrutura",
+                    "funds_expected": 2,
+                    "funds_ready": 2,
+                    "status": "Completo",
+                    "missing_funds": "",
+                    "observacao": "",
+                }
+            ]
+        )
+        bundle = PortfolioDashboardBundle(
+            dashboard=SimpleNamespace(competencias=["01/2026", "03/2026"]),
+            fund_scope_df=scope_df,
+            availability_df=availability_df,
+            coverage_df=coverage_df,
+            reconciliation_df=pd.DataFrame(),
+            temporal_rule="intersecao_estrita_ultima_competencia_comum",
+        )
+
+        period_coverage = build_portfolio_period_coverage(
+            bundle=bundle,
+            requested_competencias=["01/2026", "02/2026", "03/2026"],
+            total_selected_funds=2,
+        )
+
+        self.assertEqual("parcial", period_coverage.status)
+        self.assertEqual("03/2026", period_coverage.latest_common_competencia)
+        self.assertEqual(("02/2026",), period_coverage.missing_common_competencias)
+        matrix = period_coverage.availability_matrix_df.set_index("fundo")
+        self.assertEqual("Ausente", matrix.loc["Fundo B", "02/2026"])
+        self.assertEqual("Disponível", matrix.loc["Fundo B", "03/2026"])
 
     def test_build_portfolio_dashboard_bundle_handles_missing_long_frame_columns(self) -> None:
         dashboard_a = self._make_manual_dashboard(

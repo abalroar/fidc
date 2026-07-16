@@ -338,12 +338,13 @@ def render_tab_deep_dive(
     compact: bool = False,
 ) -> None:
     manifests = list_deep_dives()
-    st.markdown("<div class='deepdive-kicker'>Regulamentos</div>", unsafe_allow_html=True)
-    st.markdown("<div class='deepdive-title'>Regulamentos</div>", unsafe_allow_html=True)
-    st.markdown(
-        "<div class='deepdive-subtitle'>Emissões, prazos, custos e critérios documentais relevantes para a análise da carteira.</div>",
-        unsafe_allow_html=True,
-    )
+    if not compact:
+        st.markdown("<div class='deepdive-kicker'>Regulamentos</div>", unsafe_allow_html=True)
+        st.markdown("<div class='deepdive-title'>Regulamentos</div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div class='deepdive-subtitle'>Emissões, prazos, custos e critérios documentais relevantes para a análise da carteira.</div>",
+            unsafe_allow_html=True,
+        )
     if show_curation_tools:
         with st.expander("Prompt de atualização", expanded=False):
             st.code(_load_reverse_engineering_prompt(), language="markdown")

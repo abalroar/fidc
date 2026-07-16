@@ -824,6 +824,7 @@ class FundonetDashboardTests(unittest.TestCase):
             bundle.dashboard,
             generated_at=datetime(2026, 4, 14, 15, 0, tzinfo=timezone.utc),
             requested_period_label="12 meses",
+            coverage_label="Cobertura 2/2 fundos; 12/12 competências comuns",
         )
 
         self.assertTrue(pptx_bytes.startswith(b"PK"))
@@ -839,6 +840,7 @@ class FundonetDashboardTests(unittest.TestCase):
         )
         self.assertIn("Carteira Agregada Teste", deck_text)
         self.assertIn("VISÃO EXECUTIVA — CARTEIRA AGREGADA", deck_text)
+        self.assertIn("Cobertura 2/2 fundos; 12/12 competências comuns", deck_text)
         self.assertNotIn("Resumo da carteira", deck_text)
         self.assertIn("Estrutura e capital", deck_text)
 

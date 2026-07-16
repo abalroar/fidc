@@ -10,7 +10,10 @@ from services.ime_period import build_custom_period
 from services.monitoring_metrics import MonitoringTables
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs.tab_fidc_monitoring import (
+    CockpitMetric,
+    _aggregate_metric,
     _build_regulatory_monitoring_checks,
+    _render_cockpit_table_html,
     render_portfolio_cockpit_snapshot,
     render_tab_fidc_monitoring,
     _portfolio_reference_competencia,
@@ -18,7 +21,22 @@ from tabs.tab_fidc_monitoring import (
 
 
 class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
-    def test_reference_competencia_uses_latest_month_with_adequate_coverage(self) -> None:
+    def test_reference_competencia_can_report_latest_month_at_explicit_partial_threshold(self) -> None:
+        outputs = [
+            {"tables": object(), "competencias": ["03/2026", "04/2026"]},
+            {"tables": object(), "competencias": ["03/2026", "04/2026"]},
+            {"tables": object(), "competencias": ["03/2026"]},
+            {"tables": object(), "competencias": ["03/2026"]},
+            {"tables": object(), "competencias": ["02/2026"]},
+        ]
+
+        competencia, eligible_count, total_count = _portfolio_reference_competencia(outputs, min_coverage_pct=0.8)
+
+        self.assertEqual("03/2026", competencia)
+        self.assertEqual(4, eligible_count)
+        self.assertEqual(5, total_count)
+
+    def test_reference_competencia_requires_full_coverage_by_default(self) -> None:
         outputs = [
             {"tables": object(), "competencias": ["03/2026", "04/2026"]},
             {"tables": object(), "competencias": ["03/2026", "04/2026"]},
@@ -29,9 +47,53 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
 
         competencia, eligible_count, total_count = _portfolio_reference_competencia(outputs)
 
-        self.assertEqual("03/2026", competencia)
+        self.assertIsNone(competencia)
         self.assertEqual(4, eligible_count)
         self.assertEqual(5, total_count)
+
+    def test_reference_competencia_recedes_to_latest_month_common_to_every_fund(self) -> None:
+        outputs = [
+            {"tables": object(), "competencias": ["04/2026", "06/2026"]},
+            {"tables": object(), "competencias": ["04/2026", "06/2026"]},
+            {"tables": object(), "competencias": ["04/2026"]},
+        ]
+
+        competencia, eligible_count, total_count = _portfolio_reference_competencia(outputs)
+
+        self.assertEqual("04/2026", competencia)
+        self.assertEqual(3, eligible_count)
+        self.assertEqual(3, total_count)
+
+    def test_cockpit_consolidated_metric_is_nd_when_any_fund_metric_is_missing(self) -> None:
+        metric = CockpitMetric("Tamanho", "PL", "PL (R$)", "R$ bruto", "sum")
+        outputs = [
+            self._monitoring_output("Fundo A", ["04/2026"], {"PL (R$)": 100.0}),
+            self._monitoring_output("Fundo B", ["04/2026"], {}),
+        ]
+
+        value = _aggregate_metric(metric, outputs, "04/2026")
+
+        self.assertTrue(pd.isna(value))
+
+    def test_cockpit_html_labels_displayed_and_latest_competencias_without_expanders(self) -> None:
+        outputs = [
+            self._monitoring_output("Fundo A", ["04/2026", "06/2026"], {"PL (R$)": 100.0}),
+            self._monitoring_output("Fundo B", ["04/2026"], {"PL (R$)": 200.0}),
+        ]
+
+        html = _render_cockpit_table_html(
+            outputs,
+            "04/2026",
+            reference_count=2,
+            reference_total=2,
+            expected_total=2,
+            requested_end=date(2026, 6, 1),
+        )
+
+        self.assertIn("Competência comum: abr/26", html)
+        self.assertIn("Exibido abr/26 · último jun/26", html)
+        self.assertIn("abr/26 · 2/2 fundos", html)
+        self.assertNotIn("<details", html)
 
     def test_regulatory_monitoring_checks_use_loaded_ime_metrics(self) -> None:
         item = {
@@ -144,7 +206,31 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
             rendered = render_portfolio_cockpit_snapshot(period=period, selected_portfolio=portfolio)
 
         self.assertTrue(rendered)
-        cockpit.assert_called_once_with(outputs)
+        cockpit.assert_called_once_with(outputs, period=period, expected_total=1)
+
+    @staticmethod
+    def _monitoring_output(
+        display_name: str,
+        competencias: list[str],
+        indicators: dict[str, float],
+    ) -> dict[str, object]:
+        rows = []
+        for indicator, value in indicators.items():
+            row: dict[str, object] = {"indicador": indicator}
+            for competencia in competencias:
+                row[competencia] = value if competencia == "04/2026" else pd.NA
+            rows.append(row)
+        return {
+            "cnpj": display_name,
+            "display_name": display_name,
+            "competencias": competencias,
+            "tables": MonitoringTables(
+                raw_variables_df=pd.DataFrame(),
+                indicators_df=pd.DataFrame(rows, columns=["indicador", *competencias]),
+                aging_df=pd.DataFrame(),
+                audit_df=pd.DataFrame(),
+            ),
+        }
 
 
 if __name__ == "__main__":
