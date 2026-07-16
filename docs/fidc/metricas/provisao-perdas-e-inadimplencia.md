@@ -1,72 +1,88 @@
-# Provisão, perdas e inadimplência
+# Atraso, provisão, perda, recuperação e write-off
 
-## Três conceitos distintos que o mercado costuma confundir
+Essas medidas descrevem etapas diferentes. “Provisão/perda esperada” não é um único conceito.
 
-Em análise de crédito bancário, você provavelmente já diferencia atraso, provisão e perda realizada. Em FIDC, essa distinção é ainda mais importante — porque cada uma dessas camadas tem uma fonte de dado diferente e um significado diferente na leitura do risco.
+## Atraso e inadimplência
 
-## 1. Inadimplência: a dimensão comportamental
+Atraso é diferença entre vencimento e pagamento. Inadimplência é classificação de não pagamento segundo regra definida. A métrica precisa indicar se usa valor nominal, contábil, presente ou saldo devedor e se considera parcelas ou contratos.
 
-Inadimplência no Informe Mensal é o saldo de créditos que **venceram e não foram pagos**, reportados pelo administrador por faixa de prazo (aging):
+`inadimplência da faixa = saldo vencido na faixa / base definida`
 
-- 1 a 30 dias;
-- 31 a 60 dias;
-- 61 a 90 dias;
-- 91 a 120 dias;
-- 121 a 180 dias;
-- 181 a 360 dias.
+O denominador pode ser carteira total, carteira vencida, carteira elegível ou saldo da safra. A comparação só é válida com a mesma base.
 
-Esse dado reflete o estoque de crédito em atraso em cada competência — não a variação no mês, não a perda acumulada desde o início do fundo.
+## Aging completo do Informe Mensal
 
-**Limitação importante:** o administrador preenche esse campo. A qualidade e a consistência do preenchimento variam. Um campo em branco não significa ausência de inadimplência — pode ser simplesmente um campo não preenchido.
+As faixas canônicas usadas pelo monitoramento são:
 
-## 2. Provisão: a dimensão contábil
+1. até 30 dias;
+2. 31–60;
+3. 61–90;
+4. 91–120;
+5. 121–150;
+6. 151–180;
+7. 181–360;
+8. 361–720;
+9. 721–1.080;
+10. acima de 1.080 dias.
 
-Provisão é o valor que o fundo constituiu contabilmente para cobrir perdas esperadas. Ela aparece no Informe Mensal como um número absoluto.
+Não fundir 121–150 e 151–180 nem truncar acima de 360 quando a fonte oferece granularidade maior. Uma faixa ausente não deve ser preenchida como zero sem regra explícita.
 
-A relação entre inadimplência e provisão varia conforme:
-- a política contábil do fundo (definida no regulamento ou em manual de crédito);
-- o tipo de crédito (cartão tem curva de provisionamento diferente de consignado);
-- a existência de mecanismos de recuperação (recompra, resolução, cobrança ativa).
+## Inadimplência Over
 
-**Cobertura de provisão** = provisão / inadimplência. 
+`Over N = saldo com atraso superior a N dias / base definida`
 
-- Acima de 100%: o fundo provisionou mais do que o saldo inadimplente visível no Informe Mensal — pode indicar política conservadora ou inadimplência em redução.
-- Abaixo de 100%: parte da inadimplência não está coberta por provisão — pode ser política de provisionamento parcial, expectativa de recuperação ou subnotificação da inadimplência.
+É cumulativa, ao contrário do bucket de aging. Declare se “superior” inclui o dia N, quais saldos entram e qual denominador é usado.
 
-## 3. Perda esperada e perda realizada: a dimensão econômica
+## FPD, roll rate e cura
 
-Perda esperada é o que o fundo estima que vai perder com a carteira. Perda realizada é o que já foi absorvido.
+- **FPD:** convenção operacional para default na primeira obrigação segundo janela definida; requer coorte de originação e critério de default. Nenhuma definição contratual literal de FPD foi localizada nos regulamentos e relatórios de rating varridos, portanto o Glossário não atribui essa fórmula a um fundo nem a apresenta como padrão normativo.
+- **Roll rate:** parcela que migra de uma faixa para outra entre datas.
+- **Cura:** retorno de atraso para status adimplente segundo regra.
 
-Essas dimensões raramente aparecem diretamente no Informe Mensal. Elas aparecem nos relatórios mensais do administrador, na nota explicativa das demonstrações financeiras do fundo e, indiretamente, no comportamento do PL subordinado ao longo do tempo.
+Renegociação pode produzir cura aparente; deve ser identificada separadamente quando possível.
 
-**Um sinal prático:** se o PL das cotas subordinadas cai de forma consistente sem que haja resgates ou amortizações dessas cotas, é provável que perdas estejam sendo absorvidas pela subordinação.
+## Provisão ou redução ao valor recuperável
 
-## Aging: o que a distribuição por faixa de prazo indica
+É ajuste contábil reconhecido para refletir perda estimada/impairment conforme política e norma aplicável. O saldo é uma estimativa contábil; não é caixa reservado nem perda necessariamente realizada.
 
-A distribuição do saldo vencido por faixa de prazo diz muito sobre a tendência da carteira.
+`índice de provisão = provisão ou redução acumulada / exposição bruta definida`
 
-| Concentração no aging | Leitura |
-| --- | --- |
-| Maioria em 1 a 30 dias | Inadimplência recente — parte pode ser recuperada com cobrança ordinária |
-| Migração para 90+ dias | Deterioração consistente — créditos se tornando mais difíceis de recuperar |
-| Concentração em 181 a 360 dias | Carteira com problema antigo sem recuperação — risco maior de perda definitiva |
+Registre sinal, conta contábil, tratamento de juros, garantias e recuperações.
 
-O crescimento do saldo inadimplente nas faixas mais longas ao longo do tempo, mesmo que o total se mantenha estável, é um sinal de piora qualitativa da carteira que merece atenção.
+## Perda esperada
 
-## O que observar na análise
+É estimativa prospectiva. Em modelos de crédito, uma forma conceitual é:
 
-- **Inadimplência está crescendo em faixas longas?** Indica degradação da qualidade da carteira.
-- **Cobertura de provisão está caindo?** A provisão não acompanhou o crescimento da inadimplência.
-- **O PL subordinado está caindo mesmo sem resgates?** Perdas podem estar sendo absorvidas.
-- **Excesso de spread ainda é positivo?** Se sim, as perdas estão sendo cobertas pelo spread antes de consumir subordinação.
-- **O Informe Mensal mostra inadimplência zerada?** Verifique se é de fato ausência de atraso ou campo não preenchido — leia o relatório mensal do administrador para confirmar.
+`PE = PD × LGD × EAD`
 
-## Por que dois fundos com inadimplência igual podem ter riscos diferentes
+mas o método efetivo pode ser por matriz de migração, fluxo descontado, modelo estatístico ou política contábil. Não inferir PD, LGD ou horizonte do saldo de provisão sem documentação.
 
-Dois FIDCs com 5% de inadimplência reportada podem ter perfis de risco muito distintos se:
-- um tem forte mecanismo de recompra e o cedente tem capacidade financeira — a inadimplência tende a sair da carteira rapidamente;
-- o outro não tem recompra e depende exclusivamente da subordinação para absorver perdas;
-- um tem provisão de 120% da inadimplência; o outro, 40%;
-- um tem spread excedente de 8% ao ano; o outro opera com spread próximo de zero.
+## Perda realizada e write-off
 
-A inadimplência do Informe Mensal é um ponto de partida, não uma conclusão.
+Perda realizada é impacto econômico reconhecido conforme critério definido. **Write-off/baixa** retira ou reduz o ativo contabilmente quando atendidos os critérios; não significa necessariamente fim da cobrança. A queda do PL subordinado, isoladamente, não comprova write-off nem quantifica perda de crédito: despesas, amortizações e marcação também alteram o PL.
+
+## Recuperação
+
+`taxa de recuperação = caixa recuperado líquido / base de créditos em recuperação`
+
+Defina coorte, custos, horizonte e desconto temporal. Recuperação bruta de carteiras NPL não é comparável à recuperação líquida de atraso recente.
+
+## Cobertura de provisão
+
+`cobertura = provisão acumulada / saldo vencido na base definida`
+
+É proxy. Acima de 100% não prova conservadorismo; abaixo de 100% não prova insuficiência. Faixa de atraso, garantia, cura, recuperação e política contábil mudam a interpretação.
+
+## Safras e denominadores
+
+Análise de safra agrupa créditos por período de originação. Evita misturar carteira jovem com madura. Sempre mostre vintage, idade, exposição inicial, saldo atual, pré-pagamento, renegociação e recuperação.
+
+## O que o Informe Mensal captura
+
+O reporte oferece faixas de atraso e valores contábeis agregados úteis para séries históricas. Não entrega sozinho política contábil completa, PD/LGD/EAD, critério de baixa, coorte de FPD, roll rate, cura ou recuperação líquida.
+
+## O que exige documento primário
+
+Demonstrações financeiras e notas explicativas sustentam política e contas; regulamento e relatórios operacionais definem eventos e métricas; relatórios de cobrança e rating ajudam a entender safra, recuperação e pressupostos.
+
+Fontes: ICVM 489 e orientações oficiais SIN/SNC; padrão XML mensal FIDC; demonstrações e documentos primários; metodologia analítica desta revisão para FPD, roll rate e cura. Verificação: **16/07/2026**.

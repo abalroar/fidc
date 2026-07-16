@@ -1,50 +1,61 @@
-# Oferta, rating e perfil de investidores
+# Oferta pública, emissão, remuneração e rating
 
-## Três perguntas distintas
+## Emissão não é oferta
 
-Quando você olha para um FIDC, três questões sobre distribuição e perfil de risco são frequentemente misturadas — mas precisam ser respondidas separadamente:
+**Emissão** cria cotas e define quantidade, preço, integralização, amortização, remuneração e direitos. **Oferta** é o processo de distribuição. Uma emissão pode ter múltiplas séries ou distribuições; uma oferta pode abranger mais de uma emissão, conforme os documentos.
 
-1. **Quem pode investir?** → público-alvo (investidor profissional ou qualificado)
-2. **Como as cotas foram distribuídas?** → rito de oferta pública (ou colocação restrita)
-3. **Qual é o risco atribuído às cotas por agência independente?** → rating
+- **Subscrição:** compromisso de adquirir cotas.
+- **Integralização:** entrega de recursos ou ativos admitidos em pagamento.
+- **Amortização:** devolução parcial de valor sem cancelamento necessário de toda a cota.
+- **Resgate:** saída conforme regras de classe aberta ou evento aplicável.
+- **Oferta primária:** recursos ingressam na classe.
+- **Oferta secundária:** cotas existentes são vendidas por titular.
 
-## Público-alvo dos fundos
+## Ritos da RCVM 160
 
-A Resolução CVM 30 define as categorias de investidor que podem acessar determinados produtos.
+O registro pode seguir rito automático ou ordinário conforme ativo, público e condições da RCVM 160. O rito não é selo de qualidade. Prospecto, lâmina, anúncios, memorando, formulário de referência ou dispensas devem ser confirmados na oferta concreta; não se presume pacote uniforme apenas pelo nome do rito.
 
-- **Investidor profissional:** bancos, corretoras, seguradoras, fundos de investimento, e pessoas físicas ou jurídicas com carteira de investimentos acima de R$ 10 milhões.
-- **Investidor qualificado:** investidores profissionais mais pessoas físicas ou jurídicas com carteira acima de R$ 1 milhão.
+“Oferta com esforços restritos” é linguagem associada à antiga ICVM 476. Em documento histórico, preserve-a com a data; para distribuição atual, use a RCVM 160.
 
-A maioria dos FIDCs voltados para o mercado institucional é restrita a **investidores profissionais**. Isso importa para análise porque o perfil dos cotistas influencia a governança e a capacidade de pressionar por reestruturações quando o fundo se deteriora.
+## Público-alvo e negociação
 
-Um fundo com passivo concentrado em um único cotista profissional — muitas vezes o próprio cedente ou seu grupo econômico — tem dinâmica de governança muito diferente de um fundo com base diversificada de investidores.
+As categorias profissional, qualificado e público em geral vêm da RCVM 30. O regulamento e a oferta podem restringir subscrição e negociação. A restrição pode variar por subclasse ou série. Não conclua que todo FIDC é exclusivo de investidor profissional ou que acesso a varejo elimina risco estrutural.
 
-## Oferta pública: o rito importa
+## Benchmark, índice referencial e remuneração
 
-A Resolução CVM 160 regula as ofertas públicas de valores mobiliários — incluindo cotas de FIDC.
+O Anexo II define **índice referencial** como índice previsto para referência da rentabilidade de subclasse sênior ou mezanino. Contratos também usam “benchmark”, “meta de valorização” ou “remuneração-alvo”. Esses termos não representam garantia de retorno.
 
-Os ritos mais comuns no mercado:
-- **Rito automático:** oferta registrada automaticamente na CVM, sem análise prévia. Documentação simplificada. Bastante usado em FIDCs com histórico e estrutura conhecidos.
-- **Rito ordinário:** sujeito a análise da CVM antes do registro. Exige prospecto e lâmina.
+Ao registrar remuneração, separe:
 
-Quando não há oferta pública, as cotas são colocadas de forma restrita — o que limita o universo de investidores e reduz o volume de documentação pública disponível.
+1. índice ou taxa base;
+2. spread ou percentual;
+3. capitalização e convenção de dias;
+4. datas de cálculo e pagamento;
+5. prioridade no waterfall;
+6. limites de resultado disponível;
+7. amortização ordinária, extraordinária e resgate.
 
-Para fins de análise, o documento de oferta (prospecto ou anúncio de início) é uma fonte importante: traz informações sobre estrutura, benchmark, prazo de cotas e perfil do cedente que nem sempre estão no regulamento de forma sintética.
+## Rating
 
-## Rating: o que é e o que não é
+Rating é opinião de crédito emitida para fundo, classe, subclasse, série ou emissão segundo metodologia e data-base da agência. Não é garantia, auditoria de lastro ou recomendação de investimento.
 
-Rating é a opinião de uma agência classificadora de risco sobre a probabilidade de inadimplemento de determinada classe de cotas. Ele é frequente em FIDCs com cotas sênior distribuídas publicamente.
+O art. 13, V, do Anexo II exige classificação da subclasse sênior quando suas cotas forem distribuídas ao público em geral. Isso não torna rating obrigatório para toda cota de FIDC. Confirme objeto, agência, escala, perspectiva, premissas, gatilhos e data do relatório.
 
-**O que o rating informa:**
-- a avaliação de risco da agência sobre aquela tranche específica, naquele momento;
-- os principais drivers de risco considerados na análise;
-- eventuais gatilhos de rebaixamento (covenants monitorados pela agência).
+## Por que importa para o risco
 
-**O que o rating não substitui:**
-- análise própria da qualidade da carteira;
-- leitura dos indicadores do Informe Mensal;
-- verificação do cumprimento dos guardrails do regulamento.
+- vencimento da cota pode não coincidir com maturidade da carteira;
+- benchmark elevado aumenta pressão sobre excesso de spread;
+- amortização acelerada pode reduzir subordinação ou liquidez;
+- restrição de negociação afeta saída, mas não muda o crédito subjacente;
+- rating pode ficar defasado entre revisões ou ser retirado;
+- uma série pode ter termos diferentes de outra dentro da mesma subclasse.
 
-O rating é uma camada de informação adicional — útil, mas não suficiente. Agências podem ter hipóteses de estresse diferentes das suas. E o rating é retrospectivo: ele reflete o que a agência avaliou no último momento de revisão, não necessariamente o estado atual.
+## O que o Informe Mensal captura
 
-**Atenção:** nem todo FIDC tem rating. A obrigatoriedade depende do desenho da classe, do rito de oferta e do regulamento. Não assuma que a ausência de rating é um problema — e não assuma que a presença de rating dispensa análise de crédito independente.
+O informe reporta dados de cotas e movimentações, mas não substitui os instrumentos de emissão e oferta. O objeto exato do rating e seus critérios exigem o relatório da agência.
+
+## Checklist documental
+
+Leia regulamento, anexo da classe, apêndice/instrumento da emissão, prospecto ou lâmina quando aplicáveis, anúncios, ata de aprovação e relatório de rating. Preserve versão e data; termos de oferta podem ter sido alterados.
+
+Base normativa: RCVM 160; RCVM 30; RCVM 175, Anexo Normativo II, arts. 2º, 8º e 13. Verificação: **16/07/2026**.

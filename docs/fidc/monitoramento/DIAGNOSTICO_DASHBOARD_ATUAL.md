@@ -13,7 +13,7 @@ Mapear a aba de monitoramento a partir do código implementado, não da intenç�
 - UI da aba: `tabs/tab_fidc_ime.py`
 - Navegação principal: `app.py`
 - Fonte primária dos dados: XML/IME da CVM normalizado em `informes_wide.csv` e `estruturas_lista.csv`
-- Fonte complementar conceitual e documental: `docs/fidc/*` e acervo local `estudo/`
+- Fonte complementar conceitual e documental: `docs/fidc/*` e documentos primários revalidados em `docs/fidc/_data/document_index.json`
 
 ## Inventário resumido do dashboard anterior
 

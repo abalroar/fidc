@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import json
 import re
 from pathlib import Path
+import unicodedata
 
 
 _LEADING_H1 = re.compile(r"\A\s*#[ \t]+[^\n]*\n+")
@@ -26,6 +27,11 @@ class FIDCBookConcept:
     aliases: tuple[str, ...]
     page_ids: tuple[str, ...]
     source_ids: tuple[str, ...]
+    category: str = ""
+    legacy_terms: tuple[str, ...] = ()
+    mini_glossary_title: str = ""
+    mini_glossary_definition: str = ""
+    mini_glossary_order: int | None = None
 
 
 @dataclass(frozen=True)
@@ -38,6 +44,13 @@ class FIDCBookMetric:
     aliases: tuple[str, ...]
     page_ids: tuple[str, ...]
     source_ids: tuple[str, ...]
+    formula: str = ""
+    numerator: str = ""
+    denominator: str = ""
+    unit: str = ""
+    mini_glossary_title: str = ""
+    mini_glossary_definition: str = ""
+    mini_glossary_order: int | None = None
 
 
 @dataclass(frozen=True)
@@ -49,17 +62,35 @@ class FIDCReferenceFund:
     risk_focus: str
     source_ids: tuple[str, ...]
     page_ids: tuple[str, ...]
+    cnpj: str = ""
+    evidence_status: str = ""
+    last_verified: str = ""
 
 
 @dataclass(frozen=True)
 class FIDCDocumentEntry:
     document_id: str
+    source_id: str
     title: str
     doc_type: str
-    path: str
+    cnpj: str
+    fundosnet_id: str
+    official_url: str
+    local_path: str
+    local_status: str
+    document_date: str
+    version: str
+    sha256: str
+    pages: int | None
+    extraction_method: str
     themes: tuple[str, ...]
     page_ids: tuple[str, ...]
     notes: str
+
+    @property
+    def path(self) -> str:
+        """Compatibilidade com consumidores anteriores do indice."""
+        return self.local_path or self.official_url
 
 
 @dataclass(frozen=True)
@@ -124,20 +155,32 @@ class FIDCBookIndex:
         return _LEADING_H1.sub("", raw, count=1)
 
     def search_pages(self, query: str) -> tuple[FIDCBookPage, ...]:
-        query = _normalize_book_text(query)
-        terms = [term.strip().lower() for term in query.split() if term.strip()]
+        terms = [term for term in _search_normalize(_normalize_book_text(query)).split() if term]
         if not terms:
             return self.pages
 
         def matches(page: FIDCBookPage) -> bool:
-            haystack = " ".join(
+            concept_terms = [
+                " ".join((concept.title, *concept.aliases, *concept.legacy_terms))
+                for concept in self.concepts
+                if page.page_id in concept.page_ids
+            ]
+            metric_terms = [
+                " ".join((metric.title, *metric.aliases))
+                for metric in self.metrics
+                if page.page_id in metric.page_ids
+            ]
+            haystack = _search_normalize(" ".join(
                 [
-                    page.title.lower(),
-                    page.summary.lower(),
-                    page.section_title.lower(),
-                    " ".join(page.keywords).lower(),
+                    page.title,
+                    page.summary,
+                    page.section_title,
+                    " ".join(page.keywords),
+                    self.load_page_markdown(page),
+                    *concept_terms,
+                    *metric_terms,
                 ]
-            )
+            ))
             return all(term in haystack for term in terms)
 
         return tuple(page for page in self.pages if matches(page))
@@ -184,10 +227,7 @@ def _book_root() -> Path:
 
 _BOOK_TEXT_REPLACEMENTS: tuple[tuple[re.Pattern[str], str], ...] = (
     (re.compile(r"Informe Mensal Estruturado\s*\(IME\)", flags=re.IGNORECASE), "Informe Mensal"),
-    (re.compile(r"Informe Mensal\s*\(IME\)", flags=re.IGNORECASE), "Informe Mensal"),
     (re.compile(r"\bInforme Mensal Estruturado\b", flags=re.IGNORECASE), "Informe Mensal"),
-    (re.compile(r"\bIMEs\b"), "Informes Mensais"),
-    (re.compile(r"\bIME\b"), "Informe Mensal"),
 )
 
 _OPTIONAL_SECTION_HEADINGS = {
@@ -201,6 +241,19 @@ def _normalize_book_text(value: str) -> str:
     for pattern, replacement in _BOOK_TEXT_REPLACEMENTS:
         normalized = pattern.sub(replacement, normalized)
     return normalized
+
+
+def _search_normalize(value: str) -> str:
+    decomposed = unicodedata.normalize("NFKD", str(value or "")).casefold()
+    without_accents = "".join(char for char in decomposed if not unicodedata.combining(char))
+    return re.sub(r"[^a-z0-9]+", " ", without_accents).strip()
+
+
+def _ensure_unique(items: list[dict], key: str, label: str) -> None:
+    values = [str(item.get(key, "")) for item in items]
+    duplicates = sorted({value for value in values if value and values.count(value) > 1})
+    if duplicates:
+        raise ValueError(f"Duplicate {label}: {', '.join(duplicates)}")
 
 
 def _strip_optional_sections(markdown: str) -> str:
@@ -232,6 +285,15 @@ def load_fidc_book_index() -> FIDCBookIndex:
     metrics_payload = json.loads((root / "_data" / "metrics.json").read_text(encoding="utf-8"))
     reference_funds_payload = json.loads((root / "_data" / "reference_funds.json").read_text(encoding="utf-8"))
     document_index_payload = json.loads((root / "_data" / "document_index.json").read_text(encoding="utf-8"))
+
+    _ensure_unique(sources_payload["sources"], "source_id", "FIDC source_id")
+    _ensure_unique(concepts_payload["concepts"], "concept_id", "FIDC concept_id")
+    _ensure_unique(metrics_payload["metrics"], "metric_id", "FIDC metric_id")
+    _ensure_unique(reference_funds_payload["funds"], "fund_id", "FIDC fund_id")
+    _ensure_unique(document_index_payload["documents"], "document_id", "FIDC document_id")
+    _ensure_unique(index_payload["sections"], "section_id", "FIDC section_id")
+    page_payloads = [page for section in index_payload["sections"] for page in section["pages"]]
+    _ensure_unique(page_payloads, "page_id", "FIDC page_id")
 
     sources = {
         item["source_id"]: FIDCBookSource(
@@ -279,6 +341,11 @@ def load_fidc_book_index() -> FIDCBookIndex:
             aliases=tuple(_normalize_book_text(alias) for alias in item.get("aliases", [])),
             page_ids=tuple(item.get("page_ids", [])),
             source_ids=tuple(item.get("source_ids", [])),
+            category=_normalize_book_text(item.get("category", "")),
+            legacy_terms=tuple(_normalize_book_text(term) for term in item.get("legacy_terms", [])),
+            mini_glossary_title=_normalize_book_text(item.get("mini_glossary_title", "")),
+            mini_glossary_definition=_normalize_book_text(item.get("mini_glossary_definition", "")),
+            mini_glossary_order=item.get("mini_glossary_order"),
         )
         for item in concepts_payload["concepts"]
     )
@@ -292,6 +359,13 @@ def load_fidc_book_index() -> FIDCBookIndex:
             aliases=tuple(_normalize_book_text(alias) for alias in item.get("aliases", [])),
             page_ids=tuple(item.get("page_ids", [])),
             source_ids=tuple(item.get("source_ids", [])),
+            formula=_normalize_book_text(item.get("formula", "")),
+            numerator=_normalize_book_text(item.get("numerator", "")),
+            denominator=_normalize_book_text(item.get("denominator", "")),
+            unit=_normalize_book_text(item.get("unit", "")),
+            mini_glossary_title=_normalize_book_text(item.get("mini_glossary_title", "")),
+            mini_glossary_definition=_normalize_book_text(item.get("mini_glossary_definition", "")),
+            mini_glossary_order=item.get("mini_glossary_order"),
         )
         for item in metrics_payload["metrics"]
     )
@@ -304,21 +378,67 @@ def load_fidc_book_index() -> FIDCBookIndex:
             risk_focus=_normalize_book_text(item["risk_focus"]),
             source_ids=tuple(item.get("source_ids", [])),
             page_ids=tuple(item.get("page_ids", [])),
+            cnpj=item.get("cnpj", ""),
+            evidence_status=_normalize_book_text(item.get("evidence_status", "")),
+            last_verified=item.get("last_verified", ""),
         )
         for item in reference_funds_payload["funds"]
     )
     document_entries = tuple(
         FIDCDocumentEntry(
             document_id=item["document_id"],
+            source_id=item.get("source_id", item["document_id"]),
             title=_normalize_book_text(item["title"]),
             doc_type=_normalize_book_text(item["doc_type"]),
-            path=item["path"],
+            cnpj=item.get("cnpj", ""),
+            fundosnet_id=str(item.get("fundosnet_id", "")),
+            official_url=item.get("official_url", ""),
+            local_path=item.get("local_path", item.get("path", "")),
+            local_status=_normalize_book_text(item.get("local_status", "")),
+            document_date=item.get("document_date", ""),
+            version=str(item.get("version", "")),
+            sha256=item.get("sha256", ""),
+            pages=item.get("pages"),
+            extraction_method=item.get("extraction_method", ""),
             themes=tuple(_normalize_book_text(theme) for theme in item.get("themes", [])),
             page_ids=tuple(item.get("page_ids", [])),
             notes=_normalize_book_text(item.get("notes", "")),
         )
         for item in document_index_payload["documents"]
     )
+
+    page_ids = {page.page_id for section in sections for page in section.pages}
+    source_ids = set(sources)
+    errors: list[str] = []
+    for page in (page for section in sections for page in section.pages):
+        errors.extend(
+            f"page {page.page_id} -> unknown source {source_id}"
+            for source_id in page.source_ids
+            if source_id not in source_ids
+        )
+    for label, entries in (
+        ("concept", concepts),
+        ("metric", metrics),
+        ("fund", reference_funds),
+        ("document", document_entries),
+    ):
+        for entry in entries:
+            entry_id = getattr(entry, f"{label}_id", getattr(entry, "document_id", ""))
+            errors.extend(
+                f"{label} {entry_id} -> unknown page {page_id}"
+                for page_id in entry.page_ids
+                if page_id not in page_ids
+            )
+            errors.extend(
+                f"{label} {entry_id} -> unknown source {source_id}"
+                for source_id in getattr(entry, "source_ids", ())
+                if source_id not in source_ids
+            )
+    for entry in document_entries:
+        if entry.source_id not in source_ids:
+            errors.append(f"document {entry.document_id} -> unknown source {entry.source_id}")
+    if errors:
+        raise ValueError("Invalid FIDC book references: " + "; ".join(errors))
 
     return FIDCBookIndex(
         root_dir=root,

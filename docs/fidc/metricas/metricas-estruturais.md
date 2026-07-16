@@ -1,68 +1,100 @@
-# Métricas estruturais e guardrails
+# Métricas estruturais e de liquidez
 
-## O que são métricas estruturais
+Toda métrica precisa de nome, fórmula, nível, data, unidade e fonte. O mesmo rótulo pode representar cálculos contratuais diferentes.
 
-Métricas estruturais são indicadores que monitoram se o fundo mantém os parâmetros de proteção definidos no seu regulamento. Elas vão além da inadimplência pontual — medem se a estrutura como um todo está saudável.
+## Patrimônio líquido
 
-Alguns desses indicadores aparecem no Informe Mensal. Outros só existem nos relatórios mensais do administrador ou são calculáveis apenas com o regulamento em mãos.
+`PL = ativos reconhecidos − passivos reconhecidos`
 
-## Métricas quase universais
+Unidade: moeda. Identifique se é PL da classe, valor atribuído a subclasse/série ou agregado analítico do fundo. Somar classes serve ao ranking de `cnpj_fundo`, mas não cria fungibilidade entre patrimônios segregados.
 
-Estas aparecem na grande maioria dos FIDCs e fazem sentido como ponto de partida para qualquer análise:
+## Alocação em direitos creditórios
 
-| Métrica | O que mede | Fonte principal |
-| --- | --- | --- |
-| **Patrimônio líquido por classe** | Tamanho de cada tranche de cota | Informe Mensal |
-| **Índice de subordinação** | PL subordinado / PL total — colchão contra perdas | Informe Mensal |
-| **Alocação em direitos creditórios** | % do patrimônio investido em crédito (vs. caixa, títulos) | Informe Mensal |
-| **Inadimplência** | Saldo vencido por faixa de prazo | Informe Mensal |
-| **Provisão** | Provisão contábil constituída | Informe Mensal |
-| **Emissões e resgates** | Fluxo de capital entrando e saindo do fundo | Informe Mensal |
+Convenção simples:
 
-## Métricas estruturais específicas do regulamento
+`alocação = direitos creditórios computáveis / PL da classe`
 
-Estas métricas são recorrentes no mercado, mas dependem do regulamento de cada fundo. Elas raramente aparecem no Informe Mensal — estão nos relatórios mensais de monitoramento.
+A regra regulatória do art. 44 usa critério e prazo próprios; uma meta contratual pode usar direitos elegíveis, valor presente ou excluir parcelas. Regra normativa, meta de aquisição e gatilho de evento são registros separados.
 
-| Métrica | O que mede |
-| --- | --- |
-| **Índice de cobertura** | Relação entre o valor da carteira elegível e o PL sênior — mostra se o lastro cobre adequadamente a tranche prioritária |
-| **Relação mínima** | Razão mínima entre direitos creditórios e PL sênior, definida no regulamento como gatilho |
-| **Alocação mínima** | % mínimo do patrimônio que deve estar alocado em crédito (evita que o fundo vire um fundo de caixa) |
-| **Excesso de spread** | Diferença entre a taxa média da carteira e o custo do passivo (cotas) — quanto sobra depois de remunerar os cotistas |
-| **Reserva de liquidez / caixa** | Colchão de liquidez mantido separado da carteira de crédito |
-| **First payment default (FPD)** | Taxa de créditos que já inadimplem na primeira parcela — indica qualidade da seleção de risco na originação |
+## Subordinação reportada
 
-## Como ler o índice de subordinação na prática
+Proxy do painel:
 
-O índice de subordinação mais comum é calculado como:
+`subordinação reportada = (PL mezanino + PL subordinado residual) / PL total reportado`
 
-> **PL subordinado / PL total**
+Unidade: %. Não é automaticamente o índice contratual do art. 2º, XV, que se refere à subclasse e ao PL da classe conforme o regulamento.
 
-Um índice de 15% significa que o fundo teria que perder mais de 15% do seu patrimônio para que os cotistas sênior começassem a ser afetados.
+## Índice de cobertura
 
-**O que observar:**
-- O índice está próximo do mínimo regulamentar? Isso pode indicar que o gatilho de reenquadramento está próximo.
-- O índice está caindo consistentemente? Pode indicar que perdas estão sendo absorvidas pela subordinação.
-- O índice oscila muito mês a mês? Pode refletir emissões/resgates de cotas subordinadas ou variações contábeis da carteira.
+Forma ilustrativa:
 
-## Como ler o excesso de spread
+`cobertura = ativos elegíveis ajustados / obrigações protegidas`
 
-O excesso de spread é uma proteção dinâmica — enquanto o fundo gera mais rendimento do que paga, esse excedente pode cobrir perdas sem consumir subordinação. Um fundo com excesso de spread positivo e elevado tem mais margem de absorção de perdas do que o índice de subordinação sozinho sugere.
+Numerador, haircuts, reservas, passivos, juros acumulados e threshold variam. Nunca compare “1,20x” de dois fundos sem reconciliar as fórmulas.
 
-A ausência de excesso de spread (ou spread negativo) em carteiras com inadimplência crescente é um sinal de atenção relevante.
+## Concentração
 
-## Métricas idiossincráticas
+`concentração_i = exposição computável ao fator i / base contratual`
 
-Alguns fundos têm métricas muito específicas que não têm equivalente nos demais. Exemplos reais de mercado:
+O fator pode ser devedor, grupo, cedente, originador, garantidor, setor ou prazo. A participação dominante da Tabela II é outra métrica:
 
-- **DCV (Dias de Contas a Vencer):** prazo médio ponderado da carteira, usado como guardrail em alguns FIDCs de cartão e supplier finance.
-- **Índice de refinanciamento:** controla o percentual de créditos que estão sendo renovados/renegociados — relevante em cartões e crédito rotativo.
-- **Pagamentos incorretos / erros de liquidação:** em FIDCs operacionais (como estruturas de adquirência), erros de liquidação são tratados como evento de monitoramento.
+`maior segmento / total reportado na Tabela II`
 
-Se você está analisando um fundo pela primeira vez, mapeie quais guardrails existem no regulamento antes de interpretar os indicadores do Informe Mensal.
+Ela não mede concentração individual.
 
-## O que o Informe Mensal não resolve
+## Reserva
 
-O Informe Mensal é uma fonte padronizada — isso é uma vantagem para comparação entre fundos, mas uma limitação para análise profunda de cada fundo individualmente.
+`cobertura da reserva = saldo de ativos da reserva / necessidade-alvo`
 
-Quando um número do Informe Mensal parece alto, baixo ou estável, a pergunta correta é: **o regulamento desse fundo define um limite para isso?** Se sim, o dado do Informe Mensal só faz sentido lido contra esse limite. Se não, o dado é um sinal a ser contextualizado com o perfil da carteira.
+Defina tipo de reserva, ativos admitidos, necessidade-alvo, data, saque e recomposição. Caixa total não é numerador válido sem vínculo contratual.
+
+## Excesso de spread
+
+Uma aproximação econômica por período:
+
+`receita da carteira − perdas − despesas − custo das cotas protegidas − outros encargos`
+
+Pode ser expresso em moeda ou taxa. Precisa refletir pré-pagamento, atraso, recuperação e calendário. “Taxa média da carteira menos benchmark” é proxy incompleto.
+
+## Liquidez e descasamento
+
+### Caixa disponível
+
+`caixa disponível / saídas previstas na janela`
+
+Defina janela, ativos líquidos e saídas. Reserva restrita pode não estar disponível.
+
+### WAL
+
+`WAL = Σ(principal esperado_t × tempo_t) / Σ principal esperado_t`
+
+Unidade: dias, meses ou anos. Use fluxo esperado e declare premissas de atraso, pré-pagamento e recuperação.
+
+### Gap de prazo
+
+`WAL dos ativos − prazo médio ponderado das obrigações`
+
+É indicador simplificado, não simulação de caixa. Gaps de taxa, índice e moeda devem ser medidos separadamente.
+
+## Fluxos do Informe Mensal
+
+Aquisições, alienações, liquidações, pré-pagamentos, amortizações e resgates devem ser tratados como fluxos da competência, não saldos. Compare com PL ou carteira média apenas com denominador temporal coerente.
+
+## Guardrails contratuais
+
+FPD, DCV, índice de refinanciamento, diluição, cobertura, concentração e alocação podem ter definições próprias. FPD é convenção operacional no Glossário, não cláusula atribuída ao corpus. Para cada métrica, capture:
+
+1. numerador e denominador;
+2. janela/coorte;
+3. data de observação e frequência;
+4. exclusões e cura;
+5. threshold e consequência;
+6. fonte e versão.
+
+Um limite de um fundo é exemplo, não definição universal. Prática recorrente no corpus só é tratada como tal com evidência em pelo menos duas famílias econômicas independentes.
+
+## O que o Informe Mensal captura
+
+PL, composição, faixas, fluxos e cotas permitem várias métricas reportadas ou proxies. Índice contratual, ativos elegíveis ajustados, reservas, cash waterfall, WAL projetado e gatilhos exigem regulamento e base operacional.
+
+Fontes: RCVM 175; padrão XML mensal; documentos primários do corpus; metodologia analítica da revisão. Verificação: **16/07/2026**.

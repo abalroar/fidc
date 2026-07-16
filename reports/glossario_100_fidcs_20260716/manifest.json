@@ -1,0 +1,128 @@
+{
+  "schema_version": "glossario-100-fidcs/v2",
+  "generated_at_utc": "2026-07-16T04:47:29+00:00",
+  "competencia_snapshot": "202605",
+  "competencia": "2026-05",
+  "source_metadata": "data/industry_study/metadata.json",
+  "source_vehicle_monthly": "data/industry_study/vehicle_monthly.csv.gz",
+  "source_table_ii_zip": ".cache/cvm-industry-investors/inf_mensal_fidc_202605.zip",
+  "selection_algorithm": [
+    "agregar PL positivo no nivel cnpj_fundo, somando classes componentes",
+    "classificar pelo maior dos 11 segmentos oficiais da Tabela II",
+    "quando Financeiro vencer, substituir pela maior abertura F1-F8",
+    "classificar total zero como Sem segmentação IME",
+    "selecionar ate dois maiores por estrato ocupado",
+    "completar por PL global; desempate por CNPJ crescente"
+  ],
+  "dominant_share_rule": "maior abertura F1-F8 / soma dos 11 blocos quando Financeiro vence; caso contrario, maior bloco / soma dos 11 blocos",
+  "fic_fidc_rule": "flag legada preservada e flag ampliada por nomenclatura; cobertura ex-FIC usa a flag ampliada",
+  "snapshot_reconciliation": {
+    "n_veiculos_snapshot": 4224,
+    "n_pl_nulo": 0,
+    "n_pl_zero": 150,
+    "n_pl_negativo": 37,
+    "pl_negativo_excluido": -79183745.10999998,
+    "pl_soma_todos_registros": 958535660089.73,
+    "n_veiculos_pl_positivo": 4037,
+    "pl_elegivel": 958614843834.84,
+    "n_fundos_elegiveis": 4032,
+    "pl_fundos_elegiveis": 958614843834.84,
+    "residuo_reconciliacao": 0.0
+  },
+  "sample": {
+    "n_fundos": 100,
+    "pl_bruto": 399488372325.7701,
+    "cobertura_pl_bruta": 0.4167350160442519,
+    "n_fic_fidc": 6,
+    "pl_ex_fic": 385547374699.29004,
+    "cobertura_pl_ex_fic": 0.44719188426477635,
+    "n_estratos_ocupados": 18
+  },
+  "segmentos_oficiais_sem_populacao": [
+    "Marcas e patentes"
+  ],
+  "validations": {
+    "exactly_100_unique_funds": true,
+    "no_duplicate_funds": true,
+    "all_occupied_strata_represented": true,
+    "all_fund_class_sums_reconciled": true,
+    "all_100_have_document_status": true
+  },
+  "limitations": [
+    "Sem segmentação IME é estrato de qualidade de dados, não subtipo oficial.",
+    "A flag FIC-FIDC ampliada é inferida da denominação e não substitui validação documental.",
+    "Quinze documentos permanecem com OCR necessário; nenhum sustenta afirmação categórica do glossário.",
+    "Cinco fundos não tiveram regulamento vigente lido: três sem documento listado e dois com falha de download; todos têm status explícito e ao menos outro documento primário lido.",
+    "Frequências contratuais usam 15 regulamentos substantivos e 12 famílias de template, não os 100 como denominador artificial.",
+    "A revisão é exaustiva em relação ao corpus e às normas verificadas, não universalmente completa."
+  ],
+  "document_corpus": {
+    "funds_with_explicit_status": 100,
+    "canonical_ledger_rows": 981,
+    "unique_primary_document_ids": 748,
+    "documents_read_page_by_page": 731,
+    "unique_sha256_read": 721,
+    "pages_read_unique_sha256": 21028,
+    "documents_ocr_required": 15,
+    "documents_inaccessible": 2,
+    "missing_priority_requests": 233,
+    "funds_with_current_regulation_read": 95,
+    "funds_current_regulation_absent": 3,
+    "funds_current_regulation_inaccessible": 2,
+    "current_regulation_pl_coverage": 0.9561551579959962,
+    "funds_with_any_document_read": 100,
+    "rating_reports_read": 52,
+    "financial_statements_read": 91,
+    "monthly_or_quarterly_reports_read": 98,
+    "prospectuses_or_fact_sheets_read": 3,
+    "substantive_regulations_manually_reviewed": 15,
+    "substantive_review_pl_fund_level": 193512999624.50998,
+    "substantive_review_pl_share_sample": 0.4844020828388624,
+    "visual_checks": [
+      "RCVM 175 Anexo II, páginas físicas 22 a 24",
+      "Cielo 1017493, páginas 55 e 106",
+      "Aetos 794164, páginas 40 e 45",
+      "PagSeguro 1149521, página 19",
+      "Monee 1159092, página 58",
+      "MT Global 1222863, página 5"
+    ]
+  },
+  "evidence_matrix": {
+    "atomic_rows": 57,
+    "term_candidate_rows": 62,
+    "gap_matrix_rows": 22,
+    "contractual_prevalence_denominator_funds": 15,
+    "independent_document_families": 12,
+    "fic_fidc_excluded_from_underlying_credit_prevalence": true,
+    "literal_excess_spread_occurrences_in_15_regulations": 0
+  },
+  "glossary_after_review": {
+    "pages": 18,
+    "concepts": 48,
+    "metrics": 27,
+    "reference_funds": 10,
+    "sources": 30,
+    "indexed_primary_documents": 16
+  },
+  "legacy_inventory_audit": {
+    "document_inventory_rows": 3521,
+    "pdfs_declared_local_but_missing": 1501,
+    "existing_txt_revalidated": 571,
+    "existing_json_revalidated": 1449,
+    "legacy_estudo_paths_removed_from_glossary": 13,
+    "fidc_local_inventory_declared_paths_missing": 9645,
+    "regulatory_knowledge_downloaded_source_files_missing": 1445,
+    "text_cache_document_id_equals_cnpj_rows": 571
+  },
+  "artifact_sha256": {
+    "selection_100.csv": "330ddb91e4ce3319c7641f9c8c8688816725d3ab3641dc14403be3148fae8cc9",
+    "selection_coverage_by_subtype.csv": "9a044bfa690f683934dd0738f85775b429d02060b43d4b44be3624bfa4eec718",
+    "document_coverage.csv": "6318db31f616c1a9edf4bb9330bff58a4dc92e7ce6c054cade272adfd136af10",
+    "evidence_long.csv": "b385a6f9f7d2d9b25200642c7c1ee9285014c9d1ba2fdee4208a625eec5bdc55",
+    "term_candidates.csv": "059415b37fee96163c40179337878c90215d9896667daff744eb9a00acb55f4f",
+    "glossary_gap_matrix.csv": "0bd02c3952d9e15a05d4bb7a1b1de14ccfb719ff63a6e6c90bc52aad77e5b637",
+    "methodology.md": "50f2431a580d2ef719156d968f7082dc32c673f011665925f87c55cc9624924e",
+    "glossary_change_log.md": "0441596ff6bddc26a9b6577cf66011175f9b47baba6c4cd21913b33e90c2553c",
+    "glossary_review_report.md": "fc4eea2bfd4ac3c91e14f5357a1b4da94be1b93d810b22d0c2d0eae0098dd3b6"
+  }
+}

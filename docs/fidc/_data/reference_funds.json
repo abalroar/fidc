@@ -1,76 +1,124 @@
 {
   "funds": [
     {
-      "fund_id": "seller",
-      "title": "Seller FIDC",
-      "receivable_family": "Meios de pagamento / arranjo de pagamentos",
-      "origin_profile": "Ecossistema Mercado Pago / Mercado Crédito",
-      "risk_focus": "Cobertura, subordinação, subordinação para amortização, alocação mínima e risco operacional do arranjo.",
-      "source_ids": ["seller_regulamento", "seller_relatorio_mensal"],
-      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if", "metricas-estruturais"]
+      "fund_id": "petrobras_sistema",
+      "title": "FIDC do Sistema Petrobras",
+      "cnpj": "09195235000150",
+      "receivable_family": "Segmento oficial Industrial",
+      "origin_profile": "Estrutura corporativa; detalhes somente no regulamento",
+      "risk_focus": "Política da classe, elegibilidade, eventos e amortização",
+      "source_ids": ["fnet_reg_792797"],
+      "page_ids": ["reforcos-revolvencia-liquidez", "eventos-avaliacao-liquidacao", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
     },
     {
-      "fund_id": "facta_inss_cb",
-      "title": "Facta INSS CB FIDC",
-      "receivable_family": "Consignado INSS / benefício via CCB",
-      "origin_profile": "Financeira com foco em consignado",
-      "risk_focus": "Elegibilidade, cessão, documentação, governança de inconsistências e eventos de liquidação.",
-      "source_ids": ["facta_regulamento"],
-      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if", "cessao-e-resolucao"]
+      "fund_id": "tapso",
+      "title": "TAPSO FIDC RL",
+      "cnpj": "26287464000114",
+      "receivable_family": "Segmento oficial Cartão de crédito",
+      "origin_profile": "Descrição funcional sujeita ao regulamento",
+      "risk_focus": "Recebíveis, waterfall, reservas e eventos",
+      "source_ids": ["fnet_reg_1066031"],
+      "page_ids": ["recebiveis-financeiros", "reforcos-revolvencia-liquidez", "eventos-avaliacao-liquidacao", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
     },
     {
-      "fund_id": "geru",
-      "title": "GERU FIDC I",
-      "receivable_family": "Crédito pessoal / fintech",
-      "origin_profile": "Originação digital",
-      "risk_focus": "Relação mínima, alocação mínima, índice de cobertura e FPD.",
-      "source_ids": ["geru_regulamento"],
-      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if", "metricas-estruturais"]
+      "fund_id": "cloudwalk_bela",
+      "title": "Cloudwalk Bela FIDC",
+      "cnpj": "62393679000183",
+      "receivable_family": "Segmento oficial Cartão de crédito; taxonomia documental meios de pagamento",
+      "origin_profile": "Estrutura descrita no documento primário",
+      "risk_focus": "Papéis econômicos, concentração e eventos",
+      "source_ids": ["fnet_reg_1117954"],
+      "page_ids": ["recebiveis-financeiros", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
     },
     {
-      "fund_id": "agibank",
-      "title": "Agibank I FIDC RL",
-      "receivable_family": "Consignado INSS via CCB",
-      "origin_profile": "Banco Agibank como endossante",
-      "risk_focus": "Consignação, endosso, elegibilidade da carteira e pré-pagamento.",
-      "source_ids": ["agibank_monitoramento"],
-      "page_ids": ["fidcs-originacao-if", "participantes"]
+      "fund_id": "itau_credito_privado",
+      "title": "Itaú Crédito Privado FIDC RL",
+      "cnpj": "53286499000101",
+      "receivable_family": "Segmento oficial Serviços",
+      "origin_profile": "Política definida no regulamento",
+      "risk_focus": "Elegibilidade e concentração",
+      "source_ids": ["fnet_reg_579249"],
+      "page_ids": ["instrumentos-garantias-concentracao", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
     },
     {
-      "fund_id": "icred_fgts",
-      "title": "iCred FGTS FIDC RL",
-      "receivable_family": "Consignado INSS / FGTS",
-      "origin_profile": "Fintech originadora",
-      "risk_focus": "Múltiplas séries e classes econômicas, benchmark por tranche e risco de canal de originação.",
-      "source_ids": ["icred_monitoramento"],
-      "page_ids": ["fidcs-originacao-if", "classes-cotas-waterfall"]
+      "fund_id": "esperanza",
+      "title": "Esperanza FIDC",
+      "cnpj": "53263761000100",
+      "receivable_family": "Abertura financeira Outros",
+      "origin_profile": "Taxonomia funcional depende do regulamento",
+      "risk_focus": "Limite informacional da abertura Outros",
+      "source_ids": ["fnet_reg_830304"],
+      "page_ids": ["informe-mensal-tabela-ii", "metricas-estruturais", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
+    },
+    {
+      "fund_id": "btg_consignados_ii",
+      "title": "BTG Pactual Consignados II FIDC",
+      "cnpj": "52242420000188",
+      "receivable_family": "Segmento oficial Serviços; taxonomia documental consignado",
+      "origin_profile": "Originação financeira descrita no regulamento",
+      "risk_focus": "Segmento reportado versus função documental, cessão e elegibilidade",
+      "source_ids": ["fnet_reg_938243"],
+      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
+    },
+    {
+      "fund_id": "mt_global_consignado_privado",
+      "title": "Classe Consignado Privado do MT Global FIDC RL",
+      "cnpj": "63953619000130",
+      "receivable_family": "Segmento oficial Comercial; taxonomia documental consignado privado",
+      "origin_profile": "Documento localizado no CNPJ da classe componente 63953620000165",
+      "risk_focus": "Vínculo fundo–classe, originação e subclasses",
+      "source_ids": ["fnet_reg_1222863"],
+      "page_ids": ["classes-cotas-waterfall", "fidcs-originacao-if", "fundos-de-referencia"],
+      "evidence_status": "primário de classe lido",
+      "last_verified": "2026-07-16"
+    },
+    {
+      "fund_id": "aetos_energia",
+      "title": "Aetos Energia FIDC",
+      "cnpj": "52610624000124",
+      "receivable_family": "Segmento oficial Serviços",
+      "origin_profile": "Fluxos e contrapartes definidos no regulamento",
+      "risk_focus": "Concentração e fluxo contratual",
+      "source_ids": ["fnet_reg_794164"],
+      "page_ids": ["instrumentos-garantias-concentracao", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
+    },
+    {
+      "fund_id": "pagseguro_i",
+      "title": "FIDC PagSeguro I",
+      "cnpj": "28169275000172",
+      "receivable_family": "Segmento oficial Cartão de crédito",
+      "origin_profile": "Arranjo e participantes definidos no regulamento",
+      "risk_focus": "Identificação de papéis e do devedor do direito",
+      "source_ids": ["fnet_reg_1149521"],
+      "page_ids": ["recebiveis-financeiros", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
     },
     {
       "fund_id": "cielo",
-      "title": "FIDC Cielo",
-      "receivable_family": "Arranjo de pagamentos / adquirência",
-      "origin_profile": "Estabelecimentos credenciados com Cielo como devedor na estrutura monitorada",
-      "risk_focus": "Risco operacional do arranjo e leitura correta do devedor econômico.",
-      "source_ids": ["cielo_monitoramento"],
-      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if"]
-    },
-    {
-      "fund_id": "bv_veiculos",
-      "title": "BV Crédito de Veículos FIDC RL",
-      "receivable_family": "Financiamento de veículos via CCB",
-      "origin_profile": "Banco Votorantim como cedente",
-      "risk_focus": "Safra, prazo, inadimplência e concentração.",
-      "source_ids": ["bv_monitoramento"],
-      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if"]
-    },
-    {
-      "fund_id": "stone_iv",
-      "title": "Stone IV",
-      "receivable_family": "Cartão / bancos emissores",
-      "origin_profile": "Ecossistema de emissão de cartão",
-      "risk_focus": "Sem regresso/coobrigação, concentração e dinâmica operacional dos créditos de cartão.",
-      "source_ids": ["stone_regulamento"],
-      "page_ids": ["recebiveis-financeiros", "fidcs-originacao-if"]
+      "title": "Cielo FIDC",
+      "cnpj": "26286939000158",
+      "receivable_family": "Segmento oficial Cartão de crédito",
+      "origin_profile": "Arranjo de pagamentos descrito no regulamento",
+      "risk_focus": "Devedor concreto, cessão e papéis no arranjo",
+      "source_ids": ["fnet_reg_1017493"],
+      "page_ids": ["recebiveis-financeiros", "fundos-de-referencia"],
+      "evidence_status": "primário lido",
+      "last_verified": "2026-07-16"
     }
   ]
 }

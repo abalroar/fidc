@@ -1,56 +1,53 @@
-# FIDCs com cedentes ou originadores que são instituições financeiras
+# FIDCs com originação financeira: como comparar
 
-## O que muda quando o cedente é um banco ou fintech
+“Originado por banco ou fintech” não é família homogênea. A comparação deve preservar o produto, o regime do originador, o canal e a cadeia operacional.
 
-Quando o crédito cedido ao FIDC foi originado por uma instituição financeira — banco, financeira, fintech de crédito — a análise precisa incorporar uma dimensão adicional: a qualidade do processo de originação do cedente.
+## Identifique o papel antes do rótulo
 
-Diferente de uma carteira de duplicatas comerciais, onde o risco de inadimplência depende principalmente do sacado, uma carteira de empréstimos pessoais ou consignados cedidos por uma fintech depende:
-- da política de crédito do originador (quem ele seleciona como tomador);
-- da robustez do processo de elegibilidade (o que ele aceita ceder ao fundo);
-- da sua capacidade operacional de cobrança;
-- da sua saúde financeira — especialmente se tiver obrigação de recompra.
+Uma instituição financeira pode ser originadora, cedente, endossante, cobradora, gestora de conta ou coobrigada. Uma SCD ou SEP tem autorização e regime próprios. Correspondente e empresa de tecnologia podem participar da jornada sem conceder o crédito em nome próprio. O contrato, o cadastro oficial e a escrituração do ativo resolvem a função.
 
-Ausência de coobrigação não elimina a exposição ao originador. Um originador que deteriora a qualidade de seleção de risco contamina a carteira cedida ao fundo — mesmo sem coobrigação formal.
+## Eixos comparáveis
 
-## Comparativo por família de crédito
+### Underwriting
 
-| Família | Papel típico do cedente/originador | Principal risco além da inadimplência direta |
-| --- | --- | --- |
-| **Consignado INSS via CCB** | Banco ou fintech origina e cede; às vezes sem coobrigação | Qualidade da averbação, elegibilidade documental, concentração por correspondente bancário |
-| **Crédito pessoal / fintech** | Fintech origina e cede; sem coobrigação | Critérios de seleção de risco, FPD, capacidade de cobrança pós-inadimplência |
-| **Cartão / private label** | Banco emissor cede recebíveis de cartão | Risco de concentração no emissor, dinâmica de revolvência, spread |
-| **Meios de pagamento / adquirência** | Adquirente ou arranjo cede recebíveis operacionais | Dependência operacional do player central, risco de interrupção do fluxo |
-| **Veículos via CCB** | Banco cede contratos de financiamento de veículos | Concentração regional, qualidade de cobrança, valor de revenda dos bens |
+Política, dados usados, antifraude, aprovação manual/automática, exceções, score, renda, margem, LTV e governança de modelo. Taxa de aprovação não mede sozinha qualidade.
 
-## Padrões comuns em FIDCs com originação financeira
+### Safra e canal
 
-### 1. O risco está no processo, não só no devedor
+Compare coortes de originação com maturidade suficiente. Canal digital, loja, correspondente, parceiro ou base própria podem produzir mix e fraude diferentes.
 
-Em carteiras de consignado ou crédito pessoal, monitorar apenas a inadimplência reportada no Informe Mensal é insuficiente. O risco real inclui: a fila de créditos sendo aprovados com critérios afrouxados, a deterioração silenciosa das safras mais recentes e a capacidade de cobrança do originador.
+### Skin in the game
 
-### 2. Concentração operacional é frequentemente o risco dominante
+Subordinação detida pelo originador, coobrigação, desconto na cessão, reserva ou recompra por vício criam exposições distintas. Retenção econômica não garante capacidade de suporte nem cobre inadimplência ordinária sem previsão.
 
-Muitos desses fundos têm um único cedente/originador. Se esse cedente interrompe a cessão (por problemas regulatórios, financeiros ou operacionais), o fundo pode deixar de crescer ou de renovar a carteira — o que afeta o excesso de spread e a subordinação ao longo do tempo.
+### Servicing e cobrança
 
-### 3. Fundos com IF na origem tendem a ter guardrails mais específicos
+Mapeie boletos, débito, consignação, conta de recebimento, conciliação, renegociação, cobrança judicial e plano de substituição. Dependência do originador é maior quando dados, relacionamento e caixa passam por ele.
 
-É comum encontrar, no regulamento desses fundos, métricas como:
-- **FPD (first payment default):** taxa de créditos que já inadimplem na primeira parcela — indicador direto da qualidade de seleção de risco;
-- **Índice de cobertura:** relação entre carteira elegível e PL sênior;
-- **Alocação mínima:** garante que o fundo mantenha um percentual mínimo do PL em crédito (evita que o fundo "pare de trabalhar");
-- **Excesso de spread mínimo:** evita que a operação rode sem margem de segurança dinâmica.
+### Preço e seleção
 
-### 4. A ausência de coobrigação não é informação completa
+Confira preço de aquisição, ágio/deságio, taxa do crédito, prazo e possíveis incentivos para selecionar ativos. Critério de elegibilidade não substitui monitoramento de adverse selection.
 
-Saber que o fundo é "sem coobrigação" é o começo da análise, não o fim. O que precisa ser respondido adicionalmente:
-- Existe obrigação de recompra por inelegibilidade? Em que condições?
-- O cedente tem capacidade financeira de honrar recompras relevantes?
-- Existem mecanismos alternativos de originação caso o cedente principal pare de ceder?
+## Métricas por produto
 
-## O que observar na análise de FIDCs com originação financeira
+- consignado: margem, averbação, convênio, portabilidade, interrupção de benefício e repasse;
+- pessoal: FPD como convenção operacional, safra, roll rate, cura, renegociação e recuperação;
+- veículos: LTV, garantia, retomada, prazo de venda e perda líquida;
+- cartão/meios de pagamento: chargeback, diluição, agenda, arranjo e concentração;
+- corporativo: concentração, covenants, demonstrações, garantias e cross-default.
 
-- **Concentração no cedente:** o fundo depende de um único originador? Existe cláusula de diversificação?
-- **Histórico de FPD e aging por safra:** a qualidade das safras recentes está se deteriorando?
-- **Guardrails do regulamento:** os indicadores estruturais (cobertura, relação mínima, alocação) estão sendo cumpridos?
-- **Saúde financeira do cedente:** o cedente tem capacidade de honrar recompras e continuar cedendo crédito de qualidade?
-- **Excesso de spread:** o fundo ainda gera margem suficiente para cobrir perdas antes de consumir subordinação?
+O mesmo threshold não deve ser aplicado a produtos ou janelas diferentes.
+
+## Dependência do originador
+
+Pergunte se a classe consegue continuar após substituição do originador ou servicer. Considere portabilidade de dados, documentação, conta bancária, notificações, licença de software, cobrança, relacionamento com convênio e capacidade de comprar novas safras.
+
+## O que o Informe Mensal captura
+
+O reporte ajuda a observar composição, saldos, atraso e fluxos. Identidade e função do originador podem depender de cadastro e documentos. Política de crédito, canal, score, fraude, safra e servicing exigem relatórios operacionais, contratos e diligência.
+
+## Uso dos casos do corpus
+
+Os fundos da amostra de 100 foram usados para localizar vocabulário e variações contratuais. FIC-FIDCs permanecem na cobertura patrimonial, mas foram separados das frequências sobre práticas do crédito subjacente. Nenhum caso é apresentado como rating, recomendação ou avaliação corrente.
+
+Fontes: RCVM 175, cadastros oficiais, documentos primários indicados no índice de evidências e metodologia analítica da revisão. Verificação: **16/07/2026**.

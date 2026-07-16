@@ -1,58 +1,51 @@
 # O que é FIDC e o que são direitos creditórios
 
-## O que é um FIDC
+## O que é
 
-FIDC é a sigla para Fundo de Investimento em Direitos Creditórios. Em termos práticos, é um veículo que capta recursos de investidores e usa esses recursos para comprar recebíveis — duplicatas, contratos de empréstimo, financiamentos, créditos consignados, etc.
+FIDC é o fundo de investimento cuja classe aplica parcela superior a 50% de seu patrimônio líquido em direitos creditórios, conforme o Anexo Normativo II da RCVM 175. A norma também admite classe de investimento em cotas de FIDC, com alocação mínima própria de 67% do patrimônio em cotas de FIDC.
 
-Se você conhece o conceito de securitização, o FIDC é a versão brasileira regulada pela CVM: uma entidade separada, com patrimônio próprio, que adquire créditos cedidos por originadores e os transforma em cotas para investidores.
+O fundo é um condomínio de natureza especial. A unidade econômica e jurídica relevante para ativos, passivos e responsabilidade patrimonial é a **classe**: cada classe tem patrimônio segregado. Subclasses e séries organizam direitos das cotas dentro da classe; não criam patrimônio segregado adicional.
 
-O FIDC é regulado principalmente pela **Resolução CVM 175** e pelo seu **Anexo Normativo II**, que trata especificamente dessa categoria de fundo.
+## Direito creditório
 
-## O que são direitos creditórios
+Direito creditório é o ativo que representa, direta ou indiretamente, um crédito a receber. Pode decorrer de operação comercial, financeira, industrial, imobiliária, rural, de prestação de serviços, de ação judicial ou de outras relações admitidas pela norma. O suporte pode ser contrato, título de crédito, nota fiscal, duplicata, CCB, CPR, recebível de cartão, precatório ou outro instrumento adequado ao negócio.
 
-Direito creditório é o crédito que o fundo adquire. Pode ser:
+“Recebível” é uso econômico corrente. **Crédito elegível** não é sinônimo: é o direito creditório que, além de existir e ser transferível, passa pelos critérios previstos no regulamento ou anexo da classe.
 
-- uma duplicata mercantil (crédito de fornecedor contra comprador);
-- uma CCB — Cédula de Crédito Bancário (empréstimo pessoal, consignado, financiamento de veículo);
-- recebíveis de arranjos de pagamento (como créditos da Cielo contra estabelecimentos);
-- créditos precatórios, contratos de prestação de serviço, entre outros.
+## Onde aparece
 
-O ponto central é que o crédito precisa ser **identificável**, **cedível ao fundo** e **enquadrado na política de investimento** definida no regulamento. O que é elegível — e o que não é — varia muito de fundo para fundo.
+- no regulamento e na parte geral, ao definir política e prestadores;
+- no anexo descritivo da classe, ao delimitar ativos, devedores, cedentes, concentração e elegibilidade;
+- no contrato de cessão, endosso ou outro instrumento de transferência;
+- nos documentos de emissão, quando descrevem remuneração e direitos das cotas;
+- no Informe Mensal, que reporta composição e desempenho de forma padronizada.
 
-## Por que a natureza do crédito importa tanto
+## Por que importa para o risco
 
-Dois FIDCs com indicadores parecidos de subordinação e inadimplência podem ter perfis de risco muito diferentes se os créditos que compõem a carteira forem distintos.
+O rótulo FIDC não determina o risco. A análise começa pela cadeia econômica:
 
-Um FIDC de consignado INSS tem como devedor efetivo o INSS, que desconta o valor diretamente no benefício — o risco principal é operacional (averbação correta, elegibilidade documental). Já um FIDC de crédito pessoal via fintech depende da qualidade de seleção de risco do originador, da taxa de first payment default e da eficiência da cobrança.
+1. quem originou e sob quais controles;
+2. quem é o devedor e qual a fonte de pagamento;
+3. como o crédito foi constituído e transferido;
+4. quais documentos formam o lastro;
+5. quais garantias, coobrigações ou mecanismos de cobrança existem;
+6. como concentração, prazo e pré-pagamento afetam o caixa;
+7. como perdas e despesas chegam a cada subclasse.
 
-Antes de interpretar qualquer métrica, vale responder:
+Uma carteira pulverizada pode concentrar risco no originador, no agente de cobrança, no convênio de desconto ou em uma conta de recebimento. Uma carteira com garantia real pode continuar exposta à constituição, registro, valor, liquidez e execução dessa garantia.
 
-1. Qual é o tipo de crédito na carteira?
-2. Quem origina? Quem cede? Quem deve?
-3. Existe coobrigação — ou seja, o cedente responde se o devedor não pagar?
-4. Como o crédito entra, performa e sai da carteira?
+## Regime regulatório e linguagem legada
 
-Sem essas respostas, inadimplência, subordinação e amortização perdem contexto analítico.
+Documentos anteriores à RCVM 175 frequentemente chamam cotas seniores e subordinadas de “classes”. No regime atual, a senioridade é estruturada em **subclasses da mesma classe**. Ao ler documento legado, preserve a palavra original na citação, mas traduza sua função econômica para a arquitetura atual; não presuma equivalência sem conferir a adaptação do regulamento.
 
-## Coobrigação: uma distinção importante
+“Securitização” é uma analogia econômica útil, não definição jurídica suficiente. FIDC é fundo regulado, com prestadores, governança e regime patrimonial próprios.
 
-Na maioria dos FIDCs de mercado, a cessão é **sem coobrigação** — ou seja, o cedente transfere o risco de crédito integralmente ao fundo. Se o devedor não pagar, o fundo absorve a perda.
+## O que o Informe Mensal captura
 
-Quando há coobrigação, o cedente serve como segunda camada de proteção. A existência ou ausência de coobrigação muda substancialmente o perfil de risco e deve ser identificada no regulamento ou no prospecto do fundo.
+O Informe ajuda a observar o tamanho e a composição da classe reportante, vencimentos, atrasos, provisões e fluxos. Sua Tabela II indica segmentos de carteira; ela não prova a natureza jurídica, elegibilidade, titularidade ou exigibilidade de cada crédito.
 
-## O que varia conforme o regulamento
+## O que exige outra fonte
 
-- definição exata de quais créditos são elegíveis para cessão;
-- documentos exigidos para que a cessão seja válida;
-- critérios de verificação de elegibilidade;
-- hipóteses em que o fundo pode pedir recompra ou substituição do crédito;
-- limites de concentração por devedor, cedente, prazo ou setor.
+Política de investimento, critérios de elegibilidade, coobrigação, regras de recompra, limites, waterfall, garantias, eventos e responsabilidades operacionais exigem regulamento e documentos primários. A existência do ativo no reporte não substitui a verificação do lastro.
 
-## O que o Informe Mensal informa sobre os direitos creditórios
-
-O Informe Mensal traz:
-- o saldo total de direitos creditórios (denominador de vários indicadores de risco);
-- a composição por prazo de vencimento (carteira a vencer vs. vencida);
-- o saldo de créditos vencidos inadimplentes, por faixa de atraso.
-
-O Informe Mensal **não informa** concentração por devedor individual, qualidade documental da cessão, critérios de elegibilidade nem o nível de recompras e resoluções ocorridas no período.
+Base normativa: RCVM 175, Parte Geral, arts. 4º, 5º e 14; Anexo Normativo II, arts. 2º e 44. Verificação: **16/07/2026**.

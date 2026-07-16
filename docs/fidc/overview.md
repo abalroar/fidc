@@ -1,48 +1,62 @@
-# Guia de uso deste glossário
+# Guia de uso do Glossário de FIDCs
 
-Este glossário foi feito para analistas de crédito que precisam acompanhar FIDCs usando o Informe Mensal Estruturado da CVM, sem pressupor conhecimento prévio de fundos de investimento.
+Este book explica FIDCs para quem já analisa crédito e demonstrações financeiras, mas precisa ligar três camadas que não são intercambiáveis: a norma, o contrato de cada estrutura e o reporte regulatório. A definição canônica fica em uma única página; as demais mostram aplicações e riscos.
 
-O ponto de partida é prático: você já sabe o que é crédito, sabe ler demonstrações financeiras e entende o conceito de risco de inadimplência. O que muda num FIDC é a estrutura jurídica, a nomenclatura regulatória e o formato do dado disponível.
+## Como ler
 
-## O que você vai encontrar aqui
+Uma sequência eficiente é:
 
-| Seção | O que cobre |
-| --- | --- |
-| **Regulação** | Quais normas regem o FIDC e o que cada uma determina na prática |
-| **Glossário básico** | O que é um FIDC, o que são direitos creditórios, como funciona a cessão |
-| **Participantes** | Quem é quem na estrutura — administrador, gestor, cedente, custodiante |
-| **Estrutura** | Classes de cotas, subordinação e ordem de absorção de perdas (waterfall) |
-| **Métricas** | Quais indicadores monitorar, o que cada um mede e onde buscar |
-| **Eventos** | O que é um evento de avaliação, liquidação antecipada e controles formais |
-| **Famílias de recebíveis** | Como o risco muda conforme o tipo de crédito na carteira |
+1. [FIDC, classe, direito creditório e patrimônio segregado](glossario/o-que-e-fidc.md);
+2. [participantes e responsabilidades](participantes/participantes.md);
+3. [fundo, classe, subclasse, série, cota e waterfall](estruturas/classes-cotas-waterfall.md);
+4. [cessão, endosso, elegibilidade, regresso e lastro](glossario/cessao-e-resolucao.md);
+5. [Tabela II do Informe Mensal](regulacao/informe-mensal-tabela-ii.md);
+6. [métricas de estrutura](metricas/metricas-estruturais.md) e [métricas de desempenho](metricas/provisao-perdas-e-inadimplencia.md);
+7. [eventos e governança](eventos/eventos-de-avaliacao-e-liquidacao.md).
 
-## Trilha de leitura sugerida
+## Quatro naturezas de afirmação
 
-Se você está começando do zero com FIDCs, leia nesta ordem:
+| Natureza | O que sustenta | Como ler neste book |
+|---|---|---|
+| Normativa | obrigação, faculdade ou definição prevista em norma | cita norma, artigo e data de verificação |
+| Contratual | regra de uma classe ou emissão | cita regulamento, anexo ou instrumento, versão e página |
+| Prática recorrente | cláusula encontrada em estruturas independentes | informa amostra documentada e não transforma frequência em obrigação |
+| Convenção analítica | fórmula construída para comparação | explicita numerador, denominador, unidade e limitações |
 
-1. **O que é FIDC e o que são direitos creditórios** — o conceito central
-2. **Participantes da estrutura** — quem tem que papel
-3. **Classes, cotas e waterfall** — como as perdas são absorvidas
-4. **Métricas estruturais** — o que monitorar e por quê
-5. **Provisionamento, perdas e inadimplência** — como interpretar os números do Informe Mensal
-6. **Famílias de recebíveis** — consignado, cartão, veículos: o que muda em cada um
+Um número contratual observado em um fundo não vira parâmetro universal. Ausência na extração não comprova inexistência da cláusula. Cache textual sem PDF recuperável serve para localizar candidatos, não para afirmação categórica.
 
-## O que o Informe Mensal entrega e o que ele não entrega
+## O que o Informe Mensal entrega
 
-O Informe Mensal é um arquivo XML enviado mensalmente pelos administradores à CVM. É a base deste painel — e é padronizada, comparável e pública.
+O Informe Mensal é uma fotografia regulatória padronizada. Entre outras informações, permite acompanhar patrimônio líquido, composição da carteira, vencidos por faixa, provisões/reduções ao valor recuperável, aquisições, alienações, liquidações, cotas e movimentações reportadas. A [Tabela II](regulacao/informe-mensal-tabela-ii.md) distribui a carteira em 11 segmentos oficiais e detalha o bloco Financeiro em oito aberturas.
 
-Mas o Informe Mensal tem limites importantes:
+Ele não substitui o regulamento, a parte geral, o anexo da classe, o instrumento de emissão, os contratos de transferência, os relatórios de rating, as atas ou as demonstrações financeiras. Também não resolve sozinho:
 
-**O Informe Mensal cobre:** patrimônio líquido por classe de cota, inadimplência por faixa de prazo (aging), provisão, emissões e resgates, amortizações, composição da carteira em grandes blocos.
+- se o crédito satisfaz todos os critérios de elegibilidade;
+- a ordem contratual de pagamentos e absorção de perdas;
+- os limites por devedor, cedente, originador ou grupo econômico;
+- a existência e suficiência jurídica de garantias;
+- o texto e o estado de gatilhos, períodos de cura ou waivers;
+- a qualidade da originação, cobrança e conciliação.
 
-**O Informe Mensal não cobre:** gatilhos contratuais específicos (covenants), excesso de spread, índice de cobertura calculado pelo regulamento, reservas de liquidez, first payment default, qualidade individual do cedente, concentração por devedor, rating das cotas.
+## Níveis que não devem ser confundidos
 
-Quando você ler um dado neste painel e quiser saber se ele é bom, ruim ou suficiente, a resposta quase sempre exige leitura do regulamento do fundo.
+- **Fundo:** condomínio especial constituído sob a RCVM 175.
+- **Classe:** patrimônio segregado; direitos e obrigações ficam vinculados à classe.
+- **Subclasse:** categoria de cotas da mesma classe, inclusive sênior, mezanino ou subordinada em FIDC; não tem patrimônio separado próprio.
+- **Série:** subconjunto de cotas seniores de classe fechada, diferenciado por prazo, amortização e/ou índice referencial quando admitido.
+- **Cota:** fração patrimonial da classe. “Tranche” é linguagem econômica ou legada e deve ser mapeada ao instrumento jurídico efetivo.
 
-## Como usar este glossário
+## Vocabulário de classificação
 
-Cada página explica um conceito com três perguntas em mente:
+Este book usa apenas:
 
-1. **O que é?** — definição clara, sem jargão desnecessário
-2. **Por que importa para a análise?** — contexto prático
-3. **O que observar?** — sinais de atenção na leitura do Informe Mensal
+- **segmento oficial da Tabela II do Informe Mensal** para os 11 blocos oficiais;
+- **abertura financeira da Tabela II** para F1 a F8;
+- **taxonomia funcional documental** para classificações inferidas de documentos, como consignado, risco sacado, meios de pagamento, crédito estudantil ou NPL;
+- **Sem segmentação IME** quando a Tabela II não contém valores suficientes. É um estrato de qualidade de dados, não categoria oficial de ativo.
+
+## Escopo da revisão de 2026
+
+A revisão foi confrontada com a RCVM 175 consolidada após a RCVM 240/2026, demais fontes oficiais listadas em [Referências e rastreabilidade](fontes/referencias.md) e um corpus congelado de exatamente 100 fundos na competência 202605. A amostra maximiza patrimônio líquido sujeito à cobertura mínima dos estratos ocupados; os casos servem como evidência de linguagem e prática, não como perfis ou avaliação corrente.
+
+Última verificação normativa: **16/07/2026**.

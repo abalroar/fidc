@@ -1,57 +1,48 @@
-# O arcabouço regulatório do FIDC
+# Mapa normativo: RCVM 175, 160, 30 e reporte
 
-## As normas que regem o FIDC
+Não existe uma única “norma do FIDC”. Cada fonte responde a uma pergunta diferente, e a versão vigente na data do fato deve ser preservada.
 
-Quatro normas formam o eixo regulatório principal que você precisa conhecer para acompanhar FIDCs:
+## RCVM 175: fundo, classe e funcionamento
 
-| Norma | O que cobre |
-| --- | --- |
-| **Resolução CVM 175 + Anexo Normativo II** | Constituição, funcionamento, divulgação e governança dos fundos de investimento; o Anexo II trata especificamente do FIDC |
-| **Resolução CVM 160** | Oferta pública de valores mobiliários — regula como as cotas são distribuídas ao público |
-| **Resolução CVM 30** | Categorias de investidores (profissional e qualificado) e regras de suitability |
-| **Padrão XML Mensal CVM** | Define os campos e a estrutura do Informe Mensal enviado pelos administradores |
+A Parte Geral regula constituição, classes, patrimônio segregado, cotas, prestadores, divulgação e governança dos fundos. O Anexo Normativo II acrescenta o regime específico dos FIDCs: direitos creditórios, subclasses, séries, política de investimento, verificação de lastro, registro/custódia, composição e demonstrações periódicas.
 
-## Resolução CVM 175 e Anexo Normativo II
+A página oficial da CVM é o ponto de entrada para a consolidação e os atos alteradores. Na verificação de 16/07/2026, o texto incorporava alterações até a RCVM 240/2026. Uma citação contratual histórica deve ser analisada à luz da norma vigente naquela data, não apenas do PDF consolidado atual.
 
-É a norma estrutural central. Quando você tem dúvida sobre como um FIDC funciona, como classes e subclasses se organizam, quais são as obrigações do administrador ou como a governança deve operar — a referência é a 175.
+## RCVM 160: distribuição pública
 
-O **Anexo Normativo II** é o capítulo específico para FIDCs dentro da 175. Ele detalha aspectos como:
-- estrutura de classes de cotas sênior e subordinada;
-- exigências de divulgação periódica (incluindo o Informe Mensal);
-- regras de elegibilidade e cessão no contexto regulatório;
-- rating de cotas em contextos específicos.
+Regula ofertas públicas de valores mobiliários. O rito — automático ou ordinário —, o público-alvo, os documentos, a publicidade, as restrições de negociação e os deveres dos coordenadores dependem do enquadramento concreto. “Registro automático” não significa ausência de documentos nem qualidade creditícia; “rito ordinário” não autoriza presumir um conjunto idêntico de documentos em toda oferta.
 
-## Resolução CVM 160: quando entra em cena
+## RCVM 30: categorias e suitability
 
-A 160 é relevante quando você precisa entender **como a oferta foi estruturada**: se as cotas foram distribuídas por oferta pública com rito automático ou com rito ordinário, se há prospecto, quem pode subscrever, etc.
+Define investidor profissional, qualificado e varejo e disciplina deveres de verificação de adequação. A categoria de investidor não é uma métrica de risco do fundo. Para saber quem pode subscrever ou negociar determinada emissão, leia em conjunto norma, regulamento, anexo, instrumento e documentos da oferta.
 
-Para monitoramento recorrente de carteira, a 160 tem menos relevância do que a 175. Mas ela importa para entender o perfil dos investidores do fundo e os documentos da oferta original.
+## Contabilidade e demonstrações
 
-## Resolução CVM 30: categorias de investidor
+A ICVM 489 e orientações oficiais correlatas tratam de elaboração e divulgação das demonstrações financeiras de FIDC, inclusive reconhecimento de perdas e avaliação de ativos. Terminologia contábil não deve ser deduzida somente do layout mensal. As regras atuais e os efeitos de transição devem ser conferidos na data-base analisada.
 
-A CVM 30 define quem pode investir em cada tipo de produto:
+## Informe Mensal e padrão de dados
 
-- **Investidor profissional** (art. 11): inclui bancos, seguradoras, fundos de investimento, e pessoas físicas/jurídicas com aplicações financeiras acima de R$ 10 milhões, entre outros.
-- **Investidor qualificado** (art. 12): inclui pessoas físicas/jurídicas com aplicações acima de R$ 1 milhão, além dos profissionais.
+O padrão XML/CVMWeb descreve campos e estruturas de envio. Ele é fonte operacional para ingestão e semântica do reporte, não substitui a RCVM 175 nem o regulamento. A [Tabela II](informe-mensal-tabela-ii.md) classifica os direitos reportados; outras tabelas tratam de carteira, fluxos, atrasos, provisões e cotas.
 
-Vários FIDCs são restritos a investidores profissionais — o que é relevante para entender o perfil de cotistas que compõem o passivo do fundo.
+## Ofícios e interpretações
 
-## O padrão XML do Informe Mensal: camada de reporte, não norma estrutural
+Ofícios-circulares orientam aplicação e procedimentos. O Ofício-Circular CVM/SSE 8/2023 é relevante para registro, custódia e verificação de lastro. Orientação não deve ser tratada como cláusula automática de todo regulamento.
 
-O Informe Mensal é um arquivo XML enviado mensalmente pelos administradores à CVM via Fundos.NET. Ele segue um padrão de campos definido pela CVM.
+## Documentos da estrutura
 
-Esse padrão é a base técnica deste painel — mas é importante entender o que ele é e o que não é:
+Dentro dos limites normativos, a regra concreta está distribuída entre:
 
-- É **padronizado** — permite comparar fundos diferentes pelo mesmo conjunto de campos;
-- É **uma camada de reporte**, não o regulamento do fundo — não substitui o regulamento, o prospecto nem o relatório mensal do administrador;
-- Os campos do Informe Mensal não cobrem todos os indicadores estruturais relevantes — gatilhos, covenants, excesso de spread e reservas geralmente ficam de fora.
+1. regulamento do fundo e parte geral;
+2. anexo descritivo da classe;
+3. apêndice ou instrumento da subclasse/série/emissão;
+4. contratos de cessão, endosso, cobrança, garantia e conta;
+5. prospecto, lâmina, anúncios e demais documentos da oferta;
+6. atas, fatos relevantes, demonstrações e relatórios de rating.
 
-## Leitura combinada na prática
+Em conflito aparente, confirme versão, data de vigência, escopo da classe e se houve alteração ou assembleia. Documento antigo não deve prevalecer por ser o único disponível.
 
-Para uma análise completa de um FIDC, a leitura dos dados do Informe Mensal deve ser combinada com:
+## Regime legado
 
-1. **Regulamento do fundo** — para entender os guardrails, gatilhos e critérios de elegibilidade específicos;
-2. **Relatório mensal do administrador** — para narrativa operacional, indicadores próprios do fundo e eventos do período;
-3. **Documentos de oferta** — para entender a estrutura original e o perfil de investidores.
+ICVM 356, ICVM 400 e ICVM 476 aparecem em documentos históricos. Elas ajudam a interpretar atos praticados sob o regime anterior, mas não devem ser citadas como regime atual sem nota temporal. “Oferta com esforços restritos” e “classes sênior/subordinada” são exemplos de linguagem legada que exige tradução cuidadosa.
 
-O Informe Mensal é o ponto de partida mais acessível e padronizado. A análise completa exige ir além dele.
+Última verificação das fontes oficiais: **16/07/2026**.
