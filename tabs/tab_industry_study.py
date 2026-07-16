@@ -25,6 +25,17 @@ import pandas as pd
 import streamlit as st
 
 from services.dashboard_ui import diagnostics_enabled, render_context_strip, render_page_header
+from services.industry_executive_pack import (
+    ANBIMA_FIC,
+    ANBIMA_FOCUS_BY_TYPE,
+    ANBIMA_ND,
+    ANBIMA_TYPES,
+    HOLDER_BUCKETS,
+    STRUCTURE_MODELS,
+    IndustryExecutivePack,
+    build_holder_histograms,
+    build_industry_executive_pack,
+)
 from services.industry_study import (
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,
@@ -78,6 +89,36 @@ INDUSTRY_EXECUTIVE_CHARTS = (
     "industry-executive-net-flow",
     "industry-executive-holders",
     "industry-executive-delinquency",
+)
+INDUSTRY_STRUCTURE_CHARTS = (
+    "industry-provider-monostructure-history",
+    "industry-provider-structure-current",
+    "industry-holder-histogram-funds",
+    "industry-holder-histogram-pl",
+)
+INDUSTRY_HOLDER_PL_CUTS_MM = (0, 100, 300, 1000)
+_INDUSTRY_EXECUTIVE_PACK_INPUTS = (
+    "vehicle_monthly.csv.gz",
+    "industry_competence_status.csv",
+    "industry_monthly.csv",
+    "industry_anbima_classification.csv.gz",
+    "industry_large_fund_classification.csv",
+)
+_INDUSTRY_EXPORT_INPUTS = (
+    *_INDUSTRY_EXECUTIVE_PACK_INPUTS,
+    "industry_anbima_classification_manifest.json",
+    "segments_monthly.csv",
+    "concentration_monthly.csv",
+    "industry_offers_annual.csv",
+    "industry_competitive_position.csv",
+    "industry_offer_rankings.csv.gz",
+    "industry_stock_ranking_deltas.csv.gz",
+    "industry_originators_annual.csv",
+    "industry_investor_distribution.csv",
+    "industry_investor_types.csv",
+    "industry_offers.csv.gz",
+    "industry_large_fund_documents.csv.gz",
+    "industry_intelligence_manifest.json",
 )
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 _CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
@@ -8845,25 +8886,94 @@ def _date_label(value: object) -> str:
     return str(value) if pd.isna(parsed) else parsed.strftime("%d/%m/%Y")
 
 
-def _industry_export_signature() -> str:
-    names = [
-        "industry_monthly.csv",
-        "industry_competitive_position.csv",
-        "industry_stock_ranking_deltas.csv.gz",
-        "industry_originators_annual.csv",
-        "industry_large_fund_classification.csv",
-        "industry_intelligence_manifest.json",
-    ]
-    return "|".join(
-        f"{name}:{(_DATA_DIR / name).stat().st_mtime_ns if (_DATA_DIR / name).exists() else 0}"
-        for name in names
+def _industry_files_signature(
+    names: tuple[str, ...],
+    *,
+    data_dir: Path = _DATA_DIR,
+) -> str:
+    """Return a cheap, deterministic cache token for every declared input file."""
+
+    digest = hashlib.sha256()
+    for name in dict.fromkeys(names):
+        path = data_dir / name
+        if path.exists():
+            stat = path.stat()
+            state = f"{name}:{stat.st_size}:{stat.st_mtime_ns}"
+        else:
+            state = f"{name}:missing"
+        digest.update(state.encode("utf-8"))
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _industry_executive_pack_signature() -> str:
+    return _industry_files_signature(_INDUSTRY_EXECUTIVE_PACK_INPUTS)
+
+
+def _industry_tab4_conflict_notice(executive_pack: IndustryExecutivePack | None) -> str:
+    """Summarize audited Classe/Fundo conflicts without exposing noisy row detail."""
+
+    if executive_pack is None or executive_pack.source_conflicts.empty:
+        return ""
+    conflicts = executive_pack.source_conflicts.copy()
+    if "tab4_type_conflict" in conflicts:
+        conflicts = conflicts[_truthy(conflicts["tab4_type_conflict"])]
+    if conflicts.empty:
+        return ""
+    identifiers = [column for column in ("competencia", "cnpj_fundo") if column in conflicts]
+    conflict_count = len(conflicts.drop_duplicates(identifiers)) if identifiers else len(conflicts)
+    competences = sorted(
+        {
+            str(value)
+            for value in conflicts.get("competencia", pd.Series(dtype="object")).dropna()
+            if str(value).strip()
+        }
+    )
+    competence_label = ", ".join(_competence_label(value) for value in competences) or "competência auditada"
+    noun = "CNPJ" if conflict_count == 1 else "CNPJs"
+    return (
+        f"Integridade CVM: {conflict_count} {noun} com registros Classe/Fundo duplicados em "
+        f"{competence_label}. Para evitar dupla contagem, foi aplicada a regra Classe > Fundo."
     )
 
 
+def _render_industry_tab4_conflict_notice(
+    executive_pack: IndustryExecutivePack | None,
+) -> None:
+    notice = _industry_tab4_conflict_notice(executive_pack)
+    if notice:
+        st.warning(notice)
+
+
 @st.cache_data(show_spinner=False)
-def _industry_export_payloads(_signature: str) -> tuple[bytes, bytes]:
+def _load_industry_executive_pack(signature: str) -> IndustryExecutivePack:
+    """Load and build the executive pack; ``signature`` invalidates every source."""
+
+    del signature  # the value participates in Streamlit's cache key
+
+    def read(name: str) -> pd.DataFrame:
+        path = _DATA_DIR / name
+        return pd.read_csv(path, low_memory=False) if path.exists() else pd.DataFrame()
+
+    return build_industry_executive_pack(
+        vehicle_monthly=read("vehicle_monthly.csv.gz"),
+        competence_status=read("industry_competence_status.csv"),
+        industry_monthly=read("industry_monthly.csv"),
+        anbima_classification=read("industry_anbima_classification.csv.gz"),
+        published_classifications=read("industry_large_fund_classification.csv"),
+        holder_min_pl_brl=0.0,
+    )
+
+
+def _industry_export_signature() -> str:
+    return _industry_files_signature(_INDUSTRY_EXPORT_INPUTS)
+
+
+@st.cache_data(show_spinner=False)
+def _industry_export_payloads(signature: str) -> tuple[bytes, bytes]:
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
 
+    del signature  # the value participates in Streamlit's cache key
     return build_industry_pptx_bytes(_DATA_DIR), build_industry_xlsx_bytes(_DATA_DIR)
 
 
@@ -8877,6 +8987,127 @@ def _industry_kpi(label: str, value: str, note: str = "") -> str:
 
 def _truthy(series: pd.Series) -> pd.Series:
     return series.fillna(False).astype(str).str.strip().str.lower().isin({"true", "1", "sim", "s"})
+
+
+def _industry_monostructure_frames(
+    pack: IndustryExecutivePack,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Return chart-ready history and the current six-model decomposition."""
+
+    base = pack.monostructure_history.copy()
+    if base.empty:
+        return pd.DataFrame(), pd.DataFrame()
+    competence_order = list(pack.competences.ordered)
+    base["period_label"] = base["competencia"].map(
+        lambda value: _competence_label(value).replace("embro", "")
+    )
+    base.loc[
+        base["competencia"].ne(pack.competences.latest_complete), "period_label"
+    ] = (
+        base.loc[
+            base["competencia"].ne(pack.competences.latest_complete), "period_label"
+        ].astype(str)
+        + "*"
+    )
+    base["_period_order"] = base["competencia"].map(
+        {competence: order for order, competence in enumerate(competence_order)}
+    )
+    history = base[base["structure_model"].eq("Monoestrutura")].melt(
+        id_vars=["competencia", "period_label", "_period_order"],
+        value_vars=["fund_share_total", "pl_share_total"],
+        var_name="metric",
+        value_name="share",
+    )
+    history["metric"] = history["metric"].map(
+        {"fund_share_total": "% dos fundos", "pl_share_total": "% do PL"}
+    )
+    history = history.sort_values(["_period_order", "metric"]).reset_index(drop=True)
+
+    current = base[base["competencia"].eq(pack.competences.latest_complete)].copy()
+    current["structure_model"] = pd.Categorical(
+        current["structure_model"], categories=list(STRUCTURE_MODELS), ordered=True
+    )
+    current = current.sort_values("structure_model").reset_index(drop=True)
+    return history, current
+
+
+def _industry_holder_focus_options(
+    pack: IndustryExecutivePack,
+    anbima_type: str,
+) -> list[str]:
+    latest = pack.latest_funds
+    latest = latest[latest["anbima_tipo"].ne(ANBIMA_FIC)]
+    if anbima_type != "Todos":
+        latest = latest[latest["anbima_tipo"].eq(anbima_type)]
+    available = {
+        str(value)
+        for value in latest.get("anbima_foco", pd.Series(dtype=str)).dropna()
+        if str(value).strip() and str(value) != ANBIMA_FIC
+    }
+    preferred: list[str] = []
+    types = ANBIMA_TYPES if anbima_type == "Todos" else (anbima_type,)
+    for category in types:
+        preferred.extend(ANBIMA_FOCUS_BY_TYPE.get(category, ()))
+    if ANBIMA_ND in available:
+        preferred.append(ANBIMA_ND)
+    ordered = list(dict.fromkeys(value for value in preferred if value in available))
+    ordered.extend(sorted(available.difference(ordered)))
+    return ["Todos", *ordered]
+
+
+def _industry_anbima_coverage_note(pack: IndustryExecutivePack) -> str:
+    latest = pack.coverage[
+        pack.coverage["competencia"].eq(pack.competences.latest_complete)
+    ]
+    if latest.empty:
+        return (
+            "* Tipo e foco usam a fotografia cadastral pública ANBIMA de dez/25; "
+            "proxy CVM e N/D permanecem sinalizados."
+        )
+    official_coverage = pd.to_numeric(
+        latest.iloc[0].get("official_anbima_ex_fic_pl_coverage"), errors="coerce"
+    )
+    coverage_text = "n/d" if pd.isna(official_coverage) else _fmt_pct(float(official_coverage))
+    return (
+        "* Tipo e foco usam a fotografia cadastral pública ANBIMA de dez/25. Em "
+        f"{_competence_label(pack.competences.latest_complete)}, a classificação oficial cobre "
+        f"{coverage_text} do PL ex-FIC; o complemento permanece em evidência publicada, proxy "
+        "CVM ou N/D, sempre sinalizado."
+    )
+
+
+def _industry_holder_histogram_frames(
+    pack: IndustryExecutivePack,
+    *,
+    min_pl_brl: float,
+    anbima_type: str = "Todos",
+    anbima_focus: str = "Todos",
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Apply UI filters before delegating the bucket calculation to the service."""
+
+    funds = pack.fund_monthly.copy()
+    if anbima_type != "Todos":
+        funds = funds[funds["anbima_tipo"].eq(anbima_type)]
+    if anbima_focus != "Todos":
+        funds = funds[funds["anbima_foco"].eq(anbima_focus)]
+    histogram, coverage = build_holder_histograms(
+        funds,
+        pack.competences.latest_complete,
+        min_pl_brl=float(min_pl_brl),
+    )
+    if anbima_type != "Todos":
+        histogram = histogram[histogram["anbima_tipo"].eq(anbima_type)].copy()
+    if not histogram.empty:
+        active = (
+            histogram.groupby("anbima_tipo", dropna=False)[["fund_count", "pl_brl"]]
+            .sum()
+            .sum(axis=1)
+        )
+        histogram = histogram[
+            histogram["anbima_tipo"].isin(active[active.gt(0)].index)
+        ].copy()
+        histogram["pl_bi"] = pd.to_numeric(histogram["pl_brl"], errors="coerce") / 1e9
+    return histogram.reset_index(drop=True), coverage.reset_index(drop=True)
 
 
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
@@ -9268,8 +9499,134 @@ def _render_industry_offers(annual: pd.DataFrame, rankings: pd.DataFrame, compet
     st.dataframe(table, hide_index=True, width="stretch")
 
 
-def _render_industry_providers(stock: pd.DataFrame) -> None:
-    st.markdown("<h2>Prestadores e delta de ranking</h2>", unsafe_allow_html=True)
+def _render_industry_providers(
+    stock: pd.DataFrame,
+    pack: IndustryExecutivePack | None,
+) -> None:
+    st.markdown("<h2>Integração dos prestadores no estoque</h2>", unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Cada fundo é classificado pela combinação observada entre '
+        "administrador, gestor e custodiante. Monoestrutura significa que o mesmo grupo canônico "
+        "ocupa as três funções; dados ausentes permanecem separados e não geram inferência.</div>",
+        unsafe_allow_html=True,
+    )
+    if pack is None:
+        st.info("Análise estrutural indisponível; o ranking histórico permanece abaixo.")
+    else:
+        history, current = _industry_monostructure_frames(pack)
+        if history.empty or current.empty:
+            st.info("Série de estrutura dos prestadores indisponível.")
+        else:
+            st.markdown(
+                '<div class="industry-note warning">* Dez/24 e dez/25 são reconstruções '
+                "indicativas: o administrador vem do informe mensal de cada período, mas gestor "
+                "e custodiante vêm do cadastro CVM vigente. Mai/26 é a fotografia atual.</div>",
+                unsafe_allow_html=True,
+            )
+            period_sort = list(
+                dict.fromkeys(history.sort_values("_period_order")["period_label"].astype(str))
+            )
+            history_chart = (
+                alt.Chart(history)
+                .mark_line(point=alt.OverlayMarkDef(size=55), strokeWidth=2.5)
+                .encode(
+                    x=alt.X("period_label:N", title=None, sort=period_sort),
+                    y=alt.Y(
+                        "share:Q",
+                        title="Participação no estoque",
+                        axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                        scale=alt.Scale(zero=True),
+                    ),
+                    color=alt.Color(
+                        "metric:N",
+                        title=None,
+                        scale=alt.Scale(
+                            domain=["% dos fundos", "% do PL"], range=[_ORANGE, _BLACK]
+                        ),
+                        legend=alt.Legend(orient="bottom"),
+                    ),
+                    tooltip=[
+                        alt.Tooltip("period_label:N", title="Data-base"),
+                        alt.Tooltip("metric:N", title="Métrica"),
+                        alt.Tooltip("share:Q", title="Participação", format=".1%"),
+                    ],
+                )
+                .properties(height=300, title="Evolução da monoestrutura")
+            )
+            st.altair_chart(
+                history_chart,
+                width="stretch",
+                key=INDUSTRY_STRUCTURE_CHARTS[0],
+            )
+
+            current_long = current.melt(
+                id_vars=["structure_model", "model_order"],
+                value_vars=["fund_share_total", "pl_share_total"],
+                var_name="metric",
+                value_name="share",
+            )
+            current_long["metric"] = current_long["metric"].map(
+                {"fund_share_total": "% dos fundos", "pl_share_total": "% do PL"}
+            )
+            current_long["structure_model"] = current_long["structure_model"].astype(str)
+            structure_chart = (
+                alt.Chart(current_long)
+                .mark_bar()
+                .encode(
+                    x=alt.X(
+                        "share:Q",
+                        title="Composição do estoque",
+                        stack="normalize",
+                        axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                    ),
+                    y=alt.Y("metric:N", title=None, sort=["% dos fundos", "% do PL"]),
+                    color=alt.Color(
+                        "structure_model:N",
+                        title=None,
+                        sort=list(STRUCTURE_MODELS),
+                        scale=alt.Scale(
+                            domain=list(STRUCTURE_MODELS),
+                            range=[_ORANGE, _BLACK, "#555555", "#777777", "#a6a6a6", "#d3d3d3"],
+                        ),
+                        legend=alt.Legend(orient="bottom", columns=3),
+                    ),
+                    order=alt.Order("model_order:Q"),
+                    tooltip=[
+                        alt.Tooltip("structure_model:N", title="Modelo"),
+                        alt.Tooltip("metric:N", title="Métrica"),
+                        alt.Tooltip("share:Q", title="Participação", format=".1%"),
+                    ],
+                )
+                .properties(
+                    height=180,
+                    title=f"Decomposição atual · {_competence_label(pack.competences.latest_complete)}",
+                )
+            )
+            st.altair_chart(
+                structure_chart,
+                width="stretch",
+                key=INDUSTRY_STRUCTURE_CHARTS[1],
+            )
+            structure_table = current[
+                ["structure_model", "funds", "fund_share_total", "pl_brl", "pl_share_total"]
+            ].copy()
+            structure_table.columns = ["Modelo", "Fundos", "% dos fundos", "PL", "% do PL"]
+            structure_table["Modelo"] = structure_table["Modelo"].astype(str)
+            structure_table["Fundos"] = structure_table["Fundos"].map(_fmt_int)
+            structure_table["% dos fundos"] = structure_table["% dos fundos"].map(_fmt_pct)
+            structure_table["PL"] = structure_table["PL"].map(lambda value: _fmt_bi(value, 1))
+            structure_table["% do PL"] = structure_table["% do PL"].map(_fmt_pct)
+            st.dataframe(structure_table, hide_index=True, width="stretch")
+            coverage_row = current.iloc[0]
+            st.markdown(
+                '<div class="industry-note">Cobertura simultânea de administrador, gestor e '
+                f'custodiante: <b>{_fmt_pct(coverage_row["provider_fund_coverage"])}</b> dos fundos '
+                f'e <b>{_fmt_pct(coverage_row["provider_pl_coverage"])}</b> do PL. '
+                "A parcela sem os três prestadores informados está em Dados incompletos.</div>",
+                unsafe_allow_html=True,
+            )
+
+    st.markdown("<h2>Ranking do estoque por prestador</h2>", unsafe_allow_html=True)
     if stock.empty:
         st.info("Base de ranking indisponível.")
         return
@@ -9360,8 +9717,143 @@ def _render_industry_investors(
     distribution: pd.DataFrame,
     investor_types: pd.DataFrame,
     offers: pd.DataFrame,
+    pack: IndustryExecutivePack | None,
 ) -> None:
-    st.markdown("<h2>Concentração e perfil da colocação</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>Estrutura de cotistas do estoque</h2>", unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Distribuição dos fundos por número de contas de cotistas no '
+        "Informe Mensal CVM. Os dois histogramas usam exatamente o mesmo universo, corte de PL e "
+        "filtro ANBIMA.</div>",
+        unsafe_allow_html=True,
+    )
+    if pack is None:
+        st.info("Histograma do estoque indisponível.")
+    else:
+        st.markdown(
+            f'<div class="industry-note warning">{_industry_anbima_coverage_note(pack)}</div>',
+            unsafe_allow_html=True,
+        )
+        filter_columns = st.columns([1, 1.35, 1.65])
+        with filter_columns[0]:
+            min_pl_mm = st.selectbox(
+                "Corte mínimo de PL",
+                INDUSTRY_HOLDER_PL_CUTS_MM,
+                format_func=lambda value: "Sem corte" if value == 0 else f"R$ {value:,} mi".replace(",", "."),
+                key="industry-holder-min-pl",
+            )
+        with filter_columns[1]:
+            anbima_type = st.selectbox(
+                "Tipo ANBIMA",
+                ["Todos", *ANBIMA_TYPES, ANBIMA_ND],
+                key="industry-holder-anbima-type",
+            )
+        focus_options = _industry_holder_focus_options(pack, anbima_type)
+        if st.session_state.get("industry-holder-anbima-focus") not in focus_options:
+            st.session_state["industry-holder-anbima-focus"] = "Todos"
+        with filter_columns[2]:
+            anbima_focus = st.selectbox(
+                "Foco de atuação ANBIMA",
+                focus_options,
+                key="industry-holder-anbima-focus",
+            )
+        holder_histogram, holder_coverage = _industry_holder_histogram_frames(
+            pack,
+            min_pl_brl=float(min_pl_mm) * 1e6,
+            anbima_type=anbima_type,
+            anbima_focus=anbima_focus,
+        )
+        if holder_histogram.empty:
+            st.info("Nenhum fundo com número de cotistas válido para o recorte selecionado.")
+        else:
+            color = alt.Color(
+                "anbima_tipo:N",
+                title=None,
+                sort=[*ANBIMA_TYPES, ANBIMA_ND],
+                scale=alt.Scale(
+                    domain=[*ANBIMA_TYPES, ANBIMA_ND],
+                    range=[_ORANGE, _BLACK, "#666666", "#999999", "#c7c7c7"],
+                ),
+                legend=alt.Legend(orient="bottom", columns=2),
+            )
+            left, right = st.columns(2)
+            with left:
+                funds_chart = (
+                    alt.Chart(holder_histogram)
+                    .mark_bar()
+                    .encode(
+                        x=alt.X(
+                            "cotistas_bucket:N",
+                            title="Contas de cotistas",
+                            sort=list(HOLDER_BUCKETS),
+                        ),
+                        y=alt.Y(
+                            "sum(fund_count):Q",
+                            title="Quantidade de fundos",
+                            axis=alt.Axis(gridColor=_GRAY_LIGHT, tickMinStep=1),
+                        ),
+                        color=color,
+                        order=alt.Order("type_order:Q"),
+                        tooltip=[
+                            alt.Tooltip("cotistas_bucket:N", title="Contas"),
+                            alt.Tooltip("anbima_tipo:N", title="Tipo ANBIMA"),
+                            alt.Tooltip("fund_count:Q", title="Fundos", format=",.0f"),
+                        ],
+                    )
+                    .properties(height=320, title="Quantidade de fundos")
+                )
+                st.altair_chart(
+                    funds_chart,
+                    width="stretch",
+                    key=INDUSTRY_STRUCTURE_CHARTS[2],
+                )
+            with right:
+                pl_chart = (
+                    alt.Chart(holder_histogram)
+                    .mark_bar()
+                    .encode(
+                        x=alt.X(
+                            "cotistas_bucket:N",
+                            title="Contas de cotistas",
+                            sort=list(HOLDER_BUCKETS),
+                        ),
+                        y=alt.Y(
+                            "sum(pl_bi):Q",
+                            title="PL (R$ bi)",
+                            axis=alt.Axis(gridColor=_GRAY_LIGHT),
+                        ),
+                        color=color,
+                        order=alt.Order("type_order:Q"),
+                        tooltip=[
+                            alt.Tooltip("cotistas_bucket:N", title="Contas"),
+                            alt.Tooltip("anbima_tipo:N", title="Tipo ANBIMA"),
+                            alt.Tooltip("pl_bi:Q", title="PL (R$ bi)", format=",.1f"),
+                        ],
+                    )
+                    .properties(height=320, title="Volume de PL")
+                )
+                st.altair_chart(
+                    pl_chart,
+                    width="stretch",
+                    key=INDUSTRY_STRUCTURE_CHARTS[3],
+                )
+        if not holder_coverage.empty:
+            coverage = holder_coverage.iloc[0]
+            warning_class = " warning" if str(coverage.get("warning", "")).strip() else ""
+            st.markdown(
+                f'<div class="industry-note{warning_class}">Cobertura do histograma: '
+                f'<b>{_fmt_pct(coverage["fund_coverage"])}</b> dos fundos elegíveis e '
+                f'<b>{_fmt_pct(coverage["pl_coverage"])}</b> do PL elegível. '
+                f'{str(coverage.get("warning", ""))}</div>',
+                unsafe_allow_html=True,
+            )
+
+    st.markdown("<h2>Distribuição primária nas ofertas</h2>", unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-def">Os indicadores abaixo descrevem investidores informados em '
+        "ofertas públicas encerradas. Não representam a estrutura atual de cotistas do estoque "
+        "nem negociação no mercado secundário.</div>",
+        unsafe_allow_html=True,
+    )
     if not annual.empty:
         latest = annual.sort_values("year").iloc[-1]
         cards = [
@@ -9580,6 +10072,12 @@ def render_tab_industry_study() -> None:
     offers = _intelligence_frame("industry_offers.csv.gz")
     large_funds = _intelligence_frame("industry_large_fund_classification.csv")
     large_docs = _intelligence_frame("industry_large_fund_documents.csv.gz")
+    executive_pack: IndustryExecutivePack | None = None
+    executive_pack_error = ""
+    try:
+        executive_pack = _load_industry_executive_pack(_industry_executive_pack_signature())
+    except Exception as exc:  # noqa: BLE001
+        executive_pack_error = str(exc)
     manifest = _industry_intelligence_manifest()
     offers_as_of = str(manifest.get("as_of_date") or "")
     if not offers_as_of and not offers.empty and "registration_date" in offers:
@@ -9595,6 +10093,9 @@ def render_tab_industry_study() -> None:
         base_until=f"{_competence_label(latest_complete)} (estoque) | {_date_label(offers_as_of)} (ofertas)",
         coverage=coverage,
     )
+    if executive_pack_error:
+        st.warning(f"Análises estruturais indisponíveis: {executive_pack_error}")
+    _render_industry_tab4_conflict_notice(executive_pack)
 
     executive_tab, offers_tab, providers_tab, originators_tab, investors_tab, large_tab, audit_tab = st.tabs(
         INDUSTRY_VIEW_TABS
@@ -9604,11 +10105,11 @@ def render_tab_industry_study() -> None:
     with offers_tab:
         _render_industry_offers(annual, rankings, competitive)
     with providers_tab:
-        _render_industry_providers(stock)
+        _render_industry_providers(stock, executive_pack)
     with originators_tab:
         _render_industry_originators(originators)
     with investors_tab:
-        _render_industry_investors(annual, distribution, investor_types, offers)
+        _render_industry_investors(annual, distribution, investor_types, offers, executive_pack)
     with large_tab:
         _render_large_funds(large_funds, large_docs, latest_complete)
     with audit_tab:

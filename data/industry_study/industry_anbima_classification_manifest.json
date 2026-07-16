@@ -1,0 +1,53 @@
+{
+  "schema_version": "industry-anbima-classification/v1",
+  "normalization_version": "official-anbima-whitelist/v1",
+  "generated_at_utc": "2026-07-16T16:36:24+00:00",
+  "source_catalog_url": "https://data.anbima.com.br/datasets",
+  "source_detail_url": "https://data.anbima.com.br/datasets/fundos-175-caracteristicas-publico/detalhes",
+  "source_attachment_url": "https://data-strapi.prd.anbima.com.br/uploads/fundos_175_caracteristicas_publico_29_12_bf94e071bd.xlsx",
+  "source_published_date": "2025-12-29",
+  "source_filename": "anbima_fundos_175_20251229.xlsx",
+  "source_sha256": "8d03ee6a64eb41e4d966321b6e8dd5630947d082226efb14fae9496df1982880",
+  "source_rows": 48651,
+  "source_fidc_rows": 11087,
+  "source_max_activity_start": "2025-12-17",
+  "fidc_mapping_rows": 4196,
+  "published_rows": 4195,
+  "conflict_rows": 1,
+  "active_rows": 3798,
+  "selection_rule": "registros ativos têm precedência; conflitos no mesmo nível permanecem N/D; tipo/foco passam por whitelist da Deliberação ANBIMA nº 72",
+  "cvm_join_coverage": [
+    {
+      "competencia": "2024-12",
+      "reporting_rows": 3140,
+      "matched_rows": 3045,
+      "row_coverage": 0.9697452229299363,
+      "pl_brl": 731837114451.08,
+      "matched_pl_brl": 721728900808.25,
+      "pl_coverage": 0.9861878914812735
+    },
+    {
+      "competencia": "2025-12",
+      "reporting_rows": 4007,
+      "matched_rows": 3612,
+      "row_coverage": 0.9014225106064387,
+      "pl_brl": 919117717865.0399,
+      "matched_pl_brl": 868636113757.84,
+      "pl_coverage": 0.9450760189625541
+    },
+    {
+      "competencia": "2026-05",
+      "reporting_rows": 4227,
+      "matched_rows": 3488,
+      "row_coverage": 0.825171516441921,
+      "pl_brl": 958703107781.76,
+      "matched_pl_brl": 873948383341.53,
+      "pl_coverage": 0.9115943989830858
+    }
+  ],
+  "notes": [
+    "PL e competências vêm do Informe Mensal FIDC/CVM; este artefato fornece somente tipo e foco ANBIMA.",
+    "Registros repetidos são colapsados por CNPJ de classe; conflitos permanecem explícitos.",
+    "A atualização automática integral requer o ANBIMA Feed autenticado."
+  ]
+}

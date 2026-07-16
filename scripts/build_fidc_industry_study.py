@@ -290,12 +290,192 @@ class MonthAggregate:
     audit: dict
 
 
+def prefer_class_rows(frame: pd.DataFrame) -> pd.DataFrame:
+    """Drop Fund rows only when the same CNPJ has at least one Class row.
+
+    The helper intentionally keeps *all* Class rows because the Tab X tables
+    contain legitimate series/operation-level multiplicity within a class.
+    Source order is preserved; one-row tables apply a separate stable dedupe.
+    """
+
+    if frame is None:
+        raise TypeError("frame não pode ser None")
+    output = frame.copy()
+    if output.empty:
+        return output
+    required = {"cnpj", "tp_registro"}
+    missing = required.difference(output.columns)
+    if missing:
+        raise ValueError(f"tabela sem colunas obrigatórias: {sorted(missing)}")
+    output["cnpj"] = output["cnpj"].fillna("").astype(str)
+    normalized_type = output["tp_registro"].map(_norm_name)
+    class_cnpjs = set(output.loc[normalized_type.eq("CLASSE"), "cnpj"])
+    discard_fund = normalized_type.eq("FUNDO") & output["cnpj"].isin(class_cnpjs)
+    return output.loc[~discard_fund].reset_index(drop=True)
+
+
+def _stable_one_row_per_cnpj(frame: pd.DataFrame) -> pd.DataFrame:
+    """Apply Class precedence and select a deterministic row per CNPJ."""
+
+    output = prefer_class_rows(frame)
+    if output.empty:
+        return output
+    normalized_type = output["tp_registro"].map(_norm_name)
+    output["_record_type_priority"] = normalized_type.map(
+        {"CLASSE": 0, "FUNDO": 1}
+    ).fillna(2)
+    stable_columns = sorted(
+        column for column in output.columns if not column.startswith("_record_")
+    )
+    output["_record_stable_key"] = (
+        output[stable_columns].fillna("").astype(str).agg("\x1f".join, axis=1)
+    )
+    output = (
+        output.sort_values(
+            ["cnpj", "_record_type_priority", "_record_stable_key"],
+            kind="mergesort",
+        )
+        .drop_duplicates(subset=["cnpj"], keep="first")
+        .drop(columns=["_record_type_priority", "_record_stable_key"])
+    )
+    return output.sort_values("cnpj", kind="mergesort").reset_index(drop=True)
+
+
+TAB4_ROW_AUDIT_COLUMNS = (
+    "tab4_source_rows",
+    "tab4_duplicate_rows_dropped",
+    "tab4_duplicate_detected",
+    "tab4_type_conflict",
+    "tab4_pl_conflict",
+    "tab4_selection_rule",
+    "tab4_source_types",
+    "tab4_pl_values",
+    "tab4_warning",
+)
+
+
+def deduplicate_tab4_records(tab4: pd.DataFrame) -> pd.DataFrame:
+    """Select one Tab IV record per CNPJ with an explicit RCVM 175 rule.
+
+    When the same CNPJ is reported both as ``Classe`` and ``Fundo``, the class
+    record always wins, independent of source-row order or PL.  Rows are never
+    summed.  Duplicate/type/PL conflicts remain attached to the selected row so
+    downstream granular and monthly audit outputs can expose the decision.
+    """
+
+    if tab4 is None:
+        raise TypeError("tab4 não pode ser None")
+    frame = tab4.copy()
+    if frame.empty:
+        for column in TAB4_ROW_AUDIT_COLUMNS:
+            if column not in frame.columns:
+                frame[column] = pd.Series(dtype="object")
+        return frame
+    required = {"cnpj", "tp_registro"}
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(f"Tab IV sem colunas obrigatórias: {sorted(missing)}")
+    if "pl" not in frame.columns:
+        if "TAB_IV_A_VL_PL" not in frame.columns:
+            raise ValueError("Tab IV sem coluna de PL")
+        frame["pl"] = to_num(frame["TAB_IV_A_VL_PL"])
+    else:
+        frame["pl"] = to_num(frame["pl"])
+
+    frame["cnpj"] = frame["cnpj"].fillna("").astype(str)
+    normalized_type = frame["tp_registro"].map(_norm_name)
+    frame["tp_registro"] = normalized_type.map(
+        {"CLASSE": "Classe", "FUNDO": "Fundo"}
+    ).fillna(frame["tp_registro"].fillna("").astype(str).str.strip())
+    normalized_type = frame["tp_registro"].map(_norm_name)
+    frame["_tab4_type_priority"] = normalized_type.map({"CLASSE": 0, "FUNDO": 1}).fillna(2)
+
+    stable_columns = sorted(
+        column
+        for column in frame.columns
+        if column not in TAB4_ROW_AUDIT_COLUMNS and not column.startswith("_tab4_")
+    )
+    frame["_tab4_stable_key"] = (
+        frame[stable_columns].fillna("").astype(str).agg("\x1f".join, axis=1)
+    )
+    grouped = frame.groupby("cnpj", dropna=False, sort=False)
+    frame["tab4_source_rows"] = grouped["cnpj"].transform("size").astype(int)
+    frame["tab4_duplicate_rows_dropped"] = frame["tab4_source_rows"] - 1
+    frame["tab4_duplicate_detected"] = frame["tab4_source_rows"].gt(1)
+    frame["tab4_type_conflict"] = grouped["tp_registro"].transform("nunique").gt(1)
+    frame["tab4_pl_conflict"] = grouped["pl"].transform("nunique").gt(1)
+    frame["tab4_source_types"] = grouped["tp_registro"].transform(
+        lambda values: " | ".join(sorted(set(values.astype(str))))
+    )
+    frame["tab4_pl_values"] = grouped["pl"].transform(
+        lambda values: " | ".join(
+            format(float(value), ".15g") for value in sorted(set(values.astype(float)))
+        )
+    )
+
+    selected = (
+        frame.sort_values(
+            ["cnpj", "_tab4_type_priority", "_tab4_stable_key"],
+            ascending=[True, True, True],
+            kind="mergesort",
+        )
+        .drop_duplicates(subset=["cnpj"], keep="first")
+        .copy()
+    )
+    selected["tab4_selection_rule"] = "registro_unico"
+    duplicate = selected["tab4_duplicate_detected"]
+    class_over_fund = duplicate & selected["tab4_source_types"].map(
+        lambda value: {part.strip() for part in str(value).split("|")} >= {"Classe", "Fundo"}
+    )
+    selected.loc[duplicate, "tab4_selection_rule"] = "precedencia_tipo_e_chave_estavel"
+    selected.loc[class_over_fund, "tab4_selection_rule"] = "classe_preferida_sobre_fundo"
+
+    def warning(row: pd.Series) -> str:
+        if not bool(row["tab4_duplicate_detected"]):
+            return ""
+        messages = [
+            f'{int(row["tab4_source_rows"])} registros Tab IV para o mesmo CNPJ; '
+            f'selecionado {row["tp_registro"]} sem somar duplicidades'
+        ]
+        if bool(row["tab4_type_conflict"]):
+            messages.append(f'conflito de tipo ({row["tab4_source_types"]})')
+        if bool(row["tab4_pl_conflict"]):
+            messages.append(f'conflito de PL ({row["tab4_pl_values"]})')
+        return " | ".join(messages)
+
+    selected["tab4_warning"] = selected.apply(warning, axis=1)
+    selected = selected.drop(columns=["_tab4_type_priority", "_tab4_stable_key"])
+    return selected.sort_values("cnpj", kind="mergesort").reset_index(drop=True)
+
+
+def _tab4_monthly_audit(tab4: pd.DataFrame) -> dict[str, int]:
+    """Summarize row-level Tab IV decisions without recounting dropped rows."""
+
+    if tab4 is None or tab4.empty:
+        return {
+            "tab4_duplicate_cnpjs": 0,
+            "tab4_duplicate_rows_dropped": 0,
+            "tab4_type_conflict_cnpjs": 0,
+            "tab4_pl_conflict_cnpjs": 0,
+            "tab4_class_preferred_cnpjs": 0,
+        }
+    return {
+        "tab4_duplicate_cnpjs": int(tab4["tab4_duplicate_detected"].sum()),
+        "tab4_duplicate_rows_dropped": int(tab4["tab4_duplicate_rows_dropped"].sum()),
+        "tab4_type_conflict_cnpjs": int(tab4["tab4_type_conflict"].sum()),
+        "tab4_pl_conflict_cnpjs": int(tab4["tab4_pl_conflict"].sum()),
+        "tab4_class_preferred_cnpjs": int(
+            tab4["tab4_selection_rule"].eq("classe_preferida_sobre_fundo").sum()
+        ),
+    }
+
+
 def load_tab4(store: RawStore, yyyymm: str) -> pd.DataFrame | None:
     tab4 = store.read_table(yyyymm, "tab_IV")
     if tab4 is None or tab4.empty:
         return None
     tab4["pl"] = to_num(tab4["TAB_IV_A_VL_PL"])
-    return tab4.drop_duplicates(subset=["cnpj"], keep="last")
+    return deduplicate_tab4_records(tab4)
 
 
 def single_month_spikes(
@@ -331,6 +511,8 @@ def aggregate_month(
     comp = f"{yyyymm[:4]}-{yyyymm[4:6]}"
     if tab4 is None or tab4.empty:
         return None
+    if not set(TAB4_ROW_AUDIT_COLUMNS).issubset(tab4.columns):
+        tab4 = deduplicate_tab4_records(tab4)
     pl_by_cnpj = tab4.set_index("cnpj")["pl"]
     vehicle = pd.DataFrame(
         {
@@ -339,6 +521,7 @@ def aggregate_month(
             "tp_registro": tab4["tp_registro"],
             "denominacao": tab4["DENOM_SOCIAL"].map(_norm_name),
             "pl": tab4["pl"],
+            **{column: tab4[column] for column in TAB4_ROW_AUDIT_COLUMNS},
         }
     )
     vehicle["is_fic_fidc"] = vehicle["denominacao"].str.contains(FIC_FIDC_PATTERN, na=False)
@@ -363,6 +546,9 @@ def aggregate_month(
         "x4_linhas_descartadas": 0,
         "x4_valor_descartado": 0.0,
     }
+    tab4_audit = _tab4_monthly_audit(tab4)
+    industry.update(tab4_audit)
+    audit.update(tab4_audit)
     industry["pl_fic_fidc"] = float(
         tab4.loc[tab4["DENOM_SOCIAL"].str.contains(FIC_FIDC_PATTERN, na=False), "pl"].sum()
     )
@@ -371,7 +557,7 @@ def aggregate_month(
     tab1 = store.read_table(yyyymm, "tab_I")
     admin_rows: list[dict] = []
     if tab1 is not None and not tab1.empty:
-        tab1 = tab1.drop_duplicates(subset=["cnpj"], keep="last")
+        tab1 = _stable_one_row_per_cnpj(tab1)
         audit["tab1_veiculos"] = int(tab1["cnpj"].nunique())
         for col in (
             "TAB_I_VL_ATIVO",
@@ -476,7 +662,7 @@ def aggregate_month(
     segments: list[dict] = []
     tab2 = store.read_table(yyyymm, "tab_II")
     if tab2 is not None and not tab2.empty:
-        tab2 = tab2.drop_duplicates(subset=["cnpj"], keep="last")
+        tab2 = _stable_one_row_per_cnpj(tab2)
         audit["tab2_veiculos"] = int(tab2["cnpj"].nunique())
         for col, label in {**SEGMENT_LABELS, **SEGMENT_FIN_SUB_LABELS}.items():
             if col in tab2.columns:
@@ -524,6 +710,7 @@ def aggregate_month(
     flows: list[dict] = []
     x4 = store.read_table(yyyymm, "tab_X_4")
     if x4 is not None and not x4.empty:
+        x4 = prefer_class_rows(x4)
         audit["x4_veiculos"] = int(x4["cnpj"].nunique())
         x4["valor"] = to_num(x4["TAB_X_VL_TOTAL"])
         x4["pl_veiculo"] = x4["cnpj"].map(pl_by_cnpj).fillna(0.0)
@@ -586,6 +773,7 @@ def aggregate_month(
     # Tabela X.1: numero de cotistas (contas por classe/serie)
     x1 = store.read_table(yyyymm, "tab_X_1")
     if x1 is not None and not x1.empty:
+        x1 = prefer_class_rows(x1)
         audit["x1_veiculos"] = int(x1["cnpj"].nunique())
         if cotistas_excluir:
             x1 = x1[~x1["cnpj"].isin(cotistas_excluir)]
@@ -597,6 +785,7 @@ def aggregate_month(
     cotistas_tipo: list[dict] = []
     x11 = store.read_table(yyyymm, "tab_X_1_1")
     if x11 is not None and not x11.empty:
+        x11 = prefer_class_rows(x11)
         for key, label in COTISTA_TIPO_LABELS.items():
             total = 0.0
             for prefix in ("SENIOR", "SUBORD"):
@@ -612,6 +801,7 @@ def aggregate_month(
     # so entram veiculos cujo valor total de cotas fica entre 0 e 3x o proprio PL.
     x2 = store.read_table(yyyymm, "tab_X_2")
     if x2 is not None and not x2.empty:
+        x2 = prefer_class_rows(x2)
         audit["x2_veiculos"] = int(x2["cnpj"].nunique())
         x2["valor"] = to_num(x2["TAB_X_QT_COTA"]) * to_num(x2["TAB_X_VL_COTA"])
         x2["pl_veiculo"] = x2["cnpj"].map(pl_by_cnpj).fillna(0.0)
@@ -651,7 +841,7 @@ def aggregate_month(
     # Tabela VII: recompras e substituicoes no mes
     tab7 = store.read_table(yyyymm, "tab_VII")
     if tab7 is not None and not tab7.empty:
-        tab7 = tab7.drop_duplicates(subset=["cnpj"], keep="last")
+        tab7 = _stable_one_row_per_cnpj(tab7)
         audit["tab7_veiculos"] = int(tab7["cnpj"].nunique())
         tab7_vehicle = pd.DataFrame({"cnpj": tab7["cnpj"]})
         if "TAB_VII_D_2_VL_RECOMPRA" in tab7.columns:
@@ -717,15 +907,17 @@ def build_universe_snapshot(
     x1 = store.read_table(yyyymm, "tab_X_1")
     if tab4 is None or tab1 is None:
         return pd.DataFrame()
-    tab4 = tab4.drop_duplicates(subset=["cnpj"], keep="last")
-    tab1 = tab1.drop_duplicates(subset=["cnpj"], keep="last")
+    tab4["pl"] = to_num(tab4["TAB_IV_A_VL_PL"])
+    tab4 = deduplicate_tab4_records(tab4)
+    tab1 = _stable_one_row_per_cnpj(tab1)
     out = pd.DataFrame(
         {
             "competencia": comp,
             "cnpj": tab4["cnpj"],
             "tp_registro": tab4["tp_registro"],
             "denominacao": tab4["DENOM_SOCIAL"].map(_norm_name),
-            "pl": to_num(tab4["TAB_IV_A_VL_PL"]),
+            "pl": tab4["pl"],
+            **{column: tab4[column] for column in TAB4_ROW_AUDIT_COLUMNS},
         }
     )
     out["is_fic_fidc"] = out["denominacao"].str.contains(FIC_FIDC_PATTERN, na=False)
@@ -744,7 +936,7 @@ def build_universe_snapshot(
     )
     out = out.merge(slim1, on="cnpj", how="left")
     if tab2 is not None and not tab2.empty:
-        tab2 = tab2.drop_duplicates(subset=["cnpj"], keep="last")
+        tab2 = _stable_one_row_per_cnpj(tab2)
         seg_cols = [c for c in SEGMENT_LABELS if c in tab2.columns]
         seg_vals = tab2[seg_cols].apply(to_num)
         main_seg = seg_vals.idxmax(axis=1).map(SEGMENT_LABELS)
@@ -755,6 +947,7 @@ def build_universe_snapshot(
             how="left",
         )
     if x1 is not None and not x1.empty:
+        x1 = prefer_class_rows(x1)
         x1["n"] = to_num(x1["TAB_X_NR_COTST"])
         out = out.merge(
             x1.groupby("cnpj")["n"].sum().rename("cotistas").reset_index(),
@@ -848,6 +1041,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
         )
         x1 = store.read_table(yyyymm, "tab_X_1")
         if x1 is not None and not x1.empty:
+            x1 = prefer_class_rows(x1)
             cot = to_num(x1["TAB_X_NR_COTST"]).groupby(x1["cnpj"]).sum()
             cot_panel_rows.append(
                 pd.DataFrame({"competencia": yyyymm, "cnpj": cot.index, "v": cot.to_numpy()})
@@ -955,7 +1149,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
         "n_competencias": len(processed),
         "observacoes": [
             "Unidade de observacao: veiculo reportante (fundo ate a adaptacao a RCVM 175, classe depois).",
-            "PL total soma fundos legados e classes; nao ha dupla contagem fundo x classe no dataset.",
+            "Na Tab IV, registros repetidos do mesmo CNPJ nao sao somados: Classe tem precedencia sobre Fundo no periodo pos-RCVM 175; conflitos de tipo e PL ficam sinalizados nos artefatos granular e de auditoria.",
             "FIC-FIDC identificados por razao social; PL destacado em pl_fic_fidc (dupla contagem economica potencial).",
             "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
             "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",

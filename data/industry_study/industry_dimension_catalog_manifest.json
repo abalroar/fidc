@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-catalog-manifest/v1",
-  "generated_at_utc": "2026-07-09T15:12:27+00:00",
+  "generated_at_utc": "2026-07-16T16:42:41+00:00",
   "pipeline": "industry_dimension_catalog",
   "design_constraints": {
     "modular": true,
@@ -16,22 +16,22 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 411296,
-      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
+      "bytes": 411460,
+      "sha256": "377965f14ab12d0437266bf2d14c51885bae0600c151f0f97708c4f61b9bb1c1"
     },
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 313437,
-      "sha256": "51b3dd6cf6522d60fd2bc008151ec885f47376c3cd1a4252dd582cc301115943"
+      "bytes": 313444,
+      "sha256": "ad17b1f22273d4be48973b167f6fd13d66673012e90b0dcbb6d8b4543a03105e"
     }
   },
   "outputs": {
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1550241,
-      "sha256": "ea70e6f3cd1458c5bb1db7cf071d08610e7ee2afce0877914078c52776e5f016"
+      "bytes": 1551012,
+      "sha256": "7365882150623c7ed90097bc90ec75d82b9f7dd46baa089bbcdb5ee27be2ef16"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_catalog_manifest.json"
@@ -44,7 +44,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_fund_snapshot.csv.gz+data/industry_study/cedentes_structured.csv.gz",
       "output": "memoria:snapshot+cedentes",
-      "rows": 5697,
+      "rows": 5700,
       "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_cedentes.py"
     },
     {
@@ -53,17 +53,17 @@
       "status": "ok",
       "input": "memoria:snapshot+cedentes",
       "output": "data/industry_study/industry_dimension_catalog.csv.gz",
-      "rows": 74385,
+      "rows": 74398,
       "dimensions": 29,
       "rerun": "python scripts/build_fidc_industry_dimensions.py"
     }
   ],
   "quality": {
-    "rows": 74385,
-    "funds": 4286,
+    "rows": 74398,
+    "funds": 4289,
     "dimensions": 29,
     "source_layer_counts": {
-      "snapshot": 70644,
+      "snapshot": 70657,
       "cedente": 3741
     },
     "curated_rows": 3741,

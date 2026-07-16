@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-fund-snapshot-manifest/v1",
-  "generated_at_utc": "2026-07-09T14:58:28+00:00",
+  "generated_at_utc": "2026-07-16T16:40:51+00:00",
   "pipeline": "industry_fund_snapshot",
   "design_constraints": {
     "modular": true,
@@ -22,8 +22,8 @@
     "vehicle_latest": {
       "path": "data/industry_study/universe_latest.csv",
       "exists": true,
-      "bytes": 1526557,
-      "sha256": "e05e0030a1a5587a08db42659503e724afe84a4d840cf6a3a29b637eb89c3ee0"
+      "bytes": 1525669,
+      "sha256": "8227132d7065f8e7243e36df8fb9510d7ea0444d91a02b99c891b8f6e7f69bbb"
     },
     "issuance_tranches": {
       "path": "data/industry_study/issuance_tranches.csv.gz",
@@ -34,8 +34,8 @@
     "cedentes_structured": {
       "path": "data/industry_study/cedentes_structured.csv.gz",
       "exists": true,
-      "bytes": 313437,
-      "sha256": "51b3dd6cf6522d60fd2bc008151ec885f47376c3cd1a4252dd582cc301115943"
+      "bytes": 313444,
+      "sha256": "ad17b1f22273d4be48973b167f6fd13d66673012e90b0dcbb6d8b4543a03105e"
     },
     "criteria_structured": {
       "path": "data/industry_study/criteria_structured.csv.gz",
@@ -54,8 +54,8 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 411296,
-      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
+      "bytes": 411460,
+      "sha256": "377965f14ab12d0437266bf2d14c51885bae0600c151f0f97708c4f61b9bb1c1"
     },
     "manifest": {
       "path": "data/industry_study/industry_fund_snapshot_manifest.json"
@@ -68,8 +68,8 @@
       "status": "ok",
       "input": "data/industry_study/universe_latest.csv",
       "output": "memoria:vehicle_latest",
-      "rows": 4224,
-      "funds": 4219,
+      "rows": 4227,
+      "funds": 4222,
       "rerun": "python scripts/build_fidc_industry_study.py --report"
     },
     {
@@ -78,8 +78,8 @@
       "status": "ok",
       "input": "memoria:vehicle_latest+fund_universe+tranches+cedentes+criteria+documents",
       "output": "data/industry_study/industry_fund_snapshot.csv.gz",
-      "rows": 4219,
-      "funds": 4219,
+      "rows": 4222,
+      "funds": 4222,
       "rerun": "python scripts/build_fidc_industry_fund_snapshot.py"
     },
     {
@@ -93,10 +93,10 @@
     }
   ],
   "quality": {
-    "fund_rows": 4219,
-    "pl_total_brl": 957384697019.4601,
-    "fic_fidc_rows": 449,
-    "with_issuance_2025_2026": 1014,
+    "fund_rows": 4222,
+    "pl_total_brl": 957552144711.4901,
+    "fic_fidc_rows": 448,
+    "with_issuance_2025_2026": 1015,
     "with_documents": 651,
     "with_local_documents": 651,
     "with_cedentes": 99,
@@ -112,20 +112,20 @@
       "p75": 2.0
     },
     "status_counts": {
-      "basico": 2839,
-      "parcial": 863,
+      "basico": 2841,
+      "parcial": 864,
       "completo": 517
     },
     "coverage": {
-      "segmento_principal": 0.7473334913486608,
+      "segmento_principal": 0.7475130270014211,
       "segmento_estrategia": 1.0,
       "admin_nome": 1.0,
-      "gestor_nome": 0.9924152642806352,
-      "document_rows": 0.1543019672908272,
-      "cedente_rows": 0.023465276131784785,
-      "participant_signal_rows": 0.039582839535434934,
-      "criteria_rows": 0.13036264517658214,
-      "sub_min_pct_median": 0.004503436833372837
+      "gestor_nome": 0.9883941260066319,
+      "document_rows": 0.1541923259118901,
+      "cedente_rows": 0.02344860255802937,
+      "participant_signal_rows": 0.039554713405968736,
+      "criteria_rows": 0.13027001421127427,
+      "sub_min_pct_median": 0.004500236854571293
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-dimension-profile-manifest/v1",
-  "generated_at_utc": "2026-07-09T15:12:39+00:00",
+  "generated_at_utc": "2026-07-16T16:42:43+00:00",
   "pipeline": "industry_dimension_profiles",
   "design_constraints": {
     "modular": true,
@@ -16,22 +16,22 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 411296,
-      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
+      "bytes": 411460,
+      "sha256": "377965f14ab12d0437266bf2d14c51885bae0600c151f0f97708c4f61b9bb1c1"
     },
     "dimension_catalog": {
       "path": "data/industry_study/industry_dimension_catalog.csv.gz",
       "exists": true,
-      "bytes": 1550241,
-      "sha256": "ea70e6f3cd1458c5bb1db7cf071d08610e7ee2afce0877914078c52776e5f016"
+      "bytes": 1551012,
+      "sha256": "7365882150623c7ed90097bc90ec75d82b9f7dd46baa089bbcdb5ee27be2ef16"
     }
   },
   "outputs": {
     "dimension_profiles": {
       "path": "data/industry_study/industry_dimension_profiles.csv.gz",
       "exists": true,
-      "bytes": 1744805,
-      "sha256": "dc47e80d352399c3db347a251715e1ea736479c8a67c6d9b043b7d238e7f4381"
+      "bytes": 1746737,
+      "sha256": "e339f1bcd9e2457b4c1b9c601538ca7c411ba2cb6db4a2b0262f2003db4d7153"
     },
     "manifest": {
       "path": "data/industry_study/industry_dimension_profile_manifest.json"
@@ -40,7 +40,7 @@
       "path": "data/industry_study/industry_heatmap_registry.csv",
       "exists": true,
       "bytes": 2983,
-      "sha256": "1db458fdcefb1c4a596812697022ed069b2e35738e23f8e0aae5530f4d22aa9b"
+      "sha256": "a78843c90a54243163fe68b99b9b241d359819a99205d942308c2d819ab6b7c5"
     }
   },
   "stages": [
@@ -50,7 +50,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_fund_snapshot.csv.gz+data/industry_study/industry_dimension_catalog.csv.gz",
       "output": "memoria:snapshot+dimension_catalog",
-      "rows": 78604,
+      "rows": 78620,
       "rerun": "python scripts/build_fidc_industry_fund_snapshot.py && python scripts/build_fidc_industry_dimensions.py"
     },
     {
@@ -59,8 +59,8 @@
       "status": "ok",
       "input": "memoria:snapshot+dimension_catalog",
       "output": "data/industry_study/industry_dimension_profiles.csv.gz",
-      "rows": 69254,
-      "profile_links": 1452888,
+      "rows": 69281,
+      "profile_links": 1452603,
       "rerun": "python scripts/build_fidc_industry_dimension_profiles.py"
     },
     {
@@ -75,16 +75,16 @@
     }
   ],
   "quality": {
-    "rows": 69254,
+    "rows": 69281,
     "competencia": "2026-05",
     "source_dimensions": 29,
     "target_dimensions": 29,
-    "source_values": 862,
-    "target_values": 862,
-    "profile_links": 1452888,
-    "with_source_document_links": 509306,
-    "curated_links": 200802,
-    "weighted_links": 316102,
+    "source_values": 863,
+    "target_values": 863,
+    "profile_links": 1452603,
+    "with_source_document_links": 509194,
+    "curated_links": 200774,
+    "weighted_links": 316054,
     "heatmap_preset_rows": 11,
     "heatmap_preset_available": 11,
     "heatmap_preset_profile_available": 11,

@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-market-share-manifest/v1",
-  "generated_at_utc": "2026-07-09T15:12:34+00:00",
+  "generated_at_utc": "2026-07-16T16:42:49+00:00",
   "pipeline": "industry_market_share",
   "design_constraints": {
     "modular": true,
@@ -16,16 +16,16 @@
     "fund_snapshot": {
       "path": "data/industry_study/industry_fund_snapshot.csv.gz",
       "exists": true,
-      "bytes": 411296,
-      "sha256": "60f60a382987f6f8cdc2ac45f0ddec1771da9f57cf28ffa6d2dc1903a0b813f2"
+      "bytes": 411460,
+      "sha256": "377965f14ab12d0437266bf2d14c51885bae0600c151f0f97708c4f61b9bb1c1"
     }
   },
   "outputs": {
     "market_share": {
       "path": "data/industry_study/industry_market_share.csv.gz",
       "exists": true,
-      "bytes": 132066,
-      "sha256": "3326cfb0bd54bed6d49cf9a7c3257681a812ffda503346893eee73761db89012"
+      "bytes": 132215,
+      "sha256": "4f3a2b55e4ff6843eca121b4ec271c77673b7cc29179a17cbb3489d169ad7ac3"
     },
     "manifest": {
       "path": "data/industry_study/industry_market_share_manifest.json"
@@ -38,7 +38,7 @@
       "status": "ok",
       "input": "data/industry_study/industry_fund_snapshot.csv.gz",
       "output": "memoria:industry_fund_snapshot",
-      "rows": 4219,
+      "rows": 4222,
       "rerun": "python scripts/build_fidc_industry_fund_snapshot.py"
     },
     {
@@ -47,21 +47,21 @@
       "status": "ok",
       "input": "memoria:industry_fund_snapshot",
       "output": "data/industry_study/industry_market_share.csv.gz",
-      "rows": 3984,
+      "rows": 3990,
       "dimensions": 16,
       "metrics": 6,
       "rerun": "python scripts/build_fidc_industry_market_share.py"
     }
   ],
   "quality": {
-    "rows": 3984,
+    "rows": 3990,
     "dimensions": 16,
     "metrics": 6,
     "weighted_dimensions": 4,
-    "top5_pl_share_admin": 0.5230858938032834,
-    "hhi_pl_admin": 739.6354403547211,
-    "top5_issuance_share_segmento_estrategia": 0.9212692963297548,
-    "max_groups": 479,
-    "source_snapshot_rows": 4219
+    "top5_pl_share_admin": 0.5229928927535415,
+    "hhi_pl_admin": 739.4214268203331,
+    "top5_issuance_share_segmento_estrategia": 0.9212721080502949,
+    "max_groups": 480,
+    "source_snapshot_rows": 4222
   }
 }
