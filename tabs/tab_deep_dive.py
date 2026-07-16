@@ -1,38 +1,22 @@
 from __future__ import annotations
 
-from datetime import date
+from datetime import datetime
 from html import escape
 from pathlib import Path
-import math
 import re
 from typing import Any
+import unicodedata
 
-import altair as alt
 import pandas as pd
 import streamlit as st
 
-from services.dashboard_ui import diagnostics_enabled, render_page_header
-from services.deep_dive_ppt_export import build_deep_dive_pptx_bytes
+from services.dashboard_ui import render_page_header
 from services.deep_dive_store import (
     deep_dive_matches_portfolio,
     list_deep_dives,
     load_deep_dive_table,
 )
-from services.fundonet_dashboard import build_dashboard_data
-from services.fundonet_service import InformeMensalService
-from services.ime_loader import load_or_extract_informe
-from services.ime_period import current_default_end_month, shift_month
-from services.monitoring_metrics import build_monitoring_tables, read_wide_csv
 from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
-from services.waterfall_schedule import (
-    DEFAULT_CLOUDWALK_EMISSIONS,
-    DEFAULT_WATERFALL_OUTPUT_DIR,
-    build_waterfall_schedule,
-    export_waterfall,
-    load_cloudwalk_emissions,
-    load_cloudwalk_ime_assets,
-    only_digits,
-)
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
     list_saved_portfolios,
@@ -41,150 +25,20 @@ from tabs.ime_portfolio_support import (
 
 _CSS = """
 <style>
-.deepdive-kicker {
-    color: #6b7280;
-    font-size: 0.74rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-}
-.deepdive-title {
-    color: #1f1f1f;
-    font-size: 1.55rem;
-    font-weight: 650;
-    line-height: 1.15;
-    margin: 0.1rem 0 0.25rem 0;
-}
-.deepdive-subtitle {
-    color: #6b7280;
+.deepdive-curation-date {
+    color: #525f6d;
     font-size: 0.86rem;
-    line-height: 1.35;
-    margin-bottom: 0.65rem;
+    line-height: 1.45;
+    margin: 0 0 0.65rem;
 }
-.deepdive-chip-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin: 0.45rem 0 0.8rem 0;
-}
-.deepdive-chip {
-    background: #f7f7f7;
-    border: 1px solid #e0e0e0;
-    border-radius: 999px;
-    color: #4d4d4d;
-    display: inline-flex;
-    font-size: 0.74rem;
-    line-height: 1.15;
-    padding: 5px 9px;
-}
-.deepdive-table-wrap {
-    border: 1px solid #d9dee5;
-    border-radius: 4px;
-    max-width: 100%;
-    overflow-x: auto;
-}
-.deepdive-table {
-    border-collapse: collapse;
-    font-size: 0.76rem;
-    table-layout: fixed;
-    width: 100%;
-}
-.deepdive-table th {
-    background: #111827;
-    border-right: 1px solid rgba(255,255,255,0.14);
-    color: #ffffff;
+.deepdive-curation-date strong {
+    color: #17202a;
     font-weight: 650;
-    line-height: 1.18;
-    padding: 6px 7px;
-    text-align: center;
-    vertical-align: middle;
-}
-.deepdive-table th:first-child {
-    text-align: left;
-    width: 230px;
-}
-.deepdive-table th.highlight {
-    background: #ec7000;
-}
-.deepdive-table td {
-    border-bottom: 1px solid #e5e7eb;
-    border-right: 1px solid #eeeeee;
-    color: #1f1f1f;
-    line-height: 1.20;
-    padding: 5px 7px;
-    text-align: center;
-    vertical-align: middle;
-    word-break: normal;
-    overflow-wrap: anywhere;
-}
-.deepdive-table td.longtext {
-    font-size: 0.72rem;
-    line-height: 1.26;
-    text-align: left;
-    vertical-align: top;
-}
-.deepdive-cell-list {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-.deepdive-cell-list div {
-    border-bottom: 1px solid #eeeeee;
-    padding-bottom: 3px;
-}
-.deepdive-cell-list div:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-}
-.deepdive-table td:first-child {
-    background: #f7f7f7;
-    font-weight: 650;
-    text-align: left;
-}
-.deepdive-table td.highlight {
-    background: #fff2e8;
-}
-.deepdive-table tr:nth-child(even) td:not(:first-child):not(.highlight) {
-    background: #fbfbfb;
-}
-.deepdive-live-note {
-    color: #6b7280;
-    font-size: 0.74rem;
-    line-height: 1.25;
-    margin: 0.25rem 0 0.55rem 0;
-}
-.deepdive-curadoria-note {
-    color: #6b7280;
-    font-size: 0.76rem;
-    line-height: 1.35;
-    margin: 0.1rem 0 0.45rem 0;
 }
 </style>
 """
 
-_LIVE_IME_ROWS = {
-    "PL (R$ mm)": "PL (R$ MM)",
-    "Direitos creditórios / PL": "Dir Cred / PL",
-    "Vencidos Over 30d / crédito": "Vencidos Over 30 d / Crédito",
-    "Vencidos Over 60d / crédito": "Vencidos Over 60 d / Crédito",
-    "Vencidos Over 90d / crédito": "Vencidos Over 90 d / Crédito",
-    "Vencidos Over 180d / crédito": "Vencidos Over 180 d / Crédito",
-    "Vencidos Over 360d / crédito": "Vencidos Over 360 d / Crédito",
-    "PDD / crédito": "PDD / Crédito",
-    "PDD / vencidos": "PDD / Venc Total",
-    "Cotas sênior / PL": "Cotas SR / PL %",
-    "Cotas mezanino / PL": "Cotas MZ / PL %",
-    "Cotas subordinadas / PL": "Cotas Sub / PL %",
-}
-
-_LONG_TEXT_ROWS = {
-    "Emissões detectadas (data, classe, preço e volume)",
-    "Remuneração-alvo por emissão detectada",
-    "Amortização/vencimento por emissão detectada",
-    "Hedges permitidos",
-}
-
-_REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando no repositório local `/fidc`.
+_LEGACY_REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando no repositório local `/fidc`.
 
 Tarefa: fazer o Deep Dive regulatório de UMA ÚNICA carteira específica e atualizar o pacote consumido pela aba Deep Dive. Atue como advogado de mercado de capitais, estruturador de renda fixa e engenheiro Python: leia documentos integralmente quando necessário, reconstrua termos econômicos, traduza regras jurídicas em dados auditáveis e diga claramente o que não é monitorável pelo Informe Mensal Estruturado (IME).
 
@@ -320,8 +174,27 @@ Informe de forma objetiva:
 
 Se for pedido commit/push: adicione somente arquivos rastreados e relevantes; não adicione PDFs soltos, outputs temporários ou arquivos não relacionados; faça commit objetivo e push."""
 
+_REVERSE_ENGINEERING_PROMPT = """Atualize a Curadoria de Leitura de uma única carteira.
 
-_REVERSE_ENGINEERING_PROMPT_PATH = Path("docs/fidc/monitoramento/prompt_deep_dive_nova_carteira.md")
+1. Confirme a carteira, os CNPJs e a assinatura atual da cesta de fundos.
+2. Leia todos os documentos CVM/Fundos.NET incorporados e acessíveis para esses CNPJs.
+3. Registre lacunas, documentos inacessíveis e conflitos sem completar dados por inferência.
+4. Atualize `manifest.generated_at` com a data efetiva da leitura.
+5. Grave `tables/key_findings.csv` com as colunas `Tema` e `Conclusão` e 3 a 5 fatos materiais.
+6. Inclua `key_findings` em `manifest.tables`, apontando para o CSV e usando `Tema` como primeira coluna.
+7. Priorize elegibilidade, alocação, subordinação, gatilhos, reservas, concentração e derivativos.
+8. Não exponha contagens técnicas, nomes internos de tabelas ou classificações intermediárias.
+9. Preserve as fontes auditáveis nos artefatos internos e valide a leitura pelo app.
+"""
+
+
+_REVERSE_ENGINEERING_PROMPT_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "docs"
+    / "fidc"
+    / "monitoramento"
+    / "prompt_deep_dive_nova_carteira.md"
+)
 
 
 def _load_reverse_engineering_prompt() -> str:
@@ -331,6 +204,92 @@ def _load_reverse_engineering_prompt() -> str:
         return _REVERSE_ENGINEERING_PROMPT
 
 
+_GENERIC_WARNING_SNIPPETS = (
+    "pacote gerado exclusivamente",
+    "metricas ime foram enriquecidas",
+    "tabela principal com",
+    "custos estruturais:",
+    "custos estruturais incluidos",
+)
+
+_MATERIAL_WARNING_SNIPPETS = (
+    "lacuna",
+    "inacess",
+    "nao acessivel",
+    "nao estava acessivel",
+    "nao localizado",
+    "nao disponivel",
+    "ausente",
+    "sem pdf",
+    "conflito",
+    "diverg",
+)
+
+_KEY_FINDING_SKIP_THEMES = {
+    "escopo",
+    "identidade",
+    "administrador",
+    "gestor",
+    "custodiante",
+    "reuso delta",
+    "ime",
+    "ime mais recente",
+    "emissoes identificadas",
+}
+
+_DOCUMENT_FACT_THEMES = (
+    (
+        "Elegibilidade",
+        ("Critérios de elegibilidade",),
+        ("criterios de elegibilidade", "elegibilidade dos recebiveis"),
+    ),
+    (
+        "Alocação mínima",
+        ("Alocação mínima em DCs",),
+        ("alocacao minima em direitos creditorios", "alocacao minima regulatoria"),
+    ),
+    (
+        "Subordinação",
+        ("Subordinação mínima",),
+        ("subordinacao minima", "relacao minima", "indice de cobertura senior"),
+    ),
+    (
+        "Gatilhos",
+        ("Evento de avaliação por atraso", "Liquidação/vencimento por atraso"),
+        ("atraso", "inadimplencia", "inadimplemento"),
+    ),
+    (
+        "Reservas e cobertura",
+        ("Cobertura mínima PDD", "Reserva/caixa mínimo"),
+        ("cobertura minima de pdd", "reserva de caixa", "reserva de liquidez"),
+    ),
+    (
+        "Concentração",
+        ("Limites de concentração",),
+        ("limite de concentracao", "limite por devedor", "coobrigado"),
+    ),
+    (
+        "Derivativos",
+        ("Hedges permitidos",),
+        ("derivativos", "hedge"),
+    ),
+    (
+        "Governança",
+        ("Cross default do cedente", "Troca de gestor/administrador"),
+        ("prestador-chave", "troca de administrador", "cross default"),
+    ),
+)
+
+_DOCUMENT_ROW_PREFIXES = {
+    "evento de avaliação por atraso": "Avaliação",
+    "liquidação/vencimento por atraso": "Liquidação",
+    "cobertura mínima pdd": "Cobertura",
+    "reserva/caixa mínimo": "Reserva",
+    "cross default do cedente": "Cross default",
+    "troca de gestor/administrador": "Prestadores",
+}
+
+
 def render_tab_deep_dive(
     *,
     selected_portfolio: PortfolioRecord | None = None,
@@ -338,20 +297,17 @@ def render_tab_deep_dive(
     show_curation_tools: bool = True,
     compact: bool = False,
 ) -> None:
+    _ = show_curation_tools
     manifests = list_deep_dives()
     if not compact:
         render_page_header(
-            "Regulamentos",
-            "Emissões, prazos, custos e critérios documentais relevantes para a carteira.",
+            "Curadoria de Leitura (Documentos)",
+            "Síntese dos documentos públicos associados à carteira.",
         )
-    if show_curation_tools:
-        if diagnostics_enabled():
-            with st.expander("Prompt de atualização", expanded=False):
-                st.code(_load_reverse_engineering_prompt(), language="markdown")
-        _render_cloudwalk_waterfall(wrap=True, compact=False)
 
     if not manifests:
-        st.info("Nenhum pacote em `data/deep_dives/`.")
+        st.info("Ainda não há curadoria documental disponível.")
+        _render_update_prompt()
         return
 
     if show_portfolio_selector:
@@ -375,130 +331,433 @@ def render_tab_deep_dive(
     ]
     available = sorted(available, key=lambda item: item.generated_at or "", reverse=True)
     if not available:
-        st.warning("Não há pacote regulatório salvo para a carteira selecionada.")
+        st.info("Ainda não há curadoria documental para esta carteira.")
+        _render_update_prompt()
         return
 
-    if compact:
-        manifest = available[0]
-        _render_manifest_context_line(manifest)
-        _render_emissions_curadoria(manifest, compact=True)
-        return
-
-    manifest = st.selectbox(
-        "Pacote regulatório",
-        options=available,
-        format_func=lambda item: f"{item.title} · {item.generated_at or item.deep_dive_id}",
-        key="deep_dive_manifest",
-    )
-    _render_manifest_header(manifest)
-    _render_emissions_curadoria(manifest, compact=False)
-
-    if not manifest.tables:
-        st.warning("Pacote sem tabelas configuradas.")
-        return
-    table_spec = st.selectbox(
-        "Tabela regulatória",
-        options=list(manifest.tables),
-        format_func=lambda item: item.title,
-        key=f"deep_dive_table::{manifest.deep_dive_id}",
-    )
-    frame = load_deep_dive_table(manifest, table_spec)
-    if frame.empty:
-        st.warning("Tabela vazia ou arquivo ausente.")
-        return
-    live_audit = pd.DataFrame()
-    if table_spec.id == "comparison_main":
-        frame, live_audit = _apply_live_ime_metrics(frame, manifest)
-
-    highlight_options = ["Nenhuma", *frame.columns[1:].tolist()]
-    highlighted_column = st.selectbox(
-        "Coluna em destaque",
-        options=highlight_options,
-        index=0,
-        key=f"deep_dive_highlight::{manifest.deep_dive_id}::{table_spec.id}",
-    )
-    highlight_value = None if highlighted_column == "Nenhuma" else highlighted_column
-
-    with st.expander("Dados e exportações", expanded=False):
-        try:
-            pptx_bytes = build_deep_dive_pptx_bytes(
-                manifest,
-                [(table_spec, frame)],
-                highlighted_column=highlight_value,
-            )
-            st.download_button(
-                "Exportar deck de comitê (PPTX)",
-                data=pptx_bytes,
-                file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.pptx",
-                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-                use_container_width=True,
-            )
-        except RuntimeError as exc:
-            st.warning(str(exc))
-        st.download_button(
-            "Baixar CSV da tabela selecionada",
-            data=frame.to_csv(index=False).encode("utf-8"),
-            file_name=f"{_safe_token(manifest.deep_dive_id)}_{_safe_token(table_spec.id)}.csv",
-            mime="text/csv",
-            use_container_width=True,
+    manifest = available[0]
+    if not compact and len(available) > 1:
+        manifest = st.selectbox(
+            "Data da curadoria",
+            options=available,
+            format_func=lambda item: _format_reading_date(item.generated_at),
+            key="deep_dive_manifest",
         )
 
-    _render_comparison_table(frame, highlighted_column=highlight_value)
-
-    with st.expander("Sobre a base", expanded=False):
-        if manifest.warnings:
-            for warning in manifest.warnings:
-                st.caption(f"- {warning}")
-        if diagnostics_enabled() and not live_audit.empty:
-            st.markdown("**Atualização IME ao vivo**")
-            st.dataframe(live_audit, hide_index=True, use_container_width=True)
-        st.dataframe(_source_files_df(manifest), hide_index=True, use_container_width=True)
+    _render_document_curation(manifest)
+    _render_update_prompt()
 
 
-def _render_manifest_context_line(manifest: Any) -> None:
-    context = " · ".join(
-        item
-        for item in [
-            str(getattr(manifest, "title", "") or "").strip(),
-            str(getattr(manifest, "generated_at", "") or "").strip(),
-        ]
-        if item
-    )
-    if context:
-        st.markdown(f"<div class='deepdive-curadoria-note'>Base: {escape(context)}</div>", unsafe_allow_html=True)
-
-
-def _render_emissions_curadoria(manifest: Any, *, compact: bool) -> None:
-    table_spec = _find_manifest_table(manifest, "emissions")
-    if table_spec is None:
-        if not compact:
-            st.info("Este pacote ainda não tem tabela de emissões curadas.")
-        return
-
-    frame = load_deep_dive_table(manifest, table_spec)
-    if frame.empty:
-        if not compact:
-            st.info("Tabela de emissões vazia ou ausente.")
-        return
-
-    summary = _build_emissions_type_summary(frame)
-    if summary.empty:
-        st.info("Não há emissões com tipo de cota identificado para resumir.")
-        return
-
-    st.markdown("#### Emissões por tipo de cota")
-    st.dataframe(summary, hide_index=True, use_container_width=True)
+def _render_document_curation(manifest: Any) -> None:
+    reading_date = _format_reading_date(getattr(manifest, "generated_at", ""))
+    st.markdown("### Síntese dos documentos")
     st.markdown(
-        "<div class='deepdive-curadoria-note'>Volumes monetários são somados apenas quando o campo documental está identificado. "
-        "Quantidades, prazos e custos/remuneração preservam lacunas explícitas em vez de virar zero.</div>",
+        f"<div class='deepdive-curation-date'>Data da leitura: <strong>{escape(reading_date)}</strong></div>",
         unsafe_allow_html=True,
     )
+    st.markdown("\n".join(f"- {item}" for item in _curation_base_bullets(manifest)))
+    st.info(
+        "Use esta curadoria como apoio. Ela depende do prompt específico de atualização; "
+        "confirme limites, datas e condições nos documentos originais."
+    )
 
-    detail = _emissions_detail_frame(frame)
-    if detail.empty:
+    findings = _curated_key_findings(manifest)
+    if findings:
+        st.markdown("#### Destaques da carteira")
+        st.markdown(
+            "\n".join(
+                f"- **{escape(theme)}:** {escape(conclusion)}"
+                for theme, conclusion in findings
+            )
+        )
+
+    _render_fund_reading(manifest)
+
+    warnings = _useful_manifest_warnings(manifest)
+    if warnings:
+        st.markdown("#### Pontos de atenção")
+        st.markdown("\n".join(f"- {escape(item)}" for item in warnings))
+
+
+def _curation_base_bullets(manifest: Any) -> tuple[str, ...]:
+    _ = manifest
+    return (
+        "**Fonte:** documentos públicos disponibilizados pela CVM e pelo Fundos.NET.",
+        "**Escopo:** todos os documentos incorporados à curadoria e acessíveis para os CNPJs desta carteira "
+        "até a data da leitura.",
+        "**Método:** curadoria produzida por IA a partir da leitura documental da carteira.",
+        "**Lacunas:** informações não localizadas ou documentos inacessíveis permanecem indicados como lacuna, sem inferência.",
+    )
+
+
+def _render_update_prompt() -> None:
+    with st.expander("Prompt usado para atualizar este artefato", expanded=False):
+        st.code(_load_reverse_engineering_prompt(), language="markdown")
+
+
+def _format_reading_date(value: object) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return "data não informada"
+    try:
+        parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        match = re.search(r"(\d{4})-(\d{2})-(\d{2})", text)
+        if not match:
+            return _sanitize_visible_text(text)
+        return f"{match.group(3)}/{match.group(2)}/{match.group(1)}"
+    return parsed.strftime("%d/%m/%Y")
+
+
+def _curated_key_findings(manifest: Any, *, limit: int = 4) -> tuple[tuple[str, str], ...]:
+    table_spec = _find_manifest_table(manifest, "key_findings")
+    if table_spec is None:
+        return ()
+    frame = load_deep_dive_table(manifest, table_spec)
+    if frame.empty or "Conclusão" not in frame.columns:
+        return ()
+
+    output: list[tuple[str, str]] = []
+    for _, row in frame.iterrows():
+        theme = _sanitize_visible_text(row.get("Tema", "Ponto relevante")) or "Ponto relevante"
+        if _fold_text(theme) in _KEY_FINDING_SKIP_THEMES:
+            continue
+        conclusion = _clean_document_fact(row.get("Conclusão"), max_parts=4, max_chars=280)
+        if not conclusion:
+            continue
+        output.append((theme, conclusion))
+        if len(output) >= limit:
+            break
+    return tuple(output)
+
+
+def _render_fund_reading(manifest: Any) -> None:
+    funds = tuple(getattr(manifest, "funds", ()) or ())
+    if not funds:
         return
-    with st.expander("Detalhe documental das emissões", expanded=False):
-        st.dataframe(detail, hide_index=True, use_container_width=True)
+
+    st.markdown("#### Pontos essenciais por fundo")
+    if len(funds) == 1:
+        fund = funds[0]
+        st.markdown(f"**{escape(_fund_display_name(fund))}**")
+    else:
+        selected_cnpj = st.selectbox(
+            "Fundo",
+            options=[_digits(fund.get("cnpj")) for fund in funds],
+            format_func=lambda cnpj: _fund_display_name(
+                next((fund for fund in funds if _digits(fund.get("cnpj")) == cnpj), {})
+            ),
+            key=f"deep_dive_fund::{getattr(manifest, 'deep_dive_id', 'curation')}",
+        )
+        fund = next((item for item in funds if _digits(item.get("cnpj")) == selected_cnpj), funds[0])
+
+    st.caption(f"CNPJ {_format_cnpj(fund.get('cnpj'))}.")
+
+    facts = _build_fund_curation_facts(manifest, fund)
+    if not facts:
+        st.caption("Não há uma síntese documental confiável para este fundo neste pacote.")
+        return
+    st.markdown(
+        "\n".join(
+            f"- **{escape(label)}:** {escape(value)}"
+            for label, value in facts
+        )
+    )
+
+
+def _fund_display_name(fund: dict[str, str]) -> str:
+    return _short_name(fund.get("short_name") or fund.get("name") or fund.get("cnpj") or "Fundo")
+
+
+def _build_fund_curation_facts(manifest: Any, fund: dict[str, str], *, limit: int = 5) -> tuple[tuple[str, str], ...]:
+    comparison = pd.DataFrame()
+    comparison_spec = _find_manifest_table(manifest, "comparison_main")
+    if comparison_spec is not None:
+        comparison = load_deep_dive_table(manifest, comparison_spec)
+
+    row_values: dict[str, object] = {}
+    if not comparison.empty:
+        fund_column = _find_fund_column(comparison, fund)
+        first_column = comparison.columns[0]
+        if fund_column is not None:
+            row_values = {
+                _normalize_text(row.get(first_column)): row.get(fund_column)
+                for _, row in comparison.iterrows()
+            }
+
+    thresholds = _fund_thresholds(manifest, fund)
+    facts: list[tuple[str, str]] = []
+    for label, comparison_labels, threshold_keywords in _DOCUMENT_FACT_THEMES:
+        values: list[tuple[str, str]] = []
+        for row_label in comparison_labels:
+            value = _clean_comparison_fact(
+                row_values.get(_normalize_text(row_label)),
+                theme=label,
+            )
+            if value:
+                values.append((row_label, value))
+        if not values:
+            fallback = _best_threshold_fact(thresholds, threshold_keywords, theme=label)
+            if fallback:
+                values.append(("", fallback))
+        if not values:
+            continue
+        facts.append((label, _combine_document_values(values)))
+        if len(facts) >= limit:
+            break
+    return tuple(facts)
+
+
+def _fund_thresholds(manifest: Any, fund: dict[str, str]) -> pd.DataFrame:
+    table_spec = _find_manifest_table(manifest, "thresholds")
+    if table_spec is None:
+        return pd.DataFrame()
+    frame = load_deep_dive_table(manifest, table_spec)
+    if frame.empty or "CNPJ" not in frame.columns:
+        return pd.DataFrame()
+    cnpj = _digits(fund.get("cnpj"))
+    return frame[frame["CNPJ"].map(_digits).eq(cnpj)].copy()
+
+
+def _best_threshold_fact(frame: pd.DataFrame, keywords: tuple[str, ...], *, theme: str) -> str:
+    if frame.empty or "Critério" not in frame.columns:
+        return ""
+    folded_keywords = tuple(_fold_text(keyword) for keyword in keywords)
+    candidates: dict[str, int] = {}
+    for _, row in frame.iterrows():
+        criterion = _fold_text(row.get("Critério"))
+        if not any(keyword in criterion for keyword in folded_keywords):
+            continue
+        value = _compose_threshold_fact(row, theme=theme)
+        if not value:
+            continue
+        score = len(value) + (40 if re.search(r"[A-Za-zÀ-ÿ]", value) else 0)
+        candidates[value] = max(candidates.get(value, 0), score)
+    if not candidates:
+        return ""
+    if len(candidates) > 1:
+        return ""
+    return next(iter(candidates))
+
+
+def _compose_threshold_fact(row: pd.Series, *, theme: str) -> str:
+    criterion = _sanitize_visible_text(row.get("Critério"))
+    comparison = _sanitize_visible_text(row.get("Comparação"))
+    limit = _clean_document_fact(row.get("Limite"), max_parts=2, max_chars=240)
+    if not criterion or not limit:
+        return ""
+
+    comparison_folded = _fold_text(comparison)
+    if comparison and comparison_folded not in {">=", "<=", ">", "<", "="}:
+        return ""
+    operator = _comparison_operator(limit) or comparison
+    if comparison and not _comparison_operator(limit):
+        rule = f"{comparison} {limit}"
+    else:
+        rule = limit
+
+    if theme in {"Alocação mínima", "Subordinação"}:
+        if operator in {"<=", "<"}:
+            return ""
+        if _is_numeric_rule(rule) and any(value > 100 for value in _percentage_values(rule)):
+            return ""
+        return rule
+
+    if theme == "Concentração":
+        folded_rule = _fold_text(rule)
+        if operator not in {"<=", "<"} and not any(
+            token in folded_rule for token in ("ate ", "no maximo", "limitado a")
+        ):
+            return ""
+        percentages = _percentage_values(rule)
+        if percentages and any(value >= 100 for value in percentages):
+            return ""
+        return rule
+
+    if theme == "Gatilhos":
+        context = " ".join(
+            filter(None, (criterion, _sanitize_visible_text(row.get("Evento"))))
+        )
+        if not any(
+            token in _fold_text(context)
+            for token in ("atraso", "inadimpl", "default", "evento", "liquid", "over ", "indice")
+        ):
+            return ""
+        return f"{criterion}: {rule}"
+
+    if theme == "Reservas e cobertura":
+        if not re.search(r"[A-Za-zÀ-ÿ]", limit):
+            return ""
+        return f"{criterion}: {rule}"
+
+    if theme == "Derivativos":
+        folded = _fold_text(limit)
+        if not re.search(r"[A-Za-zÀ-ÿ]", limit) or not any(
+            token in folded for token in ("derivativ", "hedge", "protec", "indexador", "vedad")
+        ):
+            return ""
+        return rule
+
+    if theme in {"Elegibilidade", "Governança"}:
+        if not re.search(r"[A-Za-zÀ-ÿ]", limit):
+            return ""
+        return rule if theme == "Elegibilidade" else f"{criterion}: {rule}"
+
+    return ""
+
+
+def _combine_document_values(values: list[tuple[str, str]]) -> str:
+    rendered: list[str] = []
+    for row_label, value in values:
+        prefix = _DOCUMENT_ROW_PREFIXES.get(_normalize_text(row_label), "")
+        item = f"{prefix}: {value}" if prefix else value
+        if item not in rendered:
+            rendered.append(item)
+    return "; ".join(rendered)
+
+
+def _clean_comparison_fact(value: object, *, theme: str) -> str:
+    text = _sanitize_visible_text(value)
+    if not text:
+        return ""
+    parts: list[str] = []
+    for raw_part in re.split(r"\s*;\s*", text):
+        part = _clean_document_fact(raw_part, max_parts=1, max_chars=300)
+        if not part or not _comparison_fragment_fits_theme(part, theme=theme):
+            continue
+        if part not in parts:
+            parts.append(part)
+    if not parts:
+        return ""
+    return _clean_document_fact("; ".join(parts), max_parts=3, max_chars=300)
+
+
+def _comparison_fragment_fits_theme(value: str, *, theme: str) -> bool:
+    folded = _fold_text(value)
+    has_words = bool(re.search(r"[A-Za-zÀ-ÿ]", value))
+    operator = _comparison_operator(value)
+
+    if theme == "Elegibilidade":
+        return has_words and any(
+            token in folded for token in ("elegib", "direito creditorio", "ccb", "recebivel", "parcela", "devedor")
+        )
+    if theme == "Alocação mínima":
+        if operator in {"<=", "<"}:
+            return False
+        if any(token in folded for token in ("default", "evento", "liquid", "atraso", "inadimpl")):
+            return False
+        return not (_is_numeric_rule(value) and any(item > 100 for item in _percentage_values(value)))
+    if theme == "Subordinação":
+        if operator in {"<=", "<"}:
+            return False
+        return not (_is_numeric_rule(value) and any(item > 100 for item in _percentage_values(value)))
+    if theme == "Gatilhos":
+        return has_words and any(
+            token in folded for token in ("atraso", "inadimpl", "default", "evento", "liquid", "over ", "indice")
+        )
+    if theme == "Reservas e cobertura":
+        return has_words and any(
+            token in folded
+            for token in ("reserva", "cobertura", "pdd", "caixa", "liquidez", "amortiz", "despesa", "pagamento")
+        )
+    if theme == "Concentração":
+        return has_words and any(token in folded for token in ("concentr", "devedor", "cedente", "sacado"))
+    if theme == "Derivativos":
+        return has_words and any(
+            token in folded for token in ("derivativ", "hedge", "protec", "indexador", "vedad")
+        )
+    if theme == "Governança":
+        return has_words
+    return False
+
+
+def _clean_document_fact(value: object, *, max_parts: int = 3, max_chars: int = 300) -> str:
+    text = _sanitize_visible_text(value)
+    if not text:
+        return ""
+    parts: list[str] = []
+    for raw_part in re.split(r"\s*;\s*", text):
+        part = re.sub(r"\s+", " ", raw_part).strip(" .")
+        folded = _fold_text(part)
+        if not part or folded in {"n/d", "nao identificado", "texto", ">=", "<=", ">", "<", "="}:
+            continue
+        if folded.startswith("texto") or "regra textual" in folded or "verificar observacao" in folded:
+            continue
+        if re.fullmatch(r"(?:[<>]=?\s*)?0(?:[,.]0+)?%?", part):
+            continue
+        numeric_key = re.sub(r"^[<>]=?\s*", "", part)
+        duplicate_index = next(
+            (
+                index
+                for index, existing in enumerate(parts)
+                if re.sub(r"^[<>]=?\s*", "", existing) == numeric_key
+            ),
+            None,
+        )
+        if duplicate_index is None:
+            parts.append(part)
+        elif re.match(r"^[<>]=?", part) and not re.match(r"^[<>]=?", parts[duplicate_index]):
+            parts[duplicate_index] = part
+    if not parts:
+        return ""
+    if len(parts) > 1 and all(not re.search(r"[A-Za-zÀ-ÿ]", part) for part in parts):
+        return ""
+    clipped = parts[:max_parts]
+    result = "; ".join(clipped)
+    if len(parts) > max_parts:
+        result += "; demais condições no documento original"
+    if len(result) > max_chars:
+        result = result[:max_chars].rsplit(" ", 1)[0].rstrip(" ,;:") + "..."
+    return result
+
+
+def _comparison_operator(value: object) -> str:
+    match = re.search(r"(?<!\w)(<=|>=|<|>|=)", str(value or ""))
+    return match.group(1) if match else ""
+
+
+def _percentage_values(value: object) -> tuple[float, ...]:
+    output: list[float] = []
+    for raw in re.findall(r"(\d+(?:[.,]\d+)?)\s*%", str(value or "")):
+        try:
+            output.append(float(raw.replace(".", "").replace(",", ".")))
+        except ValueError:
+            continue
+    return tuple(output)
+
+
+def _is_numeric_rule(value: object) -> bool:
+    return bool(re.fullmatch(r"[\s<>=\d.,%xX]+", str(value or "").strip()))
+
+
+def _useful_manifest_warnings(manifest: Any, *, limit: int = 2) -> tuple[str, ...]:
+    output: list[str] = []
+    for value in getattr(manifest, "warnings", ()) or ():
+        warning = _sanitize_visible_text(value)
+        folded = _fold_text(warning)
+        if (
+            not warning
+            or any(snippet in folded for snippet in _GENERIC_WARNING_SNIPPETS)
+            or not any(snippet in folded for snippet in _MATERIAL_WARNING_SNIPPETS)
+        ):
+            continue
+        output.append(warning)
+        if len(output) >= limit:
+            break
+    return tuple(output)
+
+
+def _sanitize_visible_text(value: object) -> str:
+    text = re.sub(r"\s+", " ", str(value or "").strip())
+    if not text or text.casefold() in {"nan", "none", "<na>", "—", "-"}:
+        return ""
+    return text.replace("—", "-").replace("–", "-").replace(" · ", ", ")
+
+
+def _fold_text(value: object) -> str:
+    text = unicodedata.normalize("NFKD", str(value or ""))
+    text = "".join(character for character in text if not unicodedata.combining(character))
+    return re.sub(r"\s+", " ", text.strip()).casefold()
 
 
 def _find_manifest_table(manifest: Any, table_id: str) -> Any | None:
@@ -541,24 +800,6 @@ def _build_emissions_type_summary(frame: pd.DataFrame) -> pd.DataFrame:
     output["__ordem"] = output["Tipo de cota"].map(_quota_type_sort_key)
     output = output.sort_values(["__ordem", "Tipo de cota"], kind="stable").drop(columns=["__ordem"])
     return output.reset_index(drop=True)
-
-
-def _emissions_detail_frame(frame: pd.DataFrame) -> pd.DataFrame:
-    columns = [
-        "Fundo",
-        "Data",
-        "Classe/Série",
-        "Tipo",
-        "Qtd cotas",
-        "Volume identificado (R$ mm)",
-        "Remuneração-alvo",
-        "Amortização/vencimento",
-        "Fonte",
-    ]
-    available = [column for column in columns if column in frame.columns]
-    if not available:
-        return pd.DataFrame()
-    return frame[available].copy()
 
 
 def _normalize_quota_type(value: object) -> str:
@@ -642,322 +883,6 @@ def _clip_text(value: str, *, max_chars: int) -> str:
     return text[: max_chars - 1].rstrip() + "…"
 
 
-def _render_cloudwalk_waterfall(*, wrap: bool = True, compact: bool = False) -> None:
-    if wrap:
-        with st.expander("Waterfall Cloudwalk", expanded=False):
-            _render_cloudwalk_waterfall_body(compact=compact)
-        return
-    _render_cloudwalk_waterfall_body(compact=compact)
-
-
-def _render_cloudwalk_waterfall_body(*, compact: bool = False) -> None:
-    refresh_ime = st.toggle(
-        "Atualizar IME pelo Fundos.NET se não houver cache local",
-        value=False,
-        key="cloudwalk_waterfall_refresh_ime",
-        help="Desligado usa somente cache local para não travar a aba. Ligado busca IME faltante e grava cache.",
-    )
-    try:
-        artifacts = _load_cloudwalk_waterfall_artifacts(refresh_ime)
-    except Exception as exc:  # noqa: BLE001
-        st.error("Não foi possível carregar o waterfall Cloudwalk.")
-        if diagnostics_enabled():
-            st.caption(f"Detalhe técnico: {type(exc).__name__}: {exc}")
-        return
-
-    summary = artifacts["summary"]
-    cols = st.columns(4)
-    cols[0].metric("Caixa + recebíveis IME", f"R$ {_br_number(summary['caixa_recebiveis_ime'] / 1_000_000, 0)} mi")
-    cols[1].metric("Amortizações mapeadas", f"R$ {_br_number(summary['amortizacoes_total'] / 1_000_000, 0)} mi")
-    cols[2].metric("CNPJs com IME", f"{summary['ime_included']}/{summary['ime_total']}")
-    cols[3].metric("Última amortização", summary["last_date"] or "—")
-
-    if summary["ime_missing"]:
-        st.warning(
-            "Há CNPJs sem Caixa + Recebíveis via IME no cache local. "
-            "Ative a atualização pelo Fundos.NET para buscar os IMEs faltantes."
-        )
-
-    chart = _cloudwalk_waterfall_chart(artifacts["chart_df"])
-    if chart is not None:
-        st.altair_chart(chart, use_container_width=True)
-    elif artifacts["plot_png"]:
-        st.image(artifacts["plot_png"], use_container_width=True)
-
-    export_label = "Dados do waterfall" if compact else "Arquivos do waterfall"
-    with st.expander(export_label, expanded=False):
-        st.download_button(
-            "Baixar waterfall CSV",
-            data=artifacts["waterfall_csv"],
-            file_name="waterfall_cloudwalk.csv",
-            mime="text/csv",
-            use_container_width=True,
-        )
-        st.download_button(
-            "Baixar relatório",
-            data=artifacts["report_csv"],
-            file_name="waterfall_inclusion_report.csv",
-            mime="text/csv",
-            use_container_width=True,
-        )
-        st.download_button(
-            "Baixar IME CSV",
-            data=artifacts["ime_assets_csv"],
-            file_name="waterfall_ime_assets.csv",
-            mime="text/csv",
-            use_container_width=True,
-        )
-        st.download_button(
-            "Baixar gráfico PNG",
-            data=artifacts["plot_png"],
-            file_name="waterfall_cloudwalk_plot.png",
-            mime="image/png",
-            use_container_width=True,
-            disabled=not bool(artifacts["plot_png"]),
-        )
-
-    st.dataframe(artifacts["waterfall_df"], hide_index=True, use_container_width=True)
-    with st.expander("Caixa + Recebíveis via IME", expanded=False):
-        st.dataframe(artifacts["ime_assets_df"], hide_index=True, use_container_width=True)
-    with st.expander("Relatório de inclusão/exclusão", expanded=False):
-        st.dataframe(artifacts["report_df"], hide_index=True, use_container_width=True)
-
-
-@st.cache_data(ttl=600, show_spinner=False)
-def _load_cloudwalk_waterfall_artifacts(refresh_ime: bool) -> dict[str, Any]:
-    reference_date = date(2026, 5, 14)
-    schedules = load_cloudwalk_emissions(DEFAULT_CLOUDWALK_EMISSIONS, reference_date=reference_date)
-    included = [schedule for schedule in schedules if schedule.included]
-    fund_names = {only_digits(schedule.cnpj): schedule.fund_name for schedule in schedules}
-    ime_assets = load_cloudwalk_ime_assets(
-        [schedule.cnpj for schedule in included],
-        fund_names=fund_names,
-        fetch_missing=refresh_ime,
-        reference_date=reference_date,
-    )
-    caixa_recebiveis_ime = sum(item.caixa_recebiveis for item in ime_assets if item.included)
-    rows = build_waterfall_schedule(schedules, caixa_recebiveis_ime, reference_date=reference_date)
-    paths = export_waterfall(
-        rows,
-        schedules,
-        DEFAULT_WATERFALL_OUTPUT_DIR,
-        ime_assets=ime_assets,
-        caixa_recebiveis_ime=caixa_recebiveis_ime,
-    )
-    waterfall_path = Path(paths["waterfall_csv"])
-    report_path = Path(paths["inclusion_report_csv"])
-    ime_assets_path = Path(paths["ime_assets_csv"])
-    plot_path = Path(paths["plot_png"])
-    waterfall_df = pd.read_csv(waterfall_path, keep_default_na=False)
-    report_df = pd.read_csv(report_path, keep_default_na=False)
-    ime_assets_df = pd.read_csv(ime_assets_path, keep_default_na=False)
-    summary = {
-        "included": len(included),
-        "excluded": len(schedules) - len(included),
-        "caixa_recebiveis_ime": caixa_recebiveis_ime,
-        "amortizacoes_total": sum(row.amortizacao_total for row in rows),
-        "ime_included": sum(1 for item in ime_assets if item.included),
-        "ime_total": len(ime_assets),
-        "ime_missing": sum(1 for item in ime_assets if not item.included),
-        "last_date": max((item_date for schedule in included for item_date, _ in schedule.schedule), default=None),
-    }
-    summary["last_date"] = summary["last_date"].isoformat() if summary["last_date"] else ""
-    return {
-        "summary": summary,
-        "waterfall_df": waterfall_df,
-        "report_df": report_df,
-        "ime_assets_df": ime_assets_df,
-        "chart_df": _cloudwalk_waterfall_chart_frame(rows, caixa_recebiveis_ime),
-        "waterfall_csv": waterfall_path.read_bytes(),
-        "report_csv": report_path.read_bytes(),
-        "ime_assets_csv": ime_assets_path.read_bytes(),
-        "plot_png": plot_path.read_bytes() if plot_path.exists() else b"",
-    }
-
-
-def _cloudwalk_waterfall_chart_frame(rows: list[Any], caixa_recebiveis_ime: float) -> pd.DataFrame:
-    output: list[dict[str, Any]] = []
-    running = float(caixa_recebiveis_ime or 0.0)
-    if abs(running) > 1e-9:
-        output.append(
-            {
-                "ordem": 1,
-                "etapa": "Caixa + recebíveis",
-                "tipo": "Caixa + recebíveis",
-                "valor": running,
-                "bar_start": 0.0,
-                "bar_end": running,
-                "label_y": running,
-                "valor_fmt": f"R$ {_br_number(abs(running) / 1_000_000, 1)} mi",
-            }
-        )
-    for row in rows:
-        start = running
-        value = -float(row.amortizacao_total or 0.0)
-        running += value
-        output.append(
-            {
-                "ordem": len(output) + 1,
-                "etapa": row.data.strftime("%d/%m/%y"),
-                "tipo": "Amortização",
-                "valor": value,
-                "bar_start": min(start, running),
-                "bar_end": max(start, running),
-                "label_y": max(start, running),
-                "valor_fmt": f"-R$ {_br_number(abs(value) / 1_000_000, 1)} mi",
-            }
-        )
-    frame = pd.DataFrame(output)
-    if frame.empty:
-        return frame
-    for column in ["valor", "bar_start", "bar_end", "label_y"]:
-        frame[f"{column}_mi"] = pd.to_numeric(frame[column], errors="coerce").fillna(0.0) / 1_000_000.0
-    label_stride = max(1, math.ceil(len(frame) / 18))
-    frame["show_label"] = frame["ordem"].isin({1, int(frame["ordem"].max())}) | ((frame["ordem"] - 1) % label_stride == 0)
-    return frame
-
-
-def _cloudwalk_waterfall_chart(chart_df: pd.DataFrame) -> alt.Chart | None:
-    if chart_df.empty:
-        return None
-    chart_df = chart_df.copy()
-    x_sort = chart_df.sort_values("ordem")["etapa"].tolist()
-    bars = (
-        alt.Chart(chart_df)
-        .mark_bar(size=max(14, min(56, int(620 / max(len(chart_df), 1)))))
-        .encode(
-            x=alt.X("etapa:N", title=None, sort=x_sort, axis=alt.Axis(labelAngle=-35, labelLimit=92)),
-            y=alt.Y("bar_end_mi:Q", title="R$ milhões"),
-            y2="bar_start_mi:Q",
-            color=alt.Color(
-                "tipo:N",
-                scale=alt.Scale(domain=["Caixa + recebíveis", "Amortização"], range=["#1F1F1F", "#EC7000"]),
-                legend=None,
-            ),
-            tooltip=[
-                alt.Tooltip("etapa:N", title="Etapa"),
-                alt.Tooltip("tipo:N", title="Tipo"),
-                alt.Tooltip("valor_fmt:N", title="Valor"),
-            ],
-        )
-    )
-    connector_df = chart_df.iloc[:-1].copy()
-    connector_df["etapa_proxima"] = chart_df["etapa"].shift(-1)
-    connector_df["running_mi"] = chart_df["valor"].cumsum().iloc[:-1].to_numpy() / 1_000_000.0
-    connectors = (
-        alt.Chart(connector_df)
-        .mark_rule(color="#9CA3AF", strokeDash=[4, 4], strokeWidth=1.2)
-        .encode(
-            x=alt.X("etapa:N", sort=x_sort),
-            x2="etapa_proxima:N",
-            y="running_mi:Q",
-        )
-    )
-    labels = (
-        alt.Chart(chart_df[chart_df["show_label"]])
-        .mark_text(dy=-8, fontSize=12, fontWeight=700, color="#1F1F1F", clip=False)
-        .encode(
-            x=alt.X("etapa:N", sort=x_sort),
-            y="label_y_mi:Q",
-            text="valor_fmt:N",
-        )
-    )
-    return (bars + connectors + labels).properties(height=380).configure_view(strokeWidth=0)
-
-
-def _render_manifest_header(manifest: Any) -> None:
-    chips = [
-        f"{len(manifest.funds)} fundo(s)",
-        manifest.generated_at or "sem timestamp",
-        manifest.source or "fonte offline",
-        manifest.confidentiality,
-    ]
-    st.markdown(
-        "<div class='deepdive-chip-row'>"
-        + "".join(f"<span class='deepdive-chip'>{escape(chip)}</span>" for chip in chips if chip)
-        + "</div>",
-        unsafe_allow_html=True,
-    )
-
-
-def _render_comparison_table(frame: pd.DataFrame, *, highlighted_column: str | None) -> None:
-    header_cells = []
-    for column in frame.columns:
-        css_class = " class='highlight'" if column == highlighted_column else ""
-        header_cells.append(f"<th{css_class}>{escape(str(column))}</th>")
-    rows: list[str] = []
-    for _, row in frame.iterrows():
-        cells = []
-        row_label = str(row.get(frame.columns[0], ""))
-        is_long_row = row_label in _LONG_TEXT_ROWS
-        for column in frame.columns:
-            classes = []
-            if column == highlighted_column:
-                classes.append("highlight")
-            if is_long_row and column != frame.columns[0]:
-                classes.append("longtext")
-            css_class = f" class='{' '.join(classes)}'" if classes else ""
-            cells.append(f"<td{css_class}>{_cell_html(row.get(column, '—'), long_text=is_long_row and column != frame.columns[0])}</td>")
-        rows.append("<tr>" + "".join(cells) + "</tr>")
-    st.markdown(
-        "<div class='deepdive-table-wrap'><table class='deepdive-table'><thead><tr>"
-        + "".join(header_cells)
-        + "</tr></thead><tbody>"
-        + "".join(rows)
-        + "</tbody></table></div>",
-        unsafe_allow_html=True,
-    )
-
-
-def _cell_html(value: object, *, long_text: bool) -> str:
-    text = str(value if value is not None else "—").strip() or "—"
-    if text.lower() in {"nan", "none", "<na>"}:
-        text = "—"
-    if not long_text or text == "—":
-        return escape(text).replace("\n", "<br>")
-    items = [item.strip() for item in re.split(r"\s+\|\s+|\n+", text) if item.strip()]
-    if len(items) <= 1:
-        return escape(text)
-    return "<div class='deepdive-cell-list'>" + "".join(f"<div>{escape(item)}</div>" for item in items) + "</div>"
-
-
-def _apply_live_ime_metrics(frame: pd.DataFrame, manifest: Any) -> tuple[pd.DataFrame, pd.DataFrame]:
-    if frame.empty or not getattr(manifest, "funds", None):
-        return frame, pd.DataFrame()
-    first_col = frame.columns[0]
-    if first_col not in frame.columns:
-        return frame, pd.DataFrame()
-    output = frame.copy()
-    label_mask = output[first_col].astype(str)
-    if not label_mask.isin({"Última competência IME", *_LIVE_IME_ROWS.keys()}).any():
-        return output, pd.DataFrame()
-
-    end_month = current_default_end_month()
-    audit_rows: list[dict[str, object]] = []
-    for fund in manifest.funds:
-        cnpj = _digits(fund.get("cnpj"))
-        column = _find_fund_column(output, fund)
-        if not cnpj or column is None:
-            continue
-        metrics = _load_live_ime_metrics(cnpj, end_month.isoformat())
-        audit_rows.append(
-            {
-                "Fundo": column,
-                "CNPJ": _format_cnpj(cnpj),
-                "Competência": metrics.get("competencia") or "—",
-                "Cache": metrics.get("cache_status") or "—",
-                "Status": metrics.get("status") or "OK",
-            }
-        )
-        if metrics.get("status") != "OK":
-            continue
-        _set_row_value(output, first_col, "Última competência IME", column, str(metrics.get("competencia") or "—"))
-        for row_label, indicator in _LIVE_IME_ROWS.items():
-            value = metrics.get("values", {}).get(indicator, "—")
-            _set_row_value(output, first_col, row_label, column, value)
-    return output, pd.DataFrame(audit_rows)
-
-
 def _find_fund_column(frame: pd.DataFrame, fund: dict[str, str]) -> str | None:
     candidates = [
         str(fund.get("short_name") or "").strip(),
@@ -973,118 +898,6 @@ def _find_fund_column(frame: pd.DataFrame, fund: dict[str, str]) -> str | None:
         if match:
             return match
     return None
-
-
-def _set_row_value(frame: pd.DataFrame, first_col: str, row_label: str, column: str, value: str) -> None:
-    mask = frame[first_col].astype(str).eq(row_label)
-    if mask.any() and column in frame.columns:
-        frame.loc[mask, column] = value
-
-
-@st.cache_data(ttl=1800, show_spinner=False)
-def _load_live_ime_metrics(cnpj: str, end_month_iso: str) -> dict[str, Any]:
-    end_month = date.fromisoformat(end_month_iso)
-    start_month = shift_month(end_month, -5)
-    try:
-        cached = load_or_extract_informe(
-            cnpj_fundo=cnpj,
-            data_inicial=start_month,
-            data_final=end_month,
-        )
-        result = cached.result
-        cache_status = cached.cache_status
-        latest_month = _latest_competencia_month(result.competencias)
-        if cached.cache_status == "hit" and latest_month is not None and latest_month < end_month:
-            try:
-                fresh = InformeMensalService().run(
-                    cnpj_fundo=cnpj,
-                    data_inicial=start_month,
-                    data_final=end_month,
-                    progress_callback=None,
-                )
-                fresh_latest = _latest_competencia_month(fresh.competencias)
-                if fresh_latest is not None and fresh_latest >= latest_month:
-                    result = fresh
-                    cache_status = "live_probe"
-            except Exception:  # noqa: BLE001
-                cache_status = "hit"
-        competencias = list(result.competencias or [])
-        if not competencias:
-            return {"status": "sem competência IME", "cache_status": cache_status, "values": {}}
-        competencia = sorted(competencias, key=_competencia_sort_key)[-1]
-        wide_df = read_wide_csv(result.wide_csv_path)
-        dashboard_data = None
-        try:
-            dashboard_data = build_dashboard_data(
-                wide_csv_path=result.wide_csv_path,
-                listas_csv_path=result.listas_csv_path,
-                docs_csv_path=result.docs_csv_path,
-            )
-        except Exception:  # noqa: BLE001
-            dashboard_data = None
-        tables = build_monitoring_tables(
-            wide_df,
-            competencias,
-            cnpj=cnpj,
-            overrides={},
-            dashboard_data=dashboard_data,
-        )
-        values: dict[str, str] = {}
-        for indicator in _LIVE_IME_ROWS.values():
-            values[indicator] = _metric_from_indicators(tables.indicators_df, indicator, competencia)
-        return {
-            "status": "OK",
-            "cache_status": cache_status,
-            "competencia": competencia,
-            "values": values,
-        }
-    except Exception as exc:  # noqa: BLE001
-        return {"status": f"{exc.__class__.__name__}: {exc}", "cache_status": "erro", "values": {}}
-
-
-def _metric_from_indicators(indicators_df: pd.DataFrame, indicator: str, competencia: str) -> str:
-    if indicators_df.empty or competencia not in indicators_df.columns:
-        return "—"
-    match = indicators_df[indicators_df["indicador"].astype(str).eq(indicator)]
-    if match.empty:
-        return "—"
-    row = match.iloc[0]
-    return _format_live_metric(row.get(competencia), row.get("unidade"))
-
-
-def _format_live_metric(value: object, unit: object) -> str:
-    try:
-        numeric = float(value)
-    except (TypeError, ValueError):
-        return _display(value)
-    unit_text = str(unit or "")
-    if "R$ bruto" in unit_text:
-        return f"R$ {_br_number(numeric / 1_000_000, 0)} mm"
-    if "R$ MM" in unit_text:
-        return f"R$ {_br_number(numeric, 0)} mm"
-    if unit_text in {"ratio", "%"} or "/" in unit_text:
-        if unit_text == "ratio":
-            numeric *= 100
-        return f"{_br_number(numeric, 1)}%"
-    return _br_number(numeric, 1)
-
-
-def _competencia_sort_key(value: object) -> tuple[int, int]:
-    text = str(value or "")
-    try:
-        month, year = text.split("/", 1)
-        return int(year), int(month)
-    except Exception:  # noqa: BLE001
-        return (0, 0)
-
-
-def _latest_competencia_month(competencias: list[str] | tuple[str, ...]) -> date | None:
-    parsed = []
-    for competencia in competencias or []:
-        year, month = _competencia_sort_key(competencia)
-        if year > 0 and month > 0:
-            parsed.append(date(year, month, 1))
-    return max(parsed) if parsed else None
 
 
 def _display(value: object) -> str:
@@ -1127,20 +940,3 @@ def _short_name(value: object) -> str:
     for token in replacements:
         text = re.sub(token, "", text, flags=re.IGNORECASE).strip(" -")
     return text or str(value or "")
-
-
-def _source_files_df(manifest: Any) -> pd.DataFrame:
-    rows = [
-        {
-            "Tabela": table.title,
-            "Arquivo": str(Path(table.source_file)),
-            "Tipo": table.kind,
-        }
-        for table in manifest.tables
-    ]
-    return pd.DataFrame(rows)
-
-
-def _safe_token(value: str) -> str:
-    token = re.sub(r"[^a-zA-Z0-9_-]+", "_", str(value or "").strip().lower())
-    return token.strip("_") or "deep_dive"
