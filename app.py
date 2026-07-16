@@ -20,6 +20,46 @@ from tabs.tab_industry_study import render_tab_industry_study
 
 
 _APP_BASE_CSS = """
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('app/static/fonts/IBMPlexSans-Light-Latin1.woff2') format('woff2');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('app/static/fonts/IBMPlexSans-Regular-Latin1.woff2') format('woff2');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('app/static/fonts/IBMPlexSans-Medium-Latin1.woff2') format('woff2');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('app/static/fonts/IBMPlexSans-SemiBold-Latin1.woff2') format('woff2');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url('app/static/fonts/IBMPlexSans-Bold-Latin1.woff2') format('woff2');
+    font-display: swap;
+    font-style: normal;
+    font-weight: 700;
+}
+
 html, body, .stApp, .stMarkdown, .stDataFrame, .stTextInput, .stSelectbox, .stRadio, .stTabs, div, p, label, input, button, h1, h2, h3, h4, h5, h6, li, table, th, td {
     font-family: 'IBM Plex Sans', sans-serif !important;
 }
