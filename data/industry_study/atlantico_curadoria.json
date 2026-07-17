@@ -1,0 +1,80 @@
+{
+  "cnpj": "09.194.841/0001-51",
+  "estrategia": "Veículo fechado de recuperação de créditos estressados. O regulamento vigente descreve as carteiras, em regra, como direitos não padronizados (NP), 100% inadimplidos (NPL) e já baixados no balanço dos cedentes.",
+  "cedente_originador": "Em mai/26, o informe mensal nomina Ativos S.A. Securitizadora de Créditos Financeiros (19%) e Carrefour Promotora de Vendas e Participações Ltda., carteira legada (11%). Os 70% restantes não são nominados nesse campo. Documentos históricos registram aquisições de Banco Pan, Santander e Itaú Unibanco; isso não prova a composição atual integral.",
+  "perfil_sacados": "Predominantemente pessoas físicas pulverizadas. Há pessoas jurídicas e créditos corporativos pontuais, mas não existe lista pública completa de devedores e não se inferem nomes.",
+  "natureza_recebiveis": "Empréstimo pessoal e consignado, cheque especial, cartão, CDC e financiamento de varejo, telefonia e outros créditos massificados; em mai/26, 75,4% do valor reportado estava em Financeiro — Outros e 24,6% em Serviços.",
+  "funcionamento_economico": "Gestora e consultoria participam passivamente de processos competitivos de venda de carteiras estressadas; o Fundo não origina crédito. A cessão é definitiva e usualmente sem coobrigação de pagamento; o cedente responde pela existência do crédito. O valor econômico decorre da recuperação agregada esperada, descontada por custos e tempo de cobrança, e não do valor de face.",
+  "classificacao": "Formalmente, Tipo ANBIMA Outros e Foco Multicarteira Outros. Economicamente, é um fundo de recuperação de NPL e o regulamento permite direitos não padronizados. O nome legal histórico continha a expressão FIDC Não-Padronizados; a retirada de NP do nome não mudou, por si, a estratégia econômica.",
+  "publico_alvo": "Investidores profissionais; condomínio fechado. O informe de mai/26 mostra uma conta de cotista do tipo cota de FIDC, o que não identifica nem comprova um investidor único.",
+  "subordinacao": "As demonstrações financeiras de dez/25 mostram somente cotas subordinadas. O informe mensal de mai/26 apresenta a mesma quantidade de cotas como subclasse sênior; a divergência exige confirmação do administrador.",
+  "garantias": "Podem existir caso a caso, mas a carteira massificada normalmente não possui garantia real. A cessão é, em regra, sem coobrigação do cedente pelo pagamento.",
+  "leitura_inadimplencia": "O percentual elevado é estrutural: o fundo compra créditos já vencidos. Em mai/26, 99,3% da carteira de direitos creditórios estava no campo de inadimplência e 99,3% da carteira estava no bucket acima de 1.080 dias. Vencido é o estado jurídico e de aging; o saldo contábil reflete valor esperado descontado de recuperação, não perda integral.",
+  "bridge_interpretacao": "Entre jun/24 e jul/24, a inadimplência bruta caiu de R$ 16,72 bi para R$ 103,4 mi, enquanto a carteira contábil subiu de R$ 34,2 mi para R$ 114,2 mi. A mudança coincide com a troca de Sefer para ID Corretora e a adaptação à RCVM 175. Antes, o reporte acompanhava valor de face bruto e redução quase integral; depois, passou a refletir valor contábil/recuperável sem a mesma redução separada. Não houve recuperação em caixa de R$ 16,6 bi.",
+  "auditoria_valor_justo": "As demonstrações de 2025 usam fluxo de caixa descontado apoiado em histórico de recuperação, custos de cobrança e taxa de desconto. A BDO emitiu opinião sem modificação para 2025, mas registrou que o período de 01/01 a 19/07/24 teve opinião modificada por inconsistências de lastro e diferença na posição de direitos creditórios.",
+  "limitacoes": [
+    "A lista completa atual de cedentes não é pública; os dois nominados no informe cobrem 30%.",
+    "A identidade e a concentração dos devedores individuais não são observáveis.",
+    "A identidade do cotista atual não é pública no informe mensal.",
+    "A reclassificação de R$ 79,96 mi para carteira em jul/24 não é integralmente reconciliável no informe mensal.",
+    "A classe atual diverge entre o informe mensal e as demonstrações auditadas.",
+    "A série jun/24–jul/24 não é like-for-like e não deve ser interpretada como recuperação econômica.",
+    "O indicador is_np do pipeline é cadastral e não captura a política econômica descrita no regulamento vigente."
+  ],
+  "fontes": [
+    {
+      "label": "CVM — Informe mensal mai/26",
+      "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202605.zip",
+      "tipo": "fonte primária",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "FundosNet — regulamento vigente de 12/11/24",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=822211&cvm=true",
+      "tipo": "fonte primária",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "FundosNet — informe trimestral 1T26",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1194821&cvm=true",
+      "tipo": "fonte primária",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "FundosNet — demonstrações financeiras 2025",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1202540&cvm=true",
+      "tipo": "fonte primária auditada",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "FundosNet — demonstrações financeiras 2024",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=910782&cvm=true",
+      "tipo": "fonte primária auditada",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "FundosNet — AGE de troca de administrador em 08/07/24",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=697891&cvm=true",
+      "tipo": "fonte primária",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "FundosNet — demonstrações financeiras 2023",
+      "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=641342&cvm=true",
+      "tipo": "fonte primária auditada",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "CVM — decisão de 25/11/14 sobre o Atlântico FIDC NP",
+      "url": "https://conteudo.cvm.gov.br/decisoes/2014/20141125_R1/20141125_D20.html",
+      "tipo": "fonte primária",
+      "data_consulta": "2026-07-17"
+    },
+    {
+      "label": "Austin Rating — relatório histórico de 16/10/20",
+      "url": "https://austin.com.br/Relatorio/Rating/Atl%C3%A2ntico_FIDC_NP/10078",
+      "tipo": "fonte secundária",
+      "data_consulta": "2026-07-17"
+    }
+  ]
+}

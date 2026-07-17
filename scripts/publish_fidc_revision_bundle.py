@@ -47,7 +47,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_SCRIPT = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v1"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v2"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -60,6 +60,7 @@ REQUIRED_DATA_INPUTS = (
     "prestadores_latest.csv",
     "industry_offers.csv.gz",
     "industry_originators_annual.csv",
+    "atlantico_curadoria.json",
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -268,6 +269,18 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             raise RevisionBundlePublishError(f"payload {key} deve conter 20 linhas")
     if not payload.get("offers_as_of"):
         raise RevisionBundlePublishError("payload editorial sem data-base de ofertas")
+    for key in (
+        "holder_distribution_history",
+        "type_mix_history",
+        "receivables_history",
+        "provider_concentration_history",
+        "atlantico_history",
+    ):
+        rows = payload.get(key)
+        if not isinstance(rows, list) or not rows:
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
+    if not isinstance(payload.get("atlantico_profile"), Mapping):
+        raise RevisionBundlePublishError("payload editorial sem atlantico_profile")
 
 
 _MONTH_ABBR = (
@@ -432,7 +445,7 @@ def build_bundle_manifest(
             "bytes": len(xlsx_bytes),
         },
         "checks": {
-            "slides": 42,
+            "slides": 43,
             "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
             "top20_outros": len(list(payload.get("top20_outros") or [])),
             "profiles": len(list(payload.get("profiles") or [])),

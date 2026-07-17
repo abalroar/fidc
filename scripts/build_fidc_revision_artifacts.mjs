@@ -66,7 +66,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v3";
+const RENDERER_VERSION = "industry_revision_artifacts_v4";
 
 const C = {
   orange: "#EC7000",
@@ -535,7 +535,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       filename: path.basename(OUTPUT_PPTX),
       sha256: pptxSha256,
       bytes: pptxStat.size,
-      slides: 42,
+      slides: 43,
     },
     xlsx: {
       filename: path.basename(OUTPUT_XLSX),
@@ -1074,63 +1074,97 @@ function buildPresentation(payload) {
   // 5. Distribuição por cotistas
   {
     const slide = presentation.slides.add();
-    const rows = payload.holder_distribution;
-    const upto10 = rows.filter((row) => ["0", "1", "2–3", "4–10"].includes(row.bucket));
-    const shareFunds = upto10.reduce((sum, row) => sum + num(row.share_fundos), 0);
-    const sharePl = upto10.reduce((sum, row) => sum + num(row.share_pl), 0);
+    const history = payload.holder_distribution_history;
+    const periodBefore = "2023-12";
+    const periodAfter = payload.latest_complete;
+    const before = history.filter((row) => row.competencia === periodBefore);
+    const after = history.filter((row) => row.competencia === periodAfter);
+    const bucketOrder = ["0", "1", "2–3", "4–10", "11–50", "51+"];
+    const byBucket = (rows) => Object.fromEntries(rows.map((row) => [row.bucket, row]));
+    const beforeMap = byBucket(before);
+    const afterMap = byBucket(after);
+    const above10BeforeFunds = before
+      .filter((row) => ["11–50", "51+"].includes(row.bucket))
+      .reduce((sum, row) => sum + num(row.share_fundos), 0);
+    const above10AfterFunds = after
+      .filter((row) => ["11–50", "51+"].includes(row.bucket))
+      .reduce((sum, row) => sum + num(row.share_fundos), 0);
+    const above10BeforePl = before
+      .filter((row) => ["11–50", "51+"].includes(row.bucket))
+      .reduce((sum, row) => sum + num(row.share_pl), 0);
+    const above10AfterPl = after
+      .filter((row) => ["11–50", "51+"].includes(row.bucket))
+      .reduce((sum, row) => sum + num(row.share_pl), 0);
+    const metadata = Object.fromEntries(
+      payload.holder_distribution_meta_history.map((row) => [row.competencia, row]),
+    );
     addHeader(
       slide,
       "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
-      `${pct(shareFunds, 0)} dos fundos acima de R$ 200 mi têm até 10 contas e concentram ${pct(sharePl, 0)} do PL`,
-      `Fonte: CVM, ${stockShortLower}. Universo: ${integer(rows[0]?.universo_fundos)} fundos e ${bn(rows[0]?.universo_pl, 1)} de PL; contas por classe/série.`,
+      `Fundos com mais de 10 contas ganharam ${pct(above10AfterFunds - above10BeforeFunds, 1).replace("%", " p.p.")} do universo e ${pct(above10AfterPl - above10BeforePl, 1).replace("%", " p.p.")} do PL desde dez/23`,
+      `Fonte: CVM, dez/23 e ${stockShortLower}. Ex-FIC com PL ≥ R$ 200 mi: ${integer(metadata[periodBefore]?.eligible_funds)} → ${integer(metadata[periodAfter]?.eligible_funds)} fundos; contas por classe/série, não investidores únicos.`,
       5,
     );
-    const buckets = rows.map((row) => row.bucket);
+    const buckets = bucketOrder;
     const chartLeft = 60;
     const chartRight = 665;
     const chartWidth = 555;
-    const absoluteTop = 174;
-    const shareTop = 427;
-    const chartHeight = 196;
+    const absoluteTop = 181;
+    const shareTop = 428;
+    const chartHeight = 190;
+
+    addLegend(
+      slide,
+      [
+        { label: "Dez/23", color: C.mid },
+        { label: stockShort, color: C.orange },
+      ],
+      { left: 970, top: 128, width: 250, height: 22 },
+      2,
+    );
 
     addSectionLabel(slide, "QUANTIDADE DE FUNDOS · ABSOLUTO", { left: chartLeft, top: 139, width: chartWidth, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: chartLeft, top: absoluteTop, width: chartWidth, height: chartHeight }),
       categories: buckets,
-      series: [{ name: "Fundos", values: rows.map((row) => num(row.fundos)), fill: C.charcoal }],
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+      series: [
+        { name: "Dez/23", values: buckets.map((bucket) => num(beforeMap[bucket]?.fundos)), fill: C.mid },
+        { name: stockShort, values: buckets.map((bucket) => num(afterMap[bucket]?.fundos)), fill: C.orange },
+      ],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 35 },
       hasLegend: false,
       xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       yAxis: { ...chartAxis(9.5, "0"), min: 0 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.5, bold: true } },
     });
     addSectionLabel(slide, "PL POR FAIXA · R$ BI", { left: chartRight, top: 139, width: chartWidth, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: chartRight, top: absoluteTop, width: chartWidth, height: chartHeight }),
       categories: buckets,
-      series: [{ name: "PL", values: rows.map((row) => num(row.pl) / 1e9), fill: C.orange }],
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+      series: [
+        { name: "Dez/23", values: buckets.map((bucket) => num(beforeMap[bucket]?.pl) / 1e9), fill: C.mid },
+        { name: stockShort, values: buckets.map((bucket) => num(afterMap[bucket]?.pl) / 1e9), fill: C.orange },
+      ],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 35 },
       hasLegend: false,
       xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       yAxis: { ...chartAxis(9.5, "0"), min: 0 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.5, bold: true } },
     });
 
     addSectionLabel(slide, "QUANTIDADE DE FUNDOS · % DO TOTAL", { left: chartLeft, top: 392, width: chartWidth, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: chartLeft, top: shareTop, width: chartWidth, height: chartHeight }),
       categories: buckets,
-      series: [{
-        name: "% dos fundos",
-        values: rows.map((row) => num(row.share_fundos)),
-        valuesFormatCode: "0%",
-        fill: C.charcoal,
-      }],
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+      series: [
+        { name: "Dez/23", values: buckets.map((bucket) => num(beforeMap[bucket]?.share_fundos)), valuesFormatCode: "0%", fill: C.mid },
+        { name: stockShort, values: buckets.map((bucket) => num(afterMap[bucket]?.share_fundos)), valuesFormatCode: "0%", fill: C.orange },
+      ],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 35 },
       hasLegend: false,
       xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       yAxis: { ...chartAxis(9.5, "0%"), min: 0, max: 0.35, majorUnit: 0.1 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.5, bold: true } },
     });
     addText(slide, "Soma das barras = 100%", { left: 410, top: 394, width: 205, height: 20 }, {
       fontSize: 10.5,
@@ -1143,17 +1177,15 @@ function buildPresentation(payload) {
     slide.charts.add("bar", {
       ...chartBase({ left: chartRight, top: shareTop, width: chartWidth, height: chartHeight }),
       categories: buckets,
-      series: [{
-        name: "% do PL",
-        values: rows.map((row) => num(row.share_pl)),
-        valuesFormatCode: "0%",
-        fill: C.orange,
-      }],
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+      series: [
+        { name: "Dez/23", values: buckets.map((bucket) => num(beforeMap[bucket]?.share_pl)), valuesFormatCode: "0%", fill: C.mid },
+        { name: stockShort, values: buckets.map((bucket) => num(afterMap[bucket]?.share_pl)), valuesFormatCode: "0%", fill: C.orange },
+      ],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 35 },
       hasLegend: false,
       xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       yAxis: { ...chartAxis(9.5, "0%"), min: 0, max: 0.35, majorUnit: 0.1 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.5, bold: true } },
     });
     addText(slide, "Soma das barras = 100%", { left: 1015, top: 394, width: 205, height: 20 }, {
       fontSize: 10.5,
@@ -1163,7 +1195,7 @@ function buildPresentation(payload) {
     });
     addText(
       slide,
-      "As quatro visões usam as mesmas seis faixas e o mesmo universo; os gráficos inferiores normalizam quantidade e PL separadamente.",
+      "Comparação de duas fotografias da indústria, não de coorte constante. Corte de R$ 200 mi em valores nominais; cada histograma percentual fecha em 100%.",
       { left: 60, top: 640, width: 1160, height: 18 },
       { fontSize: 10.5, color: C.note, alignment: "right" },
     );
@@ -1172,77 +1204,130 @@ function buildPresentation(payload) {
   // 6. Mix ANBIMA
   {
     const slide = presentation.slides.add();
-    const mix = [...payload.type_mix].sort((a, b) => num(b.pl) - num(a.pl));
-    const coverage = payload.classification_coverage;
-    const others = mix.find((row) => row.anbima_tipo === "Outros");
-    const official = coverage.find((row) => row.categoria === "Oficial ANBIMA");
+    const history = payload.type_mix_history;
+    const periodBefore = "2023-12";
+    const periodAfter = payload.latest_complete;
+    const before = history.filter((row) => row.competencia === periodBefore);
+    const after = history.filter((row) => row.competencia === periodAfter);
+    const afterMap = Object.fromEntries(after.map((row) => [row.anbima_tipo, row]));
+    const beforeMap = Object.fromEntries(before.map((row) => [row.anbima_tipo, row]));
+    const categories = [...after]
+      .sort((a, b) => num(b.pl) - num(a.pl))
+      .map((row) => row.anbima_tipo);
+    const othersBefore = beforeMap.Outros;
+    const othersAfter = afterMap.Outros;
     addHeader(
       slide,
       "TIPO ANBIMA",
-      `Outros reúne ${pct(others?.share, 1)} do PL ex-FIC; ${pct(1 - num(official?.share), 1)} não vem da fotografia oficial`,
-      "Fonte: ANBIMA Data, evidência documental e CVM; mai/26. Tipo e Foco são campos separados.",
+      `Na taxonomia vigente, Outros ganhou ${pct(num(othersAfter?.share) - num(othersBefore?.share), 1).replace("%", " p.p.")} do PL ex-FIC desde dez/23`,
+      `Fonte: CVM e classificação ANBIMA vigente; dez/23 e ${stockShortLower}. A fotografia cadastral de dez/25 foi aplicada ao histórico; não é uma série cadastral like-for-like.`,
       6,
     );
+    addSectionLabel(slide, "PL EX-FIC · R$ BI · DEZ/23 → MAI/26", { left: 60, top: 150, width: 550, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 155, width: 725, height: 450 }),
-      categories: mix.map((row) => row.anbima_tipo),
+      ...chartBase({ left: 60, top: 185, width: 550, height: 400 }),
+      categories: categories.map((category) => category === "Agro, Indústria e Comércio" ? "Agro, ind. e comércio" : category),
       series: [
-        {
-          name: "PL ex-FIC",
-          values: mix.map((row) => num(row.pl) / 1e9),
-          fill: C.charcoal,
-          points: mix.map((row, idx) => ({ idx, fill: row.anbima_tipo === "Outros" ? C.orange : C.charcoal })),
-        },
+        { name: "Dez/23", values: categories.map((category) => num(beforeMap[category]?.pl) / 1e9), valuesFormatCode: "0.0", fill: C.mid },
+        { name: stockShort, values: categories.map((category) => num(afterMap[category]?.pl) / 1e9), valuesFormatCode: "0.0", fill: C.orange },
       ],
-      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 40 },
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 35 },
       hasLegend: false,
-      xAxis: { ...chartAxis(11, "R$ 0 \"bi\""), min: 0 },
-      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 11.5, bold: true } },
+      xAxis: { ...chartAxis(9.5, "0"), min: 0 },
+      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 9, bold: true } },
     });
-    addSectionLabel(slide, "ORIGEM DA CLASSIFICAÇÃO", { left: 840, top: 155, width: 380, height: 24 });
-    addFlatList(
-      slide,
-      coverage.map((row) => ({ label: row.categoria, value: pct(row.share, 2), accent: row.categoria === "Oficial ANBIMA" })),
-      { left: 840, top: 205, width: 380, height: 230 },
-      { fontSize: 14 },
-    );
-    addText(
-      slide,
-      "A classificação de mai/26 combina fotografia cadastral ANBIMA, evidência documental, proxy CVM e registros N/D. A origem permanece visível por fundo.",
-      { left: 840, top: 475, width: 380, height: 105 },
-      { fontSize: 14.5, color: C.mid, lineSpacing: 1.05 },
-    );
+    addSectionLabel(slide, "% DO PL EX-FIC · DEZ/23 → MAI/26", { left: 670, top: 150, width: 550, height: 24 });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 670, top: 185, width: 550, height: 400 }),
+      categories: categories.map((category) => category === "Agro, Indústria e Comércio" ? "Agro, ind. e comércio" : category),
+      series: [
+        { name: "Dez/23", values: categories.map((category) => num(beforeMap[category]?.share)), valuesFormatCode: "0.0%", fill: C.mid },
+        { name: stockShort, values: categories.map((category) => num(afterMap[category]?.share)), valuesFormatCode: "0.0%", fill: C.orange },
+      ],
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 35 },
+      hasLegend: false,
+      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 9, bold: true } },
+    });
+    addText(slide, "Cada período fecha em 100%", { left: 1015, top: 592, width: 205, height: 18 }, {
+      fontSize: 10.5, color: C.note, alignment: "right",
+    });
+    addRect(slide, { left: 760, top: 563, width: 460, height: 24 }, C.white);
   }
 
   // 7. Carteira por recebível
   {
     const slide = presentation.slides.add();
-    const rows = payload.receivables.rows.slice(0, 9);
+    const history = payload.receivables_history.filter((row) => num(row.valor) > 0);
+    const periodBefore = "2023-12";
+    const periodAfter = payload.latest_complete;
+    const before = history.filter((row) => row.competencia === periodBefore);
+    const after = history.filter((row) => row.competencia === periodAfter);
+    const beforeMap = Object.fromEntries(before.map((row) => [row.segmento, row]));
+    const afterMap = Object.fromEntries(after.map((row) => [row.segmento, row]));
+    const categories = [...after]
+      .sort((a, b) => num(b.valor) - num(a.valor))
+      .map((row) => row.segmento);
+    const displayCategories = categories.map((category) => ({
+      "Acoes judiciais": "Ações judiciais",
+      "Agronegocio": "Agronegócio",
+      "Cartao de credito": "Cartão",
+      "Imobiliario": "Imobiliário",
+      "Servicos": "Serviços",
+      "Setor publico": "Setor público",
+    }[category] || category));
+    const financeBefore = beforeMap.Financeiro;
+    const financeAfter = afterMap.Financeiro;
+    const meta = Object.fromEntries(payload.receivables_meta_history.map((row) => [row.competencia, row]));
     addHeader(
       slide,
       "CARTEIRA POR TIPO DE RECEBÍVEL",
-      `A abertura por recebível soma ${bn(payload.receivables.reported_total, 1)}, ${bn(payload.receivables.gap, 1)} acima da carteira da Tabela I`,
-      "Fonte: CVM, Informe Mensal de FIDC, Tabelas I e II, mai/26. Categorias não foram forçadas a reconciliar.",
+      `Financeiro ganhou ${pct(num(financeAfter?.share_reported) - num(financeBefore?.share_reported), 1).replace("%", " p.p.")} e explicou 67% do crescimento segmentado`,
+      `Fonte: CVM, Tabela II, dez/23 e ${stockShortLower}. Soma segmentada supera a Tabela I em ${pct(meta[periodBefore]?.gap_pct, 1)} e ${pct(meta[periodAfter]?.gap_pct, 1)}; percentuais fecham sobre a Tabela II.`,
       7,
     );
+    addSectionLabel(slide, "VALOR REPORTADO · R$ BI", { left: 60, top: 150, width: 550, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 75, top: 150, width: 1115, height: 455 }),
-      categories: rows.map((row) => row.segmento),
+      ...chartBase({ left: 60, top: 183, width: 550, height: 445 }),
+      categories: displayCategories,
       series: [
-        {
-          name: "Valor reportado",
-          values: rows.map((row) => num(row.valor) / 1e9),
-          fill: C.charcoal,
-          points: rows.map((_, idx) => ({ idx, fill: idx === 0 ? C.orange : C.charcoal })),
-        },
+        { name: "Dez/23", values: categories.map((category) => num(beforeMap[category]?.valor) / 1e9), valuesFormatCode: "0.0", fill: C.mid },
+        { name: stockShort, values: categories.map((category) => num(afterMap[category]?.valor) / 1e9), valuesFormatCode: "0.0", fill: C.orange },
       ],
-      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 34 },
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 28 },
       hasLegend: false,
-      xAxis: { ...chartAxis(11, "R$ 0 \"bi\""), min: 0 },
-      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 11.5, bold: true } },
+      xAxis: { ...chartAxis(9, "0"), min: 0 },
+      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 9.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.2, bold: true } },
     });
+    addSectionLabel(slide, "% DO VALOR SEGMENTADO DA TABELA II", { left: 670, top: 150, width: 550, height: 24 });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 670, top: 183, width: 550, height: 445 }),
+      categories: displayCategories,
+      series: [
+        { name: "Dez/23", values: categories.map((category) => num(beforeMap[category]?.share_reported)), valuesFormatCode: "0.0%", fill: C.mid },
+        { name: stockShort, values: categories.map((category) => num(afterMap[category]?.share_reported)), valuesFormatCode: "0.0%", fill: C.orange },
+      ],
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 28 },
+      hasLegend: false,
+      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 9.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.2, bold: true } },
+    });
+    addRect(slide, { left: 760, top: 600, width: 460, height: 24 }, C.white);
+    addText(slide, "Cada período fecha em 100%", { left: 1015, top: 628, width: 205, height: 18 }, {
+      fontSize: 10.5, color: C.note, alignment: "right",
+    });
+    // Reaplicados após os gráficos para evitar que o frame do chart cubra o
+    // início do rótulo no PowerPoint/LibreOffice.
+    addSectionLabel(slide, "VALOR REPORTADO · R$ BI", { left: 60, top: 150, width: 550, height: 24 });
+    addSectionLabel(slide, "% DO VALOR SEGMENTADO DA TABELA II", { left: 670, top: 150, width: 550, height: 24 });
+    addLegend(slide, [
+      { label: "Dez/23", color: C.mid },
+      { label: stockShort, color: C.orange },
+    ], { left: 970, top: 128, width: 250, height: 22 }, 2);
   }
 
   // 8. Observabilidade da inadimplência
@@ -1331,8 +1416,8 @@ function buildPresentation(payload) {
     addHeader(
       slide,
       "INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA",
-      `Atlântico explica ${bn(Math.abs(num(atlantic.delta_excesso_brl)), 1)} da queda de excesso entre jun e jul/24`,
-      "Fonte: painel CVM versionado. Jun/24 e jul/24 não preservam flags brutas de campo; mudança de reporte não é separável.",
+      `Atlântico responde por ${bn(Math.abs(num(atlantic.delta_excesso_brl)), 1)} da quebra de reporte entre jun e jul/24`,
+      "Fonte: painel CVM, regulamento, AGE e DFs. A troca Sefer→ID coincide com mudança de apresentação; a série não é like-for-like.",
       9,
     );
     addStraightLineChart(slide, {
@@ -1352,7 +1437,7 @@ function buildPresentation(payload) {
           line: { style: "solid", fill: C.orange, width: 3 },
         },
       ],
-      yAxis: { ...chartAxis(11, "0.0%"), min: 0, max: 0.18, majorUnit: 0.03 },
+      yAxis: { ...chartAxis(11, "0.0%"), min: 0, max: 0.21, majorUnit: 0.03 },
       labelIndices: [0, 3, 5, 6, 8, 11, categories.length - 1],
       labelFontSize: 9.5,
     });
@@ -1365,6 +1450,9 @@ function buildPresentation(payload) {
       { left: 500, top: 474, width: 300, height: 24 },
       2,
     );
+    addText(slide, "Caso Atlântico detalhado no apêndice · slide 43", { left: 885, top: 476, width: 335, height: 20 }, {
+      fontSize: 10.5, color: C.orange, alignment: "right", verticalAlignment: "middle",
+    });
     const summaryRows = payload.bridge_summary;
     const continuants = summaryRows.find((row) => String(row.bridge_group).includes("continu"));
     const entries = summaryRows.find((row) => String(row.bridge_group).includes("entrada"));
@@ -1391,61 +1479,66 @@ function buildPresentation(payload) {
   // 10. Prestadores e concentração
   {
     const slide = presentation.slides.add();
-    const providers = payload.provider_concentration;
+    const providers = payload.provider_concentration_history;
     const roleOrder = ["administrador", "gestor", "custodiante"];
-    const ordered = roleOrder.map((role) => providers.find((row) => row.papel === role));
+    const beforePeriod = "2025-12";
+    const afterPeriod = payload.latest_complete;
+    const before = roleOrder.map((role) => providers.find((row) => row.competencia === beforePeriod && row.papel === role));
+    const after = roleOrder.map((role) => providers.find((row) => row.competencia === afterPeriod && row.papel === role));
+    const top10Deltas = after.map((row, index) => num(row?.top10_share) - num(before[index]?.top10_share));
     addHeader(
       slide,
       "PRESTADORES · RANKING E CONCENTRAÇÃO",
-      `Top 10: ${pct(ordered[1]?.top10_share, 0)} em gestão, ${pct(ordered[0]?.top10_share, 0)} em administração e ${pct(ordered[2]?.top10_share, 0)} em custódia`,
-      "CVM, mai/26. Shares sobre PL total; prestador não informado permanece no denominador.",
+      `Top 10 recuou ${Math.abs(top10Deltas[0] * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} p.p. em administração, ficou estável em gestão e subiu ${(top10Deltas[2] * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} p.p. em custódia`,
+      `Fonte: CVM, dez/25 e ${stockShortLower}. Shares sobre PL bruto total, incluindo prestador não informado; gestão e custódia de dez/25 usam o cadastro vigente.`,
       10,
     );
+    addSectionLabel(slide, "TOP 10 · % DO PL BRUTO", { left: 60, top: 155, width: 540, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 155, width: 640, height: 420 }),
-      categories: ["Administração", "Gestão", "Custódia"],
+      ...chartBase({ left: 60, top: 195, width: 540, height: 315 }),
+      categories: ["Admin.", "Gestão", "Custódia"],
       series: [
-        { name: "Top 5", values: ordered.map((row) => num(row?.top5_share)), valuesFormatCode: "0.0%", fill: C.line },
-        { name: "Top 10", values: ordered.map((row) => num(row?.top10_share)), valuesFormatCode: "0.0%", fill: C.orange },
+        { name: "Dez/25", values: before.map((row) => num(row?.top10_share)), valuesFormatCode: "0.0%", fill: C.mid },
+        { name: stockShort, values: after.map((row) => num(row?.top10_share)), valuesFormatCode: "0.0%", fill: C.orange },
       ],
-      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 52 },
-      hasLegend: true,
-      legend: { position: "bottom", textStyle: { fill: C.mid, fontSize: 12 } },
-      xAxis: {
-        ...chartAxis(10.5, "0%"),
-        min: 0,
-        max: 0.8,
-        majorUnit: 0.2,
-        majorGridlines: null,
-        minorGridlines: null,
-      },
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 44 },
+      hasLegend: false,
+      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
       yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 11.5, bold: true } },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
     });
-    addRect(slide, { left: 135, top: 510, width: 570, height: 28 }, C.white);
-    addSectionLabel(slide, "TRÊS MAIORES POR FUNÇÃO", { left: 750, top: 155, width: 470, height: 24 });
-    const tableRows = [];
-    ordered.forEach((roleRow) => {
-      roleRow?.top3?.forEach((row, index) => {
-        tableRows.push([
-          index === 0 ? roleLabel(roleRow.papel).toUpperCase() : "",
-          truncateWords(providerShort(row.nome), 36),
-          pct(row.share_pl, 1),
-        ]);
-      });
+    addRect(slide, { left: 60, top: 486, width: 540, height: 35 }, C.white);
+    addSectionLabel(slide, "TOP 5 · % DO PL BRUTO", { left: 680, top: 155, width: 540, height: 24 });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 680, top: 195, width: 540, height: 315 }),
+      categories: ["Admin.", "Gestão", "Custódia"],
+      series: [
+        { name: "Dez/25", values: before.map((row) => num(row?.top5_share)), valuesFormatCode: "0.0%", fill: C.mid },
+        { name: stockShort, values: after.map((row) => num(row?.top5_share)), valuesFormatCode: "0.0%", fill: C.orange },
+      ],
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 44 },
+      hasLegend: false,
+      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
     });
-    addEditorialTable(slide, {
-      left: 750,
-      top: 195,
-      width: 470,
-      height: 390,
-      headers: ["Função", "Prestador", "PL"],
-      rows: tableRows,
-      columnWidths: [110, 270, 90],
-      aligns: ["left", "left", "right"],
-      fontSize: 11.5,
-      rowHeight: 39.5,
+    addRect(slide, { left: 680, top: 486, width: 540, height: 35 }, C.white);
+    addRule(slide, 60, 545, 1160, C.line, 1);
+    const coverageLines = roleOrder.map((role, index) => {
+      const label = roleLabel(role);
+      const display = `${label.charAt(0).toUpperCase()}${label.slice(1)}`;
+      return `${display}: cobertura ${pct(before[index]?.coverage_pl, 1)} → ${pct(after[index]?.coverage_pl, 1)}; N/D ${bn(before[index]?.missing_pl, 1)} → ${bn(after[index]?.missing_pl, 1)}`;
     });
+    addText(slide, coverageLines.join("\n"), { left: 60, top: 565, width: 1160, height: 70 }, {
+      fontSize: 11.5, color: C.mid, lineSpacing: 1.05,
+    });
+    addText(slide, "Administração é observada mensalmente; gestão e custódia de dez/25 são reconstruções com o cadastro CVM vigente.", { left: 60, top: 640, width: 1160, height: 18 }, {
+      fontSize: 10.5, color: C.note, alignment: "right",
+    });
+    addLegend(slide, [
+      { label: "Dez/25", color: C.mid },
+      { label: stockShort, color: C.orange },
+    ], { left: 970, top: 128, width: 250, height: 22 }, 2);
   }
 
   // 11–13. Market share por subtipo, seis focos materiais.
@@ -1884,6 +1977,97 @@ function buildPresentation(payload) {
       });
     });
 
+  // 43. Caso Atlântico: estratégia NPL e quebra de reporte.
+  {
+    const slide = presentation.slides.add();
+    const profile = payload.atlantico_profile;
+    const snapshot = profile.snapshot;
+    const bridge = profile.bridge_2024_06_07;
+    addHeader(
+      slide,
+      "APÊNDICE · CASO ATLÂNTICO",
+      "Atlântico compra créditos já inadimplidos; jul/24 muda a base de reporte",
+      "Fontes: CVM, regulamento de 12/11/24, AGE de 08/07/24 e DFs auditadas de 2024/25. Links completos no workbook.",
+      43,
+    );
+    addText(
+      slide,
+      `${profile.cnpj} · ${profile.denominacao}`,
+      { left: 60, top: 126, width: 1160, height: 34 },
+      { fontSize: 12.2, color: C.note, verticalAlignment: "middle" },
+    );
+
+    addSectionLabel(slide, "O QUE É E COMO FUNCIONA", { left: 60, top: 176, width: 555, height: 24 });
+    addText(
+      slide,
+      [
+        "ESTRATÉGIA",
+        "Veículo fechado de recuperação. O regulamento descreve as carteiras, em regra, como NP, 100% inadimplidas e já baixadas pelos cedentes.",
+        "",
+        "MECÂNICA ECONÔMICA",
+        "Compra definitiva em BIDs, com alto deságio e sem originação pelo Fundo. O retorno depende da recuperação agregada; o saldo contábil é valor esperado descontado, não valor de face.",
+        "",
+        "CEDENTES E DEVEDORES",
+        "Mai/26 nomina Ativos S.A. (19%) e Carrefour Promotora, carteira legada (11%); 70% não são nominados. Devedores são sobretudo PF pulverizadas, com PJ pontuais.",
+        "",
+        "ATIVOS",
+        "Empréstimos, consignado, cheque especial, cartão, CDC, varejo e serviços. Garantias podem existir caso a caso, mas a carteira massificada normalmente não tem garantia real.",
+      ].join("\n"),
+      { left: 60, top: 212, width: 555, height: 300 },
+      { fontSize: 11.8, color: C.charcoal, lineSpacing: 1.02 },
+    );
+    addSectionLabel(slide, "PRESTADORES ATUAIS", { left: 60, top: 525, width: 555, height: 24 });
+    addText(
+      slide,
+      `Administrador e custodiante: ${providerShort(profile.administrador)} · Gestor: ${providerShort(profile.gestor)}\nConsultoria: MGC Capital · Cobrança: Crediativos · Auditor: BDO`,
+      { left: 60, top: 557, width: 555, height: 54 },
+      { fontSize: 11.5, color: C.mid, lineSpacing: 1.02 },
+    );
+
+    addSectionLabel(slide, `POR QUE A INADIMPLÊNCIA É ALTA · ${stockShort.toUpperCase()}`, { left: 665, top: 176, width: 555, height: 24 });
+    addFlatList(
+      slide,
+      [
+        { label: "PL", value: mm(snapshot.pl, 1) },
+        { label: "Carteira DC", value: mm(snapshot.carteira, 1) },
+        { label: "Inadimplência", value: `${mm(snapshot.inadimplencia_bruta, 1)} · ${pct(snapshot.inadimplencia_share_carteira, 1)}`, accent: true },
+        { label: "> 1.080 dias", value: `${mm(snapshot.vencidos_mais_1080d, 1)} · ${pct(snapshot.mais_1080_share_inadimplencia, 2)} da inad.` },
+      ],
+      { left: 665, top: 212, width: 555, height: 150 },
+      { fontSize: 12.5 },
+    );
+    addText(
+      slide,
+      "O 99% é coerente com a estratégia NPL: o fundo compra créditos já vencidos. Aging mede o estado jurídico do crédito; não representa perda adicional de 100% sobre o valor contábil.",
+      { left: 665, top: 374, width: 555, height: 60 },
+      { fontSize: 12.2, color: C.charcoal, lineSpacing: 1.03 },
+    );
+    addSectionLabel(slide, "QUEBRA JUN→JUL/24 · R$ MI", { left: 665, top: 452, width: 555, height: 24 });
+    addEditorialTable(slide, {
+      left: 665,
+      top: 486,
+      width: 555,
+      height: 118,
+      headers: ["Métrica", "Jun/24 · Sefer", "Jul/24 · ID", "Δ"],
+      rows: [
+        ["Inadimplência bruta", mm(bridge.inadimplencia_bruta_jun, 1).replace("R$ ", ""), mm(bridge.inadimplencia_bruta_jul, 1).replace("R$ ", ""), mm(bridge.delta_inadimplencia_bruta, 1).replace("R$ ", "")],
+        ["Carteira DC", mm(bridge.carteira_jun, 1).replace("R$ ", ""), mm(bridge.carteira_jul, 1).replace("R$ ", ""), mm(bridge.delta_carteira, 1).replace("R$ ", "")],
+        ["PL", mm(bridge.pl_jun, 1).replace("R$ ", ""), mm(bridge.pl_jul, 1).replace("R$ ", ""), mm(bridge.delta_pl, 1).replace("R$ ", "")],
+      ],
+      columnWidths: [210, 120, 110, 115],
+      aligns: ["left", "right", "right", "right"],
+      fontSize: 10.5,
+      rowHighlights: new Set([0]),
+    });
+    addRule(slide, 60, 620, 1160, C.line, 1);
+    addText(
+      slide,
+      "A queda de R$ 16,6 bi no bruto não foi recuperação em caixa: coincide com troca de administrador e mudança de apresentação/mensuração. As DFs registram opinião modificada para 01/01–19/07/24 por inconsistências de lastro e posição. A série não é like-for-like; a subclasse atual também diverge entre DFs e informe mensal.",
+      { left: 60, top: 630, width: 1160, height: 30 },
+      { fontSize: 10.4, color: C.note, lineSpacing: 0.98 },
+    );
+  }
+
   return presentation;
 }
 
@@ -2080,7 +2264,7 @@ async function addQaSheet(workbook) {
   setHeaderBand(
     sheet,
     "QA Inadimplência",
-    "Resumo por competência. Campos ausentes permanecem distintos de zero; a base detalhada está em 'Base competência/CNPJ'.",
+    "Resumo por competência. Campos ausentes permanecem distintos de zero; a base detalhada está em 'Base competência-CNPJ'.",
     headers,
     rows.length,
     { freezeColumns: 1 },
@@ -2137,7 +2321,7 @@ async function addVehicleCompetenceSheet(workbook) {
       selected.map(([header, source]) => [header, source ? row[indexBySource[source]] ?? "" : null]),
     ),
   );
-  const sheet = resetSheet(workbook, "Base competência/CNPJ");
+  const sheet = resetSheet(workbook, "Base competência-CNPJ");
   setHeaderBand(
     sheet,
     "Base competência/CNPJ",
@@ -2192,7 +2376,7 @@ async function addFundBaseSheet(workbook) {
   ];
   const headers = columns.map(([header]) => header);
   const rows = worksheetRowsFromPayload(sourceRows, columns);
-  const sheet = resetSheet(workbook, "Base por fundo/CNPJ");
+  const sheet = resetSheet(workbook, "Base por fundo-CNPJ");
   setHeaderBand(
     sheet,
     "Base por fundo/CNPJ",
@@ -2377,6 +2561,209 @@ async function addCurationSheet(workbook, payload) {
   sheet.getRange(`A5:X${rows.length + 4}`).format.rowHeightPx = 120;
 }
 
+async function addHistoricalComparisonsSheet(workbook, payload) {
+  const headers = [
+    "Painel",
+    "Competência",
+    "Categoria / função",
+    "Quantidade",
+    "Share quantidade",
+    "PL / valor",
+    "Share PL / valor",
+    "Denominador quantidade",
+    "Denominador PL / valor",
+    "Cobertura PL",
+    "PL N/D",
+    "Top 5",
+    "Top 10",
+    "Nota",
+  ];
+  const rows = [];
+  const holderMeta = Object.fromEntries(
+    payload.holder_distribution_meta_history.map((row) => [row.competencia, row]),
+  );
+  payload.holder_distribution_history.forEach((row) => {
+    const meta = holderMeta[row.competencia] || {};
+    rows.push({
+      "Painel": "Número de cotistas",
+      "Competência": row.competencia,
+      "Categoria / função": row.bucket,
+      "Quantidade": row.fundos,
+      "Share quantidade": row.share_fundos,
+      "PL / valor": row.pl,
+      "Share PL / valor": row.share_pl,
+      "Denominador quantidade": row.universo_fundos,
+      "Denominador PL / valor": row.universo_pl,
+      "Cobertura PL": meta.pl_coverage,
+      "PL N/D": null,
+      "Top 5": null,
+      "Top 10": null,
+      "Nota": "Ex-FIC; PL nominal ≥ R$ 200 mi; contas por classe/série.",
+    });
+  });
+  payload.type_mix_history.forEach((row) => {
+    const total = payload.type_mix_history
+      .filter((item) => item.competencia === row.competencia)
+      .reduce((sum, item) => sum + num(item.pl), 0);
+    rows.push({
+      "Painel": "Tipo ANBIMA",
+      "Competência": row.competencia,
+      "Categoria / função": row.anbima_tipo,
+      "Quantidade": null,
+      "Share quantidade": null,
+      "PL / valor": row.pl,
+      "Share PL / valor": row.share,
+      "Denominador quantidade": null,
+      "Denominador PL / valor": total,
+      "Cobertura PL": null,
+      "PL N/D": null,
+      "Top 5": null,
+      "Top 10": null,
+      "Nota": "Taxonomia cadastral vigente aplicada ao histórico; FIC atual em período ex-FIC entra em N/D.",
+    });
+  });
+  const receivablesMeta = Object.fromEntries(
+    payload.receivables_meta_history.map((row) => [row.competencia, row]),
+  );
+  payload.receivables_history.filter((row) => num(row.valor) > 0).forEach((row) => {
+    const meta = receivablesMeta[row.competencia] || {};
+    rows.push({
+      "Painel": "Tipo de recebível",
+      "Competência": row.competencia,
+      "Categoria / função": row.segmento,
+      "Quantidade": null,
+      "Share quantidade": null,
+      "PL / valor": row.valor,
+      "Share PL / valor": row.share_reported,
+      "Denominador quantidade": null,
+      "Denominador PL / valor": meta.reported_total,
+      "Cobertura PL": null,
+      "PL N/D": null,
+      "Top 5": null,
+      "Top 10": null,
+      "Nota": `Tabela II; gap vs Tabela I: ${pct(meta.gap_pct, 2)}.`,
+    });
+  });
+  payload.provider_concentration_history.forEach((row) => {
+    rows.push({
+      "Painel": "Prestadores",
+      "Competência": row.competencia,
+      "Categoria / função": roleLabel(row.papel),
+      "Quantidade": row.n_fundos,
+      "Share quantidade": null,
+      "PL / valor": row.identified_pl,
+      "Share PL / valor": null,
+      "Denominador quantidade": row.n_fundos,
+      "Denominador PL / valor": row.total_pl,
+      "Cobertura PL": row.coverage_pl,
+      "PL N/D": row.missing_pl,
+      "Top 5": row.top5_share,
+      "Top 10": row.top10_share,
+      "Nota": row.source_note,
+    });
+  });
+  const sheet = resetSheet(workbook, "Comparativos históricos");
+  setHeaderBand(
+    sheet,
+    "Comparativos históricos",
+    "Bases dos slides 5, 6, 7 e 10. Percentuais de recebíveis fecham sobre a soma segmentada da Tabela II; prestador não informado permanece no denominador.",
+    headers,
+    rows.length,
+    { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [145, 85, 190, 90, 100, 115, 105, 115, 125, 90, 105, 80, 80, 360], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["F", "I", "K"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  });
+  sheet.getRange(`A5:N${rows.length + 4}`).format.rowHeightPx = 36;
+}
+
+async function addAtlanticoSheet(workbook, payload) {
+  const profile = payload.atlantico_profile;
+  const factHeaders = ["Seção", "Campo", "Evidência / leitura", "Status / limitação"];
+  const facts = [
+    ["Identificação", "CNPJ / denominação", `${profile.cnpj} · ${profile.denominacao}`, "CVM; mai/26"],
+    ["Estrutura", "Estratégia", profile.estrategia, "Política vigente; não inferida pelo nome"],
+    ["Estrutura", "Classificação", profile.classificacao, `is_np do pipeline = ${String(profile.is_np_pipeline)}`],
+    ["Carteira", "Cedentes / originadores", profile.cedente_originador, "Top 2 cobrem 30%; demais não nominados"],
+    ["Carteira", "Sacados / devedores", profile.perfil_sacados, "Lista individual não pública"],
+    ["Carteira", "Natureza dos recebíveis", profile.natureza_recebiveis, "Mix de mai/26 no informe mensal"],
+    ["Economia", "Funcionamento", profile.funcionamento_economico, "Valor contábil ≠ valor de face"],
+    ["Governança", "Prestadores", profile.prestadores, "Sefer administrou até 19/07/24"],
+    ["Governança", "Público-alvo", profile.publico_alvo, "Conta de cotista ≠ identidade do investidor"],
+    ["Capital", "Subordinação", profile.subordinacao, "Requer confirmação do administrador"],
+    ["Risco", "Garantias", profile.garantias, "Sem coobrigação de pagamento do cedente"],
+    ["Inadimplência", "Leitura", profile.leitura_inadimplencia, "Estratégia NPL; separar de deterioração"],
+    ["Quebra de série", "Jun/24 → jul/24", profile.bridge_interpretacao, "Não like-for-like"],
+    ["Auditoria", "Valoração e opinião", profile.auditoria_valor_justo, "Bandeira de qualidade pré-20/07/24"],
+    ["Limitações", "Pontos não observáveis", profile.limitacoes.join(" | "), "Não preencher por inferência"],
+  ];
+  const sheet = resetSheet(workbook, "Curadoria Atlântico");
+  setHeaderBand(
+    sheet,
+    "Curadoria Atlântico",
+    "Caso estrutural de NPL e quebra de reporte. Fontes, fatos observados, interpretação e lacunas permanecem separados.",
+    factHeaders,
+    facts.length,
+    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
+  );
+  sheet.getRange(`A5:D${facts.length + 4}`).values = facts;
+  applyColumnWidths(sheet, [220, 150, 680, 300], facts.length);
+  sheet.getRange(`A5:D${facts.length + 4}`).format.rowHeightPx = 88;
+
+  const sourceHeaderRow = facts.length + 7;
+  const sourceHeaders = ["Fonte", "Tipo", "URL", "Data consulta"];
+  sheet.getRange(`A${sourceHeaderRow}:D${sourceHeaderRow}`).values = [sourceHeaders];
+  sheet.getRange(`A${sourceHeaderRow}:D${sourceHeaderRow}`).format.fill = C.black;
+  sheet.getRange(`A${sourceHeaderRow}:D${sourceHeaderRow}`).format.font = { name: "Arial", size: 9, bold: true, color: C.white };
+  const sourceRows = profile.fontes.map((row) => [row.label, row.tipo, row.url, row.data_consulta]);
+  sheet.getRangeByIndexes(sourceHeaderRow, 0, sourceRows.length, sourceHeaders.length).values = sourceRows;
+  const sourceFirst = sourceHeaderRow + 1;
+  const sourceLast = sourceHeaderRow + sourceRows.length;
+  sheet.getRange(`A${sourceFirst}:D${sourceLast}`).format.font = { name: "Arial", size: 9, color: C.charcoal };
+  sheet.getRange(`A${sourceFirst}:D${sourceLast}`).format.wrapText = true;
+  sheet.getRange(`A${sourceFirst}:D${sourceLast}`).format.rowHeightPx = 42;
+}
+
+async function addAtlanticoHistorySheet(workbook, payload) {
+  const columns = [
+    ["Competência", "competencia"],
+    ["Administrador", "administrador"],
+    ["PL", "pl"],
+    ["Carteira DC", "carteira"],
+    ["Inadimplência bruta", "inadimplencia_bruta"],
+    ["Inadimplência ajustada", "inadimplencia_ajustada"],
+    ["> 360d", "vencidos_mais_360d"],
+    ["> 1.080d", "vencidos_mais_1080d"],
+    ["Excesso", "excesso"],
+    ["Bruta / carteira", "inadimplencia_share_carteira"],
+    ["Ajustada / carteira", "ajustada_share_carteira"],
+    ["> 360d / carteira", "mais_360_share_carteira"],
+    ["Aging reportado", "aging_reportado"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.atlantico_history, columns);
+  const sheet = resetSheet(workbook, "Série Atlântico");
+  setHeaderBand(
+    sheet,
+    "Série Atlântico",
+    "Valores observados no painel CVM. Campo de aging ausente permanece vazio; ajuste é o cap analítico, não uma observação econômica do fundo.",
+    headers,
+    rows.length,
+    { freezeColumns: 2, wrapText: true },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [90, 330, 115, 115, 125, 125, 115, 115, 115, 105, 110, 110, 100], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["C", "D", "E", "F", "G", "H", "I"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  });
+  sheet.getRange(`J5:L${rows.length + 4}`).format.numberFormat = "0.00%";
+  sheet.getRange(`A5:M${rows.length + 4}`).format.rowHeightPx = 42;
+}
+
 async function addChecksSheet(workbook, payload) {
   const sheet = resetSheet(workbook, "Checks revisão");
   const headers = ["Teste", "Fórmula / valor", "Esperado", "Status"];
@@ -2391,6 +2778,11 @@ async function addChecksSheet(workbook, payload) {
     ["Slides do corpo na ordem definida", 18, 18, '=IF(B9=C9,"OK","ERRO")'],
     ["Perfis Top 20", payload.profiles.length, 20, '=IF(B10=C10,"OK","ERRO")'],
     ["Combinações função×foco", focusRows.length, 42, '=IF(B11=C11,"OK","ERRO")'],
+    ["Histograma cotistas dez/23 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share_fundos), 0), 1, '=IF(ABS(B12-C12)<0.0000001,"OK","ERRO")'],
+    ["Histograma cotistas mai/26 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === payload.latest_complete).reduce((s, r) => s + num(r.share_pl), 0), 1, '=IF(ABS(B13-C13)<0.0000001,"OK","ERRO")'],
+    ["Tipo ANBIMA dez/23 fecha 100%", payload.type_mix_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share), 0), 1, '=IF(ABS(B14-C14)<0.0000001,"OK","ERRO")'],
+    ["Recebíveis mai/26 fecham 100%", payload.receivables_history.filter((r) => r.competencia === payload.latest_complete).reduce((s, r) => s + num(r.share_reported), 0), 1, '=IF(ABS(B15-C15)<0.0000001,"OK","ERRO")'],
+    ["Caso Atlântico presente", payload.atlantico_history.length, 5, '=IF(B16=C16,"OK","ERRO")'],
   ];
   setHeaderBand(sheet, "Checks revisão", "Controles executados no gerador. A ausência de markers é testada diretamente no OOXML do PPTX.", headers, tests.length, { freezeColumns: 1 });
   sheet.getRange(`A5:D${tests.length + 4}`).values = tests.map((row) => [row[0], null, row[2], null]);
@@ -2416,6 +2808,9 @@ async function buildWorkbook(payload) {
   await addMarketShareSheet(workbook);
   await addTop20Sheets(workbook, payload);
   await addCurationSheet(workbook, payload);
+  await addHistoricalComparisonsSheet(workbook, payload);
+  await addAtlanticoSheet(workbook, payload);
+  await addAtlanticoHistorySheet(workbook, payload);
   await addChecksSheet(workbook, payload);
   return workbook;
 }
@@ -2448,13 +2843,16 @@ async function exportWorkbook(workbook) {
   if (!SKIP_QA) {
     const previewSheets = [
       ["QA Inadimplência", "A1:AB26"],
-      ["Base por fundo/CNPJ", "A1:U20"],
+      ["Base por fundo-CNPJ", "A1:U20"],
       ["Concentração de monoestruturas", "A1:N24"],
       ["Market share por subtipo", "A1:S26"],
       ["Top 20 FIDCs", "A1:M25"],
       ["Top 20 Outros", "A1:J25"],
       ["Curadoria Top 20", "A1:X16"],
-      ["Checks revisão", "A1:D14"],
+      ["Comparativos históricos", "A1:N28"],
+      ["Curadoria Atlântico", "A1:D36"],
+      ["Série Atlântico", "A1:M12"],
+      ["Checks revisão", "A1:D20"],
     ];
     const workbookQa = path.join(QA_DIR, "workbook_revisado");
     await fs.mkdir(workbookQa, { recursive: true });
@@ -2483,8 +2881,8 @@ async function main() {
   const payload = JSON.parse(payloadRaw.toString("utf8"));
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
     const presentation = buildPresentation(payload);
-    if (presentation.slides.items.length !== 42) {
-      throw new Error(`Deck deveria ter 42 slides; gerou ${presentation.slides.items.length}.`);
+    if (presentation.slides.items.length !== 43) {
+      throw new Error(`Deck deveria ter 43 slides; gerou ${presentation.slides.items.length}.`);
     }
     await exportPresentation(presentation);
   }

@@ -27,17 +27,20 @@ BUNDLE_MANIFEST_NAME = "industry_export_bundle.json"
 MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v1"
-EXPECTED_SLIDES = 42
+EXPECTED_SLIDES = 43
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
-    "Base por fundo/CNPJ",
-    "Base competência/CNPJ",
+    "Base por fundo-CNPJ",
+    "Base competência-CNPJ",
     "Checks revisão",
     "Concentração de monoestruturas",
     "Market share por subtipo",
     "Top 20 FIDCs",
     "Top 20 Outros",
     "Curadoria Top 20",
+    "Comparativos históricos",
+    "Curadoria Atlântico",
+    "Série Atlântico",
 }
 
 

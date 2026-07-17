@@ -35,6 +35,7 @@ from tabs.tab_industry_study import (
     _industry_holder_histogram_frames,
     _industry_monostructure_frames,
     _revision_holder_distribution_frame,
+    _revision_period_encoding,
     _render_industry_tab4_conflict_notice,
     _industry_tab4_conflict_notice,
 )
@@ -253,7 +254,16 @@ def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None
     assert "border-left: 4px solid #EC7000;" in source
     assert ".industry-thesis b { color: #EC7000; }" in source
     assert "#ff5a00" not in revision_source.lower()
-    assert ".mark_bar(color=_ORANGE" in revision_source
+    period_order, period_colors = _revision_period_encoding(
+        pd.DataFrame(
+            {
+                "competencia": ["2023-12", "2026-05"],
+                "Período": ["Dez/23", "Mai/26"],
+            }
+        )
+    )
+    assert period_order == ["Dez/23", "Mai/26"]
+    assert period_colors == ["#8D9399", "#EC7000"]
     assert "alt.value(_ORANGE)" in revision_source
     assert "range=[_ORANGE, _BLACK]" in revision_source
 
@@ -276,14 +286,31 @@ def test_industry_revision_holder_distributions_add_normalized_percentage_charts
     assert normalized["share_fundos"].tolist() == pytest.approx([0.5, 0.3, 0.2])
     assert normalized["share_pl"].tolist() == pytest.approx([0.2, 0.2, 0.6])
 
+    historical = _revision_holder_distribution_frame(
+        pd.DataFrame(
+            {
+                "competencia": ["2023-12", "2023-12", "2026-05", "2026-05"],
+                "bucket": ["1", ">1", "1", ">1"],
+                "fundos": [3, 1, 1, 3],
+                "pl": [75.0, 25.0, 20.0, 80.0],
+            }
+        )
+    )
+    assert historical.groupby("competencia")["share_fundos"].sum().tolist() == pytest.approx([1.0, 1.0])
+    assert historical.groupby("competencia")["share_pl"].sum().tolist() == pytest.approx([1.0, 1.0])
+
     source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
     revision_source = source[source.index("def _render_revision_investors") :]
-    assert 'title="Quantidade de fundos — % do total"' in revision_source
-    assert 'title="PL por faixa — % do total"' in revision_source
-    assert 'key="industry-revision-holder-funds-share"' in revision_source
-    assert 'key="industry-revision-holder-pl-share"' in revision_source
-    assert revision_source.count('text=alt.Text("share_') >= 2
+    assert 'title="Fundos por faixa: % do total"' in revision_source
+    assert 'title="PL por faixa: % do total"' in revision_source
+    assert 'key="industry-revision-holder-funds-share-history"' in revision_source
+    assert 'key="industry-revision-holder-pl-share-history"' in revision_source
+    assert revision_source.count('xOffset=alt.XOffset("Período:N"') >= 4
     assert revision_source.count('format=".0%"') >= 2
+    assert 'key="industry-revision-receivables-share-history"' in revision_source
+    assert '"industry-revision-provider-top10-history"' in revision_source
+    assert 'payload.get("atlantico_profile")' in source
+    assert "_render_revision_atlantico(payload)" in revision_source
 
     with pytest.raises(ValueError, match="fundos negativo"):
         _revision_holder_distribution_frame(

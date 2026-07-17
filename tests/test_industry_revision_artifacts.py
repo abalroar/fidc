@@ -138,7 +138,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 42
+    assert len(slides) == 43
     expected_body = [
         "SÍNTESE EXECUTIVA",
         "ESCALA DA INDÚSTRIA",
@@ -165,12 +165,14 @@ def test_deck_order_and_profile_count() -> None:
     assert "Administração por subtipo" in slides[19]
     assert "Gestão por subtipo" in slides[20]
     assert "Custódia por subtipo" in slides[21]
-    profiles = slides[22:]
+    profiles = slides[22:42]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[42]
+    assert "09.194.841/0001-51" in slides[42]
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
@@ -214,14 +216,54 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
         assert sorted(y_positions).count(max(y_positions)) == 2
         assert len(set(y_positions)) == 2
 
-        series: dict[str, list[float]] = {}
-        for chart_path in _slide_chart_paths(archive, 5):
-            series.update(_chart_series_values(ET.fromstring(archive.read(chart_path))))
+        chart_series = [
+            _chart_series_values(ET.fromstring(archive.read(chart_path)))
+            for chart_path in _slide_chart_paths(archive, 5)
+        ]
 
-    assert set(series) == {"Fundos", "PL", "% dos fundos", "% do PL"}
-    for name in ("% dos fundos", "% do PL"):
-        assert len(series[name]) == 6
-        assert sum(series[name]) == pytest.approx(1.0, abs=1e-9)
+    assert len(chart_series) == 4
+    for series in chart_series:
+        assert set(series) == {"Dez/23", "Mai/26"}
+        assert all(len(values) == 6 for values in series.values())
+    normalized = [
+        series
+        for series in chart_series
+        if all(sum(values) == pytest.approx(1.0, abs=1e-9) for values in series.values())
+    ]
+    assert len(normalized) == 2
+
+
+@pytest.mark.parametrize(
+    ("slide_number", "periods"),
+    [
+        (6, {"Dez/23", "Mai/26"}),
+        (7, {"Dez/23", "Mai/26"}),
+        (10, {"Dez/25", "Mai/26"}),
+    ],
+)
+def test_before_after_slides_have_two_clustered_charts(
+    slide_number: int, periods: set[str]
+) -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, slide_number)
+        chart_series = [
+            _chart_series_values(ET.fromstring(archive.read(chart_path)))
+            for chart_path in chart_paths
+        ]
+
+    assert len(chart_series) == 2
+    assert all(set(series) == periods for series in chart_series)
+    if slide_number in {6, 7}:
+        normalized = [
+            series
+            for series in chart_series
+            if all(
+                sum(values) == pytest.approx(1.0, abs=1e-9)
+                for values in series.values()
+            )
+        ]
+        assert len(normalized) == 1
 
 
 def test_deck_palette_and_explicit_slide_font() -> None:
@@ -253,13 +295,16 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
     _require(XLSX)
     required = {
         "QA Inadimplência",
-        "Base competência/CNPJ",
-        "Base por fundo/CNPJ",
+        "Base competência-CNPJ",
+        "Base por fundo-CNPJ",
         "Concentração de monoestruturas",
         "Market share por subtipo",
         "Top 20 FIDCs",
         "Top 20 Outros",
         "Curadoria Top 20",
+        "Comparativos históricos",
+        "Curadoria Atlântico",
+        "Série Atlântico",
         "Checks revisão",
     }
     with ZipFile(XLSX) as archive:
@@ -299,4 +344,4 @@ def test_revision_renderer_version_tracks_holder_distribution_layout() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v3";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v4";' in source
