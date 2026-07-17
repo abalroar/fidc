@@ -46,6 +46,8 @@ data/raw/
 data/regulatory_extractions/
 data/fidc_credit_strategy/*.sqlite
 outputs/fidc_credit_strategy_study_*/
+*.inspect.ndjson
+.playwright-cli/
 
 # OS
 .DS_Store

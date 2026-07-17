@@ -237,6 +237,25 @@ def to_num(series: pd.Series) -> pd.Series:
     return pd.to_numeric(series, errors="coerce").fillna(0.0)
 
 
+def field_reported(frame: pd.DataFrame, columns: tuple[str, ...]) -> pd.Series:
+    """Return whether at least one source field was actually populated.
+
+    ``RawStore`` intentionally reads CVM files with ``keep_default_na=False``.
+    That makes it possible to distinguish a reported numeric zero (``"0"``)
+    from an empty cell (``""``) before the numeric conversion performed by
+    :func:`to_num`.  Coverage calculations must use these flags rather than the
+    materialized numeric value.
+    """
+
+    present = pd.Series(False, index=frame.index, dtype=bool)
+    for column in columns:
+        if column not in frame.columns:
+            continue
+        raw = frame[column].fillna("").astype(str).str.strip()
+        present |= raw.ne("")
+    return present
+
+
 def load_classe_fundo_map(raw_dir: Path, *, allow_download: bool) -> pd.DataFrame:
     """Mapa CNPJ_Classe -> CNPJ_Fundo + atributos cadastrais da classe."""
     dest = raw_dir / "registro_fundo_classe.zip"
@@ -559,6 +578,18 @@ def aggregate_month(
     if tab1 is not None and not tab1.empty:
         tab1 = _stable_one_row_per_cnpj(tab1)
         audit["tab1_veiculos"] = int(tab1["cnpj"].nunique())
+        tab1["reports_carteira_dc"] = field_reported(
+            tab1,
+            ("TAB_I2A_VL_DIRCRED_RISCO", "TAB_I2B_VL_DIRCRED_SEM_RISCO"),
+        )
+        tab1["reports_dc_inadimplentes"] = field_reported(
+            tab1,
+            ("TAB_I2A3_VL_CRED_INAD", "TAB_I2B3_VL_CRED_INAD"),
+        )
+        tab1["reports_dc_a_vencer_com_parcela_inad"] = field_reported(
+            tab1,
+            ("TAB_I2A2_VL_CRED_VENC_INAD", "TAB_I2B2_VL_CRED_VENC_INAD"),
+        )
         for col in (
             "TAB_I_VL_ATIVO",
             "TAB_I2A_VL_DIRCRED_RISCO",
@@ -632,6 +663,13 @@ def aggregate_month(
                 "dc_inadimplentes_ajustado": tab1["inad_cap"],
                 "dc_a_vencer_com_parcela_inad": tab1["TAB_I2A2_VL_CRED_VENC_INAD_n"]
                 + tab1["TAB_I2B2_VL_CRED_VENC_INAD_n"],
+                "reports_tab_i": True,
+                "reports_carteira_dc": tab1["reports_carteira_dc"],
+                "reports_dc_inadimplentes": tab1["reports_dc_inadimplentes"],
+                "reports_dc_a_vencer_com_parcela_inad": tab1[
+                    "reports_dc_a_vencer_com_parcela_inad"
+                ],
+                "report_flag_source": "campo_bruto_CVM",
                 "is_np": is_np,
             }
         )
@@ -657,6 +695,65 @@ def aggregate_month(
                     "n_veiculos": int(row["n_veiculos"]),
                 }
             )
+
+    # Tabelas V e VI: aging dos direitos creditórios inadimplentes, com e sem
+    # aquisição substancial de risco. As duas tabelas são somadas por CNPJ para
+    # testar a reconciliação do aging com os dois blocos da Tabela I (I2A/I2B).
+    aging_parts: list[pd.DataFrame] = []
+    aging_columns = {
+        "B1_VL_INAD_30": "inad_ate_30d",
+        "B2_VL_INAD_60": "inad_31_60d",
+        "B3_VL_INAD_90": "inad_61_90d",
+        "B4_VL_INAD_120": "inad_91_120d",
+        "B5_VL_INAD_150": "inad_121_150d",
+        "B6_VL_INAD_180": "inad_151_180d",
+        "B7_VL_INAD_360": "inad_181_360d",
+        "B8_VL_INAD_720": "inad_361_720d",
+        "B9_VL_INAD_1080": "inad_721_1080d",
+        "B10_VL_INAD_MAIOR_1080": "inad_maior_1080d",
+    }
+    for table_name, prefix in (("tab_V", "TAB_V_"), ("tab_VI", "TAB_VI_")):
+        aging = store.read_table(yyyymm, table_name)
+        if aging is None or aging.empty:
+            continue
+        aging = _stable_one_row_per_cnpj(aging)
+        part = pd.DataFrame({"cnpj": aging["cnpj"]})
+        reported_columns: list[str] = []
+        for suffix, output_column in aging_columns.items():
+            source_column = prefix + suffix
+            reported_column = f"reports_{output_column}"
+            part[output_column] = (
+                to_num(aging[source_column])
+                if source_column in aging.columns
+                else pd.Series(0.0, index=aging.index)
+            )
+            part[reported_column] = field_reported(aging, (source_column,))
+            reported_columns.append(reported_column)
+        part["reports_aging"] = part[reported_columns].any(axis=1)
+        aging_parts.append(part)
+    if aging_parts:
+        aging_all = pd.concat(aging_parts, ignore_index=True)
+        value_columns = list(aging_columns.values())
+        report_columns = [f"reports_{column}" for column in value_columns]
+        aging_vehicle = (
+            aging_all.groupby("cnpj", as_index=False)
+            .agg(
+                **{column: (column, "sum") for column in value_columns},
+                **{column: (column, "any") for column in report_columns},
+                reports_aging=("reports_aging", "any"),
+            )
+        )
+        aging_vehicle["inad_acima_360d"] = aging_vehicle[
+            ["inad_361_720d", "inad_721_1080d", "inad_maior_1080d"]
+        ].sum(axis=1)
+        aging_vehicle["reports_inad_acima_360d"] = aging_vehicle[
+            [
+                "reports_inad_361_720d",
+                "reports_inad_721_1080d",
+                "reports_inad_maior_1080d",
+            ]
+        ].any(axis=1)
+        vehicle = vehicle.merge(aging_vehicle, on="cnpj", how="left")
 
     # Tabela II: carteira por segmento
     segments: list[dict] = []
@@ -869,6 +966,17 @@ def aggregate_month(
         "vl_substituicoes",
         "x4_linhas_descartadas_veiculo",
         "x4_valor_descartado_veiculo",
+        "inad_ate_30d",
+        "inad_31_60d",
+        "inad_61_90d",
+        "inad_91_120d",
+        "inad_121_150d",
+        "inad_151_180d",
+        "inad_181_360d",
+        "inad_361_720d",
+        "inad_721_1080d",
+        "inad_maior_1080d",
+        "inad_acima_360d",
     ):
         if col not in vehicle.columns:
             vehicle[col] = 0.0
@@ -910,6 +1018,12 @@ def build_universe_snapshot(
     tab4["pl"] = to_num(tab4["TAB_IV_A_VL_PL"])
     tab4 = deduplicate_tab4_records(tab4)
     tab1 = _stable_one_row_per_cnpj(tab1)
+    tab1["reports_carteira_dc"] = field_reported(
+        tab1, ("TAB_I2A_VL_DIRCRED_RISCO", "TAB_I2B_VL_DIRCRED_SEM_RISCO")
+    )
+    tab1["reports_dc_inadimplentes"] = field_reported(
+        tab1, ("TAB_I2A3_VL_CRED_INAD", "TAB_I2B3_VL_CRED_INAD")
+    )
     out = pd.DataFrame(
         {
             "competencia": comp,
@@ -932,6 +1046,10 @@ def build_universe_snapshot(
             + to_num(tab1.get("TAB_I2B_VL_DIRCRED_SEM_RISCO", pd.Series(dtype=str))),
             "dc_inadimplentes": to_num(tab1.get("TAB_I2A3_VL_CRED_INAD", pd.Series(dtype=str)))
             + to_num(tab1.get("TAB_I2B3_VL_CRED_INAD", pd.Series(dtype=str))),
+            "reports_tab_i": True,
+            "reports_carteira_dc": tab1["reports_carteira_dc"],
+            "reports_dc_inadimplentes": tab1["reports_dc_inadimplentes"],
+            "report_flag_source": "campo_bruto_CVM",
         }
     )
     out = out.merge(slim1, on="cnpj", how="left")
@@ -1154,6 +1272,10 @@ def run_pipeline(args: argparse.Namespace) -> None:
             "Cotistas = contas por classe/serie (Tab X.1), nao CPFs/CNPJs unicos.",
             "Captacao/resgate/amortizacao: Tab X.4 (valores de movimentacao de cotas no mes).",
             "vehicle_monthly.csv.gz materializa a menor unidade analitica mensal versionada: competencia x veiculo reportante.",
+            "Flags reports_* preservam a diferença entre campo bruto vazio e zero efetivamente "
+            "reportado; cobertura não deve ser medida pelo valor numérico materializado.",
+            "Buckets de aging inadimplente vêm das Tabelas V e VI e incluem faixas acima de "
+            "360 dias; a disponibilidade é indicada por reports_aging/reports_inad_acima_360d.",
             "update_audit_monthly.csv registra cobertura de tabelas e filtros de sanidade para atualizar o estudo mes a mes.",
             "Gestor e custodiante vem do cadastro vigente (foto), nao do informe mensal.",
             "Picos de um unico mes por veiculo (>20x o mes anterior e o seguinte) sao excluidos de PL e cotistas como erro de preenchimento.",
@@ -1486,6 +1608,44 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--report", action="store_true", help="gera tambem o relatorio executivo")
     parser.add_argument("--report-path", default="reports/fidc_industry_study.md")
     parser.add_argument("--report-only", action="store_true", help="so renderiza o relatorio a partir dos CSVs existentes")
+    parser.add_argument(
+        "--revision-analysis",
+        action="store_true",
+        help="materializa também as tabelas auditáveis da revisão executiva",
+    )
+    parser.add_argument(
+        "--revision-output-dir",
+        default="data/industry_study/generated_revision",
+    )
+    parser.add_argument(
+        "--publish-revision-bundle",
+        action="store_true",
+        help=(
+            "recalcula a revisão e publica offline o bundle PPTX/XLSX auditado; "
+            "implica a análise revisada"
+        ),
+    )
+    parser.add_argument(
+        "--revision-input-workbook",
+        default="",
+        help="workbook-base obrigatório quando --publish-revision-bundle é usado",
+    )
+    parser.add_argument(
+        "--revision-curation",
+        default="outputs/analysis/top20_fidcs_curadoria.csv",
+        help="curadoria documental usada nas fichas do Top 20",
+    )
+    parser.add_argument(
+        "--revision-node-modules",
+        default="",
+        help="node_modules offline contendo @oai/artifact-tool; vazio usa discovery local",
+    )
+    parser.add_argument(
+        "--revision-publish-timeout",
+        type=int,
+        default=1800,
+        help="timeout em segundos do renderer Office offline",
+    )
     return parser.parse_args(argv)
 
 
@@ -1496,6 +1656,48 @@ def main(argv: list[str] | None = None) -> None:
         print(f"[ok] relatorio gravado em {args.report_path}")
         return
     run_pipeline(args)
+    if args.publish_revision_bundle:
+        if not str(args.revision_input_workbook or "").strip():
+            raise SystemExit(
+                "--revision-input-workbook é obrigatório com --publish-revision-bundle"
+            )
+        from scripts.publish_fidc_revision_bundle import main as publish_revision
+
+        publish_args = [
+            "--data-dir",
+            args.output_dir,
+            "--publish-dir",
+            args.revision_output_dir,
+            "--raw-dir",
+            args.raw_dir,
+            "--input-workbook",
+            args.revision_input_workbook,
+            "--curation",
+            args.revision_curation,
+            "--timeout-seconds",
+            str(max(1, int(args.revision_publish_timeout))),
+            "--refresh-source-presence",
+        ]
+        if str(args.revision_node_modules or "").strip():
+            publish_args.extend(["--node-modules", args.revision_node_modules])
+        if args.skip_download:
+            publish_args.append("--skip-download")
+        publish_revision(publish_args)
+    elif args.revision_analysis:
+        from scripts.build_fidc_revision_analysis import main as build_revision
+
+        revision_args = [
+            "--data-dir",
+            args.output_dir,
+            "--output-dir",
+            args.revision_output_dir,
+            "--raw-dir",
+            args.raw_dir,
+            "--refresh-source-presence",
+        ]
+        if args.skip_download:
+            revision_args.append("--skip-download")
+        build_revision(revision_args)
 
 
 if __name__ == "__main__":
