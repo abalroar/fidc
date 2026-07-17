@@ -20,6 +20,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pandas as pd
 
 from services.export_chart_labels import choose_export_label_policy, format_export_label
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fund_return_matrix import (
     RETURN_SERIES_COLUMN,
     RETURN_TRAILING_12M_COLUMN,
@@ -629,6 +630,22 @@ def _add_fund_return_slide(
                 Pt=Pt,
                 RGBColor=RGBColor,
             )
+
+    _textbox(
+        slide,
+        f"* {CVM_RETURN_REINVESTMENT_NOTE}",
+        left=_MX,
+        top=6.84,
+        width=_SW - 2 * _MX,
+        height=0.30,
+        size=7,
+        bold=False,
+        color=_GRAY,
+        word_wrap=True,
+        Inches=Inches,
+        Pt=Pt,
+        RGBColor=RGBColor,
+    )
 
 
 def _style_return_table_cell(

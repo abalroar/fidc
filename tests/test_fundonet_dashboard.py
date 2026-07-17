@@ -733,6 +733,7 @@ class FundonetDashboardTests(unittest.TestCase):
             self.skipTest("python-pptx não instalado no ambiente local")
         from pptx import Presentation
         from pptx.enum.chart import XL_CHART_TYPE
+        from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
         from services.fundonet_ppt_export import build_dashboard_pptx_bytes
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -789,6 +790,7 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertNotIn("Rentabilidade e prazo", deck_text)
         self.assertIn("Rentabilidade por tipo de cota", deck_text)
         self.assertIn("Retornos por série", deck_text)
+        self.assertIn(CVM_RETURN_REINVESTMENT_NOTE, deck_text)
         self.assertNotIn("Índice acumulado base 100", deck_text)
         self.assertNotIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
         chart_count = sum(

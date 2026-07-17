@@ -14,6 +14,8 @@ from openpyxl import load_workbook
 import pandas as pd
 
 from services.fidc_model.b3_cdi import B3CdiMonthlyRate
+from services.fund_return_benchmark import FundReturnBenchmarkResolution
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fund_return_matrix import RETURN_YTD_COLUMN
 from services.mercado_livre_dashboard import (
     build_consolidated_monthly_base,
@@ -37,6 +39,7 @@ from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_dashboard_meli import (
     _build_fund_return_table,
+    _render_fund_return_table,
     _render_stacked_funds_view,
     _resolve_fund_return_cdi_rates,
     render_dashboard_meli_analysis,
@@ -927,6 +930,48 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("mai/26", table_b.columns)
         self.assertEqual("6,15%", table_a.iloc[0][RETURN_YTD_COLUMN])
         self.assertEqual("5,10%", table_b.iloc[0][RETURN_YTD_COLUMN])
+
+    def test_fund_return_table_discloses_cvm_reinvestment_effect(self) -> None:
+        competencias = pd.date_range("2026-01-01", periods=2, freq="MS")
+        history = pd.DataFrame(
+            {
+                "competencia": [value.strftime("%m/%Y") for value in competencias],
+                "competencia_dt": competencias,
+                "class_kind": ["senior", "senior"],
+                "class_key": ["senior:1", "senior:1"],
+                "class_label": ["Sênior", "Sênior"],
+                "retorno_mensal_pct": [1.0, 1.0],
+            }
+        )
+        summary = pd.DataFrame(
+            {
+                "class_kind": ["senior"],
+                "class_key": ["senior:1"],
+                "class_label": ["Sênior"],
+                "latest_competencia": ["02/2026"],
+                "retorno_ano_pct": [2.01],
+                "ytd_status": ["completo"],
+                "ytd_competencias_ausentes": [""],
+            }
+        )
+        outputs = SimpleNamespace(
+            fund_return_history={"fund": history},
+            fund_return_summary={"fund": summary},
+        )
+
+        with (
+            patch("tabs.tab_dashboard_meli._resolve_fund_return_cdi_rates", return_value=((), None)),
+            patch(
+                "tabs.tab_dashboard_meli._resolve_fund_return_benchmark",
+                return_value=FundReturnBenchmarkResolution({}, pd.DataFrame()),
+            ),
+            patch("tabs.tab_dashboard_meli._chart_title"),
+            patch("tabs.tab_dashboard_meli.st.dataframe"),
+            patch("tabs.tab_dashboard_meli.st.caption") as caption,
+        ):
+            _render_fund_return_table(outputs=outputs, cnpj="fund")
+
+        caption.assert_any_call(r"\* " + CVM_RETURN_REINVESTMENT_NOTE)
 
     def test_resolve_fund_return_cdi_rates_uses_latest_competencia_window_without_network(self) -> None:
         summary = pd.DataFrame(

@@ -16,6 +16,7 @@ from services.export_chart_labels import (
     choose_export_label_policy,
     format_export_label,
 )
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fundonet_dashboard import (
     FundonetDashboardData,
     ordered_class_labels,
@@ -1255,6 +1256,16 @@ def build_dashboard_pptx_bytes(
                     col_widths=_return_table_col_widths(return_chunk),
                     max_rows=len(return_chunk),
                     row_height_floor=0.18,
+                )
+                add_textbox(
+                    slide,
+                    MARGIN_LEFT_IN,
+                    6.66,
+                    full_width,
+                    0.28,
+                    f"* {CVM_RETURN_REINVESTMENT_NOTE}",
+                    size=7,
+                    color=MID_GRAY,
                 )
                 add_footer(slide, timestamp_text, current_page)
 

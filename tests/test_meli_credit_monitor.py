@@ -438,6 +438,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
             RETURN_TRAILING_12M_COLUMN,
             RETURN_YTD_COLUMN,
         )
+        from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
         from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 
         outputs, monitor_outputs = _somatorio_export_inputs_with_returns(series_count=2)
@@ -470,6 +471,13 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertEqual("jun/26", headers[-3])
         self.assertEqual("1,00%", table.cell(1, 1).text)
         self.assertEqual("6,15%", table.cell(1, 14).text)
+        deck_text = "\n".join(
+            shape.text
+            for slide in prs.slides
+            for shape in slide.shapes
+            if getattr(shape, "has_text_frame", False)
+        )
+        self.assertIn(CVM_RETURN_REINVESTMENT_NOTE, deck_text)
 
     def test_somatorio_pptx_paginates_return_rows_without_losing_series(self) -> None:
         from pptx import Presentation

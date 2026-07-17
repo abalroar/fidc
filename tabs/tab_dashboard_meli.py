@@ -2,12 +2,17 @@ from __future__ import annotations
 
 from datetime import date
 from html import escape
-from typing import Any
+from typing import Any, Mapping
 
 import pandas as pd
 import streamlit as st
 
 from services.fidc_model.b3_cdi import B3CdiMonthlyRate, fetch_b3_cdi_monthly_rates
+from services.fund_return_benchmark import (
+    FundReturnBenchmarkResolution,
+    resolve_fund_return_benchmarks,
+)
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fund_return_matrix import (
     build_fund_return_matrix,
     format_fund_return_matrix,
@@ -666,6 +671,7 @@ def _build_fund_return_table(
     outputs: Any,
     cnpj: str,
     monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...] | None = None,
+    benchmark_spreads: Mapping[str, float] | None = None,
 ) -> pd.DataFrame:
     return format_fund_return_matrix(
         build_fund_return_matrix(
@@ -673,16 +679,19 @@ def _build_fund_return_table(
             cnpj,
             months=12,
             monthly_cdi_rates=monthly_cdi_rates,
+            benchmark_spreads=benchmark_spreads,
         )
     )
 
 
 def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
     monthly_cdi_rates, cdi_error = _resolve_fund_return_cdi_rates(outputs=outputs, cnpj=cnpj)
+    benchmark_resolution = _resolve_fund_return_benchmark(outputs=outputs, cnpj=cnpj)
     table_df = _build_fund_return_table(
         outputs=outputs,
         cnpj=cnpj,
         monthly_cdi_rates=monthly_cdi_rates,
+        benchmark_spreads=benchmark_resolution.spreads_by_class_key,
     )
     if table_df.empty:
         st.caption("Rentabilidade por série não disponível para este fundo.")
@@ -695,10 +704,17 @@ def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
             "Últimos 12 meses-calendário até a competência mais recente do fundo.",
             "Acumulados compostos geometricamente; YTD considera janeiro até a competência mais recente.",
             "CDI realizado B3/Cetip composto nos mesmos meses efetivamente usados pela rentabilidade de cada série.",
+            "Spread CDI implícito anualizado em 252 dias úteis e comparado ao CDI+ fixo da emissão quando a associação documental é inequívoca.",
         ),
     )
     st.dataframe(table_df, width="stretch", hide_index=True)
-    st.caption("Fonte do CDI: B3/Cetip MediaCDI realizado, composto diariamente; sem uso de curva projetada.")
+    st.caption(
+        "Fonte do CDI: B3/Cetip MediaCDI realizado, composto diariamente; sem uso de curva projetada. "
+        "O spread implícito é a taxa anual que reconcilia a rentabilidade observada com esse CDI nas mesmas "
+        "competências; é um diagnóstico econômico, não uma taxa contratual."
+    )
+    st.caption(r"\* " + CVM_RETURN_REINVESTMENT_NOTE)
+    _render_fund_return_benchmark_diagnostics(benchmark_resolution)
     if cdi_error:
         st.warning("CDI acumulado indisponível: a consulta à B3/Cetip falhou. Nenhum fallback projetado foi aplicado.")
     missing_cdi = tuple(table_df.attrs.get("cdi_missing_competencias") or ())
@@ -720,6 +736,86 @@ def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
         missing_column="ytd_competencias_ausentes",
         prefix="YTD indisponível",
     )
+
+
+def _resolve_fund_return_benchmark(
+    *,
+    outputs: Any,
+    cnpj: str,
+) -> FundReturnBenchmarkResolution:
+    history_df = (getattr(outputs, "fund_return_history", {}) or {}).get(cnpj, pd.DataFrame())
+    summary_df = (getattr(outputs, "fund_return_summary", {}) or {}).get(cnpj, pd.DataFrame())
+    series_df = history_df if isinstance(history_df, pd.DataFrame) and not history_df.empty else summary_df
+    return resolve_fund_return_benchmarks(cnpj, series_df)
+
+
+_BENCHMARK_STATUS_LABELS = {
+    "resolved": "Aplicado",
+    "invalid_cnpj": "CNPJ inválido",
+    "profile_load_error": "Falha ao ler perfil documental",
+    "profile_unavailable": "Perfil documental indisponível",
+    "profile_not_manually_curated": "Perfil sem curadoria manual",
+    "profile_cnpj_mismatch": "CNPJ divergente no perfil",
+    "missing_class_key": "Identidade da série ausente",
+    "ambiguous_series_identity": "Identidade da série ambígua",
+    "missing_class_macro": "Tipo de cota não identificado",
+    "missing_explicit_series_number": "Número da série não explícito",
+    "no_matching_emission": "Emissão correspondente não localizada",
+    "unsupported_remuneration": "Remuneração complexa ou incompatível",
+    "ambiguous_or_unsupported_terms": "Termos documentais ambíguos",
+    "ambiguous_spread": "Mais de um spread documental",
+}
+
+
+def _render_fund_return_benchmark_diagnostics(
+    resolution: FundReturnBenchmarkResolution,
+) -> None:
+    diagnostics = resolution.diagnostics_df
+    if not isinstance(diagnostics, pd.DataFrame) or diagnostics.empty:
+        return
+
+    display = diagnostics.copy()
+    display["Benchmark"] = display["spread_aa"].map(_format_cdi_plus_benchmark)
+    display["Situação"] = display["status"].map(
+        lambda value: _BENCHMARK_STATUS_LABELS.get(str(value), str(value) or "N/D")
+    )
+    display = display.rename(
+        columns={
+            "class_label": "Série",
+            "matched_class": "Emissão documental",
+            "remuneration": "Remuneração documental",
+            "source": "Fonte",
+        }
+    )[
+        [
+            "Série",
+            "Benchmark",
+            "Situação",
+            "Emissão documental",
+            "Remuneração documental",
+            "Fonte",
+        ]
+    ]
+    resolved_count = int((diagnostics["status"].astype(str) == "resolved").sum())
+    total_count = len(diagnostics.index)
+    st.caption(
+        f"Benchmark de emissão aplicado com vínculo documental conservador em "
+        f"{resolved_count} de {total_count} série(s). Termos com cap, step-up, adicional, percentual do CDI "
+        "ou ambiguidade permanecem N/D."
+    )
+    with st.expander("Memória do benchmark de emissão", expanded=False):
+        st.dataframe(display, width="stretch", hide_index=True)
+
+
+def _format_cdi_plus_benchmark(value: object) -> str:
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "N/D"
+    if pd.isna(numeric):
+        return "N/D"
+    formatted = f"{numeric * 100.0:.2f}".replace(".", ",")
+    return f"CDI + {formatted}% a.a."
 
 
 def _render_return_gap_warning(
