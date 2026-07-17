@@ -23,6 +23,7 @@ def build_cloudwalk_financial_cost_xlsx_bytes(
     *,
     pl_waterfall: CloudwalkPlWaterfall | None = None,
     monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...] = (),
+    scope_label: str = "CloudWalk",
 ) -> bytes:
     from openpyxl import Workbook
     from openpyxl.chart import BarChart, LineChart, Reference
@@ -49,7 +50,7 @@ def build_cloudwalk_financial_cost_xlsx_bytes(
         ("Saldo médio remunerado", recommended.get("saldo_base")),
         ("Linhas sem CDI+", recommended.get("linhas_sem_spread")),
     ]
-    ws["A1"] = "Cloudwalk - custo financeiro FIDCs"
+    ws["A1"] = f"{scope_label} - custo financeiro de FIDCs"
     ws["A1"].font = Font(size=18, bold=True, color=INK)
     ws["A2"] = "Memória gerencial com CDI mensal composto, amortizações documentais e waterfall de PL."
     ws["A2"].font = Font(size=10, color=MUTED)
@@ -123,6 +124,7 @@ def build_cloudwalk_financial_cost_pptx_bytes(
     outputs: FinancialCostOutputs,
     *,
     pl_waterfall: CloudwalkPlWaterfall | None = None,
+    scope_label: str = "CloudWalk",
 ) -> bytes:
     from pptx import Presentation
     from pptx.chart.data import CategoryChartData
@@ -141,7 +143,11 @@ def build_cloudwalk_financial_cost_pptx_bytes(
     net = _summary_row(outputs.summary_df, "3_programado_liquido_caixa_lft")
     cash_base = _cash_base(outputs)
     slide = prs.slides.add_slide(blank)
-    _add_title(slide, "Custo financeiro bruto estimado em R$ %.1f bi" % (_as_number(recommended["despesa_financeira_bruta"]) / 1e9))
+    _add_title(
+        slide,
+        f"{scope_label}: custo financeiro bruto estimado em R$ "
+        f"{_as_number(recommended['despesa_financeira_bruta']) / 1e9:.1f} bi",
+    )
     _add_subtitle(
         slide,
         "Despesa programada com amortizações documentais e CDI mensal composto; gross-up gerencial replica a despesa bruta em receita.",

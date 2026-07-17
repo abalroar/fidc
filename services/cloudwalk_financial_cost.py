@@ -49,6 +49,8 @@ class FundingLine:
     included: bool
     exclusion_reason: str | None = None
     warnings: tuple[str, ...] = field(default_factory=tuple)
+    curated_spread_aa: float | None = None
+    manual_spread_aa: float | None = None
 
     @property
     def line_key(self) -> str:
@@ -86,6 +88,8 @@ class CostRunConfig:
     cdi_source: str
     cash_yield_cdi_factor: float = DEFAULT_CASH_YIELD_CDI_FACTOR
     monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...] = ()
+    scope_label: str = "CloudWalk"
+    scope_kind: str = "cloudwalk"
 
 
 @dataclass(frozen=True)
@@ -177,6 +181,21 @@ def load_funding_lines(
     amortization_convention_overrides: dict[str, str] | None = None,
 ) -> list[FundingLine]:
     frame = pd.read_csv(csv_path, dtype=str, keep_default_na=False)
+    return funding_lines_from_frame(
+        frame,
+        spread_overrides=spread_overrides,
+        amortization_convention_overrides=amortization_convention_overrides,
+    )
+
+
+def funding_lines_from_frame(
+    frame: pd.DataFrame,
+    *,
+    spread_overrides: dict[str, float] | None = None,
+    amortization_convention_overrides: dict[str, str] | None = None,
+) -> list[FundingLine]:
+    if frame is None or frame.empty:
+        return []
     overrides = spread_overrides or {}
     convention_overrides = amortization_convention_overrides or {}
     lines: list[FundingLine] = []
@@ -191,6 +210,7 @@ def load_ime_financial_snapshots(
     fund_names: dict[str, str] | None = None,
     cache_root: str | Path = DEFAULT_RUNTIME_CACHE_ROOT,
     portable_cache_root: str | Path | None = DEFAULT_PORTABLE_CACHE_ROOT,
+    as_of_date: date | None = None,
 ) -> list[ImeFinancialSnapshot]:
     names = {only_digits(key): value for key, value in (fund_names or {}).items()}
     runtime_cache_root = Path(cache_root)
@@ -198,7 +218,7 @@ def load_ime_financial_snapshots(
     output: list[ImeFinancialSnapshot] = []
     for cnpj in sorted({only_digits(item) for item in cnpjs if only_digits(item)}):
         fund_name = names.get(cnpj, cnpj)
-        cached = _find_latest_cached_ime(cnpj, runtime_cache_root)
+        cached = _find_latest_cached_ime(cnpj, runtime_cache_root, as_of_date=as_of_date)
         if cached is None and portable_root is not None:
             materialized = materialize_latest_portable_cache_for_cnpj(
                 cnpj,
@@ -206,7 +226,7 @@ def load_ime_financial_snapshots(
                 portable_cache_root=portable_root,
             )
             if materialized is not None:
-                cached = _find_latest_cached_ime(cnpj, runtime_cache_root)
+                cached = _find_latest_cached_ime(cnpj, runtime_cache_root, as_of_date=as_of_date)
         if cached is None:
             output.append(
                 ImeFinancialSnapshot(
@@ -302,6 +322,8 @@ def _funding_line_from_row(
         active_ok = False
         exclusion_reason = "Volume emitido ausente ou zero."
 
+    curated_spread = parse_cdi_plus_spread(remuneration)
+    manual_spread = overrides.get(line_key(cnpj, classe))
     spread, spread_source = _spread_for_line(cnpj, classe, remuneration, overrides)
     convention = "nao_aplicavel"
     amortizations: tuple[tuple[date, float], ...] = ()
@@ -337,6 +359,8 @@ def _funding_line_from_row(
         included=active_ok,
         exclusion_reason=exclusion_reason,
         warnings=warnings,
+        curated_spread_aa=curated_spread,
+        manual_spread_aa=manual_spread,
     )
 
 
@@ -360,10 +384,11 @@ def _spread_for_line(
     overrides: dict[str, float],
 ) -> tuple[float | None, str]:
     exact_key = line_key(cnpj, classe)
-    cnpj_key = only_digits(cnpj)
-    for key in (exact_key, cnpj_key, classe):
-        if key in overrides:
-            return overrides[key], f"override:{key}"
+    # Product inputs are deliberately scoped to an exact fund/series key.
+    # A CNPJ-wide or class-name fallback can leak one spread into distinct
+    # senior/mezzanine series or into another fund with the same class label.
+    if exact_key in overrides:
+        return overrides[exact_key], f"override:{exact_key}"
     parsed = parse_cdi_plus_spread(remuneration)
     if parsed is not None:
         return parsed, "curadoria:remuneracao"
@@ -495,6 +520,8 @@ def _line_and_monthly_rows(lines: list[FundingLine], config: CostRunConfig) -> t
                 "volume_emitido": round(line.volume, 2),
                 "issue_date": line.issue_date.isoformat() if line.issue_date else "",
                 "spread_cdi_plus_aa": _round_or_none(line.spread_aa),
+                "curated_spread_cdi_plus_aa": _round_or_none(line.curated_spread_aa),
+                "manual_spread_cdi_plus_aa": _round_or_none(line.manual_spread_aa),
                 "spread_source": line.spread_source,
                 "cdi_aa": round(config.cdi_aa, 8),
                 "taxa_total_aa": _round_or_none(rate_aa if line.has_rate else None),
@@ -701,6 +728,8 @@ def _summary_frame(
     output["cdi_source"] = config.cdi_source
     output["cdi_monthly_compounded"] = bool(config.monthly_cdi_rates)
     output["cash_yield_cdi_factor"] = config.cash_yield_cdi_factor
+    output["scope_label"] = config.scope_label
+    output["scope_kind"] = config.scope_kind
     return output
 
 
@@ -783,7 +812,7 @@ def _methodology_markdown(
     missing_balance = _sum_numeric(missing_df.get("saldo_snapshot")) if not missing_df.empty else 0.0
     cash_like = _sum_numeric(ime_df.get("cash_like_caixa_lft")) if not ime_df.empty else 0.0
     lines = [
-        "# Cloudwalk - estimativas de custo financeiro",
+        f"# {config.scope_label} - estimativas de custo financeiro",
         "",
         f"Período: {config.start_date.isoformat()} a {config.end_date.isoformat()}. Snapshot: {config.snapshot_date.isoformat()}.",
         f"CDI/DI proxy anual: {config.cdi_aa:.4%}. Fonte: {config.cdi_source}.",
@@ -804,7 +833,7 @@ def _methodology_markdown(
         f"Linhas ativas sem spread CDI+ parseável: {missing_count}. Saldo snapshot afetado: R$ {missing_balance / MONEY_SCALE:,.1f} mm.",
         f"Caixa/LFT usado na estimativa líquida: R$ {cash_like / MONEY_SCALE:,.1f} mm.",
         "",
-        "Spreads pendentes podem ser informados diretamente na aba Cloudwalk; o JSON fica apenas como configuração persistente do repositório.",
+        "Spreads pendentes ou divergentes podem ser informados por série na aba de custo financeiro. O input manual prevalece sobre documento/curadoria apenas nesta simulação.",
         "",
         "## Totais",
         "",
@@ -814,7 +843,12 @@ def _methodology_markdown(
     return "\n".join(lines)
 
 
-def _find_latest_cached_ime(cnpj: str, cache_root: Path) -> dict[str, Any] | None:
+def _find_latest_cached_ime(
+    cnpj: str,
+    cache_root: Path,
+    *,
+    as_of_date: date | None = None,
+) -> dict[str, Any] | None:
     if not cache_root.exists():
         return None
     candidates: list[dict[str, Any]] = []
@@ -830,7 +864,11 @@ def _find_latest_cached_ime(cnpj: str, cache_root: Path) -> dict[str, Any] | Non
         listas_path = manifest_path.parent / str(files.get("listas_csv_path") or "estruturas_lista.csv")
         if not wide_path.exists():
             continue
-        competencia = _latest_competencia(manifest.get("competencias") or [])
+        competencias = [str(value) for value in manifest.get("competencias") or []]
+        if as_of_date is not None:
+            cutoff = (as_of_date.year, as_of_date.month)
+            competencias = [value for value in competencias if _competencia_sort_key(value) <= cutoff]
+        competencia = _latest_competencia(competencias)
         if not competencia:
             continue
         candidates.append(
