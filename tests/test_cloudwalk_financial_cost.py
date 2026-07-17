@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 from datetime import date
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
 from services.cloudwalk_financial_cost import (
     CostRunConfig,
     FundingLine,
     _balance_at,
+    _find_latest_cached_ime,
     _parse_line_amortizations,
     _parse_programmed_range_schedule,
     _period_funding_factor,
@@ -111,6 +115,31 @@ class CloudwalkFinancialCostTest(unittest.TestCase):
         )
 
         self.assertAlmostEqual(0.01, factor)
+
+    def test_ime_snapshot_cache_respects_as_of_month(self):
+        with TemporaryDirectory() as tmp_dir:
+            cache_dir = Path(tmp_dir) / "fixture"
+            cache_dir.mkdir()
+            (cache_dir / "informes_wide.csv").write_text("tag_path,05/2025,06/2026\nPL,1,2\n", encoding="utf-8")
+            (cache_dir / "manifest.json").write_text(
+                json.dumps(
+                    {
+                        "cnpj_fundo": "08.417.544/0001-65",
+                        "competencias": ["05/2025", "06/2026"],
+                        "files": {"wide_csv_path": "informes_wide.csv"},
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            cached = _find_latest_cached_ime(
+                "08417544000165",
+                Path(tmp_dir),
+                as_of_date=date(2025, 12, 31),
+            )
+
+        self.assertIsNotNone(cached)
+        self.assertEqual("05/2025", cached["competencia"])
 
 
 if __name__ == "__main__":

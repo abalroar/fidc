@@ -20,22 +20,36 @@ streamlit run app.py
 
 > Execute o comando na raiz do repositório (mesma pasta de `app.py`).
 
-## Custo financeiro Cloudwalk
+## Custo financeiro do cedente
 
-A seção **Custo Cloudwalk** no Streamlit roda o motor de estimativa anual de
-despesa financeira dos FIDCs:
+A subaba **Estimativas e Modelagem > Custo Financeiro do Cedente** roda o motor
+de estimativa anual de despesa financeira dos FIDCs. O primeiro acesso mantém a
+CloudWalk como preset padrão, mas o analista também pode escolher uma carteira
+cadastrada ou informar até 20 CNPJs específicos:
 
-- lê as cotas/emissões em `data/regulatory_profiles/cloudwalk_cotas_emissoes_pagamentos.csv`;
-- aplica spreads CDI+ parseados dos documentos e overrides de
+- resolve cotas/emissões por CNPJ nos perfis regulatórios curados;
+- aplica spreads CDI+ dos documentos e permite sobrescrever cada série apenas
+  na simulação corrente;
+- mantém os quatro overrides legados da CloudWalk em
   `config/cloudwalk_financial_cost_inputs.json`;
 - busca o CDI pela infraestrutura B3 TaxaSwap PRE DU252, com opção de CDI
   manual na tela;
 - usa cache IME local em `.cache/fundonet-ime` ou os pacotes versionáveis em
-  `data/ime_cache/fundonet-ime` para PL, recebíveis e caixa/LFT;
+  `data/ime_cache/fundonet-ime` para PL, recebíveis e caixa/LFT, respeitando a
+  data snapshot da simulação;
 - exibe as três estimativas, o CDI+ implícito, detalhes por FIDC/cota,
   mensalização, premissas e download dos CSVs.
 
-O mesmo cálculo também pode ser rodado por CLI:
+Entradas manuais de spread usam somente a chave exata `CNPJ|série`. Registros
+com identidade de série ambígua são bloqueados para evitar dupla contagem. Se
+faltarem série, tipo, volume ou cronograma, o produto sinaliza que o spread
+isolado não basta para calcular.
+
+O estudo técnico, as regras de precedência, os estados de cobertura e as
+limitações estão em
+[`docs/fidc/custo-financeiro-cedente-produto.md`](docs/fidc/custo-financeiro-cedente-produto.md).
+
+O fluxo legado CloudWalk também pode ser rodado por CLI:
 
 ```bash
 python scripts/run_cloudwalk_financial_cost.py --year 2026

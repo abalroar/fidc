@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import date
+from html import escape
 from io import BytesIO
 from pathlib import Path
+import re
+import unicodedata
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import altair as alt
@@ -13,10 +17,11 @@ from services.dashboard_ui import diagnostics_enabled, render_context_strip, ren
 from services.cloudwalk_financial_cost import (
     CostRunConfig,
     FinancialCostOutputs,
+    FundingLine,
     build_financial_cost_outputs,
+    funding_lines_from_frame,
     load_amortization_convention_overrides,
     load_cash_yield_factor,
-    load_funding_lines,
     load_ime_financial_snapshots,
     load_spread_overrides,
 )
@@ -25,10 +30,26 @@ from services.cloudwalk_financial_cost_exports import (
     build_cloudwalk_financial_cost_xlsx_bytes,
 )
 from services.cloudwalk_pl_waterfall import CloudwalkPlWaterfall, build_cloudwalk_pl_waterfall
+from services.financial_cost_scope import (
+    FinancialCostCuration,
+    FinancialCostScope,
+    SCOPE_CLOUDWALK,
+    SCOPE_CNPJS,
+    SCOPE_PORTFOLIO,
+    build_cloudwalk_scope,
+    curation_data_signature,
+    parse_manual_cnpj_selection,
+    resolve_scope_curation,
+    scope_from_cnpjs,
+    scope_from_portfolio,
+)
 from services.fidc_model.b3_cdi import B3CdiError, B3CdiMonthlyRate, fetch_b3_cdi_monthly_rates
 from services.fidc_model.b3_curves import fetch_latest_taxaswap_curve
 from services.fidc_model.curves import INTERPOLATION_METHOD_FLAT_FORWARD_252, interpolate_curve
+from services.fund_name_display import short_fund_name as shared_short_fund_name
+from services.identifier_utils import format_cnpj, normalize_cnpj_digits
 from services.waterfall_schedule import DEFAULT_REFERENCE_DATE, only_digits
+from tabs.ime_portfolio_support import build_portfolio_record_label_lookup, list_saved_portfolios
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,6 +58,15 @@ DEFAULT_CONFIG_JSON = ROOT / "config/cloudwalk_financial_cost_inputs.json"
 DEFAULT_RUNTIME_CACHE_ROOT = ROOT / ".cache/fundonet-ime"
 DEFAULT_PORTABLE_CACHE_ROOT = ROOT / "data/ime_cache/fundonet-ime"
 CLOUDWALK_VIEW_TABS = ("Resumo", "Séries", "Mensal", "Waterfall", "Caixa", "Dados e exportações")
+SCOPE_MODE_OPTIONS = (SCOPE_CLOUDWALK, SCOPE_PORTFOLIO, SCOPE_CNPJS)
+SCOPE_MODE_LABELS = {
+    SCOPE_CLOUDWALK: "CloudWalk (padrão)",
+    SCOPE_PORTFOLIO: "Carteira cadastrada",
+    SCOPE_CNPJS: "CNPJs específicos",
+}
+SCOPE_MODE_KEY = "cedent_cost_scope_mode"
+SAVED_PORTFOLIO_KEY = "cedent_cost_saved_portfolio"
+MANUAL_CNPJS_KEY = "cedent_cost_manual_cnpjs"
 
 _CSS = """
 <style>
@@ -55,6 +85,44 @@ _CSS = """
     margin: 0.1rem 0 0.75rem;
     padding: 0 0 0.55rem;
 }
+.st-key-cedent_cost_scope {
+    background: #f8f9fa;
+    border: 1px solid #e3e7ec;
+    border-radius: 8px;
+    margin: 0.2rem 0 0.85rem;
+    padding: 0.8rem 0.9rem 0.65rem;
+}
+.st-key-cedent_cost_scope [data-baseweb="button-group"] {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+}
+.st-key-cedent_cost_scope [data-testid^="stBaseButton-segmented_control"] {
+    min-height: 2.55rem !important;
+    white-space: normal !important;
+    width: 100% !important;
+}
+.cedent-cost-scope-summary {
+    border-left: 3px solid #ff5a00;
+    color: #26313d;
+    margin: 0.2rem 0 0.75rem;
+    padding: 0.25rem 0 0.25rem 0.75rem;
+}
+.cedent-cost-scope-summary strong {
+    display: block;
+    font-size: 0.94rem;
+    margin-bottom: 0.1rem;
+}
+.cedent-cost-scope-summary span {
+    color: #68727d;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+@media (max-width: 700px) {
+    .st-key-cedent_cost_scope [data-baseweb="button-group"] {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 """
 
@@ -72,7 +140,11 @@ def render_tab_cloudwalk_financial_cost(*, embedded: bool = False) -> None:
         unsafe_allow_html=True,
     )
 
-    controls = _render_controls()
+    scope = _render_scope_selector()
+    if scope is None:
+        return
+
+    controls = _render_controls(scope)
     if controls is None:
         return
 
@@ -85,9 +157,9 @@ def render_tab_cloudwalk_financial_cost(*, embedded: bool = False) -> None:
         return
 
     render_context_strip(
-        source=f"Carteira curada do cedente + {controls['cdi_source']}",
+        source=f"{controls['scope_label']} + {controls['curation_source_label']} + {controls['cdi_source']}",
         base_until=f"{controls['start_date']} a {controls['end_date']}",
-        coverage=_cost_coverage_label(outputs.line_df),
+        coverage=_cost_coverage_label(outputs.line_df, selected_funds=len(controls["scope_cnpjs"])),
     )
     _render_headline(outputs)
     tabs = st.tabs(CLOUDWALK_VIEW_TABS)
@@ -105,10 +177,158 @@ def render_tab_cloudwalk_financial_cost(*, embedded: bool = False) -> None:
         _render_downloads(outputs, pl_waterfall, controls)
 
 
-def _render_controls() -> dict[str, object] | None:
+def _render_scope_selector() -> FinancialCostScope | None:
+    try:
+        default_scope = _default_cloudwalk_scope()
+    except Exception as exc:  # noqa: BLE001
+        st.error("Não foi possível carregar o preset padrão da CloudWalk.")
+        if diagnostics_enabled():
+            st.caption(f"{type(exc).__name__}: {exc}")
+        return None
+
+    current_mode = str(st.session_state.get(SCOPE_MODE_KEY) or "")
+    if current_mode not in SCOPE_MODE_OPTIONS:
+        st.session_state[SCOPE_MODE_KEY] = SCOPE_CLOUDWALK
+
+    with st.container(key="cedent_cost_scope"):
+        st.markdown("**Escopo do cálculo**")
+        st.caption("Use o preset CloudWalk, uma carteira já cadastrada ou informe até 20 CNPJs.")
+        mode = st.segmented_control(
+            "Forma de seleção",
+            options=SCOPE_MODE_OPTIONS,
+            format_func=SCOPE_MODE_LABELS.get,
+            selection_mode="single",
+            required=True,
+            key=SCOPE_MODE_KEY,
+            label_visibility="collapsed",
+            width="stretch",
+        )
+        mode = mode if mode in SCOPE_MODE_OPTIONS else SCOPE_CLOUDWALK
+
+        if mode == SCOPE_CLOUDWALK:
+            st.caption(f"Preset de sistema com {len(default_scope.cnpjs)} fundos e a curadoria atual preservada.")
+            return default_scope
+
+        if mode == SCOPE_PORTFOLIO:
+            try:
+                portfolios = list_saved_portfolios()
+            except Exception as exc:  # noqa: BLE001
+                st.warning("Não foi possível acessar as carteiras cadastradas. O preset CloudWalk continua disponível.")
+                if diagnostics_enabled():
+                    st.caption(f"{type(exc).__name__}: {exc}")
+                return None
+            if not portfolios:
+                st.info("Nenhuma carteira cadastrada está disponível.")
+                return None
+            options = [portfolio.id for portfolio in portfolios]
+            current_id = str(st.session_state.get(SAVED_PORTFOLIO_KEY) or "")
+            if current_id not in options:
+                st.session_state[SAVED_PORTFOLIO_KEY] = _default_portfolio_id(portfolios, default_scope)
+            labels = build_portfolio_record_label_lookup(portfolios)
+            selected_id = st.selectbox(
+                "Carteira cadastrada",
+                options=options,
+                format_func=lambda value: labels.get(value, value),
+                key=SAVED_PORTFOLIO_KEY,
+            )
+            selected = next((portfolio for portfolio in portfolios if portfolio.id == selected_id), None)
+            if selected is None:
+                st.warning("A carteira selecionada não está mais disponível.")
+                return None
+            st.caption(f"{len(selected.funds)} fundo{'s' if len(selected.funds) != 1 else ''} na carteira.")
+            return scope_from_portfolio(selected)
+
+        raw_cnpjs = st.text_area(
+            "CNPJs dos fundos",
+            key=MANUAL_CNPJS_KEY,
+            placeholder="Um CNPJ por linha, ou separados por vírgula",
+            height=105,
+            help="São aceitos CNPJs com ou sem máscara. Duplicados são removidos e os dígitos verificadores são validados.",
+        )
+        parsed = parse_manual_cnpj_selection(raw_cnpjs)
+        if parsed.invalid:
+            st.error("Corrija os CNPJs inválidos: " + ", ".join(parsed.invalid))
+            return None
+        if len(parsed.cnpjs) > 20:
+            st.error("A seleção manual pode conter no máximo 20 fundos.")
+            return None
+        if parsed.duplicates:
+            st.caption(f"{len(parsed.duplicates)} CNPJ{'s' if len(parsed.duplicates) != 1 else ''} duplicado{'s' if len(parsed.duplicates) != 1 else ''} removido{'s' if len(parsed.duplicates) != 1 else ''}.")
+        if not parsed.cnpjs:
+            st.info("Informe ao menos um CNPJ válido para montar o escopo.")
+            return None
+        st.caption(f"{len(parsed.cnpjs)} fundo{'s' if len(parsed.cnpjs) != 1 else ''} selecionado{'s' if len(parsed.cnpjs) != 1 else ''}.")
+        return scope_from_cnpjs(parsed.cnpjs)
+
+
+@st.cache_data(show_spinner=False)
+def _build_cloudwalk_scope_cached(path: str, mtime_ns: int, size: int) -> FinancialCostScope:
+    _ = (mtime_ns, size)
+    return build_cloudwalk_scope(path)
+
+
+def _default_cloudwalk_scope() -> FinancialCostScope:
+    stat = DEFAULT_EMISSIONS_CSV.stat()
+    return _build_cloudwalk_scope_cached(str(DEFAULT_EMISSIONS_CSV), stat.st_mtime_ns, stat.st_size)
+
+
+@st.cache_data(show_spinner="Resolvendo séries e curadoria do escopo...")
+def _resolve_scope_curation_cached(scope: FinancialCostScope, signature: str) -> FinancialCostCuration:
+    _ = signature
+    return resolve_scope_curation(scope)
+
+
+def _default_portfolio_id(portfolios: list[object], default_scope: FinancialCostScope) -> str:
+    default_basket = set(default_scope.cnpjs)
+    for portfolio in portfolios:
+        basket = {normalize_cnpj_digits(fund.cnpj) for fund in portfolio.funds}
+        if basket == default_basket:
+            return str(portfolio.id)
+    return str(portfolios[0].id)
+
+
+def _render_controls(scope: FinancialCostScope) -> dict[str, object] | None:
     base_config = _load_base_config()
+    curation_signature = curation_data_signature(scope)
+    curation = _resolve_scope_curation_cached(scope, curation_signature)
+    _render_curation_coverage(scope, curation)
+    if not curation.has_emissions:
+        st.warning(
+            "Nenhuma série foi localizada para os fundos selecionados. O spread sozinho não é suficiente: "
+            "também são necessários série, tipo, volume e cronograma para calcular o custo."
+        )
+        return None
+
+    curated_lines = funding_lines_from_frame(
+        curation.emissions_df,
+        amortization_convention_overrides=dict(base_config["amortization_conventions"]),
+    )
+    active_lines = [line for line in curated_lines if line.included]
+    if not active_lines:
+        st.warning(
+            "Há documentos para o escopo, mas nenhuma série remunerada com volume utilizável. "
+            "Revise a cobertura da curadoria antes de calcular."
+        )
+        return None
+    visible_keys = {line.line_key for line in active_lines}
+    persisted_manual = {
+        key: value
+        for key, value in dict(base_config["spread_overrides"]).items()
+        if key in visible_keys
+    }
+    manual_state_key = f"cedent_cost_manual_overrides::{scope.signature[:16]}::{curation_signature[:16]}"
+    if manual_state_key in st.session_state:
+        current_manual = {
+            str(key): float(value)
+            for key, value in dict(st.session_state.get(manual_state_key) or {}).items()
+            if str(key) in visible_keys
+        }
+    else:
+        current_manual = persisted_manual
+
     current_year = date.today().year
-    with st.form("cloudwalk_financial_cost_controls", border=False):
+    form_key = f"cedent_financial_cost_controls_{scope.signature[:12]}"
+    with st.form(form_key, border=False):
         col1, col2, col3 = st.columns([0.8, 1.1, 1.1])
         year = col1.number_input(
             "Ano-base",
@@ -133,8 +353,48 @@ def _render_controls() -> dict[str, object] | None:
             help="Último dia considerado. O motor corta emissões futuras e amortizações fora do período.",
         )
 
-        edited_spreads = pd.DataFrame()
-        with st.expander("Opções avançadas", expanded=False):
+        spread_table = _spread_input_table(curated_lines, current_manual)
+        edited_spreads = spread_table
+        pending_count = int(spread_table["Status"].eq("Pendente").sum()) if not spread_table.empty else 0
+        with st.expander("Taxas CDI+ por série", expanded=scope.kind != SCOPE_CLOUDWALK or pending_count > 0):
+            st.caption(
+                "O valor manual é opcional e vale somente nesta simulação. Quando preenchido, prevalece sobre a curadoria; "
+                "ao limpar a célula, a taxa volta para a curadoria."
+            )
+            if spread_table.empty:
+                st.caption("Nenhuma série ativa remunerada para editar.")
+            else:
+                edited_spreads = st.data_editor(
+                    spread_table,
+                    hide_index=True,
+                    width="stretch",
+                    key=f"cedent_cost_spreads_{scope.signature[:10]}_{curation_signature[:10]}",
+                    disabled=[
+                        "FIDC",
+                        "CNPJ",
+                        "Série",
+                        "CDI+ curadoria (% a.a.)",
+                        "CDI+ efetivo (% a.a.)",
+                        "Origem efetiva",
+                        "Status",
+                        "Fonte documento",
+                        "Chave",
+                    ],
+                    column_config={
+                        "CDI+ curadoria (% a.a.)": st.column_config.NumberColumn(format="%.2f"),
+                        "CDI+ manual (% a.a.)": st.column_config.NumberColumn(
+                            "CDI+ manual (% a.a.)",
+                            help="Opcional. Preencha em pontos percentuais: 0,95 para CDI+0,95% a.a.",
+                            format="%.2f",
+                            min_value=-10.0,
+                            max_value=30.0,
+                        ),
+                        "CDI+ efetivo (% a.a.)": st.column_config.NumberColumn(format="%.2f"),
+                        "Chave": None,
+                    },
+                )
+
+        with st.expander("Premissas avançadas", expanded=False):
             col4, col5 = st.columns([1.1, 2.2])
             cash_yield_factor = col4.number_input(
                 "Caixa/LFT (x CDI)",
@@ -151,38 +411,17 @@ def _render_controls() -> dict[str, object] | None:
                 help="Só é usado se o CDI mensal B3/Cetip não estiver disponível para o período.",
             )
 
-            spread_table = _spread_input_table(base_config["spread_overrides"], base_config["amortization_conventions"])
-            st.markdown("**CDI+ manual por série**")
-            if spread_table.empty:
-                st.caption("Nenhuma série ativa remunerada para editar.")
-            else:
-                edited_spreads = st.data_editor(
-                    spread_table,
-                    hide_index=True,
-                    width="stretch",
-                    disabled=["FIDC", "Série", "CDI+ atual (% a.a.)", "Fonte atual", "Chave"],
-                    column_config={
-                        "CDI+ manual (% a.a.)": st.column_config.NumberColumn(
-                            "CDI+ manual (% a.a.)",
-                            help="Opcional. Preencha em pontos percentuais: 0,95 para CDI+0,95% a.a.",
-                            format="%.2f",
-                            min_value=-10.0,
-                            max_value=30.0,
-                        ),
-                        "Chave": None,
-                    },
-                )
-
         submitted = st.form_submit_button("Atualizar estimativa", width="stretch")
-
-    if not submitted and "cloudwalk_cost_has_run" not in st.session_state:
-        st.session_state["cloudwalk_cost_has_run"] = True
-    elif submitted:
-        st.session_state["cloudwalk_cost_has_run"] = True
 
     if end_date < start_date:
         st.warning("A data final precisa ser maior ou igual à data inicial.")
         return None
+
+    manual_overrides = _parse_spread_editor(edited_spreads)
+    if submitted:
+        st.session_state[manual_state_key] = manual_overrides
+        if manual_overrides != current_manual:
+            st.rerun()
 
     try:
         monthly_cdi_rates = _resolve_monthly_cdi(start_date, end_date)
@@ -197,9 +436,36 @@ def _render_controls() -> dict[str, object] | None:
     else:
         cdi_aa, cdi_source = _resolve_b3_cdi(curve_date, 0.1399364)
 
-    merged_overrides = dict(base_config["spread_overrides"])
-    merged_overrides.update(_parse_spread_editor(edited_spreads))
+    funding_lines = funding_lines_from_frame(
+        curation.emissions_df,
+        spread_overrides=manual_overrides,
+        amortization_convention_overrides=dict(base_config["amortization_conventions"]),
+    )
+    active_lines = [line for line in funding_lines if line.included]
+    priced_count = sum(line.has_rate for line in active_lines)
+    missing_count = sum(not line.has_rate for line in active_lines)
+    if priced_count == 0:
+        st.warning("Nenhuma série possui CDI+ efetivo. Preencha as taxas pendentes para calcular.")
+        return None
+    if missing_count:
+        verb = "ficaram" if missing_count != 1 else "ficou"
+        st.warning(
+            f"Estimativa parcial: {missing_count} série{'s' if missing_count != 1 else ''} ativa{'s' if missing_count != 1 else ''} "
+            f"sem CDI+ {verb} fora dos totais."
+        )
+
+    fund_names = dict(scope.fund_name_map)
+    for line in funding_lines:
+        cnpj = normalize_cnpj_digits(line.cnpj)
+        if cnpj and line.fund_name:
+            fund_names[cnpj] = line.fund_name
     return {
+        "funding_lines": tuple(funding_lines),
+        "scope_cnpjs": tuple(scope.cnpjs),
+        "fund_names": tuple((cnpj, fund_names.get(cnpj, cnpj)) for cnpj in scope.cnpjs),
+        "scope_label": scope.label,
+        "scope_kind": scope.kind,
+        "curation_source_label": _curation_source_label(curation),
         "start_date": start_date,
         "end_date": end_date,
         "snapshot_date": _default_snapshot_date(start_date, end_date),
@@ -207,9 +473,71 @@ def _render_controls() -> dict[str, object] | None:
         "cdi_source": cdi_source,
         "monthly_cdi_rates": monthly_cdi_rates,
         "cash_yield_factor": cash_yield_factor,
-        "spread_overrides": merged_overrides,
-        "amortization_conventions": dict(base_config["amortization_conventions"]),
     }
+
+
+def _render_curation_coverage(scope: FinancialCostScope, curation: FinancialCostCuration) -> None:
+    coverage = curation.coverage_df
+    series_count = int(pd.to_numeric(coverage.get("active_series"), errors="coerce").fillna(0).sum()) if not coverage.empty else 0
+    auto_count = int(pd.to_numeric(coverage.get("automatic_spreads"), errors="coerce").fillna(0).sum()) if not coverage.empty else 0
+    resolved_funds = int(pd.to_numeric(coverage.get("series_found"), errors="coerce").fillna(0).gt(0).sum()) if not coverage.empty else 0
+    fund_count = len(scope.cnpjs)
+    selected_fund_label = f"{fund_count} fundo{'s' if fund_count != 1 else ''} selecionado{'s' if fund_count != 1 else ''}"
+    st.markdown(
+        '<div class="cedent-cost-scope-summary">'
+        f"<strong>{escape(scope.label)}</strong>"
+        f"<span>{selected_fund_label} | {resolved_funds} com séries localizadas | "
+        f"{series_count} séries ativas | {auto_count} CDI+ automáticos</span>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
+    missing = coverage[pd.to_numeric(coverage.get("series_found"), errors="coerce").fillna(0).eq(0)] if not coverage.empty else pd.DataFrame()
+    if not missing.empty:
+        labels = [f"{shared_short_fund_name(row.fund_name)} ({format_cnpj(row.cnpj)})" for row in missing.itertuples()]
+        st.warning("Sem curadoria de séries para: " + "; ".join(labels))
+    ambiguous = int(pd.to_numeric(coverage.get("ambiguous_rows_blocked"), errors="coerce").fillna(0).sum()) if not coverage.empty else 0
+    if ambiguous:
+        st.warning(
+            f"{ambiguous} registro{'s' if ambiguous != 1 else ''} com identidade de série ambígua "
+            f"foi{'ram' if ambiguous != 1 else ''} bloqueado{'s' if ambiguous != 1 else ''} para evitar dupla contagem."
+        )
+    low_confidence = coverage[
+        coverage.get("profile_type", pd.Series("", index=coverage.index)).isin(["triagem estruturada", "heurístico"])
+    ] if not coverage.empty else pd.DataFrame()
+    if not low_confidence.empty:
+        st.info(
+            "Parte do escopo usa triagem documental ou extração heurística. As linhas não ambíguas podem ser simuladas, "
+            "mas devem ser revisadas antes de uma decisão final."
+        )
+    if not coverage.empty:
+        with st.expander("Cobertura da curadoria", expanded=False):
+            display = coverage.copy()
+            display["cnpj"] = display["cnpj"].map(format_cnpj)
+            display["fund_name"] = display["fund_name"].map(shared_short_fund_name)
+            display = display.rename(
+                columns={
+                    "fund_name": "FIDC",
+                    "cnpj": "CNPJ",
+                    "profile_type": "Tipo de perfil",
+                    "series_found": "Séries localizadas",
+                    "active_series": "Séries ativas",
+                    "automatic_spreads": "CDI+ automático",
+                    "pending_spreads": "CDI+ pendente",
+                    "ambiguous_rows_blocked": "Registros ambíguos bloqueados",
+                    "source_files": "Fontes",
+                    "status": "Status",
+                }
+            )
+            st.dataframe(display, hide_index=True, width="stretch")
+
+
+def _curation_source_label(curation: FinancialCostCuration) -> str:
+    if not curation.source_files:
+        return "curadoria não localizada"
+    names = {Path(path).name for path in curation.source_files}
+    if names == {DEFAULT_EMISSIONS_CSV.name}:
+        return "curadoria CloudWalk"
+    return f"curadoria regulatória ({len(names)} fonte{'s' if len(names) != 1 else ''})"
 
 
 @st.cache_data(show_spinner=False)
@@ -251,6 +579,12 @@ def _resolve_b3_cdi(curve_date: date, fallback_cdi_aa: float) -> tuple[float, st
 @st.cache_data(show_spinner="Calculando custo financeiro da carteira...")
 def _run_cost_engine(
     *,
+    funding_lines: tuple[FundingLine, ...],
+    scope_cnpjs: tuple[str, ...],
+    fund_names: tuple[tuple[str, str], ...],
+    scope_label: str,
+    scope_kind: str,
+    curation_source_label: str,
     start_date: date,
     end_date: date,
     snapshot_date: date,
@@ -258,21 +592,28 @@ def _run_cost_engine(
     cdi_source: str,
     monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...],
     cash_yield_factor: float,
-    spread_overrides: dict[str, float],
-    amortization_conventions: dict[str, str],
 ) -> tuple[FinancialCostOutputs, CloudwalkPlWaterfall]:
-    lines = load_funding_lines(
-        DEFAULT_EMISSIONS_CSV,
-        spread_overrides=spread_overrides,
-        amortization_convention_overrides=amortization_conventions,
-    )
-    fund_names = {only_digits(line.cnpj): line.fund_name for line in lines if line.fund_name}
+    _ = curation_source_label
+    lines = list(funding_lines)
+    fund_name_map = dict(fund_names)
+    priced_cnpjs = {only_digits(line.cnpj) for line in lines if line.included and line.has_rate}
     snapshots = load_ime_financial_snapshots(
-        [line.cnpj for line in lines if line.included],
-        fund_names=fund_names,
+        scope_cnpjs,
+        fund_names=fund_name_map,
         cache_root=DEFAULT_RUNTIME_CACHE_ROOT,
         portable_cache_root=DEFAULT_PORTABLE_CACHE_ROOT,
+        as_of_date=snapshot_date,
     )
+    snapshots = [
+        snapshot
+        if only_digits(snapshot.cnpj) in priced_cnpjs
+        else replace(
+            snapshot,
+            included=False,
+            exclusion_reason="Fundo sem série precificada no escopo; caixa não abatido do custo líquido.",
+        )
+        for snapshot in snapshots
+    ]
     outputs = build_financial_cost_outputs(
         lines=lines,
         snapshots=snapshots,
@@ -284,11 +625,13 @@ def _run_cost_engine(
             cdi_source=cdi_source,
             cash_yield_cdi_factor=float(cash_yield_factor),
             monthly_cdi_rates=monthly_cdi_rates,
+            scope_label=scope_label,
+            scope_kind=scope_kind,
         ),
     )
     pl_waterfall = build_cloudwalk_pl_waterfall(
-        [line.cnpj for line in lines if line.included],
-        fund_names=fund_names,
+        scope_cnpjs,
+        fund_names=fund_name_map,
         year=start_date.year,
         end_date=end_date,
         cache_root=DEFAULT_RUNTIME_CACHE_ROOT,
@@ -514,13 +857,18 @@ def _render_cash(outputs: FinancialCostOutputs) -> None:
 
 def _render_downloads(outputs: FinancialCostOutputs, pl_waterfall: CloudwalkPlWaterfall, controls: dict[str, object]) -> None:
     recommended = _summary_row(outputs.summary_df, "2_programado_bruto_com_amortizacao")
+    scope_label = str(controls.get("scope_label") or "Seleção de FIDCs")
+    scope_kind = str(controls.get("scope_kind") or "")
+    export_prefix = _scope_export_prefix(scope_kind, scope_label)
     assumptions = pd.DataFrame(
         [
+            ("Escopo", scope_label),
+            ("Fundos selecionados", str(len(controls.get("scope_cnpjs") or ()))),
             ("Período calculado", f"{recommended['periodo_inicio']} a {recommended['periodo_fim']}"),
             ("CDI", f"Mensal composto - {recommended['cdi_source']}"),
-            ("Caixa/LFT", f"IME mais recente por fundo; rendimento a {float(recommended['cash_yield_cdi_factor']):.2f}x CDI"),
-            ("CDI+ manual", "Editável na seção 'CDI+ manual por série'; valores em % a.a."),
-            ("Base de cotas", str(DEFAULT_EMISSIONS_CSV.relative_to(ROOT))),
+            ("Caixa/LFT", f"IME mais recente até o snapshot por fundo; rendimento a {float(recommended['cash_yield_cdi_factor']):.2f}x CDI"),
+            ("CDI+ manual", "Editável em 'Taxas CDI+ por série'; o valor manual prevalece somente nesta simulação."),
+            ("Base de cotas", str(controls.get("curation_source_label") or "Curadoria regulatória por CNPJ")),
             ("Cache IME", "Cache local e portátil do Toma Conta FIDCs."),
         ],
         columns=["Premissa", "Valor"],
@@ -537,27 +885,38 @@ def _render_downloads(outputs: FinancialCostOutputs, pl_waterfall: CloudwalkPlWa
         outputs,
         pl_waterfall=pl_waterfall,
         monthly_cdi_rates=controls.get("monthly_cdi_rates") or (),
+        scope_label=scope_label,
     )
-    pptx_bytes = build_cloudwalk_financial_cost_pptx_bytes(outputs, pl_waterfall=pl_waterfall)
+    pptx_bytes = build_cloudwalk_financial_cost_pptx_bytes(
+        outputs,
+        pl_waterfall=pl_waterfall,
+        scope_label=scope_label,
+    )
+    if scope_kind == SCOPE_CLOUDWALK:
+        xlsx_name = f"cloudwalk_memoria_custo_fidcs_{controls['start_date']}_{controls['end_date']}.xlsx"
+        pptx_name = f"cloudwalk_custo_fidcs_{controls['start_date']}_{controls['end_date']}.pptx"
+    else:
+        xlsx_name = f"{export_prefix}_memoria_custo_fidcs_{controls['start_date']}_{controls['end_date']}.xlsx"
+        pptx_name = f"{export_prefix}_custo_fidcs_{controls['start_date']}_{controls['end_date']}.pptx"
     col1, col2, col3 = st.columns(3)
     col1.download_button(
         "Baixar memória XLSX",
         data=xlsx_bytes,
-        file_name=f"cloudwalk_memoria_custo_fidcs_{controls['start_date']}_{controls['end_date']}.xlsx",
+        file_name=xlsx_name,
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         width="stretch",
     )
     col2.download_button(
         "Baixar PPTX",
         data=pptx_bytes,
-        file_name=f"cloudwalk_custo_fidcs_{controls['start_date']}_{controls['end_date']}.pptx",
+        file_name=pptx_name,
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         width="stretch",
     )
     col3.download_button(
         "Baixar pacote CSV",
-        data=_zip_outputs(outputs),
-        file_name=f"cloudwalk_financial_cost_{controls['start_date']}_{controls['end_date']}.zip",
+        data=_zip_outputs(outputs, prefix=export_prefix),
+        file_name=f"{export_prefix}_{controls['start_date']}_{controls['end_date']}.zip",
         mime="application/zip",
         width="stretch",
     )
@@ -567,41 +926,52 @@ def _summary_row(summary: pd.DataFrame, estimativa: str) -> pd.Series:
     return summary.loc[summary["estimativa"].eq(estimativa)].iloc[0]
 
 
-def _cost_coverage_label(line_df: pd.DataFrame) -> str:
+def _cost_coverage_label(line_df: pd.DataFrame, *, selected_funds: int | None = None) -> str:
     if line_df is None or line_df.empty:
         return "Sem séries mapeadas"
+    active = line_df.copy()
+    if "included" in active.columns:
+        active = active[active["included"].fillna(False).astype(bool)]
     fund_count = 0
-    if "fund_name" in line_df.columns:
-        fund_names = line_df["fund_name"].fillna("").astype(str).str.strip()
+    if "cnpj" in active.columns:
+        fund_count = int(active["cnpj"].fillna("").astype(str).str.strip().replace("", pd.NA).dropna().nunique())
+    elif "fund_name" in active.columns:
+        fund_names = active["fund_name"].fillna("").astype(str).str.strip()
         fund_count = int(fund_names[fund_names.ne("")].nunique())
-    series_count = len(line_df)
+    series_count = len(active)
     fund_label = "FIDC" if fund_count == 1 else "FIDCs"
     series_label = "série" if series_count == 1 else "séries"
+    if selected_funds is not None and selected_funds != fund_count:
+        return f"{fund_count}/{selected_funds} {fund_label} com séries ativas · {series_count} {series_label} ativas"
     return f"{fund_count} {fund_label} · {series_count} {series_label} mapeadas"
 
 
-def _spread_input_table(spread_overrides: dict[str, float], amortization_conventions: dict[str, str]) -> pd.DataFrame:
-    lines = load_funding_lines(
-        DEFAULT_EMISSIONS_CSV,
-        spread_overrides=spread_overrides,
-        amortization_convention_overrides=amortization_conventions,
-    )
+def _spread_input_table(lines: list[FundingLine], manual_overrides: dict[str, float]) -> pd.DataFrame:
     rows = []
     for line in lines:
         if not line.included or not _is_priced_class(line.class_macro):
             continue
-        manual = spread_overrides.get(line.line_key)
+        curated = line.curated_spread_aa
+        manual = manual_overrides.get(line.line_key)
+        effective = manual if manual is not None else curated
+        origin = "Manual" if manual is not None else ("Documento/curadoria" if curated is not None else "Pendente")
         rows.append(
             {
                 "FIDC": _short_fund_name(line.fund_name),
+                "CNPJ": format_cnpj(line.cnpj),
                 "Série": line.classe,
-                "CDI+ atual (% a.a.)": None if line.spread_aa is None else round(line.spread_aa * 100.0, 4),
+                "CDI+ curadoria (% a.a.)": None if curated is None else round(curated * 100.0, 4),
                 "CDI+ manual (% a.a.)": None if manual is None else round(manual * 100.0, 4),
-                "Fonte atual": _spread_source_label(line.spread_source),
+                "CDI+ efetivo (% a.a.)": None if effective is None else round(effective * 100.0, 4),
+                "Origem efetiva": origin,
+                "Status": "Pendente" if effective is None else "Pronto",
+                "Fonte documento": line.source,
                 "Chave": line.line_key,
             }
         )
-    return pd.DataFrame(rows)
+    if not rows:
+        return pd.DataFrame()
+    return pd.DataFrame(rows).sort_values(["FIDC", "Série"]).reset_index(drop=True)
 
 
 def _parse_spread_editor(frame: pd.DataFrame) -> dict[str, float]:
@@ -747,7 +1117,7 @@ def _short_fund_name(name: object) -> str:
         return "Big Picture II"
     if "BIG PICTURE I" in text:
         return "Big Picture I"
-    return str(name or "")
+    return shared_short_fund_name(name)
 
 
 def _class_label(value: object) -> str:
@@ -943,15 +1313,24 @@ def _format_line_table(frame: pd.DataFrame) -> pd.DataFrame:
     return output
 
 
-def _zip_outputs(outputs: FinancialCostOutputs) -> bytes:
+def _scope_export_prefix(scope_kind: str, scope_label: str) -> str:
+    if scope_kind == SCOPE_CLOUDWALK:
+        return "cloudwalk_financial_cost"
+    normalized = unicodedata.normalize("NFKD", str(scope_label or "selecao_fidcs"))
+    ascii_label = normalized.encode("ascii", "ignore").decode("ascii").lower()
+    slug = re.sub(r"[^a-z0-9]+", "_", ascii_label).strip("_")[:48] or "selecao_fidcs"
+    return f"{slug}_financial_cost"
+
+
+def _zip_outputs(outputs: FinancialCostOutputs, *, prefix: str = "cloudwalk_financial_cost") -> bytes:
     buffer = BytesIO()
     with ZipFile(buffer, mode="w", compression=ZIP_DEFLATED) as archive:
-        archive.writestr("cloudwalk_financial_cost_summary.csv", outputs.summary_df.to_csv(index=False))
-        archive.writestr("cloudwalk_financial_cost_by_line.csv", outputs.line_df.to_csv(index=False))
-        archive.writestr("cloudwalk_financial_cost_monthly.csv", outputs.monthly_df.to_csv(index=False))
-        archive.writestr("cloudwalk_financial_cost_ime_snapshot.csv", outputs.ime_snapshot_df.to_csv(index=False))
-        archive.writestr("cloudwalk_financial_cost_missing_inputs.csv", outputs.missing_inputs_df.to_csv(index=False))
-        archive.writestr("cloudwalk_financial_cost_methodology.md", outputs.methodology_md)
+        archive.writestr(f"{prefix}_summary.csv", outputs.summary_df.to_csv(index=False))
+        archive.writestr(f"{prefix}_by_line.csv", outputs.line_df.to_csv(index=False))
+        archive.writestr(f"{prefix}_monthly.csv", outputs.monthly_df.to_csv(index=False))
+        archive.writestr(f"{prefix}_ime_snapshot.csv", outputs.ime_snapshot_df.to_csv(index=False))
+        archive.writestr(f"{prefix}_missing_inputs.csv", outputs.missing_inputs_df.to_csv(index=False))
+        archive.writestr(f"{prefix}_methodology.md", outputs.methodology_md)
     return buffer.getvalue()
 
 
