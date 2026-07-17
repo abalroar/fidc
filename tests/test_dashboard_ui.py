@@ -265,11 +265,15 @@ def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:
     assert "fonts.googleapis.com" not in app_source
 
 
-def test_portfolio_context_switch_hides_stale_results_until_refresh_finishes() -> None:
+def test_portfolio_context_switch_clears_stale_results_without_fullscreen_overlay() -> None:
     source = (ROOT / "tabs/portfolio_page.py").read_text(encoding="utf-8")
 
     assert "portfolio_page_context_signature" in source
-    assert "portfolio-context-overlay" in source
+    assert "analysis_surface.empty()" in source
+    assert "portfolio-loading-state" in source
+    assert "portfolio-context-overlay" not in source
+    assert "position: fixed" not in source
+    assert "visibility: hidden" not in source
     assert "loading_surface.empty()" in source
 
 

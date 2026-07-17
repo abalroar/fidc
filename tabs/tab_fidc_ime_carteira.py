@@ -670,7 +670,7 @@ def _execute_portfolio_load_for_funds(
         if _is_retryable_portfolio_failure(results.get(fund.cnpj) or {})
     ]
     retried_count = 0
-    if retryable_failures and worker_count > 1:
+    if retryable_failures:
         retried_count = len(retryable_failures)
         progress_bar.progress(0.0, text=f"{selected_portfolio.name}: reprocessando {retried_count} fundo(s)...")
         status_box.caption(f"{selected_portfolio.name} · reprocessando falhas")
@@ -684,6 +684,12 @@ def _execute_portfolio_load_for_funds(
             worker_count=1,
             progress_label=f"{selected_portfolio.name} · retry",
         )
+        for fund in retryable_failures:
+            retry_payload = dict(retry_results.get(fund.cnpj) or {})
+            retry_context = dict(retry_payload.get("context") or {})
+            retry_context["automatic_retry_attempted"] = True
+            retry_payload["context"] = retry_context
+            retry_results[fund.cnpj] = retry_payload
         results.update(retry_results)
 
     progress_bar.empty()
@@ -976,9 +982,9 @@ def _cache_refresh_skipped_reason(
 
 def _portfolio_payload_needs_cache_refresh(payload: dict[str, Any], period: ImePeriodSelection) -> bool:
     result = payload.get("result")
-    if result is None:
-        return False
     context = payload.get("context") or {}
+    if result is None:
+        return _is_retryable_portfolio_failure(payload) and not bool(context.get("automatic_retry_attempted"))
     expected_competencias = _expected_competencias_for_period(period)
     found_competencias = context.get("found_competencias")
     if found_competencias is None:

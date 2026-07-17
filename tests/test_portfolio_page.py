@@ -22,7 +22,7 @@ class PortfolioPageTests(unittest.TestCase):
             portfolio_page.PORTFOLIO_VIEW_TABS,
         )
 
-    def test_loading_overlay_identifies_portfolio_period_fund_count_and_stages(self) -> None:
+    def test_inline_loading_state_preserves_context_without_marketing_stages(self) -> None:
         portfolio = PortfolioRecord(
             id="portfolio-1",
             name="Carteira Crédito & Consignado",
@@ -35,7 +35,7 @@ class PortfolioPageTests(unittest.TestCase):
         )
         period = SimpleNamespace(label="01/2025 a 06/2026")
 
-        html = portfolio_page._portfolio_loading_overlay_html(
+        html = portfolio_page._portfolio_loading_state_html(
             selected_portfolio=portfolio,
             period=period,
         )
@@ -43,10 +43,15 @@ class PortfolioPageTests(unittest.TestCase):
         self.assertIn("Carteira Crédito &amp; Consignado", html)
         self.assertIn("01/2025 a 06/2026", html)
         self.assertIn("2 fundos", html)
-        self.assertEqual(3, html.count('class="portfolio-loading-stage"'))
-        self.assertIn("Dados regulatórios", html)
-        self.assertIn("Consolidação", html)
-        self.assertIn("Apresentação", html)
+        self.assertIn('role="status"', html)
+        self.assertIn('aria-live="polite"', html)
+        self.assertIn("Buscando informes mensais", html)
+        self.assertNotIn("portfolio-loading-stage", html)
+        self.assertNotIn("portfolio-loading-progress", html)
+        self.assertNotIn("PREPARANDO ANÁLISE", html)
+        self.assertNotIn("position: fixed", portfolio_page._PORTFOLIO_PAGE_CSS)
+        self.assertNotIn("z-index: 999999", portfolio_page._PORTFOLIO_PAGE_CSS)
+        self.assertNotIn("visibility: hidden", portfolio_page._PORTFOLIO_PAGE_CSS)
 
     def test_resolve_workflow_sections_orders_blocks_and_deduplicates(self) -> None:
         selected = [
@@ -172,6 +177,41 @@ class PortfolioPageTests(unittest.TestCase):
 
         ensure_data.assert_not_called()
 
+    def test_transient_provider_failure_keeps_the_recoverable_cause(self) -> None:
+        fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(fund,),
+            created_at="2026-05-14T00:00:00Z",
+            updated_at="2026-05-14T00:00:00Z",
+        )
+        period = SimpleNamespace(cache_key="current", label="07/2025 a 06/2026")
+        runtime_state = {
+            "results": {
+                fund.cnpj: {
+                    "result": None,
+                    "error": TimeoutError("provider timeout"),
+                    "context": {"automatic_retry_attempted": True},
+                }
+            }
+        }
+
+        with (
+            patch("tabs.portfolio_page.carteira_tab.ensure_portfolio_ime_data", return_value=runtime_state),
+            patch("tabs.portfolio_page.carteira_tab._build_loaded_dashboards_by_cnpj", return_value=({}, {})),
+        ):
+            with self.assertRaises(portfolio_page.PortfolioAnalysisUnavailable) as raised:
+                portfolio_page._load_portfolio_analysis_data(
+                    selected_portfolio=portfolio,
+                    period=period,
+                )
+
+        failure = raised.exception
+        self.assertTrue(failure.retryable)
+        self.assertIn("fonte regulatória demorou", failure.message)
+        self.assertIn("provider timeout", failure.details[0])
+
     def test_render_section_dispatches_existing_chart_renderers_unchanged(self) -> None:
         portfolio = Mock()
         period = Mock()
@@ -229,20 +269,25 @@ class PortfolioPageTests(unittest.TestCase):
         )
 
     def test_document_curation_remains_available_without_analytics(self) -> None:
-        portfolio = Mock()
+        portfolio = Mock(id="portfolio-1")
+        period = SimpleNamespace(cache_key="period-1")
         tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        failure = portfolio_page.PortfolioAnalysisUnavailable(message="Dados indisponíveis.")
 
         with (
             patch("tabs.portfolio_page.st.tabs", return_value=tabs),
-            patch("tabs.portfolio_page.st.info") as info,
+            patch("tabs.portfolio_page.st.button", return_value=False),
+            patch("tabs.portfolio_page.st.markdown") as markdown,
+            patch("tabs.portfolio_page.diagnostics_enabled", return_value=False),
             patch("tabs.portfolio_page.deep_dive_tab.render_tab_deep_dive") as deep_dive,
         ):
             portfolio_page._render_unavailable_portfolio_views(
                 selected_portfolio=portfolio,
-                message="Dados indisponíveis.",
+                period=period,
+                failure=failure,
             )
 
-        self.assertEqual(len(portfolio_page.PORTFOLIO_VIEW_TABS) - 1, info.call_count)
+        self.assertEqual(len(portfolio_page.PORTFOLIO_VIEW_TABS), markdown.call_count)
         deep_dive.assert_called_once_with(
             selected_portfolio=portfolio,
             show_portfolio_selector=False,
@@ -250,25 +295,58 @@ class PortfolioPageTests(unittest.TestCase):
             compact=True,
         )
 
+    def test_retry_action_forces_a_fresh_load_and_reruns(self) -> None:
+        portfolio = Mock(id="portfolio-1")
+        period = SimpleNamespace(cache_key="period-1")
+        tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+        failure = portfolio_page.PortfolioAnalysisUnavailable(message="Falha transitória.")
+        session_state = {"portfolio_page_context_signature": "stale"}
+
+        with (
+            patch("tabs.portfolio_page.st.tabs", return_value=tabs),
+            patch("tabs.portfolio_page.st.button", return_value=True),
+            patch("tabs.portfolio_page.st.markdown"),
+            patch("tabs.portfolio_page.st.session_state", session_state),
+            patch("tabs.portfolio_page.st.rerun") as rerun,
+            patch("tabs.portfolio_page.diagnostics_enabled", return_value=False),
+            patch("tabs.portfolio_page.carteira_tab.load_portfolio_ime_data") as reload_data,
+            patch("tabs.portfolio_page.deep_dive_tab.render_tab_deep_dive"),
+        ):
+            portfolio_page._render_unavailable_portfolio_views(
+                selected_portfolio=portfolio,
+                period=period,
+                failure=failure,
+            )
+
+        reload_data.assert_called_once_with(
+            selected_portfolio=portfolio,
+            period=period,
+        )
+        self.assertNotIn("portfolio_page_context_signature", session_state)
+        rerun.assert_called_once_with()
+
     def test_document_curation_remains_available_when_analytics_raise(self) -> None:
         portfolio = Mock()
         period = Mock()
 
         with (
-            patch("tabs.portfolio_page._render_portfolio_context_header"),
             patch("tabs.portfolio_page._preload_portfolio_data", side_effect=RuntimeError("falha analítica")),
             patch("tabs.portfolio_page._render_unavailable_portfolio_views") as fallback,
         ):
-            portfolio_page._render_portfolio_analysis_surface(
+            ready = portfolio_page._render_portfolio_analysis_surface(
                 selected_portfolio=portfolio,
                 period=period,
                 selected_sections=portfolio_page.DEFAULT_SECTIONS,
             )
 
-        fallback.assert_called_once_with(
-            selected_portfolio=portfolio,
-            message="Os dados analíticos desta carteira não puderam ser carregados nesta execução.",
-        )
+        self.assertFalse(ready)
+        fallback.assert_called_once()
+        self.assertIs(portfolio, fallback.call_args.kwargs["selected_portfolio"])
+        self.assertIs(period, fallback.call_args.kwargs["period"])
+        failure = fallback.call_args.kwargs["failure"]
+        self.assertIsInstance(failure, portfolio_page.PortfolioAnalysisUnavailable)
+        self.assertIn("falha inesperada", failure.message)
+        self.assertIn("RuntimeError: falha analítica", failure.details)
 
 
 if __name__ == "__main__":
