@@ -17,6 +17,7 @@ from tabs.tab_fidc_ime_carteira import (
     _is_cache_ready_for_portfolio_load,
     _load_single_portfolio_fund,
     _normalize_portfolio_editor_mode,
+    _portfolio_payload_needs_cache_refresh,
     _portfolio_worker_count,
     _queue_portfolio_selection,
     _resolve_active_analysis_portfolio,
@@ -541,6 +542,85 @@ class TabFidcImeCarteiraTests(unittest.TestCase):
         mocked_load.assert_called_once()
         self.assertEqual((portfolio.funds[0],), mocked_load.call_args.kwargs["funds"])
         self.assertEqual(runtime_state["results"], mocked_load.call_args.kwargs["existing_results"])
+
+    def test_retryable_failed_payload_gets_one_bounded_session_retry(self) -> None:
+        period = SimpleNamespace(
+            month_count=12,
+            cache_key="period-12",
+            label="12 meses",
+            start_month=date(2025, 7, 1),
+            end_month=date(2026, 6, 1),
+        )
+        failed_payload = {
+            "result": None,
+            "error": TimeoutError("provider timeout"),
+            "context": {},
+        }
+
+        self.assertTrue(_portfolio_payload_needs_cache_refresh(failed_payload, period))
+
+        failed_payload["context"]["automatic_retry_attempted"] = True
+        self.assertFalse(_portfolio_payload_needs_cache_refresh(failed_payload, period))
+
+    def test_single_fund_transient_failure_is_retried_once(self) -> None:
+        fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(fund,),
+            created_at="2026-04-15T00:00:00Z",
+            updated_at="2026-04-15T00:00:00Z",
+        )
+        period = SimpleNamespace(
+            month_count=12,
+            cache_key="period-12",
+            label="12 meses",
+            mode="preset",
+            start_month=date(2025, 7, 1),
+            end_month=date(2026, 6, 1),
+            preset_months=12,
+        )
+        first_failure = {
+            fund.cnpj: {
+                "result": None,
+                "error": TimeoutError("provider timeout"),
+                "context": {},
+            }
+        }
+        successful_result = SimpleNamespace(competencias=["06/2026"])
+        retry_success = {
+            fund.cnpj: {
+                "result": successful_result,
+                "context": {},
+            }
+        }
+        runtime_state = {"results": {}}
+
+        with (
+            patch("tabs.tab_fidc_ime_carteira.st.progress", return_value=_DummyProgress()),
+            patch("tabs.tab_fidc_ime_carteira.st.empty", return_value=_DummyStatus()),
+            patch("tabs.tab_fidc_ime_carteira._count_cached_portfolio_funds", return_value=0),
+            patch("tabs.tab_fidc_ime_carteira._portfolio_worker_count", return_value=1),
+            patch(
+                "tabs.tab_fidc_ime_carteira._load_portfolio_funds_batch",
+                side_effect=(first_failure, retry_success),
+            ) as load_batch,
+            patch("tabs.tab_fidc_ime_carteira._sync_portfolio_fund_names_from_results", return_value=None),
+            patch("tabs.tab_fidc_ime_carteira._get_portfolio_runtime_state", return_value=runtime_state),
+            patch("tabs.tab_fidc_ime_carteira._save_portfolio_runtime_state"),
+        ):
+            _execute_portfolio_load_for_funds(
+                selected_portfolio=portfolio,
+                period=period,
+                funds=(fund,),
+                existing_results=None,
+            )
+
+        self.assertEqual(2, load_batch.call_count)
+        self.assertEqual(1, load_batch.call_args_list[1].kwargs["worker_count"])
+        stored_payload = runtime_state["results"][fund.cnpj]
+        self.assertIs(successful_result, stored_payload["result"])
+        self.assertTrue(stored_payload["context"]["automatic_retry_attempted"])
 
     def test_build_loaded_dashboards_by_cnpj_skips_funds_with_dashboard_error(self) -> None:
         portfolio = PortfolioRecord(

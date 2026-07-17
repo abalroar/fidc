@@ -7,6 +7,7 @@ from typing import Any, Callable
 import pandas as pd
 import streamlit as st
 
+from services.dashboard_ui import diagnostics_enabled
 from services.fund_name_display import short_fund_name
 from services.fundonet_dashboard import filter_dashboard_to_competencias
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
@@ -79,6 +80,20 @@ class PortfolioAnalysisData:
     load_errors: dict[str, str]
 
 
+class PortfolioAnalysisUnavailable(RuntimeError):
+    def __init__(
+        self,
+        *,
+        message: str,
+        details: tuple[str, ...] = (),
+        retryable: bool = True,
+    ) -> None:
+        super().__init__(message)
+        self.message = message
+        self.details = details
+        self.retryable = retryable
+
+
 _PORTFOLIO_PAGE_CSS = """
 <style>
 .portfolio-center-header {
@@ -127,109 +142,81 @@ _PORTFOLIO_PAGE_CSS = """
     display: block;
     font-size: 0.95rem;
 }
-.st-key-fidc_page_carteira .portfolio-context-overlay {
-    align-items: center;
-    background: rgba(245, 247, 250, 0.98);
-    color: #1f2933;
-    display: flex;
-    inset: 0;
-    justify-content: center;
-    overflow-y: auto;
-    padding: 2rem;
-    position: fixed;
-    z-index: 999999;
-}
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) button,
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) input,
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) select,
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) textarea,
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) [role="button"],
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) [role="combobox"],
-.st-key-fidc_page_carteira:has(.portfolio-context-overlay) [role="tab"] {
-    visibility: hidden !important;
-}
-.st-key-fidc_page_carteira .portfolio-loading-card {
-    background: #ffffff;
-    border: 1px solid #dde3ea;
-    border-radius: 12px;
-    box-shadow: 0 16px 48px rgba(31, 41, 51, 0.10);
-    max-width: 620px;
-    padding: 1.5rem;
+.st-key-fidc_page_carteira .portfolio-loading-state {
+    align-items: start;
+    background: #f7f8fa;
+    border: 1px solid var(--dashboard-grid, #e5e8ec);
+    border-radius: 8px;
+    color: var(--dashboard-ink, #202832);
+    display: grid;
+    gap: 0.7rem;
+    grid-template-columns: 1rem minmax(0, 1fr);
+    margin: 0.75rem 0 1rem;
+    padding: 0.85rem 1rem;
     width: 100%;
 }
-.st-key-fidc_page_carteira .portfolio-loading-kicker {
-    color: #b64000;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.35rem;
-    text-transform: uppercase;
+.st-key-fidc_page_carteira .portfolio-loading-indicator {
+    animation: portfolio-loading-spin 800ms linear infinite;
+    border: 2px solid #cfd4da;
+    border-radius: 50%;
+    border-top-color: var(--dashboard-accent, #ff5a00);
+    height: 1rem;
+    margin-top: 0.16rem;
+    width: 1rem;
 }
-.st-key-fidc_page_carteira .portfolio-loading-title {
-    color: #161c24;
+.st-key-fidc_page_carteira .portfolio-loading-copy {
+    min-width: 0;
+}
+.st-key-fidc_page_carteira .portfolio-loading-copy strong {
+    color: var(--dashboard-ink, #202832);
     display: block;
-    font-size: 1.22rem;
-    font-weight: 650;
-    line-height: 1.3;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
 }
 .st-key-fidc_page_carteira .portfolio-loading-meta {
-    color: #687482;
-    display: block;
-    font-size: 0.82rem;
-    margin-top: 0.4rem;
-}
-.st-key-fidc_page_carteira .portfolio-loading-progress {
-    background: #eceff3;
-    border-radius: 999px;
-    height: 5px;
-    margin: 1.15rem 0 1rem;
-    overflow: hidden;
-}
-.st-key-fidc_page_carteira .portfolio-loading-progress span {
-    animation: portfolio-loading-progress 1.15s linear infinite;
-    background: #ff5a00;
-    border-radius: inherit;
-    display: block;
-    height: 100%;
-    transform: translateX(-100%);
-    width: 48%;
-}
-.st-key-fidc_page_carteira .portfolio-loading-summary {
-    color: #3f4b59;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin: 0 0 1rem;
-}
-.st-key-fidc_page_carteira .portfolio-loading-stages {
-    border: 1px solid #e4e8ed;
-    border-radius: 9px;
-    overflow: hidden;
-}
-.st-key-fidc_page_carteira .portfolio-loading-stage {
-    align-items: center;
+    color: var(--dashboard-muted, #66717d);
     display: flex;
-    gap: 1rem;
-    justify-content: space-between;
-    padding: 0.72rem 0.85rem;
-}
-.st-key-fidc_page_carteira .portfolio-loading-stage + .portfolio-loading-stage {
-    border-top: 1px solid #edf0f3;
-}
-.st-key-fidc_page_carteira .portfolio-loading-stage strong {
-    color: #26313d;
-    font-size: 0.84rem;
-    font-weight: 600;
-}
-.st-key-fidc_page_carteira .portfolio-loading-stage span {
-    color: #626d79;
-    font-size: 0.76rem;
-    text-align: right;
-}
-.st-key-fidc_page_carteira .portfolio-loading-note {
-    color: #626d79;
+    flex-wrap: wrap;
     font-size: 0.78rem;
+    gap: 0.2rem 0.75rem;
+    line-height: 1.4;
+    margin-top: 0.12rem;
+}
+.st-key-fidc_page_carteira .portfolio-loading-copy p {
+    color: #4d5864;
+    font-size: 0.84rem;
     line-height: 1.45;
-    margin: 0.9rem 0 0;
+    margin: 0.32rem 0 0;
+    max-width: 65ch;
+}
+.st-key-fidc_page_carteira .portfolio-error-state {
+    background: #f7f8fa;
+    border: 1px solid var(--dashboard-grid, #e5e8ec);
+    border-left: 3px solid var(--dashboard-accent, #ff5a00);
+    border-radius: 8px;
+    color: var(--dashboard-ink, #202832);
+    margin: 0.75rem 0 0.65rem;
+    padding: 0.85rem 1rem;
+}
+.st-key-fidc_page_carteira .portfolio-error-state strong {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+.st-key-fidc_page_carteira .portfolio-error-state p {
+    color: #4d5864;
+    font-size: 0.84rem;
+    line-height: 1.45;
+    margin: 0.3rem 0 0;
+    max-width: 72ch;
+}
+.st-key-fidc_page_carteira .portfolio-unavailable-note {
+    color: var(--dashboard-muted, #66717d);
+    font-size: 0.82rem;
+    margin: 0.75rem 0;
 }
 .st-key-fidc_page_carteira .st-key-ime_portfolio_entry_mode [data-baseweb="button-group"] {
     display: flex !important;
@@ -239,26 +226,13 @@ _PORTFOLIO_PAGE_CSS = """
     flex: 1 1 0 !important;
     white-space: nowrap !important;
 }
-@keyframes portfolio-loading-progress {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(220%); }
+@keyframes portfolio-loading-spin {
+    to { transform: rotate(360deg); }
 }
 @media (max-width: 640px) {
-    .st-key-fidc_page_carteira .portfolio-context-overlay {
-        align-items: flex-start;
-        padding: 1rem;
-    }
-    .st-key-fidc_page_carteira .portfolio-loading-card {
-        margin-top: 1rem;
-        padding: 1.1rem;
-    }
-    .st-key-fidc_page_carteira .portfolio-loading-stage {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.15rem;
-    }
-    .st-key-fidc_page_carteira .portfolio-loading-stage span {
-        text-align: left;
+    .st-key-fidc_page_carteira .portfolio-loading-state,
+    .st-key-fidc_page_carteira .portfolio-error-state {
+        padding: 0.75rem;
     }
     .st-key-fidc_page_carteira .st-key-ime_portfolio_entry_mode [data-baseweb="button-group"] {
         flex-wrap: wrap !important;
@@ -269,10 +243,8 @@ _PORTFOLIO_PAGE_CSS = """
     }
 }
 @media (prefers-reduced-motion: reduce) {
-    .st-key-fidc_page_carteira .portfolio-loading-progress span {
+    .st-key-fidc_page_carteira .portfolio-loading-indicator {
         animation: none;
-        transform: translateX(0);
-        width: 64%;
     }
 }
 </style>
@@ -313,6 +285,12 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         st.info("Selecione ao menos um bloco para montar a página da carteira.")
         return
 
+    _render_portfolio_context_header(
+        selected_portfolio=selected_portfolio,
+        period=period,
+        selected_sections=selected_sections,
+    )
+
     context_signature = "|".join(
         (
             selected_portfolio.id,
@@ -322,35 +300,47 @@ def render_portfolio_center_page(period: ImePeriodSelection) -> None:
         )
     )
     previous_signature = st.session_state.get("portfolio_page_context_signature")
-    loading_surface = st.empty()
-    if previous_signature != context_signature:
-        with loading_surface.container():
-            st.markdown(
-                _portfolio_loading_overlay_html(
+    analysis_surface = st.empty()
+    analysis_surface.empty()
+    analysis_ready = False
+    try:
+        with analysis_surface.container():
+            loading_surface = st.empty()
+            if previous_signature != context_signature:
+                with loading_surface.container():
+                    st.markdown(
+                        _portfolio_loading_state_html(
+                            selected_portfolio=selected_portfolio,
+                            period=period,
+                        ),
+                        unsafe_allow_html=True,
+                    )
+            try:
+                analysis_ready = _render_portfolio_analysis_surface(
                     selected_portfolio=selected_portfolio,
                     period=period,
-                ),
-                unsafe_allow_html=True,
-            )
-    try:
-        _render_portfolio_analysis_surface(
-            selected_portfolio=selected_portfolio,
-            period=period,
-            selected_sections=selected_sections,
-        )
+                    selected_sections=selected_sections,
+                )
+            finally:
+                loading_surface.empty()
     except Exception:
-        if previous_signature is None:
-            st.session_state.pop("portfolio_page_context_signature", None)
-        else:
-            st.session_state["portfolio_page_context_signature"] = previous_signature
+        _restore_portfolio_context_signature(previous_signature)
         raise
     else:
-        st.session_state["portfolio_page_context_signature"] = context_signature
-    finally:
-        loading_surface.empty()
+        if analysis_ready:
+            st.session_state["portfolio_page_context_signature"] = context_signature
+        else:
+            _restore_portfolio_context_signature(previous_signature)
 
 
-def _portfolio_loading_overlay_html(
+def _restore_portfolio_context_signature(previous_signature: object) -> None:
+    if previous_signature is None:
+        st.session_state.pop("portfolio_page_context_signature", None)
+    else:
+        st.session_state["portfolio_page_context_signature"] = previous_signature
+
+
+def _portfolio_loading_state_html(
     *,
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
@@ -358,19 +348,15 @@ def _portfolio_loading_overlay_html(
     fund_count = len(selected_portfolio.funds)
     fund_label = f"{fund_count} fundo{'s' if fund_count != 1 else ''}"
     return f"""
-<div class="portfolio-context-overlay" role="status" aria-live="polite" aria-label="Preparando análise da carteira">
-  <div class="portfolio-loading-card">
-    <div class="portfolio-loading-kicker">Preparando análise</div>
-    <strong class="portfolio-loading-title">{escape(selected_portfolio.name)}</strong>
-    <span class="portfolio-loading-meta">{escape(period.label)} | {escape(fund_label)}</span>
-    <div class="portfolio-loading-progress" aria-hidden="true"><span></span></div>
-    <p class="portfolio-loading-summary">Estamos reunindo os dados dos fundos e montando os indicadores da carteira.</p>
-    <div class="portfolio-loading-stages">
-      <div class="portfolio-loading-stage"><strong>Dados regulatórios</strong><span>Informes mensais e documentos</span></div>
-      <div class="portfolio-loading-stage"><strong>Consolidação</strong><span>Carteira, risco e rentabilidade</span></div>
-      <div class="portfolio-loading-stage"><strong>Apresentação</strong><span>Gráficos, tabelas e downloads</span></div>
-    </div>
-    <p class="portfolio-loading-note">A primeira carga pode levar alguns instantes. Esta tela será liberada automaticamente quando a análise estiver pronta.</p>
+<div class="portfolio-loading-state" role="status" aria-live="polite" aria-atomic="true">
+  <span class="portfolio-loading-indicator" aria-hidden="true"></span>
+  <div class="portfolio-loading-copy">
+    <strong>Carregando {escape(selected_portfolio.name)}</strong>
+    <span class="portfolio-loading-meta">
+      <span>{escape(period.label)}</span>
+      <span>{escape(fund_label)}</span>
+    </span>
+    <p>Buscando informes mensais e calculando os indicadores. A primeira consulta pode levar alguns instantes.</p>
   </div>
 </div>
 """
@@ -381,12 +367,7 @@ def _render_portfolio_analysis_surface(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
     selected_sections: tuple[str, ...],
-) -> None:
-    _render_portfolio_context_header(
-        selected_portfolio=selected_portfolio,
-        period=period,
-        selected_sections=selected_sections,
-    )
+) -> bool:
     try:
         _preload_portfolio_data(
             selected_portfolio=selected_portfolio,
@@ -397,18 +378,23 @@ def _render_portfolio_analysis_surface(
             selected_portfolio=selected_portfolio,
             period=period,
         )
-    except Exception:  # noqa: BLE001
+    except PortfolioAnalysisUnavailable as exc:
         _render_unavailable_portfolio_views(
             selected_portfolio=selected_portfolio,
-            message="Os dados analíticos desta carteira não puderam ser carregados nesta execução.",
+            period=period,
+            failure=exc,
         )
-        return
-    if analysis is None:
+        return False
+    except Exception as exc:  # noqa: BLE001
         _render_unavailable_portfolio_views(
             selected_portfolio=selected_portfolio,
-            message="Os dados analíticos desta carteira não estão disponíveis nesta execução.",
+            period=period,
+            failure=PortfolioAnalysisUnavailable(
+                message="Ocorreu uma falha inesperada ao montar os indicadores. Tente novamente.",
+                details=(f"{exc.__class__.__name__}: {exc}",),
+            ),
         )
-        return
+        return False
 
     display_outputs = somatorio_tab._render_loaded_period_window(
         analysis.outputs,
@@ -447,9 +433,13 @@ def _render_portfolio_analysis_surface(
     if not selected_scopes:
         _render_unavailable_portfolio_views(
             selected_portfolio=selected_portfolio,
-            message="Selecione ao menos um escopo para exibir os dados desta carteira.",
+            period=period,
+            failure=PortfolioAnalysisUnavailable(
+                message="Selecione ao menos um fundo ou o consolidado para exibir a análise.",
+                retryable=False,
+            ),
         )
-        return
+        return False
 
     structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = st.tabs(PORTFOLIO_VIEW_TABS)
     with curation_tab:
@@ -484,17 +474,46 @@ def _render_portfolio_analysis_surface(
             selected_scopes=selected_scopes,
             selected_portfolio=selected_portfolio,
         )
+    return True
 
 
 def _render_unavailable_portfolio_views(
     *,
     selected_portfolio: PortfolioRecord,
-    message: str,
+    period: ImePeriodSelection,
+    failure: PortfolioAnalysisUnavailable,
 ) -> None:
+    st.markdown(
+        f"""
+<div class="portfolio-error-state" role="alert">
+  <strong>Não foi possível concluir a análise</strong>
+  <p>{escape(failure.message)}</p>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+    if failure.retryable and st.button(
+        "Tentar novamente",
+        key=f"portfolio_analysis_retry::{selected_portfolio.id}::{period.cache_key}",
+        type="primary",
+    ):
+        carteira_tab.load_portfolio_ime_data(
+            selected_portfolio=selected_portfolio,
+            period=period,
+        )
+        st.session_state.pop("portfolio_page_context_signature", None)
+        st.rerun()
+    if diagnostics_enabled() and failure.details:
+        with st.expander("Detalhes técnicos", expanded=False):
+            st.code("\n".join(failure.details), language=None)
+
     tabs = st.tabs(PORTFOLIO_VIEW_TABS)
     for tab in tabs[:-1]:
         with tab:
-            st.info(message)
+            st.markdown(
+                '<p class="portfolio-unavailable-note">Esta seção será exibida após uma carga bem-sucedida.</p>',
+                unsafe_allow_html=True,
+            )
     with tabs[-1]:
         deep_dive_tab.render_tab_deep_dive(
             selected_portfolio=selected_portfolio,
@@ -560,7 +579,7 @@ def _load_portfolio_analysis_data(
     *,
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
-) -> PortfolioAnalysisData | None:
+) -> PortfolioAnalysisData:
     runtime_state = carteira_tab.ensure_portfolio_ime_data(
         selected_portfolio=selected_portfolio,
         period=period,
@@ -576,7 +595,37 @@ def _load_portfolio_analysis_data(
         results=results,
     )
     if not dashboards_by_cnpj:
-        return None
+        retryable = any(
+            carteira_tab._is_retryable_portfolio_failure(results.get(fund.cnpj) or {})
+            for fund in selected_portfolio.funds
+        )
+        if retryable:
+            message = (
+                "A fonte regulatória demorou mais que o esperado. "
+                "Tente novamente; os dados já carregados serão reaproveitados."
+            )
+        elif dashboard_errors:
+            message = (
+                "Os arquivos foram recebidos, mas não foi possível montar os indicadores. "
+                "Tente novamente ou selecione outro período."
+            )
+        else:
+            message = (
+                "Não encontramos informes utilizáveis para o período selecionado. "
+                "Tente outro período ou faça uma nova tentativa."
+            )
+        details = tuple(
+            f"{fund.display_name} ({fund.cnpj}): {load_errors[fund.cnpj]}"
+            for fund in selected_portfolio.funds
+            if fund.cnpj in load_errors
+        ) + tuple(
+            f"Dashboard {cnpj}: {error}"
+            for cnpj, error in dashboard_errors.items()
+        )
+        raise PortfolioAnalysisUnavailable(
+            message=message,
+            details=details,
+        )
 
     try:
         aggregate_bundle = build_portfolio_dashboard_bundle(
@@ -618,7 +667,17 @@ def _load_portfolio_analysis_data(
         selected_portfolio=selected_portfolio,
     )
     if outputs is None:
-        return None
+        raise PortfolioAnalysisUnavailable(
+            message=(
+                "Os informes foram carregados, mas a consolidação não foi concluída. "
+                "Tente novamente para recalcular os indicadores."
+            ),
+            details=tuple(
+                f"{fund.display_name} ({fund.cnpj}): {load_errors[fund.cnpj]}"
+                for fund in selected_portfolio.funds
+                if fund.cnpj in load_errors
+            ),
+        )
     return PortfolioAnalysisData(
         scopes=tuple(scopes),
         aggregate_bundle=aggregate_bundle,
