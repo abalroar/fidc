@@ -16,12 +16,14 @@ from scripts.build_fidc_revision_artifact_payload import (
 )
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_revision_analysis import (
+    MARKET_SHARE_EXCLUDED_FUNDS,
     build_base_by_vehicle,
     build_break_bridge,
     build_classification_coverage,
     build_delinquency_qa,
     build_market_share_by_subtype,
     build_market_share_scope_summary,
+    build_provider_historical_ranking,
     build_reconciliation,
     build_top20_and_monostructure,
 )
@@ -423,6 +425,7 @@ def _fund_base_for_rankings() -> pd.DataFrame:
         )
     rows[0].update(
         {
+            "cnpj_fundo": "09195235000150",
             "denominacao": "FIDC DO SISTEMA PETROBRAS",
             "admin_nome": "BB GESTAO DE RECURSOS DTVM S.A",
             "admin_cnpj": "30822936000169",
@@ -434,6 +437,7 @@ def _fund_base_for_rankings() -> pd.DataFrame:
     )
     rows[1].update(
         {
+            "cnpj_fundo": "26287464000114",
             "denominacao": "TAPSO FIDC",
             "admin_nome": "OLIVEIRA TRUST DTVM S.A.",
             "admin_cnpj": "36113876000191",
@@ -494,6 +498,15 @@ def test_market_share_subtype_uses_fixed_top10_and_separates_missing_provider() 
 
     assert market["foco_anbima"].nunique() == 14
     assert fixed.groupby("papel").size().eq(10).all()
+    excluded_pl = funds.loc[
+        funds["cnpj_fundo"].isin(MARKET_SHARE_EXCLUDED_FUNDS), "pl"
+    ].sum()
+    expected_denominator = funds["pl"].sum() - excluded_pl
+    assert scope["pl_total_ex_fic_brl"].eq(expected_denominator).all()
+    assert scope["fundos_total_ex_fic"].eq(funds["cnpj_fundo"].nunique() - 2).all()
+    assert not fixed["participante"].isin(
+        {"Banco do Brasil", "Oliveira Trust Servicer"}
+    ).any()
     admin = market[market["papel"].eq("administrador")]
     assert "Outros identificados" in set(admin["participante_bucket"])
     assert "Prestador não informado" in set(admin["participante_bucket"])
@@ -505,9 +518,9 @@ def test_market_share_subtype_uses_fixed_top10_and_separates_missing_provider() 
     assert math.isclose(coverage["cobertura_pl_ex_fic"].sum(), 1.0, abs_tol=1e-9)
 
 
-def test_market_share_blocks_negative_category() -> None:
+def test_market_share_normalizes_on_positive_pl_and_flags_negative_category() -> None:
     funds = _fund_base_for_rankings()
-    target = funds.index[0]
+    target = funds.index[2]
     funds.loc[target, "pl"] = -1.0
     market, _ = build_market_share_by_subtype(funds)
     row = funds.loc[target]
@@ -516,5 +529,87 @@ def test_market_share_blocks_negative_category() -> None:
         & market["foco_anbima"].eq(row["anbima_foco"])
     ]
 
-    assert "bloqueado_pl_negativo" in set(scoped["publication_status"])
-    assert scoped["quality_note"].str.contains("não publicar").all()
+    expected_positive_denominator = funds.loc[
+        funds["anbima_tipo"].eq(row["anbima_tipo"])
+        & funds["anbima_foco"].eq(row["anbima_foco"])
+        & funds["pl"].ge(0),
+        "pl",
+    ].sum()
+    assert set(scoped["publication_status"]) == {"publicável_com_nota_pl_negativo"}
+    assert scoped["denominador_publicacao_pl_positivo_brl"].eq(
+        expected_positive_denominator
+    ).all()
+    closing = scoped.groupby("papel")["share_subtipo"].sum()
+    assert closing.map(lambda value: math.isclose(value, 1.0, abs_tol=1e-9)).all()
+    assert scoped["fundos_pl_negativo"].eq(1).all()
+    assert scoped["quality_note"].str.contains(
+        r"excluído\(s\) da normalização percentual sobre PL positivo",
+        regex=True,
+    ).all()
+
+
+def test_provider_historical_ranking_excludes_named_funds_in_all_periods() -> None:
+    rows: list[dict[str, object]] = []
+    for period in ("2024-12", "2025-12", "2026-05"):
+        rows.extend(
+            [
+                {
+                    "competencia": period,
+                    "cnpj_fundo": "09195235000150",
+                    "pl": 1_000.0,
+                    "is_fic_fidc": False,
+                    "admin_nome": "BANCO DO BRASIL",
+                    "gestor_nome": "BANCO DO BRASIL",
+                    "custodiante_nome": "BANCO DO BRASIL",
+                },
+                {
+                    "competencia": period,
+                    "cnpj_fundo": "26287464000114",
+                    "pl": 800.0,
+                    "is_fic_fidc": False,
+                    "admin_nome": "OLIVEIRA TRUST",
+                    "gestor_nome": "OLIVEIRA TRUST",
+                    "custodiante_nome": "OLIVEIRA TRUST",
+                },
+                {
+                    "competencia": period,
+                    "cnpj_fundo": f"{period}-A",
+                    "pl": 300.0,
+                    "is_fic_fidc": False,
+                    "admin_nome": "QI TECH",
+                    "gestor_nome": "QI TECH",
+                    "custodiante_nome": "QI TECH",
+                },
+                {
+                    "competencia": period,
+                    "cnpj_fundo": f"{period}-B",
+                    "pl": 200.0,
+                    "is_fic_fidc": False,
+                    "admin_nome": "BTG PACTUAL",
+                    "gestor_nome": "BTG PACTUAL",
+                    "custodiante_nome": "BTG PACTUAL",
+                },
+                {
+                    "competencia": period,
+                    "cnpj_fundo": f"{period}-FIC",
+                    "pl": 500.0,
+                    "is_fic_fidc": True,
+                    "admin_nome": "FIC PROVIDER",
+                    "gestor_nome": "FIC PROVIDER",
+                    "custodiante_nome": "FIC PROVIDER",
+                },
+            ]
+        )
+
+    ranking = build_provider_historical_ranking(pd.DataFrame(rows))
+
+    assert set(ranking["competencia"]) == {"2024-12", "2025-12", "2026-05"}
+    assert set(ranking["papel"]) == {"administrador", "gestor", "custodiante"}
+    assert ranking["denominador_pl_brl"].eq(500.0).all()
+    assert ranking["fundos_universo"].eq(2).all()
+    assert not ranking["participante"].isin(
+        {"Banco do Brasil", "Oliveira Trust", "FIC PROVIDER"}
+    ).any()
+    assert ranking.groupby(["competencia", "papel"])["rank_periodo"].apply(
+        list
+    ).map(lambda ranks: ranks == [1, 2]).all()

@@ -10,6 +10,7 @@
 import fs from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import os from "node:os";
 import path from "node:path";
 import process from "node:process";
@@ -66,7 +67,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v4";
+const RENDERER_VERSION = "industry_revision_artifacts_v5";
 
 const C = {
   orange: "#EC7000",
@@ -79,6 +80,47 @@ const C = {
   pale: "#F5F6F7",
   white: "#FFFFFF",
 };
+
+const PROVIDER_COLORS = {
+  genial: "#6EC5E9",
+  "qi tech": "#2456D6",
+  "btg pactual": "#1D4080",
+  "oliveira trust": "#7A1F3D",
+  "banco do brasil": "#D6A800",
+  itau: "#FF5500",
+  cbfs: "#73C6A1",
+  cbsf: "#73C6A1",
+  reag: "#73C6A1",
+};
+const PROVIDER_GRAY_SCALE = [
+  "#30353A",
+  "#454A4F",
+  "#5B6065",
+  "#73787D",
+  "#8D9399",
+  "#A7ACB0",
+  "#BEC2C5",
+];
+
+function normalizeProviderName(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function providerColor(value) {
+  const key = normalizeProviderName(value);
+  if (key === "outros identificados") return C.line;
+  if (key === "prestador nao informado" || key === "nao informado") return C.pale;
+  const matched = Object.entries(PROVIDER_COLORS).find(([token]) => key.includes(token));
+  if (matched) return matched[1];
+  let hash = 0;
+  for (const character of key) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
+  return PROVIDER_GRAY_SCALE[hash % PROVIDER_GRAY_SCALE.length];
+}
 
 const SLIDE = { width: 1280, height: 720 };
 const FRAME = { left: 60, right: 60, top: 132, bottom: 654 };
@@ -535,7 +577,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       filename: path.basename(OUTPUT_PPTX),
       sha256: pptxSha256,
       bytes: pptxStat.size,
-      slides: 43,
+      slides: 44,
     },
     xlsx: {
       filename: path.basename(OUTPUT_XLSX),
@@ -543,6 +585,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       bytes: xlsxStat.size,
     },
     checks: {
+      slides: 44,
       top20_fidcs: payload.top20_fidcs.length,
       top20_outros: payload.top20_outros.length,
       profiles: payload.profiles.length,
@@ -635,20 +678,6 @@ function marketChartData(payload, role, focusRows) {
     .sort((a, b) => num(a.rank_top10_geral) - num(b.rank_top10_geral))
     .map((row) => row.participante);
   const buckets = [...fixed, "Outros identificados", "Prestador não informado"];
-  const colors = [
-    C.orange,
-    C.black,
-    "#30353A",
-    "#494E53",
-    "#61666B",
-    "#777C81",
-    "#8D9297",
-    "#A3A7AB",
-    "#B7BBBE",
-    "#C8CBCE",
-    C.line,
-    C.pale,
-  ];
   const categories = [];
   const blocked = [];
   let negativePl = 0;
@@ -672,17 +701,23 @@ function marketChartData(payload, role, focusRows) {
     negativeFunds += num(scoped[0]?.fundos_pl_negativo);
     const positive = buckets.map((bucket) => {
       const row = scoped.find((item) => item.participante_bucket === bucket);
-      return isBlocked ? 0 : Math.max(0, num(row?.pl_brl));
+      return isBlocked ? 0 : Math.max(0, num(row?.share_subtipo));
     });
     const total = positive.reduce((sum, value) => sum + value, 0);
+    if (total > 0 && Math.abs(total - 1) > 1e-6) {
+      throw new Error(
+        `Market share não fecha 100%: ${role} · ${focus.tipo_anbima} · ${focus.foco_anbima} = ${total}`,
+      );
+    }
     buckets.forEach((bucket, index) => {
-      valuesByBucket[bucket].push(total ? positive[index] / total : 0);
+      valuesByBucket[bucket].push(total ? positive[index] : 0);
     });
   });
-  const series = buckets.map((bucket, index) => ({
+  const series = buckets.map((bucket) => ({
     name: providerShort(bucket),
-    values: valuesByBucket[bucket],
-    fill: colors[index],
+    values: valuesByBucket[bucket].map((value) => value > 0 ? value : null),
+    valuesFormatCode: "0.0%",
+    fill: providerColor(bucket),
   }));
   return {
     categories,
@@ -690,9 +725,9 @@ function marketChartData(payload, role, focusRows) {
     blocked,
     negativePl,
     negativeFunds,
-    legend: buckets.map((bucket, index) => ({
+    legend: buckets.map((bucket) => ({
       label: providerShort(bucket),
-      color: colors[index],
+      color: providerColor(bucket),
       line: bucket === "Prestador não informado" ? C.line : undefined,
     })),
   };
@@ -701,32 +736,56 @@ function marketChartData(payload, role, focusRows) {
 function addMarketShareSlide(presentation, payload, role, focusRows, page, appendix = false) {
   const slide = presentation.slides.add();
   const data = marketChartData(payload, role, focusRows);
-  const source = appendix
-    ? `Fonte: CVM e ANBIMA; mai/26. ${focusRows.length} focos; colunas normalizadas sobre PL não negativo. * combinação bloqueada.`
-    : `Fonte: CVM e ANBIMA; mai/26. Top 10 fixo da função; Outros identificados e prestador não informado separados.`;
+  const scope = (payload.market_share_scope_summary || []).find((row) => row.papel === role) || {};
+  const coverage = pct(scope.cobertura_classificacao_14_focos_pl, 1);
+  const outside = pct(1 - num(scope.cobertura_classificacao_14_focos_pl), 1);
+  const source = `Fonte: CVM/ANBIMA, mai/26. Subtipo = Tipo+Foco ANBIMA (cadastro dez/25, evidência e proxy determinístico da Tabela II). PL ex-FIC sem Sistema Petrobras/TAPSO; cobertura ${coverage}, fora ${outside}.`;
   const titles = {
     administrador: appendix
       ? "Administração por subtipo: universo completo dos 14 focos"
-      : "BB tem 47% de Recebíveis Comerciais; QI tem 66% em Fomento",
+      : "Bradesco e BTG lideram Recebíveis Comerciais após as exclusões",
     gestor: appendix
       ? "Gestão por subtipo: universo completo dos 14 focos"
-      : "O Top 10 cobre 15% de Poder Público e 30% de Fomento",
+      : "BTG lidera Crédito Pessoal; Top 10 soma 52% em Recebíveis Comerciais",
     custodiante: appendix
       ? "Custódia por subtipo: universo completo dos 14 focos"
-      : "Oliveira Trust tem 54% de Crédito Pessoal; QI tem 66% em Fomento",
+      : "BTG e Oliveira Trust somam 54% de Crédito Pessoal",
   };
   addHeader(slide, appendix ? "APÊNDICE · MARKET SHARE" : `MARKET SHARE · ${roleLabel(role)}`, titles[role], source, page);
+  const nativeSeries = data.series.map((series) => ({
+    ...series,
+    dataLabelOverrides: series.values.map((rawValue, idx) => {
+      const value = num(rawValue);
+      if (value <= 0) return { idx, showValue: false };
+      return {
+        idx,
+        showValue: true,
+        position: "center",
+        text: value < 0.0005 ? "<0,1%" : undefined,
+        textStyle: {
+          fill: C.white,
+          fontSize: 13.333333,
+          bold: false,
+        },
+      };
+    }),
+  }));
   slide.charts.add("bar", {
-    ...chartBase({ left: 64, top: 145, width: 1150, height: appendix ? 430 : 410 }),
+    ...chartBase({ left: 64, top: 145, width: 1150, height: 455 }),
     categories: data.categories,
-    series: data.series,
+    series: nativeSeries,
     barOptions: {
       direction: "column",
       grouping: "percentStacked",
       gapWidth: appendix ? 32 : 48,
       overlap: 100,
     },
-    hasLegend: false,
+    hasLegend: true,
+    legend: {
+      position: "bottom",
+      overlay: false,
+      textStyle: { fill: C.mid, fontSize: appendix ? 8.5 : 9.5 },
+    },
     xAxis: {
       visible: true,
       textStyle: { fill: C.mid, fontSize: appendix ? 9.5 : 11.5 },
@@ -740,13 +799,14 @@ function addMarketShareSlide(presentation, payload, role, focusRows, page, appen
       max: 1,
       majorUnit: 0.25,
     },
+    dataLabels: {
+      showValue: true,
+      position: "center",
+      fill: "none",
+      line: { style: "solid", fill: "none", width: 0 },
+      textStyle: { fill: C.white, fontSize: 13.333333, bold: false },
+    },
   });
-  addLegend(
-    slide,
-    data.legend,
-    { left: 72, top: appendix ? 585 : 568, width: 1130, height: appendix ? 62 : 74 },
-    4,
-  );
   if (!appendix) {
     const omitted = payload.material_focus_omitted;
     addText(
@@ -756,16 +816,132 @@ function addMarketShareSlide(presentation, payload, role, focusRows, page, appen
       { fontSize: 10.5, color: C.note, alignment: "right" },
     );
   } else {
-    const blockedCount = data.blocked.filter(Boolean).length;
-    const note = blockedCount
-      ? `${blockedCount} combinação(ões) bloqueada(s) por bucket agregado negativo; ${mm(data.negativePl, 1)} de PL negativo permanecem no QA.`
-      : `${integer(data.negativeFunds)} registros com PL negativo (${mm(data.negativePl, 1)}) foram excluídos da normalização positiva e permanecem no QA.`;
-    addText(slide, note, { left: 72, top: 646, width: 1130, height: 18 }, {
-      fontSize: 10.5,
+    const note = `Crédito Corporativo mantém 61 fundos; Coral FIDC (-R$ 20,9 mi; gestor/custodiante N/D) fica no QA e fora da normalização. No universo da função: ${integer(data.negativeFunds)} PLs negativos (${mm(data.negativePl, 1)}).`;
+    addText(
+      slide,
+      "Proxy CVM: maior bucket da Tabela II; Factoring→Fomento; Financeiro→foco financeiro; Agro→Agronegócio; Industrial→Crédito Corporativo; Comercial/Cartão/Serviços→Recebíveis Comerciais; Judicial→Recuperação; Público→Poder Público.",
+      { left: 72, top: 607, width: 1130, height: 24 },
+      { fontSize: 9.3, color: C.note, alignment: "right", verticalAlignment: "middle" },
+    );
+    addText(slide, note, { left: 72, top: 635, width: 1130, height: 22 }, {
+      fontSize: 9.5,
       color: C.note,
       alignment: "right",
+      verticalAlignment: "middle",
     });
   }
+  return slide;
+}
+
+function providerHistoricalRows(payload, role, limit = 6) {
+  const all = (payload.provider_historical_ranking || []).filter((row) => row.papel === role);
+  const latest = all
+    .filter((row) => row.competencia === payload.latest_complete && row.participante !== "Não informado")
+    .sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo))
+    .slice(0, limit);
+  const lookup = new Map(
+    all.map((row) => [`${row.competencia}|${row.participante}`, row]),
+  );
+  return latest.map((current) => ({
+    participante: current.participante,
+    current,
+    before2024: lookup.get(`2024-12|${current.participante}`),
+    before2025: lookup.get(`2025-12|${current.participante}`),
+  }));
+}
+
+function providerRankPlCell(row) {
+  if (!row) return "—";
+  return `${integer(row.rank_periodo)} · ${(num(row.pl_brl) / 1e9).toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  })}`;
+}
+
+function addProviderHistoricalRankingSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "PRESTADORES · EVOLUÇÃO DO RANKING",
+    "QI Tech lidera administração e custódia; BTG lidera gestão em mai/26",
+    "Fonte: CVM. PL ex-FIC; Sistema Petrobras e TAPSO excluídos em todos os períodos. Administração observada; gestão e custódia de dez/24 e dez/25 reconstruídas com cadastro vigente.",
+    page,
+  );
+  const bands = [
+    { role: "administrador", label: "ADMINISTRAÇÃO", top: 126 },
+    { role: "gestor", label: "GESTÃO", top: 305 },
+    { role: "custodiante", label: "CUSTÓDIA", top: 484 },
+  ];
+  bands.forEach(({ role, label, top }) => {
+    const rows = providerHistoricalRows(payload, role, 6);
+    const chartRows = [...rows].reverse();
+    addText(slide, label, { left: 60, top, width: 690, height: 20 }, {
+      fontSize: 12.5,
+      bold: true,
+      color: C.charcoal,
+      verticalAlignment: "middle",
+    });
+    addText(slide, "POSIÇÃO · PL (R$ BI)", { left: 475, top, width: 275, height: 20 }, {
+      fontSize: 9.5,
+      bold: true,
+      color: C.note,
+      alignment: "right",
+      verticalAlignment: "middle",
+    });
+    addEditorialTable(slide, {
+      left: 60,
+      top: top + 23,
+      width: 690,
+      height: 145,
+      headers: ["Participante", "Dez/24", "Dez/25", "Mai/26"],
+      rows: rows.map((row) => [
+        providerShort(row.participante),
+        providerRankPlCell(row.before2024),
+        providerRankPlCell(row.before2025),
+        providerRankPlCell(row.current),
+      ]),
+      columnWidths: [300, 125, 125, 140],
+      aligns: ["left", "right", "right", "right"],
+      fontSize: 8.7,
+      headerFontSize: 8.5,
+    });
+    addText(slide, "PL MAI/26 · R$ BI", { left: 785, top, width: 435, height: 20 }, {
+      fontSize: 10,
+      bold: true,
+      color: C.note,
+      alignment: "right",
+      verticalAlignment: "middle",
+    });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 785, top: top + 23, width: 435, height: 145 }),
+      categories: chartRows.map((row) => providerShort(row.participante)),
+      series: [
+        {
+          name: "PL mai/26",
+          values: chartRows.map((row) => num(row.current?.pl_brl) / 1e9),
+          valuesFormatCode: "0.0",
+          fill: C.charcoal,
+          points: chartRows.map((row, idx) => ({ idx, fill: providerColor(row.participante) })),
+        },
+      ],
+      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 28 },
+      hasLegend: false,
+      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+      yAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 8.3 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      dataLabels: {
+        showValue: true,
+        position: "inEnd",
+        fill: "none",
+        line: { style: "solid", fill: "none", width: 0 },
+        textStyle: { fill: C.white, fontSize: 10, bold: false },
+      },
+    });
+  });
   return slide;
 }
 
@@ -1220,7 +1396,7 @@ function buildPresentation(payload) {
       slide,
       "TIPO ANBIMA",
       `Na taxonomia vigente, Outros ganhou ${pct(num(othersAfter?.share) - num(othersBefore?.share), 1).replace("%", " p.p.")} do PL ex-FIC desde dez/23`,
-      `Fonte: CVM e classificação ANBIMA vigente; dez/23 e ${stockShortLower}. A fotografia cadastral de dez/25 foi aplicada ao histórico; não é uma série cadastral like-for-like.`,
+      `Fonte: CVM/ANBIMA; dez/23 e ${stockShortLower}. Tipo/Foco classifica o fundo; fotografia cadastral de dez/25 aplicada ao histórico. Não comparar categoria a categoria com a Tabela II.`,
       6,
     );
     addSectionLabel(slide, "PL EX-FIC · R$ BI · DEZ/23 → MAI/26", { left: 60, top: 150, width: 550, height: 24 });
@@ -1255,6 +1431,12 @@ function buildPresentation(payload) {
       fontSize: 10.5, color: C.note, alignment: "right",
     });
     addRect(slide, { left: 760, top: 563, width: 460, height: 24 }, C.white);
+    addText(
+      slide,
+      `Mai/26: Outros ${pct(othersAfter?.share, 1)}; Financeiro ${pct(afterMap.Financeiro?.share, 1)}. ANBIMA enquadra o fundo inteiro, não cada direito creditório.`,
+      { left: 60, top: 630, width: 1160, height: 24 },
+      { fontSize: 11, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
+    );
   }
 
   // 7. Carteira por recebível
@@ -1285,7 +1467,7 @@ function buildPresentation(payload) {
       slide,
       "CARTEIRA POR TIPO DE RECEBÍVEL",
       `Financeiro ganhou ${pct(num(financeAfter?.share_reported) - num(financeBefore?.share_reported), 1).replace("%", " p.p.")} e explicou 67% do crescimento segmentado`,
-      `Fonte: CVM, Tabela II, dez/23 e ${stockShortLower}. Soma segmentada supera a Tabela I em ${pct(meta[periodBefore]?.gap_pct, 1)} e ${pct(meta[periodAfter]?.gap_pct, 1)}; percentuais fecham sobre a Tabela II.`,
+      `Fonte: CVM, Tabela II, dez/23 e ${stockShortLower}. Classifica o estoque mensal; percentuais fecham sobre a Tabela II. Soma segmentada supera a Tabela I em ${pct(meta[periodBefore]?.gap_pct, 1)} e ${pct(meta[periodAfter]?.gap_pct, 1)}.`,
       7,
     );
     addSectionLabel(slide, "VALOR REPORTADO · R$ BI", { left: 60, top: 150, width: 550, height: 24 });
@@ -1317,9 +1499,12 @@ function buildPresentation(payload) {
       dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.2, bold: true } },
     });
     addRect(slide, { left: 760, top: 600, width: 460, height: 24 }, C.white);
-    addText(slide, "Cada período fecha em 100%", { left: 1015, top: 628, width: 205, height: 18 }, {
-      fontSize: 10.5, color: C.note, alignment: "right",
-    });
+    addText(
+      slide,
+      "Manual CVM: adquirência com cartão usa o campo mais específico, II.g Cartão. Em mai/26, três CloudWalk declararam R$ 5,24 bi em Comercial; o gráfico mantém o reporte, sem reclassificar.",
+      { left: 60, top: 635, width: 1160, height: 24 },
+      { fontSize: 10.5, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
+    );
     // Reaplicados após os gráficos para evitar que o frame do chart cubra o
     // início do rótulo no PowerPoint/LibreOffice.
     addSectionLabel(slide, "VALOR REPORTADO · R$ BI", { left: 60, top: 150, width: 550, height: 24 });
@@ -1450,7 +1635,7 @@ function buildPresentation(payload) {
       { left: 500, top: 474, width: 300, height: 24 },
       2,
     );
-    addText(slide, "Caso Atlântico detalhado no apêndice · slide 43", { left: 885, top: 476, width: 335, height: 20 }, {
+    addText(slide, "Caso Atlântico detalhado no apêndice · slide 44", { left: 885, top: 476, width: 335, height: 20 }, {
       fontSize: 10.5, color: C.orange, alignment: "right", verticalAlignment: "middle",
     });
     const summaryRows = payload.bridge_summary;
@@ -1485,15 +1670,14 @@ function buildPresentation(payload) {
     const afterPeriod = payload.latest_complete;
     const before = roleOrder.map((role) => providers.find((row) => row.competencia === beforePeriod && row.papel === role));
     const after = roleOrder.map((role) => providers.find((row) => row.competencia === afterPeriod && row.papel === role));
-    const top10Deltas = after.map((row, index) => num(row?.top10_share) - num(before[index]?.top10_share));
     addHeader(
       slide,
       "PRESTADORES · RANKING E CONCENTRAÇÃO",
-      `Top 10 recuou ${Math.abs(top10Deltas[0] * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} p.p. em administração, ficou estável em gestão e subiu ${(top10Deltas[2] * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} p.p. em custódia`,
-      `Fonte: CVM, dez/25 e ${stockShortLower}. Shares sobre PL bruto total, incluindo prestador não informado; gestão e custódia de dez/25 usam o cadastro vigente.`,
+      `Top 10 mantém cerca de 72% em administração e custódia; gestão subiu a ${pct(after[1]?.top10_share, 1)}`,
+      `Fonte: CVM, dez/25 e ${stockShortLower}. PL ex-FIC; Sistema Petrobras e TAPSO excluídos do numerador e denominador. Administração observada; gestão/custódia históricas reconstruídas com cadastro vigente.`,
       10,
     );
-    addSectionLabel(slide, "TOP 10 · % DO PL BRUTO", { left: 60, top: 155, width: 540, height: 24 });
+    addSectionLabel(slide, "TOP 10 · % DO PL EX-FIC", { left: 60, top: 155, width: 540, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 195, width: 540, height: 315 }),
       categories: ["Admin.", "Gestão", "Custódia"],
@@ -1505,10 +1689,10 @@ function buildPresentation(payload) {
       hasLegend: false,
       xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
       yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+      dataLabels: { showValue: true, position: "inEnd", fill: "none", line: { style: "solid", fill: "none", width: 0 }, textStyle: { fill: C.white, fontSize: 10, bold: false } },
     });
     addRect(slide, { left: 60, top: 486, width: 540, height: 35 }, C.white);
-    addSectionLabel(slide, "TOP 5 · % DO PL BRUTO", { left: 680, top: 155, width: 540, height: 24 });
+    addSectionLabel(slide, "TOP 5 · % DO PL EX-FIC", { left: 680, top: 155, width: 540, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 680, top: 195, width: 540, height: 315 }),
       categories: ["Admin.", "Gestão", "Custódia"],
@@ -1520,21 +1704,16 @@ function buildPresentation(payload) {
       hasLegend: false,
       xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
       yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+      dataLabels: { showValue: true, position: "inEnd", fill: "none", line: { style: "solid", fill: "none", width: 0 }, textStyle: { fill: C.white, fontSize: 10, bold: false } },
     });
     addRect(slide, { left: 680, top: 486, width: 540, height: 35 }, C.white);
     addRule(slide, 60, 545, 1160, C.line, 1);
-    const coverageLines = roleOrder.map((role, index) => {
-      const label = roleLabel(role);
-      const display = `${label.charAt(0).toUpperCase()}${label.slice(1)}`;
-      return `${display}: cobertura ${pct(before[index]?.coverage_pl, 1)} → ${pct(after[index]?.coverage_pl, 1)}; N/D ${bn(before[index]?.missing_pl, 1)} → ${bn(after[index]?.missing_pl, 1)}`;
-    });
-    addText(slide, coverageLines.join("\n"), { left: 60, top: 565, width: 1160, height: 70 }, {
-      fontSize: 11.5, color: C.mid, lineSpacing: 1.05,
-    });
-    addText(slide, "Administração é observada mensalmente; gestão e custódia de dez/25 são reconstruções com o cadastro CVM vigente.", { left: 60, top: 640, width: 1160, height: 18 }, {
-      fontSize: 10.5, color: C.note, alignment: "right",
-    });
+    addText(
+      slide,
+      `Cobertura de PL, dez/25 → ${stockShort}: administração ${pct(before[0]?.coverage_pl, 1)} → ${pct(after[0]?.coverage_pl, 1)}; gestão ${pct(before[1]?.coverage_pl, 1)} → ${pct(after[1]?.coverage_pl, 1)}; custódia ${pct(before[2]?.coverage_pl, 1)} → ${pct(after[2]?.coverage_pl, 1)}.`,
+      { left: 60, top: 570, width: 1160, height: 42 },
+      { fontSize: 12, color: C.mid, alignment: "center", verticalAlignment: "middle" },
+    );
     addLegend(slide, [
       { label: "Dez/25", color: C.mid },
       { label: stockShort, color: C.orange },
@@ -1547,7 +1726,10 @@ function buildPresentation(payload) {
   addMarketShareSlide(presentation, payload, "gestor", materialFocus, 12, false);
   addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 13, false);
 
-  // 14. Top 20 FIDCs
+  // 14. Evolução do ranking dos prestadores.
+  addProviderHistoricalRankingSlide(presentation, payload, 14);
+
+  // 15. Top 20 FIDCs
   {
     const slide = presentation.slides.add();
     const top20 = payload.top20_fidcs;
@@ -1559,7 +1741,7 @@ function buildPresentation(payload) {
       "RANKING · TOP 20 FIDCs",
       `Top 20 somam ${pct(share, 1)} do PL ex-FIC; Petrobras e TAPSO são ${pct(topTwo, 1)} do bloco`,
       "Fonte: CVM e ANBIMA, mai/26. Ranking derivado do universo completo ex-FIC; denominação legal completa no apêndice.",
-      14,
+      15,
     );
     const tableRows = top20.map((row) => [
       String(row.rank),
@@ -1586,7 +1768,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 15. Top 20 Outros
+  // 16. Top 20 Outros
   {
     const slide = presentation.slides.add();
     const rows = payload.top20_outros;
@@ -1596,7 +1778,7 @@ function buildPresentation(payload) {
       "RANKING · TOP 20 OUTROS",
       `Top 20 representam ${pct(categoryShare, 1)} de Outros; oficial, hipótese e status ficam separados`,
       "Fonte: ANBIMA e documentos primários locais, mai/26. Evidência e links completos constam no workbook.",
-      15,
+      16,
     );
     const tableRows = rows.map((row) => [
       String(row.rank_outros),
@@ -1622,7 +1804,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 16. Modelo de prestação
+  // 17. Modelo de prestação
   {
     const slide = presentation.slides.add();
     const rows = payload.service_model;
@@ -1633,7 +1815,7 @@ function buildPresentation(payload) {
       "MODELO DE PRESTAÇÃO",
       `Monoestruturas são ${pct(mono?.share_fundos, 1)} dos fundos e ${pct(mono?.share_pl, 1)} do PL; dados incompletos cobrem ${pct(missing?.share_pl, 1)}`,
       "Fonte: CVM, cadastro vigente em mai/26. Definição mono: mesmo conglomerado normalizado em administração, gestão e custódia.",
-      16,
+      17,
     );
     const labels = rows.map((row) => row.modelo_prestacao.replace("Administração", "Adm.").replace("Três prestadores distintos", "Três distintos"));
     slide.charts.add("bar", {
@@ -1671,7 +1853,7 @@ function buildPresentation(payload) {
     );
   }
 
-  // 17. Concentração das monoestruturas
+  // 18. Concentração das monoestruturas
   {
     const slide = presentation.slides.add();
     const rows = [...payload.monostructure_concentration].sort((a, b) => num(a.rank_pl_mono) - num(b.rank_pl_mono)).slice(0, 6);
@@ -1682,7 +1864,7 @@ function buildPresentation(payload) {
       "CONCENTRAÇÃO DAS MONOESTRUTURAS",
       "Sistema Petrobras é todo o PL mono do BB; TAPSO representa 54% do PL mono da Oliveira Trust",
       "Fonte: CVM, mai/26. A evidência mostra concentração; não permite inferir preços, propostas ou contratos.",
-      17,
+      18,
     );
     addEditorialTable(slide, {
       left: 60,
@@ -1744,7 +1926,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 18. Ofertas e originação
+  // 19. Ofertas e originação
   {
     const slide = presentation.slides.add();
     const offers = [...payload.offers_ytd].sort((a, b) => num(a.year) - num(b.year));
@@ -1756,7 +1938,7 @@ function buildPresentation(payload) {
       "OFERTAS, CAPTAÇÃO E ORIGINAÇÃO",
       `Ofertas somam ${bn(current?.volume, 1)} até ${offersShort}, ${pct(num(current?.volume) / num(prior?.volume) - 1, 1)} acima de ${currentOfferYear - 1}`,
       `Fonte: CVM, Ofertas Públicas. Comparação YTD até ${offersShort} em ${firstOfferYear}–${currentOfferYear}; PL do restante do deck em ${stockLong}.`,
-      18,
+      19,
     );
     addSectionLabel(slide, "VOLUME REGISTRADO NO MESMO PERÍODO", { left: 60, top: 150, width: 720, height: 24 });
     slide.charts.add("bar", {
@@ -1805,7 +1987,7 @@ function buildPresentation(payload) {
     );
   }
 
-  // 19. Escopo, fontes e limitações
+  // 20. Escopo, fontes e limitações
   {
     const slide = presentation.slides.add();
     const coverage = Object.fromEntries(payload.classification_coverage.map((row) => [row.categoria, row.share]));
@@ -1814,7 +1996,7 @@ function buildPresentation(payload) {
       "APÊNDICE · ESCOPO E FONTES",
       "Escopo, fontes e limitações",
       `• Fontes primárias: CVM, ANBIMA Data e FundosNet. Dados consultados até ${offersShort}.`,
-      19,
+      20,
     );
     addEditorialTable(slide, {
       left: 60,
@@ -1837,7 +2019,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 20–22. Universo completo dos market shares.
+  // 21–23. Universo completo dos market shares.
   const fullFocus = payload.market_share
     .filter((row) => row.papel === "administrador")
     .map((row) => ({
@@ -1849,11 +2031,11 @@ function buildPresentation(payload) {
       array.findIndex((item) => item.tipo_anbima === row.tipo_anbima && item.foco_anbima === row.foco_anbima) === index,
     )
     .sort((a, b) => a.foco_order - b.foco_order);
-  addMarketShareSlide(presentation, payload, "administrador", fullFocus, 20, true);
-  addMarketShareSlide(presentation, payload, "gestor", fullFocus, 21, true);
-  addMarketShareSlide(presentation, payload, "custodiante", fullFocus, 22, true);
+  addMarketShareSlide(presentation, payload, "administrador", fullFocus, 21, true);
+  addMarketShareSlide(presentation, payload, "gestor", fullFocus, 22, true);
+  addMarketShareSlide(presentation, payload, "custodiante", fullFocus, 23, true);
 
-  // 23–42. Fichas dos Top 20.
+  // 24–43. Fichas dos Top 20.
   payload.profiles
     .sort((a, b) => num(a.rank) - num(b.rank))
     .forEach((profile, index) => {
@@ -1864,7 +2046,7 @@ function buildPresentation(payload) {
         "APÊNDICE · CURADORIA TOP 20",
         title,
         `Fonte: ${truncateWords(profile.fonte, 150)} · consulta ${profile.data_consulta}`,
-        23 + index,
+        24 + index,
       );
       addText(
         slide,
@@ -1977,7 +2159,7 @@ function buildPresentation(payload) {
       });
     });
 
-  // 43. Caso Atlântico: estratégia NPL e quebra de reporte.
+  // 44. Caso Atlântico: estratégia NPL e quebra de reporte.
   {
     const slide = presentation.slides.add();
     const profile = payload.atlantico_profile;
@@ -1988,7 +2170,7 @@ function buildPresentation(payload) {
       "APÊNDICE · CASO ATLÂNTICO",
       "Atlântico compra créditos já inadimplidos; jul/24 muda a base de reporte",
       "Fontes: CVM, regulamento de 12/11/24, AGE de 08/07/24 e DFs auditadas de 2024/25. Links completos no workbook.",
-      43,
+      44,
     );
     addText(
       slide,
@@ -2437,7 +2619,8 @@ async function addMarketShareSheet(workbook) {
     ["Tipo bucket", "bucket_kind"],
     ["Ordem stack", "stack_order"],
     ["PL bucket", "pl_brl"],
-    ["Denominador subtipo", "denominador_pl_subtipo_brl"],
+    ["PL líquido subtipo", "denominador_pl_subtipo_brl"],
+    ["Denominador publicado (PL positivo)", "denominador_publicacao_pl_positivo_brl"],
     ["Share subtipo", "share_subtipo"],
     ["PL identificado", "pl_identificado_brl"],
     ["Cobertura prestador", "cobertura_prestador_pl"],
@@ -2454,13 +2637,13 @@ async function addMarketShareSheet(workbook) {
   setHeaderBand(
     sheet,
     "Market share por subtipo",
-    "Top 10 fixo por função + Outros identificados + Prestador não informado. PL negativo e combinações bloqueadas permanecem explícitos.",
+    "Tipo/Foco ANBIMA; PL ex-FIC sem Sistema Petrobras/TAPSO. Top 10 fixo por função + Outros identificados + prestador N/D. PL negativo fica no QA e fora da normalização percentual sobre PL positivo.",
     headers,
     rows.length,
     { freezeColumns: 4, bodyFontSize: 8.5 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [80, 105, 150, 180, 65, 250, 100, 70, 110, 125, 90, 110, 100, 85, 95, 105, 240, 160, 95], rows.length);
+  applyColumnWidths(sheet, [80, 105, 150, 180, 65, 250, 100, 70, 110, 125, 135, 90, 110, 100, 85, 95, 105, 240, 160, 95], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
 }
 
@@ -2680,6 +2863,72 @@ async function addHistoricalComparisonsSheet(workbook, payload) {
   sheet.getRange(`A5:N${rows.length + 4}`).format.rowHeightPx = 36;
 }
 
+async function addProviderHistorySheet(workbook, payload) {
+  const columns = [
+    ["Competência", "competencia"],
+    ["Função", "papel"],
+    ["Participante", "participante"],
+    ["Posição", "rank_periodo"],
+    ["PL", "pl_brl"],
+    ["Share", "share_pl"],
+    ["Fundos", "fundos"],
+    ["Denominador PL", "denominador_pl_brl"],
+    ["Fundos no universo", "fundos_universo"],
+    ["Origem do prestador", "fonte_prestador"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.provider_historical_ranking || [], columns);
+  const sheet = resetSheet(workbook, "Ranking prestadores");
+  setHeaderBand(
+    sheet,
+    "Ranking prestadores",
+    "PL ex-FIC; Sistema Petrobras e TAPSO excluídos em todos os períodos. Administração observada; gestão e custódia históricas reconstruídas com cadastro vigente.",
+    headers,
+    rows.length,
+    { freezeColumns: 3, wrapText: true, bodyFontSize: 9 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [90, 100, 230, 75, 115, 85, 75, 125, 100, 280], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`E5:E${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`F5:F${rows.length + 4}`).format.numberFormat = "0.00%";
+  sheet.getRange(`H5:H${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 32;
+}
+
+async function addAcquiringTaxonomySheet(workbook, payload) {
+  const columns = [
+    ["CNPJ", "cnpj"],
+    ["Fundo", "fund"],
+    ["Grupo", "group"],
+    ["Natureza econômica", "economic_nature"],
+    ["Competência Tabela II", "table_ii_competence"],
+    ["Categoria Tabela II", "table_ii_category"],
+    ["Valor Tabela II", "table_ii_value_brl"],
+    ["Ativo em mai/26", "active_may_2026"],
+    ["Código ANBIMA", "anbima_code"],
+    ["Tipo ANBIMA", "anbima_type"],
+    ["Foco ANBIMA", "anbima_focus"],
+    ["Regulamento primário", "primary_document"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.acquiring_taxonomy?.funds || [], columns);
+  const sheet = resetSheet(workbook, "Taxonomia adquirência");
+  setHeaderBand(
+    sheet,
+    "Taxonomia adquirência",
+    "Tabela II preserva o reporte declarado. Pelo manual CVM, recebíveis de adquirência com cartão usam II.g Cartão; Akira I, A.I. e PI declararam Comercial em mai/26 e permanecem sinalizados, sem reclassificação.",
+    headers,
+    rows.length,
+    { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [120, 240, 100, 480, 115, 130, 115, 95, 105, 150, 170, 320], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`G5:G${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`A5:L${rows.length + 4}`).format.rowHeightPx = 68;
+}
+
 async function addAtlanticoSheet(workbook, payload) {
   const profile = payload.atlantico_profile;
   const factHeaders = ["Seção", "Campo", "Evidência / leitura", "Status / limitação"];
@@ -2809,6 +3058,8 @@ async function buildWorkbook(payload) {
   await addTop20Sheets(workbook, payload);
   await addCurationSheet(workbook, payload);
   await addHistoricalComparisonsSheet(workbook, payload);
+  await addProviderHistorySheet(workbook, payload);
+  await addAcquiringTaxonomySheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
   await addChecksSheet(workbook, payload);
@@ -2837,6 +3088,21 @@ async function exportPresentation(presentation) {
   await fs.mkdir(path.dirname(OUTPUT_PPTX), { recursive: true });
   const pptx = await PresentationFile.exportPptx(presentation);
   await pptx.save(OUTPUT_PPTX);
+  const patcherName = "patch_pptx_native_market_charts.py";
+  const patcher = [
+    process.env.FIDC_NATIVE_CHART_PATCHER,
+    path.join(path.dirname(__filename), patcherName),
+    path.join(ROOT, "scripts", patcherName),
+  ].find((candidate) => candidate && existsSync(candidate));
+  if (!patcher) {
+    throw new Error(`Patcher dos gráficos nativos não localizado: ${patcherName}`);
+  }
+  const patched = spawnSync(process.env.FIDC_PYTHON || "python3", [patcher, OUTPUT_PPTX], {
+    encoding: "utf8",
+  });
+  if (patched.status !== 0) {
+    throw new Error(`Falha ao ajustar os gráficos nativos de market share: ${patched.stderr || patched.stdout}`);
+  }
 }
 
 async function exportWorkbook(workbook) {
@@ -2845,7 +3111,7 @@ async function exportWorkbook(workbook) {
       ["QA Inadimplência", "A1:AB26"],
       ["Base por fundo-CNPJ", "A1:U20"],
       ["Concentração de monoestruturas", "A1:N24"],
-      ["Market share por subtipo", "A1:S26"],
+      ["Market share por subtipo", "A1:T26"],
       ["Top 20 FIDCs", "A1:M25"],
       ["Top 20 Outros", "A1:J25"],
       ["Curadoria Top 20", "A1:X16"],
@@ -2881,8 +3147,8 @@ async function main() {
   const payload = JSON.parse(payloadRaw.toString("utf8"));
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
     const presentation = buildPresentation(payload);
-    if (presentation.slides.items.length !== 43) {
-      throw new Error(`Deck deveria ter 43 slides; gerou ${presentation.slides.items.length}.`);
+    if (presentation.slides.items.length !== 44) {
+      throw new Error(`Deck deveria ter 44 slides; gerou ${presentation.slides.items.length}.`);
     }
     await exportPresentation(presentation);
   }

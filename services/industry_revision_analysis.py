@@ -28,6 +28,10 @@ from services.industry_intelligence import canonical_provider
 LATEST_COMPLETE = "2026-05"
 BRIDGE_FROM = "2024-06"
 BRIDGE_TO = "2024-07"
+MARKET_SHARE_EXCLUDED_FUNDS: Mapping[str, str] = {
+    "09195235000150": "FIDC Sistema Petrobras",
+    "26287464000114": "FIDC TAPSO",
+}
 ROLE_COLUMNS: Mapping[str, tuple[str, str]] = {
     "administrador": ("admin_nome", "admin_cnpj"),
     "gestor": ("gestor_nome", "gestor_cnpj"),
@@ -70,6 +74,21 @@ def _clean(value: object) -> str:
         return ""
     text = re.sub(r"\s+", " ", str(value).strip())
     return "" if text.lower() in {"", "nan", "none", "nat", "n/d"} else text
+
+
+def exclude_market_share_funds(
+    frame: pd.DataFrame,
+    *,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
+) -> pd.DataFrame:
+    """Remove the funds explicitly excluded from provider-share universes."""
+
+    if frame is None:
+        return pd.DataFrame()
+    if frame.empty or "cnpj_fundo" not in frame.columns:
+        return frame.copy()
+    excluded = {_digits(value) for value in excluded_fund_cnpjs if _digits(value)}
+    return frame.loc[~frame["cnpj_fundo"].map(_digits).isin(excluded)].copy()
 
 
 def _as_nullable_bool(series: pd.Series) -> pd.Series:
@@ -802,6 +821,7 @@ def build_market_share_by_subtype(
     *,
     competence: str = LATEST_COMPLETE,
     top_n: int = 10,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Build 100% stacks using one fixed Top 10 per provider role.
 
@@ -813,6 +833,9 @@ def build_market_share_by_subtype(
     latest = fund_base[
         fund_base["competencia"].eq(competence) & ~fund_base["is_fic_fidc"].fillna(False)
     ].copy()
+    latest = exclude_market_share_funds(
+        latest, excluded_fund_cnpjs=excluded_fund_cnpjs
+    )
     latest["pl"] = pd.to_numeric(latest["pl"], errors="coerce")
     focus_pairs = [
         (anbima_type, focus)
@@ -852,23 +875,29 @@ def build_market_share_by_subtype(
                 & role_frame["anbima_foco"].eq(focus)
             ].copy()
             denominator = _sum_min(scoped["pl"])
-            grouped = scoped.groupby("participant")["pl"].apply(_sum_min).to_dict()
+            positive_scoped = scoped[scoped["pl"].ge(0)].copy()
+            publication_denominator = _sum_min(positive_scoped["pl"])
+            grouped = (
+                positive_scoped.groupby("participant")["pl"].apply(_sum_min).to_dict()
+            )
             category_values: list[tuple[str, float, int, str]] = []
             for rank, participant in enumerate(fixed_top, start=1):
                 category_values.append(
                     (participant, float(grouped.get(participant, 0.0)), rank, "Top 10 geral")
                 )
             identified_other = _sum_min(
-                scoped.loc[
-                    scoped["participant"].ne("Não informado")
-                    & ~scoped["participant"].isin(fixed_top),
+                positive_scoped.loc[
+                    positive_scoped["participant"].ne("Não informado")
+                    & ~positive_scoped["participant"].isin(fixed_top),
                     "pl",
                 ]
             )
             if pd.isna(identified_other):
                 identified_other = 0.0
             not_informed = _sum_min(
-                scoped.loc[scoped["participant"].eq("Não informado"), "pl"]
+                positive_scoped.loc[
+                    positive_scoped["participant"].eq("Não informado"), "pl"
+                ]
             )
             if pd.isna(not_informed):
                 not_informed = 0.0
@@ -883,19 +912,18 @@ def build_market_share_by_subtype(
             negative_pl_brl = _sum_min(scoped.loc[scoped["pl"].lt(0), "pl"])
             if pd.isna(negative_pl_brl):
                 negative_pl_brl = 0.0
-            negative_categories = sum(value < -1e-6 for _, value, _, _ in category_values)
             coverage = (
-                (denominator - not_informed) / denominator
-                if pd.notna(denominator) and denominator != 0
+                (publication_denominator - not_informed) / publication_denominator
+                if pd.notna(publication_denominator) and publication_denominator != 0
                 else float("nan")
             )
-            if pd.isna(denominator) or denominator <= 0:
+            if pd.isna(publication_denominator) or publication_denominator <= 0:
                 status = "bloqueado_sem_denominador_positivo"
-            elif negative_categories:
-                status = "bloqueado_pl_negativo"
             elif coverage > 1.000001 or coverage < -0.000001:
                 status = "bloqueado_cobertura_fora_de_0_100"
-            elif abs(category_sum - denominator) > max(1.0, abs(denominator) * 1e-9):
+            elif abs(category_sum - publication_denominator) > max(
+                1.0, abs(publication_denominator) * 1e-9
+            ):
                 status = "bloqueado_nao_reconcilia_denominador"
             elif negative_funds:
                 status = "publicável_com_nota_pl_negativo"
@@ -914,11 +942,13 @@ def build_market_share_by_subtype(
                         "stack_order": stack_order,
                         "pl_brl": value,
                         "denominador_pl_subtipo_brl": denominator,
-                        "share_subtipo": value / denominator
-                        if pd.notna(denominator) and denominator != 0
+                        "denominador_publicacao_pl_positivo_brl": publication_denominator,
+                        "share_subtipo": value / publication_denominator
+                        if pd.notna(publication_denominator)
+                        and publication_denominator != 0
                         else float("nan"),
-                        "pl_identificado_brl": denominator - not_informed
-                        if pd.notna(denominator)
+                        "pl_identificado_brl": publication_denominator - not_informed
+                        if pd.notna(publication_denominator)
                         else float("nan"),
                         "cobertura_prestador_pl": coverage,
                         "fundos_subtipo": int(scoped["cnpj_fundo"].nunique()),
@@ -929,15 +959,14 @@ def build_market_share_by_subtype(
                         else float("nan"),
                         "quality_note": (
                             f"{negative_funds} fundo(s) com PL negativo, total de R$ {negative_pl_brl:,.2f}; "
-                            "categorias agregadas permanecem não negativas e reconciliam o denominador"
-                            if negative_funds and not negative_categories
-                            else "categoria agregada com PL negativo; não publicar"
-                            if negative_categories
+                            "excluído(s) da normalização percentual sobre PL positivo"
+                            if negative_funds
                             else ""
                         ),
                         "publication_status": status,
-                        "fechamento_100_pct": category_sum / denominator
-                        if pd.notna(denominator) and denominator != 0
+                        "fechamento_100_pct": category_sum / publication_denominator
+                        if pd.notna(publication_denominator)
+                        and publication_denominator != 0
                         else float("nan"),
                     }
                 )
@@ -951,12 +980,16 @@ def build_market_share_scope_summary(
     market_share: pd.DataFrame,
     *,
     competence: str = LATEST_COMPLETE,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
 ) -> pd.DataFrame:
     """Summarize what sits inside and outside the 14-focus market-share scope."""
 
     latest = fund_base[
         fund_base["competencia"].eq(competence) & ~fund_base["is_fic_fidc"].fillna(False)
     ].copy()
+    latest = exclude_market_share_funds(
+        latest, excluded_fund_cnpjs=excluded_fund_cnpjs
+    )
     latest["pl"] = pd.to_numeric(latest["pl"], errors="coerce")
     valid_pairs = {
         (anbima_type, focus)
@@ -1059,6 +1092,61 @@ def build_classification_coverage(
     return output
 
 
+def build_provider_historical_ranking(
+    fund_base: pd.DataFrame,
+    *,
+    periods: Iterable[str] = ("2024-12", "2025-12", LATEST_COMPLETE),
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
+) -> pd.DataFrame:
+    """Build provider PL and rank history on the excluded ex-FIC universe."""
+
+    rows: list[dict[str, object]] = []
+    for period in (str(value) for value in periods):
+        scoped = fund_base[
+            fund_base["competencia"].astype(str).eq(period)
+            & ~fund_base["is_fic_fidc"].fillna(False)
+        ].copy()
+        scoped = exclude_market_share_funds(
+            scoped, excluded_fund_cnpjs=excluded_fund_cnpjs
+        )
+        scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
+        denominator = _sum_min(scoped["pl"])
+        for role, (name_column, _) in ROLE_COLUMNS.items():
+            role_frame = scoped.copy()
+            role_frame["participante"] = role_frame.get(
+                name_column, pd.Series("", index=role_frame.index)
+            ).map(canonical_provider)
+            grouped = (
+                role_frame.groupby("participante", as_index=False)
+                .agg(pl_brl=("pl", _sum_min), fundos=("cnpj_fundo", "nunique"))
+                .sort_values(["pl_brl", "participante"], ascending=[False, True])
+                .reset_index(drop=True)
+            )
+            grouped["rank_periodo"] = range(1, len(grouped) + 1)
+            for item in grouped.itertuples(index=False):
+                rows.append(
+                    {
+                        "competencia": period,
+                        "papel": role,
+                        "participante": item.participante,
+                        "rank_periodo": int(item.rank_periodo),
+                        "pl_brl": float(item.pl_brl),
+                        "share_pl": float(item.pl_brl) / denominator
+                        if denominator
+                        else float("nan"),
+                        "fundos": int(item.fundos),
+                        "denominador_pl_brl": denominator,
+                        "fundos_universo": int(scoped["cnpj_fundo"].nunique()),
+                        "fonte_prestador": (
+                            "Informe Mensal da competência"
+                            if role == "administrador"
+                            else "cadastro CVM vigente aplicado à competência"
+                        ),
+                    }
+                )
+    return pd.DataFrame(rows)
+
+
 @dataclass(frozen=True)
 class RevisionOutputs:
     latest_complete: str
@@ -1077,6 +1165,7 @@ class RevisionOutputs:
     market_share_subtype: pd.DataFrame
     market_share_fixed_top10: pd.DataFrame
     market_share_scope_summary: pd.DataFrame
+    provider_historical_ranking: pd.DataFrame
     classification_coverage: pd.DataFrame
 
 
@@ -1109,6 +1198,10 @@ def build_revision_outputs(
     market_scope = build_market_share_scope_summary(
         fund_base, market, competence=latest_complete
     )
+    provider_historical_ranking = build_provider_historical_ranking(
+        fund_base,
+        periods=("2024-12", "2025-12", latest_complete),
+    )
     classification_coverage = build_classification_coverage(
         fund_base, competence=latest_complete
     )
@@ -1133,6 +1226,7 @@ def build_revision_outputs(
         market_share_subtype=market,
         market_share_fixed_top10=fixed_top10,
         market_share_scope_summary=market_scope,
+        provider_historical_ranking=provider_historical_ranking,
         classification_coverage=classification_coverage,
     )
 
@@ -1155,6 +1249,7 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         ("market_share_por_subtipo.csv", outputs.market_share_subtype, False),
         ("market_share_top10_fixo.csv", outputs.market_share_fixed_top10, False),
         ("market_share_escopo_resumo.csv", outputs.market_share_scope_summary, False),
+        ("prestadores_ranking_historico.csv", outputs.provider_historical_ranking, False),
         ("cobertura_classificacao.csv", outputs.classification_coverage, False),
     )
     files: dict[str, dict[str, object]] = {}
@@ -1224,6 +1319,7 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         "market_share_top10_fixo": records(outputs.market_share_fixed_top10),
         "market_share_por_subtipo": records(outputs.market_share_subtype),
         "market_share_escopo_resumo": records(outputs.market_share_scope_summary),
+        "prestadores_ranking_historico": records(outputs.provider_historical_ranking),
         "cobertura_classificacao": records(outputs.classification_coverage),
     }
     payload_path = output_dir / "deck_workbook_payload.json"
@@ -1252,7 +1348,11 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
                 "min(max(inadimplência reportada, 0), "
                 "max(carteira de direitos creditórios, 0)) por veículo"
             ),
-            "market_share_subtype_denominator": "PL total do Tipo + Foco ANBIMA, incluindo prestador não informado",
+            "market_share_subtype_denominator": (
+                "PL positivo do Tipo + Foco ANBIMA, incluindo prestador não informado; "
+                "PL negativo é quantificado e excluído apenas da normalização percentual"
+            ),
+            "market_share_excluded_funds": MARKET_SHARE_EXCLUDED_FUNDS,
         },
         "files": files,
         "checks": {
@@ -1311,6 +1411,7 @@ __all__ = [
     "BRIDGE_FROM",
     "BRIDGE_TO",
     "LATEST_COMPLETE",
+    "MARKET_SHARE_EXCLUDED_FUNDS",
     "RevisionOutputs",
     "add_reporting_flags",
     "build_base_by_vehicle",
@@ -1320,7 +1421,9 @@ __all__ = [
     "build_fund_base",
     "build_market_share_by_subtype",
     "build_market_share_scope_summary",
+    "build_provider_historical_ranking",
     "build_classification_coverage",
+    "exclude_market_share_funds",
     "overlay_raw_source_presence",
     "build_reconciliation",
     "build_revision_outputs",

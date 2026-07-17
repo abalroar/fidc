@@ -22,6 +22,8 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from services.fund_name_display import short_fund_name
+from services.industry_intelligence import canonical_provider
+from services.industry_revision_analysis import MARKET_SHARE_EXCLUDED_FUNDS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -363,27 +365,25 @@ def _provider_concentration_history(
         ),
     }
     rows: list[dict[str, Any]] = []
+    excluded = set(MARKET_SHARE_EXCLUDED_FUNDS)
     for period in periods:
         scoped = funds[funds["competencia"].astype(str).eq(period)].copy()
+        if "is_fic_fidc" in scoped.columns:
+            scoped = scoped[~scoped["is_fic_fidc"].fillna(False)]
+        scoped = scoped[~scoped["cnpj_fundo"].map(_digits).isin(excluded)]
         scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce").fillna(0.0)
         total_pl = float(scoped["pl"].sum())
         total_funds = int(scoped["cnpj_fundo"].map(_digits).nunique())
         for role, (name_col, cnpj_col, source_note) in role_columns.items():
             scoped_role = scoped[["cnpj_fundo", "pl", name_col, cnpj_col]].copy()
-            scoped_role["nome"] = scoped_role[name_col].map(_text)
+            scoped_role["nome"] = scoped_role[name_col].map(canonical_provider)
             scoped_role["cnpj_prestador"] = scoped_role[cnpj_col].map(_digits)
-            missing = scoped_role["nome"].eq("") & scoped_role["cnpj_prestador"].eq("")
+            missing = scoped_role["nome"].eq("Não informado")
             missing_pl = float(scoped_role.loc[missing, "pl"].sum())
             known = scoped_role.loc[~missing].copy()
-            known["provider_key"] = np.where(
-                known["cnpj_prestador"].ne(""),
-                known["nome"] + " | " + known["cnpj_prestador"],
-                known["nome"],
-            )
             grouped = (
-                known.groupby("provider_key", as_index=False)
+                known.groupby("nome", as_index=False)
                 .agg(
-                    nome=("nome", "first"),
                     cnpj_prestador=("cnpj_prestador", "first"),
                     pl=("pl", "sum"),
                     n_fundos=("cnpj_fundo", lambda values: values.map(_digits).nunique()),
@@ -757,6 +757,18 @@ def build_payload(
     mono_concentration = pd.read_csv(revision_dir / "monoestrutura_concentracao.csv", low_memory=False)
     market = pd.read_csv(revision_dir / "market_share_por_subtipo.csv", low_memory=False)
     fixed_top10 = pd.read_csv(revision_dir / "market_share_top10_fixo.csv", low_memory=False)
+    market_scope = pd.read_csv(
+        revision_dir / "market_share_escopo_resumo.csv", low_memory=False
+    )
+    provider_historical_ranking = pd.read_csv(
+        revision_dir / "prestadores_ranking_historico.csv", low_memory=False
+    )
+    acquiring_path = data_dir / "acquiring_taxonomy_curation.json"
+    acquiring_taxonomy = (
+        json.loads(acquiring_path.read_text(encoding="utf-8"))
+        if acquiring_path.exists()
+        else {"summary": {}, "funds": [], "sources": []}
+    )
 
     annual = _last_observation_by_year(monthly, latest)
     annual_pl = annual[["year", "competencia", "pl_total", "pl_fic_fidc"]].copy()
@@ -842,7 +854,7 @@ def build_payload(
     ]
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v2",
+        "schema_version": "fidc_revision_artifact_payload_v3",
         "latest_complete": latest,
         "offers_as_of": offers_as_of,
         "generated_at": pd.Timestamp.now(tz="America/Sao_Paulo").isoformat(),
@@ -877,8 +889,15 @@ def build_payload(
         "atlantico_history": atlantico_history,
         "provider_concentration": provider_concentration,
         "provider_concentration_history": provider_concentration_history,
+        "provider_historical_ranking": _records(provider_historical_ranking),
         "market_share": _records(market),
         "market_share_top10_fixed": _records(fixed_top10),
+        "market_share_scope_summary": _records(market_scope),
+        "market_share_exclusions": [
+            {"cnpj": cnpj, "fund": name}
+            for cnpj, name in MARKET_SHARE_EXCLUDED_FUNDS.items()
+        ],
+        "acquiring_taxonomy": acquiring_taxonomy,
         "material_focus_top6": _records(material_top6),
         "material_focus_omitted": {
             "focuses": int(len(material_omitted)),

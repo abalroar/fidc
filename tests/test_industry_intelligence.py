@@ -183,7 +183,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 43
+    assert len(presentation.slides) == EXPECTED_SLIDES == 44
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -204,6 +204,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "MARKET SHARE · ADMINISTRAÇÃO",
         "MARKET SHARE · GESTÃO",
         "MARKET SHARE · CUSTÓDIA",
+        "PRESTADORES · EVOLUÇÃO DO RANKING",
         "RANKING · TOP 20 FIDCS",
         "RANKING · TOP 20 OUTROS",
         "APÊNDICE · CURADORIA TOP 20",
@@ -265,5 +266,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "Top 20 FIDCs",
         "Top 20 Outros",
         "Curadoria Top 20",
+        "Ranking prestadores",
+        "Taxonomia adquirência",
         "Checks revisão",
     }.issubset(sheet_names)

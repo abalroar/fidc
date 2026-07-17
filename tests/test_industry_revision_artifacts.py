@@ -82,6 +82,49 @@ def _chart_series_values(root: ET.Element) -> dict[str, list[float]]:
     return result
 
 
+def _series_values_by_index(series: ET.Element) -> dict[int, float]:
+    points = series.findall(
+        f".//{{{CHART}}}val/{{{CHART}}}numLit/{{{CHART}}}pt"
+    )
+    if not points:
+        points = series.findall(
+            f".//{{{CHART}}}val/{{{CHART}}}numRef/"
+            f"{{{CHART}}}numCache/{{{CHART}}}pt"
+        )
+    result: dict[int, float] = {}
+    for point in points:
+        value = point.find(f"{{{CHART}}}v")
+        if value is None or value.text in {None, ""}:
+            continue
+        result[int(point.attrib.get("idx", "0"))] = float(value.text)
+    return result
+
+
+def _series_name(series: ET.Element) -> str:
+    return "".join(
+        node.text or ""
+        for node in series.findall(f".//{{{CHART}}}tx//{{{CHART}}}v")
+    )
+
+
+def _shape_texts(slide: ET.Element) -> list[str]:
+    return [
+        "".join(node.text or "" for node in shape.iter(f"{{{DML}}}t")).strip()
+        for shape in slide.findall(f".//{{{PML}}}sp")
+    ]
+
+
+def _shape_fill_colors(slide: ET.Element) -> list[str]:
+    colors: list[str] = []
+    for shape in slide.findall(f".//{{{PML}}}sp"):
+        color = shape.find(
+            f"{{{PML}}}spPr/{{{DML}}}solidFill/{{{DML}}}srgbClr"
+        )
+        if color is not None and color.attrib.get("val"):
+            colors.append(color.attrib["val"].upper())
+    return colors
+
+
 def _shared_strings(archive: ZipFile) -> list[str]:
     root = ET.fromstring(archive.read("xl/sharedStrings.xml"))
     return [
@@ -138,7 +181,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 43
+    assert len(slides) == 44
     expected_body = [
         "SÍNTESE EXECUTIVA",
         "ESCALA DA INDÚSTRIA",
@@ -152,6 +195,7 @@ def test_deck_order_and_profile_count() -> None:
         "MARKET SHARE · ADMINISTRAÇÃO",
         "MARKET SHARE · GESTÃO",
         "MARKET SHARE · CUSTÓDIA",
+        "PRESTADORES · EVOLUÇÃO DO RANKING",
         "RANKING · TOP 20 FIDCS",
         "RANKING · TOP 20 OUTROS",
         "MODELO DE PRESTAÇÃO",
@@ -159,20 +203,20 @@ def test_deck_order_and_profile_count() -> None:
         "OFERTAS, CAPTAÇÃO E ORIGINAÇÃO",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
-    for slide_text, expected in zip(slides[1:18], expected_body, strict=True):
+    for slide_text, expected in zip(slides[1:19], expected_body, strict=True):
         assert expected in slide_text
-    assert "Escopo, fontes e limitações" in slides[18]
-    assert "Administração por subtipo" in slides[19]
-    assert "Gestão por subtipo" in slides[20]
-    assert "Custódia por subtipo" in slides[21]
-    profiles = slides[22:42]
+    assert "Escopo, fontes e limitações" in slides[19]
+    assert "Administração por subtipo" in slides[20]
+    assert "Gestão por subtipo" in slides[21]
+    assert "Custódia por subtipo" in slides[22]
+    profiles = slides[23:43]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[42]
-    assert "09.194.841/0001-51" in slides[42]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[43]
+    assert "09.194.841/0001-51" in slides[43]
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
@@ -193,6 +237,115 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 symbol = marker.find(f"{{{CHART}}}symbol")
                 assert symbol is not None
                 assert symbol.attrib.get("val") == "none"
+
+
+@pytest.mark.parametrize("slide_number", [11, 12, 13, 21, 22, 23])
+def test_market_share_slides_use_one_native_percent_stacked_chart(
+    slide_number: int,
+) -> None:
+    _require(PPTX)
+    short_threshold = 0.025
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, slide_number)
+        assert len(chart_paths) == 1
+        chart = ET.fromstring(archive.read(chart_paths[0]))
+        slide = ET.fromstring(archive.read(f"ppt/slides/slide{slide_number}.xml"))
+
+    bar_charts = chart.findall(f".//{{{CHART}}}barChart")
+    assert len(bar_charts) == 1
+    bar_chart = bar_charts[0]
+    grouping = bar_chart.find(f"{{{CHART}}}grouping")
+    assert grouping is not None
+    assert grouping.attrib.get("val") == "percentStacked"
+
+    series = bar_chart.findall(f"{{{CHART}}}ser")
+    assert len(series) == 12
+    expected_manual: set[tuple[int, int]] = set()
+    actual_manual: set[tuple[int, int]] = set()
+    for series_index, item in enumerate(series):
+        values = _series_values_by_index(item)
+        expected_manual.update(
+            (series_index, point_index)
+            for point_index, value in values.items()
+            if 0.0 < value < short_threshold
+        )
+
+        labels = item.find(f"{{{CHART}}}dLbls")
+        assert labels is not None
+        labels_by_index = {
+            int(index.attrib["val"]): label
+            for label in labels.findall(f"{{{CHART}}}dLbl")
+            if (index := label.find(f"{{{CHART}}}idx")) is not None
+        }
+        for point_index, value in values.items():
+            if value <= 0:
+                continue
+            assert point_index in labels_by_index
+            label = labels_by_index[point_index]
+            show_value = label.find(f"{{{CHART}}}showVal")
+            assert show_value is not None
+            assert show_value.attrib.get("val", "1").lower() in {"1", "true"}
+            default_runs = label.findall(f".//{{{DML}}}defRPr")
+            assert default_runs
+            for default_run in default_runs:
+                assert default_run.attrib.get("sz") == "1000"
+                for font_tag in ("latin", "ea", "cs"):
+                    font = default_run.find(f"{{{DML}}}{font_tag}")
+                    assert font is not None
+                    assert font.attrib.get("typeface") == "Arial"
+
+        for label in labels.findall(f"{{{CHART}}}dLbl"):
+            index = label.find(f"{{{CHART}}}idx")
+            manual = label.find(
+                f"{{{CHART}}}layout/{{{CHART}}}manualLayout"
+            )
+            if index is not None and manual is not None:
+                actual_manual.add((series_index, int(index.attrib["val"])))
+
+    assert expected_manual
+    assert actual_manual == expected_manual
+
+    legends = chart.findall(f".//{{{CHART}}}legend")
+    assert len(legends) == 1
+    deleted = legends[0].find(f"{{{CHART}}}delete")
+    assert deleted is None or deleted.attrib.get("val", "0").lower() not in {
+        "1",
+        "true",
+    }
+
+    # Series names and point values must live in the native chart part, not in
+    # PowerPoint text boxes that imitate a legend or data labels.
+    series_names = {_series_name(item) for item in series}
+    slide_shape_texts = _shape_texts(slide)
+    assert not series_names.intersection(slide_shape_texts)
+    assert not any(
+        re.fullmatch(r"<?\d+(?:[,.]\d+)?%", text)
+        for text in slide_shape_texts
+    )
+    # The only filled slide shapes are the two neutral header rules. Provider
+    # colors must occur inside the chart part, never as simulated bar shapes.
+    assert _shape_fill_colors(slide) == ["D7DADD", "D7DADD"]
+
+
+def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        slide = ET.fromstring(archive.read("ppt/slides/slide14.xml"))
+        text = " ".join(node.text or "" for node in slide.iter(f"{{{DML}}}t"))
+        chart_paths = _slide_chart_paths(archive, 14)
+
+    assert len(chart_paths) == 3
+    assert text.count("Participante") == 3
+    for expected in (
+        "ADMINISTRAÇÃO",
+        "GESTÃO",
+        "CUSTÓDIA",
+        "Dez/24",
+        "Dez/25",
+        "Mai/26",
+        "Sistema Petrobras e TAPSO excluídos",
+    ):
+        assert expected in text
 
 
 def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -> None:
@@ -305,6 +458,8 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Comparativos históricos",
         "Curadoria Atlântico",
         "Série Atlântico",
+        "Ranking prestadores",
+        "Taxonomia adquirência",
         "Checks revisão",
     }
     with ZipFile(XLSX) as archive:
@@ -344,4 +499,4 @@ def test_revision_renderer_version_tracks_holder_distribution_layout() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v4";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v5";' in source

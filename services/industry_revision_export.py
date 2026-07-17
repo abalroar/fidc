@@ -27,7 +27,8 @@ BUNDLE_MANIFEST_NAME = "industry_export_bundle.json"
 MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v1"
-EXPECTED_SLIDES = 43
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
+EXPECTED_SLIDES = 44
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -39,6 +40,8 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Top 20 Outros",
     "Curadoria Top 20",
     "Comparativos históricos",
+    "Ranking prestadores",
+    "Taxonomia adquirência",
     "Curadoria Atlântico",
     "Série Atlântico",
 }
@@ -280,6 +283,8 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         raise RevisionExportUnavailable("assinatura de fontes do bundle não reconcilia")
     if manifest.get("payload_schema") != payload.get("schema_version"):
         raise RevisionExportUnavailable("schema do payload diverge do bundle")
+    if payload.get("schema_version") != PAYLOAD_SCHEMA:
+        raise RevisionExportUnavailable("schema do payload revisado incompatível")
     if manifest.get("latest_complete") != payload.get("latest_complete"):
         raise RevisionExportUnavailable("competência do bundle diverge do payload")
     pptx_path, pptx_bytes = _matching_candidate(
