@@ -14,16 +14,23 @@ from __future__ import annotations
 
 from io import BytesIO
 from pathlib import PurePosixPath
-from typing import Any
+from typing import Any, Iterable, Mapping
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import pandas as pd
 
 from services.export_chart_labels import choose_export_label_policy, format_export_label
 from services.fund_return_matrix import (
+    RETURN_ISSUANCE_SPREAD_COLUMN,
     RETURN_SERIES_COLUMN,
+    RETURN_TRAILING_12M_CDI_COLUMN,
+    RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN,
     RETURN_TRAILING_12M_COLUMN,
+    RETURN_TRAILING_12M_SPREAD_GAP_COLUMN,
+    RETURN_YTD_CDI_COLUMN,
+    RETURN_YTD_IMPLIED_SPREAD_COLUMN,
     RETURN_YTD_COLUMN,
+    RETURN_YTD_SPREAD_GAP_COLUMN,
     build_fund_return_matrix,
     format_fund_return_matrix,
 )
@@ -97,6 +104,25 @@ _GAP_Y = 0.20
 
 _RETURN_ROWS_PER_SLIDE = 22
 
+_RETURN_COMPARISON_COLUMNS = (
+    RETURN_SERIES_COLUMN,
+    RETURN_TRAILING_12M_COLUMN,
+    RETURN_TRAILING_12M_CDI_COLUMN,
+    RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN,
+    RETURN_YTD_COLUMN,
+    RETURN_YTD_CDI_COLUMN,
+    RETURN_YTD_IMPLIED_SPREAD_COLUMN,
+    RETURN_ISSUANCE_SPREAD_COLUMN,
+    RETURN_TRAILING_12M_SPREAD_GAP_COLUMN,
+    RETURN_YTD_SPREAD_GAP_COLUMN,
+)
+_RETURN_SUMMARY_COLUMNS = frozenset(_RETURN_COMPARISON_COLUMNS)
+_RETURN_COMPARISON_DETAIL_COLUMNS = frozenset(
+    column
+    for column in _RETURN_COMPARISON_COLUMNS
+    if column not in {RETURN_SERIES_COLUMN, RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN}
+)
+
 # ===========================================================================
 # ENTRY POINT
 # ===========================================================================
@@ -106,6 +132,8 @@ def build_somatorio_fidcs_pptx_bytes(
     outputs: Any,
     monitor_outputs: Any,
     research_outputs: Any | None = None,
+    monthly_cdi_rates_by_fund: Mapping[str, Iterable[Any]] | None = None,
+    benchmark_spreads_by_fund: Mapping[str, Mapping[str, float]] | None = None,
 ) -> bytes:
     """Gera o deck v3 completo em formato PPTX."""
     try:
@@ -155,7 +183,12 @@ def build_somatorio_fidcs_pptx_bytes(
     con_cohorts = getattr(monitor_outputs, "consolidated_cohorts", pd.DataFrame())
     roll_df = getattr(research_outputs, "roll_seasonality", pd.DataFrame()) if research_outputs else pd.DataFrame()
     fund_sections = _build_fund_sections(outputs, fund_monthly_map)
-    fund_return_pages = _build_fund_return_pages(outputs, fund_sections)
+    fund_return_pages = _build_fund_return_pages(
+        outputs,
+        fund_sections,
+        monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
+        benchmark_spreads_by_fund=benchmark_spreads_by_fund,
+    )
     total_slides = (
         7
         + 4 * len(fund_sections)
@@ -534,10 +567,17 @@ def _add_fund_return_slide(
     )
     _slide_footer(slide, page_num, total, Inches=Inches, Pt=Pt, RGBColor=RGBColor)
 
-    continuation = f" · Continuação {page_index} de {page_count}" if page_count > 1 else ""
+    columns = return_frame.columns.tolist()
+    is_comparison = any(column in columns for column in _RETURN_COMPARISON_DETAIL_COLUMNS)
+    continuation = f" · Página {page_index} de {page_count}" if page_count > 1 else ""
+    section_description = (
+        "CDI realizado, spread implícito, CDI+ de emissão e gaps"
+        if is_comparison
+        else "Retornos mensais e acumulados (%) · Últimos 12 meses"
+    )
     _textbox(
         slide,
-        f"Retornos mensais e acumulados (%) · Últimos 12 meses{continuation}",
+        f"{section_description}{continuation}",
         left=_MX,
         top=0.55,
         width=_SW - 2 * _MX,
@@ -550,9 +590,8 @@ def _add_fund_return_slide(
         RGBColor=RGBColor,
     )
 
-    columns = return_frame.columns.tolist()
     table_top = 0.82
-    header_height = 0.48
+    header_height = 0.68 if is_comparison else 0.48
     row_height = 0.25
     table_height = header_height + row_height * len(return_frame)
     shape = slide.shapes.add_table(
@@ -566,30 +605,39 @@ def _add_fund_return_slide(
     table = shape.table
     table.first_row = True
 
-    series_width = 2.10
-    trailing_width = 1.50
-    ytd_width = 1.55
-    month_columns = [
-        column
-        for column in columns
-        if column
-        not in {RETURN_SERIES_COLUMN, RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN}
-    ]
-    month_width = (
-        (_SW - 2 * _MX - series_width - trailing_width - ytd_width) / len(month_columns)
-        if month_columns
-        else 0.0
-    )
-    for column_index, column in enumerate(columns):
-        if column == RETURN_SERIES_COLUMN:
-            width = series_width
-        elif column == RETURN_TRAILING_12M_COLUMN:
-            width = trailing_width
-        elif column == RETURN_YTD_COLUMN:
-            width = ytd_width
-        else:
-            width = month_width
-        table.columns[column_index].width = Inches(width)
+    available_width = _SW - 2 * _MX
+    if is_comparison:
+        comparison_weights = {
+            RETURN_SERIES_COLUMN: 2.0,
+            RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN: 1.45,
+            RETURN_YTD_IMPLIED_SPREAD_COLUMN: 1.45,
+            RETURN_TRAILING_12M_SPREAD_GAP_COLUMN: 1.10,
+            RETURN_YTD_SPREAD_GAP_COLUMN: 1.10,
+        }
+        weights = [comparison_weights.get(column, 1.18) for column in columns]
+        total_weight = sum(weights) or 1.0
+        for column_index, weight in enumerate(weights):
+            table.columns[column_index].width = Inches(available_width * weight / total_weight)
+    else:
+        series_width = 2.10
+        trailing_width = 1.50
+        ytd_width = 1.55
+        month_columns = [column for column in columns if column not in _RETURN_SUMMARY_COLUMNS]
+        month_width = (
+            (available_width - series_width - trailing_width - ytd_width) / len(month_columns)
+            if month_columns
+            else 0.0
+        )
+        for column_index, column in enumerate(columns):
+            if column == RETURN_SERIES_COLUMN:
+                width = series_width
+            elif column == RETURN_TRAILING_12M_COLUMN:
+                width = trailing_width
+            elif column == RETURN_YTD_COLUMN:
+                width = ytd_width
+            else:
+                width = month_width
+            table.columns[column_index].width = Inches(width)
 
     table.rows[0].height = Inches(header_height)
     for row_index in range(1, len(table.rows)):
@@ -602,10 +650,11 @@ def _add_fund_return_slide(
             str(column),
             fill_color=_ORANGE,
             text_color=_WHITE,
-            font_size=6.5,
+            font_size=6.0 if is_comparison else 6.5,
             bold=True,
             alignment=PP_ALIGN.LEFT if column == RETURN_SERIES_COLUMN else PP_ALIGN.CENTER,
             vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE,
+            word_wrap=True,
             Inches=Inches,
             Pt=Pt,
             RGBColor=RGBColor,
@@ -625,6 +674,7 @@ def _add_fund_return_slide(
                 bold=column == RETURN_SERIES_COLUMN,
                 alignment=PP_ALIGN.LEFT if column == RETURN_SERIES_COLUMN else PP_ALIGN.RIGHT,
                 vertical_anchor=MSO_VERTICAL_ANCHOR.MIDDLE,
+                word_wrap=False,
                 Inches=Inches,
                 Pt=Pt,
                 RGBColor=RGBColor,
@@ -641,6 +691,7 @@ def _style_return_table_cell(
     bold: bool,
     alignment,
     vertical_anchor,
+    word_wrap: bool,
     Inches,
     Pt,
     RGBColor,
@@ -649,7 +700,7 @@ def _style_return_table_cell(
     cell.fill.fore_color.rgb = _rgb(fill_color, RGBColor)
     text_frame = cell.text_frame
     text_frame.clear()
-    text_frame.word_wrap = False
+    text_frame.word_wrap = word_wrap
     text_frame.margin_left = Inches(0.035)
     text_frame.margin_right = Inches(0.035)
     text_frame.margin_top = Inches(0.01)
@@ -1354,8 +1405,11 @@ def _set_text(text_frame, text, size, bold, color, RGBColor) -> None:
 def _build_fund_return_pages(
     outputs: Any,
     fund_sections: list[tuple[str, str, str, str, str]],
+    *,
+    monthly_cdi_rates_by_fund: Mapping[str, Iterable[Any]] | None = None,
+    benchmark_spreads_by_fund: Mapping[str, Mapping[str, float]] | None = None,
 ) -> dict[str, list[pd.DataFrame]]:
-    """Prepara e pagina apenas as linhas das tabelas de rentabilidade."""
+    """Prepara páginas mensais e comparativas das tabelas de rentabilidade."""
     histories = getattr(outputs, "fund_return_history", {})
     summaries = getattr(outputs, "fund_return_summary", {})
     if not isinstance(histories, dict):
@@ -1367,7 +1421,23 @@ def _build_fund_return_pages(
 
     pages_by_fund: dict[str, list[pd.DataFrame]] = {}
     for _, cnpj, _, _, _ in fund_sections:
-        matrix = build_fund_return_matrix(outputs, cnpj, months=12)
+        monthly_cdi_rates = (
+            None
+            if monthly_cdi_rates_by_fund is None
+            else monthly_cdi_rates_by_fund.get(cnpj, ())
+        )
+        benchmark_spreads = (
+            None
+            if benchmark_spreads_by_fund is None
+            else benchmark_spreads_by_fund.get(cnpj, {})
+        )
+        matrix = build_fund_return_matrix(
+            outputs,
+            cnpj,
+            months=12,
+            monthly_cdi_rates=monthly_cdi_rates,
+            benchmark_spreads=benchmark_spreads,
+        )
         if not isinstance(matrix, pd.DataFrame) or matrix.empty:
             continue
         formatted = format_fund_return_matrix(matrix)
@@ -1377,21 +1447,32 @@ def _build_fund_return_pages(
         month_columns = [
             column
             for column in formatted.columns
-            if column
-            not in {RETURN_SERIES_COLUMN, RETURN_TRAILING_12M_COLUMN, RETURN_YTD_COLUMN}
+            if column not in _RETURN_SUMMARY_COLUMNS
         ]
-        ordered_columns = [
+        monthly_columns = [
             RETURN_SERIES_COLUMN,
             *month_columns,
             RETURN_TRAILING_12M_COLUMN,
             RETURN_YTD_COLUMN,
         ]
-        if any(column not in formatted.columns for column in ordered_columns):
+        if any(column not in formatted.columns for column in monthly_columns):
             continue
-        formatted = formatted.loc[:, ordered_columns].reset_index(drop=True)
+        table_views = [formatted.loc[:, monthly_columns].reset_index(drop=True)]
+        comparison_columns = [
+            column
+            for column in _RETURN_COMPARISON_COLUMNS
+            if column in formatted.columns
+        ]
+        if (
+            any(column in formatted.columns for column in _RETURN_COMPARISON_DETAIL_COLUMNS)
+            and len(comparison_columns) > 1
+        ):
+            table_views.append(formatted.loc[:, comparison_columns].reset_index(drop=True))
+
         pages_by_fund[cnpj] = [
-            formatted.iloc[start : start + _RETURN_ROWS_PER_SLIDE].reset_index(drop=True)
-            for start in range(0, len(formatted), _RETURN_ROWS_PER_SLIDE)
+            view.iloc[start : start + _RETURN_ROWS_PER_SLIDE].reset_index(drop=True)
+            for view in table_views
+            for start in range(0, len(view), _RETURN_ROWS_PER_SLIDE)
         ]
     return pages_by_fund
 

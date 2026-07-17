@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date
 from html import escape
-from typing import Any, Mapping
+from typing import Any, Iterable, Mapping
 
 import pandas as pd
 import streamlit as st
@@ -747,6 +747,26 @@ def _resolve_fund_return_benchmark(
     summary_df = (getattr(outputs, "fund_return_summary", {}) or {}).get(cnpj, pd.DataFrame())
     series_df = history_df if isinstance(history_df, pd.DataFrame) and not history_df.empty else summary_df
     return resolve_fund_return_benchmarks(cnpj, series_df)
+
+
+def resolve_fund_return_export_inputs(
+    *,
+    outputs: Any,
+    cnpjs: Iterable[str],
+) -> tuple[
+    dict[str, tuple[B3CdiMonthlyRate, ...]],
+    dict[str, dict[str, float]],
+]:
+    """Resolve os mesmos insumos de CDI e benchmark usados pela subaba."""
+    monthly_cdi_rates_by_fund: dict[str, tuple[B3CdiMonthlyRate, ...]] = {}
+    benchmark_spreads_by_fund: dict[str, dict[str, float]] = {}
+    for raw_cnpj in cnpjs:
+        cnpj = str(raw_cnpj)
+        rates, _ = _resolve_fund_return_cdi_rates(outputs=outputs, cnpj=cnpj)
+        benchmark = _resolve_fund_return_benchmark(outputs=outputs, cnpj=cnpj)
+        monthly_cdi_rates_by_fund[cnpj] = rates
+        benchmark_spreads_by_fund[cnpj] = dict(benchmark.spreads_by_class_key)
+    return monthly_cdi_rates_by_fund, benchmark_spreads_by_fund
 
 
 _BENCHMARK_STATUS_LABELS = {
