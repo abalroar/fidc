@@ -9030,86 +9030,99 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
     path = _DATA_DIR / "generated_revision" / "artifact_payload.json"
     if not path.exists():
         raise FileNotFoundError(f"payload revisado ausente: {path}")
-    payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "fidc_revision_artifact_payload_v3":
-        raise ValueError("schema do payload revisado incompatível")
+    payload_raw = path.read_bytes()
+    payload = json.loads(payload_raw)
+    schema = str(payload.get("schema_version") or "")
+    schema_rank = {
+        "fidc_revision_artifact_payload_v2": 2,
+        "fidc_revision_artifact_payload_v3": 3,
+    }
+    if schema not in schema_rank:
+        label = schema or "ausente"
+        raise ValueError(f"schema do payload revisado incompatível: {label}")
+
+    manifest_path = _DATA_DIR / "generated_revision" / "industry_export_bundle.json"
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest_schema = str(manifest.get("payload_schema") or "")
+        if manifest_schema and manifest_schema != schema:
+            raise ValueError("schema do payload diverge do bundle publicado")
+        expected_hash = str(manifest.get("payload_sha256") or "")
+        if expected_hash and expected_hash != hashlib.sha256(payload_raw).hexdigest():
+            raise ValueError("payload revisado diverge do hash do bundle publicado")
+
+    # Deploys can briefly expose the previous, internally consistent bundle
+    # while code and large analytical artifacts are synchronized.  Keep v2
+    # readable during that window and validate each generation only against
+    # the blocks it actually introduced.  v1 is not accepted because it lacks
+    # the historical comparisons required by the current page narrative.
     required = {
         "classification_coverage",
         "holder_distribution_meta",
-        "holder_distribution_meta_history",
         "investor_composition",
         "pl_history",
         "investor_base_history",
         "holder_distribution",
-        "holder_distribution_history",
         "material_focus_top6",
         "market_share_top10_fixed",
         "monostructure_concentration",
         "offers_ytd",
         "originators_2026",
         "provider_concentration",
-        "provider_concentration_history",
-        "provider_historical_ranking",
-        "market_share_scope_summary",
-        "market_share_exclusions",
-        "acquiring_taxonomy",
         "qa_latest",
         "qa_series",
         "receivables",
-        "receivables_history",
-        "receivables_meta_history",
         "service_model",
         "type_mix",
-        "type_mix_history",
         "market_share",
         "top20_fidcs",
         "top20_outros",
         "profiles",
     }
+    if schema_rank[schema] >= 2:
+        required.update(
+            {
+                "holder_distribution_meta_history",
+                "holder_distribution_history",
+                "provider_concentration_history",
+                "receivables_history",
+                "receivables_meta_history",
+                "type_mix_history",
+            }
+        )
+    if schema_rank[schema] >= 3:
+        required.update(
+            {
+                "provider_historical_ranking",
+                "market_share_scope_summary",
+                "market_share_exclusions",
+                "acquiring_taxonomy",
+            }
+        )
     missing = sorted(required.difference(payload))
     if missing:
         raise ValueError("payload revisado incompleto: " + ", ".join(missing))
+    if schema_rank[schema] >= 3:
+        exclusions = payload.get("market_share_exclusions")
+        excluded_cnpjs = set()
+        if isinstance(exclusions, list):
+            excluded_cnpjs = {
+                re.sub(r"\D", "", str(row.get("cnpj") or ""))
+                for row in exclusions
+                if isinstance(row, dict)
+            }
+        required_exclusions = {"09195235000150", "26287464000114"}
+        if not required_exclusions.issubset(excluded_cnpjs):
+            raise ValueError(
+                "payload v3 sem as exclusões nominais de Sistema Petrobras e TAPSO"
+            )
+        if not isinstance(payload.get("acquiring_taxonomy"), dict):
+            raise ValueError("payload v3 sem curadoria estruturada de adquirência")
     if len(payload["top20_fidcs"]) != 20 or len(payload["top20_outros"]) != 20:
         raise ValueError("rankings revisados devem conter exatamente 20 fundos")
     required_columns = {
         "pl_history": {"competencia", "year", "pl_total", "pl_ex_fic", "pl_fic_componente"},
         "investor_base_history": {"competencia", "year", "cotistas_total", "n_veiculos"},
-        "holder_distribution_history": {"competencia", "bucket", "fundos", "pl"},
-        "holder_distribution_meta_history": {
-            "competencia",
-            "minimum_pl_brl",
-            "fund_coverage",
-            "pl_coverage",
-        },
-        "type_mix_history": {"competencia", "anbima_tipo", "pl", "share"},
-        "receivables_history": {"competencia", "segmento", "valor", "share_reported"},
-        "receivables_meta_history": {
-            "competencia",
-            "reported_total",
-            "portfolio_total",
-            "gap",
-            "gap_pct",
-        },
-        "provider_concentration_history": {
-            "competencia",
-            "papel",
-            "top5_share",
-            "top10_share",
-            "coverage_pl",
-            "missing_share",
-        },
-        "provider_historical_ranking": {
-            "competencia",
-            "papel",
-            "participante",
-            "rank_periodo",
-            "pl_brl",
-        },
-        "market_share_scope_summary": {
-            "papel",
-            "pl_total_ex_fic_brl",
-            "cobertura_classificacao_14_focos_pl",
-        },
         "classification_coverage": {"categoria", "pl", "share"},
         "service_model": {"modelo_prestacao", "fundos", "pl", "share_fundos", "share_pl"},
         "market_share": {
@@ -9124,6 +9137,57 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "top20_outros": {"rank_outros", "denominacao", "pl", "market_share_outros"},
         "profiles": {"rank", "cnpj_fundo_formatado", "nome_curto", "pl"},
     }
+    if schema_rank[schema] >= 2:
+        required_columns.update(
+            {
+                "holder_distribution_history": {"competencia", "bucket", "fundos", "pl"},
+                "holder_distribution_meta_history": {
+                    "competencia",
+                    "minimum_pl_brl",
+                    "fund_coverage",
+                    "pl_coverage",
+                },
+                "type_mix_history": {"competencia", "anbima_tipo", "pl", "share"},
+                "receivables_history": {
+                    "competencia",
+                    "segmento",
+                    "valor",
+                    "share_reported",
+                },
+                "receivables_meta_history": {
+                    "competencia",
+                    "reported_total",
+                    "portfolio_total",
+                    "gap",
+                    "gap_pct",
+                },
+                "provider_concentration_history": {
+                    "competencia",
+                    "papel",
+                    "top5_share",
+                    "top10_share",
+                    "coverage_pl",
+                    "missing_share",
+                },
+            }
+        )
+    if schema_rank[schema] >= 3:
+        required_columns.update(
+            {
+                "provider_historical_ranking": {
+                    "competencia",
+                    "papel",
+                    "participante",
+                    "rank_periodo",
+                    "pl_brl",
+                },
+                "market_share_scope_summary": {
+                    "papel",
+                    "pl_total_ex_fic_brl",
+                    "cobertura_classificacao_14_focos_pl",
+                },
+            }
+        )
     for key, columns in required_columns.items():
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
@@ -10908,6 +10972,9 @@ def _market_share_focus_label(row: pd.Series) -> str:
 
 
 def _render_revision_providers(payload: dict[str, object]) -> None:
+    adjusted_universe = (
+        payload.get("schema_version") == "fidc_revision_artifact_payload_v3"
+    )
     concentration = _revision_history_frame(
         payload,
         "provider_concentration_history",
@@ -10961,8 +11028,13 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             coverage_parts.append(
                 f"{row['Papel']} {row['Período']}: {_fmt_pct(float(row.get('coverage_pl', 0)))}"
             )
+        universe_note = (
+            "Sistema Petrobras/TAPSO excluídos"
+            if adjusted_universe
+            else "bundle v2: Sistema Petrobras/TAPSO ainda incluídos"
+        )
         st.caption(
-            "Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador e Sistema Petrobras/TAPSO excluídos. "
+            f"Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador; {universe_note}. "
             + "Cobertura identificada: "
             + "; ".join(coverage_parts)
             + ". Administração é histórica por competência; gestão e custódia em dez/25 usam o cadastro vigente e não são uma série like-for-like."
@@ -11063,12 +11135,26 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         omitted = dict(payload.get("material_focus_omitted") or {})
         scope = _revision_frame(payload, "market_share_scope_summary")
         scope_row = scope[scope["papel"].eq(role)].iloc[0] if not scope.empty and scope["papel"].eq(role).any() else pd.Series(dtype=object)
+        taxonomy_note = (
+            "Subtipos = Tipo/Foco ANBIMA (cadastro dez/25, evidência documental e "
+            "proxy determinístico da Tabela II). "
+        )
+        if adjusted_universe and not scope_row.empty:
+            universe_note = (
+                "Universo: PL ex-FIC de mai/26 sem Sistema Petrobras/TAPSO; cobertura dos 14 focos "
+                f"{_fmt_pct(float(scope_row.get('cobertura_classificacao_14_focos_pl', 0)))}. "
+            )
+        else:
+            universe_note = (
+                "Bundle v2: universo ainda inclui Sistema Petrobras/TAPSO; a cobertura consolidada "
+                "dos 14 focos não estava disponível nessa geração. "
+            )
         st.caption(
-            f"Subtipos = Tipo/Foco ANBIMA (cadastro dez/25, evidência documental e proxy determinístico da Tabela II). "
-            f"Universo: PL ex-FIC de mai/26 sem Sistema Petrobras/TAPSO; cobertura dos 14 focos "
-            f"{_fmt_pct(float(scope_row.get('cobertura_classificacao_14_focos_pl', 0)))}. Top 10 fixo da função. "
-            f"O gráfico principal cobre 6 focos; ficam fora {_fmt_int(omitted.get('focuses', 0))} focos e "
-            f"{_fmt_bi(float(omitted.get('pl', 0)), 1)}."
+            taxonomy_note
+            + universe_note
+            + "Top 10 fixo da função. "
+            + f"O gráfico principal cobre 6 focos; ficam fora {_fmt_int(omitted.get('focuses', 0))} focos e "
+            + f"{_fmt_bi(float(omitted.get('pl', 0)), 1)}."
         )
         if blocked_all:
             omitted_blocked = [focus for focus in blocked_all if focus not in blocked_visible]
@@ -11443,6 +11529,12 @@ def render_tab_industry_study() -> None:
         base_until=f"{_competence_label(payload_latest)} (estoque) | {_date_label(offers_as_of)} (ofertas)",
         coverage=coverage,
     )
+    if revision_payload.get("schema_version") == "fidc_revision_artifact_payload_v2":
+        st.warning(
+            "Bundle analítico v2 carregado durante a atualização. O conteúdo permanece disponível, "
+            "com as limitações de universo indicadas nas notas; os arquivos Office continuam "
+            "bloqueados até a sincronização integral do bundle v3."
+        )
     if payload_latest != latest_complete:
         st.warning(
             f"O painel mensal marca {latest_complete} como última competência completa, mas o "
