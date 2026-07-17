@@ -22,6 +22,7 @@ from scripts.publish_fidc_revision_bundle import (
     discover_latest_complete,
     publish_staged_bundle,
     serialize_analysis_manifest,
+    validate_artifact_payload,
     validate_bundle_manifest,
     validate_deck_snapshot,
     validate_renderer_manifest,
@@ -59,7 +60,44 @@ def _payload() -> dict[str, object]:
         "top20_fidcs": [{}] * 20,
         "top20_outros": [{}] * 20,
         "profiles": [{}] * 20,
+        "holder_distribution_history": [
+            {"competencia": "2023-12"},
+            {"competencia": "2026-05"},
+        ],
+        "type_mix_history": [
+            {"competencia": "2023-12"},
+            {"competencia": "2026-05"},
+        ],
+        "receivables_history": [
+            {"competencia": "2023-12"},
+            {"competencia": "2026-05"},
+        ],
+        "provider_concentration_history": [
+            {"competencia": "2025-12"},
+            {"competencia": "2026-05"},
+        ],
+        "atlantico_profile": {"cnpj": "09.194.841/0001-51"},
+        "atlantico_history": [{"competencia": "2026-05"}],
     }
+
+
+def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v2"
+    payload = _payload()
+    validate_artifact_payload(payload, "2026-05")
+
+    for key in (
+        "holder_distribution_history",
+        "type_mix_history",
+        "receivables_history",
+        "provider_concentration_history",
+        "atlantico_profile",
+        "atlantico_history",
+    ):
+        broken = dict(payload)
+        broken.pop(key)
+        with pytest.raises(RevisionBundlePublishError, match=key):
+            validate_artifact_payload(broken, "2026-05")
 
 
 def test_bundle_manifest_is_content_addressed_and_validated() -> None:

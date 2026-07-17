@@ -26,6 +26,9 @@ from services.fund_name_display import short_fund_name
 
 ROOT = Path(__file__).resolve().parents[1]
 LATEST_COMPLETE = "2026-05"
+HISTORICAL_REFERENCE = "2023-12"
+PROVIDER_REFERENCE = "2025-12"
+ATLANTICO_CNPJ = "09194841000151"
 
 
 def _digits(value: object) -> str:
@@ -193,13 +196,58 @@ def _holder_distribution(vehicle: pd.DataFrame, latest: str) -> pd.DataFrame:
     return grouped
 
 
+def _holder_distribution_history(
+    vehicle: pd.DataFrame,
+    periods: list[str],
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    distributions: list[pd.DataFrame] = []
+    metadata: list[dict[str, Any]] = []
+    for period in periods:
+        grouped = _holder_distribution(vehicle, period)
+        grouped.insert(0, "competencia", period)
+        distributions.append(grouped)
+
+        scoped = vehicle[
+            vehicle["competencia"].astype(str).eq(period)
+            & ~vehicle["is_fic_fidc"].fillna(False).astype(bool)
+        ].copy()
+        scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(_digits)
+        scoped["cnpj_fundo"] = scoped["cnpj_fundo"].where(
+            scoped["cnpj_fundo"].ne(""), scoped["cnpj"].map(_digits)
+        )
+        ex_fic_funds = int(scoped["cnpj_fundo"].nunique())
+        ex_fic_pl = float(pd.to_numeric(scoped["pl"], errors="coerce").fillna(0).sum())
+        eligible_funds = int(grouped["fundos"].sum())
+        eligible_pl = float(grouped["pl"].sum())
+        metadata.append(
+            {
+                "competencia": period,
+                "minimum_pl_brl": 200_000_000,
+                "eligible_funds": eligible_funds,
+                "eligible_pl_brl": eligible_pl,
+                "ex_fic_funds": ex_fic_funds,
+                "ex_fic_pl_brl": ex_fic_pl,
+                "fund_coverage": eligible_funds / ex_fic_funds if ex_fic_funds else None,
+                "pl_coverage": eligible_pl / ex_fic_pl if ex_fic_pl else None,
+            }
+        )
+    return pd.concat(distributions, ignore_index=True), pd.DataFrame(metadata)
+
+
 def _type_mix(funds: pd.DataFrame, latest: str) -> tuple[pd.DataFrame, pd.DataFrame]:
     scoped = funds[
         funds["competencia"].astype(str).eq(latest)
         & ~funds["is_fic_fidc"].fillna(False).astype(bool)
     ].copy()
     total_pl = float(scoped["pl"].sum())
-    mix = scoped.groupby("anbima_tipo", dropna=False, as_index=False)["pl"].sum()
+    # A taxonomia ANBIMA é uma fotografia cadastral vigente aplicada ao histórico.
+    # Se o veículo era ex-FIC na competência, mas hoje está rotulado como FIC-FIDC,
+    # não o eliminamos retrospectivamente do denominador: preservamos o PL em N/D.
+    scoped["anbima_tipo_period_aware"] = scoped["anbima_tipo"]
+    fic_label_on_ex_fic = scoped["anbima_tipo"].map(_text).eq("FIC-FIDC")
+    scoped.loc[fic_label_on_ex_fic, "anbima_tipo_period_aware"] = "N/D"
+    mix = scoped.groupby("anbima_tipo_period_aware", dropna=False, as_index=False)["pl"].sum()
+    mix = mix.rename(columns={"anbima_tipo_period_aware": "anbima_tipo"})
     mix["anbima_tipo"] = mix["anbima_tipo"].map(_text).replace("", "N/D")
     mix["share"] = mix["pl"] / total_pl
     order = ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros", "N/D"]
@@ -221,6 +269,21 @@ def _type_mix(funds: pd.DataFrame, latest: str) -> tuple[pd.DataFrame, pd.DataFr
     return mix, coverage
 
 
+def _type_mix_history(
+    funds: pd.DataFrame,
+    periods: list[str],
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    mixes: list[pd.DataFrame] = []
+    coverages: list[pd.DataFrame] = []
+    for period in periods:
+        mix, coverage = _type_mix(funds, period)
+        mix.insert(0, "competencia", period)
+        coverage.insert(0, "competencia", period)
+        mixes.append(mix)
+        coverages.append(coverage)
+    return pd.concat(mixes, ignore_index=True), pd.concat(coverages, ignore_index=True)
+
+
 def _receivables(segments: pd.DataFrame, latest: str, portfolio_total: float) -> dict[str, Any]:
     scoped = segments[
         segments["competencia"].astype(str).eq(latest)
@@ -228,6 +291,9 @@ def _receivables(segments: pd.DataFrame, latest: str, portfolio_total: float) ->
     ].copy()
     scoped = scoped.groupby("segmento", as_index=False)["valor"].sum().sort_values("valor", ascending=False)
     reported_total = float(scoped["valor"].sum())
+    scoped["share_reported"] = scoped["valor"] / reported_total if reported_total else 0.0
+    if reported_total and not np.isclose(scoped["share_reported"].sum(), 1.0, atol=1e-12):
+        raise ValueError("tipos de recebível não fecham 100% sobre a Tabela II")
     return {
         "rows": _records(scoped),
         "reported_total": reported_total,
@@ -235,6 +301,34 @@ def _receivables(segments: pd.DataFrame, latest: str, portfolio_total: float) ->
         "gap": reported_total - portfolio_total,
         "gap_pct": (reported_total / portfolio_total - 1) if portfolio_total else None,
     }
+
+
+def _receivables_history(
+    segments: pd.DataFrame,
+    monthly: pd.DataFrame,
+    periods: list[str],
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    rows: list[pd.DataFrame] = []
+    metadata: list[dict[str, Any]] = []
+    for period in periods:
+        month = monthly[monthly["competencia"].astype(str).eq(period)]
+        if month.empty:
+            raise ValueError(f"competência ausente em industry_monthly.csv: {period}")
+        portfolio_total = float(month.iloc[0]["carteira_dc"])
+        result = _receivables(segments, period, portfolio_total)
+        frame = pd.DataFrame(result["rows"])
+        frame.insert(0, "competencia", period)
+        rows.append(frame)
+        metadata.append(
+            {
+                "competencia": period,
+                "reported_total": result["reported_total"],
+                "portfolio_total": result["portfolio_total"],
+                "gap": result["gap"],
+                "gap_pct": result["gap_pct"],
+            }
+        )
+    return pd.concat(rows, ignore_index=True), pd.DataFrame(metadata)
 
 
 def _provider_concentration(providers: pd.DataFrame) -> list[dict[str, Any]]:
@@ -253,6 +347,187 @@ def _provider_concentration(providers: pd.DataFrame) -> list[dict[str, Any]]:
             }
         )
     return rows
+
+
+def _provider_concentration_history(
+    funds: pd.DataFrame,
+    periods: list[str],
+) -> list[dict[str, Any]]:
+    role_columns = {
+        "administrador": ("admin_nome", "admin_cnpj", "informe mensal da competência"),
+        "gestor": ("gestor_nome", "gestor_cnpj", "cadastro CVM vigente aplicado à competência"),
+        "custodiante": (
+            "custodiante_nome",
+            "custodiante_cnpj",
+            "cadastro CVM vigente aplicado à competência",
+        ),
+    }
+    rows: list[dict[str, Any]] = []
+    for period in periods:
+        scoped = funds[funds["competencia"].astype(str).eq(period)].copy()
+        scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce").fillna(0.0)
+        total_pl = float(scoped["pl"].sum())
+        total_funds = int(scoped["cnpj_fundo"].map(_digits).nunique())
+        for role, (name_col, cnpj_col, source_note) in role_columns.items():
+            scoped_role = scoped[["cnpj_fundo", "pl", name_col, cnpj_col]].copy()
+            scoped_role["nome"] = scoped_role[name_col].map(_text)
+            scoped_role["cnpj_prestador"] = scoped_role[cnpj_col].map(_digits)
+            missing = scoped_role["nome"].eq("") & scoped_role["cnpj_prestador"].eq("")
+            missing_pl = float(scoped_role.loc[missing, "pl"].sum())
+            known = scoped_role.loc[~missing].copy()
+            known["provider_key"] = np.where(
+                known["cnpj_prestador"].ne(""),
+                known["nome"] + " | " + known["cnpj_prestador"],
+                known["nome"],
+            )
+            grouped = (
+                known.groupby("provider_key", as_index=False)
+                .agg(
+                    nome=("nome", "first"),
+                    cnpj_prestador=("cnpj_prestador", "first"),
+                    pl=("pl", "sum"),
+                    n_fundos=("cnpj_fundo", lambda values: values.map(_digits).nunique()),
+                )
+                .sort_values("pl", ascending=False)
+            )
+            grouped["share_pl"] = grouped["pl"] / total_pl if total_pl else 0.0
+            shares = grouped["share_pl"]
+            rows.append(
+                {
+                    "competencia": period,
+                    "papel": role,
+                    "total_pl": total_pl,
+                    "n_fundos": total_funds,
+                    "identified_pl": total_pl - missing_pl,
+                    "coverage_pl": (total_pl - missing_pl) / total_pl if total_pl else None,
+                    "missing_pl": missing_pl,
+                    "missing_share": missing_pl / total_pl if total_pl else None,
+                    "top3_share": float(shares.head(3).sum()),
+                    "top5_share": float(shares.head(5).sum()),
+                    "top10_share": float(shares.head(10).sum()),
+                    "hhi": float(((shares * 100) ** 2).sum()),
+                    "top3": _records(grouped.head(3)[["nome", "cnpj_prestador", "pl", "share_pl", "n_fundos"]]),
+                    "source_note": source_note,
+                }
+            )
+    return rows
+
+
+def _atlantico_payload(
+    funds: pd.DataFrame,
+    data_dir: Path,
+    latest: str,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    curation_path = data_dir / "atlantico_curadoria.json"
+    if not curation_path.exists():
+        raise FileNotFoundError(f"curadoria do Atlântico não encontrada: {curation_path}")
+    curated = json.loads(curation_path.read_text(encoding="utf-8"))
+
+    scoped = funds[funds["cnpj_fundo"].map(_digits).eq(ATLANTICO_CNPJ)].copy()
+    if scoped.empty:
+        raise ValueError("FIDC Atlântico não encontrado na base por fundo/CNPJ")
+    scoped = scoped.sort_values("competencia")
+
+    def numeric(value: object) -> float:
+        parsed = pd.to_numeric(value, errors="coerce")
+        return 0.0 if pd.isna(parsed) else float(parsed)
+
+    selected_periods = [HISTORICAL_REFERENCE, "2024-06", "2024-07", PROVIDER_REFERENCE, latest]
+    history_rows: list[dict[str, Any]] = []
+    for period in selected_periods:
+        period_rows = scoped[scoped["competencia"].astype(str).eq(period)]
+        if period_rows.empty:
+            continue
+        row = period_rows.iloc[0]
+        portfolio = numeric(row.get("carteira_dc"))
+        raw = numeric(row.get("dc_inadimplentes"))
+        adjusted = numeric(row.get("dc_inadimplentes_ajustado_recalculado"))
+        report_above_360 = str(row.get("reports_inad_acima_360d")).strip().lower() == "true"
+        above_360 = (
+            numeric(row.get("inad_acima_360d"))
+            if report_above_360
+            else None
+        )
+        above_1080 = (
+            numeric(row.get("inad_maior_1080d"))
+            if report_above_360
+            else None
+        )
+        history_rows.append(
+            {
+                "competencia": period,
+                "pl": numeric(row.get("pl")),
+                "carteira": portfolio,
+                "inadimplencia_bruta": raw,
+                "inadimplencia_ajustada": adjusted,
+                "vencidos_mais_360d": above_360,
+                "vencidos_mais_1080d": above_1080,
+                "excesso": max(raw - adjusted, 0.0),
+                "inadimplencia_share_carteira": raw / portfolio if portfolio else None,
+                "ajustada_share_carteira": adjusted / portfolio if portfolio else None,
+                "mais_360_share_carteira": above_360 / portfolio if portfolio and above_360 is not None else None,
+                "aging_reportado": report_above_360,
+                "administrador": _text(row.get("admin_nome")) or "não identificado",
+            }
+        )
+
+    history = pd.DataFrame(history_rows)
+    current_rows = scoped[scoped["competencia"].astype(str).eq(latest)]
+    if current_rows.empty:
+        raise ValueError(f"FIDC Atlântico ausente na competência {latest}")
+    current = current_rows.iloc[0]
+    current_history = history[history["competencia"].eq(latest)].iloc[0]
+    june = history[history["competencia"].eq("2024-06")].iloc[0]
+    july = history[history["competencia"].eq("2024-07")].iloc[0]
+    current_raw = float(current_history["inadimplencia_bruta"])
+    current_portfolio = float(current_history["carteira"])
+    current_above_360 = current_history["vencidos_mais_360d"]
+    current_above_1080 = current_history["vencidos_mais_1080d"]
+
+    profile: dict[str, Any] = {
+        **curated,
+        "denominacao": _text(current.get("denominacao")),
+        "administrador": _text(current.get("admin_nome")) or "não identificado",
+        "gestor": _text(current.get("gestor_nome")) or "não identificado",
+        "custodiante": _text(current.get("custodiante_nome")) or "não identificado",
+        "prestadores": (
+            f"Administrador e custodiante: {_text(current.get('admin_nome')) or 'não identificado'}. "
+            f"Gestor: {_text(current.get('gestor_nome')) or 'não identificado'}. "
+            "Consultoria especializada: MGC Capital; agente de cobrança: Crediativos; auditor: BDO."
+        ),
+        "snapshot": {
+            "competencia": latest,
+            "pl": float(current_history["pl"]),
+            "carteira": current_portfolio,
+            "inadimplencia_bruta": current_raw,
+            "inadimplencia_ajustada": float(current_history["inadimplencia_ajustada"]),
+            "inadimplencia_share_carteira": current_raw / current_portfolio if current_portfolio else None,
+            "vencidos_mais_360d": float(current_above_360) if pd.notna(current_above_360) else None,
+            "mais_360_share_carteira": float(current_above_360) / current_portfolio
+            if current_portfolio and pd.notna(current_above_360)
+            else None,
+            "vencidos_mais_1080d": float(current_above_1080) if pd.notna(current_above_1080) else None,
+            "mais_1080_share_inadimplencia": float(current_above_1080) / current_raw
+            if current_raw and pd.notna(current_above_1080)
+            else None,
+        },
+        "bridge_2024_06_07": {
+            "inadimplencia_bruta_jun": float(june["inadimplencia_bruta"]),
+            "inadimplencia_bruta_jul": float(july["inadimplencia_bruta"]),
+            "delta_inadimplencia_bruta": float(july["inadimplencia_bruta"] - june["inadimplencia_bruta"]),
+            "carteira_jun": float(june["carteira"]),
+            "carteira_jul": float(july["carteira"]),
+            "delta_carteira": float(july["carteira"] - june["carteira"]),
+            "pl_jun": float(june["pl"]),
+            "pl_jul": float(july["pl"]),
+            "delta_pl": float(july["pl"] - june["pl"]),
+            "excesso_jun": float(june["excesso"]),
+            "excesso_jul": float(july["excesso"]),
+        },
+        "is_np_pipeline": bool(current.get("is_np")) if pd.notna(current.get("is_np")) else None,
+        "data_referencia": latest,
+    }
+    return profile, _records(history)
 
 
 def _service_model(mono: pd.DataFrame, latest: str) -> pd.DataFrame:
@@ -508,7 +783,25 @@ def build_payload(
     latest_period = pd.Period(latest, freq="M")
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
-    type_mix, classification_coverage = _type_mix(funds, latest)
+    comparison_periods = [HISTORICAL_REFERENCE, latest]
+    holder_distribution_history, holder_distribution_meta_history = _holder_distribution_history(
+        vehicle, comparison_periods
+    )
+    type_mix_history, classification_coverage_history = _type_mix_history(
+        funds, comparison_periods
+    )
+    receivables_history, receivables_meta_history = _receivables_history(
+        segments, monthly, comparison_periods
+    )
+    provider_concentration_history = _provider_concentration_history(
+        funds, [PROVIDER_REFERENCE, latest]
+    )
+    type_mix = type_mix_history[type_mix_history["competencia"].eq(latest)].drop(
+        columns="competencia"
+    )
+    classification_coverage = classification_coverage_history[
+        classification_coverage_history["competencia"].eq(latest)
+    ].drop(columns="competencia")
     receivables = _receivables(segments, latest, float(latest_month["carteira_dc"]))
     qa_latest = qa[qa["competencia"].astype(str).eq(latest)].iloc[0].to_dict()
     qa_series = qa[qa["competencia"].astype(str).between("2023-01", latest)].copy()
@@ -525,6 +818,7 @@ def build_payload(
         bridge_detail["cnpj"].map(_digits).eq("09194841000151")
         | bridge_detail["cnpj_fundo"].map(_digits).eq("09194841000151")
     ].copy()
+    atlantico_profile, atlantico_history = _atlantico_payload(funds, data_dir, latest)
 
     curation = _load_curation(curation_path)
     profiles = _build_profiles(top20, curation, documentary)
@@ -537,18 +831,18 @@ def build_payload(
     )
     material_top6 = material_focus.head(6).copy()
     material_omitted = material_focus.iloc[6:].copy()
-    holder_distribution = _holder_distribution(vehicle, latest)
-    latest_ex_fic = funds[
-        funds["competencia"].astype(str).eq(latest)
-        & ~funds["is_fic_fidc"].fillna(False).astype(bool)
-    ].copy()
-    holder_funds = int(holder_distribution["fundos"].sum())
-    holder_pl = float(holder_distribution["pl"].sum())
-    ex_fic_funds = int(latest_ex_fic["cnpj_fundo"].nunique())
-    ex_fic_pl = float(latest_ex_fic["pl"].sum())
+    holder_distribution = holder_distribution_history[
+        holder_distribution_history["competencia"].eq(latest)
+    ].drop(columns="competencia")
+    holder_meta_latest = holder_distribution_meta_history[
+        holder_distribution_meta_history["competencia"].eq(latest)
+    ].iloc[0].drop(labels="competencia").to_dict()
+    provider_concentration = [
+        row for row in provider_concentration_history if row["competencia"] == latest
+    ]
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v1",
+        "schema_version": "fidc_revision_artifact_payload_v2",
         "latest_complete": latest,
         "offers_as_of": offers_as_of,
         "generated_at": pd.Timestamp.now(tz="America/Sao_Paulo").isoformat(),
@@ -563,23 +857,26 @@ def build_payload(
         ),
         "holder_distribution": _records(holder_distribution),
         "holder_distribution_meta": {
-            "minimum_pl_brl": 200_000_000,
-            "eligible_funds": holder_funds,
-            "eligible_pl_brl": holder_pl,
-            "ex_fic_funds": ex_fic_funds,
-            "ex_fic_pl_brl": ex_fic_pl,
-            "fund_coverage": holder_funds / ex_fic_funds if ex_fic_funds else None,
-            "pl_coverage": holder_pl / ex_fic_pl if ex_fic_pl else None,
+            str(key): _json_value(value) for key, value in holder_meta_latest.items()
         },
+        "holder_distribution_history": _records(holder_distribution_history),
+        "holder_distribution_meta_history": _records(holder_distribution_meta_history),
         "type_mix": _records(type_mix),
         "classification_coverage": _records(classification_coverage),
+        "type_mix_history": _records(type_mix_history),
+        "classification_coverage_history": _records(classification_coverage_history),
         "receivables": receivables,
+        "receivables_history": _records(receivables_history),
+        "receivables_meta_history": _records(receivables_meta_history),
         "qa_latest": {str(key): _json_value(value) for key, value in qa_latest.items()},
         "qa_series": _records(qa_series),
         "bridge_summary": _records(bridge_summary),
         "bridge_top_contributors": _records(bridge_detail.head(30)),
         "bridge_atlantico": _records(atlantic),
-        "provider_concentration": _provider_concentration(providers),
+        "atlantico_profile": atlantico_profile,
+        "atlantico_history": atlantico_history,
+        "provider_concentration": provider_concentration,
+        "provider_concentration_history": provider_concentration_history,
         "market_share": _records(market),
         "market_share_top10_fixed": _records(fixed_top10),
         "material_focus_top6": _records(material_top6),

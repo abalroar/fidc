@@ -6,7 +6,14 @@ import pandas as pd
 import pytest
 
 from scripts.build_fidc_industry_study import field_reported
-from scripts.build_fidc_revision_artifact_payload import _holder_distribution
+from scripts.build_fidc_revision_artifact_payload import (
+    _atlantico_payload,
+    _holder_distribution,
+    _holder_distribution_history,
+    _provider_concentration_history,
+    _receivables_history,
+    _type_mix_history,
+)
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_revision_analysis import (
     build_base_by_vehicle,
@@ -114,6 +121,181 @@ def test_holder_distribution_rejects_negative_accounts_instead_of_bucket_zero() 
 
     with pytest.raises(ValueError, match="quantidade negativa"):
         _holder_distribution(vehicles, "2026-05")
+
+
+def test_slides_5_to_7_histories_use_both_snapshots_and_close_at_one() -> None:
+    vehicle_rows: list[dict[str, object]] = []
+    buckets = [0, 1, 2, 8, 25, 100]
+    for period, multiplier in (("2023-12", 1.0), ("2026-05", 2.0)):
+        for index, accounts in enumerate(buckets, start=1):
+            vehicle_rows.append(
+                {
+                    "competencia": period,
+                    "cnpj": f"{period}-{index}",
+                    "cnpj_fundo": f"{period}-{index}",
+                    "pl": (200_000_000 + index * 10_000_000) * multiplier,
+                    "cotistas": accounts,
+                    "is_fic_fidc": False,
+                }
+            )
+    holder, holder_meta = _holder_distribution_history(
+        pd.DataFrame(vehicle_rows), ["2023-12", "2026-05"]
+    )
+
+    assert set(holder["competencia"]) == {"2023-12", "2026-05"}
+    assert set(holder_meta["competencia"]) == {"2023-12", "2026-05"}
+    assert holder.groupby("competencia")["share_fundos"].sum().eq(1.0).all()
+    assert holder.groupby("competencia")["share_pl"].sum().map(
+        lambda value: math.isclose(value, 1.0, abs_tol=1e-12)
+    ).all()
+
+    funds = pd.DataFrame(
+        [
+            {
+                "competencia": period,
+                "cnpj_fundo": f"{period}-{index}",
+                "pl": pl,
+                "is_fic_fidc": False,
+                "anbima_tipo": anbima_type,
+                "classification_tier": tier,
+            }
+            for period in ("2023-12", "2026-05")
+            for index, (anbima_type, pl, tier) in enumerate(
+                [
+                    ("Financeiro", 60.0, "oficial_anbima"),
+                    ("Outros", 30.0, "evidencia_publicada"),
+                    # Um rótulo cadastral atual de FIC não pode retirar do
+                    # denominador um veículo que era ex-FIC na competência.
+                    ("FIC-FIDC", 10.0, "nao_disponivel"),
+                ],
+                start=1,
+            )
+        ]
+    )
+    type_mix, coverage = _type_mix_history(funds, ["2023-12", "2026-05"])
+
+    assert set(type_mix["competencia"]) == {"2023-12", "2026-05"}
+    assert type_mix.groupby("competencia")["share"].sum().map(
+        lambda value: math.isclose(value, 1.0, abs_tol=1e-12)
+    ).all()
+    assert coverage.groupby("competencia")["share"].sum().map(
+        lambda value: math.isclose(value, 1.0, abs_tol=1e-12)
+    ).all()
+    assert set(type_mix.loc[type_mix["anbima_tipo"].eq("N/D"), "competencia"]) == {
+        "2023-12",
+        "2026-05",
+    }
+
+    segments = pd.DataFrame(
+        [
+            {
+                "competencia": period,
+                "nivel": "top",
+                "segmento": segment,
+                "valor": value,
+            }
+            for period in ("2023-12", "2026-05")
+            for segment, value in (("Financeiro", 70.0), ("Comercial", 30.0))
+        ]
+    )
+    monthly = pd.DataFrame(
+        [
+            {"competencia": "2023-12", "carteira_dc": 90.0},
+            {"competencia": "2026-05", "carteira_dc": 95.0},
+        ]
+    )
+    receivables, receivables_meta = _receivables_history(
+        segments, monthly, ["2023-12", "2026-05"]
+    )
+
+    assert set(receivables["competencia"]) == {"2023-12", "2026-05"}
+    assert set(receivables_meta["competencia"]) == {"2023-12", "2026-05"}
+    assert receivables.groupby("competencia")["share_reported"].sum().map(
+        lambda value: math.isclose(value, 1.0, abs_tol=1e-12)
+    ).all()
+
+
+def test_provider_top5_and_top10_keep_missing_provider_in_denominator() -> None:
+    rows: list[dict[str, object]] = []
+    for period in ("2025-12", "2026-05"):
+        for index in range(12):
+            missing = index == 11
+            rows.append(
+                {
+                    "competencia": period,
+                    "cnpj_fundo": f"{period}-{index}",
+                    "pl": 10.0,
+                    "admin_nome": "" if missing else f"ADMIN {index}",
+                    "admin_cnpj": "" if missing else f"1{index:03d}",
+                    "gestor_nome": "" if missing else f"GESTOR {index}",
+                    "gestor_cnpj": "" if missing else f"2{index:03d}",
+                    "custodiante_nome": "" if missing else f"CUST {index}",
+                    "custodiante_cnpj": "" if missing else f"3{index:03d}",
+                }
+            )
+
+    result = _provider_concentration_history(
+        pd.DataFrame(rows), ["2025-12", "2026-05"]
+    )
+
+    assert {(row["competencia"], row["papel"]) for row in result} == {
+        (period, role)
+        for period in ("2025-12", "2026-05")
+        for role in ("administrador", "gestor", "custodiante")
+    }
+    for row in result:
+        assert row["total_pl"] == 120.0
+        assert row["missing_pl"] == 10.0
+        assert row["missing_share"] == pytest.approx(10.0 / 120.0)
+        assert row["coverage_pl"] == pytest.approx(110.0 / 120.0)
+        assert row["top5_share"] == pytest.approx(50.0 / 120.0)
+        assert row["top10_share"] == pytest.approx(100.0 / 120.0)
+        assert row["top10_share"] < 100.0 / 110.0
+
+
+def test_atlantico_payload_keeps_five_checkpoints_and_june_july_bridge(
+    tmp_path,
+) -> None:
+    (tmp_path / "atlantico_curadoria.json").write_text(
+        '{"cnpj":"09.194.841/0001-51","estrategia":"Aquisição de NPLs"}',
+        encoding="utf-8",
+    )
+    periods = ["2023-12", "2024-06", "2024-07", "2025-12", "2026-05"]
+    rows = []
+    for index, period in enumerate(periods):
+        raw = 16_000.0 if period == "2024-06" else 100.0 + index
+        portfolio = 40.0 if period == "2024-06" else 120.0
+        rows.append(
+            {
+                "competencia": period,
+                "cnpj_fundo": "09194841000151",
+                "denominacao": "ATLÂNTICO FIDC",
+                "pl": 140.0,
+                "carteira_dc": portfolio,
+                "dc_inadimplentes": raw,
+                "dc_inadimplentes_ajustado_recalculado": min(raw, portfolio),
+                "reports_inad_acima_360d": True,
+                "inad_acima_360d": min(raw, portfolio),
+                "inad_maior_1080d": min(raw, portfolio) * 0.9,
+                "admin_nome": "ID CORRETORA",
+                "gestor_nome": "HYPERION",
+                "custodiante_nome": "ID CORRETORA",
+                "is_np": False,
+            }
+        )
+
+    profile, history = _atlantico_payload(
+        pd.DataFrame(rows), tmp_path, "2026-05"
+    )
+
+    assert [row["competencia"] for row in history] == periods
+    assert profile["snapshot"]["competencia"] == "2026-05"
+    assert profile["snapshot"]["inadimplencia_share_carteira"] == pytest.approx(
+        104.0 / 120.0
+    )
+    assert profile["bridge_2024_06_07"]["delta_inadimplencia_bruta"] == pytest.approx(
+        102.0 - 16_000.0
+    )
 
 
 def test_delinquency_qa_uses_report_flags_and_reconciles_vehicle_to_fund() -> None:

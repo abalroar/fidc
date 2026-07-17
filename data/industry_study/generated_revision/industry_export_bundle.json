@@ -2,17 +2,17 @@
   "analysis_manifest": {
     "bytes": 3093,
     "name": "revision_manifest.json",
-    "sha256": "4bf649b4cfd603a6e383851a9375c293041f126d8039ddbccb3123ccd21ebf4f"
+    "sha256": "5022cb63d547646dd31d8f58fcbd8b1a9b48fa65ce81e59bb9c845eaf9c33df7"
   },
-  "bundle_id": "202605_d142d48bc5f612ab",
+  "bundle_id": "202605_62e263454eae2177",
   "checks": {
     "profiles": 20,
-    "slides": 42,
+    "slides": 43,
     "top20_fidcs": 20,
     "top20_outros": 20
   },
-  "generated_at_utc": "2026-07-17T14:00:03+00:00",
-  "input_signature": "386aa34104ad8bee9611d808ea33b8e91156030d48880e3a898bdac41fa8e768",
+  "generated_at_utc": "2026-07-17T15:18:03+00:00",
+  "input_signature": "6bf6c2581fa7f0c5324d63774f862cbff3fedf6f136a6424a18a357a65c0ac5b",
   "inputs": {
     "analysis/base_competencia_cnpj.csv.gz": "e342b7daa6869c5b9b8a989f10a19d4f9ec798bd73010c8ceca7078e18173ad9",
     "analysis/base_fundo_cnpj.csv.gz": "f8f2e43bb28227e1e289579e2210f4288308a562bbb708ce06e8f85985a57e22",
@@ -32,11 +32,12 @@
     "analysis/top20_fidcs.csv": "58ed03fb9ba94acac5882bd1b05060a538f9caf1d1c193ce1091e176eb05f527",
     "analysis/top20_outros.csv": "5ba4cb6b44b3f9dd2a8ba4294f7dda9451ca397d557677c8cde2f5bac77c1f1c",
     "builder/build_fidc_revision_analysis.py": "7c08a88292196f20eb16a3fe0f9d01bb276cf51943b73d3fc6c7443bd9d00181",
-    "builder/build_fidc_revision_artifact_payload.py": "c97cc142454b5ec6e60bb3f8add030e28aa9ac20ce5e8edd8e483a6b12edab93",
-    "builder/build_fidc_revision_artifacts.mjs": "003da7629d51c639172589b8e94c9daf351418317e26f7c81a6e40ae39400cdc",
+    "builder/build_fidc_revision_artifact_payload.py": "e095b07b3b9d7886bb0639eb7e0cf0ead8347feb2b357b758bd258518b7e6c55",
+    "builder/build_fidc_revision_artifacts.mjs": "5909a16e6cefc8e2139ed7ec946e782a9f52ae8f733e8958e9c4027537b3b738",
     "builder/industry_revision_analysis.py": "0e88828f25673a7ee49953a45678a0af97b77bf7b84cffc6758a9fb597fda19b",
-    "builder/industry_revision_export.py": "91ea4103f551347879f53e05f7298d6532c147aecfcd1493bd836b1bfccf01e4",
+    "builder/industry_revision_export.py": "8b0da06e3f6f021f736562a5332364366bc8f3eabefb594c10365c260e70ce6d",
     "curation/top20.csv": "6744c3ec00f168a8ca9f110d337e930b6b772e90e213ed8724a20ae724584d28",
+    "data/atlantico_curadoria.json": "4e5408bbf9a2b4aa1c6f6ef96ef8f03e1e967be86c0322d44a8dcdaa5008f073",
     "data/cotistas_tipo_monthly.csv": "aaa41cf252e309d7c1475fc1368431e7be532af924ede114448d664997c09bf3",
     "data/industry_anbima_classification.csv.gz": "5a44d3e40b2dc0da45630dcfbb017947f11d6fa1ab6f7ca618b3948342a2a17b",
     "data/industry_competence_status.csv": "c3243010500e0ee7d53910077d033be2dfe727eb4b01b15e3481210f6ed80e90",
@@ -53,30 +54,30 @@
   "latest_complete": "2026-05",
   "offers_as_of": "2026-07-16",
   "payload": {
-    "bytes": 683718,
+    "bytes": 714497,
     "name": "artifact_payload.json",
-    "sha256": "d142d48bc5f612ab950a2e5ff62df53c023102725a21f61efd798cd5d4744688"
+    "sha256": "62e263454eae2177d0c48b331e0f382f15aab3cec6a3918edb1d135ab8356ef7"
   },
-  "payload_schema": "fidc_revision_artifact_payload_v1",
-  "payload_sha256": "d142d48bc5f612ab950a2e5ff62df53c023102725a21f61efd798cd5d4744688",
+  "payload_schema": "fidc_revision_artifact_payload_v2",
+  "payload_sha256": "62e263454eae2177d0c48b331e0f382f15aab3cec6a3918edb1d135ab8356ef7",
   "pptx": {
-    "bytes": 256723,
+    "bytes": 266729,
     "name": "industry_executive_revised.pptx",
-    "sha256": "3477d562bd8944e03e13fc2225f7ae489309654eba00c6043e87dbb492c2b3cb"
+    "sha256": "9ed976215b93879fa8f0a197e7ac66c4e0d300863b69164da4d70b391f3e00a5"
   },
   "renderer": {
     "artifact_tool_version": "2.8.24",
     "node_version": "v25.9.0",
-    "renderer_sha256": "003da7629d51c639172589b8e94c9daf351418317e26f7c81a6e40ae39400cdc",
-    "renderer_version": "industry_revision_artifacts_v3"
+    "renderer_sha256": "5909a16e6cefc8e2139ed7ec946e782a9f52ae8f733e8958e9c4027537b3b738",
+    "renderer_version": "industry_revision_artifacts_v4"
   },
-  "renderer_sha256": "003da7629d51c639172589b8e94c9daf351418317e26f7c81a6e40ae39400cdc",
-  "renderer_version": "industry_revision_artifacts_v3",
+  "renderer_sha256": "5909a16e6cefc8e2139ed7ec946e782a9f52ae8f733e8958e9c4027537b3b738",
+  "renderer_version": "industry_revision_artifacts_v4",
   "schema_version": "fidc_revision_export_bundle_v1",
-  "source_signature": "d142d48bc5f612ab950a2e5ff62df53c023102725a21f61efd798cd5d4744688",
+  "source_signature": "62e263454eae2177d0c48b331e0f382f15aab3cec6a3918edb1d135ab8356ef7",
   "xlsx": {
-    "bytes": 4278510,
+    "bytes": 4290400,
     "name": "industry_data_revised.xlsx",
-    "sha256": "6444f789d04f8cf5482786edad4beb3af74c9e2938b875764d87ff2b36012511"
+    "sha256": "0e969dec8523be196dc6501f3b7aa736fe7d280316e38379e1779e59328d3f14"
   }
 }

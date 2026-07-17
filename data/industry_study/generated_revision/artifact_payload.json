@@ -1,4 +1,193 @@
 {
+  "atlantico_history": [
+    {
+      "administrador": "SEFER INVESTIMENTOS DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.",
+      "aging_reportado": false,
+      "ajustada_share_carteira": 1.0,
+      "carteira": 46099539.21,
+      "competencia": "2023-12",
+      "excesso": 16754589525.44,
+      "inadimplencia_ajustada": 46099539.21,
+      "inadimplencia_bruta": 16800689064.65,
+      "inadimplencia_share_carteira": 364.44375263962644,
+      "mais_360_share_carteira": null,
+      "pl": 126419828.95,
+      "vencidos_mais_1080d": null,
+      "vencidos_mais_360d": null
+    },
+    {
+      "administrador": "SEFER INVESTIMENTOS DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.",
+      "aging_reportado": true,
+      "ajustada_share_carteira": 1.0,
+      "carteira": 34207146.89,
+      "competencia": "2024-06",
+      "excesso": 16688565360.970001,
+      "inadimplencia_ajustada": 34207146.89,
+      "inadimplencia_bruta": 16722772507.86,
+      "inadimplencia_share_carteira": 488.86779600869545,
+      "mais_360_share_carteira": 488.8656425315218,
+      "pl": 111811326.21,
+      "vencidos_mais_1080d": 16717821308.79,
+      "vencidos_mais_360d": 16722698843.55
+    },
+    {
+      "administrador": "ID CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.",
+      "aging_reportado": true,
+      "ajustada_share_carteira": 0.9058795089796122,
+      "carteira": 114165644.84,
+      "competencia": "2024-07",
+      "excesso": 0.0,
+      "inadimplencia_ajustada": 103420318.29,
+      "inadimplencia_bruta": 103420318.29,
+      "inadimplencia_share_carteira": 0.9058795089796122,
+      "mais_360_share_carteira": 0.9058795089796122,
+      "pl": 125594434.61,
+      "vencidos_mais_1080d": 103420318.29,
+      "vencidos_mais_360d": 103420318.29
+    },
+    {
+      "administrador": "ID CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.",
+      "aging_reportado": false,
+      "ajustada_share_carteira": 0.9892831495478568,
+      "carteira": 156192306.45,
+      "competencia": "2025-12",
+      "excesso": 0.0,
+      "inadimplencia_ajustada": 154518416.86,
+      "inadimplencia_bruta": 154518416.86,
+      "inadimplencia_share_carteira": 0.9892831495478568,
+      "mais_360_share_carteira": null,
+      "pl": 148401568.32,
+      "vencidos_mais_1080d": null,
+      "vencidos_mais_360d": null
+    },
+    {
+      "administrador": "ID CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.",
+      "aging_reportado": true,
+      "ajustada_share_carteira": 0.993133241267968,
+      "carteira": 155001843.16,
+      "competencia": "2026-05",
+      "excesso": 0.0,
+      "inadimplencia_ajustada": 153937482.9,
+      "inadimplencia_bruta": 153937482.9,
+      "inadimplencia_share_carteira": 0.993133241267968,
+      "mais_360_share_carteira": 0.9926981486353571,
+      "pl": 142172461.22,
+      "vencidos_mais_1080d": 153857795.1,
+      "vencidos_mais_360d": 153870042.73999998
+    }
+  ],
+  "atlantico_profile": {
+    "administrador": "ID CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.",
+    "auditoria_valor_justo": "As demonstrações de 2025 usam fluxo de caixa descontado apoiado em histórico de recuperação, custos de cobrança e taxa de desconto. A BDO emitiu opinião sem modificação para 2025, mas registrou que o período de 01/01 a 19/07/24 teve opinião modificada por inconsistências de lastro e diferença na posição de direitos creditórios.",
+    "bridge_2024_06_07": {
+      "carteira_jul": 114165644.84,
+      "carteira_jun": 34207146.89,
+      "delta_carteira": 79958497.95,
+      "delta_inadimplencia_bruta": -16619352189.57,
+      "delta_pl": 13783108.400000006,
+      "excesso_jul": 0.0,
+      "excesso_jun": 16688565360.970001,
+      "inadimplencia_bruta_jul": 103420318.29,
+      "inadimplencia_bruta_jun": 16722772507.86,
+      "pl_jul": 125594434.61,
+      "pl_jun": 111811326.21
+    },
+    "bridge_interpretacao": "Entre jun/24 e jul/24, a inadimplência bruta caiu de R$ 16,72 bi para R$ 103,4 mi, enquanto a carteira contábil subiu de R$ 34,2 mi para R$ 114,2 mi. A mudança coincide com a troca de Sefer para ID Corretora e a adaptação à RCVM 175. Antes, o reporte acompanhava valor de face bruto e redução quase integral; depois, passou a refletir valor contábil/recuperável sem a mesma redução separada. Não houve recuperação em caixa de R$ 16,6 bi.",
+    "cedente_originador": "Em mai/26, o informe mensal nomina Ativos S.A. Securitizadora de Créditos Financeiros (19%) e Carrefour Promotora de Vendas e Participações Ltda., carteira legada (11%). Os 70% restantes não são nominados nesse campo. Documentos históricos registram aquisições de Banco Pan, Santander e Itaú Unibanco; isso não prova a composição atual integral.",
+    "classificacao": "Formalmente, Tipo ANBIMA Outros e Foco Multicarteira Outros. Economicamente, é um fundo de recuperação de NPL e o regulamento permite direitos não padronizados. O nome legal histórico continha a expressão FIDC Não-Padronizados; a retirada de NP do nome não mudou, por si, a estratégia econômica.",
+    "cnpj": "09.194.841/0001-51",
+    "custodiante": "ID CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.",
+    "data_referencia": "2026-05",
+    "denominacao": "ATLÂNTICO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+    "estrategia": "Veículo fechado de recuperação de créditos estressados. O regulamento vigente descreve as carteiras, em regra, como direitos não padronizados (NP), 100% inadimplidos (NPL) e já baixados no balanço dos cedentes.",
+    "fontes": [
+      {
+        "data_consulta": "2026-07-17",
+        "label": "CVM — Informe mensal mai/26",
+        "tipo": "fonte primária",
+        "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202605.zip"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "FundosNet — regulamento vigente de 12/11/24",
+        "tipo": "fonte primária",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=822211&cvm=true"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "FundosNet — informe trimestral 1T26",
+        "tipo": "fonte primária",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1194821&cvm=true"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "FundosNet — demonstrações financeiras 2025",
+        "tipo": "fonte primária auditada",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1202540&cvm=true"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "FundosNet — demonstrações financeiras 2024",
+        "tipo": "fonte primária auditada",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=910782&cvm=true"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "FundosNet — AGE de troca de administrador em 08/07/24",
+        "tipo": "fonte primária",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=697891&cvm=true"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "FundosNet — demonstrações financeiras 2023",
+        "tipo": "fonte primária auditada",
+        "url": "https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=641342&cvm=true"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "CVM — decisão de 25/11/14 sobre o Atlântico FIDC NP",
+        "tipo": "fonte primária",
+        "url": "https://conteudo.cvm.gov.br/decisoes/2014/20141125_R1/20141125_D20.html"
+      },
+      {
+        "data_consulta": "2026-07-17",
+        "label": "Austin Rating — relatório histórico de 16/10/20",
+        "tipo": "fonte secundária",
+        "url": "https://austin.com.br/Relatorio/Rating/Atl%C3%A2ntico_FIDC_NP/10078"
+      }
+    ],
+    "funcionamento_economico": "Gestora e consultoria participam passivamente de processos competitivos de venda de carteiras estressadas; o Fundo não origina crédito. A cessão é definitiva e usualmente sem coobrigação de pagamento; o cedente responde pela existência do crédito. O valor econômico decorre da recuperação agregada esperada, descontada por custos e tempo de cobrança, e não do valor de face.",
+    "garantias": "Podem existir caso a caso, mas a carteira massificada normalmente não possui garantia real. A cessão é, em regra, sem coobrigação do cedente pelo pagamento.",
+    "gestor": "HYPERION ASSET MANAGEMENT LTDA.",
+    "is_np_pipeline": false,
+    "leitura_inadimplencia": "O percentual elevado é estrutural: o fundo compra créditos já vencidos. Em mai/26, 99,3% da carteira de direitos creditórios estava no campo de inadimplência e 99,3% da carteira estava no bucket acima de 1.080 dias. Vencido é o estado jurídico e de aging; o saldo contábil reflete valor esperado descontado de recuperação, não perda integral.",
+    "limitacoes": [
+      "A lista completa atual de cedentes não é pública; os dois nominados no informe cobrem 30%.",
+      "A identidade e a concentração dos devedores individuais não são observáveis.",
+      "A identidade do cotista atual não é pública no informe mensal.",
+      "A reclassificação de R$ 79,96 mi para carteira em jul/24 não é integralmente reconciliável no informe mensal.",
+      "A classe atual diverge entre o informe mensal e as demonstrações auditadas.",
+      "A série jun/24–jul/24 não é like-for-like e não deve ser interpretada como recuperação econômica.",
+      "O indicador is_np do pipeline é cadastral e não captura a política econômica descrita no regulamento vigente."
+    ],
+    "natureza_recebiveis": "Empréstimo pessoal e consignado, cheque especial, cartão, CDC e financiamento de varejo, telefonia e outros créditos massificados; em mai/26, 75,4% do valor reportado estava em Financeiro — Outros e 24,6% em Serviços.",
+    "perfil_sacados": "Predominantemente pessoas físicas pulverizadas. Há pessoas jurídicas e créditos corporativos pontuais, mas não existe lista pública completa de devedores e não se inferem nomes.",
+    "prestadores": "Administrador e custodiante: ID CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.. Gestor: HYPERION ASSET MANAGEMENT LTDA.. Consultoria especializada: MGC Capital; agente de cobrança: Crediativos; auditor: BDO.",
+    "publico_alvo": "Investidores profissionais; condomínio fechado. O informe de mai/26 mostra uma conta de cotista do tipo cota de FIDC, o que não identifica nem comprova um investidor único.",
+    "snapshot": {
+      "carteira": 155001843.16,
+      "competencia": "2026-05",
+      "inadimplencia_ajustada": 153937482.9,
+      "inadimplencia_bruta": 153937482.9,
+      "inadimplencia_share_carteira": 0.993133241267968,
+      "mais_1080_share_inadimplencia": 0.9994823366051023,
+      "mais_360_share_carteira": 0.9926981486353571,
+      "pl": 142172461.22,
+      "vencidos_mais_1080d": 153857795.1,
+      "vencidos_mais_360d": 153870042.73999998
+    },
+    "subordinacao": "As demonstrações financeiras de dez/25 mostram somente cotas subordinadas. O informe mensal de mai/26 apresenta a mesma quantidade de cotas como subclasse sênior; a divergência exige confirmação do administrador."
+  },
   "bridge_atlantico": [
     {
       "bridge_group": "fundos continuantes",
@@ -928,7 +1117,57 @@
       "share": 0.058731977848209375
     }
   ],
-  "generated_at": "2026-07-17T14:00:03+00:00",
+  "classification_coverage_history": [
+    {
+      "categoria": "fic_separado",
+      "competencia": "2023-12",
+      "pl": 98652532.98,
+      "share": 0.00021364631576488164
+    },
+    {
+      "categoria": "N/D",
+      "competencia": "2023-12",
+      "pl": 4494306080.71,
+      "share": 0.009733069258931828
+    },
+    {
+      "categoria": "Oficial ANBIMA",
+      "competencia": "2023-12",
+      "pl": 453812622383.41,
+      "share": 0.9827968111013524
+    },
+    {
+      "categoria": "Proxy CVM",
+      "competencia": "2023-12",
+      "pl": 3350722297.02,
+      "share": 0.007256473323950982
+    },
+    {
+      "categoria": "Evidência documental",
+      "competencia": "2026-05",
+      "pl": 5655088696.55,
+      "share": 0.006425577848127004
+    },
+    {
+      "categoria": "N/D",
+      "competencia": "2026-05",
+      "pl": 17060658012.869999,
+      "share": 0.019385122335719793
+    },
+    {
+      "categoria": "Oficial ANBIMA",
+      "competencia": "2026-05",
+      "pl": 805685103503.01,
+      "share": 0.9154573219679439
+    },
+    {
+      "categoria": "Proxy CVM",
+      "competencia": "2026-05",
+      "pl": 51689443643.15,
+      "share": 0.058731977848209375
+    }
+  ],
+  "generated_at": "2026-07-17T15:18:03+00:00",
   "holder_distribution": [
     {
       "bucket": "0",
@@ -985,15 +1224,159 @@
       "universo_pl": 733886504477.35
     }
   ],
+  "holder_distribution_history": [
+    {
+      "bucket": "0",
+      "competencia": "2023-12",
+      "fundos": 3,
+      "pl": 4080111397.0899997,
+      "share_fundos": 0.007334963325183374,
+      "share_pl": 0.010825601247303616,
+      "universo_fundos": 409,
+      "universo_pl": 376894668839.41
+    },
+    {
+      "bucket": "1",
+      "competencia": "2023-12",
+      "fundos": 106,
+      "pl": 107004080559.76,
+      "share_fundos": 0.2591687041564792,
+      "share_pl": 0.28390977481656304,
+      "universo_fundos": 409,
+      "universo_pl": 376894668839.41
+    },
+    {
+      "bucket": "2–3",
+      "competencia": "2023-12",
+      "fundos": 104,
+      "pl": 65985133464.81,
+      "share_fundos": 0.254278728606357,
+      "share_pl": 0.1750757941681723,
+      "universo_fundos": 409,
+      "universo_pl": 376894668839.41
+    },
+    {
+      "bucket": "4–10",
+      "competencia": "2023-12",
+      "fundos": 71,
+      "pl": 87135130282.92,
+      "share_fundos": 0.17359413202933985,
+      "share_pl": 0.23119226003179993,
+      "universo_fundos": 409,
+      "universo_pl": 376894668839.41
+    },
+    {
+      "bucket": "11–50",
+      "competencia": "2023-12",
+      "fundos": 50,
+      "pl": 27895807943.56,
+      "share_fundos": 0.12224938875305623,
+      "share_pl": 0.07401486476171423,
+      "universo_fundos": 409,
+      "universo_pl": 376894668839.41
+    },
+    {
+      "bucket": "51+",
+      "competencia": "2023-12",
+      "fundos": 75,
+      "pl": 84794405191.27,
+      "share_fundos": 0.18337408312958436,
+      "share_pl": 0.22498170497444692,
+      "universo_fundos": 409,
+      "universo_pl": 376894668839.41
+    },
+    {
+      "bucket": "0",
+      "competencia": "2026-05",
+      "fundos": 1,
+      "pl": 549596002.27,
+      "share_fundos": 0.0012853470437017994,
+      "share_pl": 0.0007488841924697938,
+      "universo_fundos": 778,
+      "universo_pl": 733886504477.35
+    },
+    {
+      "bucket": "1",
+      "competencia": "2026-05",
+      "fundos": 186,
+      "pl": 184814795960.8,
+      "share_fundos": 0.2390745501285347,
+      "share_pl": 0.2518302146629867,
+      "universo_fundos": 778,
+      "universo_pl": 733886504477.35
+    },
+    {
+      "bucket": "2–3",
+      "competencia": "2026-05",
+      "fundos": 124,
+      "pl": 88723991386.31,
+      "share_fundos": 0.15938303341902313,
+      "share_pl": 0.12089606614240213,
+      "universo_fundos": 778,
+      "universo_pl": 733886504477.35
+    },
+    {
+      "bucket": "4–10",
+      "competencia": "2026-05",
+      "fundos": 148,
+      "pl": 171164023648.94,
+      "share_fundos": 0.19023136246786632,
+      "share_pl": 0.23322955607534634,
+      "universo_fundos": 778,
+      "universo_pl": 733886504477.35
+    },
+    {
+      "bucket": "11–50",
+      "competencia": "2026-05",
+      "fundos": 126,
+      "pl": 77211757676.53,
+      "share_fundos": 0.16195372750642673,
+      "share_pl": 0.1052093984634827,
+      "universo_fundos": 778,
+      "universo_pl": 733886504477.35
+    },
+    {
+      "bucket": "51+",
+      "competencia": "2026-05",
+      "fundos": 193,
+      "pl": 211422339802.5,
+      "share_fundos": 0.2480719794344473,
+      "share_pl": 0.28808588046331235,
+      "universo_fundos": 778,
+      "universo_pl": 733886504477.35
+    }
+  ],
   "holder_distribution_meta": {
     "eligible_funds": 778,
     "eligible_pl_brl": 733886504477.35,
     "ex_fic_funds": 3774,
-    "ex_fic_pl_brl": 880090293855.58,
+    "ex_fic_pl_brl": 880090293855.5801,
     "fund_coverage": 0.2061473237943826,
     "minimum_pl_brl": 200000000,
-    "pl_coverage": 0.8338763756412685
+    "pl_coverage": 0.8338763756412684
   },
+  "holder_distribution_meta_history": [
+    {
+      "competencia": "2023-12",
+      "eligible_funds": 409,
+      "eligible_pl_brl": 376894668839.41,
+      "ex_fic_funds": 2259,
+      "ex_fic_pl_brl": 461756303294.12006,
+      "fund_coverage": 0.18105356352368304,
+      "minimum_pl_brl": 200000000,
+      "pl_coverage": 0.8162198678192019
+    },
+    {
+      "competencia": "2026-05",
+      "eligible_funds": 778,
+      "eligible_pl_brl": 733886504477.35,
+      "ex_fic_funds": 3774,
+      "ex_fic_pl_brl": 880090293855.5801,
+      "fund_coverage": 0.2061473237943826,
+      "minimum_pl_brl": 200000000,
+      "pl_coverage": 0.8338763756412684
+    }
+  ],
   "investor_base_history": [
     {
       "competencia": "2015-12",
@@ -13494,82 +13877,348 @@
   ],
   "provider_concentration": [
     {
-      "hhi": 741.2514943737692,
+      "competencia": "2026-05",
+      "coverage_pl": 1.0,
+      "hhi": 741.2514943737701,
+      "identified_pl": 958703107781.76,
+      "missing_pl": 0.0,
+      "missing_share": 0.0,
+      "n_fundos": 4222,
       "papel": "administrador",
-      "top10_share": 0.7126127734453221,
+      "source_note": "informe mensal da competência",
+      "top10_share": 0.7126127734453225,
       "top3": [
         {
+          "cnpj_prestador": "59281253000123",
           "n_fundos": 427,
           "nome": "BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM",
           "pl": 146427014608.99,
-          "share_pl": 0.1527344737077067
+          "share_pl": 0.15273447370770676
         },
         {
+          "cnpj_prestador": "62285390000140",
           "n_fundos": 821,
           "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
           "pl": 139239433514.77,
-          "share_pl": 0.1452372818910967
+          "share_pl": 0.14523728189109675
         },
         {
+          "cnpj_prestador": "36113876000191",
           "n_fundos": 156,
           "nome": "OLIVEIRA TRUST DTVM S.A.",
           "pl": 97677103582.42,
-          "share_pl": 0.1018846218287792
+          "share_pl": 0.10188462182877923
         }
       ],
-      "top5_share": 0.523547087184585
+      "top3_share": 0.39985637742758273,
+      "top5_share": 0.5235470871845853,
+      "total_pl": 958703107781.76
     },
     {
-      "hhi": 809.6194160042414,
-      "papel": "custodiante",
-      "top10_share": 0.7530532223036185,
-      "top3": [
-        {
-          "n_fundos": 428,
-          "nome": "BANCO BTG PACTUAL S/A",
-          "pl": 145959018961.69,
-          "share_pl": 0.1540787331240465
-        },
-        {
-          "n_fundos": 783,
-          "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
-          "pl": 137304117355.79,
-          "share_pl": 0.1449423585153602
-        },
-        {
-          "n_fundos": 201,
-          "nome": "OLIVEIRA TRUST DTVM S.A.",
-          "pl": 116139522108.2,
-          "share_pl": 0.1226003748131553
-        }
-      ],
-      "top5_share": 0.5531603906078207
-    },
-    {
-      "hhi": 209.76639713400195,
+      "competencia": "2026-05",
+      "coverage_pl": 0.998274664135201,
+      "hhi": 209.0477766983033,
+      "identified_pl": 957049022926.21,
+      "missing_pl": 1654084855.55,
+      "missing_share": 0.0017253358647988624,
+      "n_fundos": 4222,
       "papel": "gestor",
-      "top10_share": 0.36112079218460374,
+      "source_note": "cadastro CVM vigente aplicado à competência",
+      "top10_share": 0.36050169639881446,
       "top3": [
         {
+          "cnpj_prestador": "02150453000120",
           "n_fundos": 46,
           "nome": "OLIVEIRA TRUST SERVICER S/A",
           "pl": 74372554316.78,
-          "share_pl": 0.0777094336957136
+          "share_pl": 0.07757621072999613
         },
         {
+          "cnpj_prestador": "30822936000169",
           "n_fundos": 2,
           "nome": "BB GESTAO DE RECURSOS DTVM S.A",
           "pl": 60892601463.94,
-          "share_pl": 0.0636246747135581
+          "share_pl": 0.06351559828029851
         },
         {
+          "cnpj_prestador": "60746948000112",
           "n_fundos": 30,
           "nome": "BANCO BRADESCO S.A.",
           "pl": 40313986110.69,
-          "share_pl": 0.0421227569693914
+          "share_pl": 0.04205054284633352
         }
       ],
-      "top5_share": 0.24303935417442177
+      "top3_share": 0.18314235185662817,
+      "top5_share": 0.2426226940340846,
+      "total_pl": 958703107781.76
+    },
+    {
+      "competencia": "2026-05",
+      "coverage_pl": 0.9880963230229897,
+      "hhi": 790.467062419244,
+      "identified_pl": 947291015669.87,
+      "missing_pl": 11412092111.890001,
+      "missing_share": 0.011903676977010343,
+      "n_fundos": 4222,
+      "papel": "custodiante",
+      "source_note": "cadastro CVM vigente aplicado à competência",
+      "top10_share": 0.744086412788827,
+      "top3": [
+        {
+          "cnpj_prestador": "30306294000145",
+          "n_fundos": 428,
+          "nome": "BANCO BTG PACTUAL S/A",
+          "pl": 145959018961.69,
+          "share_pl": 0.15224631877892716
+        },
+        {
+          "cnpj_prestador": "62285390000140",
+          "n_fundos": 783,
+          "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
+          "pl": 137304117355.79,
+          "share_pl": 0.14321860046274723
+        },
+        {
+          "cnpj_prestador": "36113876000191",
+          "n_fundos": 201,
+          "nome": "OLIVEIRA TRUST DTVM S.A.",
+          "pl": 116139522108.2,
+          "share_pl": 0.1211423235885015
+        }
+      ],
+      "top3_share": 0.4166072428301759,
+      "top5_share": 0.5465818121476415,
+      "total_pl": 958703107781.76
+    }
+  ],
+  "provider_concentration_history": [
+    {
+      "competencia": "2025-12",
+      "coverage_pl": 1.0,
+      "hhi": 717.6934554675789,
+      "identified_pl": 919117717865.0399,
+      "missing_pl": 0.0,
+      "missing_share": 0.0,
+      "n_fundos": 4006,
+      "papel": "administrador",
+      "source_note": "informe mensal da competência",
+      "top10_share": 0.7328393055377529,
+      "top3": [
+        {
+          "cnpj_prestador": "62285390000140",
+          "n_fundos": 825,
+          "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
+          "pl": 135680571054.83,
+          "share_pl": 0.1476204499353943
+        },
+        {
+          "cnpj_prestador": "59281253000123",
+          "n_fundos": 408,
+          "nome": "BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM",
+          "pl": 114947554550.54,
+          "share_pl": 0.12506292971649416
+        },
+        {
+          "cnpj_prestador": "36113876000191",
+          "n_fundos": 145,
+          "nome": "OLIVEIRA TRUST DTVM S.A.",
+          "pl": 86131337619.59999,
+          "share_pl": 0.09371088811090379
+        }
+      ],
+      "top3_share": 0.36639426776279227,
+      "top5_share": 0.5232536276766763,
+      "total_pl": 919117717865.0399
+    },
+    {
+      "competencia": "2025-12",
+      "coverage_pl": 0.99209107633718,
+      "hhi": 209.66517429939856,
+      "identified_pl": 911848485997.2999,
+      "missing_pl": 7269231867.74,
+      "missing_share": 0.007908923662820075,
+      "n_fundos": 4006,
+      "papel": "gestor",
+      "source_note": "cadastro CVM vigente aplicado à competência",
+      "top10_share": 0.36474657829092816,
+      "top3": [
+        {
+          "cnpj_prestador": "02150453000120",
+          "n_fundos": 44,
+          "nome": "OLIVEIRA TRUST SERVICER S/A",
+          "pl": 63092721169.13,
+          "share_pl": 0.06864487534380696
+        },
+        {
+          "cnpj_prestador": "30822936000169",
+          "n_fundos": 1,
+          "nome": "BB GESTAO DE RECURSOS DTVM S.A",
+          "pl": 61562441016.42,
+          "share_pl": 0.06697993066592109
+        },
+        {
+          "cnpj_prestador": "23863529000134",
+          "n_fundos": 26,
+          "nome": "CBSF TRUST ADMINISTRADORA DE RECURSOS LTDA.",
+          "pl": 48161779241.4,
+          "share_pl": 0.05240001177789493
+        }
+      ],
+      "top3_share": 0.18802481778762298,
+      "top5_share": 0.25246948967468746,
+      "total_pl": 919117717865.0399
+    },
+    {
+      "competencia": "2025-12",
+      "coverage_pl": 0.9814817486047536,
+      "hhi": 740.1818749107275,
+      "identified_pl": 902097264903.7899,
+      "missing_pl": 17020452961.250002,
+      "missing_share": 0.018518251395246443,
+      "n_fundos": 4006,
+      "papel": "custodiante",
+      "source_note": "cadastro CVM vigente aplicado à competência",
+      "top10_share": 0.7367329469086348,
+      "top3": [
+        {
+          "cnpj_prestador": "62285390000140",
+          "n_fundos": 755,
+          "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
+          "pl": 129067291597.67,
+          "share_pl": 0.14042520244030568
+        },
+        {
+          "cnpj_prestador": "30306294000145",
+          "n_fundos": 408,
+          "nome": "BANCO BTG PACTUAL S/A",
+          "pl": 120341909307.96,
+          "share_pl": 0.1309319872404316
+        },
+        {
+          "cnpj_prestador": "36113876000191",
+          "n_fundos": 192,
+          "nome": "OLIVEIRA TRUST DTVM S.A.",
+          "pl": 103349702899.93,
+          "share_pl": 0.11244446809272096
+        }
+      ],
+      "top3_share": 0.38380165777345826,
+      "top5_share": 0.5361533877585409,
+      "total_pl": 919117717865.0399
+    },
+    {
+      "competencia": "2026-05",
+      "coverage_pl": 1.0,
+      "hhi": 741.2514943737701,
+      "identified_pl": 958703107781.76,
+      "missing_pl": 0.0,
+      "missing_share": 0.0,
+      "n_fundos": 4222,
+      "papel": "administrador",
+      "source_note": "informe mensal da competência",
+      "top10_share": 0.7126127734453225,
+      "top3": [
+        {
+          "cnpj_prestador": "59281253000123",
+          "n_fundos": 427,
+          "nome": "BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM",
+          "pl": 146427014608.99,
+          "share_pl": 0.15273447370770676
+        },
+        {
+          "cnpj_prestador": "62285390000140",
+          "n_fundos": 821,
+          "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
+          "pl": 139239433514.77,
+          "share_pl": 0.14523728189109675
+        },
+        {
+          "cnpj_prestador": "36113876000191",
+          "n_fundos": 156,
+          "nome": "OLIVEIRA TRUST DTVM S.A.",
+          "pl": 97677103582.42,
+          "share_pl": 0.10188462182877923
+        }
+      ],
+      "top3_share": 0.39985637742758273,
+      "top5_share": 0.5235470871845853,
+      "total_pl": 958703107781.76
+    },
+    {
+      "competencia": "2026-05",
+      "coverage_pl": 0.998274664135201,
+      "hhi": 209.0477766983033,
+      "identified_pl": 957049022926.21,
+      "missing_pl": 1654084855.55,
+      "missing_share": 0.0017253358647988624,
+      "n_fundos": 4222,
+      "papel": "gestor",
+      "source_note": "cadastro CVM vigente aplicado à competência",
+      "top10_share": 0.36050169639881446,
+      "top3": [
+        {
+          "cnpj_prestador": "02150453000120",
+          "n_fundos": 46,
+          "nome": "OLIVEIRA TRUST SERVICER S/A",
+          "pl": 74372554316.78,
+          "share_pl": 0.07757621072999613
+        },
+        {
+          "cnpj_prestador": "30822936000169",
+          "n_fundos": 2,
+          "nome": "BB GESTAO DE RECURSOS DTVM S.A",
+          "pl": 60892601463.94,
+          "share_pl": 0.06351559828029851
+        },
+        {
+          "cnpj_prestador": "60746948000112",
+          "n_fundos": 30,
+          "nome": "BANCO BRADESCO S.A.",
+          "pl": 40313986110.69,
+          "share_pl": 0.04205054284633352
+        }
+      ],
+      "top3_share": 0.18314235185662817,
+      "top5_share": 0.2426226940340846,
+      "total_pl": 958703107781.76
+    },
+    {
+      "competencia": "2026-05",
+      "coverage_pl": 0.9880963230229897,
+      "hhi": 790.467062419244,
+      "identified_pl": 947291015669.87,
+      "missing_pl": 11412092111.890001,
+      "missing_share": 0.011903676977010343,
+      "n_fundos": 4222,
+      "papel": "custodiante",
+      "source_note": "cadastro CVM vigente aplicado à competência",
+      "top10_share": 0.744086412788827,
+      "top3": [
+        {
+          "cnpj_prestador": "30306294000145",
+          "n_fundos": 428,
+          "nome": "BANCO BTG PACTUAL S/A",
+          "pl": 145959018961.69,
+          "share_pl": 0.15224631877892716
+        },
+        {
+          "cnpj_prestador": "62285390000140",
+          "n_fundos": 783,
+          "nome": "QI CORRETORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.",
+          "pl": 137304117355.79,
+          "share_pl": 0.14321860046274723
+        },
+        {
+          "cnpj_prestador": "36113876000191",
+          "n_fundos": 201,
+          "nome": "OLIVEIRA TRUST DTVM S.A.",
+          "pl": 116139522108.2,
+          "share_pl": 0.1211423235885015
+        }
+      ],
+      "top3_share": 0.4166072428301759,
+      "top5_share": 0.5465818121476415,
+      "total_pl": 958703107781.76
     }
   ],
   "qa_latest": {
@@ -13920,51 +14569,212 @@
     "rows": [
       {
         "segmento": "Financeiro",
+        "share_reported": 0.4280916545194519,
         "valor": 312050456571.6
       },
       {
         "segmento": "Comercial",
+        "share_reported": 0.15972802266869487,
         "valor": 116431147103.29
       },
       {
         "segmento": "Cartao de credito",
+        "share_reported": 0.106799300876774,
         "valor": 77849615259.46
       },
       {
         "segmento": "Industrial",
+        "share_reported": 0.10169183100604105,
         "valor": 74126608075.69
       },
       {
         "segmento": "Servicos",
+        "share_reported": 0.09612037982137488,
         "valor": 70065389251.20001
       },
       {
         "segmento": "Setor publico",
+        "share_reported": 0.05320683488691222,
         "valor": 38784257866.06
       },
       {
         "segmento": "Acoes judiciais",
+        "share_reported": 0.03747326653545861,
         "valor": 27315528831.659996
       },
       {
         "segmento": "Agronegocio",
+        "share_reported": 0.012459414089457879,
         "valor": 9082087478.66
       },
       {
         "segmento": "Imobiliario",
+        "share_reported": 0.004308799412130456,
         "valor": 3140829328.5699997
       },
       {
         "segmento": "Factoring",
+        "share_reported": 0.0001204961837040243,
         "valor": 87833735.47
       },
       {
         "segmento": "Marcas e patentes",
+        "share_reported": 0.0,
         "valor": 0.0
       }
     ]
   },
-  "schema_version": "fidc_revision_artifact_payload_v1",
+  "receivables_history": [
+    {
+      "competencia": "2023-12",
+      "segmento": "Financeiro",
+      "share_reported": 0.2685927277101883,
+      "valor": 118045303987.02
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Comercial",
+      "share_reported": 0.26370190546551714,
+      "valor": 115895809458.48
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Cartao de credito",
+      "share_reported": 0.17725874212004258,
+      "valor": 77904425321.95
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Industrial",
+      "share_reported": 0.09044423970004235,
+      "valor": 39749839320.99
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Servicos",
+      "share_reported": 0.06000786113615837,
+      "valor": 26373186905.76
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Acoes judiciais",
+      "share_reported": 0.05985760657092893,
+      "valor": 26307150695.55
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Setor publico",
+      "share_reported": 0.04384645419189245,
+      "valor": 19270320749.04
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Agronegocio",
+      "share_reported": 0.032408209546221145,
+      "valor": 14243263323.52
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Imobiliario",
+      "share_reported": 0.0035045407420885447,
+      "valor": 1540230000.87
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Factoring",
+      "share_reported": 0.00037771281692022964,
+      "valor": 166003095.74
+    },
+    {
+      "competencia": "2023-12",
+      "segmento": "Marcas e patentes",
+      "share_reported": 0.0,
+      "valor": 0.0
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Financeiro",
+      "share_reported": 0.4280916545194519,
+      "valor": 312050456571.6
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Comercial",
+      "share_reported": 0.15972802266869487,
+      "valor": 116431147103.29
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Cartao de credito",
+      "share_reported": 0.106799300876774,
+      "valor": 77849615259.46
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Industrial",
+      "share_reported": 0.10169183100604105,
+      "valor": 74126608075.69
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Servicos",
+      "share_reported": 0.09612037982137488,
+      "valor": 70065389251.20001
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Setor publico",
+      "share_reported": 0.05320683488691222,
+      "valor": 38784257866.06
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Acoes judiciais",
+      "share_reported": 0.03747326653545861,
+      "valor": 27315528831.659996
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Agronegocio",
+      "share_reported": 0.012459414089457879,
+      "valor": 9082087478.66
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Imobiliario",
+      "share_reported": 0.004308799412130456,
+      "valor": 3140829328.5699997
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Factoring",
+      "share_reported": 0.0001204961837040243,
+      "valor": 87833735.47
+    },
+    {
+      "competencia": "2026-05",
+      "segmento": "Marcas e patentes",
+      "share_reported": 0.0,
+      "valor": 0.0
+    }
+  ],
+  "receivables_meta_history": [
+    {
+      "competencia": "2023-12",
+      "gap": 51698613548.069885,
+      "gap_pct": 0.13331362621431597,
+      "portfolio_total": 387796919310.8501,
+      "reported_total": 439495532858.92
+    },
+    {
+      "competencia": "2026-05",
+      "gap": 58452601240.22009,
+      "gap_pct": 0.08718008111498365,
+      "portfolio_total": 670481152261.44,
+      "reported_total": 728933753501.66
+    }
+  ],
+  "schema_version": "fidc_revision_artifact_payload_v2",
   "service_model": [
     {
       "fundos": 331,
@@ -17203,6 +18013,68 @@
     },
     {
       "anbima_tipo": "N/D",
+      "pl": 17060658012.869999,
+      "share": 0.019385122335719793
+    }
+  ],
+  "type_mix_history": [
+    {
+      "anbima_tipo": "Fomento Mercantil",
+      "competencia": "2023-12",
+      "pl": 50889050094.67,
+      "share": 0.11020759160542687
+    },
+    {
+      "anbima_tipo": "Agro, Indústria e Comércio",
+      "competencia": "2023-12",
+      "pl": 118906012809.22,
+      "share": 0.2575081530256485
+    },
+    {
+      "anbima_tipo": "Financeiro",
+      "competencia": "2023-12",
+      "pl": 120088095953.28,
+      "share": 0.26006812488878744
+    },
+    {
+      "anbima_tipo": "Outros",
+      "competencia": "2023-12",
+      "pl": 167280185823.26,
+      "share": 0.3622694149054406
+    },
+    {
+      "anbima_tipo": "N/D",
+      "competencia": "2023-12",
+      "pl": 4592958613.690001,
+      "share": 0.00994671557469671
+    },
+    {
+      "anbima_tipo": "Fomento Mercantil",
+      "competencia": "2026-05",
+      "pl": 88016378542.15,
+      "share": 0.10000835045749659
+    },
+    {
+      "anbima_tipo": "Agro, Indústria e Comércio",
+      "competencia": "2026-05",
+      "pl": 173498027006.84,
+      "share": 0.19713662134229887
+    },
+    {
+      "anbima_tipo": "Financeiro",
+      "competencia": "2026-05",
+      "pl": 234078451432.14,
+      "share": 0.2659709498745495
+    },
+    {
+      "anbima_tipo": "Outros",
+      "competencia": "2026-05",
+      "pl": 367436778861.58,
+      "share": 0.4174989559899353
+    },
+    {
+      "anbima_tipo": "N/D",
+      "competencia": "2026-05",
       "pl": 17060658012.869999,
       "share": 0.019385122335719793
     }

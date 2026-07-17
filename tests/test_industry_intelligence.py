@@ -183,7 +183,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 42
+    assert len(presentation.slides) == EXPECTED_SLIDES == 43
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -258,8 +258,8 @@ def test_industry_exports_are_valid_office_files() -> None:
         }
     assert {
         "QA Inadimplência",
-        "Base competência/CNPJ",
-        "Base por fundo/CNPJ",
+        "Base competência-CNPJ",
+        "Base por fundo-CNPJ",
         "Concentração de monoestruturas",
         "Market share por subtipo",
         "Top 20 FIDCs",
