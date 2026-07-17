@@ -154,12 +154,12 @@ def test_scoped_css_includes_mobile_and_hover_chart_rules() -> None:
 
 def test_all_primary_views_and_chart_series_are_preserved() -> None:
     assert INDUSTRY_VIEW_TABS == (
-        "Executivo",
-        "Ofertas",
+        "Visão executiva",
+        "Base investidora",
+        "Carteira e inadimplência",
         "Prestadores",
-        "Cedentes",
-        "Investidores",
-        "> R$5 bi",
+        "Top 20",
+        "Ofertas e originação",
         "Dados e exportações",
     )
     assert CLOUDWALK_VIEW_TABS == (
@@ -241,6 +241,20 @@ def test_app_brand_is_centered_and_uses_the_shared_orange() -> None:
     assert "flex-direction: column;" in app_source
     assert "color: #ff5a00 !important;" in app_source
     assert "font-family: 'IBM Plex Sans', sans-serif !important;" in app_source
+
+
+def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    revision_source = source[source.index("def _render_revision_overview") :]
+
+    assert '_ORANGE = "#EC7000"' in source
+    assert '_ORANGE_SOFT = "rgba(236, 112, 0, 0.14)"' in source
+    assert "border-left: 4px solid #EC7000;" in source
+    assert ".industry-thesis b { color: #EC7000; }" in source
+    assert "#ff5a00" not in revision_source.lower()
+    assert ".mark_bar(color=_ORANGE" in revision_source
+    assert "alt.value(_ORANGE)" in revision_source
+    assert "range=[_ORANGE, _BLACK]" in revision_source
 
 
 def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:
@@ -341,6 +355,11 @@ def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) ->
         "industry_investor_types.csv",
         "industry_large_fund_documents.csv.gz",
         "industry_intelligence_manifest.json",
+        "generated_revision/artifact_payload.json",
+        "generated_revision/revision_manifest.json",
+        "generated_revision/industry_export_bundle.json",
+        "generated_revision/industry_executive_revised.pptx",
+        "generated_revision/industry_data_revised.xlsx",
     }.issubset(_INDUSTRY_EXPORT_INPUTS)
 
 

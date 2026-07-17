@@ -1,0 +1,863 @@
+"""Build and atomically publish the audited FIDC revision Office bundle.
+
+This command is intentionally an offline publishing step.  It rebuilds the
+revision analysis and editorial payload in a staging directory, invokes the
+JavaScript artifact renderer there, validates every output, and only then
+replaces the published files.  ``industry_export_bundle.json`` is always the
+last file replaced, so the application either sees the previous valid bundle
+or fails closed while a new bundle is being published.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+from dataclasses import dataclass
+from datetime import datetime, timezone
+import gzip
+import hashlib
+from io import BytesIO
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from typing import Callable, Iterable, Mapping
+import zipfile
+
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.build_fidc_revision_analysis import main as build_revision_analysis
+from scripts.build_fidc_revision_artifact_payload import build_payload
+from services.industry_revision_export import (
+    BUNDLE_MANIFEST_NAME,
+    BUNDLE_SCHEMA,
+    MATERIALIZED_PPTX_NAME,
+    MATERIALIZED_XLSX_NAME,
+    validate_revision_pptx,
+    validate_revision_xlsx,
+)
+
+
+ROOT = Path(__file__).resolve().parents[1]
+ARTIFACT_SCRIPT = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
+PAYLOAD_NAME = "artifact_payload.json"
+ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v1"
+DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
+DEFAULT_TIMEOUT_SECONDS = 30 * 60
+
+REQUIRED_DATA_INPUTS = (
+    "vehicle_monthly.csv.gz",
+    "industry_competence_status.csv",
+    "industry_monthly.csv",
+    "cotistas_tipo_monthly.csv",
+    "segments_monthly.csv",
+    "prestadores_latest.csv",
+    "industry_offers.csv.gz",
+    "industry_originators_annual.csv",
+)
+OPTIONAL_DATA_INPUTS = (
+    "industry_anbima_classification.csv.gz",
+    "industry_large_fund_classification.csv",
+    "industry_intelligence_manifest.json",
+)
+BUILDER_SOURCES = (
+    ROOT / "scripts" / "build_fidc_revision_analysis.py",
+    ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
+    ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
+    ROOT / "services" / "industry_revision_analysis.py",
+    ROOT / "services" / "industry_revision_export.py",
+)
+REQUIRED_ANALYSIS_FILES = {
+    "base_competencia_cnpj.csv.gz",
+    "base_fundo_cnpj.csv.gz",
+    "qa_inadimplencia_competencia.csv",
+    "top20_fidcs.csv",
+    "top20_outros.csv",
+    "monoestrutura_por_fundo.csv",
+    "monoestrutura_concentracao.csv",
+    "market_share_por_subtipo.csv",
+    "market_share_top10_fixo.csv",
+}
+
+
+class RevisionBundlePublishError(RuntimeError):
+    """Raised before publication when a staged revision is not trustworthy."""
+
+
+@dataclass(frozen=True)
+class PublishedRevisionBundle:
+    bundle_id: str
+    latest_complete: str
+    payload_path: Path
+    pptx_path: Path
+    xlsx_path: Path
+    manifest_path: Path
+
+
+def _sha256_bytes(payload: bytes) -> str:
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _sha256_semantic_file(path: Path) -> str:
+    """Hash decompressed CSV content so gzip timestamps do not change identity."""
+
+    if path.suffix == ".gz":
+        digest = hashlib.sha256()
+        with gzip.open(path, "rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+        return digest.hexdigest()
+    return _sha256_file(path)
+
+
+def _canonical_json_bytes(value: object) -> bytes:
+    return json.dumps(
+        value,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
+
+def discover_latest_complete(data_dir: Path) -> str:
+    """Return the newest competence explicitly marked ``completa``."""
+
+    status_path = Path(data_dir) / "industry_competence_status.csv"
+    if not status_path.exists():
+        raise RevisionBundlePublishError(f"status de competências ausente: {status_path}")
+    with status_path.open(encoding="utf-8", newline="") as handle:
+        rows = csv.DictReader(handle)
+        complete = sorted(
+            {
+                str(row.get("competencia") or "").strip()
+                for row in rows
+                if str(row.get("publication_status") or "").strip() == "completa"
+                and re.fullmatch(r"\d{4}-\d{2}", str(row.get("competencia") or "").strip())
+            }
+        )
+    if not complete:
+        raise RevisionBundlePublishError(
+            f"nenhuma competência completa encontrada em {status_path}"
+        )
+    return complete[-1]
+
+
+def discover_artifact_node_modules(
+    explicit: Path | None = None,
+    *,
+    root: Path = ROOT,
+    home: Path | None = None,
+) -> Path:
+    """Locate an already-installed artifact runtime without network access."""
+
+    candidates: list[Path] = []
+    if explicit is not None:
+        candidates.append(Path(explicit).expanduser())
+    else:
+        configured = os.environ.get("CODEX_NODE_MODULES", "").strip()
+        if configured:
+            candidates.append(Path(configured).expanduser())
+        home = Path.home() if home is None else Path(home)
+        candidates.extend(
+            [
+                Path(root) / "node_modules",
+                home
+                / ".cache"
+                / "codex-runtimes"
+                / "codex-primary-runtime"
+                / "dependencies"
+                / "node"
+                / "node_modules",
+            ]
+        )
+    for candidate in candidates:
+        package = candidate / "@oai" / "artifact-tool" / "package.json"
+        if package.exists():
+            return candidate.resolve()
+    searched = ", ".join(str(path) for path in candidates) or "nenhum caminho"
+    raise RevisionBundlePublishError(
+        "runtime offline do @oai/artifact-tool não localizado; caminhos: " + searched
+    )
+
+
+def _generated_at(explicit: str = "") -> str:
+    value = str(explicit or "").strip()
+    if value:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc).isoformat(timespec="seconds")
+    epoch = os.environ.get("SOURCE_DATE_EPOCH", "").strip()
+    if epoch:
+        return datetime.fromtimestamp(int(epoch), tz=timezone.utc).isoformat(
+            timespec="seconds"
+        )
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def validate_analysis_manifest(
+    manifest: Mapping[str, object],
+    *,
+    revision_dir: Path,
+    latest_complete: str,
+) -> None:
+    if str(manifest.get("latest_complete") or "") != latest_complete:
+        raise RevisionBundlePublishError(
+            "competência do manifest analítico diverge da publicação"
+        )
+    files = dict(manifest.get("files") or {})
+    missing_entries = sorted(REQUIRED_ANALYSIS_FILES.difference(files))
+    if missing_entries:
+        raise RevisionBundlePublishError(
+            "manifest analítico sem arquivos obrigatórios: " + ", ".join(missing_entries)
+        )
+    missing_files = sorted(
+        name for name in REQUIRED_ANALYSIS_FILES if not (revision_dir / name).exists()
+    )
+    if missing_files:
+        raise RevisionBundlePublishError(
+            "staging analítico incompleto: " + ", ".join(missing_files)
+        )
+    checks = dict(manifest.get("checks") or {})
+    if int(checks.get("top20_fidcs_rows") or 0) != 20:
+        raise RevisionBundlePublishError("Top 20 FIDCs não contém exatamente 20 linhas")
+    if int(checks.get("top20_outros_rows") or 0) != 20:
+        raise RevisionBundlePublishError("Top 20 Outros não contém exatamente 20 linhas")
+    if int(checks.get("latest_funds") or 0) <= 0:
+        raise RevisionBundlePublishError("universo de fundos vazio no manifest analítico")
+
+
+def serialize_analysis_manifest(
+    manifest: Mapping[str, object], generated_at_utc: str
+) -> tuple[dict[str, object], bytes]:
+    """Canonicalize the analysis manifest under the publisher's build clock."""
+
+    normalized = dict(manifest)
+    normalized["generated_at_utc"] = generated_at_utc
+    payload = json.dumps(
+        normalized,
+        ensure_ascii=False,
+        indent=2,
+        sort_keys=True,
+    ).encode("utf-8")
+    return normalized, payload
+
+
+def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
+    if payload.get("schema_version") != PAYLOAD_SCHEMA:
+        raise RevisionBundlePublishError("schema do payload editorial incompatível")
+    if payload.get("latest_complete") != latest_complete:
+        raise RevisionBundlePublishError("competência do payload editorial diverge")
+    for key in ("top20_fidcs", "top20_outros", "profiles"):
+        rows = payload.get(key)
+        if not isinstance(rows, list) or len(rows) != 20:
+            raise RevisionBundlePublishError(f"payload {key} deve conter 20 linhas")
+    if not payload.get("offers_as_of"):
+        raise RevisionBundlePublishError("payload editorial sem data-base de ofertas")
+
+
+_MONTH_ABBR = (
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+)
+
+
+def _competence_label(competence: str) -> str:
+    match = re.fullmatch(r"(\d{4})-(\d{2})", competence)
+    if not match:
+        raise RevisionBundlePublishError(f"competência inválida: {competence}")
+    year, month = int(match.group(1)), int(match.group(2))
+    if month not in range(1, 13):
+        raise RevisionBundlePublishError(f"competência inválida: {competence}")
+    return f"{_MONTH_ABBR[month - 1]}/{str(year)[-2:]}"
+
+
+def validate_deck_snapshot(payload: bytes, latest_complete: str) -> None:
+    """Guard against publishing a deck whose visible snapshot is hardcoded."""
+
+    expected = _competence_label(latest_complete).casefold()
+    with zipfile.ZipFile(BytesIO(payload)) as archive:
+        slide_xml = b"".join(
+            archive.read(name)
+            for name in archive.namelist()
+            if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)
+        )
+    visible = slide_xml.decode("utf-8", errors="ignore").casefold()
+    if expected not in visible:
+        raise RevisionBundlePublishError(
+            f"PPTX não contém a competência publicada ({expected})"
+        )
+
+
+def collect_input_hashes(
+    *,
+    data_dir: Path,
+    curation_path: Path,
+    input_workbook: Path,
+    artifact_script: Path = ARTIFACT_SCRIPT,
+) -> dict[str, str]:
+    """Hash every external input that can change the published bundle."""
+
+    data_dir = Path(data_dir)
+    paths: list[tuple[str, Path]] = []
+    for name in REQUIRED_DATA_INPUTS:
+        path = data_dir / name
+        if not path.exists():
+            raise RevisionBundlePublishError(f"input obrigatório ausente: {path}")
+        paths.append((f"data/{name}", path))
+    for name in OPTIONAL_DATA_INPUTS:
+        path = data_dir / name
+        if path.exists():
+            paths.append((f"data/{name}", path))
+    if not Path(curation_path).exists():
+        raise RevisionBundlePublishError(f"curadoria Top 20 ausente: {curation_path}")
+    if not Path(input_workbook).exists():
+        raise RevisionBundlePublishError(f"workbook-base ausente: {input_workbook}")
+    if not Path(artifact_script).exists():
+        raise RevisionBundlePublishError(f"renderer ausente: {artifact_script}")
+    paths.extend(
+        [
+            ("curation/top20.csv", Path(curation_path)),
+            ("workbook/input.xlsx", Path(input_workbook)),
+        ]
+    )
+    for path in BUILDER_SOURCES:
+        paths.append((f"builder/{path.name}", path))
+    if Path(artifact_script).resolve() not in {path.resolve() for _, path in paths}:
+        paths.append((f"builder/{Path(artifact_script).name}", Path(artifact_script)))
+    return {label: _sha256_semantic_file(path) for label, path in sorted(paths)}
+
+
+def _artifact_runtime_metadata(
+    node: Path,
+    node_modules: Path,
+    *,
+    artifact_script: Path = ARTIFACT_SCRIPT,
+) -> dict[str, str]:
+    package_path = node_modules / "@oai" / "artifact-tool" / "package.json"
+    package = json.loads(package_path.read_text(encoding="utf-8"))
+    completed = subprocess.run(
+        [str(node), "--version"],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=15,
+    )
+    return {
+        "node_version": completed.stdout.strip(),
+        "artifact_tool_version": str(package.get("version") or "desconhecida"),
+        "renderer_sha256": _sha256_file(artifact_script),
+    }
+
+
+def build_bundle_manifest(
+    *,
+    payload_bytes: bytes,
+    payload: Mapping[str, object],
+    analysis_manifest_bytes: bytes,
+    pptx_bytes: bytes,
+    xlsx_bytes: bytes,
+    input_hashes: Mapping[str, str],
+    renderer: Mapping[str, str],
+    generated_at_utc: str,
+) -> dict[str, object]:
+    """Build the content-addressed manifest consumed by the application."""
+
+    payload_hash = _sha256_bytes(payload_bytes)
+    pptx_hash = _sha256_bytes(pptx_bytes)
+    xlsx_hash = _sha256_bytes(xlsx_bytes)
+    input_signature = _sha256_bytes(_canonical_json_bytes(dict(input_hashes)))
+    bundle_id = (
+        str(payload.get("latest_complete") or "unknown").replace("-", "")
+        + "_"
+        + payload_hash[:16]
+    )
+    return {
+        "schema_version": BUNDLE_SCHEMA,
+        "bundle_id": bundle_id,
+        "generated_at_utc": generated_at_utc,
+        "latest_complete": str(payload.get("latest_complete") or ""),
+        "offers_as_of": str(payload.get("offers_as_of") or ""),
+        "payload_schema": str(payload.get("schema_version") or ""),
+        # Kept for the read-path contract; input_signature is the true source hash.
+        "source_signature": payload_hash,
+        "input_signature": input_signature,
+        "inputs": dict(input_hashes),
+        "renderer": dict(renderer),
+        "renderer_version": str(renderer.get("renderer_version") or ""),
+        "renderer_sha256": str(renderer.get("renderer_sha256") or ""),
+        "payload_sha256": payload_hash,
+        "payload": {
+            "name": PAYLOAD_NAME,
+            "sha256": payload_hash,
+            "bytes": len(payload_bytes),
+        },
+        "analysis_manifest": {
+            "name": ANALYSIS_MANIFEST_NAME,
+            "sha256": _sha256_bytes(analysis_manifest_bytes),
+            "bytes": len(analysis_manifest_bytes),
+        },
+        "pptx": {
+            "name": MATERIALIZED_PPTX_NAME,
+            "sha256": pptx_hash,
+            "bytes": len(pptx_bytes),
+        },
+        "xlsx": {
+            "name": MATERIALIZED_XLSX_NAME,
+            "sha256": xlsx_hash,
+            "bytes": len(xlsx_bytes),
+        },
+        "checks": {
+            "slides": 42,
+            "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
+            "top20_outros": len(list(payload.get("top20_outros") or [])),
+            "profiles": len(list(payload.get("profiles") or [])),
+        },
+    }
+
+
+def validate_bundle_manifest(
+    manifest: Mapping[str, object],
+    *,
+    payload_bytes: bytes,
+    payload: Mapping[str, object],
+    analysis_manifest_bytes: bytes,
+    pptx_bytes: bytes,
+    xlsx_bytes: bytes,
+) -> None:
+    if manifest.get("schema_version") != BUNDLE_SCHEMA:
+        raise RevisionBundlePublishError("schema do manifest de publicação incompatível")
+    if manifest.get("payload_schema") != payload.get("schema_version"):
+        raise RevisionBundlePublishError("schema do payload diverge do bundle")
+    if manifest.get("latest_complete") != payload.get("latest_complete"):
+        raise RevisionBundlePublishError("competência do payload diverge do bundle")
+    expected = {
+        "payload_sha256": _sha256_bytes(payload_bytes),
+        "source_signature": _sha256_bytes(payload_bytes),
+    }
+    for key, value in expected.items():
+        if manifest.get(key) != value:
+            raise RevisionBundlePublishError(f"hash inválido no manifest: {key}")
+    files = (
+        ("payload", payload_bytes),
+        ("analysis_manifest", analysis_manifest_bytes),
+        ("pptx", pptx_bytes),
+        ("xlsx", xlsx_bytes),
+    )
+    for key, content in files:
+        entry = dict(manifest.get(key) or {})
+        if entry.get("sha256") != _sha256_bytes(content):
+            raise RevisionBundlePublishError(f"hash inválido no manifest: {key}")
+        if int(entry.get("bytes") or -1) != len(content):
+            raise RevisionBundlePublishError(f"tamanho inválido no manifest: {key}")
+    if not re.fullmatch(r"\d{6}_[0-9a-f]{16}", str(manifest.get("bundle_id") or "")):
+        raise RevisionBundlePublishError("bundle_id inválido")
+
+
+def validate_renderer_manifest(
+    manifest: Mapping[str, object],
+    *,
+    payload_bytes: bytes,
+    payload: Mapping[str, object],
+    pptx_bytes: bytes,
+    xlsx_bytes: bytes,
+    renderer_sha256: str,
+) -> None:
+    """Validate the renderer's own manifest before creating the publish manifest."""
+
+    payload_hash = _sha256_bytes(payload_bytes)
+    if manifest.get("schema_version") != BUNDLE_SCHEMA:
+        raise RevisionBundlePublishError("renderer produziu manifest com schema inválido")
+    if manifest.get("payload_schema") != payload.get("schema_version"):
+        raise RevisionBundlePublishError("renderer usou schema de payload divergente")
+    if manifest.get("latest_complete") != payload.get("latest_complete"):
+        raise RevisionBundlePublishError("renderer usou competência divergente")
+    if manifest.get("payload_sha256") != payload_hash:
+        raise RevisionBundlePublishError("renderer não reconciliou o hash do payload")
+    if manifest.get("renderer_sha256") != renderer_sha256:
+        raise RevisionBundlePublishError("renderer executado diverge do snapshot publicado")
+    for key, content in (("pptx", pptx_bytes), ("xlsx", xlsx_bytes)):
+        entry = dict(manifest.get(key) or {})
+        if entry.get("sha256") != _sha256_bytes(content):
+            raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
+        if int(entry.get("bytes") or -1) != len(content):
+            raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
+    checks = dict(manifest.get("checks") or {})
+    if any(int(checks.get(key) or 0) != 20 for key in ("top20_fidcs", "top20_outros", "profiles")):
+        raise RevisionBundlePublishError("manifest do renderer falhou nos checks Top 20")
+
+
+def publish_staged_bundle(
+    *,
+    staged_revision_dir: Path,
+    staged_pptx: Path,
+    staged_xlsx: Path,
+    staged_bundle_manifest: Path,
+    publish_dir: Path,
+    replace: Callable[[str | bytes | os.PathLike[str] | os.PathLike[bytes], str | bytes | os.PathLike[str] | os.PathLike[bytes]], None] = os.replace,
+) -> tuple[Path, Path, Path]:
+    """Move staged outputs into place, replacing the bundle manifest last."""
+
+    publish_dir = Path(publish_dir)
+    publish_dir.mkdir(parents=True, exist_ok=True)
+    for source in sorted(Path(staged_revision_dir).iterdir(), key=lambda item: item.name):
+        if source.is_file() and source.name != BUNDLE_MANIFEST_NAME:
+            replace(source, publish_dir / source.name)
+    target_pptx = publish_dir / MATERIALIZED_PPTX_NAME
+    target_xlsx = publish_dir / MATERIALIZED_XLSX_NAME
+    target_manifest = publish_dir / BUNDLE_MANIFEST_NAME
+    replace(staged_pptx, target_pptx)
+    replace(staged_xlsx, target_xlsx)
+    # This commit marker is deliberately last.
+    replace(staged_bundle_manifest, target_manifest)
+    return target_pptx, target_xlsx, target_manifest
+
+
+def _run_artifact_builder(
+    *,
+    node: Path,
+    artifact_script: Path,
+    node_modules: Path,
+    input_workbook: Path,
+    revision_dir: Path,
+    payload_path: Path,
+    output_dir: Path,
+    pptx_path: Path,
+    xlsx_path: Path,
+    renderer_manifest_path: Path,
+    timeout_seconds: int,
+) -> None:
+    env = os.environ.copy()
+    env.update(
+        {
+            "CODEX_NODE_MODULES": str(node_modules),
+            "FIDC_INPUT_WORKBOOK": str(input_workbook),
+            "FIDC_REVISION_DIR": str(revision_dir),
+            "FIDC_PAYLOAD_PATH": str(payload_path),
+            "FIDC_OUTPUT_DIR": str(output_dir),
+            "FIDC_QA_DIR": str(output_dir / "qa"),
+            "FIDC_OUTPUT_PPTX": str(pptx_path),
+            "FIDC_OUTPUT_XLSX": str(xlsx_path),
+            "FIDC_EXPORT_MANIFEST": str(renderer_manifest_path),
+            "FIDC_SKIP_QA": "1",
+        }
+    )
+    try:
+        completed = subprocess.run(
+            [str(node), "--max-old-space-size=4096", str(artifact_script)],
+            cwd=ROOT,
+            env=env,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=timeout_seconds,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RevisionBundlePublishError(
+            f"renderer excedeu {timeout_seconds}s"
+        ) from exc
+    if completed.returncode:
+        detail = (completed.stderr or completed.stdout or "falha sem log").strip()
+        raise RevisionBundlePublishError(
+            "renderer do bundle falhou: " + detail[-2000:]
+        )
+    if not pptx_path.exists() or not xlsx_path.exists() or not renderer_manifest_path.exists():
+        raise RevisionBundlePublishError("renderer não produziu PPTX/XLSX/manifest")
+
+
+def _validate_input_workbook(path: Path) -> None:
+    try:
+        with zipfile.ZipFile(path) as archive:
+            if "xl/workbook.xml" not in archive.namelist():
+                raise RevisionBundlePublishError("workbook-base não é um XLSX válido")
+    except zipfile.BadZipFile as exc:
+        raise RevisionBundlePublishError("workbook-base não é um XLSX válido") from exc
+
+
+def publish_revision_bundle(
+    *,
+    data_dir: Path,
+    publish_dir: Path,
+    curation_path: Path,
+    input_workbook: Path,
+    latest_complete: str = "",
+    raw_dir: Path = ROOT / ".cache" / "cvm-industry-study",
+    refresh_source_presence: bool = False,
+    presence_months: Iterable[str] = ("2024-06", "2024-07"),
+    skip_download: bool = True,
+    node_modules: Path | None = None,
+    timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS,
+    generated_at_utc: str = "",
+) -> PublishedRevisionBundle:
+    """Build, validate and atomically publish a complete revision snapshot."""
+
+    data_dir = Path(data_dir).resolve()
+    publish_dir = Path(publish_dir).resolve()
+    curation_path = Path(curation_path).resolve()
+    input_workbook = Path(input_workbook).resolve()
+    latest_complete = latest_complete or discover_latest_complete(data_dir)
+    _validate_input_workbook(input_workbook)
+    # Capture the long-running renderer once.  The staged build must execute
+    # the exact bytes recorded in the input signature even if the worktree is
+    # edited concurrently.
+    artifact_script_bytes = ARTIFACT_SCRIPT.read_bytes()
+    input_hashes = collect_input_hashes(
+        data_dir=data_dir,
+        curation_path=curation_path,
+        input_workbook=input_workbook,
+    )
+    input_hashes[f"builder/{ARTIFACT_SCRIPT.name}"] = _sha256_bytes(
+        artifact_script_bytes
+    )
+    node_text = shutil.which("node")
+    if not node_text:
+        raise RevisionBundlePublishError("Node.js não localizado para o build offline")
+    node = Path(node_text).resolve()
+    resolved_modules = discover_artifact_node_modules(node_modules)
+    published_at = _generated_at(generated_at_utc)
+
+    publish_dir.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(
+        prefix=".fidc-revision-publish-",
+        dir=publish_dir.parent,
+    ) as tmp_text:
+        stage = Path(tmp_text)
+        stage_revision = stage / "revision"
+        stage_exports = stage / "exports"
+        stage_revision.mkdir(parents=True)
+        stage_exports.mkdir(parents=True)
+        staged_renderer = stage / ARTIFACT_SCRIPT.name
+        staged_renderer.write_bytes(artifact_script_bytes)
+        renderer = _artifact_runtime_metadata(
+            node,
+            resolved_modules,
+            artifact_script=staged_renderer,
+        )
+
+        months = [str(value).strip() for value in presence_months if str(value).strip()]
+        if latest_complete not in months:
+            months.append(latest_complete)
+        analysis_args = [
+            "--data-dir",
+            str(data_dir),
+            "--output-dir",
+            str(stage_revision),
+            "--latest-complete",
+            latest_complete,
+            "--raw-dir",
+            str(Path(raw_dir).resolve()),
+            "--presence-months",
+            ",".join(months),
+        ]
+        if refresh_source_presence:
+            analysis_args.append("--refresh-source-presence")
+        if skip_download:
+            analysis_args.append("--skip-download")
+        build_revision_analysis(analysis_args)
+
+        analysis_manifest_path = stage_revision / ANALYSIS_MANIFEST_NAME
+        analysis_manifest = json.loads(analysis_manifest_path.read_text(encoding="utf-8"))
+        # The analysis builder records wall-clock time.  Replace it with the
+        # publisher timestamp so SOURCE_DATE_EPOCH/--generated-at-utc also
+        # stabilizes the staged analysis metadata.
+        analysis_manifest, analysis_manifest_bytes = serialize_analysis_manifest(
+            analysis_manifest, published_at
+        )
+        analysis_manifest_path.write_bytes(analysis_manifest_bytes)
+        validate_analysis_manifest(
+            analysis_manifest,
+            revision_dir=stage_revision,
+            latest_complete=latest_complete,
+        )
+        for path in sorted(stage_revision.iterdir(), key=lambda item: item.name):
+            if path.is_file() and path.name != ANALYSIS_MANIFEST_NAME:
+                input_hashes[f"analysis/{path.name}"] = _sha256_semantic_file(path)
+
+        payload = build_payload(
+            data_dir=data_dir,
+            revision_dir=stage_revision,
+            curation_path=curation_path,
+            latest=latest_complete,
+        )
+        payload["generated_at"] = published_at
+        validate_artifact_payload(payload, latest_complete)
+        payload_bytes = json.dumps(
+            payload,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        ).encode("utf-8")
+        payload_path = stage_revision / PAYLOAD_NAME
+        payload_path.write_bytes(payload_bytes)
+
+        staged_pptx = stage_exports / MATERIALIZED_PPTX_NAME
+        staged_xlsx = stage_exports / MATERIALIZED_XLSX_NAME
+        renderer_manifest_path = stage / "renderer_export_bundle.json"
+        _run_artifact_builder(
+            node=node,
+            artifact_script=staged_renderer,
+            node_modules=resolved_modules,
+            input_workbook=input_workbook,
+            revision_dir=stage_revision,
+            payload_path=payload_path,
+            output_dir=stage_exports,
+            pptx_path=staged_pptx,
+            xlsx_path=staged_xlsx,
+            renderer_manifest_path=renderer_manifest_path,
+            timeout_seconds=timeout_seconds,
+        )
+        pptx_bytes = staged_pptx.read_bytes()
+        xlsx_bytes = staged_xlsx.read_bytes()
+        renderer_manifest = json.loads(renderer_manifest_path.read_text(encoding="utf-8"))
+        validate_renderer_manifest(
+            renderer_manifest,
+            payload_bytes=payload_bytes,
+            payload=payload,
+            pptx_bytes=pptx_bytes,
+            xlsx_bytes=xlsx_bytes,
+            renderer_sha256=str(renderer["renderer_sha256"]),
+        )
+        renderer = {
+            **renderer,
+            "renderer_version": str(renderer_manifest.get("renderer_version") or ""),
+        }
+        validate_revision_pptx(pptx_bytes)
+        validate_revision_xlsx(xlsx_bytes)
+        validate_deck_snapshot(pptx_bytes, latest_complete)
+
+        manifest = build_bundle_manifest(
+            payload_bytes=payload_bytes,
+            payload=payload,
+            analysis_manifest_bytes=analysis_manifest_bytes,
+            pptx_bytes=pptx_bytes,
+            xlsx_bytes=xlsx_bytes,
+            input_hashes=input_hashes,
+            renderer=renderer,
+            generated_at_utc=published_at,
+        )
+        validate_bundle_manifest(
+            manifest,
+            payload_bytes=payload_bytes,
+            payload=payload,
+            analysis_manifest_bytes=analysis_manifest_bytes,
+            pptx_bytes=pptx_bytes,
+            xlsx_bytes=xlsx_bytes,
+        )
+        staged_manifest = stage / BUNDLE_MANIFEST_NAME
+        staged_manifest.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True),
+            encoding="utf-8",
+        )
+
+        target_pptx, target_xlsx, target_manifest = publish_staged_bundle(
+            staged_revision_dir=stage_revision,
+            staged_pptx=staged_pptx,
+            staged_xlsx=staged_xlsx,
+            staged_bundle_manifest=staged_manifest,
+            publish_dir=publish_dir,
+        )
+
+    # Re-read the committed files; the manifest is now the publication marker.
+    committed_payload = publish_dir / PAYLOAD_NAME
+    validate_bundle_manifest(
+        json.loads(target_manifest.read_text(encoding="utf-8")),
+        payload_bytes=committed_payload.read_bytes(),
+        payload=json.loads(committed_payload.read_text(encoding="utf-8")),
+        analysis_manifest_bytes=(publish_dir / ANALYSIS_MANIFEST_NAME).read_bytes(),
+        pptx_bytes=target_pptx.read_bytes(),
+        xlsx_bytes=target_xlsx.read_bytes(),
+    )
+    validate_revision_pptx(target_pptx.read_bytes())
+    validate_revision_xlsx(target_xlsx.read_bytes())
+    return PublishedRevisionBundle(
+        bundle_id=str(manifest["bundle_id"]),
+        latest_complete=latest_complete,
+        payload_path=committed_payload,
+        pptx_path=target_pptx,
+        xlsx_path=target_xlsx,
+        manifest_path=target_manifest,
+    )
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data-dir", type=Path, default=ROOT / "data/industry_study")
+    parser.add_argument(
+        "--publish-dir",
+        type=Path,
+        default=ROOT / "data/industry_study/generated_revision",
+    )
+    parser.add_argument("--latest-complete", default="")
+    parser.add_argument("--curation", type=Path, default=DEFAULT_CURATION)
+    parser.add_argument(
+        "--input-workbook",
+        type=Path,
+        default=(Path(os.environ["FIDC_INPUT_WORKBOOK"]) if os.environ.get("FIDC_INPUT_WORKBOOK") else None),
+        help="workbook-base obrigatório; também pode vir de FIDC_INPUT_WORKBOOK",
+    )
+    parser.add_argument("--raw-dir", type=Path, default=ROOT / ".cache/cvm-industry-study")
+    parser.add_argument("--refresh-source-presence", action="store_true")
+    parser.add_argument("--presence-months", default="2024-06,2024-07")
+    parser.add_argument("--skip-download", action="store_true")
+    parser.add_argument("--node-modules", type=Path, default=None)
+    parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
+    parser.add_argument(
+        "--generated-at-utc",
+        default="",
+        help="timestamp ISO opcional; SOURCE_DATE_EPOCH também é respeitado",
+    )
+    return parser.parse_args(argv)
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
+    if args.input_workbook is None:
+        raise SystemExit(
+            "--input-workbook é obrigatório para publicar o bundle revisado"
+        )
+    result = publish_revision_bundle(
+        data_dir=args.data_dir,
+        publish_dir=args.publish_dir,
+        curation_path=args.curation,
+        input_workbook=args.input_workbook,
+        latest_complete=str(args.latest_complete or "").strip(),
+        raw_dir=args.raw_dir,
+        refresh_source_presence=bool(args.refresh_source_presence),
+        presence_months=[item.strip() for item in args.presence_months.split(",")],
+        skip_download=bool(args.skip_download),
+        node_modules=args.node_modules,
+        timeout_seconds=max(1, int(args.timeout_seconds)),
+        generated_at_utc=args.generated_at_utc,
+    )
+    print(
+        f"[ok] bundle {result.bundle_id} publicado em {result.manifest_path.parent} "
+        f"(competência {result.latest_complete})"
+    )
+
+
+if __name__ == "__main__":
+    main()

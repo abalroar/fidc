@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from io import BytesIO
+from pathlib import Path
 from types import SimpleNamespace
+from xml.etree import ElementTree as ET
 from zipfile import ZipFile
 
 import pandas as pd
@@ -20,6 +22,16 @@ from services.industry_ppt_export import (
     build_industry_pptx_bytes,
     build_industry_xlsx_bytes,
 )
+from services.industry_revision_export import (
+    EXPECTED_SLIDES,
+    get_revision_export_status,
+    validate_revision_pptx,
+    validate_revision_xlsx,
+)
+
+
+CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 
 
 def test_annual_history_keeps_full_2015_window_and_uses_latest_complete_month() -> None:
@@ -157,88 +169,101 @@ def test_anbima_labels_remain_separate_from_economic_classification() -> None:
 
 
 def test_industry_exports_are_valid_office_files() -> None:
-    from openpyxl import load_workbook
     from pptx import Presentation
+
+    status = get_revision_export_status()
+    assert status.bundle_valid, status.validation_error
+    assert status.bundle_id
+    assert Path(status.pptx_path).name == "industry_executive_revised.pptx"
+    assert Path(status.xlsx_path).name == "industry_data_revised.xlsx"
 
     pptx = build_industry_pptx_bytes()
     xlsx = build_industry_xlsx_bytes()
+    validate_revision_pptx(pptx)
+    validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) >= 24
-    visible_parts: list[str] = []
+    assert len(presentation.slides) == EXPECTED_SLIDES == 42
+    slide_texts: list[str] = []
     for slide in presentation.slides:
+        visible_parts: list[str] = []
         for shape in slide.shapes:
             if getattr(shape, "has_text_frame", False):
                 visible_parts.append(shape.text)
             if getattr(shape, "has_table", False):
                 visible_parts.extend(cell.text for row in shape.table.rows for cell in row.cells)
-    visible_text = "\n".join(visible_parts)
-    assert "Indústria de FIDCs" in visible_text
-    assert "em 2015" in visible_text
-    assert "Top 20 de Outros" in visible_text
-    assert "HISTOGRAMA · QUANTIDADE" in visible_text
-    assert "Monoestrutura" in visible_text
-    assert "CONCENTRAÇÃO DE ADMINISTRADORES" in visible_text
-    assert "CARTEIRA POR TIPO DE RECEBÍVEL" in visible_text
-    assert "reconstruções indicativas" in visible_text
-    assert "Rank dez/24" in visible_text
-    assert "Share mai/26" in visible_text
-    assert "p,p," not in visible_text
-    with ZipFile(BytesIO(pptx)) as archive:
-        chart_xml = b"".join(
-            archive.read(name)
-            for name in archive.namelist()
-            if name.startswith("ppt/charts/chart") and name.endswith(".xml")
-        )
-    assert b'<c:axId val="-' not in chart_xml
-    assert b'<c:crossAx val="-' not in chart_xml
-    workbook = load_workbook(BytesIO(xlsx), read_only=False)
-    assert "Indústria mensal" in workbook.sheetnames
-    assert "FIDCs >5bi" in workbook.sheetnames
-    for sheet in (
-        "PL histórico",
-        "PL anual",
-        "Mix ANBIMA",
-        "Top 20 Outros",
-        "Fila curadoria",
-        "Hist cotistas",
-        "Monoestrutura",
-        "Rankings ANBIMA",
-        "Cobertura",
-        "Conflitos Tab IV",
-        "Warnings",
+        slide_texts.append("\n".join(visible_parts))
+    visible_text = "\n".join(slide_texts)
+    for expected in (
+        "INDÚSTRIA DE FIDCs",
+        "SÍNTESE EXECUTIVA",
+        "ESCALA DA INDÚSTRIA",
+        "BASE INVESTIDORA",
+        "OBSERVABILIDADE DA INADIMPLÊNCIA",
+        "PRESTADORES · RANKING E CONCENTRAÇÃO",
+        "MARKET SHARE · ADMINISTRAÇÃO",
+        "MARKET SHARE · GESTÃO",
+        "MARKET SHARE · CUSTÓDIA",
+        "RANKING · TOP 20 FIDCS",
+        "RANKING · TOP 20 OUTROS",
+        "APÊNDICE · CURADORIA TOP 20",
     ):
-        assert sheet in workbook.sheetnames
-    annual_history = workbook["PL histórico"]
-    annual_history_headers = {cell.value: cell.column for cell in annual_history[1]}
-    assert annual_history.max_row >= 13
-    assert annual_history.cell(2, annual_history_headers["period_label"]).value == "2015"
-    assert annual_history.cell(annual_history.max_row, annual_history_headers["period_label"]).value == "Mai/26"
-    assert annual_history.column_dimensions["A"].width > 10
-    top_outros = workbook["Top 20 Outros"]
-    headers = [cell.value for cell in top_outros[1]]
-    assert "Tipo revisado" in headers
-    assert "Foco revisado" in headers
-    assert "Justificativa/Fonte" in headers
-    assert len(top_outros.data_validations.dataValidation) == 2
-    assert workbook["_Listas"].sheet_state == "hidden"
+        assert expected in visible_text
+    profiles = [
+        slide_text
+        for slide_text in slide_texts
+        if "APÊNDICE · CURADORIA TOP 20" in slide_text
+    ]
+    assert len(profiles) == 20
+    for rank, slide_text in enumerate(profiles, start=1):
+        assert f"#{rank} " in slide_text
 
-    annual = workbook["PL anual"]
-    annual_headers = {cell.value: cell.column for cell in annual[1]}
-    assert annual.cell(2, annual_headers["pl_total_brl"]).number_format == "R$ #,##0.00"
+    with ZipFile(BytesIO(pptx)) as archive:
+        office_xml = b"".join(
+            archive.read(name).upper()
+            for name in archive.namelist()
+            if name.endswith(".xml")
+            and (
+                name.startswith("ppt/slides/")
+                or name.startswith("ppt/theme/")
+                or "/charts/chart" in name
+            )
+        )
+        assert b"EC7000" in office_xml
+        assert b"172A3A" not in office_xml
 
-    warnings_sheet = workbook["Warnings"]
-    assert warnings_sheet["A2"].alignment.wrap_text is True
-    assert warnings_sheet.row_dimensions[2].height >= 42
+        chart_names = [
+            name
+            for name in archive.namelist()
+            if "/charts/chart" in name and name.endswith(".xml")
+        ]
+        assert chart_names
+        chart_xml = b"".join(archive.read(name) for name in chart_names)
+        assert b'<c:axId val="-' not in chart_xml
+        assert b'<c:crossAx val="-' not in chart_xml
+        for name in chart_names:
+            root = ET.fromstring(archive.read(name))
+            for smooth in root.iter(f"{{{CHART}}}smooth"):
+                assert smooth.attrib.get("val", "0").lower() not in {"1", "true"}
+            for marker in root.iter(f"{{{CHART}}}marker"):
+                symbol = marker.find(f"{{{CHART}}}symbol")
+                assert symbol is not None
+                assert symbol.attrib.get("val") == "none"
 
-    mix = workbook["Mix ANBIMA"]
-    mix_headers = {cell.value: cell.column for cell in mix[1]}
-    assert mix.cell(2, mix_headers["share_ex_fic"]).number_format == "0.00%"
-
-    rankings = workbook["Rankings ANBIMA"]
-    ranking_headers = {cell.value: cell.column for cell in rankings[1]}
-    pp_column = ranking_headers["share_change_pp_vs_prior"]
-    pp_cells = [rankings.cell(row, pp_column) for row in range(2, rankings.max_row + 1)]
-    pp_cell = next(cell for cell in pp_cells if isinstance(cell.value, (int, float)))
-    assert pp_cell.number_format == '0.00 "p.p."'
-    assert abs(float(pp_cell.value)) < 100
+    with ZipFile(BytesIO(xlsx)) as archive:
+        workbook = ET.fromstring(archive.read("xl/workbook.xml"))
+        sheet_names = {
+            sheet.attrib["name"]
+            for sheet in workbook.findall(f".//{{{SHEET}}}sheet")
+        }
+    assert {
+        "QA Inadimplência",
+        "Base competência/CNPJ",
+        "Base por fundo/CNPJ",
+        "Concentração de monoestruturas",
+        "Market share por subtipo",
+        "Top 20 FIDCs",
+        "Top 20 Outros",
+        "Curadoria Top 20",
+        "Checks revisão",
+    }.issubset(sheet_names)
