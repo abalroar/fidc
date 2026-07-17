@@ -20,6 +20,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pandas as pd
 
 from services.export_chart_labels import choose_export_label_policy, format_export_label
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fund_return_matrix import (
     RETURN_ISSUANCE_SPREAD_COLUMN,
     RETURN_SERIES_COLUMN,
@@ -592,7 +593,7 @@ def _add_fund_return_slide(
 
     table_top = 0.82
     header_height = 0.68 if is_comparison else 0.48
-    row_height = 0.25
+    row_height = 0.24
     table_height = header_height + row_height * len(return_frame)
     shape = slide.shapes.add_table(
         len(return_frame) + 1,
@@ -679,6 +680,23 @@ def _add_fund_return_slide(
                 Pt=Pt,
                 RGBColor=RGBColor,
             )
+
+    _textbox(
+        slide,
+        f"* {CVM_RETURN_REINVESTMENT_NOTE}",
+        left=_MX,
+        top=6.82,
+        width=_SW - 2 * _MX,
+        height=0.38,
+        size=7,
+        bold=False,
+        color=_GRAY,
+        word_wrap=True,
+        margin_vertical=0.01,
+        Inches=Inches,
+        Pt=Pt,
+        RGBColor=RGBColor,
+    )
 
 
 def _style_return_table_cell(
@@ -1351,6 +1369,7 @@ def _empty_placeholder(slide, slot, title, msg, *, Inches, Pt, RGBColor) -> None
 def _textbox(
     slide, text: str, *, left, top, width, height, size, bold, color,
     italic: bool = False, align_right: bool = False, word_wrap: bool = False,
+    margin_vertical: float | None = None,
     Inches, Pt, RGBColor,
 ) -> None:
     from pptx.enum.text import PP_ALIGN
@@ -1358,6 +1377,9 @@ def _textbox(
     tf = box.text_frame
     tf.word_wrap = word_wrap
     tf.clear()
+    if margin_vertical is not None:
+        tf.margin_top = Inches(margin_vertical)
+        tf.margin_bottom = Inches(margin_vertical)
     p = tf.paragraphs[0]
     if align_right:
         p.alignment = PP_ALIGN.RIGHT

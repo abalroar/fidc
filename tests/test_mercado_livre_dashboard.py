@@ -14,6 +14,7 @@ from openpyxl import load_workbook
 import pandas as pd
 
 from services.fidc_model.b3_cdi import B3CdiMonthlyRate
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fund_return_matrix import RETURN_YTD_COLUMN
 from services.mercado_livre_dashboard import (
     build_consolidated_monthly_base,
@@ -37,6 +38,7 @@ from services.portfolio_store import PortfolioFund, PortfolioRecord
 from services.mercado_livre_visuals import npl_coverage_chart, pl_subordination_chart
 from tabs.tab_dashboard_meli import (
     _build_fund_return_table,
+    _render_fund_return_table,
     _render_stacked_funds_view,
     _resolve_fund_return_cdi_rates,
     render_dashboard_meli_analysis,
@@ -928,6 +930,32 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertIn("mai/26", table_b.columns)
         self.assertEqual("6,15%", table_a.iloc[0][RETURN_YTD_COLUMN])
         self.assertEqual("5,10%", table_b.iloc[0][RETURN_YTD_COLUMN])
+
+    def test_fund_return_table_discloses_cvm_reinvestment_effect(self) -> None:
+        table = pd.DataFrame({"Série": ["Sênior"]})
+        table.attrs["cdi_source"] = "B3 CDI realizado"
+        outputs = SimpleNamespace(fund_return_summary={"fund": pd.DataFrame()})
+
+        with (
+            patch(
+                "tabs.tab_dashboard_meli._resolve_fund_return_cdi_rates",
+                return_value=((), None),
+            ),
+            patch(
+                "tabs.tab_dashboard_meli._resolve_fund_return_benchmark",
+                return_value=SimpleNamespace(spreads_by_class_key={}),
+            ),
+            patch("tabs.tab_dashboard_meli._build_fund_return_table", return_value=table),
+            patch("tabs.tab_dashboard_meli._chart_title"),
+            patch("tabs.tab_dashboard_meli.st.dataframe"),
+            patch("tabs.tab_dashboard_meli.st.caption") as caption,
+            patch("tabs.tab_dashboard_meli._render_fund_return_benchmark_diagnostics"),
+        ):
+            _render_fund_return_table(outputs=outputs, cnpj="fund")
+
+        caption.assert_any_call(r"\* " + CVM_RETURN_REINVESTMENT_NOTE)
+        self.assertIn("fechamento do mês", CVM_RETURN_REINVESTMENT_NOTE)
+        self.assertNotIn("mês seguinte", CVM_RETURN_REINVESTMENT_NOTE)
 
     def test_resolve_fund_return_cdi_rates_uses_latest_competencia_window_without_network(self) -> None:
         summary = pd.DataFrame(
