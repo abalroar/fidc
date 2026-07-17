@@ -177,6 +177,71 @@ class PortfolioPageTests(unittest.TestCase):
 
         ensure_data.assert_not_called()
 
+    def test_complete_portfolio_ppt_forwards_cdi_and_benchmark_inputs(self) -> None:
+        cnpj = "12345678000199"
+        outputs = SimpleNamespace(fund_monthly={cnpj: SimpleNamespace()})
+        analysis = portfolio_page.PortfolioAnalysisData(
+            scopes=(
+                portfolio_page.PortfolioAnalysisScope(
+                    value=cnpj,
+                    label="FIDC A",
+                    kind="fund",
+                    cnpj=cnpj,
+                    dashboard=SimpleNamespace(),
+                ),
+            ),
+            aggregate_bundle=None,
+            outputs=outputs,
+            monitor_outputs=SimpleNamespace(),
+            research_outputs=SimpleNamespace(),
+            verification_report=None,
+            dashboard_errors={},
+            load_errors={},
+        )
+        portfolio = PortfolioRecord(
+            id="portfolio-1",
+            name="Carteira Teste",
+            funds=(PortfolioFund(cnpj=cnpj, display_name="FIDC A"),),
+            created_at="2026-05-14T00:00:00Z",
+            updated_at="2026-05-14T00:00:00Z",
+        )
+        period = SimpleNamespace(label="07/2025 a 06/2026")
+        cdi_by_fund = {cnpj: ("cdi-rate",)}
+        benchmark_by_fund = {cnpj: {"senior:1": 0.035}}
+
+        with (
+            patch(
+                "tabs.portfolio_page.credit_tab.resolve_fund_return_export_inputs",
+                return_value=(cdi_by_fund, benchmark_by_fund),
+            ) as resolve_inputs,
+            patch(
+                "services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes",
+                return_value=b"pptx",
+            ) as build_pptx,
+            patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", return_value=b"xlsx"),
+            patch("tabs.portfolio_page.build_full_variable_excel_export_bytes", return_value=b"xlsx"),
+            patch("tabs.portfolio_page.build_full_variable_csv_zip_bytes", return_value=b"zip"),
+            patch("tabs.portfolio_page.st.expander", return_value=nullcontext()),
+            patch("tabs.portfolio_page.st.download_button") as download_button,
+        ):
+            portfolio_page._render_unified_portfolio_download(
+                analysis=analysis,
+                selected_portfolio=portfolio,
+                period=period,
+            )
+
+        resolve_inputs.assert_called_once_with(outputs=outputs, cnpjs=[cnpj])
+        build_pptx.assert_called_once_with(
+            outputs=outputs,
+            monitor_outputs=analysis.monitor_outputs,
+            research_outputs=analysis.research_outputs,
+            monthly_cdi_rates_by_fund=cdi_by_fund,
+            benchmark_spreads_by_fund=benchmark_by_fund,
+        )
+        self.assertTrue(
+            any(call.kwargs.get("data") == b"pptx" for call in download_button.call_args_list)
+        )
+
     def test_transient_provider_failure_keeps_the_recoverable_cause(self) -> None:
         fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")
         portfolio = PortfolioRecord(

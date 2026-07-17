@@ -40,6 +40,7 @@ from tabs.tab_dashboard_meli import (
     _render_stacked_funds_view,
     _resolve_fund_return_cdi_rates,
     render_dashboard_meli_analysis,
+    resolve_fund_return_export_inputs,
 )
 from tabs.tab_mercado_livre import (
     CONSOLIDATED_SCOPE_VALUE,
@@ -962,6 +963,38 @@ class MercadoLivreDashboardTests(unittest.TestCase):
         self.assertEqual(rates, resolved)
         self.assertIsNone(error)
         fetch_rates.assert_called_once_with("2025-07-01", "2026-06-30")
+
+    def test_resolve_fund_return_export_inputs_reuses_subtab_resolvers(self) -> None:
+        outputs = SimpleNamespace()
+        rates = (
+            B3CdiMonthlyRate(
+                mes="2026-06",
+                cdi_mensal=0.01,
+                dias_uteis=21,
+                data_inicio=date(2026, 6, 1),
+                data_fim=date(2026, 6, 30),
+                source="fixture",
+            ),
+        )
+        with (
+            patch(
+                "tabs.tab_dashboard_meli._resolve_fund_return_cdi_rates",
+                return_value=(rates, None),
+            ) as resolve_cdi,
+            patch(
+                "tabs.tab_dashboard_meli._resolve_fund_return_benchmark",
+                return_value=SimpleNamespace(spreads_by_class_key={"senior:1": 0.035}),
+            ) as resolve_benchmark,
+        ):
+            cdi_by_fund, benchmark_by_fund = resolve_fund_return_export_inputs(
+                outputs=outputs,
+                cnpjs=["fund"],
+            )
+
+        self.assertEqual({"fund": rates}, cdi_by_fund)
+        self.assertEqual({"fund": {"senior:1": 0.035}}, benchmark_by_fund)
+        resolve_cdi.assert_called_once_with(outputs=outputs, cnpj="fund")
+        resolve_benchmark.assert_called_once_with(outputs=outputs, cnpj="fund")
 
     def test_stacked_single_fund_renders_return_table_without_duplicate_charts(self) -> None:
         outputs = SimpleNamespace()

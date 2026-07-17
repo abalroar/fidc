@@ -781,11 +781,19 @@ def _render_unified_portfolio_download(
             export_warnings.append(f"Visão Fundos.NET: {exc}")
     if ppt_scope_consistent:
         try:
+            monthly_cdi_rates_by_fund, benchmark_spreads_by_fund = (
+                credit_tab.resolve_fund_return_export_inputs(
+                    outputs=analysis.outputs,
+                    cnpjs=sorted(output_cnpjs),
+                )
+            )
             decks.append(
                 build_somatorio_fidcs_pptx_bytes(
                     outputs=analysis.outputs,
                     monitor_outputs=analysis.monitor_outputs,
                     research_outputs=analysis.research_outputs,
+                    monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
+                    benchmark_spreads_by_fund=benchmark_spreads_by_fund,
                 )
             )
         except Exception as exc:  # noqa: BLE001

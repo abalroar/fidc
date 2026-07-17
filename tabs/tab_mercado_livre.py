@@ -40,7 +40,11 @@ from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 from services.portfolio_store import PortfolioFund, PortfolioRecord, portfolio_basket_signature, portfolio_name_key
 from tabs import tab_fidc_monitoring as monitoring_tab
 from tabs import tab_fidc_ime as ime_tab
-from tabs.tab_dashboard_meli import _DASHBOARD_MELI_CSS, render_dashboard_meli_analysis
+from tabs.tab_dashboard_meli import (
+    _DASHBOARD_MELI_CSS,
+    render_dashboard_meli_analysis,
+    resolve_fund_return_export_inputs,
+)
 from tabs.ime_portfolio_support import (
     build_catalog_option_lookup,
     build_portfolio_record_label_lookup,
@@ -766,10 +770,16 @@ def _render_outputs(
         monitor_outputs=monitor_outputs,
     )
     full_matrix_csv_zip_bytes = build_full_variable_csv_zip_bytes(display_outputs)
+    monthly_cdi_rates_by_fund, benchmark_spreads_by_fund = resolve_fund_return_export_inputs(
+        outputs=display_outputs,
+        cnpjs=getattr(display_outputs, "fund_monthly", {}),
+    )
     pptx_bytes = build_somatorio_fidcs_pptx_bytes(
         outputs=display_outputs,
         monitor_outputs=monitor_outputs,
         research_outputs=research_outputs,
+        monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
+        benchmark_spreads_by_fund=benchmark_spreads_by_fund,
     )
 
     def _render_base_view() -> None:

@@ -433,14 +433,36 @@ class MeliCreditMonitorTest(unittest.TestCase):
     def test_somatorio_pptx_adds_native_editable_return_table_with_expected_headers(self) -> None:
         from pptx import Presentation
 
+        from services.fidc_model.b3_cdi import B3CdiMonthlyRate
         from services.fund_return_matrix import (
+            RETURN_ISSUANCE_SPREAD_COLUMN,
             RETURN_SERIES_COLUMN,
+            RETURN_TRAILING_12M_CDI_COLUMN,
+            RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN,
             RETURN_TRAILING_12M_COLUMN,
+            RETURN_TRAILING_12M_SPREAD_GAP_COLUMN,
+            RETURN_YTD_CDI_COLUMN,
+            RETURN_YTD_IMPLIED_SPREAD_COLUMN,
             RETURN_YTD_COLUMN,
+            RETURN_YTD_SPREAD_GAP_COLUMN,
         )
         from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 
         outputs, monitor_outputs = _somatorio_export_inputs_with_returns(series_count=2)
+        cnpj = "00000000000000"
+        competencias = pd.date_range("2025-07-01", periods=12, freq="MS")
+        monthly_cdi_rates = tuple(
+            B3CdiMonthlyRate(
+                mes=competencia.strftime("%Y-%m"),
+                cdi_mensal=0.01,
+                dias_uteis=20,
+                data_inicio=competencia.date(),
+                data_fim=(competencia + pd.offsets.MonthEnd(1)).date(),
+                source="fixture B3",
+                expected_dias_uteis=20,
+            )
+            for competencia in competencias
+        )
 
         prs = Presentation(
             BytesIO(
@@ -448,33 +470,66 @@ class MeliCreditMonitorTest(unittest.TestCase):
                     outputs=outputs,
                     monitor_outputs=monitor_outputs,
                     research_outputs=None,
+                    monthly_cdi_rates_by_fund={cnpj: monthly_cdi_rates},
+                    benchmark_spreads_by_fund={
+                        cnpj: {"senior:01": 0.05, "senior:02": 0.05}
+                    },
                 )
             )
         )
-        tables = [
-            shape.table
+        table_shapes = [
+            shape
             for slide in prs.slides
             for shape in slide.shapes
             if getattr(shape, "has_table", False)
         ]
+        tables = [shape.table for shape in table_shapes]
 
-        self.assertEqual(12, len(prs.slides))
-        self.assertEqual(1, len(tables))
-        table = tables[0]
-        headers = [cell.text for cell in table.rows[0].cells]
-        self.assertEqual(15, len(headers))
-        self.assertEqual(RETURN_SERIES_COLUMN, headers[0])
-        self.assertEqual(RETURN_TRAILING_12M_COLUMN, headers[-2])
-        self.assertEqual(RETURN_YTD_COLUMN, headers[-1])
-        self.assertEqual("jul/25", headers[1])
-        self.assertEqual("jun/26", headers[-3])
-        self.assertEqual("1,00%", table.cell(1, 1).text)
-        self.assertEqual("6,15%", table.cell(1, 14).text)
+        self.assertEqual(13, len(prs.slides))
+        self.assertEqual(2, len(tables))
+        monthly_table = next(table for table in tables if table.cell(0, 1).text == "jul/25")
+        comparison_table = next(
+            table for table in tables if table.cell(0, 1).text == RETURN_TRAILING_12M_COLUMN
+        )
+        monthly_headers = [cell.text for cell in monthly_table.rows[0].cells]
+        comparison_headers = [cell.text for cell in comparison_table.rows[0].cells]
+        self.assertEqual(15, len(monthly_headers))
+        self.assertEqual(
+            [
+                RETURN_SERIES_COLUMN,
+                RETURN_TRAILING_12M_COLUMN,
+                RETURN_TRAILING_12M_CDI_COLUMN,
+                RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN,
+                RETURN_YTD_COLUMN,
+                RETURN_YTD_CDI_COLUMN,
+                RETURN_YTD_IMPLIED_SPREAD_COLUMN,
+                RETURN_ISSUANCE_SPREAD_COLUMN,
+                RETURN_TRAILING_12M_SPREAD_GAP_COLUMN,
+                RETURN_YTD_SPREAD_GAP_COLUMN,
+            ],
+            comparison_headers,
+        )
+        self.assertEqual("jun/26", monthly_headers[-3])
+        self.assertEqual("1,00%", monthly_table.cell(1, 1).text)
+        self.assertEqual("6,15%", monthly_table.cell(1, 14).text)
+        self.assertEqual("12,68%", comparison_table.cell(1, 2).text)
+        self.assertEqual("0,00%", comparison_table.cell(1, 3).text)
+        self.assertEqual("6,15%", comparison_table.cell(1, 5).text)
+        self.assertEqual("5,00%", comparison_table.cell(1, 7).text)
+        self.assertEqual("-500", comparison_table.cell(1, 8).text)
+        self.assertTrue(all(cell.text_frame.word_wrap for cell in comparison_table.rows[0].cells))
+        self.assertTrue(all(len(table.columns) <= 15 for table in tables))
+        self.assertTrue(
+            all((shape.top + shape.height) / 914_400 <= 7.10 for shape in table_shapes)
+        )
 
     def test_somatorio_pptx_paginates_return_rows_without_losing_series(self) -> None:
         from pptx import Presentation
 
-        from services.fund_return_matrix import RETURN_SERIES_COLUMN
+        from services.fund_return_matrix import (
+            RETURN_SERIES_COLUMN,
+            RETURN_TRAILING_12M_COLUMN,
+        )
         from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 
         outputs, monitor_outputs = _somatorio_export_inputs_with_returns(series_count=23)
@@ -485,6 +540,8 @@ class MeliCreditMonitorTest(unittest.TestCase):
                     outputs=outputs,
                     monitor_outputs=monitor_outputs,
                     research_outputs=None,
+                    monthly_cdi_rates_by_fund={"00000000000000": ()},
+                    benchmark_spreads_by_fund={"00000000000000": {}},
                 )
             )
         )
@@ -494,20 +551,31 @@ class MeliCreditMonitorTest(unittest.TestCase):
             for shape in slide.shapes
             if getattr(shape, "has_table", False)
         ]
-        exported_series = [
-            table.cell(row_index, 0).text
-            for table in tables
-            for row_index in range(1, len(table.rows))
+        monthly_tables = [table for table in tables if table.cell(0, 1).text == "jul/25"]
+        comparison_tables = [
+            table for table in tables if table.cell(0, 1).text == RETURN_TRAILING_12M_COLUMN
         ]
+        expected_series = [f"{index:02d}ª série" for index in range(1, 24)]
 
-        self.assertEqual(13, len(prs.slides))
-        self.assertEqual(2, len(tables))
+        self.assertEqual(15, len(prs.slides))
+        self.assertEqual(4, len(tables))
         self.assertEqual(
-            [RETURN_SERIES_COLUMN, RETURN_SERIES_COLUMN],
+            [RETURN_SERIES_COLUMN] * 4,
             [table.cell(0, 0).text for table in tables],
         )
-        self.assertEqual([22, 1], [len(table.rows) - 1 for table in tables])
-        self.assertEqual([f"{index:02d}ª série" for index in range(1, 24)], exported_series)
+        self.assertEqual([22, 1], [len(table.rows) - 1 for table in monthly_tables])
+        self.assertEqual([22, 1], [len(table.rows) - 1 for table in comparison_tables])
+        for view_tables in (monthly_tables, comparison_tables):
+            exported_series = [
+                table.cell(row_index, 0).text
+                for table in view_tables
+                for row_index in range(1, len(table.rows))
+            ]
+            self.assertEqual(expected_series, exported_series)
+        self.assertEqual(
+            ["N/D"] * 7,
+            [comparison_tables[0].cell(1, column_index).text for column_index in (2, 3, 5, 6, 7, 8, 9)],
+        )
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))
