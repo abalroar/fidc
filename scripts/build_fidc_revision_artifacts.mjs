@@ -67,7 +67,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v5";
+const RENDERER_VERSION = "industry_revision_artifacts_v6";
+const EXPECTED_SLIDES = 47;
 
 const C = {
   orange: "#EC7000",
@@ -438,6 +439,95 @@ function addEditorialTable(slide, options) {
   });
 }
 
+function addNativeEditorialTable(slide, options) {
+  const {
+    left,
+    top,
+    width,
+    height,
+    headers,
+    rows,
+    columnWidths,
+    aligns = [],
+    fontSize = 9,
+    headerFontSize = 8.5,
+    rowHighlights = new Set(),
+  } = options;
+  const table = slide.tables.add({
+    rows: rows.length + 1,
+    columns: headers.length,
+    left,
+    top,
+    width,
+    height,
+    columnWidths,
+    values: [headers, ...rows],
+  });
+  table.styleOptions = {
+    headerRow: false,
+    totalRow: false,
+    firstColumn: false,
+    lastColumn: false,
+    bandedRows: false,
+    bandedColumns: false,
+  };
+  table.borders.assign({ style: "solid", fill: C.line, width: 0.5 });
+  const header = table.cells.block({ row: 0, column: 0, rowCount: 1, columnCount: headers.length });
+  header.assign({
+    fill: C.black,
+    textStyle: {
+      typeface: "Arial",
+      fontSize: headerFontSize,
+      bold: true,
+      color: C.white,
+      verticalAlignment: "middle",
+      autoFit: "shrinkText",
+      wrap: "square",
+    },
+    margins: { top: 2, right: 5, bottom: 2, left: 5 },
+    anchor: "middle",
+  });
+  table.rows[0].height = 22;
+  rows.forEach((row, rowIndex) => {
+    const fill = rowHighlights.has(rowIndex)
+      ? "#FFF1E6"
+      : rowIndex % 2 === 1
+        ? C.pale
+        : C.white;
+    const range = table.cells.block({
+      row: rowIndex + 1,
+      column: 0,
+      rowCount: 1,
+      columnCount: headers.length,
+    });
+    range.assign({
+      fill,
+      textStyle: {
+        typeface: "Arial",
+        fontSize,
+        color: C.charcoal,
+        verticalAlignment: "middle",
+        autoFit: "shrinkText",
+        wrap: "square",
+      },
+      margins: { top: 1.5, right: 5, bottom: 1.5, left: 5 },
+      anchor: "middle",
+    });
+    table.rows[rowIndex + 1].height = (height - 22) / Math.max(rows.length, 1);
+  });
+  aligns.forEach((alignment, columnIndex) => {
+    const body = table.cells.block({
+      row: 1,
+      column: columnIndex,
+      rowCount: rows.length,
+      columnCount: 1,
+    });
+    body.textStyle.alignment = alignment;
+    table.cells.block({ row: 0, column: columnIndex, rowCount: 1, columnCount: 1 }).textStyle.alignment = alignment;
+  });
+  return table;
+}
+
 function addFlatList(slide, items, position, options = {}) {
   const rowHeight = position.height / Math.max(items.length, 1);
   items.forEach((item, index) => {
@@ -577,7 +667,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       filename: path.basename(OUTPUT_PPTX),
       sha256: pptxSha256,
       bytes: pptxStat.size,
-      slides: 44,
+      slides: EXPECTED_SLIDES,
     },
     xlsx: {
       filename: path.basename(OUTPUT_XLSX),
@@ -585,7 +675,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       bytes: xlsxStat.size,
     },
     checks: {
-      slides: 44,
+      slides: EXPECTED_SLIDES,
       top20_fidcs: payload.top20_fidcs.length,
       top20_outros: payload.top20_outros.length,
       profiles: payload.profiles.length,
@@ -835,10 +925,13 @@ function addMarketShareSlide(presentation, payload, role, focusRows, page, appen
 
 function providerHistoricalRows(payload, role, limit = 6) {
   const all = (payload.provider_historical_ranking || []).filter((row) => row.papel === role);
-  const latest = all
+  const latestAll = all
     .filter((row) => row.competencia === payload.latest_complete && row.participante !== "Não informado")
-    .sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo))
-    .slice(0, limit);
+    .sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo));
+  const selected = latestAll.slice(0, limit);
+  const itau = latestAll.find((row) => normalizeProviderName(row.participante) === "itau");
+  if (itau && !selected.some((row) => row.participante === itau.participante)) selected.push(itau);
+  const latest = selected.sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo));
   const lookup = new Map(
     all.map((row) => [`${row.competencia}|${row.participante}`, row]),
   );
@@ -863,8 +956,8 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
   addHeader(
     slide,
     "PRESTADORES · EVOLUÇÃO DO RANKING",
-    "QI Tech lidera administração e custódia; BTG lidera gestão em mai/26",
-    "Fonte: CVM. PL ex-FIC; Sistema Petrobras e TAPSO excluídos em todos os períodos. Administração observada; gestão e custódia de dez/24 e dez/25 reconstruídas com cadastro vigente.",
+    "QI herdou a escala da Singulare; veículos controlados sustentam o BTG em gestão",
+    "Fonte: CVM e DF BTG 1T26. PL ex-FIC; Sistema Petrobras e TAPSO excluídos. Administração observada; gestão e custódia históricas reconstruídas com cadastro vigente.",
     page,
   );
   const bands = [
@@ -888,7 +981,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       alignment: "right",
       verticalAlignment: "middle",
     });
-    addEditorialTable(slide, {
+    addNativeEditorialTable(slide, {
       left: 60,
       top: top + 23,
       width: 690,
@@ -902,8 +995,9 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       ]),
       columnWidths: [300, 125, 125, 140],
       aligns: ["left", "right", "right", "right"],
-      fontSize: 8.7,
-      headerFontSize: 8.5,
+      fontSize: 8.1,
+      headerFontSize: 8.1,
+      rowHighlights: new Set(rows.map((row, idx) => normalizeProviderName(row.participante) === "itau" ? idx : -1).filter((idx) => idx >= 0)),
     });
     addText(slide, "PL MAI/26 · R$ BI", { left: 785, top, width: 435, height: 20 }, {
       fontSize: 10,
@@ -942,6 +1036,408 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       },
     });
   });
+  return slide;
+}
+
+function providerAttributionFallback(payload) {
+  const ranking = payload.provider_historical_ranking || [];
+  const current = (role, provider) => ranking.find(
+    (row) => row.competencia === payload.latest_complete
+      && row.papel === role
+      && normalizeProviderName(row.participante) === normalizeProviderName(provider),
+  );
+  return {
+    btg: {
+      managed_pl_brl: num(current("gestor", "BTG Pactual")?.pl_brl),
+      confirmed_controlled_pl_brl: 28_641_000_000,
+      residual_unproven_pl_brl: Math.max(0, num(current("gestor", "BTG Pactual")?.pl_brl) - 28_641_000_000),
+      bradesco_managed_pl_brl: num(current("gestor", "Bradesco")?.pl_brl),
+      confirmed_controlled_share: num(current("gestor", "BTG Pactual")?.pl_brl)
+        ? 28_641_000_000 / num(current("gestor", "BTG Pactual")?.pl_brl)
+        : 0,
+      rank_without_confirmed: 2,
+    },
+    qi: {
+      admin_group_pl_2024_brl: 87_040_000_000,
+      legacy_singulare_pl_2024_brl: 83_490_000_000,
+      original_qi_pl_2024_brl: 3_550_000_000,
+      legacy_share_2024: 0.959,
+    },
+  };
+}
+
+function addProviderAttributionSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  const attribution = payload.provider_leadership_attribution || providerAttributionFallback(payload);
+  const qi = attribution.qi || {};
+  const btg = attribution.btg || {};
+  const qiTotal = num(qi.admin_group_pl_2024_brl)
+    || num(qi.legacy_singulare_pl_2024_brl) + num(qi.original_qi_pl_2024_brl);
+  const managed = num(btg.managed_pl_brl);
+  const controlled = num(btg.confirmed_controlled_pl_brl);
+  const residual = num(btg.residual_unproven_pl_brl) || Math.max(0, managed - controlled);
+  const bradesco = num(btg.bradesco_managed_pl_brl);
+  addHeader(
+    slide,
+    "PRESTADORES · LIDERANÇA EXPLICADA",
+    "Singulare explica a escala da QI; seis FIDCs controlados explicam o #1 do BTG em gestão",
+    "Fontes: CVM; BCB, alterações societárias nov/24–nov/25; DF consolidada do BTG 1T26, pp. 18–19. PL ex-FIC, sem Sistema Petrobras/TAPSO.",
+    page,
+  );
+
+  addSectionLabel(slide, "QI TECH · ADMINISTRAÇÃO EM DEZ/24", { left: 60, top: 145, width: 535, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 60, top: 190, width: 535, height: 230 }),
+    categories: ["Singulare legado", "QI DTVM original"],
+    series: [
+      {
+        name: "PL administrado",
+        values: [
+          num(qi.legacy_singulare_pl_2024_brl) / 1e9,
+          num(qi.original_qi_pl_2024_brl) / 1e9,
+        ],
+        valuesFormatCode: "0.0",
+        fill: providerColor("QI Tech"),
+        points: [
+          { idx: 0, fill: providerColor("QI Tech") },
+          { idx: 1, fill: providerColor("QI Tech") },
+        ],
+      },
+    ],
+    barOptions: { direction: "bar", grouping: "clustered", gapWidth: 45 },
+    hasLegend: false,
+    xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+    yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+    dataLabels: { showValue: true, position: "outEnd", fill: "none", line: { style: "solid", fill: "none", width: 0 }, textStyle: { fill: C.black, fontSize: 10, bold: false } },
+  });
+  addMetric(
+    slide,
+    pct(num(qi.legacy_share_2024) || (qiTotal ? num(qi.legacy_singulare_pl_2024_brl) / qiTotal : 0), 1),
+    "do PL administrado do grupo em dez/24 estava no CNPJ legado da Singulare. O controle mudou em nov/24; em nov/25, esse CNPJ incorporou a QI DTVM e passou a QI Corretora.",
+    { left: 80, top: 450, width: 495, height: 130 },
+    true,
+  );
+
+  addSectionLabel(slide, "BTG PACTUAL · GESTÃO EM MAI/26", { left: 665, top: 145, width: 555, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 665, top: 190, width: 555, height: 230 }),
+    categories: ["BTG Pactual", "Bradesco", "BTG ex-6 controlados"],
+    series: [
+      {
+        name: "PL gerido",
+        values: [managed / 1e9, bradesco / 1e9, residual / 1e9],
+        valuesFormatCode: "0.0",
+        fill: providerColor("BTG Pactual"),
+        points: [
+          { idx: 0, fill: providerColor("BTG Pactual") },
+          { idx: 1, fill: providerColor("Bradesco") },
+          { idx: 2, fill: providerColor("BTG Pactual") },
+        ],
+      },
+    ],
+    barOptions: { direction: "bar", grouping: "clustered", gapWidth: 40 },
+    hasLegend: false,
+    xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+    yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+    dataLabels: { showValue: true, position: "inEnd", fill: "none", line: { style: "solid", fill: "none", width: 0 }, textStyle: { fill: C.white, fontSize: 10, bold: false } },
+  });
+  addMetric(
+    slide,
+    bn(controlled, 1),
+    `${pct(num(btg.confirmed_controlled_share) || (managed ? controlled / managed : 0), 1)} do PL gerido pelo BTG. Sem os seis fundos nominalmente reconciliados à DF, o BTG cairia para #${integer(btg.rank_without_confirmed || 2)}.`,
+    { left: 685, top: 450, width: 515, height: 118 },
+    true,
+  );
+  addText(
+    slide,
+    "Seis reconciliados: BTGP Consignados I/II, Alternative Assets I/III, MT Consignado I e Consignado Delta. No caso Meu Tudo, o FIDC é controlado pelo BTG, mas a originação/operação do crédito é externa, via Parati e meutudo.",
+    { left: 685, top: 575, width: 515, height: 64 },
+    { fontSize: 10.6, color: C.mid, lineSpacing: 1.01 },
+  );
+  return slide;
+}
+
+function flowField(row, ...names) {
+  for (const name of names) {
+    if (row?.[name] !== undefined && row?.[name] !== null && row?.[name] !== "") return row[name];
+  }
+  return null;
+}
+
+function flowTextColor(fill) {
+  return ["#D6A800", "#73C6A1", "#6EC5E9", "#D7DADD", "#F5F6F7"].includes(String(fill).toUpperCase())
+    ? C.black
+    : C.white;
+}
+
+function addFlowNode(slide, options) {
+  const fill = options.fill || C.charcoal;
+  const shape = addRect(
+    slide,
+    { left: options.left, top: options.top, width: options.width, height: options.height },
+    fill,
+    { lineFill: fill, lineWidth: 0.6 },
+  );
+  addText(
+    slide,
+    options.label,
+    { left: options.left + 7, top: options.top + 5, width: options.width - 14, height: options.height - 10 },
+    {
+      fontSize: options.fontSize || 10.5,
+      bold: true,
+      color: options.textColor || flowTextColor(fill),
+      verticalAlignment: "middle",
+      lineSpacing: 0.95,
+    },
+  );
+  return shape;
+}
+
+function addFlowConnector(slide, source, target, value, maxValue, color = C.line) {
+  const width = clamp(2 + 18 * Math.sqrt(num(value) / Math.max(num(maxValue), 1)), 2, 20);
+  return slide.shapes.connect(source, target, {
+    kind: "curved",
+    fromSide: "right",
+    toSide: "left",
+    line: { style: "solid", fill: color, width },
+    cap: "round",
+    join: "round",
+  });
+}
+
+function fallbackReagFlow() {
+  return {
+    summary: {
+      funds_origin: 131,
+      pl_origin_brl: 66.327e9,
+      continuing_funds: 115,
+      continuing_pl_current_brl: 52.889e9,
+      migrated_pl_current_brl: 10.233e9,
+      migrated_share_current: 0.1935,
+    },
+    links: [
+      { destino_grupo: "CBSF ainda declarada", fundos: 70, pl_current_brl: 42.656e9, pl_flow_brl: 41.924e9 },
+      { destino_grupo: "Master Corretora", fundos: 8, pl_current_brl: 6.451e9, pl_flow_brl: 6.35e9 },
+      { destino_grupo: "Planner", fundos: 31, pl_current_brl: 3.651e9, pl_flow_brl: 3.55e9 },
+      { destino_grupo: "Outros migrados", fundos: 6, pl_current_brl: 0.131e9, pl_flow_brl: 0.333e9 },
+      { destino_grupo: "Saída / sem reporte", fundos: 16, pl_current_brl: 0, pl_flow_brl: 14.17e9 },
+    ],
+  };
+}
+
+function addReagMigrationSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  const fallback = fallbackReagFlow();
+  const summary = payload.reag_admin_summary || payload.reag_admin_migration?.summary || fallback.summary;
+  let links = payload.reag_admin_links || payload.reag_admin_migration?.links || fallback.links;
+  links = [...links]
+    .map((row) => ({
+      ...row,
+      destino: String(flowField(row, "destino_grupo", "grupo_destino", "admin_destino") || "Outros"),
+      fundos: num(flowField(row, "fundos", "n_fundos")),
+      plCurrent: num(flowField(row, "pl_current_brl", "pl_destino_brl", "pl_2026_05_brl")),
+      plFlow: num(flowField(row, "pl_flow_brl", "pl_origem_brl", "pl_2025_12_brl", "pl_comparavel_brl")),
+    }))
+    .sort((a, b) => b.plFlow - a.plFlow)
+    .slice(0, 6);
+  const retainedCbsf = links.find((row) => normalizeProviderName(row.destino).includes("cbsf"));
+  const migratedShare = num(summary.migrated_share_current) || (
+    num(summary.continuing_pl_current_brl)
+      ? num(summary.migrated_pl_current_brl) / num(summary.continuing_pl_current_brl)
+      : 0
+  );
+  addHeader(
+    slide,
+    "CBSF / REAG · DESTINO DOS FUNDOS",
+    `Master e Planner receberam R$ 10,1 bi; ${pct(migratedShare, 0)} do PL continuante migrou`,
+    "Fontes: CVM, Informe Mensal; BCB, Ato 1.375, liquidação em 15/01/26. Cohort do CNPJ 34.829.992/0001-86 em dez/25; destino em mai/26. PL ex-FIC, sem Petrobras/TAPSO.",
+    page,
+  );
+  addText(slide, "DEZ/25", { left: 72, top: 145, width: 220, height: 20 }, { fontSize: 11, bold: true, color: C.note });
+  addText(slide, "MAI/26", { left: 884, top: 145, width: 300, height: 20 }, { fontSize: 11, bold: true, color: C.note, alignment: "right" });
+  const source = addFlowNode(slide, {
+    left: 72,
+    top: 280,
+    width: 205,
+    height: 120,
+    fill: providerColor("CBSF"),
+    label: `CBSF / Reag Trust\n${integer(summary.funds_origin || 131)} fundos\n${bn(summary.pl_origin_brl || 66.327e9, 1)}`,
+    fontSize: 13,
+  });
+  const targetLeft = 950;
+  const targetWidth = 250;
+  const maxValue = Math.max(...links.map((row) => row.plFlow), 1);
+  const targetHeight = 58;
+  const gap = 14;
+  const totalHeight = links.length * targetHeight + (links.length - 1) * gap;
+  const startTop = 180 + Math.max(0, (430 - totalHeight) / 2);
+  links.forEach((row, index) => {
+    const provider = row.destino.includes("CBSF") ? "CBSF" : row.destino;
+    const fill = row.destino.includes("Saída") ? C.note : providerColor(provider);
+    const valueLabel = row.destino.includes("Saída")
+      ? `${row.fundos} fundos · ${bn(row.plFlow, 1)} em dez/25`
+      : `${integer(row.fundos)} fundos · ${bn(row.plCurrent, 1)} em mai/26`;
+    const target = addFlowNode(slide, {
+      left: targetLeft,
+      top: startTop + index * (targetHeight + gap),
+      width: targetWidth,
+      height: targetHeight,
+      fill,
+      label: `${row.destino.includes("Saída") ? row.destino : providerShort(row.destino)}\n${valueLabel}`,
+      fontSize: 10.2,
+    });
+    addFlowConnector(slide, source, target, row.plFlow, maxValue, index === 0 ? C.light : fill);
+  });
+  addMetric(
+    slide,
+    bn(summary.migrated_pl_current_brl || 10.233e9, 1),
+    "migraram entre os fundos que continuaram reportando. Master Corretora recebeu 8 fundos; Planner, 31.",
+    { left: 350, top: 205, width: 470, height: 120 },
+    true,
+  );
+  addMetric(
+    slide,
+    bn((summary.exited_pl_origin_brl || 14.17e9), 1),
+    "estavam em 16 fundos que saíram do universo ou não reportavam em mai/26.",
+    { left: 350, top: 382, width: 470, height: 105 },
+    false,
+  );
+  addRect(slide, { left: 330, top: 515, width: 610, height: 112 }, C.pale);
+  addText(
+    slide,
+    `Mai/26 ainda declara CBSF como administradora em ${integer(retainedCbsf?.fundos || 70)} fundos; isso mede cadastro reportado, não continuidade operacional. Gestão vigente do cohort: CBSF Trust ${bn(summary.manager_cbsf_trust_pl_brl || 20.982e9, 1)}, outras REAG ${bn(summary.manager_other_reag_pl_brl || 18.715e9, 1)} e Smart Agro ${bn(summary.manager_smart_agro_pl_brl || 4.663e9, 1)}. Custódia: Reag/CBSF ${bn(summary.custodian_reag_cbsf_pl_brl || 49.071e9, 1)} e Planner ${bn(summary.custodian_planner_pl_brl || 3.651e9, 1)}. Sem snapshot anterior por fundo, essas duas funções não formam um antes/depois.`,
+    { left: 350, top: 525, width: 570, height: 92 },
+    { fontSize: 10.6, color: C.mid, lineSpacing: 1.01 },
+  );
+  return slide;
+}
+
+function fallbackProviderTransitionLinks() {
+  return [
+    ["Oliveira Trust", "Bradesco", 2, 8.923e9],
+    ["Banvox", "Daycoval", 13, 2.143e9],
+    ["CBSF", "ID", 12, 2.135e9],
+    ["Banvox", "QI Tech", 6, 1.416e9],
+    ["Finvest", "CBSF", 2, 1.310e9],
+    ["Trustee", "Planner", 7, 1.247e9],
+    ["CBSF", "BRL Trust", 7, 0.977e9],
+    ["Banco Master", "Limine Trust", 11, 0.937e9],
+    ["Banco Master", "Qore", 13, 0.906e9],
+    ["Banvox", "Oslo", 5, 0.755e9],
+  ].map(([grupo_origem, grupo_destino, fundos, pl_comparavel_brl]) => ({ grupo_origem, grupo_destino, fundos, pl_comparavel_brl }));
+}
+
+function addProviderTransitionSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  const summary = payload.provider_transition_summary || {
+    continuing_funds: 2477,
+    comparable_pl_brl: 455.862e9,
+    changed_funds: 257,
+    changed_comparable_pl_brl: 33.020e9,
+    changed_share: 0.0724,
+  };
+  let links = (payload.provider_transition_links || fallbackProviderTransitionLinks())
+    .filter((row) => String(flowField(row, "papel") || "administrador") === "administrador")
+    .map((row) => ({
+      origem: String(flowField(row, "grupo_origem", "origem_grupo", "prestador_origem") || "N/D"),
+      destino: String(flowField(row, "grupo_destino", "destino_grupo", "prestador_destino") || "N/D"),
+      fundos: num(flowField(row, "fundos", "n_fundos")),
+      value: num(flowField(row, "pl_comparavel_brl", "pl_flow_brl")),
+    }))
+    .filter((row) => row.origem !== row.destino && row.value > 0)
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 10);
+  const changedShare = num(summary.changed_share) || (
+    num(summary.comparable_pl_brl)
+      ? num(summary.changed_comparable_pl_brl) / num(summary.comparable_pl_brl)
+      : 0
+  );
+  addHeader(
+    slide,
+    "PRESTADORES · ROUBA-MONTE OBSERVADO",
+    `${integer(summary.changed_funds || 257)} FIDCs trocaram de administrador; ${pct(changedShare, 1)} do estoque comparável mudou de mãos`,
+    "Fonte: CVM, Informe Mensal. CNPJs presentes em dez/24 e dez/25; largura = menor PL entre as duas datas. Ex-FIC e sem Sistema Petrobras/TAPSO.",
+    page,
+  );
+  const originTotals = new Map();
+  const destinationTotals = new Map();
+  links.forEach((row) => {
+    originTotals.set(row.origem, (originTotals.get(row.origem) || 0) + row.value);
+    destinationTotals.set(row.destino, (destinationTotals.get(row.destino) || 0) + row.value);
+  });
+  const origins = [...originTotals.entries()].sort((a, b) => b[1] - a[1]);
+  const originOrder = new Map(origins.map(([name], index) => [name, index]));
+  const destinationOriginIndex = new Map();
+  links.forEach((row) => {
+    const current = destinationOriginIndex.get(row.destino) || { weighted: 0, total: 0 };
+    current.weighted += num(originOrder.get(row.origem)) * row.value;
+    current.total += row.value;
+    destinationOriginIndex.set(row.destino, current);
+  });
+  const destinations = [...destinationTotals.entries()].sort((a, b) => {
+    const left = destinationOriginIndex.get(a[0]);
+    const right = destinationOriginIndex.get(b[0]);
+    const leftIndex = left?.total ? left.weighted / left.total : 0;
+    const rightIndex = right?.total ? right.weighted / right.total : 0;
+    return leftIndex - rightIndex || b[1] - a[1];
+  });
+  const nodeMapOrigin = new Map();
+  const nodeMapDestination = new Map();
+  const layoutNodes = (items, left, map, side) => {
+    const available = 345;
+    const nodeHeight = clamp((available - Math.max(items.length - 1, 0) * 6) / Math.max(items.length, 1), 28, 46);
+    const gap = items.length > 1 ? Math.max(6, (available - items.length * nodeHeight) / (items.length - 1)) : 0;
+    items.forEach(([name, value], index) => {
+      const fill = providerColor(name);
+      const node = addFlowNode(slide, {
+        left,
+        top: 175 + index * (nodeHeight + gap),
+        width: 215,
+        height: nodeHeight,
+        fill,
+        label: `${providerShort(name)}\n${bn(value, 1)}`,
+        fontSize: items.length > 8 ? 8.4 : 9.8,
+      });
+      map.set(name, node);
+    });
+    addText(slide, side, { left, top: 145, width: 215, height: 20 }, {
+      fontSize: 10.5,
+      bold: true,
+      color: C.note,
+      alignment: side === "DEZ/24 · CEDENTES" ? "left" : "right",
+    });
+  };
+  layoutNodes(origins, 60, nodeMapOrigin, "DEZ/24 · CEDENTES");
+  layoutNodes(destinations, 1005, nodeMapDestination, "DEZ/25 · RECEBEDORES");
+  const maxValue = Math.max(...links.map((row) => row.value), 1);
+  links.forEach((row, index) => {
+    const source = nodeMapOrigin.get(row.origem);
+    const target = nodeMapDestination.get(row.destino);
+    if (!source || !target) return;
+    const color = index === 0 ? C.orange : providerColor(row.destino);
+    addFlowConnector(slide, source, target, row.value, maxValue, color);
+    if (index < 3) {
+      addText(
+        slide,
+        `${integer(row.fundos)} fundos · ${bn(row.value, 1)}`,
+        { left: 480, top: 185 + index * 62, width: 320, height: 22 },
+        { fontSize: 10.5, bold: index === 0, color: index === 0 ? C.orange : C.charcoal, alignment: "center" },
+      );
+    }
+  });
+  addText(
+    slide,
+    `Os 10 maiores fluxos acima representam ${pct(links.reduce((sum, row) => sum + row.value, 0) / Math.max(num(summary.changed_comparable_pl_brl || 33.020e9), 1), 1)} dos ${bn(summary.changed_comparable_pl_brl || 33.020e9, 1)} que trocaram de grupo administrador.`,
+    { left: 355, top: 500, width: 570, height: 38 },
+    { fontSize: 11.5, color: C.mid, alignment: "center", verticalAlignment: "middle" },
+  );
+  addRect(slide, { left: 335, top: 558, width: 610, height: 73 }, C.pale);
+  addText(
+    slide,
+    "Gestão e custódia não são exibidas: o pipeline atual aplica o cadastro vigente às duas datas. O resultado de zero trocas é um artefato; faltam snapshots cadastrais versionados de dez/24 e dez/25.",
+    { left: 355, top: 574, width: 570, height: 42 },
+    { fontSize: 11.2, color: C.charcoal, alignment: "center", verticalAlignment: "middle", lineSpacing: 1.02 },
+  );
   return slide;
 }
 
@@ -1635,7 +2131,7 @@ function buildPresentation(payload) {
       { left: 500, top: 474, width: 300, height: 24 },
       2,
     );
-    addText(slide, "Caso Atlântico detalhado no apêndice · slide 44", { left: 885, top: 476, width: 335, height: 20 }, {
+    addText(slide, "Caso Atlântico detalhado no apêndice · slide 47", { left: 885, top: 476, width: 335, height: 20 }, {
       fontSize: 10.5, color: C.orange, alignment: "right", verticalAlignment: "middle",
     });
     const summaryRows = payload.bridge_summary;
@@ -1729,7 +2225,13 @@ function buildPresentation(payload) {
   // 14. Evolução do ranking dos prestadores.
   addProviderHistoricalRankingSlide(presentation, payload, 14);
 
-  // 15. Top 20 FIDCs
+  // 15–17. Atribuição das lideranças e fluxos observáveis entre prestadores.
+  addProviderAttributionSlide(presentation, payload, 15);
+  addReagMigrationSlide(presentation, payload, 16);
+  addProviderTransitionSlide(presentation, payload, 17);
+  const providerInsightOffset = 3;
+
+  // 18. Top 20 FIDCs
   {
     const slide = presentation.slides.add();
     const top20 = payload.top20_fidcs;
@@ -1741,7 +2243,7 @@ function buildPresentation(payload) {
       "RANKING · TOP 20 FIDCs",
       `Top 20 somam ${pct(share, 1)} do PL ex-FIC; Petrobras e TAPSO são ${pct(topTwo, 1)} do bloco`,
       "Fonte: CVM e ANBIMA, mai/26. Ranking derivado do universo completo ex-FIC; denominação legal completa no apêndice.",
-      15,
+      15 + providerInsightOffset,
     );
     const tableRows = top20.map((row) => [
       String(row.rank),
@@ -1768,7 +2270,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 16. Top 20 Outros
+  // 19. Top 20 Outros
   {
     const slide = presentation.slides.add();
     const rows = payload.top20_outros;
@@ -1778,7 +2280,7 @@ function buildPresentation(payload) {
       "RANKING · TOP 20 OUTROS",
       `Top 20 representam ${pct(categoryShare, 1)} de Outros; oficial, hipótese e status ficam separados`,
       "Fonte: ANBIMA e documentos primários locais, mai/26. Evidência e links completos constam no workbook.",
-      16,
+      16 + providerInsightOffset,
     );
     const tableRows = rows.map((row) => [
       String(row.rank_outros),
@@ -1804,7 +2306,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 17. Modelo de prestação
+  // 20. Modelo de prestação
   {
     const slide = presentation.slides.add();
     const rows = payload.service_model;
@@ -1815,7 +2317,7 @@ function buildPresentation(payload) {
       "MODELO DE PRESTAÇÃO",
       `Monoestruturas são ${pct(mono?.share_fundos, 1)} dos fundos e ${pct(mono?.share_pl, 1)} do PL; dados incompletos cobrem ${pct(missing?.share_pl, 1)}`,
       "Fonte: CVM, cadastro vigente em mai/26. Definição mono: mesmo conglomerado normalizado em administração, gestão e custódia.",
-      17,
+      17 + providerInsightOffset,
     );
     const labels = rows.map((row) => row.modelo_prestacao.replace("Administração", "Adm.").replace("Três prestadores distintos", "Três distintos"));
     slide.charts.add("bar", {
@@ -1853,7 +2355,7 @@ function buildPresentation(payload) {
     );
   }
 
-  // 18. Concentração das monoestruturas
+  // 21. Concentração das monoestruturas
   {
     const slide = presentation.slides.add();
     const rows = [...payload.monostructure_concentration].sort((a, b) => num(a.rank_pl_mono) - num(b.rank_pl_mono)).slice(0, 6);
@@ -1864,7 +2366,7 @@ function buildPresentation(payload) {
       "CONCENTRAÇÃO DAS MONOESTRUTURAS",
       "Sistema Petrobras é todo o PL mono do BB; TAPSO representa 54% do PL mono da Oliveira Trust",
       "Fonte: CVM, mai/26. A evidência mostra concentração; não permite inferir preços, propostas ou contratos.",
-      18,
+      18 + providerInsightOffset,
     );
     addEditorialTable(slide, {
       left: 60,
@@ -1926,7 +2428,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 19. Ofertas e originação
+  // 22. Ofertas e originação
   {
     const slide = presentation.slides.add();
     const offers = [...payload.offers_ytd].sort((a, b) => num(a.year) - num(b.year));
@@ -1938,7 +2440,7 @@ function buildPresentation(payload) {
       "OFERTAS, CAPTAÇÃO E ORIGINAÇÃO",
       `Ofertas somam ${bn(current?.volume, 1)} até ${offersShort}, ${pct(num(current?.volume) / num(prior?.volume) - 1, 1)} acima de ${currentOfferYear - 1}`,
       `Fonte: CVM, Ofertas Públicas. Comparação YTD até ${offersShort} em ${firstOfferYear}–${currentOfferYear}; PL do restante do deck em ${stockLong}.`,
-      19,
+      19 + providerInsightOffset,
     );
     addSectionLabel(slide, "VOLUME REGISTRADO NO MESMO PERÍODO", { left: 60, top: 150, width: 720, height: 24 });
     slide.charts.add("bar", {
@@ -1987,7 +2489,7 @@ function buildPresentation(payload) {
     );
   }
 
-  // 20. Escopo, fontes e limitações
+  // 23. Escopo, fontes e limitações
   {
     const slide = presentation.slides.add();
     const coverage = Object.fromEntries(payload.classification_coverage.map((row) => [row.categoria, row.share]));
@@ -1996,7 +2498,7 @@ function buildPresentation(payload) {
       "APÊNDICE · ESCOPO E FONTES",
       "Escopo, fontes e limitações",
       `• Fontes primárias: CVM, ANBIMA Data e FundosNet. Dados consultados até ${offersShort}.`,
-      20,
+      20 + providerInsightOffset,
     );
     addEditorialTable(slide, {
       left: 60,
@@ -2019,7 +2521,7 @@ function buildPresentation(payload) {
     });
   }
 
-  // 21–23. Universo completo dos market shares.
+  // 24–26. Universo completo dos market shares.
   const fullFocus = payload.market_share
     .filter((row) => row.papel === "administrador")
     .map((row) => ({
@@ -2031,11 +2533,11 @@ function buildPresentation(payload) {
       array.findIndex((item) => item.tipo_anbima === row.tipo_anbima && item.foco_anbima === row.foco_anbima) === index,
     )
     .sort((a, b) => a.foco_order - b.foco_order);
-  addMarketShareSlide(presentation, payload, "administrador", fullFocus, 21, true);
-  addMarketShareSlide(presentation, payload, "gestor", fullFocus, 22, true);
-  addMarketShareSlide(presentation, payload, "custodiante", fullFocus, 23, true);
+  addMarketShareSlide(presentation, payload, "administrador", fullFocus, 21 + providerInsightOffset, true);
+  addMarketShareSlide(presentation, payload, "gestor", fullFocus, 22 + providerInsightOffset, true);
+  addMarketShareSlide(presentation, payload, "custodiante", fullFocus, 23 + providerInsightOffset, true);
 
-  // 24–43. Fichas dos Top 20.
+  // 27–46. Fichas dos Top 20.
   payload.profiles
     .sort((a, b) => num(a.rank) - num(b.rank))
     .forEach((profile, index) => {
@@ -2046,7 +2548,7 @@ function buildPresentation(payload) {
         "APÊNDICE · CURADORIA TOP 20",
         title,
         `Fonte: ${truncateWords(profile.fonte, 150)} · consulta ${profile.data_consulta}`,
-        24 + index,
+        24 + providerInsightOffset + index,
       );
       addText(
         slide,
@@ -2159,7 +2661,7 @@ function buildPresentation(payload) {
       });
     });
 
-  // 44. Caso Atlântico: estratégia NPL e quebra de reporte.
+  // 47. Caso Atlântico: estratégia NPL e quebra de reporte.
   {
     const slide = presentation.slides.add();
     const profile = payload.atlantico_profile;
@@ -2170,7 +2672,7 @@ function buildPresentation(payload) {
       "APÊNDICE · CASO ATLÂNTICO",
       "Atlântico compra créditos já inadimplidos; jul/24 muda a base de reporte",
       "Fontes: CVM, regulamento de 12/11/24, AGE de 08/07/24 e DFs auditadas de 2024/25. Links completos no workbook.",
-      44,
+      44 + providerInsightOffset,
     );
     addText(
       slide,
@@ -2896,6 +3398,243 @@ async function addProviderHistorySheet(workbook, payload) {
   sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 32;
 }
 
+async function addProviderAttributionSheet(workbook, payload) {
+  const leadership = payload.provider_leadership_attribution || {};
+  const btg = leadership.btg || {};
+  const qi = leadership.qi || {};
+  const qiSource = [qi.methodology, qi.source_acquisition_url, qi.source_reorganization_url]
+    .filter(Boolean)
+    .join(" · ");
+  const headers = [
+    "Seção",
+    "Participante",
+    "Competência",
+    "CNPJ",
+    "Fundo / entidade",
+    "Métrica",
+    "Valor / PL",
+    "Share",
+    "Fundos",
+    "Fonte / metodologia",
+  ];
+  const rows = [
+    { "Seção": "Resumo", "Participante": "QI Tech", "Competência": "2024-12", "Métrica": "PL administrado do grupo", "Valor / PL": qi.admin_group_pl_2024_brl, "Fonte / metodologia": qiSource },
+    { "Seção": "Resumo", "Participante": "QI Tech", "Competência": "2024-12", "Métrica": "CNPJ legado Singulare", "Valor / PL": qi.legacy_singulare_pl_2024_brl, "Share": qi.legacy_share_2024, "Fonte / metodologia": qiSource },
+    { "Seção": "Resumo", "Participante": "QI Tech", "Competência": "2024-12", "Métrica": "QI DTVM original", "Valor / PL": qi.original_qi_pl_2024_brl, "Fonte / metodologia": qiSource },
+    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": btg.competencia || payload.latest_complete, "Métrica": "PL gerido", "Valor / PL": btg.managed_pl_brl, "Fonte / metodologia": btg.methodology },
+    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": btg.competencia || payload.latest_complete, "Métrica": "Seis FIDCs controlados confirmados", "Valor / PL": btg.confirmed_controlled_pl_brl, "Share": btg.confirmed_controlled_share, "Fundos": btg.controlled_fidcs_reconciled, "Fonte / metodologia": btg.source_url || btg.methodology },
+    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": btg.competencia || payload.latest_complete, "Métrica": "PL residual não comprovado como controlado", "Valor / PL": btg.residual_unproven_pl_brl, "Fonte / metodologia": `Rank sem os seis fundos: ${btg.rank_without_confirmed || "—"}` },
+    { "Seção": "Benchmark", "Participante": "Bradesco", "Competência": btg.competencia || payload.latest_complete, "Métrica": "PL gerido", "Valor / PL": btg.bradesco_managed_pl_brl, "Fonte / metodologia": "Mesmo universo do ranking histórico" },
+  ];
+  (payload.btg_controlled_reconciliation || []).forEach((row) => {
+    rows.push({
+      "Seção": "BTG · FIDCs controlados",
+      "Participante": "BTG Pactual",
+      "Competência": row.competencia,
+      "CNPJ": row.cnpj_veiculo_formatado || row.cnpj_veiculo,
+      "Fundo / entidade": row.denominacao || row.nome_df_btg,
+      "Métrica": row.nome_df_btg,
+      "Valor / PL": row.pl_mai26_brl,
+      "Share": row.share_pl_btg_gestor,
+      "Fundos": row.reconciliado_controlado_ativo ? 1 : 0,
+      "Fonte / metodologia": row.btg_ifrs_source_reference || row.btg_ifrs_source_url,
+    });
+  });
+  (payload.qi_legacy_attribution || []).forEach((row) => {
+    rows.push({
+      "Seção": "QI · entidades legais",
+      "Participante": "QI Tech",
+      "Competência": row.competencia,
+      "CNPJ": row.provider_cnpj_formatado || row.provider_cnpj,
+      "Fundo / entidade": row.provider_legal_label,
+      "Métrica": row.attribution,
+      "Valor / PL": row.pl_brl,
+      "Share": row.share_admin_group,
+      "Fundos": row.fundos,
+      "Fonte / metodologia": row.methodology,
+    });
+  });
+  const sheet = resetSheet(workbook, "Atribuição prestadores");
+  setHeaderBand(
+    sheet,
+    "Atribuição das lideranças de prestadores",
+    "QI/Singulare separados por CNPJ legal em dez/24; FIDCs controlados do BTG reconciliados nominalmente à DF consolidada 1T26 e ao PL CVM de mai/26.",
+    headers,
+    rows.length,
+    { freezeColumns: 3, wrapText: true, bodyFontSize: 9 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [150, 130, 90, 135, 340, 250, 120, 85, 75, 520], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 44;
+}
+
+async function addProviderTransitionSheet(workbook, payload) {
+  const headers = [
+    "Nível",
+    "Função",
+    "Competência origem",
+    "Competência destino",
+    "CNPJ fundo",
+    "Fundo",
+    "Grupo origem",
+    "Grupo destino",
+    "Prestador origem",
+    "Prestador destino",
+    "CNPJ prestador origem",
+    "CNPJ prestador destino",
+    "Fundos",
+    "PL origem",
+    "PL destino",
+    "PL comparável",
+    "Share PL comparável",
+    "Mudou grupo",
+    "Mudou entidade legal",
+    "Fonte / limitação",
+  ];
+  const rows = [];
+  (payload.provider_transition_role_availability || payload.provider_transition_summary?.role_availability || []).forEach((row) => {
+    rows.push({
+      "Nível": "Disponibilidade",
+      "Função": row.papel,
+      "Fonte / limitação": `${row.transition_status}: ${row.fonte_prestador || ""}${row.limitation ? ` · ${row.limitation}` : ""}`,
+    });
+  });
+  (payload.provider_transition_links || []).forEach((row) => {
+    rows.push({
+      "Nível": "Link",
+      "Função": row.papel,
+      "Competência origem": row.competencia_origem,
+      "Competência destino": row.competencia_destino,
+      "Grupo origem": row.grupo_origem,
+      "Grupo destino": row.grupo_destino,
+      "Fundos": row.fundos,
+      "PL origem": row.pl_origem_brl,
+      "PL destino": row.pl_destino_brl,
+      "PL comparável": row.pl_comparavel_brl,
+      "Share PL comparável": row.share_pl_comparavel,
+      "Mudou grupo": true,
+      "Fonte / limitação": "Administrador observado no Informe Mensal",
+    });
+  });
+  (payload.provider_transition_detail || []).forEach((row) => {
+    rows.push({
+      "Nível": "CNPJ fundo",
+      "Função": row.papel,
+      "Competência origem": row.competencia_origem,
+      "Competência destino": row.competencia_destino,
+      "CNPJ fundo": row.cnpj_fundo_formatado || row.cnpj_fundo,
+      "Fundo": row.denominacao,
+      "Grupo origem": row.grupo_origem,
+      "Grupo destino": row.grupo_destino,
+      "Prestador origem": row.admin_origem_nome,
+      "Prestador destino": row.admin_destino_nome,
+      "CNPJ prestador origem": row.admin_origem_cnpj,
+      "CNPJ prestador destino": row.admin_destino_cnpj,
+      "PL origem": row.pl_origem_brl,
+      "PL destino": row.pl_destino_brl,
+      "PL comparável": row.pl_comparavel_brl,
+      "Mudou grupo": row.mudou_grupo,
+      "Mudou entidade legal": row.mudou_entidade_legal,
+      "Fonte / limitação": row.fonte_destino_url || row.fonte_origem_url,
+    });
+  });
+  const sheet = resetSheet(workbook, "Fluxos prestadores");
+  setHeaderBand(
+    sheet,
+    "Fluxos de prestadores · dez/24 → dez/25",
+    "Cohort de CNPJs continuantes, ex-FIC e PL positivo nas duas datas; Sistema Petrobras/TAPSO excluídos. Largura do Sankey = menor PL entre as duas datas. Gestão e custódia ficam bloqueadas por falta de snapshots cadastrais versionados.",
+    headers,
+    rows.length,
+    { freezeColumns: 6, wrapText: true, bodyFontSize: 8 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows, 2500);
+  applyColumnWidths(sheet, [110, 90, 95, 95, 125, 330, 160, 160, 260, 260, 125, 125, 70, 115, 115, 115, 105, 90, 115, 420], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`A5:T${rows.length + 4}`).format.rowHeightPx = 32;
+}
+
+async function addReagMigrationSheet(workbook, payload) {
+  const headers = [
+    "Nível",
+    "Competência origem",
+    "Competência destino",
+    "CNPJ fundo",
+    "Fundo",
+    "Status destino",
+    "Administrador destino",
+    "Grupo destino",
+    "CNPJ administrador destino",
+    "Fundos",
+    "PL dez/25",
+    "PL mai/26",
+    "PL comparável",
+    "Mudou administrador",
+    "Gestor vigente mai/26",
+    "Custodiante vigente mai/26",
+    "Fonte / limitação",
+  ];
+  const rows = [];
+  const summary = payload.reag_admin_summary || {};
+  rows.push({
+    "Nível": "Resumo",
+    "Competência origem": summary.competencia_origem,
+    "Competência destino": summary.competencia_destino,
+    "Fundos": summary.funds_origin,
+    "PL dez/25": summary.pl_origin_brl,
+    "PL mai/26": summary.continuing_pl_current_brl,
+    "Fonte / limitação": [summary.source, summary.liquidation_source_url, summary.manager_custodian_history_limitation].filter(Boolean).join(" · "),
+  });
+  (payload.reag_admin_links || []).forEach((row) => {
+    rows.push({
+      "Nível": "Link",
+      "Competência origem": summary.competencia_origem,
+      "Competência destino": summary.competencia_destino,
+      "Status destino": row.destino_grupo,
+      "Grupo destino": row.destino_grupo,
+      "CNPJ administrador destino": row.admin_destino_cnpj,
+      "Fundos": row.fundos,
+      "PL dez/25": row.pl_2025_12_brl,
+      "PL mai/26": row.pl_2026_05_brl,
+      "PL comparável": row.pl_comparavel_brl,
+      "Fonte / limitação": "Administrador observado no Informe Mensal",
+    });
+  });
+  (payload.reag_admin_detail || []).forEach((row) => {
+    rows.push({
+      "Nível": "CNPJ fundo",
+      "Competência origem": row.competencia_origem,
+      "Competência destino": row.competencia_destino,
+      "CNPJ fundo": row.cnpj_fundo_formatado || row.cnpj_fundo,
+      "Fundo": row.denominacao,
+      "Status destino": row.status_destino,
+      "Administrador destino": row.admin_destino_nome_observado,
+      "Grupo destino": row.admin_destino_grupo,
+      "CNPJ administrador destino": row.admin_destino_cnpj,
+      "PL dez/25": row.pl_origem_brl,
+      "PL mai/26": row.pl_destino_brl,
+      "PL comparável": row.pl_comparavel_brl,
+      "Mudou administrador": row.mudou_administrador,
+      "Gestor vigente mai/26": row.gestor_destino_nome_observado,
+      "Custodiante vigente mai/26": row.custodiante_destino_nome_observado,
+      "Fonte / limitação": row.fonte_destino_url || row.fonte_origem_url,
+    });
+  });
+  const sheet = resetSheet(workbook, "Migração CBSF");
+  setHeaderBand(
+    sheet,
+    "CBSF / Reag Trust · destino do cohort",
+    "Cohort do administrador CNPJ 34.829.992/0001-86 em dez/25 acompanhado até mai/26. Administração é observada; gestor e custodiante são somente a fotografia vigente, sem inferência de migração.",
+    headers,
+    rows.length,
+    { freezeColumns: 5, wrapText: true, bodyFontSize: 8 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [105, 95, 95, 125, 330, 150, 260, 150, 130, 70, 115, 115, 115, 110, 260, 260, 430], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 38;
+}
+
 async function addAcquiringTaxonomySheet(workbook, payload) {
   const columns = [
     ["CNPJ", "cnpj"],
@@ -3059,6 +3798,9 @@ async function buildWorkbook(payload) {
   await addCurationSheet(workbook, payload);
   await addHistoricalComparisonsSheet(workbook, payload);
   await addProviderHistorySheet(workbook, payload);
+  await addProviderAttributionSheet(workbook, payload);
+  await addProviderTransitionSheet(workbook, payload);
+  await addReagMigrationSheet(workbook, payload);
   await addAcquiringTaxonomySheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
@@ -3116,6 +3858,9 @@ async function exportWorkbook(workbook) {
       ["Top 20 Outros", "A1:J25"],
       ["Curadoria Top 20", "A1:X16"],
       ["Comparativos históricos", "A1:N28"],
+      ["Atribuição prestadores", "A1:J22"],
+      ["Fluxos prestadores", "A1:T24"],
+      ["Migração CBSF", "A1:Q24"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
       ["Checks revisão", "A1:D20"],
@@ -3147,8 +3892,8 @@ async function main() {
   const payload = JSON.parse(payloadRaw.toString("utf8"));
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
     const presentation = buildPresentation(payload);
-    if (presentation.slides.items.length !== 44) {
-      throw new Error(`Deck deveria ter 44 slides; gerou ${presentation.slides.items.length}.`);
+    if (presentation.slides.items.length !== EXPECTED_SLIDES) {
+      throw new Error(`Deck deveria ter ${EXPECTED_SLIDES} slides; gerou ${presentation.slides.items.length}.`);
     }
     await exportPresentation(presentation);
   }

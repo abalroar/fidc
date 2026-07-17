@@ -96,6 +96,16 @@ def _payload() -> dict[str, object]:
         },
         "atlantico_profile": {"cnpj": "09.194.841/0001-51"},
         "atlantico_history": [{"competencia": "2026-05"}],
+        "provider_transition_summary": {"changed_funds": 257},
+        "provider_transition_links": [{"grupo_origem": "A", "grupo_destino": "B"}],
+        "provider_transition_detail": [{"cnpj_fundo": "1"}],
+        "provider_transition_role_availability": [{"papel": "administrador"}],
+        "reag_admin_summary": {"funds_origin": 131},
+        "reag_admin_links": [{"destino_grupo": "Planner"}],
+        "reag_admin_detail": [{"cnpj_fundo": "1"}],
+        "provider_leadership_attribution": {"btg": {}, "qi": {}},
+        "btg_controlled_reconciliation": [{"cnpj_veiculo": "1"}],
+        "qi_legacy_attribution": [{"provider_cnpj": "1"}],
     }
 
 
@@ -115,6 +125,16 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "acquiring_taxonomy",
         "atlantico_profile",
         "atlantico_history",
+        "provider_transition_summary",
+        "provider_transition_links",
+        "provider_transition_detail",
+        "provider_transition_role_availability",
+        "reag_admin_summary",
+        "reag_admin_links",
+        "reag_admin_detail",
+        "provider_leadership_attribution",
+        "btg_controlled_reconciliation",
+        "qi_legacy_attribution",
     ):
         broken = dict(payload)
         broken.pop(key)
@@ -148,7 +168,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     )
 
     assert first["bundle_id"] == second["bundle_id"]
-    assert first["checks"]["slides"] == 44
+    assert first["checks"]["slides"] == 47
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

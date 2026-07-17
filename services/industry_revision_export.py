@@ -28,7 +28,7 @@ MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v1"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
-EXPECTED_SLIDES = 44
+EXPECTED_SLIDES = 47
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -41,6 +41,9 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Curadoria Top 20",
     "Comparativos históricos",
     "Ranking prestadores",
+    "Atribuição prestadores",
+    "Fluxos prestadores",
+    "Migração CBSF",
     "Taxonomia adquirência",
     "Curadoria Atlântico",
     "Série Atlântico",
@@ -152,6 +155,15 @@ def validate_revision_pptx(payload: bytes) -> None:
             marker = token.split(b"</c:marker>", 1)[0]
             if b'<c:symbol val="none"' not in marker:
                 raise RevisionExportUnavailable("PPTX revisado contém marker ativo")
+        ranking_slide = archive.read("ppt/slides/slide14.xml")
+        if ranking_slide.count(b"<a:tbl>") != 3:
+            raise RevisionExportUnavailable(
+                "slide de ranking histórico deve conter três tabelas nativas do Office"
+            )
+        if ranking_slide.count(b"<c:chart") != 3:
+            raise RevisionExportUnavailable(
+                "slide de ranking histórico deve conter três gráficos nativos do Office"
+            )
 
 
 def validate_revision_xlsx(payload: bytes) -> None:
