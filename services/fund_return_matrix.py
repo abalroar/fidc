@@ -3,7 +3,7 @@ from __future__ import annotations
 import math
 from collections.abc import Iterable
 from datetime import date
-from typing import Any
+from typing import Any, Mapping
 
 import pandas as pd
 
@@ -13,8 +13,18 @@ from services.fundonet_dashboard import sort_class_display_frame
 RETURN_SERIES_COLUMN = "Série"
 RETURN_TRAILING_12M_COLUMN = "Ac. Últ. 12m (%)"
 RETURN_TRAILING_12M_CDI_COLUMN = "CDI Ac. Últ. 12m (%)"
+RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN = "Spread CDI Impl. Últ. 12m (% a.a.)"
 RETURN_YTD_COLUMN = "Acumulado YTD (%)"
 RETURN_YTD_CDI_COLUMN = "CDI Acumulado YTD (%)"
+RETURN_YTD_IMPLIED_SPREAD_COLUMN = "Spread CDI Impl. YTD (% a.a.)"
+RETURN_ISSUANCE_SPREAD_COLUMN = "CDI+ Emissão (% a.a.)"
+RETURN_TRAILING_12M_SPREAD_GAP_COLUMN = "Gap 12m vs Emissão (bps)"
+RETURN_YTD_SPREAD_GAP_COLUMN = "Gap YTD vs Emissão (bps)"
+
+_BPS_COLUMNS = {
+    RETURN_TRAILING_12M_SPREAD_GAP_COLUMN,
+    RETURN_YTD_SPREAD_GAP_COLUMN,
+}
 
 _PT_MONTH_ABBR = {
     1: "jan",
@@ -38,8 +48,13 @@ def build_fund_return_matrix(
     months: int = 12,
     *,
     monthly_cdi_rates: Iterable[Any] | None = None,
+    benchmark_spreads: Mapping[str, float] | None = None,
 ) -> pd.DataFrame:
-    """Build the shared per-series return table using percentage-point values."""
+    """Build returns and CDI-equivalent spreads using percentage-point values.
+
+    ``benchmark_spreads`` is keyed by the return series ``class_key`` and uses
+    annual decimal rates (for example, ``0.035`` for CDI + 3.50% a.a.).
+    """
     if isinstance(months, bool) or not isinstance(months, int) or months <= 0:
         raise ValueError("months must be a positive integer")
 
@@ -49,16 +64,25 @@ def build_fund_return_matrix(
     summary_df = _normalize_identity_frame(summary_by_cnpj.get(cnpj, pd.DataFrame()))
     latest_month = _latest_available_month(summary_df, history_df)
     include_cdi = monthly_cdi_rates is not None
+    include_benchmark = benchmark_spreads is not None
     cdi_rates = tuple(monthly_cdi_rates or ()) if include_cdi else ()
     if latest_month is None:
-        return _empty_return_matrix([], include_cdi=include_cdi)
+        return _empty_return_matrix(
+            [],
+            include_cdi=include_cdi,
+            include_benchmark=include_benchmark,
+        )
 
     month_starts = list(pd.date_range(end=latest_month, periods=months, freq="MS"))
     competencias = [value.strftime("%m/%Y") for value in month_starts]
     month_columns = [_format_month_column(value) for value in month_starts]
     identities = _series_identities(summary_df, history_df)
     if identities.empty:
-        return _empty_return_matrix(month_columns, include_cdi=include_cdi)
+        return _empty_return_matrix(
+            month_columns,
+            include_cdi=include_cdi,
+            include_benchmark=include_benchmark,
+        )
 
     output = pd.DataFrame({RETURN_SERIES_COLUMN: identities["class_label"].astype(str)})
     output.index = identities["__series_key"].astype(str)
@@ -95,8 +119,9 @@ def build_fund_return_matrix(
         "retorno_12m_pct",
     )
     cdi_missing_competencias: set[str] = set()
+    trailing_implied_values = pd.Series(float("nan"), index=output.index, dtype="float64").to_numpy()
     if include_cdi:
-        trailing_values, trailing_missing = _cdi_summary_values(
+        trailing_values, trailing_implied_values, trailing_missing = _cdi_summary_values(
             summary_lookup=summary_lookup,
             history_df=history_df,
             index=output.index,
@@ -108,14 +133,16 @@ def build_fund_return_matrix(
             monthly_cdi_rates=cdi_rates,
         )
         output[RETURN_TRAILING_12M_CDI_COLUMN] = trailing_values
+        output[RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN] = trailing_implied_values
         cdi_missing_competencias.update(trailing_missing)
     output[RETURN_YTD_COLUMN] = _summary_values(
         summary_lookup,
         output.index,
         "retorno_ano_pct",
     )
+    ytd_implied_values = pd.Series(float("nan"), index=output.index, dtype="float64").to_numpy()
     if include_cdi:
-        ytd_values, ytd_missing = _cdi_summary_values(
+        ytd_values, ytd_implied_values, ytd_missing = _cdi_summary_values(
             summary_lookup=summary_lookup,
             history_df=history_df,
             index=output.index,
@@ -127,7 +154,23 @@ def build_fund_return_matrix(
             monthly_cdi_rates=cdi_rates,
         )
         output[RETURN_YTD_CDI_COLUMN] = ytd_values
+        output[RETURN_YTD_IMPLIED_SPREAD_COLUMN] = ytd_implied_values
         cdi_missing_competencias.update(ytd_missing)
+
+    if include_benchmark:
+        benchmark_lookup = _valid_benchmark_spreads(benchmark_spreads or {})
+        benchmark_values = pd.Series(
+            [benchmark_lookup.get(str(series_key), float("nan")) * 100.0 for series_key in output.index],
+            index=output.index,
+            dtype="float64",
+        ).to_numpy()
+        output[RETURN_ISSUANCE_SPREAD_COLUMN] = benchmark_values
+        output[RETURN_TRAILING_12M_SPREAD_GAP_COLUMN] = (
+            trailing_implied_values - benchmark_values
+        ) * 100.0
+        output[RETURN_YTD_SPREAD_GAP_COLUMN] = (
+            ytd_implied_values - benchmark_values
+        ) * 100.0
 
     result = output.reset_index(drop=True)
     if include_cdi:
@@ -159,7 +202,8 @@ def format_fund_return_matrix(frame: pd.DataFrame) -> pd.DataFrame:
     for column in output.columns:
         if column == RETURN_SERIES_COLUMN:
             continue
-        output[column] = output[column].map(_format_percent_pt_br)
+        formatter = _format_bps_pt_br if column in _BPS_COLUMNS else _format_percent_pt_br
+        output[column] = output[column].map(formatter)
     return output
 
 
@@ -239,25 +283,28 @@ def _cdi_summary_values(
     status_column: str,
     used_competencias_column: str,
     monthly_cdi_rates: Iterable[Any],
-) -> tuple[pd.Series, set[str]]:
-    rate_by_month: dict[str, float] = {}
+) -> tuple[pd.Series, pd.Series, set[str]]:
+    rate_by_month: dict[str, tuple[float, int]] = {}
     for rate in monthly_cdi_rates:
         raw_month_key = getattr(rate, "mes", "")
         month_key = "" if pd.isna(raw_month_key) else str(raw_month_key).strip()
         try:
             monthly_rate = float(getattr(rate, "cdi_mensal"))
-        except (TypeError, ValueError):
+            business_days = int(getattr(rate, "dias_uteis"))
+        except (TypeError, ValueError, OverflowError):
             continue
         if getattr(rate, "is_complete", True) is False:
             continue
-        if month_key and math.isfinite(monthly_rate):
-            rate_by_month[month_key] = monthly_rate
+        if month_key and math.isfinite(monthly_rate) and monthly_rate > -1.0 and business_days > 0:
+            rate_by_month[month_key] = (monthly_rate, business_days)
 
-    values: list[float] = []
+    cdi_values: list[float] = []
+    implied_spread_values: list[float] = []
     missing_competencias: set[str] = set()
     for series_key in index.astype(str):
         if summary_lookup.empty or series_key not in summary_lookup.index:
-            values.append(float("nan"))
+            cdi_values.append(float("nan"))
+            implied_spread_values.append(float("nan"))
             continue
         row = summary_lookup.loc[series_key]
         if isinstance(row, pd.DataFrame):
@@ -266,7 +313,8 @@ def _cdi_summary_values(
         raw_status = row.get(status_column)
         status = "" if pd.isna(raw_status) else str(raw_status).strip().lower()
         if pd.isna(return_value) or status == "incompleto":
-            values.append(float("nan"))
+            cdi_values.append(float("nan"))
+            implied_spread_values.append(float("nan"))
             continue
 
         competencias = _used_competencias(
@@ -278,24 +326,62 @@ def _cdi_summary_values(
             used_competencias_column=used_competencias_column,
         )
         if not competencias:
-            values.append(float("nan"))
+            cdi_values.append(float("nan"))
+            implied_spread_values.append(float("nan"))
             continue
 
-        factor = 1.0
+        log_cdi_factor = 0.0
+        total_business_days = 0
         missing_for_row: list[str] = []
         for competencia in competencias:
             month_key = _competencia_to_rate_key(competencia)
-            monthly_rate = rate_by_month.get(month_key)
-            if monthly_rate is None:
+            rate_info = rate_by_month.get(month_key)
+            if rate_info is None:
                 missing_for_row.append(competencia)
                 continue
-            factor *= 1.0 + monthly_rate
+            monthly_rate, business_days = rate_info
+            log_cdi_factor += math.log1p(monthly_rate)
+            total_business_days += business_days
         if missing_for_row:
             missing_competencias.update(missing_for_row)
-            values.append(float("nan"))
+            cdi_values.append(float("nan"))
+            implied_spread_values.append(float("nan"))
             continue
-        values.append((factor - 1.0) * 100.0)
-    return pd.Series(values, index=index, dtype="float64").to_numpy(), missing_competencias
+        cdi_values.append(math.expm1(log_cdi_factor) * 100.0)
+
+        return_decimal = float(return_value) / 100.0
+        if (
+            not math.isfinite(return_decimal)
+            or return_decimal <= -1.0
+            or total_business_days <= 0
+        ):
+            implied_spread_values.append(float("nan"))
+            continue
+        try:
+            implied_spread = math.expm1(
+                (252.0 / total_business_days) * (math.log1p(return_decimal) - log_cdi_factor)
+            )
+        except (OverflowError, ValueError):
+            implied_spread_values.append(float("nan"))
+            continue
+        implied_spread_values.append(implied_spread * 100.0)
+    return (
+        pd.Series(cdi_values, index=index, dtype="float64").to_numpy(),
+        pd.Series(implied_spread_values, index=index, dtype="float64").to_numpy(),
+        missing_competencias,
+    )
+
+
+def _valid_benchmark_spreads(values: Mapping[str, float]) -> dict[str, float]:
+    output: dict[str, float] = {}
+    for raw_key, raw_value in values.items():
+        try:
+            spread = float(raw_value)
+        except (TypeError, ValueError):
+            continue
+        if math.isfinite(spread) and spread > -1.0:
+            output[str(raw_key)] = spread
+    return output
 
 
 def _used_competencias(
@@ -355,14 +441,30 @@ def _competencia_sort_key(value: object) -> tuple[int, int]:
     return (timestamp.year, timestamp.month)
 
 
-def _empty_return_matrix(month_columns: list[str], *, include_cdi: bool = False) -> pd.DataFrame:
+def _empty_return_matrix(
+    month_columns: list[str],
+    *,
+    include_cdi: bool = False,
+    include_benchmark: bool = False,
+) -> pd.DataFrame:
     columns = [
         RETURN_SERIES_COLUMN,
         *month_columns,
         RETURN_TRAILING_12M_COLUMN,
         *([RETURN_TRAILING_12M_CDI_COLUMN] if include_cdi else []),
+        *([RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN] if include_cdi else []),
         RETURN_YTD_COLUMN,
         *([RETURN_YTD_CDI_COLUMN] if include_cdi else []),
+        *([RETURN_YTD_IMPLIED_SPREAD_COLUMN] if include_cdi else []),
+        *(
+            [
+                RETURN_ISSUANCE_SPREAD_COLUMN,
+                RETURN_TRAILING_12M_SPREAD_GAP_COLUMN,
+                RETURN_YTD_SPREAD_GAP_COLUMN,
+            ]
+            if include_benchmark
+            else []
+        ),
     ]
     return pd.DataFrame(columns=columns)
 
@@ -382,3 +484,17 @@ def _format_percent_pt_br(value: object) -> str:
         numeric = 0.0
     formatted = f"{numeric:,.2f}".replace(",", "_").replace(".", ",").replace("_", ".")
     return f"{formatted}%"
+
+
+def _format_bps_pt_br(value: object) -> str:
+    try:
+        numeric = float(value)
+    except (TypeError, ValueError):
+        return "N/D"
+    if not math.isfinite(numeric):
+        return "N/D"
+    rounded = round(numeric)
+    if rounded == 0:
+        return "0"
+    formatted = f"{abs(rounded):,}".replace(",", ".")
+    return f"{'+' if rounded > 0 else '-'}{formatted}"
