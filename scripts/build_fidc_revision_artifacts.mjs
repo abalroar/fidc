@@ -66,7 +66,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v2";
+const RENDERER_VERSION = "industry_revision_artifacts_v3";
 
 const C = {
   orange: "#EC7000",
@@ -1082,31 +1082,91 @@ function buildPresentation(payload) {
       slide,
       "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
       `${pct(shareFunds, 0)} dos fundos acima de R$ 200 mi têm até 10 contas e concentram ${pct(sharePl, 0)} do PL`,
-      `Fonte: CVM, mai/26. Universo: ${integer(rows[0]?.universo_fundos)} fundos e ${bn(rows[0]?.universo_pl, 1)} de PL; contas por classe/série.`,
+      `Fonte: CVM, ${stockShortLower}. Universo: ${integer(rows[0]?.universo_fundos)} fundos e ${bn(rows[0]?.universo_pl, 1)} de PL; contas por classe/série.`,
       5,
     );
-    addSectionLabel(slide, "QUANTIDADE DE FUNDOS", { left: 60, top: 145, width: 555, height: 24 });
+    const buckets = rows.map((row) => row.bucket);
+    const chartLeft = 60;
+    const chartRight = 665;
+    const chartWidth = 555;
+    const absoluteTop = 174;
+    const shareTop = 427;
+    const chartHeight = 196;
+
+    addSectionLabel(slide, "QUANTIDADE DE FUNDOS · ABSOLUTO", { left: chartLeft, top: 139, width: chartWidth, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 180, width: 555, height: 425 }),
-      categories: rows.map((row) => row.bucket),
+      ...chartBase({ left: chartLeft, top: absoluteTop, width: chartWidth, height: chartHeight }),
+      categories: buckets,
       series: [{ name: "Fundos", values: rows.map((row) => num(row.fundos)), fill: C.charcoal }],
       barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
       hasLegend: false,
-      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      yAxis: { ...chartAxis(11, "0"), min: 0 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 11.5, bold: true } },
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      yAxis: { ...chartAxis(9.5, "0"), min: 0 },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
     });
-    addSectionLabel(slide, "PL POR FAIXA", { left: 665, top: 145, width: 555, height: 24 });
+    addSectionLabel(slide, "PL POR FAIXA · R$ BI", { left: chartRight, top: 139, width: chartWidth, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 665, top: 180, width: 555, height: 425 }),
-      categories: rows.map((row) => row.bucket),
+      ...chartBase({ left: chartRight, top: absoluteTop, width: chartWidth, height: chartHeight }),
+      categories: buckets,
       series: [{ name: "PL", values: rows.map((row) => num(row.pl) / 1e9), fill: C.orange }],
       barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
       hasLegend: false,
-      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      yAxis: { ...chartAxis(11, "R$ 0 \"bi\""), min: 0 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 11.5, bold: true } },
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      yAxis: { ...chartAxis(9.5, "0"), min: 0 },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
     });
+
+    addSectionLabel(slide, "QUANTIDADE DE FUNDOS · % DO TOTAL", { left: chartLeft, top: 392, width: chartWidth, height: 24 });
+    slide.charts.add("bar", {
+      ...chartBase({ left: chartLeft, top: shareTop, width: chartWidth, height: chartHeight }),
+      categories: buckets,
+      series: [{
+        name: "% dos fundos",
+        values: rows.map((row) => num(row.share_fundos)),
+        valuesFormatCode: "0%",
+        fill: C.charcoal,
+      }],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+      hasLegend: false,
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      yAxis: { ...chartAxis(9.5, "0%"), min: 0, max: 0.35, majorUnit: 0.1 },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+    });
+    addText(slide, "Soma das barras = 100%", { left: 410, top: 394, width: 205, height: 20 }, {
+      fontSize: 10.5,
+      color: C.note,
+      alignment: "right",
+      verticalAlignment: "middle",
+    });
+
+    addSectionLabel(slide, "PL POR FAIXA · % DO TOTAL", { left: chartRight, top: 392, width: chartWidth, height: 24 });
+    slide.charts.add("bar", {
+      ...chartBase({ left: chartRight, top: shareTop, width: chartWidth, height: chartHeight }),
+      categories: buckets,
+      series: [{
+        name: "% do PL",
+        values: rows.map((row) => num(row.share_pl)),
+        valuesFormatCode: "0%",
+        fill: C.orange,
+      }],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+      hasLegend: false,
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      yAxis: { ...chartAxis(9.5, "0%"), min: 0, max: 0.35, majorUnit: 0.1 },
+      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 10.5, bold: true } },
+    });
+    addText(slide, "Soma das barras = 100%", { left: 1015, top: 394, width: 205, height: 20 }, {
+      fontSize: 10.5,
+      color: C.note,
+      alignment: "right",
+      verticalAlignment: "middle",
+    });
+    addText(
+      slide,
+      "As quatro visões usam as mesmas seis faixas e o mesmo universo; os gráficos inferiores normalizam quantidade e PL separadamente.",
+      { left: 60, top: 640, width: 1160, height: 18 },
+      { fontSize: 10.5, color: C.note, alignment: "right" },
+    );
   }
 
   // 6. Mix ANBIMA

@@ -10092,6 +10092,25 @@ def _revision_frame(payload: dict[str, object], key: str) -> pd.DataFrame:
     return pd.DataFrame(rows if isinstance(rows, list) else [])
 
 
+def _revision_holder_distribution_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    """Normalize holder-bucket shares from the absolute fund and PL values."""
+    holders = frame.copy()
+    if holders.empty:
+        return holders
+
+    for column in ("fundos", "pl"):
+        values = holders[column] if column in holders.columns else pd.Series(0.0, index=holders.index)
+        holders[column] = pd.to_numeric(values, errors="coerce").fillna(0)
+        if holders[column].lt(0).any():
+            raise ValueError(f"distribuição por cotistas contém {column} negativo")
+
+    fund_total = float(holders["fundos"].sum())
+    pl_total = float(holders["pl"].sum())
+    holders["share_fundos"] = holders["fundos"] / fund_total if fund_total > 0 else 0.0
+    holders["share_pl"] = holders["pl"] / pl_total if pl_total > 0 else 0.0
+    return holders
+
+
 def _render_revision_overview(payload: dict[str, object]) -> None:
     pl = _revision_frame(payload, "pl_history")
     qa = dict(payload.get("qa_latest") or {})
@@ -10223,7 +10242,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
 def _render_revision_investors(payload: dict[str, object]) -> None:
     history = _revision_frame(payload, "investor_base_history")
     composition = _revision_frame(payload, "investor_composition")
-    holders = _revision_frame(payload, "holder_distribution")
+    holders = _revision_holder_distribution_frame(_revision_frame(payload, "holder_distribution"))
     meta = dict(payload.get("holder_distribution_meta") or {})
     st.markdown("<h2>Contas e veículos reportantes</h2>", unsafe_allow_html=True)
     st.markdown(
@@ -10283,9 +10302,11 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
         )
         st.altair_chart(chart, width="stretch", key="industry-revision-investor-composition")
 
-    st.markdown("<h2>Distribuição por número de contas</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>Distribuição por número de contas de cotistas</h2>", unsafe_allow_html=True)
     if not holders.empty:
         order = holders["bucket"].astype(str).tolist()
+        fund_share_ceiling = max(float(holders["share_fundos"].max()) * 1.15, 0.01)
+        pl_share_ceiling = max(float(holders["share_pl"].max()) * 1.15, 0.01)
         left, right = st.columns(2)
         with left:
             chart = (
@@ -10296,7 +10317,7 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
                     y=alt.Y("fundos:Q", title="fundos", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
                     tooltip=["bucket:N", alt.Tooltip("fundos:Q", format=",.0f"), alt.Tooltip("share_fundos:Q", format=".1%")],
                 )
-                .properties(height=300, title="Quantidade de fundos")
+                .properties(height=260, title="Quantidade de fundos")
             )
             st.altair_chart(chart, width="stretch", key="industry-revision-holder-funds")
         with right:
@@ -10308,14 +10329,66 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
                     y=alt.Y("pl_bi:Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
                     tooltip=["bucket:N", alt.Tooltip("pl_bi:Q", format=",.1f"), alt.Tooltip("share_pl:Q", format=".1%")],
                 )
-                .properties(height=300, title="PL por faixa")
+                .properties(height=260, title="PL por faixa")
             )
             st.altair_chart(chart, width="stretch", key="industry-revision-holder-pl")
+
+        left, right = st.columns(2)
+        with left:
+            base = alt.Chart(holders).encode(x=alt.X("bucket:N", title="contas", sort=order))
+            bars = base.mark_bar(color=_BLACK).encode(
+                y=alt.Y(
+                    "share_fundos:Q",
+                    title="% dos fundos",
+                    axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                    scale=alt.Scale(domain=[0, fund_share_ceiling]),
+                ),
+                tooltip=[
+                    "bucket:N",
+                    alt.Tooltip("fundos:Q", title="Fundos", format=",.0f"),
+                    alt.Tooltip("share_fundos:Q", title="% do total", format=".2%"),
+                ],
+            )
+            labels = base.mark_text(dy=-8, color=_BLACK, fontSize=11).encode(
+                y="share_fundos:Q",
+                text=alt.Text("share_fundos:Q", format=".0%"),
+            )
+            st.altair_chart(
+                (bars + labels).properties(height=260, title="Quantidade de fundos — % do total"),
+                width="stretch",
+                key="industry-revision-holder-funds-share",
+            )
+        with right:
+            base = alt.Chart(holders).encode(x=alt.X("bucket:N", title="contas", sort=order))
+            bars = base.mark_bar(color=_ORANGE).encode(
+                y=alt.Y(
+                    "share_pl:Q",
+                    title="% do PL",
+                    axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                    scale=alt.Scale(domain=[0, pl_share_ceiling]),
+                ),
+                tooltip=[
+                    "bucket:N",
+                    alt.Tooltip("pl:Q", title="PL (R$)", format=",.0f"),
+                    alt.Tooltip("share_pl:Q", title="% do total", format=".2%"),
+                ],
+            )
+            labels = base.mark_text(dy=-8, color=_BLACK, fontSize=11).encode(
+                y="share_pl:Q",
+                text=alt.Text("share_pl:Q", format=".0%"),
+            )
+            st.altair_chart(
+                (bars + labels).properties(height=260, title="PL por faixa — % do total"),
+                width="stretch",
+                key="industry-revision-holder-pl-share",
+            )
         minimum = float(meta.get("minimum_pl_brl", 200_000_000))
         st.caption(
             f"Recorte: fundos com PL ≥ R$ {_fmt_int(minimum / 1e6)} mi. Cobertura: "
             f"{_fmt_pct(float(meta.get('fund_coverage', 0)))} dos fundos ex-FIC e "
-            f"{_fmt_pct(float(meta.get('pl_coverage', 0)))} do PL ex-FIC."
+            f"{_fmt_pct(float(meta.get('pl_coverage', 0)))} do PL ex-FIC. "
+            "Nos dois gráficos percentuais, as faixas somam 100% dentro desse recorte; "
+            "os rótulos são arredondados para percentuais inteiros."
         )
 
 

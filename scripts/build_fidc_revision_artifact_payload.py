@@ -156,10 +156,16 @@ def _holder_distribution(vehicle: pd.DataFrame, latest: str) -> pd.DataFrame:
     scoped["cnpj_fundo"] = scoped["cnpj_fundo"].where(
         scoped["cnpj_fundo"].ne(""), scoped["cnpj"].map(_digits)
     )
+    scoped["cotistas"] = pd.to_numeric(scoped["cotistas"], errors="coerce")
     funds = scoped.groupby("cnpj_fundo", as_index=False).agg(
-        pl=("pl", "sum"), contas=("cotistas", "sum")
+        pl=("pl", "sum"), contas=("cotistas", lambda values: values.sum(min_count=1))
     )
     funds = funds[funds["pl"].ge(200_000_000)].copy()
+    funds = funds[funds["contas"].notna()].copy()
+    if funds["contas"].lt(0).any():
+        raise ValueError("distribuição por cotistas contém quantidade negativa")
+    if not np.allclose(funds["contas"], funds["contas"].round(), atol=1e-9):
+        raise ValueError("distribuição por cotistas contém quantidade fracionária")
     funds["bucket"] = pd.cut(
         funds["contas"],
         bins=[-np.inf, 0, 1, 3, 10, 50, np.inf],
@@ -173,10 +179,17 @@ def _holder_distribution(vehicle: pd.DataFrame, latest: str) -> pd.DataFrame:
         .reindex(order, fill_value=0)
         .reset_index()
     )
-    grouped["share_fundos"] = grouped["fundos"] / grouped["fundos"].sum()
-    grouped["share_pl"] = grouped["pl"] / grouped["pl"].sum()
-    grouped["universo_fundos"] = int(grouped["fundos"].sum())
-    grouped["universo_pl"] = float(grouped["pl"].sum())
+    total_funds = int(grouped["fundos"].sum())
+    total_pl = float(grouped["pl"].sum())
+    grouped["share_fundos"] = grouped["fundos"] / total_funds if total_funds else 0.0
+    grouped["share_pl"] = grouped["pl"] / total_pl if total_pl else 0.0
+    grouped["universo_fundos"] = total_funds
+    grouped["universo_pl"] = total_pl
+
+    if total_funds and not np.isclose(grouped["share_fundos"].sum(), 1.0, atol=1e-12):
+        raise ValueError("distribuição por cotistas não fecha 100% em quantidade de fundos")
+    if total_pl and not np.isclose(grouped["share_pl"].sum(), 1.0, atol=1e-12):
+        raise ValueError("distribuição por cotistas não fecha 100% em PL")
     return grouped
 
 

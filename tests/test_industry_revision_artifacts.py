@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import posixpath
 import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -45,6 +46,40 @@ def _slide_texts(archive: ZipFile) -> list[str]:
         root = ET.fromstring(archive.read(name))
         texts.append(" ".join(node.text or "" for node in root.iter(f"{{{DML}}}t")))
     return texts
+
+
+def _slide_chart_paths(archive: ZipFile, slide_number: int) -> list[str]:
+    rels_path = f"ppt/slides/_rels/slide{slide_number}.xml.rels"
+    rels = ET.fromstring(archive.read(rels_path))
+    paths: list[str] = []
+    for rel in rels.findall(f"{{{PACKAGE_REL}}}Relationship"):
+        if not rel.attrib.get("Type", "").endswith("/chart"):
+            continue
+        target = rel.attrib["Target"]
+        paths.append(
+            target.lstrip("/")
+            if target.startswith("/")
+            else posixpath.normpath(posixpath.join("ppt/slides", target))
+        )
+    return paths
+
+
+def _chart_series_values(root: ET.Element) -> dict[str, list[float]]:
+    result: dict[str, list[float]] = {}
+    for series in root.findall(f".//{{{CHART}}}ser"):
+        name = "".join(
+            node.text or ""
+            for node in series.findall(f".//{{{CHART}}}tx//{{{CHART}}}v")
+        )
+        values = [
+            float(node.text)
+            for node in series.findall(
+                f".//{{{CHART}}}val//{{{CHART}}}pt/{{{CHART}}}v"
+            )
+            if node.text is not None
+        ]
+        result[name] = values
+    return result
 
 
 def _shared_strings(archive: ZipFile) -> list[str]:
@@ -158,6 +193,37 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 assert symbol.attrib.get("val") == "none"
 
 
+def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        slide = ET.fromstring(archive.read("ppt/slides/slide5.xml"))
+        chart_frames = slide.findall(f".//{{{PML}}}graphicFrame")
+        assert len(chart_frames) == 4
+
+        x_positions: list[int] = []
+        y_positions: list[int] = []
+        for frame in chart_frames:
+            offset = frame.find(f"{{{PML}}}xfrm/{{{DML}}}off")
+            assert offset is not None
+            x_positions.append(int(offset.attrib["x"]))
+            y_positions.append(int(offset.attrib["y"]))
+        assert sorted(x_positions).count(min(x_positions)) == 2
+        assert sorted(x_positions).count(max(x_positions)) == 2
+        assert len(set(x_positions)) == 2
+        assert sorted(y_positions).count(min(y_positions)) == 2
+        assert sorted(y_positions).count(max(y_positions)) == 2
+        assert len(set(y_positions)) == 2
+
+        series: dict[str, list[float]] = {}
+        for chart_path in _slide_chart_paths(archive, 5):
+            series.update(_chart_series_values(ET.fromstring(archive.read(chart_path))))
+
+    assert set(series) == {"Fundos", "PL", "% dos fundos", "% do PL"}
+    for name in ("% dos fundos", "% do PL"):
+        assert len(series[name]) == 6
+        assert sum(series[name]) == pytest.approx(1.0, abs=1e-9)
+
+
 def test_deck_palette_and_explicit_slide_font() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
@@ -227,3 +293,10 @@ def test_legacy_industry_export_no_longer_requests_line_markers() -> None:
     assert "LINE_MARKERS" not in source
     assert 'NAVY = "172A3A"' not in source
     assert 'font.name = "Calibri"' not in source
+
+
+def test_revision_renderer_version_tracks_holder_distribution_layout() -> None:
+    source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
+        encoding="utf-8"
+    )
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v3";' in source

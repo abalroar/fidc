@@ -3,8 +3,10 @@ from __future__ import annotations
 import math
 
 import pandas as pd
+import pytest
 
 from scripts.build_fidc_industry_study import field_reported
+from scripts.build_fidc_revision_artifact_payload import _holder_distribution
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_revision_analysis import (
     build_base_by_vehicle,
@@ -68,6 +70,50 @@ def test_source_presence_distinguishes_reported_zero_from_empty_cell() -> None:
     raw = pd.DataFrame({"field": ["0", "", "  ", "12.5"]})
 
     assert field_reported(raw, ("field",)).tolist() == [True, False, False, True]
+
+
+def test_holder_distribution_percentages_close_at_one_for_funds_and_pl() -> None:
+    vehicles = pd.DataFrame(
+        [
+            {"competencia": "2026-05", "cnpj": "1", "cnpj_fundo": "1", "pl": 250_000_000, "cotistas": 0, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "2", "cnpj_fundo": "2", "pl": 300_000_000, "cotistas": 1, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "3", "cnpj_fundo": "3", "pl": 400_000_000, "cotistas": 2, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "4", "cnpj_fundo": "4", "pl": 500_000_000, "cotistas": 8, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "5", "cnpj_fundo": "5", "pl": 600_000_000, "cotistas": 25, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "6", "cnpj_fundo": "6", "pl": 700_000_000, "cotistas": 100, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "7", "cnpj_fundo": "7", "pl": 199_999_999, "cotistas": 1, "is_fic_fidc": False},
+            {"competencia": "2026-05", "cnpj": "8", "cnpj_fundo": "8", "pl": 900_000_000, "cotistas": 1, "is_fic_fidc": True},
+            {"competencia": "2026-05", "cnpj": "9", "cnpj_fundo": "9", "pl": 350_000_000, "cotistas": None, "is_fic_fidc": False},
+        ]
+    )
+
+    result = _holder_distribution(vehicles, "2026-05")
+
+    assert result["bucket"].astype(str).tolist() == ["0", "1", "2–3", "4–10", "11–50", "51+"]
+    assert result["fundos"].sum() == 6
+    assert math.isclose(result["pl"].sum(), 2_750_000_000.0)
+    assert math.isclose(result["share_fundos"].sum(), 1.0, abs_tol=1e-12)
+    assert math.isclose(result["share_pl"].sum(), 1.0, abs_tol=1e-12)
+    assert result["universo_fundos"].eq(6).all()
+    assert result["universo_pl"].eq(2_750_000_000.0).all()
+
+
+def test_holder_distribution_rejects_negative_accounts_instead_of_bucket_zero() -> None:
+    vehicles = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "cnpj": "1",
+                "cnpj_fundo": "1",
+                "pl": 250_000_000,
+                "cotistas": -1,
+                "is_fic_fidc": False,
+            }
+        ]
+    )
+
+    with pytest.raises(ValueError, match="quantidade negativa"):
+        _holder_distribution(vehicles, "2026-05")
 
 
 def test_delinquency_qa_uses_report_flags_and_reconciles_vehicle_to_fund() -> None:
