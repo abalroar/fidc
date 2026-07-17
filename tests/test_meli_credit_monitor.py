@@ -434,6 +434,7 @@ class MeliCreditMonitorTest(unittest.TestCase):
         from pptx import Presentation
 
         from services.fidc_model.b3_cdi import B3CdiMonthlyRate
+        from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
         from services.fund_return_matrix import (
             RETURN_ISSUANCE_SPREAD_COLUMN,
             RETURN_SERIES_COLUMN,
@@ -522,10 +523,18 @@ class MeliCreditMonitorTest(unittest.TestCase):
         self.assertTrue(
             all((shape.top + shape.height) / 914_400 <= 7.10 for shape in table_shapes)
         )
+        deck_text = "\n".join(
+            shape.text
+            for slide in prs.slides
+            for shape in slide.shapes
+            if getattr(shape, "has_text_frame", False)
+        )
+        self.assertEqual(2, deck_text.count(CVM_RETURN_REINVESTMENT_NOTE))
 
     def test_somatorio_pptx_paginates_return_rows_without_losing_series(self) -> None:
         from pptx import Presentation
 
+        from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
         from services.fund_return_matrix import (
             RETURN_SERIES_COLUMN,
             RETURN_TRAILING_12M_COLUMN,
@@ -576,6 +585,27 @@ class MeliCreditMonitorTest(unittest.TestCase):
             ["N/D"] * 7,
             [comparison_tables[0].cell(1, column_index).text for column_index in (2, 3, 5, 6, 7, 8, 9)],
         )
+        return_slides = [
+            slide
+            for slide in prs.slides
+            if any(getattr(shape, "has_table", False) for shape in slide.shapes)
+        ]
+        self.assertEqual(4, len(return_slides))
+        for slide in return_slides:
+            notes = [
+                shape
+                for shape in slide.shapes
+                if getattr(shape, "has_text_frame", False)
+                and CVM_RETURN_REINVESTMENT_NOTE in shape.text
+            ]
+            tables_on_slide = [
+                shape for shape in slide.shapes if getattr(shape, "has_table", False)
+            ]
+            self.assertEqual(1, len(notes))
+            self.assertTrue(
+                all(shape.top + shape.height <= notes[0].top for shape in tables_on_slide)
+            )
+            self.assertLessEqual((notes[0].top + notes[0].height) / 914_400, 7.20)
 
     def test_research_layer_builds_auditable_metrics_and_verification(self) -> None:
         monitor = build_monitor_base(_sample_monthly(month_count=14))

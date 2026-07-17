@@ -733,6 +733,7 @@ class FundonetDashboardTests(unittest.TestCase):
             self.skipTest("python-pptx não instalado no ambiente local")
         from pptx import Presentation
         from pptx.enum.chart import XL_CHART_TYPE
+        from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
         from services.fundonet_ppt_export import build_dashboard_pptx_bytes
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -789,6 +790,29 @@ class FundonetDashboardTests(unittest.TestCase):
         self.assertNotIn("Rentabilidade e prazo", deck_text)
         self.assertIn("Rentabilidade por tipo de cota", deck_text)
         self.assertIn("Retornos por série", deck_text)
+        self.assertIn(CVM_RETURN_REINVESTMENT_NOTE, deck_text)
+        return_slides = [
+            slide
+            for slide in presentation.slides
+            if any(
+                "Rentabilidade por tipo de cota" in shape.text
+                for shape in slide.shapes
+                if getattr(shape, "has_text_frame", False)
+            )
+        ]
+        self.assertTrue(return_slides)
+        for slide in return_slides:
+            notes = [
+                shape
+                for shape in slide.shapes
+                if getattr(shape, "has_text_frame", False)
+                and CVM_RETURN_REINVESTMENT_NOTE in shape.text
+            ]
+            tables = [shape for shape in slide.shapes if getattr(shape, "has_table", False)]
+            self.assertEqual(1, len(notes))
+            self.assertTrue(tables)
+            self.assertTrue(all(shape.top + shape.height <= notes[0].top for shape in tables))
+            self.assertLessEqual((notes[0].top + notes[0].height) / 914_400, 6.98)
         self.assertNotIn("Índice acumulado base 100", deck_text)
         self.assertNotIn("Prazo médio proxy dos recebíveis (dias)", chart_xml)
         chart_count = sum(

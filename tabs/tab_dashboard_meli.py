@@ -12,6 +12,7 @@ from services.fund_return_benchmark import (
     FundReturnBenchmarkResolution,
     resolve_fund_return_benchmarks,
 )
+from services.fund_return_disclosures import CVM_RETURN_REINVESTMENT_NOTE
 from services.fund_return_matrix import (
     build_fund_return_matrix,
     format_fund_return_matrix,
@@ -711,9 +712,9 @@ def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
     st.caption(
         f"Fonte do CDI: {cdi_source}, composto diariamente; sem uso de curva projetada. "
         "O spread implícito é a taxa anual que reconcilia a rentabilidade observada com esse CDI nas mesmas "
-        "competências; é um diagnóstico econômico, não uma taxa contratual. A base de rentabilidade é "
-        "mensal e, por isso, não ajusta integralizações ou resgates ocorridos no meio da competência."
+        "competências; é um diagnóstico econômico, não uma taxa contratual."
     )
+    st.caption(r"\* " + CVM_RETURN_REINVESTMENT_NOTE)
     _render_fund_return_benchmark_diagnostics(benchmark_resolution)
     if cdi_error:
         st.warning("CDI acumulado indisponível: a consulta à B3/Cetip falhou. Nenhum fallback projetado foi aplicado.")
