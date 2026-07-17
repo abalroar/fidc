@@ -10,6 +10,8 @@ from typing import Callable, Iterable
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
 
+from services.fidc_model.calendar import b3_market_holidays_for_dates
+
 
 B3_MEDIA_CDI_URL = "ftp://ftp.cetip.com.br/MediaCDI/{yyyymmdd}.txt"
 DEFAULT_CDI_CACHE_DIR = Path(".cache/b3-cdi/MediaCDI")
@@ -39,12 +41,22 @@ class B3CdiMonthlyRate:
     data_inicio: date
     data_fim: date
     source: str
+    expected_dias_uteis: int | None = None
+    missing_dates: tuple[date, ...] = ()
 
     @property
     def cdi_aa_equivalente(self) -> float:
         if self.dias_uteis <= 0:
             return 0.0
         return (1.0 + self.cdi_mensal) ** (252.0 / self.dias_uteis) - 1.0
+
+    @property
+    def is_complete(self) -> bool:
+        if self.missing_dates:
+            return False
+        if self.expected_dias_uteis is None:
+            return True
+        return self.dias_uteis >= self.expected_dias_uteis
 
 
 def media_cdi_url(item_date: date) -> str:
@@ -118,6 +130,9 @@ def fetch_b3_cdi_monthly_rates(
     grouped: dict[str, list[B3CdiDailyRate]] = {}
     for rate in rates:
         grouped.setdefault(f"{rate.data.year:04d}-{rate.data.month:02d}", []).append(rate)
+    expected_dates_by_month: dict[str, set[date]] = {}
+    for item_date in _expected_cdi_business_dates(start_date, end_date):
+        expected_dates_by_month.setdefault(f"{item_date.year:04d}-{item_date.month:02d}", set()).add(item_date)
 
     rows: list[B3CdiMonthlyRate] = []
     for mes, rates in sorted(grouped.items()):
@@ -125,6 +140,8 @@ def fetch_b3_cdi_monthly_rates(
         for rate in sorted(rates, key=lambda item: item.data):
             factor *= 1.0 + rate.fator_diario
         dates = [rate.data for rate in rates]
+        expected_dates = expected_dates_by_month.get(mes, set())
+        missing_dates = tuple(sorted(expected_dates - set(dates)))
         rows.append(
             B3CdiMonthlyRate(
                 mes=mes,
@@ -133,6 +150,8 @@ def fetch_b3_cdi_monthly_rates(
                 data_inicio=min(dates),
                 data_fim=max(dates),
                 source="B3/Cetip MediaCDI diário composto por mês",
+                expected_dias_uteis=len(expected_dates),
+                missing_dates=missing_dates,
             )
         )
     return tuple(rows)
@@ -154,3 +173,16 @@ def _calendar_days(start_date: date, end_date: date) -> Iterable[date]:
     while current <= end_date:
         yield current
         current += timedelta(days=1)
+
+
+def _expected_cdi_business_dates(start_date: date, end_date: date) -> tuple[date, ...]:
+    """Expected MediaCDI publication dates (Brazil business days, including 24/31 Dec)."""
+    holidays = b3_market_holidays_for_dates([start_date, end_date])
+    for year in range(start_date.year, end_date.year + 1):
+        holidays.discard(date(year, 12, 24))
+        holidays.discard(date(year, 12, 31))
+    return tuple(
+        item_date
+        for item_date in _calendar_days(start_date, end_date)
+        if item_date.weekday() < 5 and item_date not in holidays
+    )
