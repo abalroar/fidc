@@ -10,20 +10,27 @@ from scripts.build_fidc_revision_artifact_payload import (
     _atlantico_payload,
     _holder_distribution,
     _holder_distribution_history,
+    _provider_leadership_payload,
     _provider_concentration_history,
+    _read_optional,
     _receivables_history,
     _type_mix_history,
 )
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_revision_analysis import (
+    BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
     build_base_by_vehicle,
+    build_btg_controlled_reconciliation,
     build_break_bridge,
     build_classification_coverage,
     build_delinquency_qa,
     build_market_share_by_subtype,
     build_market_share_scope_summary,
     build_provider_historical_ranking,
+    build_provider_leadership_attribution,
+    build_provider_transition_flows,
+    build_reag_admin_cohort,
     build_reconciliation,
     build_top20_and_monostructure,
 )
@@ -613,3 +620,257 @@ def test_provider_historical_ranking_excludes_named_funds_in_all_periods() -> No
     assert ranking.groupby(["competencia", "papel"])["rank_periodo"].apply(
         list
     ).map(lambda ranks: ranks == [1, 2]).all()
+
+
+def test_provider_transition_uses_fund_level_minimum_and_marks_overlay_roles_unavailable() -> None:
+    def row(
+        competence: str,
+        cnpj: str,
+        pl: float,
+        administrator: str,
+        admin_cnpj: str,
+        *,
+        is_fic: bool = False,
+    ) -> dict[str, object]:
+        return {
+            "competencia": competence,
+            "cnpj_fundo": cnpj,
+            "denominacao": f"FIDC {cnpj}",
+            "pl": pl,
+            "is_fic_fidc": is_fic,
+            "admin_nome": administrator,
+            "admin_cnpj": admin_cnpj,
+        }
+
+    rows = [
+        row("2024-12", "10000000000001", 100, "OLIVEIRA TRUST", "36113876000191"),
+        row("2025-12", "10000000000001", 20, "BRADESCO", "60746948000112"),
+        row("2024-12", "10000000000002", 20, "OLIVEIRA TRUST", "36113876000191"),
+        row("2025-12", "10000000000002", 100, "BRADESCO", "60746948000112"),
+        row("2024-12", "10000000000003", 40, "QI TECH", "62285390000140"),
+        row("2025-12", "10000000000003", 60, "QI TECH", "62285390000140"),
+        row("2024-12", "10000000000004", 50, "QI TECH", "62285390000140"),
+        row("2025-12", "10000000000005", 50, "QI TECH", "62285390000140"),
+        row("2024-12", "10000000000006", 10, "QI TECH", "62285390000140"),
+        row("2025-12", "10000000000006", 0, "BRADESCO", "60746948000112"),
+        row("2024-12", "10000000000007", 90, "QI TECH", "62285390000140", is_fic=True),
+        row("2025-12", "10000000000007", 90, "BRADESCO", "60746948000112", is_fic=True),
+        row("2024-12", "09195235000150", 1_000, "BANCO DO BRASIL", "00000000000191"),
+        row("2025-12", "09195235000150", 1_000, "BRADESCO", "60746948000112"),
+    ]
+
+    summary, links, detail, availability = build_provider_transition_flows(
+        pd.DataFrame(rows)
+    )
+
+    assert summary.iloc[0]["continuing_funds"] == 3
+    assert summary.iloc[0]["comparable_pl_brl"] == 80
+    assert summary.iloc[0]["changed_funds"] == 2
+    assert summary.iloc[0]["changed_comparable_pl_brl"] == 40
+    assert summary.iloc[0]["changed_share"] == 0.5
+    assert len(links) == 1
+    assert links.iloc[0]["fundos"] == 2
+    assert links.iloc[0]["pl_origem_brl"] == 120
+    assert links.iloc[0]["pl_destino_brl"] == 120
+    assert links.iloc[0]["pl_comparavel_brl"] == 40
+    assert detail["fundosnet_url"].str.contains("cnpjFundo=").all()
+    role_status = availability.set_index("papel")
+    assert bool(role_status.loc["administrador", "serie_historica_observada"])
+    assert not bool(role_status.loc["gestor", "serie_historica_observada"])
+    assert not bool(role_status.loc["custodiante", "serie_historica_observada"])
+    assert set(links["papel"]) == {"administrador"}
+
+
+def test_reag_admin_cohort_reconciles_exits_and_collapses_small_destinations() -> None:
+    origin_admin = "34829992000186"
+
+    def row(
+        competence: str,
+        cnpj: str,
+        pl: float,
+        administrator: str,
+        admin_cnpj: str,
+        *,
+        is_fic: bool = False,
+    ) -> dict[str, object]:
+        return {
+            "competencia": competence,
+            "cnpj_fundo": cnpj,
+            "denominacao": f"FIDC {cnpj}",
+            "pl": pl,
+            "is_fic_fidc": is_fic,
+            "admin_nome": administrator,
+            "admin_cnpj": admin_cnpj,
+        }
+
+    rows = [
+        row("2025-12", "20000000000001", 100, "CBSF DTVM", origin_admin),
+        row("2026-05", "20000000000001", 110, "CBSF DTVM", origin_admin),
+        row("2025-12", "20000000000002", 80, "CBSF DTVM", origin_admin),
+        row("2026-05", "20000000000002", 90, "MASTER S/A CORRETORA", "33886862000112"),
+        row("2025-12", "20000000000003", 60, "CBSF DTVM", origin_admin),
+        row("2026-05", "20000000000003", 70, "PLANNER CORRETORA DE VALORES S.A.", "00806535000154"),
+        row("2025-12", "20000000000004", 50, "CBSF DTVM", origin_admin),
+        row("2026-05", "20000000000004", 40, "QI TECH", "62285390000140"),
+        row("2025-12", "20000000000005", 40, "CBSF DTVM", origin_admin),
+        row("2025-12", "20000000000006", 30, "CBSF DTVM", origin_admin),
+        row("2026-05", "20000000000006", -5, "PLANNER CORRETORA DE VALORES S.A.", "00806535000154"),
+        row("2025-12", "20000000000007", 20, "CBSF DTVM", origin_admin, is_fic=True),
+        row("2025-12", "20000000000008", 0, "CBSF DTVM", origin_admin),
+        row("2025-12", "09195235000150", 500, "CBSF DTVM", origin_admin),
+    ]
+
+    summary, links, detail = build_reag_admin_cohort(pd.DataFrame(rows))
+    item = summary.iloc[0]
+
+    assert item["funds_origin"] == 6
+    assert item["pl_origin_brl"] == 360
+    assert item["continuing_funds"] == 4
+    assert item["continuing_pl_current_brl"] == 310
+    assert item["migrated_funds"] == 3
+    assert item["migrated_pl_current_brl"] == 200
+    assert item["exited_funds"] == 2
+    assert item["exited_pl_origin_brl"] == 70
+    assert item["missing_destination_funds"] == 1
+    assert item["nonpositive_destination_funds"] == 1
+    assert not bool(item["manager_custodian_history_available"])
+    assert set(links["destino_grupo"]) == {
+        "CBSF",
+        "Banco Master",
+        "Planner Corretora De Valores",
+        "Outros migrados",
+        "Saída / sem reporte",
+    }
+    assert links["pl_flow_brl"].sum() == item["pl_origin_brl"]
+    assert links["pl_current_brl"].sum() == item["continuing_pl_current_brl"]
+    assert set(detail["status_destino"]) == {
+        "continuante_ativo",
+        "saida_sem_reporte",
+        "saida_pl_nao_positivo",
+    }
+
+
+def test_provider_leadership_reconciles_btg_six_and_qi_legal_cnpjs() -> None:
+    btg_name = "BANCO BTG PACTUAL S/A"
+    vehicle_rows = []
+    for index, cnpj in enumerate(BTG_CONTROLLED_FIDCS, start=1):
+        vehicle_rows.append(
+            {
+                "competencia": "2026-05",
+                "cnpj_veiculo": cnpj,
+                "cnpj_fundo": cnpj,
+                "denominacao": BTG_CONTROLLED_FIDCS[cnpj],
+                "pl": float(index * 10),
+                "is_fic_fidc": False,
+                "admin_nome": "BTG PACTUAL SERVIÇOS FINANCEIROS S/A DTVM",
+                "admin_cnpj": "59281253000123",
+                "gestor_nome": btg_name,
+                "gestor_cnpj": "30306294000145",
+                "custodiante_nome": btg_name,
+                "custodiante_cnpj": "30306294000145",
+            }
+        )
+    ranking = pd.DataFrame(
+        [
+            {"competencia": "2026-05", "papel": "administrador", "participante": "BTG Pactual", "pl_brl": 500},
+            {"competencia": "2026-05", "papel": "gestor", "participante": "BTG Pactual", "pl_brl": 300},
+            {"competencia": "2026-05", "papel": "gestor", "participante": "Bradesco", "pl_brl": 250},
+            {"competencia": "2026-05", "papel": "gestor", "participante": "Genial", "pl_brl": 80},
+            {"competencia": "2026-05", "papel": "custodiante", "participante": "BTG Pactual", "pl_brl": 400},
+        ]
+    )
+    qi_funds = pd.DataFrame(
+        [
+            {
+                "competencia": "2024-12",
+                "cnpj_fundo": "30000000000001",
+                "pl": 90.0,
+                "is_fic_fidc": False,
+                "admin_nome": "SINGULARE CTVM",
+                "admin_cnpj": "62285390000140",
+            },
+            {
+                "competencia": "2024-12",
+                "cnpj_fundo": "30000000000002",
+                "pl": 10.0,
+                "is_fic_fidc": False,
+                "admin_nome": "QI DISTRIBUIDORA DTVM",
+                "admin_cnpj": "46955383000152",
+            },
+            {
+                "competencia": "2024-12",
+                "cnpj_fundo": "30000000000003",
+                "pl": 50.0,
+                "is_fic_fidc": False,
+                "admin_nome": "QI TECH",
+                "admin_cnpj": "99999999000199",
+            },
+        ]
+    )
+
+    summary, btg_detail, qi_detail = build_provider_leadership_attribution(
+        pd.DataFrame(vehicle_rows), qi_funds, ranking
+    )
+    records = summary.set_index("provider")
+
+    assert records.loc["btg", "confirmed_controlled_pl_brl"] == 210
+    assert records.loc["btg", "residual_unproven_pl_brl"] == 90
+    assert records.loc["btg", "confirmed_controlled_share"] == 0.7
+    assert records.loc["btg", "rank_without_confirmed"] == 2
+    assert len(btg_detail) == 6
+    assert btg_detail["reconciliado_controlado_ativo"].all()
+    assert records.loc["qi", "admin_group_pl_2024_brl"] == 100
+    assert records.loc["qi", "legacy_singulare_pl_2024_brl"] == 90
+    assert records.loc["qi", "original_qi_pl_2024_brl"] == 10
+    assert records.loc["qi", "legacy_share_2024"] == 0.9
+    assert set(qi_detail["provider_cnpj"]) == {
+        "62285390000140",
+        "46955383000152",
+    }
+
+    nested = _provider_leadership_payload(summary, btg_detail, qi_detail)
+    assert nested["btg"]["rank_without_confirmed"] == 2
+    assert len(nested["btg"]["reconciliation"]) == 6
+    assert nested["qi"]["legacy_share_2024"] == 0.9
+    assert len(nested["qi"]["legacy_entities"]) == 2
+
+
+def test_btg_controlled_reconciliation_fails_if_one_disclosed_cnpj_is_missing() -> None:
+    rows = [
+        {
+            "competencia": "2026-05",
+            "cnpj_veiculo": cnpj,
+            "cnpj_fundo": cnpj,
+            "pl": 10.0,
+            "is_fic_fidc": False,
+            "admin_nome": "BTG PACTUAL",
+            "gestor_nome": "BTG PACTUAL",
+            "custodiante_nome": "BTG PACTUAL",
+        }
+        for cnpj in list(BTG_CONTROLLED_FIDCS)[:-1]
+    ]
+    ranking = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "papel": "gestor",
+                "participante": "BTG Pactual",
+                "pl_brl": 100.0,
+            }
+        ]
+    )
+
+    with pytest.raises(AssertionError, match="seis FIDCs controlados"):
+        build_btg_controlled_reconciliation(pd.DataFrame(rows), ranking)
+
+
+def test_optional_payload_reader_preserves_leading_zero_cnpj(tmp_path) -> None:
+    path = tmp_path / "reag_links.csv"
+    path.write_text(
+        "admin_destino_cnpj,pl_flow_brl\n00806535000154,10\n",
+        encoding="utf-8",
+    )
+
+    records = _read_optional(path, cnpj_columns=("admin_destino_cnpj",))
+
+    assert records.iloc[0]["admin_destino_cnpj"] == "00806535000154"

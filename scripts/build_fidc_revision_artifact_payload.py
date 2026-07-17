@@ -102,8 +102,55 @@ def _records(frame: pd.DataFrame) -> list[dict[str, Any]]:
     ]
 
 
-def _read_optional(path: Path) -> pd.DataFrame:
-    return pd.read_csv(path, low_memory=False) if path.exists() else pd.DataFrame()
+def _read_optional(
+    path: Path,
+    *,
+    cnpj_columns: tuple[str, ...] = (),
+) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    frame = pd.read_csv(
+        path,
+        low_memory=False,
+        dtype={column: str for column in cnpj_columns},
+    )
+    for column in cnpj_columns:
+        if column in frame:
+            frame[column] = frame[column].map(_digits)
+    return frame
+
+
+def _single_record(frame: pd.DataFrame) -> dict[str, Any]:
+    records = _records(frame)
+    return records[0] if records else {}
+
+
+def _provider_leadership_payload(
+    summary: pd.DataFrame,
+    btg_detail: pd.DataFrame,
+    qi_detail: pd.DataFrame,
+) -> dict[str, Any]:
+    """Convert the sparse two-row analytical table into renderer dictionaries."""
+
+    output: dict[str, Any] = {}
+    for record in _records(summary):
+        provider = str(record.pop("provider", "")).strip().lower()
+        if not provider:
+            continue
+        clean = {key: value for key, value in record.items() if value is not None}
+        for key in (
+            "rank_without_confirmed",
+            "controlled_fidcs_expected",
+            "controlled_fidcs_reconciled",
+        ):
+            if key in clean:
+                clean[key] = int(clean[key])
+        output[provider] = clean
+    if "btg" in output and not btg_detail.empty:
+        output["btg"]["reconciliation"] = _records(btg_detail)
+    if "qi" in output and not qi_detail.empty:
+        output["qi"]["legacy_entities"] = _records(qi_detail)
+    return output
 
 
 def _last_observation_by_year(monthly: pd.DataFrame, latest: str) -> pd.DataFrame:
@@ -763,6 +810,59 @@ def build_payload(
     provider_historical_ranking = pd.read_csv(
         revision_dir / "prestadores_ranking_historico.csv", low_memory=False
     )
+    provider_transition_summary = _read_optional(
+        revision_dir / "prestadores_transicoes_resumo.csv"
+    )
+    provider_transition_links = _read_optional(
+        revision_dir / "prestadores_transicoes_links.csv"
+    )
+    provider_transition_detail = _read_optional(
+        revision_dir / "prestadores_transicoes_detalhe.csv",
+        cnpj_columns=(
+            "cnpj_fundo",
+            "admin_origem_cnpj",
+            "admin_destino_cnpj",
+        ),
+    )
+    provider_transition_role_availability = _read_optional(
+        revision_dir / "prestadores_transicoes_disponibilidade.csv"
+    )
+    reag_admin_summary = _read_optional(
+        revision_dir / "reag_cbsf_coorte_resumo.csv",
+        cnpj_columns=("origin_admin_cnpj",),
+    )
+    reag_admin_links = _read_optional(
+        revision_dir / "reag_cbsf_coorte_links.csv",
+        cnpj_columns=("admin_destino_cnpj",),
+    )
+    reag_admin_detail = _read_optional(
+        revision_dir / "reag_cbsf_coorte_detalhe.csv",
+        cnpj_columns=(
+            "cnpj_fundo",
+            "admin_origem_cnpj",
+            "admin_destino_cnpj_observado",
+            "gestor_destino_cnpj_observado",
+            "custodiante_destino_cnpj_observado",
+            "admin_destino_cnpj",
+        ),
+    )
+    provider_leadership_attribution = _read_optional(
+        revision_dir / "prestadores_lideranca_atribuicao.csv"
+    )
+    btg_controlled_reconciliation = _read_optional(
+        revision_dir / "btg_fidcs_controlados_reconciliacao.csv",
+        cnpj_columns=(
+            "cnpj_veiculo",
+            "cnpj_fundo",
+            "admin_cnpj",
+            "gestor_cnpj",
+            "custodiante_cnpj",
+        ),
+    )
+    qi_legacy_attribution = _read_optional(
+        revision_dir / "qi_atribuicao_cnpjs_legados.csv",
+        cnpj_columns=("provider_cnpj",),
+    )
     acquiring_path = data_dir / "acquiring_taxonomy_curation.json"
     acquiring_taxonomy = (
         json.loads(acquiring_path.read_text(encoding="utf-8"))
@@ -924,6 +1024,42 @@ def build_payload(
             "cvm_writeoff": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/oficios-circulares/sin-snc/anexos/oc-sin-snc-0113.pdf",
         },
     }
+    # Optional v3 blocks: older published revision directories do not contain
+    # these CSVs, so their absence must not invalidate a compatible payload.
+    if not provider_transition_summary.empty:
+        transition = _single_record(provider_transition_summary)
+        if not provider_transition_role_availability.empty:
+            transition["role_availability"] = _records(
+                provider_transition_role_availability
+            )
+        output["provider_transition_summary"] = transition
+    if not provider_transition_links.empty:
+        output["provider_transition_links"] = _records(provider_transition_links)
+    if not provider_transition_detail.empty:
+        output["provider_transition_detail"] = _records(provider_transition_detail)
+    if not provider_transition_role_availability.empty:
+        output["provider_transition_role_availability"] = _records(
+            provider_transition_role_availability
+        )
+    if not reag_admin_summary.empty:
+        output["reag_admin_summary"] = _single_record(reag_admin_summary)
+    if not reag_admin_links.empty:
+        output["reag_admin_links"] = _records(reag_admin_links)
+    if not reag_admin_detail.empty:
+        output["reag_admin_detail"] = _records(reag_admin_detail)
+    leadership = _provider_leadership_payload(
+        provider_leadership_attribution,
+        btg_controlled_reconciliation,
+        qi_legacy_attribution,
+    )
+    if leadership:
+        output["provider_leadership_attribution"] = leadership
+    if not btg_controlled_reconciliation.empty:
+        output["btg_controlled_reconciliation"] = _records(
+            btg_controlled_reconciliation
+        )
+    if not qi_legacy_attribution.empty:
+        output["qi_legacy_attribution"] = _records(qi_legacy_attribution)
     return output
 
 

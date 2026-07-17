@@ -28,6 +28,43 @@ from services.industry_intelligence import canonical_provider
 LATEST_COMPLETE = "2026-05"
 BRIDGE_FROM = "2024-06"
 BRIDGE_TO = "2024-07"
+PROVIDER_TRANSITION_FROM = "2024-12"
+PROVIDER_TRANSITION_TO = "2025-12"
+REAG_COHORT_FROM = "2025-12"
+REAG_COHORT_TO = LATEST_COMPLETE
+REAG_CBSF_ADMIN_CNPJ = "34829992000186"
+QI_LEGACY_SINGULARE_CNPJ = "62285390000140"
+QI_ORIGINAL_DTVM_CNPJ = "46955383000152"
+BTG_CONTROLLED_FIDCS: Mapping[str, str] = {
+    "52242420000188": "BTG Pactual Consignados II FIDC",
+    "50906397000153": "BTG Pactual Consignados FIDC",
+    "29225241000110": "FIDC Alternative Assets III",
+    "60010416000112": "MT Consignado Privado I FIDC",
+    "24194675000187": "FIDC Alternative Assets I",
+    "54871427000194": "Consignado Delta Receivables I FIDC",
+}
+BTG_IFRS_1Q26_URL = (
+    "https://d169uzu5o4xu1k.cloudfront.net/"
+    "78a5a309-f13a-41ed-a7d1-814e37b63259/2026/"
+    "03dec8c5-4ac7-4de5-89b5-2bad97ed63cc.pdf"
+)
+QI_SINGULARE_ACQUISITION_URL = (
+    "https://qitech.com.br/newsroom/"
+    "qi-tech-faz-aquisicao-da-singulare-corretora-lider-em-fidcs/"
+)
+QI_REORGANIZATION_BCB_URL = (
+    "https://www.bcb.gov.br/content/estabilidadefinanceira/evolucaosfnmes/"
+    "202511%20-%20Quadro%2004%20-%20Autoriza%C3%A7%C3%B5es%20e%20"
+    "altera%C3%A7%C3%B5es%20societ%C3%A1rias%20-%20principais%20ocorr%C3%AAncias.pdf"
+)
+REAG_LIQUIDATION_BCB_URL = (
+    "https://www.bcb.gov.br/estabilidadefinanceira/"
+    "exibenormativo?numero=1375&tipo=Ato+do+Presidente"
+)
+FUNDOSNET_MANAGER_URL = (
+    "https://fnet.bmfbovespa.com.br/fnet/publico/"
+    "abrirGerenciadorDocumentosCVM?cnpjFundo={cnpj}"
+)
 MARKET_SHARE_EXCLUDED_FUNDS: Mapping[str, str] = {
     "09195235000150": "FIDC Sistema Petrobras",
     "26287464000114": "FIDC TAPSO",
@@ -67,6 +104,25 @@ def format_cnpj(value: object) -> str:
     if len(digits) != 14:
         return ""
     return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+
+def fundosnet_fund_url(value: object) -> str:
+    """Return the public Fundos.NET document-manager link for a fund CNPJ."""
+
+    cnpj = _digits(value)
+    return FUNDOSNET_MANAGER_URL.format(cnpj=cnpj) if cnpj else ""
+
+
+def cvm_monthly_source_url(competence: str) -> str:
+    """Return the official CVM ZIP used for a monthly FIDC competence."""
+
+    yyyymm = re.sub(r"\D", "", str(competence))[:6]
+    if len(yyyymm) != 6:
+        return ""
+    return (
+        "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/"
+        f"inf_mensal_fidc_{yyyymm}.zip"
+    )
 
 
 def _clean(value: object) -> str:
@@ -1147,6 +1203,789 @@ def build_provider_historical_ranking(
     return pd.DataFrame(rows)
 
 
+def _period_provider_scope(
+    fund_base: pd.DataFrame,
+    competence: str,
+    *,
+    positive_pl_only: bool,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
+) -> pd.DataFrame:
+    """Return a unique legal-fund provider scope for one competence."""
+
+    required = {"competencia", "cnpj_fundo", "pl"}
+    missing = required.difference(fund_base.columns)
+    if missing:
+        raise ValueError(f"base de fundos sem colunas obrigatórias: {sorted(missing)}")
+    scoped = fund_base[
+        fund_base["competencia"].astype(str).str[:7].eq(str(competence)[:7])
+    ].copy()
+    scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(_digits)
+    scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
+    if "is_fic_fidc" in scoped:
+        is_fic = _as_nullable_bool(scoped["is_fic_fidc"]).fillna(False).astype(bool)
+    else:
+        is_fic = pd.Series(False, index=scoped.index, dtype=bool)
+    scoped = scoped.loc[scoped["cnpj_fundo"].ne("") & ~is_fic].copy()
+    if positive_pl_only:
+        scoped = scoped.loc[scoped["pl"].gt(0)].copy()
+    scoped = exclude_market_share_funds(
+        scoped, excluded_fund_cnpjs=excluded_fund_cnpjs
+    )
+    for column in (
+        "denominacao",
+        "admin_nome",
+        "admin_cnpj",
+        "gestor_nome",
+        "gestor_cnpj",
+        "custodiante_nome",
+        "custodiante_cnpj",
+    ):
+        if column not in scoped:
+            scoped[column] = ""
+    return (
+        scoped.sort_values(["pl", "cnpj_fundo"], ascending=[False, True])
+        .drop_duplicates("cnpj_fundo", keep="first")
+        .reset_index(drop=True)
+    )
+
+
+def build_provider_transition_flows(
+    fund_base: pd.DataFrame,
+    *,
+    from_competence: str = PROVIDER_TRANSITION_FROM,
+    to_competence: str = PROVIDER_TRANSITION_TO,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Build observed administrator flows for continuing positive-PL FIDCs.
+
+    Administrator is reported in each monthly filing and therefore supports a
+    point-in-time transition.  Manager and custodian are current-registry
+    overlays in the historical materialization; their role rows are emitted as
+    explicitly unavailable and no synthetic transitions are calculated.
+    """
+
+    old = _period_provider_scope(
+        fund_base,
+        from_competence,
+        positive_pl_only=True,
+        excluded_fund_cnpjs=excluded_fund_cnpjs,
+    )
+    new = _period_provider_scope(
+        fund_base,
+        to_competence,
+        positive_pl_only=True,
+        excluded_fund_cnpjs=excluded_fund_cnpjs,
+    )
+    old = old[
+        ["cnpj_fundo", "denominacao", "pl", "admin_nome", "admin_cnpj"]
+    ].rename(
+        columns={
+            "denominacao": "denominacao_origem",
+            "pl": "pl_origem_brl",
+            "admin_nome": "admin_origem_nome",
+            "admin_cnpj": "admin_origem_cnpj",
+        }
+    )
+    new = new[
+        ["cnpj_fundo", "denominacao", "pl", "admin_nome", "admin_cnpj"]
+    ].rename(
+        columns={
+            "denominacao": "denominacao_destino",
+            "pl": "pl_destino_brl",
+            "admin_nome": "admin_destino_nome",
+            "admin_cnpj": "admin_destino_cnpj",
+        }
+    )
+    detail = old.merge(new, on="cnpj_fundo", how="inner", validate="one_to_one")
+    detail["competencia_origem"] = str(from_competence)[:7]
+    detail["competencia_destino"] = str(to_competence)[:7]
+    detail["papel"] = "administrador"
+    detail["cnpj_fundo_formatado"] = detail["cnpj_fundo"].map(format_cnpj)
+    detail["denominacao"] = detail["denominacao_destino"].where(
+        detail["denominacao_destino"].map(_clean).ne(""),
+        detail["denominacao_origem"],
+    )
+    detail["admin_origem_cnpj"] = detail["admin_origem_cnpj"].map(_digits)
+    detail["admin_destino_cnpj"] = detail["admin_destino_cnpj"].map(_digits)
+    detail["grupo_origem"] = detail["admin_origem_nome"].map(canonical_provider)
+    detail["grupo_destino"] = detail["admin_destino_nome"].map(canonical_provider)
+    detail["pl_comparavel_brl"] = detail[
+        ["pl_origem_brl", "pl_destino_brl"]
+    ].min(axis=1)
+    detail["mudou_grupo"] = detail["grupo_origem"].ne(detail["grupo_destino"])
+    detail["mudou_entidade_legal"] = detail["admin_origem_cnpj"].ne(
+        detail["admin_destino_cnpj"]
+    )
+    detail["fundosnet_url"] = detail["cnpj_fundo"].map(fundosnet_fund_url)
+    detail["fonte_origem_url"] = cvm_monthly_source_url(from_competence)
+    detail["fonte_destino_url"] = cvm_monthly_source_url(to_competence)
+
+    comparable_pl = float(detail["pl_comparavel_brl"].sum())
+    changed = detail[detail["mudou_grupo"]].copy()
+    changed_pl = float(changed["pl_comparavel_brl"].sum())
+    summary = pd.DataFrame(
+        [
+            {
+                "papel": "administrador",
+                "competencia_origem": str(from_competence)[:7],
+                "competencia_destino": str(to_competence)[:7],
+                "continuing_funds": int(len(detail)),
+                "comparable_pl_brl": comparable_pl,
+                "changed_funds": int(len(changed)),
+                "changed_comparable_pl_brl": changed_pl,
+                "changed_share": changed_pl / comparable_pl
+                if comparable_pl
+                else float("nan"),
+                "universe_definition": (
+                    "CNPJ de fundo continuante, ex-FIC, PL positivo nas duas "
+                    "competências, sem Sistema Petrobras e TAPSO"
+                ),
+                "pl_flow_definition": "min(PL_origem, PL_destino) por CNPJ",
+                "provider_group_definition": "canonical_provider(nome reportado)",
+                "source": "CVM, Informe Mensal, administrador reportado por competência",
+            }
+        ]
+    )
+
+    links = (
+        changed.groupby(["grupo_origem", "grupo_destino"], as_index=False)
+        .agg(
+            fundos=("cnpj_fundo", "nunique"),
+            pl_origem_brl=("pl_origem_brl", "sum"),
+            pl_destino_brl=("pl_destino_brl", "sum"),
+            pl_comparavel_brl=("pl_comparavel_brl", "sum"),
+        )
+        .sort_values(
+            ["pl_comparavel_brl", "grupo_origem", "grupo_destino"],
+            ascending=[False, True, True],
+        )
+        .reset_index(drop=True)
+    )
+    if not links.empty:
+        links.insert(0, "papel", "administrador")
+        links["share_pl_comparavel"] = links["pl_comparavel_brl"].div(
+            comparable_pl
+        )
+        links["competencia_origem"] = str(from_competence)[:7]
+        links["competencia_destino"] = str(to_competence)[:7]
+
+    unavailable_reason = (
+        "cadastro CVM vigente aplicado retroativamente; não há série histórica "
+        "like-for-like e mudanças não podem ser observadas"
+    )
+    role_availability = pd.DataFrame(
+        [
+            {
+                "papel": "administrador",
+                "transition_status": "disponível",
+                "serie_historica_observada": True,
+                "fonte_prestador": "Informe Mensal da competência",
+                "limitation": "",
+            },
+            {
+                "papel": "gestor",
+                "transition_status": "indisponível",
+                "serie_historica_observada": False,
+                "fonte_prestador": "cadastro CVM vigente aplicado à competência",
+                "limitation": unavailable_reason,
+            },
+            {
+                "papel": "custodiante",
+                "transition_status": "indisponível",
+                "serie_historica_observada": False,
+                "fonte_prestador": "cadastro CVM vigente aplicado à competência",
+                "limitation": unavailable_reason,
+            },
+        ]
+    )
+    detail = detail.sort_values(
+        ["mudou_grupo", "pl_comparavel_brl", "cnpj_fundo"],
+        ascending=[False, False, True],
+    ).reset_index(drop=True)
+    return summary, links, detail, role_availability
+
+
+def build_reag_admin_cohort(
+    fund_base: pd.DataFrame,
+    *,
+    from_competence: str = REAG_COHORT_FROM,
+    to_competence: str = REAG_COHORT_TO,
+    origin_admin_cnpj: str = REAG_CBSF_ADMIN_CNPJ,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Follow the positive-PL ex-FIC CBSF administrator cohort into May/26."""
+
+    origin_admin_cnpj = _digits(origin_admin_cnpj)
+    origin = _period_provider_scope(
+        fund_base,
+        from_competence,
+        positive_pl_only=True,
+        excluded_fund_cnpjs=excluded_fund_cnpjs,
+    )
+    origin["admin_cnpj_norm"] = origin["admin_cnpj"].map(_digits)
+    origin = origin[origin["admin_cnpj_norm"].eq(origin_admin_cnpj)].copy()
+    origin = origin[
+        ["cnpj_fundo", "denominacao", "pl", "admin_nome", "admin_cnpj_norm"]
+    ].rename(
+        columns={
+            "denominacao": "denominacao_origem",
+            "pl": "pl_origem_brl",
+            "admin_nome": "admin_origem_nome",
+            "admin_cnpj_norm": "admin_origem_cnpj",
+        }
+    )
+
+    required = {"competencia", "cnpj_fundo", "pl"}
+    missing = required.difference(fund_base.columns)
+    if missing:
+        raise ValueError(f"base de fundos sem colunas obrigatórias: {sorted(missing)}")
+    current = fund_base[
+        fund_base["competencia"].astype(str).str[:7].eq(str(to_competence)[:7])
+    ].copy()
+    current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
+    current["pl"] = pd.to_numeric(current["pl"], errors="coerce")
+    for column in (
+        "denominacao",
+        "admin_nome",
+        "admin_cnpj",
+        "gestor_nome",
+        "gestor_cnpj",
+        "custodiante_nome",
+        "custodiante_cnpj",
+        "is_fic_fidc",
+    ):
+        if column not in current:
+            current[column] = False if column == "is_fic_fidc" else ""
+    current["is_fic_fidc"] = _as_nullable_bool(current["is_fic_fidc"]).fillna(
+        False
+    )
+    current = (
+        current.sort_values(["pl", "cnpj_fundo"], ascending=[False, True])
+        .drop_duplicates("cnpj_fundo", keep="first")
+        [
+            [
+                "cnpj_fundo",
+                "denominacao",
+                "pl",
+                "admin_nome",
+                "admin_cnpj",
+                "gestor_nome",
+                "gestor_cnpj",
+                "custodiante_nome",
+                "custodiante_cnpj",
+                "is_fic_fidc",
+            ]
+        ]
+        .rename(
+            columns={
+                "denominacao": "denominacao_destino",
+                "pl": "pl_destino_observado_brl",
+                "admin_nome": "admin_destino_nome_observado",
+                "admin_cnpj": "admin_destino_cnpj_observado",
+                "gestor_nome": "gestor_destino_nome_observado",
+                "gestor_cnpj": "gestor_destino_cnpj_observado",
+                "custodiante_nome": "custodiante_destino_nome_observado",
+                "custodiante_cnpj": "custodiante_destino_cnpj_observado",
+                "is_fic_fidc": "is_fic_fidc_destino",
+            }
+        )
+    )
+    detail = origin.merge(
+        current,
+        on="cnpj_fundo",
+        how="left",
+        validate="one_to_one",
+        indicator=True,
+    )
+    detail["competencia_origem"] = str(from_competence)[:7]
+    detail["competencia_destino"] = str(to_competence)[:7]
+    detail["cnpj_fundo_formatado"] = detail["cnpj_fundo"].map(format_cnpj)
+    detail["denominacao"] = detail["denominacao_destino"].where(
+        detail["denominacao_destino"].map(_clean).ne(""),
+        detail["denominacao_origem"],
+    )
+    detail["admin_destino_cnpj_observado"] = detail[
+        "admin_destino_cnpj_observado"
+    ].map(_digits)
+    detail["admin_destino_grupo_observado"] = detail[
+        "admin_destino_nome_observado"
+    ].map(canonical_provider)
+    detail["gestor_destino_cnpj_observado"] = detail[
+        "gestor_destino_cnpj_observado"
+    ].map(_digits)
+    detail["gestor_destino_grupo_observado"] = detail[
+        "gestor_destino_nome_observado"
+    ].map(canonical_provider)
+    detail["custodiante_destino_cnpj_observado"] = detail[
+        "custodiante_destino_cnpj_observado"
+    ].map(_digits)
+    detail["custodiante_destino_grupo_observado"] = detail[
+        "custodiante_destino_nome_observado"
+    ].map(canonical_provider)
+    detail["status_destino"] = "continuante_ativo"
+    detail.loc[detail["_merge"].eq("left_only"), "status_destino"] = (
+        "saida_sem_reporte"
+    )
+    nonpositive = detail["_merge"].eq("both") & ~detail[
+        "pl_destino_observado_brl"
+    ].gt(0)
+    detail.loc[nonpositive, "status_destino"] = "saida_pl_nao_positivo"
+    outside_ex_fic = detail["_merge"].eq("both") & detail[
+        "is_fic_fidc_destino"
+    ].fillna(False).astype(bool)
+    detail.loc[outside_ex_fic, "status_destino"] = "saida_fora_escopo_ex_fic"
+    active = detail["status_destino"].eq("continuante_ativo")
+    detail["admin_destino_grupo"] = detail[
+        "admin_destino_grupo_observado"
+    ].where(active, "Saída / sem reporte")
+    detail["admin_destino_cnpj"] = detail[
+        "admin_destino_cnpj_observado"
+    ].where(active, "")
+    detail["pl_destino_brl"] = detail["pl_destino_observado_brl"].where(active)
+    detail["pl_comparavel_brl"] = detail[
+        ["pl_origem_brl", "pl_destino_brl"]
+    ].min(axis=1, skipna=False)
+    detail["mudou_administrador"] = active & detail["admin_destino_cnpj"].ne(
+        origin_admin_cnpj
+    )
+    detail["fundosnet_url"] = detail["cnpj_fundo"].map(fundosnet_fund_url)
+    detail["fonte_origem_url"] = cvm_monthly_source_url(from_competence)
+    detail["fonte_destino_url"] = cvm_monthly_source_url(to_competence)
+
+    continuing = detail[active].copy()
+    exited = detail[~active].copy()
+    continuing["destino_grupo_link"] = continuing["admin_destino_grupo"].where(
+        continuing["admin_destino_grupo"].isin(
+            {"CBSF", "Banco Master", "Planner Corretora De Valores"}
+        ),
+        "Outros migrados",
+    )
+    continuing["admin_destino_cnpj_link"] = continuing[
+        "admin_destino_cnpj"
+    ].where(continuing["destino_grupo_link"].ne("Outros migrados"), "")
+    links = (
+        continuing.groupby(
+            ["destino_grupo_link", "admin_destino_cnpj_link"], as_index=False
+        )
+        .agg(
+            fundos=("cnpj_fundo", "nunique"),
+            pl_2025_12_brl=("pl_origem_brl", "sum"),
+            pl_2026_05_brl=("pl_destino_brl", "sum"),
+            pl_comparavel_brl=("pl_comparavel_brl", "sum"),
+        )
+        .rename(
+            columns={
+                "destino_grupo_link": "destino_grupo",
+                "admin_destino_cnpj_link": "admin_destino_cnpj",
+            }
+        )
+    )
+    if not exited.empty:
+        exit_row = pd.DataFrame(
+            [
+                {
+                    "destino_grupo": "Saída / sem reporte",
+                    "admin_destino_cnpj": "",
+                    "fundos": int(exited["cnpj_fundo"].nunique()),
+                    "pl_2025_12_brl": float(exited["pl_origem_brl"].sum()),
+                    "pl_2026_05_brl": 0.0,
+                    "pl_comparavel_brl": float("nan"),
+                }
+            ]
+        )
+        links = pd.concat([links, exit_row], ignore_index=True)
+    links["pl_current_brl"] = links["pl_2026_05_brl"]
+    links["pl_flow_brl"] = links["pl_2025_12_brl"]
+    links = links.sort_values(
+        ["pl_flow_brl", "destino_grupo"], ascending=[False, True]
+    ).reset_index(drop=True)
+
+    migrated = continuing[continuing["mudou_administrador"]]
+    continuing_current_pl = float(continuing["pl_destino_brl"].sum())
+
+    def current_role_pl(column: str, value: str) -> float:
+        return float(
+            continuing.loc[continuing[column].eq(value), "pl_destino_brl"].sum()
+        )
+
+    summary = pd.DataFrame(
+        [
+            {
+                "cohort_label": "REAG / CBSF",
+                "origin_admin_cnpj": origin_admin_cnpj,
+                "origin_admin_cnpj_formatado": format_cnpj(origin_admin_cnpj),
+                "competencia_origem": str(from_competence)[:7],
+                "competencia_destino": str(to_competence)[:7],
+                "funds_origin": int(len(detail)),
+                "pl_origin_brl": float(detail["pl_origem_brl"].sum()),
+                "continuing_funds": int(len(continuing)),
+                "continuing_pl_origin_brl": float(
+                    continuing["pl_origem_brl"].sum()
+                ),
+                "continuing_pl_current_brl": continuing_current_pl,
+                "continuing_comparable_pl_brl": float(
+                    continuing["pl_comparavel_brl"].sum()
+                ),
+                "migrated_funds": int(len(migrated)),
+                "migrated_pl_current_brl": float(migrated["pl_destino_brl"].sum()),
+                "migrated_share_current": float(migrated["pl_destino_brl"].sum())
+                / continuing_current_pl
+                if continuing_current_pl
+                else float("nan"),
+                "exited_funds": int(len(exited)),
+                "exited_pl_origin_brl": float(exited["pl_origem_brl"].sum()),
+                "missing_destination_funds": int(
+                    exited["status_destino"].eq("saida_sem_reporte").sum()
+                ),
+                "nonpositive_destination_funds": int(
+                    exited["status_destino"].eq("saida_pl_nao_positivo").sum()
+                ),
+                "manager_cbsf_trust_pl_brl": current_role_pl(
+                    "gestor_destino_grupo_observado", "CBSF"
+                ),
+                "manager_other_reag_pl_brl": current_role_pl(
+                    "gestor_destino_grupo_observado", "REAG"
+                ),
+                "manager_smart_agro_pl_brl": current_role_pl(
+                    "gestor_destino_grupo_observado", "Smart Agro Investimentos"
+                ),
+                "custodian_reag_cbsf_pl_brl": current_role_pl(
+                    "custodiante_destino_cnpj_observado", origin_admin_cnpj
+                ),
+                "custodian_planner_pl_brl": current_role_pl(
+                    "custodiante_destino_grupo_observado",
+                    "Planner Corretora De Valores",
+                ),
+                "manager_custodian_history_available": False,
+                "manager_custodian_history_limitation": (
+                    "gestor e custodiante são fotografia do cadastro vigente; "
+                    "a composição de mai/26 é válida como corte atual, não como transição histórica"
+                ),
+                "universe_definition": (
+                    "CNPJ administrado por 34.829.992/0001-86 em dez/25, "
+                    "ex-FIC e PL positivo; continuante exige PL positivo em mai/26"
+                ),
+                "source": "CVM, Informe Mensal, administrador reportado por competência",
+                "liquidation_source_url": REAG_LIQUIDATION_BCB_URL,
+            }
+        ]
+    )
+    detail = detail.drop(columns="_merge").sort_values(
+        ["status_destino", "pl_origem_brl", "cnpj_fundo"],
+        ascending=[True, False, True],
+    ).reset_index(drop=True)
+    return summary, links, detail
+
+
+def _ranking_provider_pl(
+    provider_historical_ranking: pd.DataFrame,
+    *,
+    competence: str,
+    role: str,
+    provider: str,
+) -> float:
+    if provider_historical_ranking is None or provider_historical_ranking.empty:
+        return float("nan")
+    required = {"competencia", "papel", "participante", "pl_brl"}
+    if not required.issubset(provider_historical_ranking.columns):
+        return float("nan")
+    scoped = provider_historical_ranking[
+        provider_historical_ranking["competencia"].astype(str).str[:7].eq(
+            str(competence)[:7]
+        )
+        & provider_historical_ranking["papel"].astype(str).eq(role)
+        & provider_historical_ranking["participante"]
+        .map(canonical_provider)
+        .eq(canonical_provider(provider))
+    ]
+    if scoped.empty:
+        return float("nan")
+    return float(pd.to_numeric(scoped["pl_brl"], errors="coerce").sum())
+
+
+def build_btg_controlled_reconciliation(
+    base_vehicle: pd.DataFrame,
+    provider_historical_ranking: pd.DataFrame,
+    *,
+    competence: str = LATEST_COMPLETE,
+    controlled_fidcs: Mapping[str, str] = BTG_CONTROLLED_FIDCS,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Reconcile the six active Brazilian FIDCs disclosed as BTG-controlled."""
+
+    vehicle_column = "cnpj_veiculo" if "cnpj_veiculo" in base_vehicle else "cnpj"
+    required = {"competencia", vehicle_column, "pl"}
+    missing = required.difference(base_vehicle.columns)
+    if missing:
+        raise ValueError(f"base de veículos sem colunas obrigatórias: {sorted(missing)}")
+    current = base_vehicle[
+        base_vehicle["competencia"].astype(str).str[:7].eq(str(competence)[:7])
+    ].copy()
+    current["cnpj_veiculo"] = current[vehicle_column].map(_digits)
+    current["pl"] = pd.to_numeric(current["pl"], errors="coerce")
+    for column in (
+        "cnpj_fundo",
+        "denominacao",
+        "is_fic_fidc",
+        "admin_nome",
+        "admin_cnpj",
+        "gestor_nome",
+        "gestor_cnpj",
+        "custodiante_nome",
+        "custodiante_cnpj",
+    ):
+        if column not in current:
+            current[column] = False if column == "is_fic_fidc" else ""
+    current = (
+        current.sort_values(["pl", "cnpj_veiculo"], ascending=[False, True])
+        .drop_duplicates("cnpj_veiculo", keep="first")
+        .reset_index(drop=True)
+    )
+    controlled = pd.DataFrame(
+        [
+            {"cnpj_veiculo": _digits(cnpj), "nome_df_btg": name}
+            for cnpj, name in controlled_fidcs.items()
+        ]
+    )
+    detail = controlled.merge(
+        current[
+            [
+                "cnpj_veiculo",
+                "cnpj_fundo",
+                "denominacao",
+                "pl",
+                "is_fic_fidc",
+                "admin_nome",
+                "admin_cnpj",
+                "gestor_nome",
+                "gestor_cnpj",
+                "custodiante_nome",
+                "custodiante_cnpj",
+            ]
+        ],
+        on="cnpj_veiculo",
+        how="left",
+        validate="one_to_one",
+        indicator=True,
+    )
+    detail["competencia"] = str(competence)[:7]
+    detail["cnpj_veiculo_formatado"] = detail["cnpj_veiculo"].map(format_cnpj)
+    detail["cnpj_fundo"] = detail["cnpj_fundo"].map(_digits)
+    detail["cnpj_fundo_formatado"] = detail["cnpj_fundo"].map(format_cnpj)
+    detail["observado_competencia"] = detail["_merge"].eq("both")
+    detail["pl_mai26_brl"] = detail["pl"]
+    for role in ("admin", "gestor", "custodiante"):
+        detail[f"{role}_cnpj"] = detail[f"{role}_cnpj"].map(_digits)
+        detail[f"{role}_grupo"] = detail[f"{role}_nome"].map(canonical_provider)
+        detail[f"btg_no_papel_{role}"] = detail[f"{role}_grupo"].eq("BTG Pactual")
+    detail["is_fic_fidc"] = _as_nullable_bool(detail["is_fic_fidc"]).fillna(False)
+    detail["reconciliado_controlado_ativo"] = (
+        detail["observado_competencia"]
+        & detail["pl_mai26_brl"].gt(0)
+        & ~detail["is_fic_fidc"].astype(bool)
+        & detail["btg_no_papel_gestor"]
+    )
+    if not detail["reconciliado_controlado_ativo"].all():
+        failures = detail.loc[
+            ~detail["reconciliado_controlado_ativo"],
+            ["cnpj_veiculo", "observado_competencia", "pl_mai26_brl", "gestor_grupo"],
+        ].to_dict(orient="records")
+        raise AssertionError(
+            "os seis FIDCs controlados do BTG não reconciliaram como ativos, "
+            f"ex-FIC e geridos pelo BTG em {str(competence)[:7]}: {failures}"
+        )
+    role_totals = {
+        role: _ranking_provider_pl(
+            provider_historical_ranking,
+            competence=competence,
+            role=role,
+            provider="BTG Pactual",
+        )
+        for role in ("administrador", "gestor", "custodiante")
+    }
+    role_column = {
+        "administrador": "admin",
+        "gestor": "gestor",
+        "custodiante": "custodiante",
+    }
+    for role, total in role_totals.items():
+        short = role_column[role]
+        detail[f"btg_{role}_pl_brl"] = total
+        detail[f"share_pl_btg_{role}"] = detail["pl_mai26_brl"].div(total)
+        detail.loc[~detail[f"btg_no_papel_{short}"], f"share_pl_btg_{role}"] = 0.0
+    detail["fundosnet_url"] = detail["cnpj_veiculo"].map(fundosnet_fund_url)
+    detail["btg_ifrs_source_url"] = BTG_IFRS_1Q26_URL
+    detail["btg_ifrs_source_reference"] = (
+        "BTG Pactual, demonstrações IFRS 1T26, nota 3.d, p. 19 do PDF"
+    )
+
+    managed_pl = role_totals["gestor"]
+    confirmed_pl = float(
+        detail.loc[detail["reconciliado_controlado_ativo"], "pl_mai26_brl"].sum()
+    )
+    residual = managed_pl - confirmed_pl
+    manager_ranking = provider_historical_ranking[
+        provider_historical_ranking.get(
+            "competencia", pd.Series("", index=provider_historical_ranking.index)
+        )
+        .astype(str)
+        .str[:7]
+        .eq(str(competence)[:7])
+        & provider_historical_ranking.get(
+            "papel", pd.Series("", index=provider_historical_ranking.index)
+        )
+        .astype(str)
+        .eq("gestor")
+    ].copy()
+    if not manager_ranking.empty:
+        manager_ranking["provider_group"] = manager_ranking["participante"].map(
+            canonical_provider
+        )
+        competitor_pl = pd.to_numeric(
+            manager_ranking.loc[
+                manager_ranking["provider_group"].ne("BTG Pactual"), "pl_brl"
+            ],
+            errors="coerce",
+        )
+        rank_without_confirmed = 1 + int(competitor_pl.gt(residual).sum())
+    else:
+        rank_without_confirmed = pd.NA
+    bradesco_pl = _ranking_provider_pl(
+        provider_historical_ranking,
+        competence=competence,
+        role="gestor",
+        provider="Bradesco",
+    )
+    summary = pd.DataFrame(
+        [
+            {
+                "provider": "btg",
+                "competencia": str(competence)[:7],
+                "managed_pl_brl": managed_pl,
+                "confirmed_controlled_pl_brl": confirmed_pl,
+                "residual_unproven_pl_brl": residual,
+                "bradesco_managed_pl_brl": bradesco_pl,
+                "confirmed_controlled_share": confirmed_pl / managed_pl
+                if managed_pl
+                else float("nan"),
+                "rank_without_confirmed": rank_without_confirmed,
+                "controlled_fidcs_expected": int(len(controlled)),
+                "controlled_fidcs_reconciled": int(
+                    detail["reconciliado_controlado_ativo"].sum()
+                ),
+                "methodology": (
+                    "seis FIDCs brasileiros ativos declarados controlados na DF IFRS "
+                    "1T26, reconciliados por CNPJ ao PL CVM de mai/26"
+                ),
+                "source_url": BTG_IFRS_1Q26_URL,
+            }
+        ]
+    )
+    detail = detail.drop(columns=["pl", "_merge"]).sort_values(
+        ["pl_mai26_brl", "cnpj_veiculo"], ascending=[False, True]
+    )
+    return summary, detail.reset_index(drop=True)
+
+
+def build_qi_legacy_attribution(
+    fund_base: pd.DataFrame,
+    *,
+    competence: str = PROVIDER_TRANSITION_FROM,
+    excluded_fund_cnpjs: Iterable[str] = MARKET_SHARE_EXCLUDED_FUNDS,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Split QI's Dec/24 administrator book by the two legal provider CNPJs."""
+
+    scoped = _period_provider_scope(
+        fund_base,
+        competence,
+        positive_pl_only=True,
+        excluded_fund_cnpjs=excluded_fund_cnpjs,
+    )
+    scoped["admin_cnpj_norm"] = scoped["admin_cnpj"].map(_digits)
+    scoped["admin_group"] = scoped["admin_nome"].map(canonical_provider)
+    attributed_cnpjs = {QI_LEGACY_SINGULARE_CNPJ, QI_ORIGINAL_DTVM_CNPJ}
+    group = scoped[scoped["admin_cnpj_norm"].isin(attributed_cnpjs)]
+    specifications = (
+        (
+            QI_LEGACY_SINGULARE_CNPJ,
+            "CNPJ legado da Singulare / atual QI Corretora",
+            "legacy_singulare",
+        ),
+        (QI_ORIGINAL_DTVM_CNPJ, "QI DTVM original", "original_qi"),
+    )
+    rows: list[dict[str, object]] = []
+    for cnpj, label, attribution in specifications:
+        legal = scoped[scoped["admin_cnpj_norm"].eq(cnpj)]
+        rows.append(
+            {
+                "competencia": str(competence)[:7],
+                "provider_cnpj": cnpj,
+                "provider_cnpj_formatado": format_cnpj(cnpj),
+                "provider_legal_label": label,
+                "attribution": attribution,
+                "pl_brl": float(legal["pl"].sum()),
+                "fundos": int(legal["cnpj_fundo"].nunique()),
+                "admin_group_pl_brl": float(group["pl"].sum()),
+                "share_admin_group": float(legal["pl"].sum()) / float(group["pl"].sum())
+                if float(group["pl"].sum())
+                else float("nan"),
+                "methodology": (
+                    "atribuição por CNPJ legal do administrador; nomes históricos "
+                    "podem refletir republicação cadastral sob a marca atual"
+                ),
+                "source_acquisition_url": QI_SINGULARE_ACQUISITION_URL,
+                "source_reorganization_url": QI_REORGANIZATION_BCB_URL,
+            }
+        )
+    detail = pd.DataFrame(rows)
+    legacy_pl = float(
+        detail.loc[detail["attribution"].eq("legacy_singulare"), "pl_brl"].sum()
+    )
+    original_pl = float(
+        detail.loc[detail["attribution"].eq("original_qi"), "pl_brl"].sum()
+    )
+    group_pl = float(group["pl"].sum())
+    summary = pd.DataFrame(
+        [
+            {
+                "provider": "qi",
+                "competencia": str(competence)[:7],
+                "admin_group_pl_2024_brl": group_pl,
+                "legacy_singulare_pl_2024_brl": legacy_pl,
+                "original_qi_pl_2024_brl": original_pl,
+                "legacy_share_2024": legacy_pl / group_pl
+                if group_pl
+                else float("nan"),
+                "methodology": (
+                    "QI Tech canônico de dez/24 separado pelos CNPJs 62.285.390/0001-40 "
+                    "e 46.955.383/0001-52"
+                ),
+                "source_acquisition_url": QI_SINGULARE_ACQUISITION_URL,
+                "source_reorganization_url": QI_REORGANIZATION_BCB_URL,
+            }
+        ]
+    )
+    return summary, detail
+
+
+def build_provider_leadership_attribution(
+    base_vehicle: pd.DataFrame,
+    fund_base: pd.DataFrame,
+    provider_historical_ranking: pd.DataFrame,
+    *,
+    latest_complete: str = LATEST_COMPLETE,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Build the BTG controlled-book and QI legacy-CNPJ attribution blocks."""
+
+    btg_summary, btg_detail = build_btg_controlled_reconciliation(
+        base_vehicle,
+        provider_historical_ranking,
+        competence=latest_complete,
+    )
+    qi_summary, qi_detail = build_qi_legacy_attribution(fund_base)
+    summary = pd.concat([btg_summary, qi_summary], ignore_index=True, sort=False)
+    return summary, btg_detail, qi_detail
+
+
 @dataclass(frozen=True)
 class RevisionOutputs:
     latest_complete: str
@@ -1167,6 +2006,16 @@ class RevisionOutputs:
     market_share_scope_summary: pd.DataFrame
     provider_historical_ranking: pd.DataFrame
     classification_coverage: pd.DataFrame
+    provider_transition_summary: pd.DataFrame
+    provider_transition_links: pd.DataFrame
+    provider_transition_detail: pd.DataFrame
+    provider_transition_role_availability: pd.DataFrame
+    reag_admin_summary: pd.DataFrame
+    reag_admin_links: pd.DataFrame
+    reag_admin_detail: pd.DataFrame
+    provider_leadership_attribution: pd.DataFrame
+    btg_controlled_reconciliation: pd.DataFrame
+    qi_legacy_attribution: pd.DataFrame
 
 
 def build_revision_outputs(
@@ -1205,6 +2054,25 @@ def build_revision_outputs(
     classification_coverage = build_classification_coverage(
         fund_base, competence=latest_complete
     )
+    (
+        provider_transition_summary,
+        provider_transition_links,
+        provider_transition_detail,
+        provider_transition_role_availability,
+    ) = build_provider_transition_flows(fund_base)
+    reag_admin_summary, reag_admin_links, reag_admin_detail = build_reag_admin_cohort(
+        fund_base, to_competence=latest_complete
+    )
+    (
+        provider_leadership_attribution,
+        btg_controlled_reconciliation,
+        qi_legacy_attribution,
+    ) = build_provider_leadership_attribution(
+        base,
+        fund_base,
+        provider_historical_ranking,
+        latest_complete=latest_complete,
+    )
     return RevisionOutputs(
         latest_complete=latest_complete,
         raw_source_presence=(
@@ -1228,6 +2096,16 @@ def build_revision_outputs(
         market_share_scope_summary=market_scope,
         provider_historical_ranking=provider_historical_ranking,
         classification_coverage=classification_coverage,
+        provider_transition_summary=provider_transition_summary,
+        provider_transition_links=provider_transition_links,
+        provider_transition_detail=provider_transition_detail,
+        provider_transition_role_availability=provider_transition_role_availability,
+        reag_admin_summary=reag_admin_summary,
+        reag_admin_links=reag_admin_links,
+        reag_admin_detail=reag_admin_detail,
+        provider_leadership_attribution=provider_leadership_attribution,
+        btg_controlled_reconciliation=btg_controlled_reconciliation,
+        qi_legacy_attribution=qi_legacy_attribution,
     )
 
 
@@ -1251,6 +2129,28 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         ("market_share_escopo_resumo.csv", outputs.market_share_scope_summary, False),
         ("prestadores_ranking_historico.csv", outputs.provider_historical_ranking, False),
         ("cobertura_classificacao.csv", outputs.classification_coverage, False),
+        ("prestadores_transicoes_resumo.csv", outputs.provider_transition_summary, False),
+        ("prestadores_transicoes_links.csv", outputs.provider_transition_links, False),
+        ("prestadores_transicoes_detalhe.csv", outputs.provider_transition_detail, False),
+        (
+            "prestadores_transicoes_disponibilidade.csv",
+            outputs.provider_transition_role_availability,
+            False,
+        ),
+        ("reag_cbsf_coorte_resumo.csv", outputs.reag_admin_summary, False),
+        ("reag_cbsf_coorte_links.csv", outputs.reag_admin_links, False),
+        ("reag_cbsf_coorte_detalhe.csv", outputs.reag_admin_detail, False),
+        (
+            "prestadores_lideranca_atribuicao.csv",
+            outputs.provider_leadership_attribution,
+            False,
+        ),
+        (
+            "btg_fidcs_controlados_reconciliacao.csv",
+            outputs.btg_controlled_reconciliation,
+            False,
+        ),
+        ("qi_atribuicao_cnpjs_legados.csv", outputs.qi_legacy_attribution, False),
     )
     files: dict[str, dict[str, object]] = {}
     for filename, frame, compressed in table_specs:
@@ -1321,6 +2221,22 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         "market_share_escopo_resumo": records(outputs.market_share_scope_summary),
         "prestadores_ranking_historico": records(outputs.provider_historical_ranking),
         "cobertura_classificacao": records(outputs.classification_coverage),
+        "provider_transition_summary": records(outputs.provider_transition_summary),
+        "provider_transition_links": records(outputs.provider_transition_links),
+        "provider_transition_detail": records(outputs.provider_transition_detail),
+        "provider_transition_role_availability": records(
+            outputs.provider_transition_role_availability
+        ),
+        "reag_admin_summary": records(outputs.reag_admin_summary),
+        "reag_admin_links": records(outputs.reag_admin_links),
+        "reag_admin_detail": records(outputs.reag_admin_detail),
+        "provider_leadership_attribution": records(
+            outputs.provider_leadership_attribution
+        ),
+        "btg_controlled_reconciliation": records(
+            outputs.btg_controlled_reconciliation
+        ),
+        "qi_legacy_attribution": records(outputs.qi_legacy_attribution),
     }
     payload_path = output_dir / "deck_workbook_payload.json"
     payload_path.write_text(
@@ -1353,6 +2269,18 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
                 "PL negativo é quantificado e excluído apenas da normalização percentual"
             ),
             "market_share_excluded_funds": MARKET_SHARE_EXCLUDED_FUNDS,
+            "provider_transition_flow": (
+                "CNPJs ex-FIC com PL positivo em dez/24 e dez/25; "
+                "PL comparável = min(PL_dez24, PL_dez25) por CNPJ"
+            ),
+            "provider_transition_roles": (
+                "somente administrador é observado por competência; gestor e "
+                "custodiante históricos são indisponíveis por overlay cadastral vigente"
+            ),
+            "reag_cbsf_cohort": (
+                "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL "
+                "positivo; destino ativo exige PL positivo em mai/26"
+            ),
         },
         "files": files,
         "checks": {
@@ -1380,6 +2308,26 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             )
             if not latest_qa.empty
             else "indisponível",
+            "provider_transition_continuing_funds": int(
+                outputs.provider_transition_summary["continuing_funds"].iloc[0]
+            )
+            if not outputs.provider_transition_summary.empty
+            else 0,
+            "provider_transition_changed_funds": int(
+                outputs.provider_transition_summary["changed_funds"].iloc[0]
+            )
+            if not outputs.provider_transition_summary.empty
+            else 0,
+            "reag_cohort_exited_funds": int(
+                outputs.reag_admin_summary["exited_funds"].iloc[0]
+            )
+            if not outputs.reag_admin_summary.empty
+            else 0,
+            "btg_controlled_fidcs_reconciled": int(
+                outputs.btg_controlled_reconciliation[
+                    "reconciliado_controlado_ativo"
+                ].sum()
+            ),
         },
         "limitations": [
             (
@@ -1396,6 +2344,10 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
                 "constituem série histórica like-for-like."
             ),
             (
+                "Por isso, os fluxos dez/24–dez/25 são calculados somente para "
+                "administração; nenhuma troca histórica de gestor ou custodiante é inferida."
+            ),
+            (
                 "Monoestrutura mede coincidência de conglomerado normalizado; "
                 "não demonstra preço, contrato ou venda casada."
             ),
@@ -1410,8 +2362,17 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
 __all__ = [
     "BRIDGE_FROM",
     "BRIDGE_TO",
+    "BTG_CONTROLLED_FIDCS",
+    "BTG_IFRS_1Q26_URL",
     "LATEST_COMPLETE",
     "MARKET_SHARE_EXCLUDED_FUNDS",
+    "PROVIDER_TRANSITION_FROM",
+    "PROVIDER_TRANSITION_TO",
+    "QI_LEGACY_SINGULARE_CNPJ",
+    "QI_ORIGINAL_DTVM_CNPJ",
+    "REAG_CBSF_ADMIN_CNPJ",
+    "REAG_COHORT_FROM",
+    "REAG_COHORT_TO",
     "RevisionOutputs",
     "add_reporting_flags",
     "build_base_by_vehicle",
@@ -1423,11 +2384,18 @@ __all__ = [
     "build_market_share_scope_summary",
     "build_provider_historical_ranking",
     "build_classification_coverage",
+    "build_btg_controlled_reconciliation",
     "exclude_market_share_funds",
+    "build_provider_leadership_attribution",
+    "build_provider_transition_flows",
+    "build_qi_legacy_attribution",
+    "build_reag_admin_cohort",
     "overlay_raw_source_presence",
     "build_reconciliation",
     "build_revision_outputs",
     "build_top20_and_monostructure",
     "format_cnpj",
+    "fundosnet_fund_url",
+    "cvm_monthly_source_url",
     "write_revision_outputs",
 ]

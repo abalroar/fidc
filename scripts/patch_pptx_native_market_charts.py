@@ -27,9 +27,9 @@ MARKET_SHARE_SLIDES = {
     11: False,
     12: False,
     13: False,
-    21: True,
-    22: True,
-    23: True,
+    24: True,
+    25: True,
+    26: True,
 }
 SHORT_SEGMENT = 0.025
 

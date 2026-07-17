@@ -89,6 +89,16 @@ REQUIRED_ANALYSIS_FILES = {
     "market_share_top10_fixo.csv",
     "market_share_escopo_resumo.csv",
     "prestadores_ranking_historico.csv",
+    "prestadores_transicoes_resumo.csv",
+    "prestadores_transicoes_links.csv",
+    "prestadores_transicoes_detalhe.csv",
+    "prestadores_transicoes_disponibilidade.csv",
+    "reag_cbsf_coorte_resumo.csv",
+    "reag_cbsf_coorte_links.csv",
+    "reag_cbsf_coorte_detalhe.csv",
+    "prestadores_lideranca_atribuicao.csv",
+    "btg_fidcs_controlados_reconciliacao.csv",
+    "qi_atribuicao_cnpjs_legados.csv",
 }
 
 
@@ -296,6 +306,25 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         raise RevisionBundlePublishError("payload editorial sem acquiring_taxonomy")
     if not isinstance(payload.get("atlantico_profile"), Mapping):
         raise RevisionBundlePublishError("payload editorial sem atlantico_profile")
+    for key in (
+        "provider_transition_summary",
+        "reag_admin_summary",
+        "provider_leadership_attribution",
+    ):
+        if not isinstance(payload.get(key), Mapping):
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
+    for key in (
+        "provider_transition_links",
+        "provider_transition_detail",
+        "provider_transition_role_availability",
+        "reag_admin_links",
+        "reag_admin_detail",
+        "btg_controlled_reconciliation",
+        "qi_legacy_attribution",
+    ):
+        rows = payload.get(key)
+        if not isinstance(rows, list) or not rows:
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
 
 
 _MONTH_ABBR = (
@@ -460,7 +489,7 @@ def build_bundle_manifest(
             "bytes": len(xlsx_bytes),
         },
         "checks": {
-            "slides": 44,
+            "slides": 47,
             "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
             "top20_outros": len(list(payload.get("top20_outros") or [])),
             "profiles": len(list(payload.get("profiles") or [])),
@@ -535,8 +564,8 @@ def validate_renderer_manifest(
         if int(entry.get("bytes") or -1) != len(content):
             raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
     checks = dict(manifest.get("checks") or {})
-    if int(checks.get("slides") or 0) != 44:
-        raise RevisionBundlePublishError("manifest do renderer não contém 44 slides")
+    if int(checks.get("slides") or 0) != 47:
+        raise RevisionBundlePublishError("manifest do renderer não contém 47 slides")
     if any(int(checks.get(key) or 0) != 20 for key in ("top20_fidcs", "top20_outros", "profiles")):
         raise RevisionBundlePublishError("manifest do renderer falhou nos checks Top 20")
 
