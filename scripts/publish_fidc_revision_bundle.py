@@ -45,9 +45,10 @@ from services.industry_revision_export import (
 
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_SCRIPT = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
+NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v2"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -61,6 +62,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_offers.csv.gz",
     "industry_originators_annual.csv",
     "atlantico_curadoria.json",
+    "acquiring_taxonomy_curation.json",
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -71,6 +73,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
+    ROOT / "scripts" / "patch_pptx_native_market_charts.py",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_export.py",
 )
@@ -84,6 +87,8 @@ REQUIRED_ANALYSIS_FILES = {
     "monoestrutura_concentracao.csv",
     "market_share_por_subtipo.csv",
     "market_share_top10_fixo.csv",
+    "market_share_escopo_resumo.csv",
+    "prestadores_ranking_historico.csv",
 }
 
 
@@ -274,11 +279,21 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "type_mix_history",
         "receivables_history",
         "provider_concentration_history",
+        "provider_historical_ranking",
+        "market_share_scope_summary",
         "atlantico_history",
     ):
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
             raise RevisionBundlePublishError(f"payload editorial sem {key}")
+    exclusions = payload.get("market_share_exclusions")
+    if not isinstance(exclusions, list) or len(exclusions) != 2:
+        raise RevisionBundlePublishError(
+            "payload editorial sem market_share_exclusions (duas exclusões esperadas)"
+        )
+    acquiring = payload.get("acquiring_taxonomy")
+    if not isinstance(acquiring, Mapping) or not isinstance(acquiring.get("funds"), list):
+        raise RevisionBundlePublishError("payload editorial sem acquiring_taxonomy")
     if not isinstance(payload.get("atlantico_profile"), Mapping):
         raise RevisionBundlePublishError("payload editorial sem atlantico_profile")
 
@@ -445,7 +460,7 @@ def build_bundle_manifest(
             "bytes": len(xlsx_bytes),
         },
         "checks": {
-            "slides": 43,
+            "slides": 44,
             "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
             "top20_outros": len(list(payload.get("top20_outros") or [])),
             "profiles": len(list(payload.get("profiles") or [])),
@@ -520,6 +535,8 @@ def validate_renderer_manifest(
         if int(entry.get("bytes") or -1) != len(content):
             raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
     checks = dict(manifest.get("checks") or {})
+    if int(checks.get("slides") or 0) != 44:
+        raise RevisionBundlePublishError("manifest do renderer não contém 44 slides")
     if any(int(checks.get(key) or 0) != 20 for key in ("top20_fidcs", "top20_outros", "profiles")):
         raise RevisionBundlePublishError("manifest do renderer falhou nos checks Top 20")
 
@@ -638,6 +655,7 @@ def publish_revision_bundle(
     # the exact bytes recorded in the input signature even if the worktree is
     # edited concurrently.
     artifact_script_bytes = ARTIFACT_SCRIPT.read_bytes()
+    native_chart_patcher_bytes = NATIVE_CHART_PATCHER.read_bytes()
     input_hashes = collect_input_hashes(
         data_dir=data_dir,
         curation_path=curation_path,
@@ -665,6 +683,8 @@ def publish_revision_bundle(
         stage_exports.mkdir(parents=True)
         staged_renderer = stage / ARTIFACT_SCRIPT.name
         staged_renderer.write_bytes(artifact_script_bytes)
+        staged_native_chart_patcher = stage / NATIVE_CHART_PATCHER.name
+        staged_native_chart_patcher.write_bytes(native_chart_patcher_bytes)
         renderer = _artifact_runtime_metadata(
             node,
             resolved_modules,

@@ -16,6 +16,7 @@ from scripts.publish_fidc_revision_bundle import (
     MATERIALIZED_XLSX_NAME,
     PAYLOAD_SCHEMA,
     REQUIRED_ANALYSIS_FILES,
+    REQUIRED_DATA_INPUTS,
     RevisionBundlePublishError,
     build_bundle_manifest,
     discover_artifact_node_modules,
@@ -76,13 +77,30 @@ def _payload() -> dict[str, object]:
             {"competencia": "2025-12"},
             {"competencia": "2026-05"},
         ],
+        "provider_historical_ranking": [
+            {"competencia": "2024-12", "papel": "administrador"},
+            {"competencia": "2025-12", "papel": "administrador"},
+            {"competencia": "2026-05", "papel": "administrador"},
+        ],
+        "market_share_scope_summary": [
+            {"competencia": "2026-05", "papel": "administrador"}
+        ],
+        "market_share_exclusions": [
+            {"cnpj": "09195235000150", "fund": "FIDC Sistema Petrobras"},
+            {"cnpj": "26287464000114", "fund": "FIDC TAPSO"},
+        ],
+        "acquiring_taxonomy": {
+            "summary": {"table_ii_category": "Cartão"},
+            "funds": [{"fund_name": "TAPSO FIDC"}],
+            "sources": [],
+        },
         "atlantico_profile": {"cnpj": "09.194.841/0001-51"},
         "atlantico_history": [{"competencia": "2026-05"}],
     }
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v2"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v3"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
 
@@ -91,6 +109,10 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "type_mix_history",
         "receivables_history",
         "provider_concentration_history",
+        "provider_historical_ranking",
+        "market_share_scope_summary",
+        "market_share_exclusions",
+        "acquiring_taxonomy",
         "atlantico_profile",
         "atlantico_history",
     ):
@@ -126,6 +148,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     )
 
     assert first["bundle_id"] == second["bundle_id"]
+    assert first["checks"]["slides"] == 44
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,
@@ -257,6 +280,14 @@ def test_analysis_manifest_requires_materialized_tables(tmp_path: Path) -> None:
         revision_dir=tmp_path,
         latest_complete="2026-05",
     )
+
+
+def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None:
+    assert {
+        "market_share_escopo_resumo.csv",
+        "prestadores_ranking_historico.csv",
+    }.issubset(REQUIRED_ANALYSIS_FILES)
+    assert "acquiring_taxonomy_curation.json" in REQUIRED_DATA_INPUTS
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:

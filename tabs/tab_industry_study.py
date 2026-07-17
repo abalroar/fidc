@@ -208,6 +208,31 @@ _ORANGE_SOFT = "rgba(236, 112, 0, 0.14)"
 _BLACK = "#151515"
 _GRAY = "#8D9399"
 _GRAY_LIGHT = "#D7DADD"
+_PROVIDER_COLORS = {
+    "genial": "#6EC5E9",
+    "qi tech": "#2456D6",
+    "btg pactual": "#1D4080",
+    "oliveira trust": "#7A1F3D",
+    "banco do brasil": "#D6A800",
+    "itaú": "#FF5500",
+    "itau": "#FF5500",
+    "cbsf": "#73C6A1",
+    "reag": "#73C6A1",
+}
+_PROVIDER_GRAYS = ("#30353A", "#454A4F", "#5B6065", "#73787D", "#8D9399", "#A7ACB0", "#BEC2C5")
+
+
+def _provider_color(name: object) -> str:
+    key = re.sub(r"\s+", " ", str(name or "").strip().casefold())
+    if key == "outros identificados":
+        return _GRAY_LIGHT
+    if key in {"prestador não informado", "prestador nao informado", "não informado", "nao informado"}:
+        return "#F5F6F7"
+    for token, color in _PROVIDER_COLORS.items():
+        if token in key:
+            return color
+    digest = int(hashlib.sha256(key.encode("utf-8")).hexdigest()[:8], 16)
+    return _PROVIDER_GRAYS[digest % len(_PROVIDER_GRAYS)]
 _INK_SECONDARY = "#73787D"
 
 # Vocabulario centralizado da aba (rotulos de series e metricas).
@@ -9006,7 +9031,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
     if not path.exists():
         raise FileNotFoundError(f"payload revisado ausente: {path}")
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "fidc_revision_artifact_payload_v2":
+    if payload.get("schema_version") != "fidc_revision_artifact_payload_v3":
         raise ValueError("schema do payload revisado incompatível")
     required = {
         "classification_coverage",
@@ -9024,6 +9049,10 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "originators_2026",
         "provider_concentration",
         "provider_concentration_history",
+        "provider_historical_ranking",
+        "market_share_scope_summary",
+        "market_share_exclusions",
+        "acquiring_taxonomy",
         "qa_latest",
         "qa_series",
         "receivables",
@@ -9068,6 +9097,18 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             "top10_share",
             "coverage_pl",
             "missing_share",
+        },
+        "provider_historical_ranking": {
+            "competencia",
+            "papel",
+            "participante",
+            "rank_periodo",
+            "pl_brl",
+        },
+        "market_share_scope_summary": {
+            "papel",
+            "pl_total_ex_fic_brl",
+            "cobertura_classificacao_14_focos_pl",
         },
         "classification_coverage": {"categoria", "pl", "share"},
         "service_model": {"modelo_prestacao", "fundos", "pl", "share_fundos", "share_pl"},
@@ -10496,8 +10537,9 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             )
             st.altair_chart(chart, width="stretch", key="industry-revision-type-mix-share-history")
         st.caption(
-            "Cada período fecha 100% do PL ex-FIC. A taxonomia ANBIMA é uma fotografia cadastral vigente "
-            "aplicada ao histórico; ela não constitui uma série histórica de classificação."
+            "Cada período fecha 100% do PL ex-FIC. Em mai/26, 41,7% corresponde a Outros e 26,6% a Financeiro. "
+            "Tipo/Foco ANBIMA classifica o fundo ou classe como um todo; a fotografia cadastral de dez/25 foi "
+            "aplicada ao histórico e não é comparável categoria a categoria com a Tabela II."
         )
 
     with st.expander("Origem da classificação", expanded=False):
@@ -10772,6 +10814,15 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
             "Os percentuais fecham 100% sobre a soma dos segmentos da Tabela II, não sobre a carteira da Tabela I. "
             + ("Reconciliação: " + "; ".join(gaps) + "." if gaps else "")
         )
+        acquiring = dict(payload.get("acquiring_taxonomy") or {})
+        acquiring_summary = dict(acquiring.get("summary") or {})
+        if acquiring_summary:
+            st.info(
+                "Manual CVM: os campos são mutuamente excludentes e deve prevalecer o mais específico; "
+                "adquirência com cartão pertence a II.g Cartão de Crédito. Em mai/26, Akira I, A.I. e PI "
+                "declararam R$ 5,24 bi em Comercial; o painel preserva o reporte e sinaliza a divergência, "
+                "sem reclassificação."
+            )
 
     st.markdown("<h2>Observabilidade da inadimplência</h2>", unsafe_allow_html=True)
     cards = [
@@ -10881,7 +10932,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     .encode(
                         x=alt.X(
                             f"{field}:Q",
-                            title="% do PL bruto",
+                            title="% do PL ex-FIC",
                             axis=alt.Axis(format="%", gridColor=_GRAY_LIGHT),
                         ),
                         y=alt.Y(
@@ -10911,10 +10962,52 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 f"{row['Papel']} {row['Período']}: {_fmt_pct(float(row.get('coverage_pl', 0)))}"
             )
         st.caption(
-            "Concentração sobre o PL bruto total, com prestador não informado mantido no denominador. "
+            "Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador e Sistema Petrobras/TAPSO excluídos. "
             + "Cobertura identificada: "
             + "; ".join(coverage_parts)
             + ". Administração é histórica por competência; gestão e custódia em dez/25 usam o cadastro vigente e não são uma série like-for-like."
+        )
+
+    ranking_history = _revision_frame(payload, "provider_historical_ranking")
+    if not ranking_history.empty:
+        latest_period = str(payload.get("latest_complete") or "2026-05")
+        latest_label = _short_competence_label(latest_period)
+        st.markdown("<h2>Evolução do ranking dos prestadores</h2>", unsafe_allow_html=True)
+        columns = st.columns(3)
+        role_labels = {
+            "administrador": "Administração",
+            "gestor": "Gestão",
+            "custodiante": "Custódia",
+        }
+        for container, (role, label) in zip(columns, role_labels.items(), strict=True):
+            scoped = ranking_history[ranking_history["papel"].eq(role)].copy()
+            current = (
+                scoped[scoped["competencia"].eq(latest_period)]
+                .sort_values("rank_periodo")
+                .head(6)
+            )
+            participants = current["participante"].tolist()
+            lookup = scoped.set_index(["competencia", "participante"])
+            rows = []
+            for participant in participants:
+                row = {"Participante": participant}
+                for period, period_label in (
+                    ("2024-12", "Dez/24"),
+                    ("2025-12", "Dez/25"),
+                    (latest_period, latest_label),
+                ):
+                    if (period, participant) not in lookup.index:
+                        row[period_label] = "—"
+                        continue
+                    item = lookup.loc[(period, participant)]
+                    row[period_label] = f"{int(item['rank_periodo'])} · {float(item['pl_brl']) / 1e9:,.1f}"
+                rows.append(row)
+            with container:
+                st.markdown(f"**{label}**")
+                st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+        st.caption(
+            f"Posição · PL em R$ bi; linhas ordenadas pelo PL de {latest_label.lower()}. PL ex-FIC, sem Sistema Petrobras e TAPSO. "
+            "Administração é observada; gestão e custódia de dez/24 e dez/25 são reconstruídas com o cadastro vigente."
         )
 
     st.markdown("<h2>Market share por subtipo ANBIMA</h2>", unsafe_allow_html=True)
@@ -10949,7 +11042,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         fixed = _revision_frame(payload, "market_share_top10_fixed")
         participants = fixed[fixed["papel"].eq(role)].sort_values("rank_top10_geral")["participante"].tolist()
         participants += ["Outros identificados", "Prestador não informado"]
-        palette = [_ORANGE, _BLACK, "#30353A", "#494E53", "#61666B", "#777C81", "#8D9297", "#A3A7AB", "#B7BBBE", "#C8CBCE", _GRAY_LIGHT, "#F5F6F7"]
+        palette = [_provider_color(participant) for participant in participants]
         chart = (
             alt.Chart(publishable)
             .mark_bar()
@@ -10968,15 +11061,20 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         )
         st.altair_chart(chart, width="stretch", key=f"industry-revision-market-{role}")
         omitted = dict(payload.get("material_focus_omitted") or {})
+        scope = _revision_frame(payload, "market_share_scope_summary")
+        scope_row = scope[scope["papel"].eq(role)].iloc[0] if not scope.empty and scope["papel"].eq(role).any() else pd.Series(dtype=object)
         st.caption(
-            f"Top 10 geral fixo da função. O gráfico principal cobre 6 focos; ficam fora "
-            f"{_fmt_int(omitted.get('focuses', 0))} focos e {_fmt_bi(float(omitted.get('pl', 0)), 1)}."
+            f"Subtipos = Tipo/Foco ANBIMA (cadastro dez/25, evidência documental e proxy determinístico da Tabela II). "
+            f"Universo: PL ex-FIC de mai/26 sem Sistema Petrobras/TAPSO; cobertura dos 14 focos "
+            f"{_fmt_pct(float(scope_row.get('cobertura_classificacao_14_focos_pl', 0)))}. Top 10 fixo da função. "
+            f"O gráfico principal cobre 6 focos; ficam fora {_fmt_int(omitted.get('focuses', 0))} focos e "
+            f"{_fmt_bi(float(omitted.get('pl', 0)), 1)}."
         )
         if blocked_all:
             omitted_blocked = [focus for focus in blocked_all if focus not in blocked_visible]
             suffix = " (fora dos seis focos exibidos)" if omitted_blocked else ""
             st.warning(
-                "Combinações bloqueadas por PL agregado negativo: "
+                "Combinações não publicadas após o QA de denominador e cobertura: "
                 + "; ".join(blocked_all)
                 + suffix
             )
