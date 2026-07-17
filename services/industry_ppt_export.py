@@ -34,7 +34,7 @@ DEFAULT_DATA_DIR = ROOT / "data" / "industry_study"
 # Itaú BBA-inspired editorial palette.  Orange is used for emphasis, not as
 # decorative chrome; the remaining hierarchy is black/navy and neutral gray.
 BLACK = "151515"
-NAVY = "172A3A"
+NAVY = "151515"
 ORANGE = "E36C0A"
 ORANGE_LIGHT = "F8E9DE"
 GRAY_900 = "30353A"
@@ -394,7 +394,7 @@ def _write_sheet(writer: pd.ExcelWriter, sheet: str, frame: pd.DataFrame) -> Non
     header_fill = PatternFill("solid", fgColor=NAVY)
     for cell in ws[1]:
         cell.fill = header_fill
-        cell.font = Font(name="Calibri", bold=True, color=WHITE)
+        cell.font = Font(name="Arial", bold=True, color=WHITE)
         cell.alignment = Alignment(vertical="center")
     pct_tokens = ("share", "coverage", "growth", "pct", "ratio")
     money_tokens = ("pl_brl", "volume_brl", "valor")
@@ -409,7 +409,7 @@ def _write_sheet(writer: pd.ExcelWriter, sheet: str, frame: pd.DataFrame) -> Non
             or normalized in {"denominacao", "justificativa/fonte", "tab4_warning"}
         )
         for cell in cells[1:]:
-            cell.font = Font(name="Calibri", size=10)
+            cell.font = Font(name="Arial", size=10)
             cell.alignment = Alignment(vertical="top", wrap_text=wrap_long_text)
             if wrap_long_text and len(str(cell.value or "")) > 52:
                 ws.row_dimensions[cell.row].height = max(ws.row_dimensions[cell.row].height or 15, 42)
@@ -426,7 +426,7 @@ def _write_sheet(writer: pd.ExcelWriter, sheet: str, frame: pd.DataFrame) -> Non
                 cell.number_format = 'R$ #,##0.00'
 
 
-def build_industry_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+def _build_legacy_industry_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     """Build the auditable workbook used alongside the executive deck."""
 
     pack = _load_executive_pack(data_dir)
@@ -522,7 +522,7 @@ def build_industry_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return output.getvalue()
 
 
-def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+def _build_legacy_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     """Build a 16:9, native and fully editable executive PowerPoint deck."""
 
     from pptx import Presentation
@@ -580,7 +580,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         paragraph = frame.paragraphs[0]
         paragraph.text = str(text)
         paragraph.alignment = align
-        paragraph.font.name = "Calibri"
+        paragraph.font.name = "Arial"
         paragraph.font.size = Pt(size)
         paragraph.font.bold = bold
         paragraph.font.italic = italic
@@ -654,12 +654,12 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
                 cell.margin_bottom = Inches(0.025)
                 cell.vertical_anchor = MSO_ANCHOR.MIDDLE
                 for paragraph in cell.text_frame.paragraphs:
-                    paragraph.font.name = "Calibri"
+                    paragraph.font.name = "Arial"
                     paragraph.font.size = Pt(font_size)
                     paragraph.font.bold = row_index == 0
                     paragraph.font.color.rgb = rgb(WHITE if row_index == 0 else GRAY_900)
                     for run in paragraph.runs:
-                        run.font.name = "Calibri"
+                        run.font.name = "Arial"
                         run.font.size = Pt(font_size)
                         run.font.bold = row_index == 0
                         run.font.color.rgb = rgb(WHITE if row_index == 0 else GRAY_900)
@@ -692,12 +692,12 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         chart.has_legend = legend
         if legend:
             chart.legend.position = XL_LEGEND_POSITION.BOTTOM
-            chart.legend.font.name = "Calibri"
+            chart.legend.font.name = "Arial"
             chart.legend.font.size = Pt(9)
             chart.legend.include_in_layout = False
-        chart.value_axis.tick_labels.font.name = "Calibri"
+        chart.value_axis.tick_labels.font.name = "Arial"
         chart.value_axis.tick_labels.font.size = Pt(9)
-        chart.category_axis.tick_labels.font.name = "Calibri"
+        chart.category_axis.tick_labels.font.name = "Arial"
         chart.category_axis.tick_labels.font.size = Pt(9)
         chart.value_axis.tick_labels.number_format = value_format
         chart.value_axis.major_gridlines.format.line.color.rgb = rgb(GRAY_300)
@@ -826,7 +826,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         1.45,
         8.3,
         4.9,
-        chart_type=XL_CHART_TYPE.LINE_MARKERS,
+        chart_type=XL_CHART_TYPE.LINE,
         colors=("73787D", ORANGE),
         value_format='0 "bi"',
     )
@@ -1087,7 +1087,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         1.72,
         5.9,
         4.55,
-        chart_type=XL_CHART_TYPE.LINE_MARKERS,
+        chart_type=XL_CHART_TYPE.LINE,
         colors=(ORANGE,),
         legend=False,
         value_format='0 "mil"',
@@ -1101,7 +1101,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         1.72,
         5.83,
         4.55,
-        chart_type=XL_CHART_TYPE.LINE_MARKERS,
+        chart_type=XL_CHART_TYPE.LINE,
         colors=(NAVY,),
         legend=False,
         value_format="0",
@@ -1130,7 +1130,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         1.48,
         11.9,
         4.9,
-        chart_type=XL_CHART_TYPE.LINE_MARKERS,
+        chart_type=XL_CHART_TYPE.LINE,
         colors=("6D7276", ORANGE),
         value_format="0.0%",
         min_scale=0,
@@ -1171,7 +1171,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         1.48,
         11.9,
         4.9,
-        chart_type=XL_CHART_TYPE.LINE_MARKERS,
+        chart_type=XL_CHART_TYPE.LINE,
         colors=(ORANGE, NAVY),
         value_format="0%",
         min_scale=0,
@@ -1283,7 +1283,7 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         1.72,
         5.75,
         4.45,
-        chart_type=XL_CHART_TYPE.LINE_MARKERS,
+        chart_type=XL_CHART_TYPE.LINE,
         colors=(NAVY, ORANGE),
         value_format="0%",
         min_scale=0,
@@ -1415,6 +1415,27 @@ def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     output = BytesIO()
     prs.save(output)
     return _normalize_chart_axis_ids(output.getvalue())
+
+
+def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+    """Return the audited 42-slide deck used by the Industry Data surface.
+
+    The reviewed presentation is generated with ``@oai/artifact-tool`` from
+    the same versioned payload consumed by the application.  A visually
+    different legacy deck is intentionally not used as a silent fallback.
+    """
+
+    from services.industry_revision_export import build_revision_pptx_bytes
+
+    return build_revision_pptx_bytes(data_dir)
+
+
+def build_industry_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+    """Return the audited workbook paired with the reviewed presentation."""
+
+    from services.industry_revision_export import build_revision_xlsx_bytes
+
+    return build_revision_xlsx_bytes(data_dir)
 
 
 __all__ = [

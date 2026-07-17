@@ -1,0 +1,98 @@
+{
+  "checks": {
+    "blocked_market_share_combinations": 2,
+    "latest_aging_publication_status": "bloqueado_aging_nao_reconcilia_tab_I",
+    "latest_funds": 4222,
+    "latest_presence_exact": true,
+    "latest_vehicles": 4227,
+    "market_share_foci": 14,
+    "market_share_roles": 3,
+    "top20_fidcs_rows": 20,
+    "top20_outros_rows": 20
+  },
+  "definitions": {
+    "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
+    "fund": "CNPJ do fundo no cadastro; classes são agregadas por competência",
+    "market_share_subtype_denominator": "PL total do Tipo + Foco ANBIMA, incluindo prestador não informado",
+    "monostructure": "mesmo conglomerado econômico normalizado para administração, gestão e custódia",
+    "vehicle": "CNPJ reportante do Informe Mensal (fundo ou classe, conforme regime)"
+  },
+  "files": {
+    "base_competencia_cnpj.csv.gz": {
+      "columns": 96,
+      "rows": 227189
+    },
+    "base_fundo_cnpj.csv.gz": {
+      "columns": 58,
+      "rows": 227162
+    },
+    "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
+      "columns": 26,
+      "rows": 2769
+    },
+    "bridge_inadimplencia_2024-06_2024-07_resumo.csv": {
+      "columns": 9,
+      "rows": 3
+    },
+    "cobertura_classificacao.csv": {
+      "columns": 10,
+      "rows": 4
+    },
+    "deck_workbook_payload.json": {
+      "columns": "schema por bloco",
+      "rows": 5018
+    },
+    "market_share_escopo_resumo.csv": {
+      "columns": 14,
+      "rows": 3
+    },
+    "market_share_por_subtipo.csv": {
+      "columns": 20,
+      "rows": 504
+    },
+    "market_share_top10_fixo.csv": {
+      "columns": 6,
+      "rows": 30
+    },
+    "monoestrutura_concentracao.csv": {
+      "columns": 14,
+      "rows": 17
+    },
+    "monoestrutura_por_fundo.csv": {
+      "columns": 71,
+      "rows": 4222
+    },
+    "qa_inadimplencia_casos_latest.csv": {
+      "columns": 16,
+      "rows": 197
+    },
+    "qa_inadimplencia_competencia.csv": {
+      "columns": 49,
+      "rows": 162
+    },
+    "reconciliacao_veiculo_fundo_latest.csv": {
+      "columns": 8,
+      "rows": 4222
+    },
+    "source_presence_overlay.csv.gz": {
+      "columns": 73,
+      "rows": 9653
+    },
+    "top20_fidcs.csv": {
+      "columns": 73,
+      "rows": 20
+    },
+    "top20_outros.csv": {
+      "columns": 74,
+      "rows": 20
+    }
+  },
+  "generated_at_utc": "2026-07-17T00:36:56+00:00",
+  "latest_complete": "2026-05",
+  "limitations": [
+    "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
+    "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; mai/26 não passa esse teste e permanece diagnóstico, não headline.",
+    "Gestor e custodiante históricos vêm do cadastro vigente e não constituem série histórica like-for-like.",
+    "Monoestrutura mede coincidência de conglomerado normalizado; não demonstra preço, contrato ou venda casada."
+  ]
+}
