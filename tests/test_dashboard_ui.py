@@ -34,6 +34,7 @@ from tabs.tab_industry_study import (
     _industry_files_signature,
     _industry_holder_histogram_frames,
     _industry_monostructure_frames,
+    _revision_holder_distribution_frame,
     _render_industry_tab4_conflict_notice,
     _industry_tab4_conflict_notice,
 )
@@ -255,6 +256,39 @@ def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None
     assert ".mark_bar(color=_ORANGE" in revision_source
     assert "alt.value(_ORANGE)" in revision_source
     assert "range=[_ORANGE, _BLACK]" in revision_source
+
+
+def test_industry_revision_holder_distributions_add_normalized_percentage_charts() -> None:
+    frame = pd.DataFrame(
+        {
+            "bucket": ["1", "2–10", ">10"],
+            "fundos": [50, 30, 20],
+            "pl": [100.0, 100.0, 300.0],
+            "share_fundos": [0.9, 0.05, 0.05],
+            "share_pl": [0.1, 0.1, 0.1],
+        }
+    )
+
+    normalized = _revision_holder_distribution_frame(frame)
+
+    assert normalized["share_fundos"].sum() == pytest.approx(1.0)
+    assert normalized["share_pl"].sum() == pytest.approx(1.0)
+    assert normalized["share_fundos"].tolist() == pytest.approx([0.5, 0.3, 0.2])
+    assert normalized["share_pl"].tolist() == pytest.approx([0.2, 0.2, 0.6])
+
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    revision_source = source[source.index("def _render_revision_investors") :]
+    assert 'title="Quantidade de fundos — % do total"' in revision_source
+    assert 'title="PL por faixa — % do total"' in revision_source
+    assert 'key="industry-revision-holder-funds-share"' in revision_source
+    assert 'key="industry-revision-holder-pl-share"' in revision_source
+    assert revision_source.count('text=alt.Text("share_') >= 2
+    assert revision_source.count('format=".0%"') >= 2
+
+    with pytest.raises(ValueError, match="fundos negativo"):
+        _revision_holder_distribution_frame(
+            pd.DataFrame({"bucket": ["1"], "fundos": [-1], "pl": [100.0]})
+        )
 
 
 def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:

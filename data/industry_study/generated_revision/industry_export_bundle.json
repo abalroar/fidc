@@ -2,17 +2,17 @@
   "analysis_manifest": {
     "bytes": 3093,
     "name": "revision_manifest.json",
-    "sha256": "e400f8504383733e46d865f4960d5c168539eb8996176c2121d1c090c3532519"
+    "sha256": "4bf649b4cfd603a6e383851a9375c293041f126d8039ddbccb3123ccd21ebf4f"
   },
-  "bundle_id": "202605_a5d06b6cad4d9211",
+  "bundle_id": "202605_d142d48bc5f612ab",
   "checks": {
     "profiles": 20,
     "slides": 42,
     "top20_fidcs": 20,
     "top20_outros": 20
   },
-  "generated_at_utc": "2026-07-17T00:36:56+00:00",
-  "input_signature": "05b48f7b56c0a1f9a4cc1aa84b46ce849ae9097e3e3b294560a0b828c49bff3b",
+  "generated_at_utc": "2026-07-17T14:00:03+00:00",
+  "input_signature": "386aa34104ad8bee9611d808ea33b8e91156030d48880e3a898bdac41fa8e768",
   "inputs": {
     "analysis/base_competencia_cnpj.csv.gz": "e342b7daa6869c5b9b8a989f10a19d4f9ec798bd73010c8ceca7078e18173ad9",
     "analysis/base_fundo_cnpj.csv.gz": "f8f2e43bb28227e1e289579e2210f4288308a562bbb708ce06e8f85985a57e22",
@@ -32,8 +32,8 @@
     "analysis/top20_fidcs.csv": "58ed03fb9ba94acac5882bd1b05060a538f9caf1d1c193ce1091e176eb05f527",
     "analysis/top20_outros.csv": "5ba4cb6b44b3f9dd2a8ba4294f7dda9451ca397d557677c8cde2f5bac77c1f1c",
     "builder/build_fidc_revision_analysis.py": "7c08a88292196f20eb16a3fe0f9d01bb276cf51943b73d3fc6c7443bd9d00181",
-    "builder/build_fidc_revision_artifact_payload.py": "7bc56411625caeeb761625bd5d416f92dfb8376c4d7f02a2fae056d6a32f3429",
-    "builder/build_fidc_revision_artifacts.mjs": "7a0e1b5380da6400472f43a4a80b849deacc66407ee88af73947833c756b9dd5",
+    "builder/build_fidc_revision_artifact_payload.py": "c97cc142454b5ec6e60bb3f8add030e28aa9ac20ce5e8edd8e483a6b12edab93",
+    "builder/build_fidc_revision_artifacts.mjs": "003da7629d51c639172589b8e94c9daf351418317e26f7c81a6e40ae39400cdc",
     "builder/industry_revision_analysis.py": "0e88828f25673a7ee49953a45678a0af97b77bf7b84cffc6758a9fb597fda19b",
     "builder/industry_revision_export.py": "91ea4103f551347879f53e05f7298d6532c147aecfcd1493bd836b1bfccf01e4",
     "curation/top20.csv": "6744c3ec00f168a8ca9f110d337e930b6b772e90e213ed8724a20ae724584d28",
@@ -55,28 +55,28 @@
   "payload": {
     "bytes": 683718,
     "name": "artifact_payload.json",
-    "sha256": "a5d06b6cad4d9211cba6fe731e322187d84de7530cff7f2d7f847d47e7d5caa2"
+    "sha256": "d142d48bc5f612ab950a2e5ff62df53c023102725a21f61efd798cd5d4744688"
   },
   "payload_schema": "fidc_revision_artifact_payload_v1",
-  "payload_sha256": "a5d06b6cad4d9211cba6fe731e322187d84de7530cff7f2d7f847d47e7d5caa2",
+  "payload_sha256": "d142d48bc5f612ab950a2e5ff62df53c023102725a21f61efd798cd5d4744688",
   "pptx": {
-    "bytes": 253919,
+    "bytes": 256723,
     "name": "industry_executive_revised.pptx",
-    "sha256": "ff2cce6605b1abcc46d0b458895c3f63d86b8107c665a4020843a885e3d1c59b"
+    "sha256": "3477d562bd8944e03e13fc2225f7ae489309654eba00c6043e87dbb492c2b3cb"
   },
   "renderer": {
     "artifact_tool_version": "2.8.24",
     "node_version": "v25.9.0",
-    "renderer_sha256": "7a0e1b5380da6400472f43a4a80b849deacc66407ee88af73947833c756b9dd5",
-    "renderer_version": "industry_revision_artifacts_v2"
+    "renderer_sha256": "003da7629d51c639172589b8e94c9daf351418317e26f7c81a6e40ae39400cdc",
+    "renderer_version": "industry_revision_artifacts_v3"
   },
-  "renderer_sha256": "7a0e1b5380da6400472f43a4a80b849deacc66407ee88af73947833c756b9dd5",
-  "renderer_version": "industry_revision_artifacts_v2",
+  "renderer_sha256": "003da7629d51c639172589b8e94c9daf351418317e26f7c81a6e40ae39400cdc",
+  "renderer_version": "industry_revision_artifacts_v3",
   "schema_version": "fidc_revision_export_bundle_v1",
-  "source_signature": "a5d06b6cad4d9211cba6fe731e322187d84de7530cff7f2d7f847d47e7d5caa2",
+  "source_signature": "d142d48bc5f612ab950a2e5ff62df53c023102725a21f61efd798cd5d4744688",
   "xlsx": {
-    "bytes": 4278512,
+    "bytes": 4278510,
     "name": "industry_data_revised.xlsx",
-    "sha256": "8131daa72d60d40b6f1f74ab9fbe3dbd7696fb416c19f36807fda474f0eee61f"
+    "sha256": "6444f789d04f8cf5482786edad4beb3af74c9e2938b875764d87ff2b36012511"
   }
 }
