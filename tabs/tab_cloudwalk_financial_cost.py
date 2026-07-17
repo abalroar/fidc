@@ -25,7 +25,7 @@ from services.cloudwalk_financial_cost_exports import (
     build_cloudwalk_financial_cost_xlsx_bytes,
 )
 from services.cloudwalk_pl_waterfall import CloudwalkPlWaterfall, build_cloudwalk_pl_waterfall
-from services.fidc_model.b3_cdi import B3CdiMonthlyRate, fetch_b3_cdi_monthly_rates
+from services.fidc_model.b3_cdi import B3CdiError, B3CdiMonthlyRate, fetch_b3_cdi_monthly_rates
 from services.fidc_model.b3_curves import fetch_latest_taxaswap_curve
 from services.fidc_model.curves import INTERPOLATION_METHOD_FLAT_FORWARD_252, interpolate_curve
 from services.waterfall_schedule import DEFAULT_REFERENCE_DATE, only_digits
@@ -184,14 +184,18 @@ def _render_controls() -> dict[str, object] | None:
         st.warning("A data final precisa ser maior ou igual à data inicial.")
         return None
 
-    monthly_cdi_rates = _resolve_monthly_cdi(start_date, end_date)
+    try:
+        monthly_cdi_rates = _resolve_monthly_cdi(start_date, end_date)
+    except B3CdiError as exc:
+        monthly_cdi_rates = ()
+        st.warning("O CDI mensal realizado não pôde ser carregado; usando a curva B3 como fallback.")
+        if diagnostics_enabled():
+            st.caption(f"{type(exc).__name__}: {exc}")
     monthly_cdi_aa = _annualize_monthly_cdi(monthly_cdi_rates)
     if monthly_cdi_aa is not None:
-        cdi_aa, cdi_source = monthly_cdi_aa, "B3/Cetip MediaCDI diário composto por mês"
+        cdi_aa, cdi_source = monthly_cdi_aa, _monthly_cdi_source_label(monthly_cdi_rates)
     else:
         cdi_aa, cdi_source = _resolve_b3_cdi(curve_date, 0.1399364)
-    if monthly_cdi_rates:
-        cdi_source = "B3/Cetip MediaCDI diário composto por mês"
 
     merged_overrides = dict(base_config["spread_overrides"])
     merged_overrides.update(_parse_spread_editor(edited_spreads))
@@ -217,7 +221,7 @@ def _load_base_config() -> dict[str, object]:
     }
 
 
-@st.cache_data(show_spinner="Buscando e compondo CDI B3 mês a mês...")
+@st.cache_data(ttl=3600, show_spinner="Buscando e compondo CDI B3 mês a mês...")
 def _resolve_monthly_cdi(start_date: date, end_date: date) -> tuple[B3CdiMonthlyRate, ...]:
     return fetch_b3_cdi_monthly_rates(start_date, end_date)
 
@@ -794,6 +798,19 @@ def _annualize_monthly_cdi(monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...]) -> f
     for item in monthly_cdi_rates:
         compounded *= 1.0 + item.cdi_mensal
     return compounded ** (252.0 / total_du) - 1.0
+
+
+def _monthly_cdi_source_label(monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...]) -> str:
+    sources = tuple(
+        dict.fromkeys(
+            source
+            for rate in monthly_cdi_rates
+            if (source := str(rate.source or "").strip())
+        )
+    )
+    if sources:
+        return "; ".join(sources)
+    return "B3 CDI realizado"
 
 
 def _cdi_rates_frame(monthly_cdi_rates: tuple[B3CdiMonthlyRate, ...]) -> pd.DataFrame:

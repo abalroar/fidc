@@ -174,11 +174,24 @@ def build_fund_return_matrix(
 
     result = output.reset_index(drop=True)
     if include_cdi:
-        result.attrs["cdi_source"] = "B3/Cetip MediaCDI diário composto por mês"
+        result.attrs["cdi_source"] = _cdi_source_label(cdi_rates)
         result.attrs["cdi_missing_competencias"] = tuple(
             sorted(cdi_missing_competencias, key=_competencia_sort_key)
         )
     return result
+
+
+def _cdi_source_label(monthly_cdi_rates: Iterable[Any]) -> str:
+    sources = tuple(
+        dict.fromkeys(
+            source
+            for rate in monthly_cdi_rates
+            if (source := str(getattr(rate, "source", "") or "").strip())
+        )
+    )
+    if sources:
+        return "; ".join(sources)
+    return "B3 CDI realizado"
 
 
 def fund_return_cdi_date_range(outputs: Any, cnpj: str) -> tuple[date, date] | None:

@@ -638,7 +638,7 @@ def _render_fund_dashboards(
         st.altair_chart(cohort_chart(monitor_outputs.fund_cohorts.get(cnpj, pd.DataFrame())), use_container_width=True)
 
 
-@st.cache_data(show_spinner="Buscando e compondo o CDI realizado na B3...")
+@st.cache_data(ttl=3600, show_spinner="Buscando e compondo o CDI realizado na B3...")
 def _fetch_fund_return_cdi_rates(
     start_date_iso: str,
     end_date_iso: str,
@@ -707,8 +707,9 @@ def _render_fund_return_table(*, outputs, cnpj: str) -> None:  # noqa: ANN001
         ),
     )
     st.dataframe(table_df, width="stretch", hide_index=True)
+    cdi_source = str(table_df.attrs.get("cdi_source") or "B3 CDI realizado")
     st.caption(
-        "Fonte do CDI: B3/Cetip MediaCDI realizado, composto diariamente; sem uso de curva projetada. "
+        f"Fonte do CDI: {cdi_source}, composto diariamente; sem uso de curva projetada. "
         "O spread implícito é a taxa anual que reconcilia a rentabilidade observada com esse CDI nas mesmas "
         "competências; é um diagnóstico econômico, não uma taxa contratual. A base de rentabilidade é "
         "mensal e, por isso, não ajusta integralizações ou resgates ocorridos no meio da competência."

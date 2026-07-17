@@ -23,7 +23,7 @@ from services.cloudwalk_financial_cost import (  # noqa: E402
     load_ime_financial_snapshots,
     load_spread_overrides,
 )
-from services.fidc_model.b3_cdi import fetch_b3_cdi_monthly_rates  # noqa: E402
+from services.fidc_model.b3_cdi import B3CdiError, fetch_b3_cdi_monthly_rates  # noqa: E402
 from services.fidc_model.b3_curves import fetch_latest_taxaswap_curve  # noqa: E402
 from services.fidc_model.curves import INTERPOLATION_METHOD_FLAT_FORWARD_252, interpolate_curve  # noqa: E402
 from services.waterfall_schedule import DEFAULT_REFERENCE_DATE, only_digits  # noqa: E402
@@ -48,7 +48,15 @@ def main() -> None:
     end_date = date.fromisoformat(args.end_date) if args.end_date else date(args.year, 12, 31)
     snapshot_date = date.fromisoformat(args.snapshot_date) if args.snapshot_date else _default_snapshot_date(start_date, end_date)
     cdi_aa, cdi_source = _resolve_cdi(args.cdi_aa, date.fromisoformat(args.curve_date))
-    monthly_cdi_rates = () if args.cdi_aa is not None else fetch_b3_cdi_monthly_rates(start_date, end_date)
+    monthly_cdi_rates = ()
+    if args.cdi_aa is None:
+        try:
+            monthly_cdi_rates = fetch_b3_cdi_monthly_rates(start_date, end_date)
+        except B3CdiError as exc:
+            print(
+                f"Aviso: CDI mensal realizado indisponível; seguindo com a curva B3 ({exc}).",
+                file=sys.stderr,
+            )
 
     spread_overrides = load_spread_overrides(args.config_json)
     amortization_convention_overrides = load_amortization_convention_overrides(args.config_json)

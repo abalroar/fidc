@@ -265,7 +265,7 @@ def test_build_fund_return_matrix_compounds_cdi_for_each_series_used_competencia
     assert new_series[RETURN_TRAILING_12M_IMPLIED_SPREAD_COLUMN] == pytest.approx(
         (((1.05 / (1.01**4)) ** (252 / 80)) - 1.0) * 100.0
     )
-    assert matrix.attrs["cdi_source"] == "B3/Cetip MediaCDI diário composto por mês"
+    assert matrix.attrs["cdi_source"] == "fixture"
     assert matrix.attrs["cdi_missing_competencias"] == ()
 
 
