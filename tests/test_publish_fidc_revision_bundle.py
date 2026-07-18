@@ -151,6 +151,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         "analysis_manifest_bytes": b"analysis",
         "pptx_bytes": b"pptx",
         "xlsx_bytes": b"xlsx",
+        "html_bytes": b"html",
         "input_hashes": {"data/a.csv": "a" * 64},
         "renderer": {
             "artifact_tool_version": "1",
@@ -168,6 +169,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     )
 
     assert first["bundle_id"] == second["bundle_id"]
+    assert first["schema_version"] == "fidc_revision_export_bundle_v2"
     assert first["checks"]["slides"] == 47
     validate_bundle_manifest(
         first,
@@ -176,6 +178,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         analysis_manifest_bytes=b"analysis",
         pptx_bytes=b"pptx",
         xlsx_bytes=b"xlsx",
+        html_bytes=b"html",
     )
     validate_renderer_manifest(
         first,
@@ -183,6 +186,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         payload=payload,
         pptx_bytes=b"pptx",
         xlsx_bytes=b"xlsx",
+        html_bytes=b"html",
         renderer_sha256="f" * 64,
     )
 
@@ -193,6 +197,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             payload=payload,
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
+            html_bytes=b"html",
             renderer_sha256="0" * 64,
         )
 
@@ -206,6 +211,20 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             analysis_manifest_bytes=b"analysis",
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
+            html_bytes=b"html",
+        )
+
+    broken_html = dict(first)
+    broken_html["html"] = {**dict(first["html"]), "sha256": "0" * 64}
+    with pytest.raises(RevisionBundlePublishError, match="html"):
+        validate_bundle_manifest(
+            broken_html,
+            payload_bytes=payload_bytes,
+            payload=payload,
+            analysis_manifest_bytes=b"analysis",
+            pptx_bytes=b"pptx",
+            xlsx_bytes=b"xlsx",
+            html_bytes=b"html",
         )
 
 

@@ -217,7 +217,7 @@ def test_routes_and_exports_remain_available() -> None:
     assert '("estimativas", "Estimativas e Modelagem")' in app_source
 
     source_expectations = {
-        "tabs/tab_industry_study.py": ("PPTX", "XLSX", "Baixar CSV"),
+        "tabs/tab_industry_study.py": ("PPTX", "XLSX", "HTML interativo", "Baixar CSV"),
         "tabs/tab_cloudwalk_financial_cost.py": ("Baixar memória XLSX", "Baixar PPTX", "Baixar pacote CSV"),
         "tabs/tab_estimativas_modelagem.py": ("Custo Financeiro do Cedente", "Vencimentário e Premissas"),
         "tabs/tab_deep_dive.py": (
@@ -421,6 +421,7 @@ def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) ->
         "generated_revision/industry_export_bundle.json",
         "generated_revision/industry_executive_revised.pptx",
         "generated_revision/industry_data_revised.xlsx",
+        "generated_revision/provider_flows_explorer.html",
     }.issubset(_INDUSTRY_EXPORT_INPUTS)
 
 
