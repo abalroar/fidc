@@ -62,12 +62,26 @@ const OUTPUT_XLSX = path.resolve(
   process.env.FIDC_OUTPUT_XLSX ||
     path.join(OUTPUT_DIR, "Industria_FIDC_Dados_202607_revisado.xlsx"),
 );
+const FLOW_BUILDER_NAME = "build_provider_flow_explorer.mjs";
+const FLOW_BUILDER_PATH = [
+  process.env.FIDC_PROVIDER_FLOW_BUILDER,
+  path.join(path.dirname(__filename), FLOW_BUILDER_NAME),
+  path.join(ROOT, "scripts", FLOW_BUILDER_NAME),
+].find((candidate) => candidate && existsSync(candidate));
+const FLOW_ASSET_DIR = path.resolve(
+  process.env.FIDC_PROVIDER_FLOW_ASSET_DIR ||
+    path.join(OUTPUT_DIR, "provider_flow_assets"),
+);
+const OUTPUT_HTML = path.resolve(
+  process.env.FIDC_OUTPUT_HTML ||
+    path.join(OUTPUT_DIR, "provider_flows_explorer.html"),
+);
 const SKIP_QA = process.env.FIDC_SKIP_QA === "1";
 const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v6";
+const RENDERER_VERSION = "industry_revision_artifacts_v7";
 const EXPECTED_SLIDES = 47;
 
 const C = {
@@ -639,6 +653,64 @@ async function writeBlob(filePath, blob) {
   await fs.writeFile(filePath, new Uint8Array(await blob.arrayBuffer()));
 }
 
+async function generateProviderFlowAssets() {
+  if (!FLOW_BUILDER_PATH) {
+    throw new Error(`Gerador dos fluxos não localizado: ${FLOW_BUILDER_NAME}`);
+  }
+  await fs.mkdir(FLOW_ASSET_DIR, { recursive: true });
+  await fs.mkdir(path.dirname(OUTPUT_HTML), { recursive: true });
+  const generated = spawnSync(
+    process.execPath,
+    [
+      FLOW_BUILDER_PATH,
+      "--payload",
+      PAYLOAD_PATH,
+      "--output-dir",
+      FLOW_ASSET_DIR,
+      "--html",
+      OUTPUT_HTML,
+    ],
+    {
+      encoding: "utf8",
+      env: { ...process.env, CODEX_NODE_MODULES: NODE_MODULES },
+      maxBuffer: 10 * 1024 * 1024,
+    },
+  );
+  if (generated.error || generated.status !== 0) {
+    throw new Error(
+      `Falha ao gerar os fluxos navegáveis: ${generated.error?.message || generated.stderr || generated.stdout}`,
+    );
+  }
+  const paths = {
+    adminPng: path.join(FLOW_ASSET_DIR, "provider_flow_admin.png"),
+    adminSvg: path.join(FLOW_ASSET_DIR, "provider_flow_admin.svg"),
+    reagPng: path.join(FLOW_ASSET_DIR, "provider_flow_reag.png"),
+    reagSvg: path.join(FLOW_ASSET_DIR, "provider_flow_reag.svg"),
+    html: OUTPUT_HTML,
+  };
+  const entries = await Promise.all(
+    Object.entries(paths).map(async ([key, filePath]) => {
+      const stat = await fs.stat(filePath);
+      if (!stat.isFile() || stat.size === 0) {
+        throw new Error(`Artefato de fluxo vazio ou inválido: ${filePath}`);
+      }
+      return [key, filePath];
+    }),
+  );
+  const verifiedPaths = Object.fromEntries(entries);
+  const [adminPngBytes, reagPngBytes] = await Promise.all([
+    fs.readFile(verifiedPaths.adminPng),
+    fs.readFile(verifiedPaths.reagPng),
+  ]);
+  return {
+    ...verifiedPaths,
+    adminPngBytes: new Uint8Array(adminPngBytes),
+    reagPngBytes: new Uint8Array(reagPngBytes),
+    adminPngDataUrl: `data:image/png;base64,${adminPngBytes.toString("base64")}`,
+    reagPngDataUrl: `data:image/png;base64,${reagPngBytes.toString("base64")}`,
+  };
+}
+
 async function sha256File(filePath) {
   return createHash("sha256").update(await fs.readFile(filePath)).digest("hex");
 }
@@ -646,14 +718,16 @@ async function sha256File(filePath) {
 async function writeExportBundleManifest(payload, payloadRaw) {
   const payloadSha256 = createHash("sha256").update(payloadRaw).digest("hex");
   const rendererSha256 = await sha256File(__filename);
-  const [pptxSha256, xlsxSha256, pptxStat, xlsxStat] = await Promise.all([
+  const [pptxSha256, xlsxSha256, htmlSha256, pptxStat, xlsxStat, htmlStat] = await Promise.all([
     sha256File(OUTPUT_PPTX),
     sha256File(OUTPUT_XLSX),
+    sha256File(OUTPUT_HTML),
     fs.stat(OUTPUT_PPTX),
     fs.stat(OUTPUT_XLSX),
+    fs.stat(OUTPUT_HTML),
   ]);
   const manifest = {
-    schema_version: "fidc_revision_export_bundle_v1",
+    schema_version: "fidc_revision_export_bundle_v2",
     bundle_id: `${String(payload.latest_complete || "unknown").replace(/-/g, "")}_${payloadSha256.slice(0, 16)}`,
     payload_schema: payload.schema_version,
     latest_complete: payload.latest_complete,
@@ -673,6 +747,11 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       filename: path.basename(OUTPUT_XLSX),
       sha256: xlsxSha256,
       bytes: xlsxStat.size,
+    },
+    html: {
+      name: path.basename(OUTPUT_HTML),
+      sha256: htmlSha256,
+      bytes: htmlStat.size,
     },
     checks: {
       slides: EXPECTED_SLIDES,
@@ -1157,54 +1236,6 @@ function addProviderAttributionSlide(presentation, payload, page) {
   return slide;
 }
 
-function flowField(row, ...names) {
-  for (const name of names) {
-    if (row?.[name] !== undefined && row?.[name] !== null && row?.[name] !== "") return row[name];
-  }
-  return null;
-}
-
-function flowTextColor(fill) {
-  return ["#D6A800", "#73C6A1", "#6EC5E9", "#D7DADD", "#F5F6F7"].includes(String(fill).toUpperCase())
-    ? C.black
-    : C.white;
-}
-
-function addFlowNode(slide, options) {
-  const fill = options.fill || C.charcoal;
-  const shape = addRect(
-    slide,
-    { left: options.left, top: options.top, width: options.width, height: options.height },
-    fill,
-    { lineFill: fill, lineWidth: 0.6 },
-  );
-  addText(
-    slide,
-    options.label,
-    { left: options.left + 7, top: options.top + 5, width: options.width - 14, height: options.height - 10 },
-    {
-      fontSize: options.fontSize || 10.5,
-      bold: true,
-      color: options.textColor || flowTextColor(fill),
-      verticalAlignment: "middle",
-      lineSpacing: 0.95,
-    },
-  );
-  return shape;
-}
-
-function addFlowConnector(slide, source, target, value, maxValue, color = C.line) {
-  const width = clamp(2 + 18 * Math.sqrt(num(value) / Math.max(num(maxValue), 1)), 2, 20);
-  return slide.shapes.connect(source, target, {
-    kind: "curved",
-    fromSide: "right",
-    toSide: "left",
-    line: { style: "solid", fill: color, width },
-    cap: "round",
-    join: "round",
-  });
-}
-
 function fallbackReagFlow() {
   return {
     summary: {
@@ -1225,22 +1256,23 @@ function fallbackReagFlow() {
   };
 }
 
-function addReagMigrationSlide(presentation, payload, page) {
+function addProviderFlowSnapshot(slide, pngBytes, alt) {
+  if (!pngBytes?.byteLength) {
+    throw new Error(`Imagem do fluxo ausente: ${alt}`);
+  }
+  slide.images.add({
+    blob: pngBytes,
+    contentType: "image/png",
+    alt,
+    fit: "contain",
+    position: { left: 60, top: 118, width: 1160, height: 540 },
+  });
+}
+
+function addReagMigrationSlide(presentation, payload, page, pngBytes) {
   const slide = presentation.slides.add();
   const fallback = fallbackReagFlow();
   const summary = payload.reag_admin_summary || payload.reag_admin_migration?.summary || fallback.summary;
-  let links = payload.reag_admin_links || payload.reag_admin_migration?.links || fallback.links;
-  links = [...links]
-    .map((row) => ({
-      ...row,
-      destino: String(flowField(row, "destino_grupo", "grupo_destino", "admin_destino") || "Outros"),
-      fundos: num(flowField(row, "fundos", "n_fundos")),
-      plCurrent: num(flowField(row, "pl_current_brl", "pl_destino_brl", "pl_2026_05_brl")),
-      plFlow: num(flowField(row, "pl_flow_brl", "pl_origem_brl", "pl_2025_12_brl", "pl_comparavel_brl")),
-    }))
-    .sort((a, b) => b.plFlow - a.plFlow)
-    .slice(0, 6);
-  const retainedCbsf = links.find((row) => normalizeProviderName(row.destino).includes("cbsf"));
   const migratedShare = num(summary.migrated_share_current) || (
     num(summary.continuing_pl_current_brl)
       ? num(summary.migrated_pl_current_brl) / num(summary.continuing_pl_current_brl)
@@ -1250,84 +1282,18 @@ function addReagMigrationSlide(presentation, payload, page) {
     slide,
     "CBSF / REAG · DESTINO DOS FUNDOS",
     `Master e Planner receberam R$ 10,1 bi; ${pct(migratedShare, 0)} do PL continuante migrou`,
-    "Fontes: CVM, Informe Mensal; BCB, Ato 1.375, liquidação em 15/01/26. Cohort do CNPJ 34.829.992/0001-86 em dez/25; destino em mai/26. PL ex-FIC, sem Petrobras/TAPSO.",
+    "Fontes: CVM, Informe Mensal; BCB, Ato 1.375, liquidação em 15/01/26. Coorte do CNPJ 34.829.992/0001-86 em dez/25; destino em mai/26. PL ex-FIC, sem Petrobras/TAPSO.",
     page,
   );
-  addText(slide, "DEZ/25", { left: 72, top: 145, width: 220, height: 20 }, { fontSize: 11, bold: true, color: C.note });
-  addText(slide, "MAI/26", { left: 884, top: 145, width: 300, height: 20 }, { fontSize: 11, bold: true, color: C.note, alignment: "right" });
-  const source = addFlowNode(slide, {
-    left: 72,
-    top: 280,
-    width: 205,
-    height: 120,
-    fill: providerColor("CBSF"),
-    label: `CBSF / Reag Trust\n${integer(summary.funds_origin || 131)} fundos\n${bn(summary.pl_origin_brl || 66.327e9, 1)}`,
-    fontSize: 13,
-  });
-  const targetLeft = 950;
-  const targetWidth = 250;
-  const maxValue = Math.max(...links.map((row) => row.plFlow), 1);
-  const targetHeight = 58;
-  const gap = 14;
-  const totalHeight = links.length * targetHeight + (links.length - 1) * gap;
-  const startTop = 180 + Math.max(0, (430 - totalHeight) / 2);
-  links.forEach((row, index) => {
-    const provider = row.destino.includes("CBSF") ? "CBSF" : row.destino;
-    const fill = row.destino.includes("Saída") ? C.note : providerColor(provider);
-    const valueLabel = row.destino.includes("Saída")
-      ? `${row.fundos} fundos · ${bn(row.plFlow, 1)} em dez/25`
-      : `${integer(row.fundos)} fundos · ${bn(row.plCurrent, 1)} em mai/26`;
-    const target = addFlowNode(slide, {
-      left: targetLeft,
-      top: startTop + index * (targetHeight + gap),
-      width: targetWidth,
-      height: targetHeight,
-      fill,
-      label: `${row.destino.includes("Saída") ? row.destino : providerShort(row.destino)}\n${valueLabel}`,
-      fontSize: 10.2,
-    });
-    addFlowConnector(slide, source, target, row.plFlow, maxValue, index === 0 ? C.light : fill);
-  });
-  addMetric(
+  addProviderFlowSnapshot(
     slide,
-    bn(summary.migrated_pl_current_brl || 10.233e9, 1),
-    "migraram entre os fundos que continuaram reportando. Master Corretora recebeu 8 fundos; Planner, 31.",
-    { left: 350, top: 205, width: 470, height: 120 },
-    true,
-  );
-  addMetric(
-    slide,
-    bn((summary.exited_pl_origin_brl || 14.17e9), 1),
-    "estavam em 16 fundos que saíram do universo ou não reportavam em mai/26.",
-    { left: 350, top: 382, width: 470, height: 105 },
-    false,
-  );
-  addRect(slide, { left: 330, top: 515, width: 610, height: 112 }, C.pale);
-  addText(
-    slide,
-    `Mai/26 ainda declara CBSF como administradora em ${integer(retainedCbsf?.fundos || 70)} fundos; isso mede cadastro reportado, não continuidade operacional. Gestão vigente do cohort: CBSF Trust ${bn(summary.manager_cbsf_trust_pl_brl || 20.982e9, 1)}, outras REAG ${bn(summary.manager_other_reag_pl_brl || 18.715e9, 1)} e Smart Agro ${bn(summary.manager_smart_agro_pl_brl || 4.663e9, 1)}. Custódia: Reag/CBSF ${bn(summary.custodian_reag_cbsf_pl_brl || 49.071e9, 1)} e Planner ${bn(summary.custodian_planner_pl_brl || 3.651e9, 1)}. Sem snapshot anterior por fundo, essas duas funções não formam um antes/depois.`,
-    { left: 350, top: 525, width: 570, height: 92 },
-    { fontSize: 10.6, color: C.mid, lineSpacing: 1.01 },
+    pngBytes,
+    "Fluxo da coorte CBSF / REAG entre dezembro de 2025 e maio de 2026",
   );
   return slide;
 }
 
-function fallbackProviderTransitionLinks() {
-  return [
-    ["Oliveira Trust", "Bradesco", 2, 8.923e9],
-    ["Banvox", "Daycoval", 13, 2.143e9],
-    ["CBSF", "ID", 12, 2.135e9],
-    ["Banvox", "QI Tech", 6, 1.416e9],
-    ["Finvest", "CBSF", 2, 1.310e9],
-    ["Trustee", "Planner", 7, 1.247e9],
-    ["CBSF", "BRL Trust", 7, 0.977e9],
-    ["Banco Master", "Limine Trust", 11, 0.937e9],
-    ["Banco Master", "Qore", 13, 0.906e9],
-    ["Banvox", "Oslo", 5, 0.755e9],
-  ].map(([grupo_origem, grupo_destino, fundos, pl_comparavel_brl]) => ({ grupo_origem, grupo_destino, fundos, pl_comparavel_brl }));
-}
-
-function addProviderTransitionSlide(presentation, payload, page) {
+function addProviderTransitionSlide(presentation, payload, page, pngBytes) {
   const slide = presentation.slides.add();
   const summary = payload.provider_transition_summary || {
     continuing_funds: 2477,
@@ -1336,17 +1302,6 @@ function addProviderTransitionSlide(presentation, payload, page) {
     changed_comparable_pl_brl: 33.020e9,
     changed_share: 0.0724,
   };
-  let links = (payload.provider_transition_links || fallbackProviderTransitionLinks())
-    .filter((row) => String(flowField(row, "papel") || "administrador") === "administrador")
-    .map((row) => ({
-      origem: String(flowField(row, "grupo_origem", "origem_grupo", "prestador_origem") || "N/D"),
-      destino: String(flowField(row, "grupo_destino", "destino_grupo", "prestador_destino") || "N/D"),
-      fundos: num(flowField(row, "fundos", "n_fundos")),
-      value: num(flowField(row, "pl_comparavel_brl", "pl_flow_brl")),
-    }))
-    .filter((row) => row.origem !== row.destino && row.value > 0)
-    .sort((a, b) => b.value - a.value)
-    .slice(0, 10);
   const changedShare = num(summary.changed_share) || (
     num(summary.comparable_pl_brl)
       ? num(summary.changed_comparable_pl_brl) / num(summary.comparable_pl_brl)
@@ -1356,92 +1311,18 @@ function addProviderTransitionSlide(presentation, payload, page) {
     slide,
     "PRESTADORES · ROUBA-MONTE OBSERVADO",
     `${integer(summary.changed_funds || 257)} FIDCs trocaram de administrador; ${pct(changedShare, 1)} do estoque comparável mudou de mãos`,
-    "Fonte: CVM, Informe Mensal. CNPJs presentes em dez/24 e dez/25; largura = menor PL entre as duas datas. Ex-FIC e sem Sistema Petrobras/TAPSO.",
+    "Fonte: CVM, Informe Mensal. CNPJs presentes em dez/24 e dez/25; largura = menor PL entre as duas datas. Ex-FIC e sem Sistema Petrobras/TAPSO. Gestão e custódia não são séries históricas observáveis.",
     page,
   );
-  const originTotals = new Map();
-  const destinationTotals = new Map();
-  links.forEach((row) => {
-    originTotals.set(row.origem, (originTotals.get(row.origem) || 0) + row.value);
-    destinationTotals.set(row.destino, (destinationTotals.get(row.destino) || 0) + row.value);
-  });
-  const origins = [...originTotals.entries()].sort((a, b) => b[1] - a[1]);
-  const originOrder = new Map(origins.map(([name], index) => [name, index]));
-  const destinationOriginIndex = new Map();
-  links.forEach((row) => {
-    const current = destinationOriginIndex.get(row.destino) || { weighted: 0, total: 0 };
-    current.weighted += num(originOrder.get(row.origem)) * row.value;
-    current.total += row.value;
-    destinationOriginIndex.set(row.destino, current);
-  });
-  const destinations = [...destinationTotals.entries()].sort((a, b) => {
-    const left = destinationOriginIndex.get(a[0]);
-    const right = destinationOriginIndex.get(b[0]);
-    const leftIndex = left?.total ? left.weighted / left.total : 0;
-    const rightIndex = right?.total ? right.weighted / right.total : 0;
-    return leftIndex - rightIndex || b[1] - a[1];
-  });
-  const nodeMapOrigin = new Map();
-  const nodeMapDestination = new Map();
-  const layoutNodes = (items, left, map, side) => {
-    const available = 345;
-    const nodeHeight = clamp((available - Math.max(items.length - 1, 0) * 6) / Math.max(items.length, 1), 28, 46);
-    const gap = items.length > 1 ? Math.max(6, (available - items.length * nodeHeight) / (items.length - 1)) : 0;
-    items.forEach(([name, value], index) => {
-      const fill = providerColor(name);
-      const node = addFlowNode(slide, {
-        left,
-        top: 175 + index * (nodeHeight + gap),
-        width: 215,
-        height: nodeHeight,
-        fill,
-        label: `${providerShort(name)}\n${bn(value, 1)}`,
-        fontSize: items.length > 8 ? 8.4 : 9.8,
-      });
-      map.set(name, node);
-    });
-    addText(slide, side, { left, top: 145, width: 215, height: 20 }, {
-      fontSize: 10.5,
-      bold: true,
-      color: C.note,
-      alignment: side === "DEZ/24 · CEDENTES" ? "left" : "right",
-    });
-  };
-  layoutNodes(origins, 60, nodeMapOrigin, "DEZ/24 · CEDENTES");
-  layoutNodes(destinations, 1005, nodeMapDestination, "DEZ/25 · RECEBEDORES");
-  const maxValue = Math.max(...links.map((row) => row.value), 1);
-  links.forEach((row, index) => {
-    const source = nodeMapOrigin.get(row.origem);
-    const target = nodeMapDestination.get(row.destino);
-    if (!source || !target) return;
-    const color = index === 0 ? C.orange : providerColor(row.destino);
-    addFlowConnector(slide, source, target, row.value, maxValue, color);
-    if (index < 3) {
-      addText(
-        slide,
-        `${integer(row.fundos)} fundos · ${bn(row.value, 1)}`,
-        { left: 480, top: 185 + index * 62, width: 320, height: 22 },
-        { fontSize: 10.5, bold: index === 0, color: index === 0 ? C.orange : C.charcoal, alignment: "center" },
-      );
-    }
-  });
-  addText(
+  addProviderFlowSnapshot(
     slide,
-    `Os 10 maiores fluxos acima representam ${pct(links.reduce((sum, row) => sum + row.value, 0) / Math.max(num(summary.changed_comparable_pl_brl || 33.020e9), 1), 1)} dos ${bn(summary.changed_comparable_pl_brl || 33.020e9, 1)} que trocaram de grupo administrador.`,
-    { left: 355, top: 500, width: 570, height: 38 },
-    { fontSize: 11.5, color: C.mid, alignment: "center", verticalAlignment: "middle" },
-  );
-  addRect(slide, { left: 335, top: 558, width: 610, height: 73 }, C.pale);
-  addText(
-    slide,
-    "Gestão e custódia não são exibidas: o pipeline atual aplica o cadastro vigente às duas datas. O resultado de zero trocas é um artefato; faltam snapshots cadastrais versionados de dez/24 e dez/25.",
-    { left: 355, top: 574, width: 570, height: 42 },
-    { fontSize: 11.2, color: C.charcoal, alignment: "center", verticalAlignment: "middle", lineSpacing: 1.02 },
+    pngBytes,
+    "Fluxos observados de administradores entre dezembro de 2024 e dezembro de 2025",
   );
   return slide;
 }
 
-function buildPresentation(payload) {
+function buildPresentation(payload, flowAssets) {
   const presentation = Presentation.create({ slideSize: SLIDE });
   const latestCompetence = String(payload.latest_complete || "");
   const stockShort = competenceShortPt(latestCompetence);
@@ -2227,8 +2108,8 @@ function buildPresentation(payload) {
 
   // 15–17. Atribuição das lideranças e fluxos observáveis entre prestadores.
   addProviderAttributionSlide(presentation, payload, 15);
-  addReagMigrationSlide(presentation, payload, 16);
-  addProviderTransitionSlide(presentation, payload, 17);
+  addReagMigrationSlide(presentation, payload, 16, flowAssets.reagPngBytes);
+  addProviderTransitionSlide(presentation, payload, 17, flowAssets.adminPngBytes);
   const providerInsightOffset = 3;
 
   // 18. Top 20 FIDCs
@@ -3635,6 +3516,68 @@ async function addReagMigrationSheet(workbook, payload) {
   sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 38;
 }
 
+async function addProviderFlowVisualSheet(workbook, flowAssets) {
+  const sheet = resetSheet(workbook, "Fluxos visuais");
+  const lastColumn = "M";
+  sheet.getRange(`A1:${lastColumn}70`).format = {
+    font: { name: "Arial", size: 10, color: C.charcoal },
+    rowHeightPx: 20,
+  };
+  for (let index = 0; index < 13; index += 1) {
+    const letter = columnLetter(index);
+    sheet.getRange(`${letter}1:${letter}70`).format.columnWidthPx = 100;
+  }
+  sheet.getRange(`A1:${lastColumn}1`).merge();
+  sheet.getRange("A1").values = [["Fluxos de prestadores"]];
+  sheet.getRange(`A1:${lastColumn}1`).format = {
+    fill: C.black,
+    font: { name: "Arial", size: 16, bold: true, color: C.white },
+    rowHeightPx: 34,
+    verticalAlignment: "center",
+  };
+  sheet.getRange(`A2:${lastColumn}2`).merge();
+  sheet.getRange("A2").values = [[
+    "Imagens em alta resolução geradas da mesma base do explorador HTML. O primeiro painel mostra o rouba-monte de administradores; o segundo acompanha a coorte CBSF / REAG.",
+  ]];
+  sheet.getRange(`A2:${lastColumn}2`).format = {
+    fill: C.white,
+    font: { name: "Arial", size: 10, color: C.mid },
+    rowHeightPx: 32,
+    verticalAlignment: "center",
+    wrapText: true,
+  };
+  sheet.images.add({
+    dataUrl: flowAssets.adminPngDataUrl,
+    anchor: {
+      from: { row: 3, col: 0 },
+      extent: { widthPx: 1280, heightPx: 620 },
+    },
+  });
+  sheet.images.add({
+    dataUrl: flowAssets.reagPngDataUrl,
+    anchor: {
+      from: { row: 36, col: 0 },
+      extent: { widthPx: 1280, heightPx: 620 },
+    },
+  });
+  sheet.getRange(`A69:${lastColumn}70`).merge();
+  sheet.getRange("A69").values = [[
+    `Visão navegável e exportável: ${path.basename(flowAssets.html)}. Fontes e critérios permanecem nas abas “Fluxos prestadores” e “Migração CBSF”.`,
+  ]];
+  sheet.getRange(`A69:${lastColumn}70`).format = {
+    fill: C.pale,
+    font: { name: "Arial", size: 10, color: C.mid },
+    rowHeightPx: 24,
+    verticalAlignment: "center",
+    wrapText: true,
+    borders: {
+      top: { style: "thin", color: C.line },
+      bottom: { style: "thin", color: C.line },
+    },
+  };
+  sheet.freezePanes.freezeRows(2);
+}
+
 async function addAcquiringTaxonomySheet(workbook, payload) {
   const columns = [
     ["CNPJ", "cnpj"],
@@ -3787,7 +3730,7 @@ async function addChecksSheet(workbook, payload) {
   sheet.getRange(`B5:C${tests.length + 4}`).format.numberFormat = "0.0000";
 }
 
-async function buildWorkbook(payload) {
+async function buildWorkbook(payload, flowAssets) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
   await addQaSheet(workbook);
   await addVehicleCompetenceSheet(workbook);
@@ -3799,6 +3742,7 @@ async function buildWorkbook(payload) {
   await addHistoricalComparisonsSheet(workbook, payload);
   await addProviderHistorySheet(workbook, payload);
   await addProviderAttributionSheet(workbook, payload);
+  await addProviderFlowVisualSheet(workbook, flowAssets);
   await addProviderTransitionSheet(workbook, payload);
   await addReagMigrationSheet(workbook, payload);
   await addAcquiringTaxonomySheet(workbook, payload);
@@ -3859,6 +3803,7 @@ async function exportWorkbook(workbook) {
       ["Curadoria Top 20", "A1:X16"],
       ["Comparativos históricos", "A1:N28"],
       ["Atribuição prestadores", "A1:J22"],
+      ["Fluxos visuais", "A1:M70"],
       ["Fluxos prestadores", "A1:T24"],
       ["Migração CBSF", "A1:Q24"],
       ["Curadoria Atlântico", "A1:D36"],
@@ -3890,15 +3835,16 @@ async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   const payloadRaw = await fs.readFile(PAYLOAD_PATH);
   const payload = JSON.parse(payloadRaw.toString("utf8"));
+  const flowAssets = await generateProviderFlowAssets();
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
-    const presentation = buildPresentation(payload);
+    const presentation = buildPresentation(payload, flowAssets);
     if (presentation.slides.items.length !== EXPECTED_SLIDES) {
       throw new Error(`Deck deveria ter ${EXPECTED_SLIDES} slides; gerou ${presentation.slides.items.length}.`);
     }
     await exportPresentation(presentation);
   }
   if (process.env.FIDC_SKIP_WORKBOOK !== "1") {
-    const workbook = await buildWorkbook(payload);
+    const workbook = await buildWorkbook(payload, flowAssets);
     await exportWorkbook(workbook);
   }
   if (
@@ -3907,7 +3853,7 @@ async function main() {
   ) {
     await writeExportBundleManifest(payload, payloadRaw);
   }
-  process.stdout.write(`${OUTPUT_PPTX}\n${OUTPUT_XLSX}\n`);
+  process.stdout.write(`${OUTPUT_PPTX}\n${OUTPUT_XLSX}\n${OUTPUT_HTML}\n`);
 }
 
 main().catch((error) => {

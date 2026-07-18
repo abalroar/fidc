@@ -23,6 +23,7 @@ from pathlib import Path
 import altair as alt
 import pandas as pd
 import streamlit as st
+import streamlit.components.v1 as components
 
 from services.dashboard_ui import diagnostics_enabled, render_context_strip, render_page_header
 from services.industry_executive_pack import (
@@ -132,6 +133,7 @@ _INDUSTRY_EXPORT_INPUTS = (
     "generated_revision/industry_export_bundle.json",
     "generated_revision/industry_executive_revised.pptx",
     "generated_revision/industry_data_revised.xlsx",
+    "generated_revision/provider_flows_explorer.html",
 )
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
 _CEDENTE_REVIEW_PATH = _DATA_DIR / "cedente_reviews.csv"
@@ -9205,11 +9207,24 @@ def _industry_export_signature() -> str:
 
 
 @st.cache_data(show_spinner=False)
-def _industry_export_payloads(signature: str) -> tuple[bytes, bytes]:
+def _industry_export_payloads(signature: str) -> tuple[bytes, bytes, bytes]:
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
+    from services.industry_revision_export import build_revision_html_bytes
 
     del signature  # the value participates in Streamlit's cache key
-    return build_industry_pptx_bytes(_DATA_DIR), build_industry_xlsx_bytes(_DATA_DIR)
+    return (
+        build_industry_pptx_bytes(_DATA_DIR),
+        build_industry_xlsx_bytes(_DATA_DIR),
+        build_revision_html_bytes(_DATA_DIR),
+    )
+
+
+@st.cache_data(show_spinner=False)
+def _industry_provider_flow_html(signature: str) -> str:
+    from services.industry_revision_export import build_revision_html_bytes
+
+    del signature  # the value participates in Streamlit's cache key
+    return build_revision_html_bytes(_DATA_DIR).decode("utf-8")
 
 
 def _industry_kpi(label: str, value: str, note: str = "") -> str:
@@ -9347,12 +9362,14 @@ def _industry_holder_histogram_frames(
 
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
     try:
-        pptx_bytes, xlsx_bytes = _industry_export_payloads(_industry_export_signature())
+        pptx_bytes, xlsx_bytes, html_bytes = _industry_export_payloads(
+            _industry_export_signature()
+        )
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Exportação executiva indisponível: {exc}")
         return
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    left, right, _spacer = st.columns([1, 1, 3])
+    left, middle, right, _spacer = st.columns([1, 1, 1, 2])
     with left:
         st.download_button(
             "PPTX",
@@ -9364,7 +9381,7 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
             width="stretch",
             key=f"industry-pptx-{suffix}",
         )
-    with right:
+    with middle:
         st.download_button(
             "XLSX",
             data=xlsx_bytes,
@@ -9374,6 +9391,17 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
             help="Baixar bases e tabelas da apresentação",
             width="stretch",
             key=f"industry-xlsx-{suffix}",
+        )
+    with right:
+        st.download_button(
+            "HTML interativo",
+            data=html_bytes,
+            file_name=f"Industria_FIDC_Fluxos_Prestadores_{file_period}.html",
+            mime="text/html",
+            icon=":material/hub:",
+            help="Baixar o explorador interativo dos fluxos de prestadores",
+            width="stretch",
+            key=f"industry-html-{suffix}",
         )
 
 
@@ -11082,6 +11110,17 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             "Administração é observada; gestão e custódia de dez/24 e dez/25 são reconstruídas com o cadastro vigente."
         )
 
+    from services.industry_revision_export import get_revision_export_status
+
+    export_status = get_revision_export_status(_DATA_DIR)
+    if export_status.bundle_valid and getattr(export_status, "html_path", ""):
+        try:
+            explorer_html = _industry_provider_flow_html(_industry_export_signature())
+        except Exception as exc:  # noqa: BLE001
+            st.caption(f"Explorador de fluxos indisponível: {exc}")
+        else:
+            components.html(explorer_html, height=980, scrolling=True)
+
     st.markdown("<h2>Market share por subtipo ANBIMA</h2>", unsafe_allow_html=True)
     role = st.selectbox(
         "Função",
@@ -11362,11 +11401,14 @@ def _render_revision_data_exports(
     from services.industry_revision_export import get_revision_export_status
 
     export_status = get_revision_export_status(_DATA_DIR)
-    st.markdown("<h2>Apresentação e workbook revisados</h2>", unsafe_allow_html=True)
+    st.markdown(
+        "<h2>Apresentação, workbook e explorador revisados</h2>",
+        unsafe_allow_html=True,
+    )
     if export_status.bundle_valid:
         st.success(
             f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
-            "PPTX e XLSX reconciliados pelo mesmo payload e por hashes."
+            "PPTX, XLSX e HTML reconciliados pelo mesmo payload e por hashes."
         )
         _render_industry_exports(suffix="revision", as_of_date=str(payload.get("offers_as_of") or ""))
     else:

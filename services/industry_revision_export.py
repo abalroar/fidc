@@ -26,7 +26,8 @@ PAYLOAD_NAME = "artifact_payload.json"
 BUNDLE_MANIFEST_NAME = "industry_export_bundle.json"
 MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
-BUNDLE_SCHEMA = "fidc_revision_export_bundle_v1"
+MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
+BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
 EXPECTED_SLIDES = 47
 REQUIRED_WORKBOOK_SHEETS = {
@@ -43,6 +44,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Ranking prestadores",
     "Atribuição prestadores",
     "Fluxos prestadores",
+    "Fluxos visuais",
     "Migração CBSF",
     "Taxonomia adquirência",
     "Curadoria Atlântico",
@@ -69,6 +71,8 @@ class RevisionExportStatus:
     pptx_exists: bool
     xlsx_path: str
     xlsx_exists: bool
+    html_path: str
+    html_exists: bool
     artifact_runtime_available: bool
 
     def to_dict(self) -> dict[str, object]:
@@ -82,6 +86,8 @@ class _ValidatedBundle:
     pptx_bytes: bytes
     xlsx_path: Path
     xlsx_bytes: bytes
+    html_path: Path
+    html_bytes: bytes
 
 
 def revision_dir(data_dir: Path = DEFAULT_DATA_DIR) -> Path:
@@ -178,6 +184,42 @@ def validate_revision_xlsx(payload: bytes) -> None:
         )
 
 
+def validate_revision_html(payload: bytes) -> None:
+    """Validate the self-contained provider-flow explorer served by the app."""
+
+    if not payload:
+        raise RevisionExportUnavailable("HTML interativo de fluxos está vazio")
+    if len(payload) > 2 * 1024 * 1024:
+        raise RevisionExportUnavailable("HTML interativo de fluxos excede 2 MB")
+    try:
+        document = payload.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise RevisionExportUnavailable(
+            "HTML interativo de fluxos não está em UTF-8"
+        ) from exc
+    required_tokens = (
+        "<!doctype html",
+        'id="provider-flow-explorer"',
+        "data-chart",
+        "<script",
+        "Dez/24",
+        "CBSF / REAG",
+    )
+    missing = [
+        token
+        for token in required_tokens
+        if token.casefold() not in document.casefold()
+    ]
+    if missing:
+        raise RevisionExportUnavailable(
+            "HTML interativo de fluxos incompleto: " + ", ".join(missing)
+        )
+    if "fetch(" in document:
+        raise RevisionExportUnavailable(
+            "HTML interativo de fluxos depende de carregamento externo"
+        )
+
+
 def _candidate_paths(
     data_dir: Path,
     *,
@@ -210,6 +252,15 @@ def revision_xlsx_candidates(data_dir: Path = DEFAULT_DATA_DIR) -> tuple[Path, .
         materialized_name=MATERIALIZED_XLSX_NAME,
         output_name="Industria_FIDC_Dados_202607_revisado.xlsx",
         env_name="FIDC_REVISION_XLSX",
+    )
+
+
+def revision_html_candidates(data_dir: Path = DEFAULT_DATA_DIR) -> tuple[Path, ...]:
+    return _candidate_paths(
+        Path(data_dir),
+        materialized_name=MATERIALIZED_HTML_NAME,
+        output_name="Industria_FIDC_Fluxos_Prestadores_202607.html",
+        env_name="FIDC_REVISION_HTML",
     )
 
 
@@ -309,12 +360,19 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         dict(manifest.get("xlsx") or {}),
         validate_revision_xlsx,
     )
+    html_path, html_bytes = _matching_candidate(
+        revision_html_candidates(data_dir),
+        dict(manifest.get("html") or {}),
+        validate_revision_html,
+    )
     return _ValidatedBundle(
         manifest=manifest,
         pptx_path=pptx_path,
         pptx_bytes=pptx_bytes,
         xlsx_path=xlsx_path,
         xlsx_bytes=xlsx_bytes,
+        html_path=html_path,
+        html_bytes=html_bytes,
     )
 
 
@@ -335,6 +393,7 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
     bundle_id = ""
     pptx_path = revision_pptx_candidates(data_dir)[0]
     xlsx_path = revision_xlsx_candidates(data_dir)[0]
+    html_path = revision_html_candidates(data_dir)[0]
     error = ""
     valid = False
     try:
@@ -342,6 +401,7 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
         bundle_id = str(bundle.manifest.get("bundle_id") or "")
         pptx_path = bundle.pptx_path
         xlsx_path = bundle.xlsx_path
+        html_path = bundle.html_path
         valid = True
     except RevisionExportUnavailable as exc:
         error = str(exc)
@@ -365,6 +425,8 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
         pptx_exists=pptx_path.exists(),
         xlsx_path=str(xlsx_path),
         xlsx_exists=xlsx_path.exists(),
+        html_path=str(html_path),
+        html_exists=html_path.exists(),
         artifact_runtime_available=artifact_runtime_available(),
     )
 
@@ -377,17 +439,25 @@ def build_revision_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return _load_validated_bundle(data_dir).xlsx_bytes
 
 
+def build_revision_html_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+    return _load_validated_bundle(data_dir).html_bytes
+
+
 __all__ = [
     "BUNDLE_SCHEMA",
+    "MATERIALIZED_HTML_NAME",
     "RevisionExportStatus",
     "RevisionExportUnavailable",
     "artifact_runtime_available",
     "build_revision_pptx_bytes",
     "build_revision_xlsx_bytes",
+    "build_revision_html_bytes",
     "get_revision_export_status",
     "revision_bundle_manifest_path",
     "revision_export_signature",
     "revision_payload_path",
+    "revision_html_candidates",
+    "validate_revision_html",
     "validate_revision_pptx",
     "validate_revision_xlsx",
 ]

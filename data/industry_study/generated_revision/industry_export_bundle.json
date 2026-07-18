@@ -2,17 +2,22 @@
   "analysis_manifest": {
     "bytes": 5039,
     "name": "revision_manifest.json",
-    "sha256": "bac6a1afb6dddbfdb1c7ab50c9be3eb6cf67a694eb6cf17069b12aa1b05e7056"
+    "sha256": "fc32ef1bb5b21a2f665cd85425f603981f239b5b9637fdb64c6de06a646d672f"
   },
-  "bundle_id": "202605_2d20cd931885b3a1",
+  "bundle_id": "202605_06d19281ecfb745f",
   "checks": {
     "profiles": 20,
     "slides": 47,
     "top20_fidcs": 20,
     "top20_outros": 20
   },
-  "generated_at_utc": "2026-07-17T22:46:46+00:00",
-  "input_signature": "27c74725a1dfbd0eaf162a563c75c680483a4c50a93df08e93d9a6da8740b0de",
+  "generated_at_utc": "2026-07-18T00:22:00+00:00",
+  "html": {
+    "bytes": 238205,
+    "name": "provider_flows_explorer.html",
+    "sha256": "4772779b2f9cfd27861435e85a86d4f24e58038c4345799e50cc0a196a335e1b"
+  },
+  "input_signature": "42168ca4c21bbdf0ad43497f78de7527143fe6959df7c3f60772d9d87a355a8a",
   "inputs": {
     "analysis/base_competencia_cnpj.csv.gz": "e342b7daa6869c5b9b8a989f10a19d4f9ec798bd73010c8ceca7078e18173ad9",
     "analysis/base_fundo_cnpj.csv.gz": "f8f2e43bb28227e1e289579e2210f4288308a562bbb708ce06e8f85985a57e22",
@@ -44,9 +49,10 @@
     "analysis/top20_outros.csv": "5ba4cb6b44b3f9dd2a8ba4294f7dda9451ca397d557677c8cde2f5bac77c1f1c",
     "builder/build_fidc_revision_analysis.py": "7c08a88292196f20eb16a3fe0f9d01bb276cf51943b73d3fc6c7443bd9d00181",
     "builder/build_fidc_revision_artifact_payload.py": "658a30154b5049303cbd16de36dbf6c14435629364afc100f1ac3771c0a06c56",
-    "builder/build_fidc_revision_artifacts.mjs": "39dcc02cd30ea9a4034f6cfebf66b5cd363588c4747cd4e545deacf5657b948d",
+    "builder/build_fidc_revision_artifacts.mjs": "ccd9c27b43b27cd91e40bbc502e368953b2be3ed7dcc8a98b05cb4882d5b0779",
+    "builder/build_provider_flow_explorer.mjs": "180bb2fa8c3c7dbd85763730d793a3ad0a5854ed3a4e39055b82b77848625a83",
     "builder/industry_revision_analysis.py": "f3eb95c76945b31d659d6ebd21602fbf088856c1dad87fa9d13c52b53d09bb56",
-    "builder/industry_revision_export.py": "a380d6a744c668d0d2727432a3b405b02cbc4091bc813aaf08759ad74ada0e99",
+    "builder/industry_revision_export.py": "78a65d8a88e141fc67ab037666dba8bb903cac257718c72a289b4405d91b6dd8",
     "builder/patch_pptx_native_market_charts.py": "c0a9dd8d2d2fc2ebfad87daf7ee73343825c79b8baecef39a9d6079124130b11",
     "curation/top20.csv": "6744c3ec00f168a8ca9f110d337e930b6b772e90e213ed8724a20ae724584d28",
     "data/acquiring_taxonomy_curation.json": "b3291c7cff9f543f6410af015c41e9f210ffdac2f4be865765c1ad3a71fc443f",
@@ -69,28 +75,28 @@
   "payload": {
     "bytes": 5085502,
     "name": "artifact_payload.json",
-    "sha256": "2d20cd931885b3a102813f8b4974b439b24ca53054f04fe9d52c98be8ac2efdf"
+    "sha256": "06d19281ecfb745fbd37e5d2dafa90a5de2716839835d7cec1a470e954cb8cb7"
   },
   "payload_schema": "fidc_revision_artifact_payload_v3",
-  "payload_sha256": "2d20cd931885b3a102813f8b4974b439b24ca53054f04fe9d52c98be8ac2efdf",
+  "payload_sha256": "06d19281ecfb745fbd37e5d2dafa90a5de2716839835d7cec1a470e954cb8cb7",
   "pptx": {
-    "bytes": 293602,
+    "bytes": 599725,
     "name": "industry_executive_revised.pptx",
-    "sha256": "b95b86120dad7f033de200806426c688e7dc393cec4974655ac9d33304d5c4b0"
+    "sha256": "9c70cee00bbced3314b727a0f3c2b221099604a788247d3a5d4742446eff3dc1"
   },
   "renderer": {
     "artifact_tool_version": "2.8.24",
     "node_version": "v25.9.0",
-    "renderer_sha256": "39dcc02cd30ea9a4034f6cfebf66b5cd363588c4747cd4e545deacf5657b948d",
-    "renderer_version": "industry_revision_artifacts_v6"
+    "renderer_sha256": "ccd9c27b43b27cd91e40bbc502e368953b2be3ed7dcc8a98b05cb4882d5b0779",
+    "renderer_version": "industry_revision_artifacts_v7"
   },
-  "renderer_sha256": "39dcc02cd30ea9a4034f6cfebf66b5cd363588c4747cd4e545deacf5657b948d",
-  "renderer_version": "industry_revision_artifacts_v6",
-  "schema_version": "fidc_revision_export_bundle_v1",
-  "source_signature": "2d20cd931885b3a102813f8b4974b439b24ca53054f04fe9d52c98be8ac2efdf",
+  "renderer_sha256": "ccd9c27b43b27cd91e40bbc502e368953b2be3ed7dcc8a98b05cb4882d5b0779",
+  "renderer_version": "industry_revision_artifacts_v7",
+  "schema_version": "fidc_revision_export_bundle_v2",
+  "source_signature": "06d19281ecfb745fbd37e5d2dafa90a5de2716839835d7cec1a470e954cb8cb7",
   "xlsx": {
-    "bytes": 4739845,
+    "bytes": 5058052,
     "name": "industry_data_revised.xlsx",
-    "sha256": "c1e820773667efad69db05e97637f1bf8b751cd0ef4fb5b71caa067f883e125d"
+    "sha256": "229e2cb873522029d4697a1e3fae185f4602d6ea1197d97fe91c753df39cdde3"
   }
 }

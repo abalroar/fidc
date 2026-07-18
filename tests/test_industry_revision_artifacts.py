@@ -12,6 +12,13 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 PPTX = ROOT / "outputs" / "Industria_FIDC_Executivo_202607_revisado.pptx"
 XLSX = ROOT / "outputs" / "Industria_FIDC_Dados_202607_revisado.xlsx"
+FLOW_HTML = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "provider_flows_explorer.html"
+)
 
 PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
@@ -54,6 +61,22 @@ def _slide_chart_paths(archive: ZipFile, slide_number: int) -> list[str]:
     paths: list[str] = []
     for rel in rels.findall(f"{{{PACKAGE_REL}}}Relationship"):
         if not rel.attrib.get("Type", "").endswith("/chart"):
+            continue
+        target = rel.attrib["Target"]
+        paths.append(
+            target.lstrip("/")
+            if target.startswith("/")
+            else posixpath.normpath(posixpath.join("ppt/slides", target))
+        )
+    return paths
+
+
+def _slide_image_paths(archive: ZipFile, slide_number: int) -> list[str]:
+    rels_path = f"ppt/slides/_rels/slide{slide_number}.xml.rels"
+    rels = ET.fromstring(archive.read(rels_path))
+    paths: list[str] = []
+    for rel in rels.findall(f"{{{PACKAGE_REL}}}Relationship"):
+        if not rel.attrib.get("Type", "").endswith("/image"):
             continue
         target = rel.attrib["Target"]
         paths.append(
@@ -242,6 +265,33 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 assert symbol.attrib.get("val") == "none"
 
 
+def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() -> None:
+    _require(FLOW_HTML)
+    html = FLOW_HTML.read_text(encoding="utf-8")
+
+    assert len(html.encode("utf-8")) < 2_000_000
+    assert "fetch(" not in html
+    for expected in (
+        "Movimentação de prestadores da indústria de FIDCs",
+        "Top 25",
+        "≥ R$ 250 mi",
+        "Copiar para Office",
+        "data-export-svg",
+        "data-export-png",
+        "data-export-csv",
+        "26.286.939/0001-58",
+        "Sem reporte",
+        "PL não positivo",
+        "Ativa Investimentos",
+        "Finvest",
+        "BRL Trust",
+        "FundosNet",
+        "CVM origem",
+        "CVM destino",
+    ):
+        assert expected in html
+
+
 @pytest.mark.parametrize("slide_number", [11, 12, 13, 24, 25, 26])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
@@ -353,7 +403,7 @@ def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note()
         assert expected in text
 
 
-def test_provider_flow_slides_use_native_editable_objects_and_disclose_limits() -> None:
+def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         attribution = ET.fromstring(archive.read("ppt/slides/slide15.xml"))
@@ -365,12 +415,20 @@ def test_provider_flow_slides_use_native_editable_objects_and_disclose_limits() 
         assert len(_slide_chart_paths(archive, 15)) == 2
         assert not _slide_chart_paths(archive, 16)
         assert not _slide_chart_paths(archive, 17)
+        reag_images = _slide_image_paths(archive, 16)
+        transition_images = _slide_image_paths(archive, 17)
+        assert len(reag_images) == 1
+        assert len(transition_images) == 1
+        assert len(archive.read(reag_images[0])) > 50_000
+        assert len(archive.read(transition_images[0])) > 50_000
 
     assert "95,9%" in attribution_text
     assert "R$ 28,6 bi" in attribution_text
-    assert len(reag.findall(f".//{{{PML}}}cxnSp")) >= 4
-    assert len(transitions.findall(f".//{{{PML}}}cxnSp")) >= 8
-    assert "Gestão e custódia não são exibidas" in transition_text
+    assert len(reag.findall(f".//{{{PML}}}pic")) == 1
+    assert len(transitions.findall(f".//{{{PML}}}pic")) == 1
+    assert not reag.findall(f".//{{{PML}}}cxnSp")
+    assert not transitions.findall(f".//{{{PML}}}cxnSp")
+    assert "menor PL entre as duas datas" in transition_text
 
 
 def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -> None:
@@ -523,8 +581,8 @@ def test_legacy_industry_export_no_longer_requests_line_markers() -> None:
     assert 'font.name = "Calibri"' not in source
 
 
-def test_revision_renderer_version_tracks_holder_distribution_layout() -> None:
+def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v6";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v7";' in source

@@ -36,8 +36,10 @@ from scripts.build_fidc_revision_artifact_payload import build_payload
 from services.industry_revision_export import (
     BUNDLE_MANIFEST_NAME,
     BUNDLE_SCHEMA,
+    MATERIALIZED_HTML_NAME,
     MATERIALIZED_PPTX_NAME,
     MATERIALIZED_XLSX_NAME,
+    validate_revision_html,
     validate_revision_pptx,
     validate_revision_xlsx,
 )
@@ -46,6 +48,7 @@ from services.industry_revision_export import (
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_SCRIPT = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
+PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
@@ -73,6 +76,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
+    ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_export.py",
@@ -113,6 +117,7 @@ class PublishedRevisionBundle:
     payload_path: Path
     pptx_path: Path
     xlsx_path: Path
+    html_path: Path
     manifest_path: Path
 
 
@@ -441,12 +446,14 @@ def build_bundle_manifest(
     input_hashes: Mapping[str, str],
     renderer: Mapping[str, str],
     generated_at_utc: str,
+    html_bytes: bytes = b"",
 ) -> dict[str, object]:
     """Build the content-addressed manifest consumed by the application."""
 
     payload_hash = _sha256_bytes(payload_bytes)
     pptx_hash = _sha256_bytes(pptx_bytes)
     xlsx_hash = _sha256_bytes(xlsx_bytes)
+    html_hash = _sha256_bytes(html_bytes)
     input_signature = _sha256_bytes(_canonical_json_bytes(dict(input_hashes)))
     bundle_id = (
         str(payload.get("latest_complete") or "unknown").replace("-", "")
@@ -488,6 +495,11 @@ def build_bundle_manifest(
             "sha256": xlsx_hash,
             "bytes": len(xlsx_bytes),
         },
+        "html": {
+            "name": MATERIALIZED_HTML_NAME,
+            "sha256": html_hash,
+            "bytes": len(html_bytes),
+        },
         "checks": {
             "slides": 47,
             "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
@@ -505,6 +517,7 @@ def validate_bundle_manifest(
     analysis_manifest_bytes: bytes,
     pptx_bytes: bytes,
     xlsx_bytes: bytes,
+    html_bytes: bytes = b"",
 ) -> None:
     if manifest.get("schema_version") != BUNDLE_SCHEMA:
         raise RevisionBundlePublishError("schema do manifest de publicação incompatível")
@@ -524,12 +537,13 @@ def validate_bundle_manifest(
         ("analysis_manifest", analysis_manifest_bytes),
         ("pptx", pptx_bytes),
         ("xlsx", xlsx_bytes),
+        ("html", html_bytes),
     )
     for key, content in files:
         entry = dict(manifest.get(key) or {})
         if entry.get("sha256") != _sha256_bytes(content):
             raise RevisionBundlePublishError(f"hash inválido no manifest: {key}")
-        if int(entry.get("bytes") or -1) != len(content):
+        if entry.get("bytes") is None or int(entry["bytes"]) != len(content):
             raise RevisionBundlePublishError(f"tamanho inválido no manifest: {key}")
     if not re.fullmatch(r"\d{6}_[0-9a-f]{16}", str(manifest.get("bundle_id") or "")):
         raise RevisionBundlePublishError("bundle_id inválido")
@@ -543,6 +557,7 @@ def validate_renderer_manifest(
     pptx_bytes: bytes,
     xlsx_bytes: bytes,
     renderer_sha256: str,
+    html_bytes: bytes = b"",
 ) -> None:
     """Validate the renderer's own manifest before creating the publish manifest."""
 
@@ -557,11 +572,15 @@ def validate_renderer_manifest(
         raise RevisionBundlePublishError("renderer não reconciliou o hash do payload")
     if manifest.get("renderer_sha256") != renderer_sha256:
         raise RevisionBundlePublishError("renderer executado diverge do snapshot publicado")
-    for key, content in (("pptx", pptx_bytes), ("xlsx", xlsx_bytes)):
+    for key, content in (
+        ("pptx", pptx_bytes),
+        ("xlsx", xlsx_bytes),
+        ("html", html_bytes),
+    ):
         entry = dict(manifest.get(key) or {})
         if entry.get("sha256") != _sha256_bytes(content):
             raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
-        if int(entry.get("bytes") or -1) != len(content):
+        if entry.get("bytes") is None or int(entry["bytes"]) != len(content):
             raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
     checks = dict(manifest.get("checks") or {})
     if int(checks.get("slides") or 0) != 47:
@@ -577,6 +596,7 @@ def publish_staged_bundle(
     staged_xlsx: Path,
     staged_bundle_manifest: Path,
     publish_dir: Path,
+    staged_html: Path | None = None,
     replace: Callable[[str | bytes | os.PathLike[str] | os.PathLike[bytes], str | bytes | os.PathLike[str] | os.PathLike[bytes]], None] = os.replace,
 ) -> tuple[Path, Path, Path]:
     """Move staged outputs into place, replacing the bundle manifest last."""
@@ -591,6 +611,8 @@ def publish_staged_bundle(
     target_manifest = publish_dir / BUNDLE_MANIFEST_NAME
     replace(staged_pptx, target_pptx)
     replace(staged_xlsx, target_xlsx)
+    if staged_html is not None:
+        replace(staged_html, publish_dir / MATERIALIZED_HTML_NAME)
     # This commit marker is deliberately last.
     replace(staged_bundle_manifest, target_manifest)
     return target_pptx, target_xlsx, target_manifest
@@ -600,6 +622,7 @@ def _run_artifact_builder(
     *,
     node: Path,
     artifact_script: Path,
+    provider_flow_builder: Path,
     node_modules: Path,
     input_workbook: Path,
     revision_dir: Path,
@@ -607,6 +630,7 @@ def _run_artifact_builder(
     output_dir: Path,
     pptx_path: Path,
     xlsx_path: Path,
+    html_path: Path,
     renderer_manifest_path: Path,
     timeout_seconds: int,
 ) -> None:
@@ -621,6 +645,8 @@ def _run_artifact_builder(
             "FIDC_QA_DIR": str(output_dir / "qa"),
             "FIDC_OUTPUT_PPTX": str(pptx_path),
             "FIDC_OUTPUT_XLSX": str(xlsx_path),
+            "FIDC_OUTPUT_HTML": str(html_path),
+            "FIDC_PROVIDER_FLOW_BUILDER": str(provider_flow_builder),
             "FIDC_EXPORT_MANIFEST": str(renderer_manifest_path),
             "FIDC_SKIP_QA": "1",
         }
@@ -644,8 +670,13 @@ def _run_artifact_builder(
         raise RevisionBundlePublishError(
             "renderer do bundle falhou: " + detail[-2000:]
         )
-    if not pptx_path.exists() or not xlsx_path.exists() or not renderer_manifest_path.exists():
-        raise RevisionBundlePublishError("renderer não produziu PPTX/XLSX/manifest")
+    if (
+        not pptx_path.exists()
+        or not xlsx_path.exists()
+        or not html_path.exists()
+        or not renderer_manifest_path.exists()
+    ):
+        raise RevisionBundlePublishError("renderer não produziu PPTX/XLSX/HTML/manifest")
 
 
 def _validate_input_workbook(path: Path) -> None:
@@ -685,6 +716,7 @@ def publish_revision_bundle(
     # edited concurrently.
     artifact_script_bytes = ARTIFACT_SCRIPT.read_bytes()
     native_chart_patcher_bytes = NATIVE_CHART_PATCHER.read_bytes()
+    provider_flow_builder_bytes = PROVIDER_FLOW_BUILDER.read_bytes()
     input_hashes = collect_input_hashes(
         data_dir=data_dir,
         curation_path=curation_path,
@@ -692,6 +724,9 @@ def publish_revision_bundle(
     )
     input_hashes[f"builder/{ARTIFACT_SCRIPT.name}"] = _sha256_bytes(
         artifact_script_bytes
+    )
+    input_hashes[f"builder/{PROVIDER_FLOW_BUILDER.name}"] = _sha256_bytes(
+        provider_flow_builder_bytes
     )
     node_text = shutil.which("node")
     if not node_text:
@@ -714,6 +749,8 @@ def publish_revision_bundle(
         staged_renderer.write_bytes(artifact_script_bytes)
         staged_native_chart_patcher = stage / NATIVE_CHART_PATCHER.name
         staged_native_chart_patcher.write_bytes(native_chart_patcher_bytes)
+        staged_provider_flow_builder = stage / PROVIDER_FLOW_BUILDER.name
+        staged_provider_flow_builder.write_bytes(provider_flow_builder_bytes)
         renderer = _artifact_runtime_metadata(
             node,
             resolved_modules,
@@ -778,10 +815,12 @@ def publish_revision_bundle(
 
         staged_pptx = stage_exports / MATERIALIZED_PPTX_NAME
         staged_xlsx = stage_exports / MATERIALIZED_XLSX_NAME
+        staged_html = stage_exports / MATERIALIZED_HTML_NAME
         renderer_manifest_path = stage / "renderer_export_bundle.json"
         _run_artifact_builder(
             node=node,
             artifact_script=staged_renderer,
+            provider_flow_builder=staged_provider_flow_builder,
             node_modules=resolved_modules,
             input_workbook=input_workbook,
             revision_dir=stage_revision,
@@ -789,11 +828,13 @@ def publish_revision_bundle(
             output_dir=stage_exports,
             pptx_path=staged_pptx,
             xlsx_path=staged_xlsx,
+            html_path=staged_html,
             renderer_manifest_path=renderer_manifest_path,
             timeout_seconds=timeout_seconds,
         )
         pptx_bytes = staged_pptx.read_bytes()
         xlsx_bytes = staged_xlsx.read_bytes()
+        html_bytes = staged_html.read_bytes()
         renderer_manifest = json.loads(renderer_manifest_path.read_text(encoding="utf-8"))
         validate_renderer_manifest(
             renderer_manifest,
@@ -801,6 +842,7 @@ def publish_revision_bundle(
             payload=payload,
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
+            html_bytes=html_bytes,
             renderer_sha256=str(renderer["renderer_sha256"]),
         )
         renderer = {
@@ -809,6 +851,7 @@ def publish_revision_bundle(
         }
         validate_revision_pptx(pptx_bytes)
         validate_revision_xlsx(xlsx_bytes)
+        validate_revision_html(html_bytes)
         validate_deck_snapshot(pptx_bytes, latest_complete)
 
         manifest = build_bundle_manifest(
@@ -817,6 +860,7 @@ def publish_revision_bundle(
             analysis_manifest_bytes=analysis_manifest_bytes,
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
+            html_bytes=html_bytes,
             input_hashes=input_hashes,
             renderer=renderer,
             generated_at_utc=published_at,
@@ -828,6 +872,7 @@ def publish_revision_bundle(
             analysis_manifest_bytes=analysis_manifest_bytes,
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
+            html_bytes=html_bytes,
         )
         staged_manifest = stage / BUNDLE_MANIFEST_NAME
         staged_manifest.write_text(
@@ -839,6 +884,7 @@ def publish_revision_bundle(
             staged_revision_dir=stage_revision,
             staged_pptx=staged_pptx,
             staged_xlsx=staged_xlsx,
+            staged_html=staged_html,
             staged_bundle_manifest=staged_manifest,
             publish_dir=publish_dir,
         )
@@ -852,15 +898,18 @@ def publish_revision_bundle(
         analysis_manifest_bytes=(publish_dir / ANALYSIS_MANIFEST_NAME).read_bytes(),
         pptx_bytes=target_pptx.read_bytes(),
         xlsx_bytes=target_xlsx.read_bytes(),
+        html_bytes=(publish_dir / MATERIALIZED_HTML_NAME).read_bytes(),
     )
     validate_revision_pptx(target_pptx.read_bytes())
     validate_revision_xlsx(target_xlsx.read_bytes())
+    validate_revision_html((publish_dir / MATERIALIZED_HTML_NAME).read_bytes())
     return PublishedRevisionBundle(
         bundle_id=str(manifest["bundle_id"]),
         latest_complete=latest_complete,
         payload_path=committed_payload,
         pptx_path=target_pptx,
         xlsx_path=target_xlsx,
+        html_path=publish_dir / MATERIALIZED_HTML_NAME,
         manifest_path=target_manifest,
     )
 
