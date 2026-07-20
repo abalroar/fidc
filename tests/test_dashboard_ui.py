@@ -35,6 +35,7 @@ from tabs.tab_industry_study import (
     _industry_holder_histogram_frames,
     _industry_monostructure_frames,
     _revision_holder_distribution_frame,
+    _revision_history_frame,
     _revision_period_encoding,
     _render_industry_tab4_conflict_notice,
     _industry_tab4_conflict_notice,
@@ -266,6 +267,23 @@ def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None
     assert period_colors == ["#8D9399", "#EC7000"]
     assert "alt.value(_ORANGE)" in revision_source
     assert "range=[_ORANGE, _BLACK]" in revision_source
+
+
+def test_revision_history_frame_adds_period_label_to_acquiring_mix() -> None:
+    frame = _revision_history_frame(
+        {
+            "acquiring_reclassified_mix": [
+                {
+                    "competencia": "2026-05",
+                    "categoria_analitica": "Adquirência",
+                    "pl_brl": 1.0,
+                }
+            ]
+        },
+        "acquiring_reclassified_mix",
+    )
+
+    assert frame.loc[0, "Período"] == "Mai/26"
 
 
 def test_industry_revision_holder_distributions_add_normalized_percentage_charts() -> None:

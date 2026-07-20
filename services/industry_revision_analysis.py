@@ -23,6 +23,11 @@ import pandas as pd
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_executive_pack import apply_anbima_classification
 from services.industry_intelligence import canonical_provider
+from services.industry_revision_additions import (
+    build_acquiring_reclassified_cvm_mix,
+    build_fixed_bank_fidc_cohort_history,
+    build_independent_provider_historical_ranking,
+)
 
 
 LATEST_COMPLETE = "2026-05"
@@ -87,6 +92,19 @@ AGING_VALUE_COLUMNS: tuple[str, ...] = (
     "inad_maior_1080d",
     "inad_acima_360d",
 )
+TABLE_II_RECEIVABLE_COLUMNS: Mapping[str, str] = {
+    "table_ii_industrial_brl": "Industrial",
+    "table_ii_imobiliario_brl": "Imobiliário",
+    "table_ii_comercial_brl": "Comercial",
+    "table_ii_servicos_brl": "Serviços",
+    "table_ii_agronegocio_brl": "Agronegócio",
+    "table_ii_financeiro_brl": "Financeiro",
+    "table_ii_cartao_credito_brl": "Cartão de crédito",
+    "table_ii_factoring_brl": "Factoring",
+    "table_ii_setor_publico_brl": "Setor público",
+    "table_ii_acoes_judiciais_brl": "Ações judiciais",
+    "table_ii_marcas_patentes_brl": "Marcas e patentes",
+}
 
 
 def _digits(value: object) -> str:
@@ -537,6 +555,222 @@ def build_delinquency_cases(base: pd.DataFrame, *, competence: str = LATEST_COMP
         "report_flag_source",
     ]
     return scoped[[column for column in columns if column in scoped.columns]]
+
+
+def build_single_receivable_delinquency(
+    base_vehicle: pd.DataFrame,
+    fund_base: pd.DataFrame,
+    raw_table_ii_vehicle: pd.DataFrame | None,
+    *,
+    competence: str = LATEST_COMPLETE,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Calculate delinquency/PL for funds with one top-level Table-II type.
+
+    Eligibility is assessed after aggregating every reporting class to the
+    legal fund CNPJ.  Exactly one of the 11 Table-II fields must be non-zero.
+    FIC-FIDCs, non-positive PL, missing portfolio/delinquency pairs and cases
+    where reported delinquency exceeds the total portfolio are removed.
+    """
+
+    value_columns = list(TABLE_II_RECEIVABLE_COLUMNS)
+    result_columns = [
+        "competencia",
+        "tipo_recebivel_tabela_ii",
+        "fundos_incluidos",
+        "pl_incluido_brl",
+        "carteira_incluida_brl",
+        "inadimplencia_reportada_brl",
+        "valor_tabela_ii_brl",
+        "inadimplencia_sobre_pl",
+        "inadimplencia_sobre_carteira",
+        "share_pl_universo_ex_fic_positivo",
+    ]
+    summary_columns = [
+        "competencia",
+        "fundos_universo_ex_fic_pl_positivo",
+        "pl_universo_ex_fic_positivo_brl",
+        "fundos_tabela_ii_mapeados",
+        "fundos_tipo_unico_antes_filtros",
+        "fundos_incluidos",
+        "pl_incluido_brl",
+        "cobertura_fundos",
+        "cobertura_pl",
+        "fundos_multitipo_excluidos",
+        "pl_multitipo_excluido_brl",
+        "fundos_sem_tipo_excluidos",
+        "pl_sem_tipo_excluido_brl",
+        "fundos_inad_supera_carteira_excluidos",
+        "pl_inad_supera_carteira_excluido_brl",
+        "fundos_campos_ausentes_excluidos",
+        "pl_campos_ausentes_excluido_brl",
+        "fundos_fic_excluidos",
+        "pl_fic_excluido_brl",
+        "regra",
+        "fonte",
+    ]
+    empty_result = pd.DataFrame(columns=result_columns)
+    empty_summary = pd.DataFrame(columns=summary_columns)
+    if raw_table_ii_vehicle is None or raw_table_ii_vehicle.empty:
+        return empty_result, empty_summary
+    if not set(value_columns).issubset(raw_table_ii_vehicle.columns):
+        return empty_result, empty_summary
+
+    raw = raw_table_ii_vehicle.copy()
+    raw["competencia"] = raw["competencia"].astype(str).str[:7]
+    raw = raw[raw["competencia"].eq(competence)].copy()
+    if raw.empty:
+        return empty_result, empty_summary
+    raw["cnpj_veiculo"] = raw.get("cnpj", pd.Series("", index=raw.index)).map(_digits)
+    for column in value_columns:
+        raw[column] = pd.to_numeric(raw[column], errors="coerce").fillna(0.0)
+    raw = raw.groupby("cnpj_veiculo", as_index=False)[value_columns].sum()
+
+    mapping = base_vehicle[
+        base_vehicle["competencia"].astype(str).eq(competence)
+    ][["cnpj_veiculo", "cnpj_fundo"]].copy()
+    mapping["cnpj_veiculo"] = mapping["cnpj_veiculo"].map(_digits)
+    mapping["cnpj_fundo"] = mapping["cnpj_fundo"].map(_digits)
+    mapping = mapping.drop_duplicates("cnpj_veiculo")
+    raw = raw.merge(mapping, on="cnpj_veiculo", how="left")
+    raw["cnpj_fundo"] = raw["cnpj_fundo"].where(
+        raw["cnpj_fundo"].fillna("").astype(str).str.strip().ne(""),
+        raw["cnpj_veiculo"],
+    )
+    table_ii = raw.groupby("cnpj_fundo", as_index=False)[value_columns].sum()
+    nonzero = table_ii[value_columns].abs().gt(0.005)
+    table_ii["tipos_recebivel_nao_zero"] = nonzero.sum(axis=1)
+    table_ii["tipo_recebivel_tabela_ii"] = (
+        table_ii[value_columns]
+        .abs()
+        .idxmax(axis=1)
+        .map(TABLE_II_RECEIVABLE_COLUMNS)
+    )
+    table_ii["valor_tabela_ii_brl"] = table_ii[value_columns].abs().max(axis=1)
+
+    scoped = fund_base[
+        fund_base["competencia"].astype(str).eq(competence)
+    ].copy()
+    scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(_digits)
+    scoped = scoped.drop_duplicates("cnpj_fundo")
+    scoped = scoped.merge(
+        table_ii[
+            [
+                "cnpj_fundo",
+                "tipos_recebivel_nao_zero",
+                "tipo_recebivel_tabela_ii",
+                "valor_tabela_ii_brl",
+            ]
+        ],
+        on="cnpj_fundo",
+        how="left",
+    )
+    for column in ("pl", "carteira_dc", "dc_inadimplentes"):
+        scoped[column] = pd.to_numeric(scoped[column], errors="coerce")
+    scoped["is_fic_fidc"] = _as_nullable_bool(scoped["is_fic_fidc"]).fillna(False)
+    reports_pair = (
+        _as_nullable_bool(scoped["reports_carteira_dc"]).eq(True)  # noqa: E712
+        & _as_nullable_bool(scoped["reports_dc_inadimplentes"]).eq(True)  # noqa: E712
+    )
+    positive_pl = scoped["pl"].gt(0)
+    ex_fic = ~scoped["is_fic_fidc"]
+    one_type = scoped["tipos_recebivel_nao_zero"].eq(1)
+    multi_type = scoped["tipos_recebivel_nao_zero"].gt(1)
+    no_type = scoped["tipos_recebivel_nao_zero"].fillna(0).eq(0)
+    over_portfolio = scoped["dc_inadimplentes"].gt(scoped["carteira_dc"])
+    universe = ex_fic & positive_pl
+    eligible = universe & one_type & reports_pair & ~over_portfolio
+    eligible_frame = scoped[eligible].copy()
+
+    grouped = (
+        eligible_frame.groupby("tipo_recebivel_tabela_ii", as_index=False)
+        .agg(
+            fundos_incluidos=("cnpj_fundo", "nunique"),
+            pl_incluido_brl=("pl", "sum"),
+            carteira_incluida_brl=("carteira_dc", "sum"),
+            inadimplencia_reportada_brl=("dc_inadimplentes", "sum"),
+            valor_tabela_ii_brl=("valor_tabela_ii_brl", "sum"),
+        )
+        .sort_values(
+            ["pl_incluido_brl", "tipo_recebivel_tabela_ii"],
+            ascending=[False, True],
+        )
+        .reset_index(drop=True)
+    )
+    grouped.insert(0, "competencia", competence)
+    grouped["inadimplencia_sobre_pl"] = grouped["inadimplencia_reportada_brl"].div(
+        grouped["pl_incluido_brl"]
+    )
+    grouped["inadimplencia_sobre_carteira"] = grouped[
+        "inadimplencia_reportada_brl"
+    ].div(grouped["carteira_incluida_brl"])
+    universe_pl = _sum_min(scoped.loc[universe, "pl"])
+    universe_funds = int(scoped.loc[universe, "cnpj_fundo"].nunique())
+    grouped["share_pl_universo_ex_fic_positivo"] = grouped["pl_incluido_brl"].div(
+        universe_pl
+    )
+
+    def excluded_stats(mask: pd.Series) -> tuple[int, float]:
+        applied = universe & mask
+        return (
+            int(scoped.loc[applied, "cnpj_fundo"].nunique()),
+            _sum_min(scoped.loc[applied, "pl"]),
+        )
+
+    multi_n, multi_pl = excluded_stats(multi_type)
+    none_n, none_pl = excluded_stats(no_type)
+    over_n, over_pl = excluded_stats(one_type & over_portfolio)
+    missing_n, missing_pl = excluded_stats(one_type & ~reports_pair)
+    fic_mask = scoped["is_fic_fidc"] & positive_pl
+    included_pl = _sum_min(eligible_frame["pl"])
+    summary = pd.DataFrame(
+        [
+            {
+                "competencia": competence,
+                "fundos_universo_ex_fic_pl_positivo": universe_funds,
+                "pl_universo_ex_fic_positivo_brl": universe_pl,
+                "fundos_tabela_ii_mapeados": int(
+                    scoped.loc[
+                        scoped["tipos_recebivel_nao_zero"].notna(), "cnpj_fundo"
+                    ].nunique()
+                ),
+                "fundos_tipo_unico_antes_filtros": int(
+                    scoped.loc[universe & one_type, "cnpj_fundo"].nunique()
+                ),
+                "fundos_incluidos": int(eligible_frame["cnpj_fundo"].nunique()),
+                "pl_incluido_brl": included_pl,
+                "cobertura_fundos": (
+                    eligible_frame["cnpj_fundo"].nunique() / universe_funds
+                    if universe_funds
+                    else float("nan")
+                ),
+                "cobertura_pl": (
+                    included_pl / universe_pl
+                    if pd.notna(universe_pl) and universe_pl
+                    else float("nan")
+                ),
+                "fundos_multitipo_excluidos": multi_n,
+                "pl_multitipo_excluido_brl": multi_pl,
+                "fundos_sem_tipo_excluidos": none_n,
+                "pl_sem_tipo_excluido_brl": none_pl,
+                "fundos_inad_supera_carteira_excluidos": over_n,
+                "pl_inad_supera_carteira_excluido_brl": over_pl,
+                "fundos_campos_ausentes_excluidos": missing_n,
+                "pl_campos_ausentes_excluido_brl": missing_pl,
+                "fundos_fic_excluidos": int(
+                    scoped.loc[fic_mask, "cnpj_fundo"].nunique()
+                ),
+                "pl_fic_excluido_brl": _sum_min(scoped.loc[fic_mask, "pl"]),
+                "regra": (
+                    "ex-FIC, PL positivo, exatamente um dos 11 campos superiores da "
+                    "Tabela II não zero, carteira e inadimplência reportadas, "
+                    "inadimplência <= carteira; numerador = inadimplência reportada, "
+                    "denominador = PL total dos fundos incluídos"
+                ),
+                "fonte": f"CVM, Informe Mensal FIDC, Tabelas I, II e IV, {competence}",
+            }
+        ]
+    )
+    return grouped[result_columns], summary[summary_columns]
 
 
 def build_break_bridge(
@@ -1993,6 +2227,8 @@ class RevisionOutputs:
     base_vehicle: pd.DataFrame
     qa_delinquency: pd.DataFrame
     delinquency_cases: pd.DataFrame
+    delinquency_single_receivable: pd.DataFrame
+    delinquency_single_receivable_summary: pd.DataFrame
     bridge_detail: pd.DataFrame
     bridge_summary: pd.DataFrame
     reconciliation: pd.DataFrame
@@ -2005,6 +2241,9 @@ class RevisionOutputs:
     market_share_fixed_top10: pd.DataFrame
     market_share_scope_summary: pd.DataFrame
     provider_historical_ranking: pd.DataFrame
+    provider_independent_ranking: pd.DataFrame
+    bank_fidc_evolution: pd.DataFrame
+    acquiring_reclassified_mix: pd.DataFrame
     classification_coverage: pd.DataFrame
     provider_transition_summary: pd.DataFrame
     provider_transition_links: pd.DataFrame
@@ -2024,6 +2263,10 @@ def build_revision_outputs(
     anbima_classification: pd.DataFrame | None = None,
     published_classifications: pd.DataFrame | None = None,
     raw_audit_vehicle: pd.DataFrame | None = None,
+    raw_table_ii_vehicle: pd.DataFrame | None = None,
+    provider_ownership_curation: pd.DataFrame | None = None,
+    bank_fidc_curation: pd.DataFrame | None = None,
+    acquiring_reclassification_curation: pd.DataFrame | None = None,
     latest_complete: str = LATEST_COMPLETE,
 ) -> RevisionOutputs:
     base = build_base_by_vehicle(vehicle_monthly)
@@ -2038,6 +2281,14 @@ def build_revision_outputs(
         published_classifications=published_classifications,
         latest_complete=latest_complete,
     )
+    delinquency_single_receivable, delinquency_single_receivable_summary = (
+        build_single_receivable_delinquency(
+            base,
+            fund_base,
+            raw_table_ii_vehicle,
+            competence=latest_complete,
+        )
+    )
     top20, top20_outros, structured_funds, concentration = build_top20_and_monostructure(
         fund_base, competence=latest_complete
     )
@@ -2050,6 +2301,36 @@ def build_revision_outputs(
     provider_historical_ranking = build_provider_historical_ranking(
         fund_base,
         periods=("2024-12", "2025-12", latest_complete),
+    )
+    provider_independent_ranking = (
+        build_independent_provider_historical_ranking(
+            provider_historical_ranking,
+            provider_ownership_curation,
+            latest_period=latest_complete,
+            top_n=6,
+        )
+        if provider_ownership_curation is not None
+        and not provider_ownership_curation.empty
+        else pd.DataFrame()
+    )
+    bank_fidc_evolution = (
+        build_fixed_bank_fidc_cohort_history(
+            fund_base,
+            bank_fidc_curation,
+            periods=("2023-12", "2024-12", "2025-12", latest_complete),
+        )
+        if bank_fidc_curation is not None and not bank_fidc_curation.empty
+        else pd.DataFrame()
+    )
+    acquiring_reclassified_mix = (
+        build_acquiring_reclassified_cvm_mix(
+            fund_base,
+            acquiring_reclassification_curation,
+            periods=("2023-12", latest_complete),
+        )
+        if acquiring_reclassification_curation is not None
+        and not acquiring_reclassification_curation.empty
+        else pd.DataFrame()
     )
     classification_coverage = build_classification_coverage(
         fund_base, competence=latest_complete
@@ -2083,6 +2364,8 @@ def build_revision_outputs(
         base_vehicle=base,
         qa_delinquency=qa,
         delinquency_cases=cases,
+        delinquency_single_receivable=delinquency_single_receivable,
+        delinquency_single_receivable_summary=delinquency_single_receivable_summary,
         bridge_detail=bridge_detail,
         bridge_summary=bridge_summary,
         reconciliation=reconciliation,
@@ -2095,6 +2378,9 @@ def build_revision_outputs(
         market_share_fixed_top10=fixed_top10,
         market_share_scope_summary=market_scope,
         provider_historical_ranking=provider_historical_ranking,
+        provider_independent_ranking=provider_independent_ranking,
+        bank_fidc_evolution=bank_fidc_evolution,
+        acquiring_reclassified_mix=acquiring_reclassified_mix,
         classification_coverage=classification_coverage,
         provider_transition_summary=provider_transition_summary,
         provider_transition_links=provider_transition_links,
@@ -2116,6 +2402,16 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         ("base_competencia_cnpj.csv.gz", outputs.base_vehicle, True),
         ("qa_inadimplencia_competencia.csv", outputs.qa_delinquency, False),
         ("qa_inadimplencia_casos_latest.csv", outputs.delinquency_cases, False),
+        (
+            "inadimplencia_tipo_recebivel_unico.csv",
+            outputs.delinquency_single_receivable,
+            False,
+        ),
+        (
+            "inadimplencia_tipo_recebivel_unico_resumo.csv",
+            outputs.delinquency_single_receivable_summary,
+            False,
+        ),
         ("bridge_inadimplencia_2024-06_2024-07_detalhe.csv", outputs.bridge_detail, False),
         ("bridge_inadimplencia_2024-06_2024-07_resumo.csv", outputs.bridge_summary, False),
         ("reconciliacao_veiculo_fundo_latest.csv", outputs.reconciliation, False),
@@ -2128,6 +2424,17 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         ("market_share_top10_fixo.csv", outputs.market_share_fixed_top10, False),
         ("market_share_escopo_resumo.csv", outputs.market_share_scope_summary, False),
         ("prestadores_ranking_historico.csv", outputs.provider_historical_ranking, False),
+        (
+            "prestadores_independentes_ranking.csv",
+            outputs.provider_independent_ranking,
+            False,
+        ),
+        ("bancos_fidcs_evolucao.csv", outputs.bank_fidc_evolution, False),
+        (
+            "adquirencia_mix_reclassificado.csv",
+            outputs.acquiring_reclassified_mix,
+            False,
+        ),
         ("cobertura_classificacao.csv", outputs.classification_coverage, False),
         ("prestadores_transicoes_resumo.csv", outputs.provider_transition_summary, False),
         ("prestadores_transicoes_links.csv", outputs.provider_transition_links, False),
@@ -2207,6 +2514,12 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         "cnpj_encoding": "string de 14 dígitos; zeros à esquerda preservados",
         "latest_complete": outputs.latest_complete,
         "qa_inadimplencia": records(outputs.qa_delinquency),
+        "inadimplencia_tipo_recebivel_unico": records(
+            outputs.delinquency_single_receivable
+        ),
+        "inadimplencia_tipo_recebivel_unico_resumo": records(
+            outputs.delinquency_single_receivable_summary
+        ),
         "bridge_resumo": records(outputs.bridge_summary),
         "bridge_top_contribuidores": records(outputs.bridge_detail.head(30)),
         "reconciliacao_multiveiculo": records(
@@ -2220,6 +2533,13 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         "market_share_por_subtipo": records(outputs.market_share_subtype),
         "market_share_escopo_resumo": records(outputs.market_share_scope_summary),
         "prestadores_ranking_historico": records(outputs.provider_historical_ranking),
+        "prestadores_independentes_ranking": records(
+            outputs.provider_independent_ranking
+        ),
+        "bancos_fidcs_evolucao": records(outputs.bank_fidc_evolution),
+        "adquirencia_mix_reclassificado": records(
+            outputs.acquiring_reclassified_mix
+        ),
         "cobertura_classificacao": records(outputs.classification_coverage),
         "provider_transition_summary": records(outputs.provider_transition_summary),
         "provider_transition_links": records(outputs.provider_transition_links),
@@ -2263,6 +2583,24 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             "delinquency_adjustment": (
                 "min(max(inadimplência reportada, 0), "
                 "max(carteira de direitos creditórios, 0)) por veículo"
+            ),
+            "single_receivable_delinquency": (
+                "ex-FIC com PL positivo e exatamente um dos 11 campos superiores "
+                "da Tabela II não zero; casos com inadimplência acima da carteira "
+                "são excluídos; numerador = inadimplência reportada e denominador = PL"
+            ),
+            "independent_provider": (
+                "grupo com independência revisada na curadoria societária; aliases "
+                "consolidados antes do ranking; Singulare integra QI Tech e Kanastra "
+                "é alocada ao Itaú pela regra de afiliação solicitada"
+            ),
+            "bank_fidc_fixed_cohort": (
+                "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; "
+                "PL histórico do conjunto atual, sem inferir data societária de consolidação"
+            ),
+            "acquiring_reclassification": (
+                "somente os 13 CNPJs curados são removidos do segmento principal CVM "
+                "e apresentados em Adquirência; classificação original permanece preservada"
             ),
             "market_share_subtype_denominator": (
                 "PL positivo do Tipo + Foco ANBIMA, incluindo prestador não informado; "
@@ -2308,6 +2646,23 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             )
             if not latest_qa.empty
             else "indisponível",
+            "single_receivable_rows": int(
+                len(outputs.delinquency_single_receivable)
+            ),
+            "single_receivable_funds": int(
+                outputs.delinquency_single_receivable_summary[
+                    "fundos_incluidos"
+                ].iloc[0]
+            )
+            if not outputs.delinquency_single_receivable_summary.empty
+            else 0,
+            "independent_provider_rows": int(
+                len(outputs.provider_independent_ranking)
+            ),
+            "bank_fidc_evolution_rows": int(len(outputs.bank_fidc_evolution)),
+            "acquiring_reclassified_rows": int(
+                len(outputs.acquiring_reclassified_mix)
+            ),
             "provider_transition_continuing_funds": int(
                 outputs.provider_transition_summary["continuing_funds"].iloc[0]
             )

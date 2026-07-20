@@ -204,13 +204,14 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 47
+    assert len(slides) == 51
     expected_body = [
         "SÍNTESE EXECUTIVA",
         "ESCALA DA INDÚSTRIA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
         "TIPO ANBIMA",
+        "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
         "CARTEIRA POR TIPO DE RECEBÍVEL",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
         "INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA",
@@ -219,30 +220,33 @@ def test_deck_order_and_profile_count() -> None:
         "MARKET SHARE · GESTÃO",
         "MARKET SHARE · CUSTÓDIA",
         "PRESTADORES · EVOLUÇÃO DO RANKING",
+        "PRESTADORES INDEPENDENTES · EVOLUÇÃO",
+        "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
         "PRESTADORES · LIDERANÇA EXPLICADA",
         "CBSF / REAG · DESTINO DOS FUNDOS",
         "PRESTADORES · ROUBA-MONTE OBSERVADO",
-        "RANKING · TOP 20 FIDCS",
+        "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",
         "MODELO DE PRESTAÇÃO",
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
-        "OFERTAS, CAPTAÇÃO E ORIGINAÇÃO",
+        "OFERTAS ENCERRADAS · VOLUME E TICKET",
+        "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
-    for slide_text, expected in zip(slides[1:22], expected_body, strict=True):
+    for slide_text, expected in zip(slides[1:26], expected_body, strict=True):
         assert expected in slide_text
-    assert "Escopo, fontes e limitações" in slides[22]
-    assert "Administração por subtipo" in slides[23]
-    assert "Gestão por subtipo" in slides[24]
-    assert "Custódia por subtipo" in slides[25]
-    profiles = slides[26:46]
+    assert "Escopo, fontes e limitações" in slides[26]
+    assert "Administração por subtipo" in slides[27]
+    assert "Gestão por subtipo" in slides[28]
+    assert "Custódia por subtipo" in slides[29]
+    profiles = slides[30:50]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[46]
-    assert "09.194.841/0001-51" in slides[46]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[50]
+    assert "09.194.841/0001-51" in slides[50]
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
@@ -292,7 +296,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [11, 12, 13, 24, 25, 26])
+@pytest.mark.parametrize("slide_number", [12, 13, 14, 28, 29, 30])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -383,9 +387,9 @@ def test_market_share_slides_use_one_native_percent_stacked_chart(
 def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide14.xml"))
+        slide = ET.fromstring(archive.read("ppt/slides/slide15.xml"))
         text = " ".join(node.text or "" for node in slide.iter(f"{{{DML}}}t"))
-        chart_paths = _slide_chart_paths(archive, 14)
+        chart_paths = _slide_chart_paths(archive, 15)
 
     assert len(chart_paths) == 3
     assert len(slide.findall(f".//{{{DML}}}tbl")) == 3
@@ -406,17 +410,17 @@ def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note()
 def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        attribution = ET.fromstring(archive.read("ppt/slides/slide15.xml"))
-        reag = ET.fromstring(archive.read("ppt/slides/slide16.xml"))
-        transitions = ET.fromstring(archive.read("ppt/slides/slide17.xml"))
+        attribution = ET.fromstring(archive.read("ppt/slides/slide18.xml"))
+        reag = ET.fromstring(archive.read("ppt/slides/slide19.xml"))
+        transitions = ET.fromstring(archive.read("ppt/slides/slide20.xml"))
         attribution_text = " ".join(node.text or "" for node in attribution.iter(f"{{{DML}}}t"))
         transition_text = " ".join(node.text or "" for node in transitions.iter(f"{{{DML}}}t"))
 
-        assert len(_slide_chart_paths(archive, 15)) == 2
-        assert not _slide_chart_paths(archive, 16)
-        assert not _slide_chart_paths(archive, 17)
-        reag_images = _slide_image_paths(archive, 16)
-        transition_images = _slide_image_paths(archive, 17)
+        assert len(_slide_chart_paths(archive, 18)) == 2
+        assert not _slide_chart_paths(archive, 19)
+        assert not _slide_chart_paths(archive, 20)
+        reag_images = _slide_image_paths(archive, 19)
+        transition_images = _slide_image_paths(archive, 20)
         assert len(reag_images) == 1
         assert len(transition_images) == 1
         assert len(archive.read(reag_images[0])) > 50_000
@@ -474,7 +478,8 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
     [
         (6, {"Dez/23", "Mai/26"}),
         (7, {"Dez/23", "Mai/26"}),
-        (10, {"Dez/25", "Mai/26"}),
+        (8, {"Dez/23", "Mai/26"}),
+        (11, {"Dez/25", "Mai/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -490,7 +495,7 @@ def test_before_after_slides_have_two_clustered_charts(
 
     assert len(chart_series) == 2
     assert all(set(series) == periods for series in chart_series)
-    if slide_number in {6, 7}:
+    if slide_number in {6, 7, 8}:
         normalized = [
             series
             for series in chart_series
@@ -542,7 +547,13 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Curadoria Atlântico",
         "Série Atlântico",
         "Ranking prestadores",
+        "Inadimplência por recebível",
+        "Ranking independentes",
+        "FIDCs por banco",
         "Taxonomia adquirência",
+        "Adquirência reclass.",
+        "Ofertas encerradas",
+        "Originadores 2026",
         "Atribuição prestadores",
         "Fluxos prestadores",
         "Migração CBSF",
@@ -585,4 +596,4 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v7";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v8";' in source

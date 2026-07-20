@@ -106,11 +106,99 @@ def _payload() -> dict[str, object]:
         "provider_leadership_attribution": {"btg": {}, "qi": {}},
         "btg_controlled_reconciliation": [{"cnpj_veiculo": "1"}],
         "qi_legacy_attribution": [{"provider_cnpj": "1"}],
+        "delinquency_single_receivable": [
+            {
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "fundos_incluidos": 1,
+                "pl_incluido_brl": 1.0,
+                "inadimplencia_sobre_pl": 0.01,
+            }
+        ],
+        "delinquency_single_receivable_summary": {
+            "fundos_universo_ex_fic_pl_positivo": 2,
+            "pl_universo_ex_fic_positivo_brl": 2.0,
+            "fundos_incluidos": 1,
+            "pl_incluido_brl": 1.0,
+            "cobertura_pl": 0.5,
+            "fundos_multitipo_excluidos": 0,
+            "pl_multitipo_excluido_brl": 0.0,
+            "fundos_sem_tipo_excluidos": 0,
+            "pl_sem_tipo_excluido_brl": 0.0,
+            "fundos_inad_supera_carteira_excluidos": 0,
+            "pl_inad_supera_carteira_excluido_brl": 0.0,
+            "fundos_fic_excluidos": 1,
+            "pl_fic_excluido_brl": 1.0,
+        },
+        "provider_independent_ranking": [
+            {
+                "competencia": "2026-05",
+                "papel": "administrador",
+                "participante": "QI Tech",
+                "rank_independente": 1,
+                "rank_geral": 1,
+                "pl_brl": 1.0,
+                "selected_latest_top_n": True,
+            }
+        ],
+        "bank_fidc_evolution": [
+            {
+                "competencia": "2026-05",
+                "grupo_bancario": "BTG Pactual",
+                "pl_bruto_brl": 1.0,
+                "is_total_5_banks": False,
+                "observado": True,
+            }
+        ],
+        "acquiring_reclassified_mix": [
+            {
+                "competencia": "2026-05",
+                "categoria_analitica": "Adquirência",
+                "pl_brl": 1.0,
+                "share_pl": 0.01,
+            }
+        ],
+        "closed_offers_annual": [
+            {
+                "year": year,
+                "closed_offers": 1,
+                "registered_volume_brl": 1.0,
+                "mean_registered_ticket_brl": 1.0,
+                "median_registered_ticket_brl": 1.0,
+                "natural_person_placed_volume_share": 0.01,
+                "placed_quantity_registered_volume_coverage": 0.99,
+                "professional_target_registered_volume_share": 0.95,
+            }
+            for year in (2023, 2024, 2025, 2026)
+        ],
+        "closed_offers_monthly": [
+            {"year": 2026, "month": 1, "registered_volume_brl": 1.0}
+        ],
+        "closed_offers_jan_may": [
+            {
+                "year": 2026,
+                "closed_offers": 1,
+                "registered_volume_brl": 1.0,
+                "mean_registered_ticket_brl": 1.0,
+            }
+        ],
+        "closed_offer_originators_2026": [
+            {
+                "rank": 1,
+                "originator_group": "Originador A",
+                "closed_offers": 1,
+                "registered_volume_brl": 1.0,
+                "mean_registered_ticket_brl": 1.0,
+                "identified_registered_volume_coverage": 0.5,
+                "identified_registered_volume_brl": 0.5,
+                "confidence": "high",
+                "share_of_total_registered_volume": 0.1,
+            }
+        ],
     }
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v3"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v4"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
 
@@ -135,6 +223,15 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "provider_leadership_attribution",
         "btg_controlled_reconciliation",
         "qi_legacy_attribution",
+        "delinquency_single_receivable",
+        "delinquency_single_receivable_summary",
+        "provider_independent_ranking",
+        "bank_fidc_evolution",
+        "acquiring_reclassified_mix",
+        "closed_offers_annual",
+        "closed_offers_monthly",
+        "closed_offers_jan_may",
+        "closed_offer_originators_2026",
     ):
         broken = dict(payload)
         broken.pop(key)
@@ -170,7 +267,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 47
+    assert first["checks"]["slides"] == 51
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

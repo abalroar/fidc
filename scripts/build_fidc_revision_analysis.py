@@ -62,26 +62,48 @@ def main(argv: list[str] | None = None) -> None:
             latest_complete = str(vehicle["competencia"].astype(str).max())
     official = _read_optional(data_dir / "industry_anbima_classification.csv.gz")
     published = _read_optional(data_dir / "industry_large_fund_classification.csv")
-    raw_audit = None
-    if args.refresh_source_presence:
-        from scripts.build_fidc_industry_study import RawStore, aggregate_month, load_tab4
+    provider_ownership = _read_optional(data_dir / "provider_ownership_curation.csv")
+    bank_fidcs = _read_optional(data_dir / "bank_fidc_curation.csv")
+    acquiring_reclassification = _read_optional(
+        data_dir / "acquiring_reclassification_curation.csv"
+    )
+    from scripts.build_fidc_industry_study import RawStore, aggregate_month, load_tab4
 
-        store = RawStore(Path(args.raw_dir), allow_download=not args.skip_download)
-        raw_frames: list[pd.DataFrame] = []
-        for competence in [item.strip() for item in args.presence_months.split(",") if item.strip()]:
-            yyyymm = competence.replace("-", "")
-            tab4 = load_tab4(store, yyyymm)
-            aggregate = aggregate_month(store, yyyymm, tab4) if tab4 is not None else None
-            if aggregate is None:
-                print(f"[warn] bruto CVM indisponível para {competence}; overlay omitido")
-                continue
-            raw_frames.append(pd.DataFrame(aggregate.vehicle))
-        raw_audit = pd.concat(raw_frames, ignore_index=True) if raw_frames else pd.DataFrame()
+    store = RawStore(Path(args.raw_dir), allow_download=not args.skip_download)
+    raw_frames: list[pd.DataFrame] = []
+    raw_table_ii = pd.DataFrame()
+    requested_months = [
+        item.strip() for item in args.presence_months.split(",") if item.strip()
+    ]
+    months_to_read = requested_months if args.refresh_source_presence else []
+    if latest_complete not in months_to_read:
+        months_to_read.append(latest_complete)
+    for competence in months_to_read:
+        yyyymm = competence.replace("-", "")
+        tab4 = load_tab4(store, yyyymm)
+        aggregate = aggregate_month(store, yyyymm, tab4) if tab4 is not None else None
+        if aggregate is None:
+            print(f"[warn] bruto CVM indisponível para {competence}; auditoria omitida")
+            continue
+        frame = pd.DataFrame(aggregate.vehicle)
+        if competence == latest_complete:
+            raw_table_ii = frame.copy()
+        if args.refresh_source_presence and competence in requested_months:
+            raw_frames.append(frame)
+    raw_audit = (
+        pd.concat(raw_frames, ignore_index=True)
+        if args.refresh_source_presence and raw_frames
+        else (pd.DataFrame() if args.refresh_source_presence else None)
+    )
     outputs = build_revision_outputs(
         vehicle_monthly=vehicle,
         anbima_classification=official,
         published_classifications=published,
         raw_audit_vehicle=raw_audit,
+        raw_table_ii_vehicle=raw_table_ii,
+        provider_ownership_curation=provider_ownership,
+        bank_fidc_curation=bank_fidcs,
+        acquiring_reclassification_curation=acquiring_reclassification,
         latest_complete=latest_complete,
     )
     manifest = write_revision_outputs(outputs, Path(args.output_dir))

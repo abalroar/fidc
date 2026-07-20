@@ -76,6 +76,19 @@ SEGMENT_LABELS = {
     "TAB_II_J_VL_JUDICIAL": "Acoes judiciais",
     "TAB_II_K_VL_MARCA": "Marcas e patentes",
 }
+SEGMENT_VALUE_COLUMNS = {
+    "TAB_II_A_VL_INDUST": "table_ii_industrial_brl",
+    "TAB_II_B_VL_IMOBIL": "table_ii_imobiliario_brl",
+    "TAB_II_C_VL_COMERC": "table_ii_comercial_brl",
+    "TAB_II_D_VL_SERV": "table_ii_servicos_brl",
+    "TAB_II_E_VL_AGRONEG": "table_ii_agronegocio_brl",
+    "TAB_II_F_VL_FINANC": "table_ii_financeiro_brl",
+    "TAB_II_G_VL_CREDITO": "table_ii_cartao_credito_brl",
+    "TAB_II_H_VL_FACTOR": "table_ii_factoring_brl",
+    "TAB_II_I_VL_SETOR_PUBLICO": "table_ii_setor_publico_brl",
+    "TAB_II_J_VL_JUDICIAL": "table_ii_acoes_judiciais_brl",
+    "TAB_II_K_VL_MARCA": "table_ii_marcas_patentes_brl",
+}
 SEGMENT_FIN_SUB_LABELS = {
     "TAB_II_F1_VL_CRED_PESSOA": "Financeiro: credito pessoal",
     "TAB_II_F2_VL_CRED_PESSOA_CONSIG": "Financeiro: consignado",
@@ -773,7 +786,17 @@ def aggregate_month(
                 )
         top_cols = [col for col in SEGMENT_LABELS if col in tab2.columns]
         fin_cols = [col for col in SEGMENT_FIN_SUB_LABELS if col in tab2.columns]
-        seg_parts = [pd.DataFrame({"cnpj": tab2["cnpj"]})]
+        segment_values: dict[str, object] = {
+            "cnpj": tab2["cnpj"],
+            "reports_table_ii": True,
+        }
+        for source_column, output_column in SEGMENT_VALUE_COLUMNS.items():
+            segment_values[output_column] = (
+                to_num(tab2[source_column])
+                if source_column in tab2.columns
+                else pd.Series(0.0, index=tab2.index)
+            )
+        seg_parts = [pd.DataFrame(segment_values)]
         if top_cols:
             top_vals = tab2[top_cols].apply(to_num)
             main_seg = top_vals.idxmax(axis=1).map(SEGMENT_LABELS)

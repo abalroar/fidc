@@ -28,8 +28,8 @@ MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
-EXPECTED_SLIDES = 47
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v4"
+EXPECTED_SLIDES = 51
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -42,11 +42,17 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Curadoria Top 20",
     "Comparativos históricos",
     "Ranking prestadores",
+    "Inadimplência por recebível",
+    "Ranking independentes",
+    "FIDCs por banco",
     "Atribuição prestadores",
     "Fluxos prestadores",
     "Fluxos visuais",
     "Migração CBSF",
     "Taxonomia adquirência",
+    "Adquirência reclass.",
+    "Ofertas encerradas",
+    "Originadores 2026",
     "Curadoria Atlântico",
     "Série Atlântico",
 }
@@ -161,7 +167,7 @@ def validate_revision_pptx(payload: bytes) -> None:
             marker = token.split(b"</c:marker>", 1)[0]
             if b'<c:symbol val="none"' not in marker:
                 raise RevisionExportUnavailable("PPTX revisado contém marker ativo")
-        ranking_slide = archive.read("ppt/slides/slide14.xml")
+        ranking_slide = archive.read("ppt/slides/slide15.xml")
         if ranking_slide.count(b"<a:tbl>") != 3:
             raise RevisionExportUnavailable(
                 "slide de ranking histórico deve conter três tabelas nativas do Office"
@@ -169,6 +175,35 @@ def validate_revision_pptx(payload: bytes) -> None:
         if ranking_slide.count(b"<c:chart") != 3:
             raise RevisionExportUnavailable(
                 "slide de ranking histórico deve conter três gráficos nativos do Office"
+            )
+        independent_slide = archive.read("ppt/slides/slide16.xml")
+        if independent_slide.count(b"<a:tbl>") != 3:
+            raise RevisionExportUnavailable(
+                "slide de independentes deve conter três tabelas nativas do Office"
+            )
+        if independent_slide.count(b"<c:chart") != 3:
+            raise RevisionExportUnavailable(
+                "slide de independentes deve conter três gráficos nativos do Office"
+            )
+        delinquency_slide = archive.read("ppt/slides/slide10.xml")
+        if delinquency_slide.count(b"<a:tbl>") < 1 or delinquency_slide.count(b"<c:chart") < 1:
+            raise RevisionExportUnavailable(
+                "slide de inadimplência por recebível deve conter tabela e gráfico nativos do Office"
+            )
+        bank_slide = archive.read("ppt/slides/slide17.xml")
+        if bank_slide.count(b"<a:tbl>") < 1 or bank_slide.count(b"<c:chart") < 1:
+            raise RevisionExportUnavailable(
+                "slide da coorte bancária deve conter tabela e gráfico nativos do Office"
+            )
+        offers_slide = archive.read("ppt/slides/slide25.xml")
+        if offers_slide.count(b"<a:tbl>") < 1 or offers_slide.count(b"<c:chart") < 2:
+            raise RevisionExportUnavailable(
+                "slide de ofertas deve conter tabela e dois gráficos nativos do Office"
+            )
+        originators_slide = archive.read("ppt/slides/slide26.xml")
+        if originators_slide.count(b"<a:tbl>") < 1 or originators_slide.count(b"<c:chart") < 1:
+            raise RevisionExportUnavailable(
+                "slide de originadores deve conter tabela e gráfico nativos do Office"
             )
 
 
