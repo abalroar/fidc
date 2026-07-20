@@ -119,6 +119,9 @@ _INDUSTRY_EXPORT_INPUTS = (
     "segments_monthly.csv",
     "concentration_monthly.csv",
     "industry_offers_annual.csv",
+    "industry_closed_offers_annual.csv",
+    "industry_closed_offers_monthly.csv",
+    "industry_closed_offer_originators_2026.csv",
     "industry_competitive_position.csv",
     "industry_offer_rankings.csv.gz",
     "industry_stock_ranking_deltas.csv.gz",
@@ -127,6 +130,9 @@ _INDUSTRY_EXPORT_INPUTS = (
     "industry_investor_types.csv",
     "industry_offers.csv.gz",
     "industry_large_fund_documents.csv.gz",
+    "provider_ownership_curation.csv",
+    "bank_fidc_curation.csv",
+    "acquiring_reclassification_curation.csv",
     "industry_intelligence_manifest.json",
     "generated_revision/artifact_payload.json",
     "generated_revision/revision_manifest.json",
@@ -9038,6 +9044,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
     schema_rank = {
         "fidc_revision_artifact_payload_v2": 2,
         "fidc_revision_artifact_payload_v3": 3,
+        "fidc_revision_artifact_payload_v4": 4,
     }
     if schema not in schema_rank:
         label = schema or "ausente"
@@ -9099,6 +9106,20 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "market_share_scope_summary",
                 "market_share_exclusions",
                 "acquiring_taxonomy",
+            }
+        )
+    if schema_rank[schema] >= 4:
+        required.update(
+            {
+                "delinquency_single_receivable",
+                "delinquency_single_receivable_summary",
+                "provider_independent_ranking",
+                "bank_fidc_evolution",
+                "acquiring_reclassified_mix",
+                "closed_offers_annual",
+                "closed_offers_monthly",
+                "closed_offers_jan_may",
+                "closed_offer_originators_2026",
             }
         )
     missing = sorted(required.difference(payload))
@@ -9190,13 +9211,109 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 },
             }
         )
+    if schema_rank[schema] >= 4:
+        required_columns.update(
+            {
+                "delinquency_single_receivable": {
+                    "tipo_recebivel_tabela_ii",
+                    "fundos_incluidos",
+                    "pl_incluido_brl",
+                    "inadimplencia_sobre_pl",
+                },
+                "provider_independent_ranking": {
+                    "competencia",
+                    "papel",
+                    "participante",
+                    "rank_independente",
+                    "rank_geral",
+                    "pl_brl",
+                    "selected_latest_top_n",
+                },
+                "bank_fidc_evolution": {
+                    "competencia",
+                    "grupo_bancario",
+                    "pl_bruto_brl",
+                    "is_total_5_banks",
+                    "observado",
+                },
+                "acquiring_reclassified_mix": {
+                    "competencia",
+                    "categoria_analitica",
+                    "pl_brl",
+                    "share_pl",
+                },
+                "closed_offers_annual": {
+                    "year",
+                    "closed_offers",
+                    "registered_volume_brl",
+                    "mean_registered_ticket_brl",
+                    "median_registered_ticket_brl",
+                    "natural_person_placed_volume_share",
+                    "placed_quantity_registered_volume_coverage",
+                    "professional_target_registered_volume_share",
+                },
+                "closed_offers_monthly": {
+                    "year",
+                    "month",
+                    "registered_volume_brl",
+                },
+                "closed_offers_jan_may": {
+                    "year",
+                    "closed_offers",
+                    "registered_volume_brl",
+                    "mean_registered_ticket_brl",
+                },
+                "closed_offer_originators_2026": {
+                    "rank",
+                    "originator_group",
+                    "closed_offers",
+                    "registered_volume_brl",
+                    "mean_registered_ticket_brl",
+                    "identified_registered_volume_coverage",
+                    "identified_registered_volume_brl",
+                    "confidence",
+                    "share_of_total_registered_volume",
+                },
+            }
+        )
     for key, columns in required_columns.items():
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
             raise ValueError(f"bloco revisado vazio ou inválido: {key}")
-        missing_columns = sorted(columns.difference(rows[0]))
-        if missing_columns:
-            raise ValueError(f"{key} sem colunas obrigatórias: {', '.join(missing_columns)}")
+        for index, row in enumerate(rows, start=1):
+            if not isinstance(row, dict):
+                raise ValueError(f"{key} contém linha {index} inválida")
+            missing_columns = sorted(columns.difference(row))
+            if missing_columns:
+                raise ValueError(
+                    f"{key} linha {index} sem colunas obrigatórias: "
+                    + ", ".join(missing_columns)
+                )
+    if schema_rank[schema] >= 4:
+        summary = payload.get("delinquency_single_receivable_summary")
+        required_summary = {
+            "fundos_universo_ex_fic_pl_positivo",
+            "pl_universo_ex_fic_positivo_brl",
+            "fundos_incluidos",
+            "pl_incluido_brl",
+            "cobertura_pl",
+            "fundos_multitipo_excluidos",
+            "pl_multitipo_excluido_brl",
+            "fundos_sem_tipo_excluidos",
+            "pl_sem_tipo_excluido_brl",
+            "fundos_inad_supera_carteira_excluidos",
+            "pl_inad_supera_carteira_excluido_brl",
+            "fundos_fic_excluidos",
+            "pl_fic_excluido_brl",
+        }
+        if not isinstance(summary, dict):
+            raise ValueError("delinquency_single_receivable_summary inválido")
+        missing_summary = sorted(required_summary.difference(summary))
+        if missing_summary:
+            raise ValueError(
+                "delinquency_single_receivable_summary sem campos obrigatórios: "
+                + ", ".join(missing_summary)
+            )
     return payload
 
 
@@ -10634,6 +10751,80 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             "aplicada ao histórico e não é comparável categoria a categoria com a Tabela II."
         )
 
+    acquiring_mix = _revision_history_frame(
+        payload,
+        "acquiring_reclassified_mix",
+    )
+    if not acquiring_mix.empty:
+        st.markdown(
+            "<h2>Taxonomia CVM com abertura analítica de adquirência</h2>",
+            unsafe_allow_html=True,
+        )
+        acquiring_mix["PL (R$ bi)"] = pd.to_numeric(
+            acquiring_mix["pl_brl"], errors="coerce"
+        ).fillna(0.0) / 1e9
+        acquiring_mix["share_pl"] = pd.to_numeric(
+            acquiring_mix["share_pl"], errors="coerce"
+        ).fillna(0.0)
+        period_order, _period_colors = _revision_period_encoding(acquiring_mix)
+        latest_period = acquiring_mix["competencia"].max()
+        category_order = (
+            acquiring_mix[acquiring_mix["competencia"].eq(latest_period)]
+            .sort_values("PL (R$ bi)", ascending=False)["categoria_analitica"]
+            .astype(str)
+            .tolist()
+        )
+        left, right = st.columns(2)
+        with left:
+            chart = (
+                alt.Chart(acquiring_mix)
+                .mark_bar(cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("PL (R$ bi):Q", title="R$ bi", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("categoria_analitica:N", title=None, sort=category_order),
+                    yOffset=alt.YOffset("Período:N", sort=period_order),
+                    color=_revision_comparison_color(acquiring_mix),
+                    tooltip=[
+                        "Período:N",
+                        "categoria_analitica:N",
+                        alt.Tooltip("PL (R$ bi):Q", format=",.1f"),
+                        alt.Tooltip("share_pl:Q", format=".1%"),
+                    ],
+                )
+                .properties(height=410, title="PL reclassificado")
+            )
+            st.altair_chart(chart, width="stretch", key="industry-revision-acquiring-pl")
+        with right:
+            chart = (
+                alt.Chart(acquiring_mix)
+                .mark_bar(cornerRadiusEnd=2)
+                .encode(
+                    x=alt.X("share_pl:Q", title="% do PL ex-FIC", axis=alt.Axis(format="%", gridColor=_GRAY_LIGHT)),
+                    y=alt.Y("categoria_analitica:N", title=None, sort=category_order, axis=None),
+                    yOffset=alt.YOffset("Período:N", sort=period_order),
+                    color=_revision_comparison_color(acquiring_mix, show_legend=False),
+                    tooltip=[
+                        "Período:N",
+                        "categoria_analitica:N",
+                        alt.Tooltip("share_pl:Q", format=".1%"),
+                        alt.Tooltip("PL (R$ bi):Q", format=",.1f"),
+                    ],
+                )
+                .properties(height=410, title="Participação no PL ex-FIC")
+            )
+            st.altair_chart(chart, width="stretch", key="industry-revision-acquiring-share")
+        current_acquiring = acquiring_mix[
+            acquiring_mix["competencia"].eq(latest_period)
+            & acquiring_mix["categoria_analitica"].eq("Adquirência")
+        ]
+        if not current_acquiring.empty:
+            row = current_acquiring.iloc[0]
+            st.info(
+                f"Os 13 CNPJs selecionados formam Adquirência: {_fmt_bi(float(row['pl_brl']), 1)} "
+                f"e {_fmt_pct(float(row['share_pl']))} do PL ex-FIC em {_short_competence_label(latest_period)}. "
+                "A classificação CVM originalmente reportada permanece disponível no workbook."
+            )
+
     with st.expander("Origem da classificação", expanded=False):
         coverage = _revision_frame(payload, "classification_coverage")
         if not coverage.empty:
@@ -10938,6 +11129,77 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
         f"Excluindo integralmente esses casos, a métrica seria {_fmt_pct(float(qa.get('sensibilidade_ex_casos_acima_carteira_pct', 0)))}."
     )
 
+    single = _revision_frame(payload, "delinquency_single_receivable")
+    single_summary = dict(payload.get("delinquency_single_receivable_summary") or {})
+    if not single.empty:
+        st.markdown(
+            "<h2>Inadimplência em fundos com um único tipo de recebível</h2>",
+            unsafe_allow_html=True,
+        )
+        single["PL incluído (R$ bi)"] = pd.to_numeric(
+            single["pl_incluido_brl"], errors="coerce"
+        ).fillna(0.0) / 1e9
+        single["Inadimplência / PL"] = pd.to_numeric(
+            single["inadimplencia_sobre_pl"], errors="coerce"
+        ).fillna(0.0)
+        chart = (
+            alt.Chart(single)
+            .mark_bar(cornerRadiusEnd=2)
+            .encode(
+                x=alt.X(
+                    "Inadimplência / PL:Q",
+                    title="inadimplência reportada / PL",
+                    axis=alt.Axis(format="%", gridColor=_GRAY_LIGHT),
+                ),
+                y=alt.Y(
+                    "tipo_recebivel_tabela_ii:N",
+                    title=None,
+                    sort=alt.EncodingSortField(field="PL incluído (R$ bi)", order="descending"),
+                ),
+                color=alt.condition(
+                    alt.datum.tipo_recebivel_tabela_ii == "Financeiro",
+                    alt.value(_ORANGE),
+                    alt.value(_BLACK),
+                ),
+                tooltip=[
+                    alt.Tooltip("tipo_recebivel_tabela_ii:N", title="Tipo Tabela II"),
+                    alt.Tooltip("fundos_incluidos:Q", title="Fundos", format=",.0f"),
+                    alt.Tooltip("PL incluído (R$ bi):Q", format=",.1f"),
+                    alt.Tooltip("Inadimplência / PL:Q", format=".2%"),
+                ],
+            )
+            .properties(height=390)
+        )
+        st.altair_chart(chart, width="stretch", key="industry-revision-delinquency-single-type")
+        display = single[
+            [
+                "tipo_recebivel_tabela_ii",
+                "fundos_incluidos",
+                "PL incluído (R$ bi)",
+                "Inadimplência / PL",
+            ]
+        ].copy()
+        display.columns = ["Tipo Tabela II", "Fundos", "PL incluído (R$ bi)", "Inadimplência / PL"]
+        st.dataframe(
+            display.style.format(
+                {
+                    "Fundos": "{:,.0f}",
+                    "PL incluído (R$ bi)": "{:,.1f}",
+                    "Inadimplência / PL": "{:.2%}",
+                }
+            ),
+            hide_index=True,
+            width="stretch",
+        )
+        st.caption(
+            f"Incluídos: {_fmt_int(single_summary.get('fundos_incluidos', 0))} fundos e "
+            f"{_fmt_bi(float(single_summary.get('pl_incluido_brl', 0)), 1)}, equivalentes a "
+            f"{_fmt_pct(float(single_summary.get('cobertura_pl', 0)))} do PL ex-FIC positivo. "
+            f"Excluídos {_fmt_int(single_summary.get('fundos_multitipo_excluidos', 0))} fundos com mais de um tipo e "
+            f"{_fmt_int(single_summary.get('fundos_inad_supera_carteira_excluidos', 0))} casos com inadimplência acima da carteira. "
+            "O numerador é a inadimplência reportada e o denominador é o PL total dos fundos incluídos."
+        )
+
     series = _revision_frame(payload, "qa_series")
     if not series.empty:
         st.caption(
@@ -11000,9 +11262,10 @@ def _market_share_focus_label(row: pd.Series) -> str:
 
 
 def _render_revision_providers(payload: dict[str, object]) -> None:
-    adjusted_universe = (
-        payload.get("schema_version") == "fidc_revision_artifact_payload_v3"
-    )
+    adjusted_universe = payload.get("schema_version") in {
+        "fidc_revision_artifact_payload_v3",
+        "fidc_revision_artifact_payload_v4",
+    }
     concentration = _revision_history_frame(
         payload,
         "provider_concentration_history",
@@ -11108,6 +11371,107 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         st.caption(
             f"Posição · PL em R$ bi; linhas ordenadas pelo PL de {latest_label.lower()}. PL ex-FIC, sem Sistema Petrobras e TAPSO. "
             "Administração é observada; gestão e custódia de dez/24 e dez/25 são reconstruídas com o cadastro vigente."
+        )
+
+    independent = _revision_frame(payload, "provider_independent_ranking")
+    if not independent.empty:
+        st.markdown("<h2>Prestadores independentes</h2>", unsafe_allow_html=True)
+        latest_period = str(payload.get("latest_complete") or "2026-05")
+        tabs = st.tabs(["Administração", "Gestão", "Custódia"])
+        for container, (role, label) in zip(
+            tabs,
+            (("administrador", "Administração"), ("gestor", "Gestão"), ("custodiante", "Custódia")),
+            strict=True,
+        ):
+            with container:
+                scoped = independent[independent["papel"].eq(role)].copy()
+                current = (
+                    scoped[
+                        scoped["competencia"].eq(latest_period)
+                        & scoped["selected_latest_top_n"].fillna(False).astype(bool)
+                    ]
+                    .sort_values("rank_independente")
+                    .head(6)
+                )
+                participants = current["participante"].astype(str).tolist()
+                lookup = scoped.set_index(["competencia", "participante"])
+                table_rows = []
+                for participant in participants:
+                    output = {"Participante": participant}
+                    for period, period_label in (
+                        ("2024-12", "Dez/24"),
+                        ("2025-12", "Dez/25"),
+                        (latest_period, _short_competence_label(latest_period)),
+                    ):
+                        if (period, participant) not in lookup.index:
+                            output[period_label] = "—"
+                            continue
+                        item = lookup.loc[(period, participant)]
+                        output[period_label] = (
+                            f"{int(item['rank_independente'])}/{int(item['rank_geral'])} · "
+                            f"{float(item['pl_brl']) / 1e9:,.1f}"
+                        )
+                    table_rows.append(output)
+                left, right = st.columns([1.15, 0.85])
+                with left:
+                    st.dataframe(pd.DataFrame(table_rows), hide_index=True, width="stretch")
+                with right:
+                    current = current.assign(**{"PL (R$ bi)": pd.to_numeric(current["pl_brl"], errors="coerce") / 1e9})
+                    chart = (
+                        alt.Chart(current)
+                        .mark_bar(cornerRadiusEnd=2)
+                        .encode(
+                            x=alt.X("PL (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                            y=alt.Y("participante:N", title=None, sort="-x"),
+                            color=alt.Color(
+                                "participante:N",
+                                scale=alt.Scale(
+                                    domain=current["participante"].tolist(),
+                                    range=[_provider_color(name) for name in current["participante"].tolist()],
+                                ),
+                                legend=None,
+                            ),
+                            tooltip=["participante:N", alt.Tooltip("PL (R$ bi):Q", format=",.1f")],
+                        )
+                        .properties(height=250, title=f"{label} · PL atual")
+                    )
+                    st.altair_chart(chart, width="stretch", key=f"industry-revision-independent-{role}")
+        st.caption(
+            "Posição = ranking entre independentes / ranking geral. Singulare é consolidada em QI Tech; "
+            "Kanastra é alocada ao Itaú pela regra de afiliação solicitada e fica fora deste recorte."
+        )
+
+    bank_history = _revision_frame(payload, "bank_fidc_evolution")
+    if not bank_history.empty:
+        st.markdown("<h2>Coorte atual de FIDCs dos cinco bancos</h2>", unsafe_allow_html=True)
+        groups = bank_history[~bank_history["is_total_5_banks"].fillna(False).astype(bool)].copy()
+        groups["PL (R$ bi)"] = pd.to_numeric(groups["pl_bruto_brl"], errors="coerce") / 1e9
+        groups["Período"] = groups["competencia"].map(_short_competence_label)
+        bank_order = ["BTG Pactual", "Itaú", "Santander", "Bradesco", "Banco do Brasil"]
+        chart = (
+            alt.Chart(groups)
+            .mark_bar()
+            .encode(
+                x=alt.X("Período:N", title=None, sort=[_short_competence_label(value) for value in ["2023-12", "2024-12", "2025-12", payload.get("latest_complete")]]),
+                y=alt.Y("PL (R$ bi):Q", title="PL bruto (R$ bi)", stack="zero", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                color=alt.Color(
+                    "grupo_bancario:N",
+                    scale=alt.Scale(
+                        domain=bank_order,
+                        range=["#1D4080", _ORANGE, "#8D9399", "#454A4F", "#D6A800"],
+                    ),
+                    legend=alt.Legend(title=None, orient="bottom"),
+                ),
+                tooltip=["Período:N", "grupo_bancario:N", alt.Tooltip("PL (R$ bi):Q", format=",.1f")],
+            )
+            .properties(height=360)
+        )
+        st.altair_chart(chart, width="stretch", key="industry-revision-bank-fidc-history")
+        pivot = groups.pivot(index="grupo_bancario", columns="Período", values="PL (R$ bi)").reindex(bank_order)
+        st.dataframe(pivot.style.format("{:,.1f}", na_rep="—"), width="stretch")
+        st.caption(
+            "Coorte fixa das raízes de CNPJ listadas em FIDCs.xlsx. A série acompanha o histórico do conjunto atual; "
+            "ausência de reporte permanece vazia e datas societárias de consolidação contábil não são inferidas."
         )
 
     from services.industry_revision_export import get_revision_export_status
@@ -11305,92 +11669,139 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
 
 
 def _render_revision_offers(payload: dict[str, object]) -> None:
-    offers = _revision_frame(payload, "offers_ytd")
-    st.markdown("<h2>Ofertas comparadas no mesmo período</h2>", unsafe_allow_html=True)
-    if not offers.empty:
-        current_year = int(pd.to_numeric(offers["year"], errors="coerce").max())
-        offers["Período"] = offers["year"].astype(int).astype(str) + " YTD"
-        offers["Volume (R$ bi)"] = offers["volume"] / 1e9
-        chart = (
-            alt.Chart(offers)
-            .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
-            .encode(
-                x=alt.X("Período:N", title=None),
-                y=alt.Y("Volume (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
-                color=alt.condition(
-                    alt.datum.year == current_year,
-                    alt.value(_ORANGE),
-                    alt.value(_BLACK),
-                ),
-                tooltip=[
-                    "Período:N",
-                    alt.Tooltip("Volume (R$ bi):Q", format=",.1f"),
-                    alt.Tooltip("ofertas:Q", format=",.0f"),
-                ],
+    annual = _revision_frame(payload, "closed_offers_annual")
+    monthly = _revision_frame(payload, "closed_offers_monthly")
+    jan_may = _revision_frame(payload, "closed_offers_jan_may")
+    originators = _revision_frame(payload, "closed_offer_originators_2026")
+
+    st.markdown("<h2>Ofertas encerradas e ticket de emissão</h2>", unsafe_allow_html=True)
+    if not annual.empty:
+        annual["year"] = pd.to_numeric(annual["year"], errors="coerce").astype("Int64")
+        current = annual.sort_values("year").iloc[-1]
+        cards = [
+            _industry_kpi("Ofertas encerradas 2026", _fmt_int(current["closed_offers"]), f"até {payload.get('offers_as_of', 'n/d')}"),
+            _industry_kpi("Volume registrado", _fmt_bi(float(current["registered_volume_brl"]), 1), "2026 YTD"),
+            _industry_kpi("Ticket médio", _fmt_bi(float(current["mean_registered_ticket_brl"]), 3), "por Número do Requerimento"),
+            _industry_kpi("PF no volume colocado", _fmt_pct(float(current["natural_person_placed_volume_share"])), f"cobertura {_fmt_pct(float(current['placed_quantity_registered_volume_coverage']))}"),
+        ]
+        st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    if not jan_may.empty and not monthly.empty:
+        jan_may["Período"] = jan_may["year"].astype(int).astype(str) + " jan–mai"
+        jan_may["Volume (R$ bi)"] = pd.to_numeric(jan_may["registered_volume_brl"], errors="coerce") / 1e9
+        jan_may["Ticket médio (R$ mi)"] = pd.to_numeric(jan_may["mean_registered_ticket_brl"], errors="coerce") / 1e6
+        current_year = int(pd.to_numeric(jan_may["year"], errors="coerce").max())
+        left, right = st.columns(2)
+        with left:
+            chart = (
+                alt.Chart(jan_may)
+                .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+                .encode(
+                    x=alt.X("Período:N", title=None, axis=alt.Axis(labelAngle=0)),
+                    y=alt.Y("Volume (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    color=alt.condition(alt.datum.year == current_year, alt.value(_ORANGE), alt.value(_BLACK)),
+                    tooltip=[
+                        "Período:N",
+                        alt.Tooltip("Volume (R$ bi):Q", format=",.1f"),
+                        alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
+                        alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
+                    ],
+                )
+                .properties(height=340, title="Jan–mai comparável")
             )
-            .properties(height=340)
-        )
-        st.altair_chart(chart, width="stretch", key="industry-revision-offers-ytd")
+            st.altair_chart(chart, width="stretch", key="industry-revision-closed-offers-jan-may")
+        with right:
+            monthly["year"] = pd.to_numeric(monthly["year"], errors="coerce").astype("Int64")
+            monthly["month"] = pd.to_numeric(monthly["month"], errors="coerce").astype("Int64")
+            monthly = monthly[monthly["year"].isin([2024, 2025, 2026])].sort_values(["year", "month"])
+            monthly["Volume acumulado (R$ bi)"] = (
+                pd.to_numeric(monthly["registered_volume_brl"], errors="coerce")
+                .groupby(monthly["year"])
+                .cumsum()
+                / 1e9
+            )
+            monthly["Mês"] = monthly["month"].map(
+                {1: "Jan", 2: "Fev", 3: "Mar", 4: "Abr", 5: "Mai", 6: "Jun", 7: "Jul", 8: "Ago", 9: "Set", 10: "Out", 11: "Nov", 12: "Dez"}
+            )
+            chart = (
+                alt.Chart(monthly)
+                .mark_line(strokeWidth=2.5)
+                .encode(
+                    x=alt.X("month:Q", title=None, axis=alt.Axis(values=list(range(1, 13)), labelExpr="['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][datum.value]", grid=False)),
+                    y=alt.Y("Volume acumulado (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                    color=alt.Color(
+                        "year:N",
+                        title=None,
+                        scale=alt.Scale(domain=[2024, 2025, 2026], range=[_GRAY, _BLACK, _ORANGE]),
+                    ),
+                    tooltip=["year:N", "Mês:N", alt.Tooltip("Volume acumulado (R$ bi):Q", format=",.1f")],
+                )
+                .properties(height=340, title="Janeiro a dezembro · acumulado")
+            )
+            st.altair_chart(chart, width="stretch", key="industry-revision-closed-offers-cumulative")
+
+    if not annual.empty:
+        annual_display = annual[
+            [
+                "year",
+                "closed_offers",
+                "registered_volume_brl",
+                "mean_registered_ticket_brl",
+                "median_registered_ticket_brl",
+                "natural_person_placed_volume_share",
+                "professional_target_registered_volume_share",
+            ]
+        ].copy()
+        annual_display.columns = ["Ano", "Ofertas", "Volume registrado", "Ticket médio", "Ticket mediano", "PF no colocado", "Público profissional"]
+        annual_display["Ano"] = annual_display["Ano"].astype(str).replace({"2026": "2026 YTD"})
+        for column in ("Volume registrado", "Ticket médio", "Ticket mediano"):
+            annual_display[column] = annual_display[column].map(lambda value: _fmt_bi(float(value), 3))
+        for column in ("PF no colocado", "Público profissional"):
+            annual_display[column] = annual_display[column].map(_fmt_pct)
+        st.dataframe(annual_display, hide_index=True, width="stretch")
         st.caption(
-            f"Datas-base: estoque em {payload.get('latest_complete')} e ofertas até "
-            f"{payload.get('offers_as_of', 'n/d')}."
+            "Unidade de análise: Número do Requerimento. Escopo: valor mobiliário Cotas de FIDC, oferta primária, "
+            "status Oferta Encerrada, coorte pela Data de Encerramento e Valor Total Registrado positivo. "
+            f"Fonte CVM consultada em {payload.get('offers_source_as_of', 'n/d')}; último encerramento em {payload.get('offers_as_of', 'n/d')}."
+        )
+        st.info(
+            f"Em 2026, pessoas físicas respondem por {_fmt_pct(float(current['natural_person_placed_volume_share']))} do volume colocado estimado, "
+            f"com cobertura de {_fmt_pct(float(current['placed_quantity_registered_volume_coverage']))} do valor registrado. "
+            f"O ticket mediano é {_fmt_bi(float(current['median_registered_ticket_brl']), 3)} e "
+            f"{_fmt_pct(float(current['professional_target_registered_volume_share']))} do volume registrado mira investidores profissionais."
         )
 
-    originators = dict(payload.get("originators_current") or payload.get("originators_2026") or {})
-    rows = pd.DataFrame(originators.get("rows") or [])
-    identified_coverage = float(originators.get("coverage", 0) or 0)
-    st.markdown("<h2>Originação nominável</h2>", unsafe_allow_html=True)
-    st.markdown(
-        f'<div class="industry-note">Cobertura nominal: <b>{_fmt_pct(identified_coverage)}</b> do volume válido. '
-        "O gráfico separa os cinco maiores nomes do residual de originadores identificados.</div>",
-        unsafe_allow_html=True,
-    )
-    if not rows.empty:
-        shown_share = float(
-            pd.to_numeric(rows["share_of_total"], errors="coerce").fillna(0).sum()
+    st.markdown("<h2>Originadores nomináveis em 2026</h2>", unsafe_allow_html=True)
+    if not originators.empty:
+        originators["Volume (R$ bi)"] = pd.to_numeric(originators["registered_volume_brl"], errors="coerce") / 1e9
+        originators["Ticket médio (R$ mi)"] = pd.to_numeric(originators["mean_registered_ticket_brl"], errors="coerce") / 1e6
+        coverage = float(originators.iloc[0]["identified_registered_volume_coverage"])
+        st.markdown(
+            f'<div class="industry-note">Cobertura nominal: <b>{_fmt_pct(coverage)}</b> do volume registrado. '
+            "A lista contém todos os originadores nomináveis e mantém o residual não identificado no denominador.</div>",
+            unsafe_allow_html=True,
         )
-        residual_share = max(0.0, identified_coverage - shown_share)
-        valid_totals = pd.to_numeric(rows["volume_brl"], errors="coerce") / pd.to_numeric(
-            rows["share_of_total"], errors="coerce"
-        ).replace(0, pd.NA)
-        valid_total = float(valid_totals.dropna().median()) if valid_totals.notna().any() else 0.0
-        if residual_share > 1e-9:
-            rows = pd.concat(
-                [
-                    rows,
-                    pd.DataFrame(
-                        [
-                            {
-                                "originator_group": "Outros identificados",
-                                "volume_brl": valid_total * residual_share,
-                                "share_of_total": residual_share,
-                            }
-                        ]
-                    ),
-                ],
-                ignore_index=True,
-            )
-        rows["R$ bi"] = rows["volume_brl"] / 1e9
         chart = (
-            alt.Chart(rows)
+            alt.Chart(originators)
             .mark_bar(cornerRadiusEnd=2)
             .encode(
-                x=alt.X("R$ bi:Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                x=alt.X("Volume (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
                 y=alt.Y("originator_group:N", title=None, sort="-x"),
-                color=alt.condition(
-                    alt.datum.originator_group == "Outros identificados",
-                    alt.value(_GRAY_LIGHT),
-                    alt.value(_ORANGE),
-                ),
+                color=alt.condition(alt.datum.rank == 1, alt.value(_ORANGE), alt.value(_BLACK)),
                 tooltip=[
                     "originator_group:N",
-                    alt.Tooltip("R$ bi:Q", format=",.2f"),
-                    alt.Tooltip("share_of_total:Q", format=".1%"),
+                    alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
+                    alt.Tooltip("Volume (R$ bi):Q", format=",.2f"),
+                    alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
+                    alt.Tooltip("share_of_total_registered_volume:Q", format=".1%"),
                 ],
             )
-            .properties(height=300)
+            .properties(height=520)
         )
-        st.altair_chart(chart, width="stretch", key="industry-revision-originators")
+        st.altair_chart(chart, width="stretch", key="industry-revision-originators-all")
+        display = originators[["rank", "originator_group", "closed_offers", "Volume (R$ bi)", "Ticket médio (R$ mi)", "confidence"]].copy()
+        display.columns = ["#", "Originador", "Ofertas", "Volume (R$ bi)", "Ticket médio (R$ mi)", "Confiança"]
+        st.dataframe(display.style.format({"Volume (R$ bi)": "{:,.2f}", "Ticket médio (R$ mi)": "{:,.1f}"}), hide_index=True, width="stretch")
 
 
 def _render_revision_data_exports(

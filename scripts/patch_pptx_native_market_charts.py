@@ -24,12 +24,12 @@ ET.register_namespace("a", DRAWING)
 ET.register_namespace("c", CHART)
 
 MARKET_SHARE_SLIDES = {
-    11: False,
     12: False,
     13: False,
-    24: True,
-    25: True,
-    26: True,
+    14: False,
+    28: True,
+    29: True,
+    30: True,
 }
 SHORT_SEGMENT = 0.025
 

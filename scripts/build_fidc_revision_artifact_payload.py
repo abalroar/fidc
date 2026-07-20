@@ -23,6 +23,7 @@ if __package__ in {None, ""}:
 
 from services.fund_name_display import short_fund_name
 from services.industry_intelligence import canonical_provider
+from services.industry_closed_offers import build_closed_offers_payload
 from services.industry_revision_analysis import MARKET_SHARE_EXCLUDED_FUNDS
 
 
@@ -780,15 +781,7 @@ def build_payload(
     cotistas = pd.read_csv(data_dir / "cotistas_tipo_monthly.csv", low_memory=False)
     segments = pd.read_csv(data_dir / "segments_monthly.csv", low_memory=False)
     providers = pd.read_csv(data_dir / "prestadores_latest.csv", low_memory=False)
-    offers = pd.read_csv(data_dir / "industry_offers.csv.gz", low_memory=False)
-    originators = pd.read_csv(data_dir / "industry_originators_annual.csv", low_memory=False)
     documentary = _read_optional(data_dir / "industry_large_fund_classification.csv")
-    intelligence_manifest_path = data_dir / "industry_intelligence_manifest.json"
-    intelligence_manifest = (
-        json.loads(intelligence_manifest_path.read_text(encoding="utf-8"))
-        if intelligence_manifest_path.exists()
-        else {}
-    )
 
     funds = pd.read_csv(revision_dir / "base_fundo_cnpj.csv.gz", low_memory=False)
     qa = pd.read_csv(revision_dir / "qa_inadimplencia_competencia.csv", low_memory=False)
@@ -809,6 +802,21 @@ def build_payload(
     )
     provider_historical_ranking = pd.read_csv(
         revision_dir / "prestadores_ranking_historico.csv", low_memory=False
+    )
+    provider_independent_ranking = _read_optional(
+        revision_dir / "prestadores_independentes_ranking.csv"
+    )
+    bank_fidc_evolution = _read_optional(
+        revision_dir / "bancos_fidcs_evolucao.csv"
+    )
+    acquiring_reclassified_mix = _read_optional(
+        revision_dir / "adquirencia_mix_reclassificado.csv"
+    )
+    delinquency_single_receivable = _read_optional(
+        revision_dir / "inadimplencia_tipo_recebivel_unico.csv"
+    )
+    delinquency_single_receivable_summary = _read_optional(
+        revision_dir / "inadimplencia_tipo_recebivel_unico_resumo.csv"
     )
     provider_transition_summary = _read_optional(
         revision_dir / "prestadores_transicoes_resumo.csv"
@@ -870,6 +878,13 @@ def build_payload(
         else {"summary": {}, "funds": [], "sources": []}
     )
 
+    closed_offers = build_closed_offers_payload(data_dir)
+    closed_annual = closed_offers["annual"]["rows"]
+    closed_monthly = closed_offers["monthly"]["rows"]
+    closed_jan_may = closed_offers["jan_may_2024_2026"]["rows"]
+    closed_originators = closed_offers["originators_2026_ytd"]["rows"]
+    closed_source = closed_offers["annual"]["source"]
+
     annual = _last_observation_by_year(monthly, latest)
     annual_pl = annual[["year", "competencia", "pl_total", "pl_fic_fidc"]].copy()
     annual_pl["pl_ex_fic"] = annual_pl["pl_total"] - annual_pl["pl_fic_fidc"]
@@ -877,21 +892,8 @@ def build_payload(
     annual_base = annual[["year", "competencia", "cotistas_total", "n_veiculos"]].copy()
 
     latest_month = monthly[monthly["competencia"].astype(str).eq(latest)].iloc[0]
-    offers_as_of = str(intelligence_manifest.get("as_of_date") or "")
-    if not offers_as_of:
-        offer_dates = pd.to_datetime(
-            offers["registration_date"]
-            if "registration_date" in offers
-            else pd.Series(dtype="object"),
-            errors="coerce",
-        )
-        latest_offer_date = offer_dates.max()
-        offers_as_of = (
-            latest_offer_date.strftime("%Y-%m-%d")
-            if pd.notna(latest_offer_date)
-            else "2026-07-15"
-        )
-    offers_year = int(pd.to_datetime(offers_as_of, errors="coerce").year)
+    offers_as_of = str(closed_source.get("latest_source_closing_date") or "2026-07-17")
+    offers_source_as_of = str(closed_source.get("as_of_date") or "2026-07-20")
     latest_period = pd.Period(latest, freq="M")
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
@@ -954,9 +956,10 @@ def build_payload(
     ]
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v3",
+        "schema_version": "fidc_revision_artifact_payload_v4",
         "latest_complete": latest,
         "offers_as_of": offers_as_of,
+        "offers_source_as_of": offers_source_as_of,
         "generated_at": pd.Timestamp.now(tz="America/Sao_Paulo").isoformat(),
         "pl_history": _records(annual_pl),
         "investor_base_history": _records(annual_base),
@@ -982,6 +985,12 @@ def build_payload(
         "receivables_meta_history": _records(receivables_meta_history),
         "qa_latest": {str(key): _json_value(value) for key, value in qa_latest.items()},
         "qa_series": _records(qa_series),
+        "delinquency_single_receivable": _records(
+            delinquency_single_receivable
+        ),
+        "delinquency_single_receivable_summary": _single_record(
+            delinquency_single_receivable_summary
+        ),
         "bridge_summary": _records(bridge_summary),
         "bridge_top_contributors": _records(bridge_detail.head(30)),
         "bridge_atlantico": _records(atlantic),
@@ -990,6 +999,59 @@ def build_payload(
         "provider_concentration": provider_concentration,
         "provider_concentration_history": provider_concentration_history,
         "provider_historical_ranking": _records(provider_historical_ranking),
+        "provider_independent_ranking": _records(provider_independent_ranking),
+        "provider_independent_scope": {
+            "groups": int(provider_independent_ranking["participante"].nunique())
+            if not provider_independent_ranking.empty
+            else 0,
+            "roles": int(provider_independent_ranking["papel"].nunique())
+            if not provider_independent_ranking.empty
+            else 0,
+            "methodology": (
+                "grupos com independência revisada; aliases consolidados antes do "
+                "ranking; posição independente e posição geral permanecem separadas"
+            ),
+        },
+        "bank_fidc_evolution": _records(
+            bank_fidc_evolution.assign(
+                grupo_bancario=bank_fidc_evolution.get("bank_group", pd.Series(dtype="object")).map(
+                    {
+                        "BB": "Banco do Brasil",
+                        "BTG": "BTG Pactual",
+                        "Bradesco": "Bradesco",
+                        "Itau": "Itaú",
+                        "Santander": "Santander",
+                        "Total 5 bancos": "Total 5 bancos",
+                    }
+                ),
+                pl_bruto_brl=bank_fidc_evolution.get("pl_brl"),
+                observado=bank_fidc_evolution.get("fundos_observados", pd.Series(dtype="float64")).fillna(0).gt(0),
+                metodologia=(
+                    "coorte fixa das raízes de CNPJ listadas em FIDCs.xlsx; PL histórico do conjunto atual"
+                ),
+            )
+        ) if not bank_fidc_evolution.empty else [],
+        "acquiring_reclassified_mix": _records(
+            acquiring_reclassified_mix.assign(
+                categoria_analitica=acquiring_reclassified_mix.get("categoria_cvm").replace(
+                    {
+                        "Cartao de credito": "Cartão",
+                        "Acoes judiciais": "Ações judiciais",
+                        "Servicos": "Serviços",
+                        "Agronegocio": "Agronegócio",
+                        "Imobiliario": "Imobiliário",
+                        "Setor publico": "Setor público",
+                        "Nao informado": "N/D",
+                    }
+                ),
+                pl_brl=acquiring_reclassified_mix.get("pl_reclassificado_brl"),
+                share_pl=acquiring_reclassified_mix.get("share_reclassificado"),
+                fundos=acquiring_reclassified_mix.get("fundos_reclassificados"),
+                metodologia=(
+                    "reclassificação analítica restrita aos 13 CNPJs curados; classificação CVM original preservada"
+                ),
+            )
+        ) if not acquiring_reclassified_mix.empty else [],
         "market_share": _records(market),
         "market_share_top10_fixed": _records(fixed_top10),
         "market_share_scope_summary": _records(market_scope),
@@ -1012,14 +1074,39 @@ def build_payload(
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
         "monostructure_concentration": _records(mono_concentration),
-        "offers_ytd": _records(_offers_ytd(offers, as_of_date=offers_as_of)),
-        "originators_current": _originators(originators, offers_year),
-        # Backward-compatible alias for the July/2026 renderer snapshot.
-        "originators_2026": _originators(originators, offers_year),
+        "closed_offers": closed_offers,
+        "closed_offers_annual": closed_annual,
+        "closed_offers_monthly": closed_monthly,
+        "closed_offers_jan_may": closed_jan_may,
+        "closed_offer_originators_2026": closed_originators,
+        # Aliases mantidos apenas para leitores v2/v3; o renderer v4 usa os blocos acima.
+        "offers_ytd": [
+            {
+                "year": row["year"],
+                "ofertas": row["closed_offers"],
+                "volume": row["registered_volume_brl"],
+            }
+            for row in closed_jan_may
+        ],
+        "originators_current": {
+            "coverage": closed_originators[0]["identified_registered_volume_coverage"]
+            if closed_originators
+            else 0,
+            "rows": closed_originators,
+        },
+        "originators_2026": {
+            "coverage": closed_originators[0]["identified_registered_volume_coverage"]
+            if closed_originators
+            else 0,
+            "rows": closed_originators,
+        },
         "sources": {
             "pl_cotistas_recebiveis": f"CVM, Informe Mensal de FIDC, competência {latest_label}",
             "anbima": f"ANBIMA Data, fotografia cadastral de dez/25 aplicada a {latest_label}; evidência documental; proxy CVM; N/D",
-            "offers": f"CVM, Ofertas Públicas de Distribuição, registros até {offers_as_of}",
+            "offers": (
+                f"CVM, Ofertas Públicas de Distribuição, snapshot {offers_source_as_of}; "
+                f"encerramentos até {offers_as_of}"
+            ),
             "cvm_489": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/instrucoes/anexos/400/inst489.pdf",
             "cvm_writeoff": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/oficios-circulares/sin-snc/anexos/oc-sin-snc-0113.pdf",
         },

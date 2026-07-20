@@ -17,6 +17,7 @@ from tabs import tab_industry_study
 SCHEMA_V1 = "fidc_revision_artifact_payload_v1"
 SCHEMA_V2 = "fidc_revision_artifact_payload_v2"
 SCHEMA_V3 = "fidc_revision_artifact_payload_v3"
+SCHEMA_V4 = "fidc_revision_artifact_payload_v4"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -137,7 +138,7 @@ def _core_payload(schema: str) -> dict[str, object]:
 
 def _payload_for_schema(schema: str) -> dict[str, object]:
     payload = _core_payload(schema)
-    if schema in {SCHEMA_V2, SCHEMA_V3}:
+    if schema in {SCHEMA_V2, SCHEMA_V3, SCHEMA_V4}:
         payload.update(
             {
                 "holder_distribution_history": [
@@ -193,7 +194,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema == SCHEMA_V3:
+    if schema in {SCHEMA_V3, SCHEMA_V4}:
         payload.update(
             {
                 "provider_historical_ranking": [
@@ -219,6 +220,98 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "acquiring_taxonomy": {"classification": "Tabela II.g - Cartão"},
             }
         )
+    if schema == SCHEMA_V4:
+        payload.update(
+            {
+                "delinquency_single_receivable": [
+                    {
+                        "tipo_recebivel_tabela_ii": "Financeiro",
+                        "fundos_incluidos": 1,
+                        "pl_incluido_brl": 100.0,
+                        "inadimplencia_sobre_pl": 0.01,
+                    }
+                ],
+                "delinquency_single_receivable_summary": {
+                    "fundos_universo_ex_fic_pl_positivo": 2,
+                    "pl_universo_ex_fic_positivo_brl": 2.0,
+                    "fundos_incluidos": 1,
+                    "pl_incluido_brl": 1.0,
+                    "cobertura_pl": 0.5,
+                    "fundos_multitipo_excluidos": 0,
+                    "pl_multitipo_excluido_brl": 0.0,
+                    "fundos_sem_tipo_excluidos": 0,
+                    "pl_sem_tipo_excluido_brl": 0.0,
+                    "fundos_inad_supera_carteira_excluidos": 0,
+                    "pl_inad_supera_carteira_excluido_brl": 0.0,
+                    "fundos_fic_excluidos": 1,
+                    "pl_fic_excluido_brl": 1.0,
+                },
+                "provider_independent_ranking": [
+                    {
+                        "competencia": "2026-05",
+                        "papel": "administrador",
+                        "participante": "QI Tech",
+                        "rank_independente": 1,
+                        "rank_geral": 1,
+                        "pl_brl": 100.0,
+                        "selected_latest_top_n": True,
+                    }
+                ],
+                "bank_fidc_evolution": [
+                    {
+                        "competencia": "2026-05",
+                        "grupo_bancario": "BTG Pactual",
+                        "pl_bruto_brl": 100.0,
+                        "is_total_5_banks": False,
+                        "observado": True,
+                    }
+                ],
+                "acquiring_reclassified_mix": [
+                    {
+                        "competencia": "2026-05",
+                        "categoria_analitica": "Adquirência",
+                        "pl_brl": 10.0,
+                        "share_pl": 0.1,
+                    }
+                ],
+                "closed_offers_annual": [
+                    {
+                        "year": 2026,
+                        "closed_offers": 1,
+                        "registered_volume_brl": 10.0,
+                        "mean_registered_ticket_brl": 10.0,
+                        "median_registered_ticket_brl": 10.0,
+                        "natural_person_placed_volume_share": 0.01,
+                        "placed_quantity_registered_volume_coverage": 0.99,
+                        "professional_target_registered_volume_share": 0.95,
+                    }
+                ],
+                "closed_offers_monthly": [
+                    {"year": 2026, "month": 1, "registered_volume_brl": 10.0}
+                ],
+                "closed_offers_jan_may": [
+                    {
+                        "year": 2026,
+                        "closed_offers": 1,
+                        "registered_volume_brl": 10.0,
+                        "mean_registered_ticket_brl": 10.0,
+                    }
+                ],
+                "closed_offer_originators_2026": [
+                    {
+                        "rank": 1,
+                        "originator_group": "Originador A",
+                        "closed_offers": 1,
+                        "registered_volume_brl": 10.0,
+                        "mean_registered_ticket_brl": 10.0,
+                        "identified_registered_volume_coverage": 0.5,
+                        "identified_registered_volume_brl": 5.0,
+                        "confidence": "high",
+                        "share_of_total_registered_volume": 0.1,
+                    }
+                ],
+            }
+        )
     return payload
 
 
@@ -239,7 +332,7 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
     return tab_industry_study._load_industry_revision_payload.__wrapped__("test-signature")
 
 
-@pytest.mark.parametrize("schema", [SCHEMA_V2, SCHEMA_V3])
+@pytest.mark.parametrize("schema", [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4])
 def test_revision_payload_loader_accepts_each_published_schema(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -274,12 +367,12 @@ def test_revision_payload_loader_rejects_unknown_schema(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = _payload_for_schema(SCHEMA_V3)
-    payload["schema_version"] = "fidc_revision_artifact_payload_v4"
+    payload["schema_version"] = "fidc_revision_artifact_payload_v5"
     _write_payload(tmp_path, payload)
 
     with pytest.raises(
         ValueError,
-        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v4",
+        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v5",
     ):
         _load_payload(tmp_path, monkeypatch)
 
@@ -306,6 +399,7 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
     [
         (SCHEMA_V2, "receivables_history"),
         (SCHEMA_V3, "acquiring_taxonomy"),
+        (SCHEMA_V4, "closed_offers_annual"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(

@@ -183,7 +183,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 47
+    assert len(presentation.slides) == EXPECTED_SLIDES == 51
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -205,10 +205,14 @@ def test_industry_exports_are_valid_office_files() -> None:
         "MARKET SHARE · GESTÃO",
         "MARKET SHARE · CUSTÓDIA",
         "PRESTADORES · EVOLUÇÃO DO RANKING",
+        "PRESTADORES INDEPENDENTES · EVOLUÇÃO",
+        "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
         "PRESTADORES · LIDERANÇA EXPLICADA",
         "CBSF / REAG · DESTINO DOS FUNDOS",
         "PRESTADORES · ROUBA-MONTE OBSERVADO",
-        "RANKING · TOP 20 FIDCS",
+        "OFERTAS ENCERRADAS · VOLUME E TICKET",
+        "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
+            "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",
         "APÊNDICE · CURADORIA TOP 20",
     ):

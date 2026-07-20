@@ -36,6 +36,7 @@ from scripts.build_fidc_revision_artifact_payload import build_payload
 from services.industry_revision_export import (
     BUNDLE_MANIFEST_NAME,
     BUNDLE_SCHEMA,
+    EXPECTED_SLIDES,
     MATERIALIZED_HTML_NAME,
     MATERIALIZED_PPTX_NAME,
     MATERIALIZED_XLSX_NAME,
@@ -51,7 +52,7 @@ NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v3"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v4"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -64,6 +65,12 @@ REQUIRED_DATA_INPUTS = (
     "prestadores_latest.csv",
     "industry_offers.csv.gz",
     "industry_originators_annual.csv",
+    "industry_closed_offers_annual.csv",
+    "industry_closed_offers_monthly.csv",
+    "industry_closed_offer_originators_2026.csv",
+    "provider_ownership_curation.csv",
+    "bank_fidc_curation.csv",
+    "acquiring_reclassification_curation.csv",
     "atlantico_curadoria.json",
     "acquiring_taxonomy_curation.json",
 )
@@ -79,6 +86,8 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
     ROOT / "services" / "industry_revision_analysis.py",
+    ROOT / "services" / "industry_revision_additions.py",
+    ROOT / "services" / "industry_closed_offers.py",
     ROOT / "services" / "industry_revision_export.py",
 )
 REQUIRED_ANALYSIS_FILES = {
@@ -93,6 +102,11 @@ REQUIRED_ANALYSIS_FILES = {
     "market_share_top10_fixo.csv",
     "market_share_escopo_resumo.csv",
     "prestadores_ranking_historico.csv",
+    "prestadores_independentes_ranking.csv",
+    "bancos_fidcs_evolucao.csv",
+    "adquirencia_mix_reclassificado.csv",
+    "inadimplencia_tipo_recebivel_unico.csv",
+    "inadimplencia_tipo_recebivel_unico_resumo.csv",
     "prestadores_transicoes_resumo.csv",
     "prestadores_transicoes_links.csv",
     "prestadores_transicoes_detalhe.csv",
@@ -297,10 +311,95 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "provider_historical_ranking",
         "market_share_scope_summary",
         "atlantico_history",
+        "delinquency_single_receivable",
+        "provider_independent_ranking",
+        "bank_fidc_evolution",
+        "acquiring_reclassified_mix",
+        "closed_offers_annual",
+        "closed_offers_monthly",
+        "closed_offers_jan_may",
+        "closed_offer_originators_2026",
     ):
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
             raise RevisionBundlePublishError(f"payload editorial sem {key}")
+    required_columns = {
+        "delinquency_single_receivable": {
+            "tipo_recebivel_tabela_ii",
+            "fundos_incluidos",
+            "pl_incluido_brl",
+            "inadimplencia_sobre_pl",
+        },
+        "provider_independent_ranking": {
+            "competencia",
+            "papel",
+            "participante",
+            "rank_independente",
+            "rank_geral",
+            "pl_brl",
+            "selected_latest_top_n",
+        },
+        "bank_fidc_evolution": {
+            "competencia",
+            "grupo_bancario",
+            "pl_bruto_brl",
+            "is_total_5_banks",
+            "observado",
+        },
+        "acquiring_reclassified_mix": {
+            "competencia",
+            "categoria_analitica",
+            "pl_brl",
+            "share_pl",
+        },
+        "closed_offers_annual": {
+            "year",
+            "closed_offers",
+            "registered_volume_brl",
+            "mean_registered_ticket_brl",
+            "median_registered_ticket_brl",
+            "natural_person_placed_volume_share",
+            "placed_quantity_registered_volume_coverage",
+            "professional_target_registered_volume_share",
+        },
+        "closed_offers_jan_may": {
+            "year",
+            "closed_offers",
+            "registered_volume_brl",
+            "mean_registered_ticket_brl",
+        },
+        "closed_offers_monthly": {
+            "year",
+            "month",
+            "registered_volume_brl",
+        },
+        "closed_offer_originators_2026": {
+            "rank",
+            "originator_group",
+            "closed_offers",
+            "registered_volume_brl",
+            "mean_registered_ticket_brl",
+            "identified_registered_volume_coverage",
+            "identified_registered_volume_brl",
+            "confidence",
+            "share_of_total_registered_volume",
+        },
+    }
+    for key, columns in required_columns.items():
+        rows = payload.get(key)
+        if not isinstance(rows, list):
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
+        for index, row in enumerate(rows, start=1):
+            if not isinstance(row, Mapping):
+                raise RevisionBundlePublishError(
+                    f"payload {key} contém linha {index} inválida"
+                )
+            missing_columns = sorted(columns.difference(row))
+            if missing_columns:
+                raise RevisionBundlePublishError(
+                    f"payload {key} linha {index} sem colunas obrigatórias: "
+                    + ", ".join(missing_columns)
+                )
     exclusions = payload.get("market_share_exclusions")
     if not isinstance(exclusions, list) or len(exclusions) != 2:
         raise RevisionBundlePublishError(
@@ -311,6 +410,36 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         raise RevisionBundlePublishError("payload editorial sem acquiring_taxonomy")
     if not isinstance(payload.get("atlantico_profile"), Mapping):
         raise RevisionBundlePublishError("payload editorial sem atlantico_profile")
+    if not isinstance(payload.get("delinquency_single_receivable_summary"), Mapping):
+        raise RevisionBundlePublishError(
+            "payload editorial sem delinquency_single_receivable_summary"
+        )
+    summary = payload["delinquency_single_receivable_summary"]
+    required_summary = {
+        "fundos_universo_ex_fic_pl_positivo",
+        "pl_universo_ex_fic_positivo_brl",
+        "fundos_incluidos",
+        "pl_incluido_brl",
+        "cobertura_pl",
+        "fundos_multitipo_excluidos",
+        "pl_multitipo_excluido_brl",
+        "fundos_sem_tipo_excluidos",
+        "pl_sem_tipo_excluido_brl",
+        "fundos_inad_supera_carteira_excluidos",
+        "pl_inad_supera_carteira_excluido_brl",
+        "fundos_fic_excluidos",
+        "pl_fic_excluido_brl",
+    }
+    missing_summary = sorted(required_summary.difference(summary))
+    if missing_summary:
+        raise RevisionBundlePublishError(
+            "payload delinquency_single_receivable_summary sem campos obrigatórios: "
+            + ", ".join(missing_summary)
+        )
+    if len(payload.get("closed_offers_annual") or []) != 4:
+        raise RevisionBundlePublishError(
+            "payload editorial deve conter ofertas anuais de 2023 a 2026"
+        )
     for key in (
         "provider_transition_summary",
         "reag_admin_summary",
@@ -501,7 +630,7 @@ def build_bundle_manifest(
             "bytes": len(html_bytes),
         },
         "checks": {
-            "slides": 47,
+            "slides": EXPECTED_SLIDES,
             "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
             "top20_outros": len(list(payload.get("top20_outros") or [])),
             "profiles": len(list(payload.get("profiles") or [])),
@@ -583,8 +712,10 @@ def validate_renderer_manifest(
         if entry.get("bytes") is None or int(entry["bytes"]) != len(content):
             raise RevisionBundlePublishError(f"manifest do renderer diverge em {key}")
     checks = dict(manifest.get("checks") or {})
-    if int(checks.get("slides") or 0) != 47:
-        raise RevisionBundlePublishError("manifest do renderer não contém 47 slides")
+    if int(checks.get("slides") or 0) != EXPECTED_SLIDES:
+        raise RevisionBundlePublishError(
+            f"manifest do renderer não contém {EXPECTED_SLIDES} slides"
+        )
     if any(int(checks.get(key) or 0) != 20 for key in ("top20_fidcs", "top20_outros", "profiles")):
         raise RevisionBundlePublishError("manifest do renderer falhou nos checks Top 20")
 
