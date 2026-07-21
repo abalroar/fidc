@@ -33,6 +33,7 @@ if __package__ in {None, ""}:
 
 from scripts.build_fidc_revision_analysis import main as build_revision_analysis
 from scripts.build_fidc_revision_artifact_payload import build_payload
+from scripts.build_fidc_provider_history import main as build_provider_history
 from services.industry_revision_export import (
     BUNDLE_MANIFEST_NAME,
     BUNDLE_SCHEMA,
@@ -52,7 +53,7 @@ NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v4"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v5"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -68,6 +69,8 @@ REQUIRED_DATA_INPUTS = (
     "industry_closed_offers_annual.csv",
     "industry_closed_offers_monthly.csv",
     "industry_closed_offer_originators_2026.csv",
+    "industry_closed_offer_ticket_distribution.csv",
+    "industry_closed_offer_ticket_cohort.csv.gz",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
@@ -83,12 +86,16 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
+    ROOT / "scripts" / "build_fidc_offer_ticket_distribution.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
+    ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_additions.py",
     ROOT / "services" / "industry_closed_offers.py",
     ROOT / "services" / "industry_revision_export.py",
+    ROOT / "services" / "industry_provider_history.py",
+    ROOT / "services" / "industry_offer_ticket_distribution.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -107,6 +114,9 @@ REQUIRED_ANALYSIS_FILES = {
     "adquirencia_mix_reclassificado.csv",
     "inadimplencia_tipo_recebivel_unico.csv",
     "inadimplencia_tipo_recebivel_unico_resumo.csv",
+    "inadimplencia_coorte_atual_membros.csv.gz",
+    "inadimplencia_coorte_atual_historico.csv",
+    "inadimplencia_coorte_atual_resumo.csv",
     "prestadores_transicoes_resumo.csv",
     "prestadores_transicoes_links.csv",
     "prestadores_transicoes_detalhe.csv",
@@ -115,8 +125,17 @@ REQUIRED_ANALYSIS_FILES = {
     "reag_cbsf_coorte_links.csv",
     "reag_cbsf_coorte_detalhe.csv",
     "prestadores_lideranca_atribuicao.csv",
+    "bancos_fidcs_detalhe.csv",
+    "btg_prestadores_ex_controlados.csv",
     "btg_fidcs_controlados_reconciliacao.csv",
     "qi_atribuicao_cnpjs_legados.csv",
+}
+REQUIRED_PROVIDER_HISTORY_FILES = {
+    "prestadores_historico_cvm_cobertura.csv",
+    "prestadores_historico_cvm_manifest.json",
+    "prestadores_historico_cvm_snapshot.csv.gz",
+    "prestadores_historico_cvm_transicoes_detalhe.csv.gz",
+    "prestadores_historico_cvm_transicoes_links.csv",
 }
 
 
@@ -312,13 +331,21 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "market_share_scope_summary",
         "atlantico_history",
         "delinquency_single_receivable",
+        "delinquency_frozen_cohort_history",
+        "delinquency_frozen_cohort_summary",
         "provider_independent_ranking",
         "bank_fidc_evolution",
+        "bank_fidc_detail",
+        "btg_provider_ex_controlled_scenario",
         "acquiring_reclassified_mix",
         "closed_offers_annual",
         "closed_offers_monthly",
         "closed_offers_jan_may",
+        "closed_offer_ticket_distribution",
         "closed_offer_originators_2026",
+        "provider_history_cvm_coverage",
+        "provider_history_cvm_links",
+        "provider_history_cvm_detail",
     ):
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
@@ -329,6 +356,25 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "fundos_incluidos",
             "pl_incluido_brl",
             "inadimplencia_sobre_pl",
+        },
+        "delinquency_frozen_cohort_history": {
+            "competencia",
+            "tipo_recebivel_tabela_ii",
+            "fundos_incluidos",
+            "pl_incluido_brl",
+            "inadimplencia_sobre_carteira",
+            "fundos_coorte",
+            "pl_coorte_referencia_brl",
+        },
+        "delinquency_frozen_cohort_summary": {
+            "competencia",
+            "fundos_incluidos",
+            "pl_incluido_brl",
+            "inadimplencia_sobre_carteira",
+            "fundos_coorte",
+            "pl_coorte_referencia_brl",
+            "regra",
+            "fonte",
         },
         "provider_independent_ranking": {
             "competencia",
@@ -345,6 +391,26 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "pl_bruto_brl",
             "is_total_5_banks",
             "observado",
+        },
+        "bank_fidc_detail": {
+            "competencia",
+            "grupo_bancario",
+            "cnpj_fundo",
+            "denominacao",
+            "pl_brl",
+            "observado",
+        },
+        "btg_provider_ex_controlled_scenario": {
+            "competencia",
+            "papel",
+            "btg_pl_brl",
+            "btg_rank",
+            "fidcs_controlados_excluidos",
+            "pl_controlado_excluido_brl",
+            "btg_pl_ex_controlados_brl",
+            "btg_rank_ex_controlados",
+            "regra",
+            "fonte",
         },
         "acquiring_reclassified_mix": {
             "competencia",
@@ -373,6 +439,18 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "month",
             "registered_volume_brl",
         },
+        "closed_offer_ticket_distribution": {
+            "period_label",
+            "period_start",
+            "period_end",
+            "ticket_bucket",
+            "closed_offers",
+            "offer_share",
+            "registered_volume_brl",
+            "registered_volume_share",
+            "period_mean_ticket_brl",
+            "period_median_ticket_brl",
+        },
         "closed_offer_originators_2026": {
             "rank",
             "originator_group",
@@ -383,6 +461,38 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "identified_registered_volume_brl",
             "confidence",
             "share_of_total_registered_volume",
+        },
+        "provider_history_cvm_coverage": {
+            "papel",
+            "data_referencia",
+            "fundos_coorte",
+            "pl_coorte_mai26_brl",
+            "fundos_resolvidos_unicos",
+            "pl_resolvido_unico_brl",
+            "cobertura_fundos_resolvida",
+            "cobertura_pl_resolvida",
+            "escopo_fonte",
+        },
+        "provider_history_cvm_links": {
+            "papel",
+            "data_origem",
+            "data_destino",
+            "origem_prestador_grupo",
+            "destino_prestador_grupo",
+            "fundos",
+            "pl_mai26_brl",
+            "share_pl_comparavel",
+            "escopo_fonte",
+        },
+        "provider_history_cvm_detail": {
+            "papel",
+            "data_origem",
+            "data_destino",
+            "cnpj_fundo",
+            "denominacao",
+            "pl_mai26_brl",
+            "origem_prestador_grupo",
+            "destino_prestador_grupo",
         },
     }
     for key, columns in required_columns.items():
@@ -447,6 +557,8 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
     ):
         if not isinstance(payload.get(key), Mapping):
             raise RevisionBundlePublishError(f"payload editorial sem {key}")
+    if not isinstance(payload.get("conclusion_metrics"), Mapping):
+        raise RevisionBundlePublishError("payload editorial sem conclusion_metrics")
     for key in (
         "provider_transition_links",
         "provider_transition_detail",
@@ -827,6 +939,7 @@ def publish_revision_bundle(
     input_workbook: Path,
     latest_complete: str = "",
     raw_dir: Path = ROOT / ".cache" / "cvm-industry-study",
+    provider_history_archive: Path | None = None,
     refresh_source_presence: bool = False,
     presence_months: Iterable[str] = ("2024-06", "2024-07"),
     skip_download: bool = True,
@@ -840,6 +953,12 @@ def publish_revision_bundle(
     publish_dir = Path(publish_dir).resolve()
     curation_path = Path(curation_path).resolve()
     input_workbook = Path(input_workbook).resolve()
+    raw_dir = Path(raw_dir).resolve()
+    provider_history_archive = (
+        Path(provider_history_archive).expanduser().resolve()
+        if provider_history_archive is not None
+        else raw_dir.parent / "cvm-cadastro" / "cad_fi_hist.zip"
+    )
     latest_complete = latest_complete or discover_latest_complete(data_dir)
     _validate_input_workbook(input_workbook)
     # Capture the long-running renderer once.  The staged build must execute
@@ -899,7 +1018,7 @@ def publish_revision_bundle(
             "--latest-complete",
             latest_complete,
             "--raw-dir",
-            str(Path(raw_dir).resolve()),
+            str(raw_dir),
             "--presence-months",
             ",".join(months),
         ]
@@ -923,6 +1042,52 @@ def publish_revision_bundle(
             revision_dir=stage_revision,
             latest_complete=latest_complete,
         )
+
+        provider_history_args = [
+            "--fund-base",
+            str(stage_revision / "base_fundo_cnpj.csv.gz"),
+            "--ownership-curation",
+            str(data_dir / "provider_ownership_curation.csv"),
+            "--output-dir",
+            str(stage_revision),
+            "--cache-zip",
+            str(provider_history_archive),
+            "--latest-competence",
+            latest_complete,
+        ]
+        if skip_download:
+            provider_history_args.append("--skip-download")
+        build_provider_history(provider_history_args)
+        missing_provider_history = sorted(
+            name
+            for name in REQUIRED_PROVIDER_HISTORY_FILES
+            if not (stage_revision / name).exists()
+        )
+        if missing_provider_history:
+            raise RevisionBundlePublishError(
+                "staging do histórico de prestadores incompleto: "
+                + ", ".join(missing_provider_history)
+            )
+        provider_history_manifest_path = (
+            stage_revision / "prestadores_historico_cvm_manifest.json"
+        )
+        provider_history_manifest = json.loads(
+            provider_history_manifest_path.read_text(encoding="utf-8")
+        )
+        provider_history_manifest["generated_at_utc"] = published_at
+        provider_history_manifest_path.write_text(
+            json.dumps(
+                provider_history_manifest,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            ),
+            encoding="utf-8",
+        )
+        if provider_history_archive.exists():
+            input_hashes["source/cad_fi_hist.zip"] = _sha256_file(
+                provider_history_archive
+            )
         for path in sorted(stage_revision.iterdir(), key=lambda item: item.name):
             if path.is_file() and path.name != ANALYSIS_MANIFEST_NAME:
                 input_hashes[f"analysis/{path.name}"] = _sha256_semantic_file(path)
@@ -1062,6 +1227,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="workbook-base obrigatório; também pode vir de FIDC_INPUT_WORKBOOK",
     )
     parser.add_argument("--raw-dir", type=Path, default=ROOT / ".cache/cvm-industry-study")
+    parser.add_argument(
+        "--provider-history-archive",
+        type=Path,
+        default=None,
+        help=(
+            "cad_fi_hist.zip da CVM; vazio usa o cache irmão "
+            ".cache/cvm-cadastro/cad_fi_hist.zip"
+        ),
+    )
     parser.add_argument("--refresh-source-presence", action="store_true")
     parser.add_argument("--presence-months", default="2024-06,2024-07")
     parser.add_argument("--skip-download", action="store_true")
@@ -1088,6 +1262,7 @@ def main(argv: list[str] | None = None) -> None:
         input_workbook=args.input_workbook,
         latest_complete=str(args.latest_complete or "").strip(),
         raw_dir=args.raw_dir,
+        provider_history_archive=args.provider_history_archive,
         refresh_source_presence=bool(args.refresh_source_presence),
         presence_months=[item.strip() for item in args.presence_months.split(",")],
         skip_download=bool(args.skip_download),

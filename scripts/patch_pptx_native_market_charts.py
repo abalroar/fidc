@@ -9,6 +9,7 @@ segmentos curtos em três faixas internas do próprio gráfico.
 from __future__ import annotations
 
 import os
+import posixpath
 import sys
 import tempfile
 from pathlib import Path
@@ -23,14 +24,7 @@ PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 ET.register_namespace("a", DRAWING)
 ET.register_namespace("c", CHART)
 
-MARKET_SHARE_SLIDES = {
-    12: False,
-    13: False,
-    14: False,
-    28: True,
-    29: True,
-    30: True,
-}
+EXPECTED_MARKET_SHARE_SLIDES = 6
 SHORT_SEGMENT = 0.025
 
 
@@ -44,7 +38,29 @@ def _a(tag: str) -> str:
 
 def _chart_targets(archive: ZipFile) -> dict[str, bool]:
     targets: dict[str, bool] = {}
-    for slide_number, appendix in MARKET_SHARE_SLIDES.items():
+    slide_names = sorted(
+        (
+            name
+            for name in archive.namelist()
+            if name.startswith("ppt/slides/slide")
+            and name.endswith(".xml")
+            and "/_rels/" not in name
+        ),
+        key=lambda name: int(Path(name).stem.replace("slide", "")),
+    )
+    for slide_name in slide_names:
+        slide_number = int(Path(slide_name).stem.replace("slide", ""))
+        slide_root = ET.fromstring(archive.read(slide_name))
+        slide_text = " ".join(
+            node.text or "" for node in slide_root.findall(f".//{_a('t')}")
+        )
+        normalized_text = slide_text.upper().strip()
+        if not (
+            normalized_text.startswith("MARKET SHARE ·")
+            or normalized_text.startswith("APÊNDICE · MARKET SHARE")
+        ):
+            continue
+        appendix = normalized_text.startswith("APÊNDICE")
         rels_name = f"ppt/slides/_rels/slide{slide_number}.xml.rels"
         root = ET.fromstring(archive.read(rels_name))
         chart_paths = []
@@ -56,7 +72,18 @@ def _chart_targets(archive: ZipFile) -> dict[str, bool]:
                 f"slide {slide_number} deveria conter exatamente um gráfico nativo; "
                 f"encontrados {len(chart_paths)}"
             )
-        targets[chart_paths[0]] = appendix
+        target = chart_paths[0]
+        resolved = (
+            target.lstrip("/")
+            if target.startswith("/") or target.startswith("ppt/")
+            else posixpath.normpath(posixpath.join("ppt/slides", target))
+        )
+        targets[resolved] = appendix
+    if len(targets) != EXPECTED_MARKET_SHARE_SLIDES:
+        raise RuntimeError(
+            "deveriam existir seis slides de market share nativo; "
+            f"foram encontrados {len(targets)}"
+        )
     return targets
 
 

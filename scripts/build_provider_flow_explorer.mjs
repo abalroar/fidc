@@ -147,7 +147,7 @@ function viewModels(payload) {
       target: compactProvider(row.grupo_destino),
       pl0: number(row.pl_origem_brl),
       pl1: number(row.pl_destino_brl),
-      flow: number(row.pl_comparavel_brl),
+      flow: number(row.pl_destino_brl || row.pl_comparavel_brl),
       fundosnetUrl: row.fundosnet_url || "",
       sourceUrl: row.fonte_origem_url || "",
       targetUrl: row.fonte_destino_url || "",
@@ -167,6 +167,61 @@ function viewModels(payload) {
     .filter((row) => row.source !== row.target && row.value > 0)
     .sort((a, b) => b.value - a.value);
   const adminSummary = payload.provider_transition_summary || {};
+
+  const historicalCoverage = payload.provider_history_cvm_coverage || [];
+  const historicalDetails = payload.provider_history_cvm_detail || [];
+  const historicalLinks = payload.provider_history_cvm_links || [];
+  const historicalRoleView = (role, label) => {
+    const coverage = historicalCoverage.find(
+      (row) => String(row.papel) === role && String(row.data_referencia || "").includes("→"),
+    ) || {};
+    const details = historicalDetails
+      .filter((row) => String(row.papel) === role && truthy(row.comparavel) && truthy(row.mudou_grupo))
+      .map((row) => ({
+        fund: compactFund(row.denominacao),
+        cnpj: row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo),
+        source: compactProvider(row.origem_prestador_grupo),
+        target: compactProvider(row.destino_prestador_grupo),
+        pl0: number(row.pl_mai26_brl),
+        pl1: number(row.pl_mai26_brl),
+        flow: number(row.pl_mai26_brl),
+        fundosnetUrl: "",
+        sourceUrl: row.fonte_url || "",
+        targetUrl: row.fonte_url || "",
+      }))
+      .sort((a, b) => b.flow - a.flow);
+    const links = historicalLinks
+      .filter((row) => String(row.papel) === role && truthy(row.mudou_grupo))
+      .map((row) => ({
+        source: compactProvider(row.origem_prestador_grupo),
+        target: compactProvider(row.destino_prestador_grupo),
+        funds: Math.round(number(row.fundos)),
+        value: number(row.pl_mai26_brl),
+        origin: number(row.pl_mai26_brl),
+        current: number(row.pl_mai26_brl),
+        shareUniverse: number(row.share_pl_comparavel),
+      }))
+      .filter((row) => row.source !== row.target && row.value > 0)
+      .sort((a, b) => b.value - a.value);
+    return {
+      id: role,
+      kind: "market",
+      eyebrow: `DEZ/24 → MAI/26 · ${label.toUpperCase()} · AMOSTRA ICVM 555`,
+      leftLabel: `${label.toUpperCase()} · DEZ/24`,
+      rightLabel: `${label.toUpperCase()} · MAI/26`,
+      note: `Largura = PL mai/26. Cobertura comparável: ${percent(number(coverage.cobertura_pl_resolvida), 1)} do PL da coorte; amostra ICVM 555, sem extrapolação.`,
+      summary: {
+        primary: number(coverage.pl_mudou_grupo_mai26_brl),
+        primaryLabel: "PL que mudou na amostra",
+        secondary: Math.round(number(coverage.fundos_mudaram_grupo)),
+        secondaryLabel: "FIDCs com troca na amostra",
+        tertiary: number(coverage.cobertura_pl_resolvida),
+        tertiaryLabel: "cobertura do PL da coorte",
+      },
+      links,
+      details,
+    };
+  };
 
   const reagDetail = (payload.reag_admin_detail || []).map((row) => {
     const status = String(row.status_destino || "");
@@ -216,10 +271,11 @@ function viewModels(payload) {
   return {
     admin: {
       id: "admin",
-      eyebrow: "DEZ/24 → DEZ/25 · ADMINISTRAÇÃO",
+      kind: "market",
+      eyebrow: "DEZ/24 → MAI/26 · ADMINISTRAÇÃO",
       leftLabel: "ADMINISTRADOR · DEZ/24",
-      rightLabel: "ADMINISTRADOR · DEZ/25",
-      note: "PL comparável = menor PL do fundo entre as duas datas.",
+      rightLabel: "ADMINISTRADOR · MAI/26",
+      note: `Largura = PL mai/26. Cobertura: ${percent(number(adminSummary.coverage_pl), 1)} do PL da coorte atual; fundos sem administrador observado em dez/24 ficam fora.`,
       summary: {
         primary: number(adminSummary.changed_comparable_pl_brl),
         primaryLabel: "PL que mudou de grupo",
@@ -231,8 +287,11 @@ function viewModels(payload) {
       links: adminLinks,
       details: adminDetail,
     },
+    gestor: historicalRoleView("gestor", "Gestão"),
+    custodiante: historicalRoleView("custodiante", "Custódia"),
     reag: {
       id: "reag",
+      kind: "cohort",
       eyebrow: "CBSF / REAG · DEZ/25 → MAI/26",
       leftLabel: "COORTE · DEZ/25",
       rightLabel: "DESTINO · MAI/26",
@@ -264,6 +323,13 @@ function validateViews(data) {
   assertClose(sum(data.admin.details, "flow"), data.admin.summary.primary, "PL do detalhe de administração");
   if (data.admin.details.length !== data.admin.summary.secondary || unique(data.admin.details) !== data.admin.details.length) {
     throw new Error("Contagem/CNPJ do detalhe de administração não reconcilia");
+  }
+  for (const role of ["gestor", "custodiante"]) {
+    assertClose(sum(data[role].links, "value"), data[role].summary.primary, `PL dos links de ${role}`);
+    assertClose(sum(data[role].details, "flow"), data[role].summary.primary, `PL do detalhe de ${role}`);
+    if (data[role].details.length !== data[role].summary.secondary || unique(data[role].details) !== data[role].details.length) {
+      throw new Error(`Contagem/CNPJ do detalhe de ${role} não reconcilia`);
+    }
   }
   assertClose(sum(data.reag.links, "value"), data.reag.summary.primary, "PL dos links CBSF/REAG");
   assertClose(sum(data.reag.details, "flow"), data.reag.summary.primary, "PL do detalhe CBSF/REAG");
@@ -353,8 +419,9 @@ function layoutSankey(view, topN = 10, width = 1280, height = 620) {
   const plotHeight = height - 158;
   const leftX = 248;
   const rightX = width - 248;
-  const left = layoutColumn(sources, leftX, plotTop, plotHeight, view.id === "admin" ? 13 : 18);
-  const right = layoutColumn(targets, rightX, plotTop, plotHeight, view.id === "admin" ? 10 : 18);
+  const marketView = view.kind === "market";
+  const left = layoutColumn(sources, leftX, plotTop, plotHeight, marketView ? 13 : 18);
+  const right = layoutColumn(targets, rightX, plotTop, plotHeight, marketView ? 10 : 18);
   const scale = Math.min(left.scale, right.scale);
   for (const node of left.nodes.values()) node.height = Math.max(1.5, node.value * scale);
   for (const node of right.nodes.values()) node.height = Math.max(1.5, node.value * scale);
@@ -453,16 +520,19 @@ function staticSvg(view, topN, options = {}) {
   const layout = layoutSankey(view, topN, width, height);
   const shownValue = layout.links.reduce((sum, link) => sum + link.value, 0);
   const changedTotal = view.links.reduce((sum, link) => sum + link.value, 0);
-  const metricValue = view.id === "admin" ? money(shownValue) : money(view.summary.primary);
-  const metricLabel = view.id === "admin" ? `nos ${topN} maiores fluxos` : view.summary.primaryLabel;
-  const secondaryValue = view.id === "admin"
+  const marketView = view.kind === "market";
+  const metricValue = marketView ? money(shownValue) : money(view.summary.primary);
+  const metricLabel = marketView
+    ? (topN === "all" ? "nos fluxos observados" : `nos ${topN} maiores fluxos`)
+    : view.summary.primaryLabel;
+  const secondaryValue = marketView
     ? percent(shownValue / Math.max(changedTotal, 1), 1)
     : money(view.summary.secondary);
-  const secondaryLabel = view.id === "admin" ? "do PL que migrou" : view.summary.secondaryLabel;
-  const tertiaryValue = view.id === "admin"
+  const secondaryLabel = marketView ? "do PL que migrou" : view.summary.secondaryLabel;
+  const tertiaryValue = marketView
     ? `${layout.links.reduce((sum, link) => sum + link.funds, 0).toLocaleString("pt-BR")}`
     : money(view.summary.tertiary);
-  const tertiaryLabel = view.id === "admin" ? "fundos nesses fluxos" : view.summary.tertiaryLabel;
+  const tertiaryLabel = marketView ? "fundos nesses fluxos" : view.summary.tertiaryLabel;
   const leftLabels = labelPositions(layout.left, 136, height - 53, 37);
   const rightLabels = labelPositions(layout.right, 136, height - 53, 37);
   const remainingLinks = Math.max(0, view.links.length - layout.links.length);
@@ -502,7 +572,7 @@ function staticSvg(view, topN, options = {}) {
     const y = ((link.y0 + link.y1) / 2 + (link.end.y0 + link.end.y1) / 2) / 2;
     parts.push(`<text x="${width / 2}" y="${y + 4}" text-anchor="middle" font-size="12" font-weight="700" class="halo">${escapeXml(`${fundsLabel(link.funds)} · ${money(link.value)}`)}</text>`);
   }
-  const remainder = view.id === "admin" && remainingLinks
+  const remainder = marketView && remainingLinks
     ? `${view.note} Demais ${remainingLinks} rotas: ${money(remainingValue)}.`
     : view.note;
   parts.push(`<text x="40" y="${height - 14}" font-size="11" class="muted">${escapeXml(remainder)}</text>`);
@@ -556,7 +626,7 @@ function browserApp(DATA) {
   };
   const layout = (view, topN) => {
     const links=topN==="all"?view.links:topN==="250m"?view.links.filter(l=>l.value>=250e6):view.links.slice(0,Number(topN)); const {sources,targets}=ordering(links);
-    const W=1280,H=Math.max(620,Math.max(sources.length,targets.length)*39+170),top=118,ph=H-158,lx=248,rx=1032; const L=column(sources,lx,top,ph,view.id==="admin"?13:18); const R=column(targets,rx,top,ph,view.id==="admin"?10:18);
+    const W=1280,H=Math.max(620,Math.max(sources.length,targets.length)*39+170),top=118,ph=H-158,lx=248,rx=1032,market=view.kind==="market"; const L=column(sources,lx,top,ph,market?13:18); const R=column(targets,rx,top,ph,market?10:18);
     const scale=Math.min(L.scale,R.scale); const restack=(nodes,items)=>{const total=items.reduce((s,r)=>s+Math.max(1.5,r[1]*scale),0);const pad=items.length>1?Math.max(4,(ph-total)/(items.length-1)):0;let y=top;items.forEach(([name,value])=>{const q=nodes.get(name);q.height=Math.max(1.5,value*scale);q.y=y;y+=q.height+pad})}; restack(L.nodes,sources);restack(R.nodes,targets);
     const sr=new Map(sources.map(([x],i)=>[x,i])),tr=new Map(targets.map(([x],i)=>[x,i])),so=new Map(sources.map(([x])=>[x,0])),to=new Map(targets.map(([x])=>[x,0])),starts=new Map(),ends=new Map();
     [...links].sort((a,b)=>(sr.get(a.source)||0)-(sr.get(b.source)||0)||(tr.get(a.target)||0)-(tr.get(b.target)||0)||b.value-a.value).forEach(l=>{const k=l.source+"|||"+l.target,o=so.get(l.source)||0,band=Math.max(1.2,l.value*scale),q=L.nodes.get(l.source);starts.set(k,{y0:q.y+o,y1:q.y+o+band});so.set(l.source,o+band)});
@@ -571,13 +641,13 @@ function browserApp(DATA) {
     h+=`<svg viewBox="0 0 1280 ${g.H}" role="img" aria-label="${esc(v.eyebrow)}" style="--flow-bg:#fff;--flow-fg:#151515;--flow-muted:#73787D;--flow-border:#D7DADD;--flow-qi:#2456D6;--flow-btg:#1D4080;--flow-oliveira:#7A1F3D;--flow-green:#73C6A1;--flow-gray-1:#30353A;--flow-gray-2:#5B6065;--flow-gray-3:#8D9399;--flow-gray-4:#BEC2C5;--flow-faint:#D7DADD"><title>${esc(v.eyebrow)}</title><desc>${esc(v.note)}</desc><rect width="1280" height="${g.H}" fill="#fff"/><style>text{fill:#151515;font-family:Arial,sans-serif}.metric{font-size:27px;font-weight:700}.metric-label,.node-value,.footnote{font-size:13px;fill:#73787D}.period{font-size:12px;font-weight:700;fill:#73787D}.node-label{font-size:15px;font-weight:700}.link-label{font-size:12px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:6px}.leader{fill:none;stroke:#D7DADD;stroke-width:1}</style>`;
     const shown=g.links.reduce((s,l)=>s+l.value,0),total=v.links.reduce((s,l)=>s+l.value,0);
     const scopeLabel=state.query?"nos fluxos encontrados":state.topN==="all"?"em todos os fluxos":state.topN==="250m"?"em rotas ≥ R$ 250 mi":"nos "+state.topN+" maiores";
-    const metrics=state.view==="admin"?[[money(shown),scopeLabel],[pct(shown/Math.max(total,1)),"do PL que migrou"],[g.links.reduce((s,l)=>s+l.funds,0).toLocaleString("pt-BR"),"fundos nesses fluxos"]]:[[money(v.summary.primary),v.summary.primaryLabel],[money(v.summary.secondary),v.summary.secondaryLabel],[money(v.summary.tertiary),v.summary.tertiaryLabel]];
+    const metrics=v.kind==="market"?[[money(shown),scopeLabel],[pct(shown/Math.max(total,1)),"do PL que migrou"],[g.links.reduce((s,l)=>s+l.funds,0).toLocaleString("pt-BR"),"fundos nesses fluxos"]]:[[money(v.summary.primary),v.summary.primaryLabel],[money(v.summary.secondary),v.summary.secondaryLabel],[money(v.summary.tertiary),v.summary.tertiaryLabel]];
     metrics.forEach((m,i)=>{const x=40+i*345;h+=`<text x="${x}" y="61" class="metric">${esc(m[0])}</text><text x="${x}" y="84" class="metric-label">${esc(m[1])}</text>`});
     h+=`<text x="40" y="111" class="period">${esc(v.leftLabel)}</text><text x="1240" y="111" text-anchor="end" class="period">${esc(v.rightLabel)}</text>`;
     g.links.forEach(l=>{const active=!state.query||matches.has(l.key),selected=state.selected===l.key;h+=`<path class="flow-link${selected ? " is-selected" : ""}" data-key="${esc(l.key)}" d="${ribbon(g,l)}" fill="${color(l.target)}" style="opacity:${active?(selected ? .82 : .46):.06}"><title>${esc(l.source+" → "+l.target+" · "+money(l.value)+" · "+funds(l.funds))}</title></path>`});
     const nodes=(map,side)=>{const lm=labels(map,g.H);for(const [name,q] of map){const key=side+"|||"+name,p=lm.get(name),tx=side==="left"?q.x-15:q.x+15,ta=side==="left"?"end":"start";h+=`<g class="flow-node" data-node="${esc(key)}"><rect x="${q.x}" y="${q.y}" width="9" height="${q.height}" rx="2" fill="${color(name)}"/>${Math.abs(p.y-p.anchor)>3?`<path d="M ${side==="left"?q.x:q.x+9} ${p.anchor} L ${side==="left"?q.x-11:q.x+11} ${p.y}" class="leader"/>`:""}<text x="${tx}" y="${p.y-2}" text-anchor="${ta}" class="node-label">${esc(name)}</text><text x="${tx}" y="${p.y+17}" text-anchor="${ta}" class="node-value">${esc(money(q.value))}</text></g>`}};nodes(g.left,"left");nodes(g.right,"right");
     g.links.slice(0,1).forEach(l=>{const y=((l.y0+l.y1)/2+(l.end.y0+l.end.y1)/2)/2;h+=`<text x="640" y="${y+4}" text-anchor="middle" class="link-label">${esc(funds(l.funds)+" · "+money(l.value))}</text>`});
-    const remaining=Math.max(0,v.links.length-g.links.length),remainingValue=Math.max(0,total-shown),note=state.query?g.links.length+" rota(s) associada(s) à busca; o valor da fita inclui todos os fundos da rota.":state.view==="admin"&&remaining?v.note+" Demais "+remaining+" rotas: "+money(remainingValue)+".":v.note;
+    const remaining=Math.max(0,v.links.length-g.links.length),remainingValue=Math.max(0,total-shown),note=state.query?g.links.length+" rota(s) associada(s) à busca; o valor da fita inclui todos os fundos da rota.":v.kind==="market"&&remaining?v.note+" Demais "+remaining+" rotas: "+money(remainingValue)+".":v.note;
     h+=`<text x="40" y="${g.H-14}" class="footnote">${esc(note)}</text></svg>`;chart.innerHTML=h;bindChart();
   };
   const filteredDetails = () => {
@@ -592,15 +662,15 @@ function browserApp(DATA) {
     state.page=Math.min(state.page,pages-1);
     const selected=v.links.find(l=>l.source+"|||"+l.target===state.selected);
     caption.textContent=selected
-      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${state.view==="admin"?` comparável | ${money(selected.origin)} → ${money(selected.current)}`:` de origem | ${selected.current?money(selected.current):"sem PL atual"}`}`
+      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL mai/26`:` de origem | ${selected.current?money(selected.current):"sem PL atual"}`}`
       : state.query?`${rows.length} fundos encontrados para “${state.query}”`:`${rows.length} fundos na base; selecione um fluxo ou pesquise para filtrar.`;
     const slice=rows.slice(state.page*8,state.page*8+8);
-    tbody.innerHTML=slice.map(r=>state.view==="admin"
+    tbody.innerHTML=slice.map(r=>v.kind==="market"
       ? `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.source)}</td><td>${esc(r.target)}</td><td class="num">${money(r.flow)}</td><td class="num optional">${money(r.pl0)}</td><td class="num optional">${money(r.pl1)}</td><td>${docs(r)}</td></tr>`
       : `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.target)}</td><td class="num">${money(r.pl0)}</td><td class="num optional">${r.pl1?money(r.pl1):"—"}</td><td class="optional">${esc(r.manager||"N/D")}</td><td class="optional">${esc(r.custodian||"N/D")}</td><td>${docs(r)}</td></tr>`
     ).join("")||`<tr><td colspan="8">Nenhum fundo encontrado.</td></tr>`;
-    root.querySelector("thead").innerHTML=state.view==="admin"
-      ? "<tr><th>Fundo</th><th>CNPJ</th><th>Origem</th><th>Destino</th><th>PL comparável</th><th class='optional'>PL dez/24</th><th class='optional'>PL dez/25</th><th>Fontes</th></tr>"
+    root.querySelector("thead").innerHTML=v.kind==="market"
+      ? "<tr><th>Fundo</th><th>CNPJ</th><th>Origem</th><th>Destino</th><th>PL mai/26</th><th class='optional'>PL origem</th><th class='optional'>PL atual</th><th>Fontes</th></tr>"
       : "<tr><th>Fundo</th><th>CNPJ</th><th>Destino</th><th>PL dez/25</th><th class='optional'>PL mai/26</th><th class='optional'>Gestor mai/26</th><th class='optional'>Custodiante mai/26</th><th>Fontes</th></tr>";
     pager.querySelector("span").textContent=`${rows.length?state.page+1:0} / ${rows.length?pages:0}`;
     pager.querySelector("[data-prev]").disabled=state.page<=0;pager.querySelector("[data-next]").disabled=state.page>=pages-1;
@@ -610,18 +680,18 @@ function browserApp(DATA) {
       el.addEventListener("click",()=>{state.selected=state.selected===el.dataset.key?null:el.dataset.key;state.page=0;render()});
       el.addEventListener("mousemove",e=>{
         const l=DATA[state.view].links.find(x=>x.source+"|||"+x.target===el.dataset.key),total=DATA[state.view].summary.primary;
-        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${state.view==="admin"?` comparável<br>${money(l.origin)} → ${money(l.current)} · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current?money(l.current)+" em mai/26":"sem PL positivo em mai/26"}`}`:"";
+        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${DATA[state.view].kind==="market"?` de PL mai/26 · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current?money(l.current)+" em mai/26":"sem PL positivo em mai/26"}`}`:"";
         tooltip.hidden=false;const r=root.getBoundingClientRect(),t=tooltip.getBoundingClientRect();tooltip.style.left=Math.min(r.width-t.width-8,Math.max(8,e.clientX-r.left+14))+"px";tooltip.style.top=Math.max(8,e.clientY-r.top-t.height-12)+"px";
       });
       el.addEventListener("mouseleave",()=>tooltip.hidden=true)
     });
     chart.querySelectorAll(".flow-node").forEach(el=>el.addEventListener("click",()=>{const [side,name]=el.dataset.node.split("|||");const links=DATA[state.view].links.filter(l=>(side==="left"?l.source:l.target)===name);state.selected=links.length===1?links[0].source+"|||"+links[0].target:null;state.query=name;search.value=name;state.page=0;render()}));
   };
-  const fileStem = () => state.view==="admin"?"fluxos_administracao_dez24_dez25":"fluxos_cbsf_reag_dez25_mai26";
+  const fileStem = () => state.view==="reag"?"fluxos_cbsf_reag_dez25_mai26":`fluxos_${state.view}_dez24_mai26`;
   const downloadBlob = (blob,name) => {const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500)};
   const svgBlob = () => new Blob([new XMLSerializer().serializeToString(chart.querySelector("svg"))],{type:"image/svg+xml;charset=utf-8"});
   const pngBlob = () => new Promise((resolve,reject)=>{const svg=chart.querySelector("svg"),box=svg.viewBox.baseVal,url=URL.createObjectURL(svgBlob()),img=new Image();img.onload=()=>{const canvas=document.createElement("canvas"),scale=2;canvas.width=box.width*scale;canvas.height=box.height*scale;const ctx=canvas.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);URL.revokeObjectURL(url);canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Falha ao gerar PNG")),"image/png")};img.onerror=reject;img.src=url});
-  const csvBlob = () => {const rows=filteredDetails(),headers=state.view==="admin"?["fundo","cnpj","origem","destino","pl_comparavel_brl","pl_dez24_brl","pl_dez25_brl","fundosnet_url","cvm_origem_url","cvm_destino_url"]:["fundo","cnpj","destino","pl_dez25_brl","pl_mai26_brl","gestor_mai26","custodiante_mai26","fundosnet_url","cvm_origem_url","cvm_destino_url"],values=rows.map(r=>state.view==="admin"?[r.fund,r.cnpj,r.source,r.target,r.flow,r.pl0,r.pl1,r.fundosnetUrl,r.sourceUrl,r.targetUrl]:[r.fund,r.cnpj,r.target,r.pl0,r.pl1,r.manager,r.custodian,r.fundosnetUrl,r.sourceUrl,r.targetUrl]),quote=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=[headers,...values].map(r=>r.map(quote).join(";")).join("\n");return new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"})};
+  const csvBlob = () => {const rows=filteredDetails(),market=DATA[state.view].kind==="market",headers=market?["fundo","cnpj","origem","destino","pl_mai26_brl","pl_origem_brl","pl_atual_brl","fundosnet_url","cvm_origem_url","cvm_destino_url"]:["fundo","cnpj","destino","pl_dez25_brl","pl_mai26_brl","gestor_mai26","custodiante_mai26","fundosnet_url","cvm_origem_url","cvm_destino_url"],values=rows.map(r=>market?[r.fund,r.cnpj,r.source,r.target,r.flow,r.pl0,r.pl1,r.fundosnetUrl,r.sourceUrl,r.targetUrl]:[r.fund,r.cnpj,r.target,r.pl0,r.pl1,r.manager,r.custodian,r.fundosnetUrl,r.sourceUrl,r.targetUrl]),quote=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=[headers,...values].map(r=>r.map(quote).join(";")).join("\n");return new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"})};
   const render = () => {root.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.view===state.view)));topSelect.disabled=state.view==="reag";topSelect.value=state.view==="reag"?"all":String(state.topN);renderChart();renderTable()};
   root.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{state={...state,view:b.dataset.view,selected:null,query:"",page:0};search.value="";render()}));
   topSelect.addEventListener("change",()=>{state.topN=topSelect.value;state.selected=null;state.page=0;render()});
@@ -687,7 +757,9 @@ function fragmentHtml(data, standalone = false) {
   <header class="flow-heading"><h2>Movimentação de prestadores da indústria de FIDCs</h2><p>Selecione um fluxo para abrir os fundos, compare o PL nas duas datas e copie a visão para o Office.</p></header>
   <div class="flow-controls" aria-label="Controles da visualização">
     <div class="view-switch" aria-label="Visão">
-      <button type="button" data-view="admin" aria-pressed="true">Mercado</button>
+      <button type="button" data-view="admin" aria-pressed="true">Administração</button>
+      <button type="button" data-view="gestor" aria-pressed="false">Gestão</button>
+      <button type="button" data-view="custodiante" aria-pressed="false">Custódia</button>
       <button type="button" data-view="reag" aria-pressed="false">CBSF / REAG</button>
     </div>
     <label>Fluxos visíveis<select aria-label="Quantidade de fluxos"><option value="10">Top 10</option><option value="25">Top 25</option><option value="250m">≥ R$ 250 mi</option><option value="all">Todos</option></select></label>
@@ -722,20 +794,28 @@ async function main() {
   validateViews(data);
   await fs.mkdir(outputDir, { recursive: true });
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
-  const adminSvg = staticSvg(data.admin, 10);
-  const reagSvg = staticSvg(data.reag, "all");
+  const staticViews = [
+    ["admin", data.admin, 10],
+    ["gestor", data.gestor, "all"],
+    ["custodiante", data.custodiante, "all"],
+    ["reag", data.reag, "all"],
+  ];
+  const staticOutputs = staticViews.flatMap(([id, view, topN]) => {
+    const svg = staticSvg(view, topN);
+    return [
+      sharp(Buffer.from(svg)).resize({ width: 2560 }).png().toFile(path.join(outputDir, `provider_flow_${id}.png`)),
+      fs.writeFile(path.join(outputDir, `provider_flow_${id}.svg`), svg, "utf8"),
+    ];
+  });
   await Promise.all([
-    sharp(Buffer.from(adminSvg)).resize({ width: 2560 }).png().toFile(path.join(outputDir, "provider_flow_admin.png")),
-    sharp(Buffer.from(reagSvg)).resize({ width: 2560 }).png().toFile(path.join(outputDir, "provider_flow_reag.png")),
-    fs.writeFile(path.join(outputDir, "provider_flow_admin.svg"), adminSvg, "utf8"),
-    fs.writeFile(path.join(outputDir, "provider_flow_reag.svg"), reagSvg, "utf8"),
+    ...staticOutputs,
     fs.writeFile(htmlPath, standaloneHtml(data), "utf8"),
   ]);
   if (fragmentPath) {
     await fs.mkdir(path.dirname(fragmentPath), { recursive: true });
     await fs.writeFile(fragmentPath, fragmentHtml(data, false), "utf8");
   }
-  process.stdout.write(`${htmlPath}\n${path.join(outputDir, "provider_flow_admin.png")}\n${path.join(outputDir, "provider_flow_reag.png")}\n`);
+  process.stdout.write(`${htmlPath}\n${staticViews.map(([id]) => path.join(outputDir, `provider_flow_${id}.png`)).join("\n")}\n`);
 }
 
 main().catch((error) => {

@@ -24,7 +24,13 @@ if __package__ in {None, ""}:
 from services.fund_name_display import short_fund_name
 from services.industry_intelligence import canonical_provider
 from services.industry_closed_offers import build_closed_offers_payload
-from services.industry_revision_analysis import MARKET_SHARE_EXCLUDED_FUNDS
+from services.industry_offer_ticket_distribution import (
+    load_materialized_offer_ticket_outputs,
+)
+from services.industry_revision_analysis import (
+    BTG_CONTROLLED_FIDCS,
+    MARKET_SHARE_EXCLUDED_FUNDS,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -84,8 +90,8 @@ def _display_fund_name(value: object) -> str:
 def _json_value(value: Any) -> Any:
     if isinstance(value, (np.integer,)):
         return int(value)
-    if isinstance(value, (np.floating,)):
-        return None if np.isnan(value) else float(value)
+    if isinstance(value, (float, np.floating)):
+        return None if not np.isfinite(value) else float(value)
     if isinstance(value, (pd.Timestamp,)):
         return value.isoformat()
     if isinstance(value, np.bool_):
@@ -597,6 +603,111 @@ def _service_model(mono: pd.DataFrame, latest: str) -> pd.DataFrame:
     return grouped.sort_values("order").drop(columns="order")
 
 
+def _conclusion_metrics(
+    vehicle: pd.DataFrame,
+    funds: pd.DataFrame,
+    latest: str,
+) -> dict[str, Any]:
+    """Materialize the small set of cross-slide metrics used in conclusions."""
+
+    current = funds[
+        funds["competencia"].astype(str).eq(latest)
+        & ~funds["is_fic_fidc"].fillna(False).astype(bool)
+        & pd.to_numeric(funds["pl"], errors="coerce").gt(0)
+    ].copy()
+    current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
+    current["pl"] = pd.to_numeric(current["pl"], errors="coerce")
+    for source, target in (
+        ("admin_nome", "administrador_grupo"),
+        ("gestor_nome", "gestor_grupo"),
+        ("custodiante_nome", "custodiante_grupo"),
+    ):
+        current[target] = current[source].map(canonical_provider)
+    total_pl = float(current["pl"].sum())
+    identified_admin_custody = (
+        ~current["administrador_grupo"].isin(["", "Não informado"])
+        & ~current["custodiante_grupo"].isin(["", "Não informado"])
+    )
+    same_admin_custody = identified_admin_custody & current[
+        "administrador_grupo"
+    ].eq(current["custodiante_grupo"])
+    provider_current = current[
+        ~current["cnpj_fundo"].isin({_digits(value) for value in MARKET_SHARE_EXCLUDED_FUNDS})
+    ].copy()
+    provider_total_pl = float(provider_current["pl"].sum())
+    provider_identified_admin_custody = (
+        ~provider_current["administrador_grupo"].isin(["", "Não informado"])
+        & ~provider_current["custodiante_grupo"].isin(["", "Não informado"])
+    )
+    provider_same_admin_custody = provider_identified_admin_custody & provider_current[
+        "administrador_grupo"
+    ].eq(provider_current["custodiante_grupo"])
+    triple_btg = (
+        current["administrador_grupo"].eq("BTG Pactual")
+        & current["gestor_grupo"].eq("BTG Pactual")
+        & current["custodiante_grupo"].eq("BTG Pactual")
+    )
+    controlled = {_digits(value) for value in BTG_CONTROLLED_FIDCS}
+    triple_btg_ex_controlled = triple_btg & ~current["cnpj_fundo"].isin(controlled)
+
+    holder = vehicle[
+        vehicle["competencia"].astype(str).eq(latest)
+        & ~vehicle["is_fic_fidc"].fillna(False).astype(bool)
+    ].copy()
+    holder["cnpj_fundo"] = holder["cnpj_fundo"].map(_digits)
+    holder["cnpj_fundo"] = holder["cnpj_fundo"].where(
+        holder["cnpj_fundo"].ne(""), holder["cnpj"].map(_digits)
+    )
+    holder["pl"] = pd.to_numeric(holder["pl"], errors="coerce")
+    holder["cotistas"] = pd.to_numeric(holder["cotistas"], errors="coerce")
+    holder = holder.groupby("cnpj_fundo", as_index=False).agg(
+        pl=("pl", "sum"),
+        contas=("cotistas", lambda values: values.sum(min_count=1)),
+    )
+    holder = holder[holder["pl"].gt(0) & holder["contas"].notna()].copy()
+    up_to_5 = holder["contas"].le(5)
+    up_to_10 = holder["contas"].le(10)
+    holder_pl = float(holder["pl"].sum())
+
+    return {
+        "competencia": latest,
+        "universo_fundos_ex_fic_pl_positivo": int(current["cnpj_fundo"].nunique()),
+        "universo_pl_ex_fic_brl": total_pl,
+        "admin_custodia_mesmo_grupo_fundos": int(current.loc[same_admin_custody, "cnpj_fundo"].nunique()),
+        "admin_custodia_mesmo_grupo_pl_brl": float(current.loc[same_admin_custody, "pl"].sum()),
+        "admin_custodia_mesmo_grupo_share_pl": float(current.loc[same_admin_custody, "pl"].sum()) / total_pl,
+        "admin_custodia_cobertura_share_pl": float(current.loc[identified_admin_custody, "pl"].sum()) / total_pl,
+        "universo_prestadores_fundos": int(provider_current["cnpj_fundo"].nunique()),
+        "universo_prestadores_pl_brl": provider_total_pl,
+        "admin_custodia_mesmo_grupo_prestadores_fundos": int(
+            provider_current.loc[provider_same_admin_custody, "cnpj_fundo"].nunique()
+        ),
+        "admin_custodia_mesmo_grupo_prestadores_pl_brl": float(
+            provider_current.loc[provider_same_admin_custody, "pl"].sum()
+        ),
+        "admin_custodia_mesmo_grupo_prestadores_share_pl": float(
+            provider_current.loc[provider_same_admin_custody, "pl"].sum()
+        ) / provider_total_pl,
+        "admin_custodia_prestadores_cobertura_share_pl": float(
+            provider_current.loc[provider_identified_admin_custody, "pl"].sum()
+        ) / provider_total_pl,
+        "btg_combo_tres_funcoes_fundos": int(current.loc[triple_btg, "cnpj_fundo"].nunique()),
+        "btg_combo_tres_funcoes_pl_brl": float(current.loc[triple_btg, "pl"].sum()),
+        "btg_controlados_df_excluidos_fundos": int(current.loc[triple_btg & current["cnpj_fundo"].isin(controlled), "cnpj_fundo"].nunique()),
+        "btg_controlados_df_excluidos_pl_brl": float(current.loc[triple_btg & current["cnpj_fundo"].isin(controlled), "pl"].sum()),
+        "btg_combo_ex_controlados_fundos": int(current.loc[triple_btg_ex_controlled, "cnpj_fundo"].nunique()),
+        "btg_combo_ex_controlados_pl_brl": float(current.loc[triple_btg_ex_controlled, "pl"].sum()),
+        "fundos_contas_observadas": int(holder["cnpj_fundo"].nunique()),
+        "pl_contas_observadas_brl": holder_pl,
+        "fundos_ate_5_contas": int(holder.loc[up_to_5, "cnpj_fundo"].nunique()),
+        "share_fundos_ate_5_contas": float(up_to_5.mean()),
+        "share_pl_ate_5_contas": float(holder.loc[up_to_5, "pl"].sum()) / holder_pl,
+        "share_fundos_ate_10_contas": float(up_to_10.mean()),
+        "share_pl_ate_10_contas": float(holder.loc[up_to_10, "pl"].sum()) / holder_pl,
+        "holder_definition": "contas reportadas por fundo/classe, agregadas ao CNPJ legal; não equivalem a investidores únicos",
+    }
+
+
 def _offers_ytd(offers: pd.DataFrame, *, as_of_date: str) -> pd.DataFrame:
     frame = offers.copy()
     frame["registration_date"] = pd.to_datetime(frame["registration_date"], errors="coerce")
@@ -809,6 +920,10 @@ def build_payload(
     bank_fidc_evolution = _read_optional(
         revision_dir / "bancos_fidcs_evolucao.csv"
     )
+    bank_fidc_detail = _read_optional(
+        revision_dir / "bancos_fidcs_detalhe.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
     acquiring_reclassified_mix = _read_optional(
         revision_dir / "adquirencia_mix_reclassificado.csv"
     )
@@ -817,6 +932,12 @@ def build_payload(
     )
     delinquency_single_receivable_summary = _read_optional(
         revision_dir / "inadimplencia_tipo_recebivel_unico_resumo.csv"
+    )
+    delinquency_frozen_cohort_history = _read_optional(
+        revision_dir / "inadimplencia_coorte_atual_historico.csv"
+    )
+    delinquency_frozen_cohort_summary = _read_optional(
+        revision_dir / "inadimplencia_coorte_atual_resumo.csv"
     )
     provider_transition_summary = _read_optional(
         revision_dir / "prestadores_transicoes_resumo.csv"
@@ -835,6 +956,21 @@ def build_payload(
     provider_transition_role_availability = _read_optional(
         revision_dir / "prestadores_transicoes_disponibilidade.csv"
     )
+    provider_history_cvm_coverage = _read_optional(
+        revision_dir / "prestadores_historico_cvm_cobertura.csv"
+    )
+    provider_history_cvm_links = _read_optional(
+        revision_dir / "prestadores_historico_cvm_transicoes_links.csv"
+    )
+    provider_history_cvm_detail = _read_optional(
+        revision_dir / "prestadores_historico_cvm_transicoes_detalhe.csv.gz",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    if not provider_history_cvm_detail.empty and "comparavel" in provider_history_cvm_detail:
+        comparable = provider_history_cvm_detail["comparavel"].astype(str).str.lower().isin(
+            {"true", "1", "sim"}
+        )
+        provider_history_cvm_detail = provider_history_cvm_detail.loc[comparable].copy()
     reag_admin_summary = _read_optional(
         revision_dir / "reag_cbsf_coorte_resumo.csv",
         cnpj_columns=("origin_admin_cnpj",),
@@ -867,6 +1003,9 @@ def build_payload(
             "custodiante_cnpj",
         ),
     )
+    btg_provider_ex_controlled_scenario = _read_optional(
+        revision_dir / "btg_prestadores_ex_controlados.csv"
+    )
     qi_legacy_attribution = _read_optional(
         revision_dir / "qi_atribuicao_cnpjs_legados.csv",
         cnpj_columns=("provider_cnpj",),
@@ -879,6 +1018,8 @@ def build_payload(
     )
 
     closed_offers = build_closed_offers_payload(data_dir)
+    offer_ticket_outputs = load_materialized_offer_ticket_outputs(data_dir)
+    closed_offer_ticket_distribution = offer_ticket_outputs.distribution.copy()
     closed_annual = closed_offers["annual"]["rows"]
     closed_monthly = closed_offers["monthly"]["rows"]
     closed_jan_may = closed_offers["jan_may_2024_2026"]["rows"]
@@ -956,7 +1097,7 @@ def build_payload(
     ]
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v4",
+        "schema_version": "fidc_revision_artifact_payload_v5",
         "latest_complete": latest,
         "offers_as_of": offers_as_of,
         "offers_source_as_of": offers_source_as_of,
@@ -990,6 +1131,12 @@ def build_payload(
         ),
         "delinquency_single_receivable_summary": _single_record(
             delinquency_single_receivable_summary
+        ),
+        "delinquency_frozen_cohort_history": _records(
+            delinquency_frozen_cohort_history
+        ),
+        "delinquency_frozen_cohort_summary": _records(
+            delinquency_frozen_cohort_summary
         ),
         "bridge_summary": _records(bridge_summary),
         "bridge_top_contributors": _records(bridge_detail.head(30)),
@@ -1031,6 +1178,22 @@ def build_payload(
                 ),
             )
         ) if not bank_fidc_evolution.empty else [],
+        "bank_fidc_detail": _records(
+            bank_fidc_detail.assign(
+                grupo_bancario=bank_fidc_detail.get("bank_group", pd.Series(dtype="object")).map(
+                    {
+                        "BB": "Banco do Brasil",
+                        "BTG": "BTG Pactual",
+                        "Bradesco": "Bradesco",
+                        "Itau": "Itaú",
+                        "Santander": "Santander",
+                    }
+                ),
+                nome_curto=bank_fidc_detail.get("denominacao", pd.Series(dtype="object")).map(
+                    _display_fund_name
+                ),
+            )
+        ) if not bank_fidc_detail.empty else [],
         "acquiring_reclassified_mix": _records(
             acquiring_reclassified_mix.assign(
                 categoria_analitica=acquiring_reclassified_mix.get("categoria_cvm").replace(
@@ -1073,12 +1236,16 @@ def build_payload(
         "top20_outros": _records(top20_outros_review),
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
+        "conclusion_metrics": _conclusion_metrics(vehicle, funds, latest),
         "monostructure_concentration": _records(mono_concentration),
         "closed_offers": closed_offers,
         "closed_offers_annual": closed_annual,
         "closed_offers_monthly": closed_monthly,
         "closed_offers_jan_may": closed_jan_may,
         "closed_offer_originators_2026": closed_originators,
+        "closed_offer_ticket_distribution": _records(
+            closed_offer_ticket_distribution
+        ),
         # Aliases mantidos apenas para leitores v2/v3; o renderer v4 usa os blocos acima.
         "offers_ytd": [
             {
@@ -1128,6 +1295,18 @@ def build_payload(
         output["provider_transition_role_availability"] = _records(
             provider_transition_role_availability
         )
+    if not provider_history_cvm_coverage.empty:
+        output["provider_history_cvm_coverage"] = _records(
+            provider_history_cvm_coverage
+        )
+    if not provider_history_cvm_links.empty:
+        output["provider_history_cvm_links"] = _records(
+            provider_history_cvm_links
+        )
+    if not provider_history_cvm_detail.empty:
+        output["provider_history_cvm_detail"] = _records(
+            provider_history_cvm_detail
+        )
     if not reag_admin_summary.empty:
         output["reag_admin_summary"] = _single_record(reag_admin_summary)
     if not reag_admin_links.empty:
@@ -1144,6 +1323,10 @@ def build_payload(
     if not btg_controlled_reconciliation.empty:
         output["btg_controlled_reconciliation"] = _records(
             btg_controlled_reconciliation
+        )
+    if not btg_provider_ex_controlled_scenario.empty:
+        output["btg_provider_ex_controlled_scenario"] = _records(
+            btg_provider_ex_controlled_scenario
         )
     if not qi_legacy_attribution.empty:
         output["qi_legacy_attribution"] = _records(qi_legacy_attribution)

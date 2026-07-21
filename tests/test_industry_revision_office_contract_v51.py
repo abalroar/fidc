@@ -1,4 +1,4 @@
-"""Acceptance contract for the 51-slide FIDC industry revision.
+"""Acceptance contract for the 55-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -22,14 +22,14 @@ ROOT = Path(__file__).resolve().parents[1]
 PPTX = ROOT / "outputs" / "Industria_FIDC_Executivo_202607_revisado.pptx"
 XLSX = ROOT / "outputs" / "Industria_FIDC_Dados_202607_revisado.xlsx"
 
-TARGET_SLIDES = 51
+TARGET_SLIDES = 55
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (12, 13, 14, 28, 29, 30)
+MARKET_SHARE_SLIDES = (13, 14, 15, 32, 33, 34)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -42,27 +42,31 @@ SLIDE_TOKENS = {
     8: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
     9: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
     10: ("INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA", "TIPO NA TABELA II"),
-    11: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
-    12: ("MARKET SHARE · ADMINISTRAÇÃO",),
-    13: ("MARKET SHARE · GESTÃO",),
-    14: ("MARKET SHARE · CUSTÓDIA",),
-    15: ("PRESTADORES · EVOLUÇÃO DO RANKING",),
-    16: ("PRESTADORES", "INDEPENDENTES"),
-    17: ("BANCOS", "FIDC"),
-    18: ("PRESTADORES · LIDERANÇA EXPLICADA",),
-    19: ("CBSF / REAG · DESTINO DOS FUNDOS",),
-    20: ("PRESTADORES · ROUBA-MONTE OBSERVADO",),
-    21: ("RANKING · TOP 20 FIDCs",),
-    22: ("RANKING · TOP 20 OUTROS",),
-    23: ("MODELO DE PRESTAÇÃO",),
-    24: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    25: ("OFERTAS",),
-    26: ("ORIGINADORES",),
-    27: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    28: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    29: ("GESTÃO POR SUBTIPO",),
-    30: ("CUSTÓDIA POR SUBTIPO",),
-    51: ("APÊNDICE · CASO ATLÂNTICO", "09.194.841/0001-51"),
+    11: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
+    12: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
+    13: ("MARKET SHARE · ADMINISTRAÇÃO",),
+    14: ("MARKET SHARE · GESTÃO",),
+    15: ("MARKET SHARE · CUSTÓDIA",),
+    16: ("PRESTADORES · EVOLUÇÃO DO RANKING",),
+    17: ("PRESTADORES", "INDEPENDENTES"),
+    18: ("BANCOS", "FIDC"),
+    19: ("PRESTADORES · LIDERANÇA EXPLICADA",),
+    20: ("CBSF / REAG · DESTINO DOS FUNDOS",),
+    21: ("PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",),
+    22: ("PRESTADORES · MIGRAÇÃO EM GESTÃO",),
+    23: ("PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",),
+    24: ("RANKING · TOP 20 FIDCs",),
+    25: ("RANKING · TOP 20 OUTROS",),
+    26: ("MODELO DE PRESTAÇÃO",),
+    27: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    28: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
+    29: ("ORIGINADORES",),
+    30: ("PRINCIPAIS CONCLUSÕES",),
+    31: ("ESCOPO, FONTES E LIMITAÇÕES",),
+    32: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    33: ("GESTÃO POR SUBTIPO",),
+    34: ("CUSTÓDIA POR SUBTIPO",),
+    55: ("APÊNDICE · CASO ATLÂNTICO", "09.194.841/0001-51"),
 }
 
 REQUIRED_WORKBOOK_SHEETS_V51 = {
@@ -82,10 +86,14 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Migração CBSF",
     "Checks revisão",
     "Inadimplência por recebível",
+    "Histórico inad. coorte",
     "Ranking independentes",
     "FIDCs por banco",
+    "Detalhe coorte bancos",
     "Ofertas encerradas",
+    "Histograma ofertas",
     "Originadores 2026",
+    "Principais conclusões",
 }
 
 
@@ -128,7 +136,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_51_slide_contract() -> None:
+def test_export_and_renderer_declare_55_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -136,15 +144,15 @@ def test_export_and_renderer_declare_51_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*51\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*55\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*51;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*55;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_51_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_55_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
@@ -162,7 +170,7 @@ def test_deck_has_51_slides_in_the_reviewed_narrative_order() -> None:
                     f"texto observado: {text[:240]!r}"
                 )
 
-        profiles = [_slide_text(archive, number) for number in range(31, 51)]
+        profiles = [_slide_text(archive, number) for number in range(35, 55)]
 
     assert len(profiles) == 20
     for rank, profile in enumerate(profiles, start=1):
@@ -190,8 +198,8 @@ def test_market_share_slides_remain_native_percent_stacked_charts(
 @pytest.mark.parametrize(
     ("slide_number", "charts", "tables"),
     [
-        (15, 3, 3),  # ranking histórico: Administração, Gestão e Custódia
-        (16, 3, 3),  # ranking dos prestadores independentes
+        (16, 3, 3),  # ranking histórico: Administração, Gestão e Custódia
+        (17, 3, 3),  # ranking dos prestadores independentes
     ],
 )
 def test_provider_rankings_use_three_native_table_chart_pairs(
@@ -207,9 +215,10 @@ def test_provider_rankings_use_three_native_table_chart_pairs(
     ("slide_number", "minimum_charts", "minimum_tables"),
     [
         (10, 1, 1),  # inadimplência por recebível único da Tabela II
-        (17, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (25, 2, 1),  # ofertas encerradas YTD e ano cheio
-        (26, 1, 1),  # originadores nomináveis e tickets de emissão
+        (11, 1, 1),  # histórico da coorte atual por subtipo
+        (18, 1, 1),  # evolução dos FIDCs dos cinco bancos
+        (28, 1, 1),  # histograma de ofertas encerradas
+        (29, 1, 1),  # originadores nomináveis e tickets de emissão
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -221,7 +230,7 @@ def test_new_analytical_slides_use_native_office_structures(
         assert _native_table_count(archive, slide_number) >= minimum_tables
 
 
-def test_workbook_exposes_the_v51_analysis_tabs() -> None:
+def test_workbook_exposes_the_v55_analysis_tabs() -> None:
     _require(XLSX)
     with ZipFile(XLSX) as archive:
         sheet_names = _sheet_names(archive)

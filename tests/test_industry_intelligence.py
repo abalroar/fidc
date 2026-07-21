@@ -183,7 +183,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 51
+    assert len(presentation.slides) == EXPECTED_SLIDES == 55
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -209,9 +209,13 @@ def test_industry_exports_are_valid_office_files() -> None:
         "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
         "PRESTADORES · LIDERANÇA EXPLICADA",
         "CBSF / REAG · DESTINO DOS FUNDOS",
-        "PRESTADORES · ROUBA-MONTE OBSERVADO",
-        "OFERTAS ENCERRADAS · VOLUME E TICKET",
+        "PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",
+        "PRESTADORES · MIGRAÇÃO EM GESTÃO",
+        "PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",
+        "INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",
+        "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
         "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
+        "PRINCIPAIS CONCLUSÕES",
             "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",
         "APÊNDICE · CURADORIA TOP 20",

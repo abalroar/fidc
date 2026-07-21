@@ -20,11 +20,13 @@ from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
+    TABLE_II_RECEIVABLE_COLUMNS,
     build_base_by_vehicle,
     build_btg_controlled_reconciliation,
     build_break_bridge,
     build_classification_coverage,
     build_delinquency_qa,
+    build_frozen_single_receivable_history,
     build_market_share_by_subtype,
     build_market_share_scope_summary,
     build_provider_historical_ranking,
@@ -622,7 +624,62 @@ def test_provider_historical_ranking_excludes_named_funds_in_all_periods() -> No
     ).map(lambda ranks: ranks == [1, 2]).all()
 
 
-def test_provider_transition_uses_fund_level_minimum_and_marks_overlay_roles_unavailable() -> None:
+def test_frozen_receivable_cohort_keeps_latest_membership_and_subtype() -> None:
+    fund_rows = []
+    for competence, values in {
+        "2025-12": [("10000000000001", 100.0, 80.0, 8.0), ("10000000000002", 50.0, 20.0, 25.0)],
+        "2026-05": [("10000000000001", 120.0, 90.0, 9.0), ("10000000000002", 60.0, 30.0, 3.0)],
+    }.items():
+        for cnpj, pl, portfolio, delinquency in values:
+            fund_rows.append(
+                {
+                    "competencia": competence,
+                    "cnpj_fundo": cnpj,
+                    "denominacao": f"FIDC {cnpj}",
+                    "pl": pl,
+                    "carteira_dc": portfolio,
+                    "dc_inadimplentes": delinquency,
+                    "dc_inadimplentes_ajustado_recalculado": min(portfolio, delinquency),
+                    "is_fic_fidc": False,
+                    "reports_carteira_dc": True,
+                    "reports_dc_inadimplentes": True,
+                }
+            )
+    vehicle = pd.DataFrame(
+        [
+            {"competencia": "2026-05", "cnpj_veiculo": "10000000000001", "cnpj_fundo": "10000000000001"},
+            {"competencia": "2026-05", "cnpj_veiculo": "10000000000002", "cnpj_fundo": "10000000000002"},
+        ]
+    )
+    raw_rows = []
+    for cnpj, column in [
+        ("10000000000001", "table_ii_financeiro_brl"),
+        ("10000000000002", "table_ii_comercial_brl"),
+    ]:
+        row = {"competencia": "2026-05", "cnpj": cnpj}
+        row.update({name: 0.0 for name in TABLE_II_RECEIVABLE_COLUMNS})
+        row[column] = 100.0
+        raw_rows.append(row)
+
+    members, history, summary = build_frozen_single_receivable_history(
+        vehicle,
+        pd.DataFrame(fund_rows),
+        pd.DataFrame(raw_rows),
+    )
+
+    assert len(members) == 2
+    assert set(members["tipo_recebivel_tabela_ii"]) == {"Financeiro", "Comercial"}
+    prior = history[history["competencia"].eq("2025-12")].set_index("tipo_recebivel_tabela_ii")
+    assert prior.loc["Financeiro", "fundos_incluidos"] == 1
+    assert prior.loc["Comercial", "fundos_incluidos"] == 0
+    assert prior.loc["Comercial", "fundos_inad_supera_carteira_excluidos"] == 1
+    latest = summary[summary["competencia"].eq("2026-05")].iloc[0]
+    assert latest["fundos_coorte"] == 2
+    assert latest["fundos_incluidos"] == 2
+    assert "coorte e subtipo congelados" in latest["regra"]
+
+
+def test_provider_transition_uses_current_pl_and_marks_overlay_roles_as_samples() -> None:
     def row(
         competence: str,
         cnpj: str,
@@ -644,19 +701,19 @@ def test_provider_transition_uses_fund_level_minimum_and_marks_overlay_roles_una
 
     rows = [
         row("2024-12", "10000000000001", 100, "OLIVEIRA TRUST", "36113876000191"),
-        row("2025-12", "10000000000001", 20, "BRADESCO", "60746948000112"),
+        row("2026-05", "10000000000001", 20, "BRADESCO", "60746948000112"),
         row("2024-12", "10000000000002", 20, "OLIVEIRA TRUST", "36113876000191"),
-        row("2025-12", "10000000000002", 100, "BRADESCO", "60746948000112"),
+        row("2026-05", "10000000000002", 100, "BRADESCO", "60746948000112"),
         row("2024-12", "10000000000003", 40, "QI TECH", "62285390000140"),
-        row("2025-12", "10000000000003", 60, "QI TECH", "62285390000140"),
+        row("2026-05", "10000000000003", 60, "QI TECH", "62285390000140"),
         row("2024-12", "10000000000004", 50, "QI TECH", "62285390000140"),
-        row("2025-12", "10000000000005", 50, "QI TECH", "62285390000140"),
+        row("2026-05", "10000000000005", 50, "QI TECH", "62285390000140"),
         row("2024-12", "10000000000006", 10, "QI TECH", "62285390000140"),
-        row("2025-12", "10000000000006", 0, "BRADESCO", "60746948000112"),
+        row("2026-05", "10000000000006", 0, "BRADESCO", "60746948000112"),
         row("2024-12", "10000000000007", 90, "QI TECH", "62285390000140", is_fic=True),
-        row("2025-12", "10000000000007", 90, "BRADESCO", "60746948000112", is_fic=True),
+        row("2026-05", "10000000000007", 90, "BRADESCO", "60746948000112", is_fic=True),
         row("2024-12", "09195235000150", 1_000, "BANCO DO BRASIL", "00000000000191"),
-        row("2025-12", "09195235000150", 1_000, "BRADESCO", "60746948000112"),
+        row("2026-05", "09195235000150", 1_000, "BRADESCO", "60746948000112"),
     ]
 
     summary, links, detail, availability = build_provider_transition_flows(
@@ -664,15 +721,15 @@ def test_provider_transition_uses_fund_level_minimum_and_marks_overlay_roles_una
     )
 
     assert summary.iloc[0]["continuing_funds"] == 3
-    assert summary.iloc[0]["comparable_pl_brl"] == 80
+    assert summary.iloc[0]["comparable_pl_brl"] == 180
     assert summary.iloc[0]["changed_funds"] == 2
-    assert summary.iloc[0]["changed_comparable_pl_brl"] == 40
-    assert summary.iloc[0]["changed_share"] == 0.5
+    assert summary.iloc[0]["changed_comparable_pl_brl"] == 120
+    assert summary.iloc[0]["changed_share"] == pytest.approx(2 / 3)
     assert len(links) == 1
     assert links.iloc[0]["fundos"] == 2
     assert links.iloc[0]["pl_origem_brl"] == 120
     assert links.iloc[0]["pl_destino_brl"] == 120
-    assert links.iloc[0]["pl_comparavel_brl"] == 40
+    assert links.iloc[0]["pl_comparavel_brl"] == 120
     assert detail["fundosnet_url"].str.contains("cnpjFundo=").all()
     role_status = availability.set_index("papel")
     assert bool(role_status.loc["administrador", "serie_historica_observada"])

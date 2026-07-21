@@ -1,4 +1,4 @@
 papel,transition_status,serie_historica_observada,fonte_prestador,limitation
 administrador,disponível,True,Informe Mensal da competência,
-gestor,indisponível,False,cadastro CVM vigente aplicado à competência,cadastro CVM vigente aplicado retroativamente; não há série histórica like-for-like e mudanças não podem ser observadas
-custodiante,indisponível,False,cadastro CVM vigente aplicado à competência,cadastro CVM vigente aplicado retroativamente; não há série histórica like-for-like e mudanças não podem ser observadas
+gestor,indisponível,False,"CVM, cad_fi_hist (amostra ICVM 555)","cad_fi_hist é histórico ICVM 555 e cobre menos de 8% do PL da coorte; a amostra observada é publicada em bloco separado, sem extrapolação"
+custodiante,indisponível,False,"CVM, cad_fi_hist (amostra ICVM 555)","cad_fi_hist é histórico ICVM 555 e cobre menos de 8% do PL da coorte; a amostra observada é publicada em bloco separado, sem extrapolação"

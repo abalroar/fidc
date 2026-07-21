@@ -17,7 +17,9 @@ import os
 from pathlib import Path
 import shutil
 from typing import Callable, Iterable
+import unicodedata
 import zipfile
+from xml.etree import ElementTree
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,8 +30,8 @@ MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v4"
-EXPECTED_SLIDES = 51
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v5"
+EXPECTED_SLIDES = 55
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -43,8 +45,10 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Comparativos históricos",
     "Ranking prestadores",
     "Inadimplência por recebível",
+    "Histórico inad. coorte",
     "Ranking independentes",
     "FIDCs por banco",
+    "Detalhe coorte bancos",
     "Atribuição prestadores",
     "Fluxos prestadores",
     "Fluxos visuais",
@@ -52,7 +56,9 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Taxonomia adquirência",
     "Adquirência reclass.",
     "Ofertas encerradas",
+    "Histograma ofertas",
     "Originadores 2026",
+    "Principais conclusões",
     "Curadoria Atlântico",
     "Série Atlântico",
 }
@@ -131,6 +137,59 @@ def _chart_members(archive: zipfile.ZipFile) -> list[str]:
     ]
 
 
+def _normalized_slide_text(payload: bytes) -> str:
+    """Return accent-insensitive visible text from one slide XML part."""
+
+    try:
+        root = ElementTree.fromstring(payload)
+    except ElementTree.ParseError:
+        return ""
+    visible = " ".join(
+        node.text or ""
+        for node in root.iter()
+        if node.tag.endswith("}t")
+    )
+    normalized = unicodedata.normalize("NFKD", visible.casefold())
+    return " ".join(
+        "".join(
+            character
+            for character in normalized
+            if not unicodedata.combining(character)
+        ).split()
+    )
+
+
+def _slide_xml_containing(
+    archive: zipfile.ZipFile,
+    *tokens: str,
+) -> bytes:
+    expected = [
+        "".join(
+            character
+            for character in unicodedata.normalize("NFKD", token.casefold())
+            if not unicodedata.combining(character)
+        )
+        for token in tokens
+    ]
+    for name in sorted(
+        (
+            item
+            for item in archive.namelist()
+            if item.startswith("ppt/slides/slide")
+            and item.endswith(".xml")
+            and "/_rels/" not in item
+        ),
+        key=lambda item: int(Path(item).stem.removeprefix("slide")),
+    ):
+        payload = archive.read(name)
+        visible = _normalized_slide_text(payload)
+        if all(token in visible for token in expected):
+            return payload
+    raise RevisionExportUnavailable(
+        "PPTX revisado sem slide esperado: " + " / ".join(tokens)
+    )
+
+
 def validate_revision_pptx(payload: bytes) -> None:
     """Validate the visual contract directly in the exported OOXML."""
 
@@ -167,7 +226,9 @@ def validate_revision_pptx(payload: bytes) -> None:
             marker = token.split(b"</c:marker>", 1)[0]
             if b'<c:symbol val="none"' not in marker:
                 raise RevisionExportUnavailable("PPTX revisado contém marker ativo")
-        ranking_slide = archive.read("ppt/slides/slide15.xml")
+        ranking_slide = _slide_xml_containing(
+            archive, "PRESTADORES", "EVOLUÇÃO DO RANKING"
+        )
         if ranking_slide.count(b"<a:tbl>") != 3:
             raise RevisionExportUnavailable(
                 "slide de ranking histórico deve conter três tabelas nativas do Office"
@@ -176,7 +237,9 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de ranking histórico deve conter três gráficos nativos do Office"
             )
-        independent_slide = archive.read("ppt/slides/slide16.xml")
+        independent_slide = _slide_xml_containing(
+            archive, "PRESTADORES INDEPENDENTES", "EVOLUÇÃO"
+        )
         if independent_slide.count(b"<a:tbl>") != 3:
             raise RevisionExportUnavailable(
                 "slide de independentes deve conter três tabelas nativas do Office"
@@ -185,26 +248,44 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de independentes deve conter três gráficos nativos do Office"
             )
-        delinquency_slide = archive.read("ppt/slides/slide10.xml")
+        delinquency_slide = _slide_xml_containing(
+            archive, "INADIMPLÊNCIA", "EVOLUÇÃO E QUEBRA"
+        )
         if delinquency_slide.count(b"<a:tbl>") < 1 or delinquency_slide.count(b"<c:chart") < 1:
             raise RevisionExportUnavailable(
                 "slide de inadimplência por recebível deve conter tabela e gráfico nativos do Office"
             )
-        bank_slide = archive.read("ppt/slides/slide17.xml")
+        frozen_delinquency_slide = _slide_xml_containing(
+            archive, "INADIMPLÊNCIA", "COORTE ATUAL POR RECEBÍVEL"
+        )
+        if frozen_delinquency_slide.count(b"<c:chart") < 1:
+            raise RevisionExportUnavailable(
+                "slide da coorte atual de inadimplência deve conter gráfico nativo do Office"
+            )
+        bank_slide = _slide_xml_containing(
+            archive, "FIDCs DOS CINCO BANCOS", "COORTE ATUAL"
+        )
         if bank_slide.count(b"<a:tbl>") < 1 or bank_slide.count(b"<c:chart") < 1:
             raise RevisionExportUnavailable(
                 "slide da coorte bancária deve conter tabela e gráfico nativos do Office"
             )
-        offers_slide = archive.read("ppt/slides/slide25.xml")
-        if offers_slide.count(b"<a:tbl>") < 1 or offers_slide.count(b"<c:chart") < 2:
+        offers_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "DISTRIBUIÇÃO DO TICKET"
+        )
+        if offers_slide.count(b"<a:tbl>") < 1 or offers_slide.count(b"<c:chart") < 1:
             raise RevisionExportUnavailable(
-                "slide de ofertas deve conter tabela e dois gráficos nativos do Office"
+                "slide de ofertas deve conter tabela e gráfico nativos do Office"
             )
-        originators_slide = archive.read("ppt/slides/slide26.xml")
+        originators_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "ORIGINADORES NOMINÁVEIS"
+        )
         if originators_slide.count(b"<a:tbl>") < 1 or originators_slide.count(b"<c:chart") < 1:
             raise RevisionExportUnavailable(
                 "slide de originadores deve conter tabela e gráfico nativos do Office"
             )
+        _slide_xml_containing(archive, "PRESTADORES", "MIGRAÇÃO EM GESTÃO")
+        _slide_xml_containing(archive, "PRESTADORES", "MIGRAÇÃO EM CUSTÓDIA")
+        _slide_xml_containing(archive, "PRINCIPAIS CONCLUSÕES")
 
 
 def validate_revision_xlsx(payload: bytes) -> None:
@@ -238,6 +319,9 @@ def validate_revision_html(payload: bytes) -> None:
         "data-chart",
         "<script",
         "Dez/24",
+        "Administração",
+        "Gestão",
+        "Custódia",
         "CBSF / REAG",
     )
     missing = [

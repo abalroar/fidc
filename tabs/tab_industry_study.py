@@ -9045,6 +9045,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "fidc_revision_artifact_payload_v2": 2,
         "fidc_revision_artifact_payload_v3": 3,
         "fidc_revision_artifact_payload_v4": 4,
+        "fidc_revision_artifact_payload_v5": 5,
     }
     if schema not in schema_rank:
         label = schema or "ausente"
@@ -9054,11 +9055,17 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         manifest_schema = str(manifest.get("payload_schema") or "")
-        if manifest_schema and manifest_schema != schema:
-            raise ValueError("schema do payload diverge do bundle publicado")
-        expected_hash = str(manifest.get("payload_sha256") or "")
-        if expected_hash and expected_hash != hashlib.sha256(payload_raw).hexdigest():
-            raise ValueError("payload revisado diverge do hash do bundle publicado")
+        if manifest_schema == schema:
+            expected_hash = str(manifest.get("payload_sha256") or "")
+            if expected_hash and expected_hash != hashlib.sha256(payload_raw).hexdigest():
+                raise ValueError("payload revisado diverge do hash do bundle publicado")
+        elif manifest_schema:
+            manifest_rank = schema_rank.get(manifest_schema)
+            if manifest_rank is None or manifest_rank >= schema_rank[schema]:
+                raise ValueError("schema do payload diverge do bundle publicado")
+            # During an atomic release, the analytical payload can arrive before
+            # the heavier Office bundle.  The page uses the newer validated
+            # payload while the export status keeps the stale bundle blocked.
 
     # Deploys can briefly expose the previous, internally consistent bundle
     # while code and large analytical artifacts are synchronized.  Keep v2
@@ -9120,6 +9127,20 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "closed_offers_monthly",
                 "closed_offers_jan_may",
                 "closed_offer_originators_2026",
+            }
+        )
+    if schema_rank[schema] >= 5:
+        required.update(
+            {
+                "delinquency_frozen_cohort_history",
+                "delinquency_frozen_cohort_summary",
+                "bank_fidc_detail",
+                "btg_provider_ex_controlled_scenario",
+                "closed_offer_ticket_distribution",
+                "provider_history_cvm_coverage",
+                "provider_history_cvm_links",
+                "provider_history_cvm_detail",
+                "conclusion_metrics",
             }
         )
     missing = sorted(required.difference(payload))
@@ -9276,6 +9297,79 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 },
             }
         )
+    if schema_rank[schema] >= 5:
+        required_columns.update(
+            {
+                "delinquency_frozen_cohort_history": {
+                    "competencia",
+                    "tipo_recebivel_tabela_ii",
+                    "fundos_incluidos",
+                    "pl_incluido_brl",
+                    "inadimplencia_sobre_carteira",
+                    "fundos_coorte",
+                    "pl_coorte_referencia_brl",
+                },
+                "delinquency_frozen_cohort_summary": {
+                    "competencia",
+                    "fundos_incluidos",
+                    "pl_incluido_brl",
+                    "inadimplencia_sobre_carteira",
+                    "fundos_coorte",
+                    "pl_coorte_referencia_brl",
+                },
+                "bank_fidc_detail": {
+                    "competencia",
+                    "grupo_bancario",
+                    "cnpj_fundo",
+                    "denominacao",
+                    "pl_brl",
+                    "observado",
+                },
+                "btg_provider_ex_controlled_scenario": {
+                    "competencia",
+                    "papel",
+                    "btg_pl_brl",
+                    "btg_rank",
+                    "fidcs_controlados_excluidos",
+                    "pl_controlado_excluido_brl",
+                    "btg_pl_ex_controlados_brl",
+                    "btg_rank_ex_controlados",
+                },
+                "closed_offer_ticket_distribution": {
+                    "period_label",
+                    "ticket_bucket",
+                    "closed_offers",
+                    "offer_share",
+                    "registered_volume_brl",
+                    "registered_volume_share",
+                    "period_mean_ticket_brl",
+                    "period_median_ticket_brl",
+                },
+                "provider_history_cvm_coverage": {
+                    "papel",
+                    "data_referencia",
+                    "fundos_coorte",
+                    "pl_coorte_mai26_brl",
+                    "fundos_resolvidos_unicos",
+                    "cobertura_pl_resolvida",
+                },
+                "provider_history_cvm_links": {
+                    "papel",
+                    "origem_prestador_grupo",
+                    "destino_prestador_grupo",
+                    "fundos",
+                    "pl_mai26_brl",
+                },
+                "provider_history_cvm_detail": {
+                    "papel",
+                    "cnpj_fundo",
+                    "denominacao",
+                    "pl_mai26_brl",
+                    "origem_prestador_grupo",
+                    "destino_prestador_grupo",
+                },
+            }
+        )
     for key, columns in required_columns.items():
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
@@ -9314,6 +9408,10 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "delinquency_single_receivable_summary sem campos obrigatórios: "
                 + ", ".join(missing_summary)
             )
+    if schema_rank[schema] >= 5 and not isinstance(
+        payload.get("conclusion_metrics"), dict
+    ):
+        raise ValueError("conclusion_metrics inválido")
     return payload
 
 
@@ -11200,6 +11298,95 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
             "O numerador é a inadimplência reportada e o denominador é o PL total dos fundos incluídos."
         )
 
+    frozen = _revision_frame(payload, "delinquency_frozen_cohort_history")
+    frozen_summary = _revision_frame(payload, "delinquency_frozen_cohort_summary")
+    if not frozen.empty and not frozen_summary.empty:
+        st.markdown(
+            "<h2>Histórico por tipo na coorte classificada em mai/26</h2>",
+            unsafe_allow_html=True,
+        )
+        frozen["percentual"] = pd.to_numeric(
+            frozen["inadimplencia_sobre_carteira"], errors="coerce"
+        )
+        frozen["Série"] = frozen["tipo_recebivel_tabela_ii"].astype(str)
+        frozen = frozen[frozen["percentual"].notna()].copy()
+        qa_adjusted = _revision_frame(payload, "qa_series")
+        if not qa_adjusted.empty:
+            qa_adjusted = qa_adjusted[
+                ["competencia", "inadimplencia_ajustada_pct"]
+            ].rename(columns={"inadimplencia_ajustada_pct": "percentual"})
+            qa_adjusted["Série"] = "Consolidado ajustado"
+            historical = pd.concat(
+                [frozen[["competencia", "percentual", "Série"]], qa_adjusted],
+                ignore_index=True,
+            )
+        else:
+            historical = frozen[["competencia", "percentual", "Série"]]
+        subtype_order = (
+            frozen[frozen["competencia"].eq(str(payload.get("latest_complete") or ""))]
+            .sort_values("pl_incluido_brl", ascending=False)["Série"]
+            .drop_duplicates()
+            .tolist()
+        )
+        series_order = ["Consolidado ajustado", *subtype_order]
+        gray_scale = [
+            "#151515",
+            "#30353A",
+            "#50555A",
+            "#686D72",
+            "#73787D",
+            "#858A8F",
+            "#979CA1",
+            "#A9AEB3",
+            "#BBC0C5",
+            "#CDD1D5",
+        ]
+        color_range = [_ORANGE, *gray_scale[: len(subtype_order)]]
+        selection = alt.selection_point(fields=["Série"], bind="legend")
+        chart = (
+            alt.Chart(historical)
+            .mark_line(strokeWidth=2.0)
+            .encode(
+                x=alt.X(
+                    "competencia:T",
+                    title=None,
+                    axis=alt.Axis(format="%b/%y", grid=False),
+                ),
+                y=alt.Y(
+                    "percentual:Q",
+                    title="inadimplência / carteira",
+                    axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                ),
+                color=alt.Color(
+                    "Série:N",
+                    scale=alt.Scale(domain=series_order, range=color_range),
+                    legend=alt.Legend(title=None, orient="bottom", columns=4),
+                ),
+                opacity=alt.condition(selection, alt.value(1.0), alt.value(0.18)),
+                tooltip=[
+                    "competencia:N",
+                    "Série:N",
+                    alt.Tooltip("percentual:Q", format=".2%"),
+                ],
+            )
+            .add_params(selection)
+            .properties(height=430)
+        )
+        st.altair_chart(
+            chart,
+            width="stretch",
+            key="industry-revision-delinquency-frozen-cohort-history",
+        )
+        latest_frozen = frozen_summary.sort_values("competencia").iloc[-1]
+        st.caption(
+            f"Coorte fixa pela classificação de mai/26: "
+            f"{_fmt_int(latest_frozen.get('fundos_coorte', 0))} fundos e "
+            f"{_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)} de PL de referência. "
+            "Cada fundo mantém retrospectivamente o tipo observado em mai/26; fundos com mais de um tipo, "
+            "campo ausente ou inadimplência acima da carteira ficam fora do respectivo mês. "
+            "A leitura incorpora viés de sobrevivência e não representa a composição histórica completa."
+        )
+
     series = _revision_frame(payload, "qa_series")
     if not series.empty:
         st.caption(
@@ -11265,6 +11452,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
     adjusted_universe = payload.get("schema_version") in {
         "fidc_revision_artifact_payload_v3",
         "fidc_revision_artifact_payload_v4",
+        "fidc_revision_artifact_payload_v5",
     }
     concentration = _revision_history_frame(
         payload,
@@ -11373,6 +11561,47 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             "Administração é observada; gestão e custódia de dez/24 e dez/25 são reconstruídas com o cadastro vigente."
         )
 
+        btg_scenario = _revision_frame(
+            payload, "btg_provider_ex_controlled_scenario"
+        )
+        if not btg_scenario.empty:
+            scenario = btg_scenario.copy()
+            scenario["Atividade"] = scenario["papel"].map(role_labels)
+            scenario["BTG observado"] = scenario.apply(
+                lambda row: (
+                    f"#{int(row['btg_rank'])} · "
+                    f"{float(row['btg_pl_brl']) / 1e9:,.1f}"
+                ),
+                axis=1,
+            )
+            scenario["BTG ex-controlados"] = scenario.apply(
+                lambda row: (
+                    f"#{int(row['btg_rank_ex_controlados'])} · "
+                    f"{float(row['btg_pl_ex_controlados_brl']) / 1e9:,.1f}"
+                ),
+                axis=1,
+            )
+            scenario["PL retirado"] = scenario[
+                "pl_controlado_excluido_brl"
+            ].map(lambda value: _fmt_bi(float(value), 1))
+            st.markdown("**BTG sem os seis FIDCs controlados nas DFs**")
+            st.dataframe(
+                scenario[
+                    [
+                        "Atividade",
+                        "BTG observado",
+                        "BTG ex-controlados",
+                        "PL retirado",
+                    ]
+                ],
+                hide_index=True,
+                width="stretch",
+            )
+            st.caption(
+                "Posição · PL em R$ bi. A exclusão usa somente os seis FIDCs confirmados nas demonstrações financeiras; "
+                "nomes adicionais da planilha de conglomerado permanecem no universo quando o vínculo de controle não foi comprovado."
+            )
+
     independent = _revision_frame(payload, "provider_independent_ranking")
     if not independent.empty:
         st.markdown("<h2>Prestadores independentes</h2>", unsafe_allow_html=True)
@@ -11469,9 +11698,68 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         st.altair_chart(chart, width="stretch", key="industry-revision-bank-fidc-history")
         pivot = groups.pivot(index="grupo_bancario", columns="Período", values="PL (R$ bi)").reindex(bank_order)
         st.dataframe(pivot.style.format("{:,.1f}", na_rep="—"), width="stretch")
+        bank_detail = _revision_frame(payload, "bank_fidc_detail")
+        if not bank_detail.empty:
+            latest_detail = bank_detail[
+                bank_detail["competencia"].eq(str(payload.get("latest_complete") or ""))
+                & bank_detail["grupo_bancario"].eq("BTG Pactual")
+                & bank_detail["observado"].fillna(False).astype(bool)
+            ].copy()
+            latest_detail["PL (R$ mm)"] = (
+                pd.to_numeric(latest_detail["pl_brl"], errors="coerce") / 1e6
+            )
+            latest_detail = latest_detail.sort_values(
+                "PL (R$ mm)", ascending=False
+            ).head(5)
+            if not latest_detail.empty:
+                latest_detail["Banco"] = "BTG Pactual"
+                btg_table = latest_detail[
+                    ["Banco", "denominacao", "PL (R$ mm)"]
+                ].rename(columns={"denominacao": "FIDC"})
+                st.markdown("**BTG Pactual · cinco maiores FIDCs em mai/26**")
+                st.dataframe(
+                    btg_table.style.format({"PL (R$ mm)": "{:,.0f}"}),
+                    hide_index=True,
+                    width="stretch",
+                )
+
+            btg_detail = bank_detail[
+                bank_detail["grupo_bancario"].eq("BTG Pactual")
+                & bank_detail["competencia"].isin(["2024-12", "2025-12"])
+            ].copy()
+            if not btg_detail.empty:
+                btg_detail["pl_brl"] = pd.to_numeric(
+                    btg_detail["pl_brl"], errors="coerce"
+                ).fillna(0.0)
+                changes = (
+                    btg_detail.pivot_table(
+                        index=["cnpj_fundo", "denominacao"],
+                        columns="competencia",
+                        values="pl_brl",
+                        aggfunc="sum",
+                        fill_value=0.0,
+                    )
+                    .reset_index()
+                )
+                for period in ("2024-12", "2025-12"):
+                    if period not in changes:
+                        changes[period] = 0.0
+                changes["delta"] = changes["2025-12"] - changes["2024-12"]
+                largest_drop = changes.sort_values("delta").iloc[0]
+                if float(largest_drop["delta"]) < 0:
+                    st.info(
+                        f"A maior queda individual observada no BTG entre dez/24 e dez/25 é "
+                        f"{largest_drop['denominacao']}: "
+                        f"{_fmt_bi(float(largest_drop['2024-12']), 2)} para "
+                        f"{_fmt_bi(float(largest_drop['2025-12']), 2)}. "
+                        "O fundo reaparece em 2026 sob registro por classe; a série trata o movimento como quebra de reporte, "
+                        "sem inferir liquidação econômica."
+                    )
         st.caption(
-            "Coorte fixa das raízes de CNPJ listadas em FIDCs.xlsx. A série acompanha o histórico do conjunto atual; "
-            "ausência de reporte permanece vazia e datas societárias de consolidação contábil não são inferidas."
+            "Coorte fixa dos FIDCs listados nos conglomerados prudenciais dos cinco bancos no site do BCB, consulta em jul/26. "
+            "A leitura retroativa acompanha somente os CNPJs presentes nessa fotografia atual. Fundos que integravam o conglomerado "
+            "em datas passadas e foram depois liquidados, descontinuados ou retirados da consolidação não podem ser recuperados por essa fonte. "
+            "Ausência de reporte permanece vazia; datas societárias não são inferidas."
         )
 
     from services.industry_revision_export import get_revision_export_status
@@ -11686,6 +11974,94 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         ]
         st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
+    ticket_distribution = _revision_frame(
+        payload, "closed_offer_ticket_distribution"
+    )
+    if not ticket_distribution.empty:
+        ticket_distribution["% das ofertas"] = pd.to_numeric(
+            ticket_distribution["offer_share"], errors="coerce"
+        )
+        ticket_distribution["Volume (R$ bi)"] = (
+            pd.to_numeric(
+                ticket_distribution["registered_volume_brl"], errors="coerce"
+            )
+            / 1e9
+        )
+        ticket_distribution["% do volume"] = pd.to_numeric(
+            ticket_distribution["registered_volume_share"], errors="coerce"
+        )
+        ticket_distribution["Ticket médio (R$ mi)"] = (
+            pd.to_numeric(
+                ticket_distribution["period_mean_ticket_brl"], errors="coerce"
+            )
+            / 1e6
+        )
+        ticket_distribution["Ticket mediano (R$ mi)"] = (
+            pd.to_numeric(
+                ticket_distribution["period_median_ticket_brl"], errors="coerce"
+            )
+            / 1e6
+        )
+        bucket_order = (
+            ticket_distribution.sort_values("bucket_order")["ticket_bucket"]
+            .drop_duplicates()
+            .tolist()
+        )
+        period_order = (
+            ticket_distribution.sort_values("period_order")["period_label"]
+            .drop_duplicates()
+            .tolist()
+        )
+        chart = (
+            alt.Chart(ticket_distribution)
+            .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+            .encode(
+                x=alt.X(
+                    "ticket_bucket:N",
+                    title="valor total registrado por oferta",
+                    sort=bucket_order,
+                    axis=alt.Axis(labelAngle=0),
+                ),
+                xOffset=alt.XOffset("period_label:N", sort=period_order),
+                y=alt.Y(
+                    "% das ofertas:Q",
+                    title="% das ofertas encerradas",
+                    axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                ),
+                color=alt.Color(
+                    "period_label:N",
+                    title=None,
+                    sort=period_order,
+                    scale=alt.Scale(
+                        domain=period_order,
+                        range=[_GRAY, _BLACK, _ORANGE],
+                    ),
+                    legend=alt.Legend(orient="bottom"),
+                ),
+                tooltip=[
+                    alt.Tooltip("period_label:N", title="Período"),
+                    alt.Tooltip("ticket_bucket:N", title="Faixa"),
+                    alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
+                    alt.Tooltip("% das ofertas:Q", format=".1%"),
+                    alt.Tooltip("Volume (R$ bi):Q", format=",.2f"),
+                    alt.Tooltip("% do volume:Q", format=".1%"),
+                    alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
+                    alt.Tooltip("Ticket mediano (R$ mi):Q", format=",.1f"),
+                ],
+            )
+            .properties(height=390, title="Distribuição do valor das emissões")
+        )
+        st.altair_chart(
+            chart,
+            width="stretch",
+            key="industry-revision-closed-offer-ticket-histogram",
+        )
+        st.caption(
+            "Períodos: ano cheio de 2024, ano cheio de 2025 e jan–mai/26. As faixas foram definidas sobre o "
+            "Valor Total Registrado e cada série soma 100% das ofertas do respectivo período. "
+            "A cauda de ofertas grandes deve ser lida em conjunto com a mediana."
+        )
+
     if not jan_may.empty and not monthly.empty:
         jan_may["Período"] = jan_may["year"].astype(int).astype(str) + " jan–mai"
         jan_may["Volume (R$ bi)"] = pd.to_numeric(jan_may["registered_volume_brl"], errors="coerce") / 1e9
@@ -11863,22 +12239,27 @@ def _render_revision_data_exports(
     with st.expander("Bases revisadas para download", expanded=False):
         files = {
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
+            "Histórico de inadimplência da coorte atual": "inadimplencia_coorte_atual_historico.csv",
             "Top 20 FIDCs": "top20_fidcs.csv",
             "Top 20 Outros": "top20_outros.csv",
             "Market share por subtipo": "market_share_por_subtipo.csv",
             "Concentração de monoestruturas": "monoestrutura_concentracao.csv",
+            "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",
+            "BTG sem FIDCs controlados": "btg_prestadores_ex_controlados.csv",
+            "Histórico CVM de prestadores": "prestadores_historico_cvm_transicoes_links.csv",
+            "Histograma das ofertas": "../industry_closed_offer_ticket_distribution.csv",
             "Manifest analítico": "revision_manifest.json",
             "Manifest do bundle": "industry_export_bundle.json",
         }
         for label, filename in files.items():
-            path = _DATA_DIR / "generated_revision" / filename
+            path = (_DATA_DIR / "generated_revision" / filename).resolve()
             if path.exists():
                 st.download_button(
                     label,
                     path.read_bytes(),
-                    file_name=filename,
-                    mime="application/json" if filename.endswith(".json") else "text/csv",
-                    key=f"industry-revision-download-{filename}",
+                    file_name=path.name,
+                    mime="application/json" if path.suffix == ".json" else "text/csv",
+                    key=f"industry-revision-download-{path.name}",
                     width="stretch",
                 )
 

@@ -62,6 +62,18 @@ BANK_COHORT_HISTORY_COLUMNS: Final[tuple[str, ...]] = (
     "publication_status",
 )
 
+BANK_COHORT_DETAIL_COLUMNS: Final[tuple[str, ...]] = (
+    "competencia",
+    "bank_group",
+    "cnpj_root8",
+    "cnpj_fundo",
+    "denominacao",
+    "pl_brl",
+    "observado",
+    "pl_reportado_zero",
+    "source_reference",
+)
+
 ACQUIRING_RECLASSIFIED_MIX_COLUMNS: Final[tuple[str, ...]] = (
     "competencia",
     "categoria_cvm",
@@ -640,6 +652,77 @@ def build_fixed_bank_fidc_cohort_history(
     return output.loc[:, BANK_COHORT_HISTORY_COLUMNS]
 
 
+def build_fixed_bank_fidc_cohort_detail(
+    fund_base: pd.DataFrame,
+    bank_fidc_curation: pd.DataFrame,
+    *,
+    periods: Iterable[str],
+) -> pd.DataFrame:
+    """Return the fund-level audit trail behind the fixed five-bank cohort."""
+
+    _require_columns(
+        fund_base,
+        {"competencia", "cnpj_fundo", "denominacao", "pl"},
+        label="fund_base",
+    )
+    _require_columns(
+        bank_fidc_curation,
+        {"bank_group", "cnpj_root8", "source_reference"},
+        label="bank_fidc_curation",
+    )
+    curation = bank_fidc_curation.copy()
+    curation["bank_group"] = curation["bank_group"].map(_clean)
+    curation["cnpj_root8"] = curation["cnpj_root8"].map(_cnpj_root8)
+    curation["source_reference"] = curation["source_reference"].map(_clean)
+    if curation[["bank_group", "cnpj_root8"]].eq("").any().any():
+        raise ValueError("bank_fidc_curation contém grupo ou raiz de CNPJ inválida")
+    curation = curation.drop_duplicates(["bank_group", "cnpj_root8"])
+
+    funds = fund_base.copy()
+    funds["competencia"] = funds["competencia"].map(_clean).str[:7]
+    funds["cnpj_fundo"] = funds["cnpj_fundo"].map(_cnpj14)
+    funds["cnpj_root8"] = funds["cnpj_fundo"].str[:8]
+    funds["pl_brl"] = _numeric_series(funds["pl"], label="fund_base.pl")
+    funds["denominacao"] = funds["denominacao"].map(_clean)
+    duplicated = funds.duplicated(["competencia", "cnpj_fundo"], keep=False)
+    if duplicated.any():
+        raise ValueError("fund_base duplicada por competência/CNPJ")
+
+    rows: list[dict[str, object]] = []
+    for period_value in periods:
+        period = _clean(period_value)[:7]
+        scoped = funds[funds["competencia"].eq(period)].copy()
+        if scoped.empty:
+            raise ValueError(f"competência ausente no fund_base: {period}")
+        by_root = scoped.sort_values(
+            ["pl_brl", "cnpj_fundo"], ascending=[False, True]
+        ).drop_duplicates("cnpj_root8")
+        by_root = by_root.set_index("cnpj_root8")
+        for item in curation.itertuples(index=False):
+            observed = item.cnpj_root8 in by_root.index
+            fund = by_root.loc[item.cnpj_root8] if observed else None
+            pl_value = float(fund["pl_brl"]) if observed else float("nan")
+            rows.append(
+                {
+                    "competencia": period,
+                    "bank_group": item.bank_group,
+                    "cnpj_root8": item.cnpj_root8,
+                    "cnpj_fundo": str(fund["cnpj_fundo"]) if observed else "",
+                    "denominacao": str(fund["denominacao"]) if observed else "não observado",
+                    "pl_brl": pl_value,
+                    "observado": bool(observed),
+                    "pl_reportado_zero": bool(observed and pl_value == 0),
+                    "source_reference": item.source_reference,
+                }
+            )
+    output = pd.DataFrame(rows).sort_values(
+        ["competencia", "bank_group", "pl_brl", "cnpj_root8"],
+        ascending=[True, True, False, True],
+        na_position="last",
+    )
+    return output.loc[:, BANK_COHORT_DETAIL_COLUMNS].reset_index(drop=True)
+
+
 def build_acquiring_reclassified_cvm_mix(
     fund_base: pd.DataFrame,
     acquiring_curation: pd.DataFrame,
@@ -861,9 +944,11 @@ def build_acquiring_reclassified_cvm_mix(
 __all__ = [
     "ACQUIRING_RECLASSIFIED_MIX_COLUMNS",
     "BANK_COHORT_HISTORY_COLUMNS",
+    "BANK_COHORT_DETAIL_COLUMNS",
     "DEFAULT_BANK_GROUPS",
     "INDEPENDENT_PROVIDER_HISTORY_COLUMNS",
     "build_acquiring_reclassified_cvm_mix",
     "build_fixed_bank_fidc_cohort_history",
+    "build_fixed_bank_fidc_cohort_detail",
     "build_independent_provider_historical_ranking",
 ]
