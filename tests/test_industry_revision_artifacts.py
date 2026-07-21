@@ -258,8 +258,18 @@ def test_deck_order_and_profile_count() -> None:
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
+    assert "Ex-360 bloqueado" in slides[8]
+    assert "112,6%" in slides[8]
+    assert "R$ 6,89 bi" in slides[8]
+    assert "R$ 16,69 bi" in slides[9]
+    assert "a série ajustada não repete a queda" in slides[9]
     assert "APÊNDICE · CASO ATLÂNTICO" in slides[55]
     assert "09.194.841/0001-51" in slides[55]
+    assert "A quebra no bruto coincide" in slides[55]
+    deck_text = "\n".join(slides)
+    assert deck_text.count("R$ 16,69 bi") == 1
+    assert "Visão ex-360 bloqueada" not in deck_text
+    assert "Factoring→Fomento" not in deck_text
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
@@ -458,7 +468,7 @@ def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -
         assert len(archive.read(custodian_images[0])) > 50_000
 
     assert "95,9%" in attribution_text
-    assert "R$ 28,0 bi" in attribution_text
+    assert "R$ 52,2 bi" in attribution_text
     assert "Master e Planner receberam R$ 9,9 bi" in reag_text
     assert "destino em jun/26" in reag_text
     assert len(reag.findall(f".//{{{PML}}}pic")) == 1
@@ -588,6 +598,7 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Detalhe coorte bancos",
         "Taxonomia adquirência",
         "Adquirência reclass.",
+        "Curadoria Cartão",
         "Ofertas encerradas",
         "Histograma ofertas",
         "Originadores 2026",
@@ -619,6 +630,15 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
                 25,
                 shared,
             ) == [""]
+        card_ranks = _column_values(
+            archive,
+            sheets["Curadoria Cartão"],
+            "A",
+            5,
+            48,
+            shared,
+        )
+        assert [int(float(value)) for value in card_ranks] == list(range(1, 45))
 
 
 def test_legacy_industry_export_no_longer_requests_line_markers() -> None:
@@ -634,7 +654,9 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v13";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v16";' in source
+    assert "payload.executive_conclusions" in source
+    assert "payload.executive_conclusion_notes" in source
 
 
 def test_provider_transition_slide_has_no_stale_editorial_fallback() -> None:
@@ -687,6 +709,30 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert metrics["admin_transition_2024_2025_cielo_pl_brl"] == pytest.approx(
         8_922_506_388.74
     )
+
+    offer_concentration = payload["offer_ticket_concentration_2026"]
+    assert offer_concentration["threshold_registered_volume_brl"] == pytest.approx(
+        500_000_000
+    )
+    assert offer_concentration["large_offer_closed_offers"] == 22
+    assert offer_concentration["universe_closed_offers"] == 771
+    assert offer_concentration["large_offer_share"] == pytest.approx(0.02853437095)
+    assert offer_concentration["large_offer_registered_volume_share"] == pytest.approx(
+        0.4222944319
+    )
+
+    conclusions = payload["executive_conclusions"]
+    assert [row["order"] for row in conclusions] == list(range(1, 8))
+    assert all(len(row["bullets"]) == 2 for row in conclusions)
+    conclusion_text = " ".join(
+        [row["title"] for row in conclusions]
+        + [bullet for row in conclusions for bullet in row["bullets"]]
+    )
+    assert "RCVM 175" in conclusion_text
+    assert "42,2%" in conclusion_text
+    assert "empate técnico" in conclusion_text and "BTG" in conclusion_text
+    assert "QI Tech lidera administração e custódia" not in conclusion_text
+    assert len(payload["executive_conclusion_notes"]) >= 5
 
     current_btg = [
         row
@@ -745,6 +791,7 @@ def test_materialized_card_taxonomy_audit_reconciles_its_summary() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     rows = payload["card_taxonomy_audit"]
     summary = payload["card_taxonomy_summary"]
+    acquiring_detail = payload["acquiring_curation_detail"]
 
     principal = [
         row
@@ -757,15 +804,25 @@ def test_materialized_card_taxonomy_audit_reconciles_its_summary() -> None:
         if row["criterio_inclusao"].startswith("Exposição")
     ]
     observable = [row for row in rows if row["pl_jun25_observavel"]]
+    current_observable = [
+        row for row in rows if row["pl_referencia_competencia"] == "2026-06"
+    ]
+    included = [row for row in rows if row["status_curadoria"] == "Incluído em Adquirência"]
+    outside = [row for row in rows if row["status_curadoria"] == "Fora de Adquirência"]
+    pending = [row for row in rows if row["status_curadoria"] == "Pendente"]
 
     assert summary["competencia_tabela_ii"] == "2026-06"
     assert summary["competencia_pl"] == "2025-06"
     assert len(rows) == summary["fundos_total"] == 44
+    assert len(acquiring_detail) == 33
+    assert [row["ordem_materialidade"] for row in acquiring_detail] == list(
+        range(1, 34)
+    )
     assert len(principal) == summary["fundos_cartao_segmento_principal"] == 43
     assert len(secondary) == summary["fundos_exposicao_secundaria"] == 1
     assert summary["fundos_anbima_cartao_explicito"] == 0
-    assert sum(row["ja_curado_como_adquirencia"] for row in rows) == 9
-    assert summary["fundos_curados_adquirencia"] == 9
+    assert sum(row["ja_curado_como_adquirencia"] for row in rows) == 26
+    assert summary["fundos_curados_adquirencia"] == 26
     assert all(row["cnpj_fundo_identificado"] for row in rows)
     assert len({row["cnpj_fundo_formatado"] for row in rows}) == 44
     assert len(observable) == summary["fundos_pl_observavel"] == 37
@@ -774,6 +831,23 @@ def test_materialized_card_taxonomy_audit_reconciles_its_summary() -> None:
     )
     assert summary["pl_jun25_observado_brl"] == pytest.approx(
         76_063_154_829.65
+    )
+    assert len(current_observable) == summary["fundos_pl_atual_observavel"] == 44
+    assert summary["fundos_pl_fallback_usado"] == 0
+    assert len(included) == summary["fundos_incluidos_adquirencia"] == 26
+    assert len(outside) == summary["fundos_fora_adquirencia"] == 17
+    assert len(pending) == summary["fundos_pendentes_curadoria"] == 1
+    assert summary["pl_referencia_observado_brl"] == pytest.approx(
+        97_480_792_502.62
+    )
+    assert summary["pl_incluido_adquirencia_brl"] == pytest.approx(
+        86_447_199_744.79
+    )
+    assert summary["pl_fora_adquirencia_brl"] == pytest.approx(
+        11_006_443_530.36
+    )
+    assert summary["pl_pendente_curadoria_brl"] == pytest.approx(
+        27_149_227.47
     )
     assert sum(row["valor_cartao_tabela_ii_brl"] for row in rows) == pytest.approx(
         summary["valor_cartao_tabela_ii_jun26_brl"]
@@ -859,7 +933,7 @@ def test_materialized_delinquency_cohort_revision_reconciles_all_blocks() -> Non
     )
 
 
-def test_materialized_acquiring_mix_includes_the_three_seller_fidcs() -> None:
+def test_materialized_acquiring_mix_includes_the_documented_card_curations() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     current = next(
         row
@@ -868,13 +942,13 @@ def test_materialized_acquiring_mix_includes_the_three_seller_fidcs() -> None:
         and row["categoria_analitica"] == "Adquirência"
     )
 
-    assert current["fundos_adquirencia_curados"] == 16
-    assert current["fundos_adquirencia_observados"] == 14
-    assert current["fundos_movidos_para_adquirencia"] == 14
-    assert current["pl_brl"] == pytest.approx(80_565_524_077.66)
-    assert current["share_pl"] == pytest.approx(0.0915126990)
+    assert current["fundos_adquirencia_curados"] == 33
+    assert current["fundos_adquirencia_observados"] == 31
+    assert current["fundos_movidos_para_adquirencia"] == 31
+    assert current["pl_brl"] == pytest.approx(99_246_541_247.99)
+    assert current["share_pl"] == pytest.approx(0.1127320769)
     assert current["denominador_pl_brl"] == pytest.approx(880_375_346_502.31)
-    assert current["rank_reclassificado"] == 5
+    assert current["rank_reclassificado"] == 3
     moved = set(current["cnpjs_movidos_para_adquirencia"].split(";"))
     assert {"50473039000102", "55471753000177", "63572282000111"}.issubset(moved)
     current_rows = {
@@ -882,7 +956,7 @@ def test_materialized_acquiring_mix_includes_the_three_seller_fidcs() -> None:
         for row in payload["acquiring_reclassified_mix"]
         if row["competencia"] == "2026-06"
     }
-    assert current_rows["Cartão"]["fundos_movidos_da_categoria"] == 9
+    assert current_rows["Cartão"]["fundos_movidos_da_categoria"] == 26
     assert current_rows["Comercial"]["fundos_movidos_da_categoria"] == 2
     assert current_rows["Serviços"]["fundos_movidos_da_categoria"] == 2
     assert current_rows["Financeiro"]["fundos_movidos_da_categoria"] == 1

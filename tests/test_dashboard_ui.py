@@ -164,6 +164,7 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
     assert INDUSTRY_VIEW_TABS == (
         "Principais conclusões",
         "Escala e taxonomia",
+        "Breakdown FIDCs Cartão",
         "Base investidora",
         "Carteira e inadimplência",
         "Prestadores",
@@ -334,7 +335,8 @@ def test_industry_revision_holder_distributions_add_normalized_percentage_charts
     assert 'key="industry-revision-receivables-share-history"' in revision_source
     assert '"industry-revision-provider-top10-history"' in revision_source
     assert 'payload.get("atlantico_profile")' in source
-    assert "_render_revision_atlantico(payload)" in revision_source
+    assert "_render_revision_atlantico(payload)" not in revision_source
+    assert "Atlântico FIDC" in revision_source
 
     with pytest.raises(ValueError, match="fundos negativo"):
         _revision_holder_distribution_frame(
@@ -348,6 +350,8 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
 
     required_text = (
         "Principais conclusões",
+        'payload.get("executive_conclusions")',
+        'payload.get("executive_conclusion_notes")',
         "Grandes números",
         "growth_multiple_label",
         "holder_ge_200m_share_pl_ate_10_contas",
@@ -357,7 +361,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Contas e veículos reportantes",
         "Distribuição por número de contas: dez/23 e {stock_label_lower}",
         "Taxonomia CVM com abertura analítica de adquirência",
-        "Lista para revisão · Cartão de crédito",
+        "Cartão de crédito: lista completa e decisão de curadoria",
         "industry-revision-card-taxonomy-download",
         "Fotografia da coorte",
         "Revisão da série",
@@ -373,7 +377,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Modelo de prestação e monoestruturas",
         "Distribuição do valor das emissões",
         "Originadores nomináveis em jan–jun/26",
-        "primeiro match nominal auditável",
+        "primeiro match nominal em emissor",
     )
     for text in required_text:
         assert text in revision_source
@@ -417,16 +421,16 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
     revision_source = source[source.index("def _render_revision_conclusions") :]
 
     required_notes = (
-        "Fonte: CVM, ANBIMA e FundosNet; estoque em",
+        "Fontes: CVM, ANBIMA, FundosNet, BCB e FIDCs.xlsx",
         "Fonte: CVM, Informe Mensal de FIDC. PL bruto",
         "CAGR do PL bruto",
         "número de intervalos igual à diferença entre os anos",
-        "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}. Contas podem se repetir",
+        "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}",
         "Fonte: CVM, dez/23 e {stock_label_lower}",
-        "curadoria: FIDCs.xlsx e três FIDCs SELLER",
-        "PL de jun/25 permanece N/D quando ausente",
-        "Cartão de crédito não é rótulo da taxonomia ANBIMA",
-        "A Tabela II classifica o recebível reportado",
+        "Fonte: CVM, Informe Mensal e documentos primários",
+        "fallback mai/26",
+        "transações do arranjo e da cadeia de pagamentos entram em Adquirência",
+        "crédito a PF/PJ ou CCB permanece fora",
         "Fonte: CVM, dez/25 e {stock_label_lower}",
             "A lista delimita a coorte bancária atual",
         "Singulare é consolidada em QI Tech",
@@ -438,7 +442,7 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
         "Status abertos ficam fora",
         "Oferta Encerrada é a denominação literal",
         "A linha laranja mostra o consolidado ajustado de mercado",
-        "presença dos campos nos meses legados passou a ser apurada por registro",
+        "Nos meses legados, presença de reporte é inferida por registro",
     )
     for note in required_notes:
         assert note in revision_source
@@ -507,7 +511,7 @@ def test_industry_revision_offers_copy_and_charts_stop_at_june() -> None:
     assert 'title="Jan–jun comparável"' in offers_source
     assert 'title="Janeiro a junho · acumulado"' in offers_source
     assert 'monthly["month"].le(6)' in offers_source
-    assert "encerramentos considerados até" in offers_source
+    assert "Data_Encerramento até" in offers_source
     assert "Jan–mai" not in offers_source
     assert "jan–mai" not in offers_source
     assert "17/jul/26" not in offers_source

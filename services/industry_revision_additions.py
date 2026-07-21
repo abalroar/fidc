@@ -880,13 +880,13 @@ def build_acquiring_reclassified_cvm_mix(
     category_column: str = "segmento_principal",
     acquiring_label: str = "Adquirência",
     exclude_fic_fidc: bool = True,
-    expected_curated_funds: int | None = 16,
+    expected_curated_funds: int | None = None,
 ) -> pd.DataFrame:
     """Move curated acquiring FIDCs from their CVM bucket to one open bucket.
 
     The denominator is PL, matching a fund-taxonomy view.  The original CVM
-    category is preserved in the output and only the 16 curated fund CNPJs are
-    moved.  This function does not alter the reported values of Tabela II.
+    category is preserved in the output and only CNPJs present in the audited
+    curation are moved. This function does not alter reported Tabela-II values.
     """
 
     _require_columns(

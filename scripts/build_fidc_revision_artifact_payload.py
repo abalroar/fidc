@@ -39,6 +39,7 @@ HISTORICAL_REFERENCE = "2023-12"
 PROVIDER_REFERENCE = "2025-12"
 ATLANTICO_CNPJ = "09194841000151"
 PL_TOTAL_CAGR_PERIODS = ((2015, 2018), (2018, 2023), (2024, 2025))
+EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL = 500_000_000.0
 
 
 def _digits(value: object) -> str:
@@ -107,8 +108,9 @@ def _card_taxonomy_audit(
     *,
     latest: str,
     pl_reference: str = "2025-06",
+    card_curation: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
-    """List every current fund with a positive Table-II card exposure."""
+    """List and reconcile every current fund with a Table-II card exposure."""
 
     current_vehicle = vehicle[vehicle["competencia"].astype(str).eq(latest)].copy()
     current_vehicle["cnpj_fundo"] = current_vehicle.get(
@@ -158,6 +160,33 @@ def _card_taxonomy_audit(
         min_count=1
     )
     selected = selected.merge(prior, on="cnpj_fundo", how="left", validate="one_to_one")
+
+    latest_period = pd.Period(latest, freq="M")
+    fallback_period = str(latest_period - 1)
+    selected["pl_competencia_atual_brl"] = pd.to_numeric(
+        selected.get("pl"), errors="coerce"
+    )
+    fallback = funds[funds["competencia"].astype(str).eq(fallback_period)].copy()
+    fallback["cnpj_fundo"] = fallback["cnpj_fundo"].map(_digits)
+    fallback["pl_competencia_anterior_brl"] = pd.to_numeric(
+        fallback["pl"], errors="coerce"
+    )
+    fallback = fallback.groupby("cnpj_fundo", as_index=False)[
+        "pl_competencia_anterior_brl"
+    ].sum(min_count=1)
+    selected = selected.merge(
+        fallback, on="cnpj_fundo", how="left", validate="one_to_one"
+    )
+    selected["pl_referencia_brl"] = selected["pl_competencia_atual_brl"].where(
+        selected["pl_competencia_atual_brl"].notna(),
+        selected["pl_competencia_anterior_brl"],
+    )
+    selected["pl_referencia_competencia"] = np.where(
+        selected["pl_competencia_atual_brl"].notna(), latest, fallback_period
+    )
+    selected["pl_fallback_usado"] = selected["pl_competencia_atual_brl"].isna() & selected[
+        "pl_competencia_anterior_brl"
+    ].notna()
 
     curated = set()
     if not acquiring_curation.empty:
@@ -219,6 +248,85 @@ def _card_taxonomy_audit(
     )
     selected["pl_jun25_observavel"] = selected["pl_jun25_brl"].notna()
     selected["ja_curado_como_adquirencia"] = selected["cnpj_fundo"].isin(curated)
+
+    detailed = card_curation.copy() if card_curation is not None else pd.DataFrame()
+    if not detailed.empty:
+        cnpj_column = next(
+            (
+                column
+                for column in ("cnpj14_digits", "cnpj_fundo", "cnpj")
+                if column in detailed
+            ),
+            "",
+        )
+        if cnpj_column:
+            detailed["cnpj_fundo"] = detailed[cnpj_column].map(_digits)
+            detailed = detailed.drop_duplicates("cnpj_fundo", keep="last")
+            selected = selected.merge(
+                detailed.drop(columns=[cnpj_column], errors="ignore"),
+                on="cnpj_fundo",
+                how="left",
+                validate="one_to_one",
+            )
+
+    prior_curation = selected["ja_curado_como_adquirencia"]
+    curated_defaults: dict[str, object] = {
+        "status_curadoria": np.where(
+            prior_curation, "Incluído em Adquirência", "Pendente"
+        ),
+        "decisao_curadoria": np.where(
+            prior_curation,
+            "Manter na abertura de Adquirência",
+            "Revisão documental pendente",
+        ),
+        "cedente_originador": "N/D",
+        "devedor_sacado": "N/D",
+        "instrumento": "N/D",
+        "natureza_economica": "N/D",
+        "criterio_decisao": np.where(
+            prior_curation,
+            "Curadoria de adquirência já vigente",
+            "Documento primário ainda não concluído",
+        ),
+        "evidencia_curta": np.where(
+            prior_curation,
+            "CNPJ já integra a curadoria vigente de Adquirência.",
+            "N/D",
+        ),
+        "fonte_documento": np.where(
+            prior_curation, "Curadoria anterior", "N/D"
+        ),
+        "fonte_data": "N/D",
+        "fonte_url": np.where(
+            prior_curation,
+            "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo="
+            + selected["cnpj_fundo"].astype(str),
+            "N/D",
+        ),
+        "confianca": np.where(prior_curation, "Alta", "Pendente"),
+        "origem_decisao": np.where(
+            prior_curation, "Curadoria anterior", "Curadoria documental"
+        ),
+        "flag_pf_pj_ccb": "N/D",
+    }
+    for column, default in curated_defaults.items():
+        if column not in selected:
+            selected[column] = default
+        else:
+            missing = selected[column].isna() | selected[column].astype(str).eq("")
+            selected.loc[missing, column] = (
+                pd.Series(default, index=selected.index).loc[missing]
+                if isinstance(default, np.ndarray)
+                else default
+            )
+
+    selected["consistencia_decisao_reclassificacao"] = np.where(
+        selected["ja_curado_como_adquirencia"].eq(
+            selected["status_curadoria"].eq("Incluído em Adquirência")
+        ),
+        "OK",
+        "Revisar divergência",
+    )
     selected["nota_anbima"] = np.where(
         selected["anbima_cartao_explicito"],
         "Cartão aparece explicitamente no Tipo ou Foco ANBIMA deste registro.",
@@ -233,6 +341,11 @@ def _card_taxonomy_audit(
         "valor_cartao_tabela_ii_brl",
         "pl_jun25_brl",
         "pl_jun25_observavel",
+        "pl_competencia_atual_brl",
+        "pl_competencia_anterior_brl",
+        "pl_referencia_brl",
+        "pl_referencia_competencia",
+        "pl_fallback_usado",
         "anbima_tipo",
         "anbima_foco",
         "classification_tier",
@@ -244,10 +357,36 @@ def _card_taxonomy_audit(
         "ja_curado_como_adquirencia",
         "flag_nome_adquirencia",
         "motivo_flag_nome",
+        "status_curadoria",
+        "decisao_curadoria",
+        "cedente_originador",
+        "devedor_sacado",
+        "instrumento",
+        "natureza_economica",
+        "criterio_decisao",
+        "evidencia_curta",
+        "fonte_documento",
+        "fonte_data",
+        "fonte_url",
+        "confianca",
+        "origem_decisao",
+        "flag_pf_pj_ccb",
+        "consistencia_decisao_reclassificacao",
     ]
     output = selected[output_columns].sort_values(
-        ["valor_cartao_tabela_ii_brl", "denominacao"], ascending=[False, True]
+        ["pl_referencia_brl", "valor_cartao_tabela_ii_brl", "denominacao"],
+        ascending=[False, False, True],
+        na_position="last",
     ).reset_index(drop=True)
+    output.insert(0, "ordem_materialidade", np.arange(1, len(output) + 1))
+    included = output["status_curadoria"].eq("Incluído em Adquirência")
+    excluded = output["status_curadoria"].eq("Fora de Adquirência")
+    pending = ~(included | excluded)
+
+    def observed_sum(mask: pd.Series, column: str) -> float:
+        value = output.loc[mask, column].sum(min_count=1)
+        return 0.0 if pd.isna(value) else float(value)
+
     summary = {
         "competencia_tabela_ii": latest,
         "competencia_pl": pl_reference,
@@ -269,13 +408,181 @@ def _card_taxonomy_audit(
             output["anbima_cartao_explicito"].sum()
         ),
         "fundos_curados_adquirencia": int(output["ja_curado_como_adquirencia"].sum()),
+        "competencia_pl_atual": latest,
+        "competencia_pl_fallback": fallback_period,
+        "fundos_pl_atual_observavel": int(output["pl_competencia_atual_brl"].notna().sum()),
+        "fundos_pl_fallback_usado": int(output["pl_fallback_usado"].sum()),
+        "pl_referencia_observado_brl": float(output["pl_referencia_brl"].sum(min_count=1)),
+        "fundos_incluidos_adquirencia": int(included.sum()),
+        "pl_incluido_adquirencia_brl": observed_sum(included, "pl_referencia_brl"),
+        "fundos_fora_adquirencia": int(excluded.sum()),
+        "pl_fora_adquirencia_brl": observed_sum(excluded, "pl_referencia_brl"),
+        "fundos_pendentes_curadoria": int(pending.sum()),
+        "pl_pendente_curadoria_brl": observed_sum(pending, "pl_referencia_brl"),
+        "divergencias_decisao_reclassificacao": int(
+            output["consistencia_decisao_reclassificacao"].ne("OK").sum()
+        ),
         "metodologia": (
-            "uma linha por CNPJ de fundo; inclui segmento principal ou exposição positiva "
-            "em Cartão na Tabela II e eventual rótulo explícito no Tipo/Foco ANBIMA; "
-            "PL ausente em jun/25 permanece N/D"
+            "uma linha por CNPJ; fundos com direitos originados no arranjo ou na cadeia "
+            "de pagamentos entram em Adquirência; crédito a PF/PJ ou representado por "
+            "CCB permanece fora. PL usa a competência atual e recorre ao mês anterior "
+            "somente quando o valor atual está ausente"
         ),
     }
     return output, summary
+
+
+def _acquiring_curation_detail(
+    acquiring_curation: pd.DataFrame,
+    card_audit: pd.DataFrame,
+    funds: pd.DataFrame,
+    acquiring_taxonomy: dict[str, Any],
+    *,
+    latest: str,
+) -> pd.DataFrame:
+    """Materialize the full acquiring curation, including non-card reporters."""
+
+    columns = [
+        "ordem_materialidade",
+        "cnpj_fundo_formatado",
+        "denominacao",
+        "pl_referencia_brl",
+        "pl_referencia_competencia",
+        "cedente_originador",
+        "devedor_sacado",
+        "instrumento",
+        "natureza_economica",
+        "categoria_tabela_ii",
+        "valor_cartao_tabela_ii_brl",
+        "anbima_tipo",
+        "anbima_foco",
+        "fonte_url",
+        "origem_curadoria",
+    ]
+    if acquiring_curation.empty:
+        return pd.DataFrame(columns=columns)
+
+    latest_period = pd.Period(latest, freq="M")
+    fallback_period = str(latest_period - 1)
+
+    current = funds[funds["competencia"].astype(str).eq(latest)].copy()
+    current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
+    current = current.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
+    fallback = funds[funds["competencia"].astype(str).eq(fallback_period)].copy()
+    fallback["cnpj_fundo"] = fallback["cnpj_fundo"].map(_digits)
+    fallback = fallback.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
+
+    audit = card_audit.copy()
+    audit["cnpj_fundo"] = audit["cnpj_fundo_formatado"].map(_digits)
+    audit = audit.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
+
+    static_rows = pd.DataFrame(acquiring_taxonomy.get("funds") or [])
+    if not static_rows.empty:
+        static_rows["cnpj_fundo"] = static_rows["cnpj"].map(_digits)
+        static_rows = static_rows.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
+
+    rows: list[dict[str, Any]] = []
+    for curation in acquiring_curation.to_dict("records"):
+        cnpj = _digits(curation.get("cnpj14_digits") or curation.get("cnpj14_formatted"))
+        live = current.loc[cnpj] if cnpj in current.index else pd.Series(dtype=object)
+        prior = fallback.loc[cnpj] if cnpj in fallback.index else pd.Series(dtype=object)
+        reviewed = audit.loc[cnpj] if cnpj in audit.index else pd.Series(dtype=object)
+        static = (
+            static_rows.loc[cnpj]
+            if not static_rows.empty and cnpj in static_rows.index
+            else pd.Series(dtype=object)
+        )
+
+        live_pl = pd.to_numeric(live.get("pl"), errors="coerce")
+        prior_pl = pd.to_numeric(prior.get("pl"), errors="coerce")
+        if pd.notna(live_pl):
+            pl_reference = float(live_pl)
+            pl_competence = latest
+        elif pd.notna(prior_pl):
+            pl_reference = float(prior_pl)
+            pl_competence = fallback_period
+        else:
+            pl_reference = np.nan
+            pl_competence = "N/D"
+
+        reviewed_source = _text(reviewed.get("fonte_url"))
+        static_source = _text(static.get("primary_document"))
+        curation_source = _text(curation.get("source_reference"))
+        source_url = next(
+            (
+                value
+                for value in (reviewed_source, static_source, curation_source)
+                if value.startswith("http")
+            ),
+            curation_source or "N/D",
+        )
+        economic_nature = (
+            _text(reviewed.get("natureza_economica"))
+            or _text(static.get("economic_nature"))
+            or "Direitos ligados a transações de pagamento"
+        )
+        category = (
+            _text(reviewed.get("categoria_tabela_ii"))
+            or _text(live.get("segmento_principal"))
+            or _text(static.get("table_ii_category"))
+            or "N/D"
+        )
+        rows.append(
+            {
+                "cnpj_fundo_formatado": _format_cnpj(cnpj),
+                "denominacao": (
+                    _text(live.get("denominacao"))
+                    or _text(curation.get("label"))
+                    or _text(static.get("fund"))
+                ),
+                "pl_referencia_brl": pl_reference,
+                "pl_referencia_competencia": pl_competence,
+                "cedente_originador": (
+                    _text(reviewed.get("cedente_originador"))
+                    or _text(static.get("group"))
+                    or "N/D"
+                ),
+                "devedor_sacado": (
+                    _text(reviewed.get("devedor_sacado"))
+                    or (
+                        "Emissores e instituições de pagamento"
+                        if not static.empty
+                        else "N/D"
+                    )
+                ),
+                "instrumento": (
+                    _text(reviewed.get("instrumento"))
+                    or "Direitos de transações de pagamento"
+                ),
+                "natureza_economica": economic_nature,
+                "categoria_tabela_ii": category,
+                "valor_cartao_tabela_ii_brl": pd.to_numeric(
+                    reviewed.get("valor_cartao_tabela_ii_brl"), errors="coerce"
+                ),
+                "anbima_tipo": (
+                    _text(live.get("anbima_tipo"))
+                    or _text(reviewed.get("anbima_tipo"))
+                    or _text(static.get("anbima_type"))
+                    or "N/D"
+                ),
+                "anbima_foco": (
+                    _text(live.get("anbima_foco"))
+                    or _text(reviewed.get("anbima_foco"))
+                    or _text(static.get("anbima_focus"))
+                    or "N/D"
+                ),
+                "fonte_url": source_url,
+                "origem_curadoria": curation_source or "Curadoria documental",
+            }
+        )
+
+    output = pd.DataFrame(rows).sort_values(
+        ["pl_referencia_brl", "denominacao"],
+        ascending=[False, True],
+        na_position="last",
+    ).reset_index(drop=True)
+    output.insert(0, "ordem_materialidade", np.arange(1, len(output) + 1))
+    return output[columns]
 
 
 def _json_value(value: Any) -> Any:
@@ -298,6 +605,440 @@ def _records(frame: pd.DataFrame) -> list[dict[str, Any]]:
         {str(key): _json_value(value) for key, value in row.items()}
         for row in clean.to_dict(orient="records")
     ]
+
+
+def _pt_number(value: object, decimals: int = 1) -> str:
+    parsed = pd.to_numeric(value, errors="coerce")
+    if pd.isna(parsed):
+        return "N/D"
+    rendered = f"{float(parsed):,.{decimals}f}"
+    return rendered.replace(",", "#").replace(".", ",").replace("#", ".")
+
+
+def _pt_integer(value: object) -> str:
+    parsed = pd.to_numeric(value, errors="coerce")
+    if pd.isna(parsed):
+        return "N/D"
+    return f"{int(parsed):,}".replace(",", ".")
+
+
+def _pt_pct(value: object, decimals: int = 1) -> str:
+    parsed = pd.to_numeric(value, errors="coerce")
+    if pd.isna(parsed):
+        return "N/D"
+    return f"{_pt_number(float(parsed) * 100, decimals)}%"
+
+
+def _pt_brl_mi(value: object, decimals: int = 1) -> str:
+    parsed = pd.to_numeric(value, errors="coerce")
+    if pd.isna(parsed):
+        return "R$ N/D"
+    return f"R$ {_pt_number(float(parsed) / 1e6, decimals)} mi"
+
+
+def _pt_brl_bi(value: object, decimals: int = 1) -> str:
+    parsed = pd.to_numeric(value, errors="coerce")
+    if pd.isna(parsed):
+        return "R$ N/D"
+    return f"R$ {_pt_number(float(parsed) / 1e9, decimals)} bi"
+
+
+def _offer_ticket_concentration_2026(
+    cohort: pd.DataFrame,
+    *,
+    threshold_brl: float = EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL,
+) -> dict[str, Any]:
+    """Measure the explicit R$500m+ tail in the Jan-Jun 2026 offer cohort."""
+
+    required = {
+        "period_label",
+        "period_start",
+        "period_end",
+        "numero_requerimento",
+        "registered_volume_brl",
+    }
+    missing = sorted(required.difference(cohort.columns))
+    if missing:
+        raise ValueError(
+            "coorte de tickets sem campos obrigatórios: " + ", ".join(missing)
+        )
+    if threshold_brl <= 0:
+        raise ValueError("limiar de concentração de ofertas deve ser positivo")
+
+    scoped = cohort[cohort["period_end"].astype(str).eq("2026-06-30")].copy()
+    if scoped.empty:
+        raise ValueError("coorte de ofertas jan-jun/26 ausente")
+    scoped["registered_volume_brl"] = pd.to_numeric(
+        scoped["registered_volume_brl"], errors="coerce"
+    )
+    if scoped["registered_volume_brl"].isna().any() or scoped[
+        "registered_volume_brl"
+    ].le(0).any():
+        raise ValueError("coorte jan-jun/26 contém ticket ausente ou não positivo")
+    if scoped["numero_requerimento"].astype(str).duplicated().any():
+        raise ValueError("coorte jan-jun/26 contém Numero_Requerimento duplicado")
+
+    large = scoped[scoped["registered_volume_brl"].ge(threshold_brl)].copy()
+    universe_offers = int(scoped["numero_requerimento"].nunique())
+    universe_volume = float(scoped["registered_volume_brl"].sum())
+    large_offers = int(large["numero_requerimento"].nunique())
+    large_volume = float(large["registered_volume_brl"].sum())
+    largest = scoped.sort_values(
+        ["registered_volume_brl", "numero_requerimento"],
+        ascending=[False, True],
+        kind="stable",
+    ).iloc[0]
+
+    def singleton(column: str) -> Any:
+        if column not in scoped:
+            return None
+        values = scoped[column].dropna().unique().tolist()
+        if len(values) > 1:
+            raise ValueError(
+                f"metadado {column} divergente na coorte de ofertas jan-jun/26"
+            )
+        return _json_value(values[0]) if values else None
+
+    return {
+        "period_label": singleton("period_label"),
+        "period_start": singleton("period_start"),
+        "period_end": singleton("period_end"),
+        "threshold_operator": ">=",
+        "threshold_registered_volume_brl": float(threshold_brl),
+        "ticket_bucket": "≥ R$ 500 mi",
+        "rule": "Valor_Total_Registrado >= R$ 500 milhões",
+        "methodology": (
+            "coorte fixa por Data_Encerramento; aplicação de limiar absoluto, "
+            "sem seleção top-N"
+        ),
+        "universe_closed_offers": universe_offers,
+        "universe_registered_volume_brl": universe_volume,
+        "large_offer_closed_offers": large_offers,
+        "large_offer_share": large_offers / universe_offers,
+        "large_offer_registered_volume_brl": large_volume,
+        "large_offer_registered_volume_share": large_volume / universe_volume,
+        "large_offer_requirement_numbers": large.sort_values(
+            ["registered_volume_brl", "numero_requerimento"],
+            ascending=[False, True],
+            kind="stable",
+        )["numero_requerimento"].astype(str).tolist(),
+        "largest_offer_requirement_number": str(largest["numero_requerimento"]),
+        "largest_offer_issuer_cnpj": _digits(largest.get("cnpj_emissor")),
+        "largest_offer_issuer_name": _text(largest.get("nome_emissor")),
+        "largest_offer_registered_volume_brl": float(
+            largest["registered_volume_brl"]
+        ),
+        "largest_offer_registered_volume_share": float(
+            largest["registered_volume_brl"] / universe_volume
+        ),
+        "source_dataset": singleton("source_dataset"),
+        "source_url": singleton("source_url"),
+        "source_as_of_date": singleton("source_as_of_date"),
+        "source_archive_sha256": singleton("source_archive_sha256"),
+        "scope": singleton("scope"),
+        "deduplication": singleton("deduplication"),
+    }
+
+
+def _executive_conclusions(
+    *,
+    latest: str,
+    conclusion_metrics: dict[str, Any],
+    offer_concentration: dict[str, Any],
+    closed_annual: list[dict[str, Any]],
+    closed_jan_june: list[dict[str, Any]],
+    provider_concentration_history: list[dict[str, Any]],
+    provider_historical_ranking: pd.DataFrame,
+    qi_legacy_attribution: pd.DataFrame,
+    reag_admin_summary: pd.DataFrame,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Build concise audience-facing conclusions from published raw metrics."""
+
+    latest_period = pd.Period(latest, freq="M")
+    month_labels = (
+        "jan",
+        "fev",
+        "mar",
+        "abr",
+        "mai",
+        "jun",
+        "jul",
+        "ago",
+        "set",
+        "out",
+        "nov",
+        "dez",
+    )
+    latest_label = (
+        f"{month_labels[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
+    )
+    current_offer = next(
+        (row for row in closed_annual if int(row.get("year", 0)) == 2026), {}
+    )
+    comparable = {
+        int(row.get("year", 0)): row
+        for row in closed_jan_june
+        if row.get("year") is not None
+    }
+    offer_2024 = comparable.get(2024, {})
+    offer_2025 = comparable.get(2025, {})
+    offer_2026 = comparable.get(2026, current_offer)
+
+    def ratio(numerator: object, denominator: object) -> float | None:
+        top = pd.to_numeric(numerator, errors="coerce")
+        bottom = pd.to_numeric(denominator, errors="coerce")
+        if pd.isna(top) or pd.isna(bottom) or float(bottom) == 0:
+            return None
+        return float(top) / float(bottom)
+
+    def provider_row(role: str, participant: str) -> dict[str, Any]:
+        if provider_historical_ranking.empty:
+            return {}
+        scoped = provider_historical_ranking[
+            provider_historical_ranking["competencia"].astype(str).eq(latest)
+            & provider_historical_ranking["papel"].astype(str).eq(role)
+            & provider_historical_ranking["participante"].map(_fold_text).eq(
+                _fold_text(participant)
+            )
+        ]
+        return (
+            {str(key): _json_value(value) for key, value in scoped.iloc[0].items()}
+            if not scoped.empty
+            else {}
+        )
+
+    concentration = {
+        str(row.get("papel")): row
+        for row in provider_concentration_history
+        if str(row.get("competencia")) == latest
+    }
+    btg_manager = provider_row("gestor", "BTG Pactual")
+    ot_manager = provider_row("gestor", "Oliveira Trust")
+
+    qi_legacy = {}
+    if not qi_legacy_attribution.empty and "attribution" in qi_legacy_attribution:
+        scoped = qi_legacy_attribution[
+            qi_legacy_attribution["attribution"].astype(str).eq("legacy_singulare")
+        ]
+        qi_legacy = _single_record(scoped)
+    reag = _single_record(reag_admin_summary)
+    mean_ticket = current_offer.get("mean_registered_ticket_brl")
+    median_ticket = current_offer.get("median_registered_ticket_brl")
+    median_to_mean = ratio(median_ticket, mean_ticket)
+    pf_share = current_offer.get("natural_person_placed_volume_share")
+    current_volume = offer_2026.get("registered_volume_brl")
+    prior_volume = offer_2025.get("registered_volume_brl")
+    volume_2024 = offer_2024.get("registered_volume_brl")
+    growth_2025 = (
+        ratio(current_volume, prior_volume) - 1
+        if ratio(current_volume, prior_volume) is not None
+        else None
+    )
+    growth_2024 = (
+        ratio(current_volume, volume_2024) - 1
+        if ratio(current_volume, volume_2024) is not None
+        else None
+    )
+    largest_offer_name = _display_fund_name(
+        offer_concentration.get("largest_offer_issuer_name")
+    )
+    largest_offer_volume = offer_concentration.get(
+        "largest_offer_registered_volume_brl"
+    )
+    largest_offer_share = offer_concentration.get(
+        "largest_offer_registered_volume_share"
+    )
+    incremental_volume = (
+        float(current_volume) - float(prior_volume)
+        if pd.notna(pd.to_numeric(current_volume, errors="coerce"))
+        and pd.notna(pd.to_numeric(prior_volume, errors="coerce"))
+        else None
+    )
+    largest_offer_share_increment = ratio(largest_offer_volume, incremental_volume)
+    growth_ex_largest_offer = (
+        ratio(float(current_volume) - float(largest_offer_volume), prior_volume) - 1
+        if pd.notna(pd.to_numeric(current_volume, errors="coerce"))
+        and pd.notna(pd.to_numeric(largest_offer_volume, errors="coerce"))
+        and ratio(float(current_volume) - float(largest_offer_volume), prior_volume)
+        is not None
+        else None
+    )
+
+    cielo_share_migrated = ratio(
+        conclusion_metrics.get("admin_transition_2024_2025_cielo_pl_brl"),
+        conclusion_metrics.get("admin_transition_2024_2025_changed_pl_brl"),
+    )
+    admin_top10 = concentration.get("administrador", {}).get("top10_share")
+    manager_top10 = concentration.get("gestor", {}).get("top10_share")
+    custody_top10 = concentration.get("custodiante", {}).get("top10_share")
+    btg_cohort_combo_share_total = ratio(
+        conclusion_metrics.get("btg_bank_cohort_combo_pl_brl"),
+        conclusion_metrics.get("btg_combo_tres_funcoes_pl_brl"),
+    )
+
+    conclusions = [
+        {
+            "order": 1,
+            "title": "Distribuição após a RCVM 175 segue institucional e concentrada",
+            "bullets": [
+                (
+                    f"A mediana foi de {_pt_brl_mi(median_ticket)}, apenas "
+                    f"{_pt_pct(median_to_mean, 0)} do ticket médio de "
+                    f"{_pt_brl_mi(mean_ticket)}; "
+                    f"{_pt_integer(offer_concentration.get('large_offer_closed_offers'))} "
+                    "ofertas de R$ 500 mi ou mais — "
+                    f"{_pt_pct(offer_concentration.get('large_offer_share'))} do total — "
+                    f"concentraram {_pt_pct(offer_concentration.get('large_offer_registered_volume_share'))} do volume."
+                ),
+                (
+                    f"Pessoas físicas responderam por apenas {_pt_pct(pf_share)} do volume "
+                    "colocado estimado; entre os fundos com PL ≥ R$ 200 mi, "
+                    f"{_pt_pct(conclusion_metrics.get('holder_ge_200m_share_fundos_ate_10_contas'))} "
+                    "têm até dez contas."
+                ),
+            ],
+        },
+        {
+            "order": 2,
+            "title": "Verticalização define o modelo operacional da indústria",
+            "bullets": [
+                (
+                    "Administração e custódia estão no mesmo conglomerado em "
+                    f"{_pt_pct(conclusion_metrics.get('admin_custodia_juntas_share_pl'))} do PL: "
+                    "nove em cada dez reais da indústria."
+                ),
+                (
+                    "Monoestruturas, com as três funções no mesmo grupo, já concentram "
+                    f"{_pt_pct(conclusion_metrics.get('monoestrutura_share_pl'))} do PL."
+                ),
+            ],
+        },
+        {
+            "order": 3,
+            "title": "Escala independente está concentrada em poucas plataformas",
+            "bullets": [
+                (
+                    "QI Tech lidera administração e está em empate técnico com o BTG em "
+                    "custódia; "
+                    f"{_pt_pct(qi_legacy.get('share_admin_group'), 0)} de sua base administrativa "
+                    "em dez/24 veio do legado Singulare."
+                ),
+                (
+                    "Oliveira Trust é a terceira maior gestora, com "
+                    f"{_pt_brl_bi(ot_manager.get('pl_brl'))}; na coorte CBSF/Reag, "
+                    f"{_pt_pct(reag.get('migrated_share_current'))} do PL continuante já havia "
+                    f"migrado de administrador até {latest_label}."
+                ),
+            ],
+        },
+        {
+            "order": 4,
+            "title": "Movimentação de administradores foi baixa e concentrada",
+            "bullets": [
+                (
+                    f"Apenas {_pt_pct(conclusion_metrics.get('admin_transition_2024_2025_changed_share_pl'))} "
+                    "do PL comparável trocou de administrador entre dez/24 e dez/25: "
+                    f"{_pt_brl_bi(conclusion_metrics.get('admin_transition_2024_2025_changed_pl_brl'))} "
+                    f"em {_pt_integer(conclusion_metrics.get('admin_transition_2024_2025_changed_funds'))} fundos."
+                ),
+                (
+                    "Os dois FIDCs Cielo responderam sozinhos por "
+                    f"{_pt_pct(cielo_share_migrated, 0)} do volume migrado, com "
+                    f"{_pt_brl_bi(conclusion_metrics.get('admin_transition_2024_2025_cielo_pl_brl'))} "
+                    "transferidos de Oliveira Trust para Bradesco."
+                ),
+            ],
+        },
+        {
+            "order": 5,
+            "title": "Gestão é a função mais pulverizada",
+            "bullets": [
+                (
+                    "As dez maiores gestoras reúnem apenas "
+                    f"{_pt_pct(manager_top10)} do PL ex-FIC; a líder, BTG, tem "
+                    f"{_pt_pct(btg_manager.get('share_pl'))}."
+                ),
+                (
+                    "Administração e custódia têm, respectivamente, "
+                    f"{_pt_pct(admin_top10)} e {_pt_pct(custody_top10)} do PL nos dez "
+                    "maiores grupos, praticamente o dobro da concentração em gestão."
+                ),
+            ],
+        },
+        {
+            "order": 6,
+            "title": "Coorte bancária explica dois terços do combo completo do BTG",
+            "bullets": [
+                (
+                    f"Dos {_pt_integer(conclusion_metrics.get('btg_bank_cohort_observed_funds'))} "
+                    "FIDCs observados na coorte BTG, "
+                    f"{_pt_integer(conclusion_metrics.get('btg_bank_cohort_combo_funds'))} "
+                    "concentram as três funções no grupo e representam "
+                    f"{_pt_pct(conclusion_metrics.get('btg_bank_cohort_combo_share_pl'), 0)} "
+                    f"do PL da coorte — {_pt_brl_bi(conclusion_metrics.get('btg_bank_cohort_combo_pl_brl'))}."
+                ),
+                (
+                    "Essa carteira responde por "
+                    f"{_pt_pct(btg_cohort_combo_share_total, 0)} de todo o PL atendido pelo "
+                    "BTG no combo completo, indicando forte ancoragem nos veículos da coorte bancária."
+                ),
+            ],
+        },
+        {
+            "order": 7,
+            "title": "Emissões aceleraram; a maior oferta explica dois terços do avanço",
+            "bullets": [
+                (
+                    f"As {_pt_integer(offer_2026.get('closed_offers'))} ofertas encerradas "
+                    f"em jan–jun/26 somaram {_pt_brl_bi(current_volume)}, avanço de "
+                    f"{_pt_pct(growth_2025, 0)} sobre 2025 e {_pt_pct(growth_2024, 0)} sobre 2024."
+                ),
+                (
+                    f"A oferta {largest_offer_name}, de {_pt_brl_bi(largest_offer_volume)}, "
+                    f"representou {_pt_pct(largest_offer_share)} do volume e "
+                    f"{_pt_pct(largest_offer_share_increment)} do crescimento sobre 2025; "
+                    "na sensibilidade sem essa oferta, o mercado teria avançado "
+                    f"{_pt_pct(growth_ex_largest_offer)}."
+                ),
+            ],
+        },
+    ]
+
+    notes = [
+        (
+            "PF: proxy de volume colocado com "
+            f"{_pt_pct(current_offer.get('placed_quantity_registered_volume_coverage'))} "
+            "de cobertura do valor registrado."
+        ),
+        (
+            "Contas: quantidade reportada por fundo/classe e agregada ao CNPJ legal; "
+            "não equivale a investidores únicos."
+        ),
+        (
+            "Verticalização: universo bruto de CNPJs legais em "
+            f"{latest_label}, incluindo FIC-FIDC; grupos econômicos normalizados."
+        ),
+        (
+            "Concentração por função: PL ex-FIC; FIDC Sistema Petrobras e TAPSO "
+            "excluídos dos três denominadores."
+        ),
+        (
+            "QI Tech: posição corrente consolidada por grupo; legado Singulare medido "
+            "pelos CNPJs legais na fotografia de dez/24."
+        ),
+        (
+            f"BTG: {_pt_integer(conclusion_metrics.get('btg_bank_cohort_listed_roots'))} "
+            "raízes listadas em FIDCs.xlsx e "
+            f"{_pt_integer(conclusion_metrics.get('btg_bank_cohort_observed_funds'))} "
+            f"observadas em {latest_label}; ausência não equivale a PL zero."
+        ),
+        (
+            "Ofertas: cotas primárias de FIDC com status CVM 'Oferta Encerrada', "
+            "Data_Encerramento até 30/06/2026 e Valor_Total_Registrado positivo; "
+            "uma oferta por Numero_Requerimento."
+        ),
+    ]
+    return conclusions, notes
 
 
 def _read_optional(
@@ -1329,6 +2070,10 @@ def build_payload(
         data_dir / "acquiring_reclassification_curation.csv",
         cnpj_columns=("cnpj14_digits",),
     )
+    card_receivables_curation = _read_optional(
+        data_dir / "card_receivables_curation.csv",
+        cnpj_columns=("cnpj14_digits",),
+    )
 
     funds = pd.read_csv(revision_dir / "base_fundo_cnpj.csv.gz", low_memory=False)
     qa = pd.read_csv(revision_dir / "qa_inadimplencia_competencia.csv", low_memory=False)
@@ -1475,6 +2220,14 @@ def build_payload(
         funds,
         acquiring_curation,
         latest=latest,
+        card_curation=card_receivables_curation,
+    )
+    acquiring_curation_detail = _acquiring_curation_detail(
+        acquiring_curation,
+        card_taxonomy_audit,
+        funds,
+        acquiring_taxonomy,
+        latest=latest,
     )
 
     stock_preliminary_status: dict[str, Any] = {}
@@ -1575,9 +2328,30 @@ def build_payload(
     provider_concentration = [
         row for row in provider_concentration_history if row["competencia"] == latest
     ]
+    conclusion_metrics = _conclusion_metrics(
+        vehicle,
+        funds,
+        latest,
+        mono=mono,
+        bank_fidc_detail=bank_fidc_detail,
+    )
+    offer_ticket_concentration_2026 = _offer_ticket_concentration_2026(
+        offer_ticket_outputs.cohort
+    )
+    executive_conclusions, executive_conclusion_notes = _executive_conclusions(
+        latest=latest,
+        conclusion_metrics=conclusion_metrics,
+        offer_concentration=offer_ticket_concentration_2026,
+        closed_annual=closed_annual,
+        closed_jan_june=closed_jan_june,
+        provider_concentration_history=provider_concentration_history,
+        provider_historical_ranking=provider_historical_ranking,
+        qi_legacy_attribution=qi_legacy_attribution,
+        reag_admin_summary=reag_admin_summary,
+    )
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v5",
+        "schema_version": "fidc_revision_artifact_payload_v6",
         "latest_complete": latest,
         "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,
@@ -1716,6 +2490,7 @@ def build_payload(
             for cnpj, name in MARKET_SHARE_EXCLUDED_FUNDS.items()
         ],
         "acquiring_taxonomy": acquiring_taxonomy,
+        "acquiring_curation_detail": _records(acquiring_curation_detail),
         "card_taxonomy_audit": _records(card_taxonomy_audit),
         "card_taxonomy_summary": {
             str(key): _json_value(value)
@@ -1734,13 +2509,9 @@ def build_payload(
         "top20_outros": _records(top20_outros_review),
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
-        "conclusion_metrics": _conclusion_metrics(
-            vehicle,
-            funds,
-            latest,
-            mono=mono,
-            bank_fidc_detail=bank_fidc_detail,
-        ),
+        "conclusion_metrics": conclusion_metrics,
+        "executive_conclusions": executive_conclusions,
+        "executive_conclusion_notes": executive_conclusion_notes,
         "monostructure_concentration": _records(mono_concentration),
         "closed_offers": closed_offers,
         "closed_offers_annual": closed_annual,
@@ -1753,6 +2524,7 @@ def build_payload(
         "closed_offer_ticket_distribution": _records(
             closed_offer_ticket_distribution
         ),
+        "offer_ticket_concentration_2026": offer_ticket_concentration_2026,
         # Aliases mantidos apenas para leitores v2/v3; o renderer v4 usa os blocos acima.
         "offers_ytd": [
             {
