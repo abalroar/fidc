@@ -4,20 +4,20 @@
     "name": "revision_manifest.json",
     "sha256": "f85f0c7b735781752f2355cbc4bce01174e27741bd867c440a22fe999347e8b4"
   },
-  "bundle_id": "202605_5e1ebb988a82b6ee",
+  "bundle_id": "202605_16b03629f7289a28",
   "checks": {
     "profiles": 20,
     "slides": 55,
     "top20_fidcs": 20,
     "top20_outros": 20
   },
-  "generated_at_utc": "2026-07-21T00:59:16+00:00",
+  "generated_at_utc": "2026-07-21T04:41:52+00:00",
   "html": {
     "bytes": 294156,
     "name": "provider_flows_explorer.html",
     "sha256": "729ce4e370c96cef72b52541077d0799da94af2e43e44cebde9d8b2abdc4e9b5"
   },
-  "input_signature": "422e5580a50abc7437e426d5081d9f28f3f9bca6724cfd5c8cc74c0f8289cb81",
+  "input_signature": "0c69a4c0fefc6619a972d17e13e52460a4f7ee6fd7f283c4ec907c165c917cad",
   "inputs": {
     "analysis/adquirencia_mix_reclassificado.csv": "0a211031e810745fd973a1eaa9340e249ddba1d6b10c6244afa751f5e4179cd1",
     "analysis/bancos_fidcs_detalhe.csv": "de54fe643fd55f4a979a8fa092a863e63d3f80c4ae2255297e0e422e1aa4ccd2",
@@ -65,8 +65,8 @@
     "builder/build_fidc_offer_ticket_distribution.py": "89cbda2b4d4375f1eb629ed121635f3e30c5842f134a2f796078ecec3915056a",
     "builder/build_fidc_provider_history.py": "e29401789b75ea644fb5320b970d56d780f1e4755c697f40cd99f0d80750d163",
     "builder/build_fidc_revision_analysis.py": "f79eb7de4c7204b437a52d0e3925b3f72e138436521023a9e71ccabdcaa28789",
-    "builder/build_fidc_revision_artifact_payload.py": "6a47f283ce310579a4a42b66244374d99ce59090e700f5f77b0c87259c8f4364",
-    "builder/build_fidc_revision_artifacts.mjs": "759e4e89649299f52354065d1329943b5cb61e0894b2e3b6b1fc3f460773b0ed",
+    "builder/build_fidc_revision_artifact_payload.py": "4a7d7b739b73088fd04e27d36d302d8380183f697ca3aeca5c9bd3df8e5efb0b",
+    "builder/build_fidc_revision_artifacts.mjs": "03da03f7962605e952d006d2a7c78a39628083a67c1dc6a8025cf4c5e0acd8db",
     "builder/build_provider_flow_explorer.mjs": "4186040dc28c426a005b6fa15d53a817bcc7424d6584206eb9a43dd4afd0f4ff",
     "builder/industry_closed_offers.py": "0789be4823a401c7c9481da0772f21e6b723e1b1aef5164135ab782355ff63e5",
     "builder/industry_offer_ticket_distribution.py": "4cb1d95238cf1ab1c7e8ba6a29689890dd7e0a59036a447ce8074a21d0ba785e",
@@ -103,30 +103,30 @@
   "latest_complete": "2026-05",
   "offers_as_of": "2026-07-17",
   "payload": {
-    "bytes": 7594073,
+    "bytes": 7595987,
     "name": "artifact_payload.json",
-    "sha256": "5e1ebb988a82b6eee7286f4b1701fd85d1fb3c084dad8d83e499f9891f674d7b"
+    "sha256": "16b03629f7289a28faaa7703902fa5e765c87ccb8bcad8ee1ec844b6833ea182"
   },
   "payload_schema": "fidc_revision_artifact_payload_v5",
-  "payload_sha256": "5e1ebb988a82b6eee7286f4b1701fd85d1fb3c084dad8d83e499f9891f674d7b",
+  "payload_sha256": "16b03629f7289a28faaa7703902fa5e765c87ccb8bcad8ee1ec844b6833ea182",
   "pptx": {
-    "bytes": 813089,
+    "bytes": 813594,
     "name": "industry_executive_revised.pptx",
-    "sha256": "e866e606b637258440e6dbd87b5f192b067003a3ca6f43343a6cb1b3dedb8b4a"
+    "sha256": "993d4bf66d194c9fc6fbe09ff726a6b58aead03f92306128a09004da2e35bc32"
   },
   "renderer": {
     "artifact_tool_version": "2.8.24",
     "node_version": "v24.14.0",
-    "renderer_sha256": "759e4e89649299f52354065d1329943b5cb61e0894b2e3b6b1fc3f460773b0ed",
-    "renderer_version": "industry_revision_artifacts_v9"
+    "renderer_sha256": "03da03f7962605e952d006d2a7c78a39628083a67c1dc6a8025cf4c5e0acd8db",
+    "renderer_version": "industry_revision_artifacts_v10"
   },
-  "renderer_sha256": "759e4e89649299f52354065d1329943b5cb61e0894b2e3b6b1fc3f460773b0ed",
-  "renderer_version": "industry_revision_artifacts_v9",
+  "renderer_sha256": "03da03f7962605e952d006d2a7c78a39628083a67c1dc6a8025cf4c5e0acd8db",
+  "renderer_version": "industry_revision_artifacts_v10",
   "schema_version": "fidc_revision_export_bundle_v2",
-  "source_signature": "5e1ebb988a82b6eee7286f4b1701fd85d1fb3c084dad8d83e499f9891f674d7b",
+  "source_signature": "16b03629f7289a28faaa7703902fa5e765c87ccb8bcad8ee1ec844b6833ea182",
   "xlsx": {
-    "bytes": 5433778,
+    "bytes": 5434461,
     "name": "industry_data_revised.xlsx",
-    "sha256": "5b2d9ca1717e29a7f3a6ea473aa4775fe2e02e842c5562e71808cf78bda77975"
+    "sha256": "22e2cdb3d72c9f136676ac8bb634d79c5482deedab25f50e3747d4fac7a6eb11"
   }
 }

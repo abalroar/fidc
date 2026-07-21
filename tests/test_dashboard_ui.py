@@ -157,7 +157,8 @@ def test_scoped_css_includes_mobile_and_hover_chart_rules() -> None:
 
 def test_all_primary_views_and_chart_series_are_preserved() -> None:
     assert INDUSTRY_VIEW_TABS == (
-        "Visão executiva",
+        "Principais conclusões",
+        "Escala e taxonomia",
         "Base investidora",
         "Carteira e inadimplência",
         "Prestadores",
@@ -334,6 +335,65 @@ def test_industry_revision_holder_distributions_add_normalized_percentage_charts
         _revision_holder_distribution_frame(
             pd.DataFrame({"bucket": ["1"], "fundos": [-1], "pl": [100.0]})
         )
+
+
+def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    revision_source = source[source.index("def _render_revision_conclusions") :]
+
+    required_text = (
+        "Principais conclusões",
+        "Síntese executiva",
+        "growth_multiple_label",
+        "holder_ge_200m_share_pl_ate_10_contas",
+        "excesso_top10_share",
+        "Sistema Petrobras representa todo o PL mono do BB",
+        "Evolução do PL",
+        "Contas e veículos reportantes",
+        "Distribuição por número de contas: dez/23 e mai/26",
+        "Taxonomia CVM com abertura analítica de adquirência",
+        "Fotografia da coorte",
+        "Ranking e concentração dos prestadores",
+        "Evolução do ranking dos prestadores",
+        "btg_provider_ex_controlled_scenario",
+        "PL observado",
+        "Prestadores independentes",
+        "evidencia_revisao",
+        "fonte_revisao",
+        "Modelo de prestação e monoestruturas",
+        "Distribuição do valor das emissões",
+        "Originadores nomináveis em 2026",
+        "primeiro match nominal auditável",
+    )
+    for text in required_text:
+        assert text in revision_source
+
+    required_chart_keys = (
+        "industry-revision-pl",
+        "industry-revision-accounts",
+        "industry-revision-vehicles",
+        "industry-revision-investor-composition",
+        "industry-revision-holder-funds-history",
+        "industry-revision-holder-pl-history",
+        "industry-revision-holder-funds-share-history",
+        "industry-revision-holder-pl-share-history",
+        "industry-revision-acquiring-pl",
+        "industry-revision-acquiring-share",
+        "industry-revision-delinquency-frozen-cohort-history",
+        "industry-revision-provider-top10-history",
+        "industry-revision-provider-top5-history",
+        "industry-revision-provider-ranking-",
+        "industry-revision-independent-",
+        "industry-revision-service-model-shares",
+        "industry-revision-closed-offer-ticket-histogram",
+        "industry-revision-originators-all",
+    )
+    for key in required_chart_keys:
+        assert key in revision_source
+
+    assert revision_source.count(".mark_text(") >= 18
+    assert 'range=[_GRAY_LIGHT, _ORANGE]' in revision_source
+    assert 'color="white"' in revision_source
 
 
 def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:

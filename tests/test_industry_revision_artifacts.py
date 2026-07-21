@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import posixpath
 import re
 from pathlib import Path
@@ -18,6 +19,13 @@ FLOW_HTML = (
     / "industry_study"
     / "generated_revision"
     / "provider_flows_explorer.html"
+)
+PAYLOAD = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "artifact_payload.json"
 )
 
 PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
@@ -615,4 +623,38 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v9";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v10";' in source
+
+
+def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    metrics = payload["conclusion_metrics"]
+
+    assert metrics["holder_ge_200m_fundos"] == 778
+    assert metrics["holder_ge_200m_share_fundos_ate_10_contas"] == pytest.approx(
+        0.5899742931
+    )
+    assert metrics["service_model_universe_funds"] == 4222
+    assert metrics["admin_custodia_juntas_fundos"] == 3702
+    assert metrics["admin_custodia_juntas_share_pl"] == pytest.approx(0.8737059206)
+    assert metrics["monoestrutura_share_pl"] == pytest.approx(0.3401555639)
+    assert metrics["btg_combo_tres_funcoes_fundos"] == 66
+    assert metrics["btg_combo_tres_funcoes_pl_brl"] == pytest.approx(
+        65_036_032_970.28
+    )
+    assert metrics["btg_combo_ex_controlados_fundos"] == 60
+    assert metrics["btg_combo_ex_controlados_pl_brl"] == pytest.approx(
+        36_395_450_889.1
+    )
+    assert metrics["admin_transition_2024_2025_continuing_funds"] == 2477
+    assert metrics["admin_transition_2024_2025_changed_funds"] == 257
+    assert metrics["admin_transition_2024_2025_changed_pl_brl"] == pytest.approx(
+        33_020_408_763.18
+    )
+    assert metrics["admin_transition_2024_2025_changed_share_pl"] == pytest.approx(
+        0.07243504065
+    )
+    assert metrics["admin_transition_2024_2025_cielo_funds"] == 2
+    assert metrics["admin_transition_2024_2025_cielo_pl_brl"] == pytest.approx(
+        8_922_506_388.74
+    )
