@@ -81,7 +81,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v9";
+const RENDERER_VERSION = "industry_revision_artifacts_v10";
 const EXPECTED_SLIDES = 55;
 
 const C = {
@@ -1795,103 +1795,95 @@ function addProviderTransitionSlide(presentation, payload, page, pngBytes, role 
 function addConclusionsSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
   const metrics = payload.conclusion_metrics || {};
+  const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
   const currentOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2026) || {};
   const priorOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2025) || {};
-  const currentTicket = (payload.closed_offer_ticket_distribution || []).find((row) => String(row.period_label).includes("2026")) || {};
+  const offer2024 = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2024) || {};
   const currentConcentration = Object.fromEntries(
     (payload.provider_concentration_history || [])
       .filter((row) => row.competencia === payload.latest_complete)
       .map((row) => [row.papel, row]),
   );
-  const independentShare = (role) => (payload.provider_independent_ranking || [])
-    .filter((row) => row.competencia === payload.latest_complete && row.papel === role)
-    .reduce((sum, row) => sum + num(row.share_pl_total), 0);
-  const holderRows = (payload.holder_distribution_history || []).filter(
-    (row) => row.competencia === payload.latest_complete,
-  );
-  const upTo10 = holderRows
-    .filter((row) => ["0", "1", "2–3", "4–10"].includes(row.bucket))
-    .reduce((memo, row) => ({
-      funds: memo.funds + num(row.share_fundos),
-      pl: memo.pl + num(row.share_pl),
-    }), { funds: 0, pl: 0 });
+  const provider = (role, name) => (payload.provider_historical_ranking || []).find(
+    (row) => row.competencia === payload.latest_complete
+      && row.papel === role
+      && normalizeProviderName(row.participante) === normalizeProviderName(name),
+  ) || {};
+  const qiAdmin = provider("administrador", "QI Tech");
+  const qiCustodian = provider("custodiante", "QI Tech");
+  const otManager = provider("gestor", "Oliveira Trust");
+  const reag = payload.reag_admin_summary || {};
+  const cloudwalk = (payload.closed_offer_originators_2026 || []).find(
+    (row) => normalizeProviderName(row.originator_group).includes("cloudwalk"),
+  ) || {};
+  const outros = (payload.type_mix || []).find(
+    (row) => String(row.anbima_tipo || "").trim().toLowerCase() === "outros",
+  ) || {};
+  const qa = payload.qa_latest || {};
   const offerGrowth = num(priorOffer.registered_volume_brl)
     ? num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1
     : 0;
-  const offerCountGrowth = num(priorOffer.closed_offers)
-    ? num(currentOffer.closed_offers) / num(priorOffer.closed_offers) - 1
+  const offerGrowth2024 = num(offer2024.registered_volume_brl)
+    ? num(currentOffer.registered_volume_brl) / num(offer2024.registered_volume_brl) - 1
     : 0;
-  const adminFlow = payload.provider_transition_summary || {};
-  const otToBradesco = (payload.provider_transition_links || []).find(
-    (row) => normalizeProviderName(row.grupo_origem).includes("oliveira trust")
-      && normalizeProviderName(row.grupo_destino).includes("bradesco"),
-  ) || {};
-  const historyCoverage = Object.fromEntries(
-    (payload.provider_history_cvm_coverage || [])
-      .filter((row) => String(row.data_referencia || "").includes("→"))
-      .map((row) => [row.papel, row]),
-  );
   addHeader(
     slide,
     "PRINCIPAIS CONCLUSÕES",
-    "O perfil segue profissional; gestão é dispersa e a infraestrutura fiduciária permanece integrada",
-    "Fonte: CVM, ANBIMA, FundosNet, FIDCs.xlsx, BCB e DF BTG 1T26. Datas e universos seguem as notas dos slides de origem; valores arredondados.",
+    "A distribuição segue institucional, a gestão é dispersa e a infraestrutura fiduciária permanece integrada",
+    "Fonte: CVM, ANBIMA, FundosNet, BCB e DF BTG 1T26. PL em mai/26; ofertas encerradas até 17/jul/26. Universos e ressalvas constam em cada bloco.",
     page,
   );
   const conclusions = [
     {
-      label: "01 · PERFIL DE DISTRIBUIÇÃO",
-      text: `${pct(currentOffer.professional_target_registered_volume_share, 1)} do volume jan–mai/26 teve público profissional. O ticket médio foi ${mm(currentTicket.period_mean_ticket_brl, 1)} e a mediana, ${mm(currentTicket.period_median_ticket_brl, 1)}. Na amostra com PL ≥ R$ 200 mi, ${pct(upTo10.funds, 1)} dos fundos têm até dez contas e reúnem ${pct(upTo10.pl, 1)} do PL.`,
+      label: "01 · DISTRIBUIÇÃO APÓS A RCVM 175",
+      text: `Em 2026 YTD, o ticket médio foi ${mm(currentOfferYtd.mean_registered_ticket_brl, 1)} e a mediana, ${mm(currentOfferYtd.median_registered_ticket_brl, 1)}; PF respondeu por ${pct(currentOfferYtd.natural_person_placed_volume_share, 1)} do proxy de volume colocado (cobertura: ${pct(currentOfferYtd.placed_quantity_registered_volume_coverage, 1)} do valor registrado). Entre ${integer(metrics.holder_ge_200m_fundos)} fundos com PL ≥ R$ 200 mi, ${pct(metrics.holder_ge_200m_share_fundos_ate_10_contas, 0)} têm até dez contas.`,
     },
     {
-      label: "02 · CONCENTRAÇÃO",
-      text: `Gestão tem Top 10 de ${pct(currentConcentration.gestor?.top10_share, 1)} e HHI ${integer(currentConcentration.gestor?.hhi)}, abaixo de administração (${pct(currentConcentration.administrador?.top10_share, 1)}) e custódia (${pct(currentConcentration.custodiante?.top10_share, 1)}).`,
+      label: "02 · CONCENTRAÇÃO POR FUNÇÃO",
+      text: `Gestão é a função menos concentrada: o Top 10 reúne ${pct(currentConcentration.gestor?.top10_share, 1)} do PL ex-FIC, ante ${pct(currentConcentration.administrador?.top10_share, 1)} em administração e ${pct(currentConcentration.custodiante?.top10_share, 1)} em custódia. Esse recorte exclui Sistema Petrobras e TAPSO.`,
     },
     {
-      label: "03 · ADMINISTRAÇÃO + CUSTÓDIA",
-      text: `Prestadores do mesmo grupo econômico respondem por ${pct(metrics.admin_custodia_mesmo_grupo_prestadores_share_pl, 1)} do PL de ${bn(metrics.universo_prestadores_pl_brl, 1)}. A cobertura conjunta dos dois campos é ${pct(metrics.admin_custodia_prestadores_cobertura_share_pl, 1)}.`,
+      label: "03 · VERTICALIZAÇÃO",
+      text: `Administração e custódia ficam no mesmo conglomerado em ${pct(metrics.admin_custodia_juntas_share_pl, 1)} do PL bruto, distribuído por ${integer(metrics.admin_custodia_juntas_fundos)} fundos. Monoestruturas, com as três funções internalizadas, representam ${pct(metrics.monoestrutura_share_pl, 1)} do PL.`,
     },
     {
-      label: "04 · COMBO BTG",
-      text: `Após retirar os seis FIDCs controlados identificados nas DFs, o BTG mantém administração, gestão e custódia no mesmo grupo em ${integer(metrics.btg_combo_ex_controlados_fundos)} FIDCs e ${bn(metrics.btg_combo_ex_controlados_pl_brl, 1)}. É o maior grupo em quantidade nesse recorte.`,
+      label: "04 · COMBO COMPLETO NO BTG",
+      text: `No universo ex-FIC, o BTG concentra as três funções em ${integer(metrics.btg_combo_tres_funcoes_fundos)} FIDCs e ${bn(metrics.btg_combo_tres_funcoes_pl_brl, 1)}. Após excluir os seis fundos com controle confirmado na DF analisada, o saldo é de ${integer(metrics.btg_combo_ex_controlados_fundos)} FIDCs e ${bn(metrics.btg_combo_ex_controlados_pl_brl, 1)}. A DF não permite classificar integralmente o saldo como carteira de terceiros.`,
     },
     {
-      label: "05 · INDEPENDENTES",
-      text: `Os grupos independentes revisados representam ao menos ${pct(independentShare("administrador"), 1)} da administração e ${pct(independentShare("custodiante"), 1)} da custódia. QI Tech lidera as duas atividades; a curadoria cobre 11 grupos e funciona como piso.`,
+      label: "05 · INDEPENDENTES COM ESCALA",
+      text: `QI Tech lidera administração (${bn(qiAdmin.pl_brl, 1)}) e custódia (${bn(qiCustodian.pl_brl, 1)}), com Singulare consolidada no grupo. Oliveira Trust é a maior gestora independente (${bn(otManager.pl_brl, 1)}; 3ª geral). Na coorte CBSF/Reag, ${pct(reag.migrated_share_current, 1)} do PL atual dos fundos continuantes já estava em outro administrador em mai/26.`,
     },
     {
       label: "06 · OFERTAS ENCERRADAS",
-      text: `O volume jan–mai/26 alcançou ${bn(currentOffer.registered_volume_brl, 1)}, alta de ${pct(offerGrowth, 1)} sobre jan–mai/25, com ${pct(Math.abs(offerCountGrowth), 1)} menos ofertas. A originação permaneceu ativa e o ticket médio subiu ${pct(num(currentOffer.mean_registered_ticket_brl) / num(priorOffer.mean_registered_ticket_brl) - 1, 1)}.`,
+      text: `${integer(currentOfferYtd.closed_offers)} ofertas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} até 17/jul/26. Jan–mai alcançou ${bn(currentOffer.registered_volume_brl, 1)}, avanço de ${pct(offerGrowth, 0)} sobre 2025 e ${pct(offerGrowth2024, 0)} sobre 2024. CloudWalk teve a maior oferta individual da base, de ${bn(cloudwalk.registered_volume_brl, 1)}.`,
+    },
+    {
+      label: "07 · MIGRAÇÃO DE ADMINISTRAÇÃO",
+      text: `${integer(metrics.admin_transition_2024_2025_changed_funds)} FIDCs trocaram de administrador entre dez/24 e dez/25: ${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}, ou ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável. Oliveira Trust → Bradesco somou ${bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1)} em dois FIDCs Cielo. Gestão e custódia possuem apenas amostras ICVM 555, com baixa cobertura.`,
+    },
+    {
+      label: "08 · LIMITAÇÕES DA BASE",
+      text: `“Outros” concentra ${pct(outros.share, 1)} do PL ex-FIC na taxonomia ANBIMA. Em mai/26, ${integer(qa.casos_inad_supera_carteira)} veículos reportaram inadimplência acima da carteira; o ajuste limitou o excesso em ${bn(qa.excesso_removido_brl, 1)}. O lastro dos maiores fundos ainda exige curadoria documental.`,
     },
   ];
   conclusions.forEach((item, index) => {
     const column = index % 2;
     const row = Math.floor(index / 2);
     const left = column === 0 ? 60 : 660;
-    const top = 140 + row * 142;
+    const top = 132 + row * 128;
     addText(slide, item.label, { left, top, width: 540, height: 20 }, {
       fontSize: 10.5,
       bold: true,
       color: C.orange,
     });
-    addText(slide, item.text, { left, top: top + 27, width: 540, height: 94 }, {
-      fontSize: 13,
+    addText(slide, item.text, { left, top: top + 25, width: 540, height: 86 }, {
+      fontSize: 11.4,
       color: C.charcoal,
       lineSpacing: 1.02,
     });
-    addRule(slide, left, top + 128, 540, C.line, 0.7);
+    addRule(slide, left, top + 117, 540, C.line, 0.7);
   });
-  addText(slide, "07 · MIGRAÇÃO DE ADMINISTRAÇÃO", { left: 60, top: 573, width: 250, height: 20 }, {
-    fontSize: 10.5,
-    bold: true,
-    color: C.orange,
-  });
-  addText(
-    slide,
-    `${bn(adminFlow.changed_comparable_pl_brl, 1)} de PL atual trocaram de grupo desde dez/24, equivalentes a ${pct(adminFlow.changed_share, 1)} da coorte comparável. O maior fluxo foi Oliveira Trust → Bradesco: dois FIDCs Cielo e ${bn(otToBradesco.pl_comparavel_brl, 1)}. Gestão e custódia cobrem somente ${pct(historyCoverage.gestor?.cobertura_pl_resolvida, 2)} e ${pct(historyCoverage.custodiante?.cobertura_pl_resolvida, 2)} do PL; os fluxos dessas funções permanecem descritos como amostra ICVM 555.`,
-    { left: 325, top: 570, width: 875, height: 70 },
-    { fontSize: 12.3, color: C.charcoal, lineSpacing: 1.02 },
-  );
   return slide;
 }
 
@@ -4266,30 +4258,51 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
 
 async function addConclusionsSheet(workbook, payload) {
   const metrics = payload.conclusion_metrics || {};
+  const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
   const currentOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2026) || {};
   const priorOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2025) || {};
-  const currentTicket = (payload.closed_offer_ticket_distribution || []).find((row) => String(row.period_label).includes("2026")) || {};
+  const offer2024 = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2024) || {};
   const concentration = Object.fromEntries(
     (payload.provider_concentration_history || [])
       .filter((row) => row.competencia === payload.latest_complete)
       .map((row) => [row.papel, row]),
   );
-  const independentShare = (role) => (payload.provider_independent_ranking || [])
-    .filter((row) => row.competencia === payload.latest_complete && row.papel === role)
-    .reduce((sum, row) => sum + num(row.share_pl_total), 0);
+  const provider = (role, name) => (payload.provider_historical_ranking || []).find(
+    (row) => row.competencia === payload.latest_complete
+      && row.papel === role
+      && normalizeProviderName(row.participante) === normalizeProviderName(name),
+  ) || {};
+  const reag = payload.reag_admin_summary || {};
+  const cloudwalk = (payload.closed_offer_originators_2026 || []).find(
+    (row) => normalizeProviderName(row.originator_group).includes("cloudwalk"),
+  ) || {};
+  const outros = (payload.type_mix || []).find(
+    (row) => String(row.anbima_tipo || "").trim().toLowerCase() === "outros",
+  ) || {};
+  const qa = payload.qa_latest || {};
   const rows = [
-    ["Perfil de distribuição", "Volume destinado a público profissional", currentOffer.professional_target_registered_volume_share, "Ofertas encerradas jan–mai/26", "CVM, Ofertas Públicas"],
-    ["Perfil de distribuição", "Ticket médio", currentTicket.period_mean_ticket_brl, "554 ofertas encerradas jan–mai/26", "Valor Total Registrado / Número do Requerimento"],
-    ["Perfil de distribuição", "Ticket mediano", currentTicket.period_median_ticket_brl, "554 ofertas encerradas jan–mai/26", "Mediana do Valor Total Registrado"],
-    ["Concentração", "Top 10 em administração", concentration.administrador?.top10_share, "PL ex-FIC; sem Petrobras/TAPSO", "CVM"],
-    ["Concentração", "Top 10 em gestão", concentration.gestor?.top10_share, "PL ex-FIC; sem Petrobras/TAPSO", "CVM; cadastro vigente para gestor"],
-    ["Concentração", "Top 10 em custódia", concentration.custodiante?.top10_share, "PL ex-FIC; sem Petrobras/TAPSO", "CVM; cadastro vigente para custodiante"],
-    ["Integração", "Administração e custódia no mesmo grupo", metrics.admin_custodia_mesmo_grupo_prestadores_share_pl, `${integer(metrics.universo_prestadores_fundos)} fundos; ${bn(metrics.universo_prestadores_pl_brl, 1)}`, "Mesmo grupo econômico normalizado"],
-    ["BTG", "FIDCs com combo completo após exclusão", metrics.btg_combo_ex_controlados_fundos, bn(metrics.btg_combo_ex_controlados_pl_brl, 1), "Seis FIDCs controlados retirados pela DF BTG 1T26"],
-    ["Independentes", "Share mínimo em administração", independentShare("administrador"), "11 grupos revisados", "Curadoria de independência; piso"],
-    ["Independentes", "Share mínimo em custódia", independentShare("custodiante"), "11 grupos revisados", "Curadoria de independência; piso"],
-    ["Ofertas", "Crescimento do volume jan–mai/26", num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1, `${bn(currentOffer.registered_volume_brl, 1)} em 2026`, "Comparação com jan–mai/25"],
-    ["Migração", "PL atual que mudou de administrador", payload.provider_transition_summary?.changed_comparable_pl_brl, `${integer(payload.provider_transition_summary?.changed_funds)} fundos`, "Coorte atual; dez/24 → mai/26; PL mai/26"],
+    ["Distribuição", "Ticket médio", mm(currentOfferYtd.mean_registered_ticket_brl, 1), "2026 YTD até 17/jul", "CVM, Ofertas Públicas; Valor Total Registrado / Número do Requerimento"],
+    ["Distribuição", "Ticket mediano", mm(currentOfferYtd.median_registered_ticket_brl, 1), "2026 YTD até 17/jul", "CVM, Ofertas Públicas"],
+    ["Distribuição", "PF no proxy de volume colocado", pct(currentOfferYtd.natural_person_placed_volume_share, 1), `Cobertura: ${pct(currentOfferYtd.placed_quantity_registered_volume_coverage, 1)} do valor registrado`, "Proxy = quantidade colocada × preço unitário implícito, limitado ao valor registrado"],
+    ["Distribuição", "Fundos com até dez contas", pct(metrics.holder_ge_200m_share_fundos_ate_10_contas, 1), `${integer(metrics.holder_ge_200m_fundos)} fundos com PL ≥ R$ 200 mi`, "Contas agregadas ao CNPJ legal; não equivalem a investidores únicos"],
+    ["Concentração", "Top 10 em administração", pct(concentration.administrador?.top10_share, 1), "PL ex-FIC; sem Petrobras/TAPSO", "CVM"],
+    ["Concentração", "Top 10 em gestão", pct(concentration.gestor?.top10_share, 1), "PL ex-FIC; sem Petrobras/TAPSO", "CVM; cadastro vigente para gestor"],
+    ["Concentração", "Top 10 em custódia", pct(concentration.custodiante?.top10_share, 1), "PL ex-FIC; sem Petrobras/TAPSO", "CVM; cadastro vigente para custodiante"],
+    ["Verticalização", "Administração e custódia no mesmo grupo", pct(metrics.admin_custodia_juntas_share_pl, 1), `${integer(metrics.admin_custodia_juntas_fundos)} fundos; universo bruto`, "Mesmo conglomerado econômico normalizado; inclui FIC-FIDC"],
+    ["Verticalização", "Monoestruturas", pct(metrics.monoestrutura_share_pl, 1), `${integer(metrics.monoestrutura_fundos)} fundos; universo bruto`, "Administração, gestão e custódia no mesmo grupo"],
+    ["BTG", "Combo completo ex-FIC", integer(metrics.btg_combo_tres_funcoes_fundos), bn(metrics.btg_combo_tres_funcoes_pl_brl, 1), "Administração, gestão e custódia no grupo BTG"],
+    ["BTG", "Combo ex-FIC após seis controlados", integer(metrics.btg_combo_ex_controlados_fundos), bn(metrics.btg_combo_ex_controlados_pl_brl, 1), "A DF confirma a exclusão e não permite classificar integralmente o saldo como terceiros"],
+    ["Independentes", "QI Tech em administração", bn(provider("administrador", "QI Tech").pl_brl, 1), "mai/26", "Singulare consolidada no grupo QI Tech"],
+    ["Independentes", "QI Tech em custódia", bn(provider("custodiante", "QI Tech").pl_brl, 1), "mai/26", "Singulare consolidada no grupo QI Tech"],
+    ["Independentes", "Oliveira Trust em gestão", bn(provider("gestor", "Oliveira Trust").pl_brl, 1), "mai/26; 3ª geral", "Maior gestora independente na curadoria"],
+    ["Independentes", "PL continuante CBSF/Reag migrado", pct(reag.migrated_share_current, 1), `${integer(reag.migrated_funds)} fundos`, "Carteira administrada pela CBSF/Reag em dez/25; destino em mai/26"],
+    ["Ofertas", "Ofertas encerradas", integer(currentOfferYtd.closed_offers), bn(currentOfferYtd.registered_volume_brl, 1), "2026 YTD até 17/jul; ofertas primárias de cotas de FIDC"],
+    ["Ofertas", "Volume jan–mai/26", bn(currentOffer.registered_volume_brl, 1), `${pct(num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1, 1)} vs. 2025; ${pct(num(currentOffer.registered_volume_brl) / num(offer2024.registered_volume_brl) - 1, 1)} vs. 2024`, "Corte comparável jan–mai"],
+    ["Ofertas", "Maior oferta individual", bn(cloudwalk.registered_volume_brl, 1), "CloudWalk", "Maior oferta individual da base 2026 YTD"],
+    ["Migração", "Fundos que trocaram de administrador", integer(metrics.admin_transition_2024_2025_changed_funds), `${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}; ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável`, "Dez/24 → dez/25; PL comparável = min(PL origem, PL destino)"],
+    ["Migração", "Oliveira Trust → Bradesco", bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1), `${integer(metrics.admin_transition_2024_2025_cielo_funds)} FIDCs Cielo`, "Maior fluxo bilateral no recorte dez/24 → dez/25"],
+    ["Limitações", "Outros na taxonomia ANBIMA", pct(outros.share, 1), "PL ex-FIC em mai/26", "Classificação combina ANBIMA, evidência, proxy CVM e N/D"],
+    ["Limitações", "Inadimplência acima da carteira", integer(qa.casos_inad_supera_carteira), bn(qa.excesso_removido_brl, 1), "Cap por veículo; mai/26"],
   ];
   const headers = ["Tema", "Métrica", "Valor", "Universo / leitura", "Fonte / limitação"];
   const sheet = resetSheet(workbook, "Principais conclusões");
@@ -4302,7 +4315,7 @@ async function addConclusionsSheet(workbook, payload) {
     { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
   );
   sheet.getRangeByIndexes(4, 0, rows.length, headers.length).values = rows;
-  applyColumnWidths(sheet, [150, 300, 145, 320, 430], rows.length);
+  applyColumnWidths(sheet, [150, 310, 150, 350, 470], rows.length);
   sheet.getRange(`A5:E${rows.length + 4}`).format.rowHeightPx = 48;
 }
 
@@ -4971,7 +4984,7 @@ async function exportWorkbook(workbook) {
       ["Ofertas encerradas", "A1:Q58"],
       ["Histograma ofertas", "A1:V25"],
       ["Originadores 2026", "A1:M24"],
-      ["Principais conclusões", "A1:E18"],
+      ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
       ["Checks revisão", "A1:D20"],

@@ -603,10 +603,107 @@ def _service_model(mono: pd.DataFrame, latest: str) -> pd.DataFrame:
     return grouped.sort_values("order").drop(columns="order")
 
 
+def _provider_transition_conclusion_metrics(
+    funds: pd.DataFrame,
+    *,
+    from_competence: str = "2024-12",
+    to_competence: str = "2025-12",
+) -> dict[str, Any]:
+    """Summarize administrator changes on a like-for-like legal-fund cohort.
+
+    The bridge deliberately weights every continuing fund by the lower PL of
+    the two observations.  This keeps growth or shrinkage inside an unchanged
+    fund from being mistaken for provider migration.
+    """
+
+    excluded = {_digits(value) for value in MARKET_SHARE_EXCLUDED_FUNDS}
+
+    def _scope(competence: str) -> pd.DataFrame:
+        scoped = funds[
+            funds["competencia"].astype(str).str[:7].eq(str(competence)[:7])
+        ].copy()
+        scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(_digits)
+        scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
+        scoped = scoped[
+            scoped["cnpj_fundo"].ne("")
+            & ~scoped["is_fic_fidc"].fillna(False).astype(bool)
+            & scoped["pl"].gt(0)
+            & ~scoped["cnpj_fundo"].isin(excluded)
+        ].copy()
+        return (
+            scoped.sort_values(["pl", "cnpj_fundo"], ascending=[False, True])
+            .drop_duplicates("cnpj_fundo", keep="first")
+            .reset_index(drop=True)
+        )
+
+    old = _scope(from_competence)[
+        ["cnpj_fundo", "denominacao", "pl", "admin_nome"]
+    ].rename(
+        columns={
+            "denominacao": "denominacao_origem",
+            "pl": "pl_origem_brl",
+            "admin_nome": "admin_origem_nome",
+        }
+    )
+    new = _scope(to_competence)[
+        ["cnpj_fundo", "denominacao", "pl", "admin_nome"]
+    ].rename(
+        columns={
+            "denominacao": "denominacao_destino",
+            "pl": "pl_destino_brl",
+            "admin_nome": "admin_destino_nome",
+        }
+    )
+    detail = old.merge(new, on="cnpj_fundo", how="inner", validate="one_to_one")
+    detail["grupo_origem"] = detail["admin_origem_nome"].map(canonical_provider)
+    detail["grupo_destino"] = detail["admin_destino_nome"].map(canonical_provider)
+    detail["pl_comparavel_brl"] = detail[
+        ["pl_origem_brl", "pl_destino_brl"]
+    ].min(axis=1)
+    detail["mudou_grupo"] = detail["grupo_origem"].ne(detail["grupo_destino"])
+
+    comparable_pl = float(detail["pl_comparavel_brl"].sum())
+    changed = detail[detail["mudou_grupo"]].copy()
+    changed_pl = float(changed["pl_comparavel_brl"].sum())
+    cielo = changed[
+        changed["grupo_origem"].eq("Oliveira Trust")
+        & changed["grupo_destino"].eq("Bradesco")
+        & changed["denominacao_destino"].fillna("").str.contains(
+            "CIELO", case=False, regex=False
+        )
+    ].copy()
+
+    return {
+        "admin_transition_2024_2025_from": str(from_competence)[:7],
+        "admin_transition_2024_2025_to": str(to_competence)[:7],
+        "admin_transition_2024_2025_continuing_funds": int(len(detail)),
+        "admin_transition_2024_2025_comparable_pl_brl": comparable_pl,
+        "admin_transition_2024_2025_changed_funds": int(len(changed)),
+        "admin_transition_2024_2025_changed_pl_brl": changed_pl,
+        "admin_transition_2024_2025_changed_share_pl": (
+            changed_pl / comparable_pl if comparable_pl else None
+        ),
+        "admin_transition_2024_2025_cielo_funds": int(len(cielo)),
+        "admin_transition_2024_2025_cielo_pl_brl": float(
+            cielo["pl_comparavel_brl"].sum()
+        ),
+        "admin_transition_2024_2025_cielo_names": sorted(
+            cielo["denominacao_destino"].dropna().astype(str).unique().tolist()
+        ),
+        "admin_transition_2024_2025_methodology": (
+            "CNPJs legais com PL positivo em dez/24 e dez/25; ex-FIC-FIDC e sem "
+            "FIDC Sistema Petrobras/TAPSO; administrador informado em cada "
+            "competência; PL comparável = menor PL entre as duas datas"
+        ),
+    }
+
+
 def _conclusion_metrics(
     vehicle: pd.DataFrame,
     funds: pd.DataFrame,
     latest: str,
+    *,
+    mono: pd.DataFrame | None = None,
 ) -> dict[str, Any]:
     """Materialize the small set of cross-slide metrics used in conclusions."""
 
@@ -669,6 +766,48 @@ def _conclusion_metrics(
     up_to_10 = holder["contas"].le(10)
     holder_pl = float(holder["pl"].sum())
 
+    holder_ge_200m = holder[holder["pl"].ge(200_000_000)].copy()
+    holder_ge_200m_up_to_10 = holder_ge_200m["contas"].le(10)
+    holder_ge_200m_pl = float(holder_ge_200m["pl"].sum())
+
+    service_metrics: dict[str, Any] = {}
+    if mono is not None and not mono.empty:
+        service = _service_model(mono, latest).set_index("modelo_prestacao")
+        service_total_funds = int(service["fundos"].sum())
+        service_total_pl = float(service["pl"].sum())
+        monostructure = service.loc["Monoestrutura"]
+        admin_custody = service.loc["Administração + Custódia"]
+        admin_custody_together_funds = int(
+            monostructure["fundos"] + admin_custody["fundos"]
+        )
+        admin_custody_together_pl = float(
+            monostructure["pl"] + admin_custody["pl"]
+        )
+        service_metrics = {
+            "service_model_universe_funds": service_total_funds,
+            "service_model_universe_pl_brl": service_total_pl,
+            "admin_custodia_juntas_fundos": admin_custody_together_funds,
+            "admin_custodia_juntas_pl_brl": admin_custody_together_pl,
+            "admin_custodia_juntas_share_pl": (
+                admin_custody_together_pl / service_total_pl
+                if service_total_pl
+                else None
+            ),
+            "monoestrutura_fundos": int(monostructure["fundos"]),
+            "monoestrutura_pl_brl": float(monostructure["pl"]),
+            "monoestrutura_share_pl": (
+                float(monostructure["pl"]) / service_total_pl
+                if service_total_pl
+                else None
+            ),
+            "service_model_definition": (
+                "universo bruto de CNPJs legais em mai/26; mesmo conglomerado "
+                "econômico normalizado; inclui FIC-FIDC"
+            ),
+        }
+
+    transition_metrics = _provider_transition_conclusion_metrics(funds)
+
     return {
         "competencia": latest,
         "universo_fundos_ex_fic_pl_positivo": int(current["cnpj_fundo"].nunique()),
@@ -704,7 +843,27 @@ def _conclusion_metrics(
         "share_pl_ate_5_contas": float(holder.loc[up_to_5, "pl"].sum()) / holder_pl,
         "share_fundos_ate_10_contas": float(up_to_10.mean()),
         "share_pl_ate_10_contas": float(holder.loc[up_to_10, "pl"].sum()) / holder_pl,
+        "holder_ge_200m_fundos": int(holder_ge_200m["cnpj_fundo"].nunique()),
+        "holder_ge_200m_pl_brl": holder_ge_200m_pl,
+        "holder_ge_200m_fundos_ate_10_contas": int(
+            holder_ge_200m_up_to_10.sum()
+        ),
+        "holder_ge_200m_share_fundos_ate_10_contas": float(
+            holder_ge_200m_up_to_10.mean()
+        ),
+        "holder_ge_200m_share_pl_ate_10_contas": (
+            float(holder_ge_200m.loc[holder_ge_200m_up_to_10, "pl"].sum())
+            / holder_ge_200m_pl
+            if holder_ge_200m_pl
+            else None
+        ),
         "holder_definition": "contas reportadas por fundo/classe, agregadas ao CNPJ legal; não equivalem a investidores únicos",
+        "btg_combo_definition": (
+            "PL ex-FIC-FIDC com administração, gestão e custódia no grupo BTG; "
+            "a exclusão cobre seis CNPJs com controle confirmado na DF BTG 1T26"
+        ),
+        **service_metrics,
+        **transition_metrics,
     }
 
 
@@ -1236,7 +1395,9 @@ def build_payload(
         "top20_outros": _records(top20_outros_review),
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
-        "conclusion_metrics": _conclusion_metrics(vehicle, funds, latest),
+        "conclusion_metrics": _conclusion_metrics(
+            vehicle, funds, latest, mono=mono
+        ),
         "monostructure_concentration": _records(mono_concentration),
         "closed_offers": closed_offers,
         "closed_offers_annual": closed_annual,
@@ -1383,7 +1544,13 @@ def main(argv: list[str] | None = None) -> None:
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2, default=_json_value),
+        json.dumps(
+            payload,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+            default=_json_value,
+        ),
         encoding="utf-8",
     )
     print(f"[ok] payload editorial: {args.output}")
