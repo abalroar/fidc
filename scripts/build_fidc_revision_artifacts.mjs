@@ -2838,7 +2838,81 @@ function buildPresentation(payload, flowAssets) {
     });
   }
 
-  // 27. Escopo, fontes e limitações
+  // 27. Principais conclusões
+  {
+    const slide = presentation.slides.add();
+    addHeader(
+      slide,
+      "PRINCIPAIS CONCLUSÕES",
+      "Varejo ainda marginal, serviços verticalizados e originação em alta; gestão é a função menos concentrada",
+      `Fonte: CVM, ANBIMA e FundosNet; ${stockShortLower}, salvo ofertas até ${offersShort}. Métricas detalhadas nos slides anteriores e no apêndice.`,
+      27,
+    );
+    const conclusions = [
+      {
+        kicker: "DISTRIBUIÇÃO · RCVM 175",
+        claim: "A abertura ao varejo ainda não mudou o perfil da demanda",
+        detail: "Ticket médio de R$ 82,7 mi (mediana R$ 21,6 mi) em 2026, PF com 4,2% do volume colocado e 59% dos fundos acima de R$ 200 mi com até 10 contas: o FIDC segue veículo de captação institucional, não produto de prateleira.",
+      },
+      {
+        kicker: "FUNÇÕES · CONCENTRAÇÃO",
+        claim: "Gestão é a atividade menos concentrada",
+        detail: "O Top 10 da gestão detém 35,7% do PL ex-FIC em mai/26, contra 71,8% na administração e 72,8% na custódia; no Top 5, 24,2% contra cerca de 50%. É a camada com maior espaço para casas independentes.",
+      },
+      {
+        kicker: "VERTICALIZAÇÃO",
+        claim: "Administração e custódia andam juntas em 87,4% do PL",
+        detail: "3.702 fundos (87,7% do total) mantêm as duas funções no mesmo conglomerado em mai/26: 53,4% do PL bruto com gestor terceiro e 34,0% em monoestruturas, com as três funções internalizadas.",
+      },
+      {
+        kicker: "COMBO COMPLETO",
+        claim: "BTG é o banco que mais oferta o pacote adm + gestão + custódia",
+        detail: "São 73 FIDCs monoestrutura (R$ 67,7 bi) em mai/26; excluídos os 6 FIDCs proprietários consolidados na DF 1T26 (R$ 28,6 bi), restam 67 FIDCs de terceiros com o combo completo (R$ 39,0 bi).",
+      },
+      {
+        kicker: "INDEPENDENTES",
+        claim: "Independentes lideram administração e custódia",
+        detail: "QI Tech é nº 1 geral em administração (R$ 122,5 bi) e custódia (R$ 120,6 bi) — escala herdada da Singulare; Oliveira Trust é a maior gestora independente (R$ 34,0 bi, nº 3 geral). Na CBSF, em liquidação desde jan/26, 19% do PL continuante já migrou.",
+      },
+      {
+        kicker: "ORIGINAÇÕES",
+        claim: "O ritmo de emissão segue no maior nível da série",
+        detail: "841 ofertas encerradas somam R$ 69,6 bi em 2026 até 17/jul; jan–mai registra R$ 51,5 bi, +15% sobre 2025 e +45% sobre 2024. CloudWalk fez a maior oferta única do ano (R$ 5,5 bi).",
+      },
+      {
+        kicker: "ROUBA-MONTE",
+        claim: "Trocas de administrador movem pouco: 7,2% do estoque",
+        detail: "257 FIDCs mudaram de administrador entre dez/24 e dez/25 (R$ 33,0 bi comparáveis). O maior fluxo bilateral foi Cielo: Oliveira Trust → Bradesco, R$ 8,9 bi; movimentos relevantes seguem eventos societários. Gestão e custódia não têm série observável.",
+      },
+      {
+        kicker: "QUALIDADE DO DADO",
+        claim: "A leitura fina da indústria ainda exige curadoria documental",
+        detail: "Outros concentra 41,7% do PL ex-FIC na taxonomia ANBIMA e 197 veículos reportam inadimplência acima da carteira (cap de R$ 14,6 bi); a classificação oficial não descreve o lastro dos maiores fundos.",
+      },
+    ];
+    conclusions.forEach((item, index) => {
+      const x = index < 4 ? 60 : 660;
+      const y = 128 + (index % 4) * 132;
+      addText(slide, item.kicker, { left: x, top: y, width: 560, height: 16 }, {
+        fontSize: 11,
+        bold: true,
+        color: C.orange,
+      });
+      addText(slide, item.claim, { left: x, top: y + 20, width: 560, height: 22 }, {
+        fontSize: 15,
+        bold: true,
+        color: C.black,
+      });
+      addText(slide, item.detail, { left: x, top: y + 44, width: 560, height: 68 }, {
+        fontSize: 13,
+        color: C.mid,
+        lineSpacing: 1.05,
+      });
+      if (index % 4 < 3) addRule(slide, x, y + 122, 560, C.line, 0.75);
+    });
+  }
+
+  // 28. Escopo, fontes e limitações
   {
     const slide = presentation.slides.add();
     const coverage = Object.fromEntries(payload.classification_coverage.map((row) => [row.categoria, row.share]));
