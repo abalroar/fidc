@@ -14,6 +14,7 @@ rotulo direto ou tabela ao lado.
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import re
 import sqlite3
@@ -9514,6 +9515,13 @@ def _industry_kpi(label: str, value: str, note: str = "") -> str:
     )
 
 
+def _industry_headline(text: str) -> None:
+    st.markdown(
+        f'<div class="industry-thesis">{html.escape(text)}</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def _truthy(series: pd.Series) -> pd.Series:
     return series.fillna(False).astype(str).str.strip().str.lower().isin({"true", "1", "sim", "s"})
 
@@ -11057,6 +11065,10 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
 
     st.markdown("<h2>Evolução do PL</h2>", unsafe_allow_html=True)
     if not pl.empty:
+        _industry_headline(
+            f"O PL ex-FIC chegou a {_fmt_bi(latest_pl_ex_fic, 0)}; "
+            f"FIC-FIDC adiciona {_fmt_bi(float(latest.get('pl_fic_componente', 0)), 0)}."
+        )
         pl = pl.copy()
         pl["Período"] = pl.apply(
             lambda row: _short_competence_label(row["competencia"])
@@ -11101,7 +11113,10 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             )
         )
         st.altair_chart((bars + labels).properties(height=360), width="stretch", key="industry-revision-pl")
-        st.caption("PL bruto = PL ex-FIC + PL dos FIC-FIDCs. Os dois componentes não se sobrepõem.")
+        st.caption(
+            "Fonte: CVM, Informe Mensal de FIDC. PL bruto = PL ex-FIC + PL dos FIC-FIDCs; "
+            "os dois componentes não se sobrepõem. Data-base: mai/26."
+        )
 
     st.markdown("<h2>Mix por Tipo ANBIMA: dez/23 e mai/26</h2>", unsafe_allow_html=True)
     mix = _revision_history_frame(payload, "type_mix_history", fallback_key="type_mix")
@@ -11275,6 +11290,12 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                 f"e {_fmt_pct(float(row['share_pl']))} do PL ex-FIC em {_short_competence_label(latest_period)}. "
                 "A classificação CVM originalmente reportada permanece disponível no workbook."
             )
+        st.caption(
+            "Fonte: CVM, Informe Mensal, e FIDCs.xlsx. A reclassificação analítica é restrita aos 13 CNPJs "
+            "listados no workbook; a categoria original da CVM permanece preservada na base detalhada. "
+            "Em mai/26, oito estavam em Cartão e três em Comercial; dois não tinham reporte ativo. "
+            "O denominador e as demais categorias permanecem idênticos ao mix CVM ex-FIC."
+        )
 
     with st.expander("Origem da classificação", expanded=False):
         coverage = _revision_frame(payload, "classification_coverage")
@@ -11357,6 +11378,14 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
                 )
             )
             st.altair_chart(chart + labels, width="stretch", key="industry-revision-vehicles")
+        latest_investor_base = history.iloc[-1]
+        accounts_thousands = f"{float(latest_investor_base['cotistas_total']) / 1000:.1f}".replace(
+            ".", ","
+        )
+        _industry_headline(
+            f"A base atingiu {accounts_thousands} mil contas em "
+            f"{_fmt_int(latest_investor_base['n_veiculos'])} veículos; contas não são investidores únicos."
+        )
 
     st.markdown("<h2>Composição das contas</h2>", unsafe_allow_html=True)
     if not composition.empty:
@@ -11382,11 +11411,51 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
             )
         )
         st.altair_chart(chart + labels, width="stretch", key="industry-revision-investor-composition")
+        total_accounts = int(pd.to_numeric(composition["contas"], errors="coerce").fillna(0).sum())
+        unidentified_accounts = int(
+            pd.to_numeric(
+                composition.loc[
+                    composition["categoria"].astype(str).str.casefold().isin(
+                        {"não classificado", "não identificado", "nao identificado", "n/d"}
+                    ),
+                    "contas",
+                ],
+                errors="coerce",
+            ).fillna(0).sum()
+        )
+        st.caption(
+            "Fonte: CVM, Informe Mensal de FIDC, mai/26. Contas podem se repetir por classe ou série. "
+            f"Composição reconciliada: {_fmt_int(total_accounts)} contas, das quais "
+            f"{_fmt_int(unidentified_accounts)} sem tipo identificado."
+        )
 
     st.markdown("<h2>Distribuição por número de contas: dez/23 e mai/26</h2>", unsafe_allow_html=True)
     if not holders.empty:
         order = holders["bucket"].astype(str).drop_duplicates().tolist()
         period_order, _period_colors = _revision_period_encoding(holders)
+        above_ten = (
+            holders[~holders["bucket"].astype(str).isin({"0", "1", "2–3", "4–10", "6–10"})]
+            .groupby("competencia", as_index=False)[["share_fundos", "share_pl"]]
+            .sum()
+            .sort_values("competencia")
+        )
+        if len(above_ten) >= 2:
+            first_above_ten = above_ten.iloc[0]
+            latest_above_ten = above_ten.iloc[-1]
+            fund_delta_pp = (
+                float(latest_above_ten["share_fundos"])
+                - float(first_above_ten["share_fundos"])
+            ) * 100
+            pl_delta_pp = (
+                float(latest_above_ten["share_pl"])
+                - float(first_above_ten["share_pl"])
+            ) * 100
+            fund_delta_label = f"{fund_delta_pp:.1f}".replace(".", ",")
+            pl_delta_label = f"{pl_delta_pp:.1f}".replace(".", ",")
+            _industry_headline(
+                "Fundos com mais de 10 contas ganharam "
+                f"{fund_delta_label} p.p. do universo e {pl_delta_label} p.p. do PL desde dez/23."
+            )
         fund_share_ceiling = max(float(holders["share_fundos"].max()) * 1.15, 0.01)
         pl_share_ceiling = max(float(holders["share_pl"].max()) * 1.15, 0.01)
         left, right = st.columns(2)
@@ -11537,11 +11606,25 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
                     f"{row['Período']}: {_fmt_pct(float(row['fund_coverage']))} dos fundos e "
                     f"{_fmt_pct(float(row['pl_coverage']))} do PL ex-FIC"
                 )
+        eligible_counts = (
+            holder_meta.sort_values("competencia")["eligible_funds"]
+            .map(_fmt_int)
+            .tolist()
+            if not holder_meta.empty and "eligible_funds" in holder_meta
+            else []
+        )
+        count_bridge = (
+            f"{eligible_counts[0]} → {eligible_counts[-1]} fundos; "
+            if len(eligible_counts) >= 2
+            else ""
+        )
         st.caption(
-            f"Recorte nominal constante: fundos com PL ≥ R$ {_fmt_int(minimum / 1e6)} mi. "
-            + ("Cobertura: " + "; ".join(coverage) + ". " if coverage else "")
-            + "Em cada competência, as faixas percentuais somam 100% dentro do recorte. "
-            "Contas são observações por classe ou série, não investidores únicos."
+            "Fonte: CVM, dez/23 e mai/26. "
+            f"Recorte nominal constante: fundos ex-FIC com PL ≥ R$ {_fmt_int(minimum / 1e6)} mi; "
+            + count_bridge
+            + ("cobertura: " + "; ".join(coverage) + ". " if coverage else "")
+            + "Cada histograma percentual fecha em 100% dentro do período. A comparação usa duas fotografias "
+            "da indústria, sem coorte constante; contas são observações por classe ou série, não investidores únicos."
         )
 
 
@@ -11625,6 +11708,10 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 "declararam R$ 5,24 bi em Comercial; o painel preserva o reporte e sinaliza a divergência, "
                 "sem reclassificação."
             )
+        st.caption(
+            "Fonte: CVM, Informe Mensal de FIDC, dez/23 e mai/26. A Tabela II classifica o recebível reportado; "
+            "Tipo/Foco ANBIMA classifica o fundo ou classe. As duas taxonomias têm objetos e denominadores distintos."
+        )
 
     st.markdown("<h2>Observabilidade da inadimplência</h2>", unsafe_allow_html=True)
     cards = [
@@ -11853,13 +11940,38 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 width="stretch",
             )
         latest_frozen = frozen_summary.sort_values("competencia").iloc[-1]
+        financeiro_row = snapshot[
+            snapshot["tipo_recebivel_tabela_ii"].eq("Financeiro")
+        ]
+        if not financeiro_row.empty:
+            _industry_headline(
+                f"Financeiro encerra mai/26 em {_fmt_pct(float(financeiro_row.iloc[0]['inadimplencia_sobre_carteira']))}; "
+                f"a coorte fixa soma {_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)}."
+            )
+        small_subtypes = []
+        for subtype in ("Factoring", "Imobiliário"):
+            subtype_row = snapshot[
+                snapshot["tipo_recebivel_tabela_ii"].eq(subtype)
+            ]
+            if not subtype_row.empty:
+                item = subtype_row.iloc[0]
+                fund_count = int(item.get("fundos_incluidos", 0))
+                small_subtypes.append(
+                    f"{subtype}: {_fmt_int(fund_count)} {'fundo' if fund_count == 1 else 'fundos'} e "
+                    f"{_fmt_bi(float(item.get('pl_incluido_brl', 0)), 1)}"
+                )
         st.caption(
-            f"Coorte fixa pela classificação de mai/26: "
-            f"{_fmt_int(latest_frozen.get('fundos_coorte', 0))} fundos e "
+            "Fonte: CVM, Informe Mensal de FIDC, Tabelas I, II e IV. Coorte e subtipo definidos em mai/26; "
+            "em cada competência entram os CNPJs presentes, ex-FIC, com PL positivo, carteira e inadimplência "
+            "reportadas e inadimplência menor ou igual à carteira. "
+            "Linha laranja = consolidado de mercado ajustado. "
+            f"A coorte fixa reúne {_fmt_int(latest_frozen.get('fundos_coorte', 0))} fundos e "
             f"{_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)} de PL de referência. "
             "Cada fundo mantém retrospectivamente o tipo observado em mai/26; fundos com mais de um tipo, "
             "campo ausente ou inadimplência acima da carteira ficam fora do respectivo mês. "
-            "A leitura incorpora viés de sobrevivência e não representa a composição histórica completa."
+            "A leitura incorpora viés de sobrevivência e não representa a composição histórica completa. "
+            + ("Baixa representatividade em " + "; ".join(small_subtypes) + ". " if small_subtypes else "")
+            + f"Consolidado ajustado de mercado: {_fmt_pct(float(qa.get('inadimplencia_ajustada_pct', 0)))}."
         )
 
     series = _revision_frame(payload, "qa_series")
@@ -11943,6 +12055,15 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             {"administrador": "Administração", "gestor": "Gestão", "custodiante": "Custódia"}
         )
         concentration = concentration[concentration["Papel"].notna()].copy()
+        latest_concentration = concentration[
+            concentration["competencia"].eq(concentration["competencia"].max())
+        ].set_index("papel")
+        if {"administrador", "gestor", "custodiante"}.issubset(latest_concentration.index):
+            _industry_headline(
+                f"Top 10 concentra {_fmt_pct(float(latest_concentration.loc['administrador', 'top10_share']))} "
+                f"em administração e {_fmt_pct(float(latest_concentration.loc['custodiante', 'top10_share']))} "
+                f"em custódia; gestão está em {_fmt_pct(float(latest_concentration.loc['gestor', 'top10_share']))}."
+            )
         period_order, _period_colors = _revision_period_encoding(concentration)
         role_order = ["Administração", "Gestão", "Custódia"]
         left, right = st.columns(2)
@@ -12010,6 +12131,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             else "bundle v2: Sistema Petrobras/TAPSO ainda incluídos"
         )
         st.caption(
+            "Fonte: CVM, dez/25 e mai/26. "
             f"Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador; {universe_note}. "
             + "Cobertura identificada: "
             + "; ".join(coverage_parts)
@@ -12163,8 +12285,18 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                         width="stretch",
                         key=f"industry-revision-provider-ranking-{role}",
                     )
+        btg_exclusion_note = ""
+        if not btg_scenario.empty:
+            btg_exclusion = btg_scenario.iloc[0]
+            btg_exclusion_note = (
+                f"O cenário ex-controlados retira {_fmt_int(btg_exclusion['fidcs_controlados_excluidos'])} FIDCs e "
+                f"{_fmt_bi(float(btg_exclusion['pl_controlado_excluido_brl']), 1)}; o saldo não é classificado "
+                "automaticamente como carteira de terceiros. "
+            )
         st.caption(
-            f"Posição · PL em R$ bi; linhas ordenadas pelo PL observado de {latest_label.lower()}. "
+            "Fonte: CVM e DF BTG 1T26, nota 3.d. "
+            + btg_exclusion_note
+            + f"Posição · PL em R$ bi; linhas ordenadas pelo PL observado de {latest_label.lower()}. "
             "Na célula do BTG, a segunda linha mostra o cenário ex-6 controlados; as barras mostram o PL observado. "
             "PL ex-FIC, sem Sistema Petrobras e TAPSO. "
             "Administração é observada; gestão e custódia de dez/24 e dez/25 são reconstruídas com o cadastro vigente."
@@ -12212,6 +12344,16 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
     if not independent.empty:
         st.markdown("<h2>Prestadores independentes</h2>", unsafe_allow_html=True)
         latest_period = str(payload.get("latest_complete") or "2026-05")
+        qi_latest = independent[
+            independent["competencia"].eq(latest_period)
+            & independent["participante"].astype(str).str.casefold().eq("qi tech")
+        ].set_index("papel")
+        if {"administrador", "custodiante"}.issubset(qi_latest.index):
+            _industry_headline(
+                "QI Tech lidera administração e custódia entre independentes, com "
+                f"{_fmt_bi(float(qi_latest.loc['administrador', 'pl_brl']), 1)} e "
+                f"{_fmt_bi(float(qi_latest.loc['custodiante', 'pl_brl']), 1)}, respectivamente."
+            )
         tabs = st.tabs(["Administração", "Gestão", "Custódia"])
         for container, (role, label) in zip(
             tabs,
@@ -12293,6 +12435,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                         key=f"industry-revision-independent-{role}",
                     )
         st.caption(
+            "Fonte: CVM, PL ex-FIC; Sistema Petrobras e TAPSO excluídos. "
             "Posição = ranking entre independentes / ranking geral. Singulare é consolidada em QI Tech; "
             "Kanastra é alocada ao Itaú pela regra de afiliação solicitada e fica fora deste recorte."
         )
@@ -12488,6 +12631,14 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
     if not model.empty:
         model = model.copy()
         model["fundos"] = pd.to_numeric(model["fundos"], errors="coerce").fillna(0)
+        mono_model = model[model["modelo_prestacao"].eq("Monoestrutura")]
+        incomplete_model = model[model["modelo_prestacao"].eq("Dados incompletos")]
+        if not mono_model.empty and not incomplete_model.empty:
+            _industry_headline(
+                f"Monoestruturas são {_fmt_pct(float(mono_model.iloc[0]['share_fundos']))} dos fundos e "
+                f"{_fmt_pct(float(mono_model.iloc[0]['share_pl']))} do PL; dados incompletos cobrem "
+                f"{_fmt_pct(float(incomplete_model.iloc[0]['share_pl']))}."
+            )
         model["pl"] = pd.to_numeric(model["pl"], errors="coerce").fillna(0.0)
         model["share_fundos"] = pd.to_numeric(
             model["share_fundos"], errors="coerce"
@@ -12579,7 +12730,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 key="industry-revision-service-model-shares",
             )
         st.caption(
-            "Universo bruto de 4.222 fundos em mai/26, incluindo FIC-FIDCs. "
+            "Fonte: CVM, cadastro vigente em mai/26. Universo bruto de 4.222 fundos, incluindo FIC-FIDCs. "
             "A classificação usa o mesmo conglomerado econômico normalizado para administração, gestão e custódia; campos ausentes permanecem em Dados incompletos."
         )
     mono = _revision_frame(payload, "monostructure_concentration")
@@ -12629,12 +12780,28 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
     profiles = _revision_frame(payload, "profiles")
     ranking_tab, others_tab, profile_tab = st.tabs(["Top 20 FIDCs", "Top 20 Outros", "Ficha do fundo"])
     with ranking_tab:
+        top20_share = float(
+            pd.to_numeric(top20["market_share_ex_fic"], errors="coerce").fillna(0).sum()
+        )
+        _industry_headline(
+            f"Os 20 maiores FIDCs representam {_fmt_pct(top20_share)} do PL ex-FIC; "
+            "a curadoria completa fica na ficha individual."
+        )
         display = top20[["rank", "denominacao", "pl", "market_share_ex_fic", "anbima_tipo", "anbima_foco", "admin_nome", "modelo_prestacao"]].copy()
         display.columns = ["#", "Fundo", "PL", "Share ex-FIC", "Tipo ANBIMA", "Foco ANBIMA", "Administrador", "Modelo"]
         display["PL"] = display["PL"].map(lambda value: _fmt_bi(value, 1))
         display["Share ex-FIC"] = display["Share ex-FIC"].map(_fmt_pct)
         st.dataframe(display, hide_index=True, width="stretch", height=730)
+        st.caption(
+            "Fonte: ANBIMA e documentos primários locais, mai/26. Evidência e links completos constam no workbook."
+        )
     with others_tab:
+        top20_outros_share = float(
+            pd.to_numeric(outros["market_share_outros"], errors="coerce").fillna(0).sum()
+        )
+        _industry_headline(
+            f"Top 20 representam {_fmt_pct(top20_outros_share)} de Outros; classificação oficial, hipótese e status permanecem separados."
+        )
         columns = [
             "rank_outros",
             "denominacao",
@@ -12665,7 +12832,8 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
         display["Share de Outros"] = display["Share de Outros"].map(_fmt_pct)
         st.dataframe(display, hide_index=True, width="stretch", height=730)
         st.caption(
-            "Ranking dos 20 maiores fundos classificados em Outros, sobre o universo ex-FIC de mai/26. "
+            "Fonte: ANBIMA e documentos primários locais, mai/26. Ranking dos 20 maiores fundos classificados "
+            f"em Outros, sobre o universo ex-FIC. Os 20 fundos representam {_fmt_pct(top20_outros_share)} de Outros. "
             "Hipóteses de reenquadramento permanecem separadas da classificação oficial; evidência, fonte e status documentam a revisão."
         )
     with profile_tab:
@@ -12756,6 +12924,17 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             .drop_duplicates()
             .tolist()
         )
+        current_ticket = ticket_distribution[
+            ticket_distribution["period_order"].eq(ticket_distribution["period_order"].max())
+        ]
+        large_ticket = current_ticket[current_ticket["ticket_bucket"].eq("≥ R$ 500 mi")]
+        if not large_ticket.empty:
+            large_ticket_row = large_ticket.iloc[0]
+            _industry_headline(
+                f"A mediana caiu a {_fmt_mi(float(large_ticket_row['period_median_ticket_brl']))}; "
+                f"{_fmt_int(large_ticket_row['closed_offers'])} ofertas acima de R$ 500 mi concentram "
+                f"{_fmt_pct(float(large_ticket_row['registered_volume_share']))} do volume YTD26."
+            )
         chart = (
             alt.Chart(ticket_distribution)
             .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
@@ -12816,7 +12995,9 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             key="industry-revision-closed-offer-ticket-histogram",
         )
         st.caption(
-            "Períodos: ano cheio de 2024, ano cheio de 2025 e jan–mai/26. As faixas foram definidas sobre o "
+            "Fonte: CVM, Ofertas Públicas, snapshot de 20/jul/26. 2024 e 2025 = ano completo; 2026 = jan–mai. "
+            "Cotas de FIDC, oferta primária, status Oferta Encerrada, Valor Total Registrado positivo e unidade "
+            "igual ao Número do Requerimento. As faixas foram definidas sobre o "
             "Valor Total Registrado e cada série soma 100% das ofertas do respectivo período. "
             "A cauda de ofertas grandes deve ser lida em conjunto com a mediana."
         )
@@ -12915,6 +13096,11 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             f'<div class="industry-note">Cobertura nominal: <b>{_fmt_pct(coverage)}</b> do volume registrado. '
             "A lista contém todos os originadores nomináveis e mantém o residual não identificado no denominador.</div>",
             unsafe_allow_html=True,
+        )
+        _industry_headline(
+            f"{_fmt_int(len(originators))} originadores identificados somam "
+            f"{_fmt_bi(float(pd.to_numeric(originators['registered_volume_brl'], errors='coerce').fillna(0).sum()), 1)} "
+            f"em 2026; cobertura nominal de {_fmt_pct(coverage)}."
         )
         chart = (
             alt.Chart(originators)

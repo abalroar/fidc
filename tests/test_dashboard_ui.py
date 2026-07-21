@@ -396,6 +396,37 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
     assert 'color="white"' in revision_source
 
 
+def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    revision_source = source[source.index("def _render_revision_conclusions") :]
+
+    required_notes = (
+        "Fonte: CVM, ANBIMA e FundosNet; estoque em mai/26",
+        "Fonte: CVM, Informe Mensal de FIDC. PL bruto",
+        "Fonte: CVM, Informe Mensal de FIDC, mai/26. Contas podem se repetir",
+        "Fonte: CVM, dez/23 e mai/26",
+        "FIDCs.xlsx. A reclassificação analítica é restrita aos 13 CNPJs",
+        "A Tabela II classifica o recebível reportado",
+        "Linha laranja = consolidado de mercado ajustado",
+        "Fonte: CVM, dez/25 e mai/26",
+        "Fonte: CVM e DF BTG 1T26, nota 3.d",
+        "Singulare é consolidada em QI Tech",
+        "Fonte: CVM, cadastro vigente em mai/26",
+        "Fonte: ANBIMA e documentos primários locais, mai/26",
+        "Fonte: CVM, Ofertas Públicas, snapshot de 20/jul/26",
+        "Fonte: CVM, Ofertas Públicas; encerramentos até 17/jul/26",
+        "Fundos com mais de 10 contas ganharam",
+        "Financeiro encerra mai/26",
+        "Top 10 concentra",
+        "QI Tech lidera administração e custódia entre independentes",
+        "Monoestruturas são",
+        "ofertas acima de R$ 500 mi concentram",
+        "originadores identificados somam",
+    )
+    for note in required_notes:
+        assert note in revision_source
+
+
 def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:
     config = tomllib.loads((ROOT / ".streamlit/config.toml").read_text(encoding="utf-8"))
     expected_fonts = (
