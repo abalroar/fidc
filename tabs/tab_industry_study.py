@@ -9072,6 +9072,18 @@ def _industry_revision_signature() -> str:
     )
 
 
+_REVISION_PAYLOAD_SCHEMA_PATTERN = re.compile(
+    r"^fidc_revision_artifact_payload_v(?P<version>[1-9]\d*)$"
+)
+
+
+def _revision_payload_schema_version(schema: str) -> int | None:
+    """Return the numeric payload version for a well-formed revision schema."""
+
+    match = _REVISION_PAYLOAD_SCHEMA_PATTERN.fullmatch(str(schema or ""))
+    return int(match.group("version")) if match else None
+
+
 def _industry_tab4_conflict_notice(executive_pack: IndustryExecutivePack | None) -> str:
     """Summarize audited Classe/Fundo conflicts without exposing noisy row detail."""
 
@@ -9138,16 +9150,12 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
     payload_raw = path.read_bytes()
     payload = json.loads(payload_raw)
     schema = str(payload.get("schema_version") or "")
-    schema_rank = {
-        "fidc_revision_artifact_payload_v2": 2,
-        "fidc_revision_artifact_payload_v3": 3,
-        "fidc_revision_artifact_payload_v4": 4,
-        "fidc_revision_artifact_payload_v5": 5,
-        "fidc_revision_artifact_payload_v6": 6,
-    }
-    if schema not in schema_rank:
+    schema_version = _revision_payload_schema_version(schema)
+    if schema_version is None or schema_version < 2:
         label = schema or "ausente"
         raise ValueError(f"schema do payload revisado incompatível: {label}")
+    # The page renders the fields it knows and validates the latest known
+    # contract below. Office downloads remain strict in industry_revision_export.
 
     manifest_path = _DATA_DIR / "generated_revision" / "industry_export_bundle.json"
     if manifest_path.exists():
@@ -9158,8 +9166,8 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             if expected_hash and expected_hash != hashlib.sha256(payload_raw).hexdigest():
                 raise ValueError("payload revisado diverge do hash do bundle publicado")
         elif manifest_schema:
-            manifest_rank = schema_rank.get(manifest_schema)
-            if manifest_rank is None or manifest_rank >= schema_rank[schema]:
+            manifest_version = _revision_payload_schema_version(manifest_schema)
+            if manifest_version is None or manifest_version >= schema_version:
                 raise ValueError("schema do payload diverge do bundle publicado")
             # During an atomic release, the analytical payload can arrive before
             # the heavier Office bundle.  The page uses the newer validated
@@ -9193,7 +9201,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "top20_outros",
         "profiles",
     }
-    if schema_rank[schema] >= 2:
+    if schema_version >= 2:
         required.update(
             {
                 "holder_distribution_meta_history",
@@ -9204,7 +9212,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "type_mix_history",
             }
         )
-    if schema_rank[schema] >= 3:
+    if schema_version >= 3:
         required.update(
             {
                 "provider_historical_ranking",
@@ -9213,7 +9221,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "acquiring_taxonomy",
             }
         )
-    if schema_rank[schema] >= 4:
+    if schema_version >= 4:
         required.update(
             {
                 "delinquency_single_receivable",
@@ -9226,7 +9234,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "closed_offer_originators_2026",
             }
         )
-    if schema_rank[schema] >= 5:
+    if schema_version >= 5:
         required.update(
             {
                 "delinquency_frozen_cohort_history",
@@ -9240,7 +9248,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "conclusion_metrics",
             }
         )
-    if schema_rank[schema] >= 6:
+    if schema_version >= 6:
         required.update(
             {
                 "card_taxonomy_audit",
@@ -9257,13 +9265,13 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         ),
         None,
     )
-    if schema_rank[schema] >= 4 and comparable_offer_key is None:
+    if schema_version >= 4 and comparable_offer_key is None:
         missing.append("closed_offers_jan_june")
     if missing:
         raise ValueError(
             "payload revisado incompleto: " + ", ".join(sorted(set(missing)))
         )
-    if schema_rank[schema] >= 3:
+    if schema_version >= 3:
         exclusions = payload.get("market_share_exclusions")
         excluded_cnpjs = set()
         if isinstance(exclusions, list):
@@ -9298,7 +9306,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "top20_outros": {"rank_outros", "denominacao", "pl", "market_share_outros"},
         "profiles": {"rank", "cnpj_fundo_formatado", "nome_curto", "pl"},
     }
-    if schema_rank[schema] >= 2:
+    if schema_version >= 2:
         required_columns.update(
             {
                 "holder_distribution_history": {"competencia", "bucket", "fundos", "pl"},
@@ -9332,7 +9340,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 },
             }
         )
-    if schema_rank[schema] >= 3:
+    if schema_version >= 3:
         required_columns.update(
             {
                 "provider_historical_ranking": {
@@ -9349,7 +9357,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 },
             }
         )
-    if schema_rank[schema] >= 4:
+    if schema_version >= 4:
         required_columns.update(
             {
                 "delinquency_single_receivable": {
@@ -9414,7 +9422,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             "registered_volume_brl",
             "mean_registered_ticket_brl",
         }
-    if schema_rank[schema] >= 5:
+    if schema_version >= 5:
         required_columns.update(
             {
                 "delinquency_frozen_cohort_history": {
@@ -9500,7 +9508,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                     f"{key} linha {index} sem colunas obrigatórias: "
                     + ", ".join(missing_columns)
                 )
-    if schema_rank[schema] >= 4:
+    if schema_version >= 4:
         summary = payload.get("delinquency_single_receivable_summary")
         required_summary = {
             "fundos_universo_ex_fic_pl_positivo",
@@ -9525,7 +9533,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "delinquency_single_receivable_summary sem campos obrigatórios: "
                 + ", ".join(missing_summary)
             )
-    if schema_rank[schema] >= 5 and not isinstance(
+    if schema_version >= 5 and not isinstance(
         payload.get("conclusion_metrics"), dict
     ):
         raise ValueError("conclusion_metrics inválido")
@@ -13896,8 +13904,8 @@ def render_tab_industry_study() -> None:
             f"Detalhe: {exc}"
         )
         st.code(
-            "python scripts/build_fidc_revision_analysis.py && "
-            "python scripts/build_fidc_revision_artifact_payload.py"
+            "FIDC_INPUT_WORKBOOK=/caminho/Industria_FIDC_Dados_202607.xlsx "
+            "python scripts/publish_fidc_revision_bundle.py"
         )
         return
     payload_latest = str(revision_payload.get("latest_complete") or latest_complete)
