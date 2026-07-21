@@ -2,24 +2,24 @@
   "analysis_manifest": {
     "bytes": 7324,
     "name": "revision_manifest.json",
-    "sha256": "f85f0c7b735781752f2355cbc4bce01174e27741bd867c440a22fe999347e8b4"
+    "sha256": "1979562240e8a13052980e013dc930ddd4f6debeadd7f05ad9e9a82fb16ebdf4"
   },
-  "bundle_id": "202605_16b03629f7289a28",
+  "bundle_id": "202605_b56eb705440227f5",
   "checks": {
     "profiles": 20,
     "slides": 55,
     "top20_fidcs": 20,
     "top20_outros": 20
   },
-  "generated_at_utc": "2026-07-21T04:41:52+00:00",
+  "generated_at_utc": "2026-07-21T13:39:12+00:00",
   "html": {
     "bytes": 294156,
     "name": "provider_flows_explorer.html",
     "sha256": "729ce4e370c96cef72b52541077d0799da94af2e43e44cebde9d8b2abdc4e9b5"
   },
-  "input_signature": "0c69a4c0fefc6619a972d17e13e52460a4f7ee6fd7f283c4ec907c165c917cad",
+  "input_signature": "a0a654376ad78318709f8ef14280d218f50301a273fe2de36b6844af7e0dbc2c",
   "inputs": {
-    "analysis/adquirencia_mix_reclassificado.csv": "0a211031e810745fd973a1eaa9340e249ddba1d6b10c6244afa751f5e4179cd1",
+    "analysis/adquirencia_mix_reclassificado.csv": "c3c380ad36873b96c414d834983de74c83bb827c86d69f1770bf22155b9aa16e",
     "analysis/bancos_fidcs_detalhe.csv": "de54fe643fd55f4a979a8fa092a863e63d3f80c4ae2255297e0e422e1aa4ccd2",
     "analysis/bancos_fidcs_evolucao.csv": "e3ce2318d8cf1c6ffd2d2b518fcda6e875214ba8215a710eaf9d310bcab330a9",
     "analysis/base_competencia_cnpj.csv.gz": "e342b7daa6869c5b9b8a989f10a19d4f9ec798bd73010c8ceca7078e18173ad9",
@@ -29,7 +29,7 @@
     "analysis/btg_fidcs_controlados_reconciliacao.csv": "accd55709ba08ca9954484e5d73b2d89b103dcf4b93458230e8df4791f617056",
     "analysis/btg_prestadores_ex_controlados.csv": "abf387cc8e3b15864f50c54dee37191424014d6f0387cf3ffd0f9aaf510adf8e",
     "analysis/cobertura_classificacao.csv": "c17131e7e36e384c941c8443b82822109f405eb91fe0d189f6d8a4bebeac8b3f",
-    "analysis/deck_workbook_payload.json": "0a4c0bd31c1ccc07d9706decf85d679f0ad2ef35d24f58104d2a07c654ea6193",
+    "analysis/deck_workbook_payload.json": "1821d2ae7aec1b410b25d7de4135ee437483976214574f0a34eab6f0068b9b71",
     "analysis/inadimplencia_coorte_atual_historico.csv": "3af0a0ce30f2a86a9ea5f79a8e9480bcef782e81242d09c845147fbde68698a2",
     "analysis/inadimplencia_coorte_atual_membros.csv.gz": "c37276f6d4103f16a18292d02350d67369d1fd3a95d3c1476c46dbc5688e259a",
     "analysis/inadimplencia_coorte_atual_resumo.csv": "dfea107c40088af4347e72afbe990fa3d13fbdb464d6d2e990456b57be40101f",
@@ -41,7 +41,7 @@
     "analysis/monoestrutura_concentracao.csv": "6a54a8ce2c68d783bb6b541bea7b2ac5b85cdee7c0d594d019cb5a4342dc6933",
     "analysis/monoestrutura_por_fundo.csv": "4e67c4f2ea39313b13303223d4d5f30adf2c5f1cbaac8a9019ecc5667f10d87f",
     "analysis/prestadores_historico_cvm_cobertura.csv": "6a39e5fbc2ec50e80df2d88384af80c2a1d0fc4b955000bb5b6362e4da746dad",
-    "analysis/prestadores_historico_cvm_manifest.json": "5921a0524e556c506642b4967171db9d110527594f4bed492883fc961953aef7",
+    "analysis/prestadores_historico_cvm_manifest.json": "6e2dc8f5beb5190320667eeeff723f5a45da38377f95889f7d25e7fdd70aef7b",
     "analysis/prestadores_historico_cvm_snapshot.csv.gz": "464f73f11e3cac5941fe7e060d960bc4c876c2e685641e89d6bfc5ba4546db37",
     "analysis/prestadores_historico_cvm_transicoes_detalhe.csv.gz": "25466fad7ef6825e337277a6543092f9cff40e0512fe6a8dbf5686c53b528f4b",
     "analysis/prestadores_historico_cvm_transicoes_links.csv": "ef731495cc28217938f0fecc4bf370af713c4bae7bf5b006adb493a4b17c8256",
@@ -65,18 +65,18 @@
     "builder/build_fidc_offer_ticket_distribution.py": "89cbda2b4d4375f1eb629ed121635f3e30c5842f134a2f796078ecec3915056a",
     "builder/build_fidc_provider_history.py": "e29401789b75ea644fb5320b970d56d780f1e4755c697f40cd99f0d80750d163",
     "builder/build_fidc_revision_analysis.py": "f79eb7de4c7204b437a52d0e3925b3f72e138436521023a9e71ccabdcaa28789",
-    "builder/build_fidc_revision_artifact_payload.py": "4a7d7b739b73088fd04e27d36d302d8380183f697ca3aeca5c9bd3df8e5efb0b",
-    "builder/build_fidc_revision_artifacts.mjs": "03da03f7962605e952d006d2a7c78a39628083a67c1dc6a8025cf4c5e0acd8db",
+    "builder/build_fidc_revision_artifact_payload.py": "63af18d269cf2544468f4f7af9c712dee0be844a6122030d0436f75ddf1fd59d",
+    "builder/build_fidc_revision_artifacts.mjs": "762a837d6f0a4b7a97f05ec7b93e98384c3ddf2ee225a863ae464e19493825cd",
     "builder/build_provider_flow_explorer.mjs": "4186040dc28c426a005b6fa15d53a817bcc7424d6584206eb9a43dd4afd0f4ff",
     "builder/industry_closed_offers.py": "0789be4823a401c7c9481da0772f21e6b723e1b1aef5164135ab782355ff63e5",
     "builder/industry_offer_ticket_distribution.py": "4cb1d95238cf1ab1c7e8ba6a29689890dd7e0a59036a447ce8074a21d0ba785e",
     "builder/industry_provider_history.py": "bad296a59fdf51ccfcd22021bae8343374d930f4f177da088d9714d15b838308",
-    "builder/industry_revision_additions.py": "4b8b25388119bb9e4904f15278aff9a4d2f443f942fac0ef76b5a6e99554abaa",
-    "builder/industry_revision_analysis.py": "80ee761b02735e864ffc2f760cd5e87535868bafa75899e2644515a32e9bc5b9",
+    "builder/industry_revision_additions.py": "6fe5bf6ae4fe1a4a25b47375207323a9dcff2552d1d3dfd9d468d1bf84a5944a",
+    "builder/industry_revision_analysis.py": "d2be16f1474f3392b2d48974beabf3ab8e2dd36b7959c528a790a6e47871bf4d",
     "builder/industry_revision_export.py": "c4a07f112ccbc87238737cc1b8f848573342e13d04601b652cc32148dafe1c32",
     "builder/patch_pptx_native_market_charts.py": "65fabaa41ed1e92f87d14865fe12b9146b2e5a66d69a32571e5e05028c50d2e4",
     "curation/top20.csv": "6744c3ec00f168a8ca9f110d337e930b6b772e90e213ed8724a20ae724584d28",
-    "data/acquiring_reclassification_curation.csv": "00585e555e69d5375bfe412133622a98546cd1eea3d010191ace1f1d3f498f66",
+    "data/acquiring_reclassification_curation.csv": "951f50ee0aed27a7deb3ba3e0aeafe0afd90b89c9fe09d3983be568e93318607",
     "data/acquiring_taxonomy_curation.json": "b3291c7cff9f543f6410af015c41e9f210ffdac2f4be865765c1ad3a71fc443f",
     "data/atlantico_curadoria.json": "4e5408bbf9a2b4aa1c6f6ef96ef8f03e1e967be86c0322d44a8dcdaa5008f073",
     "data/bank_fidc_curation.csv": "eb67c07739361290131941acb7b47c25c972a81889667a27a6c65cbbf7d2b28e",
@@ -103,30 +103,30 @@
   "latest_complete": "2026-05",
   "offers_as_of": "2026-07-17",
   "payload": {
-    "bytes": 7595987,
+    "bytes": 7600099,
     "name": "artifact_payload.json",
-    "sha256": "16b03629f7289a28faaa7703902fa5e765c87ccb8bcad8ee1ec844b6833ea182"
+    "sha256": "b56eb705440227f5895656098520a6c1d8b9e6086139c1fbef3b417cc2773ed7"
   },
   "payload_schema": "fidc_revision_artifact_payload_v5",
-  "payload_sha256": "16b03629f7289a28faaa7703902fa5e765c87ccb8bcad8ee1ec844b6833ea182",
+  "payload_sha256": "b56eb705440227f5895656098520a6c1d8b9e6086139c1fbef3b417cc2773ed7",
   "pptx": {
-    "bytes": 813594,
+    "bytes": 814149,
     "name": "industry_executive_revised.pptx",
-    "sha256": "993d4bf66d194c9fc6fbe09ff726a6b58aead03f92306128a09004da2e35bc32"
+    "sha256": "f93deb6b2f287027bdaec8e845bffcb52f02fc44de696b6129ec450a00f6e868"
   },
   "renderer": {
     "artifact_tool_version": "2.8.24",
-    "node_version": "v24.14.0",
-    "renderer_sha256": "03da03f7962605e952d006d2a7c78a39628083a67c1dc6a8025cf4c5e0acd8db",
-    "renderer_version": "industry_revision_artifacts_v10"
+    "node_version": "v25.9.0",
+    "renderer_sha256": "762a837d6f0a4b7a97f05ec7b93e98384c3ddf2ee225a863ae464e19493825cd",
+    "renderer_version": "industry_revision_artifacts_v11"
   },
-  "renderer_sha256": "03da03f7962605e952d006d2a7c78a39628083a67c1dc6a8025cf4c5e0acd8db",
-  "renderer_version": "industry_revision_artifacts_v10",
+  "renderer_sha256": "762a837d6f0a4b7a97f05ec7b93e98384c3ddf2ee225a863ae464e19493825cd",
+  "renderer_version": "industry_revision_artifacts_v11",
   "schema_version": "fidc_revision_export_bundle_v2",
-  "source_signature": "16b03629f7289a28faaa7703902fa5e765c87ccb8bcad8ee1ec844b6833ea182",
+  "source_signature": "b56eb705440227f5895656098520a6c1d8b9e6086139c1fbef3b417cc2773ed7",
   "xlsx": {
     "bytes": 5434461,
     "name": "industry_data_revised.xlsx",
-    "sha256": "22e2cdb3d72c9f136676ac8bb634d79c5482deedab25f50e3747d4fac7a6eb11"
+    "sha256": "9ecdb3e05cbf4dcceb594e086e82432c1c28757684006e6a83da4905cd5d58b0"
   }
 }

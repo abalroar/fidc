@@ -11023,6 +11023,7 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
 
 def _render_revision_overview(payload: dict[str, object]) -> None:
     pl = _revision_frame(payload, "pl_history")
+    pl_cagr_periods = _revision_frame(payload, "pl_total_cagr_periods")
     qa = dict(payload.get("qa_latest") or {})
     service_model = _revision_frame(payload, "service_model")
     top20 = _revision_frame(payload, "top20_fidcs")
@@ -11113,9 +11114,16 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             )
         )
         st.altair_chart((bars + labels).properties(height=360), width="stretch", key="industry-revision-pl")
+        if not pl_cagr_periods.empty:
+            cagr_parts = [
+                f"{int(row.start_year)}–{int(row.end_year)}: {_fmt_pct(float(row.cagr))} a.a."
+                for row in pl_cagr_periods.itertuples(index=False)
+            ]
+            st.caption("CAGR do PL bruto · " + " · ".join(cagr_parts))
         st.caption(
             "Fonte: CVM, Informe Mensal de FIDC. PL bruto = PL ex-FIC + PL dos FIC-FIDCs; "
-            "os dois componentes não se sobrepõem. Data-base: mai/26."
+            "os dois componentes não se sobrepõem. CAGRs calculados dezembro contra dezembro, "
+            "com o número de intervalos igual à diferença entre os anos. Data-base: mai/26."
         )
 
     st.markdown("<h2>Mix por Tipo ANBIMA: dez/23 e mai/26</h2>", unsafe_allow_html=True)
@@ -11285,15 +11293,33 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
         ]
         if not current_acquiring.empty:
             row = current_acquiring.iloc[0]
+            curated_count = int(row.get("fundos_adquirencia_curados", 0))
+            observed_count = int(row.get("fundos_adquirencia_observados", 0))
+            missing_count = max(0, curated_count - observed_count)
             st.info(
-                f"Os 13 CNPJs selecionados formam Adquirência: {_fmt_bi(float(row['pl_brl']), 1)} "
+                f"Os {curated_count} CNPJs selecionados formam Adquirência: {_fmt_bi(float(row['pl_brl']), 1)} "
                 f"e {_fmt_pct(float(row['share_pl']))} do PL ex-FIC em {_short_competence_label(latest_period)}. "
                 "A classificação CVM originalmente reportada permanece disponível no workbook."
             )
+            current_rows = acquiring_mix[acquiring_mix["competencia"].eq(latest_period)]
+            moved_by_category = (
+                current_rows.set_index("categoria_analitica")[
+                    "fundos_movidos_da_categoria"
+                ].to_dict()
+                if "fundos_movidos_da_categoria" in current_rows
+                else {}
+            )
+            st.caption(
+                "Origem CVM dos CNPJs ativos em mai/26: "
+                f"{int(moved_by_category.get('Cartão', 0))} Cartão, "
+                f"{int(moved_by_category.get('Comercial', 0))} Comercial, "
+                f"{int(moved_by_category.get('Serviços', 0))} Serviços e "
+                f"{int(moved_by_category.get('Financeiro', 0))} Financeiro; "
+                f"{missing_count} sem reporte ativo."
+            )
         st.caption(
-            "Fonte: CVM, Informe Mensal, e FIDCs.xlsx. A reclassificação analítica é restrita aos 13 CNPJs "
-            "listados no workbook; a categoria original da CVM permanece preservada na base detalhada. "
-            "Em mai/26, oito estavam em Cartão e três em Comercial; dois não tinham reporte ativo. "
+            "Fonte: CVM, Informe Mensal; curadoria: FIDCs.xlsx (13 CNPJs) + três FIDCs SELLER "
+            "informados em 21/jul/26. A categoria original da CVM permanece preservada na base detalhada. "
             "O denominador e as demais categorias permanecem idênticos ao mix CVM ex-FIC."
         )
 

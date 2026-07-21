@@ -81,7 +81,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v10";
+const RENDERER_VERSION = "industry_revision_artifacts_v11";
 const EXPECTED_SLIDES = 55;
 
 const C = {
@@ -1381,13 +1381,19 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
     .sort((a, b) => num(b.pl_brl ?? b.pl) - num(a.pl_brl ?? a.pl))
     .map(category);
   const acquiring = afterMap["Adquirência"] || {};
+  const curatedCount = integer(acquiring.fundos_adquirencia_curados);
+  const observedCount = num(acquiring.fundos_adquirencia_observados);
+  const missingCount = Math.max(0, num(acquiring.fundos_adquirencia_curados) - observedCount);
+  const movedByCategory = Object.fromEntries(
+    after.map((row) => [category(row), num(row.fundos_movidos_da_categoria)]),
+  );
   const shareValue = (row) => num(row?.share_pl ?? row?.share);
   const plValue = (row) => num(row?.pl_brl ?? row?.pl);
   addHeader(
     slide,
     "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
-    `Os 13 CNPJs selecionados formam Adquirência; ${bn(plValue(acquiring), 1)} e ${pct(shareValue(acquiring), 1)} do PL ex-FIC em mai/26`,
-    "Fonte: CVM, Informe Mensal, e FIDCs.xlsx. Reclassificação analítica restrita aos 13 CNPJs listados no workbook; a categoria original da CVM permanece preservada na base detalhada.",
+    `Os ${curatedCount} CNPJs selecionados formam Adquirência; ${bn(plValue(acquiring), 1)} e ${pct(shareValue(acquiring), 1)} do PL ex-FIC em mai/26`,
+    "Fonte: CVM, Informe Mensal; curadoria: FIDCs.xlsx (13 CNPJs) + 3 FIDCs SELLER informados em 21/jul/26. A categoria CVM original permanece preservada.",
     page,
   );
   addSectionLabel(slide, "PL EX-FIC · R$ BI · DEZ/23 → MAI/26", { left: 60, top: 150, width: 550, height: 24 });
@@ -1454,7 +1460,7 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
   ], { left: 930, top: 126, width: 290, height: 22 }, 2);
   addText(
     slide,
-    "A abertura altera somente os CNPJs indicados: oito estavam em Cartão e três em Comercial em mai/26; dois não tinham reporte ativo. Denominador e demais categorias permanecem idênticos ao mix CVM ex-FIC.",
+    `Em mai/26, os ${integer(observedCount)} CNPJs ativos vieram de ${integer(movedByCategory["Cartão"])} Cartão, ${integer(movedByCategory.Comercial)} Comercial, ${integer(movedByCategory.Serviços)} Serviços e ${integer(movedByCategory.Financeiro)} Financeiro; ${integer(missingCount)} sem reporte ativo. Denominador e demais categorias permanecem idênticos.`,
     { left: 60, top: 625, width: 1160, height: 30 },
     { fontSize: 10.7, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
@@ -2019,6 +2025,7 @@ function buildPresentation(payload, flowAssets) {
   {
     const slide = presentation.slides.add();
     const history = payload.pl_history;
+    const cagrPeriods = payload.pl_total_cagr_periods || [];
     addHeader(
       slide,
       "ESCALA DA INDÚSTRIA",
@@ -2030,6 +2037,7 @@ function buildPresentation(payload, flowAssets) {
       String(row.competencia) === latestCompetence ? stockShort : String(row.year),
     );
     const totalMax = Math.max(...history.map((row) => num(row.pl_total) / 1e9));
+    const axisMax = Math.ceil(totalMax / 100) * 100 + 100;
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 150, width: 830, height: 465 }),
       categories,
@@ -2071,13 +2079,12 @@ function buildPresentation(payload, flowAssets) {
         minorGridlines: null,
       },
       yAxis: {
-        ...chartAxis(11, "R$ 0 \"bi\""),
+        ...chartAxis(11, "0"),
         min: 0,
-        max: Math.ceil(totalMax / 100) * 100,
+        max: axisMax,
         majorUnit: 200,
       },
     });
-    const axisMax = Math.ceil(totalMax / 100) * 100;
     const plotLeft = 103;
     const plotTop = 158;
     const plotWidth = 756;
@@ -2102,6 +2109,37 @@ function buildPresentation(payload, flowAssets) {
         },
       );
     });
+    cagrPeriods.forEach((period) => {
+      const startYear = num(period.start_year);
+      const endYear = num(period.end_year);
+      const startIndex = history.findIndex((row) => num(row.year) === startYear);
+      const endIndex = history.findIndex((row) => num(row.year) === endYear);
+      if (startIndex < 0 || endIndex < startIndex) return;
+      const intervalRows = history.slice(startIndex, endIndex + 1);
+      const intervalMax = Math.max(...intervalRows.map((row) => num(row.pl_total) / 1e9));
+      const startCenter = plotLeft + (startIndex + 0.5) * (plotWidth / history.length);
+      const endCenter = plotLeft + (endIndex + 0.5) * (plotWidth / history.length);
+      const spanWidth = Math.max(104, endCenter - startCenter);
+      const center = (startCenter + endCenter) / 2;
+      const ruleTop = clamp(
+        plotTop + plotHeight - (intervalMax / axisMax) * plotHeight - 38,
+        plotTop + 32,
+        plotTop + plotHeight - 82,
+      );
+      addRule(slide, center - spanWidth / 2, ruleTop, spanWidth, C.orange, 1.5);
+      addText(
+        slide,
+        `${pct(period.cagr, 1)} a.a.`,
+        { left: center - 62, top: ruleTop - 26, width: 124, height: 20 },
+        { fontSize: 12.5, bold: true, color: C.charcoal, alignment: "center" },
+      );
+      addText(
+        slide,
+        `CAGR ${startYear}–${endYear}`,
+        { left: center - 62, top: ruleTop + 5, width: 124, height: 16 },
+        { fontSize: 9.5, color: C.note, alignment: "center" },
+      );
+    });
     addText(slide, "R$ bi", { left: 72, top: 150, width: 42, height: 16 }, {
       fontSize: 9.5,
       color: C.note,
@@ -2117,7 +2155,7 @@ function buildPresentation(payload, flowAssets) {
       { left: 930, top: 325, width: 290, height: 100 },
     );
     addMetric(slide, bn(last.pl_fic_componente, 0), "PL de FIC-FIDC, sem dupla contagem", { left: 930, top: 445, width: 290, height: 110 });
-    addText(slide, "O total no topo da coluna é o PL bruto.", { left: 930, top: 590, width: 290, height: 30 }, {
+    addText(slide, "Totais e CAGRs usam o PL bruto; dezembro contra dezembro.", { left: 930, top: 585, width: 290, height: 40 }, {
       fontSize: 12.5,
       color: C.note,
     });
@@ -4158,11 +4196,15 @@ async function addAcquiringReclassificationSheet(workbook, payload) {
   ];
   const headers = columns.map(([header]) => header);
   const rows = worksheetRowsFromPayload(payload.acquiring_reclassified_mix || [], columns);
+  const currentAcquiring = [...(payload.acquiring_reclassified_mix || [])]
+    .filter((row) => row.categoria_analitica === "Adquirência")
+    .sort((a, b) => String(b.competencia || "").localeCompare(String(a.competencia || "")))[0] || {};
+  const curatedCount = integer(currentAcquiring.fundos_adquirencia_curados);
   const sheet = resetSheet(workbook, "Adquirência reclass.");
   setHeaderBand(
     sheet,
     "Taxonomia CVM com abertura analítica de adquirência",
-    "Somente os 13 CNPJs indicados em FIDCs.xlsx são removidos de sua categoria CVM original e apresentados em Adquirência. A base detalhada preserva a classificação reportada.",
+    `Somente os ${curatedCount} CNPJs curados — 13 de FIDCs.xlsx e 3 FIDCs SELLER informados em 21/jul/26 — são removidos da categoria CVM original e apresentados em Adquirência. A base detalhada preserva a classificação reportada.`,
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },

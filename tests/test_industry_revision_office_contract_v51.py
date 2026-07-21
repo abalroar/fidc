@@ -34,11 +34,19 @@ MARKET_SHARE_SLIDES = (13, 14, 15, 32, 33, 34)
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
     2: ("SÍNTESE EXECUTIVA",),
-    3: ("ESCALA DA INDÚSTRIA",),
+    3: (
+        "ESCALA DA INDÚSTRIA",
+        "CAGR 2015–2018",
+        "18,7% A.A.",
+        "CAGR 2018–2023",
+        "27,9% A.A.",
+        "CAGR 2024–2025",
+        "25,6% A.A.",
+    ),
     4: ("BASE INVESTIDORA",),
     5: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
     6: ("TIPO ANBIMA",),
-    7: ("TAXONOMIA CVM", "ADQUIRÊNCIA"),
+    7: ("TAXONOMIA CVM", "ADQUIRÊNCIA", "16 CNPJs"),
     8: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
     9: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
     10: ("INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA", "TIPO NA TABELA II"),
@@ -199,6 +207,20 @@ def test_market_share_slides_remain_native_percent_stacked_charts(
     grouping = bar_charts[0].find(f"{{{CHART}}}grouping")
     assert grouping is not None
     assert grouping.attrib.get("val") == "percentStacked"
+
+
+def test_gross_pl_evolution_remains_one_native_stacked_chart() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, 3)
+        assert len(chart_paths) == 1
+        chart = ET.fromstring(archive.read(chart_paths[0]))
+
+    bar_charts = chart.findall(f".//{{{CHART}}}barChart")
+    assert len(bar_charts) == 1
+    grouping = bar_charts[0].find(f"{{{CHART}}}grouping")
+    assert grouping is not None
+    assert grouping.attrib.get("val") == "stacked"
 
 
 @pytest.mark.parametrize(

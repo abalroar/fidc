@@ -403,9 +403,12 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
     required_notes = (
         "Fonte: CVM, ANBIMA e FundosNet; estoque em mai/26",
         "Fonte: CVM, Informe Mensal de FIDC. PL bruto",
+        "CAGR do PL bruto",
+        "número de intervalos igual à diferença entre os anos",
         "Fonte: CVM, Informe Mensal de FIDC, mai/26. Contas podem se repetir",
         "Fonte: CVM, dez/23 e mai/26",
-        "FIDCs.xlsx. A reclassificação analítica é restrita aos 13 CNPJs",
+        "FIDCs.xlsx (13 CNPJs) + três FIDCs SELLER",
+        "Origem CVM dos CNPJs ativos em mai/26",
         "A Tabela II classifica o recebível reportado",
         "Linha laranja = consolidado de mercado ajustado",
         "Fonte: CVM, dez/25 e mai/26",

@@ -38,6 +38,7 @@ LATEST_COMPLETE = "2026-05"
 HISTORICAL_REFERENCE = "2023-12"
 PROVIDER_REFERENCE = "2025-12"
 ATLANTICO_CNPJ = "09194841000151"
+PL_TOTAL_CAGR_PERIODS = ((2015, 2018), (2018, 2023), (2024, 2025))
 
 
 def _digits(value: object) -> str:
@@ -170,6 +171,43 @@ def _last_observation_by_year(monthly: pd.DataFrame, latest: str) -> pd.DataFram
         .tail(1)
         .sort_values("year")
     )
+
+
+def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
+    """Materialize CAGRs from the same gross-PL series shown above the bars."""
+
+    required = {"year", "competencia", "pl_total"}
+    missing = sorted(required.difference(annual_pl.columns))
+    if missing:
+        raise ValueError("série anual de PL sem colunas: " + ", ".join(missing))
+    by_year = annual_pl.set_index("year", drop=False)
+    rows: list[dict[str, Any]] = []
+    for start_year, end_year in PL_TOTAL_CAGR_PERIODS:
+        if start_year not in by_year.index or end_year not in by_year.index:
+            raise ValueError(
+                f"série anual de PL não cobre CAGR {start_year}-{end_year}"
+            )
+        start = by_year.loc[start_year]
+        end = by_year.loc[end_year]
+        start_pl = float(start["pl_total"])
+        end_pl = float(end["pl_total"])
+        annual_intervals = int(end_year - start_year)
+        if start_pl <= 0 or end_pl <= 0 or annual_intervals <= 0:
+            raise ValueError(f"base inválida para CAGR {start_year}-{end_year}")
+        rows.append(
+            {
+                "metric": "PL bruto",
+                "start_year": int(start_year),
+                "end_year": int(end_year),
+                "start_competencia": str(start["competencia"]),
+                "end_competencia": str(end["competencia"]),
+                "start_pl_total_brl": start_pl,
+                "end_pl_total_brl": end_pl,
+                "annual_intervals": annual_intervals,
+                "cagr": (end_pl / start_pl) ** (1 / annual_intervals) - 1,
+            }
+        )
+    return pd.DataFrame(rows)
 
 
 def _investor_composition(
@@ -1189,6 +1227,7 @@ def build_payload(
     annual_pl = annual[["year", "competencia", "pl_total", "pl_fic_fidc"]].copy()
     annual_pl["pl_ex_fic"] = annual_pl["pl_total"] - annual_pl["pl_fic_fidc"]
     annual_pl["pl_fic_componente"] = annual_pl["pl_fic_fidc"]
+    pl_total_cagr_periods = _pl_total_cagr_periods(annual_pl)
     annual_base = annual[["year", "competencia", "cotistas_total", "n_veiculos"]].copy()
 
     latest_month = monthly[monthly["competencia"].astype(str).eq(latest)].iloc[0]
@@ -1262,6 +1301,7 @@ def build_payload(
         "offers_source_as_of": offers_source_as_of,
         "generated_at": pd.Timestamp.now(tz="America/Sao_Paulo").isoformat(),
         "pl_history": _records(annual_pl),
+        "pl_total_cagr_periods": _records(pl_total_cagr_periods),
         "investor_base_history": _records(annual_base),
         "investor_composition": _records(
             _investor_composition(
@@ -1370,7 +1410,9 @@ def build_payload(
                 share_pl=acquiring_reclassified_mix.get("share_reclassificado"),
                 fundos=acquiring_reclassified_mix.get("fundos_reclassificados"),
                 metodologia=(
-                    "reclassificação analítica restrita aos 13 CNPJs curados; classificação CVM original preservada"
+                    "reclassificação analítica restrita aos "
+                    f"{int(acquiring_reclassified_mix['fundos_adquirencia_curados'].max())} "
+                    "CNPJs curados; classificação CVM original preservada"
                 ),
             )
         ) if not acquiring_reclassified_mix.empty else [],

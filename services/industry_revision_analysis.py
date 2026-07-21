@@ -2981,6 +2981,9 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         outputs.qa_delinquency["competencia"].eq(outputs.latest_complete)
     ]
     reconciliation = outputs.reconciliation
+    acquiring_curated_funds = int(
+        outputs.acquiring_reclassified_mix["fundos_adquirencia_curados"].max()
+    )
     manifest: dict[str, object] = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "latest_complete": outputs.latest_complete,
@@ -3012,7 +3015,8 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
                 "PL histórico do conjunto atual, sem inferir data societária de consolidação"
             ),
             "acquiring_reclassification": (
-                "somente os 13 CNPJs curados são removidos do segmento principal CVM "
+                f"somente os {acquiring_curated_funds} CNPJs curados são removidos "
+                "do segmento principal CVM "
                 "e apresentados em Adquirência; classificação original permanece preservada"
             ),
             "market_share_subtype_denominator": (
