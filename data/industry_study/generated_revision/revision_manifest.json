@@ -75,7 +75,7 @@
       "rows": 6
     },
     "btg_prestadores_ex_controlados.csv": {
-      "columns": 14,
+      "columns": 16,
       "rows": 3
     },
     "cobertura_classificacao.csv": {
@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 13310
+      "rows": 14833
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 16,
@@ -97,6 +97,18 @@
     "inadimplencia_coorte_atual_resumo.csv": {
       "columns": 17,
       "rows": 162
+    },
+    "inadimplencia_coorte_revisao_resumo.csv": {
+      "columns": 15,
+      "rows": 1
+    },
+    "inadimplencia_coorte_revisao_sensibilidade.csv": {
+      "columns": 13,
+      "rows": 1505
+    },
+    "inadimplencia_coorte_revisao_transicoes.csv": {
+      "columns": 8,
+      "rows": 17
     },
     "inadimplencia_tipo_recebivel_unico.csv": {
       "columns": 10,
@@ -183,8 +195,8 @@
       "rows": 4247
     },
     "source_presence_overlay.csv.gz": {
-      "columns": 85,
-      "rows": 13905
+      "columns": 35,
+      "rows": 229458
     },
     "top20_fidcs.csv": {
       "columns": 73,
@@ -195,7 +207,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-21T15:00:00+00:00",
+  "generated_at_utc": "2026-07-21T18:45:17+00:00",
   "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import sys
 from typing import Any
+import unicodedata
 
 import numpy as np
 import pandas as pd
@@ -85,6 +86,196 @@ def _display_fund_name(value: object) -> str:
         if needle in upper:
             return label
     return short_fund_name(text, max_length=62).replace("...", "").strip()
+
+
+def _format_cnpj(value: object) -> str:
+    digits = _digits(value)
+    if len(digits) != 14:
+        return digits
+    return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+
+def _fold_text(value: object) -> str:
+    text = unicodedata.normalize("NFKD", _text(value))
+    return re.sub(r"\s+", " ", "".join(char for char in text if not unicodedata.combining(char))).upper()
+
+
+def _card_taxonomy_audit(
+    vehicle: pd.DataFrame,
+    funds: pd.DataFrame,
+    acquiring_curation: pd.DataFrame,
+    *,
+    latest: str,
+    pl_reference: str = "2025-06",
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """List every current fund with a positive Table-II card exposure."""
+
+    current_vehicle = vehicle[vehicle["competencia"].astype(str).eq(latest)].copy()
+    current_vehicle["cnpj_fundo"] = current_vehicle.get(
+        "cnpj_fundo", current_vehicle.get("cnpj")
+    ).map(_digits)
+    current_vehicle["cnpj_fundo"] = current_vehicle["cnpj_fundo"].where(
+        current_vehicle["cnpj_fundo"].ne(""), current_vehicle["cnpj"].map(_digits)
+    )
+    current_vehicle["valor_cartao_tabela_ii_brl"] = pd.to_numeric(
+        current_vehicle.get("table_ii_cartao_credito_brl"), errors="coerce"
+    ).fillna(0.0)
+    card_by_fund = current_vehicle.groupby("cnpj_fundo", as_index=False).agg(
+        valor_cartao_tabela_ii_brl=("valor_cartao_tabela_ii_brl", "sum"),
+        veiculos_classes=("cnpj", "nunique"),
+    )
+
+    current = funds[funds["competencia"].astype(str).eq(latest)].copy()
+    current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
+    current = current.drop_duplicates("cnpj_fundo").merge(
+        card_by_fund, on="cnpj_fundo", how="left", validate="one_to_one"
+    )
+    current["valor_cartao_tabela_ii_brl"] = current[
+        "valor_cartao_tabela_ii_brl"
+    ].fillna(0.0)
+    current["segmento_principal"] = current["segmento_principal"].fillna("").astype(str)
+    strict = current["segmento_principal"].map(_fold_text).eq("CARTAO DE CREDITO")
+    anbima_card = (
+        current.get("anbima_tipo", pd.Series("", index=current.index))
+        .map(_fold_text)
+        .str.contains(r"\bCARTAO(?: DE CREDITO)?\b", regex=True, na=False)
+        | current.get("anbima_foco", pd.Series("", index=current.index))
+        .map(_fold_text)
+        .str.contains(r"\bCARTAO(?: DE CREDITO)?\b", regex=True, na=False)
+    )
+    secondary = current["valor_cartao_tabela_ii_brl"].gt(0.005)
+    selected = current[
+        strict | secondary | anbima_card
+    ].copy()
+    selected["cartao_segmento_principal"] = strict.reindex(selected.index).fillna(False)
+    selected["cartao_exposicao_positiva"] = secondary.reindex(selected.index).fillna(False)
+    selected["anbima_cartao_explicito"] = anbima_card.reindex(selected.index).fillna(False)
+
+    prior = funds[funds["competencia"].astype(str).eq(pl_reference)].copy()
+    prior["cnpj_fundo"] = prior["cnpj_fundo"].map(_digits)
+    prior["pl_jun25_brl"] = pd.to_numeric(prior["pl"], errors="coerce")
+    prior = prior.groupby("cnpj_fundo", as_index=False)["pl_jun25_brl"].sum(
+        min_count=1
+    )
+    selected = selected.merge(prior, on="cnpj_fundo", how="left", validate="one_to_one")
+
+    curated = set()
+    if not acquiring_curation.empty:
+        cnpj_column = next(
+            (
+                column
+                for column in ("cnpj14_digits", "cnpj_fundo", "cnpj")
+                if column in acquiring_curation
+            ),
+            "",
+        )
+        if cnpj_column:
+            curated = {_digits(value) for value in acquiring_curation[cnpj_column]}
+
+    strong_rules = (
+        ("SEGMENTO MEIOS DE PAGAMENTO", "expressão segmento meios de pagamento"),
+        ("UNIDADE DE RECEBIVEIS", "expressão unidade de recebíveis"),
+        ("PAGSEGURO", "marca PagSeguro"),
+        ("CIELO", "marca Cielo"),
+        ("FISERV", "marca Fiserv"),
+    )
+    indicative_rules = (
+        ("PICPAY", "marca PicPay"),
+        ("CEA PAY", "marca C&A Pay"),
+        ("PAYJOY", "marca PayJoy"),
+        ("NATURA PAY", "expressão Natura Pay"),
+    )
+
+    def nominal_flag(name: object) -> tuple[str, str]:
+        folded = _fold_text(name)
+        for needle, reason in strong_rules:
+            if needle in folded:
+                return "Forte — revisar adquirência", reason
+        for needle, reason in indicative_rules:
+            if needle in folded:
+                return "Indicativo — revisar natureza econômica", reason
+        return "Sem indicação nominal específica", ""
+
+    flags = selected["denominacao"].map(nominal_flag)
+    selected["flag_nome_adquirencia"] = flags.map(lambda item: item[0])
+    selected["motivo_flag_nome"] = flags.map(lambda item: item[1])
+    selected["cnpj_fundo_formatado"] = selected["cnpj_fundo"].map(_format_cnpj)
+    selected["cnpj_fundo_identificado"] = selected["cnpj_fundo"].str.len().eq(14)
+    selected["criterio_inclusao"] = np.select(
+        [
+            selected["cartao_segmento_principal"],
+            selected["cartao_exposicao_positiva"],
+            selected["anbima_cartao_explicito"],
+        ],
+        [
+            "Cartão de crédito é o segmento principal da Tabela II",
+            "Exposição positiva em Cartão; segmento principal diferente",
+            "Cartão aparece explicitamente no Tipo ou Foco ANBIMA",
+        ],
+        default="Revisão manual",
+    )
+    selected["categoria_tabela_ii"] = selected["segmento_principal"].replace(
+        {"Cartao de credito": "Cartão de crédito", "Servicos": "Serviços"}
+    )
+    selected["pl_jun25_observavel"] = selected["pl_jun25_brl"].notna()
+    selected["ja_curado_como_adquirencia"] = selected["cnpj_fundo"].isin(curated)
+    selected["nota_anbima"] = np.where(
+        selected["anbima_cartao_explicito"],
+        "Cartão aparece explicitamente no Tipo ou Foco ANBIMA deste registro.",
+        "A taxonomia ANBIMA associada ao registro não usa Cartão de crédito como rótulo.",
+    )
+    output_columns = [
+        "cnpj_fundo_formatado",
+        "cnpj_fundo_identificado",
+        "denominacao",
+        "criterio_inclusao",
+        "categoria_tabela_ii",
+        "valor_cartao_tabela_ii_brl",
+        "pl_jun25_brl",
+        "pl_jun25_observavel",
+        "anbima_tipo",
+        "anbima_foco",
+        "classification_tier",
+        "classification_status",
+        "classification_source",
+        "anbima_cartao_explicito",
+        "nota_anbima",
+        "veiculos_classes",
+        "ja_curado_como_adquirencia",
+        "flag_nome_adquirencia",
+        "motivo_flag_nome",
+    ]
+    output = selected[output_columns].sort_values(
+        ["valor_cartao_tabela_ii_brl", "denominacao"], ascending=[False, True]
+    ).reset_index(drop=True)
+    summary = {
+        "competencia_tabela_ii": latest,
+        "competencia_pl": pl_reference,
+        "fundos_cartao_segmento_principal": int(
+            output["criterio_inclusao"].eq(
+                "Cartão de crédito é o segmento principal da Tabela II"
+            ).sum()
+        ),
+        "fundos_exposicao_secundaria": int(
+            output["criterio_inclusao"].str.startswith("Exposição").sum()
+        ),
+        "fundos_total": int(len(output)),
+        "fundos_pl_observavel": int(output["pl_jun25_observavel"].sum()),
+        "pl_jun25_observado_brl": float(output["pl_jun25_brl"].sum(min_count=1)),
+        "valor_cartao_tabela_ii_jun26_brl": float(
+            output["valor_cartao_tabela_ii_brl"].sum()
+        ),
+        "fundos_anbima_cartao_explicito": int(
+            output["anbima_cartao_explicito"].sum()
+        ),
+        "fundos_curados_adquirencia": int(output["ja_curado_como_adquirencia"].sum()),
+        "metodologia": (
+            "uma linha por CNPJ de fundo; inclui segmento principal ou exposição positiva "
+            "em Cartão na Tabela II e eventual rótulo explícito no Tipo/Foco ANBIMA; "
+            "PL ausente em jun/25 permanece N/D"
+        ),
+    }
+    return output, summary
 
 
 def _json_value(value: Any) -> Any:
@@ -741,6 +932,7 @@ def _conclusion_metrics(
     latest: str,
     *,
     mono: pd.DataFrame | None = None,
+    bank_fidc_detail: pd.DataFrame | None = None,
 ) -> dict[str, Any]:
     """Materialize the small set of cross-slide metrics used in conclusions."""
 
@@ -808,6 +1000,7 @@ def _conclusion_metrics(
     holder_ge_200m_pl = float(holder_ge_200m["pl"].sum())
 
     service_metrics: dict[str, Any] = {}
+    btg_bank_metrics: dict[str, Any] = {}
     if mono is not None and not mono.empty:
         service = _service_model(mono, latest).set_index("modelo_prestacao")
         service_total_funds = int(service["fundos"].sum())
@@ -842,6 +1035,43 @@ def _conclusion_metrics(
                 "econômico normalizado; inclui FIC-FIDC"
             ),
         }
+        if bank_fidc_detail is not None and not bank_fidc_detail.empty:
+            bank_current = bank_fidc_detail[
+                bank_fidc_detail["competencia"].astype(str).eq(latest)
+                & bank_fidc_detail["bank_group"].astype(str).eq("BTG")
+            ].copy()
+            bank_current["cnpj_fundo"] = bank_current["cnpj_fundo"].map(_digits)
+            observed = bank_current[
+                bank_current["observado"].fillna(False).astype(bool)
+                & pd.to_numeric(bank_current["pl_brl"], errors="coerce").gt(0)
+            ].copy()
+            observed_cnpjs = set(observed["cnpj_fundo"])
+            mono_current = mono[mono["competencia"].astype(str).eq(latest)].copy()
+            mono_current["cnpj_fundo"] = mono_current["cnpj_fundo"].map(_digits)
+            mono_current = mono_current[mono_current["cnpj_fundo"].isin(observed_cnpjs)]
+            combo = (
+                mono_current["administrador_grupo"].eq("BTG Pactual")
+                & mono_current["gestor_grupo"].eq("BTG Pactual")
+                & mono_current["custodiante_grupo"].eq("BTG Pactual")
+            )
+            cohort_pl = float(pd.to_numeric(observed["pl_brl"], errors="coerce").sum())
+            combo_pl = float(pd.to_numeric(mono_current.loc[combo, "pl"], errors="coerce").sum())
+            btg_bank_metrics = {
+                "btg_bank_cohort_listed_roots": int(len(bank_current)),
+                "btg_bank_cohort_observed_funds": int(observed["cnpj_fundo"].nunique()),
+                "btg_bank_cohort_pl_brl": cohort_pl,
+                "btg_bank_cohort_combo_funds": int(
+                    mono_current.loc[combo, "cnpj_fundo"].nunique()
+                ),
+                "btg_bank_cohort_combo_pl_brl": combo_pl,
+                "btg_bank_cohort_combo_share_pl": (
+                    combo_pl / cohort_pl if cohort_pl else None
+                ),
+                "btg_bank_cohort_definition": (
+                    "raízes listadas na aba BTG de FIDCs.xlsx; PL bruto observado "
+                    f"no Informe Mensal em {latest}; ausências permanecem explícitas"
+                ),
+            }
 
     transition_metrics = _provider_transition_conclusion_metrics(funds)
 
@@ -900,6 +1130,7 @@ def _conclusion_metrics(
             "a exclusão cobre seis CNPJs com controle confirmado na DF BTG 1T26"
         ),
         **service_metrics,
+        **btg_bank_metrics,
         **transition_metrics,
     }
 
@@ -1094,6 +1325,10 @@ def build_payload(
     segments = pd.read_csv(data_dir / "segments_monthly.csv", low_memory=False)
     providers = pd.read_csv(data_dir / "prestadores_latest.csv", low_memory=False)
     documentary = _read_optional(data_dir / "industry_large_fund_classification.csv")
+    acquiring_curation = _read_optional(
+        data_dir / "acquiring_reclassification_curation.csv",
+        cnpj_columns=("cnpj14_digits",),
+    )
 
     funds = pd.read_csv(revision_dir / "base_fundo_cnpj.csv.gz", low_memory=False)
     qa = pd.read_csv(revision_dir / "qa_inadimplencia_competencia.csv", low_memory=False)
@@ -1139,6 +1374,15 @@ def build_payload(
     )
     delinquency_frozen_cohort_summary = _read_optional(
         revision_dir / "inadimplencia_coorte_atual_resumo.csv"
+    )
+    delinquency_cohort_revision_summary = _read_optional(
+        revision_dir / "inadimplencia_coorte_revisao_resumo.csv"
+    )
+    delinquency_cohort_revision_transitions = _read_optional(
+        revision_dir / "inadimplencia_coorte_revisao_transicoes.csv"
+    )
+    delinquency_cohort_revision_sensitivity = _read_optional(
+        revision_dir / "inadimplencia_coorte_revisao_sensibilidade.csv"
     )
     provider_transition_summary = _read_optional(
         revision_dir / "prestadores_transicoes_resumo.csv"
@@ -1226,6 +1470,12 @@ def build_payload(
     closed_jan_june = closed_offers["jan_june_2024_2026"]["rows"]
     closed_originators = closed_offers["originators_2026_ytd"]["rows"]
     closed_source = closed_offers["annual"]["source"]
+    card_taxonomy_audit, card_taxonomy_summary = _card_taxonomy_audit(
+        vehicle,
+        funds,
+        acquiring_curation,
+        latest=latest,
+    )
 
     stock_preliminary_status: dict[str, Any] = {}
     if not competence_status.empty:
@@ -1370,6 +1620,15 @@ def build_payload(
         "delinquency_frozen_cohort_summary": _records(
             delinquency_frozen_cohort_summary
         ),
+        "delinquency_cohort_revision_summary": _single_record(
+            delinquency_cohort_revision_summary
+        ),
+        "delinquency_cohort_revision_transitions": _records(
+            delinquency_cohort_revision_transitions
+        ),
+        "delinquency_cohort_revision_sensitivity": _records(
+            delinquency_cohort_revision_sensitivity
+        ),
         "bridge_summary": _records(bridge_summary),
         "bridge_top_contributors": _records(bridge_detail.head(30)),
         "bridge_atlantico": _records(atlantic),
@@ -1457,6 +1716,11 @@ def build_payload(
             for cnpj, name in MARKET_SHARE_EXCLUDED_FUNDS.items()
         ],
         "acquiring_taxonomy": acquiring_taxonomy,
+        "card_taxonomy_audit": _records(card_taxonomy_audit),
+        "card_taxonomy_summary": {
+            str(key): _json_value(value)
+            for key, value in card_taxonomy_summary.items()
+        },
         "material_focus_top6": _records(material_top6),
         "material_focus_omitted": {
             "focuses": int(len(material_omitted)),
@@ -1471,7 +1735,11 @@ def build_payload(
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": _conclusion_metrics(
-            vehicle, funds, latest, mono=mono
+            vehicle,
+            funds,
+            latest,
+            mono=mono,
+            bank_fidc_detail=bank_fidc_detail,
         ),
         "monostructure_concentration": _records(mono_concentration),
         "closed_offers": closed_offers,

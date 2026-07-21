@@ -214,7 +214,7 @@ def test_deck_order_and_profile_count() -> None:
 
     assert len(slides) == 56
     expected_body = [
-        "SÍNTESE EXECUTIVA",
+        "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
@@ -634,7 +634,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v12";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v13";' in source
 
 
 def test_provider_transition_slide_has_no_stale_editorial_fallback() -> None:
@@ -663,9 +663,17 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert metrics["btg_combo_tres_funcoes_pl_brl"] == pytest.approx(
         78_061_458_101.28
     )
-    assert metrics["btg_combo_ex_controlados_fundos"] == 64
-    assert metrics["btg_combo_ex_controlados_pl_brl"] == pytest.approx(
-        50_049_803_169.71
+    assert metrics["btg_bank_cohort_listed_roots"] == 32
+    assert metrics["btg_bank_cohort_observed_funds"] == 30
+    assert metrics["btg_bank_cohort_pl_brl"] == pytest.approx(
+        52_201_104_080.03
+    )
+    assert metrics["btg_bank_cohort_combo_funds"] == 22
+    assert metrics["btg_bank_cohort_combo_pl_brl"] == pytest.approx(
+        51_277_027_287.65
+    )
+    assert metrics["btg_bank_cohort_combo_share_pl"] == pytest.approx(
+        0.9822977539
     )
     assert metrics["admin_transition_2024_2025_continuing_funds"] == 2477
     assert metrics["admin_transition_2024_2025_changed_funds"] == 257
@@ -679,6 +687,33 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert metrics["admin_transition_2024_2025_cielo_pl_brl"] == pytest.approx(
         8_922_506_388.74
     )
+
+    current_btg = [
+        row
+        for row in payload["bank_fidc_detail"]
+        if row["competencia"] == "2026-06"
+        and row["grupo_bancario"] == "BTG Pactual"
+    ]
+    observed_btg = [
+        row for row in current_btg if row["observado"] and row["pl_brl"] > 0
+    ]
+    assert len({row["cnpj_root8"] for row in current_btg}) == 32
+    assert len({row["cnpj_fundo"] for row in observed_btg}) == 30
+    assert sum(row["pl_brl"] for row in observed_btg) == pytest.approx(
+        metrics["btg_bank_cohort_pl_brl"]
+    )
+
+    management_scenario = next(
+        row
+        for row in payload["btg_provider_ex_controlled_scenario"]
+        if row["papel"] == "gestor"
+    )
+    assert management_scenario["fidcs_coorte_bancaria_excluidos"] == 22
+    assert management_scenario["pl_coorte_bancaria_excluido_brl"] == pytest.approx(
+        metrics["btg_bank_cohort_combo_pl_brl"]
+    )
+    assert management_scenario["btg_rank"] == 1
+    assert management_scenario["btg_rank_ex_controlados"] == 3
 
 
 def test_materialized_gross_pl_cagrs_match_the_chart_totals() -> None:
@@ -704,6 +739,124 @@ def test_materialized_payload_uses_complete_june_stock() -> None:
     assert payload["stock_preliminary_status"] == {}
     assert payload["qa_latest"]["veiculos_total"] == 4252
     assert payload["qa_latest"]["fundos_total"] == 4247
+
+
+def test_materialized_card_taxonomy_audit_reconciles_its_summary() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    rows = payload["card_taxonomy_audit"]
+    summary = payload["card_taxonomy_summary"]
+
+    principal = [
+        row
+        for row in rows
+        if row["criterio_inclusao"].startswith("Cartão de crédito")
+    ]
+    secondary = [
+        row
+        for row in rows
+        if row["criterio_inclusao"].startswith("Exposição")
+    ]
+    observable = [row for row in rows if row["pl_jun25_observavel"]]
+
+    assert summary["competencia_tabela_ii"] == "2026-06"
+    assert summary["competencia_pl"] == "2025-06"
+    assert len(rows) == summary["fundos_total"] == 44
+    assert len(principal) == summary["fundos_cartao_segmento_principal"] == 43
+    assert len(secondary) == summary["fundos_exposicao_secundaria"] == 1
+    assert summary["fundos_anbima_cartao_explicito"] == 0
+    assert sum(row["ja_curado_como_adquirencia"] for row in rows) == 9
+    assert summary["fundos_curados_adquirencia"] == 9
+    assert all(row["cnpj_fundo_identificado"] for row in rows)
+    assert len({row["cnpj_fundo_formatado"] for row in rows}) == 44
+    assert len(observable) == summary["fundos_pl_observavel"] == 37
+    assert sum(row["pl_jun25_brl"] for row in observable) == pytest.approx(
+        summary["pl_jun25_observado_brl"]
+    )
+    assert summary["pl_jun25_observado_brl"] == pytest.approx(
+        76_063_154_829.65
+    )
+    assert sum(row["valor_cartao_tabela_ii_brl"] for row in rows) == pytest.approx(
+        summary["valor_cartao_tabela_ii_jun26_brl"]
+    )
+    assert summary["valor_cartao_tabela_ii_jun26_brl"] == pytest.approx(
+        78_589_843_711.39
+    )
+
+
+def test_materialized_delinquency_cohort_revision_reconciles_all_blocks() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    summary = payload["delinquency_cohort_revision_summary"]
+    transitions = payload["delinquency_cohort_revision_transitions"]
+    sensitivity = payload["delinquency_cohort_revision_sensitivity"]
+
+    assert summary["competencia_anterior"] == "2026-05"
+    assert summary["competencia_atual"] == "2026-06"
+    assert summary["fundos_coorte_anterior"] == 2050
+    assert summary["fundos_coorte_atual"] == 2066
+    assert summary["fundos_mesmo_subtipo"] == 1856
+    assert summary["fundos_reclassificados"] == 86
+    assert summary["fundos_entraram"] == 124
+    assert summary["fundos_sairam"] == 108
+    assert summary["pl_coorte_anterior_brl"] == pytest.approx(
+        603_516_406_097.59
+    )
+    assert summary["pl_coorte_atual_brl"] == pytest.approx(
+        608_713_543_906.14
+    )
+    assert sum(row["fundos"] for row in transitions) == 86
+    assert sum(row["pl_atual_brl"] for row in transitions) == pytest.approx(
+        summary["pl_atual_reclassificado_brl"]
+    )
+
+    services_to_financial = next(
+        row
+        for row in transitions
+        if row["subtipo_anterior"] == "Serviços"
+        and row["subtipo_atual"] == "Financeiro"
+    )
+    assert services_to_financial["fundos"] == 16
+    assert services_to_financial["pl_atual_brl"] == pytest.approx(
+        17_393_401_256.48
+    )
+    assert services_to_financial["maior_fundo_pl_brl"] == pytest.approx(
+        8_032_044_361.07
+    )
+    assert "BTG PACTUAL CONSIGNADOS II" in services_to_financial["principais_fundos"]
+
+    assert sensitivity
+    assert {
+        row["competencia_coorte_anterior"] for row in sensitivity
+    } == {"2026-05"}
+    assert {
+        row["competencia_coorte_atual"] for row in sensitivity
+    } == {"2026-06"}
+    assert {row["tipo_recebivel_tabela_ii"] for row in sensitivity} == {
+        "Agronegócio",
+        "Ações judiciais",
+        "Cartão de crédito",
+        "Comercial",
+        "Factoring",
+        "Financeiro",
+        "Imobiliário",
+        "Industrial",
+        "Serviços",
+        "Setor público",
+    }
+    december_financial = next(
+        row
+        for row in sensitivity
+        if row["competencia"] == "2025-12"
+        and row["tipo_recebivel_tabela_ii"] == "Financeiro"
+    )
+    assert december_financial[
+        "inadimplencia_sobre_carteira_coorte_anterior"
+    ] == pytest.approx(0.0473844554)
+    assert december_financial[
+        "inadimplencia_sobre_carteira_coorte_atual"
+    ] == pytest.approx(0.0468319400)
+    assert december_financial["delta_inadimplencia_pp"] == pytest.approx(
+        -0.0005525154
+    )
 
 
 def test_materialized_acquiring_mix_includes_the_three_seller_fidcs() -> None:

@@ -33,7 +33,7 @@ MARKET_SHARE_SLIDES = (13, 14, 15, 33, 34, 35)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
-    2: ("SÍNTESE EXECUTIVA",),
+    2: ("GRANDES NÚMEROS",),
     3: (
         "ESCALA DA INDÚSTRIA",
         "CAGR 2015–2018",

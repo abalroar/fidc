@@ -228,6 +228,54 @@ def _payload() -> dict[str, object]:
                 "fonte": "CVM",
             }
         ],
+        "delinquency_cohort_revision_summary": {
+            "competencia_anterior": "2026-04",
+            "competencia_atual": "2026-05",
+            "fundos_coorte_anterior": 1,
+            "fundos_coorte_atual": 1,
+            "fundos_reclassificados": 1,
+            "fundos_entraram": 0,
+            "fundos_sairam": 0,
+        },
+        "delinquency_cohort_revision_transitions": [
+            {
+                "subtipo_anterior": "Serviços",
+                "subtipo_atual": "Financeiro",
+                "fundos": 1,
+                "pl_atual_brl": 1.0,
+                "principais_fundos": "FIDC A",
+                "competencia_anterior": "2026-04",
+                "competencia_atual": "2026-05",
+            }
+        ],
+        "delinquency_cohort_revision_sensitivity": [
+            {
+                "competencia": "2025-12",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "inadimplencia_sobre_carteira_coorte_anterior": 0.01,
+                "inadimplencia_sobre_carteira_coorte_atual": 0.02,
+                "delta_inadimplencia_pp": 0.01,
+                "competencia_coorte_anterior": "2026-04",
+                "competencia_coorte_atual": "2026-05",
+            }
+        ],
+        "card_taxonomy_audit": [
+            {
+                "cnpj_fundo_formatado": "10.000.000/0000-01",
+                "cnpj_fundo_identificado": True,
+                "denominacao": "FIDC A",
+                "criterio_inclusao": "Cartão de crédito é o segmento principal da Tabela II",
+                "categoria_tabela_ii": "Cartão de crédito",
+                "valor_cartao_tabela_ii_brl": 1.0,
+                "pl_jun25_brl": 1.0,
+                "pl_jun25_observavel": True,
+                "anbima_tipo": "Outros",
+                "anbima_foco": "N/D",
+                "anbima_cartao_explicito": False,
+                "ja_curado_como_adquirencia": False,
+            }
+        ],
+        "card_taxonomy_summary": {"fundos_total": 1},
         "provider_independent_ranking": [
             {
                 "competencia": "2026-05",
@@ -385,7 +433,14 @@ def _payload() -> dict[str, object]:
                 "destino_prestador_grupo": "B",
             }
         ],
-        "conclusion_metrics": {"competencia": "2026-05"},
+        "conclusion_metrics": {
+            "competencia": "2026-05",
+            "btg_bank_cohort_listed_roots": 1,
+            "btg_bank_cohort_observed_funds": 1,
+            "btg_bank_cohort_pl_brl": 1.0,
+            "btg_bank_cohort_combo_funds": 1,
+            "btg_bank_cohort_combo_pl_brl": 1.0,
+        },
     }
 
 
@@ -419,6 +474,11 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "delinquency_single_receivable_summary",
         "delinquency_frozen_cohort_history",
         "delinquency_frozen_cohort_summary",
+        "delinquency_cohort_revision_summary",
+        "delinquency_cohort_revision_transitions",
+        "delinquency_cohort_revision_sensitivity",
+        "card_taxonomy_audit",
+        "card_taxonomy_summary",
         "provider_independent_ranking",
         "bank_fidc_evolution",
         "bank_fidc_detail",
@@ -624,6 +684,9 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
     assert {
         "market_share_escopo_resumo.csv",
         "prestadores_ranking_historico.csv",
+        "inadimplencia_coorte_revisao_resumo.csv",
+        "inadimplencia_coorte_revisao_transicoes.csv",
+        "inadimplencia_coorte_revisao_sensibilidade.csv",
     }.issubset(REQUIRED_ANALYSIS_FILES)
     assert "acquiring_taxonomy_curation.json" in REQUIRED_DATA_INPUTS
     assert "industry_closed_offer_ticket_distribution.csv" in REQUIRED_DATA_INPUTS

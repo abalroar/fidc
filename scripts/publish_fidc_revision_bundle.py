@@ -122,6 +122,9 @@ REQUIRED_ANALYSIS_FILES = {
     "inadimplencia_coorte_atual_membros.csv.gz",
     "inadimplencia_coorte_atual_historico.csv",
     "inadimplencia_coorte_atual_resumo.csv",
+    "inadimplencia_coorte_revisao_resumo.csv",
+    "inadimplencia_coorte_revisao_transicoes.csv",
+    "inadimplencia_coorte_revisao_sensibilidade.csv",
     "prestadores_transicoes_resumo.csv",
     "prestadores_transicoes_links.csv",
     "prestadores_transicoes_detalhe.csv",
@@ -380,6 +383,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "delinquency_single_receivable",
         "delinquency_frozen_cohort_history",
         "delinquency_frozen_cohort_summary",
+        "delinquency_cohort_revision_transitions",
+        "delinquency_cohort_revision_sensitivity",
+        "card_taxonomy_audit",
         "provider_independent_ranking",
         "bank_fidc_evolution",
         "bank_fidc_detail",
@@ -423,6 +429,38 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "pl_coorte_referencia_brl",
             "regra",
             "fonte",
+        },
+        "delinquency_cohort_revision_transitions": {
+            "subtipo_anterior",
+            "subtipo_atual",
+            "fundos",
+            "pl_atual_brl",
+            "principais_fundos",
+            "competencia_anterior",
+            "competencia_atual",
+        },
+        "delinquency_cohort_revision_sensitivity": {
+            "competencia",
+            "tipo_recebivel_tabela_ii",
+            "inadimplencia_sobre_carteira_coorte_anterior",
+            "inadimplencia_sobre_carteira_coorte_atual",
+            "delta_inadimplencia_pp",
+            "competencia_coorte_anterior",
+            "competencia_coorte_atual",
+        },
+        "card_taxonomy_audit": {
+            "cnpj_fundo_formatado",
+            "cnpj_fundo_identificado",
+            "denominacao",
+            "criterio_inclusao",
+            "categoria_tabela_ii",
+            "valor_cartao_tabela_ii_brl",
+            "pl_jun25_brl",
+            "pl_jun25_observavel",
+            "anbima_tipo",
+            "anbima_foco",
+            "anbima_cartao_explicito",
+            "ja_curado_como_adquirencia",
         },
         "provider_independent_ranking": {
             "competencia",
@@ -621,6 +659,46 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             raise RevisionBundlePublishError(f"payload editorial sem {key}")
     if not isinstance(payload.get("conclusion_metrics"), Mapping):
         raise RevisionBundlePublishError("payload editorial sem conclusion_metrics")
+    cohort_revision = payload.get("delinquency_cohort_revision_summary")
+    if not isinstance(cohort_revision, Mapping):
+        raise RevisionBundlePublishError(
+            "payload editorial sem delinquency_cohort_revision_summary"
+        )
+    required_cohort_revision = {
+        "competencia_anterior",
+        "competencia_atual",
+        "fundos_coorte_anterior",
+        "fundos_coorte_atual",
+        "fundos_reclassificados",
+        "fundos_entraram",
+        "fundos_sairam",
+    }
+    if missing := sorted(required_cohort_revision.difference(cohort_revision)):
+        raise RevisionBundlePublishError(
+            "payload delinquency_cohort_revision_summary sem campos obrigatórios: "
+            + ", ".join(missing)
+        )
+    card_summary = payload.get("card_taxonomy_summary")
+    if not isinstance(card_summary, Mapping):
+        raise RevisionBundlePublishError("payload editorial sem card_taxonomy_summary")
+    card_rows = payload.get("card_taxonomy_audit") or []
+    if int(card_summary.get("fundos_total") or 0) != len(card_rows):
+        raise RevisionBundlePublishError(
+            "card_taxonomy_summary não reconcilia com card_taxonomy_audit"
+        )
+    conclusion_metrics = payload["conclusion_metrics"]
+    required_btg_metrics = {
+        "btg_bank_cohort_listed_roots",
+        "btg_bank_cohort_observed_funds",
+        "btg_bank_cohort_pl_brl",
+        "btg_bank_cohort_combo_funds",
+        "btg_bank_cohort_combo_pl_brl",
+    }
+    if missing := sorted(required_btg_metrics.difference(conclusion_metrics)):
+        raise RevisionBundlePublishError(
+            "payload conclusion_metrics sem coorte bancária BTG: "
+            + ", ".join(missing)
+        )
     for key in (
         "provider_transition_links",
         "provider_transition_detail",
@@ -1093,7 +1171,7 @@ def publish_revision_bundle(
     raw_dir: Path = ROOT / ".cache" / "cvm-industry-study",
     provider_history_archive: Path | None = None,
     refresh_source_presence: bool = False,
-    presence_months: Iterable[str] = ("2024-06", "2024-07"),
+    presence_months: Iterable[str] = ("all",),
     skip_download: bool = True,
     node_modules: Path | None = None,
     timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS,
@@ -1160,7 +1238,7 @@ def publish_revision_bundle(
         )
 
         months = [str(value).strip() for value in presence_months if str(value).strip()]
-        if latest_complete not in months:
+        if not any(value.casefold() == "all" for value in months) and latest_complete not in months:
             months.append(latest_complete)
         analysis_args = [
             "--data-dir",
@@ -1404,7 +1482,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         ),
     )
     parser.add_argument("--refresh-source-presence", action="store_true")
-    parser.add_argument("--presence-months", default="2024-06,2024-07")
+    parser.add_argument(
+        "--presence-months",
+        default="all",
+        help="competências separadas por vírgula; 'all' reprocessa todo o histórico",
+    )
     parser.add_argument("--skip-download", action="store_true")
     parser.add_argument("--node-modules", type=Path, default=None)
     parser.add_argument("--timeout-seconds", type=int, default=DEFAULT_TIMEOUT_SECONDS)
