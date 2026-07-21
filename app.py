@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-# Deployment marker: portfolio sub-tabs and unified exports (2026-07-15).
+# Deployment marker: unified exports and industry payload v5 (2026-07-20).
 
 from services.dashboard_ui import dashboard_page, diagnostics_enabled, render_page_header
 from tabs.tab_fidc_book import render_tab_fidc_book
