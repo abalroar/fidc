@@ -203,15 +203,17 @@ def add_reporting_flags(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
     """
 
     frame = vehicle_monthly.copy()
-    explicit = "reports_carteira_dc" in frame.columns
+    inferred_tab_i = pd.Series(False, index=frame.index, dtype="boolean")
+    for column in ("admin_nome", "admin_cnpj", "condominio", "exclusivo"):
+        if column in frame.columns:
+            inferred_tab_i |= frame[column].map(_clean).ne("").astype("boolean")
     if "reports_tab_i" in frame.columns:
-        tab_i = _as_nullable_bool(frame["reports_tab_i"])
+        tab_i = _as_nullable_bool(frame["reports_tab_i"]).fillna(inferred_tab_i)
     else:
-        tab_i = pd.Series(False, index=frame.index, dtype="boolean")
-        for column in ("admin_nome", "admin_cnpj", "condominio", "exclusivo"):
-            if column in frame.columns:
-                tab_i |= frame[column].map(_clean).ne("").astype("boolean")
-        frame["reports_tab_i"] = tab_i
+        tab_i = inferred_tab_i
+    frame["reports_tab_i"] = tab_i
+
+    exact_pair = pd.Series(True, index=frame.index, dtype="boolean")
 
     for column in (
         "reports_carteira_dc",
@@ -219,11 +221,16 @@ def add_reporting_flags(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
         "reports_dc_a_vencer_com_parcela_inad",
     ):
         if column in frame.columns:
-            frame[column] = _as_nullable_bool(frame[column])
+            reported = _as_nullable_bool(frame[column])
+            if column in {"reports_carteira_dc", "reports_dc_inadimplentes"}:
+                exact_pair &= reported.notna().astype("boolean")
+            frame[column] = reported.fillna(tab_i)
         else:
             # Field-level presence was lost in the old CSV.  Table-I row
             # presence is useful as an upper bound, not as an exact claim.
             frame[column] = tab_i.copy()
+            if column in {"reports_carteira_dc", "reports_dc_inadimplentes"}:
+                exact_pair &= False
 
     for value_column in AGING_VALUE_COLUMNS:
         report_column = f"reports_{value_column}"
@@ -241,10 +248,11 @@ def add_reporting_flags(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
         pd.Series("", index=frame.index),
     ).map(_clean)
     empty_source = frame["report_flag_source"].eq("")
-    frame.loc[empty_source, "report_flag_source"] = (
-        "campo_bruto_CVM" if explicit else "presença_da_linha_Tab_I_inferida_no_legado"
+    frame.loc[empty_source & exact_pair, "report_flag_source"] = "campo_bruto_CVM"
+    frame.loc[empty_source & ~exact_pair, "report_flag_source"] = (
+        "presença_da_linha_Tab_I_inferida_no_legado"
     )
-    frame["field_presence_exact"] = bool(explicit)
+    frame["field_presence_exact"] = exact_pair
     return frame
 
 
@@ -396,6 +404,64 @@ def overlay_raw_source_presence(
     output = output.drop(
         columns=["raw_audit_matched_overlay", "raw_audit_snapshot_overlay"], errors="ignore"
     )
+    # The overlay changes observability flags and can also replace aging
+    # values.  Rebuild every dependent audit field after the replacement;
+    # carrying derivatives calculated before the merge creates internally
+    # inconsistent snapshots (for example, an observed excess with zero
+    # `inad_supera_carteira`).
+    report_pair = (
+        _as_nullable_bool(output["reports_carteira_dc"]).eq(True)  # noqa: E712
+        & _as_nullable_bool(output["reports_dc_inadimplentes"]).eq(True)  # noqa: E712
+    )
+    output["reports_inadimplencia_pair"] = report_pair.astype("boolean")
+    output["carteira_positiva"] = output["carteira_dc"].gt(0)
+    output["inad_supera_carteira"] = (
+        report_pair & output["dc_inadimplentes"].gt(output["carteira_dc"])
+    )
+    nonnegative_inad = output["dc_inadimplentes"].clip(lower=0)
+    nonnegative_dc = output["carteira_dc"].clip(lower=0)
+    output["dc_inadimplentes_ajustado_recalculado"] = nonnegative_inad.where(
+        nonnegative_inad.le(nonnegative_dc), nonnegative_dc
+    )
+    output.loc[
+        ~report_pair, "dc_inadimplentes_ajustado_recalculado"
+    ] = pd.NA
+    output["excesso_removido_ajuste"] = (
+        nonnegative_inad - output["dc_inadimplentes_ajustado_recalculado"]
+    ).clip(lower=0)
+    output.loc[~report_pair, "excesso_removido_ajuste"] = pd.NA
+    output["motivo_ajuste"] = "sem ajuste"
+    output.loc[output["inad_supera_carteira"], "motivo_ajuste"] = (
+        "inadimplência reportada supera a carteira; limite aplicado por veículo"
+    )
+    output.loc[~report_pair, "motivo_ajuste"] = "campos não observáveis em conjunto"
+    output["regra_inclusao"] = "fora do denominador"
+    output.loc[report_pair & output["carteira_dc"].gt(0), "regra_inclusao"] = (
+        "campos reportados e carteira positiva"
+    )
+    output.loc[report_pair & output["carteira_dc"].le(0), "regra_inclusao"] = (
+        "campos reportados; carteira não positiva"
+    )
+    aging_bucket_columns = [
+        column for column in AGING_VALUE_COLUMNS if column != "inad_acima_360d"
+    ]
+    output["inad_aging_total"] = output[aging_bucket_columns].sum(
+        axis=1, min_count=1
+    )
+    output.loc[
+        ~_as_nullable_bool(output["reports_aging"]).eq(True), "inad_aging_total"  # noqa: E712
+    ] = pd.NA
+    ex360_observable = _as_nullable_bool(output["reports_inad_acima_360d"]).eq(
+        True  # noqa: E712
+    )
+    output["inadimplencia_ex_360d"] = (
+        output["dc_inadimplentes"] - output["inad_acima_360d"]
+    ).clip(lower=0)
+    output.loc[~ex360_observable, "inadimplencia_ex_360d"] = pd.NA
+    output["inadimplencia_ex_360d_ajustada"] = output[
+        "inadimplencia_ex_360d"
+    ].where(output["inadimplencia_ex_360d"].le(nonnegative_dc), nonnegative_dc)
+    output.loc[~ex360_observable, "inadimplencia_ex_360d_ajustada"] = pd.NA
     return output
 
 
@@ -925,7 +991,9 @@ def build_frozen_single_receivable_history(
     member_map = members[
         ["cnpj_fundo", "tipo_recebivel_tabela_ii", "pl_referencia_brl"]
     ].copy()
-    historical = fund_base.copy()
+    historical = fund_base[
+        fund_base["competencia"].astype(str).str[:7].le(competence)
+    ].copy()
     historical["competencia"] = historical["competencia"].astype(str).str[:7]
     historical["cnpj_fundo"] = historical["cnpj_fundo"].map(_digits)
     historical = historical.merge(member_map, on="cnpj_fundo", how="inner")
@@ -1038,6 +1106,163 @@ def build_frozen_single_receivable_history(
     summary["fonte"] = "CVM, Informe Mensal FIDC, Tabelas I, II e IV"
     summary = summary[summary_columns]
     return members, history, summary
+
+
+def build_frozen_cohort_revision_audit(
+    previous_members: pd.DataFrame,
+    current_members: pd.DataFrame,
+    previous_history: pd.DataFrame,
+    current_history: pd.DataFrame,
+    *,
+    previous_competence: str,
+    current_competence: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Explain how a refreshed frozen cohort rewrites historical subtype lines."""
+
+    if previous_members.empty or current_members.empty:
+        return pd.DataFrame(), pd.DataFrame(), pd.DataFrame()
+
+    member_columns = [
+        "cnpj_fundo",
+        "denominacao",
+        "tipo_recebivel_tabela_ii",
+        "pl_referencia_brl",
+    ]
+    previous = previous_members[member_columns].rename(
+        columns={
+            "denominacao": "denominacao_anterior",
+            "tipo_recebivel_tabela_ii": "subtipo_anterior",
+            "pl_referencia_brl": "pl_anterior_brl",
+        }
+    )
+    current = current_members[member_columns].rename(
+        columns={
+            "denominacao": "denominacao_atual",
+            "tipo_recebivel_tabela_ii": "subtipo_atual",
+            "pl_referencia_brl": "pl_atual_brl",
+        }
+    )
+    detail = previous.merge(current, on="cnpj_fundo", how="outer", validate="one_to_one")
+    detail["status_revisao"] = "mesmo subtipo"
+    detail.loc[detail["subtipo_anterior"].isna(), "status_revisao"] = "entrada"
+    detail.loc[detail["subtipo_atual"].isna(), "status_revisao"] = "saída"
+    detail.loc[
+        detail["subtipo_anterior"].notna()
+        & detail["subtipo_atual"].notna()
+        & detail["subtipo_anterior"].ne(detail["subtipo_atual"]),
+        "status_revisao",
+    ] = "reclassificado"
+    detail["denominacao"] = detail["denominacao_atual"].fillna(
+        detail["denominacao_anterior"]
+    )
+    detail["pl_referencia_status_brl"] = detail["pl_atual_brl"].where(
+        detail["status_revisao"].ne("saída"), detail["pl_anterior_brl"]
+    )
+    detail["competencia_anterior"] = previous_competence
+    detail["competencia_atual"] = current_competence
+    detail = detail.sort_values(
+        ["status_revisao", "pl_referencia_status_brl", "cnpj_fundo"],
+        ascending=[True, False, True],
+    ).reset_index(drop=True)
+
+    def count(status: str) -> int:
+        return int(detail["status_revisao"].eq(status).sum())
+
+    def pl(status: str) -> float:
+        return float(
+            pd.to_numeric(
+                detail.loc[
+                    detail["status_revisao"].eq(status),
+                    "pl_referencia_status_brl",
+                ],
+                errors="coerce",
+            ).sum()
+        )
+
+    summary = pd.DataFrame(
+        [
+            {
+                "competencia_anterior": previous_competence,
+                "competencia_atual": current_competence,
+                "fundos_coorte_anterior": int(previous["cnpj_fundo"].nunique()),
+                "pl_coorte_anterior_brl": float(previous["pl_anterior_brl"].sum()),
+                "fundos_coorte_atual": int(current["cnpj_fundo"].nunique()),
+                "pl_coorte_atual_brl": float(current["pl_atual_brl"].sum()),
+                "fundos_mesmo_subtipo": count("mesmo subtipo"),
+                "pl_atual_mesmo_subtipo_brl": pl("mesmo subtipo"),
+                "fundos_reclassificados": count("reclassificado"),
+                "pl_atual_reclassificado_brl": pl("reclassificado"),
+                "fundos_entraram": count("entrada"),
+                "pl_atual_entradas_brl": pl("entrada"),
+                "fundos_sairam": count("saída"),
+                "pl_anterior_saidas_brl": pl("saída"),
+                "regra": (
+                    "coortes elegíveis e subtipos definidos separadamente pela "
+                    f"Tabela II em {previous_competence} e {current_competence}"
+                ),
+            }
+        ]
+    )
+
+    reclassified = detail[detail["status_revisao"].eq("reclassificado")].copy()
+    transitions = (
+        reclassified
+        .groupby(["subtipo_anterior", "subtipo_atual"], as_index=False)
+        .agg(
+            fundos=("cnpj_fundo", "nunique"),
+            pl_atual_brl=("pl_atual_brl", "sum"),
+        )
+        .sort_values(["pl_atual_brl", "fundos"], ascending=[False, False])
+        .reset_index(drop=True)
+    )
+    if not transitions.empty:
+        leaders: list[dict[str, object]] = []
+        for keys, group in reclassified.groupby(
+            ["subtipo_anterior", "subtipo_atual"], sort=False
+        ):
+            ordered = group.sort_values("pl_atual_brl", ascending=False)
+            leaders.append(
+                {
+                    "subtipo_anterior": keys[0],
+                    "subtipo_atual": keys[1],
+                    "principais_fundos": " | ".join(
+                        ordered["denominacao"].fillna("").astype(str).head(3)
+                    ),
+                    "maior_fundo_pl_brl": float(
+                        pd.to_numeric(ordered["pl_atual_brl"], errors="coerce").iloc[0]
+                    ),
+                }
+            )
+        transitions = transitions.merge(
+            pd.DataFrame(leaders),
+            on=["subtipo_anterior", "subtipo_atual"],
+            how="left",
+            validate="one_to_one",
+        )
+    transitions["competencia_anterior"] = previous_competence
+    transitions["competencia_atual"] = current_competence
+
+    history_keys = ["competencia", "tipo_recebivel_tabela_ii"]
+    sensitivity_columns = history_keys + [
+        "fundos_incluidos",
+        "pl_incluido_brl",
+        "carteira_incluida_brl",
+        "inadimplencia_sobre_carteira",
+    ]
+    sensitivity = previous_history[sensitivity_columns].merge(
+        current_history[sensitivity_columns],
+        on=history_keys,
+        how="outer",
+        suffixes=("_coorte_anterior", "_coorte_atual"),
+    )
+    sensitivity["delta_inadimplencia_pp"] = (
+        sensitivity["inadimplencia_sobre_carteira_coorte_atual"]
+        - sensitivity["inadimplencia_sobre_carteira_coorte_anterior"]
+    )
+    sensitivity["competencia_coorte_anterior"] = previous_competence
+    sensitivity["competencia_coorte_atual"] = current_competence
+    sensitivity = sensitivity.sort_values(history_keys).reset_index(drop=True)
+    return summary, transitions, sensitivity
 
 
 def build_break_bridge(
@@ -2497,29 +2722,47 @@ def build_provider_leadership_attribution(
 
 def build_btg_provider_ex_controlled_scenario(
     provider_historical_ranking: pd.DataFrame,
-    btg_controlled_detail: pd.DataFrame,
+    bank_fidc_detail: pd.DataFrame,
+    fund_base: pd.DataFrame,
     *,
     competence: str = LATEST_COMPLETE,
 ) -> pd.DataFrame:
-    """Re-rank BTG by role after removing the six DF-confirmed FIDCs."""
+    """Re-rank BTG by role after removing the fixed BTG bank cohort."""
 
     ranking = provider_historical_ranking[
         provider_historical_ranking["competencia"].astype(str).str[:7].eq(
             str(competence)[:7]
         )
     ].copy()
-    if ranking.empty or btg_controlled_detail.empty:
+    if ranking.empty or bank_fidc_detail.empty or fund_base.empty:
         return pd.DataFrame()
-    controlled = btg_controlled_detail[
-        btg_controlled_detail["reconciliado_controlado_ativo"].fillna(False).astype(bool)
+    cohort = bank_fidc_detail[
+        bank_fidc_detail["competencia"].astype(str).str[:7].eq(str(competence)[:7])
+        & bank_fidc_detail["bank_group"].astype(str).eq("BTG")
+        & _as_nullable_bool(bank_fidc_detail["observado"]).fillna(False)
     ].copy()
-    rows: list[dict[str, object]] = []
-    role_detail_column = {
-        "administrador": "btg_no_papel_admin",
-        "gestor": "btg_no_papel_gestor",
-        "custodiante": "btg_no_papel_custodiante",
+    cohort["cnpj_fundo"] = cohort["cnpj_fundo"].map(_digits)
+    cohort_cnpjs = set(cohort["cnpj_fundo"])
+    current_funds = fund_base[
+        fund_base["competencia"].astype(str).str[:7].eq(str(competence)[:7])
+    ].copy()
+    current_funds["cnpj_fundo"] = current_funds["cnpj_fundo"].map(_digits)
+    current_funds["pl"] = pd.to_numeric(current_funds["pl"], errors="coerce")
+    current_funds = current_funds[
+        current_funds["cnpj_fundo"].isin(cohort_cnpjs)
+        & ~_as_nullable_bool(current_funds["is_fic_fidc"]).fillna(False)
+        & current_funds["pl"].gt(0)
+        & ~current_funds["cnpj_fundo"].isin(
+            {_digits(value) for value in MARKET_SHARE_EXCLUDED_FUNDS}
+        )
+    ].copy()
+    role_source_column = {
+        "administrador": "admin_nome",
+        "gestor": "gestor_nome",
+        "custodiante": "custodiante_nome",
     }
-    for role, detail_column in role_detail_column.items():
+    rows: list[dict[str, object]] = []
+    for role, source_column in role_source_column.items():
         scoped = ranking[ranking["papel"].eq(role)].copy()
         scoped["grupo"] = scoped["participante"].map(canonical_provider)
         btg_rows = scoped[scoped["grupo"].eq("BTG Pactual")]
@@ -2527,11 +2770,11 @@ def build_btg_provider_ex_controlled_scenario(
             continue
         total = float(pd.to_numeric(btg_rows["pl_brl"], errors="coerce").sum())
         current_rank = int(pd.to_numeric(btg_rows["rank_periodo"], errors="coerce").min())
-        controlled_role = controlled[controlled[detail_column].fillna(False).astype(bool)]
-        controlled_pl = float(
-            pd.to_numeric(controlled_role["pl_mai26_brl"], errors="coerce").sum()
-        )
-        residual = total - controlled_pl
+        cohort_role = current_funds[
+            current_funds[source_column].map(canonical_provider).eq("BTG Pactual")
+        ]
+        cohort_pl = float(cohort_role["pl"].sum())
+        residual = total - cohort_pl
         competitors = scoped[~scoped["grupo"].eq("BTG Pactual")].copy()
         competitors["pl_brl"] = pd.to_numeric(competitors["pl_brl"], errors="coerce")
         rank_without = 1 + int(competitors["pl_brl"].gt(residual).sum())
@@ -2542,22 +2785,26 @@ def build_btg_provider_ex_controlled_scenario(
                 "papel": role,
                 "btg_pl_brl": total,
                 "btg_rank": current_rank,
-                "fidcs_controlados_excluidos": int(controlled_role["cnpj_veiculo"].nunique()),
-                "pl_controlado_excluido_brl": controlled_pl,
-                "share_pl_btg_excluido": controlled_pl / total if total else float("nan"),
+                "fidcs_controlados_excluidos": int(cohort_role["cnpj_fundo"].nunique()),
+                "pl_controlado_excluido_brl": cohort_pl,
+                "fidcs_coorte_bancaria_excluidos": int(
+                    cohort_role["cnpj_fundo"].nunique()
+                ),
+                "pl_coorte_bancaria_excluido_brl": cohort_pl,
+                "share_pl_btg_excluido": cohort_pl / total if total else float("nan"),
                 "btg_pl_ex_controlados_brl": residual,
                 "btg_rank_ex_controlados": rank_without,
                 "maior_concorrente": str(leader["participante"].iloc[0]) if not leader.empty else "",
                 "maior_concorrente_pl_brl": float(leader["pl_brl"].iloc[0]) if not leader.empty else float("nan"),
                 "regra": (
-                    "retira apenas os seis FIDCs controlados declarados na DF IFRS "
-                    "1T26; o saldo não é automaticamente classificado como terceiros"
+                    "retira, em cada função, os FIDCs da coorte fixa BTG de "
+                    "FIDCs.xlsx que têm o próprio BTG no papel analisado; o saldo "
+                    "não é classificado automaticamente como carteira de terceiros"
                 ),
                 "fonte": (
-                    "BTG Pactual, DF IFRS 1T26, nota 3.d; "
-                    f"CVM, Informe Mensal {competence}"
+                    "FIDCs.xlsx, aba BTG; " f"CVM, Informe Mensal {competence}"
                 ),
-                "source_url": BTG_IFRS_1Q26_URL,
+                "source_reference": "FIDCs.xlsx#BTG!A2:D33",
             }
         )
     return pd.DataFrame(rows)
@@ -2575,6 +2822,9 @@ class RevisionOutputs:
     delinquency_frozen_cohort_members: pd.DataFrame
     delinquency_frozen_cohort_history: pd.DataFrame
     delinquency_frozen_cohort_summary: pd.DataFrame
+    delinquency_cohort_revision_summary: pd.DataFrame
+    delinquency_cohort_revision_transitions: pd.DataFrame
+    delinquency_cohort_revision_sensitivity: pd.DataFrame
     bridge_detail: pd.DataFrame
     bridge_summary: pd.DataFrame
     reconciliation: pd.DataFrame
@@ -2646,6 +2896,29 @@ def build_revision_outputs(
         fund_base,
         raw_table_ii_vehicle,
         competence=latest_complete,
+    )
+    previous_complete = str(pd.Period(latest_complete, freq="M") - 1)
+    (
+        previous_cohort_members,
+        previous_cohort_history,
+        _previous_cohort_summary,
+    ) = build_frozen_single_receivable_history(
+        base,
+        fund_base,
+        raw_table_ii_vehicle,
+        competence=previous_complete,
+    )
+    (
+        delinquency_cohort_revision_summary,
+        delinquency_cohort_revision_transitions,
+        delinquency_cohort_revision_sensitivity,
+    ) = build_frozen_cohort_revision_audit(
+        previous_cohort_members,
+        delinquency_frozen_cohort_members,
+        previous_cohort_history,
+        delinquency_frozen_cohort_history,
+        previous_competence=previous_complete,
+        current_competence=latest_complete,
     )
     top20, top20_outros, structured_funds, concentration = build_top20_and_monostructure(
         fund_base, competence=latest_complete
@@ -2726,16 +2999,39 @@ def build_revision_outputs(
     )
     btg_provider_ex_controlled_scenario = build_btg_provider_ex_controlled_scenario(
         provider_historical_ranking,
-        btg_controlled_reconciliation,
+        bank_fidc_detail,
+        fund_base,
         competence=latest_complete,
     )
+    raw_source_presence = pd.DataFrame()
+    if raw_audit_vehicle is not None and not raw_audit_vehicle.empty:
+        # Preserve the source evidence needed to distinguish blank from zero
+        # without duplicating every analytical column from the monthly base.
+        evidence_columns = [
+            "competencia",
+            "cnpj",
+            "cnpj_fundo",
+            "denominacao",
+            "carteira_dc",
+            "dc_inadimplentes",
+            "dc_a_vencer_com_parcela_inad",
+            "report_flag_source",
+            *AGING_VALUE_COLUMNS,
+        ]
+        evidence_columns.extend(
+            sorted(
+                column
+                for column in raw_audit_vehicle.columns
+                if column.startswith("reports_")
+            )
+        )
+        evidence_columns = list(dict.fromkeys(evidence_columns))
+        raw_source_presence = raw_audit_vehicle[
+            [column for column in evidence_columns if column in raw_audit_vehicle]
+        ].copy()
     return RevisionOutputs(
         latest_complete=latest_complete,
-        raw_source_presence=(
-            raw_audit_vehicle.copy()
-            if raw_audit_vehicle is not None
-            else pd.DataFrame()
-        ),
+        raw_source_presence=raw_source_presence,
         base_vehicle=base,
         qa_delinquency=qa,
         delinquency_cases=cases,
@@ -2744,6 +3040,9 @@ def build_revision_outputs(
         delinquency_frozen_cohort_members=delinquency_frozen_cohort_members,
         delinquency_frozen_cohort_history=delinquency_frozen_cohort_history,
         delinquency_frozen_cohort_summary=delinquency_frozen_cohort_summary,
+        delinquency_cohort_revision_summary=delinquency_cohort_revision_summary,
+        delinquency_cohort_revision_transitions=delinquency_cohort_revision_transitions,
+        delinquency_cohort_revision_sensitivity=delinquency_cohort_revision_sensitivity,
         bridge_detail=bridge_detail,
         bridge_summary=bridge_summary,
         reconciliation=reconciliation,
@@ -2805,6 +3104,21 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         (
             "inadimplencia_coorte_atual_resumo.csv",
             outputs.delinquency_frozen_cohort_summary,
+            False,
+        ),
+        (
+            "inadimplencia_coorte_revisao_resumo.csv",
+            outputs.delinquency_cohort_revision_summary,
+            False,
+        ),
+        (
+            "inadimplencia_coorte_revisao_transicoes.csv",
+            outputs.delinquency_cohort_revision_transitions,
+            False,
+        ),
+        (
+            "inadimplencia_coorte_revisao_sensibilidade.csv",
+            outputs.delinquency_cohort_revision_sensitivity,
             False,
         ),
         ("bridge_inadimplencia_2024-06_2024-07_detalhe.csv", outputs.bridge_detail, False),
@@ -2929,6 +3243,15 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         ),
         "inadimplencia_coorte_atual_resumo": records(
             outputs.delinquency_frozen_cohort_summary
+        ),
+        "inadimplencia_coorte_revisao_resumo": records(
+            outputs.delinquency_cohort_revision_summary
+        ),
+        "inadimplencia_coorte_revisao_transicoes": records(
+            outputs.delinquency_cohort_revision_transitions
+        ),
+        "inadimplencia_coorte_revisao_sensibilidade": records(
+            outputs.delinquency_cohort_revision_sensitivity
         ),
         "bridge_resumo": records(outputs.bridge_summary),
         "bridge_top_contribuidores": records(outputs.bridge_detail.head(30)),
@@ -3164,12 +3487,14 @@ __all__ = [
     "REAG_COHORT_FROM",
     "REAG_COHORT_TO",
     "RevisionOutputs",
+    "TABLE_II_RECEIVABLE_COLUMNS",
     "add_reporting_flags",
     "build_base_by_vehicle",
     "build_break_bridge",
     "build_delinquency_cases",
     "build_delinquency_qa",
     "build_frozen_single_receivable_history",
+    "build_frozen_cohort_revision_audit",
     "build_fund_base",
     "build_market_share_by_subtype",
     "build_market_share_scope_summary",

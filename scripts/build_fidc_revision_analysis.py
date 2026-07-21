@@ -11,7 +11,11 @@ if __package__ in {None, ""}:
 
 import pandas as pd
 
-from services.industry_revision_analysis import build_revision_outputs, write_revision_outputs
+from services.industry_revision_analysis import (
+    TABLE_II_RECEIVABLE_COLUMNS,
+    build_revision_outputs,
+    write_revision_outputs,
+)
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -34,7 +38,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--presence-months",
-        default="2024-06,2024-07,2026-05",
+        default="all",
+        help=(
+            "competências separadas por vírgula; 'all' reprocessa todo o histórico "
+            "disponível para preservar vazio versus zero"
+        ),
     )
     parser.add_argument("--skip-download", action="store_true")
     return parser.parse_args(argv)
@@ -71,13 +79,41 @@ def main(argv: list[str] | None = None) -> None:
 
     store = RawStore(Path(args.raw_dir), allow_download=not args.skip_download)
     raw_frames: list[pd.DataFrame] = []
-    raw_table_ii = pd.DataFrame()
-    requested_months = [
+    table_ii_columns = list(TABLE_II_RECEIVABLE_COLUMNS)
+    latest_table_ii = vehicle[
+        vehicle["competencia"].astype(str).eq(latest_complete)
+    ].copy()
+    if not set(table_ii_columns).issubset(latest_table_ii.columns) or not latest_table_ii[
+        table_ii_columns
+    ].notna().any(axis=1).any():
+        raise SystemExit(
+            "Tabela II da competencia atual ausente em vehicle_monthly; "
+            "interrompendo para nao publicar uma coorte parcial"
+        )
+    # A base mensal versionada já contém a fotografia completa de Tabela II da
+    # competência atual. O bruto é carregado apenas para a competência anterior,
+    # necessária à ponte de coorte; caches parciais do mês atual não podem reduzir
+    # silenciosamente o universo publicado.
+    raw_table_ii_frames: list[pd.DataFrame] = [latest_table_ii]
+    previous_complete = str(pd.Period(latest_complete, freq="M") - 1)
+    presence_tokens = [
         item.strip() for item in args.presence_months.split(",") if item.strip()
     ]
-    months_to_read = requested_months if args.refresh_source_presence else []
-    if latest_complete not in months_to_read:
-        months_to_read.append(latest_complete)
+    if any(item.casefold() == "all" for item in presence_tokens):
+        start_complete = str(vehicle["competencia"].astype(str).str[:7].min())
+        requested_months = [
+            str(period)
+            for period in pd.period_range(
+                start=start_complete,
+                end=latest_complete,
+                freq="M",
+            )
+        ]
+    else:
+        requested_months = presence_tokens
+    months_to_read = list(requested_months) if args.refresh_source_presence else []
+    if previous_complete not in months_to_read:
+        months_to_read.append(previous_complete)
     for competence in months_to_read:
         yyyymm = competence.replace("-", "")
         tab4 = load_tab4(store, yyyymm)
@@ -86,14 +122,19 @@ def main(argv: list[str] | None = None) -> None:
             print(f"[warn] bruto CVM indisponível para {competence}; auditoria omitida")
             continue
         frame = pd.DataFrame(aggregate.vehicle)
-        if competence == latest_complete:
-            raw_table_ii = frame.copy()
+        if competence == previous_complete:
+            raw_table_ii_frames.append(frame.copy())
         if args.refresh_source_presence and competence in requested_months:
             raw_frames.append(frame)
     raw_audit = (
         pd.concat(raw_frames, ignore_index=True)
         if args.refresh_source_presence and raw_frames
         else (pd.DataFrame() if args.refresh_source_presence else None)
+    )
+    raw_table_ii = (
+        pd.concat(raw_table_ii_frames, ignore_index=True)
+        if raw_table_ii_frames
+        else pd.DataFrame()
     )
     outputs = build_revision_outputs(
         vehicle_monthly=vehicle,

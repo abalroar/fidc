@@ -348,19 +348,24 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
 
     required_text = (
         "Principais conclusões",
-        "Síntese executiva",
+        "Grandes números",
         "growth_multiple_label",
         "holder_ge_200m_share_pl_ate_10_contas",
-        "excesso_top10_share",
-        "Sistema Petrobras representa todo o PL mono do BB",
+        "btg_bank_cohort_observed_funds",
+        "btg_bank_cohort_combo_funds",
         "Evolução do PL",
         "Contas e veículos reportantes",
         "Distribuição por número de contas: dez/23 e {stock_label_lower}",
         "Taxonomia CVM com abertura analítica de adquirência",
+        "Lista para revisão · Cartão de crédito",
+        "industry-revision-card-taxonomy-download",
         "Fotografia da coorte",
+        "Revisão da série",
+        "delinquency_cohort_revision_transitions",
         "Ranking e concentração dos prestadores",
         "Evolução do ranking dos prestadores",
         "btg_provider_ex_controlled_scenario",
+        "BTG ex-coorte bancária de FIDCs.xlsx",
         "PL observado",
         "Prestadores independentes",
         "evidencia_revisao",
@@ -400,6 +405,11 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
     assert revision_source.count(".mark_text(") >= 18
     assert 'range=[_GRAY_LIGHT, _ORANGE]' in revision_source
     assert 'color="white"' in revision_source
+    assert "Síntese executiva" not in revision_source
+    assert "\nex-6 " not in revision_source
+    assert revision_source.index("industry-revision-closed-offers-cumulative") < revision_source.index(
+        "industry-revision-closed-offer-ticket-histogram"
+    )
 
 
 def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> None:
@@ -413,24 +423,22 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
         "número de intervalos igual à diferença entre os anos",
         "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}. Contas podem se repetir",
         "Fonte: CVM, dez/23 e {stock_label_lower}",
-        "FIDCs.xlsx (13 CNPJs) + três FIDCs SELLER",
-        "Origem CVM dos CNPJs ativos em {_short_competence_label",
+        "curadoria: FIDCs.xlsx e três FIDCs SELLER",
+        "PL de jun/25 permanece N/D quando ausente",
+        "Cartão de crédito não é rótulo da taxonomia ANBIMA",
         "A Tabela II classifica o recebível reportado",
-        "Linha laranja = consolidado de mercado ajustado",
         "Fonte: CVM, dez/25 e {stock_label_lower}",
-        "Fonte: CVM e DF BTG 1T26, nota 3.d",
+            "A lista delimita a coorte bancária atual",
         "Singulare é consolidada em QI Tech",
         "Fonte: CVM, cadastro vigente em {stock_label_lower}",
         "Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}",
-        "Fonte: CVM, Ofertas Públicas, consulta em",
-        "Fonte: CVM, Ofertas Públicas; encerramentos considerados até",
-        "Fundos com mais de 10 contas ganharam",
-        "Financeiro encerra {stock_label_lower}",
-        "Top 10 concentra",
-        "QI Tech lidera administração e custódia entre independentes",
-        "Monoestruturas são",
-        "ofertas acima de R$ 500 mi concentram",
-        "originadores identificados somam",
+        "CVM — Ofertas Públicas de Distribuição",
+        "arquivo oferta_resolucao_160.csv",
+        "Status_Requerimento = Oferta Encerrada",
+        "Status abertos ficam fora",
+        "Oferta Encerrada é a denominação literal",
+        "A linha laranja mostra o consolidado ajustado de mercado",
+        "presença dos campos nos meses legados passou a ser apurada por registro",
     )
     for note in required_notes:
         assert note in revision_source

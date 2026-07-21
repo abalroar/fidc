@@ -81,7 +81,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v12";
+const RENDERER_VERSION = "industry_revision_artifacts_v13";
 const EXPECTED_SLIDES = 56;
 
 const C = {
@@ -340,7 +340,7 @@ function addHeader(slide, eyebrow, title, source, _page) {
   addText(
     slide,
     eyebrow.toUpperCase().replace(/\bFIDCS\b/g, "FIDCs"),
-    { left: 60, top: 27, width: 720, height: 20 },
+    { left: 60, top: 27, width: 1160, height: 20 },
     { fontSize: 12, bold: true, color: C.orange },
   );
   const titleFont = title.length > 105 ? 24 : title.length > 85 ? 26 : 28;
@@ -1053,6 +1053,111 @@ function providerRankPlCell(row) {
   })}`;
 }
 
+function firstFiniteNumber(...values) {
+  for (const value of values) {
+    if (value === null || value === undefined || value === "") continue;
+    const parsed = Number(value);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return 0;
+}
+
+function btgBankCohortContext(payload) {
+  const metrics = payload.conclusion_metrics || {};
+  const attribution = payload.provider_leadership_attribution?.btg
+    || providerAttributionFallback(payload).btg
+    || {};
+  const scenarios = payload.btg_provider_ex_controlled_scenario || [];
+  const managementScenario = scenarios.find((row) => row.papel === "gestor") || {};
+  const providerCurrent = (payload.provider_historical_ranking || []).find(
+    (row) => row.competencia === payload.latest_complete
+      && row.papel === "gestor"
+      && normalizeProviderName(row.participante) === "btg pactual",
+  ) || {};
+  const currentDetail = (payload.bank_fidc_detail || []).filter((row) => {
+    const group = row.bank_group || row.grupo_bancario;
+    return row.competencia === payload.latest_complete
+      && ["BTG", "BTG Pactual"].includes(String(group || ""));
+  });
+  const observedDetail = currentDetail.filter(
+    (row) => Boolean(row.observado) && num(row.pl_brl) > 0,
+  );
+  const listedRootsFromDetail = new Set(
+    currentDetail.map((row) => String(row.cnpj_root8 || "").trim()).filter(Boolean),
+  ).size;
+  const observedFundsFromDetail = new Set(
+    observedDetail.map((row) => String(row.cnpj_fundo || "").trim()).filter(Boolean),
+  ).size;
+  const cohortPlFromDetail = observedDetail.reduce((sum, row) => sum + num(row.pl_brl), 0);
+  const managedPl = firstFiniteNumber(
+    managementScenario.btg_pl_brl,
+    attribution.managed_pl_brl,
+    providerCurrent.pl_brl,
+  );
+  const managementExcludedFunds = firstFiniteNumber(
+    managementScenario.fidcs_coorte_bancaria_excluidos,
+    managementScenario.fidcs_controlados_excluidos,
+    metrics.btg_bank_cohort_combo_funds,
+    metrics.btg_controlados_df_excluidos_fundos,
+  );
+  const managementExcludedPl = firstFiniteNumber(
+    managementScenario.pl_coorte_bancaria_excluido_brl,
+    managementScenario.pl_controlado_excluido_brl,
+    metrics.btg_bank_cohort_combo_pl_brl,
+    attribution.bank_cohort_pl_brl,
+    attribution.confirmed_controlled_pl_brl,
+  );
+  return {
+    listedRoots: firstFiniteNumber(
+      metrics.btg_bank_cohort_listed_roots,
+      listedRootsFromDetail,
+      metrics.btg_controlados_df_excluidos_fundos,
+    ),
+    observedFunds: firstFiniteNumber(
+      metrics.btg_bank_cohort_observed_funds,
+      observedFundsFromDetail,
+      metrics.btg_controlados_df_excluidos_fundos,
+    ),
+    cohortPl: firstFiniteNumber(
+      metrics.btg_bank_cohort_pl_brl,
+      cohortPlFromDetail,
+      attribution.bank_cohort_pl_brl,
+      metrics.btg_controlados_df_excluidos_pl_brl,
+      attribution.confirmed_controlled_pl_brl,
+    ),
+    comboFunds: firstFiniteNumber(
+      metrics.btg_bank_cohort_combo_funds,
+      metrics.btg_controlados_df_excluidos_fundos,
+    ),
+    comboPl: firstFiniteNumber(
+      metrics.btg_bank_cohort_combo_pl_brl,
+      attribution.bank_cohort_pl_brl,
+      metrics.btg_controlados_df_excluidos_pl_brl,
+      attribution.confirmed_controlled_pl_brl,
+    ),
+    managedPl,
+    managementExcludedFunds,
+    managementExcludedPl,
+    residualManagedPl: firstFiniteNumber(
+      managementScenario.btg_pl_ex_controlados_brl,
+      attribution.residual_ex_bank_cohort_pl_brl,
+      attribution.residual_unproven_pl_brl,
+      Math.max(0, managedPl - managementExcludedPl),
+    ),
+    currentManagementRank: firstFiniteNumber(
+      managementScenario.btg_rank,
+      providerCurrent.rank_periodo,
+      1,
+    ),
+    residualManagementRank: firstFiniteNumber(
+      managementScenario.btg_rank_ex_controlados,
+      attribution.rank_ex_bank_cohort,
+      attribution.rank_without_confirmed,
+      2,
+    ),
+  };
+}
+
 function addProviderHistoricalRankingSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
   const stockShort = competenceShortPt(payload.latest_complete);
@@ -1060,11 +1165,19 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
     (payload.btg_provider_ex_controlled_scenario || []).map((row) => [row.papel, row]),
   );
   const managementScenario = btgScenario.get("gestor") || {};
+  const managementExcludedFunds = firstFiniteNumber(
+    managementScenario.fidcs_coorte_bancaria_excluidos,
+    managementScenario.fidcs_controlados_excluidos,
+  );
+  const managementExcludedPl = firstFiniteNumber(
+    managementScenario.pl_coorte_bancaria_excluido_brl,
+    managementScenario.pl_controlado_excluido_brl,
+  );
   addHeader(
     slide,
     "PRESTADORES · EVOLUÇÃO DO RANKING",
-    `BTG permanece #2 em administração e custódia; em gestão cai #${integer(managementScenario.btg_rank)}→#${integer(managementScenario.btg_rank_ex_controlados)} ao retirar seis controlados`,
-    "Fonte: CVM e DF BTG 1T26, nota 3.d. PL ex-FIC; Sistema Petrobras e TAPSO excluídos. Cenário ex-controlados retira seis FIDCs e R$ 28,6 bi; o saldo não é classificado automaticamente como terceiros.",
+    `BTG fica em #2 na administração e custódia; na gestão, o cenário sem a coorte bancária muda a posição de #${integer(managementScenario.btg_rank)} para #${integer(managementScenario.btg_rank_ex_controlados)}`,
+    `Fonte: CVM e FIDCs.xlsx, aba BTG. PL ex-FIC; Sistema Petrobras e TAPSO excluídos. Na gestão, o cenário retira ${integer(managementExcludedFunds)} FIDCs e ${bn(managementExcludedPl, 1)}; o recorte não atribui controle societário.`,
     page,
   );
   const bands = [
@@ -1081,7 +1194,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       color: C.charcoal,
       verticalAlignment: "middle",
     });
-    addText(slide, "POSIÇÃO · PL (R$ BI) · BTG EX-6 NA ÚLTIMA COLUNA", { left: 405, top, width: 345, height: 20 }, {
+    addText(slide, "POSIÇÃO · PL (R$ BI) · BTG SEM COORTE NA ÚLTIMA COLUNA", { left: 405, top, width: 345, height: 20 }, {
       fontSize: 9.5,
       bold: true,
       color: C.note,
@@ -1098,7 +1211,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
         const currentCell = providerRankPlCell(row.current);
         const scenario = btgScenario.get(role);
         const latestCell = normalizeProviderName(row.participante) === "btg pactual" && scenario
-          ? `${currentCell}\nex-6 ${integer(scenario.btg_rank_ex_controlados)} · ${(num(scenario.btg_pl_ex_controlados_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`
+          ? `${currentCell}\ns/ coorte ${integer(scenario.btg_rank_ex_controlados)} · ${(num(scenario.btg_pl_ex_controlados_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`
           : currentCell;
         return [
           providerShort(row.participante),
@@ -1489,13 +1602,13 @@ function providerAttributionFallback(payload) {
   return {
     btg: {
       managed_pl_brl: num(current("gestor", "BTG Pactual")?.pl_brl),
-      confirmed_controlled_pl_brl: 28_641_000_000,
-      residual_unproven_pl_brl: Math.max(0, num(current("gestor", "BTG Pactual")?.pl_brl) - 28_641_000_000),
+      bank_cohort_pl_brl: 28_641_000_000,
+      residual_ex_bank_cohort_pl_brl: Math.max(0, num(current("gestor", "BTG Pactual")?.pl_brl) - 28_641_000_000),
       bradesco_managed_pl_brl: num(current("gestor", "Bradesco")?.pl_brl),
-      confirmed_controlled_share: num(current("gestor", "BTG Pactual")?.pl_brl)
+      bank_cohort_share: num(current("gestor", "BTG Pactual")?.pl_brl)
         ? 28_641_000_000 / num(current("gestor", "BTG Pactual")?.pl_brl)
         : 0,
-      rank_without_confirmed: 2,
+      rank_ex_bank_cohort: 2,
     },
     qi: {
       admin_group_pl_2024_brl: 87_040_000_000,
@@ -1512,17 +1625,27 @@ function addProviderAttributionSlide(presentation, payload, page) {
   const attribution = payload.provider_leadership_attribution || providerAttributionFallback(payload);
   const qi = attribution.qi || {};
   const btg = attribution.btg || {};
+  const bankCohort = btgBankCohortContext(payload);
   const qiTotal = num(qi.admin_group_pl_2024_brl)
     || num(qi.legacy_singulare_pl_2024_brl) + num(qi.original_qi_pl_2024_brl);
-  const managed = num(btg.managed_pl_brl);
-  const controlled = num(btg.confirmed_controlled_pl_brl);
-  const residual = num(btg.residual_unproven_pl_brl) || Math.max(0, managed - controlled);
+  const managed = firstFiniteNumber(bankCohort.managedPl, btg.managed_pl_brl);
+  const cohortManaged = firstFiniteNumber(
+    bankCohort.managementExcludedPl,
+    btg.bank_cohort_pl_brl,
+    btg.confirmed_controlled_pl_brl,
+  );
+  const residual = firstFiniteNumber(
+    bankCohort.residualManagedPl,
+    btg.residual_ex_bank_cohort_pl_brl,
+    btg.residual_unproven_pl_brl,
+    Math.max(0, managed - cohortManaged),
+  );
   const bradesco = num(btg.bradesco_managed_pl_brl);
   addHeader(
     slide,
     "PRESTADORES · LIDERANÇA EXPLICADA",
-    "Singulare explica a escala da QI; seis FIDCs controlados explicam o #1 do BTG em gestão",
-    "Fontes: CVM; BCB, alterações societárias nov/24–nov/25; DF consolidada do BTG 1T26, pp. 18–19. PL ex-FIC, sem Sistema Petrobras/TAPSO.",
+    `Singulare sustenta a escala da QI; sem a coorte bancária, o BTG fica em #${integer(bankCohort.residualManagementRank)} na gestão`,
+    "Fontes: CVM; BCB, alterações societárias nov/24–nov/25; FIDCs.xlsx, aba BTG. PL ex-FIC, sem Sistema Petrobras/TAPSO.",
     page,
   );
 
@@ -1562,7 +1685,7 @@ function addProviderAttributionSlide(presentation, payload, page) {
   addSectionLabel(slide, `BTG PACTUAL · GESTÃO EM ${stockShort.toUpperCase()}`, { left: 665, top: 145, width: 555, height: 24 });
   slide.charts.add("bar", {
     ...chartBase({ left: 665, top: 190, width: 555, height: 230 }),
-    categories: ["BTG Pactual", "Bradesco", "BTG ex-6 controlados"],
+    categories: ["BTG Pactual", "Bradesco", "BTG sem coorte bancária"],
     series: [
       {
         name: "PL gerido",
@@ -1584,14 +1707,14 @@ function addProviderAttributionSlide(presentation, payload, page) {
   });
   addMetric(
     slide,
-    bn(controlled, 1),
-    `${pct(num(btg.confirmed_controlled_share) || (managed ? controlled / managed : 0), 1)} do PL gerido pelo BTG. Sem os seis fundos nominalmente reconciliados à DF, o BTG cairia para #${integer(btg.rank_without_confirmed || 2)}.`,
+    bn(cohortManaged, 1),
+    `${pct(managed ? cohortManaged / managed : 0, 1)} do PL gerido pelo BTG está nos ${integer(bankCohort.managementExcludedFunds)} FIDCs da coorte com o BTG como gestor. A exclusão leva o banco de #${integer(bankCohort.currentManagementRank)} a #${integer(bankCohort.residualManagementRank)}.`,
     { left: 685, top: 450, width: 515, height: 118 },
     true,
   );
   addText(
     slide,
-    "Seis reconciliados: BTGP Consignados I/II, Alternative Assets I/III, MT Consignado I e Consignado Delta. No caso Meu Tudo, o FIDC é controlado pelo BTG, mas a originação/operação do crédito é externa, via Parati e meutudo.",
+    `A aba BTG de FIDCs.xlsx lista ${integer(bankCohort.listedRoots)} raízes; ${integer(bankCohort.observedFunds)} tinham PL observado em ${stockShort.toLowerCase()}, somando ${bn(bankCohort.cohortPl, 1)}. A lista define o recorte analítico; controle societário exige evidência documental específica.`,
     { left: 685, top: 575, width: 515, height: 64 },
     { fontSize: 10.6, color: C.mid, lineSpacing: 1.01 },
   );
@@ -1835,6 +1958,7 @@ function addConclusionsSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
   const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const metrics = payload.conclusion_metrics || {};
+  const bankCohort = btgBankCohortContext(payload);
   const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
   const comparableOffers = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [];
   const currentOffer = comparableOffers.find((row) => num(row.year) === 2026) || {};
@@ -1857,10 +1981,6 @@ function addConclusionsSlide(presentation, payload, page) {
   const cloudwalk = (payload.closed_offer_originators_2026 || []).find(
     (row) => normalizeProviderName(row.originator_group).includes("cloudwalk"),
   ) || {};
-  const outros = (payload.type_mix || []).find(
-    (row) => String(row.anbima_tipo || "").trim().toLowerCase() === "outros",
-  ) || {};
-  const qa = payload.qa_latest || {};
   const offerGrowth = num(priorOffer.registered_volume_brl)
     ? num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1
     : 0;
@@ -1870,42 +1990,38 @@ function addConclusionsSlide(presentation, payload, page) {
   addHeader(
     slide,
     "PRINCIPAIS CONCLUSÕES",
-    "A distribuição segue institucional, a gestão é dispersa e a infraestrutura fiduciária permanece integrada",
-    `Fonte: CVM, ANBIMA, FundosNet, BCB e DF BTG 1T26. PL em ${stockShortLower}; ofertas encerradas até 30/jun/26. Universos e ressalvas constam em cada bloco.`,
+    "Distribuição institucional, serviços verticalizados e baixa migração de administração",
+    `Fontes: CVM, ANBIMA, BCB e FIDCs.xlsx. PL em ${stockShortLower}; ofertas encerradas até 30/jun/26.`,
     page,
   );
   const conclusions = [
     {
-      label: "01 · DISTRIBUIÇÃO APÓS A RCVM 175",
-      text: `Em 2026 YTD, o ticket médio foi ${mm(currentOfferYtd.mean_registered_ticket_brl, 1)} e a mediana, ${mm(currentOfferYtd.median_registered_ticket_brl, 1)}; PF respondeu por ${pct(currentOfferYtd.natural_person_placed_volume_share, 1)} do proxy de volume colocado (cobertura: ${pct(currentOfferYtd.placed_quantity_registered_volume_coverage, 1)} do valor registrado). Entre ${integer(metrics.holder_ge_200m_fundos)} fundos com PL ≥ R$ 200 mi, ${pct(metrics.holder_ge_200m_share_fundos_ate_10_contas, 0)} têm até dez contas.`,
+      label: "01 · DISTRIBUIÇÃO APÓS A RCVM 175 CONTINUA INSTITUCIONAL",
+      text: `Ticket médio de ${mm(currentOfferYtd.mean_registered_ticket_brl, 1)} e mediano de ${mm(currentOfferYtd.median_registered_ticket_brl, 1)} em jan–jun/26. PF respondeu por ${pct(currentOfferYtd.natural_person_placed_volume_share, 1)} do volume colocado estimado. Entre os fundos com PL ≥ R$ 200 mi, ${pct(metrics.holder_ge_200m_share_fundos_ate_10_contas, 0)} têm até dez contas.`,
     },
     {
-      label: "02 · CONCENTRAÇÃO POR FUNÇÃO",
-      text: `Gestão é a função menos concentrada: o Top 10 reúne ${pct(currentConcentration.gestor?.top10_share, 1)} do PL ex-FIC, ante ${pct(currentConcentration.administrador?.top10_share, 1)} em administração e ${pct(currentConcentration.custodiante?.top10_share, 1)} em custódia. Esse recorte exclui Sistema Petrobras e TAPSO.`,
+      label: "02 · PRESTAÇÃO DE SERVIÇOS É VERTICALIZADA",
+      text: `Administração e custódia ficam no mesmo conglomerado em ${pct(metrics.admin_custodia_juntas_share_pl, 1)} do PL bruto, em ${integer(metrics.admin_custodia_juntas_fundos)} fundos. Monoestruturas reúnem ${pct(metrics.monoestrutura_share_pl, 1)} do PL.`,
     },
     {
-      label: "03 · VERTICALIZAÇÃO",
-      text: `Administração e custódia ficam no mesmo conglomerado em ${pct(metrics.admin_custodia_juntas_share_pl, 1)} do PL bruto, distribuído por ${integer(metrics.admin_custodia_juntas_fundos)} fundos. Monoestruturas, com as três funções internalizadas, representam ${pct(metrics.monoestrutura_share_pl, 1)} do PL.`,
+      label: "03 · INDEPENDENTES PRECISAM DE ESCALA",
+      text: `QI Tech lidera administração (${bn(qiAdmin.pl_brl, 1)}) e custódia (${bn(qiCustodian.pl_brl, 1)}), com a Singulare no grupo. Oliveira Trust é a maior gestora independente (${bn(otManager.pl_brl, 1)}; 3ª geral). Na coorte CBSF/Reag, ${pct(reag.migrated_share_current, 1)} do PL continuante migrou de administrador.`,
     },
     {
-      label: "04 · COMBO COMPLETO NO BTG",
-      text: `No universo ex-FIC, o BTG concentra as três funções em ${integer(metrics.btg_combo_tres_funcoes_fundos)} FIDCs e ${bn(metrics.btg_combo_tres_funcoes_pl_brl, 1)}. Após excluir os seis fundos com controle confirmado na DF analisada, o saldo é de ${integer(metrics.btg_combo_ex_controlados_fundos)} FIDCs e ${bn(metrics.btg_combo_ex_controlados_pl_brl, 1)}. A DF não permite classificar integralmente o saldo como carteira de terceiros.`,
+      label: "04 · MIGRAÇÃO DE ADMINISTRADOR FOI BAIXA",
+      text: `${integer(metrics.admin_transition_2024_2025_changed_funds)} FIDCs trocaram de administrador entre dez/24 e dez/25: ${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}, ou ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável. Oliveira Trust → Bradesco somou ${bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1)} em dois FIDCs Cielo.`,
     },
     {
-      label: "05 · INDEPENDENTES COM ESCALA",
-      text: `QI Tech lidera administração (${bn(qiAdmin.pl_brl, 1)}) e custódia (${bn(qiCustodian.pl_brl, 1)}), com Singulare consolidada no grupo. Oliveira Trust é a maior gestora independente (${bn(otManager.pl_brl, 1)}; 3ª geral). Na coorte CBSF/Reag, ${pct(reag.migrated_share_current, 1)} do PL atual dos fundos continuantes já estava em outro administrador em ${stockShortLower}.`,
+      label: "05 · GESTÃO É A FUNÇÃO MENOS CONCENTRADA",
+      text: `O Top 10 reúne ${pct(currentConcentration.gestor?.top10_share, 1)} do PL ex-FIC em gestão, ante ${pct(currentConcentration.administrador?.top10_share, 1)} na administração e ${pct(currentConcentration.custodiante?.top10_share, 1)} na custódia. O recorte exclui Sistema Petrobras e TAPSO.`,
     },
     {
-      label: "06 · OFERTAS ENCERRADAS",
-      text: `${integer(currentOfferYtd.closed_offers)} ofertas encerradas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} em jan–jun/26. O volume avançou ${pct(offerGrowth, 0)} sobre 2025 e ${pct(offerGrowth2024, 0)} sobre 2024. CloudWalk teve a maior oferta individual da base, de ${bn(cloudwalk.registered_volume_brl, 1)}.`,
+      label: "06 · COORTE BANCÁRIA DO BTG CONCENTRA O COMBO COMPLETO",
+      text: `FIDCs.xlsx lista ${integer(bankCohort.listedRoots)} raízes do BTG; ${integer(bankCohort.observedFunds)} tinham PL observado em ${stockShortLower}, somando ${bn(bankCohort.cohortPl, 1)}. Dentro da coorte, ${integer(bankCohort.comboFunds)} FIDCs e ${bn(bankCohort.comboPl, 1)} concentram administração, gestão e custódia no BTG.`,
     },
     {
-      label: "07 · MIGRAÇÃO DE ADMINISTRAÇÃO",
-      text: `${integer(metrics.admin_transition_2024_2025_changed_funds)} FIDCs trocaram de administrador entre dez/24 e dez/25: ${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}, ou ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável. Oliveira Trust → Bradesco somou ${bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1)} em dois FIDCs Cielo. Gestão e custódia possuem apenas amostras ICVM 555, com baixa cobertura.`,
-    },
-    {
-      label: "08 · LIMITAÇÕES DA BASE",
-      text: `“Outros” concentra ${pct(outros.share, 1)} do PL ex-FIC na taxonomia ANBIMA. Em ${stockShortLower}, ${integer(qa.casos_inad_supera_carteira)} veículos reportaram inadimplência acima da carteira; o ajuste limitou o excesso em ${bn(qa.excesso_removido_brl, 1)}. O lastro dos maiores fundos ainda exige curadoria documental.`,
+      label: "07 · OFERTAS ENCERRADAS EM 2026",
+      text: `${integer(currentOfferYtd.closed_offers)} ofertas encerradas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} em jan–jun/26. O volume cresceu ${pct(offerGrowth, 0)} sobre 2025 e ${pct(offerGrowth2024, 0)} sobre 2024. Ofertas nomináveis da CloudWalk somaram ${bn(cloudwalk.registered_volume_brl, 1)}.`,
     },
   ];
   conclusions.forEach((item, index) => {
@@ -2005,12 +2121,12 @@ function buildPresentation(payload, flowAssets) {
     });
   }
 
-  // 2. Síntese executiva
+  // 2. Grandes números
   {
     const slide = presentation.slides.add();
     addHeader(
       slide,
-      "SÍNTESE EXECUTIVA",
+      "GRANDES NÚMEROS",
       `${bn(latestHistory.pl_ex_fic, 0)} ex-FIC; a concentração aparece em fundos, prestadores e ajustes de qualidade`,
       `Fonte: CVM, ANBIMA e FundosNet; ${stockShortLower}, salvo ofertas até ${offersShort}.`,
       2,
@@ -3024,7 +3140,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · VOLUME E TICKET",
       `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre 2025`,
-      `Fonte: CVM, Ofertas Públicas de Distribuição, snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}; encerramentos considerados até 30/jun/26. Unidade = Número do Requerimento; cotas de FIDC, oferta primária, status Oferta Encerrada e Valor Total Registrado positivo.`,
+      `Fonte: CVM, oferta_resolucao_160.csv (dados.cvm.gov.br/dataset/oferta-distrib), snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. Cotas de FIDC, oferta primária, status literal “Oferta Encerrada”, Data de Encerramento até 30/jun/26 e Valor Total Registrado positivo; unidade = Número do Requerimento.`,
       27,
     );
     addSectionLabel(slide, "JAN–JUN · VOLUME REGISTRADO E TICKET", { left: 60, top: 145, width: 550, height: 24 });
@@ -3131,7 +3247,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
       `A mediana caiu a ${mm(current.period_median_ticket_brl, 1)}; ${integer(over500.closed_offers)} ofertas acima de R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume YTD26`,
-      `Fonte: CVM, Ofertas Públicas, snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. 2024/2025 = ano completo; 2026 = jan–jun. Cotas de FIDC, oferta primária, Oferta Encerrada, valor registrado positivo; unidade = Número do Requerimento.`,
+      `Fonte: CVM, oferta_resolucao_160.csv (dados.cvm.gov.br/dataset/oferta-distrib), snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. 2024/2025 = ano completo; 2026 = jan–jun. Cotas de FIDC, primária, status “Oferta Encerrada” e valor registrado positivo; unidade = Número do Requerimento.`,
       28,
     );
     addSectionLabel(slide, "% DAS OFERTAS POR FAIXA DE VALOR REGISTRADO", { left: 60, top: 145, width: 780, height: 24 });
@@ -4482,6 +4598,7 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
 
 async function addConclusionsSheet(workbook, payload) {
   const metrics = payload.conclusion_metrics || {};
+  const bankCohort = btgBankCohortContext(payload);
   const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
   const comparableOffers = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [];
@@ -4502,10 +4619,6 @@ async function addConclusionsSheet(workbook, payload) {
   const cloudwalk = (payload.closed_offer_originators_2026 || []).find(
     (row) => normalizeProviderName(row.originator_group).includes("cloudwalk"),
   ) || {};
-  const outros = (payload.type_mix || []).find(
-    (row) => String(row.anbima_tipo || "").trim().toLowerCase() === "outros",
-  ) || {};
-  const qa = payload.qa_latest || {};
   const rows = [
     ["Distribuição", "Ticket médio", mm(currentOfferYtd.mean_registered_ticket_brl, 1), "2026 jan–jun", "CVM, Ofertas Públicas; Valor Total Registrado / Número do Requerimento"],
     ["Distribuição", "Ticket mediano", mm(currentOfferYtd.median_registered_ticket_brl, 1), "2026 jan–jun", "CVM, Ofertas Públicas"],
@@ -4517,25 +4630,24 @@ async function addConclusionsSheet(workbook, payload) {
     ["Verticalização", "Administração e custódia no mesmo grupo", pct(metrics.admin_custodia_juntas_share_pl, 1), `${integer(metrics.admin_custodia_juntas_fundos)} fundos; universo bruto`, "Mesmo conglomerado econômico normalizado; inclui FIC-FIDC"],
     ["Verticalização", "Monoestruturas", pct(metrics.monoestrutura_share_pl, 1), `${integer(metrics.monoestrutura_fundos)} fundos; universo bruto`, "Administração, gestão e custódia no mesmo grupo"],
     ["BTG", "Combo completo ex-FIC", integer(metrics.btg_combo_tres_funcoes_fundos), bn(metrics.btg_combo_tres_funcoes_pl_brl, 1), "Administração, gestão e custódia no grupo BTG"],
-    ["BTG", "Combo ex-FIC após seis controlados", integer(metrics.btg_combo_ex_controlados_fundos), bn(metrics.btg_combo_ex_controlados_pl_brl, 1), "A DF confirma a exclusão e não permite classificar integralmente o saldo como terceiros"],
+    ["BTG", "Raízes na coorte bancária", integer(bankCohort.listedRoots), `${integer(bankCohort.observedFunds)} observadas; ${bn(bankCohort.cohortPl, 1)}`, "FIDCs.xlsx, aba BTG; PL bruto observado no Informe Mensal"],
+    ["BTG", "Combo completo dentro da coorte bancária", integer(bankCohort.comboFunds), bn(bankCohort.comboPl, 1), "Recorte analítico; controle societário requer evidência documental específica"],
     ["Independentes", "QI Tech em administração", bn(provider("administrador", "QI Tech").pl_brl, 1), stockShortLower, "Singulare consolidada no grupo QI Tech"],
     ["Independentes", "QI Tech em custódia", bn(provider("custodiante", "QI Tech").pl_brl, 1), stockShortLower, "Singulare consolidada no grupo QI Tech"],
     ["Independentes", "Oliveira Trust em gestão", bn(provider("gestor", "Oliveira Trust").pl_brl, 1), `${stockShortLower}; 3ª geral`, "Maior gestora independente na curadoria"],
     ["Independentes", "PL continuante CBSF/Reag migrado", pct(reag.migrated_share_current, 1), `${integer(reag.migrated_funds)} fundos`, `Carteira administrada pela CBSF/Reag em dez/25; destino em ${stockShortLower}`],
     ["Ofertas", "Ofertas encerradas", integer(currentOfferYtd.closed_offers), bn(currentOfferYtd.registered_volume_brl, 1), "2026 jan–jun; ofertas primárias de cotas de FIDC"],
     ["Ofertas", "Volume jan–jun/26", bn(currentOffer.registered_volume_brl, 1), `${pct(num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1, 1)} vs. 2025; ${pct(num(currentOffer.registered_volume_brl) / num(offer2024.registered_volume_brl) - 1, 1)} vs. 2024`, "Corte comparável jan–jun"],
-    ["Ofertas", "Maior oferta individual", bn(cloudwalk.registered_volume_brl, 1), "CloudWalk", "Maior oferta individual da base 2026 YTD"],
+    ["Ofertas", "Volume nominável da CloudWalk", bn(cloudwalk.registered_volume_brl, 1), "2026 jan–jun", "Soma das ofertas encerradas associadas nominalmente à CloudWalk"],
     ["Migração", "Fundos que trocaram de administrador", integer(metrics.admin_transition_2024_2025_changed_funds), `${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}; ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável`, "Dez/24 → dez/25; PL comparável = min(PL origem, PL destino)"],
     ["Migração", "Oliveira Trust → Bradesco", bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1), `${integer(metrics.admin_transition_2024_2025_cielo_funds)} FIDCs Cielo`, "Maior fluxo bilateral no recorte dez/24 → dez/25"],
-    ["Limitações", "Outros na taxonomia ANBIMA", pct(outros.share, 1), `PL ex-FIC em ${stockShortLower}`, "Classificação combina ANBIMA, evidência, proxy CVM e N/D"],
-    ["Limitações", "Inadimplência acima da carteira", integer(qa.casos_inad_supera_carteira), bn(qa.excesso_removido_brl, 1), `Cap por veículo; ${stockShortLower}`],
   ];
   const headers = ["Tema", "Métrica", "Valor", "Universo / leitura", "Fonte / limitação"];
   const sheet = resetSheet(workbook, "Principais conclusões");
   setHeaderBand(
     sheet,
     "Principais conclusões e métricas de suporte",
-    "Cada conclusão do slide final é reconciliada abaixo com seu universo, período e limitação.",
+    `Métricas reconciliadas ao fechamento de ${stockShortLower}; ofertas em jan–jun/26.`,
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
@@ -4590,6 +4702,7 @@ async function addProviderAttributionSheet(workbook, payload) {
   const leadership = payload.provider_leadership_attribution || {};
   const btg = leadership.btg || {};
   const qi = leadership.qi || {};
+  const bankCohort = btgBankCohortContext(payload);
   const qiSource = [qi.methodology, qi.source_acquisition_url, qi.source_reorganization_url]
     .filter(Boolean)
     .join(" · ");
@@ -4609,25 +4722,30 @@ async function addProviderAttributionSheet(workbook, payload) {
     { "Seção": "Resumo", "Participante": "QI Tech", "Competência": "2024-12", "Métrica": "PL administrado do grupo", "Valor / PL": qi.admin_group_pl_2024_brl, "Fonte / metodologia": qiSource },
     { "Seção": "Resumo", "Participante": "QI Tech", "Competência": "2024-12", "Métrica": "CNPJ legado Singulare", "Valor / PL": qi.legacy_singulare_pl_2024_brl, "Share": qi.legacy_share_2024, "Fonte / metodologia": qiSource },
     { "Seção": "Resumo", "Participante": "QI Tech", "Competência": "2024-12", "Métrica": "QI DTVM original", "Valor / PL": qi.original_qi_pl_2024_brl, "Fonte / metodologia": qiSource },
-    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": btg.competencia || payload.latest_complete, "Métrica": "PL gerido", "Valor / PL": btg.managed_pl_brl, "Fonte / metodologia": btg.methodology },
-    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": btg.competencia || payload.latest_complete, "Métrica": "Seis FIDCs controlados confirmados", "Valor / PL": btg.confirmed_controlled_pl_brl, "Share": btg.confirmed_controlled_share, "Fundos": btg.controlled_fidcs_reconciled, "Fonte / metodologia": btg.source_url || btg.methodology },
-    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": btg.competencia || payload.latest_complete, "Métrica": "PL residual não comprovado como controlado", "Valor / PL": btg.residual_unproven_pl_brl, "Fonte / metodologia": `Rank sem os seis fundos: ${btg.rank_without_confirmed || "—"}` },
+    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": payload.latest_complete, "Métrica": "PL gerido", "Valor / PL": bankCohort.managedPl, "Fonte / metodologia": "Ranking CVM; PL ex-FIC, sem Sistema Petrobras/TAPSO" },
+    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": payload.latest_complete, "Métrica": "Coorte bancária listada", "Valor / PL": bankCohort.cohortPl, "Fundos": bankCohort.observedFunds, "Fonte / metodologia": `${integer(bankCohort.listedRoots)} raízes em FIDCs.xlsx, aba BTG; PL bruto observado no Informe Mensal` },
+    { "Seção": "Resumo", "Participante": "BTG Pactual", "Competência": payload.latest_complete, "Métrica": "Coorte com BTG como gestor", "Valor / PL": bankCohort.managementExcludedPl, "Share": bankCohort.managedPl ? bankCohort.managementExcludedPl / bankCohort.managedPl : 0, "Fundos": bankCohort.managementExcludedFunds, "Fonte / metodologia": `Cenário de ranking #${integer(bankCohort.currentManagementRank)} → #${integer(bankCohort.residualManagementRank)}; o recorte não atribui controle societário` },
     { "Seção": "Benchmark", "Participante": "Bradesco", "Competência": btg.competencia || payload.latest_complete, "Métrica": "PL gerido", "Valor / PL": btg.bradesco_managed_pl_brl, "Fonte / metodologia": "Mesmo universo do ranking histórico" },
   ];
-  (payload.btg_controlled_reconciliation || []).forEach((row) => {
-    rows.push({
-      "Seção": "BTG · FIDCs controlados",
-      "Participante": "BTG Pactual",
-      "Competência": row.competencia,
-      "CNPJ": row.cnpj_veiculo_formatado || row.cnpj_veiculo,
-      "Fundo / entidade": row.denominacao || row.nome_df_btg,
-      "Métrica": row.nome_df_btg,
-      "Valor / PL": row.pl_mai26_brl,
-      "Share": row.share_pl_btg_gestor,
-      "Fundos": row.reconciliado_controlado_ativo ? 1 : 0,
-      "Fonte / metodologia": row.btg_ifrs_source_reference || row.btg_ifrs_source_url,
+  (payload.bank_fidc_detail || [])
+    .filter((row) => {
+      const group = row.bank_group || row.grupo_bancario;
+      return row.competencia === payload.latest_complete
+        && ["BTG", "BTG Pactual"].includes(String(group || ""));
+    })
+    .forEach((row) => {
+      rows.push({
+        "Seção": "BTG · coorte bancária",
+        "Participante": "BTG Pactual",
+        "Competência": row.competencia,
+        "CNPJ": row.cnpj_fundo,
+        "Fundo / entidade": row.denominacao || row.nome_curto,
+        "Métrica": row.observado ? "PL bruto observado" : "Sem PL observado",
+        "Valor / PL": row.pl_brl,
+        "Fundos": row.observado ? 1 : 0,
+        "Fonte / metodologia": row.source_reference || "FIDCs.xlsx, aba BTG; CVM, Informe Mensal",
+      });
     });
-  });
   (payload.qi_legacy_attribution || []).forEach((row) => {
     rows.push({
       "Seção": "QI · entidades legais",
@@ -4644,21 +4762,21 @@ async function addProviderAttributionSheet(workbook, payload) {
   });
   (payload.btg_provider_ex_controlled_scenario || []).forEach((row) => {
     rows.push({
-      "Seção": "BTG · cenário ex-controlados",
+      "Seção": "BTG · cenário sem coorte bancária",
       "Participante": "BTG Pactual",
       "Competência": row.competencia,
       "Métrica": `${roleLabel(row.papel)} · rank ${integer(row.btg_rank)} → ${integer(row.btg_rank_ex_controlados)}`,
       "Valor / PL": row.btg_pl_ex_controlados_brl,
       "Share": row.share_pl_btg_excluido,
-      "Fundos": row.fidcs_controlados_excluidos,
-      "Fonte / metodologia": `${row.regra} · ${row.source_url || row.fonte || ""}`,
+      "Fundos": firstFiniteNumber(row.fidcs_coorte_bancaria_excluidos, row.fidcs_controlados_excluidos),
+      "Fonte / metodologia": `Cenário retira os FIDCs da coorte com BTG no papel analisado; FIDCs.xlsx, aba BTG; CVM, Informe Mensal`,
     });
   });
   const sheet = resetSheet(workbook, "Atribuição prestadores");
   setHeaderBand(
     sheet,
     "Atribuição das lideranças de prestadores",
-    `QI/Singulare separados por CNPJ legal em dez/24; FIDCs controlados do BTG reconciliados nominalmente à DF consolidada 1T26 e ao PL CVM de ${competenceShortPt(payload.latest_complete).toLowerCase()}.`,
+    `QI/Singulare separados por CNPJ legal em dez/24. A coorte BTG vem de FIDCs.xlsx; PL CVM de ${competenceShortPt(payload.latest_complete).toLowerCase()}. A lista define o recorte analítico e não atribui controle societário.`,
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 9 },

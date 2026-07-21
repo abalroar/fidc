@@ -9,6 +9,7 @@ from scripts.build_fidc_industry_study import field_reported
 from scripts.build_fidc_revision_artifact_payload import (
     _atlantico_payload,
     _build_profiles,
+    _card_taxonomy_audit,
     _holder_distribution,
     _holder_distribution_history,
     _provider_leadership_payload,
@@ -28,9 +29,11 @@ from services.industry_revision_analysis import (
     build_break_bridge,
     build_classification_coverage,
     build_delinquency_qa,
+    build_frozen_cohort_revision_audit,
     build_frozen_single_receivable_history,
     build_market_share_by_subtype,
     build_market_share_scope_summary,
+    overlay_raw_source_presence,
     build_provider_historical_ranking,
     build_provider_leadership_attribution,
     build_provider_transition_flows,
@@ -363,6 +366,79 @@ def test_delinquency_qa_uses_report_flags_and_reconciles_vehicle_to_fund() -> No
     assert reconciliation["diferenca_veiculos_menos_fundo"].sum() == 1
 
 
+def test_reporting_flags_fall_back_row_by_row_when_history_has_sparse_overlay() -> None:
+    rows = pd.DataFrame(
+        [
+            {
+                "competencia": "2025-12",
+                "cnpj": "1",
+                "cnpj_fundo": "1",
+                "pl": 100.0,
+                "carteira_dc": 80.0,
+                "dc_inadimplentes": 8.0,
+                "admin_nome": "ADMIN",
+                "reports_tab_i": pd.NA,
+                "reports_carteira_dc": pd.NA,
+                "reports_dc_inadimplentes": pd.NA,
+            },
+            {
+                "competencia": "2026-06",
+                "cnpj": "2",
+                "cnpj_fundo": "2",
+                "pl": 120.0,
+                "carteira_dc": 90.0,
+                "dc_inadimplentes": 9.0,
+                "admin_nome": "ADMIN",
+                "reports_tab_i": True,
+                "reports_carteira_dc": True,
+                "reports_dc_inadimplentes": True,
+            },
+        ]
+    )
+
+    base = build_base_by_vehicle(rows).set_index("competencia")
+
+    assert bool(base.loc["2025-12", "reports_inadimplencia_pair"])
+    assert not bool(base.loc["2025-12", "field_presence_exact"])
+    assert (
+        base.loc["2025-12", "report_flag_source"]
+        == "presença_da_linha_Tab_I_inferida_no_legado"
+    )
+    assert bool(base.loc["2026-06", "reports_inadimplencia_pair"])
+    assert bool(base.loc["2026-06", "field_presence_exact"])
+    assert base.loc["2026-06", "report_flag_source"] == "campo_bruto_CVM"
+
+
+def test_source_presence_overlay_rebuilds_delinquency_derivatives() -> None:
+    versioned = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-05",
+                "cnpj": "1",
+                "cnpj_fundo": "1",
+                "pl": 100.0,
+                "carteira_dc": 50.0,
+                "dc_inadimplentes": 80.0,
+                "admin_nome": "ADMIN",
+                "reports_carteira_dc": pd.NA,
+                "reports_dc_inadimplentes": pd.NA,
+            }
+        ]
+    )
+    raw = versioned.copy()
+    raw["reports_tab_i"] = True
+    raw["reports_carteira_dc"] = True
+    raw["reports_dc_inadimplentes"] = True
+
+    overlaid = overlay_raw_source_presence(build_base_by_vehicle(versioned), raw)
+    row = overlaid.iloc[0]
+
+    assert bool(row["field_presence_exact"])
+    assert bool(row["inad_supera_carteira"])
+    assert row["dc_inadimplentes_ajustado_recalculado"] == 50.0
+    assert row["excesso_removido_ajuste"] == 30.0
+
+
 def test_delinquency_qa_reconciles_aging_and_builds_ex360_sensitivity() -> None:
     row = _vehicle_rows().head(1).copy()
     row["carteira_dc"] = 100.0
@@ -671,6 +747,7 @@ def test_frozen_receivable_cohort_keeps_latest_membership_and_subtype() -> None:
     for competence, values in {
         "2025-12": [("10000000000001", 100.0, 80.0, 8.0), ("10000000000002", 50.0, 20.0, 25.0)],
         "2026-05": [("10000000000001", 120.0, 90.0, 9.0), ("10000000000002", 60.0, 30.0, 3.0)],
+        "2026-06": [("10000000000001", 130.0, 95.0, 10.0), ("10000000000002", 65.0, 35.0, 4.0)],
     }.items():
         for cnpj, pl, portfolio, delinquency in values:
             fund_rows.append(
@@ -719,7 +796,170 @@ def test_frozen_receivable_cohort_keeps_latest_membership_and_subtype() -> None:
     latest = summary[summary["competencia"].eq("2026-05")].iloc[0]
     assert latest["fundos_coorte"] == 2
     assert latest["fundos_incluidos"] == 2
+    assert history["competencia"].max() == "2026-05"
     assert "coorte e subtipo congelados" in latest["regra"]
+
+
+def test_frozen_cohort_revision_audit_quantifies_membership_and_reclassification() -> None:
+    previous_members = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "10000000000001",
+                "denominacao": "FIDC A",
+                "tipo_recebivel_tabela_ii": "Serviços",
+                "pl_referencia_brl": 100.0,
+            },
+            {
+                "cnpj_fundo": "10000000000002",
+                "denominacao": "FIDC B",
+                "tipo_recebivel_tabela_ii": "Comercial",
+                "pl_referencia_brl": 50.0,
+            },
+        ]
+    )
+    current_members = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "10000000000001",
+                "denominacao": "FIDC A",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "pl_referencia_brl": 120.0,
+            },
+            {
+                "cnpj_fundo": "10000000000003",
+                "denominacao": "FIDC C",
+                "tipo_recebivel_tabela_ii": "Cartão de crédito",
+                "pl_referencia_brl": 80.0,
+            },
+        ]
+    )
+    history_columns = [
+        "competencia",
+        "tipo_recebivel_tabela_ii",
+        "fundos_incluidos",
+        "pl_incluido_brl",
+        "carteira_incluida_brl",
+        "inadimplencia_sobre_carteira",
+    ]
+    previous_history = pd.DataFrame(
+        [["2025-12", "Serviços", 1, 100.0, 80.0, 0.02]],
+        columns=history_columns,
+    )
+    current_history = pd.DataFrame(
+        [["2025-12", "Financeiro", 1, 120.0, 90.0, 0.03]],
+        columns=history_columns,
+    )
+
+    summary, transitions, sensitivity = build_frozen_cohort_revision_audit(
+        previous_members,
+        current_members,
+        previous_history,
+        current_history,
+        previous_competence="2026-05",
+        current_competence="2026-06",
+    )
+
+    item = summary.iloc[0]
+    assert item["fundos_coorte_anterior"] == 2
+    assert item["fundos_coorte_atual"] == 2
+    assert item["fundos_reclassificados"] == 1
+    assert item["fundos_entraram"] == 1
+    assert item["fundos_sairam"] == 1
+    assert transitions.iloc[0]["subtipo_anterior"] == "Serviços"
+    assert transitions.iloc[0]["subtipo_atual"] == "Financeiro"
+    assert transitions.iloc[0]["principais_fundos"] == "FIDC A"
+    assert transitions.iloc[0]["maior_fundo_pl_brl"] == 120.0
+    assert sensitivity["competencia_coorte_anterior"].eq("2026-05").all()
+    assert sensitivity["competencia_coorte_atual"].eq("2026-06").all()
+    assert "delta_inadimplencia_pp" in sensitivity
+
+
+def test_card_taxonomy_audit_keeps_secondary_exposure_and_missing_prior_pl() -> None:
+    vehicle = pd.DataFrame(
+        [
+            {
+                "competencia": "2026-06",
+                "cnpj": "10000000000001",
+                "cnpj_fundo": "10000000000001",
+                "table_ii_cartao_credito_brl": 60.0,
+            },
+            {
+                "competencia": "2026-06",
+                "cnpj": "10000000000002",
+                "cnpj_fundo": "10000000000002",
+                "table_ii_cartao_credito_brl": 5.0,
+            },
+            {
+                "competencia": "2026-06",
+                "cnpj": "10000000000003",
+                "cnpj_fundo": "10000000000003",
+                "table_ii_cartao_credito_brl": 0.0,
+            },
+        ]
+    )
+    common = {
+        "is_fic_fidc": False,
+        "anbima_tipo": "Outros",
+        "anbima_foco": "N/D",
+        "classification_tier": "oficial_anbima",
+        "classification_status": "oficial",
+        "classification_source": "ANBIMA",
+    }
+    funds = pd.DataFrame(
+        [
+            {
+                **common,
+                "competencia": "2026-06",
+                "cnpj_fundo": "10000000000001",
+                "denominacao": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO",
+                "segmento_principal": "Cartão de crédito",
+                "pl": 100.0,
+            },
+            {
+                **common,
+                "competencia": "2026-06",
+                "cnpj_fundo": "10000000000002",
+                "denominacao": "AVANTI FIDC",
+                "segmento_principal": "Serviços",
+                "pl": 20.0,
+            },
+            {
+                **common,
+                "competencia": "2026-06",
+                "cnpj_fundo": "10000000000003",
+                "denominacao": "FIDC CARTAO ANBIMA",
+                "segmento_principal": "Financeiro",
+                "anbima_foco": "Cartão de crédito",
+                "pl": 10.0,
+            },
+            {
+                **common,
+                "competencia": "2025-06",
+                "cnpj_fundo": "10000000000001",
+                "denominacao": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO",
+                "segmento_principal": "Financeiro",
+                "pl": 90.0,
+            },
+        ]
+    )
+    curation = pd.DataFrame({"cnpj14_digits": ["10000000000001"]})
+
+    audit, summary = _card_taxonomy_audit(
+        vehicle,
+        funds,
+        curation,
+        latest="2026-06",
+    )
+
+    assert len(audit) == 3
+    assert summary["fundos_cartao_segmento_principal"] == 1
+    assert summary["fundos_exposicao_secundaria"] == 1
+    assert summary["fundos_anbima_cartao_explicito"] == 1
+    assert summary["fundos_pl_observavel"] == 1
+    assert summary["pl_jun25_observado_brl"] == 90.0
+    avanti = audit[audit["denominacao"].eq("AVANTI FIDC")].iloc[0]
+    assert not bool(avanti["pl_jun25_observavel"])
+    assert avanti["criterio_inclusao"].startswith("Exposição")
 
 
 def test_provider_transition_uses_current_pl_and_marks_overlay_roles_as_samples() -> None:
