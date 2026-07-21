@@ -34,7 +34,6 @@ from services.industry_revision_analysis import (
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LATEST_COMPLETE = "2026-05"
 HISTORICAL_REFERENCE = "2023-12"
 PROVIDER_REFERENCE = "2025-12"
 ATLANTICO_CNPJ = "09194841000151"
@@ -839,7 +838,7 @@ def _conclusion_metrics(
                 else None
             ),
             "service_model_definition": (
-                "universo bruto de CNPJs legais em mai/26; mesmo conglomerado "
+                f"universo bruto de CNPJs legais em {latest}; mesmo conglomerado "
                 "econômico normalizado; inclui FIC-FIDC"
             ),
         }
@@ -966,6 +965,8 @@ def _build_profiles(
     top20: pd.DataFrame,
     curation: pd.DataFrame,
     documentary: pd.DataFrame,
+    *,
+    latest: str,
 ) -> pd.DataFrame:
     cur = curation.copy()
     if not cur.empty:
@@ -1036,7 +1037,9 @@ def _build_profiles(
             "status_curadoria": _pick(curated, "status_curadoria") or "pendente",
             "campos_nao_identificados": _pick(curated, "campos_nao_identificados") or "não identificado",
             "documentos_primarios_ids": _pick(curated, "documentos_primarios_ids") or "não identificado",
-            "data_referencia_tipo_foco": _pick(curated, "data_referencia_tipo_foco") or "2026-05",
+            "data_referencia_tipo_foco": (
+                _pick(curated, "data_referencia_tipo_foco") or latest
+            ),
         }
         profiles.append(fields)
     return pd.DataFrame(profiles)
@@ -1085,6 +1088,7 @@ def build_payload(
     latest: str,
 ) -> dict[str, Any]:
     monthly = pd.read_csv(data_dir / "industry_monthly.csv", low_memory=False)
+    competence_status = _read_optional(data_dir / "industry_competence_status.csv")
     vehicle = pd.read_csv(data_dir / "vehicle_monthly.csv.gz", low_memory=False)
     cotistas = pd.read_csv(data_dir / "cotistas_tipo_monthly.csv", low_memory=False)
     segments = pd.read_csv(data_dir / "segments_monthly.csv", low_memory=False)
@@ -1219,9 +1223,32 @@ def build_payload(
     closed_offer_ticket_distribution = offer_ticket_outputs.distribution.copy()
     closed_annual = closed_offers["annual"]["rows"]
     closed_monthly = closed_offers["monthly"]["rows"]
-    closed_jan_may = closed_offers["jan_may_2024_2026"]["rows"]
+    closed_jan_june = closed_offers["jan_june_2024_2026"]["rows"]
     closed_originators = closed_offers["originators_2026_ytd"]["rows"]
     closed_source = closed_offers["annual"]["source"]
+
+    stock_preliminary_status: dict[str, Any] = {}
+    if not competence_status.empty:
+        candidates = competence_status[
+            competence_status["competencia"].astype(str).gt(latest)
+            & ~competence_status["publication_status"].astype(str).eq("completa")
+        ].sort_values("competencia")
+        if not candidates.empty:
+            row = candidates.iloc[-1]
+            stock_preliminary_status = {
+                "competencia": str(row.get("competencia") or ""),
+                "publication_status": str(row.get("publication_status") or ""),
+                "status_reason": str(row.get("status_reason") or ""),
+                "n_veiculos": _json_value(row.get("n_veiculos")),
+                "pl_total_brl": _json_value(row.get("pl_total")),
+                "previous_vehicles": _json_value(row.get("previous_vehicles")),
+                "previous_pl_brl": _json_value(row.get("previous_pl_brl")),
+                "vehicle_ratio_vs_previous": _json_value(
+                    row.get("vehicle_ratio_vs_previous")
+                ),
+                "pl_ratio_vs_previous": _json_value(row.get("pl_ratio_vs_previous")),
+                "generated_at_utc": str(row.get("generated_at_utc") or ""),
+            }
 
     annual = _last_observation_by_year(monthly, latest)
     annual_pl = annual[["year", "competencia", "pl_total", "pl_fic_fidc"]].copy()
@@ -1231,8 +1258,8 @@ def build_payload(
     annual_base = annual[["year", "competencia", "cotistas_total", "n_veiculos"]].copy()
 
     latest_month = monthly[monthly["competencia"].astype(str).eq(latest)].iloc[0]
-    offers_as_of = str(closed_source.get("latest_source_closing_date") or "2026-07-17")
-    offers_source_as_of = str(closed_source.get("as_of_date") or "2026-07-20")
+    offers_as_of = str(closed_source.get("latest_source_closing_date") or "2026-06-30")
+    offers_source_as_of = str(closed_source.get("as_of_date") or "2026-07-21")
     latest_period = pd.Period(latest, freq="M")
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
@@ -1274,7 +1301,12 @@ def build_payload(
     atlantico_profile, atlantico_history = _atlantico_payload(funds, data_dir, latest)
 
     curation = _load_curation(curation_path)
-    profiles = _build_profiles(top20, curation, documentary)
+    profiles = _build_profiles(
+        top20,
+        curation,
+        documentary,
+        latest=latest,
+    )
     top20_outros_review = _build_top20_outros_review(top20_outros, documentary)
 
     material_focus = (
@@ -1297,6 +1329,7 @@ def build_payload(
     output = {
         "schema_version": "fidc_revision_artifact_payload_v5",
         "latest_complete": latest,
+        "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,
         "offers_source_as_of": offers_source_as_of,
         "generated_at": pd.Timestamp.now(tz="America/Sao_Paulo").isoformat(),
@@ -1444,7 +1477,10 @@ def build_payload(
         "closed_offers": closed_offers,
         "closed_offers_annual": closed_annual,
         "closed_offers_monthly": closed_monthly,
-        "closed_offers_jan_may": closed_jan_may,
+        "closed_offers_jan_june": closed_jan_june,
+        # Compatibility alias for readers from the prior release.  Row labels
+        # and period_end remain authoritative and identify jan–jun.
+        "closed_offers_jan_may": closed_jan_june,
         "closed_offer_originators_2026": closed_originators,
         "closed_offer_ticket_distribution": _records(
             closed_offer_ticket_distribution
@@ -1456,7 +1492,7 @@ def build_payload(
                 "ofertas": row["closed_offers"],
                 "volume": row["registered_volume_brl"],
             }
-            for row in closed_jan_may
+            for row in closed_jan_june
         ],
         "originators_current": {
             "coverage": closed_originators[0]["identified_registered_volume_coverage"]

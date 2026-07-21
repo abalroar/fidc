@@ -31,7 +31,7 @@ from services.industry_revision_additions import (
 )
 
 
-LATEST_COMPLETE = "2026-05"
+LATEST_COMPLETE = "2026-06"
 BRIDGE_FROM = "2024-06"
 BRIDGE_TO = "2024-07"
 PROVIDER_TRANSITION_FROM = "2024-12"
@@ -1846,10 +1846,10 @@ def build_provider_transition_flows(
                 if float(new["pl_destino_brl"].sum())
                 else float("nan"),
                 "universe_definition": (
-                    "CNPJ ex-FIC com PL positivo em mai/26; administrador observado "
+                    f"CNPJ ex-FIC com PL positivo em {to_competence}; administrador observado "
                     "também em dez/24; Sistema Petrobras e TAPSO excluídos"
                 ),
-                "pl_flow_definition": "PL de mai/26 por CNPJ",
+                "pl_flow_definition": f"PL de {to_competence} por CNPJ",
                 "provider_group_definition": "canonical_provider(nome reportado)",
                 "source": "CVM, Informe Mensal, administrador reportado por competência",
             }
@@ -2168,11 +2168,11 @@ def build_reag_admin_cohort(
                 "manager_custodian_history_available": False,
                 "manager_custodian_history_limitation": (
                     "gestor e custodiante são fotografia do cadastro vigente; "
-                    "a composição de mai/26 é válida como corte atual, não como transição histórica"
+                    f"a composição de {to_competence} é válida como corte atual, não como transição histórica"
                 ),
                 "universe_definition": (
                     "CNPJ administrado por 34.829.992/0001-86 em dez/25, "
-                    "ex-FIC e PL positivo; continuante exige PL positivo em mai/26"
+                    f"ex-FIC e PL positivo; continuante exige PL positivo em {to_competence}"
                 ),
                 "source": "CVM, Informe Mensal, administrador reportado por competência",
                 "liquidation_source_url": REAG_LIQUIDATION_BCB_URL,
@@ -2383,7 +2383,7 @@ def build_btg_controlled_reconciliation(
                 ),
                 "methodology": (
                     "seis FIDCs brasileiros ativos declarados controlados na DF IFRS "
-                    "1T26, reconciliados por CNPJ ao PL CVM de mai/26"
+                    f"1T26, reconciliados por CNPJ ao PL CVM de {competence}"
                 ),
                 "source_url": BTG_IFRS_1Q26_URL,
             }
@@ -2553,7 +2553,10 @@ def build_btg_provider_ex_controlled_scenario(
                     "retira apenas os seis FIDCs controlados declarados na DF IFRS "
                     "1T26; o saldo não é automaticamente classificado como terceiros"
                 ),
-                "fonte": "BTG Pactual, DF IFRS 1T26, nota 3.d; CVM, Informe Mensal mai/26",
+                "fonte": (
+                    "BTG Pactual, DF IFRS 1T26, nota 3.d; "
+                    f"CVM, Informe Mensal {competence}"
+                ),
                 "source_url": BTG_IFRS_1Q26_URL,
             }
         )
@@ -2704,7 +2707,10 @@ def build_revision_outputs(
         provider_transition_links,
         provider_transition_detail,
         provider_transition_role_availability,
-    ) = build_provider_transition_flows(fund_base)
+    ) = build_provider_transition_flows(
+        fund_base,
+        to_competence=latest_complete,
+    )
     reag_admin_summary, reag_admin_links, reag_admin_detail = build_reag_admin_cohort(
         fund_base, to_competence=latest_complete
     )
@@ -3012,7 +3018,9 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             ),
             "bank_fidc_fixed_cohort": (
                 "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; "
-                "PL histórico do conjunto atual, sem inferir data societária de consolidação"
+                "PL histórico do conjunto atual, sem inferir data societária de consolidação; "
+                "BTG Consignados I em dez/25 usa valor oficial recuperado do IME v2 "
+                "e reconciliado à demonstração financeira auditada"
             ),
             "acquiring_reclassification": (
                 f"somente os {acquiring_curated_funds} CNPJs curados são removidos "
@@ -3034,7 +3042,7 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             ),
             "reag_cbsf_cohort": (
                 "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL "
-                "positivo; destino ativo exige PL positivo em mai/26"
+                f"positivo; destino ativo exige PL positivo em {outputs.latest_complete}"
             ),
         },
         "files": files,
@@ -3117,7 +3125,8 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
             ),
             (
                 "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e "
-                "reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; mai/26 "
+                "reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; "
+                f"{outputs.latest_complete} "
                 "não passa esse teste e permanece diagnóstico, não headline."
             ),
             (

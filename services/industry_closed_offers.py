@@ -17,7 +17,9 @@ MONTHLY_FILENAME = "industry_closed_offers_monthly.csv"
 ORIGINATORS_FILENAME = "industry_closed_offer_originators_2026.csv"
 
 PAYLOAD_SCHEMA_VERSION = "industry_closed_offers.v1"
-JAN_MAY_YEARS = (2024, 2025, 2026)
+JAN_JUNE_YEARS = (2024, 2025, 2026)
+# Compatibility alias for downstream readers that imported the old constant.
+JAN_MAY_YEARS = JAN_JUNE_YEARS
 
 SOURCE_COLUMNS = (
     "source_dataset",
@@ -606,15 +608,15 @@ def _safe_ratio(numerator: float, denominator: float) -> float:
     return float(numerator / denominator) if denominator else 0.0
 
 
-def build_jan_may_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]:
+def build_jan_june_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]:
     normalized = validate_closed_offers_monthly(monthly)
     rows: list[dict[str, Any]] = []
-    for year in JAN_MAY_YEARS:
-        period = normalized.loc[normalized["year"].eq(year) & normalized["month"].between(1, 5)].copy()
-        if set(period["month"]) != {1, 2, 3, 4, 5}:
-            raise ClosedOffersDataError(f"recorte jan–mai: meses incompletos para {year}.")
+    for year in JAN_JUNE_YEARS:
+        period = normalized.loc[normalized["year"].eq(year) & normalized["month"].between(1, 6)].copy()
+        if set(period["month"]) != {1, 2, 3, 4, 5, 6}:
+            raise ClosedOffersDataError(f"recorte jan–jun: meses incompletos para {year}.")
         if not period["is_complete_month"].all():
-            raise ClosedOffersDataError(f"recorte jan–mai: há mês parcial em {year}.")
+            raise ClosedOffersDataError(f"recorte jan–jun: há mês parcial em {year}.")
 
         closed_offers = int(period["closed_offers"].sum())
         registered_volume = float(period["registered_volume_brl"].sum())
@@ -651,9 +653,9 @@ def build_jan_may_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]
         rows.append(
             {
                 "year": year,
-                "period_label": f"jan–mai/{str(year)[-2:]}",
+                "period_label": f"jan–jun/{str(year)[-2:]}",
                 "period_start": f"{year}-01-01",
-                "period_end": f"{year}-05-31",
+                "period_end": f"{year}-06-30",
                 "closed_offers": closed_offers,
                 "registered_volume_brl": registered_volume,
                 "mean_registered_ticket_brl": _safe_ratio(registered_volume, closed_offers),
@@ -706,18 +708,24 @@ def build_jan_may_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]
 
     row_columns = list(rows[0])
     block = {
-        "schema": f"{PAYLOAD_SCHEMA_VERSION}.jan_may_2024_2026",
+        "schema": f"{PAYLOAD_SCHEMA_VERSION}.jan_june_2024_2026",
         "columns": row_columns,
         "row_count": len(rows),
         "rows": rows,
         "source": {
-            **_uniform_source(normalized, name="recorte jan–mai"),
-            "cohort": "Data_Encerramento entre 1º de janeiro e 31 de maio de cada ano",
+            **_uniform_source(normalized, name="recorte jan–jun"),
+            "cohort": "Data_Encerramento entre 1º de janeiro e 30 de junho de cada ano",
             "median_disclosure": "Medianas mensais não são agregadas; o recorte publica apenas médias recalculadas.",
         },
     }
     json.dumps(block, ensure_ascii=False, allow_nan=False)
     return block
+
+
+def build_jan_may_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]:
+    """Compatibility alias; the current comparable period is January–June."""
+
+    return build_jan_june_closed_offers_payload(monthly)
 
 
 def list_nominable_originators_2026_ytd(frame: pd.DataFrame) -> list[dict[str, Any]]:
@@ -731,7 +739,10 @@ def build_closed_offers_payload(data_dir: str | Path = INDUSTRY_STUDY_DIR) -> di
         "schema": PAYLOAD_SCHEMA_VERSION,
         "annual": build_closed_offers_annual_payload(tables.annual),
         "monthly": build_closed_offers_monthly_payload(tables.monthly),
-        "jan_may_2024_2026": build_jan_may_closed_offers_payload(tables.monthly),
+        "jan_june_2024_2026": build_jan_june_closed_offers_payload(tables.monthly),
+        # Retained for one release so older site/export readers do not reject
+        # the payload.  The row labels and dates explicitly say jan–jun.
+        "jan_may_2024_2026": build_jan_june_closed_offers_payload(tables.monthly),
         "originators_2026_ytd": build_closed_offer_originators_payload(tables.originators),
     }
     json.dumps(payload, ensure_ascii=False, allow_nan=False)
@@ -744,6 +755,7 @@ __all__ = [
     "ClosedOffersTables",
     "INDUSTRY_STUDY_DIR",
     "JAN_MAY_YEARS",
+    "JAN_JUNE_YEARS",
     "MONTHLY_FILENAME",
     "ORIGINATORS_FILENAME",
     "PAYLOAD_SCHEMA_VERSION",
@@ -752,6 +764,7 @@ __all__ = [
     "build_closed_offers_monthly_payload",
     "build_closed_offers_payload",
     "build_jan_may_closed_offers_payload",
+    "build_jan_june_closed_offers_payload",
     "list_nominable_originators_2026_ytd",
     "load_closed_offer_originators",
     "load_closed_offers_annual",

@@ -137,6 +137,46 @@ function compactFund(value) {
     .trim();
 }
 
+const MONTHS_PT = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+function competenceParts(value, fallback = "2026-05") {
+  const matches = [...String(value || "").matchAll(/(\d{4})-(\d{2})(?:-\d{2})?/g)];
+  const fallbackMatches = [...String(fallback).matchAll(/(\d{4})-(\d{2})(?:-\d{2})?/g)];
+  const match = matches.at(-1) || fallbackMatches.at(-1);
+  if (!match) throw new Error(`Competencia invalida: ${value}`);
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  if (month < 1 || month > 12) throw new Error(`Competencia invalida: ${value}`);
+  const monthLabel = MONTHS_PT[month - 1];
+  const yearShort = String(year).slice(-2);
+  return {
+    competence: `${year}-${String(month).padStart(2, "0")}`,
+    label: `${monthLabel}/${yearShort}`,
+    slug: `${monthLabel}${yearShort}`,
+  };
+}
+
+function periodFields(startValue, endValue, filePrefix) {
+  const start = competenceParts(startValue, "2024-12");
+  const current = competenceParts(endValue, "2026-05");
+  return {
+    period: `${start.label.toUpperCase()} → ${current.label.toUpperCase()}`,
+    startLabel: start.label,
+    startSlug: start.slug,
+    currentLabel: current.label,
+    currentSlug: current.slug,
+    fileStem: `${filePrefix}_${start.slug}_${current.slug}`,
+  };
+}
+
+function periodFieldsFromReference(value, filePrefix) {
+  const matches = [...String(value || "").matchAll(/(\d{4})-(\d{2})(?:-\d{2})?/g)];
+  const start = matches[0] ? `${matches[0][1]}-${matches[0][2]}` : "2024-12";
+  const endMatch = matches.at(-1);
+  const end = endMatch ? `${endMatch[1]}-${endMatch[2]}` : "2026-05";
+  return periodFields(start, end, filePrefix);
+}
+
 function viewModels(payload) {
   const adminDetail = (payload.provider_transition_detail || [])
     .filter((row) => truthy(row.mudou_grupo))
@@ -167,6 +207,11 @@ function viewModels(payload) {
     .filter((row) => row.source !== row.target && row.value > 0)
     .sort((a, b) => b.value - a.value);
   const adminSummary = payload.provider_transition_summary || {};
+  const adminPeriod = periodFields(
+    adminSummary.competencia_origem || "2024-12",
+    payload.latest_complete || adminSummary.competencia_destino || "2026-05",
+    "fluxos_admin",
+  );
 
   const historicalCoverage = payload.provider_history_cvm_coverage || [];
   const historicalDetails = payload.provider_history_cvm_detail || [];
@@ -175,6 +220,10 @@ function viewModels(payload) {
     const coverage = historicalCoverage.find(
       (row) => String(row.papel) === role && String(row.data_referencia || "").includes("→"),
     ) || {};
+    const rolePeriod = periodFieldsFromReference(
+      coverage.data_referencia,
+      `fluxos_${role}`,
+    );
     const details = historicalDetails
       .filter((row) => String(row.papel) === role && truthy(row.comparavel) && truthy(row.mudou_grupo))
       .map((row) => ({
@@ -206,10 +255,11 @@ function viewModels(payload) {
     return {
       id: role,
       kind: "market",
-      eyebrow: `DEZ/24 → MAI/26 · ${label.toUpperCase()} · AMOSTRA ICVM 555`,
-      leftLabel: `${label.toUpperCase()} · DEZ/24`,
-      rightLabel: `${label.toUpperCase()} · MAI/26`,
-      note: `Largura = PL mai/26. Cobertura comparável: ${percent(number(coverage.cobertura_pl_resolvida), 1)} do PL da coorte; amostra ICVM 555, sem extrapolação.`,
+      ...rolePeriod,
+      eyebrow: `${rolePeriod.period} · ${label.toUpperCase()} · AMOSTRA ICVM 555`,
+      leftLabel: `${label.toUpperCase()} · ${rolePeriod.startLabel.toUpperCase()}`,
+      rightLabel: `${label.toUpperCase()} · ${rolePeriod.currentLabel.toUpperCase()}`,
+      note: `Largura = PL ${rolePeriod.currentLabel}. Cobertura comparável: ${percent(number(coverage.cobertura_pl_resolvida), 1)} do PL da coorte; amostra ICVM 555, sem extrapolação.`,
       summary: {
         primary: number(coverage.pl_mudou_grupo_mai26_brl),
         primaryLabel: "PL que mudou na amostra",
@@ -267,15 +317,21 @@ function viewModels(payload) {
   }
   const reagLinks = [...reagLinkMap.values()].sort((a, b) => b.value - a.value);
   const reagSummary = payload.reag_admin_summary || {};
+  const reagPeriod = periodFields(
+    reagSummary.competencia_origem || "2025-12",
+    reagSummary.competencia_destino || payload.latest_complete || "2026-05",
+    "fluxos_cbsf_reag",
+  );
 
   return {
     admin: {
       id: "admin",
       kind: "market",
-      eyebrow: "DEZ/24 → MAI/26 · ADMINISTRAÇÃO",
-      leftLabel: "ADMINISTRADOR · DEZ/24",
-      rightLabel: "ADMINISTRADOR · MAI/26",
-      note: `Largura = PL mai/26. Cobertura: ${percent(number(adminSummary.coverage_pl), 1)} do PL da coorte atual; fundos sem administrador observado em dez/24 ficam fora.`,
+      ...adminPeriod,
+      eyebrow: `${adminPeriod.period} · ADMINISTRAÇÃO`,
+      leftLabel: `ADMINISTRADOR · ${adminPeriod.startLabel.toUpperCase()}`,
+      rightLabel: `ADMINISTRADOR · ${adminPeriod.currentLabel.toUpperCase()}`,
+      note: `Largura = PL ${adminPeriod.currentLabel}. Cobertura: ${percent(number(adminSummary.coverage_pl), 1)} do PL da coorte atual; fundos sem administrador observado em ${adminPeriod.startLabel} ficam fora.`,
       summary: {
         primary: number(adminSummary.changed_comparable_pl_brl),
         primaryLabel: "PL que mudou de grupo",
@@ -292,10 +348,11 @@ function viewModels(payload) {
     reag: {
       id: "reag",
       kind: "cohort",
-      eyebrow: "CBSF / REAG · DEZ/25 → MAI/26",
-      leftLabel: "COORTE · DEZ/25",
-      rightLabel: "DESTINO · MAI/26",
-      note: "Largura = PL de dez/25. Gestão e custódia são fotografia vigente de mai/26, não uma transição histórica.",
+      ...reagPeriod,
+      eyebrow: `CBSF / REAG · ${reagPeriod.period}`,
+      leftLabel: `COORTE · ${reagPeriod.startLabel.toUpperCase()}`,
+      rightLabel: `DESTINO · ${reagPeriod.currentLabel.toUpperCase()}`,
+      note: `Largura = PL de ${reagPeriod.startLabel}. Gestão e custódia são fotografia vigente de ${reagPeriod.currentLabel}; a série histórica dessas funções não está disponível.`,
       summary: {
         primary: number(reagSummary.pl_origin_brl),
         primaryLabel: "PL inicial da coorte",
@@ -662,7 +719,7 @@ function browserApp(DATA) {
     state.page=Math.min(state.page,pages-1);
     const selected=v.links.find(l=>l.source+"|||"+l.target===state.selected);
     caption.textContent=selected
-      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL mai/26`:` de origem | ${selected.current?money(selected.current):"sem PL atual"}`}`
+      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL ${v.currentLabel}`:` de origem | ${selected.current?money(selected.current)+" em "+v.currentLabel:"sem PL positivo em "+v.currentLabel}`}`
       : state.query?`${rows.length} fundos encontrados para “${state.query}”`:`${rows.length} fundos na base; selecione um fluxo ou pesquise para filtrar.`;
     const slice=rows.slice(state.page*8,state.page*8+8);
     tbody.innerHTML=slice.map(r=>v.kind==="market"
@@ -670,8 +727,8 @@ function browserApp(DATA) {
       : `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.target)}</td><td class="num">${money(r.pl0)}</td><td class="num optional">${r.pl1?money(r.pl1):"—"}</td><td class="optional">${esc(r.manager||"N/D")}</td><td class="optional">${esc(r.custodian||"N/D")}</td><td>${docs(r)}</td></tr>`
     ).join("")||`<tr><td colspan="8">Nenhum fundo encontrado.</td></tr>`;
     root.querySelector("thead").innerHTML=v.kind==="market"
-      ? "<tr><th>Fundo</th><th>CNPJ</th><th>Origem</th><th>Destino</th><th>PL mai/26</th><th class='optional'>PL origem</th><th class='optional'>PL atual</th><th>Fontes</th></tr>"
-      : "<tr><th>Fundo</th><th>CNPJ</th><th>Destino</th><th>PL dez/25</th><th class='optional'>PL mai/26</th><th class='optional'>Gestor mai/26</th><th class='optional'>Custodiante mai/26</th><th>Fontes</th></tr>";
+      ? `<tr><th>Fundo</th><th>CNPJ</th><th>Origem</th><th>Destino</th><th>PL ${esc(v.currentLabel)}</th><th class='optional'>PL origem</th><th class='optional'>PL atual</th><th>Fontes</th></tr>`
+      : `<tr><th>Fundo</th><th>CNPJ</th><th>Destino</th><th>PL ${esc(v.startLabel)}</th><th class='optional'>PL ${esc(v.currentLabel)}</th><th class='optional'>Gestor ${esc(v.currentLabel)}</th><th class='optional'>Custodiante ${esc(v.currentLabel)}</th><th>Fontes</th></tr>`;
     pager.querySelector("span").textContent=`${rows.length?state.page+1:0} / ${rows.length?pages:0}`;
     pager.querySelector("[data-prev]").disabled=state.page<=0;pager.querySelector("[data-next]").disabled=state.page>=pages-1;
   };
@@ -679,19 +736,19 @@ function browserApp(DATA) {
     chart.querySelectorAll(".flow-link").forEach(el=>{
       el.addEventListener("click",()=>{state.selected=state.selected===el.dataset.key?null:el.dataset.key;state.page=0;render()});
       el.addEventListener("mousemove",e=>{
-        const l=DATA[state.view].links.find(x=>x.source+"|||"+x.target===el.dataset.key),total=DATA[state.view].summary.primary;
-        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${DATA[state.view].kind==="market"?` de PL mai/26 · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current?money(l.current)+" em mai/26":"sem PL positivo em mai/26"}`}`:"";
+        const v=DATA[state.view],l=v.links.find(x=>x.source+"|||"+x.target===el.dataset.key),total=v.summary.primary;
+        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${v.kind==="market"?` de PL ${esc(v.currentLabel)} · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current?money(l.current)+" em "+esc(v.currentLabel):"sem PL positivo em "+esc(v.currentLabel)}`}`:"";
         tooltip.hidden=false;const r=root.getBoundingClientRect(),t=tooltip.getBoundingClientRect();tooltip.style.left=Math.min(r.width-t.width-8,Math.max(8,e.clientX-r.left+14))+"px";tooltip.style.top=Math.max(8,e.clientY-r.top-t.height-12)+"px";
       });
       el.addEventListener("mouseleave",()=>tooltip.hidden=true)
     });
     chart.querySelectorAll(".flow-node").forEach(el=>el.addEventListener("click",()=>{const [side,name]=el.dataset.node.split("|||");const links=DATA[state.view].links.filter(l=>(side==="left"?l.source:l.target)===name);state.selected=links.length===1?links[0].source+"|||"+links[0].target:null;state.query=name;search.value=name;state.page=0;render()}));
   };
-  const fileStem = () => state.view==="reag"?"fluxos_cbsf_reag_dez25_mai26":`fluxos_${state.view}_dez24_mai26`;
+  const fileStem = () => DATA[state.view].fileStem;
   const downloadBlob = (blob,name) => {const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),500)};
   const svgBlob = () => new Blob([new XMLSerializer().serializeToString(chart.querySelector("svg"))],{type:"image/svg+xml;charset=utf-8"});
   const pngBlob = () => new Promise((resolve,reject)=>{const svg=chart.querySelector("svg"),box=svg.viewBox.baseVal,url=URL.createObjectURL(svgBlob()),img=new Image();img.onload=()=>{const canvas=document.createElement("canvas"),scale=2;canvas.width=box.width*scale;canvas.height=box.height*scale;const ctx=canvas.getContext("2d");ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);URL.revokeObjectURL(url);canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Falha ao gerar PNG")),"image/png")};img.onerror=reject;img.src=url});
-  const csvBlob = () => {const rows=filteredDetails(),market=DATA[state.view].kind==="market",headers=market?["fundo","cnpj","origem","destino","pl_mai26_brl","pl_origem_brl","pl_atual_brl","fundosnet_url","cvm_origem_url","cvm_destino_url"]:["fundo","cnpj","destino","pl_dez25_brl","pl_mai26_brl","gestor_mai26","custodiante_mai26","fundosnet_url","cvm_origem_url","cvm_destino_url"],values=rows.map(r=>market?[r.fund,r.cnpj,r.source,r.target,r.flow,r.pl0,r.pl1,r.fundosnetUrl,r.sourceUrl,r.targetUrl]:[r.fund,r.cnpj,r.target,r.pl0,r.pl1,r.manager,r.custodian,r.fundosnetUrl,r.sourceUrl,r.targetUrl]),quote=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=[headers,...values].map(r=>r.map(quote).join(";")).join("\n");return new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"})};
+  const csvBlob = () => {const v=DATA[state.view],rows=filteredDetails(),market=v.kind==="market",headers=market?["fundo","cnpj","origem","destino",`pl_${v.currentSlug}_brl`,"pl_origem_brl","pl_atual_brl","fundosnet_url","cvm_origem_url","cvm_destino_url"]:["fundo","cnpj","destino",`pl_${v.startSlug}_brl`,`pl_${v.currentSlug}_brl`,`gestor_${v.currentSlug}`,`custodiante_${v.currentSlug}`,"fundosnet_url","cvm_origem_url","cvm_destino_url"],values=rows.map(r=>market?[r.fund,r.cnpj,r.source,r.target,r.flow,r.pl0,r.pl1,r.fundosnetUrl,r.sourceUrl,r.targetUrl]:[r.fund,r.cnpj,r.target,r.pl0,r.pl1,r.manager,r.custodian,r.fundosnetUrl,r.sourceUrl,r.targetUrl]),quote=v=>'"'+String(v??"").replaceAll('"','""')+'"',csv=[headers,...values].map(r=>r.map(quote).join(";")).join("\n");return new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"})};
   const render = () => {root.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.view===state.view)));topSelect.disabled=state.view==="reag";topSelect.value=state.view==="reag"?"all":String(state.topN);renderChart();renderTable()};
   root.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>{state={...state,view:b.dataset.view,selected:null,query:"",page:0};search.value="";render()}));
   topSelect.addEventListener("change",()=>{state.topN=topSelect.value;state.selected=null;state.page=0;render()});

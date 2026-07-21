@@ -81,8 +81,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v11";
-const EXPECTED_SLIDES = 55;
+const RENDERER_VERSION = "industry_revision_artifacts_v12";
+const EXPECTED_SLIDES = 56;
 
 const C = {
   orange: "#EC7000",
@@ -927,10 +927,11 @@ function marketChartData(payload, role, focusRows) {
 function addMarketShareSlide(presentation, payload, role, focusRows, page, appendix = false) {
   const slide = presentation.slides.add();
   const data = marketChartData(payload, role, focusRows);
+  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const scope = (payload.market_share_scope_summary || []).find((row) => row.papel === role) || {};
   const coverage = pct(scope.cobertura_classificacao_14_focos_pl, 1);
   const outside = pct(1 - num(scope.cobertura_classificacao_14_focos_pl), 1);
-  const source = `Fonte: CVM/ANBIMA, mai/26. Subtipo = Tipo+Foco ANBIMA (cadastro dez/25, evidência e proxy determinístico da Tabela II). PL ex-FIC sem Sistema Petrobras/TAPSO; cobertura ${coverage}, fora ${outside}.`;
+  const source = `Fonte: CVM/ANBIMA, ${stockShortLower}. Subtipo = Tipo+Foco ANBIMA (cadastro dez/25, evidência e proxy determinístico da Tabela II). PL ex-FIC sem Sistema Petrobras/TAPSO; cobertura ${coverage}, fora ${outside}.`;
   const titles = {
     administrador: appendix
       ? "Administração por subtipo: universo completo dos 14 focos"
@@ -1054,6 +1055,7 @@ function providerRankPlCell(row) {
 
 function addProviderHistoricalRankingSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
+  const stockShort = competenceShortPt(payload.latest_complete);
   const btgScenario = new Map(
     (payload.btg_provider_ex_controlled_scenario || []).map((row) => [row.papel, row]),
   );
@@ -1091,7 +1093,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       top: top + 23,
       width: 690,
       height: 145,
-      headers: ["Participante", "Dez/24", "Dez/25", "Mai/26"],
+      headers: ["Participante", "Dez/24", "Dez/25", stockShort],
       rows: rows.map((row) => {
         const currentCell = providerRankPlCell(row.current);
         const scenario = btgScenario.get(role);
@@ -1111,7 +1113,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       headerFontSize: 8.1,
       rowHighlights: new Set(rows.map((row, idx) => normalizeProviderName(row.participante) === "itau" ? idx : -1).filter((idx) => idx >= 0)),
     });
-    addText(slide, "PL MAI/26 · R$ BI", { left: 785, top, width: 435, height: 20 }, {
+    addText(slide, `PL ${stockShort.toUpperCase()} · R$ BI`, { left: 785, top, width: 435, height: 20 }, {
       fontSize: 10,
       bold: true,
       color: C.note,
@@ -1123,7 +1125,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       categories: chartRows.map((row) => providerShort(row.participante)),
       series: [
         {
-          name: "PL mai/26",
+          name: `PL ${stockShort.toLowerCase()}`,
           values: chartRows.map((row) => num(row.current?.pl_brl) / 1e9),
           valuesFormatCode: "0.0",
           fill: C.charcoal,
@@ -1190,6 +1192,7 @@ function independentRankPlCell(row) {
 
 function addIndependentProviderRankingSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
+  const stockShort = competenceShortPt(payload.latest_complete);
   const currentAdmin = independentProviderRows(payload, "administrador", 6)[0];
   const currentCustody = independentProviderRows(payload, "custodiante", 6)[0];
   addHeader(
@@ -1225,7 +1228,7 @@ function addIndependentProviderRankingSlide(presentation, payload, page) {
       top: top + 23,
       width: 690,
       height: 145,
-      headers: ["Participante", "Dez/24", "Dez/25", "Mai/26"],
+      headers: ["Participante", "Dez/24", "Dez/25", stockShort],
       rows: rows.map((row) => [
         providerShort(row.participante),
         independentRankPlCell(row.before2024),
@@ -1237,7 +1240,7 @@ function addIndependentProviderRankingSlide(presentation, payload, page) {
       fontSize: 8.1,
       headerFontSize: 8.1,
     });
-    addText(slide, "PL MAI/26 · R$ BI", { left: 785, top, width: 435, height: 20 }, {
+    addText(slide, `PL ${stockShort.toUpperCase()} · R$ BI`, { left: 785, top, width: 435, height: 20 }, {
       fontSize: 10,
       bold: true,
       color: C.note,
@@ -1248,7 +1251,7 @@ function addIndependentProviderRankingSlide(presentation, payload, page) {
       ...chartBase({ left: 785, top: top + 23, width: 435, height: 145 }),
       categories: chartRows.map((row) => providerShort(row.participante)),
       series: [{
-        name: "PL mai/26",
+        name: `PL ${stockShort.toLowerCase()}`,
         values: chartRows.map((row) => num(row.current?.pl_brl) / 1e9),
         valuesFormatCode: "0.0",
         fill: C.charcoal,
@@ -1287,6 +1290,8 @@ function bankGroupColor(group) {
 
 function addBankFidcEvolutionSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
+  const stockShort = competenceShortPt(payload.latest_complete);
+  const stockShortLower = stockShort.toLowerCase();
   const rows = payload.bank_fidc_evolution || [];
   const periods = ["2023-12", "2024-12", "2025-12", payload.latest_complete];
   const groups = ["BTG Pactual", "Itaú", "Santander", "Bradesco", "Banco do Brasil"];
@@ -1301,6 +1306,11 @@ function addBankFidcEvolutionSlide(presentation, payload, page) {
   const latestRows = groups.map((group) => lookup.get(`${payload.latest_complete}|${group}`)).filter(Boolean);
   const latestTotal = latestRows.reduce((sum, row) => sum + num(row.pl_bruto_brl ?? row.pl_brl), 0);
   const btg = lookup.get(`${payload.latest_complete}|BTG Pactual`);
+  const btgConsignadosDec25 = (payload.bank_fidc_detail || []).find(
+    (row) => row.competencia === "2025-12"
+      && row.grupo_bancario === "BTG Pactual"
+      && String(row.cnpj_root8 || "") === "50906397",
+  ) || {};
   const btgTop5 = (payload.bank_fidc_detail || [])
     .filter((row) => row.competencia === payload.latest_complete && row.grupo_bancario === "BTG Pactual" && row.observado !== false)
     .sort((a, b) => num(b.pl_brl) - num(a.pl_brl))
@@ -1308,14 +1318,14 @@ function addBankFidcEvolutionSlide(presentation, payload, page) {
   addHeader(
     slide,
     "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
-    `BTG volta a ${bn(btg?.pl_bruto_brl ?? btg?.pl_brl, 1)} em mai/26; Consignados I explica R$ 8,2 bi da queda aparente em dez/25`,
-    "Fonte: CVM, FIDCs.xlsx e conglomerados prudenciais BCB consultados em jul/26. Coorte fixa das raízes hoje listadas; PL bruto. O histórico não recupera fundos que saíram do conglomerado atual.",
+    `BTG soma ${bn(btg?.pl_bruto_brl ?? btg?.pl_brl, 1)} em ${stockShortLower}; Consignados I adiciona ${bn(btgConsignadosDec25.pl_brl, 1)} ao PL de dez/25*`,
+    "Fonte: CVM, Fundos.NET, FIDCs.xlsx e conglomerados prudenciais BCB consultados em jul/26. Coorte fixa das raízes hoje listadas; PL bruto. O histórico não recupera fundos que saíram do conglomerado atual.",
     page,
   );
   addSectionLabel(slide, "PL BRUTO DA COORTE FIXA · R$ BI", { left: 60, top: 145, width: 720, height: 24 });
   slide.charts.add("bar", {
     ...chartBase({ left: 60, top: 185, width: 720, height: 385 }),
-    categories: periods.map((period) => competenceShortPt(period)),
+    categories: periods.map((period) => `${competenceShortPt(period)}${period === "2025-12" ? "*" : ""}`),
     series: groups.map((group) => ({
       name: group,
       values: periods.map((period) => value(period, group)),
@@ -1334,7 +1344,7 @@ function addBankFidcEvolutionSlide(presentation, payload, page) {
     yAxis: { ...chartAxis(9.5, "0"), min: 0 },
     dataLabels: { showValue: false },
   });
-  addSectionLabel(slide, "BTG · CINCO MAIORES EM MAI/26", { left: 825, top: 145, width: 395, height: 24 });
+  addSectionLabel(slide, `BTG · CINCO MAIORES EM ${stockShort.toUpperCase()}`, { left: 825, top: 145, width: 395, height: 24 });
   addNativeEditorialTable(slide, {
     left: 825,
     top: 185,
@@ -1360,7 +1370,7 @@ function addBankFidcEvolutionSlide(presentation, payload, page) {
   });
   addText(
     slide,
-    `PL bruto da coorte dos cinco bancos em ${competenceShortPt(payload.latest_complete).toLowerCase()}. A ausência de BTG Consignados I em dez/25, seguida do reaparecimento em abr/mai-26 sob registro de classe, caracteriza quebra de reporte; liquidação econômica não foi comprovada.`,
+    `PL bruto da coorte dos cinco bancos em ${competenceShortPt(payload.latest_complete).toLowerCase()}. * Dez/25 usa ${bn(btgConsignadosDec25.pl_brl, 1)} do IME v2 Fundos.NET 1100733, confirmado pela DF auditada 1150673; o XML traz competência interna divergente e o parser havia lido zero.`,
     { left: 845, top: 548, width: 355, height: 86 },
     { fontSize: 11.4, color: C.mid },
   );
@@ -1372,6 +1382,8 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
   const rows = payload.acquiring_reclassified_mix || [];
   const beforePeriod = "2023-12";
   const afterPeriod = payload.latest_complete;
+  const afterShort = competenceShortPt(afterPeriod);
+  const afterShortLower = afterShort.toLowerCase();
   const before = rows.filter((row) => row.competencia === beforePeriod);
   const after = rows.filter((row) => row.competencia === afterPeriod);
   const category = (row) => row.categoria_analitica || row.segmento_reclassificado || row.segmento;
@@ -1392,11 +1404,11 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
   addHeader(
     slide,
     "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
-    `Os ${curatedCount} CNPJs selecionados formam Adquirência; ${bn(plValue(acquiring), 1)} e ${pct(shareValue(acquiring), 1)} do PL ex-FIC em mai/26`,
+    `Os ${curatedCount} CNPJs selecionados formam Adquirência; ${bn(plValue(acquiring), 1)} e ${pct(shareValue(acquiring), 1)} do PL ex-FIC em ${afterShortLower}`,
     "Fonte: CVM, Informe Mensal; curadoria: FIDCs.xlsx (13 CNPJs) + 3 FIDCs SELLER informados em 21/jul/26. A categoria CVM original permanece preservada.",
     page,
   );
-  addSectionLabel(slide, "PL EX-FIC · R$ BI · DEZ/23 → MAI/26", { left: 60, top: 150, width: 550, height: 24 });
+  addSectionLabel(slide, `PL EX-FIC · R$ BI · DEZ/23 → ${afterShort.toUpperCase()}`, { left: 60, top: 150, width: 550, height: 24 });
   slide.charts.add("bar", {
     ...chartBase({ left: 60, top: 185, width: 550, height: 400 }),
     categories,
@@ -1425,7 +1437,7 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
     },
     dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8.7, bold: true } },
   });
-  addSectionLabel(slide, "% DO PL EX-FIC · DEZ/23 → MAI/26", { left: 670, top: 150, width: 550, height: 24 });
+  addSectionLabel(slide, `% DO PL EX-FIC · DEZ/23 → ${afterShort.toUpperCase()}`, { left: 670, top: 150, width: 550, height: 24 });
   slide.charts.add("bar", {
     ...chartBase({ left: 670, top: 185, width: 550, height: 400 }),
     categories,
@@ -1460,7 +1472,7 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
   ], { left: 930, top: 126, width: 290, height: 22 }, 2);
   addText(
     slide,
-    `Em mai/26, os ${integer(observedCount)} CNPJs ativos vieram de ${integer(movedByCategory["Cartão"])} Cartão, ${integer(movedByCategory.Comercial)} Comercial, ${integer(movedByCategory.Serviços)} Serviços e ${integer(movedByCategory.Financeiro)} Financeiro; ${integer(missingCount)} sem reporte ativo. Denominador e demais categorias permanecem idênticos.`,
+    `Em ${afterShortLower}, os ${integer(observedCount)} CNPJs ativos vieram de ${integer(movedByCategory["Cartão"])} Cartão, ${integer(movedByCategory.Comercial)} Comercial, ${integer(movedByCategory.Serviços)} Serviços e ${integer(movedByCategory.Financeiro)} Financeiro; ${integer(missingCount)} sem reporte ativo. Denominador e demais categorias permanecem idênticos.`,
     { left: 60, top: 625, width: 1160, height: 30 },
     { fontSize: 10.7, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
@@ -1496,6 +1508,7 @@ function providerAttributionFallback(payload) {
 
 function addProviderAttributionSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
+  const stockShort = competenceShortPt(payload.latest_complete);
   const attribution = payload.provider_leadership_attribution || providerAttributionFallback(payload);
   const qi = attribution.qi || {};
   const btg = attribution.btg || {};
@@ -1546,7 +1559,7 @@ function addProviderAttributionSlide(presentation, payload, page) {
     true,
   );
 
-  addSectionLabel(slide, "BTG PACTUAL · GESTÃO EM MAI/26", { left: 665, top: 145, width: 555, height: 24 });
+  addSectionLabel(slide, `BTG PACTUAL · GESTÃO EM ${stockShort.toUpperCase()}`, { left: 665, top: 145, width: 555, height: 24 });
   slide.charts.add("bar", {
     ...chartBase({ left: 665, top: 190, width: 555, height: 230 }),
     categories: ["BTG Pactual", "Bradesco", "BTG ex-6 controlados"],
@@ -1621,7 +1634,9 @@ function addProviderFlowSnapshot(slide, pngBytes, alt) {
 function addFrozenDelinquencyHistorySlide(presentation, payload, page) {
   const slide = presentation.slides.add();
   const start = "2023-12";
-  const end = String(payload.latest_complete || "2026-05");
+  const end = String(payload.latest_complete || "");
+  const endShort = competenceShortPt(end);
+  const endShortLower = endShort.toLowerCase();
   const rows = (payload.delinquency_frozen_cohort_history || []).filter(
     (row) => String(row.competencia) >= start && String(row.competencia) <= end,
   );
@@ -1656,11 +1671,11 @@ function addFrozenDelinquencyHistorySlide(presentation, payload, page) {
   addHeader(
     slide,
     "INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",
-    `Financeiro encerra ${competenceShortPt(end).toLowerCase()} em ${pct(latestRows.find((row) => row.tipo_recebivel_tabela_ii === "Financeiro")?.inadimplencia_sobre_carteira, 1)}; a coorte fixa soma ${bn(latestRows.reduce((sum, row) => sum + num(row.pl_coorte_referencia_brl), 0), 1)}`,
-    "Fonte: CVM, Informe Mensal. Subtipo e elegibilidade congelados em mai/26; histórico dos mesmos CNPJs. Linha laranja = consolidado de mercado ajustado. A coorte fixa incorpora viés de sobrevivência.",
+    `Financeiro encerra ${endShortLower} em ${pct(latestRows.find((row) => row.tipo_recebivel_tabela_ii === "Financeiro")?.inadimplencia_sobre_carteira, 1)}; a coorte fixa soma ${bn(latestRows.reduce((sum, row) => sum + num(row.pl_coorte_referencia_brl), 0), 1)}`,
+    `Fonte: CVM, Informe Mensal. Subtipo e elegibilidade congelados em ${endShortLower}; histórico dos mesmos CNPJs. Linha laranja = consolidado de mercado ajustado. A coorte fixa incorpora viés de sobrevivência.`,
     page,
   );
-  addSectionLabel(slide, "% DA CARTEIRA · DEZ/23 → MAI/26", { left: 60, top: 137, width: 780, height: 24 });
+  addSectionLabel(slide, `% DA CARTEIRA · DEZ/23 → ${endShort.toUpperCase()}`, { left: 60, top: 137, width: 780, height: 24 });
   addStraightLineChart(slide, {
     position: { left: 60, top: 172, width: 780, height: 385 },
     categories: categories.map((competence) => {
@@ -1726,6 +1741,12 @@ function addReagMigrationSlide(presentation, payload, page, pngBytes) {
   const slide = presentation.slides.add();
   const fallback = fallbackReagFlow();
   const summary = payload.reag_admin_summary || payload.reag_admin_migration?.summary || fallback.summary;
+  const destinationCompetence = summary.competencia_destino || payload.latest_complete;
+  const destinationShort = competenceShortPt(destinationCompetence);
+  const destinationShortLower = destinationShort.toLowerCase();
+  const masterPlannerCurrent = (payload.reag_admin_links || [])
+    .filter((row) => ["banco master", "planner"].some((name) => normalizeProviderName(row.destino_grupo).includes(name)))
+    .reduce((total, row) => total + num(row.pl_current_brl ?? row.pl_2026_05_brl), 0);
   const migratedShare = num(summary.migrated_share_current) || (
     num(summary.continuing_pl_current_brl)
       ? num(summary.migrated_pl_current_brl) / num(summary.continuing_pl_current_brl)
@@ -1734,20 +1755,22 @@ function addReagMigrationSlide(presentation, payload, page, pngBytes) {
   addHeader(
     slide,
     "CBSF / REAG · DESTINO DOS FUNDOS",
-    `Master e Planner receberam R$ 10,1 bi; ${pct(migratedShare, 0)} do PL continuante migrou`,
-    "Fontes: CVM, Informe Mensal; BCB, Ato 1.375, liquidação em 15/01/26. Coorte do CNPJ 34.829.992/0001-86 em dez/25; destino em mai/26. PL ex-FIC, sem Petrobras/TAPSO.",
+    `Master e Planner receberam ${bn(masterPlannerCurrent, 1)}; ${pct(migratedShare, 0)} do PL continuante migrou`,
+    `Fontes: CVM, Informe Mensal; BCB, Ato 1.375, liquidação em 15/01/26. Coorte do CNPJ 34.829.992/0001-86 em dez/25; destino em ${destinationShortLower}. PL ex-FIC, sem Petrobras/TAPSO.`,
     page,
   );
   addProviderFlowSnapshot(
     slide,
     pngBytes,
-    "Fluxo da coorte CBSF / REAG entre dezembro de 2025 e maio de 2026",
+    `Fluxo da coorte CBSF / REAG entre dezembro de 2025 e ${destinationShortLower}`,
   );
   return slide;
 }
 
 function addProviderTransitionSlide(presentation, payload, page, pngBytes, role = "administrador") {
   const slide = presentation.slides.add();
+  const stockShort = competenceShortPt(payload.latest_complete);
+  const stockShortLower = stockShort.toLowerCase();
   const roleLabel = {
     administrador: "ADMINISTRAÇÃO",
     gestor: "GESTÃO",
@@ -1771,13 +1794,23 @@ function addProviderTransitionSlide(presentation, payload, page, pngBytes, role 
     );
     return slide;
   }
-  const summary = payload.provider_transition_summary || {
-    continuing_funds: 2477,
-    comparable_pl_brl: 455.862e9,
-    changed_funds: 257,
-    changed_comparable_pl_brl: 33.020e9,
-    changed_share: 0.0724,
-  };
+  const summary = payload.provider_transition_summary;
+  const requiredSummaryFields = [
+    "changed_funds",
+    "comparable_pl_brl",
+    "changed_comparable_pl_brl",
+    "coverage_pl",
+  ];
+  if (
+    !summary
+    || requiredSummaryFields.some(
+      (field) => summary[field] === null
+        || summary[field] === undefined
+        || !Number.isFinite(Number(summary[field])),
+    )
+  ) {
+    throw new Error("provider_transition_summary ausente ou incompleto");
+  }
   const changedShare = num(summary.changed_share) || (
     num(summary.comparable_pl_brl)
       ? num(summary.changed_comparable_pl_brl) / num(summary.comparable_pl_brl)
@@ -1786,25 +1819,27 @@ function addProviderTransitionSlide(presentation, payload, page, pngBytes, role 
   addHeader(
     slide,
     "PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",
-    `${integer(summary.changed_funds || 257)} FIDCs trocaram de administrador; ${pct(changedShare, 1)} do estoque comparável mudou de mãos`,
-    `Fonte: CVM, Informe Mensal. Fundos existentes em mai/26, com administrador observado em dez/24 e mai/26; largura = PL mai/26. Cobertura: ${pct(summary.coverage_pl, 1)} do PL da coorte. Ex-FIC e sem Sistema Petrobras/TAPSO.`,
+    `${integer(summary.changed_funds)} FIDCs trocaram de administrador; ${pct(changedShare, 1)} do estoque comparável mudou de mãos`,
+    `Fonte: CVM, Informe Mensal. Fundos existentes em ${stockShortLower}, com administrador observado em dez/24 e ${stockShortLower}; largura = PL ${stockShortLower}. Cobertura: ${pct(summary.coverage_pl, 1)} do PL da coorte. Ex-FIC e sem Sistema Petrobras/TAPSO.`,
     page,
   );
   addProviderFlowSnapshot(
     slide,
     pngBytes,
-    "Fluxos observados de administradores entre dezembro de 2024 e maio de 2026",
+    `Fluxos observados de administradores entre dezembro de 2024 e ${stockShortLower}`,
   );
   return slide;
 }
 
 function addConclusionsSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
+  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const metrics = payload.conclusion_metrics || {};
   const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
-  const currentOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2026) || {};
-  const priorOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2025) || {};
-  const offer2024 = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2024) || {};
+  const comparableOffers = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [];
+  const currentOffer = comparableOffers.find((row) => num(row.year) === 2026) || {};
+  const priorOffer = comparableOffers.find((row) => num(row.year) === 2025) || {};
+  const offer2024 = comparableOffers.find((row) => num(row.year) === 2024) || {};
   const currentConcentration = Object.fromEntries(
     (payload.provider_concentration_history || [])
       .filter((row) => row.competencia === payload.latest_complete)
@@ -1836,7 +1871,7 @@ function addConclusionsSlide(presentation, payload, page) {
     slide,
     "PRINCIPAIS CONCLUSÕES",
     "A distribuição segue institucional, a gestão é dispersa e a infraestrutura fiduciária permanece integrada",
-    "Fonte: CVM, ANBIMA, FundosNet, BCB e DF BTG 1T26. PL em mai/26; ofertas encerradas até 17/jul/26. Universos e ressalvas constam em cada bloco.",
+    `Fonte: CVM, ANBIMA, FundosNet, BCB e DF BTG 1T26. PL em ${stockShortLower}; ofertas encerradas até 30/jun/26. Universos e ressalvas constam em cada bloco.`,
     page,
   );
   const conclusions = [
@@ -1858,11 +1893,11 @@ function addConclusionsSlide(presentation, payload, page) {
     },
     {
       label: "05 · INDEPENDENTES COM ESCALA",
-      text: `QI Tech lidera administração (${bn(qiAdmin.pl_brl, 1)}) e custódia (${bn(qiCustodian.pl_brl, 1)}), com Singulare consolidada no grupo. Oliveira Trust é a maior gestora independente (${bn(otManager.pl_brl, 1)}; 3ª geral). Na coorte CBSF/Reag, ${pct(reag.migrated_share_current, 1)} do PL atual dos fundos continuantes já estava em outro administrador em mai/26.`,
+      text: `QI Tech lidera administração (${bn(qiAdmin.pl_brl, 1)}) e custódia (${bn(qiCustodian.pl_brl, 1)}), com Singulare consolidada no grupo. Oliveira Trust é a maior gestora independente (${bn(otManager.pl_brl, 1)}; 3ª geral). Na coorte CBSF/Reag, ${pct(reag.migrated_share_current, 1)} do PL atual dos fundos continuantes já estava em outro administrador em ${stockShortLower}.`,
     },
     {
       label: "06 · OFERTAS ENCERRADAS",
-      text: `${integer(currentOfferYtd.closed_offers)} ofertas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} até 17/jul/26. Jan–mai alcançou ${bn(currentOffer.registered_volume_brl, 1)}, avanço de ${pct(offerGrowth, 0)} sobre 2025 e ${pct(offerGrowth2024, 0)} sobre 2024. CloudWalk teve a maior oferta individual da base, de ${bn(cloudwalk.registered_volume_brl, 1)}.`,
+      text: `${integer(currentOfferYtd.closed_offers)} ofertas encerradas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} em jan–jun/26. O volume avançou ${pct(offerGrowth, 0)} sobre 2025 e ${pct(offerGrowth2024, 0)} sobre 2024. CloudWalk teve a maior oferta individual da base, de ${bn(cloudwalk.registered_volume_brl, 1)}.`,
     },
     {
       label: "07 · MIGRAÇÃO DE ADMINISTRAÇÃO",
@@ -1870,7 +1905,7 @@ function addConclusionsSlide(presentation, payload, page) {
     },
     {
       label: "08 · LIMITAÇÕES DA BASE",
-      text: `“Outros” concentra ${pct(outros.share, 1)} do PL ex-FIC na taxonomia ANBIMA. Em mai/26, ${integer(qa.casos_inad_supera_carteira)} veículos reportaram inadimplência acima da carteira; o ajuste limitou o excesso em ${bn(qa.excesso_removido_brl, 1)}. O lastro dos maiores fundos ainda exige curadoria documental.`,
+      text: `“Outros” concentra ${pct(outros.share, 1)} do PL ex-FIC na taxonomia ANBIMA. Em ${stockShortLower}, ${integer(qa.casos_inad_supera_carteira)} veículos reportaram inadimplência acima da carteira; o ajuste limitou o excesso em ${bn(qa.excesso_removido_brl, 1)}. O lastro dos maiores fundos ainda exige curadoria documental.`,
     },
   ];
   conclusions.forEach((item, index) => {
@@ -1900,6 +1935,10 @@ function buildPresentation(payload, flowAssets) {
   const stockShort = competenceShortPt(latestCompetence);
   const stockShortLower = stockShort.toLowerCase();
   const stockLong = competenceEndLongPt(latestCompetence);
+  const stockPreliminary = payload.stock_preliminary_status || {};
+  const stockPreliminaryDisclosure = stockPreliminary.competencia
+    ? `Estoque mantido em ${stockShortLower}: ${competenceShortPt(stockPreliminary.competencia).toLowerCase()} tinha ${integer(stockPreliminary.n_veiculos)} veículos e ${pct(stockPreliminary.pl_ratio_vs_previous, 1)} do PL de ${stockShortLower} na carga de ${dateShortPt(stockPreliminary.generated_at_utc)}.`
+    : "";
   const offersAsOf = String(payload.offers_as_of || "");
   const offersSourceAsOf = String(payload.offers_source_as_of || offersAsOf);
   const offersShort = dateShortPt(offersAsOf);
@@ -2383,7 +2422,7 @@ function buildPresentation(payload, flowAssets) {
       `Fonte: CVM/ANBIMA; dez/23 e ${stockShortLower}. Tipo/Foco classifica o fundo; fotografia cadastral de dez/25 aplicada ao histórico. Não comparar categoria a categoria com a Tabela II.`,
       6,
     );
-    addSectionLabel(slide, "PL EX-FIC · R$ BI · DEZ/23 → MAI/26", { left: 60, top: 150, width: 550, height: 24 });
+    addSectionLabel(slide, `PL EX-FIC · R$ BI · DEZ/23 → ${stockShort.toUpperCase()}`, { left: 60, top: 150, width: 550, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 185, width: 550, height: 400 }),
       categories: categories.map((category) => category === "Agro, Indústria e Comércio" ? "Agro, ind. e comércio" : category),
@@ -2397,7 +2436,7 @@ function buildPresentation(payload, flowAssets) {
       yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 9, bold: true } },
     });
-    addSectionLabel(slide, "% DO PL EX-FIC · DEZ/23 → MAI/26", { left: 670, top: 150, width: 550, height: 24 });
+    addSectionLabel(slide, `% DO PL EX-FIC · DEZ/23 → ${stockShort.toUpperCase()}`, { left: 670, top: 150, width: 550, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 670, top: 185, width: 550, height: 400 }),
       categories: categories.map((category) => category === "Agro, Indústria e Comércio" ? "Agro, ind. e comércio" : category),
@@ -2417,7 +2456,7 @@ function buildPresentation(payload, flowAssets) {
     addRect(slide, { left: 760, top: 563, width: 460, height: 24 }, C.white);
     addText(
       slide,
-      `Mai/26: Outros ${pct(othersAfter?.share, 1)}; Financeiro ${pct(afterMap.Financeiro?.share, 1)}. ANBIMA enquadra o fundo inteiro, não cada direito creditório.`,
+      `${stockShort}: Outros ${pct(othersAfter?.share, 1)}; Financeiro ${pct(afterMap.Financeiro?.share, 1)}. ANBIMA enquadra o fundo inteiro, não cada direito creditório.`,
       { left: 60, top: 630, width: 1160, height: 24 },
       { fontSize: 11, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
     );
@@ -2450,6 +2489,11 @@ function buildPresentation(payload, flowAssets) {
     const financeBefore = beforeMap.Financeiro;
     const financeAfter = afterMap.Financeiro;
     const meta = Object.fromEntries(payload.receivables_meta_history.map((row) => [row.competencia, row]));
+    const acquiringLatest = (payload.acquiring_reclassified_mix || []).filter(
+      (row) => row.competencia === periodAfter,
+    );
+    const commercialAcquiring = acquiringLatest.find((row) => row.categoria_cvm === "Comercial") || {};
+    const financialAcquiring = acquiringLatest.find((row) => row.categoria_cvm === "Financeiro") || {};
     addHeader(
       slide,
       "CARTEIRA POR TIPO DE RECEBÍVEL",
@@ -2488,7 +2532,7 @@ function buildPresentation(payload, flowAssets) {
     addRect(slide, { left: 760, top: 600, width: 460, height: 24 }, C.white);
     addText(
       slide,
-      "Manual CVM: adquirência com cartão usa o campo mais específico, II.g Cartão. Em mai/26, três CloudWalk declararam R$ 5,24 bi em Comercial; o gráfico mantém o reporte, sem reclassificar.",
+      `Manual CVM: adquirência com cartão usa o campo mais específico, II.g Cartão. Em ${stockShortLower}, A.I. e PI declararam ${bn(commercialAcquiring.pl_movido_da_categoria_brl, 2)} em Comercial; Akira I, ${bn(financialAcquiring.pl_movido_da_categoria_brl, 2)} em Financeiro. O gráfico mantém o reporte.`,
       { left: 60, top: 635, width: 1160, height: 24 },
       { fontSize: 10.5, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
     );
@@ -2510,7 +2554,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OBSERVABILIDADE DA INADIMPLÊNCIA",
       `O cap retira ${bn(qa.excesso_removido_brl, 1)} de ${integer(qa.casos_inad_supera_carteira)} veículos; 10 casos explicam ${pct(qa.excesso_top10_share, 1)}`,
-      "Fonte: CVM, mai/26. Ajuste = mínimo entre inadimplência não negativa e carteira não negativa por veículo.",
+      `Fonte: CVM, ${stockShortLower}. Ajuste = mínimo entre inadimplência não negativa e carteira não negativa por veículo.`,
       8,
     );
     addSectionLabel(slide, "MÉTRICAS SOBRE A CARTEIRA COBERTA", { left: 60, top: 150, width: 710, height: 24 });
@@ -2755,7 +2799,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "RANKING · TOP 20 FIDCs",
       `Top 20 somam ${pct(share, 1)} do PL ex-FIC; Petrobras e TAPSO são ${pct(topTwo, 1)} do bloco`,
-      "Fonte: CVM e ANBIMA, mai/26. Ranking derivado do universo completo ex-FIC; denominação legal completa no apêndice.",
+      `Fonte: CVM e ANBIMA, ${stockShortLower}. Ranking derivado do universo completo ex-FIC; denominação legal completa no apêndice.`,
       15 + providerInsightOffset,
     );
     const tableRows = top20.map((row) => [
@@ -2792,7 +2836,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "RANKING · TOP 20 OUTROS",
       `Top 20 representam ${pct(categoryShare, 1)} de Outros; oficial, hipótese e status ficam separados`,
-      "Fonte: ANBIMA e documentos primários locais, mai/26. Evidência e links completos constam no workbook.",
+      `Fonte: ANBIMA e documentos primários locais; ranking em ${stockShortLower}. Evidência e links completos constam no workbook.`,
       16 + providerInsightOffset,
     );
     const tableRows = rows.map((row) => [
@@ -2829,7 +2873,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "MODELO DE PRESTAÇÃO",
       `Monoestruturas são ${pct(mono?.share_fundos, 1)} dos fundos e ${pct(mono?.share_pl, 1)} do PL; dados incompletos cobrem ${pct(missing?.share_pl, 1)}`,
-      "Fonte: CVM, cadastro vigente em mai/26. Definição mono: mesmo conglomerado normalizado em administração, gestão e custódia.",
+      `Fonte: CVM, cadastro vigente em ${stockShortLower}. Definição mono: mesmo conglomerado normalizado em administração, gestão e custódia.`,
       17 + providerInsightOffset,
     );
     const labels = rows.map((row) => row.modelo_prestacao.replace("Administração", "Adm.").replace("Três prestadores distintos", "Três distintos"));
@@ -2878,7 +2922,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "CONCENTRAÇÃO DAS MONOESTRUTURAS",
       "Sistema Petrobras é todo o PL mono do BB; TAPSO representa 54% do PL mono da Oliveira Trust",
-      "Fonte: CVM, mai/26. A evidência mostra concentração; não permite inferir preços, propostas ou contratos.",
+      `Fonte: CVM, ${stockShortLower}. A evidência mostra concentração; não permite inferir preços, propostas ou contratos.`,
       18 + providerInsightOffset,
     );
     addEditorialTable(slide, {
@@ -2941,7 +2985,134 @@ function buildPresentation(payload, flowAssets) {
     });
   }
 
-  // 25. Ofertas encerradas e ticket médio
+  // 28. Ofertas encerradas: volume, ritmo e ticket em seis meses fechados.
+  {
+    const slide = presentation.slides.add();
+    const annual = [...(payload.closed_offers_annual || [])]
+      .sort((a, b) => num(a.year) - num(b.year));
+    const monthly = payload.closed_offers_monthly || [];
+    const janJune = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [2024, 2025, 2026].map((year) => {
+      const scoped = monthly.filter((row) => num(row.year) === year && num(row.month) <= 6);
+      const volume = scoped.reduce((sum, row) => sum + num(row.registered_volume_brl), 0);
+      const offers = scoped.reduce((sum, row) => sum + num(row.closed_offers), 0);
+      return {
+        year,
+        closed_offers: offers,
+        registered_volume_brl: volume,
+        mean_registered_ticket_brl: offers ? volume / offers : null,
+      };
+    });
+    const current = annual.find((row) => num(row.year) === currentOfferYear) || {};
+    const currentComparable = janJune.find((row) => num(row.year) === 2026) || {};
+    const priorComparable = janJune.find((row) => num(row.year) === 2025) || {};
+    const yoy = num(priorComparable.registered_volume_brl)
+      ? num(currentComparable.registered_volume_brl) / num(priorComparable.registered_volume_brl) - 1
+      : 0;
+    const cumulative = (year) => {
+      const byMonth = new Map(
+        monthly
+          .filter((row) => num(row.year) === year && num(row.month) <= 6)
+          .map((row) => [num(row.month), row]),
+      );
+      let running = 0;
+      return Array.from({ length: 6 }, (_, index) => {
+        running += num(byMonth.get(index + 1)?.registered_volume_brl);
+        return running / 1e9;
+      });
+    };
+    addHeader(
+      slide,
+      "OFERTAS ENCERRADAS · VOLUME E TICKET",
+      `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre 2025`,
+      `Fonte: CVM, Ofertas Públicas de Distribuição, snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}; encerramentos considerados até 30/jun/26. Unidade = Número do Requerimento; cotas de FIDC, oferta primária, status Oferta Encerrada e Valor Total Registrado positivo.`,
+      27,
+    );
+    addSectionLabel(slide, "JAN–JUN · VOLUME REGISTRADO E TICKET", { left: 60, top: 145, width: 550, height: 24 });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 60, top: 180, width: 550, height: 245 }),
+      categories: janJune.map((row) => String(row.year)),
+      series: [
+        {
+          name: "Volume registrado",
+          values: janJune.map((row) => num(row.registered_volume_brl) / 1e9),
+          valuesFormatCode: "0.0",
+          fill: C.charcoal,
+          points: janJune.map((row, idx) => ({
+            idx,
+            fill: num(row.year) === currentOfferYear ? C.orange : C.charcoal,
+          })),
+          dataLabelOverrides: janJune.map((row, idx) => ({
+            idx,
+            showValue: true,
+            position: "outEnd",
+            text: `${(num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} bi\n${integer(row.closed_offers)} · ${mm(row.mean_registered_ticket_brl, 0)}`,
+            textStyle: { fill: C.black, fontSize: 9.5, bold: true },
+          })),
+        },
+      ],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 60 },
+      hasLegend: false,
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 11 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: { ...chartAxis(9, "0"), min: 0 },
+      dataLabels: {
+        showValue: true,
+        position: "outEnd",
+        textStyle: { fill: C.black, fontSize: 9.5, bold: true },
+      },
+    });
+    addSectionLabel(slide, "VOLUME ACUMULADO · JAN–JUN · R$ BI", { left: 670, top: 145, width: 550, height: 24 });
+    addStraightLineChart(slide, {
+      position: { left: 670, top: 180, width: 550, height: 245 },
+      categories: MONTHS_SHORT_PT.slice(0, 6).map((month) => month[0].toUpperCase() + month.slice(1)),
+      series: [
+        { name: "2024", values: cumulative(2024), valuesFormatCode: "0.0", line: { style: "solid", fill: C.note, width: 2 } },
+        { name: "2025", values: cumulative(2025), valuesFormatCode: "0.0", line: { style: "solid", fill: C.charcoal, width: 2.2 } },
+        { name: "2026", values: cumulative(2026), valuesFormatCode: "0.0", line: { style: "solid", fill: C.orange, width: 3 } },
+      ],
+      yAxis: { ...chartAxis(9, "0"), min: 0 },
+      labelIndices: [0, 1, 2, 3, 4, 5],
+      labelFontSize: 8.8,
+    });
+    addLegend(slide, [
+      { label: "2024", color: C.note },
+      { label: "2025", color: C.charcoal },
+      { label: "2026", color: C.orange },
+    ], { left: 810, top: 420, width: 410, height: 22 }, 3);
+    addNativeEditorialTable(slide, {
+      left: 60,
+      top: 466,
+      width: 1160,
+      height: 150,
+      headers: ["Ano", "Ofertas encerradas", "Volume registrado", "Ticket médio", "Ticket mediano", "PF no volume colocado", "Público profissional"],
+      rows: annual.map((row) => [
+        num(row.year) === currentOfferYear ? `${row.year} jan–jun` : `${row.year} FY`,
+        integer(row.closed_offers),
+        bn(row.registered_volume_brl, 1),
+        mm(row.mean_registered_ticket_brl, 1),
+        mm(row.median_registered_ticket_brl, 1),
+        pct(row.natural_person_placed_volume_share, 1),
+        pct(row.professional_target_registered_volume_share, 1),
+      ]),
+      columnWidths: [100, 155, 180, 155, 155, 205, 210],
+      aligns: ["left", "right", "right", "right", "right", "right", "right"],
+      fontSize: 8.8,
+      headerFontSize: 8.5,
+      rowHighlights: new Set([annual.length - 1]),
+    });
+    addText(
+      slide,
+      `PF representa ${pct(current.natural_person_placed_volume_share, 1)} do proxy de volume colocado; a cobertura por quantidade colocada equivale a ${pct(current.placed_quantity_registered_volume_coverage, 1)} do valor registrado.`,
+      { left: 60, top: 626, width: 1160, height: 30 },
+      { fontSize: 10.2, color: C.note, alignment: "right", verticalAlignment: "middle" },
+    );
+  }
+
+  // 29. Distribuição do ticket.
   {
     const slide = presentation.slides.add();
     const distribution = [...(payload.closed_offer_ticket_distribution || [])]
@@ -2960,15 +3131,15 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
       `A mediana caiu a ${mm(current.period_median_ticket_brl, 1)}; ${integer(over500.closed_offers)} ofertas acima de R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume YTD26`,
-      `Fonte: CVM, Ofertas Públicas, snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. 2024/2025 = ano completo; 2026 = jan–mai. Cotas de FIDC, oferta primária, Oferta Encerrada, valor registrado positivo; unidade = Número do Requerimento.`,
-      19 + providerInsightOffset,
+      `Fonte: CVM, Ofertas Públicas, snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. 2024/2025 = ano completo; 2026 = jan–jun. Cotas de FIDC, oferta primária, Oferta Encerrada, valor registrado positivo; unidade = Número do Requerimento.`,
+      28,
     );
     addSectionLabel(slide, "% DAS OFERTAS POR FAIXA DE VALOR REGISTRADO", { left: 60, top: 145, width: 780, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 183, width: 780, height: 365 }),
       categories: buckets,
       series: periodLabels.map((period, index) => ({
-        name: period === "Jan–mai/26" ? period : period.replace(" FY", ""),
+        name: period === "2026 jan-jun" ? "Jan–jun/26" : period.replace(" FY", ""),
         values: buckets.map((bucket) => num(rowFor(period, bucket).offer_share)),
         valuesFormatCode: "0%",
         fill: [C.note, C.charcoal, C.orange][index] || C.charcoal,
@@ -3003,13 +3174,13 @@ function buildPresentation(payload, flowAssets) {
     addMetric(slide, pct(over500.registered_volume_share, 1), "do volume YTD26 está em ofertas ≥ R$ 500 mi", { left: 895, top: 458, width: 305, height: 92 }, true);
     addText(
       slide,
-      `A média volta a ${mm(current.period_mean_ticket_brl, 1)}, enquanto a mediana recua de R$ 30,0 mi em 2024 para ${mm(current.period_median_ticket_brl, 1)} em jan–mai/26. A cauda de operações grandes elevou o volume sem deslocar o centro da distribuição na mesma proporção.`,
+      `A média ficou em ${mm(current.period_mean_ticket_brl, 1)}, enquanto a mediana recuou de R$ 30,0 mi em 2024 para ${mm(current.period_median_ticket_brl, 1)} em jan–jun/26. A cauda de operações grandes elevou o volume sem deslocar o centro da distribuição na mesma proporção.`,
       { left: 60, top: 585, width: 1160, height: 52 },
       { fontSize: 11.2, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
     );
   }
 
-  // 26. Originadores nomináveis de 2026
+  // 30. Originadores nomináveis de 2026
   {
     const slide = presentation.slides.add();
     const originators = [...(payload.closed_offer_originators_2026 || [])]
@@ -3021,8 +3192,8 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
       `${integer(originators.length)} originadores identificados somam ${bn(identified, 1)} em 2026; cobertura nominal de ${pct(coverage, 1)}`,
-      "Fonte: CVM, Ofertas Públicas; encerramentos até 17/jul/26. Origem = primeiro match nominal auditável em emissor, ativos-alvo, lastro ou devedores; residual não identificado.",
-      26,
+      "Fonte: CVM, Ofertas Públicas; encerramentos até 30/jun/26. Origem = primeiro match nominal auditável em Nome do Emissor ou Ativos-alvo; residual não identificado.",
+      29,
     );
     addSectionLabel(slide, "VOLUME REGISTRADO · R$ BI", { left: 60, top: 145, width: 720, height: 24 });
     slide.charts.add("bar", {
@@ -3094,7 +3265,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "APÊNDICE · ESCOPO E FONTES",
       "Escopo, fontes e limitações",
-      `• Fontes primárias: CVM, ANBIMA Data e FundosNet. Ofertas consultadas em ${offersSourceShort}.`,
+      `• CVM, ANBIMA Data e FundosNet. ${stockPreliminaryDisclosure} Ofertas consultadas em ${offersSourceShort}.`,
       20 + providerInsightOffset,
     );
     addEditorialTable(slide, {
@@ -3559,10 +3730,11 @@ async function addQaSheet(workbook) {
   sheet.getRange(`A5:AB${rows.length + 4}`).format.rowHeightPx = 22;
 }
 
-async function addVehicleCompetenceSheet(workbook) {
+async function addVehicleCompetenceSheet(workbook, payload) {
   const csv = await readCsv(path.join(REVISION_DIR, "base_competencia_cnpj.csv.gz"));
   const competenceIndex = csv.headers.indexOf("competencia");
-  const auditMonths = new Set(["2024-06", "2024-07", "2026-05"]);
+  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
+  const auditMonths = new Set(["2024-06", "2024-07", payload.latest_complete]);
   const scopedCsvRows = csv.rows.filter((row) => auditMonths.has(row[competenceIndex]));
   const selected = [
     ["Competência", "competencia"],
@@ -3606,7 +3778,7 @@ async function addVehicleCompetenceSheet(workbook) {
   setHeaderBand(
     sheet,
     "Base competência/CNPJ",
-    "Recorte operacional de jun/24, jul/24 e mai/26. A base longitudinal completa está em data/industry_study/generated_revision/base_competencia_cnpj.csv.gz. Ajustado e excesso são fórmulas.",
+    `Recorte operacional de jun/24, jul/24 e ${stockShortLower}. A base longitudinal completa está em data/industry_study/generated_revision/base_competencia_cnpj.csv.gz. Ajustado e excesso são fórmulas.`,
     headers,
     rows.length,
     { freezeColumns: 3, bodyFontSize: 8.5 },
@@ -3629,7 +3801,7 @@ async function addVehicleCompetenceSheet(workbook) {
   applyFormatsByHeader(sheet, headers, rows.length);
 }
 
-async function addFundBaseSheet(workbook) {
+async function addFundBaseSheet(workbook, payload) {
   const csv = await readCsv(path.join(REVISION_DIR, "monoestrutura_por_fundo.csv"));
   const sourceRows = csvRowsAsObjects(csv);
   const columns = [
@@ -3661,7 +3833,7 @@ async function addFundBaseSheet(workbook) {
   setHeaderBand(
     sheet,
     "Base por fundo/CNPJ",
-    "Fotografia de mai/26 reconciliada a 4.222 fundos. A unidade legal e a entidade econômica normalizada permanecem em colunas distintas.",
+    `Fotografia de ${competenceShortPt(payload.latest_complete).toLowerCase()} reconciliada a ${integer(rows.length)} fundos. A unidade legal e a entidade econômica normalizada permanecem em colunas distintas.`,
     headers,
     rows.length,
     { freezeColumns: 3, bodyFontSize: 8.5 },
@@ -3766,7 +3938,7 @@ async function addTop20Sheets(workbook, payload) {
     const headers = columns.map(([header]) => header);
     const rows = worksheetRowsFromPayload(payload.top20_fidcs, columns);
     const sheet = resetSheet(workbook, "Top 20 FIDCs");
-    setHeaderBand(sheet, "Top 20 FIDCs", "Ranking de mai/26 sobre o universo completo ex-FIC. Exatamente 20 fundos; ficha detalhada na aba 'Curadoria Top 20'.", headers, rows.length, { freezeColumns: 3, wrapText: true });
+    setHeaderBand(sheet, "Top 20 FIDCs", `Ranking de ${competenceShortPt(payload.latest_complete).toLowerCase()} sobre o universo completo ex-FIC. Exatamente 20 fundos; ficha detalhada na aba 'Curadoria Top 20'.`, headers, rows.length, { freezeColumns: 3, wrapText: true });
     await writeRowsInChunks(sheet, 4, headers, rows);
     applyColumnWidths(sheet, [60, 120, 360, 120, 110, 150, 180, 190, 260, 260, 260, 170, 110], rows.length);
     applyFormatsByHeader(sheet, headers, rows.length);
@@ -4047,13 +4219,14 @@ async function addSingleReceivableDelinquencySheet(workbook, payload) {
 }
 
 async function addFrozenDelinquencyHistorySheet(workbook, payload) {
+  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const columns = [
     ["Competência", "competencia"],
-    ["Tipo Tabela II congelado em mai/26", "tipo_recebivel_tabela_ii"],
+    [`Tipo Tabela II congelado em ${stockShortLower}`, "tipo_recebivel_tabela_ii"],
     ["Fundos da coorte", "fundos_coorte"],
     ["Fundos presentes", "fundos_presentes"],
     ["Fundos incluídos", "fundos_incluidos"],
-    ["PL da coorte em mai/26", "pl_coorte_referencia_brl"],
+    [`PL da coorte em ${stockShortLower}`, "pl_coorte_referencia_brl"],
     ["PL presente", "pl_presente_brl"],
     ["PL incluído", "pl_incluido_brl"],
     ["Carteira incluída", "carteira_incluida_brl"],
@@ -4071,7 +4244,7 @@ async function addFrozenDelinquencyHistorySheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Inadimplência histórica da coorte atual por tipo de recebível",
-    "Coorte e subtipo congelados em mai/26. Em cada competência entram apenas os mesmos CNPJs presentes, ex-FIC, com PL positivo, campos reportados e inadimplência até a carteira. A série incorpora viés de sobrevivência.",
+    `Coorte e subtipo congelados em ${stockShortLower}. Em cada competência entram apenas os mesmos CNPJs presentes, ex-FIC, com PL positivo, campos reportados e inadimplência até a carteira. A série incorpora viés de sobrevivência.`,
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 8 },
@@ -4126,11 +4299,15 @@ async function addBankFidcSheet(workbook, payload) {
     ["Raízes listadas", "fundos_curados"],
     ["Raízes observadas", "fundos_observados"],
     ["PL bruto", "pl_bruto_brl"],
+    ["PL bruto original", "pl_brl_raw"],
+    ["PL oficial recuperado", "pl_recovered_official"],
+    ["Sufixo", "pl_display_suffix"],
     ["Observado", "observado"],
     ["Raízes de CNPJ listadas", "raizes_cnpj_listadas"],
     ["Raízes de CNPJ observadas", "raizes_cnpj_observadas"],
     ["Raízes ausentes", "raizes_cnpj_nao_observadas"],
     ["Referências", "source_references"],
+    ["Fonte do PL recuperado", "pl_source_references"],
     ["Definição", "metodologia"],
   ];
   const headers = columns.map(([header]) => header);
@@ -4139,18 +4316,18 @@ async function addBankFidcSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Evolução dos FIDCs hoje listados para cinco bancos",
-    "Coorte fixa de raízes de CNPJ extraída de FIDCs.xlsx. A série mede o PL bruto histórico do conjunto atual e não reproduz datas societárias de consolidação contábil. Ausência de reporte permanece vazia.",
+    "Coorte fixa de raízes de CNPJ extraída de FIDCs.xlsx. Dez/25 inclui o PL oficial recuperado do BTG Consignados I, com valor bruto original preservado. A série não reproduz datas societárias de consolidação contábil.",
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [90, 150, 95, 105, 125, 85, 250, 250, 220, 300, 520], rows.length);
+  applyColumnWidths(sheet, [90, 150, 95, 105, 125, 125, 95, 55, 85, 250, 250, 220, 300, 300, 520], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
   sheet.getRange(`C5:D${rows.length + 4}`).format.numberFormat = "#,##0";
-  sheet.getRange(`E5:E${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`G5:I${rows.length + 4}`).format.numberFormat = "@";
-  sheet.getRange(`A5:K${rows.length + 4}`).format.rowHeightPx = 58;
+  sheet.getRange(`E5:F${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`J5:L${rows.length + 4}`).format.numberFormat = "@";
+  sheet.getRange(`A5:O${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
 async function addBankFidcDetailSheet(workbook, payload) {
@@ -4162,6 +4339,10 @@ async function addBankFidcDetailSheet(workbook, payload) {
     ["Fundo", "denominacao"],
     ["Nome curto", "nome_curto"],
     ["PL bruto", "pl_brl"],
+    ["PL bruto original", "pl_brl_raw"],
+    ["PL oficial recuperado", "pl_recovered_official"],
+    ["Sufixo", "pl_display_suffix"],
+    ["Fonte do PL recuperado", "pl_source_reference"],
     ["Observado", "observado"],
     ["PL reportado zero", "pl_reportado_zero"],
     ["Referência da curadoria", "source_reference"],
@@ -4172,16 +4353,16 @@ async function addBankFidcDetailSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Fundos da coorte atual dos cinco bancos",
-    "Fundos listados nos conglomerados prudenciais consultados no BCB em jul/26 e reproduzidos em FIDCs.xlsx. A visão retroativa acompanha somente esse conjunto atual; fundos antes consolidados e hoje ausentes não são recuperados.",
+    "Fundos listados nos conglomerados prudenciais consultados no BCB em jul/26 e reproduzidos em FIDCs.xlsx. O BTG Consignados I em dez/25 usa PL oficial recuperado do IME/DF, mantendo o zero bruto para auditoria. A visão retroativa acompanha somente o conjunto atual.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [90, 135, 90, 125, 390, 170, 125, 80, 100, 230], rows.length);
+  applyColumnWidths(sheet, [90, 135, 90, 125, 390, 170, 125, 125, 95, 55, 320, 80, 100, 230], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
-  sheet.getRange(`G5:G${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 42;
+  sheet.getRange(`G5:H${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`A5:N${rows.length + 4}`).format.rowHeightPx = 52;
 }
 
 async function addAcquiringReclassificationSheet(workbook, payload) {
@@ -4221,7 +4402,8 @@ async function addAcquiringReclassificationSheet(workbook, payload) {
 async function addClosedOffersSheet(workbook, payload) {
   const rows = [];
   (payload.closed_offers_annual || []).forEach((row) => rows.push({ "Painel": "Ano / YTD", ...row }));
-  (payload.closed_offers_jan_may || []).forEach((row) => rows.push({ "Painel": "Jan–mai", ...row }));
+  (payload.closed_offers_jan_june || payload.closed_offers_jan_may || [])
+    .forEach((row) => rows.push({ "Painel": "Jan–jun", ...row }));
   (payload.closed_offers_monthly || []).forEach((row) => rows.push({ "Painel": "Mensal", ...row }));
   const headers = [
     "Painel", "year", "month", "competence", "period_label", "period_start", "period_end",
@@ -4282,7 +4464,7 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Distribuição do valor registrado das ofertas encerradas",
-    "2024 e 2025 usam o ano completo; 2026 usa jan–mai. Uma oferta corresponde ao Número do Requerimento. Ticket = Valor Total Registrado.",
+    "2024 e 2025 usam o ano completo; 2026 usa jan–jun. Uma oferta corresponde ao Número do Requerimento. Ticket = Valor Total Registrado.",
     headers,
     rows.length,
     { freezeColumns: 7, wrapText: true, bodyFontSize: 8 },
@@ -4300,10 +4482,12 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
 
 async function addConclusionsSheet(workbook, payload) {
   const metrics = payload.conclusion_metrics || {};
+  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
-  const currentOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2026) || {};
-  const priorOffer = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2025) || {};
-  const offer2024 = (payload.closed_offers_jan_may || []).find((row) => num(row.year) === 2024) || {};
+  const comparableOffers = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [];
+  const currentOffer = comparableOffers.find((row) => num(row.year) === 2026) || {};
+  const priorOffer = comparableOffers.find((row) => num(row.year) === 2025) || {};
+  const offer2024 = comparableOffers.find((row) => num(row.year) === 2024) || {};
   const concentration = Object.fromEntries(
     (payload.provider_concentration_history || [])
       .filter((row) => row.competencia === payload.latest_complete)
@@ -4323,8 +4507,8 @@ async function addConclusionsSheet(workbook, payload) {
   ) || {};
   const qa = payload.qa_latest || {};
   const rows = [
-    ["Distribuição", "Ticket médio", mm(currentOfferYtd.mean_registered_ticket_brl, 1), "2026 YTD até 17/jul", "CVM, Ofertas Públicas; Valor Total Registrado / Número do Requerimento"],
-    ["Distribuição", "Ticket mediano", mm(currentOfferYtd.median_registered_ticket_brl, 1), "2026 YTD até 17/jul", "CVM, Ofertas Públicas"],
+    ["Distribuição", "Ticket médio", mm(currentOfferYtd.mean_registered_ticket_brl, 1), "2026 jan–jun", "CVM, Ofertas Públicas; Valor Total Registrado / Número do Requerimento"],
+    ["Distribuição", "Ticket mediano", mm(currentOfferYtd.median_registered_ticket_brl, 1), "2026 jan–jun", "CVM, Ofertas Públicas"],
     ["Distribuição", "PF no proxy de volume colocado", pct(currentOfferYtd.natural_person_placed_volume_share, 1), `Cobertura: ${pct(currentOfferYtd.placed_quantity_registered_volume_coverage, 1)} do valor registrado`, "Proxy = quantidade colocada × preço unitário implícito, limitado ao valor registrado"],
     ["Distribuição", "Fundos com até dez contas", pct(metrics.holder_ge_200m_share_fundos_ate_10_contas, 1), `${integer(metrics.holder_ge_200m_fundos)} fundos com PL ≥ R$ 200 mi`, "Contas agregadas ao CNPJ legal; não equivalem a investidores únicos"],
     ["Concentração", "Top 10 em administração", pct(concentration.administrador?.top10_share, 1), "PL ex-FIC; sem Petrobras/TAPSO", "CVM"],
@@ -4334,17 +4518,17 @@ async function addConclusionsSheet(workbook, payload) {
     ["Verticalização", "Monoestruturas", pct(metrics.monoestrutura_share_pl, 1), `${integer(metrics.monoestrutura_fundos)} fundos; universo bruto`, "Administração, gestão e custódia no mesmo grupo"],
     ["BTG", "Combo completo ex-FIC", integer(metrics.btg_combo_tres_funcoes_fundos), bn(metrics.btg_combo_tres_funcoes_pl_brl, 1), "Administração, gestão e custódia no grupo BTG"],
     ["BTG", "Combo ex-FIC após seis controlados", integer(metrics.btg_combo_ex_controlados_fundos), bn(metrics.btg_combo_ex_controlados_pl_brl, 1), "A DF confirma a exclusão e não permite classificar integralmente o saldo como terceiros"],
-    ["Independentes", "QI Tech em administração", bn(provider("administrador", "QI Tech").pl_brl, 1), "mai/26", "Singulare consolidada no grupo QI Tech"],
-    ["Independentes", "QI Tech em custódia", bn(provider("custodiante", "QI Tech").pl_brl, 1), "mai/26", "Singulare consolidada no grupo QI Tech"],
-    ["Independentes", "Oliveira Trust em gestão", bn(provider("gestor", "Oliveira Trust").pl_brl, 1), "mai/26; 3ª geral", "Maior gestora independente na curadoria"],
-    ["Independentes", "PL continuante CBSF/Reag migrado", pct(reag.migrated_share_current, 1), `${integer(reag.migrated_funds)} fundos`, "Carteira administrada pela CBSF/Reag em dez/25; destino em mai/26"],
-    ["Ofertas", "Ofertas encerradas", integer(currentOfferYtd.closed_offers), bn(currentOfferYtd.registered_volume_brl, 1), "2026 YTD até 17/jul; ofertas primárias de cotas de FIDC"],
-    ["Ofertas", "Volume jan–mai/26", bn(currentOffer.registered_volume_brl, 1), `${pct(num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1, 1)} vs. 2025; ${pct(num(currentOffer.registered_volume_brl) / num(offer2024.registered_volume_brl) - 1, 1)} vs. 2024`, "Corte comparável jan–mai"],
+    ["Independentes", "QI Tech em administração", bn(provider("administrador", "QI Tech").pl_brl, 1), stockShortLower, "Singulare consolidada no grupo QI Tech"],
+    ["Independentes", "QI Tech em custódia", bn(provider("custodiante", "QI Tech").pl_brl, 1), stockShortLower, "Singulare consolidada no grupo QI Tech"],
+    ["Independentes", "Oliveira Trust em gestão", bn(provider("gestor", "Oliveira Trust").pl_brl, 1), `${stockShortLower}; 3ª geral`, "Maior gestora independente na curadoria"],
+    ["Independentes", "PL continuante CBSF/Reag migrado", pct(reag.migrated_share_current, 1), `${integer(reag.migrated_funds)} fundos`, `Carteira administrada pela CBSF/Reag em dez/25; destino em ${stockShortLower}`],
+    ["Ofertas", "Ofertas encerradas", integer(currentOfferYtd.closed_offers), bn(currentOfferYtd.registered_volume_brl, 1), "2026 jan–jun; ofertas primárias de cotas de FIDC"],
+    ["Ofertas", "Volume jan–jun/26", bn(currentOffer.registered_volume_brl, 1), `${pct(num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1, 1)} vs. 2025; ${pct(num(currentOffer.registered_volume_brl) / num(offer2024.registered_volume_brl) - 1, 1)} vs. 2024`, "Corte comparável jan–jun"],
     ["Ofertas", "Maior oferta individual", bn(cloudwalk.registered_volume_brl, 1), "CloudWalk", "Maior oferta individual da base 2026 YTD"],
     ["Migração", "Fundos que trocaram de administrador", integer(metrics.admin_transition_2024_2025_changed_funds), `${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}; ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável`, "Dez/24 → dez/25; PL comparável = min(PL origem, PL destino)"],
     ["Migração", "Oliveira Trust → Bradesco", bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1), `${integer(metrics.admin_transition_2024_2025_cielo_funds)} FIDCs Cielo`, "Maior fluxo bilateral no recorte dez/24 → dez/25"],
-    ["Limitações", "Outros na taxonomia ANBIMA", pct(outros.share, 1), "PL ex-FIC em mai/26", "Classificação combina ANBIMA, evidência, proxy CVM e N/D"],
-    ["Limitações", "Inadimplência acima da carteira", integer(qa.casos_inad_supera_carteira), bn(qa.excesso_removido_brl, 1), "Cap por veículo; mai/26"],
+    ["Limitações", "Outros na taxonomia ANBIMA", pct(outros.share, 1), `PL ex-FIC em ${stockShortLower}`, "Classificação combina ANBIMA, evidência, proxy CVM e N/D"],
+    ["Limitações", "Inadimplência acima da carteira", integer(qa.casos_inad_supera_carteira), bn(qa.excesso_removido_brl, 1), `Cap por veículo; ${stockShortLower}`],
   ];
   const headers = ["Tema", "Métrica", "Valor", "Universo / leitura", "Fonte / limitação"];
   const sheet = resetSheet(workbook, "Principais conclusões");
@@ -4474,7 +4658,7 @@ async function addProviderAttributionSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Atribuição das lideranças de prestadores",
-    "QI/Singulare separados por CNPJ legal em dez/24; FIDCs controlados do BTG reconciliados nominalmente à DF consolidada 1T26 e ao PL CVM de mai/26.",
+    `QI/Singulare separados por CNPJ legal em dez/24; FIDCs controlados do BTG reconciliados nominalmente à DF consolidada 1T26 e ao PL CVM de ${competenceShortPt(payload.latest_complete).toLowerCase()}.`,
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 9 },
@@ -4603,10 +4787,11 @@ async function addProviderTransitionSheet(workbook, payload) {
     });
   });
   const sheet = resetSheet(workbook, "Fluxos prestadores");
+  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   setHeaderBand(
     sheet,
-    "Fluxos de prestadores · dez/24 → mai/26",
-    "Administração: coorte atual, administrador observado nas duas datas e largura = PL mai/26. Gestão e custódia: amostra histórica ICVM 555 com cobertura explícita e sem extrapolação. Sistema Petrobras/TAPSO excluídos.",
+    `Fluxos de prestadores · dez/24 → ${stockShortLower}`,
+    `Administração: coorte atual, administrador observado nas duas datas e largura = PL ${stockShortLower}. Gestão e custódia: amostra histórica ICVM 555 encerrada em mai/26, com cobertura explícita e sem extrapolação. Sistema Petrobras/TAPSO excluídos.`,
     headers,
     rows.length,
     { freezeColumns: 6, wrapText: true, bodyFontSize: 8 },
@@ -4618,6 +4803,12 @@ async function addProviderTransitionSheet(workbook, payload) {
 }
 
 async function addReagMigrationSheet(workbook, payload) {
+  const summary = payload.reag_admin_summary || {};
+  const destinationCompetence = summary.competencia_destino || payload.latest_complete;
+  const destinationShortLower = competenceShortPt(destinationCompetence).toLowerCase();
+  const currentPlHeader = `PL ${destinationShortLower}`;
+  const currentManagerHeader = `Gestor vigente ${destinationShortLower}`;
+  const currentCustodianHeader = `Custodiante vigente ${destinationShortLower}`;
   const headers = [
     "Nível",
     "Competência origem",
@@ -4630,22 +4821,21 @@ async function addReagMigrationSheet(workbook, payload) {
     "CNPJ administrador destino",
     "Fundos",
     "PL dez/25",
-    "PL mai/26",
+    currentPlHeader,
     "PL comparável",
     "Mudou administrador",
-    "Gestor vigente mai/26",
-    "Custodiante vigente mai/26",
+    currentManagerHeader,
+    currentCustodianHeader,
     "Fonte / limitação",
   ];
   const rows = [];
-  const summary = payload.reag_admin_summary || {};
   rows.push({
     "Nível": "Resumo",
     "Competência origem": summary.competencia_origem,
     "Competência destino": summary.competencia_destino,
     "Fundos": summary.funds_origin,
     "PL dez/25": summary.pl_origin_brl,
-    "PL mai/26": summary.continuing_pl_current_brl,
+    [currentPlHeader]: summary.continuing_pl_current_brl,
     "Fonte / limitação": [summary.source, summary.liquidation_source_url, summary.manager_custodian_history_limitation].filter(Boolean).join(" · "),
   });
   (payload.reag_admin_links || []).forEach((row) => {
@@ -4658,7 +4848,7 @@ async function addReagMigrationSheet(workbook, payload) {
       "CNPJ administrador destino": row.admin_destino_cnpj,
       "Fundos": row.fundos,
       "PL dez/25": row.pl_2025_12_brl,
-      "PL mai/26": row.pl_2026_05_brl,
+      [currentPlHeader]: row.pl_current_brl ?? row.pl_2026_05_brl,
       "PL comparável": row.pl_comparavel_brl,
       "Fonte / limitação": "Administrador observado no Informe Mensal",
     });
@@ -4675,11 +4865,11 @@ async function addReagMigrationSheet(workbook, payload) {
       "Grupo destino": row.admin_destino_grupo,
       "CNPJ administrador destino": row.admin_destino_cnpj,
       "PL dez/25": row.pl_origem_brl,
-      "PL mai/26": row.pl_destino_brl,
+      [currentPlHeader]: row.pl_destino_brl,
       "PL comparável": row.pl_comparavel_brl,
       "Mudou administrador": row.mudou_administrador,
-      "Gestor vigente mai/26": row.gestor_destino_nome_observado,
-      "Custodiante vigente mai/26": row.custodiante_destino_nome_observado,
+      [currentManagerHeader]: row.gestor_destino_nome_observado,
+      [currentCustodianHeader]: row.custodiante_destino_nome_observado,
       "Fonte / limitação": row.fonte_destino_url || row.fonte_origem_url,
     });
   });
@@ -4687,7 +4877,7 @@ async function addReagMigrationSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "CBSF / Reag Trust · destino do cohort",
-    "Cohort do administrador CNPJ 34.829.992/0001-86 em dez/25 acompanhado até mai/26. Administração é observada; gestor e custodiante são somente a fotografia vigente, sem inferência de migração.",
+    `Cohort do administrador CNPJ 34.829.992/0001-86 em dez/25 acompanhado até ${destinationShortLower}. Administração é observada; gestor e custodiante são somente a fotografia vigente, sem inferência de migração.`,
     headers,
     rows.length,
     { freezeColumns: 5, wrapText: true, bodyFontSize: 8 },
@@ -4809,14 +4999,17 @@ async function addAcquiringTaxonomySheet(workbook, payload) {
 
 async function addAtlanticoSheet(workbook, payload) {
   const profile = payload.atlantico_profile;
+  const atlanticoShortLower = competenceShortPt(
+    profile.snapshot?.competencia || payload.latest_complete,
+  ).toLowerCase();
   const factHeaders = ["Seção", "Campo", "Evidência / leitura", "Status / limitação"];
   const facts = [
-    ["Identificação", "CNPJ / denominação", `${profile.cnpj} · ${profile.denominacao}`, "CVM; mai/26"],
+    ["Identificação", "CNPJ / denominação", `${profile.cnpj} · ${profile.denominacao}`, `CVM; ${atlanticoShortLower}`],
     ["Estrutura", "Estratégia", profile.estrategia, "Política vigente; não inferida pelo nome"],
     ["Estrutura", "Classificação", profile.classificacao, `is_np do pipeline = ${String(profile.is_np_pipeline)}`],
     ["Carteira", "Cedentes / originadores", profile.cedente_originador, "Top 2 cobrem 30%; demais não nominados"],
     ["Carteira", "Sacados / devedores", profile.perfil_sacados, "Lista individual não pública"],
-    ["Carteira", "Natureza dos recebíveis", profile.natureza_recebiveis, "Mix de mai/26 no informe mensal"],
+    ["Carteira", "Natureza dos recebíveis", profile.natureza_recebiveis, `Mix de ${atlanticoShortLower} no informe mensal`],
     ["Economia", "Funcionamento", profile.funcionamento_economico, "Valor contábil ≠ valor de face"],
     ["Governança", "Prestadores", profile.prestadores, "Sefer administrou até 19/07/24"],
     ["Governança", "Público-alvo", profile.publico_alvo, "Conta de cotista ≠ identidade do investidor"],
@@ -4906,9 +5099,9 @@ async function addChecksSheet(workbook, payload) {
     ["Perfis Top 20", payload.profiles.length, 20, '=IF(B10=C10,"OK","ERRO")'],
     ["Combinações função×foco", focusRows.length, 42, '=IF(B11=C11,"OK","ERRO")'],
     ["Histograma cotistas dez/23 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share_fundos), 0), 1, '=IF(ABS(B12-C12)<0.0000001,"OK","ERRO")'],
-    ["Histograma cotistas mai/26 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === payload.latest_complete).reduce((s, r) => s + num(r.share_pl), 0), 1, '=IF(ABS(B13-C13)<0.0000001,"OK","ERRO")'],
+    [`Histograma cotistas ${competenceShortPt(payload.latest_complete).toLowerCase()} fecha 100%`, payload.holder_distribution_history.filter((r) => r.competencia === payload.latest_complete).reduce((s, r) => s + num(r.share_pl), 0), 1, '=IF(ABS(B13-C13)<0.0000001,"OK","ERRO")'],
     ["Tipo ANBIMA dez/23 fecha 100%", payload.type_mix_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share), 0), 1, '=IF(ABS(B14-C14)<0.0000001,"OK","ERRO")'],
-    ["Recebíveis mai/26 fecham 100%", payload.receivables_history.filter((r) => r.competencia === payload.latest_complete).reduce((s, r) => s + num(r.share_reported), 0), 1, '=IF(ABS(B15-C15)<0.0000001,"OK","ERRO")'],
+    [`Recebíveis ${competenceShortPt(payload.latest_complete).toLowerCase()} fecham 100%`, payload.receivables_history.filter((r) => r.competencia === payload.latest_complete).reduce((s, r) => s + num(r.share_reported), 0), 1, '=IF(ABS(B15-C15)<0.0000001,"OK","ERRO")'],
     ["Caso Atlântico presente", payload.atlantico_history.length, 5, '=IF(B16=C16,"OK","ERRO")'],
     ["Tipos únicos publicados", (payload.delinquency_single_receivable || []).length, 10, '=IF(B17=C17,"OK","ERRO")'],
     ["Prestadores independentes materializados", (payload.provider_independent_ranking || []).length > 0 ? 1 : 0, 1, '=IF(B18=C18,"OK","ERRO")'],
@@ -4934,8 +5127,8 @@ async function addChecksSheet(workbook, payload) {
 async function buildWorkbook(payload, flowAssets) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
   await addQaSheet(workbook);
-  await addVehicleCompetenceSheet(workbook);
-  await addFundBaseSheet(workbook);
+  await addVehicleCompetenceSheet(workbook, payload);
+  await addFundBaseSheet(workbook, payload);
   await addMonoConcentrationSheet(workbook);
   await addMarketShareSheet(workbook);
   await addTop20Sheets(workbook, payload);

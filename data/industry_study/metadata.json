@@ -1,10 +1,10 @@
 {
-  "gerado_em_utc": "2026-07-16T16:33:58+00:00",
+  "gerado_em_utc": "2026-07-21T14:55:50+00:00",
   "fonte_informe_mensal": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS (+ HIST/)",
   "fonte_cadastro": "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip",
   "competencia_inicial": "201301",
   "competencia_final": "202606",
-  "competencia_snapshot": "202605",
+  "competencia_snapshot": "202606",
   "n_competencias": 162,
   "observacoes": [
     "Unidade de observacao: veiculo reportante (fundo ate a adaptacao a RCVM 175, classe depois).",
@@ -20,10 +20,10 @@
   ],
   "ultima_atualizacao_status": {
     "competencia": "2026-06",
-    "status": "preliminar",
-    "veiculos_vs_mes_anterior": 0.4707830612727703,
-    "pl_vs_mes_anterior": 0.35144494933072584,
-    "snapshot_promovido": false,
-    "snapshot_promocao_motivo": "competência ainda não está completa"
+    "status": "completa",
+    "veiculos_vs_mes_anterior": 1.0059143600662408,
+    "pl_vs_mes_anterior": 1.0029028070153325,
+    "snapshot_promovido": true,
+    "snapshot_promocao_motivo": "snapshot validado e promovido"
   }
 }

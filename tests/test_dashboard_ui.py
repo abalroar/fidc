@@ -36,6 +36,9 @@ from tabs.tab_industry_study import (
     _industry_monostructure_frames,
     _revision_holder_distribution_frame,
     _revision_history_frame,
+    _revision_offer_comparable_frame,
+    _revision_offer_current_row,
+    _revision_offers_cutoff,
     _revision_period_encoding,
     _render_industry_tab4_conflict_notice,
     _industry_tab4_conflict_notice,
@@ -350,7 +353,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Sistema Petrobras representa todo o PL mono do BB",
         "Evolução do PL",
         "Contas e veículos reportantes",
-        "Distribuição por número de contas: dez/23 e mai/26",
+        "Distribuição por número de contas: dez/23 e {stock_label_lower}",
         "Taxonomia CVM com abertura analítica de adquirência",
         "Fotografia da coorte",
         "Ranking e concentração dos prestadores",
@@ -362,7 +365,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "fonte_revisao",
         "Modelo de prestação e monoestruturas",
         "Distribuição do valor das emissões",
-        "Originadores nomináveis em 2026",
+        "Originadores nomináveis em jan–jun/26",
         "primeiro match nominal auditável",
     )
     for text in required_text:
@@ -386,6 +389,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "industry-revision-independent-",
         "industry-revision-service-model-shares",
         "industry-revision-closed-offer-ticket-histogram",
+        "industry-revision-closed-offers-jan-june",
         "industry-revision-originators-all",
     )
     for key in required_chart_keys:
@@ -401,25 +405,25 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
     revision_source = source[source.index("def _render_revision_conclusions") :]
 
     required_notes = (
-        "Fonte: CVM, ANBIMA e FundosNet; estoque em mai/26",
+        "Fonte: CVM, ANBIMA e FundosNet; estoque em",
         "Fonte: CVM, Informe Mensal de FIDC. PL bruto",
         "CAGR do PL bruto",
         "número de intervalos igual à diferença entre os anos",
-        "Fonte: CVM, Informe Mensal de FIDC, mai/26. Contas podem se repetir",
-        "Fonte: CVM, dez/23 e mai/26",
+        "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}. Contas podem se repetir",
+        "Fonte: CVM, dez/23 e {stock_label_lower}",
         "FIDCs.xlsx (13 CNPJs) + três FIDCs SELLER",
-        "Origem CVM dos CNPJs ativos em mai/26",
+        "Origem CVM dos CNPJs ativos em {_short_competence_label",
         "A Tabela II classifica o recebível reportado",
         "Linha laranja = consolidado de mercado ajustado",
-        "Fonte: CVM, dez/25 e mai/26",
+        "Fonte: CVM, dez/25 e {stock_label_lower}",
         "Fonte: CVM e DF BTG 1T26, nota 3.d",
         "Singulare é consolidada em QI Tech",
-        "Fonte: CVM, cadastro vigente em mai/26",
-        "Fonte: ANBIMA e documentos primários locais, mai/26",
-        "Fonte: CVM, Ofertas Públicas, snapshot de 20/jul/26",
-        "Fonte: CVM, Ofertas Públicas; encerramentos até 17/jul/26",
+        "Fonte: CVM, cadastro vigente em {stock_label_lower}",
+        "Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}",
+        "Fonte: CVM, Ofertas Públicas, consulta em",
+        "Fonte: CVM, Ofertas Públicas; encerramentos considerados até",
         "Fundos com mais de 10 contas ganharam",
-        "Financeiro encerra mai/26",
+        "Financeiro encerra {stock_label_lower}",
         "Top 10 concentra",
         "QI Tech lidera administração e custódia entre independentes",
         "Monoestruturas são",
@@ -428,6 +432,75 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
     )
     for note in required_notes:
         assert note in revision_source
+
+
+def test_industry_revision_offers_use_jan_june_cutoff_with_legacy_fallback() -> None:
+    annual = [
+        {
+            "year": 2026,
+            "closed_offers": 841,
+            "registered_volume_brl": 69_600_000_000.0,
+            "mean_registered_ticket_brl": 82_700_000.0,
+            "median_registered_ticket_brl": 22_500_000.0,
+            "natural_person_placed_volume_share": 0.04,
+            "placed_quantity_registered_volume_coverage": 0.973,
+            "professional_target_registered_volume_share": 0.938,
+        }
+    ]
+    jan_june = [
+        {
+            "year": 2026,
+            "period_end": "2026-06-30",
+            "closed_offers": 771,
+            "registered_volume_brl": 65_488_118_983.56,
+            "mean_registered_ticket_brl": 84_939_194.53,
+        }
+    ]
+    payload = {
+        "closed_offers_annual": annual,
+        "closed_offers_jan_june": jan_june,
+        "closed_offers_jan_may": [
+            {
+                "year": 2026,
+                "closed_offers": 554,
+                "registered_volume_brl": 51_475_000_000.0,
+                "mean_registered_ticket_brl": 92_900_000.0,
+            }
+        ],
+    }
+
+    comparable = _revision_offer_comparable_frame(payload)
+    current = _revision_offer_current_row(payload)
+
+    assert int(comparable.iloc[0]["closed_offers"]) == 771
+    assert int(current["closed_offers"]) == 771
+    assert float(current["registered_volume_brl"]) == pytest.approx(
+        65_488_118_983.56
+    )
+    assert float(current["median_registered_ticket_brl"]) == 22_500_000.0
+    assert _revision_offers_cutoff(payload) == "2026-06-30"
+
+    legacy = {"closed_offers_jan_may": payload["closed_offers_jan_may"]}
+    assert int(_revision_offer_comparable_frame(legacy).iloc[0]["closed_offers"]) == 554
+    assert _revision_offers_cutoff(legacy) == "2026-06-30"
+
+
+def test_industry_revision_offers_copy_and_charts_stop_at_june() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    offers_source = source[
+        source.index("def _render_revision_offers") : source.index(
+            "def _render_revision_data_exports"
+        )
+    ]
+
+    assert 'key="industry-revision-closed-offers-jan-june"' in offers_source
+    assert 'title="Jan–jun comparável"' in offers_source
+    assert 'title="Janeiro a junho · acumulado"' in offers_source
+    assert 'monthly["month"].le(6)' in offers_source
+    assert "encerramentos considerados até" in offers_source
+    assert "Jan–mai" not in offers_source
+    assert "jan–mai" not in offers_source
+    assert "17/jul/26" not in offers_source
 
 
 def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:

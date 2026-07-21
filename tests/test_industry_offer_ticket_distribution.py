@@ -24,7 +24,7 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
     expected = {
         "2024 FY": (1_009, 95_416_726_133.75, 94_565_635.41501486, 29_999_999.98),
         "2025 FY": (1_470, 116_348_319_054.77, 79_148_516.36378913, 25_000_000.0),
-        "2026 jan-mai": (554, 51_475_115_157.09, 92_915_370.31965703, 21_355_000.0),
+        "2026 jan-jun": (771, 65_488_118_983.56, 84_939_194.53120622, 22_500_000.0),
     }
     for label, (offers, volume, mean_ticket, median_ticket) in expected.items():
         period = distribution[distribution["period_label"].eq(label)]
@@ -40,8 +40,8 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
         )
         assert (period["closed_offers"] > 0).all()
 
-    assert len(outputs.cohort) == 3_033
-    assert outputs.cohort["numero_requerimento"].nunique() == 3_033
+    assert len(outputs.cohort) == 3_250
+    assert outputs.cohort["numero_requerimento"].nunique() == 3_250
 
 
 def test_published_bucket_counts_are_stable() -> None:
@@ -51,7 +51,7 @@ def test_published_bucket_counts_are_stable() -> None:
     ).sort_index()
     assert pivot["2024 FY"].tolist() == [231, 237, 175, 158, 94, 83, 31]
     assert pivot["2025 FY"].tolist() == [350, 374, 240, 232, 140, 98, 36]
-    assert pivot["2026 jan-mai"].tolist() == [140, 144, 83, 85, 52, 33, 17]
+    assert pivot["2026 jan-jun"].tolist() == [185, 207, 118, 121, 72, 46, 22]
 
 
 def _write_source_zip(path: Path, rows: list[dict[str, str]]) -> None:
@@ -93,7 +93,7 @@ def test_source_filters_periods_and_identical_deduplication(tmp_path: Path) -> N
     cohort = load_closed_offer_ticket_cohort(
         archive_path, expected_archive_sha256=None, source_as_of_date="2026-07-20"
     )
-    assert cohort["numero_requerimento"].tolist() == ["1"]
+    assert cohort["numero_requerimento"].tolist() == ["1", "6"]
     assert cohort.iloc[0]["ticket_bucket"] == "R$ 10–25 mi"
 
 

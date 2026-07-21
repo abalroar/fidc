@@ -10,6 +10,7 @@ from services.industry_revision_additions import (
     BANK_COHORT_HISTORY_COLUMNS,
     INDEPENDENT_PROVIDER_HISTORY_COLUMNS,
     build_acquiring_reclassified_cvm_mix,
+    build_fixed_bank_fidc_cohort_detail,
     build_fixed_bank_fidc_cohort_history,
     build_independent_provider_historical_ranking,
 )
@@ -220,6 +221,89 @@ def test_fixed_bank_cohort_rejects_duplicate_monthly_fund() -> None:
         build_fixed_bank_fidc_cohort_history(funds, _bank_curation())
 
 
+def test_fixed_bank_cohort_recovers_official_december_pl_once() -> None:
+    curation = _bank_curation()
+    target = curation["bank_group"].eq("BTG")
+    curation.loc[target, "pl_override_competencia"] = "2025-12"
+    curation.loc[target, "pl_override_brl"] = 7_918_754_073
+    curation.loc[target, "pl_override_status"] = "official_recovered"
+    curation.loc[target, "pl_override_display_suffix"] = "*"
+    curation.loc[target, "pl_override_source_reference"] = (
+        "Fundos.NET IME v2 id 1100733 | Fundos.NET DF id 1150673 p. 6"
+    )
+    funds = pd.DataFrame(
+        [
+            {
+                "competencia": period,
+                "cnpj_fundo": f"{index}" * 8 + "000001",
+                "denominacao": f"FIDC {group}",
+                "pl": (
+                    0
+                    if period == "2025-12" and group == "BTG"
+                    else (8_269_231_438 if group == "BTG" else index * 100)
+                ),
+            }
+            for period in ("2025-11", "2025-12")
+            for index, group in enumerate(
+                ["BB", "BTG", "Bradesco", "Itau", "Santander"], start=1
+            )
+        ]
+    )
+
+    history = build_fixed_bank_fidc_cohort_history(funds, curation)
+    btg_december = history[
+        history["competencia"].eq("2025-12")
+        & history["bank_group"].eq("BTG")
+    ].iloc[0]
+    assert btg_december["pl_brl"] == 7_918_754_073
+    assert btg_december["pl_brl_raw"] == 0
+    assert bool(btg_december["pl_recovered_official"])
+    assert btg_december["pl_display_suffix"] == "*"
+    assert "1100733" in btg_december["pl_source_references"]
+    assert "1150673" in btg_december["source_references"]
+
+    total_december = history[
+        history["competencia"].eq("2025-12")
+        & history["is_total_5_banks"]
+    ].iloc[0]
+    assert total_december["pl_brl"] == 7_918_755_373
+    assert total_december["pl_brl_raw"] == 1_300
+    assert total_december["pl_display_suffix"] == "*"
+
+    btg_november = history[
+        history["competencia"].eq("2025-11")
+        & history["bank_group"].eq("BTG")
+    ].iloc[0]
+    assert btg_november["pl_brl"] == 8_269_231_438
+    assert not bool(btg_november["pl_recovered_official"])
+    assert btg_november["pl_display_suffix"] == ""
+
+    detail = build_fixed_bank_fidc_cohort_detail(
+        funds, curation, periods=("2025-12",)
+    )
+    btg_detail = detail[detail["bank_group"].eq("BTG")].iloc[0]
+    assert btg_detail["pl_brl"] == 7_918_754_073
+    assert btg_detail["pl_brl_raw"] == 0
+    assert bool(btg_detail["pl_reportado_zero"])
+    assert bool(btg_detail["pl_recovered_official"])
+    assert btg_detail["pl_display_suffix"] == "*"
+    assert "1150673" in btg_detail["pl_source_reference"]
+
+
+def test_fixed_bank_cohort_rejects_conflicting_positive_override() -> None:
+    curation = _bank_curation()
+    target = curation["bank_group"].eq("BTG")
+    curation.loc[target, "pl_override_competencia"] = "2025-12"
+    curation.loc[target, "pl_override_brl"] = 7_918_754_073
+    curation.loc[target, "pl_override_status"] = "official_recovered"
+    curation.loc[target, "pl_override_display_suffix"] = "*"
+    curation.loc[target, "pl_override_source_reference"] = "Fundos.NET id 1150673"
+    funds = _cohort_fund_base()
+
+    with pytest.raises(ValueError, match="conflita com valor bruto positivo"):
+        build_fixed_bank_fidc_cohort_history(funds, curation)
+
+
 def _acquiring_curation() -> pd.DataFrame:
     return pd.DataFrame(
         [
@@ -338,6 +422,13 @@ def test_repository_curations_have_the_expected_audited_universes() -> None:
     assert len(independent_groups) == 11
     assert set(bank["bank_group"]) == {"BB", "BTG", "Bradesco", "Itau", "Santander"}
     assert bank["cnpj_root8"].nunique() == len(bank)
+    btg_consignados = bank[bank["cnpj_root8"].eq("50906397")].iloc[0]
+    assert btg_consignados["pl_override_competencia"] == "2025-12"
+    assert int(btg_consignados["pl_override_brl"]) == 7_918_754_073
+    assert btg_consignados["pl_override_status"] == "official_recovered"
+    assert btg_consignados["pl_override_display_suffix"] == "*"
+    assert "1100733" in btg_consignados["pl_override_source_reference"]
+    assert "1150673" in btg_consignados["pl_override_source_reference"]
     assert acquiring["cnpj14_digits"].nunique() == 16
     assert len(acquiring) == 16
     assert {
