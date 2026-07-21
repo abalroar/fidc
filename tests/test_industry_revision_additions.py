@@ -406,6 +406,7 @@ def test_acquiring_mix_enforces_curated_count() -> None:
         build_acquiring_reclassified_cvm_mix(
             _acquiring_fund_base(),
             _acquiring_curation(),
+            expected_curated_funds=16,
         )
 
 
@@ -415,6 +416,7 @@ def test_repository_curations_have_the_expected_audited_universes() -> None:
     acquiring = pd.read_csv(
         DATA_DIR / "acquiring_reclassification_curation.csv", dtype=str
     )
+    card = pd.read_csv(DATA_DIR / "card_receivables_curation.csv", dtype=str)
 
     independent_groups = set(
         ownership.loc[ownership["independent_reviewed"], "normalized_group"]
@@ -429,10 +431,17 @@ def test_repository_curations_have_the_expected_audited_universes() -> None:
     assert btg_consignados["pl_override_display_suffix"] == "*"
     assert "1100733" in btg_consignados["pl_override_source_reference"]
     assert "1150673" in btg_consignados["pl_override_source_reference"]
-    assert acquiring["cnpj14_digits"].nunique() == 16
-    assert len(acquiring) == 16
+    assert acquiring["cnpj14_digits"].nunique() == 33
+    assert len(acquiring) == 33
     assert {
         "50473039000102",
         "55471753000177",
         "63572282000111",
     }.issubset(set(acquiring["cnpj14_digits"]))
+    assert len(card) == card["cnpj14_digits"].nunique() == 44
+    assert card["status_curadoria"].value_counts().to_dict() == {
+        "Incluído em Adquirência": 26,
+        "Fora de Adquirência": 17,
+        "Pendente": 1,
+    }
+    assert card["fonte_url"].str.startswith("http").all()

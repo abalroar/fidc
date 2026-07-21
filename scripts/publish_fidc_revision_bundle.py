@@ -18,6 +18,7 @@ import gzip
 import hashlib
 from io import BytesIO
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -53,7 +54,7 @@ NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v5"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v6"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -74,6 +75,7 @@ REQUIRED_DATA_INPUTS = (
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
+    "card_receivables_curation.csv",
     "atlantico_curadoria.json",
     "acquiring_taxonomy_curation.json",
 )
@@ -361,6 +363,234 @@ def serialize_analysis_manifest(
     return normalized, payload
 
 
+_CARD_TAXONOMY_EXPECTED_STATUS_COUNTS = {
+    "Incluído em Adquirência": 26,
+    "Fora de Adquirência": 17,
+    "Pendente": 1,
+}
+_CARD_TAXONOMY_SUMMARY_STATUS_FIELDS = {
+    "Incluído em Adquirência": (
+        "fundos_incluidos_adquirencia",
+        "pl_incluido_adquirencia_brl",
+    ),
+    "Fora de Adquirência": (
+        "fundos_fora_adquirencia",
+        "pl_fora_adquirencia_brl",
+    ),
+    "Pendente": (
+        "fundos_pendentes_curadoria",
+        "pl_pendente_curadoria_brl",
+    ),
+}
+
+
+def _finite_payload_number(value: object, field: str) -> float:
+    if isinstance(value, bool):
+        raise RevisionBundlePublishError(f"payload {field} deve ser numérico")
+    try:
+        number = float(value)
+    except (TypeError, ValueError) as exc:
+        raise RevisionBundlePublishError(
+            f"payload {field} deve ser numérico"
+        ) from exc
+    if not math.isfinite(number):
+        raise RevisionBundlePublishError(f"payload {field} deve ser finito")
+    return number
+
+
+def _integer_payload_number(value: object, field: str) -> int:
+    number = _finite_payload_number(value, field)
+    if not number.is_integer():
+        raise RevisionBundlePublishError(f"payload {field} deve ser inteiro")
+    return int(number)
+
+
+def _require_payload_amount_close(
+    actual: object,
+    expected: float,
+    field: str,
+) -> None:
+    actual_number = _finite_payload_number(actual, field)
+    if not math.isclose(actual_number, expected, rel_tol=1e-12, abs_tol=0.01):
+        raise RevisionBundlePublishError(
+            f"payload {field} não reconcilia: {actual_number} != {expected}"
+        )
+
+
+def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
+    rows = payload.get("card_taxonomy_audit")
+    summary = payload.get("card_taxonomy_summary")
+    if not isinstance(rows, list) or len(rows) != 44:
+        raise RevisionBundlePublishError(
+            "card_taxonomy_audit deve conter exatamente 44 fundos"
+        )
+    if not isinstance(summary, Mapping):
+        raise RevisionBundlePublishError("payload editorial sem card_taxonomy_summary")
+
+    ranks: list[int] = []
+    cnpjs: list[str] = []
+    status_counts = {status: 0 for status in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS}
+    status_pl = {status: 0.0 for status in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS}
+    total_pl = 0.0
+
+    for index, row in enumerate(rows, start=1):
+        if not isinstance(row, Mapping):
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit contém linha {index} inválida"
+            )
+        ranks.append(
+            _integer_payload_number(
+                row.get("ordem_materialidade"),
+                f"card_taxonomy_audit[{index}].ordem_materialidade",
+            )
+        )
+        cnpj = re.sub(r"\D", "", str(row.get("cnpj_fundo_formatado") or ""))
+        if len(cnpj) != 14:
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit linha {index} contém CNPJ inválido"
+            )
+        if row.get("cnpj_fundo_identificado") is not True:
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit linha {index} sem CNPJ identificado"
+            )
+        cnpjs.append(cnpj)
+
+        status = str(row.get("status_curadoria") or "").strip()
+        if status not in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS:
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit linha {index} contém status_curadoria inválido"
+            )
+        pl = _finite_payload_number(
+            row.get("pl_referencia_brl"),
+            f"card_taxonomy_audit[{index}].pl_referencia_brl",
+        )
+        if pl < 0:
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit linha {index} contém PL negativo"
+            )
+        status_counts[status] += 1
+        status_pl[status] += pl
+        total_pl += pl
+
+        source_url = str(row.get("fonte_url") or "").strip()
+        if re.match(r"^https?://", source_url, flags=re.IGNORECASE) is None:
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit linha {index} contém fonte_url inválida"
+            )
+        if row.get("consistencia_decisao_reclassificacao") != "OK":
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_audit linha {index} contém divergência de decisão"
+            )
+
+    expected_ranks = list(range(1, 45))
+    if ranks != expected_ranks:
+        raise RevisionBundlePublishError(
+            "card_taxonomy_audit deve ter ordem_materialidade contínua de 1 a 44"
+        )
+    if len(set(cnpjs)) != 44:
+        raise RevisionBundlePublishError(
+            "card_taxonomy_audit deve conter 44 CNPJs únicos"
+        )
+    if status_counts != _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS:
+        raise RevisionBundlePublishError(
+            "card_taxonomy_audit deve reconciliar 26 incluídos, 17 fora e 1 pendente"
+        )
+
+    required_summary_fields = {
+        "fundos_total",
+        "fundos_incluidos_adquirencia",
+        "fundos_fora_adquirencia",
+        "fundos_pendentes_curadoria",
+        "pl_referencia_observado_brl",
+        "pl_incluido_adquirencia_brl",
+        "pl_fora_adquirencia_brl",
+        "pl_pendente_curadoria_brl",
+        "divergencias_decisao_reclassificacao",
+    }
+    if missing := sorted(required_summary_fields.difference(summary)):
+        raise RevisionBundlePublishError(
+            "card_taxonomy_summary sem campos obrigatórios: " + ", ".join(missing)
+        )
+    if _integer_payload_number(summary.get("fundos_total"), "card_taxonomy_summary.fundos_total") != 44:
+        raise RevisionBundlePublishError(
+            "card_taxonomy_summary deve reconciliar 44 fundos"
+        )
+    for status, expected_count in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS.items():
+        count_field, pl_field = _CARD_TAXONOMY_SUMMARY_STATUS_FIELDS[status]
+        if _integer_payload_number(
+            summary.get(count_field), f"card_taxonomy_summary.{count_field}"
+        ) != expected_count:
+            raise RevisionBundlePublishError(
+                f"card_taxonomy_summary.{count_field} não reconcilia"
+            )
+        _require_payload_amount_close(
+            summary.get(pl_field),
+            status_pl[status],
+            f"card_taxonomy_summary.{pl_field}",
+        )
+    _require_payload_amount_close(
+        summary.get("pl_referencia_observado_brl"),
+        total_pl,
+        "card_taxonomy_summary.pl_referencia_observado_brl",
+    )
+    if _integer_payload_number(
+        summary.get("divergencias_decisao_reclassificacao"),
+        "card_taxonomy_summary.divergencias_decisao_reclassificacao",
+    ) != 0:
+        raise RevisionBundlePublishError(
+            "card_taxonomy_summary deve registrar zero divergências"
+        )
+
+
+def _validate_closed_offer_originator_order(payload: Mapping[str, object]) -> None:
+    rows = payload.get("closed_offer_originators_2026")
+    if not isinstance(rows, list) or not rows:
+        raise RevisionBundlePublishError(
+            "payload editorial sem closed_offer_originators_2026"
+        )
+    ranks: list[int] = []
+    groups: list[str] = []
+    volumes: list[float] = []
+    for index, row in enumerate(rows, start=1):
+        if not isinstance(row, Mapping):
+            raise RevisionBundlePublishError(
+                f"closed_offer_originators_2026 contém linha {index} inválida"
+            )
+        ranks.append(
+            _integer_payload_number(
+                row.get("rank"), f"closed_offer_originators_2026[{index}].rank"
+            )
+        )
+        group = str(row.get("originator_group") or "").strip()
+        if not group:
+            raise RevisionBundlePublishError(
+                f"closed_offer_originators_2026 linha {index} sem originator_group"
+            )
+        groups.append(group.casefold())
+        volume = _finite_payload_number(
+            row.get("registered_volume_brl"),
+            f"closed_offer_originators_2026[{index}].registered_volume_brl",
+        )
+        if volume < 0:
+            raise RevisionBundlePublishError(
+                f"closed_offer_originators_2026 linha {index} contém volume negativo"
+            )
+        volumes.append(volume)
+
+    if ranks != list(range(1, len(rows) + 1)):
+        raise RevisionBundlePublishError(
+            "closed_offer_originators_2026 deve ter ranks contínuos e únicos"
+        )
+    if len(set(groups)) != len(groups):
+        raise RevisionBundlePublishError(
+            "closed_offer_originators_2026 contém originator_group duplicado"
+        )
+    if any(current < following for current, following in zip(volumes, volumes[1:])):
+        raise RevisionBundlePublishError(
+            "closed_offer_originators_2026 deve estar em volume decrescente"
+        )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
@@ -385,6 +615,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "delinquency_frozen_cohort_summary",
         "delinquency_cohort_revision_transitions",
         "delinquency_cohort_revision_sensitivity",
+        "acquiring_curation_detail",
         "card_taxonomy_audit",
         "provider_independent_ranking",
         "bank_fidc_evolution",
@@ -449,6 +680,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "competencia_coorte_atual",
         },
         "card_taxonomy_audit": {
+            "ordem_materialidade",
             "cnpj_fundo_formatado",
             "cnpj_fundo_identificado",
             "denominacao",
@@ -457,10 +689,33 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "valor_cartao_tabela_ii_brl",
             "pl_jun25_brl",
             "pl_jun25_observavel",
+            "pl_referencia_brl",
+            "pl_referencia_competencia",
+            "status_curadoria",
+            "decisao_curadoria",
+            "cedente_originador",
+            "devedor_sacado",
+            "instrumento",
+            "natureza_economica",
+            "evidencia_curta",
+            "fonte_url",
             "anbima_tipo",
             "anbima_foco",
             "anbima_cartao_explicito",
             "ja_curado_como_adquirencia",
+            "consistencia_decisao_reclassificacao",
+        },
+        "acquiring_curation_detail": {
+            "ordem_materialidade",
+            "cnpj_fundo_formatado",
+            "denominacao",
+            "pl_referencia_brl",
+            "pl_referencia_competencia",
+            "natureza_economica",
+            "categoria_tabela_ii",
+            "anbima_tipo",
+            "anbima_foco",
+            "fonte_url",
         },
         "provider_independent_ranking": {
             "competencia",
@@ -678,14 +933,8 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "payload delinquency_cohort_revision_summary sem campos obrigatórios: "
             + ", ".join(missing)
         )
-    card_summary = payload.get("card_taxonomy_summary")
-    if not isinstance(card_summary, Mapping):
-        raise RevisionBundlePublishError("payload editorial sem card_taxonomy_summary")
-    card_rows = payload.get("card_taxonomy_audit") or []
-    if int(card_summary.get("fundos_total") or 0) != len(card_rows):
-        raise RevisionBundlePublishError(
-            "card_taxonomy_summary não reconcilia com card_taxonomy_audit"
-        )
+    _validate_card_taxonomy_contract(payload)
+    _validate_closed_offer_originator_order(payload)
     conclusion_metrics = payload["conclusion_metrics"]
     required_btg_metrics = {
         "btg_bank_cohort_listed_roots",

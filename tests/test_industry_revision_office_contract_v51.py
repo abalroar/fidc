@@ -46,10 +46,14 @@ SLIDE_TOKENS = {
     4: ("BASE INVESTIDORA",),
     5: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
     6: ("TIPO ANBIMA",),
-    7: ("TAXONOMIA CVM", "ADQUIRÊNCIA", "16 CNPJs"),
+    7: ("TAXONOMIA CVM", "ADQUIRÊNCIA", "33 CNPJs"),
     8: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
     9: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
-    10: ("INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA", "TIPO NA TABELA II"),
+    10: (
+        "INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA",
+        "TIPO NA TABELA II",
+        "R$ 16,69 BI",
+    ),
     11: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
     12: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
     13: ("MARKET SHARE · ADMINISTRAÇÃO",),
@@ -89,7 +93,11 @@ SLIDE_TOKENS = {
     33: ("ADMINISTRAÇÃO POR SUBTIPO",),
     34: ("GESTÃO POR SUBTIPO",),
     35: ("CUSTÓDIA POR SUBTIPO",),
-    56: ("APÊNDICE · CASO ATLÂNTICO", "09.194.841/0001-51"),
+    56: (
+        "APÊNDICE · CASO ATLÂNTICO",
+        "09.194.841/0001-51",
+        "A QUEBRA NO BRUTO COINCIDE",
+    ),
 }
 
 REQUIRED_WORKBOOK_SHEETS_V51 = {
@@ -104,6 +112,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Comparativos históricos",
     "Ranking prestadores",
     "Taxonomia adquirência",
+    "Curadoria Cartão",
     "Atribuição prestadores",
     "Fluxos prestadores",
     "Migração CBSF",

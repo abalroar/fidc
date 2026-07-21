@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from io import BytesIO
 import json
 import os
@@ -129,7 +130,93 @@ def test_discover_artifact_node_modules_uses_explicit_offline_runtime(
     assert discover_artifact_node_modules(node_modules) == node_modules.resolve()
 
 
+def _format_test_cnpj(value: int) -> str:
+    digits = f"{value:014d}"
+    return (
+        f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/"
+        f"{digits[8:12]}-{digits[12:]}"
+    )
+
+
+def _card_taxonomy_rows() -> list[dict[str, object]]:
+    statuses = (
+        ["Incluído em Adquirência"] * 26
+        + ["Fora de Adquirência"] * 17
+        + ["Pendente"]
+    )
+    rows: list[dict[str, object]] = []
+    for rank, status in enumerate(statuses, start=1):
+        included = status == "Incluído em Adquirência"
+        rows.append(
+            {
+                "ordem_materialidade": rank,
+                "cnpj_fundo_formatado": _format_test_cnpj(rank),
+                "cnpj_fundo_identificado": True,
+                "denominacao": f"FIDC Cartão {rank}",
+                "criterio_inclusao": "Cartão de crédito é o segmento principal da Tabela II",
+                "categoria_tabela_ii": "Cartão de crédito",
+                "valor_cartao_tabela_ii_brl": float(45 - rank),
+                "pl_jun25_brl": float(45 - rank),
+                "pl_jun25_observavel": True,
+                "pl_referencia_brl": float(45 - rank),
+                "pl_referencia_competencia": "2026-06",
+                "status_curadoria": status,
+                "decisao_curadoria": (
+                    "Reclassificar como Adquirência"
+                    if included
+                    else "Manter fora da abertura de Adquirência"
+                ),
+                "cedente_originador": f"Originador {rank}",
+                "devedor_sacado": f"Devedor {rank}",
+                "instrumento": "CCB",
+                "natureza_economica": "Recebíveis de pagamento",
+                "evidencia_curta": "Evidência documental reconciliada.",
+                "fonte_url": f"https://example.com/regulamento/{rank}",
+                "anbima_tipo": "Outros",
+                "anbima_foco": "N/D",
+                "anbima_cartao_explicito": False,
+                "ja_curado_como_adquirencia": included,
+                "consistencia_decisao_reclassificacao": "OK",
+            }
+        )
+    return rows
+
+
+def _card_taxonomy_summary(
+    rows: list[dict[str, object]],
+) -> dict[str, object]:
+    statuses = {
+        "Incluído em Adquirência": (
+            "fundos_incluidos_adquirencia",
+            "pl_incluido_adquirencia_brl",
+        ),
+        "Fora de Adquirência": (
+            "fundos_fora_adquirencia",
+            "pl_fora_adquirencia_brl",
+        ),
+        "Pendente": (
+            "fundos_pendentes_curadoria",
+            "pl_pendente_curadoria_brl",
+        ),
+    }
+    summary: dict[str, object] = {
+        "fundos_total": len(rows),
+        "pl_referencia_observado_brl": sum(
+            float(row["pl_referencia_brl"]) for row in rows
+        ),
+        "divergencias_decisao_reclassificacao": 0,
+    }
+    for status, (count_field, pl_field) in statuses.items():
+        status_rows = [row for row in rows if row["status_curadoria"] == status]
+        summary[count_field] = len(status_rows)
+        summary[pl_field] = sum(
+            float(row["pl_referencia_brl"]) for row in status_rows
+        )
+    return summary
+
+
 def _payload() -> dict[str, object]:
+    card_rows = _card_taxonomy_rows()
     return {
         "schema_version": PAYLOAD_SCHEMA,
         "latest_complete": "2026-05",
@@ -259,23 +346,22 @@ def _payload() -> dict[str, object]:
                 "competencia_coorte_atual": "2026-05",
             }
         ],
-        "card_taxonomy_audit": [
+        "acquiring_curation_detail": [
             {
+                "ordem_materialidade": 1,
                 "cnpj_fundo_formatado": "10.000.000/0000-01",
-                "cnpj_fundo_identificado": True,
                 "denominacao": "FIDC A",
-                "criterio_inclusao": "Cartão de crédito é o segmento principal da Tabela II",
+                "pl_referencia_brl": 2.0,
+                "pl_referencia_competencia": "2026-06",
+                "natureza_economica": "Recebíveis de pagamento",
                 "categoria_tabela_ii": "Cartão de crédito",
-                "valor_cartao_tabela_ii_brl": 1.0,
-                "pl_jun25_brl": 1.0,
-                "pl_jun25_observavel": True,
                 "anbima_tipo": "Outros",
                 "anbima_foco": "N/D",
-                "anbima_cartao_explicito": False,
-                "ja_curado_como_adquirencia": False,
+                "fonte_url": "https://example.com/regulamento",
             }
         ],
-        "card_taxonomy_summary": {"fundos_total": 1},
+        "card_taxonomy_audit": card_rows,
+        "card_taxonomy_summary": _card_taxonomy_summary(card_rows),
         "provider_independent_ranking": [
             {
                 "competencia": "2026-05",
@@ -384,16 +470,17 @@ def _payload() -> dict[str, object]:
         ],
         "closed_offer_originators_2026": [
             {
-                "rank": 1,
-                "originator_group": "Originador A",
-                "closed_offers": 1,
-                "registered_volume_brl": 1.0,
+                "rank": rank,
+                "originator_group": f"Originador {rank}",
+                "closed_offers": rank,
+                "registered_volume_brl": float(4 - rank),
                 "mean_registered_ticket_brl": 1.0,
                 "identified_registered_volume_coverage": 0.5,
                 "identified_registered_volume_brl": 0.5,
                 "confidence": "high",
                 "share_of_total_registered_volume": 0.1,
             }
+            for rank in range(1, 4)
         ],
         "provider_history_cvm_coverage": [
             {
@@ -445,7 +532,7 @@ def _payload() -> dict[str, object]:
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v5"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v6"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
 
@@ -477,6 +564,7 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "delinquency_cohort_revision_summary",
         "delinquency_cohort_revision_transitions",
         "delinquency_cohort_revision_sensitivity",
+        "acquiring_curation_detail",
         "card_taxonomy_audit",
         "card_taxonomy_summary",
         "provider_independent_ranking",
@@ -499,6 +587,95 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         broken.pop(key)
         with pytest.raises(RevisionBundlePublishError, match=key):
             validate_artifact_payload(broken, "2026-05")
+
+
+def test_payload_rejects_card_taxonomy_with_fewer_than_44_funds() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_audit"].pop()
+
+    with pytest.raises(RevisionBundlePublishError, match="exatamente 44 fundos"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_duplicate_card_taxonomy_cnpj() -> None:
+    payload = deepcopy(_payload())
+    rows = payload["card_taxonomy_audit"]
+    rows[1]["cnpj_fundo_formatado"] = rows[0]["cnpj_fundo_formatado"]
+
+    with pytest.raises(RevisionBundlePublishError, match="44 CNPJs únicos"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_non_continuous_card_taxonomy_rank() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_audit"][1]["ordem_materialidade"] = 1
+
+    with pytest.raises(RevisionBundlePublishError, match="contínua de 1 a 44"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_card_taxonomy_enum_count_drift() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_audit"][0]["status_curadoria"] = "Fora de Adquirência"
+
+    with pytest.raises(RevisionBundlePublishError, match="26 incluídos, 17 fora e 1"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_card_taxonomy_summary_count_drift() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_summary"]["fundos_incluidos_adquirencia"] = 25
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="fundos_incluidos_adquirencia não reconcilia",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_card_taxonomy_summary_pl_drift() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_summary"]["pl_incluido_adquirencia_brl"] += 1.0
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="pl_incluido_adquirencia_brl não reconcilia",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_card_taxonomy_without_document_url() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_audit"][0]["fonte_url"] = "N/D"
+
+    with pytest.raises(RevisionBundlePublishError, match="fonte_url inválida"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_card_taxonomy_decision_divergence() -> None:
+    payload = deepcopy(_payload())
+    payload["card_taxonomy_audit"][0][
+        "consistencia_decisao_reclassificacao"
+    ] = "Divergente"
+
+    with pytest.raises(RevisionBundlePublishError, match="divergência de decisão"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_non_continuous_originator_rank() -> None:
+    payload = deepcopy(_payload())
+    payload["closed_offer_originators_2026"][1]["rank"] = 1
+
+    with pytest.raises(RevisionBundlePublishError, match="ranks contínuos e únicos"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_originators_out_of_volume_order() -> None:
+    payload = deepcopy(_payload())
+    payload["closed_offer_originators_2026"][1]["registered_volume_brl"] = 4.0
+
+    with pytest.raises(RevisionBundlePublishError, match="volume decrescente"):
+        validate_artifact_payload(payload, "2026-05")
 
 
 def test_bundle_manifest_is_content_addressed_and_validated() -> None:

@@ -30,7 +30,7 @@ MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v5"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v6"
 EXPECTED_SLIDES = 56
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
@@ -55,6 +55,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Migração CBSF",
     "Taxonomia adquirência",
     "Adquirência reclass.",
+    "Curadoria Cartão",
     "Ofertas encerradas",
     "Histograma ofertas",
     "Originadores 2026",

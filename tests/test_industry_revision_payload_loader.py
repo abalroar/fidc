@@ -19,6 +19,7 @@ SCHEMA_V2 = "fidc_revision_artifact_payload_v2"
 SCHEMA_V3 = "fidc_revision_artifact_payload_v3"
 SCHEMA_V4 = "fidc_revision_artifact_payload_v4"
 SCHEMA_V5 = "fidc_revision_artifact_payload_v5"
+SCHEMA_V6 = "fidc_revision_artifact_payload_v6"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -139,7 +140,7 @@ def _core_payload(schema: str) -> dict[str, object]:
 
 def _payload_for_schema(schema: str) -> dict[str, object]:
     payload = _core_payload(schema)
-    if schema in {SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5}:
+    if schema in {SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6}:
         payload.update(
             {
                 "holder_distribution_history": [
@@ -195,7 +196,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V3, SCHEMA_V4, SCHEMA_V5}:
+    if schema in {SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6}:
         payload.update(
             {
                 "provider_historical_ranking": [
@@ -221,7 +222,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "acquiring_taxonomy": {"classification": "Tabela II.g - Cartão"},
             }
         )
-    if schema in {SCHEMA_V4, SCHEMA_V5}:
+    if schema in {SCHEMA_V4, SCHEMA_V5, SCHEMA_V6}:
         payload.update(
             {
                 "delinquency_single_receivable": [
@@ -313,7 +314,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema == SCHEMA_V5:
+    if schema in {SCHEMA_V5, SCHEMA_V6}:
         payload.update(
             {
                 "delinquency_frozen_cohort_history": [
@@ -403,6 +404,37 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "conclusion_metrics": {"competencia": "2026-05"},
             }
         )
+    if schema == SCHEMA_V6:
+        statuses = (
+            ["Incluído em Adquirência"] * 26
+            + ["Fora de Adquirência"] * 17
+            + ["Pendente"]
+        )
+        payload.update(
+            {
+                "card_taxonomy_audit": [
+                    {
+                        "ordem_materialidade": rank,
+                        "cnpj_fundo_formatado": f"00.000.000/00{rank:02d}-00",
+                        "status_curadoria": status,
+                    }
+                    for rank, status in enumerate(statuses, start=1)
+                ],
+                "card_taxonomy_summary": {
+                    "fundos_total": 44,
+                    "fundos_incluidos_adquirencia": 26,
+                    "fundos_fora_adquirencia": 17,
+                    "fundos_pendentes_curadoria": 1,
+                },
+                "acquiring_curation_detail": [
+                    {
+                        "ordem_materialidade": 1,
+                        "cnpj_fundo_formatado": "00.000.000/0001-00",
+                        "denominacao": "FIDC Adquirência",
+                    }
+                ],
+            }
+        )
     return payload
 
 
@@ -423,7 +455,9 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
     return tab_industry_study._load_industry_revision_payload.__wrapped__("test-signature")
 
 
-@pytest.mark.parametrize("schema", [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5])
+@pytest.mark.parametrize(
+    "schema", [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6]
+)
 def test_revision_payload_loader_accepts_each_published_schema(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -439,7 +473,7 @@ def test_revision_payload_loader_accepts_each_published_schema(
         assert "market_share_scope_summary" not in loaded
 
 
-@pytest.mark.parametrize("schema", [SCHEMA_V4, SCHEMA_V5])
+@pytest.mark.parametrize("schema", [SCHEMA_V4, SCHEMA_V5, SCHEMA_V6])
 def test_revision_payload_loader_accepts_jan_june_without_legacy_alias(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -489,12 +523,12 @@ def test_revision_payload_loader_rejects_unknown_schema(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = _payload_for_schema(SCHEMA_V3)
-    payload["schema_version"] = "fidc_revision_artifact_payload_v6"
+    payload["schema_version"] = "fidc_revision_artifact_payload_v7"
     _write_payload(tmp_path, payload)
 
     with pytest.raises(
         ValueError,
-        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v6",
+        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v7",
     ):
         _load_payload(tmp_path, monkeypatch)
 
@@ -523,6 +557,9 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V3, "acquiring_taxonomy"),
         (SCHEMA_V4, "closed_offers_annual"),
         (SCHEMA_V5, "delinquency_frozen_cohort_history"),
+        (SCHEMA_V6, "card_taxonomy_audit"),
+        (SCHEMA_V6, "card_taxonomy_summary"),
+        (SCHEMA_V6, "acquiring_curation_detail"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
@@ -576,13 +613,13 @@ def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    payload = _payload_for_schema(SCHEMA_V5)
+    payload = _payload_for_schema(SCHEMA_V6)
     _write_payload(tmp_path, payload)
     manifest_path = tmp_path / "generated_revision" / "industry_export_bundle.json"
     manifest_path.write_text(
         json.dumps(
             {
-                "payload_schema": SCHEMA_V4,
+                "payload_schema": SCHEMA_V5,
                 "payload_sha256": "0" * 64,
             }
         ),
@@ -591,10 +628,10 @@ def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale
 
     loaded = _load_payload(tmp_path, monkeypatch)
 
-    assert loaded["schema_version"] == SCHEMA_V5
+    assert loaded["schema_version"] == SCHEMA_V6
 
 
-def test_office_export_remains_strictly_v3(
+def test_office_export_remains_strictly_current_schema(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

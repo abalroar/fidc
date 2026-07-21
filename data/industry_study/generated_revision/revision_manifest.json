@@ -23,7 +23,7 @@
     "top20_outros_rows": 20
   },
   "definitions": {
-    "acquiring_reclassification": "somente os 16 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
+    "acquiring_reclassification": "somente os 33 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
     "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação; BTG Consignados I em dez/25 usa valor oficial recuperado do IME v2 e reconciliado à demonstração financeira auditada",
     "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
     "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
@@ -196,7 +196,7 @@
     },
     "source_presence_overlay.csv.gz": {
       "columns": 35,
-      "rows": 229458
+      "rows": 4252
     },
     "top20_fidcs.csv": {
       "columns": 73,
@@ -207,7 +207,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-21T18:45:17+00:00",
+  "generated_at_utc": "2026-07-21T22:47:10+00:00",
   "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
