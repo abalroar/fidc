@@ -348,6 +348,9 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
     source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
     revision_source = source[source.index("def _render_revision_conclusions") :]
 
+    assert "python scripts/publish_fidc_revision_bundle.py" in source
+    assert "python scripts/build_fidc_revision_analysis.py &&" not in source
+
     required_text = (
         "Principais conclusões",
         'payload.get("executive_conclusions")',

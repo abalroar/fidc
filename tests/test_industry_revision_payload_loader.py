@@ -20,6 +20,7 @@ SCHEMA_V3 = "fidc_revision_artifact_payload_v3"
 SCHEMA_V4 = "fidc_revision_artifact_payload_v4"
 SCHEMA_V5 = "fidc_revision_artifact_payload_v5"
 SCHEMA_V6 = "fidc_revision_artifact_payload_v6"
+SCHEMA_V7 = "fidc_revision_artifact_payload_v7"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -518,17 +519,30 @@ def test_revision_payload_loader_rejects_v1_without_historical_comparisons(
         _load_payload(tmp_path, monkeypatch)
 
 
-def test_revision_payload_loader_rejects_unknown_schema(
+def test_revision_payload_loader_accepts_forward_compatible_schema(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    payload = _payload_for_schema(SCHEMA_V3)
-    payload["schema_version"] = "fidc_revision_artifact_payload_v7"
+    payload = _payload_for_schema(SCHEMA_V6)
+    payload["schema_version"] = SCHEMA_V7
+    _write_payload(tmp_path, payload)
+
+    loaded = _load_payload(tmp_path, monkeypatch)
+
+    assert loaded["schema_version"] == SCHEMA_V7
+
+
+def test_revision_payload_loader_rejects_malformed_schema(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _payload_for_schema(SCHEMA_V6)
+    payload["schema_version"] = "fidc_revision_artifact_payload_next"
     _write_payload(tmp_path, payload)
 
     with pytest.raises(
         ValueError,
-        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v7",
+        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_next",
     ):
         _load_payload(tmp_path, monkeypatch)
 
@@ -614,12 +628,13 @@ def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = _payload_for_schema(SCHEMA_V6)
+    payload["schema_version"] = SCHEMA_V7
     _write_payload(tmp_path, payload)
     manifest_path = tmp_path / "generated_revision" / "industry_export_bundle.json"
     manifest_path.write_text(
         json.dumps(
             {
-                "payload_schema": SCHEMA_V5,
+                "payload_schema": SCHEMA_V6,
                 "payload_sha256": "0" * 64,
             }
         ),
@@ -628,7 +643,7 @@ def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale
 
     loaded = _load_payload(tmp_path, monkeypatch)
 
-    assert loaded["schema_version"] == SCHEMA_V6
+    assert loaded["schema_version"] == SCHEMA_V7
 
 
 def test_office_export_remains_strictly_current_schema(
