@@ -23,7 +23,7 @@
     "top20_outros_rows": 20
   },
   "definitions": {
-    "acquiring_reclassification": "somente os 13 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
+    "acquiring_reclassification": "somente os 16 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
     "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação",
     "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
     "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
@@ -195,7 +195,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-21T00:59:16+00:00",
+  "generated_at_utc": "2026-07-21T13:39:12+00:00",
   "latest_complete": "2026-05",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

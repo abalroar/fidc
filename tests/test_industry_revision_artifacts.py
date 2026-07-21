@@ -623,7 +623,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v10";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v11";' in source
 
 
 def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
@@ -658,3 +658,48 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert metrics["admin_transition_2024_2025_cielo_pl_brl"] == pytest.approx(
         8_922_506_388.74
     )
+
+
+def test_materialized_gross_pl_cagrs_match_the_chart_totals() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    periods = {
+        (int(row["start_year"]), int(row["end_year"])): row
+        for row in payload["pl_total_cagr_periods"]
+    }
+
+    assert set(periods) == {(2015, 2018), (2018, 2023), (2024, 2025)}
+    assert periods[(2015, 2018)]["annual_intervals"] == 3
+    assert periods[(2015, 2018)]["cagr"] == pytest.approx(0.1868018650)
+    assert periods[(2018, 2023)]["annual_intervals"] == 5
+    assert periods[(2018, 2023)]["cagr"] == pytest.approx(0.2794351323)
+    assert periods[(2024, 2025)]["annual_intervals"] == 1
+    assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.2559047631)
+
+
+def test_materialized_acquiring_mix_includes_the_three_seller_fidcs() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    current = next(
+        row
+        for row in payload["acquiring_reclassified_mix"]
+        if row["competencia"] == "2026-05"
+        and row["categoria_analitica"] == "Adquirência"
+    )
+
+    assert current["fundos_adquirencia_curados"] == 16
+    assert current["fundos_adquirencia_observados"] == 14
+    assert current["fundos_movidos_para_adquirencia"] == 14
+    assert current["pl_brl"] == pytest.approx(80_048_443_249.73)
+    assert current["share_pl"] == pytest.approx(0.0909548075)
+    assert current["denominador_pl_brl"] == pytest.approx(880_090_293_855.58)
+    assert current["rank_reclassificado"] == 5
+    moved = set(current["cnpjs_movidos_para_adquirencia"].split(";"))
+    assert {"50473039000102", "55471753000177", "63572282000111"}.issubset(moved)
+    current_rows = {
+        row["categoria_analitica"]: row
+        for row in payload["acquiring_reclassified_mix"]
+        if row["competencia"] == "2026-05"
+    }
+    assert current_rows["Cartão"]["fundos_movidos_da_categoria"] == 8
+    assert current_rows["Comercial"]["fundos_movidos_da_categoria"] == 3
+    assert current_rows["Serviços"]["fundos_movidos_da_categoria"] == 2
+    assert current_rows["Financeiro"]["fundos_movidos_da_categoria"] == 1

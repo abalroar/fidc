@@ -338,5 +338,10 @@ def test_repository_curations_have_the_expected_audited_universes() -> None:
     assert len(independent_groups) == 11
     assert set(bank["bank_group"]) == {"BB", "BTG", "Bradesco", "Itau", "Santander"}
     assert bank["cnpj_root8"].nunique() == len(bank)
-    assert acquiring["cnpj14_digits"].nunique() == 13
-    assert len(acquiring) == 13
+    assert acquiring["cnpj14_digits"].nunique() == 16
+    assert len(acquiring) == 16
+    assert {
+        "50473039000102",
+        "55471753000177",
+        "63572282000111",
+    }.issubset(set(acquiring["cnpj14_digits"]))
