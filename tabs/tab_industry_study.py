@@ -398,7 +398,8 @@ def _pct_label(value: float | None, digits: int = 1) -> str:
 
 
 @st.cache_data(show_spinner=False)
-def _load_csv(name: str) -> pd.DataFrame | None:
+def _load_csv(name: str, source_signature: str) -> pd.DataFrame | None:
+    del source_signature  # participates in the cache key
     path = _DATA_DIR / name
     if not path.exists():
         return None
@@ -451,7 +452,10 @@ def _build_structured_cedentes(
 ) -> pd.DataFrame:
     candidates = _load_cedente_candidates() if candidates is None else candidates
     reviews = _load_cedente_reviews() if reviews is None else reviews
-    vehicle_latest = _load_csv("universe_latest.csv")
+    vehicle_latest = _load_csv(
+        "universe_latest.csv",
+        _industry_files_signature(("universe_latest.csv",)),
+    )
     return build_cedente_structured(
         candidates,
         reviews,
@@ -463,7 +467,10 @@ def _build_structured_cedentes(
 
 def _persist_structured_cedentes(candidates: pd.DataFrame, reviews: pd.DataFrame) -> pd.DataFrame:
     fund_universe = _load_cedente_fund_universe()
-    vehicle_latest = _load_csv("universe_latest.csv")
+    vehicle_latest = _load_csv(
+        "universe_latest.csv",
+        _industry_files_signature(("universe_latest.csv",)),
+    )
     structured = build_cedente_structured(
         candidates,
         reviews,
@@ -2287,8 +2294,14 @@ def _render_fund_snapshot_universe() -> None:
 
 
 def _render_monthly_audit_and_base(industry: pd.DataFrame, comp: str) -> None:
-    vehicle = _load_csv("vehicle_monthly.csv.gz")
-    audit = _load_csv("update_audit_monthly.csv")
+    vehicle = _load_csv(
+        "vehicle_monthly.csv.gz",
+        _industry_files_signature(("vehicle_monthly.csv.gz",)),
+    )
+    audit = _load_csv(
+        "update_audit_monthly.csv",
+        _industry_files_signature(("update_audit_monthly.csv",)),
+    )
     if (vehicle is None or vehicle.empty) and (audit is None or audit.empty):
         st.markdown('<div class="industry-section">Auditoria mensal e base granular</div>', unsafe_allow_html=True)
         st.info(
@@ -8447,7 +8460,10 @@ def _render_regulatory_curation_overlay() -> None:
 def _render_tab_industry_study_legacy() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
 
-    industry = _load_csv("industry_monthly.csv")
+    industry = _load_csv(
+        "industry_monthly.csv",
+        _industry_files_signature(("industry_monthly.csv",)),
+    )
     if industry is None or industry.empty:
         st.info(
             "Agregados da indústria não encontrados em `data/industry_study/`. "
@@ -8488,7 +8504,10 @@ def _render_tab_industry_study_legacy() -> None:
             f'<div class="industry-kpi-value">{value}</div>{note_html}</div>'
         )
 
-    concentration = _load_csv("concentration_monthly.csv")
+    concentration = _load_csv(
+        "concentration_monthly.csv",
+        _industry_files_signature(("concentration_monthly.csv",)),
+    )
     conc_last = None
     if concentration is not None and not concentration.empty:
         conc_match = concentration[concentration["competencia"] == comp]
@@ -8517,7 +8536,10 @@ def _render_tab_industry_study_legacy() -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
-    vehicle = _load_csv("vehicle_monthly.csv.gz")
+    vehicle = _load_csv(
+        "vehicle_monthly.csv.gz",
+        _industry_files_signature(("vehicle_monthly.csv.gz",)),
+    )
     universe_tab, audit_tab, issuance_tab, documents_tab, criteria_tab, heatmap_tab, cedente_tab, deep_dive_tab, pipeline_tab = st.tabs(
         ["Universo", "Base granular", "Emissões", "Documentos", "Critérios", "Heatmaps", "Cedentes", "Deep Dive", "Pipeline"]
     )
@@ -8765,7 +8787,10 @@ def _render_tab_industry_study_legacy() -> None:
             f'<div class="industry-def">R$ bilhões em {comp} · classificação oficial da Tab II.</div>',
             unsafe_allow_html=True,
         )
-        segments = _load_csv("segments_monthly.csv")
+        segments = _load_csv(
+            "segments_monthly.csv",
+            _industry_files_signature(("segments_monthly.csv",)),
+        )
         if segments is not None and not segments.empty:
             seg = segments[(segments["competencia"] == comp) & (segments["nivel"] == "top")]
             seg = seg[seg["valor"] > 5e7].sort_values("valor", ascending=False)
@@ -8792,7 +8817,10 @@ def _render_tab_industry_study_legacy() -> None:
             f'<div class="industry-def">R$ bilhões em {comp} (Tab I + IV, auditável mês a mês).</div>',
             unsafe_allow_html=True,
         )
-        prestadores = _load_csv("prestadores_latest.csv")
+        prestadores = _load_csv(
+            "prestadores_latest.csv",
+            _industry_files_signature(("prestadores_latest.csv",)),
+        )
         if prestadores is not None and not prestadores.empty:
             adm = prestadores[prestadores["papel"] == "administrador"].head(10).copy()
             adm["pl_bi"] = adm["pl"] / 1e9
@@ -8958,7 +8986,7 @@ _EXECUTIVE_CSS = """
 
 
 def _intelligence_frame(name: str) -> pd.DataFrame:
-    frame = _load_csv(name)
+    frame = _load_csv(name, _industry_files_signature((name,)))
     return frame if frame is not None else pd.DataFrame()
 
 
