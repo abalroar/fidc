@@ -1,9 +1,12 @@
 {
   "checks": {
     "acquiring_reclassified_rows": 24,
+    "bank_fidc_detail_rows": 260,
     "bank_fidc_evolution_rows": 24,
     "blocked_market_share_combinations": 0,
     "btg_controlled_fidcs_reconciled": 6,
+    "btg_provider_ex_controlled_roles": 3,
+    "frozen_single_receivable_funds": 2050,
     "independent_provider_rows": 68,
     "latest_aging_publication_status": "bloqueado_aging_nao_reconcilia_tab_I",
     "latest_funds": 4222,
@@ -11,8 +14,8 @@
     "latest_vehicles": 4227,
     "market_share_foci": 14,
     "market_share_roles": 3,
-    "provider_transition_changed_funds": 257,
-    "provider_transition_continuing_funds": 2477,
+    "provider_transition_changed_funds": 358,
+    "provider_transition_continuing_funds": 2357,
     "reag_cohort_exited_funds": 16,
     "single_receivable_funds": 2050,
     "single_receivable_rows": 10,
@@ -23,6 +26,7 @@
     "acquiring_reclassification": "somente os 13 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
     "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação",
     "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
+    "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
     "fund": "CNPJ do fundo no cadastro; classes são agregadas por competência",
     "independent_provider": "grupo com independência revisada na curadoria societária; aliases consolidados antes do ranking; Singulare integra QI Tech e Kanastra é alocada ao Itaú pela regra de afiliação solicitada",
     "market_share_excluded_funds": {
@@ -41,6 +45,10 @@
     "adquirencia_mix_reclassificado.csv": {
       "columns": 22,
       "rows": 24
+    },
+    "bancos_fidcs_detalhe.csv": {
+      "columns": 9,
+      "rows": 260
     },
     "bancos_fidcs_evolucao.csv": {
       "columns": 13,
@@ -66,13 +74,29 @@
       "columns": 32,
       "rows": 6
     },
+    "btg_prestadores_ex_controlados.csv": {
+      "columns": 14,
+      "rows": 3
+    },
     "cobertura_classificacao.csv": {
       "columns": 10,
       "rows": 4
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 9417
+      "rows": 13305
+    },
+    "inadimplencia_coorte_atual_historico.csv": {
+      "columns": 16,
+      "rows": 1503
+    },
+    "inadimplencia_coorte_atual_membros.csv.gz": {
+      "columns": 8,
+      "rows": 2050
+    },
+    "inadimplencia_coorte_atual_resumo.csv": {
+      "columns": 17,
+      "rows": 162
     },
     "inadimplencia_tipo_recebivel_unico.csv": {
       "columns": 10,
@@ -116,7 +140,7 @@
     },
     "prestadores_transicoes_detalhe.csv": {
       "columns": 22,
-      "rows": 2477
+      "rows": 2357
     },
     "prestadores_transicoes_disponibilidade.csv": {
       "columns": 5,
@@ -124,10 +148,10 @@
     },
     "prestadores_transicoes_links.csv": {
       "columns": 10,
-      "rows": 104
+      "rows": 134
     },
     "prestadores_transicoes_resumo.csv": {
-      "columns": 12,
+      "columns": 16,
       "rows": 1
     },
     "qa_inadimplencia_casos_latest.csv": {
@@ -171,7 +195,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-20T22:34:49+00:00",
+  "generated_at_utc": "2026-07-21T00:59:16+00:00",
   "latest_complete": "2026-05",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

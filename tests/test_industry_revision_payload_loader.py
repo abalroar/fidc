@@ -18,6 +18,7 @@ SCHEMA_V1 = "fidc_revision_artifact_payload_v1"
 SCHEMA_V2 = "fidc_revision_artifact_payload_v2"
 SCHEMA_V3 = "fidc_revision_artifact_payload_v3"
 SCHEMA_V4 = "fidc_revision_artifact_payload_v4"
+SCHEMA_V5 = "fidc_revision_artifact_payload_v5"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -138,7 +139,7 @@ def _core_payload(schema: str) -> dict[str, object]:
 
 def _payload_for_schema(schema: str) -> dict[str, object]:
     payload = _core_payload(schema)
-    if schema in {SCHEMA_V2, SCHEMA_V3, SCHEMA_V4}:
+    if schema in {SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5}:
         payload.update(
             {
                 "holder_distribution_history": [
@@ -194,7 +195,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V3, SCHEMA_V4}:
+    if schema in {SCHEMA_V3, SCHEMA_V4, SCHEMA_V5}:
         payload.update(
             {
                 "provider_historical_ranking": [
@@ -220,7 +221,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "acquiring_taxonomy": {"classification": "Tabela II.g - Cartão"},
             }
         )
-    if schema == SCHEMA_V4:
+    if schema in {SCHEMA_V4, SCHEMA_V5}:
         payload.update(
             {
                 "delinquency_single_receivable": [
@@ -312,6 +313,96 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
+    if schema == SCHEMA_V5:
+        payload.update(
+            {
+                "delinquency_frozen_cohort_history": [
+                    {
+                        "competencia": "2026-05",
+                        "tipo_recebivel_tabela_ii": "Financeiro",
+                        "fundos_incluidos": 1,
+                        "pl_incluido_brl": 100.0,
+                        "inadimplencia_sobre_carteira": 0.02,
+                        "fundos_coorte": 1,
+                        "pl_coorte_referencia_brl": 100.0,
+                    }
+                ],
+                "delinquency_frozen_cohort_summary": [
+                    {
+                        "competencia": "2026-05",
+                        "fundos_incluidos": 1,
+                        "pl_incluido_brl": 100.0,
+                        "inadimplencia_sobre_carteira": 0.02,
+                        "fundos_coorte": 1,
+                        "pl_coorte_referencia_brl": 100.0,
+                    }
+                ],
+                "bank_fidc_detail": [
+                    {
+                        "competencia": "2026-05",
+                        "grupo_bancario": "BTG Pactual",
+                        "cnpj_fundo": "1",
+                        "denominacao": "FIDC A",
+                        "pl_brl": 100.0,
+                        "observado": True,
+                    }
+                ],
+                "btg_provider_ex_controlled_scenario": [
+                    {
+                        "competencia": "2026-05",
+                        "papel": "administrador",
+                        "btg_pl_brl": 100.0,
+                        "btg_rank": 2,
+                        "fidcs_controlados_excluidos": 6,
+                        "pl_controlado_excluido_brl": 20.0,
+                        "btg_pl_ex_controlados_brl": 80.0,
+                        "btg_rank_ex_controlados": 2,
+                    }
+                ],
+                "closed_offer_ticket_distribution": [
+                    {
+                        "period_label": "2026 jan–mai",
+                        "ticket_bucket": "R$ 10–25 mi",
+                        "closed_offers": 1,
+                        "offer_share": 1.0,
+                        "registered_volume_brl": 10.0,
+                        "registered_volume_share": 1.0,
+                        "period_mean_ticket_brl": 10.0,
+                        "period_median_ticket_brl": 10.0,
+                    }
+                ],
+                "provider_history_cvm_coverage": [
+                    {
+                        "papel": "gestor",
+                        "data_referencia": "2024-12-31→2026-05-31",
+                        "fundos_coorte": 1,
+                        "pl_coorte_mai26_brl": 100.0,
+                        "fundos_resolvidos_unicos": 1,
+                        "cobertura_pl_resolvida": 1.0,
+                    }
+                ],
+                "provider_history_cvm_links": [
+                    {
+                        "papel": "gestor",
+                        "origem_prestador_grupo": "A",
+                        "destino_prestador_grupo": "B",
+                        "fundos": 1,
+                        "pl_mai26_brl": 100.0,
+                    }
+                ],
+                "provider_history_cvm_detail": [
+                    {
+                        "papel": "gestor",
+                        "cnpj_fundo": "1",
+                        "denominacao": "FIDC A",
+                        "pl_mai26_brl": 100.0,
+                        "origem_prestador_grupo": "A",
+                        "destino_prestador_grupo": "B",
+                    }
+                ],
+                "conclusion_metrics": {"competencia": "2026-05"},
+            }
+        )
     return payload
 
 
@@ -332,7 +423,7 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
     return tab_industry_study._load_industry_revision_payload.__wrapped__("test-signature")
 
 
-@pytest.mark.parametrize("schema", [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4])
+@pytest.mark.parametrize("schema", [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5])
 def test_revision_payload_loader_accepts_each_published_schema(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -367,12 +458,12 @@ def test_revision_payload_loader_rejects_unknown_schema(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload = _payload_for_schema(SCHEMA_V3)
-    payload["schema_version"] = "fidc_revision_artifact_payload_v5"
+    payload["schema_version"] = "fidc_revision_artifact_payload_v6"
     _write_payload(tmp_path, payload)
 
     with pytest.raises(
         ValueError,
-        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v5",
+        match=r"schema do payload revisado incompatível: fidc_revision_artifact_payload_v6",
     ):
         _load_payload(tmp_path, monkeypatch)
 
@@ -400,6 +491,7 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V2, "receivables_history"),
         (SCHEMA_V3, "acquiring_taxonomy"),
         (SCHEMA_V4, "closed_offers_annual"),
+        (SCHEMA_V5, "delinquency_frozen_cohort_history"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
@@ -420,7 +512,7 @@ def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
     ("manifest_override", "expected_error"),
     [
         (
-            {"payload_schema": SCHEMA_V2},
+            {"payload_schema": SCHEMA_V4},
             "schema do payload diverge do bundle publicado",
         ),
         (
@@ -447,6 +539,28 @@ def test_revision_payload_loader_rejects_bundle_payload_divergence(
 
     with pytest.raises(ValueError, match=expected_error):
         _load_payload(tmp_path, monkeypatch)
+
+
+def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _payload_for_schema(SCHEMA_V5)
+    _write_payload(tmp_path, payload)
+    manifest_path = tmp_path / "generated_revision" / "industry_export_bundle.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "payload_schema": SCHEMA_V4,
+                "payload_sha256": "0" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    loaded = _load_payload(tmp_path, monkeypatch)
+
+    assert loaded["schema_version"] == SCHEMA_V5
 
 
 def test_office_export_remains_strictly_v3(

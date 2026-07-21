@@ -129,6 +129,29 @@ def _payload() -> dict[str, object]:
             "fundos_fic_excluidos": 1,
             "pl_fic_excluido_brl": 1.0,
         },
+        "delinquency_frozen_cohort_history": [
+            {
+                "competencia": "2026-05",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "fundos_incluidos": 1,
+                "pl_incluido_brl": 1.0,
+                "inadimplencia_sobre_carteira": 0.01,
+                "fundos_coorte": 1,
+                "pl_coorte_referencia_brl": 1.0,
+            }
+        ],
+        "delinquency_frozen_cohort_summary": [
+            {
+                "competencia": "2026-05",
+                "fundos_incluidos": 1,
+                "pl_incluido_brl": 1.0,
+                "inadimplencia_sobre_carteira": 0.01,
+                "fundos_coorte": 1,
+                "pl_coorte_referencia_brl": 1.0,
+                "regra": "coorte fixa",
+                "fonte": "CVM",
+            }
+        ],
         "provider_independent_ranking": [
             {
                 "competencia": "2026-05",
@@ -147,6 +170,30 @@ def _payload() -> dict[str, object]:
                 "pl_bruto_brl": 1.0,
                 "is_total_5_banks": False,
                 "observado": True,
+            }
+        ],
+        "bank_fidc_detail": [
+            {
+                "competencia": "2026-05",
+                "grupo_bancario": "BTG Pactual",
+                "cnpj_fundo": "1",
+                "denominacao": "FIDC A",
+                "pl_brl": 1.0,
+                "observado": True,
+            }
+        ],
+        "btg_provider_ex_controlled_scenario": [
+            {
+                "competencia": "2026-05",
+                "papel": "administrador",
+                "btg_pl_brl": 1.0,
+                "btg_rank": 2,
+                "fidcs_controlados_excluidos": 6,
+                "pl_controlado_excluido_brl": 0.2,
+                "btg_pl_ex_controlados_brl": 0.8,
+                "btg_rank_ex_controlados": 2,
+                "regra": "seis fundos confirmados",
+                "fonte": "DFs",
             }
         ],
         "acquiring_reclassified_mix": [
@@ -181,6 +228,20 @@ def _payload() -> dict[str, object]:
                 "mean_registered_ticket_brl": 1.0,
             }
         ],
+        "closed_offer_ticket_distribution": [
+            {
+                "period_label": "2026 jan–mai",
+                "period_start": "2026-01-01",
+                "period_end": "2026-05-31",
+                "ticket_bucket": "R$ 10–25 mi",
+                "closed_offers": 1,
+                "offer_share": 1.0,
+                "registered_volume_brl": 1.0,
+                "registered_volume_share": 1.0,
+                "period_mean_ticket_brl": 1.0,
+                "period_median_ticket_brl": 1.0,
+            }
+        ],
         "closed_offer_originators_2026": [
             {
                 "rank": 1,
@@ -194,11 +255,50 @@ def _payload() -> dict[str, object]:
                 "share_of_total_registered_volume": 0.1,
             }
         ],
+        "provider_history_cvm_coverage": [
+            {
+                "papel": "gestor",
+                "data_referencia": "2024-12-31→2026-05-31",
+                "fundos_coorte": 1,
+                "pl_coorte_mai26_brl": 1.0,
+                "fundos_resolvidos_unicos": 1,
+                "pl_resolvido_unico_brl": 1.0,
+                "cobertura_fundos_resolvida": 1.0,
+                "cobertura_pl_resolvida": 1.0,
+                "escopo_fonte": "ICVM 555",
+            }
+        ],
+        "provider_history_cvm_links": [
+            {
+                "papel": "gestor",
+                "data_origem": "2024-12-31",
+                "data_destino": "2026-05-31",
+                "origem_prestador_grupo": "A",
+                "destino_prestador_grupo": "B",
+                "fundos": 1,
+                "pl_mai26_brl": 1.0,
+                "share_pl_comparavel": 1.0,
+                "escopo_fonte": "ICVM 555",
+            }
+        ],
+        "provider_history_cvm_detail": [
+            {
+                "papel": "gestor",
+                "data_origem": "2024-12-31",
+                "data_destino": "2026-05-31",
+                "cnpj_fundo": "1",
+                "denominacao": "FIDC A",
+                "pl_mai26_brl": 1.0,
+                "origem_prestador_grupo": "A",
+                "destino_prestador_grupo": "B",
+            }
+        ],
+        "conclusion_metrics": {"competencia": "2026-05"},
     }
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v4"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v5"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
 
@@ -225,13 +325,22 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "qi_legacy_attribution",
         "delinquency_single_receivable",
         "delinquency_single_receivable_summary",
+        "delinquency_frozen_cohort_history",
+        "delinquency_frozen_cohort_summary",
         "provider_independent_ranking",
         "bank_fidc_evolution",
+        "bank_fidc_detail",
+        "btg_provider_ex_controlled_scenario",
         "acquiring_reclassified_mix",
         "closed_offers_annual",
         "closed_offers_monthly",
         "closed_offers_jan_may",
+        "closed_offer_ticket_distribution",
         "closed_offer_originators_2026",
+        "provider_history_cvm_coverage",
+        "provider_history_cvm_links",
+        "provider_history_cvm_detail",
+        "conclusion_metrics",
     ):
         broken = dict(payload)
         broken.pop(key)
@@ -267,7 +376,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 51
+    assert first["checks"]["slides"] == 55
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,
@@ -424,6 +533,8 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
         "prestadores_ranking_historico.csv",
     }.issubset(REQUIRED_ANALYSIS_FILES)
     assert "acquiring_taxonomy_curation.json" in REQUIRED_DATA_INPUTS
+    assert "industry_closed_offer_ticket_distribution.csv" in REQUIRED_DATA_INPUTS
+    assert "industry_closed_offer_ticket_cohort.csv.gz" in REQUIRED_DATA_INPUTS
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:
