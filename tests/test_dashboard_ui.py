@@ -19,6 +19,7 @@ from services.dashboard_ui import (
     style_plotly_figure,
 )
 from tabs import tab_about, tab_modelo_fidc
+from tabs import tab_industry_study
 from tabs.tab_dashboard_meli import _normalise_audit_identifier_columns
 from tabs.tab_cloudwalk_financial_cost import CLOUDWALK_VIEW_TABS
 from tabs.tab_estimativas_modelagem import ESTIMATES_MODELING_VIEWS
@@ -32,6 +33,7 @@ from tabs.tab_industry_study import (
     _industry_anbima_coverage_note,
     _industry_executive_trend_frames,
     _industry_files_signature,
+    _load_csv,
     _industry_holder_histogram_frames,
     _industry_monostructure_frames,
     _revision_holder_distribution_frame,
@@ -608,6 +610,33 @@ def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) ->
         "generated_revision/industry_data_revised.xlsx",
         "generated_revision/provider_flows_explorer.html",
     }.issubset(_INDUSTRY_EXPORT_INPUTS)
+
+
+def test_industry_csv_cache_reloads_when_the_source_changes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    source = tmp_path / "industry_competence_status.csv"
+    source.write_text("competencia,publication_status\n2026-05,completa\n", encoding="utf-8")
+    monkeypatch.setattr(tab_industry_study, "_DATA_DIR", tmp_path)
+    _load_csv.clear()
+
+    first_signature = _industry_files_signature((source.name,), data_dir=tmp_path)
+    first = _load_csv(source.name, first_signature)
+
+    source.write_text(
+        "competencia,publication_status\n2026-05,completa\n2026-06,completa\n",
+        encoding="utf-8",
+    )
+    second_signature = _industry_files_signature((source.name,), data_dir=tmp_path)
+    second = _load_csv(source.name, second_signature)
+    _load_csv.clear()
+
+    assert first is not None and first["competencia"].tolist() == ["2026-05"]
+    assert second is not None and second["competencia"].tolist() == [
+        "2026-05",
+        "2026-06",
+    ]
 
 
 def test_industry_tab4_conflict_notice_is_concise_and_explicit_about_precedence() -> None:
