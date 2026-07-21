@@ -51,6 +51,10 @@ BANK_COHORT_HISTORY_COLUMNS: Final[tuple[str, ...]] = (
     "bank_group",
     "is_total_5_banks",
     "pl_brl",
+    "pl_brl_raw",
+    "pl_recovered_official",
+    "pl_display_suffix",
+    "pl_source_references",
     "fundos_observados",
     "fundos_curados",
     "cobertura_fundos",
@@ -69,6 +73,10 @@ BANK_COHORT_DETAIL_COLUMNS: Final[tuple[str, ...]] = (
     "cnpj_fundo",
     "denominacao",
     "pl_brl",
+    "pl_brl_raw",
+    "pl_recovered_official",
+    "pl_display_suffix",
+    "pl_source_reference",
     "observado",
     "pl_reportado_zero",
     "source_reference",
@@ -489,6 +497,121 @@ def build_independent_provider_historical_ranking(
     return independent.loc[:, INDEPENDENT_PROVIDER_HISTORY_COLUMNS]
 
 
+def _prepare_bank_fidc_curation(
+    bank_fidc_curation: pd.DataFrame,
+) -> pd.DataFrame:
+    """Normalize the fixed cohort and its optional official PL recoveries."""
+
+    _require_columns(
+        bank_fidc_curation,
+        {"bank_group", "cnpj_root8", "source_reference"},
+        label="bank_fidc_curation",
+    )
+    if bank_fidc_curation.empty:
+        raise ValueError("bank_fidc_curation está vazia")
+
+    curation = bank_fidc_curation.copy()
+    optional_defaults: dict[str, object] = {
+        "pl_override_competencia": "",
+        "pl_override_brl": float("nan"),
+        "pl_override_status": "",
+        "pl_override_display_suffix": "",
+        "pl_override_source_reference": "",
+    }
+    for column, default in optional_defaults.items():
+        if column not in curation:
+            curation[column] = default
+
+    curation["bank_group"] = curation["bank_group"].map(_clean)
+    curation["cnpj_root8"] = curation["cnpj_root8"].map(_cnpj_root8)
+    curation["source_reference"] = curation["source_reference"].map(_clean)
+    curation["pl_override_competencia"] = curation[
+        "pl_override_competencia"
+    ].map(_clean).str[:7]
+    curation["pl_override_brl"] = _numeric_series(
+        curation["pl_override_brl"], label="bank_fidc_curation.pl_override_brl"
+    )
+    for column in (
+        "pl_override_status",
+        "pl_override_display_suffix",
+        "pl_override_source_reference",
+    ):
+        curation[column] = curation[column].map(_clean)
+
+    if curation[["bank_group", "cnpj_root8"]].eq("").any().any():
+        raise ValueError("bank_fidc_curation contém grupo ou raiz de CNPJ inválida")
+
+    has_period = curation["pl_override_competencia"].ne("")
+    has_value = curation["pl_override_brl"].notna()
+    if (has_period ^ has_value).any():
+        raise ValueError(
+            "bank_fidc_curation exige competência e valor em conjunto para override de PL"
+        )
+    override_rows = curation[has_period & has_value]
+    if not override_rows.empty:
+        if override_rows["pl_override_brl"].le(0).any():
+            raise ValueError("override oficial de PL deve ser positivo")
+        if not override_rows["pl_override_status"].eq("official_recovered").all():
+            raise ValueError(
+                "override de PL da coorte deve ter status official_recovered"
+            )
+        if not override_rows["pl_override_display_suffix"].eq("*").all():
+            raise ValueError("override oficial de PL deve usar asterisco")
+        if override_rows["pl_override_source_reference"].eq("").any():
+            raise ValueError("override oficial de PL exige fonte")
+        duplicate_overrides = override_rows.duplicated(
+            ["cnpj_root8", "pl_override_competencia"], keep=False
+        )
+        if duplicate_overrides.any():
+            raise ValueError("override de PL duplicado por raiz de CNPJ/competência")
+
+    return curation
+
+
+def _apply_official_bank_pl_recoveries(
+    funds: pd.DataFrame,
+    curation: pd.DataFrame,
+) -> pd.DataFrame:
+    """Replace a malformed reported value with a sourced official value once."""
+
+    recovered = funds.copy()
+    recovered["pl_brl_raw"] = recovered["pl"]
+    recovered["pl_recovered_official"] = False
+    recovered["pl_display_suffix"] = ""
+    recovered["pl_source_reference"] = ""
+
+    overrides = curation[
+        curation["pl_override_competencia"].ne("")
+        & curation["pl_override_brl"].notna()
+    ]
+    for item in overrides.itertuples(index=False):
+        mask = recovered["competencia"].eq(item.pl_override_competencia) & recovered[
+            "cnpj_root8"
+        ].eq(item.cnpj_root8)
+        matches = int(mask.sum())
+        if matches != 1:
+            raise ValueError(
+                "override oficial de PL exige exatamente um registro bruto: "
+                f"{item.cnpj_root8}/{item.pl_override_competencia}, encontrados={matches}"
+            )
+        raw_value = float(recovered.loc[mask, "pl"].iloc[0])
+        override_value = float(item.pl_override_brl)
+        if raw_value > 0 and not math.isclose(
+            raw_value, override_value, rel_tol=1e-10, abs_tol=1_000.0
+        ):
+            raise ValueError(
+                "override oficial de PL conflita com valor bruto positivo: "
+                f"{item.cnpj_root8}/{item.pl_override_competencia}"
+            )
+        recovered.loc[mask, "pl"] = override_value
+        recovered.loc[mask, "pl_recovered_official"] = True
+        recovered.loc[mask, "pl_display_suffix"] = item.pl_override_display_suffix
+        recovered.loc[mask, "pl_source_reference"] = (
+            item.pl_override_source_reference
+        )
+    return recovered
+
+
 def build_fixed_bank_fidc_cohort_history(
     fund_base: pd.DataFrame,
     bank_fidc_curation: pd.DataFrame,
@@ -503,20 +626,7 @@ def build_fixed_bank_fidc_cohort_history(
         {"competencia", "cnpj_fundo", "pl"},
         label="fund_base",
     )
-    _require_columns(
-        bank_fidc_curation,
-        {"bank_group", "cnpj_root8", "source_reference"},
-        label="bank_fidc_curation",
-    )
-    if bank_fidc_curation.empty:
-        raise ValueError("bank_fidc_curation está vazia")
-
-    curation = bank_fidc_curation.copy()
-    curation["bank_group"] = curation["bank_group"].map(_clean)
-    curation["cnpj_root8"] = curation["cnpj_root8"].map(_cnpj_root8)
-    curation["source_reference"] = curation["source_reference"].map(_clean)
-    if curation[["bank_group", "cnpj_root8"]].eq("").any().any():
-        raise ValueError("bank_fidc_curation contém grupo ou raiz de CNPJ inválida")
+    curation = _prepare_bank_fidc_curation(bank_fidc_curation)
     conflicts = curation.groupby("cnpj_root8")["bank_group"].nunique()
     if conflicts.gt(1).any():
         roots = conflicts[conflicts.gt(1)].index.tolist()
@@ -551,6 +661,7 @@ def build_fixed_bank_fidc_cohort_history(
             .to_dict("records")
         )
         raise ValueError(f"fund_base duplicada por competência/CNPJ: {examples}")
+    funds = _apply_official_bank_pl_recoveries(funds, curation)
 
     available_periods = sorted(funds["competencia"].unique())
     selected_periods = (
@@ -575,6 +686,10 @@ def build_fixed_bank_fidc_cohort_history(
             observed = period_cohort[period_cohort["bank_group"].eq(group)]
             observed_roots = set(observed["cnpj_root8"])
             missing_roots = sorted(curated_roots.difference(observed_roots))
+            recovered_official = bool(
+                observed["pl_recovered_official"].any()
+            ) if not observed.empty else False
+            recovery_sources = _join_unique(observed["pl_source_reference"])
             row = {
                 "competencia": period,
                 "bank_group": group,
@@ -582,6 +697,12 @@ def build_fixed_bank_fidc_cohort_history(
                 "pl_brl": float(observed["pl"].sum(min_count=1))
                 if not observed.empty
                 else float("nan"),
+                "pl_brl_raw": float(observed["pl_brl_raw"].sum(min_count=1))
+                if not observed.empty
+                else float("nan"),
+                "pl_recovered_official": recovered_official,
+                "pl_display_suffix": "*" if recovered_official else "",
+                "pl_source_references": recovery_sources,
                 "fundos_observados": len(observed_roots),
                 "fundos_curados": len(curated_roots),
                 "cobertura_fundos": len(observed_roots) / len(curated_roots),
@@ -589,7 +710,9 @@ def build_fixed_bank_fidc_cohort_history(
                 "raizes_cnpj_observadas": ";".join(sorted(observed_roots)),
                 "raizes_cnpj_nao_observadas": ";".join(missing_roots),
                 "cnpjs_nao_observados": ";".join(missing_roots),
-                "source_references": _join_unique(curated["source_reference"]),
+                "source_references": _join_unique(
+                    [*curated["source_reference"], recovery_sources]
+                ),
                 "publication_status": (
                     "complete_fixed_cohort"
                     if not missing_roots
@@ -631,6 +754,27 @@ def build_fixed_bank_fidc_cohort_history(
                         if not pd.isna(row["pl_brl"])
                     )
                 ),
+                "pl_brl_raw": float(
+                    sum(
+                        float(row["pl_brl_raw"])
+                        for row in period_rows
+                        if not pd.isna(row["pl_brl_raw"])
+                    )
+                ),
+                "pl_recovered_official": any(
+                    bool(row["pl_recovered_official"]) for row in period_rows
+                ),
+                "pl_display_suffix": (
+                    "*"
+                    if any(
+                        bool(row["pl_recovered_official"])
+                        for row in period_rows
+                    )
+                    else ""
+                ),
+                "pl_source_references": _join_unique(
+                    row["pl_source_references"] for row in period_rows
+                ),
                 "fundos_observados": total_observed,
                 "fundos_curados": total_curated,
                 "cobertura_fundos": total_observed / total_curated,
@@ -665,28 +809,20 @@ def build_fixed_bank_fidc_cohort_detail(
         {"competencia", "cnpj_fundo", "denominacao", "pl"},
         label="fund_base",
     )
-    _require_columns(
-        bank_fidc_curation,
-        {"bank_group", "cnpj_root8", "source_reference"},
-        label="bank_fidc_curation",
-    )
-    curation = bank_fidc_curation.copy()
-    curation["bank_group"] = curation["bank_group"].map(_clean)
-    curation["cnpj_root8"] = curation["cnpj_root8"].map(_cnpj_root8)
-    curation["source_reference"] = curation["source_reference"].map(_clean)
-    if curation[["bank_group", "cnpj_root8"]].eq("").any().any():
-        raise ValueError("bank_fidc_curation contém grupo ou raiz de CNPJ inválida")
+    curation = _prepare_bank_fidc_curation(bank_fidc_curation)
     curation = curation.drop_duplicates(["bank_group", "cnpj_root8"])
 
     funds = fund_base.copy()
     funds["competencia"] = funds["competencia"].map(_clean).str[:7]
     funds["cnpj_fundo"] = funds["cnpj_fundo"].map(_cnpj14)
     funds["cnpj_root8"] = funds["cnpj_fundo"].str[:8]
-    funds["pl_brl"] = _numeric_series(funds["pl"], label="fund_base.pl")
+    funds["pl"] = _numeric_series(funds["pl"], label="fund_base.pl")
     funds["denominacao"] = funds["denominacao"].map(_clean)
     duplicated = funds.duplicated(["competencia", "cnpj_fundo"], keep=False)
     if duplicated.any():
         raise ValueError("fund_base duplicada por competência/CNPJ")
+    funds = _apply_official_bank_pl_recoveries(funds, curation)
+    funds["pl_brl"] = funds["pl"]
 
     rows: list[dict[str, object]] = []
     for period_value in periods:
@@ -702,6 +838,13 @@ def build_fixed_bank_fidc_cohort_detail(
             observed = item.cnpj_root8 in by_root.index
             fund = by_root.loc[item.cnpj_root8] if observed else None
             pl_value = float(fund["pl_brl"]) if observed else float("nan")
+            pl_raw = float(fund["pl_brl_raw"]) if observed else float("nan")
+            recovered_official = bool(
+                observed and fund["pl_recovered_official"]
+            )
+            recovery_source = (
+                str(fund["pl_source_reference"]) if recovered_official else ""
+            )
             rows.append(
                 {
                     "competencia": period,
@@ -710,9 +853,15 @@ def build_fixed_bank_fidc_cohort_detail(
                     "cnpj_fundo": str(fund["cnpj_fundo"]) if observed else "",
                     "denominacao": str(fund["denominacao"]) if observed else "não observado",
                     "pl_brl": pl_value,
+                    "pl_brl_raw": pl_raw,
+                    "pl_recovered_official": recovered_official,
+                    "pl_display_suffix": "*" if recovered_official else "",
+                    "pl_source_reference": recovery_source,
                     "observado": bool(observed),
-                    "pl_reportado_zero": bool(observed and pl_value == 0),
-                    "source_reference": item.source_reference,
+                    "pl_reportado_zero": bool(observed and pl_raw == 0),
+                    "source_reference": _join_unique(
+                        [item.source_reference, recovery_source]
+                    ),
                 }
             )
     output = pd.DataFrame(rows).sort_values(

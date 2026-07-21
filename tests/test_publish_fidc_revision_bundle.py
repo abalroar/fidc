@@ -7,6 +7,7 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import pytest
+from openpyxl import Workbook
 
 from scripts.build_fidc_industry_study import parse_args as parse_study_args
 from scripts.publish_fidc_revision_bundle import (
@@ -27,6 +28,8 @@ from scripts.publish_fidc_revision_bundle import (
     validate_bundle_manifest,
     validate_deck_snapshot,
     validate_renderer_manifest,
+    validate_source_presence_coverage,
+    validate_user_facing_workbook_snapshot,
 )
 
 
@@ -40,6 +43,79 @@ def test_discover_latest_complete_ignores_newer_preliminary_month(tmp_path: Path
     )
 
     assert discover_latest_complete(tmp_path) == "2026-05"
+
+
+def _snapshot_workbook_bytes(latest: str, *, stale_sheet: str = "") -> bytes:
+    from scripts.publish_fidc_revision_bundle import USER_FACING_SNAPSHOT_SHEETS
+
+    workbook = Workbook()
+    workbook.remove(workbook.active)
+    for sheet_name in USER_FACING_SNAPSHOT_SHEETS:
+        sheet = workbook.create_sheet(sheet_name)
+        sheet.append(["competencia", "valor"])
+        sheet.append(["2026-05", 1])
+        if sheet_name != stale_sheet:
+            sheet.append([latest, 2])
+    output = BytesIO()
+    workbook.save(output)
+    workbook.close()
+    return output.getvalue()
+
+
+def test_user_facing_workbook_snapshot_accepts_all_tabs_at_latest() -> None:
+    validate_user_facing_workbook_snapshot(
+        _snapshot_workbook_bytes("2026-06"),
+        "2026-06",
+    )
+
+
+def test_user_facing_workbook_snapshot_blocks_one_stale_inherited_tab() -> None:
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=r"Mix ANBIMA \(2026-05\)",
+    ):
+        validate_user_facing_workbook_snapshot(
+            _snapshot_workbook_bytes("2026-06", stale_sheet="Mix ANBIMA"),
+            "2026-06",
+        )
+
+
+def _write_gzip_csv(path: Path, text: str) -> None:
+    import gzip
+
+    with gzip.open(path, "wt", encoding="utf-8", newline="") as handle:
+        handle.write(text)
+
+
+def test_source_presence_validation_blocks_degraded_latest_snapshot(
+    tmp_path: Path,
+) -> None:
+    _write_gzip_csv(
+        tmp_path / "base_competencia_cnpj.csv.gz",
+        "competencia,field_presence_exact\n2026-06,False\n",
+    )
+    _write_gzip_csv(
+        tmp_path / "source_presence_overlay.csv.gz",
+        "competencia\n",
+    )
+
+    with pytest.raises(RevisionBundlePublishError, match="vazio-versus-zero"):
+        validate_source_presence_coverage(tmp_path, "2026-06")
+
+
+def test_source_presence_validation_accepts_complete_latest_snapshot(
+    tmp_path: Path,
+) -> None:
+    _write_gzip_csv(
+        tmp_path / "base_competencia_cnpj.csv.gz",
+        "competencia,field_presence_exact\n2026-06,True\n",
+    )
+    _write_gzip_csv(
+        tmp_path / "source_presence_overlay.csv.gz",
+        "competencia\n2026-06\n",
+    )
+
+    validate_source_presence_coverage(tmp_path, "2026-06")
 
 
 def test_discover_artifact_node_modules_uses_explicit_offline_runtime(
@@ -168,6 +244,10 @@ def _payload() -> dict[str, object]:
                 "competencia": "2026-05",
                 "grupo_bancario": "BTG Pactual",
                 "pl_bruto_brl": 1.0,
+                "pl_brl_raw": 1.0,
+                "pl_recovered_official": False,
+                "pl_display_suffix": "",
+                "pl_source_references": "N/D",
                 "is_total_5_banks": False,
                 "observado": True,
             }
@@ -179,6 +259,10 @@ def _payload() -> dict[str, object]:
                 "cnpj_fundo": "1",
                 "denominacao": "FIDC A",
                 "pl_brl": 1.0,
+                "pl_brl_raw": 1.0,
+                "pl_recovered_official": False,
+                "pl_display_suffix": "",
+                "pl_source_reference": "N/D",
                 "observado": True,
             }
         ],
@@ -228,11 +312,19 @@ def _payload() -> dict[str, object]:
                 "mean_registered_ticket_brl": 1.0,
             }
         ],
+        "closed_offers_jan_june": [
+            {
+                "year": 2026,
+                "closed_offers": 1,
+                "registered_volume_brl": 1.0,
+                "mean_registered_ticket_brl": 1.0,
+            }
+        ],
         "closed_offer_ticket_distribution": [
             {
-                "period_label": "2026 jan–mai",
+                "period_label": "2026 jan–jun",
                 "period_start": "2026-01-01",
-                "period_end": "2026-05-31",
+                "period_end": "2026-06-30",
                 "ticket_bucket": "R$ 10–25 mi",
                 "closed_offers": 1,
                 "offer_share": 1.0,
@@ -334,6 +426,7 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "acquiring_reclassified_mix",
         "closed_offers_annual",
         "closed_offers_monthly",
+        "closed_offers_jan_june",
         "closed_offers_jan_may",
         "closed_offer_ticket_distribution",
         "closed_offer_originators_2026",
@@ -376,7 +469,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 55
+    assert first["checks"]["slides"] == 56
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

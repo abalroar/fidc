@@ -8,6 +8,7 @@ import pytest
 from scripts.build_fidc_industry_study import field_reported
 from scripts.build_fidc_revision_artifact_payload import (
     _atlantico_payload,
+    _build_profiles,
     _holder_distribution,
     _holder_distribution_history,
     _provider_leadership_payload,
@@ -19,6 +20,7 @@ from scripts.build_fidc_revision_artifact_payload import (
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
+    LATEST_COMPLETE,
     MARKET_SHARE_EXCLUDED_FUNDS,
     TABLE_II_RECEIVABLE_COLUMNS,
     build_base_by_vehicle,
@@ -36,6 +38,40 @@ from services.industry_revision_analysis import (
     build_reconciliation,
     build_top20_and_monostructure,
 )
+
+
+def test_revision_default_tracks_june_complete_snapshot() -> None:
+    assert LATEST_COMPLETE == "2026-06"
+
+
+def test_profile_fallback_uses_requested_latest_competence() -> None:
+    top20 = pd.DataFrame(
+        [
+            {
+                "rank": 1,
+                "cnpj_fundo": "12345678000190",
+                "cnpj_fundo_formatado": "12.345.678/0001-90",
+                "denominacao": "FIDC TESTE",
+                "pl": 1_000.0,
+                "market_share_ex_fic": 0.1,
+                "admin_nome": "ADMIN",
+                "gestor_nome": "GESTOR",
+                "custodiante_nome": "CUSTODIANTE",
+                "anbima_tipo": "Outros",
+                "anbima_foco": "N/D",
+                "classification_status": "N/D",
+            }
+        ]
+    )
+
+    profile = _build_profiles(
+        top20,
+        pd.DataFrame(),
+        pd.DataFrame(),
+        latest="2026-06",
+    ).iloc[0]
+
+    assert profile["data_referencia_tipo_foco"] == "2026-06"
 
 
 def _vehicle_rows() -> pd.DataFrame:
@@ -312,7 +348,7 @@ def test_atlantico_payload_keeps_five_checkpoints_and_june_july_bridge(
 def test_delinquency_qa_uses_report_flags_and_reconciles_vehicle_to_fund() -> None:
     base = build_base_by_vehicle(_vehicle_rows())
     qa = build_delinquency_qa(base).iloc[0]
-    reconciliation = build_reconciliation(base)
+    reconciliation = build_reconciliation(base, competence="2026-05")
 
     assert qa["veiculos_total"] == 3
     assert qa["fundos_total"] == 2
@@ -461,7 +497,9 @@ def _fund_base_for_rankings() -> pd.DataFrame:
 
 def test_top20_uses_full_universe_and_mono_uses_one_group_definition() -> None:
     funds = _fund_base_for_rankings()
-    top20, _, structured, concentration = build_top20_and_monostructure(funds)
+    top20, _, structured, concentration = build_top20_and_monostructure(
+        funds, competence="2026-05"
+    )
 
     assert len(top20) == 20
     assert top20["rank"].tolist() == list(range(1, 21))
@@ -501,9 +539,11 @@ def test_market_share_subtype_uses_fixed_top10_and_separates_missing_provider() 
             )
             extra[-1]["anbima_tipo"] = anbima_type
     funds = pd.concat([funds, pd.DataFrame(extra)], ignore_index=True)
-    market, fixed = build_market_share_by_subtype(funds)
-    scope = build_market_share_scope_summary(funds, market)
-    coverage = build_classification_coverage(funds)
+    market, fixed = build_market_share_by_subtype(funds, competence="2026-05")
+    scope = build_market_share_scope_summary(
+        funds, market, competence="2026-05"
+    )
+    coverage = build_classification_coverage(funds, competence="2026-05")
 
     assert market["foco_anbima"].nunique() == 14
     assert fixed.groupby("papel").size().eq(10).all()
@@ -531,7 +571,7 @@ def test_market_share_normalizes_on_positive_pl_and_flags_negative_category() ->
     funds = _fund_base_for_rankings()
     target = funds.index[2]
     funds.loc[target, "pl"] = -1.0
-    market, _ = build_market_share_by_subtype(funds)
+    market, _ = build_market_share_by_subtype(funds, competence="2026-05")
     row = funds.loc[target]
     scoped = market[
         market["tipo_anbima"].eq(row["anbima_tipo"])
@@ -610,7 +650,9 @@ def test_provider_historical_ranking_excludes_named_funds_in_all_periods() -> No
             ]
         )
 
-    ranking = build_provider_historical_ranking(pd.DataFrame(rows))
+    ranking = build_provider_historical_ranking(
+        pd.DataFrame(rows), periods=("2024-12", "2025-12", "2026-05")
+    )
 
     assert set(ranking["competencia"]) == {"2024-12", "2025-12", "2026-05"}
     assert set(ranking["papel"]) == {"administrador", "gestor", "custodiante"}
@@ -665,6 +707,7 @@ def test_frozen_receivable_cohort_keeps_latest_membership_and_subtype() -> None:
         vehicle,
         pd.DataFrame(fund_rows),
         pd.DataFrame(raw_rows),
+        competence="2026-05",
     )
 
     assert len(members) == 2
@@ -717,7 +760,7 @@ def test_provider_transition_uses_current_pl_and_marks_overlay_roles_as_samples(
     ]
 
     summary, links, detail, availability = build_provider_transition_flows(
-        pd.DataFrame(rows)
+        pd.DataFrame(rows), to_competence="2026-05"
     )
 
     assert summary.iloc[0]["continuing_funds"] == 3
@@ -777,7 +820,9 @@ def test_reag_admin_cohort_reconciles_exits_and_collapses_small_destinations() -
         row("2025-12", "09195235000150", 500, "CBSF DTVM", origin_admin),
     ]
 
-    summary, links, detail = build_reag_admin_cohort(pd.DataFrame(rows))
+    summary, links, detail = build_reag_admin_cohort(
+        pd.DataFrame(rows), to_competence="2026-05"
+    )
     item = summary.iloc[0]
 
     assert item["funds_origin"] == 6
@@ -866,7 +911,7 @@ def test_provider_leadership_reconciles_btg_six_and_qi_legal_cnpjs() -> None:
     )
 
     summary, btg_detail, qi_detail = build_provider_leadership_attribution(
-        pd.DataFrame(vehicle_rows), qi_funds, ranking
+        pd.DataFrame(vehicle_rows), qi_funds, ranking, latest_complete="2026-05"
     )
     records = summary.set_index("provider")
 

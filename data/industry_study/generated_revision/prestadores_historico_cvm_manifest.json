@@ -1,45 +1,45 @@
 {
   "checks": {
-    "cohort_funds": 3602,
-    "cohort_pl_may26_brl": 778659754335.3,
+    "cohort_funds": 3624,
+    "cohort_pl_may26_brl": 777689131876.01,
     "excluded_fund_cnpjs": [
       "09195235000150",
       "26287464000114"
     ],
     "from_date": "2024-12-31",
     "interval_definition": "data_inicio <= referência < data_fim; data_fim vazia permanece ativa",
-    "latest_competence": "2026-05",
+    "latest_competence": "2026-06",
     "multiple_active_definition": "mais de um prestador legal ativo na mesma data; excluído do fluxo comparável",
     "provider_group_definition": "curadoria societária revisada quando disponível; canonical_provider nos demais",
     "source_scope_note": "Recurso histórico do cadastro CVM identificado no portal como ICVM 555; a cobertura observada na coorte de FIDCs é reportada e não extrapolada.",
     "to_date": "2026-05-31",
     "weight_definition": "PL de mai/26 por CNPJ legal de fundo"
   },
-  "generated_at_utc": "2026-07-21T13:39:12+00:00",
+  "generated_at_utc": "2026-07-21T15:00:00+00:00",
   "outputs": {
     "coverage": {
-      "bytes": 4319,
+      "bytes": 4323,
       "path": "prestadores_historico_cvm_cobertura.csv",
       "rows": 9,
-      "sha256": "6a39e5fbc2ec50e80df2d88384af80c2a1d0fc4b955000bb5b6362e4da746dad"
+      "sha256": "2e0a08e604152e33a5aa22e2d1c89a7e0bcaec666ffe9bec3a0c20d58cee289e"
     },
     "detail": {
-      "bytes": 416402,
+      "bytes": 419170,
       "path": "prestadores_historico_cvm_transicoes_detalhe.csv.gz",
-      "rows": 10806,
-      "sha256": "1b013a6b3582954baeb71314c2110252a14302b9e6579975f366bd34671947cf"
+      "rows": 10872,
+      "sha256": "242b656e471095ddd066b182b64f35c0bac1325f26a29711ebac8bf2ec63478b"
     },
     "links": {
-      "bytes": 43066,
+      "bytes": 44021,
       "path": "prestadores_historico_cvm_transicoes_links.csv",
-      "rows": 133,
-      "sha256": "ef731495cc28217938f0fecc4bf370af713c4bae7bf5b006adb493a4b17c8256"
+      "rows": 136,
+      "sha256": "541c922e8f4fbaac3bfcc16ad800bcfbfb7bec842af08b7acf510bf036445cec"
     },
     "snapshot": {
-      "bytes": 851868,
+      "bytes": 857408,
       "path": "prestadores_historico_cvm_snapshot.csv.gz",
-      "rows": 21612,
-      "sha256": "112e1617d9cf5541fbf42cc6f288f7b2d50b3848f53a024c67ba06be237c13c6"
+      "rows": 21744,
+      "sha256": "a32890ed15e27c64e5761721732f90c82fd56ba868e55009100f22ad0a23876a"
     }
   },
   "schema_version": "provider_history_cvm_v1",

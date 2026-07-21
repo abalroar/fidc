@@ -212,7 +212,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 55
+    assert len(slides) == 56
     expected_body = [
         "SÍNTESE EXECUTIVA",
         "ESCALA DA INDÚSTRIA",
@@ -240,25 +240,26 @@ def test_deck_order_and_profile_count() -> None:
         "RANKING · TOP 20 OUTROS",
         "MODELO DE PRESTAÇÃO",
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
+        "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
         "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
         "PRINCIPAIS CONCLUSÕES",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
-    for slide_text, expected in zip(slides[1:30], expected_body, strict=True):
+    for slide_text, expected in zip(slides[1:31], expected_body, strict=True):
         assert expected in slide_text
-    assert "Escopo, fontes e limitações" in slides[30]
-    assert "Administração por subtipo" in slides[31]
-    assert "Gestão por subtipo" in slides[32]
-    assert "Custódia por subtipo" in slides[33]
-    profiles = slides[34:54]
+    assert "Escopo, fontes e limitações" in slides[31]
+    assert "Administração por subtipo" in slides[32]
+    assert "Gestão por subtipo" in slides[33]
+    assert "Custódia por subtipo" in slides[34]
+    profiles = slides[35:55]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[54]
-    assert "09.194.841/0001-51" in slides[54]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[55]
+    assert "09.194.841/0001-51" in slides[55]
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
@@ -297,18 +298,25 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         "data-export-csv",
         "26.286.939/0001-58",
         "Sem reporte",
-        "PL não positivo",
         "Ativa Investimentos",
         "Finvest",
         "BRL Trust",
         "FundosNet",
         "CVM origem",
         "CVM destino",
+        "DEZ/24 → JUN/26 · ADMINISTRAÇÃO",
+        "DEZ/24 → MAI/26 · GESTÃO · AMOSTRA ICVM 555",
+        "DEZ/24 → MAI/26 · CUSTÓDIA · AMOSTRA ICVM 555",
+        "CBSF / REAG · DEZ/25 → JUN/26",
+        '"fileStem":"fluxos_admin_dez24_jun26"',
+        '"fileStem":"fluxos_gestor_dez24_mai26"',
+        '"fileStem":"fluxos_custodiante_dez24_mai26"',
+        '"fileStem":"fluxos_cbsf_reag_dez25_jun26"',
     ):
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [13, 14, 15, 32, 33, 34])
+@pytest.mark.parametrize("slide_number", [13, 14, 15, 33, 34, 35])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -412,7 +420,7 @@ def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note()
         "CUSTÓDIA",
         "Dez/24",
         "Dez/25",
-        "Mai/26",
+            "Jun/26",
         "Sistema Petrobras e TAPSO excluídos",
         "Itaú",
     ):
@@ -428,6 +436,7 @@ def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -
         manager = ET.fromstring(archive.read("ppt/slides/slide22.xml"))
         custodian = ET.fromstring(archive.read("ppt/slides/slide23.xml"))
         attribution_text = " ".join(node.text or "" for node in attribution.iter(f"{{{DML}}}t"))
+        reag_text = " ".join(node.text or "" for node in reag.iter(f"{{{DML}}}t"))
         transition_text = " ".join(node.text or "" for node in transitions.iter(f"{{{DML}}}t"))
 
         assert len(_slide_chart_paths(archive, 19)) == 2
@@ -449,13 +458,15 @@ def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -
         assert len(archive.read(custodian_images[0])) > 50_000
 
     assert "95,9%" in attribution_text
-    assert "R$ 28,6 bi" in attribution_text
+    assert "R$ 28,0 bi" in attribution_text
+    assert "Master e Planner receberam R$ 9,9 bi" in reag_text
+    assert "destino em jun/26" in reag_text
     assert len(reag.findall(f".//{{{PML}}}pic")) == 1
     assert len(transitions.findall(f".//{{{PML}}}pic")) == 1
     assert not reag.findall(f".//{{{PML}}}cxnSp")
     assert not transitions.findall(f".//{{{PML}}}cxnSp")
-    assert "largura = PL mai/26" in transition_text
-    assert "Cobertura: 75,6%" in transition_text
+    assert "largura = PL jun/26" in transition_text
+    assert "Cobertura: 73,1%" in transition_text
 
 
 def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -> None:
@@ -486,7 +497,7 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 
     assert len(chart_series) == 4
     for series in chart_series:
-        assert set(series) == {"Dez/23", "Mai/26"}
+        assert set(series) == {"Dez/23", "Jun/26"}
         assert all(len(values) == 6 for values in series.values())
     normalized = [
         series
@@ -499,10 +510,10 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 @pytest.mark.parametrize(
     ("slide_number", "periods"),
     [
-        (6, {"Dez/23", "Mai/26"}),
-        (7, {"Dez/23", "Mai/26"}),
-        (8, {"Dez/23", "Mai/26"}),
-        (12, {"Dez/25", "Mai/26"}),
+        (6, {"Dez/23", "Jun/26"}),
+        (7, {"Dez/23", "Jun/26"}),
+        (8, {"Dez/23", "Jun/26"}),
+        (12, {"Dez/25", "Jun/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -623,28 +634,38 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v11";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v12";' in source
+
+
+def test_provider_transition_slide_has_no_stale_editorial_fallback() -> None:
+    source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
+        encoding="utf-8"
+    )
+    assert "provider_transition_summary ausente ou incompleto" in source
+    assert "continuing_funds: 2477" not in source
+    assert "changed_funds: 257" not in source
+    assert "summary.changed_funds || 257" not in source
 
 
 def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     metrics = payload["conclusion_metrics"]
 
-    assert metrics["holder_ge_200m_fundos"] == 778
+    assert metrics["holder_ge_200m_fundos"] == 784
     assert metrics["holder_ge_200m_share_fundos_ate_10_contas"] == pytest.approx(
-        0.5899742931
+        0.5841836735
     )
-    assert metrics["service_model_universe_funds"] == 4222
-    assert metrics["admin_custodia_juntas_fundos"] == 3702
-    assert metrics["admin_custodia_juntas_share_pl"] == pytest.approx(0.8737059206)
-    assert metrics["monoestrutura_share_pl"] == pytest.approx(0.3401555639)
-    assert metrics["btg_combo_tres_funcoes_fundos"] == 66
+    assert metrics["service_model_universe_funds"] == 4247
+    assert metrics["admin_custodia_juntas_fundos"] == 3782
+    assert metrics["admin_custodia_juntas_share_pl"] == pytest.approx(0.9028615536)
+    assert metrics["monoestrutura_share_pl"] == pytest.approx(0.3566815953)
+    assert metrics["btg_combo_tres_funcoes_fundos"] == 70
     assert metrics["btg_combo_tres_funcoes_pl_brl"] == pytest.approx(
-        65_036_032_970.28
+        78_061_458_101.28
     )
-    assert metrics["btg_combo_ex_controlados_fundos"] == 60
+    assert metrics["btg_combo_ex_controlados_fundos"] == 64
     assert metrics["btg_combo_ex_controlados_pl_brl"] == pytest.approx(
-        36_395_450_889.1
+        50_049_803_169.71
     )
     assert metrics["admin_transition_2024_2025_continuing_funds"] == 2477
     assert metrics["admin_transition_2024_2025_changed_funds"] == 257
@@ -676,30 +697,39 @@ def test_materialized_gross_pl_cagrs_match_the_chart_totals() -> None:
     assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.2559047631)
 
 
+def test_materialized_payload_uses_complete_june_stock() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+
+    assert payload["latest_complete"] == "2026-06"
+    assert payload["stock_preliminary_status"] == {}
+    assert payload["qa_latest"]["veiculos_total"] == 4252
+    assert payload["qa_latest"]["fundos_total"] == 4247
+
+
 def test_materialized_acquiring_mix_includes_the_three_seller_fidcs() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     current = next(
         row
         for row in payload["acquiring_reclassified_mix"]
-        if row["competencia"] == "2026-05"
+        if row["competencia"] == "2026-06"
         and row["categoria_analitica"] == "Adquirência"
     )
 
     assert current["fundos_adquirencia_curados"] == 16
     assert current["fundos_adquirencia_observados"] == 14
     assert current["fundos_movidos_para_adquirencia"] == 14
-    assert current["pl_brl"] == pytest.approx(80_048_443_249.73)
-    assert current["share_pl"] == pytest.approx(0.0909548075)
-    assert current["denominador_pl_brl"] == pytest.approx(880_090_293_855.58)
+    assert current["pl_brl"] == pytest.approx(80_565_524_077.66)
+    assert current["share_pl"] == pytest.approx(0.0915126990)
+    assert current["denominador_pl_brl"] == pytest.approx(880_375_346_502.31)
     assert current["rank_reclassificado"] == 5
     moved = set(current["cnpjs_movidos_para_adquirencia"].split(";"))
     assert {"50473039000102", "55471753000177", "63572282000111"}.issubset(moved)
     current_rows = {
         row["categoria_analitica"]: row
         for row in payload["acquiring_reclassified_mix"]
-        if row["competencia"] == "2026-05"
+        if row["competencia"] == "2026-06"
     }
-    assert current_rows["Cartão"]["fundos_movidos_da_categoria"] == 8
-    assert current_rows["Comercial"]["fundos_movidos_da_categoria"] == 3
+    assert current_rows["Cartão"]["fundos_movidos_da_categoria"] == 9
+    assert current_rows["Comercial"]["fundos_movidos_da_categoria"] == 2
     assert current_rows["Serviços"]["fundos_movidos_da_categoria"] == 2
     assert current_rows["Financeiro"]["fundos_movidos_da_categoria"] == 1

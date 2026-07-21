@@ -27,9 +27,9 @@ SOURCE_URL = (
     "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/"
     "oferta_distribuicao.zip"
 )
-SOURCE_AS_OF_DATE = "2026-07-20"
+SOURCE_AS_OF_DATE = "2026-07-21"
 EXPECTED_SOURCE_ARCHIVE_SHA256 = (
-    "36eec864e5ade872457c935cf77b1d00e7540015c7f8240f11c9bde11cf15836"
+    "ff53d4406953411a3153a2701669c6d06ebad56f5d849c7e0190406ac7bfa0f3"
 )
 
 DISTRIBUTION_FILENAME = "industry_closed_offer_ticket_distribution.csv"
@@ -45,14 +45,14 @@ DEDUPLICATION = (
 )
 METHODOLOGY = (
     "Coorte por Data_Encerramento; ticket = Valor_Total_Registrado. "
-    "2024 e 2025 usam o ano completo; 2026 usa 1 jan a 31 mai. "
+    "2024 e 2025 usam o ano completo; 2026 usa 1 jan a 30 jun. "
     "Os buckets são fechados à esquerda e abertos à direita, exceto o último."
 )
 
 PERIODS = (
     (1, "2024 FY", "2024-01-01", "2024-12-31", True),
     (2, "2025 FY", "2025-01-01", "2025-12-31", True),
-    (3, "2026 jan-mai", "2026-01-01", "2026-05-31", False),
+    (3, "2026 jan-jun", "2026-01-01", "2026-06-30", False),
 )
 
 # The cuts separate the dense sub-R$50m population from the economically

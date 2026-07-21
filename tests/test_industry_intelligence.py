@@ -183,7 +183,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 55
+    assert len(presentation.slides) == EXPECTED_SLIDES == 56
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -213,6 +213,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "PRESTADORES · MIGRAÇÃO EM GESTÃO",
         "PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",
         "INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",
+        "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
         "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
         "PRINCIPAIS CONCLUSÕES",

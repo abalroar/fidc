@@ -361,7 +361,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
                 "closed_offer_ticket_distribution": [
                     {
-                        "period_label": "2026 jan–mai",
+                        "period_label": "2026 jan–jun",
                         "ticket_bucket": "R$ 10–25 mi",
                         "closed_offers": 1,
                         "offer_share": 1.0,
@@ -437,6 +437,37 @@ def test_revision_payload_loader_accepts_each_published_schema(
     assert loaded == payload
     if schema == SCHEMA_V2:
         assert "market_share_scope_summary" not in loaded
+
+
+@pytest.mark.parametrize("schema", [SCHEMA_V4, SCHEMA_V5])
+def test_revision_payload_loader_accepts_jan_june_without_legacy_alias(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    schema: str,
+) -> None:
+    payload = _payload_for_schema(schema)
+    payload["closed_offers_jan_june"] = payload.pop("closed_offers_jan_may")
+    _write_payload(tmp_path, payload)
+
+    loaded = _load_payload(tmp_path, monkeypatch)
+
+    assert loaded == payload
+    assert "closed_offers_jan_may" not in loaded
+
+
+def test_revision_payload_loader_requires_a_comparable_offers_block(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _payload_for_schema(SCHEMA_V4)
+    del payload["closed_offers_jan_may"]
+    _write_payload(tmp_path, payload)
+
+    with pytest.raises(
+        ValueError,
+        match=r"payload revisado incompleto:.*closed_offers_jan_june",
+    ):
+        _load_payload(tmp_path, monkeypatch)
 
 
 def test_revision_payload_loader_rejects_v1_without_historical_comparisons(

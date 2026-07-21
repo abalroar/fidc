@@ -9190,7 +9190,6 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "acquiring_reclassified_mix",
                 "closed_offers_annual",
                 "closed_offers_monthly",
-                "closed_offers_jan_may",
                 "closed_offer_originators_2026",
             }
         )
@@ -9209,8 +9208,20 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             }
         )
     missing = sorted(required.difference(payload))
+    comparable_offer_key = next(
+        (
+            key
+            for key in ("closed_offers_jan_june", "closed_offers_jan_may")
+            if isinstance(payload.get(key), list) and bool(payload.get(key))
+        ),
+        None,
+    )
+    if schema_rank[schema] >= 4 and comparable_offer_key is None:
+        missing.append("closed_offers_jan_june")
     if missing:
-        raise ValueError("payload revisado incompleto: " + ", ".join(missing))
+        raise ValueError(
+            "payload revisado incompleto: " + ", ".join(sorted(set(missing)))
+        )
     if schema_rank[schema] >= 3:
         exclusions = payload.get("market_share_exclusions")
         excluded_cnpjs = set()
@@ -9343,12 +9354,6 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                     "month",
                     "registered_volume_brl",
                 },
-                "closed_offers_jan_may": {
-                    "year",
-                    "closed_offers",
-                    "registered_volume_brl",
-                    "mean_registered_ticket_brl",
-                },
                 "closed_offer_originators_2026": {
                     "rank",
                     "originator_group",
@@ -9362,6 +9367,12 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 },
             }
         )
+        required_columns[str(comparable_offer_key)] = {
+            "year",
+            "closed_offers",
+            "registered_volume_brl",
+            "mean_registered_ticket_brl",
+        }
     if schema_rank[schema] >= 5:
         required_columns.update(
             {
@@ -10067,10 +10078,11 @@ def _render_industry_providers(
         if history.empty or current.empty:
             st.info("Série de estrutura dos prestadores indisponível.")
         else:
+            current_label = _short_competence_label(pack.competences.latest_complete)
             st.markdown(
                 '<div class="industry-note warning">* Dez/24 e dez/25 são reconstruções '
                 "indicativas: o administrador vem do informe mensal de cada período, mas gestor "
-                "e custodiante vêm do cadastro CVM vigente. Mai/26 é a fotografia atual.</div>",
+                f"e custodiante vêm do cadastro CVM vigente. {current_label} é a fotografia atual.</div>",
                 unsafe_allow_html=True,
             )
             period_sort = list(
@@ -10542,6 +10554,57 @@ def _revision_frame(payload: dict[str, object], key: str) -> pd.DataFrame:
     return pd.DataFrame(rows if isinstance(rows, list) else [])
 
 
+def _revision_offer_comparable_frame(payload: dict[str, object]) -> pd.DataFrame:
+    """Return the current Jan–Jun comparison, with the prior key as fallback."""
+
+    frame = _revision_frame(payload, "closed_offers_jan_june")
+    if frame.empty:
+        frame = _revision_frame(payload, "closed_offers_jan_may")
+    return frame
+
+
+def _revision_offer_current_row(
+    payload: dict[str, object],
+    annual: pd.DataFrame | None = None,
+) -> pd.Series:
+    """Merge the 2026 annual metrics with the authoritative comparable cutoff."""
+
+    annual_frame = annual.copy() if annual is not None else _revision_frame(
+        payload, "closed_offers_annual"
+    )
+    current = pd.Series(dtype=object)
+    if not annual_frame.empty and "year" in annual_frame:
+        annual_frame["year"] = pd.to_numeric(annual_frame["year"], errors="coerce")
+        annual_2026 = annual_frame[annual_frame["year"].eq(2026)]
+        source = annual_2026 if not annual_2026.empty else annual_frame
+        current = source.sort_values("year").iloc[-1].copy()
+
+    comparable = _revision_offer_comparable_frame(payload)
+    if not comparable.empty and "year" in comparable:
+        comparable = comparable.copy()
+        comparable["year"] = pd.to_numeric(comparable["year"], errors="coerce")
+        comparable_2026 = comparable[comparable["year"].eq(2026)]
+        source = comparable_2026 if not comparable_2026.empty else comparable
+        comparable_current = source.sort_values("year").iloc[-1]
+        for key, value in comparable_current.items():
+            if pd.notna(value):
+                current.loc[key] = value
+    return current
+
+
+def _revision_offers_cutoff(payload: dict[str, object]) -> str:
+    """Return the audited comparable cutoff used by every offers view."""
+
+    comparable = _revision_offer_comparable_frame(payload)
+    if not comparable.empty and "period_end" in comparable:
+        years = pd.to_numeric(comparable.get("year"), errors="coerce")
+        current = comparable.loc[years.eq(2026), "period_end"]
+        parsed = pd.to_datetime(current, errors="coerce").dropna()
+        if not parsed.empty:
+            return parsed.max().strftime("%Y-%m-%d")
+    return "2026-06-30"
+
+
 def _revision_holder_distribution_frame(frame: pd.DataFrame) -> pd.DataFrame:
     """Normalize holder-bucket shares from absolute values within each period."""
     holders = frame.copy()
@@ -10777,6 +10840,9 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
 
     metrics = dict(payload.get("conclusion_metrics") or {})
     annual = _revision_frame(payload, "closed_offers_annual")
+    latest_period = str(payload.get("latest_complete") or "2026-06")
+    latest_stock_label = _short_competence_label(latest_period).lower()
+    offers_cutoff = _revision_offers_cutoff(payload)
     holder_history = _revision_history_frame(payload, "holder_distribution_history")
     concentration = _revision_history_frame(
         payload,
@@ -10789,16 +10855,10 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
     qa = dict(payload.get("qa_latest") or {})
     reag = dict(payload.get("reag_admin_summary") or {})
 
-    current_offer = (
-        annual.sort_values("year").iloc[-1]
-        if not annual.empty
-        else pd.Series(dtype=object)
-    )
+    current_offer = _revision_offer_current_row(payload, annual)
     holder_latest = (
         holder_history[
-            holder_history["competencia"].eq(
-                str(payload.get("latest_complete") or "2026-05")
-            )
+            holder_history["competencia"].eq(latest_period)
         ]
         if not holder_history.empty
         else pd.DataFrame()
@@ -10816,9 +10876,7 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
     concentration_latest = pd.DataFrame()
     if not concentration.empty:
         concentration_latest = concentration[
-            concentration["competencia"].eq(
-                str(payload.get("latest_complete") or "2026-05")
-            )
+            concentration["competencia"].eq(latest_period)
         ].set_index("papel")
 
     def top10(role: str) -> float:
@@ -10826,7 +10884,6 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
             return 0.0
         return float(concentration_latest.loc[role, "top10_share"])
 
-    latest_period = str(payload.get("latest_complete") or "2026-05")
     current_ranking = (
         ranking[ranking["competencia"].eq(latest_period)].copy()
         if not ranking.empty
@@ -10883,15 +10940,20 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
     offers_count = int(current_offer.get("closed_offers", 0))
     offers_volume = float(current_offer.get("registered_volume_brl", 0.0))
 
-    jan_may = _revision_frame(payload, "closed_offers_jan_may")
-    jan_may_lookup = (
-        jan_may.set_index("year")["registered_volume_brl"].to_dict()
-        if not jan_may.empty
+    jan_june = _revision_offer_comparable_frame(payload)
+    jan_june_lookup = (
+        jan_june.set_index("year")["registered_volume_brl"].to_dict()
+        if not jan_june.empty
         else {}
     )
-    jan_may_2026 = float(jan_may_lookup.get(2026, 0.0))
-    growth_2025 = jan_may_2026 / float(jan_may_lookup.get(2025, 1.0)) - 1
-    growth_2024 = jan_may_2026 / float(jan_may_lookup.get(2024, 1.0)) - 1
+    jan_june_2026 = float(jan_june_lookup.get(2026, 0.0))
+
+    def comparable_growth(year: int) -> float:
+        prior = float(jan_june_lookup.get(year, 0.0))
+        return jan_june_2026 / prior - 1 if prior else 0.0
+
+    growth_2025 = comparable_growth(2025)
+    growth_2024 = comparable_growth(2024)
 
     conclusions = [
         (
@@ -10929,12 +10991,12 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
             f"custódia ({_fmt_bi(provider_pl('custodiante', 'QI Tech'), 1)}), com Singulare consolidada. "
             f"Oliveira Trust é a maior gestora independente ({_fmt_bi(provider_pl('gestor', 'Oliveira Trust'), 1)}, "
             f"3ª geral). Na carteira administrada pela CBSF em dez/25, {_fmt_pct(float(reag.get('migrated_share_current', 0)))} "
-            "do PL continuante está em outro administrador em mai/26.",
+            f"do PL continuante está em outro administrador em {latest_stock_label}.",
         ),
         (
             "Ofertas mantêm ritmo elevado",
             f"{_fmt_int(offers_count)} ofertas encerradas somam {_fmt_bi(offers_volume, 1)} em 2026 até "
-            f"{_date_label(payload.get('offers_as_of', ''))}. Jan–mai registrou {_fmt_bi(jan_may_2026, 1)}, "
+            f"{_date_label(offers_cutoff)}. Jan–jun registrou {_fmt_bi(jan_june_2026, 1)}, "
             f"{_fmt_pct(growth_2025, 0)} acima de 2025 e {_fmt_pct(growth_2024, 0)} acima de 2024. "
             f"CloudWalk responde pela maior oferta única identificada ({_fmt_bi(cloudwalk_volume, 1)}).",
         ),
@@ -10967,7 +11029,8 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
         unsafe_allow_html=True,
     )
     st.caption(
-        "Estoque em mai/26; ofertas encerradas até 17/jul/26. PL ex-FIC nos rankings e na concentração; "
+        f"Estoque em {latest_stock_label}; ofertas encerradas consideradas até {_date_label(offers_cutoff)}. "
+        "PL ex-FIC nos rankings e na concentração; "
         "PL bruto no modelo de prestação. As trocas de administrador usam o menor PL entre origem e destino. "
         f"O proxy de volume colocado cobre {_fmt_pct(pf_coverage)} do valor registrado; contas são observações por classe ou série e não equivalem a investidores únicos. "
         "Fontes: CVM, ANBIMA, FundosNet, BCB e demonstrações financeiras do BTG Pactual."
@@ -10984,7 +11047,7 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
     summary_rows = [
         (
             _fmt_bi(latest_pl, 0),
-            "PL ex-FIC em mai/26",
+            f"PL ex-FIC em {latest_stock_label}",
             f"{growth_multiple_label} vezes o nível de 2015; FIC-FIDC adiciona "
             f"{_fmt_bi(float(latest.get('pl_fic_componente', 0)), 1)} ao PL bruto.",
         ),
@@ -11018,7 +11081,10 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
         + "</div>",
         unsafe_allow_html=True,
     )
-    st.caption("Fonte: CVM, ANBIMA e FundosNet; estoque em mai/26, salvo ofertas encerradas até 17/jul/26.")
+    st.caption(
+        f"Fonte: CVM, ANBIMA e FundosNet; estoque em {latest_stock_label}, "
+        f"salvo ofertas encerradas consideradas até {_date_label(offers_cutoff)}."
+    )
 
 
 def _render_revision_overview(payload: dict[str, object]) -> None:
@@ -11123,10 +11189,13 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
         st.caption(
             "Fonte: CVM, Informe Mensal de FIDC. PL bruto = PL ex-FIC + PL dos FIC-FIDCs; "
             "os dois componentes não se sobrepõem. CAGRs calculados dezembro contra dezembro, "
-            "com o número de intervalos igual à diferença entre os anos. Data-base: mai/26."
+            f"com o número de intervalos igual à diferença entre os anos. Data-base: {latest_label.lower()}."
         )
 
-    st.markdown("<h2>Mix por Tipo ANBIMA: dez/23 e mai/26</h2>", unsafe_allow_html=True)
+    st.markdown(
+        f"<h2>Mix por Tipo ANBIMA: dez/23 e {latest_label.lower()}</h2>",
+        unsafe_allow_html=True,
+    )
     mix = _revision_history_frame(payload, "type_mix_history", fallback_key="type_mix")
     if not mix.empty:
         mix["pl"] = pd.to_numeric(mix["pl"], errors="coerce").fillna(0.0)
@@ -11199,8 +11268,12 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                 )
             )
             st.altair_chart(chart + labels, width="stretch", key="industry-revision-type-mix-share-history")
+        current_mix = mix[mix["competencia"].eq(latest_period)].set_index("anbima_tipo")
+        current_other = float(current_mix.loc["Outros", "share"]) if "Outros" in current_mix.index else 0.0
+        current_financial = float(current_mix.loc["Financeiro", "share"]) if "Financeiro" in current_mix.index else 0.0
         st.caption(
-            "Cada período fecha 100% do PL ex-FIC. Em mai/26, 41,7% corresponde a Outros e 26,6% a Financeiro. "
+            f"Cada período fecha 100% do PL ex-FIC. Em {_short_competence_label(latest_period).lower()}, "
+            f"{_fmt_pct(current_other)} corresponde a Outros e {_fmt_pct(current_financial)} a Financeiro. "
             "Tipo/Foco ANBIMA classifica o fundo ou classe como um todo; a fotografia cadastral de dez/25 foi "
             "aplicada ao histórico e não é comparável categoria a categoria com a Tabela II."
         )
@@ -11310,7 +11383,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                 else {}
             )
             st.caption(
-                "Origem CVM dos CNPJs ativos em mai/26: "
+                f"Origem CVM dos CNPJs ativos em {_short_competence_label(latest_period).lower()}: "
                 f"{int(moved_by_category.get('Cartão', 0))} Cartão, "
                 f"{int(moved_by_category.get('Comercial', 0))} Comercial, "
                 f"{int(moved_by_category.get('Serviços', 0))} Serviços e "
@@ -11339,6 +11412,9 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
 
 
 def _render_revision_investors(payload: dict[str, object]) -> None:
+    stock_competence = str(payload.get("latest_complete") or "")
+    stock_label = _short_competence_label(stock_competence)
+    stock_label_lower = stock_label.lower()
     history = _revision_frame(payload, "investor_base_history")
     composition = _revision_frame(payload, "investor_composition")
     holders = _revision_holder_distribution_frame(
@@ -11450,12 +11526,15 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
             ).fillna(0).sum()
         )
         st.caption(
-            "Fonte: CVM, Informe Mensal de FIDC, mai/26. Contas podem se repetir por classe ou série. "
+            f"Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}. Contas podem se repetir por classe ou série. "
             f"Composição reconciliada: {_fmt_int(total_accounts)} contas, das quais "
             f"{_fmt_int(unidentified_accounts)} sem tipo identificado."
         )
 
-    st.markdown("<h2>Distribuição por número de contas: dez/23 e mai/26</h2>", unsafe_allow_html=True)
+    st.markdown(
+        f"<h2>Distribuição por número de contas: dez/23 e {stock_label_lower}</h2>",
+        unsafe_allow_html=True,
+    )
     if not holders.empty:
         order = holders["bucket"].astype(str).drop_duplicates().tolist()
         period_order, _period_colors = _revision_period_encoding(holders)
@@ -11645,7 +11724,7 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
             else ""
         )
         st.caption(
-            "Fonte: CVM, dez/23 e mai/26. "
+            f"Fonte: CVM, dez/23 e {stock_label_lower}. "
             f"Recorte nominal constante: fundos ex-FIC com PL ≥ R$ {_fmt_int(minimum / 1e6)} mi; "
             + count_bridge
             + ("cobertura: " + "; ".join(coverage) + ". " if coverage else "")
@@ -11655,10 +11734,16 @@ def _render_revision_investors(payload: dict[str, object]) -> None:
 
 
 def _render_revision_credit(payload: dict[str, object]) -> None:
+    stock_competence = str(payload.get("latest_complete") or "")
+    stock_label = _short_competence_label(stock_competence)
+    stock_label_lower = stock_label.lower()
     qa = dict(payload.get("qa_latest") or {})
     rows = _revision_history_frame(payload, "receivables_history")
     receivables_meta = _revision_history_frame(payload, "receivables_meta_history")
-    st.markdown("<h2>Carteira por tipo de recebível: dez/23 e mai/26</h2>", unsafe_allow_html=True)
+    st.markdown(
+        f"<h2>Carteira por tipo de recebível: dez/23 e {stock_label_lower}</h2>",
+        unsafe_allow_html=True,
+    )
     if not rows.empty:
         rows["valor"] = pd.to_numeric(rows["valor"], errors="coerce").fillna(0.0)
         rows = rows[rows["valor"].gt(0)].copy()
@@ -11728,14 +11813,45 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
         acquiring = dict(payload.get("acquiring_taxonomy") or {})
         acquiring_summary = dict(acquiring.get("summary") or {})
         if acquiring_summary:
+            acquiring_mix = pd.DataFrame(payload.get("acquiring_reclassified_mix") or [])
+            latest_acquiring = (
+                acquiring_mix[
+                    acquiring_mix.get("competencia", pd.Series(dtype=str))
+                    .astype(str)
+                    .eq(str(payload.get("latest_complete") or ""))
+                ]
+                if not acquiring_mix.empty and "competencia" in acquiring_mix.columns
+                else pd.DataFrame()
+            )
+            commercial_value = 0.0
+            financial_value = 0.0
+            if not latest_acquiring.empty and "categoria_cvm" in latest_acquiring.columns:
+                commercial_value = float(
+                    pd.to_numeric(
+                        latest_acquiring.loc[
+                            latest_acquiring["categoria_cvm"].eq("Comercial"),
+                            "pl_movido_da_categoria_brl",
+                        ],
+                        errors="coerce",
+                    ).sum()
+                )
+                financial_value = float(
+                    pd.to_numeric(
+                        latest_acquiring.loc[
+                            latest_acquiring["categoria_cvm"].eq("Financeiro"),
+                            "pl_movido_da_categoria_brl",
+                        ],
+                        errors="coerce",
+                    ).sum()
+                )
             st.info(
                 "Manual CVM: os campos são mutuamente excludentes e deve prevalecer o mais específico; "
-                "adquirência com cartão pertence a II.g Cartão de Crédito. Em mai/26, Akira I, A.I. e PI "
-                "declararam R$ 5,24 bi em Comercial; o painel preserva o reporte e sinaliza a divergência, "
-                "sem reclassificação."
+                f"adquirência com cartão pertence a II.g Cartão de Crédito. Em {stock_label_lower}, "
+                f"A.I. e PI declararam {_fmt_bi(commercial_value, 2)} em Comercial; Akira I declarou "
+                f"{_fmt_bi(financial_value, 2)} em Financeiro. O painel preserva o reporte declarado."
             )
         st.caption(
-            "Fonte: CVM, Informe Mensal de FIDC, dez/23 e mai/26. A Tabela II classifica o recebível reportado; "
+            f"Fonte: CVM, Informe Mensal de FIDC, dez/23 e {stock_label_lower}. A Tabela II classifica o recebível reportado; "
             "Tipo/Foco ANBIMA classifica o fundo ou classe. As duas taxonomias têm objetos e denominadores distintos."
         )
 
@@ -11836,10 +11952,10 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
     frozen_summary = _revision_frame(payload, "delinquency_frozen_cohort_summary")
     if not frozen.empty and not frozen_summary.empty:
         st.markdown(
-            "<h2>Histórico por tipo na coorte classificada em mai/26</h2>",
+            f"<h2>Histórico por tipo na coorte classificada em {stock_label_lower}</h2>",
             unsafe_allow_html=True,
         )
-        latest_complete = str(payload.get("latest_complete") or "2026-05")
+        latest_complete = stock_competence
         frozen = frozen[
             frozen["competencia"].between("2023-12", latest_complete)
         ].copy()
@@ -11971,7 +12087,7 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
         ]
         if not financeiro_row.empty:
             _industry_headline(
-                f"Financeiro encerra mai/26 em {_fmt_pct(float(financeiro_row.iloc[0]['inadimplencia_sobre_carteira']))}; "
+                f"Financeiro encerra {stock_label_lower} em {_fmt_pct(float(financeiro_row.iloc[0]['inadimplencia_sobre_carteira']))}; "
                 f"a coorte fixa soma {_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)}."
             )
         small_subtypes = []
@@ -11987,13 +12103,13 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                     f"{_fmt_bi(float(item.get('pl_incluido_brl', 0)), 1)}"
                 )
         st.caption(
-            "Fonte: CVM, Informe Mensal de FIDC, Tabelas I, II e IV. Coorte e subtipo definidos em mai/26; "
+            f"Fonte: CVM, Informe Mensal de FIDC, Tabelas I, II e IV. Coorte e subtipo definidos em {stock_label_lower}; "
             "em cada competência entram os CNPJs presentes, ex-FIC, com PL positivo, carteira e inadimplência "
             "reportadas e inadimplência menor ou igual à carteira. "
             "Linha laranja = consolidado de mercado ajustado. "
             f"A coorte fixa reúne {_fmt_int(latest_frozen.get('fundos_coorte', 0))} fundos e "
             f"{_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)} de PL de referência. "
-            "Cada fundo mantém retrospectivamente o tipo observado em mai/26; fundos com mais de um tipo, "
+            f"Cada fundo mantém retrospectivamente o tipo observado em {stock_label_lower}; fundos com mais de um tipo, "
             "campo ausente ou inadimplência acima da carteira ficam fora do respectivo mês. "
             "A leitura incorpora viés de sobrevivência e não representa a composição histórica completa. "
             + ("Baixa representatividade em " + "; ".join(small_subtypes) + ". " if small_subtypes else "")
@@ -12062,6 +12178,9 @@ def _market_share_focus_label(row: pd.Series) -> str:
 
 
 def _render_revision_providers(payload: dict[str, object]) -> None:
+    stock_competence = str(payload.get("latest_complete") or "")
+    stock_label = _short_competence_label(stock_competence)
+    stock_label_lower = stock_label.lower()
     adjusted_universe = payload.get("schema_version") in {
         "fidc_revision_artifact_payload_v3",
         "fidc_revision_artifact_payload_v4",
@@ -12157,7 +12276,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             else "bundle v2: Sistema Petrobras/TAPSO ainda incluídos"
         )
         st.caption(
-            "Fonte: CVM, dez/25 e mai/26. "
+            f"Fonte: CVM, dez/25 e {stock_label_lower}. "
             f"Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador; {universe_note}. "
             + "Cobertura identificada: "
             + "; ".join(coverage_parts)
@@ -12166,7 +12285,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
 
     ranking_history = _revision_frame(payload, "provider_historical_ranking")
     if not ranking_history.empty:
-        latest_period = str(payload.get("latest_complete") or "2026-05")
+        latest_period = stock_competence
         latest_label = _short_competence_label(latest_period)
         btg_scenario = _revision_frame(
             payload, "btg_provider_ex_controlled_scenario"
@@ -12369,7 +12488,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
     independent = _revision_frame(payload, "provider_independent_ranking")
     if not independent.empty:
         st.markdown("<h2>Prestadores independentes</h2>", unsafe_allow_html=True)
-        latest_period = str(payload.get("latest_complete") or "2026-05")
+        latest_period = stock_competence
         qi_latest = independent[
             independent["competencia"].eq(latest_period)
             & independent["participante"].astype(str).str.casefold().eq("qi tech")
@@ -12512,7 +12631,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 btg_table = latest_detail[
                     ["Banco", "denominacao", "PL (R$ mm)"]
                 ].rename(columns={"denominacao": "FIDC"})
-                st.markdown("**BTG Pactual · cinco maiores FIDCs em mai/26**")
+                st.markdown(f"**BTG Pactual · cinco maiores FIDCs em {stock_label_lower}**")
                 st.dataframe(
                     btg_table.style.format({"PL (R$ mm)": "{:,.0f}"}),
                     hide_index=True,
@@ -12628,7 +12747,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         )
         if adjusted_universe and not scope_row.empty:
             universe_note = (
-                "Universo: PL ex-FIC de mai/26 sem Sistema Petrobras/TAPSO; cobertura dos 14 focos "
+                f"Universo: PL ex-FIC de {stock_label_lower} sem Sistema Petrobras/TAPSO; cobertura dos 14 focos "
                 f"{_fmt_pct(float(scope_row.get('cobertura_classificacao_14_focos_pl', 0)))}. "
             )
         else:
@@ -12756,7 +12875,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 key="industry-revision-service-model-shares",
             )
         st.caption(
-            "Fonte: CVM, cadastro vigente em mai/26. Universo bruto de 4.222 fundos, incluindo FIC-FIDCs. "
+            f"Fonte: CVM, cadastro vigente em {stock_label_lower}. Universo bruto de {_fmt_int(model['fundos'].sum())} fundos, incluindo FIC-FIDCs. "
             "A classificação usa o mesmo conglomerado econômico normalizado para administração, gestão e custódia; campos ausentes permanecem em Dados incompletos."
         )
     mono = _revision_frame(payload, "monostructure_concentration")
@@ -12801,6 +12920,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
 
 
 def _render_revision_top20(payload: dict[str, object]) -> None:
+    stock_label_lower = _short_competence_label(payload.get("latest_complete")).lower()
     top20 = _revision_frame(payload, "top20_fidcs")
     outros = _revision_frame(payload, "top20_outros")
     profiles = _revision_frame(payload, "profiles")
@@ -12819,7 +12939,7 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
         display["Share ex-FIC"] = display["Share ex-FIC"].map(_fmt_pct)
         st.dataframe(display, hide_index=True, width="stretch", height=730)
         st.caption(
-            "Fonte: ANBIMA e documentos primários locais, mai/26. Evidência e links completos constam no workbook."
+            f"Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}. Evidência e links completos constam no workbook."
         )
     with others_tab:
         top20_outros_share = float(
@@ -12858,7 +12978,7 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
         display["Share de Outros"] = display["Share de Outros"].map(_fmt_pct)
         st.dataframe(display, hide_index=True, width="stretch", height=730)
         st.caption(
-            "Fonte: ANBIMA e documentos primários locais, mai/26. Ranking dos 20 maiores fundos classificados "
+            f"Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}. Ranking dos 20 maiores fundos classificados "
             f"em Outros, sobre o universo ex-FIC. Os 20 fundos representam {_fmt_pct(top20_outros_share)} de Outros. "
             "Hipóteses de reenquadramento permanecem separadas da classificação oficial; evidência, fonte e status documentam a revisão."
         )
@@ -12897,18 +13017,42 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
 def _render_revision_offers(payload: dict[str, object]) -> None:
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
-    jan_may = _revision_frame(payload, "closed_offers_jan_may")
+    jan_june = _revision_offer_comparable_frame(payload)
     originators = _revision_frame(payload, "closed_offer_originators_2026")
+    current = _revision_offer_current_row(payload, annual)
+    offers_cutoff = _revision_offers_cutoff(payload)
+    source_as_of = _date_label(payload.get("offers_source_as_of", "n/d"))
 
     st.markdown("<h2>Ofertas encerradas e ticket de emissão</h2>", unsafe_allow_html=True)
-    if not annual.empty:
-        annual["year"] = pd.to_numeric(annual["year"], errors="coerce").astype("Int64")
-        current = annual.sort_values("year").iloc[-1]
+    if not current.empty:
         cards = [
-            _industry_kpi("Ofertas encerradas 2026", _fmt_int(current["closed_offers"]), f"até {payload.get('offers_as_of', 'n/d')}"),
-            _industry_kpi("Volume registrado", _fmt_bi(float(current["registered_volume_brl"]), 1), "2026 YTD"),
-            _industry_kpi("Ticket médio", _fmt_bi(float(current["mean_registered_ticket_brl"]), 3), "por Número do Requerimento"),
-            _industry_kpi("PF no volume colocado", _fmt_pct(float(current["natural_person_placed_volume_share"])), f"cobertura {_fmt_pct(float(current['placed_quantity_registered_volume_coverage']))}"),
+            _industry_kpi(
+                "Ofertas encerradas 2026",
+                _fmt_int(current.get("closed_offers", 0)),
+                f"até {_date_label(offers_cutoff)}",
+            ),
+            _industry_kpi(
+                "Volume registrado",
+                _fmt_bi(float(current.get("registered_volume_brl", 0)), 1),
+                "jan–jun/26",
+            ),
+            _industry_kpi(
+                "Ticket médio",
+                _fmt_mi(float(current.get("mean_registered_ticket_brl", 0))),
+                "por Número do Requerimento",
+            ),
+            _industry_kpi(
+                "PF no volume colocado",
+                _fmt_pct(float(current.get("natural_person_placed_volume_share", 0))),
+                "cobertura "
+                + _fmt_pct(
+                    float(
+                        current.get(
+                            "placed_quantity_registered_volume_coverage", 0
+                        )
+                    )
+                ),
+            ),
         ]
         st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
@@ -12957,7 +13101,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         if not large_ticket.empty:
             large_ticket_row = large_ticket.iloc[0]
             _industry_headline(
-                f"A mediana caiu a {_fmt_mi(float(large_ticket_row['period_median_ticket_brl']))}; "
+                f"A mediana ficou em {_fmt_mi(float(large_ticket_row['period_median_ticket_brl']))}; "
                 f"{_fmt_int(large_ticket_row['closed_offers'])} ofertas acima de R$ 500 mi concentram "
                 f"{_fmt_pct(float(large_ticket_row['registered_volume_share']))} do volume YTD26."
             )
@@ -13021,22 +13165,29 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             key="industry-revision-closed-offer-ticket-histogram",
         )
         st.caption(
-            "Fonte: CVM, Ofertas Públicas, snapshot de 20/jul/26. 2024 e 2025 = ano completo; 2026 = jan–mai. "
+            f"Fonte: CVM, Ofertas Públicas, consulta em {source_as_of}; encerramentos considerados até "
+            f"{_date_label(offers_cutoff)}. 2024 e 2025 = ano completo; 2026 = jan–jun. "
             "Cotas de FIDC, oferta primária, status Oferta Encerrada, Valor Total Registrado positivo e unidade "
             "igual ao Número do Requerimento. As faixas foram definidas sobre o "
             "Valor Total Registrado e cada série soma 100% das ofertas do respectivo período. "
             "A cauda de ofertas grandes deve ser lida em conjunto com a mediana."
         )
 
-    if not jan_may.empty and not monthly.empty:
-        jan_may["Período"] = jan_may["year"].astype(int).astype(str) + " jan–mai"
-        jan_may["Volume (R$ bi)"] = pd.to_numeric(jan_may["registered_volume_brl"], errors="coerce") / 1e9
-        jan_may["Ticket médio (R$ mi)"] = pd.to_numeric(jan_may["mean_registered_ticket_brl"], errors="coerce") / 1e6
-        current_year = int(pd.to_numeric(jan_may["year"], errors="coerce").max())
+    if not jan_june.empty and not monthly.empty:
+        jan_june = jan_june.copy()
+        jan_june["year"] = pd.to_numeric(jan_june["year"], errors="coerce").astype("Int64")
+        jan_june["Período"] = jan_june["year"].astype(str) + " jan–jun"
+        jan_june["Volume (R$ bi)"] = pd.to_numeric(
+            jan_june["registered_volume_brl"], errors="coerce"
+        ) / 1e9
+        jan_june["Ticket médio (R$ mi)"] = pd.to_numeric(
+            jan_june["mean_registered_ticket_brl"], errors="coerce"
+        ) / 1e6
+        current_year = int(jan_june["year"].max())
         left, right = st.columns(2)
         with left:
             chart = (
-                alt.Chart(jan_may)
+                alt.Chart(jan_june)
                 .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
                 .encode(
                     x=alt.X("Período:N", title=None, axis=alt.Axis(labelAngle=0)),
@@ -13049,13 +13200,35 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                         alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
                     ],
                 )
-                .properties(height=340, title="Jan–mai comparável")
+                .properties(height=340, title="Jan–jun comparável")
             )
-            st.altair_chart(chart, width="stretch", key="industry-revision-closed-offers-jan-may")
+            labels = (
+                alt.Chart(jan_june)
+                .mark_text(
+                    dy=-8,
+                    color=_BLACK,
+                    font="Arial",
+                    fontSize=10,
+                    fontWeight=700,
+                )
+                .encode(
+                    x=alt.X("Período:N"),
+                    y=alt.Y("Volume (R$ bi):Q"),
+                    text=alt.Text("Volume (R$ bi):Q", format=".1f"),
+                )
+            )
+            st.altair_chart(
+                chart + labels,
+                width="stretch",
+                key="industry-revision-closed-offers-jan-june",
+            )
         with right:
             monthly["year"] = pd.to_numeric(monthly["year"], errors="coerce").astype("Int64")
             monthly["month"] = pd.to_numeric(monthly["month"], errors="coerce").astype("Int64")
-            monthly = monthly[monthly["year"].isin([2024, 2025, 2026])].sort_values(["year", "month"])
+            monthly = monthly[
+                monthly["year"].isin([2024, 2025, 2026])
+                & monthly["month"].le(6)
+            ].sort_values(["year", "month"])
             monthly["Volume acumulado (R$ bi)"] = (
                 pd.to_numeric(monthly["registered_volume_brl"], errors="coerce")
                 .groupby(monthly["year"])
@@ -13063,13 +13236,21 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 / 1e9
             )
             monthly["Mês"] = monthly["month"].map(
-                {1: "Jan", 2: "Fev", 3: "Mar", 4: "Abr", 5: "Mai", 6: "Jun", 7: "Jul", 8: "Ago", 9: "Set", 10: "Out", 11: "Nov", 12: "Dez"}
+                {1: "Jan", 2: "Fev", 3: "Mar", 4: "Abr", 5: "Mai", 6: "Jun"}
             )
             chart = (
                 alt.Chart(monthly)
                 .mark_line(strokeWidth=2.5)
                 .encode(
-                    x=alt.X("month:Q", title=None, axis=alt.Axis(values=list(range(1, 13)), labelExpr="['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][datum.value]", grid=False)),
+                    x=alt.X(
+                        "month:Q",
+                        title=None,
+                        axis=alt.Axis(
+                            values=list(range(1, 7)),
+                            labelExpr="['','Jan','Fev','Mar','Abr','Mai','Jun'][datum.value]",
+                            grid=False,
+                        ),
+                    ),
                     y=alt.Y("Volume acumulado (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
                     color=alt.Color(
                         "year:N",
@@ -13078,12 +13259,58 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     ),
                     tooltip=["year:N", "Mês:N", alt.Tooltip("Volume acumulado (R$ bi):Q", format=",.1f")],
                 )
-                .properties(height=340, title="Janeiro a dezembro · acumulado")
+                .properties(height=340, title="Janeiro a junho · acumulado")
             )
-            st.altair_chart(chart, width="stretch", key="industry-revision-closed-offers-cumulative")
+            end_labels = (
+                alt.Chart(monthly)
+                .transform_filter(alt.datum.month == 6)
+                .mark_text(
+                    align="left",
+                    baseline="middle",
+                    dx=5,
+                    font="Arial",
+                    fontSize=10,
+                    fontWeight=700,
+                )
+                .encode(
+                    x=alt.X("month:Q"),
+                    y=alt.Y("Volume acumulado (R$ bi):Q"),
+                    color=alt.Color(
+                        "year:N",
+                        scale=alt.Scale(
+                            domain=[2024, 2025, 2026],
+                            range=[_GRAY, _BLACK, _ORANGE],
+                        ),
+                        legend=None,
+                    ),
+                    text=alt.Text("Volume acumulado (R$ bi):Q", format=".1f"),
+                )
+            )
+            st.altair_chart(
+                chart + end_labels,
+                width="stretch",
+                key="industry-revision-closed-offers-cumulative",
+            )
 
-    if not annual.empty:
-        annual_display = annual[
+    annual_display_source = annual.copy()
+    if not current.empty:
+        if not annual_display_source.empty:
+            annual_display_source["year"] = pd.to_numeric(
+                annual_display_source["year"], errors="coerce"
+            )
+            annual_display_source = annual_display_source[
+                ~annual_display_source["year"].eq(2026)
+            ]
+        annual_display_source = pd.concat(
+            [annual_display_source, current.to_frame().T], ignore_index=True
+        )
+
+    if not annual_display_source.empty:
+        annual_display_source["year"] = pd.to_numeric(
+            annual_display_source["year"], errors="coerce"
+        )
+        annual_display_source = annual_display_source.sort_values("year")
+        annual_display = annual_display_source[
             [
                 "year",
                 "closed_offers",
@@ -13095,25 +13322,37 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             ]
         ].copy()
         annual_display.columns = ["Ano", "Ofertas", "Volume registrado", "Ticket médio", "Ticket mediano", "PF no colocado", "Público profissional"]
-        annual_display["Ano"] = annual_display["Ano"].astype(str).replace({"2026": "2026 YTD"})
+        annual_display["Ano"] = (
+            annual_display["Ano"]
+            .astype(int)
+            .astype(str)
+            .replace({"2026": "2026 jan–jun"})
+        )
         for column in ("Volume registrado", "Ticket médio", "Ticket mediano"):
-            annual_display[column] = annual_display[column].map(lambda value: _fmt_bi(float(value), 3))
+            annual_display[column] = annual_display[column].map(
+                lambda value: _fmt_bi(float(value), 3) if pd.notna(value) else "n/d"
+            )
         for column in ("PF no colocado", "Público profissional"):
-            annual_display[column] = annual_display[column].map(_fmt_pct)
+            annual_display[column] = annual_display[column].map(
+                lambda value: _fmt_pct(float(value)) if pd.notna(value) else "n/d"
+            )
         st.dataframe(annual_display, hide_index=True, width="stretch")
         st.caption(
             "Unidade de análise: Número do Requerimento. Escopo: valor mobiliário Cotas de FIDC, oferta primária, "
             "status Oferta Encerrada, coorte pela Data de Encerramento e Valor Total Registrado positivo. "
-            f"Fonte CVM consultada em {payload.get('offers_source_as_of', 'n/d')}; último encerramento em {payload.get('offers_as_of', 'n/d')}."
+            f"Fonte CVM consultada em {source_as_of}; encerramentos considerados até {_date_label(offers_cutoff)}."
         )
         st.info(
-            f"Em 2026, pessoas físicas respondem por {_fmt_pct(float(current['natural_person_placed_volume_share']))} do volume colocado estimado, "
-            f"com cobertura de {_fmt_pct(float(current['placed_quantity_registered_volume_coverage']))} do valor registrado. "
-            f"O ticket mediano é {_fmt_bi(float(current['median_registered_ticket_brl']), 3)} e "
-            f"{_fmt_pct(float(current['professional_target_registered_volume_share']))} do volume registrado mira investidores profissionais."
+            f"Em jan–jun/26, pessoas físicas respondem por "
+            f"{_fmt_pct(float(current.get('natural_person_placed_volume_share', 0)))} do volume colocado estimado, "
+            f"com cobertura de {_fmt_pct(float(current.get('placed_quantity_registered_volume_coverage', 0)))} "
+            f"do valor registrado. O ticket mediano é "
+            f"{_fmt_mi(float(current.get('median_registered_ticket_brl', 0)))} e "
+            f"{_fmt_pct(float(current.get('professional_target_registered_volume_share', 0)))} "
+            "do volume registrado mira investidores profissionais."
         )
 
-    st.markdown("<h2>Originadores nomináveis em 2026</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>Originadores nomináveis em jan–jun/26</h2>", unsafe_allow_html=True)
     if not originators.empty:
         originators["Volume (R$ bi)"] = pd.to_numeric(originators["registered_volume_brl"], errors="coerce") / 1e9
         originators["Ticket médio (R$ mi)"] = pd.to_numeric(originators["mean_registered_ticket_brl"], errors="coerce") / 1e6
@@ -13189,7 +13428,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         display.columns = ["#", "Originador", "Ofertas", "Volume (R$ bi)", "Ticket médio (R$ mi)", "Confiança"]
         st.dataframe(display.style.format({"Volume (R$ bi)": "{:,.2f}", "Ticket médio (R$ mi)": "{:,.1f}"}), hide_index=True, width="stretch")
         st.caption(
-            "Fonte: CVM, Ofertas Públicas; encerramentos até 17/jul/26. Origem = primeiro match nominal auditável "
+            f"Fonte: CVM, Ofertas Públicas; encerramentos considerados até {_date_label(offers_cutoff)}. "
+            "Origem = primeiro match nominal auditável "
             "em emissor, ativos-alvo, lastro ou devedores. O residual não identificado permanece no denominador."
         )
 

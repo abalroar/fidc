@@ -1,4 +1,4 @@
-"""Acceptance contract for the 55-slide FIDC industry revision.
+"""Acceptance contract for the 56-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -22,14 +22,14 @@ ROOT = Path(__file__).resolve().parents[1]
 PPTX = ROOT / "outputs" / "Industria_FIDC_Executivo_202607_revisado.pptx"
 XLSX = ROOT / "outputs" / "Industria_FIDC_Dados_202607_revisado.xlsx"
 
-TARGET_SLIDES = 55
+TARGET_SLIDES = 56
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (13, 14, 15, 32, 33, 34)
+MARKET_SHARE_SLIDES = (13, 14, 15, 33, 34, 35)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -57,7 +57,14 @@ SLIDE_TOKENS = {
     15: ("MARKET SHARE · CUSTÓDIA",),
     16: ("PRESTADORES · EVOLUÇÃO DO RANKING",),
     17: ("PRESTADORES", "INDEPENDENTES"),
-    18: ("BANCOS", "FIDC"),
+    18: (
+        "BANCOS",
+        "FIDC",
+        "R$ 7,9 BI",
+        "FUNDOS.NET 1100733",
+        "DF AUDITADA 1150673",
+        "DEZ/25*",
+    ),
     19: ("PRESTADORES · LIDERANÇA EXPLICADA",),
     20: ("CBSF / REAG · DESTINO DOS FUNDOS",),
     21: ("PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",),
@@ -67,20 +74,22 @@ SLIDE_TOKENS = {
     25: ("RANKING · TOP 20 OUTROS",),
     26: ("MODELO DE PRESTAÇÃO",),
     27: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    28: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
-    29: ("ORIGINADORES",),
-    30: (
+    28: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–JUN", "14,6%"),
+    29: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
+    30: ("ORIGINADORES",),
+    31: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
-        "R$ 65,0 BI",
+        "771 OFERTAS",
+        "R$ 65,5 BI",
         "R$ 33,0 BI",
         "DOIS FIDCS CIELO",
     ),
-    31: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    32: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    33: ("GESTÃO POR SUBTIPO",),
-    34: ("CUSTÓDIA POR SUBTIPO",),
-    55: ("APÊNDICE · CASO ATLÂNTICO", "09.194.841/0001-51"),
+    32: ("ESCOPO, FONTES E LIMITAÇÕES",),
+    33: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    34: ("GESTÃO POR SUBTIPO",),
+    35: ("CUSTÓDIA POR SUBTIPO",),
+    56: ("APÊNDICE · CASO ATLÂNTICO", "09.194.841/0001-51"),
 }
 
 REQUIRED_WORKBOOK_SHEETS_V51 = {
@@ -150,7 +159,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_55_slide_contract() -> None:
+def test_export_and_renderer_declare_56_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -158,15 +167,15 @@ def test_export_and_renderer_declare_55_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*55\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*56\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*55;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*56;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_55_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_56_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
@@ -184,7 +193,7 @@ def test_deck_has_55_slides_in_the_reviewed_narrative_order() -> None:
                     f"texto observado: {text[:240]!r}"
                 )
 
-        profiles = [_slide_text(archive, number) for number in range(35, 55)]
+        profiles = [_slide_text(archive, number) for number in range(36, 56)]
 
     assert len(profiles) == 20
     for rank, profile in enumerate(profiles, start=1):
@@ -245,8 +254,9 @@ def test_provider_rankings_use_three_native_table_chart_pairs(
         (10, 1, 1),  # inadimplência por recebível único da Tabela II
         (11, 1, 1),  # histórico da coorte atual por subtipo
         (18, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (28, 1, 1),  # histograma de ofertas encerradas
-        (29, 1, 1),  # originadores nomináveis e tickets de emissão
+        (28, 2, 1),  # volume/ticket comparável e acumulado mensal
+        (29, 1, 1),  # histograma de ofertas encerradas
+        (30, 1, 1),  # originadores nomináveis e tickets de emissão
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -258,7 +268,29 @@ def test_new_analytical_slides_use_native_office_structures(
         assert _native_table_count(archive, slide_number) >= minimum_tables
 
 
-def test_workbook_exposes_the_v55_analysis_tabs() -> None:
+def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        charts = [
+            ET.fromstring(archive.read(path))
+            for path in _slide_chart_paths(archive, 28)
+        ]
+    line_charts = [
+        chart
+        for chart in charts
+        if chart.find(f".//{{{CHART}}}scatterChart") is not None
+    ]
+    assert len(line_charts) == 1
+    series = line_charts[0].findall(f".//{{{CHART}}}scatterChart/{{{CHART}}}ser")
+    assert len(series) == 3
+    for item in series:
+        symbol = item.find(f".//{{{CHART}}}marker/{{{CHART}}}symbol")
+        assert symbol is not None and symbol.attrib.get("val") == "none"
+        smooth = item.find(f"{{{CHART}}}smooth")
+        assert smooth is None or smooth.attrib.get("val") in {"0", "false"}
+
+
+def test_workbook_exposes_the_v56_analysis_tabs() -> None:
     _require(XLSX)
     with ZipFile(XLSX) as archive:
         sheet_names = _sheet_names(archive)
@@ -287,5 +319,5 @@ def test_offer_workbook_uses_counts_billions_and_millions_consistently() -> None
     assert '"bi"' in originators["H5"].number_format
 
     banks = workbook["FIDCs por banco"]
-    assert banks["G4"].value == "Raízes de CNPJ listadas"
-    assert banks["J4"].value == "Referências"
+    assert banks["J4"].value == "Raízes de CNPJ listadas"
+    assert banks["M4"].value == "Referências"

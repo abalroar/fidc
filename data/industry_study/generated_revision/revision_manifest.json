@@ -6,25 +6,25 @@
     "blocked_market_share_combinations": 0,
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
-    "frozen_single_receivable_funds": 2050,
+    "frozen_single_receivable_funds": 2066,
     "independent_provider_rows": 68,
     "latest_aging_publication_status": "bloqueado_aging_nao_reconcilia_tab_I",
-    "latest_funds": 4222,
+    "latest_funds": 4247,
     "latest_presence_exact": true,
-    "latest_vehicles": 4227,
+    "latest_vehicles": 4252,
     "market_share_foci": 14,
     "market_share_roles": 3,
-    "provider_transition_changed_funds": 358,
-    "provider_transition_continuing_funds": 2357,
-    "reag_cohort_exited_funds": 16,
-    "single_receivable_funds": 2050,
+    "provider_transition_changed_funds": 363,
+    "provider_transition_continuing_funds": 2315,
+    "reag_cohort_exited_funds": 37,
+    "single_receivable_funds": 2066,
     "single_receivable_rows": 10,
     "top20_fidcs_rows": 20,
     "top20_outros_rows": 20
   },
   "definitions": {
     "acquiring_reclassification": "somente os 16 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
-    "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação",
+    "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação; BTG Consignados I em dez/25 usa valor oficial recuperado do IME v2 e reconciliado à demonstração financeira auditada",
     "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
     "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
     "fund": "CNPJ do fundo no cadastro; classes são agregadas por competência",
@@ -37,7 +37,7 @@
     "monostructure": "mesmo conglomerado econômico normalizado para administração, gestão e custódia",
     "provider_transition_flow": "CNPJs ex-FIC com PL positivo em dez/24 e dez/25; PL comparável = min(PL_dez24, PL_dez25) por CNPJ",
     "provider_transition_roles": "somente administrador é observado por competência; gestor e custodiante históricos são indisponíveis por overlay cadastral vigente",
-    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em mai/26",
+    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-06",
     "single_receivable_delinquency": "ex-FIC com PL positivo e exatamente um dos 11 campos superiores da Tabela II não zero; casos com inadimplência acima da carteira são excluídos; numerador = inadimplência reportada e denominador = PL",
     "vehicle": "CNPJ reportante do Informe Mensal (fundo ou classe, conforme regime)"
   },
@@ -47,20 +47,20 @@
       "rows": 24
     },
     "bancos_fidcs_detalhe.csv": {
-      "columns": 9,
+      "columns": 13,
       "rows": 260
     },
     "bancos_fidcs_evolucao.csv": {
-      "columns": 13,
+      "columns": 17,
       "rows": 24
     },
     "base_competencia_cnpj.csv.gz": {
-      "columns": 96,
-      "rows": 227189
+      "columns": 108,
+      "rows": 229451
     },
     "base_fundo_cnpj.csv.gz": {
       "columns": 58,
-      "rows": 227162
+      "rows": 229420
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
       "columns": 26,
@@ -84,15 +84,15 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 13305
+      "rows": 13310
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 16,
-      "rows": 1503
+      "rows": 1505
     },
     "inadimplencia_coorte_atual_membros.csv.gz": {
       "columns": 8,
-      "rows": 2050
+      "rows": 2066
     },
     "inadimplencia_coorte_atual_resumo.csv": {
       "columns": 17,
@@ -124,7 +124,7 @@
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 71,
-      "rows": 4222
+      "rows": 4247
     },
     "prestadores_independentes_ranking.csv": {
       "columns": 19,
@@ -136,11 +136,11 @@
     },
     "prestadores_ranking_historico.csv": {
       "columns": 10,
-      "rows": 1540
+      "rows": 1541
     },
     "prestadores_transicoes_detalhe.csv": {
       "columns": 22,
-      "rows": 2357
+      "rows": 2315
     },
     "prestadores_transicoes_disponibilidade.csv": {
       "columns": 5,
@@ -148,7 +148,7 @@
     },
     "prestadores_transicoes_links.csv": {
       "columns": 10,
-      "rows": 134
+      "rows": 137
     },
     "prestadores_transicoes_resumo.csv": {
       "columns": 16,
@@ -156,7 +156,7 @@
     },
     "qa_inadimplencia_casos_latest.csv": {
       "columns": 16,
-      "rows": 197
+      "rows": 178
     },
     "qa_inadimplencia_competencia.csv": {
       "columns": 49,
@@ -180,11 +180,11 @@
     },
     "reconciliacao_veiculo_fundo_latest.csv": {
       "columns": 8,
-      "rows": 4222
+      "rows": 4247
     },
     "source_presence_overlay.csv.gz": {
       "columns": 85,
-      "rows": 9653
+      "rows": 13905
     },
     "top20_fidcs.csv": {
       "columns": 73,
@@ -195,11 +195,11 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-21T13:39:12+00:00",
-  "latest_complete": "2026-05",
+  "generated_at_utc": "2026-07-21T15:00:00+00:00",
+  "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
-    "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; mai/26 não passa esse teste e permanece diagnóstico, não headline.",
+    "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; 2026-06 não passa esse teste e permanece diagnóstico, não headline.",
     "Gestor e custodiante históricos vêm do cadastro vigente e não constituem série histórica like-for-like.",
     "Por isso, os fluxos dez/24–dez/25 são calculados somente para administração; nenhuma troca histórica de gestor ou custodiante é inferida.",
     "Monoestrutura mede coincidência de conglomerado normalizado; não demonstra preço, contrato ou venda casada."

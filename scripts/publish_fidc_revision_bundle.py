@@ -87,12 +87,16 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
     ROOT / "scripts" / "build_fidc_offer_ticket_distribution.py",
+    ROOT / "scripts" / "build_fidc_closed_offers.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_additions.py",
     ROOT / "services" / "industry_closed_offers.py",
+    ROOT / "services" / "industry_closed_offers_source.py",
+    ROOT / "services" / "industry_executive_pack.py",
+    ROOT / "services" / "industry_ppt_export.py",
     ROOT / "services" / "industry_revision_export.py",
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
@@ -100,6 +104,7 @@ BUILDER_SOURCES = (
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
     "base_fundo_cnpj.csv.gz",
+    "source_presence_overlay.csv.gz",
     "qa_inadimplencia_competencia.csv",
     "top20_fidcs.csv",
     "top20_outros.csv",
@@ -295,6 +300,48 @@ def validate_analysis_manifest(
         raise RevisionBundlePublishError("universo de fundos vazio no manifest analítico")
 
 
+def validate_source_presence_coverage(
+    revision_dir: Path,
+    latest_complete: str,
+) -> None:
+    """Block publication when the latest raw empty-versus-zero audit is absent."""
+
+    base_path = revision_dir / "base_competencia_cnpj.csv.gz"
+    overlay_path = revision_dir / "source_presence_overlay.csv.gz"
+    latest_rows = 0
+    exact_rows = 0
+    with gzip.open(base_path, "rt", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            if str(row.get("competencia") or "") != latest_complete:
+                continue
+            latest_rows += 1
+            if str(row.get("field_presence_exact") or "").strip().lower() in {
+                "1",
+                "true",
+                "sim",
+            }:
+                exact_rows += 1
+    if latest_rows <= 0:
+        raise RevisionBundlePublishError(
+            "base analítica sem veículos na competência mais recente"
+        )
+    if exact_rows != latest_rows:
+        raise RevisionBundlePublishError(
+            "auditoria vazio-versus-zero incompleta na competência mais recente; "
+            "publique com --refresh-source-presence e o ZIP bruto CVM disponível"
+        )
+
+    overlay_latest_rows = 0
+    with gzip.open(overlay_path, "rt", encoding="utf-8", newline="") as handle:
+        for row in csv.DictReader(handle):
+            if str(row.get("competencia") or "") == latest_complete:
+                overlay_latest_rows += 1
+    if overlay_latest_rows < latest_rows:
+        raise RevisionBundlePublishError(
+            "overlay bruto de presença não cobre a competência mais recente"
+        )
+
+
 def serialize_analysis_manifest(
     manifest: Mapping[str, object], generated_at_utc: str
 ) -> tuple[dict[str, object], bytes]:
@@ -340,6 +387,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "acquiring_reclassified_mix",
         "closed_offers_annual",
         "closed_offers_monthly",
+        "closed_offers_jan_june",
         "closed_offers_jan_may",
         "closed_offer_ticket_distribution",
         "closed_offer_originators_2026",
@@ -389,6 +437,10 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "competencia",
             "grupo_bancario",
             "pl_bruto_brl",
+            "pl_brl_raw",
+            "pl_recovered_official",
+            "pl_display_suffix",
+            "pl_source_references",
             "is_total_5_banks",
             "observado",
         },
@@ -398,6 +450,10 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "cnpj_fundo",
             "denominacao",
             "pl_brl",
+            "pl_brl_raw",
+            "pl_recovered_official",
+            "pl_display_suffix",
+            "pl_source_reference",
             "observado",
         },
         "btg_provider_ex_controlled_scenario": {
@@ -429,6 +485,12 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "professional_target_registered_volume_share",
         },
         "closed_offers_jan_may": {
+            "year",
+            "closed_offers",
+            "registered_volume_brl",
+            "mean_registered_ticket_brl",
+        },
+        "closed_offers_jan_june": {
             "year",
             "closed_offers",
             "registered_volume_brl",
@@ -931,6 +993,96 @@ def _validate_input_workbook(path: Path) -> None:
         raise RevisionBundlePublishError("workbook-base não é um XLSX válido") from exc
 
 
+USER_FACING_SNAPSHOT_SHEETS = (
+    "PL histórico",
+    "PL anual",
+    "Mix ANBIMA",
+    "Fila curadoria",
+    "Hist cotistas",
+    "Monoestrutura",
+    "Rankings ANBIMA",
+    "Cobertura",
+    "Competências",
+    "Indústria mensal",
+)
+
+
+def validate_user_facing_workbook_snapshot(
+    payload: bytes,
+    latest_complete: str,
+) -> None:
+    """Require inherited analytical tabs to reach the published competence.
+
+    The reviewed renderer imports a workbook before adding its revision tabs.
+    This guard prevents a valid June bundle from silently retaining May data in
+    the inherited analyst-facing sheets.
+    """
+
+    from openpyxl import load_workbook
+
+    try:
+        workbook = load_workbook(
+            BytesIO(payload),
+            read_only=True,
+            data_only=True,
+        )
+    except Exception as exc:  # pragma: no cover - openpyxl has many parser errors
+        raise RevisionBundlePublishError(
+            "workbook revisado não pôde ser auditado por competência"
+        ) from exc
+    try:
+        missing = sorted(
+            sheet for sheet in USER_FACING_SNAPSHOT_SHEETS if sheet not in workbook.sheetnames
+        )
+        if missing:
+            raise RevisionBundlePublishError(
+                "workbook revisado sem abas herdadas auditáveis: " + ", ".join(missing)
+            )
+        stale: list[str] = []
+        for sheet_name in USER_FACING_SNAPSHOT_SHEETS:
+            sheet = workbook[sheet_name]
+            rows = sheet.iter_rows(values_only=True)
+            headers = [str(value or "").strip().casefold() for value in next(rows, ())]
+            try:
+                competence_index = headers.index("competencia")
+            except ValueError:
+                stale.append(f"{sheet_name} (sem coluna competencia)")
+                continue
+            competences = {
+                str(row[competence_index]).strip()
+                for row in rows
+                if competence_index < len(row)
+                and re.fullmatch(r"\d{4}-\d{2}", str(row[competence_index] or "").strip())
+            }
+            observed_latest = max(competences) if competences else "ausente"
+            if observed_latest != latest_complete:
+                stale.append(f"{sheet_name} ({observed_latest})")
+        if stale:
+            raise RevisionBundlePublishError(
+                "abas herdadas não reconciliadas à competência publicada "
+                f"{latest_complete}: "
+                + ", ".join(stale)
+            )
+    finally:
+        workbook.close()
+
+
+def materialize_current_workbook_base(
+    data_dir: Path,
+    output_path: Path,
+    latest_complete: str,
+) -> Path:
+    """Build the inherited workbook tabs from the same current source snapshot."""
+
+    from services.industry_ppt_export import _build_legacy_industry_xlsx_bytes
+
+    payload = _build_legacy_industry_xlsx_bytes(Path(data_dir))
+    validate_user_facing_workbook_snapshot(payload, latest_complete)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_bytes(payload)
+    return output_path
+
+
 def publish_revision_bundle(
     *,
     data_dir: Path,
@@ -1042,6 +1194,7 @@ def publish_revision_bundle(
             revision_dir=stage_revision,
             latest_complete=latest_complete,
         )
+        validate_source_presence_coverage(stage_revision, latest_complete)
 
         provider_history_args = [
             "--fund-base",
@@ -1109,6 +1262,19 @@ def publish_revision_bundle(
         payload_path = stage_revision / PAYLOAD_NAME
         payload_path.write_bytes(payload_bytes)
 
+        # The workbook supplied as visual/reference input may predate the
+        # published data snapshot.  Rebuild its inherited analytical tabs from
+        # the same data directory before the artifact renderer adds the audited
+        # revision sheets.  The PPTX renderer does not consume these tabs.
+        staged_input_workbook = materialize_current_workbook_base(
+            data_dir,
+            stage / "workbook_current.xlsx",
+            latest_complete,
+        )
+        input_hashes["workbook/generated_current.xlsx"] = _sha256_file(
+            staged_input_workbook
+        )
+
         staged_pptx = stage_exports / MATERIALIZED_PPTX_NAME
         staged_xlsx = stage_exports / MATERIALIZED_XLSX_NAME
         staged_html = stage_exports / MATERIALIZED_HTML_NAME
@@ -1118,7 +1284,7 @@ def publish_revision_bundle(
             artifact_script=staged_renderer,
             provider_flow_builder=staged_provider_flow_builder,
             node_modules=resolved_modules,
-            input_workbook=input_workbook,
+            input_workbook=staged_input_workbook,
             revision_dir=stage_revision,
             payload_path=payload_path,
             output_dir=stage_exports,
@@ -1147,6 +1313,7 @@ def publish_revision_bundle(
         }
         validate_revision_pptx(pptx_bytes)
         validate_revision_xlsx(xlsx_bytes)
+        validate_user_facing_workbook_snapshot(xlsx_bytes, latest_complete)
         validate_revision_html(html_bytes)
         validate_deck_snapshot(pptx_bytes, latest_complete)
 
