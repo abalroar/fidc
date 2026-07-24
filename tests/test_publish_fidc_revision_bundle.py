@@ -271,6 +271,42 @@ def _fixed_income_offer_comparison_fixture() -> list[dict[str, object]]:
     return rows
 
 
+def _closed_offer_placement_regime_fixture() -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for period_order, period in enumerate(
+        ("2024 FY", "2025 FY", "2026 jan-jun"),
+        start=1,
+    ):
+        for regime_order, regime in enumerate(
+            (
+                "Melhores esforços",
+                "Garantia firme",
+                "Misto",
+                "Não informado",
+            ),
+            start=1,
+        ):
+            observed = 1.0 if regime_order == 1 else 0.0
+            rows.append(
+                {
+                    "period_order": period_order,
+                    "period_label": period,
+                    "regime_order": regime_order,
+                    "placement_regime": regime,
+                    "closed_offers": observed,
+                    "closed_offers_share": observed,
+                    "registered_volume_brl": observed,
+                    "registered_volume_share": observed,
+                    "period_closed_offers": 1,
+                    "period_registered_volume_brl": 1.0,
+                    "source_url": "https://dados.cvm.gov.br/",
+                    "scope": "Oferta Encerrada",
+                    "methodology": "Regime_distribuicao",
+                }
+            )
+    return rows
+
+
 def _payload() -> dict[str, object]:
     card_rows = _card_taxonomy_rows()
     return {
@@ -504,6 +540,9 @@ def _payload() -> dict[str, object]:
         "closed_offers_annual": [
             {
                 "year": year,
+                "period_label": (
+                    f"{year} FY" if year < 2026 else "2026 jan-jun"
+                ),
                 "closed_offers": 1,
                 "registered_volume_brl": 1.0,
                 "mean_registered_ticket_brl": 1.0,
@@ -547,6 +586,9 @@ def _payload() -> dict[str, object]:
                 "period_median_ticket_brl": 1.0,
             }
         ],
+        "closed_offer_placement_regime": (
+            _closed_offer_placement_regime_fixture()
+        ),
         "fixed_income_offer_comparison": (
             _fixed_income_offer_comparison_fixture()
         ),
@@ -723,6 +765,7 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "closed_offers_jan_june",
         "closed_offers_jan_may",
         "closed_offer_ticket_distribution",
+        "closed_offer_placement_regime",
         "closed_offer_originators_2026",
         "closed_offer_top15",
         "closed_offer_top15_summary",
@@ -1025,6 +1068,7 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
     assert "acquiring_taxonomy_curation.json" in REQUIRED_DATA_INPUTS
     assert "industry_closed_offer_ticket_distribution.csv" in REQUIRED_DATA_INPUTS
     assert "industry_closed_offer_ticket_cohort.csv.gz" in REQUIRED_DATA_INPUTS
+    assert "industry_closed_offer_placement_regime.csv" in REQUIRED_DATA_INPUTS
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:

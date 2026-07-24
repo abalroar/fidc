@@ -72,6 +72,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_closed_offer_originators_2026.csv",
     "industry_closed_offer_ticket_distribution.csv",
     "industry_closed_offer_ticket_cohort.csv.gz",
+    "industry_closed_offer_placement_regime.csv",
     "industry_fixed_income_offer_comparison.csv",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
@@ -91,6 +92,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
     ROOT / "scripts" / "build_fidc_offer_ticket_distribution.py",
     ROOT / "scripts" / "build_fidc_closed_offers.py",
+    ROOT / "scripts" / "build_fidc_closed_offer_placement_regime.py",
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
@@ -105,6 +107,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
     ROOT / "services" / "industry_closed_offer_rankings.py",
+    ROOT / "services" / "industry_closed_offer_placement_regime.py",
     ROOT / "services" / "industry_fixed_income_offer_comparison.py",
 )
 REQUIRED_ANALYSIS_FILES = {
@@ -853,6 +856,85 @@ def _validate_fixed_income_offer_comparison(
             )
 
 
+def _validate_closed_offer_placement_regime(
+    payload: Mapping[str, object],
+) -> None:
+    rows = payload.get("closed_offer_placement_regime")
+    if not isinstance(rows, list) or len(rows) != 12:
+        raise RevisionBundlePublishError(
+            "closed_offer_placement_regime deve conter 12 linhas"
+        )
+    expected_periods = ("2024 FY", "2025 FY", "2026 jan-jun")
+    expected_regimes = (
+        "Melhores esforços",
+        "Garantia firme",
+        "Misto",
+        "Não informado",
+    )
+    official_totals = {
+        str(row.get("period_label") or ""): (
+            _finite_payload_number(
+                row.get("closed_offers"),
+                "closed_offers_annual.closed_offers",
+            ),
+            _finite_payload_number(
+                row.get("registered_volume_brl"),
+                "closed_offers_annual.registered_volume_brl",
+            ),
+        )
+        for row in payload.get("closed_offers_annual") or []
+        if isinstance(row, Mapping)
+        and str(row.get("period_label") or "") in expected_periods[:2]
+    }
+    for row in payload.get("closed_offers_jan_june") or []:
+        if isinstance(row, Mapping) and int(row.get("year") or 0) == 2026:
+            official_totals["2026 jan-jun"] = (
+                _finite_payload_number(
+                    row.get("closed_offers"),
+                    "closed_offers_jan_june.closed_offers",
+                ),
+                _finite_payload_number(
+                    row.get("registered_volume_brl"),
+                    "closed_offers_jan_june.registered_volume_brl",
+                ),
+            )
+    for period_label in expected_periods:
+        period = [
+            row
+            for row in rows
+            if isinstance(row, Mapping)
+            and row.get("period_label") == period_label
+        ]
+        period.sort(key=lambda row: int(row.get("regime_order") or 0))
+        if tuple(row.get("placement_regime") for row in period) != expected_regimes:
+            raise RevisionBundlePublishError(
+                f"regimes de colocação divergentes em {period_label}"
+            )
+        offers = sum(
+            _finite_payload_number(
+                row.get("closed_offers"),
+                f"closed_offer_placement_regime[{period_label}].closed_offers",
+            )
+            for row in period
+        )
+        volume = sum(
+            _finite_payload_number(
+                row.get("registered_volume_brl"),
+                f"closed_offer_placement_regime[{period_label}].registered_volume_brl",
+            )
+            for row in period
+        )
+        expected_offers, expected_volume = official_totals[period_label]
+        if offers != expected_offers:
+            raise RevisionBundlePublishError(
+                f"quantidade por regime não reconcilia em {period_label}"
+            )
+        if abs(volume - expected_volume) > max(1.0, expected_volume * 1e-10):
+            raise RevisionBundlePublishError(
+                f"volume por regime não reconcilia em {period_label}"
+            )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
@@ -931,6 +1013,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "closed_offers_jan_june",
         "closed_offers_jan_may",
         "closed_offer_ticket_distribution",
+        "closed_offer_placement_regime",
         "closed_offer_originators_2026",
         "closed_offer_top15",
         "closed_offer_top15_summary",
@@ -1179,6 +1262,19 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "scope",
             "excluded_instruments",
         },
+        "closed_offer_placement_regime": {
+            "period_label",
+            "placement_regime",
+            "closed_offers",
+            "closed_offers_share",
+            "registered_volume_brl",
+            "registered_volume_share",
+            "period_closed_offers",
+            "period_registered_volume_brl",
+            "source_url",
+            "scope",
+            "methodology",
+        },
         "provider_history_cvm_coverage": {
             "papel",
             "data_referencia",
@@ -1299,6 +1395,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
     _validate_closed_offer_originator_order(payload)
     _validate_closed_offer_top15(payload)
     _validate_fixed_income_offer_comparison(payload)
+    _validate_closed_offer_placement_regime(payload)
     conclusion_metrics = payload["conclusion_metrics"]
     required_btg_metrics = {
         "btg_bank_cohort_listed_roots",

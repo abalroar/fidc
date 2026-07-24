@@ -50,7 +50,7 @@ SLIDE_TOKENS = {
     ),
     5: ("BASE INVESTIDORA",),
     6: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
-    7: ("TIPO ANBIMA",),
+    7: ("TAXONOMIA VIGENTE",),
     8: ("TAXONOMIA CVM", "ADQUIRÊNCIA", "33 CNPJs"),
     9: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
     10: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
@@ -64,9 +64,12 @@ SLIDE_TOKENS = {
     14: ("MARKET SHARE · ADMINISTRAÇÃO",),
     15: ("MARKET SHARE · GESTÃO",),
     16: ("MARKET SHARE · CUSTÓDIA",),
-    17: ("PRESTADORES · EVOLUÇÃO DO RANKING",),
-    18: ("PRESTADORES", "INDEPENDENTES"),
-    19: (
+    17: (
+        "PRESTADORES · EVOLUÇÃO E RANKING",
+        "TODOS OS PRESTADORES",
+        "INDEPENDENTES",
+    ),
+    18: (
         "BANCOS",
         "FIDC",
         "R$ 7,9 BI",
@@ -74,17 +77,22 @@ SLIDE_TOKENS = {
         "DF AUDITADA 1150673",
         "DEZ/25*",
     ),
-    20: ("PRESTADORES · LIDERANÇA EXPLICADA",),
-    21: ("CBSF / REAG · DESTINO DOS FUNDOS",),
-    22: ("PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",),
-    23: ("PRESTADORES · MIGRAÇÃO EM GESTÃO",),
-    24: ("PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",),
-    25: ("RANKING · TOP 20 FIDCs",),
-    26: ("RANKING · TOP 20 OUTROS",),
-    27: ("MODELO DE PRESTAÇÃO",),
-    28: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    29: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–JUN", "14,6%"),
-    30: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
+    19: ("PRESTADORES · LIDERANÇA EXPLICADA",),
+    20: ("CBSF / REAG · DESTINO DOS FUNDOS",),
+    21: ("PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",),
+    22: ("PRESTADORES · MIGRAÇÃO EM GESTÃO",),
+    23: ("PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",),
+    24: ("RANKING · TOP 20 FIDCs",),
+    25: ("RANKING · TOP 20 OUTROS",),
+    26: ("MODELO DE PRESTAÇÃO",),
+    27: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    28: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–JUN", "14,6%"),
+    29: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
+    30: (
+        "OFERTAS ENCERRADAS · VOLUME E REGIME",
+        "NÚMERO DE OFERTAS",
+        "REGIME DE COLOCAÇÃO · VOLUME",
+    ),
     31: (
         "TOP 15 · OFERTAS ENCERRADAS",
         "IBBA LIDEROU 5 DAS 15 MAIORES",
@@ -134,6 +142,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Detalhe coorte bancos",
     "Ofertas encerradas",
     "Comparativo renda fixa",
+    "Regime de colocação",
     "Histograma ofertas",
     "Originadores 2026",
     "Top 15 ofertas",
@@ -253,20 +262,11 @@ def test_gross_pl_evolution_remains_one_native_stacked_chart() -> None:
     assert grouping.attrib.get("val") == "stacked"
 
 
-@pytest.mark.parametrize(
-    ("slide_number", "charts", "tables"),
-    [
-        (17, 3, 3),  # ranking histórico: Administração, Gestão e Custódia
-        (18, 3, 3),  # ranking dos prestadores independentes
-    ],
-)
-def test_provider_rankings_use_three_native_table_chart_pairs(
-    slide_number: int, charts: int, tables: int
-) -> None:
+def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert len(_slide_chart_paths(archive, slide_number)) == charts
-        assert _native_table_count(archive, slide_number) == tables
+        assert len(_slide_chart_paths(archive, 17)) == 6
+        assert _native_table_count(archive, 17) == 0
 
 
 @pytest.mark.parametrize(
@@ -275,8 +275,8 @@ def test_provider_rankings_use_three_native_table_chart_pairs(
         (4, 2, 1),  # FIDCs versus demais instrumentos de renda fixa
         (11, 1, 1),  # inadimplência por recebível único da Tabela II
         (12, 1, 1),  # histórico da coorte atual por subtipo
-        (19, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (29, 2, 1),  # volume/ticket comparável e acumulado mensal
+        (18, 1, 1),  # evolução dos FIDCs dos cinco bancos
+        (28, 2, 1),  # volume/ticket comparável e acumulado mensal
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -291,9 +291,9 @@ def test_new_analytical_slides_use_native_office_structures(
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 30)
+        chart_paths = _slide_chart_paths(archive, 29)
         assert len(chart_paths) == 3
-        assert _native_table_count(archive, 30) == 0
+        assert _native_table_count(archive, 29) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             bar_chart = chart.find(f".//{{{CHART}}}barChart")
@@ -302,6 +302,17 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
             assert grouping is not None
             assert grouping.attrib.get("val") == "clustered"
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
+
+
+def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, 30)
+        assert len(chart_paths) == 4
+        assert _native_table_count(archive, 30) == 0
+        for chart_path in chart_paths:
+            chart = ET.fromstring(archive.read(chart_path))
+            assert chart.find(f".//{{{CHART}}}barChart") is not None
 
 
 def test_top15_offer_slide_uses_two_native_tables_and_no_chart_images() -> None:
@@ -316,7 +327,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
-            for path in _slide_chart_paths(archive, 29)
+            for path in _slide_chart_paths(archive, 28)
         ]
     line_charts = [
         chart
