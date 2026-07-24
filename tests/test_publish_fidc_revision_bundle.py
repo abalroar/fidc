@@ -229,8 +229,31 @@ def _payload() -> dict[str, object]:
             {"competencia": "2026-05"},
         ],
         "type_mix_history": [
-            {"competencia": "2023-12"},
-            {"competencia": "2026-05"},
+            {
+                "competencia": competencia,
+                "period_label": period_label,
+                "period_order": period_order,
+                "anbima_tipo": anbima_tipo,
+                "category_order": category_order,
+                "pl": 0.25,
+                "share": 0.25,
+            }
+            for period_order, (competencia, period_label) in enumerate(
+                (
+                    ("2023-12", "dez/23"),
+                    ("2024-12", "dez/24"),
+                    ("2025-12", "dez/25"),
+                    ("2026-05", "mai/26"),
+                )
+            )
+            for category_order, anbima_tipo in enumerate(
+                (
+                    "Fomento Mercantil",
+                    "Agro, Indústria e Comércio",
+                    "Financeiro",
+                    "Outros",
+                )
+            )
         ],
         "receivables_history": [
             {"competencia": "2023-12"},

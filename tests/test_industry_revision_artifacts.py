@@ -11,8 +11,20 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PPTX = ROOT / "outputs" / "Industria_FIDC_Executivo_202607_revisado.pptx"
-XLSX = ROOT / "outputs" / "Industria_FIDC_Dados_202607_revisado.xlsx"
+PPTX = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "industry_executive_revised.pptx"
+)
+XLSX = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "industry_data_revised.xlsx"
+)
 FLOW_HTML = (
     ROOT
     / "data"
@@ -218,7 +230,7 @@ def test_deck_order_and_profile_count() -> None:
         "ESCALA DA INDÚSTRIA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
-        "TIPO ANBIMA",
+        "TAXONOMIA VIGENTE",
         "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
         "CARTEIRA POR TIPO DE RECEBÍVEL",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -290,6 +302,29 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 symbol = marker.find(f"{{{CHART}}}symbol")
                 assert symbol is not None
                 assert symbol.attrib.get("val") == "none"
+
+
+def test_slide6_has_two_native_office_charts_for_anbima_evolution() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, 6)
+        assert len(chart_paths) == 2
+        chart_xml = [archive.read(name) for name in chart_paths]
+
+    groupings: set[str] = set()
+    for raw in chart_xml:
+        root = ET.fromstring(raw)
+        bar_direction = root.find(f".//{{{CHART}}}barDir")
+        grouping = root.find(f".//{{{CHART}}}grouping")
+        assert bar_direction is not None
+        assert bar_direction.attrib.get("val") == "col"
+        assert grouping is not None
+        groupings.add(str(grouping.attrib.get("val")))
+        visible = raw.decode("utf-8", errors="ignore")
+        for label in ("dez/23", "dez/24", "dez/25", "jun/26"):
+            assert label in visible
+        assert ">N/D<" not in visible
+    assert groupings == {"stacked", "percentStacked"}
 
 
 def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() -> None:
@@ -520,7 +555,6 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 @pytest.mark.parametrize(
     ("slide_number", "periods"),
     [
-        (6, {"Dez/23", "Jun/26"}),
         (7, {"Dez/23", "Jun/26"}),
         (8, {"Dez/23", "Jun/26"}),
         (12, {"Dez/25", "Jun/26"}),
@@ -539,7 +573,7 @@ def test_before_after_slides_have_two_clustered_charts(
 
     assert len(chart_series) == 2
     assert all(set(series) == periods for series in chart_series)
-    if slide_number in {6, 7, 8}:
+    if slide_number in {7, 8}:
         normalized = [
             series
             for series in chart_series

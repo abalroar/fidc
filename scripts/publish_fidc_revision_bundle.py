@@ -602,6 +602,48 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             raise RevisionBundlePublishError(f"payload {key} deve conter 20 linhas")
     if not payload.get("offers_as_of"):
         raise RevisionBundlePublishError("payload editorial sem data-base de ofertas")
+    type_mix = payload.get("type_mix_history")
+    if not isinstance(type_mix, list) or len(type_mix) != 16:
+        raise RevisionBundlePublishError(
+            "type_mix_history deve conter quatro categorias em quatro competências"
+        )
+    categories = {
+        str(row.get("anbima_tipo") or "")
+        for row in type_mix
+        if isinstance(row, Mapping)
+    }
+    expected_categories = {
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    }
+    if categories != expected_categories:
+        raise RevisionBundlePublishError(
+            "type_mix_history deve incorporar N/D em Outros na visão editorial"
+        )
+    expected_periods = {"2023-12", "2024-12", "2025-12", latest_complete}
+    periods = {
+        str(row.get("competencia") or "")
+        for row in type_mix
+        if isinstance(row, Mapping)
+    }
+    if periods != expected_periods:
+        raise RevisionBundlePublishError(
+            "mix ANBIMA sem as quatro competências editoriais"
+        )
+    shares_by_period: dict[str, float] = {}
+    for row in type_mix:
+        if not isinstance(row, Mapping):
+            continue
+        period = str(row.get("competencia") or "")
+        shares_by_period[period] = shares_by_period.get(period, 0.0) + float(
+            row.get("share") or 0.0
+        )
+    if any(abs(total - 1.0) > 1e-8 for total in shares_by_period.values()):
+        raise RevisionBundlePublishError(
+            "participações do mix ANBIMA não fecham 100% por competência"
+        )
     for key in (
         "holder_distribution_history",
         "type_mix_history",

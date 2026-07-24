@@ -274,6 +274,9 @@ def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None
     assert period_colors == ["#8D9399", "#EC7000"]
     assert "alt.value(_ORANGE)" in revision_source
     assert "range=[_ORANGE, _BLACK]" in revision_source
+    assert "industry-revision-type-mix-volume" in revision_source
+    assert "industry-revision-type-mix-share" in revision_source
+    assert "N/D foi incorporado em Outros somente nesta visualização" in revision_source
 
 
 def test_revision_history_frame_adds_period_label_to_acquiring_mix() -> None:
