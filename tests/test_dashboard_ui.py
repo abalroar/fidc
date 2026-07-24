@@ -382,8 +382,11 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "fonte_revisao",
         "Modelo de prestação e monoestruturas",
         "Distribuição do valor das emissões",
-        "Originadores nomináveis em jan–jun/26",
-        "primeiro match nominal em emissor",
+        "Participação no volume registrado",
+        "Volume registrado por faixa",
+        "Top 15 ofertas encerradas e originadores",
+        "IBBA Coord-Líder usa Nome_Lider",
+        "propostas, fees",
     )
     for text in required_text:
         assert text in revision_source
@@ -406,8 +409,9 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "industry-revision-independent-",
         "industry-revision-service-model-shares",
         "industry-revision-closed-offer-ticket-histogram",
+        'f"{chart_key}-volume-share"',
+        'f"{chart_key}-volume-absolute"',
         "industry-revision-closed-offers-jan-june",
-        "industry-revision-originators-all",
     )
     for key in required_chart_keys:
         assert key in revision_source

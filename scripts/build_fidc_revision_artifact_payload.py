@@ -25,6 +25,7 @@ if __package__ in {None, ""}:
 from services.fund_name_display import short_fund_name
 from services.industry_intelligence import canonical_provider
 from services.industry_closed_offers import build_closed_offers_payload
+from services.industry_closed_offer_rankings import build_closed_offer_top15
 from services.industry_offer_ticket_distribution import (
     load_materialized_offer_ticket_outputs,
 )
@@ -2285,6 +2286,12 @@ def build_payload(
     closed_offers = build_closed_offers_payload(data_dir)
     offer_ticket_outputs = load_materialized_offer_ticket_outputs(data_dir)
     closed_offer_ticket_distribution = offer_ticket_outputs.distribution.copy()
+    offer_rankings = build_closed_offer_top15(data_dir)
+    closed_offer_top15 = offer_rankings.rankings.copy()
+    closed_offer_top15["fund_name_short"] = closed_offer_top15[
+        "nome_emissor"
+    ].map(_display_fund_name)
+    closed_offer_top15_summary = offer_rankings.summary.copy()
     closed_annual = closed_offers["annual"]["rows"]
     closed_monthly = closed_offers["monthly"]["rows"]
     closed_jan_june = closed_offers["jan_june_2024_2026"]["rows"]
@@ -2604,6 +2611,10 @@ def build_payload(
         "closed_offer_originators_2026": closed_originators,
         "closed_offer_ticket_distribution": _records(
             closed_offer_ticket_distribution
+        ),
+        "closed_offer_top15": _records(closed_offer_top15),
+        "closed_offer_top15_summary": _records(
+            closed_offer_top15_summary
         ),
         "offer_ticket_concentration_2026": offer_ticket_concentration_2026,
         # Aliases mantidos apenas para leitores v2/v3; o renderer v4 usa os blocos acima.
