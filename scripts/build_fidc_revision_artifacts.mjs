@@ -2587,62 +2587,125 @@ function buildPresentation(payload, flowAssets) {
   // 6. Mix ANBIMA
   {
     const slide = presentation.slides.add();
-    const history = payload.type_mix_history;
-    const periodBefore = "2023-12";
-    const periodAfter = payload.latest_complete;
-    const before = history.filter((row) => row.competencia === periodBefore);
-    const after = history.filter((row) => row.competencia === periodAfter);
-    const afterMap = Object.fromEntries(after.map((row) => [row.anbima_tipo, row]));
-    const beforeMap = Object.fromEntries(before.map((row) => [row.anbima_tipo, row]));
-    const categories = [...after]
-      .sort((a, b) => num(b.pl) - num(a.pl))
-      .map((row) => row.anbima_tipo);
-    const othersBefore = beforeMap.Outros;
-    const othersAfter = afterMap.Outros;
+    const history = [...payload.type_mix_history].sort(
+      (a, b) => num(a.period_order) - num(b.period_order) || num(a.category_order) - num(b.category_order),
+    );
+    const mixMeta = payload.type_mix_meta || {};
+    const periods = (mixMeta.periods || [])
+      .map((row) => ({ competencia: row.competencia, label: row.label }))
+      .filter((row) => row.competencia && row.label);
+    if (!periods.length) {
+      [...new Set(history.map((row) => row.competencia))].sort().forEach((competencia) => {
+        periods.push({ competencia, label: competenceShortPt(competencia).toLowerCase() });
+      });
+    }
+    const categories = mixMeta.categories || [
+      "Fomento Mercantil",
+      "Agro, Indústria e Comércio",
+      "Financeiro",
+      "Outros",
+    ];
+    const colors = {
+      "Fomento Mercantil": C.mid,
+      "Agro, Indústria e Comércio": C.note,
+      "Financeiro": C.orange,
+      "Outros": C.line,
+    };
+    const rowByKey = new Map(
+      history.map((row) => [`${row.competencia}::${row.anbima_tipo}`, row]),
+    );
+    const valueFor = (period, category, field) =>
+      num(rowByKey.get(`${period.competencia}::${category}`)?.[field]);
+    const volumeSeries = categories.map((category) => ({
+      name: category,
+      values: periods.map((period) => valueFor(period, category, "pl") / 1e9),
+      valuesFormatCode: "0.0",
+      fill: colors[category],
+    }));
+    const shareSeries = categories.map((category) => ({
+      name: category,
+      values: periods.map((period) => valueFor(period, category, "share")),
+      valuesFormatCode: "0.0%",
+      fill: colors[category],
+    }));
+    const latestPeriod = periods.at(-1);
+    const financeAndOtherShare =
+      valueFor(latestPeriod, "Financeiro", "share") + valueFor(latestPeriod, "Outros", "share");
+    const maxTotalBn = Math.max(
+      ...periods.map((period) =>
+        categories.reduce(
+          (sum, category) => sum + valueFor(period, category, "pl") / 1e9,
+          0,
+        ),
+      ),
+    );
     addHeader(
       slide,
-      "TIPO ANBIMA",
-      `Na taxonomia vigente, Outros ganhou ${pct(num(othersAfter?.share) - num(othersBefore?.share), 1).replace("%", " p.p.")} do PL ex-FIC desde dez/23`,
-      `Fonte: CVM/ANBIMA; dez/23 e ${stockShortLower}. Tipo/Foco ANBIMA no nível do fundo; cadastro de dez/25 aplicado ao histórico.`,
+      "TAXONOMIA VIGENTE",
+      `Financeiro e Outros representam ${pct(financeAndOtherShare, 1)} do PL ex-FIC em ${latestPeriod.label}`,
+      `Fonte: CVM e ANBIMA; PL ex-FIC em dez/23, dez/24, dez/25 e ${latestPeriod.label}. Fotografia ANBIMA de dez/25 aplicada às competências; N/D incorporado em Outros.`,
       6,
     );
-    addSectionLabel(slide, `PL EX-FIC · R$ BI · DEZ/23 → ${stockShort.toUpperCase()}`, { left: 60, top: 150, width: 550, height: 24 });
+    addSectionLabel(slide, "PL EX-FIC · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 185, width: 550, height: 400 }),
-      categories: categories.map((category) => category === "Agro, Indústria e Comércio" ? "Agro, ind. e comércio" : category),
-      series: [
-        { name: "Dez/23", values: categories.map((category) => num(beforeMap[category]?.pl) / 1e9), valuesFormatCode: "0.0", fill: C.mid },
-        { name: stockShort, values: categories.map((category) => num(afterMap[category]?.pl) / 1e9), valuesFormatCode: "0.0", fill: C.orange },
-      ],
-      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 35 },
+      ...chartBase({ left: 60, top: 185, width: 550, height: 355 }),
+      categories: periods.map((row) => row.label),
+      series: volumeSeries,
+      barOptions: { direction: "column", grouping: "stacked", gapWidth: 52, overlap: 100 },
       hasLegend: false,
-      xAxis: { ...chartAxis(9.5, "0"), min: 0 },
-      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 9, bold: true } },
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 11.5 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: {
+        ...chartAxis(10.5, "0"),
+        min: 0,
+        max: Math.ceil(maxTotalBn / 100) * 100,
+      },
+      dataLabels: {
+        showValue: true,
+        position: "center",
+        textStyle: { fill: C.black, fontSize: 9.5, bold: true },
+      },
     });
-    addSectionLabel(slide, `% DO PL EX-FIC · DEZ/23 → ${stockShort.toUpperCase()}`, { left: 670, top: 150, width: 550, height: 24 });
+    addSectionLabel(slide, "PARTICIPAÇÃO NO PL EX-FIC", { left: 670, top: 145, width: 550, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 670, top: 185, width: 550, height: 400 }),
-      categories: categories.map((category) => category === "Agro, Indústria e Comércio" ? "Agro, ind. e comércio" : category),
-      series: [
-        { name: "Dez/23", values: categories.map((category) => num(beforeMap[category]?.share)), valuesFormatCode: "0.0%", fill: C.mid },
-        { name: stockShort, values: categories.map((category) => num(afterMap[category]?.share)), valuesFormatCode: "0.0%", fill: C.orange },
-      ],
-      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 35 },
+      ...chartBase({ left: 670, top: 185, width: 550, height: 355 }),
+      categories: periods.map((row) => row.label),
+      series: shareSeries,
+      barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 52, overlap: 100 },
       hasLegend: false,
-      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
-      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 9, bold: true } },
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 11.5 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: {
+        ...chartAxis(10.5, "0%"),
+        min: 0,
+        max: 1,
+        majorUnit: 0.2,
+      },
+      dataLabels: {
+        showValue: true,
+        position: "center",
+        textStyle: { fill: C.black, fontSize: 9.5, bold: true },
+      },
     });
-    addText(slide, "Cada período fecha em 100%", { left: 1015, top: 592, width: 205, height: 18 }, {
-      fontSize: 10.5, color: C.note, alignment: "right",
-    });
-    addRect(slide, { left: 760, top: 563, width: 460, height: 24 }, C.white);
+    addLegend(
+      slide,
+      categories.map((category) => ({ label: category, color: colors[category] })),
+      { left: 220, top: 556, width: 840, height: 28 },
+      4,
+    );
     addText(
       slide,
-      `${stockShort}: Outros ${pct(othersAfter?.share, 1)}; Financeiro ${pct(afterMap.Financeiro?.share, 1)}. ANBIMA enquadra o fundo inteiro, não cada direito creditório.`,
-      { left: 60, top: 630, width: 1160, height: 24 },
-      { fontSize: 11, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
+      "Tipo e Foco ANBIMA são campos distintos. Evidência documental e proxy CVM complementam os fundos sem correspondência oficial; a origem permanece identificada por fundo.",
+      { left: 120, top: 600, width: 1040, height: 35 },
+      { fontSize: 11.5, color: C.mid, alignment: "center", verticalAlignment: "middle" },
     );
   }
 

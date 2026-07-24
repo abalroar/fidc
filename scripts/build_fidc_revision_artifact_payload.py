@@ -1297,16 +1297,91 @@ def _type_mix(funds: pd.DataFrame, latest: str) -> tuple[pd.DataFrame, pd.DataFr
 def _type_mix_history(
     funds: pd.DataFrame,
     periods: list[str],
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    categories = [
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    ]
     mixes: list[pd.DataFrame] = []
     coverages: list[pd.DataFrame] = []
-    for period in periods:
-        mix, coverage = _type_mix(funds, period)
+    metadata: list[dict[str, Any]] = []
+    unique_periods = list(dict.fromkeys(periods))
+    month_labels = (
+        "jan",
+        "fev",
+        "mar",
+        "abr",
+        "mai",
+        "jun",
+        "jul",
+        "ago",
+        "set",
+        "out",
+        "nov",
+        "dez",
+    )
+    for period_order, period in enumerate(unique_periods):
+        raw_mix, coverage = _type_mix(funds, period)
+        raw_mix["anbima_tipo_original"] = raw_mix["anbima_tipo"].map(_text)
+        raw_mix["anbima_tipo"] = raw_mix["anbima_tipo_original"].where(
+            raw_mix["anbima_tipo_original"].isin(categories[:-1]),
+            "Outros",
+        )
+        nd_incorporated_pl = float(
+            raw_mix.loc[
+                raw_mix["anbima_tipo_original"].eq("N/D"),
+                "pl",
+            ].sum()
+        )
+        mix = (
+            raw_mix.groupby("anbima_tipo", as_index=False)["pl"]
+            .sum()
+            .set_index("anbima_tipo")
+            .reindex(categories, fill_value=0.0)
+            .rename_axis("anbima_tipo")
+            .reset_index()
+        )
+        total_pl = float(mix["pl"].sum())
+        mix["share"] = mix["pl"] / total_pl if total_pl else 0.0
+        parsed = pd.Period(period, freq="M")
+        period_label = f"{month_labels[parsed.month - 1]}/{str(parsed.year)[-2:]}"
         mix.insert(0, "competencia", period)
+        mix["period_label"] = period_label
+        mix["period_order"] = period_order
+        mix["category_order"] = mix["anbima_tipo"].map(
+            {category: index for index, category in enumerate(categories)}
+        )
         coverage.insert(0, "competencia", period)
         mixes.append(mix)
         coverages.append(coverage)
-    return pd.concat(mixes, ignore_index=True), pd.concat(coverages, ignore_index=True)
+        metadata.append(
+            {
+                "competencia": period,
+                "label": period_label,
+                "total_pl_ex_fic": total_pl,
+                "nd_incorporated_pl": nd_incorporated_pl,
+                "nd_incorporated_share": (
+                    nd_incorporated_pl / total_pl if total_pl else 0.0
+                ),
+            }
+        )
+    meta = {
+        "periods": metadata,
+        "categories": categories,
+        "nd_incorporated_into": "Outros",
+        "classification_method": (
+            "Fotografia cadastral ANBIMA de dez/25 aplicada ao PL ex-FIC de cada "
+            "competência; evidência documental e proxy CVM nos fundos sem "
+            "correspondência oficial."
+        ),
+    }
+    return (
+        pd.concat(mixes, ignore_index=True),
+        pd.concat(coverages, ignore_index=True),
+        meta,
+    )
 
 
 def _receivables(segments: pd.DataFrame, latest: str, portfolio_total: float) -> dict[str, Any]:
@@ -2267,11 +2342,16 @@ def build_payload(
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
     comparison_periods = [HISTORICAL_REFERENCE, latest]
+    type_mix_periods = ["2023-12", "2024-12", "2025-12", latest]
     holder_distribution_history, holder_distribution_meta_history = _holder_distribution_history(
         vehicle, comparison_periods
     )
-    type_mix_history, classification_coverage_history = _type_mix_history(
-        funds, comparison_periods
+    (
+        type_mix_history,
+        classification_coverage_history,
+        type_mix_meta,
+    ) = _type_mix_history(
+        funds, type_mix_periods
     )
     receivables_history, receivables_meta_history = _receivables_history(
         segments, monthly, comparison_periods
@@ -2374,6 +2454,7 @@ def build_payload(
         "holder_distribution_history": _records(holder_distribution_history),
         "holder_distribution_meta_history": _records(holder_distribution_meta_history),
         "type_mix": _records(type_mix),
+        "type_mix_meta": type_mix_meta,
         "classification_coverage": _records(classification_coverage),
         "type_mix_history": _records(type_mix_history),
         "classification_coverage_history": _records(classification_coverage_history),
