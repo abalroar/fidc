@@ -29,6 +29,9 @@ from services.industry_closed_offer_rankings import build_closed_offer_top15
 from services.industry_offer_ticket_distribution import (
     load_materialized_offer_ticket_outputs,
 )
+from services.industry_fixed_income_offer_comparison import (
+    load_materialized_fixed_income_offer_comparison,
+)
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -39,7 +42,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL_REFERENCE = "2023-12"
 PROVIDER_REFERENCE = "2025-12"
 ATLANTICO_CNPJ = "09194841000151"
-PL_TOTAL_CAGR_PERIODS = ((2015, 2018), (2018, 2023), (2024, 2025))
+PL_TOTAL_CAGR_PERIODS = ((2022, 2023), (2023, 2024), (2024, 2025))
 EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL = 500_000_000.0
 
 
@@ -2285,6 +2288,9 @@ def build_payload(
 
     closed_offers = build_closed_offers_payload(data_dir)
     offer_ticket_outputs = load_materialized_offer_ticket_outputs(data_dir)
+    fixed_income_offer_comparison = (
+        load_materialized_fixed_income_offer_comparison(data_dir)
+    )
     closed_offer_ticket_distribution = offer_ticket_outputs.distribution.copy()
     offer_rankings = build_closed_offer_top15(data_dir)
     closed_offer_top15 = offer_rankings.rankings.copy()
@@ -2611,6 +2617,9 @@ def build_payload(
         "closed_offer_originators_2026": closed_originators,
         "closed_offer_ticket_distribution": _records(
             closed_offer_ticket_distribution
+        ),
+        "fixed_income_offer_comparison": _records(
+            fixed_income_offer_comparison
         ),
         "closed_offer_top15": _records(closed_offer_top15),
         "closed_offer_top15_summary": _records(

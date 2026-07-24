@@ -224,10 +224,11 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 56
+    assert len(slides) == 57
     expected_body = [
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
+        "OFERTAS ENCERRADAS · RENDA FIXA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
         "TAXONOMIA VIGENTE",
@@ -258,26 +259,26 @@ def test_deck_order_and_profile_count() -> None:
         "PRINCIPAIS CONCLUSÕES",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
-    for slide_text, expected in zip(slides[1:31], expected_body, strict=True):
+    for slide_text, expected in zip(slides[1:32], expected_body, strict=True):
         assert expected in slide_text
-    assert "Escopo, fontes e limitações" in slides[31]
-    assert "Administração por subtipo" in slides[32]
-    assert "Gestão por subtipo" in slides[33]
-    assert "Custódia por subtipo" in slides[34]
-    profiles = slides[35:55]
+    assert "Escopo, fontes e limitações" in slides[32]
+    assert "Administração por subtipo" in slides[33]
+    assert "Gestão por subtipo" in slides[34]
+    assert "Custódia por subtipo" in slides[35]
+    profiles = slides[36:56]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
-    assert "Ex-360 bloqueado" in slides[8]
-    assert "112,6%" in slides[8]
-    assert "R$ 6,89 bi" in slides[8]
-    assert "R$ 16,69 bi" in slides[9]
-    assert "a série ajustada não repete a queda" in slides[9]
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[55]
-    assert "09.194.841/0001-51" in slides[55]
-    assert "A quebra no bruto coincide" in slides[55]
+    assert "Ex-360 bloqueado" in slides[9]
+    assert "112,6%" in slides[9]
+    assert "R$ 6,89 bi" in slides[9]
+    assert "R$ 16,69 bi" in slides[10]
+    assert "a série ajustada não repete a queda" in slides[10]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[56]
+    assert "09.194.841/0001-51" in slides[56]
+    assert "A quebra no bruto coincide" in slides[56]
     deck_text = "\n".join(slides)
     assert deck_text.count("R$ 16,69 bi") == 1
     assert "Visão ex-360 bloqueada" not in deck_text
@@ -304,10 +305,10 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 assert symbol.attrib.get("val") == "none"
 
 
-def test_slide6_has_two_native_office_charts_for_anbima_evolution() -> None:
+def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 6)
+        chart_paths = _slide_chart_paths(archive, 7)
         assert len(chart_paths) == 2
         chart_xml = [archive.read(name) for name in chart_paths]
 
@@ -330,9 +331,9 @@ def test_slide6_has_two_native_office_charts_for_anbima_evolution() -> None:
 def test_offer_slides_use_three_native_charts_and_two_native_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        ticket_charts = _slide_chart_paths(archive, 29)
+        ticket_charts = _slide_chart_paths(archive, 30)
         assert len(ticket_charts) == 3
-        slide29 = ET.fromstring(archive.read("ppt/slides/slide29.xml"))
+        slide29 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
         assert slide29.findall(f".//{{{DML}}}tbl") == []
         for chart_path in ticket_charts:
             chart = ET.fromstring(archive.read(chart_path))
@@ -343,8 +344,8 @@ def test_offer_slides_use_three_native_charts_and_two_native_tables() -> None:
             assert grouping.attrib.get("val") == "clustered"
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
-        assert _slide_chart_paths(archive, 30) == []
-        slide30 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        assert _slide_chart_paths(archive, 31) == []
+        slide30 = ET.fromstring(archive.read("ppt/slides/slide31.xml"))
         assert len(slide30.findall(f".//{{{DML}}}tbl")) == 2
         text = " ".join(node.text or "" for node in slide30.iter(f"{{{DML}}}t"))
         for token in (
@@ -393,7 +394,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [13, 14, 15, 33, 34, 35])
+@pytest.mark.parametrize("slide_number", [14, 15, 16, 34, 35, 36])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -484,9 +485,9 @@ def test_market_share_slides_use_one_native_percent_stacked_chart(
 def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide16.xml"))
+        slide = ET.fromstring(archive.read("ppt/slides/slide17.xml"))
         text = " ".join(node.text or "" for node in slide.iter(f"{{{DML}}}t"))
-        chart_paths = _slide_chart_paths(archive, 16)
+        chart_paths = _slide_chart_paths(archive, 17)
 
     assert len(chart_paths) == 3
     assert len(slide.findall(f".//{{{DML}}}tbl")) == 3
@@ -507,24 +508,24 @@ def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note()
 def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        attribution = ET.fromstring(archive.read("ppt/slides/slide19.xml"))
-        reag = ET.fromstring(archive.read("ppt/slides/slide20.xml"))
-        transitions = ET.fromstring(archive.read("ppt/slides/slide21.xml"))
-        manager = ET.fromstring(archive.read("ppt/slides/slide22.xml"))
-        custodian = ET.fromstring(archive.read("ppt/slides/slide23.xml"))
+        attribution = ET.fromstring(archive.read("ppt/slides/slide20.xml"))
+        reag = ET.fromstring(archive.read("ppt/slides/slide21.xml"))
+        transitions = ET.fromstring(archive.read("ppt/slides/slide22.xml"))
+        manager = ET.fromstring(archive.read("ppt/slides/slide23.xml"))
+        custodian = ET.fromstring(archive.read("ppt/slides/slide24.xml"))
         attribution_text = " ".join(node.text or "" for node in attribution.iter(f"{{{DML}}}t"))
         reag_text = " ".join(node.text or "" for node in reag.iter(f"{{{DML}}}t"))
         transition_text = " ".join(node.text or "" for node in transitions.iter(f"{{{DML}}}t"))
 
-        assert len(_slide_chart_paths(archive, 19)) == 2
-        assert not _slide_chart_paths(archive, 20)
+        assert len(_slide_chart_paths(archive, 20)) == 2
         assert not _slide_chart_paths(archive, 21)
         assert not _slide_chart_paths(archive, 22)
         assert not _slide_chart_paths(archive, 23)
-        reag_images = _slide_image_paths(archive, 20)
-        transition_images = _slide_image_paths(archive, 21)
-        manager_images = _slide_image_paths(archive, 22)
-        custodian_images = _slide_image_paths(archive, 23)
+        assert not _slide_chart_paths(archive, 24)
+        reag_images = _slide_image_paths(archive, 21)
+        transition_images = _slide_image_paths(archive, 22)
+        manager_images = _slide_image_paths(archive, 23)
+        custodian_images = _slide_image_paths(archive, 24)
         assert len(reag_images) == 1
         assert len(transition_images) == 1
         assert len(manager_images) == 1
@@ -549,7 +550,7 @@ def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -
 def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide5.xml"))
+        slide = ET.fromstring(archive.read("ppt/slides/slide6.xml"))
         chart_frames = slide.findall(f".//{{{PML}}}graphicFrame")
         assert len(chart_frames) == 4
 
@@ -569,7 +570,7 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 
         chart_series = [
             _chart_series_values(ET.fromstring(archive.read(chart_path)))
-            for chart_path in _slide_chart_paths(archive, 5)
+            for chart_path in _slide_chart_paths(archive, 6)
         ]
 
     assert len(chart_series) == 4
@@ -587,9 +588,9 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 @pytest.mark.parametrize(
     ("slide_number", "periods"),
     [
-        (7, {"Dez/23", "Jun/26"}),
         (8, {"Dez/23", "Jun/26"}),
-        (12, {"Dez/25", "Jun/26"}),
+        (9, {"Dez/23", "Jun/26"}),
+        (13, {"Dez/25", "Jun/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -740,7 +741,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v16";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v17";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 
@@ -848,18 +849,18 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert management_scenario["btg_rank_ex_controlados"] == 3
 
 
-def test_materialized_gross_pl_cagrs_match_the_chart_totals() -> None:
+def test_materialized_gross_pl_annual_growth_matches_the_chart_totals() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     periods = {
         (int(row["start_year"]), int(row["end_year"])): row
         for row in payload["pl_total_cagr_periods"]
     }
 
-    assert set(periods) == {(2015, 2018), (2018, 2023), (2024, 2025)}
-    assert periods[(2015, 2018)]["annual_intervals"] == 3
-    assert periods[(2015, 2018)]["cagr"] == pytest.approx(0.1868018650)
-    assert periods[(2018, 2023)]["annual_intervals"] == 5
-    assert periods[(2018, 2023)]["cagr"] == pytest.approx(0.2794351323)
+    assert set(periods) == {(2022, 2023), (2023, 2024), (2024, 2025)}
+    assert periods[(2022, 2023)]["annual_intervals"] == 1
+    assert periods[(2022, 2023)]["cagr"] == pytest.approx(0.2809742141)
+    assert periods[(2023, 2024)]["annual_intervals"] == 1
+    assert periods[(2023, 2024)]["cagr"] == pytest.approx(0.5078257010)
     assert periods[(2024, 2025)]["annual_intervals"] == 1
     assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.2559047631)
 

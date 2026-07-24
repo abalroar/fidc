@@ -433,8 +433,8 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
     required_notes = (
         "Fontes: CVM, ANBIMA, FundosNet, BCB e FIDCs.xlsx",
         "Fonte: CVM, Informe Mensal de FIDC. PL bruto",
-        "CAGR do PL bruto",
-        "número de intervalos igual à diferença entre os anos",
+        "Crescimento anual do PL bruto",
+        "Variações calculadas dezembro contra dezembro",
         "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}",
         "Fonte: CVM, dez/23 e {stock_label_lower}",
         "Fonte: CVM, Informe Mensal e documentos primários",
@@ -451,6 +451,7 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
         "Status_Requerimento = Oferta Encerrada",
         "Status abertos ficam fora",
         "Oferta Encerrada é a denominação literal",
+        "FIDCs versus demais emissões de renda fixa",
         "A linha laranja mostra o consolidado ajustado de mercado",
         "Nos meses legados, presença de reporte é inferida por registro",
     )

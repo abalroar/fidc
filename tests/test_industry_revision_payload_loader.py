@@ -434,6 +434,18 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                         "denominacao": "FIDC Adquirência",
                     }
                 ],
+                "fixed_income_offer_comparison": [
+                    {
+                        "view": "FIDCs vs demais elegíveis",
+                        "series_label": "FIDCs",
+                        "period_label": "2026 jan-jun",
+                        "registered_volume_brl": 65.5e9,
+                        "yoy_growth": 0.146,
+                        "source_url": "https://dados.cvm.gov.br/",
+                        "scope": "Oferta Encerrada",
+                        "excluded_instruments": "Cotas de FII",
+                    }
+                ],
             }
         )
     return payload
@@ -574,6 +586,7 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V6, "card_taxonomy_audit"),
         (SCHEMA_V6, "card_taxonomy_summary"),
         (SCHEMA_V6, "acquiring_curation_detail"),
+        (SCHEMA_V6, "fixed_income_offer_comparison"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(

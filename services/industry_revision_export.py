@@ -31,7 +31,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v6"
-EXPECTED_SLIDES = 56
+EXPECTED_SLIDES = 57
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -57,6 +57,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Adquirência reclass.",
     "Curadoria Cartão",
     "Ofertas encerradas",
+    "Comparativo renda fixa",
     "Histograma ofertas",
     "Originadores 2026",
     "Top 15 ofertas",
@@ -277,6 +278,17 @@ def validate_revision_pptx(payload: bytes) -> None:
         if offers_slide.count(b"<c:chart") != 3:
             raise RevisionExportUnavailable(
                 "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
+            )
+        fixed_income_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "RENDA FIXA"
+        )
+        if fixed_income_slide.count(b"<c:chart") != 2:
+            raise RevisionExportUnavailable(
+                "slide de renda fixa deve conter dois gráficos nativos do Office"
+            )
+        if fixed_income_slide.count(b"<a:tbl>") != 1:
+            raise RevisionExportUnavailable(
+                "slide de renda fixa deve conter uma tabela nativa do Office"
             )
         top15_offers_slide = _slide_xml_containing(
             archive, "TOP 15", "OFERTAS ENCERRADAS"
