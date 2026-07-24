@@ -384,6 +384,9 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Distribuição do valor das emissões",
         "Participação no volume registrado",
         "Volume registrado por faixa",
+        "Volume e regime de colocação",
+        "Regime de colocação · número de ofertas",
+        "Regime de colocação · volume",
         "Top 15 ofertas encerradas e originadores",
         "IBBA Coord-Líder usa Nome_Lider",
         "propostas, fees",
@@ -411,6 +414,10 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "industry-revision-closed-offer-ticket-histogram",
         'f"{chart_key}-volume-share"',
         'f"{chart_key}-volume-absolute"',
+        "industry-revision-placement-total-offers",
+        "industry-revision-placement-total-volume",
+        "industry-revision-placement-regime-offers",
+        "industry-revision-placement-regime-volume",
         "industry-revision-closed-offers-jan-june",
     )
     for key in required_chart_keys:
