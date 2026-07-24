@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import posixpath
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
@@ -9,8 +10,20 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PPTX = ROOT / "outputs" / "Industria_FIDC_Executivo_202607_revisado.pptx"
-XLSX = ROOT / "outputs" / "Industria_FIDC_Dados_202607_revisado.xlsx"
+PPTX = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "industry_executive_revised.pptx"
+)
+XLSX = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "industry_data_revised.xlsx"
+)
 
 PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
@@ -109,7 +122,7 @@ def test_deck_order_and_profile_count() -> None:
         "ESCALA DA INDÚSTRIA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
-        "TIPO ANBIMA",
+        "TAXONOMIA VIGENTE",
         "CARTEIRA POR TIPO DE RECEBÍVEL",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
         "INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA",
@@ -156,6 +169,43 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 symbol = marker.find(f"{{{CHART}}}symbol")
                 assert symbol is not None
                 assert symbol.attrib.get("val") == "none"
+
+
+def test_slide6_has_two_native_office_charts_for_anbima_evolution() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        rels_name = "ppt/slides/_rels/slide6.xml.rels"
+        rels = ET.fromstring(archive.read(rels_name))
+        chart_targets = [
+            relationship.attrib["Target"]
+            for relationship in rels.findall(f"{{{PACKAGE_REL}}}Relationship")
+            if relationship.attrib.get("Type", "").endswith("/chart")
+        ]
+        assert len(chart_targets) == 2
+        chart_names = [
+            (
+                target.lstrip("/")
+                if target.startswith("/")
+                else posixpath.normpath(posixpath.join("ppt/slides", target))
+            )
+            for target in chart_targets
+        ]
+        chart_xml = [archive.read(name) for name in chart_names]
+
+    groupings: set[str] = set()
+    for raw in chart_xml:
+        root = ET.fromstring(raw)
+        bar_direction = root.find(f".//{{{CHART}}}barDir")
+        grouping = root.find(f".//{{{CHART}}}grouping")
+        assert bar_direction is not None
+        assert bar_direction.attrib.get("val") == "col"
+        assert grouping is not None
+        groupings.add(str(grouping.attrib.get("val")))
+        visible = raw.decode("utf-8", errors="ignore")
+        for label in ("dez/23", "dez/24", "dez/25", "jun/26"):
+            assert label in visible
+        assert ">N/D<" not in visible
+    assert groupings == {"stacked", "percentStacked"}
 
 
 def test_deck_palette_and_explicit_slide_font() -> None:

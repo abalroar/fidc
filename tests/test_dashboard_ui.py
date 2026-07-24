@@ -255,6 +255,9 @@ def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None
     assert ".mark_bar(color=_ORANGE" in revision_source
     assert "alt.value(_ORANGE)" in revision_source
     assert "range=[_ORANGE, _BLACK]" in revision_source
+    assert "industry-revision-type-mix-volume" in revision_source
+    assert "industry-revision-type-mix-share" in revision_source
+    assert "N/D foi incorporado em Outros somente nesta visualização" in revision_source
 
 
 def test_ibm_plex_sans_is_self_hosted_by_streamlit() -> None:

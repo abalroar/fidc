@@ -2,9 +2,9 @@
   "checks": {
     "blocked_market_share_combinations": 2,
     "latest_aging_publication_status": "bloqueado_aging_nao_reconcilia_tab_I",
-    "latest_funds": 4222,
+    "latest_funds": 4247,
     "latest_presence_exact": true,
-    "latest_vehicles": 4227,
+    "latest_vehicles": 4252,
     "market_share_foci": 14,
     "market_share_roles": 3,
     "top20_fidcs_rows": 20,
@@ -20,11 +20,11 @@
   "files": {
     "base_competencia_cnpj.csv.gz": {
       "columns": 96,
-      "rows": 227189
+      "rows": 229458
     },
     "base_fundo_cnpj.csv.gz": {
       "columns": 58,
-      "rows": 227162
+      "rows": 229427
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
       "columns": 26,
@@ -40,7 +40,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 5018
+      "rows": 5043
     },
     "market_share_escopo_resumo.csv": {
       "columns": 14,
@@ -60,11 +60,11 @@
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 71,
-      "rows": 4222
+      "rows": 4247
     },
     "qa_inadimplencia_casos_latest.csv": {
       "columns": 16,
-      "rows": 197
+      "rows": 178
     },
     "qa_inadimplencia_competencia.csv": {
       "columns": 49,
@@ -72,11 +72,11 @@
     },
     "reconciliacao_veiculo_fundo_latest.csv": {
       "columns": 8,
-      "rows": 4222
+      "rows": 4247
     },
     "source_presence_overlay.csv.gz": {
       "columns": 73,
-      "rows": 9653
+      "rows": 9678
     },
     "top20_fidcs.csv": {
       "columns": 73,
@@ -87,8 +87,8 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-17T00:36:56+00:00",
-  "latest_complete": "2026-05",
+  "generated_at_utc": "2026-07-24T17:11:47+00:00",
+  "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
     "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; mai/26 não passa esse teste e permanece diagnóstico, não headline.",

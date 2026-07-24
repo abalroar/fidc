@@ -9026,6 +9026,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "receivables",
         "service_model",
         "type_mix",
+        "type_mix_meta",
         "market_share",
         "top20_fidcs",
         "top20_outros",
@@ -9040,6 +9041,15 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         "pl_history": {"competencia", "year", "pl_total", "pl_ex_fic", "pl_fic_componente"},
         "investor_base_history": {"competencia", "year", "cotistas_total", "n_veiculos"},
         "classification_coverage": {"categoria", "pl", "share"},
+        "type_mix": {
+            "competencia",
+            "period_label",
+            "period_order",
+            "anbima_tipo",
+            "category_order",
+            "pl",
+            "share",
+        },
         "service_model": {"modelo_prestacao", "fundos", "pl", "share_fundos", "share_pl"},
         "market_share": {
             "papel",
@@ -10182,41 +10192,131 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
         st.altair_chart((bars + labels).properties(height=360), width="stretch", key="industry-revision-pl")
         st.caption("PL bruto = PL ex-FIC + PL dos FIC-FIDCs. Os dois componentes não se sobrepõem.")
 
-    left, right = st.columns(2)
-    with left:
-        st.markdown("<h2>Mix por Tipo ANBIMA</h2>", unsafe_allow_html=True)
-        mix = _revision_frame(payload, "type_mix").sort_values("pl", ascending=False)
-        if not mix.empty:
-            mix["PL (R$ bi)"] = mix["pl"] / 1e9
-            chart = (
-                alt.Chart(mix)
-                .mark_bar(cornerRadiusEnd=2)
-                .encode(
-                    x=alt.X("PL (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
-                    y=alt.Y("anbima_tipo:N", title=None, sort="-x"),
-                    color=alt.condition(
-                        alt.datum.anbima_tipo == "Outros",
-                        alt.value(_ORANGE),
-                        alt.value(_BLACK),
-                    ),
-                    tooltip=["anbima_tipo:N", alt.Tooltip("PL (R$ bi):Q", format=",.1f"), alt.Tooltip("share:Q", format=".1%")],
-                )
-                .properties(height=300)
+    st.markdown("<h2>Classificação ANBIMA · evolução do PL ex-FIC</h2>", unsafe_allow_html=True)
+    mix = _revision_frame(payload, "type_mix")
+    mix_meta = dict(payload.get("type_mix_meta") or {})
+    if not mix.empty:
+        mix = mix.sort_values(["period_order", "category_order"]).copy()
+        mix["pl"] = pd.to_numeric(mix["pl"], errors="coerce").fillna(0.0)
+        mix["share"] = pd.to_numeric(mix["share"], errors="coerce").fillna(0.0)
+        mix["volume_bi"] = mix["pl"] / 1e9
+        mix["volume_start"] = mix.groupby("competencia")["volume_bi"].cumsum() - mix["volume_bi"]
+        mix["volume_end"] = mix["volume_start"] + mix["volume_bi"]
+        mix["volume_mid"] = (mix["volume_start"] + mix["volume_end"]) / 2
+        mix["share_start"] = mix.groupby("competencia")["share"].cumsum() - mix["share"]
+        mix["share_end"] = mix["share_start"] + mix["share"]
+        mix["share_mid"] = (mix["share_start"] + mix["share_end"]) / 2
+        period_order = (
+            mix.sort_values("period_order")["period_label"].drop_duplicates().tolist()
+        )
+        category_order = list(
+            mix_meta.get("categories")
+            or [
+                "Fomento Mercantil",
+                "Agro, Indústria e Comércio",
+                "Financeiro",
+                "Outros",
+            ]
+        )
+        category_colors = ["#73787D", _GRAY, _ORANGE, _GRAY_LIGHT]
+        color = alt.Color(
+            "anbima_tipo:N",
+            title=None,
+            sort=category_order,
+            scale=alt.Scale(domain=category_order, range=category_colors),
+            legend=alt.Legend(orient="bottom", columns=2),
+        )
+        x = alt.X(
+            "period_label:N",
+            title=None,
+            sort=period_order,
+            axis=alt.Axis(labelAngle=0, grid=False),
+        )
+        tooltip = [
+            alt.Tooltip("period_label:N", title="Competência"),
+            alt.Tooltip("anbima_tipo:N", title="Tipo ANBIMA"),
+            alt.Tooltip("volume_bi:Q", title="PL ex-FIC (R$ bi)", format=",.1f"),
+            alt.Tooltip("share:Q", title="Participação", format=".1%"),
+        ]
+        label_color = alt.condition(
+            alt.datum.anbima_tipo == "Outros",
+            alt.value(_BLACK),
+            alt.value("#FFFFFF"),
+        )
+        visible_label = alt.condition(alt.datum.pl > 0, alt.value(1), alt.value(0))
+
+        volume_bars = (
+            alt.Chart(mix)
+            .mark_bar()
+            .encode(
+                x=x,
+                y=alt.Y(
+                    "volume_end:Q",
+                    title="R$ bi",
+                    axis=alt.Axis(gridColor=_GRAY_LIGHT),
+                ),
+                y2="volume_start:Q",
+                color=color,
+                tooltip=tooltip,
             )
-            st.altair_chart(chart, width="stretch", key="industry-revision-type-mix")
-    with right:
-        st.markdown("<h2>Origem da classificação</h2>", unsafe_allow_html=True)
-        coverage = _revision_frame(payload, "classification_coverage")
-        if not coverage.empty:
-            display = coverage[["categoria", "pl", "share"]].copy()
-            display.columns = ["Origem", "PL", "Cobertura"]
-            display["PL"] = display["PL"].map(lambda value: _fmt_bi(value, 1))
-            display["Cobertura"] = display["Cobertura"].map(_fmt_pct)
-            st.dataframe(display, hide_index=True, width="stretch")
+        )
+        volume_labels = (
+            alt.Chart(mix)
+            .mark_text(fontSize=10, fontWeight=600)
+            .encode(
+                x=x,
+                y=alt.Y("volume_mid:Q"),
+                text=alt.Text("volume_bi:Q", format=",.1f"),
+                color=label_color,
+                opacity=visible_label,
+            )
+        )
+        share_bars = (
+            alt.Chart(mix)
+            .mark_bar()
+            .encode(
+                x=x,
+                y=alt.Y(
+                    "share_end:Q",
+                    title="% do PL ex-FIC",
+                    scale=alt.Scale(domain=[0, 1]),
+                    axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                ),
+                y2="share_start:Q",
+                color=color,
+                tooltip=tooltip,
+            )
+        )
+        share_labels = (
+            alt.Chart(mix)
+            .mark_text(fontSize=10, fontWeight=600)
+            .encode(
+                x=x,
+                y=alt.Y("share_mid:Q"),
+                text=alt.Text("share:Q", format=".1%"),
+                color=label_color,
+                opacity=visible_label,
+            )
+        )
+        left, right = st.columns(2)
+        with left:
+            st.markdown("**PL ex-FIC · R$ bilhões**")
+            st.altair_chart(
+                (volume_bars + volume_labels).properties(height=340),
+                width="stretch",
+                key="industry-revision-type-mix-volume",
+            )
+        with right:
+            st.markdown("**Participação no PL ex-FIC**")
+            st.altair_chart(
+                (share_bars + share_labels).properties(height=340),
+                width="stretch",
+                key="industry-revision-type-mix-share",
+            )
         st.caption(
-            "Tipo e Foco ANBIMA permanecem separados. "
-            + str(dict(payload.get("sources") or {}).get("anbima") or "A origem da classificação permanece identificada por fundo.")
-            + "."
+            str(mix_meta.get("classification_method") or "")
+            + " N/D foi incorporado em Outros somente nesta visualização. "
+            + "Tipo e Foco ANBIMA permanecem campos distintos."
         )
 
 

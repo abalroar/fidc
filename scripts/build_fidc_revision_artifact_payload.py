@@ -25,7 +25,7 @@ from services.fund_name_display import short_fund_name
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LATEST_COMPLETE = "2026-05"
+LATEST_COMPLETE = "2026-06"
 
 
 def _digits(value: object) -> str:
@@ -180,20 +180,76 @@ def _holder_distribution(vehicle: pd.DataFrame, latest: str) -> pd.DataFrame:
     return grouped
 
 
-def _type_mix(funds: pd.DataFrame, latest: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    scoped = funds[
+def _type_mix(
+    funds: pd.DataFrame,
+    latest: str,
+) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
+    """Build the four-date ANBIMA view used by the site and slide 6.
+
+    ``N/D`` remains identifiable in the classification coverage audit.  The
+    requested presentation view incorporates it into ``Outros`` so that both
+    charts use the same four mutually exclusive displayed categories.
+    """
+
+    categories = [
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    ]
+    requested_periods = ["2023-12", "2024-12", "2025-12", latest]
+    periods = list(dict.fromkeys(requested_periods))
+    scoped_history = funds[
+        funds["competencia"].astype(str).isin(periods)
+        & ~funds["is_fic_fidc"].fillna(False).astype(bool)
+    ].copy()
+    scoped_history["anbima_tipo_original"] = (
+        scoped_history["anbima_tipo"].map(_text).replace("", "N/D")
+    )
+    scoped_history["anbima_tipo"] = scoped_history["anbima_tipo_original"].where(
+        scoped_history["anbima_tipo_original"].isin(categories[:-1]),
+        "Outros",
+    )
+
+    period_labels = {
+        "2023-12": "dez/23",
+        "2024-12": "dez/24",
+        "2025-12": "dez/25",
+        latest: pd.Period(latest, freq="M").strftime("%b/%y").lower(),
+    }
+    period_labels[latest] = (
+        f"{('jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez')[pd.Period(latest, freq='M').month - 1]}"
+        f"/{str(pd.Period(latest, freq='M').year)[-2:]}"
+    )
+    grouped = (
+        scoped_history.groupby(["competencia", "anbima_tipo"], as_index=False)["pl"]
+        .sum()
+        .set_index(["competencia", "anbima_tipo"])
+    )
+    full_index = pd.MultiIndex.from_product(
+        [periods, categories],
+        names=["competencia", "anbima_tipo"],
+    )
+    mix = grouped.reindex(full_index, fill_value=0).reset_index()
+    mix["period_label"] = mix["competencia"].map(period_labels)
+    mix["period_order"] = mix["competencia"].map(
+        {period: index for index, period in enumerate(periods)}
+    )
+    mix["category_order"] = mix["anbima_tipo"].map(
+        {category: index for index, category in enumerate(categories)}
+    )
+    totals = mix.groupby("competencia")["pl"].transform("sum")
+    mix["share"] = np.where(totals.gt(0), mix["pl"] / totals, 0.0)
+    mix = mix.sort_values(["period_order", "category_order"]).reset_index(drop=True)
+
+    latest_scoped = funds[
         funds["competencia"].astype(str).eq(latest)
         & ~funds["is_fic_fidc"].fillna(False).astype(bool)
     ].copy()
-    total_pl = float(scoped["pl"].sum())
-    mix = scoped.groupby("anbima_tipo", dropna=False, as_index=False)["pl"].sum()
-    mix["anbima_tipo"] = mix["anbima_tipo"].map(_text).replace("", "N/D")
-    mix["share"] = mix["pl"] / total_pl
-    order = ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros", "N/D"]
-    mix["order"] = mix["anbima_tipo"].map({name: index for index, name in enumerate(order)})
-    mix = mix.sort_values(["order", "pl"], na_position="last").drop(columns="order")
-
-    coverage = scoped.groupby("classification_tier", dropna=False, as_index=False)["pl"].sum()
+    total_pl = float(latest_scoped["pl"].sum())
+    coverage = latest_scoped.groupby(
+        "classification_tier", dropna=False, as_index=False
+    )["pl"].sum()
     label_map = {
         "oficial_anbima": "Oficial ANBIMA",
         "evidencia_publicada": "Evidência documental",
@@ -205,7 +261,35 @@ def _type_mix(funds: pd.DataFrame, latest: str) -> tuple[pd.DataFrame, pd.DataFr
     )
     coverage["share"] = coverage["pl"] / total_pl
     coverage = coverage[["categoria", "pl", "share"]]
-    return mix, coverage
+
+    original = scoped_history[
+        scoped_history["anbima_tipo_original"].eq("N/D")
+    ].groupby("competencia")["pl"].sum()
+    total_by_period = mix.groupby("competencia")["pl"].sum()
+    meta = {
+        "periods": [
+            {
+                "competencia": period,
+                "label": period_labels[period],
+                "total_pl_ex_fic": float(total_by_period.get(period, 0.0)),
+                "nd_incorporated_pl": float(original.get(period, 0.0)),
+                "nd_incorporated_share": (
+                    float(original.get(period, 0.0) / total_by_period.get(period, 0.0))
+                    if float(total_by_period.get(period, 0.0)) > 0
+                    else 0.0
+                ),
+            }
+            for period in periods
+        ],
+        "categories": categories,
+        "nd_incorporated_into": "Outros",
+        "classification_method": (
+            "Fotografia cadastral ANBIMA de dez/25 aplicada ao PL ex-FIC de cada "
+            "competência; evidência documental e proxy CVM nos fundos sem "
+            "correspondência oficial."
+        ),
+    }
+    return mix, coverage, meta
 
 
 def _receivables(segments: pd.DataFrame, latest: str, portfolio_total: float) -> dict[str, Any]:
@@ -495,7 +579,7 @@ def build_payload(
     latest_period = pd.Period(latest, freq="M")
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
-    type_mix, classification_coverage = _type_mix(funds, latest)
+    type_mix, classification_coverage, type_mix_meta = _type_mix(funds, latest)
     receivables = _receivables(segments, latest, float(latest_month["carteira_dc"]))
     qa_latest = qa[qa["competencia"].astype(str).eq(latest)].iloc[0].to_dict()
     qa_series = qa[qa["competencia"].astype(str).between("2023-01", latest)].copy()
@@ -559,6 +643,7 @@ def build_payload(
             "pl_coverage": holder_pl / ex_fic_pl if ex_fic_pl else None,
         },
         "type_mix": _records(type_mix),
+        "type_mix_meta": type_mix_meta,
         "classification_coverage": _records(classification_coverage),
         "receivables": receivables,
         "qa_latest": {str(key): _json_value(value) for key, value in qa_latest.items()},
