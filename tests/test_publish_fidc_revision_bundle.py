@@ -119,6 +119,27 @@ def test_source_presence_validation_accepts_complete_latest_snapshot(
     validate_source_presence_coverage(tmp_path, "2026-06")
 
 
+def test_source_presence_validation_blocks_historical_overlay_reduction(
+    tmp_path: Path,
+) -> None:
+    _write_gzip_csv(
+        tmp_path / "base_competencia_cnpj.csv.gz",
+        "competencia,field_presence_exact\n"
+        "2026-05,True\n"
+        "2026-06,True\n",
+    )
+    _write_gzip_csv(
+        tmp_path / "source_presence_overlay.csv.gz",
+        "competencia\n2026-06\n",
+    )
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="não cobre o histórico completo",
+    ):
+        validate_source_presence_coverage(tmp_path, "2026-06")
+
+
 def test_discover_artifact_node_modules_uses_explicit_offline_runtime(
     tmp_path: Path,
 ) -> None:
@@ -505,6 +526,70 @@ def _payload() -> dict[str, object]:
             }
             for rank in range(1, 4)
         ],
+        "closed_offer_top15": [
+            {
+                "period_label": period,
+                "rank": rank,
+                "offer_id": f"{period_order}{rank:02d}",
+                "data_encerramento": (
+                    "2025-12-31" if period == "2025 FY" else "2026-06-30"
+                ),
+                "cnpj_emissor": f"{period_order}{rank:013d}",
+                "nome_emissor": f"FIDC {period} {rank}",
+                "fund_name_short": f"FIDC {rank}",
+                "originator_group": (
+                    "Não identificado" if rank == 1 else f"Originador {rank}"
+                ),
+                "registered_volume_brl": float(16 - rank),
+                "leader_name": (
+                    "ITAU BBA ASSESSORIA FINANCEIRA S.A."
+                    if rank == 1
+                    else "OUTRO COORDENADOR"
+                ),
+                "ibba_coord_lead": rank == 1,
+                "ibba_coord_lead_label": "Sim" if rank == 1 else "Não",
+                "distribution_regime": (
+                    "Garantia Firme de Colocação"
+                    if rank == 1
+                    else "Melhores Esforços"
+                ),
+                "firm_commitment": rank == 1,
+                "firm_commitment_label": "Sim" if rank == 1 else "Não",
+                "publico": "Profissional",
+                "investor_count": rank,
+                "metadata_matched": True,
+                "status": "Oferta Encerrada",
+                "offer_type": "PRIMARIA",
+                "security": "Cotas de FIDC",
+                "source_url": "https://dados.cvm.gov.br/",
+                "scope": "Cotas de FIDC | oferta primária | Oferta Encerrada",
+            }
+            for period_order, period in (
+                (2, "2025 FY"),
+                (3, "2026 jan-jun"),
+            )
+            for rank in range(1, 16)
+        ],
+        "closed_offer_top15_summary": [
+            {
+                "period_label": period,
+                "period_closed_offers": 100,
+                "period_registered_volume_brl": 200.0,
+                "top15_offers": 15,
+                "top15_registered_volume_brl": 120.0,
+                "top15_share_of_period_volume": 0.6,
+                "ibba_lead_offers_top15": 1,
+                "ibba_lead_volume_top15_brl": 15.0,
+                "ibba_lead_share_top15_volume": 0.125,
+                "firm_commitment_offers_top15": 1,
+                "firm_commitment_volume_top15_brl": 15.0,
+                "ibba_firm_commitment_offers_top15": 1,
+                "ibba_firm_commitment_volume_top15_brl": 15.0,
+                "investor_count_methodology": "soma dos campos Num_Invest_*",
+                "ranking_methodology": "volume desc; offer_id asc",
+            }
+            for period in ("2025 FY", "2026 jan-jun")
+        ],
         "provider_history_cvm_coverage": [
             {
                 "papel": "gestor",
@@ -601,6 +686,8 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "closed_offers_jan_may",
         "closed_offer_ticket_distribution",
         "closed_offer_originators_2026",
+        "closed_offer_top15",
+        "closed_offer_top15_summary",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
         "provider_history_cvm_detail",
@@ -698,6 +785,14 @@ def test_payload_rejects_originators_out_of_volume_order() -> None:
     payload["closed_offer_originators_2026"][1]["registered_volume_brl"] = 4.0
 
     with pytest.raises(RevisionBundlePublishError, match="volume decrescente"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_non_closed_offer_in_top15() -> None:
+    payload = deepcopy(_payload())
+    payload["closed_offer_top15"][0]["status"] = "Em análise"
+
+    with pytest.raises(RevisionBundlePublishError, match="oferta não encerrada"):
         validate_artifact_payload(payload, "2026-05")
 
 

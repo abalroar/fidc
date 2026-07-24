@@ -254,7 +254,7 @@ def test_deck_order_and_profile_count() -> None:
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
-        "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
+        "TOP 15 · OFERTAS ENCERRADAS",
         "PRINCIPAIS CONCLUSÕES",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
@@ -325,6 +325,38 @@ def test_slide6_has_two_native_office_charts_for_anbima_evolution() -> None:
             assert label in visible
         assert ">N/D<" not in visible
     assert groupings == {"stacked", "percentStacked"}
+
+
+def test_offer_slides_use_three_native_charts_and_two_native_tables() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        ticket_charts = _slide_chart_paths(archive, 29)
+        assert len(ticket_charts) == 3
+        slide29 = ET.fromstring(archive.read("ppt/slides/slide29.xml"))
+        assert slide29.findall(f".//{{{DML}}}tbl") == []
+        for chart_path in ticket_charts:
+            chart = ET.fromstring(archive.read(chart_path))
+            bar_chart = chart.find(f".//{{{CHART}}}barChart")
+            assert bar_chart is not None
+            grouping = bar_chart.find(f"{{{CHART}}}grouping")
+            assert grouping is not None
+            assert grouping.attrib.get("val") == "clustered"
+            assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
+
+        assert _slide_chart_paths(archive, 30) == []
+        slide30 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        assert len(slide30.findall(f".//{{{DML}}}tbl")) == 2
+        text = " ".join(node.text or "" for node in slide30.iter(f"{{{DML}}}t"))
+        for token in (
+            "TOP 15 · OFERTAS ENCERRADAS",
+            "JAN–JUN/26 · TOP 15",
+            "2025FY · TOP 15",
+            "IBBA",
+            "GF",
+            "Público",
+            "Inv.",
+        ):
+            assert token in text
 
 
 def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() -> None:
@@ -636,6 +668,7 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Ofertas encerradas",
         "Histograma ofertas",
         "Originadores 2026",
+        "Top 15 ofertas",
         "Principais conclusões",
         "Atribuição prestadores",
         "Fluxos prestadores",
@@ -664,6 +697,25 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
                 25,
                 shared,
             ) == [""]
+        top15_periods = _column_values(
+            archive, sheets["Top 15 ofertas"], "A", 5, 34, shared
+        )
+        top15_ranks = _column_values(
+            archive, sheets["Top 15 ofertas"], "B", 5, 34, shared
+        )
+        assert top15_periods == ["2025 FY"] * 15 + ["2026 jan-jun"] * 15
+        assert [int(float(value)) for value in top15_ranks] == (
+            list(range(1, 16)) + list(range(1, 16))
+        )
+        for column, header in {
+            "K": "IBBA Coord-Líder?",
+            "M": "Garantia Firme?",
+            "N": "Público",
+            "O": "Nº de Inv.",
+        }.items():
+            assert _column_values(
+                archive, sheets["Top 15 ofertas"], column, 4, 4, shared
+            ) == [header]
         card_ranks = _column_values(
             archive,
             sheets["Curadoria Cartão"],

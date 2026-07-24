@@ -3368,132 +3368,185 @@ function buildPresentation(payload, flowAssets) {
     const over500 = distribution.find(
       (row) => row.period_label === current.period_label && String(row.ticket_bucket).startsWith("≥"),
     ) || {};
+    const compactBuckets = buckets.map((bucket) => String(bucket).replace(" mi", ""));
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
-      `A mediana caiu a ${mm(current.period_median_ticket_brl, 1)}; ${integer(over500.closed_offers)} ofertas acima de R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume YTD26`,
+      `${integer(over500.closed_offers)} ofertas ≥ R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume em jan–jun/26`,
       "Fonte: CVM; mesma coorte do slide anterior. 2024/2025 = ano completo; 2026 = jan–jun.",
       28,
     );
-    addSectionLabel(slide, "% DAS OFERTAS POR FAIXA DE VALOR REGISTRADO", { left: 60, top: 145, width: 780, height: 24 });
-    slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 183, width: 780, height: 365 }),
-      categories: buckets,
-      series: periodLabels.map((period, index) => ({
-        name: period === "2026 jan-jun" ? "Jan–jun/26" : period.replace(" FY", ""),
-        values: buckets.map((bucket) => num(rowFor(period, bucket).offer_share)),
-        valuesFormatCode: "0%",
-        fill: [C.note, C.charcoal, C.orange][index] || C.charcoal,
-      })),
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 42 },
-      hasLegend: true,
-      legend: { position: "bottom", overlay: false, textStyle: { fill: C.mid, fontSize: 10 } },
-      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 9.2 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-      yAxis: { ...chartAxis(9, "0%"), min: 0, max: 0.3, majorUnit: 0.05 },
-      dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 8, bold: false } },
+
+    const addTicketChart = ({
+      left,
+      width,
+      title,
+      valueKey,
+      formatCode,
+      yAxisFormat,
+    }) => {
+      addSectionLabel(slide, title, { left, top: 145, width, height: 24 });
+      slide.charts.add("bar", {
+        ...chartBase({ left, top: 183, width, height: 390 }),
+        categories: compactBuckets,
+        series: periodLabels.map((period, index) => ({
+          name: period === "2026 jan-jun" ? "Jan–jun/26" : period.replace(" FY", ""),
+          values: buckets.map((bucket) => num(rowFor(period, bucket)[valueKey])),
+          valuesFormatCode: formatCode,
+          fill: [C.note, C.charcoal, C.orange][index] || C.charcoal,
+        })),
+        barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
+        hasLegend: false,
+        xAxis: {
+          visible: true,
+          textStyle: { fill: C.mid, fontSize: 7.4 },
+          line: { style: "solid", fill: C.line, width: 1 },
+          majorGridlines: null,
+        },
+        yAxis: { ...chartAxis(7.6, yAxisFormat), min: 0 },
+        dataLabels: {
+          showValue: true,
+          position: "outEnd",
+          textStyle: { fill: C.black, fontSize: 6.7, bold: false },
+        },
+      });
+    };
+
+    addTicketChart({
+      left: 60,
+      width: 360,
+      title: "% DAS OFERTAS",
+      valueKey: "offer_share",
+      formatCode: "0%",
+      yAxisFormat: "0%",
     });
-    addSectionLabel(slide, "RESUMO POR PERÍODO", { left: 875, top: 145, width: 345, height: 24 });
-    addNativeEditorialTable(slide, {
-      left: 875,
-      top: 183,
-      width: 345,
-      height: 250,
-      headers: ["Período", "Ofertas", "Volume", "Média", "Mediana"],
-      rows: summaries.map((row) => [
-        row.period_label,
-        integer(row.period_closed_offers),
-        bn(row.period_registered_volume_brl, 1).replace("R$ ", ""),
-        mm(row.period_mean_ticket_brl, 1).replace("R$ ", ""),
-        mm(row.period_median_ticket_brl, 1).replace("R$ ", ""),
-      ]),
-      columnWidths: [85, 55, 70, 68, 67],
-      aligns: ["left", "right", "right", "right", "right"],
-      fontSize: 7.7,
-      headerFontSize: 7.2,
-      rowHighlights: new Set([summaries.length - 1]),
+    addTicketChart({
+      left: 450,
+      width: 360,
+      title: "% DO VOLUME",
+      valueKey: "registered_volume_share",
+      formatCode: "0%",
+      yAxisFormat: "0%",
     });
-    addMetric(slide, pct(over500.registered_volume_share, 1), "do volume YTD26 está em ofertas ≥ R$ 500 mi", { left: 895, top: 458, width: 305, height: 92 }, true);
+    addTicketChart({
+      left: 840,
+      width: 380,
+      title: "VOLUME · R$ BI",
+      valueKey: "registered_volume_brl",
+      formatCode: "0.0,,,",
+      yAxisFormat: "0.0,,,",
+    });
+    addLegend(slide, [
+      { label: "2024FY", color: C.note },
+      { label: "2025FY", color: C.charcoal },
+      { label: "2026 jan–jun", color: C.orange },
+    ], { left: 425, top: 580, width: 430, height: 22 }, 3);
     addText(
       slide,
-      `A média ficou em ${mm(current.period_mean_ticket_brl, 1)}, enquanto a mediana recuou de R$ 30,0 mi em 2024 para ${mm(current.period_median_ticket_brl, 1)} em jan–jun/26. A cauda de operações grandes elevou o volume sem deslocar o centro da distribuição na mesma proporção.`,
-      { left: 60, top: 585, width: 1160, height: 52 },
-      { fontSize: 11.2, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
+      `O bucket ≥ R$ 500 mi soma ${bn(over500.registered_volume_brl, 1)} em jan–jun/26; quantidade e volume fecham 100% em cada período.`,
+      { left: 60, top: 614, width: 1160, height: 28 },
+      { fontSize: 10.6, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
     );
   }
 
-  // 30. Originadores nomináveis de 2026
+  // 30. Top 15 ofertas encerradas e originadores.
   {
     const slide = presentation.slides.add();
-    const originators = [...(payload.closed_offer_originators_2026 || [])]
+    const top15 = [...(payload.closed_offer_top15 || [])];
+    const summaries = Object.fromEntries(
+      (payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]),
+    );
+    const table2026 = top15
+      .filter((row) => row.period_label === "2026 jan-jun")
       .sort((a, b) => num(a.rank) - num(b.rank));
-    const chartRows = [...originators].reverse();
-    const coverage = num(originators[0]?.identified_registered_volume_coverage);
-    const identified = num(originators[0]?.identified_registered_volume_brl);
+    const table2025 = top15
+      .filter((row) => row.period_label === "2025 FY")
+      .sort((a, b) => num(a.rank) - num(b.rank));
+    const summary2026 = summaries["2026 jan-jun"] || {};
+    const summary2025 = summaries["2025 FY"] || {};
+    const publicLabel = (value) => ({
+      Profissional: "Prof.",
+      Qualificado: "Qualif.",
+      Geral: "Geral",
+    }[value] || "N/D");
+    const tableRows = (rows) => rows.map((row) => [
+      integer(row.rank),
+      row.fund_name_short,
+      truncateWords(row.originator_group || "Não identificado", 22),
+      (num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }),
+      row.ibba_coord_lead_label,
+      row.firm_commitment_label,
+      publicLabel(row.publico),
+      Number.isFinite(num(row.investor_count))
+        ? num(row.investor_count).toLocaleString("pt-BR", { maximumFractionDigits: 0 })
+        : "N/D",
+    ]);
+    const columnWidths = [24, 170, 104, 50, 42, 35, 78, 57];
+    const aligns = ["right", "left", "left", "right", "center", "center", "left", "right"];
     addHeader(
       slide,
-      "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
-      `${integer(originators.length)} originadores identificados somam ${bn(identified, 1)} em 2026; cobertura nominal de ${pct(coverage, 1)}`,
-      "Fonte: CVM; coorte do slide 28. Origem = primeiro match nominal em emissor, ativos-alvo, lastro ou devedores.",
+      "TOP 15 · OFERTAS ENCERRADAS",
+      `IBBA liderou ${integer(summary2026.ibba_lead_offers_top15)} das 15 maiores em jan–jun/26, somando ${bn(summary2026.ibba_lead_volume_top15_brl, 1)}`,
+      "Fonte: CVM, Oferta Pública de Distribuição; Cotas de FIDC, primária, status Oferta Encerrada. Nº de Inv. = soma dos campos Num_Invest_*.",
       29,
     );
-    addSectionLabel(slide, "VOLUME REGISTRADO · R$ BI", { left: 60, top: 145, width: 720, height: 24 });
-    slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 180, width: 720, height: 455 }),
-      categories: chartRows.map((row) => row.originator_group),
-      series: [{
-        name: "Volume registrado",
-        values: chartRows.map((row) => num(row.registered_volume_brl) / 1e9),
-        valuesFormatCode: "0.00",
-        fill: C.charcoal,
-        points: chartRows.map((row, idx) => ({ idx, fill: num(row.rank) === 1 ? C.orange : C.charcoal })),
-        dataLabelOverrides: chartRows.map((row, idx) => {
-          const value = num(row.registered_volume_brl) / 1e9;
-          const outside = value < 0.4;
-          return {
-            idx,
-            showValue: true,
-            position: outside ? "outEnd" : "inEnd",
-            textStyle: { fill: outside ? C.black : C.white, fontSize: 8.5, bold: false },
-          };
-        }),
-      }],
-      barOptions: { direction: "bar", grouping: "clustered", gapWidth: 20 },
-      hasLegend: false,
-      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
-      yAxis: {
-        visible: true,
-        textStyle: { fill: C.mid, fontSize: 8.4 },
-        line: { style: "solid", fill: C.line, width: 1 },
-        majorGridlines: null,
-      },
-      dataLabels: {
-        showValue: true,
-        position: "inEnd",
-        fill: "none",
-        line: { style: "solid", fill: "none", width: 0 },
-        textStyle: { fill: C.white, fontSize: 8.5, bold: false },
-      },
-    });
-    addSectionLabel(slide, "TICKET POR ORIGINADOR", { left: 815, top: 145, width: 405, height: 24 });
+    addSectionLabel(slide, "JAN–JUN/26 · TOP 15", { left: 60, top: 138, width: 560, height: 24 });
     addNativeEditorialTable(slide, {
-      left: 815,
-      top: 180,
-      width: 405,
-      height: 455,
-      headers: ["#", "Originador", "Ofertas", "Volume", "Ticket"],
-      rows: originators.map((row) => [
-        integer(row.rank),
-        row.originator_group,
-        integer(row.closed_offers),
-        (num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-        mm(row.mean_registered_ticket_brl, 0).replace("R$ ", ""),
-      ]),
-      columnWidths: [35, 165, 55, 75, 75],
-      aligns: ["right", "left", "right", "right", "right"],
-      fontSize: 7.8,
-      headerFontSize: 7.6,
-      rowHighlights: new Set([0]),
+      left: 60,
+      top: 174,
+      width: 560,
+      height: 440,
+      headers: ["#", "FIDC", "Originador", "R$ bi", "IBBA", "GF", "Público", "Inv."],
+      rows: tableRows(table2026),
+      columnWidths,
+      aligns,
+      fontSize: 6.5,
+      headerFontSize: 6.2,
+      rowHighlights: new Set(
+        table2026
+          .map((row, index) => row.ibba_coord_lead === true ? index : null)
+          .filter((index) => index !== null),
+      ),
     });
+    addSectionLabel(slide, "2025FY · TOP 15", { left: 660, top: 138, width: 560, height: 24 });
+    addNativeEditorialTable(slide, {
+      left: 660,
+      top: 174,
+      width: 560,
+      height: 440,
+      headers: ["#", "FIDC", "Originador", "R$ bi", "IBBA", "GF", "Público", "Inv."],
+      rows: tableRows(table2025),
+      columnWidths,
+      aligns,
+      fontSize: 6.5,
+      headerFontSize: 6.2,
+      rowHighlights: new Set(
+        table2025
+          .map((row, index) => row.ibba_coord_lead === true ? index : null)
+          .filter((index) => index !== null),
+      ),
+    });
+    addText(
+      slide,
+      `Subtotal: ${bn(summary2026.top15_registered_volume_brl, 2)} · ${pct(summary2026.top15_share_of_period_volume, 1)} do período`,
+      { left: 60, top: 620, width: 560, height: 18 },
+      { fontSize: 9.2, bold: true, color: C.charcoal, alignment: "right" },
+    );
+    addText(
+      slide,
+      `Subtotal: ${bn(summary2025.top15_registered_volume_brl, 2)} · ${pct(summary2025.top15_share_of_period_volume, 1)} do período`,
+      { left: 660, top: 620, width: 560, height: 18 },
+      { fontSize: 9.2, bold: true, color: C.charcoal, alignment: "right" },
+    );
+    addText(
+      slide,
+      "Empates usam o Número do Requerimento crescente. A base pública não contém proposta, fee ou preço de coordenação.",
+      { left: 60, top: 642, width: 1160, height: 16 },
+      { fontSize: 9.2, color: C.note, alignment: "right" },
+    );
   }
 
   addConclusionsSlide(presentation, payload, 31);
@@ -4847,6 +4900,102 @@ async function addOriginators2026Sheet(workbook, payload) {
   sheet.getRange(`A5:M${rows.length + 4}`).format.rowHeightPx = 50;
 }
 
+async function addClosedOfferTop15Sheet(workbook, payload) {
+  const columns = [
+    ["Período", "period_label"],
+    ["Posição", "rank"],
+    ["Número do Requerimento", "offer_id"],
+    ["Data de encerramento", "data_encerramento"],
+    ["CNPJ emissor", "cnpj_emissor"],
+    ["FIDC", "nome_emissor"],
+    ["Nome curto", "fund_name_short"],
+    ["Originador", "originator_group"],
+    ["Volume registrado", "registered_volume_brl"],
+    ["Coordenador líder", "leader_name"],
+    ["IBBA Coord-Líder?", "ibba_coord_lead_label"],
+    ["Regime de distribuição", "distribution_regime"],
+    ["Garantia Firme?", "firm_commitment_label"],
+    ["Público", "publico"],
+    ["Nº de Inv.", "investor_count"],
+    ["Campo-fonte do originador", "originator_source"],
+    ["Evidência do originador", "originator_evidence"],
+    ["Status", "status"],
+    ["Tipo de oferta", "offer_type"],
+    ["Valor mobiliário", "security"],
+    ["Fonte", "source_url"],
+    ["Escopo", "scope"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.closed_offer_top15 || [], columns);
+  const summaries = Object.fromEntries(
+    (payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]),
+  );
+  const summary2025 = summaries["2025 FY"] || {};
+  const summary2026 = summaries["2026 jan-jun"] || {};
+  const sheet = resetSheet(workbook, "Top 15 ofertas");
+  setHeaderBand(
+    sheet,
+    "Top 15 ofertas encerradas por período",
+    `2025FY: ${bn(summary2025.top15_registered_volume_brl, 2)} (${pct(summary2025.top15_share_of_period_volume, 1)} do período). Jan–jun/26: ${bn(summary2026.top15_registered_volume_brl, 2)} (${pct(summary2026.top15_share_of_period_volume, 1)} do período).`,
+    headers,
+    rows.length,
+    { freezeColumns: 8, wrapText: true, bodyFontSize: 8 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(
+    sheet,
+    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 170, 95, 100, 85, 125, 320, 115, 90, 100, 320, 420],
+    rows.length,
+  );
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`I5:I${rows.length + 4}`).format.numberFormat = 'R$ #,##0.00,,, "bi"';
+  sheet.getRange(`O5:O${rows.length + 4}`).format.numberFormat = "#,##0";
+  sheet.getRange(`A5:V${rows.length + 4}`).format.rowHeightPx = 48;
+
+  const summaryRow = rows.length + 7;
+  const summaryHeaders = [
+    "Período",
+    "Ofertas no período",
+    "Volume do período",
+    "Subtotal Top 15",
+    "% do total",
+    "IBBA líder · ofertas",
+    "IBBA líder · volume",
+    "Garantia firme · ofertas",
+    "Garantia firme · volume",
+  ];
+  sheet.getRange(`A${summaryRow}:I${summaryRow}`).values = [summaryHeaders];
+  sheet.getRange(`A${summaryRow}:I${summaryRow}`).format.fill = C.black;
+  sheet.getRange(`A${summaryRow}:I${summaryRow}`).format.font = {
+    name: "Arial",
+    size: 8,
+    bold: true,
+    color: C.white,
+  };
+  const summaryRows = [summary2025, summary2026].map((row) => [
+    row.period_label,
+    row.period_closed_offers,
+    row.period_registered_volume_brl,
+    row.top15_registered_volume_brl,
+    row.top15_share_of_period_volume,
+    row.ibba_lead_offers_top15,
+    row.ibba_lead_volume_top15_brl,
+    row.firm_commitment_offers_top15,
+    row.firm_commitment_volume_top15_brl,
+  ]);
+  sheet.getRange(`A${summaryRow + 1}:I${summaryRow + 2}`).values = summaryRows;
+  sheet.getRange(`A${summaryRow + 1}:I${summaryRow + 2}`).format.font = {
+    name: "Arial",
+    size: 8,
+    color: C.charcoal,
+  };
+  ["C", "D", "G", "I"].forEach((letter) => {
+    sheet.getRange(`${letter}${summaryRow + 1}:${letter}${summaryRow + 2}`).format.numberFormat =
+      'R$ #,##0.00,,, "bi"';
+  });
+  sheet.getRange(`E${summaryRow + 1}:E${summaryRow + 2}`).format.numberFormat = "0.00%";
+}
+
 async function addProviderAttributionSheet(workbook, payload) {
   const leadership = payload.provider_leadership_attribution || {};
   const btg = leadership.btg || {};
@@ -5421,6 +5570,7 @@ async function buildWorkbook(payload, flowAssets) {
   await addClosedOffersSheet(workbook, payload);
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
+  await addClosedOfferTop15Sheet(workbook, payload);
   await addConclusionsSheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);

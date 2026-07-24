@@ -196,7 +196,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     visible_text = "\n".join(slide_texts)
     for expected in (
         "INDÚSTRIA DE FIDCs",
-        "SÍNTESE EXECUTIVA",
+        "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
         "BASE INVESTIDORA",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -215,7 +215,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
-        "OFERTAS ENCERRADAS · ORIGINADORES NOMINÁVEIS",
+        "TOP 15 · OFERTAS ENCERRADAS",
         "PRINCIPAIS CONCLUSÕES",
             "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",

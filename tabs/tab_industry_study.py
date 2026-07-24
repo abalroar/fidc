@@ -13429,6 +13429,19 @@ def _render_revision_offer_ticket_distribution(
         )
         / 1e6
     )
+    ticket_distribution["% ofertas · rótulo"] = ticket_distribution[
+        "% das ofertas"
+    ].map(lambda value: _fmt_pct(float(value)))
+    ticket_distribution["% volume · rótulo"] = ticket_distribution[
+        "% do volume"
+    ].map(lambda value: _fmt_pct(float(value)))
+    ticket_distribution["Volume · rótulo"] = ticket_distribution[
+        "Volume (R$ bi)"
+    ].map(
+        lambda value: f"{float(value):,.1f}".replace(",", "@")
+        .replace(".", ",")
+        .replace("@", ".")
+    )
     bucket_order = (
         ticket_distribution.sort_values("bucket_order")["ticket_bucket"]
         .drop_duplicates()
@@ -13439,63 +13452,116 @@ def _render_revision_offer_ticket_distribution(
         .drop_duplicates()
         .tolist()
     )
-    chart = (
-        alt.Chart(ticket_distribution)
-        .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
-        .encode(
-            x=alt.X(
-                "ticket_bucket:N",
-                title="valor total registrado por oferta",
-                sort=bucket_order,
-                axis=alt.Axis(labelAngle=0),
-            ),
-            xOffset=alt.XOffset("period_label:N", sort=period_order),
-            y=alt.Y(
-                "% das ofertas:Q",
-                title="% das ofertas encerradas",
-                axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
-            ),
-            color=alt.Color(
-                "period_label:N",
-                title=None,
-                sort=period_order,
-                scale=alt.Scale(
-                    domain=period_order,
-                    range=[_GRAY, _BLACK, _ORANGE],
+    def _chart(
+        *,
+        field: str,
+        label_field: str,
+        title: str,
+        axis_title: str,
+        percent: bool,
+        key: str,
+        height: int,
+    ) -> None:
+        chart = (
+            alt.Chart(ticket_distribution)
+            .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+            .encode(
+                x=alt.X(
+                    "ticket_bucket:N",
+                    title="valor total registrado por oferta",
+                    sort=bucket_order,
+                    axis=alt.Axis(labelAngle=0, labelLimit=105),
                 ),
-                legend=alt.Legend(orient="bottom"),
-            ),
-            tooltip=[
-                alt.Tooltip("period_label:N", title="Período"),
-                alt.Tooltip("ticket_bucket:N", title="Faixa"),
-                alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
-                alt.Tooltip("% das ofertas:Q", format=".1%"),
-                alt.Tooltip("Volume (R$ bi):Q", format=",.2f"),
-                alt.Tooltip("% do volume:Q", format=".1%"),
-                alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
-                alt.Tooltip("Ticket mediano (R$ mi):Q", format=",.1f"),
-            ],
+                xOffset=alt.XOffset("period_label:N", sort=period_order),
+                y=alt.Y(
+                    f"{field}:Q",
+                    title=axis_title,
+                    axis=alt.Axis(
+                        format=".0%" if percent else ",.0f",
+                        gridColor=_GRAY_LIGHT,
+                    ),
+                ),
+                color=alt.Color(
+                    "period_label:N",
+                    title=None,
+                    sort=period_order,
+                    scale=alt.Scale(
+                        domain=period_order,
+                        range=[_GRAY, _BLACK, _ORANGE],
+                    ),
+                    legend=alt.Legend(orient="bottom"),
+                ),
+                tooltip=[
+                    alt.Tooltip("period_label:N", title="Período"),
+                    alt.Tooltip("ticket_bucket:N", title="Faixa"),
+                    alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
+                    alt.Tooltip("% das ofertas:Q", format=".1%"),
+                    alt.Tooltip("Volume (R$ bi):Q", format=",.2f"),
+                    alt.Tooltip("% do volume:Q", format=".1%"),
+                ],
+            )
+            .properties(height=height, title=title)
         )
-        .properties(height=390, title="Distribuição do valor das emissões")
-    )
-    labels = (
-        alt.Chart(ticket_distribution)
-        .mark_text(dy=-5, color=_BLACK, font="Arial", fontSize=9)
-        .encode(
-            x=alt.X("ticket_bucket:N", sort=bucket_order),
-            xOffset=alt.XOffset("period_label:N", sort=period_order),
-            y=alt.Y("% das ofertas:Q"),
-            text=alt.Text("% das ofertas:Q", format=".1%"),
+        labels = (
+            alt.Chart(ticket_distribution)
+            .mark_text(dy=-5, color=_BLACK, font="Arial", fontSize=8.5)
+            .encode(
+                x=alt.X("ticket_bucket:N", sort=bucket_order),
+                xOffset=alt.XOffset("period_label:N", sort=period_order),
+                y=alt.Y(f"{field}:Q"),
+                text=alt.Text(f"{label_field}:N"),
+            )
         )
-    )
-    st.altair_chart(
-        chart + labels,
-        width="stretch",
+        st.altair_chart(chart + labels, width="stretch", key=key)
+
+    _chart(
+        field="% das ofertas",
+        label_field="% ofertas · rótulo",
+        title="Distribuição do valor das emissões",
+        axis_title="% das ofertas encerradas",
+        percent=True,
         key=chart_key,
+        height=330,
     )
+    left, right = st.columns(2)
+    with left:
+        _chart(
+            field="% do volume",
+            label_field="% volume · rótulo",
+            title="Participação no volume registrado",
+            axis_title="% do volume encerrado",
+            percent=True,
+            key=f"{chart_key}-volume-share",
+            height=330,
+        )
+    with right:
+        _chart(
+            field="Volume (R$ bi)",
+            label_field="Volume · rótulo",
+            title="Volume registrado por faixa",
+            axis_title="R$ bilhões",
+            percent=False,
+            key=f"{chart_key}-volume-absolute",
+            height=330,
+        )
+    current_period = ticket_distribution[
+        ticket_distribution["period_label"].eq(period_order[-1])
+        & ticket_distribution["ticket_bucket"].astype(str).str.startswith("≥")
+    ]
+    if not current_period.empty:
+        current_bucket = current_period.iloc[0]
+        st.markdown(
+            '<div class="industry-note">'
+            f'Em jan–jun/26, ofertas ≥ R$ 500 mi representam '
+            f'<b>{_fmt_pct(float(current_bucket["% do volume"]))}</b> do volume, '
+            f'ou <b>{_fmt_bi(float(current_bucket["registered_volume_brl"]), 1)}</b>.'
+            "</div>",
+            unsafe_allow_html=True,
+        )
     st.caption(
         f"2024 e 2025 = ano completo; 2026 = jan–jun até {_date_label(offers_cutoff)}. "
-        "Faixas por Valor Total Registrado; cada período fecha 100%."
+        "Faixas por Valor Total Registrado; os gráficos de quantidade e volume "
+        "fecham 100% em cada período."
     )
 
 
@@ -13503,7 +13569,6 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
     jan_june = _revision_offer_comparable_frame(payload)
-    originators = _revision_frame(payload, "closed_offer_originators_2026")
     current = _revision_offer_current_row(payload, annual)
     offers_cutoff = _revision_offers_cutoff(payload)
     source_as_of = _date_label(payload.get("offers_source_as_of", "n/d"))
@@ -13726,88 +13791,95 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             "Público profissional usa o público-alvo informado no requerimento."
         )
 
-    st.markdown("<h2>Originadores nomináveis em jan–jun/26</h2>", unsafe_allow_html=True)
-    if not originators.empty:
-        originators = originators.copy()
-        originators["registered_volume_brl"] = pd.to_numeric(
-            originators["registered_volume_brl"], errors="coerce"
-        ).fillna(0.0)
-        originators = originators.sort_values(
-            "registered_volume_brl", ascending=False
-        ).reset_index(drop=True)
-        originators["rank"] = range(1, len(originators) + 1)
-        originator_order = originators["originator_group"].astype(str).tolist()
-        originators["Volume (R$ bi)"] = originators["registered_volume_brl"] / 1e9
-        originators["Ticket médio (R$ mi)"] = pd.to_numeric(originators["mean_registered_ticket_brl"], errors="coerce") / 1e6
-        coverage = float(originators.iloc[0]["identified_registered_volume_coverage"])
+    top15 = _revision_frame(payload, "closed_offer_top15")
+    top15_summary = _revision_frame(payload, "closed_offer_top15_summary")
+    st.markdown(
+        "<h2>Top 15 ofertas encerradas e originadores</h2>",
+        unsafe_allow_html=True,
+    )
+    if not top15.empty and not top15_summary.empty:
+        top15["registered_volume_brl"] = pd.to_numeric(
+            top15["registered_volume_brl"], errors="coerce"
+        )
+        top15["investor_count"] = pd.to_numeric(
+            top15["investor_count"], errors="coerce"
+        )
+        summary_by_period = top15_summary.set_index("period_label")
+        summary_2025 = summary_by_period.loc["2025 FY"]
+        summary_2026 = summary_by_period.loc["2026 jan-jun"]
         st.markdown(
-            f'<div class="industry-note">Cobertura nominal: <b>{_fmt_pct(coverage)}</b> do volume registrado. '
-            "A lista contém todos os originadores nomináveis e mantém o residual não identificado no denominador.</div>",
+            '<div class="industry-note">'
+            f'O Itaú BBA liderou <b>{_fmt_int(summary_2026["ibba_lead_offers_top15"])}</b> '
+            f'das 15 maiores ofertas em jan–jun/26 '
+            f'({_fmt_bi(float(summary_2026["ibba_lead_volume_top15_brl"]), 1)}), '
+            f'ante <b>{_fmt_int(summary_2025["ibba_lead_offers_top15"])}</b> em 2025FY '
+            f'({_fmt_bi(float(summary_2025["ibba_lead_volume_top15_brl"]), 1)}).'
+            "</div>",
             unsafe_allow_html=True,
         )
-        chart = (
-            alt.Chart(originators)
-            .mark_bar(cornerRadiusEnd=2)
-            .encode(
-                x=alt.X("Volume (R$ bi):Q", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
-                y=alt.Y("originator_group:N", title=None, sort=originator_order),
-                color=alt.condition(alt.datum.rank == 1, alt.value(_ORANGE), alt.value(_BLACK)),
-                tooltip=[
-                    "originator_group:N",
-                    alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
-                    alt.Tooltip("Volume (R$ bi):Q", format=",.2f"),
-                    alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
-                    alt.Tooltip("share_of_total_registered_volume:Q", format=".1%"),
-                ],
+
+        def _top15_display(period_label: str) -> pd.DataFrame:
+            frame = top15[top15["period_label"].eq(period_label)].sort_values(
+                "rank"
+            ).copy()
+            frame["Volume"] = frame["registered_volume_brl"].map(
+                lambda value: _fmt_bi(float(value), 2)
             )
-            .properties(height=520)
-        )
-        inside_labels = (
-            alt.Chart(originators)
-            .transform_filter(alt.datum["Volume (R$ bi)"] >= 0.6)
-            .mark_text(
-                align="right",
-                baseline="middle",
-                dx=-5,
-                color="white",
-                font="Arial",
-                fontSize=10,
-                fontWeight=700,
+            frame["Nº de Inv."] = frame["investor_count"].map(
+                lambda value: _fmt_int(value) if pd.notna(value) else "N/D"
             )
-            .encode(
-                x=alt.X("Volume (R$ bi):Q"),
-                y=alt.Y("originator_group:N", sort=originator_order),
-                text=alt.Text("Volume (R$ bi):Q", format=".2f"),
-            )
-        )
-        outside_labels = (
-            alt.Chart(originators)
-            .transform_filter(alt.datum["Volume (R$ bi)"] < 0.6)
-            .mark_text(
-                align="left",
-                baseline="middle",
-                dx=4,
-                color=_BLACK,
-                font="Arial",
-                fontSize=10,
-            )
-            .encode(
-                x=alt.X("Volume (R$ bi):Q"),
-                y=alt.Y("originator_group:N", sort=originator_order),
-                text=alt.Text("Volume (R$ bi):Q", format=".2f"),
-            )
-        )
-        st.altair_chart(
-            chart + inside_labels + outside_labels,
-            width="stretch",
-            key="industry-revision-originators-all",
-        )
-        display = originators[["rank", "originator_group", "closed_offers", "Volume (R$ bi)", "Ticket médio (R$ mi)", "confidence"]].copy()
-        display.columns = ["#", "Originador", "Ofertas", "Volume (R$ bi)", "Ticket médio (R$ mi)", "Confiança"]
-        st.dataframe(display.style.format({"Volume (R$ bi)": "{:,.2f}", "Ticket médio (R$ mi)": "{:,.1f}"}), hide_index=True, width="stretch")
+            frame = frame[
+                [
+                    "rank",
+                    "fund_name_short",
+                    "originator_group",
+                    "Volume",
+                    "ibba_coord_lead_label",
+                    "firm_commitment_label",
+                    "publico",
+                    "Nº de Inv.",
+                ]
+            ]
+            frame.columns = [
+                "#",
+                "FIDC",
+                "Originador",
+                "Volume",
+                "IBBA Coord-Líder?",
+                "Garantia Firme?",
+                "Público",
+                "Nº de Inv.",
+            ]
+            return frame
+
+        left, right = st.columns(2)
+        for column, period_label, heading in (
+            (left, "2026 jan-jun", "Jan–jun/26"),
+            (right, "2025 FY", "2025FY"),
+        ):
+            summary = summary_by_period.loc[period_label]
+            with column:
+                st.markdown(f"#### {heading} · 15 maiores")
+                st.dataframe(
+                    _top15_display(period_label),
+                    hide_index=True,
+                    width="stretch",
+                    height=610,
+                )
+                st.caption(
+                    f"Subtotal: {_fmt_bi(float(summary['top15_registered_volume_brl']), 2)} "
+                    f"({_fmt_pct(float(summary['top15_share_of_period_volume']))} "
+                    "do volume encerrado no período)."
+                )
         st.caption(
-            "Origem = primeiro match nominal em emissor, ativos-alvo, lastro ou devedores; "
-            "residual não identificado mantido no denominador."
+            "Universo: CVM, Cotas de FIDC, oferta primária, status Oferta Encerrada, "
+            "Data de Encerramento no período e Valor Total Registrado positivo. "
+            "Originador não identificável permanece como “Não identificado”. "
+            "IBBA Coord-Líder usa Nome_Lider; Garantia Firme usa Regime_distribuicao. "
+            "Nº de Inv. soma todas as colunas Num_Invest_*; a coluna de pessoa natural "
+            "isolada não representa o total. Empates de volume usam o Número do "
+            "Requerimento em ordem crescente. A base pública não contém propostas, fees "
+            "ou preço de coordenação para atribuir competitividade."
         )
 
 

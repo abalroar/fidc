@@ -102,6 +102,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_revision_export.py",
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
+    ROOT / "services" / "industry_closed_offer_rankings.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -309,15 +310,22 @@ def validate_source_presence_coverage(
     revision_dir: Path,
     latest_complete: str,
 ) -> None:
-    """Block publication when the latest raw empty-versus-zero audit is absent."""
+    """Block publication when the raw empty-versus-zero audit is incomplete."""
 
     base_path = revision_dir / "base_competencia_cnpj.csv.gz"
     overlay_path = revision_dir / "source_presence_overlay.csv.gz"
     latest_rows = 0
     exact_rows = 0
+    base_rows_by_period: dict[str, int] = {}
     with gzip.open(base_path, "rt", encoding="utf-8", newline="") as handle:
         for row in csv.DictReader(handle):
-            if str(row.get("competencia") or "") != latest_complete:
+            competence = str(row.get("competencia") or "")
+            if not competence:
+                continue
+            base_rows_by_period[competence] = (
+                base_rows_by_period.get(competence, 0) + 1
+            )
+            if competence != latest_complete:
                 continue
             latest_rows += 1
             if str(row.get("field_presence_exact") or "").strip().lower() in {
@@ -336,14 +344,30 @@ def validate_source_presence_coverage(
             "publique com --refresh-source-presence e o ZIP bruto CVM disponível"
         )
 
-    overlay_latest_rows = 0
+    overlay_rows_by_period: dict[str, int] = {}
     with gzip.open(overlay_path, "rt", encoding="utf-8", newline="") as handle:
         for row in csv.DictReader(handle):
-            if str(row.get("competencia") or "") == latest_complete:
-                overlay_latest_rows += 1
+            competence = str(row.get("competencia") or "")
+            if competence:
+                overlay_rows_by_period[competence] = (
+                    overlay_rows_by_period.get(competence, 0) + 1
+                )
+    overlay_latest_rows = overlay_rows_by_period.get(latest_complete, 0)
     if overlay_latest_rows < latest_rows:
         raise RevisionBundlePublishError(
             "overlay bruto de presença não cobre a competência mais recente"
+        )
+    incomplete_periods = [
+        competence
+        for competence, base_rows in sorted(base_rows_by_period.items())
+        if overlay_rows_by_period.get(competence, 0) < base_rows
+    ]
+    if incomplete_periods:
+        sample = ", ".join(incomplete_periods[:6])
+        raise RevisionBundlePublishError(
+            "overlay bruto de presença não cobre o histórico completo: "
+            f"{sample}; publique com --refresh-source-presence "
+            "e --presence-months all"
         )
 
 
@@ -591,6 +615,127 @@ def _validate_closed_offer_originator_order(payload: Mapping[str, object]) -> No
         )
 
 
+def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
+    rows = payload.get("closed_offer_top15")
+    summaries = payload.get("closed_offer_top15_summary")
+    if not isinstance(rows, list) or len(rows) != 30:
+        raise RevisionBundlePublishError(
+            "closed_offer_top15 deve conter 15 ofertas em cada período"
+        )
+    if not isinstance(summaries, list) or len(summaries) != 2:
+        raise RevisionBundlePublishError(
+            "closed_offer_top15_summary deve conter dois períodos"
+        )
+
+    expected_periods = ("2025 FY", "2026 jan-jun")
+    summary_by_period = {
+        str(row.get("period_label") or ""): row
+        for row in summaries
+        if isinstance(row, Mapping)
+    }
+    if tuple(summary_by_period) != expected_periods:
+        raise RevisionBundlePublishError(
+            "closed_offer_top15_summary contém períodos incompatíveis"
+        )
+
+    for period_label in expected_periods:
+        period_rows = [
+            row
+            for row in rows
+            if isinstance(row, Mapping)
+            and str(row.get("period_label") or "") == period_label
+        ]
+        if len(period_rows) != 15:
+            raise RevisionBundlePublishError(
+                f"closed_offer_top15 deve conter 15 linhas em {period_label}"
+            )
+        ranks = [
+            _integer_payload_number(
+                row.get("rank"),
+                f"closed_offer_top15[{period_label}].rank",
+            )
+            for row in period_rows
+        ]
+        if ranks != list(range(1, 16)):
+            raise RevisionBundlePublishError(
+                f"closed_offer_top15 possui ranks inválidos em {period_label}"
+            )
+        volumes = [
+            _finite_payload_number(
+                row.get("registered_volume_brl"),
+                f"closed_offer_top15[{period_label}].registered_volume_brl",
+            )
+            for row in period_rows
+        ]
+        if any(value <= 0 for value in volumes):
+            raise RevisionBundlePublishError(
+                f"closed_offer_top15 possui volume inválido em {period_label}"
+            )
+        if any(
+            current < following
+            for current, following in zip(volumes, volumes[1:])
+        ):
+            raise RevisionBundlePublishError(
+                f"closed_offer_top15 deve estar em volume decrescente em {period_label}"
+            )
+
+        for row in period_rows:
+            if row.get("metadata_matched") is not True:
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém oferta sem metadados em {period_label}"
+                )
+            if str(row.get("status") or "").casefold() != "oferta encerrada":
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém oferta não encerrada em {period_label}"
+                )
+            if str(row.get("offer_type") or "").upper() != "PRIMARIA":
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém oferta não primária em {period_label}"
+                )
+            if str(row.get("security") or "").casefold() != "cotas de fidc":
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém ativo fora de Cotas de FIDC em {period_label}"
+                )
+            if str(row.get("originator_group") or "").strip() == "":
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém originador vazio em {period_label}"
+                )
+            for boolean_field, label_field in (
+                ("ibba_coord_lead", "ibba_coord_lead_label"),
+                ("firm_commitment", "firm_commitment_label"),
+            ):
+                expected_label = "Sim" if row.get(boolean_field) is True else "Não"
+                if row.get(label_field) != expected_label:
+                    raise RevisionBundlePublishError(
+                        f"closed_offer_top15 contém {label_field} divergente"
+                    )
+
+        summary = summary_by_period[period_label]
+        top_volume = float(sum(volumes))
+        _require_payload_amount_close(
+            summary.get("top15_registered_volume_brl"),
+            top_volume,
+            f"closed_offer_top15_summary[{period_label}].top15_registered_volume_brl",
+        )
+        period_volume = _finite_payload_number(
+            summary.get("period_registered_volume_brl"),
+            f"closed_offer_top15_summary[{period_label}].period_registered_volume_brl",
+        )
+        if period_volume < top_volume:
+            raise RevisionBundlePublishError(
+                f"subtotal Top 15 excede o período em {period_label}"
+            )
+        expected_share = top_volume / period_volume if period_volume else 0.0
+        observed_share = _finite_payload_number(
+            summary.get("top15_share_of_period_volume"),
+            f"closed_offer_top15_summary[{period_label}].top15_share_of_period_volume",
+        )
+        if abs(observed_share - expected_share) > 1e-10:
+            raise RevisionBundlePublishError(
+                f"share do Top 15 não reconcilia em {period_label}"
+            )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
@@ -670,6 +815,8 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "closed_offers_jan_may",
         "closed_offer_ticket_distribution",
         "closed_offer_originators_2026",
+        "closed_offer_top15",
+        "closed_offer_top15_summary",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
         "provider_history_cvm_detail",
@@ -859,6 +1006,48 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "confidence",
             "share_of_total_registered_volume",
         },
+        "closed_offer_top15": {
+            "period_label",
+            "rank",
+            "offer_id",
+            "data_encerramento",
+            "cnpj_emissor",
+            "nome_emissor",
+            "fund_name_short",
+            "originator_group",
+            "registered_volume_brl",
+            "leader_name",
+            "ibba_coord_lead",
+            "ibba_coord_lead_label",
+            "distribution_regime",
+            "firm_commitment",
+            "firm_commitment_label",
+            "publico",
+            "investor_count",
+            "metadata_matched",
+            "status",
+            "offer_type",
+            "security",
+            "source_url",
+            "scope",
+        },
+        "closed_offer_top15_summary": {
+            "period_label",
+            "period_closed_offers",
+            "period_registered_volume_brl",
+            "top15_offers",
+            "top15_registered_volume_brl",
+            "top15_share_of_period_volume",
+            "ibba_lead_offers_top15",
+            "ibba_lead_volume_top15_brl",
+            "ibba_lead_share_top15_volume",
+            "firm_commitment_offers_top15",
+            "firm_commitment_volume_top15_brl",
+            "ibba_firm_commitment_offers_top15",
+            "ibba_firm_commitment_volume_top15_brl",
+            "investor_count_methodology",
+            "ranking_methodology",
+        },
         "provider_history_cvm_coverage": {
             "papel",
             "data_referencia",
@@ -977,6 +1166,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         )
     _validate_card_taxonomy_contract(payload)
     _validate_closed_offer_originator_order(payload)
+    _validate_closed_offer_top15(payload)
     conclusion_metrics = payload["conclusion_metrics"]
     required_btg_metrics = {
         "btg_bank_cohort_listed_roots",

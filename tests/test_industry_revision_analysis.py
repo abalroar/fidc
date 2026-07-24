@@ -222,7 +222,9 @@ def test_slides_5_to_7_histories_use_both_snapshots_and_close_at_one() -> None:
             )
         ]
     )
-    type_mix, coverage = _type_mix_history(funds, ["2023-12", "2026-05"])
+    type_mix, coverage, type_mix_meta = _type_mix_history(
+        funds, ["2023-12", "2026-05"]
+    )
 
     assert set(type_mix["competencia"]) == {"2023-12", "2026-05"}
     assert type_mix.groupby("competencia")["share"].sum().map(
@@ -231,10 +233,9 @@ def test_slides_5_to_7_histories_use_both_snapshots_and_close_at_one() -> None:
     assert coverage.groupby("competencia")["share"].sum().map(
         lambda value: math.isclose(value, 1.0, abs_tol=1e-12)
     ).all()
-    assert set(type_mix.loc[type_mix["anbima_tipo"].eq("N/D"), "competencia"]) == {
-        "2023-12",
-        "2026-05",
-    }
+    assert "N/D" not in set(type_mix["anbima_tipo"])
+    assert type_mix_meta["nd_incorporated_into"] == "Outros"
+    assert type_mix.groupby("competencia").size().eq(4).all()
 
     segments = pd.DataFrame(
         [

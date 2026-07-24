@@ -80,7 +80,12 @@ SLIDE_TOKENS = {
     27: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
     28: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–JUN", "14,6%"),
     29: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
-    30: ("ORIGINADORES",),
+    30: (
+        "TOP 15 · OFERTAS ENCERRADAS",
+        "IBBA LIDEROU 5 DAS 15 MAIORES",
+        "JAN–JUN/26 · TOP 15",
+        "2025FY · TOP 15",
+    ),
     31: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
@@ -125,6 +130,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Ofertas encerradas",
     "Histograma ofertas",
     "Originadores 2026",
+    "Top 15 ofertas",
     "Principais conclusões",
 }
 
@@ -264,8 +270,6 @@ def test_provider_rankings_use_three_native_table_chart_pairs(
         (11, 1, 1),  # histórico da coorte atual por subtipo
         (18, 1, 1),  # evolução dos FIDCs dos cinco bancos
         (28, 2, 1),  # volume/ticket comparável e acumulado mensal
-        (29, 1, 1),  # histograma de ofertas encerradas
-        (30, 1, 1),  # originadores nomináveis e tickets de emissão
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -275,6 +279,29 @@ def test_new_analytical_slides_use_native_office_structures(
     with ZipFile(PPTX) as archive:
         assert len(_slide_chart_paths(archive, slide_number)) >= minimum_charts
         assert _native_table_count(archive, slide_number) >= minimum_tables
+
+
+def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, 29)
+        assert len(chart_paths) == 3
+        assert _native_table_count(archive, 29) == 0
+        for chart_path in chart_paths:
+            chart = ET.fromstring(archive.read(chart_path))
+            bar_chart = chart.find(f".//{{{CHART}}}barChart")
+            assert bar_chart is not None
+            grouping = bar_chart.find(f"{{{CHART}}}grouping")
+            assert grouping is not None
+            assert grouping.attrib.get("val") == "clustered"
+            assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
+
+
+def test_top15_offer_slide_uses_two_native_tables_and_no_chart_images() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        assert _native_table_count(archive, 30) == 2
+        assert _slide_chart_paths(archive, 30) == []
 
 
 def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
@@ -326,6 +353,13 @@ def test_offer_workbook_uses_counts_billions_and_millions_consistently() -> None
     assert '"mi"' in originators["F5"].number_format
     assert '"mi"' in originators["G5"].number_format
     assert '"bi"' in originators["H5"].number_format
+
+    top15 = workbook["Top 15 ofertas"]
+    assert '"bi"' in top15["I5"].number_format
+    assert top15["K4"].value == "IBBA Coord-Líder?"
+    assert top15["M4"].value == "Garantia Firme?"
+    assert top15["N4"].value == "Público"
+    assert top15["O4"].value == "Nº de Inv."
 
     banks = workbook["FIDCs por banco"]
     assert banks["J4"].value == "Raízes de CNPJ listadas"

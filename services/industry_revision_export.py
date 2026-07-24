@@ -59,6 +59,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Ofertas encerradas",
     "Histograma ofertas",
     "Originadores 2026",
+    "Top 15 ofertas",
     "Principais conclusões",
     "Curadoria Atlântico",
     "Série Atlântico",
@@ -273,16 +274,16 @@ def validate_revision_pptx(payload: bytes) -> None:
         offers_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "DISTRIBUIÇÃO DO TICKET"
         )
-        if offers_slide.count(b"<a:tbl>") < 1 or offers_slide.count(b"<c:chart") < 1:
+        if offers_slide.count(b"<c:chart") != 3:
             raise RevisionExportUnavailable(
-                "slide de ofertas deve conter tabela e gráfico nativos do Office"
+                "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
             )
-        originators_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "ORIGINADORES NOMINÁVEIS"
+        top15_offers_slide = _slide_xml_containing(
+            archive, "TOP 15", "OFERTAS ENCERRADAS"
         )
-        if originators_slide.count(b"<a:tbl>") < 1 or originators_slide.count(b"<c:chart") < 1:
+        if top15_offers_slide.count(b"<a:tbl>") != 2:
             raise RevisionExportUnavailable(
-                "slide de originadores deve conter tabela e gráfico nativos do Office"
+                "slide de maiores ofertas deve conter duas tabelas nativas do Office"
             )
         _slide_xml_containing(archive, "PRESTADORES", "MIGRAÇÃO EM GESTÃO")
         _slide_xml_containing(archive, "PRESTADORES", "MIGRAÇÃO EM CUSTÓDIA")
