@@ -124,6 +124,7 @@ _INDUSTRY_EXPORT_INPUTS = (
     "industry_closed_offers_annual.csv",
     "industry_closed_offers_monthly.csv",
     "industry_closed_offer_originators_2026.csv",
+    "industry_fixed_income_offer_comparison.csv",
     "industry_competitive_position.csv",
     "industry_offer_rankings.csv.gz",
     "industry_stock_ranking_deltas.csv.gz",
@@ -9254,6 +9255,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "card_taxonomy_audit",
                 "card_taxonomy_summary",
                 "acquiring_curation_detail",
+                "fixed_income_offer_comparison",
             }
         )
     missing = sorted(required.difference(payload))
@@ -9495,6 +9497,17 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 },
             }
         )
+    if schema_version >= 6:
+        required_columns["fixed_income_offer_comparison"] = {
+            "view",
+            "series_label",
+            "period_label",
+            "registered_volume_brl",
+            "yoy_growth",
+            "source_url",
+            "scope",
+            "excluded_instruments",
+        }
     for key, columns in required_columns.items():
         rows = payload.get(key)
         if not isinstance(rows, list) or not rows:
@@ -11281,14 +11294,14 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
         st.altair_chart((bars + labels).properties(height=360), width="stretch", key="industry-revision-pl")
         if not pl_cagr_periods.empty:
             cagr_parts = [
-                f"{int(row.start_year)}–{int(row.end_year)}: {_fmt_pct(float(row.cagr))} a.a."
+                f"{int(row.end_year)}: {_fmt_pct(float(row.cagr))}"
                 for row in pl_cagr_periods.itertuples(index=False)
             ]
-            st.caption("CAGR do PL bruto · " + " · ".join(cagr_parts))
+            st.caption("Crescimento anual do PL bruto · " + " · ".join(cagr_parts))
         st.caption(
             "Fonte: CVM, Informe Mensal de FIDC. PL bruto = PL ex-FIC + PL dos FIC-FIDCs; "
-            "os dois componentes não se sobrepõem. CAGRs calculados dezembro contra dezembro, "
-            f"com o número de intervalos igual à diferença entre os anos. Data-base: {latest_label.lower()}."
+            "os dois componentes não se sobrepõem. Variações calculadas dezembro contra dezembro. "
+            f"Data-base: {latest_label.lower()}."
         )
 
     st.markdown(
@@ -13565,6 +13578,192 @@ def _render_revision_offer_ticket_distribution(
     )
 
 
+def _render_revision_fixed_income_offer_comparison(
+    payload: dict[str, object],
+) -> None:
+    comparison = _revision_frame(payload, "fixed_income_offer_comparison")
+    if comparison.empty:
+        return
+    comparison = comparison.copy()
+    comparison["registered_volume_brl"] = pd.to_numeric(
+        comparison["registered_volume_brl"], errors="coerce"
+    )
+    comparison["yoy_growth"] = pd.to_numeric(
+        comparison["yoy_growth"], errors="coerce"
+    )
+    comparison["Volume (R$ bi)"] = comparison["registered_volume_brl"] / 1e9
+    comparison["Rótulo"] = comparison["Volume (R$ bi)"].map(
+        lambda value: f"{float(value):.0f}".replace(".", ",")
+    )
+    period_order = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"]
+
+    st.markdown(
+        "<h2>FIDCs versus demais emissões de renda fixa</h2>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        '<div class="industry-note">'
+        "FIDCs cresceram <b>21,9%</b> em 2025 e <b>14,6%</b> no 1S26. "
+        "O conjunto dos demais instrumentos elegíveis cresceu 4,0% em 2025 "
+        "e recuou 7,8% no 1S26."
+        "</div>",
+        unsafe_allow_html=True,
+    )
+
+    def _comparison_chart(
+        frame: pd.DataFrame,
+        *,
+        title: str,
+        series_order: list[str],
+        colors: list[str],
+        key: str,
+    ) -> None:
+        bars = (
+            alt.Chart(frame)
+            .mark_bar()
+            .encode(
+                x=alt.X(
+                    "period_label:N",
+                    title=None,
+                    sort=period_order,
+                    axis=alt.Axis(labelAngle=0, grid=False),
+                ),
+                xOffset=alt.XOffset(
+                    "series_label:N",
+                    sort=series_order,
+                ),
+                y=alt.Y(
+                    "Volume (R$ bi):Q",
+                    title="R$ bilhões",
+                    axis=alt.Axis(gridColor=_GRAY_LIGHT),
+                ),
+                color=alt.Color(
+                    "series_label:N",
+                    title=None,
+                    sort=series_order,
+                    scale=alt.Scale(domain=series_order, range=colors),
+                    legend=alt.Legend(orient="bottom"),
+                ),
+                tooltip=[
+                    alt.Tooltip("period_label:N", title="Período"),
+                    alt.Tooltip("series_label:N", title="Instrumento"),
+                    alt.Tooltip(
+                        "Volume (R$ bi):Q",
+                        title="Volume (R$ bi)",
+                        format=",.1f",
+                    ),
+                    alt.Tooltip(
+                        "yoy_growth:Q",
+                        title="YoY",
+                        format=".1%",
+                    ),
+                ],
+            )
+        )
+        labels = (
+            alt.Chart(frame)
+            .mark_text(
+                dy=-7,
+                color=_BLACK,
+                font="Arial",
+                fontSize=9,
+                fontWeight=700,
+            )
+            .encode(
+                x=alt.X("period_label:N", sort=period_order),
+                xOffset=alt.XOffset("series_label:N", sort=series_order),
+                y=alt.Y("Volume (R$ bi):Q"),
+                text="Rótulo:N",
+            )
+        )
+        st.altair_chart(
+            (bars + labels).properties(height=350, title=title),
+            width="stretch",
+            key=key,
+        )
+
+    left, right = st.columns(2)
+    with left:
+        view_a = comparison[
+            comparison["view"].eq("FIDCs vs demais elegíveis")
+        ]
+        _comparison_chart(
+            view_a,
+            title="FIDCs e demais instrumentos elegíveis",
+            series_order=["FIDCs", "Demais elegíveis"],
+            colors=[_ORANGE, _BLACK],
+            key="industry-fixed-income-fidc-vs-rest",
+        )
+    with right:
+        view_b = comparison[
+            comparison["view"].eq(
+                "FIDCs vs instrumentos materiais de 2025"
+            )
+        ]
+        _comparison_chart(
+            view_b,
+            title="FIDCs e instrumentos mais emitidos em 2025",
+            series_order=[
+                "FIDCs",
+                "Debêntures",
+                "CRI",
+                "Notas comerciais",
+                "CRA",
+            ],
+            colors=[_ORANGE, _BLACK, "#73787D", "#8D9399", "#D7DADD"],
+            key="industry-fixed-income-material-instruments",
+        )
+
+    yoy = (
+        comparison[
+            comparison["series_label"].isin(
+                [
+                    "FIDCs",
+                    "Demais elegíveis",
+                    "Debêntures",
+                    "CRI",
+                    "Notas comerciais",
+                    "CRA",
+                ]
+            )
+        ]
+        .drop_duplicates(["series_label", "period_label"])
+        .pivot(
+            index="series_label",
+            columns="period_label",
+            values="yoy_growth",
+        )
+        .reindex(
+            [
+                "FIDCs",
+                "Demais elegíveis",
+                "Debêntures",
+                "CRI",
+                "Notas comerciais",
+                "CRA",
+            ]
+        )
+        .reindex(columns=period_order)
+        .reset_index()
+    )
+    yoy.columns = ["Instrumento", "2023", "2024", "2025", "1S26"]
+    for column in ("2023", "2024", "2025", "1S26"):
+        yoy[column] = yoy[column].map(
+            lambda value: _fmt_pct(float(value)) if pd.notna(value) else "N/D"
+        )
+    st.dataframe(yoy, hide_index=True, width="stretch")
+    exclusions = str(comparison.iloc[0].get("excluded_instruments") or "")
+    st.caption(
+        "Fonte: [CVM — Ofertas Públicas de Distribuição]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib), "
+        "oferta_resolucao_160.csv. Oferta primária, status Oferta Encerrada, "
+        "Data de Encerramento no período e Valor Total Registrado positivo; "
+        "unidade = Número do Requerimento. 2026 = jan–jun e compara jan–jun/25. "
+        "Instrumentos materiais = quatro maiores tipos não FIDC por volume em "
+        f"2025FY. Exclusões: {exclusions}."
+    )
+
+
 def _render_revision_offers(payload: dict[str, object]) -> None:
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
@@ -13614,6 +13813,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         f"{_date_label(offers_cutoff)}; Valor_Total_Registrado positivo. Status abertos ficam fora. "
         "Oferta Encerrada é a denominação literal do fluxo da CVM e não comprova colocação integral."
     )
+
+    _render_revision_fixed_income_offer_comparison(payload)
 
     if not jan_june.empty and not monthly.empty:
         jan_june = jan_june.copy()

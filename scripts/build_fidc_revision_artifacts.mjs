@@ -81,8 +81,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v16";
-const EXPECTED_SLIDES = 56;
+const RENDERER_VERSION = "industry_revision_artifacts_v17";
+const EXPECTED_SLIDES = 57;
 
 const C = {
   orange: "#EC7000",
@@ -2333,34 +2333,28 @@ function buildPresentation(payload, flowAssets) {
       );
     });
     cagrPeriods.forEach((period) => {
-      const startYear = num(period.start_year);
       const endYear = num(period.end_year);
-      const startIndex = history.findIndex((row) => num(row.year) === startYear);
       const endIndex = history.findIndex((row) => num(row.year) === endYear);
-      if (startIndex < 0 || endIndex < startIndex) return;
-      const intervalRows = history.slice(startIndex, endIndex + 1);
-      const intervalMax = Math.max(...intervalRows.map((row) => num(row.pl_total) / 1e9));
-      const startCenter = plotLeft + (startIndex + 0.5) * (plotWidth / history.length);
-      const endCenter = plotLeft + (endIndex + 0.5) * (plotWidth / history.length);
-      const spanWidth = Math.max(104, endCenter - startCenter);
-      const center = (startCenter + endCenter) / 2;
+      if (endIndex < 0) return;
+      const total = num(history[endIndex]?.pl_total) / 1e9;
+      const center = plotLeft + (endIndex + 0.5) * (plotWidth / history.length);
       const ruleTop = clamp(
-        plotTop + plotHeight - (intervalMax / axisMax) * plotHeight - 38,
+        plotTop + plotHeight - (total / axisMax) * plotHeight - 42,
         plotTop + 32,
         plotTop + plotHeight - 82,
       );
-      addRule(slide, center - spanWidth / 2, ruleTop, spanWidth, C.orange, 1.5);
+      addRule(slide, center - 24, ruleTop, 48, C.orange, 1.5);
       addText(
         slide,
-        `${pct(period.cagr, 1)} a.a.`,
-        { left: center - 62, top: ruleTop - 26, width: 124, height: 20 },
-        { fontSize: 12.5, bold: true, color: C.charcoal, alignment: "center" },
+        pct(period.cagr, 1),
+        { left: center - 34, top: ruleTop - 25, width: 68, height: 18 },
+        { fontSize: 10.5, bold: true, color: C.charcoal, alignment: "center" },
       );
       addText(
         slide,
-        `CAGR ${startYear}–${endYear}`,
-        { left: center - 62, top: ruleTop + 5, width: 124, height: 16 },
-        { fontSize: 9.5, color: C.note, alignment: "center" },
+        `${endYear} YoY`,
+        { left: center - 34, top: ruleTop + 5, width: 68, height: 14 },
+        { fontSize: 8.5, color: C.note, alignment: "center" },
       );
     });
     addText(slide, "R$ bi", { left: 72, top: 150, width: 42, height: 16 }, {
@@ -2378,13 +2372,164 @@ function buildPresentation(payload, flowAssets) {
       { left: 930, top: 325, width: 290, height: 100 },
     );
     addMetric(slide, bn(last.pl_fic_componente, 0), "PL de FIC-FIDC, sem dupla contagem", { left: 930, top: 445, width: 290, height: 110 });
-    addText(slide, "Totais e CAGRs usam o PL bruto; dezembro contra dezembro.", { left: 930, top: 585, width: 290, height: 40 }, {
+    addText(slide, "Totais e crescimentos anuais usam o PL bruto; dezembro contra dezembro.", { left: 930, top: 585, width: 290, height: 40 }, {
       fontSize: 12.5,
       color: C.note,
     });
   }
 
-  // 4. Base investidora
+  // 4. Ofertas encerradas de renda fixa
+  {
+    const slide = presentation.slides.add();
+    const comparison = payload.fixed_income_offer_comparison || [];
+    const periodOrder = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"];
+    const seriesValues = (view, label) =>
+      periodOrder.map((period) =>
+        num(
+          comparison.find(
+            (row) =>
+              row.view === view &&
+              row.series_label === label &&
+              row.period_label === period,
+          )?.registered_volume_brl,
+        ) / 1e9,
+      );
+    const yoyValue = (label, period) => {
+      const candidates = comparison.filter(
+        (row) =>
+          row.series_label === label &&
+          row.period_label === period,
+      );
+      const row =
+        candidates.find((item) => item.view === "FIDCs vs demais elegíveis") ||
+        candidates[0];
+      if (!row || row.yoy_growth === null || row.yoy_growth === undefined) return "N/D";
+      const value = num(row.yoy_growth);
+      return `${value > 0 ? "+" : ""}${pct(value, 1)}`;
+    };
+    const viewA = "FIDCs vs demais elegíveis";
+    const viewB = "FIDCs vs instrumentos materiais de 2025";
+    addHeader(
+      slide,
+      "OFERTAS ENCERRADAS · RENDA FIXA",
+      "FIDCs cresceram 15% no 1S26; os demais instrumentos elegíveis recuaram 8%",
+      "Fonte: CVM, Ofertas Públicas de Distribuição, snapshot 24/jul/26. Oferta primária, status Oferta Encerrada, Data de Encerramento e valor registrado positivo.",
+      4,
+    );
+    addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
+      left: 60,
+      top: 132,
+      width: 555,
+      height: 24,
+    });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 60, top: 166, width: 555, height: 290 }),
+      categories: ["2023FY", "2024FY", "2025FY", "2026 1S"],
+      series: [
+        {
+          name: "FIDCs",
+          values: seriesValues(viewA, "FIDCs"),
+          valuesFormatCode: "0",
+          fill: C.orange,
+        },
+        {
+          name: "Demais elegíveis",
+          values: seriesValues(viewA, "Demais elegíveis"),
+          valuesFormatCode: "0",
+          fill: C.charcoal,
+        },
+      ],
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 45 },
+      hasLegend: true,
+      legend: {
+        position: "bottom",
+        overlay: false,
+        textStyle: { fill: C.mid, fontSize: 10 },
+      },
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 10 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: { ...chartAxis(9.5, "0"), min: 0 },
+      dataLabels: {
+        showValue: true,
+        position: "outEnd",
+        textStyle: { fill: C.black, fontSize: 9, bold: true },
+      },
+    });
+    addSectionLabel(slide, "INSTRUMENTOS MAIS EMITIDOS EM 2025 · R$ BI", {
+      left: 665,
+      top: 132,
+      width: 555,
+      height: 24,
+    });
+    const materialSeries = [
+      ["FIDCs", C.orange],
+      ["Debêntures", C.black],
+      ["CRI", C.mid],
+      ["Notas comerciais", C.note],
+      ["CRA", C.line],
+    ];
+    slide.charts.add("bar", {
+      ...chartBase({ left: 665, top: 166, width: 555, height: 290 }),
+      categories: ["2023FY", "2024FY", "2025FY", "2026 1S"],
+      series: materialSeries.map(([label, color]) => ({
+        name: label,
+        values: seriesValues(viewB, label),
+        valuesFormatCode: "0",
+        fill: color,
+      })),
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 34 },
+      hasLegend: true,
+      legend: {
+        position: "bottom",
+        overlay: false,
+        textStyle: { fill: C.mid, fontSize: 9.5 },
+      },
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 10 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: { ...chartAxis(9.5, "0"), min: 0 },
+      dataLabels: {
+        showValue: true,
+        position: "outEnd",
+        textStyle: { fill: C.black, fontSize: 8.5, bold: true },
+      },
+    });
+    addNativeEditorialTable(slide, {
+      left: 60,
+      top: 478,
+      width: 1160,
+      height: 142,
+      headers: ["Instrumento", "2023 YoY", "2024 YoY", "2025 YoY", "1S26 YoY"],
+      rows: [
+        ["FIDCs", ...periodOrder.map((period) => yoyValue("FIDCs", period))],
+        ["Demais elegíveis", ...periodOrder.map((period) => yoyValue("Demais elegíveis", period))],
+        ["Debêntures", ...periodOrder.map((period) => yoyValue("Debêntures", period))],
+        ["CRI", ...periodOrder.map((period) => yoyValue("CRI", period))],
+        ["Notas comerciais", ...periodOrder.map((period) => yoyValue("Notas comerciais", period))],
+        ["CRA", ...periodOrder.map((period) => yoyValue("CRA", period))],
+      ],
+      columnWidths: [360, 200, 200, 200, 200],
+      aligns: ["left", "right", "right", "right", "right"],
+      fontSize: 8.7,
+      headerFontSize: 8.7,
+      rowHighlights: new Set([0]),
+    });
+    addText(
+      slide,
+      "2026 compara jan–jun/26 com jan–jun/25. Exclui cotas de fundos, ações, Units, debêntures conversíveis e os instrumentos FIAGRO especificados.",
+      { left: 60, top: 628, width: 1160, height: 18 },
+      { fontSize: 9.2, color: C.note, alignment: "left" },
+    );
+  }
+
+  // 5. Base investidora
   {
     const slide = presentation.slides.add();
     const history = payload.investor_base_history;
@@ -4776,6 +4921,62 @@ async function addClosedOffersSheet(workbook, payload) {
   sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 34;
 }
 
+async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
+  const columns = [
+    ["Visão", "view"],
+    ["Ordem série", "series_order"],
+    ["Série", "series_label"],
+    ["Instrumento oficial", "instrument_official"],
+    ["Rank 2025", "selected_2025_rank"],
+    ["Ordem período", "period_order"],
+    ["Período", "period_label"],
+    ["Início", "period_start"],
+    ["Fim", "period_end"],
+    ["Ano completo", "is_full_year"],
+    ["Ofertas encerradas", "closed_offers"],
+    ["Volume registrado", "registered_volume_brl"],
+    ["Share na visão", "share_of_period_view_volume"],
+    ["Período comparável", "previous_period_label"],
+    ["Volume comparável", "previous_registered_volume_brl"],
+    ["Crescimento YoY", "yoy_growth"],
+    ["YoY comparável", "yoy_comparable"],
+    ["Volume universo", "universe_registered_volume_brl"],
+    ["Fonte", "source_url"],
+    ["Escopo", "scope"],
+    ["Instrumentos excluídos", "excluded_instruments"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(
+    payload.fixed_income_offer_comparison || [],
+    columns,
+  );
+  const sheet = resetSheet(workbook, "Comparativo renda fixa");
+  setHeaderBand(
+    sheet,
+    "FIDCs versus demais emissões de renda fixa",
+    "CVM, oferta_resolucao_160.csv. Oferta primária, status Oferta Encerrada, Data de Encerramento no período, valor registrado positivo e unidade por Número do Requerimento. 2026 compara jan–jun com o mesmo período de 2025.",
+    headers,
+    rows.length,
+    { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(
+    sheet,
+    [230, 75, 130, 260, 80, 80, 105, 100, 100, 85, 100, 130, 100, 120, 130, 105, 90, 130, 260, 430, 650],
+    rows.length,
+  );
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["L", "O", "R"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat =
+      'R$ #,##0.0,,, "bi"';
+  });
+  ["M", "P"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat =
+      "0.0%";
+  });
+  sheet.getRange(`A5:U${rows.length + 4}`).format.rowHeightPx = 42;
+}
+
 async function addOfferTicketDistributionSheet(workbook, payload) {
   const columns = [
     ["Ordem período", "period_order"],
@@ -5515,7 +5716,7 @@ async function addChecksSheet(workbook, payload) {
     ["Rank mínimo", "=MIN('Top 20 FIDCs'!A5:A24)", 1, '=IF(B6=C6,"OK","ERRO")'],
     ["Rank máximo", "=MAX('Top 20 FIDCs'!A5:A24)", 20, '=IF(B7=C7,"OK","ERRO")'],
     ["Classificação fecha 100%", payload.classification_coverage.reduce((s, r) => s + num(r.share), 0), 1, '=IF(ABS(B8-C8)<0.0000001,"OK","ERRO")'],
-    ["Slides antes do apêndice", 26, 26, '=IF(B9=C9,"OK","ERRO")'],
+    ["Slides antes do apêndice", 27, 27, '=IF(B9=C9,"OK","ERRO")'],
     ["Perfis Top 20", payload.profiles.length, 20, '=IF(B10=C10,"OK","ERRO")'],
     ["Combinações função×foco", focusRows.length, 42, '=IF(B11=C11,"OK","ERRO")'],
     ["Histograma cotistas dez/23 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share_fundos), 0), 1, '=IF(ABS(B12-C12)<0.0000001,"OK","ERRO")'],
@@ -5528,6 +5729,7 @@ async function addChecksSheet(workbook, payload) {
     ["Coorte bancária: quatro períodos × seis linhas", (payload.bank_fidc_evolution || []).length, 24, '=IF(B19=C19,"OK","ERRO")'],
     ["Ofertas anuais 2023–2026", (payload.closed_offers_annual || []).length, 4, '=IF(B20=C20,"OK","ERRO")'],
     ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 19, '=IF(B21=C21,"OK","ERRO")'],
+    ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
   ];
   setHeaderBand(sheet, "Checks revisão", "Controles executados no gerador. A ausência de markers é testada diretamente no OOXML do PPTX.", headers, tests.length, { freezeColumns: 1 });
   sheet.getRange(`A5:D${tests.length + 4}`).values = tests.map((row) => [row[0], null, row[2], null]);
@@ -5568,6 +5770,7 @@ async function buildWorkbook(payload, flowAssets) {
   await addAcquiringReclassificationSheet(workbook, payload);
   await addCardReceivablesCurationSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
+  await addFixedIncomeOfferComparisonSheet(workbook, payload);
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);

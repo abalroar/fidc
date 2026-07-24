@@ -72,6 +72,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_closed_offer_originators_2026.csv",
     "industry_closed_offer_ticket_distribution.csv",
     "industry_closed_offer_ticket_cohort.csv.gz",
+    "industry_fixed_income_offer_comparison.csv",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
@@ -90,6 +91,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
     ROOT / "scripts" / "build_fidc_offer_ticket_distribution.py",
     ROOT / "scripts" / "build_fidc_closed_offers.py",
+    ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
@@ -103,6 +105,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
     ROOT / "services" / "industry_closed_offer_rankings.py",
+    ROOT / "services" / "industry_fixed_income_offer_comparison.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -736,6 +739,120 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
             )
 
 
+def _validate_fixed_income_offer_comparison(
+    payload: Mapping[str, object],
+) -> None:
+    rows = payload.get("fixed_income_offer_comparison")
+    if not isinstance(rows, list) or len(rows) != 28:
+        raise RevisionBundlePublishError(
+            "fixed_income_offer_comparison deve conter 28 linhas"
+        )
+    expected_periods = (
+        "2023 FY",
+        "2024 FY",
+        "2025 FY",
+        "2026 jan-jun",
+    )
+    view_a = [
+        row
+        for row in rows
+        if isinstance(row, Mapping)
+        and row.get("view") == "FIDCs vs demais elegíveis"
+    ]
+    view_b = [
+        row
+        for row in rows
+        if isinstance(row, Mapping)
+        and row.get("view") == "FIDCs vs instrumentos materiais de 2025"
+    ]
+    if len(view_a) != 8 or len(view_b) != 20:
+        raise RevisionBundlePublishError(
+            "comparativo de renda fixa contém cardinalidade incompatível"
+        )
+    for period_label in expected_periods:
+        period_a = [
+            row for row in view_a if row.get("period_label") == period_label
+        ]
+        period_b = [
+            row for row in view_b if row.get("period_label") == period_label
+        ]
+        if len(period_a) != 2 or len(period_b) != 5:
+            raise RevisionBundlePublishError(
+                f"comparativo de renda fixa incompleto em {period_label}"
+            )
+        universe = _finite_payload_number(
+            period_a[0].get("universe_registered_volume_brl"),
+            f"fixed_income_offer_comparison[{period_label}].universe",
+        )
+        observed = sum(
+            _finite_payload_number(
+                row.get("registered_volume_brl"),
+                f"fixed_income_offer_comparison[{period_label}].volume",
+            )
+            for row in period_a
+        )
+        if abs(observed - universe) > max(1.0, universe * 1e-10):
+            raise RevisionBundlePublishError(
+                f"comparativo de renda fixa não fecha o universo em {period_label}"
+            )
+    series_2025 = [
+        str(row.get("series_label") or "")
+        for row in view_b
+        if row.get("period_label") == "2025 FY"
+    ]
+    if series_2025 != [
+        "FIDCs",
+        "Debêntures",
+        "CRI",
+        "Notas comerciais",
+        "CRA",
+    ]:
+        raise RevisionBundlePublishError(
+            "instrumentos materiais de 2025 divergentes no comparativo"
+        )
+    if any(
+        row.get("yoy_growth") is not None
+        for row in rows
+        if isinstance(row, Mapping) and row.get("period_label") == "2023 FY"
+    ):
+        raise RevisionBundlePublishError(
+            "2023 deve permanecer sem YoY no comparativo de renda fixa"
+        )
+    fidc_by_period = {
+        str(row.get("period_label") or ""): _finite_payload_number(
+            row.get("registered_volume_brl"),
+            "fixed_income_offer_comparison.FIDCs",
+        )
+        for row in view_a
+        if row.get("series_label") == "FIDCs"
+    }
+    official_fidc = {
+        str(row.get("period_label") or ""): _finite_payload_number(
+            row.get("registered_volume_brl"),
+            "closed_offers_annual.registered_volume_brl",
+        )
+        for row in payload.get("closed_offers_annual") or []
+        if isinstance(row, Mapping)
+        and str(row.get("period_label") or "") in expected_periods[:3]
+    }
+    official_fidc.update(
+        {
+            "2026 jan-jun": _finite_payload_number(
+                row.get("registered_volume_brl"),
+                "closed_offers_jan_june.registered_volume_brl",
+            )
+            for row in payload.get("closed_offers_jan_june") or []
+            if isinstance(row, Mapping) and int(row.get("year") or 0) == 2026
+        }
+    )
+    for period_label, expected in official_fidc.items():
+        observed = fidc_by_period.get(period_label)
+        if observed is None or abs(observed - expected) > max(1.0, expected * 1e-10):
+            raise RevisionBundlePublishError(
+                f"FIDCs não reconciliam em {period_label}"
+            )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
@@ -817,6 +934,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "closed_offer_originators_2026",
         "closed_offer_top15",
         "closed_offer_top15_summary",
+        "fixed_income_offer_comparison",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
         "provider_history_cvm_detail",
@@ -1048,6 +1166,19 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "investor_count_methodology",
             "ranking_methodology",
         },
+        "fixed_income_offer_comparison": {
+            "view",
+            "series_label",
+            "period_label",
+            "registered_volume_brl",
+            "previous_registered_volume_brl",
+            "yoy_growth",
+            "yoy_comparable",
+            "universe_registered_volume_brl",
+            "source_url",
+            "scope",
+            "excluded_instruments",
+        },
         "provider_history_cvm_coverage": {
             "papel",
             "data_referencia",
@@ -1167,6 +1298,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
     _validate_card_taxonomy_contract(payload)
     _validate_closed_offer_originator_order(payload)
     _validate_closed_offer_top15(payload)
+    _validate_fixed_income_offer_comparison(payload)
     conclusion_metrics = payload["conclusion_metrics"]
     required_btg_metrics = {
         "btg_bank_cohort_listed_roots",

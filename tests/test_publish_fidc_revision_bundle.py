@@ -236,6 +236,41 @@ def _card_taxonomy_summary(
     return summary
 
 
+def _fixed_income_offer_comparison_fixture() -> list[dict[str, object]]:
+    periods = ("2023 FY", "2024 FY", "2025 FY", "2026 jan-jun")
+    rows: list[dict[str, object]] = []
+    for period in periods:
+        comparable = period != "2023 FY"
+        for view, labels in (
+            ("FIDCs vs demais elegíveis", ("FIDCs", "Demais elegíveis")),
+            (
+                "FIDCs vs instrumentos materiais de 2025",
+                ("FIDCs", "Debêntures", "CRI", "Notas comerciais", "CRA"),
+            ),
+        ):
+            universe = 2.0 if len(labels) == 2 else 5.0
+            for series_order, label in enumerate(labels, start=1):
+                rows.append(
+                    {
+                        "view": view,
+                        "series_order": series_order,
+                        "series_label": label,
+                        "period_label": period,
+                        "registered_volume_brl": 1.0,
+                        "previous_registered_volume_brl": (
+                            1.0 if comparable else None
+                        ),
+                        "yoy_growth": 0.0 if comparable else None,
+                        "yoy_comparable": comparable,
+                        "universe_registered_volume_brl": universe,
+                        "source_url": "https://dados.cvm.gov.br/",
+                        "scope": "Oferta Encerrada",
+                        "excluded_instruments": "Cotas de FII",
+                    }
+                )
+    return rows
+
+
 def _payload() -> dict[str, object]:
     card_rows = _card_taxonomy_rows()
     return {
@@ -512,6 +547,9 @@ def _payload() -> dict[str, object]:
                 "period_median_ticket_brl": 1.0,
             }
         ],
+        "fixed_income_offer_comparison": (
+            _fixed_income_offer_comparison_fixture()
+        ),
         "closed_offer_originators_2026": [
             {
                 "rank": rank,
@@ -688,6 +726,7 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "closed_offer_originators_2026",
         "closed_offer_top15",
         "closed_offer_top15_summary",
+        "fixed_income_offer_comparison",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
         "provider_history_cvm_detail",
@@ -824,7 +863,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 56
+    assert first["checks"]["slides"] == 57
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,
