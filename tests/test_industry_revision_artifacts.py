@@ -241,8 +241,7 @@ def test_deck_order_and_profile_count() -> None:
         "MARKET SHARE · ADMINISTRAÇÃO",
         "MARKET SHARE · GESTÃO",
         "MARKET SHARE · CUSTÓDIA",
-        "PRESTADORES · EVOLUÇÃO DO RANKING",
-        "PRESTADORES INDEPENDENTES · EVOLUÇÃO",
+        "PRESTADORES · EVOLUÇÃO E RANKING",
         "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
         "PRESTADORES · LIDERANÇA EXPLICADA",
         "CBSF / REAG · DESTINO DOS FUNDOS",
@@ -255,6 +254,7 @@ def test_deck_order_and_profile_count() -> None:
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
+        "OFERTAS ENCERRADAS · VOLUME E REGIME",
         "TOP 15 · OFERTAS ENCERRADAS",
         "PRINCIPAIS CONCLUSÕES",
     ]
@@ -328,12 +328,12 @@ def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> N
     assert groupings == {"stacked", "percentStacked"}
 
 
-def test_offer_slides_use_three_native_charts_and_two_native_tables() -> None:
+def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        ticket_charts = _slide_chart_paths(archive, 30)
+        ticket_charts = _slide_chart_paths(archive, 29)
         assert len(ticket_charts) == 3
-        slide29 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        slide29 = ET.fromstring(archive.read("ppt/slides/slide29.xml"))
         assert slide29.findall(f".//{{{DML}}}tbl") == []
         for chart_path in ticket_charts:
             chart = ET.fromstring(archive.read(chart_path))
@@ -344,10 +344,15 @@ def test_offer_slides_use_three_native_charts_and_two_native_tables() -> None:
             assert grouping.attrib.get("val") == "clustered"
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
+        regime_charts = _slide_chart_paths(archive, 30)
+        assert len(regime_charts) == 4
+        slide30 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        assert slide30.findall(f".//{{{DML}}}tbl") == []
+
         assert _slide_chart_paths(archive, 31) == []
-        slide30 = ET.fromstring(archive.read("ppt/slides/slide31.xml"))
-        assert len(slide30.findall(f".//{{{DML}}}tbl")) == 2
-        text = " ".join(node.text or "" for node in slide30.iter(f"{{{DML}}}t"))
+        slide31 = ET.fromstring(archive.read("ppt/slides/slide31.xml"))
+        assert len(slide31.findall(f".//{{{DML}}}tbl")) == 2
+        text = " ".join(node.text or "" for node in slide31.iter(f"{{{DML}}}t"))
         for token in (
             "TOP 15 · OFERTAS ENCERRADAS",
             "JAN–JUN/26 · TOP 15",
@@ -482,24 +487,23 @@ def test_market_share_slides_use_one_native_percent_stacked_chart(
     assert _shape_fill_colors(slide) == ["D7DADD", "D7DADD"]
 
 
-def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note() -> None:
+def test_provider_ranking_slide_has_six_native_charts_and_method_note() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide = ET.fromstring(archive.read("ppt/slides/slide17.xml"))
         text = " ".join(node.text or "" for node in slide.iter(f"{{{DML}}}t"))
         chart_paths = _slide_chart_paths(archive, 17)
 
-    assert len(chart_paths) == 3
-    assert len(slide.findall(f".//{{{DML}}}tbl")) == 3
-    assert text.count("Participante") == 3
+    assert len(chart_paths) == 6
+    assert slide.findall(f".//{{{DML}}}tbl") == []
     for expected in (
         "ADMINISTRAÇÃO",
         "GESTÃO",
         "CUSTÓDIA",
-        "Dez/24",
-        "Dez/25",
-            "Jun/26",
+        "TODOS OS PRESTADORES",
+        "INDEPENDENTES",
         "Sistema Petrobras e TAPSO excluídos",
+        "Oliveira Trust permanece independente",
         "Itaú",
     ):
         assert expected in text
@@ -508,24 +512,24 @@ def test_provider_historical_slide_has_three_table_chart_pairs_and_method_note()
 def test_provider_flow_slides_use_clean_raster_snapshots_and_disclose_limits() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        attribution = ET.fromstring(archive.read("ppt/slides/slide20.xml"))
-        reag = ET.fromstring(archive.read("ppt/slides/slide21.xml"))
-        transitions = ET.fromstring(archive.read("ppt/slides/slide22.xml"))
-        manager = ET.fromstring(archive.read("ppt/slides/slide23.xml"))
-        custodian = ET.fromstring(archive.read("ppt/slides/slide24.xml"))
+        attribution = ET.fromstring(archive.read("ppt/slides/slide19.xml"))
+        reag = ET.fromstring(archive.read("ppt/slides/slide20.xml"))
+        transitions = ET.fromstring(archive.read("ppt/slides/slide21.xml"))
+        manager = ET.fromstring(archive.read("ppt/slides/slide22.xml"))
+        custodian = ET.fromstring(archive.read("ppt/slides/slide23.xml"))
         attribution_text = " ".join(node.text or "" for node in attribution.iter(f"{{{DML}}}t"))
         reag_text = " ".join(node.text or "" for node in reag.iter(f"{{{DML}}}t"))
         transition_text = " ".join(node.text or "" for node in transitions.iter(f"{{{DML}}}t"))
 
-        assert len(_slide_chart_paths(archive, 20)) == 2
+        assert len(_slide_chart_paths(archive, 19)) == 2
+        assert not _slide_chart_paths(archive, 20)
         assert not _slide_chart_paths(archive, 21)
         assert not _slide_chart_paths(archive, 22)
         assert not _slide_chart_paths(archive, 23)
-        assert not _slide_chart_paths(archive, 24)
-        reag_images = _slide_image_paths(archive, 21)
-        transition_images = _slide_image_paths(archive, 22)
-        manager_images = _slide_image_paths(archive, 23)
-        custodian_images = _slide_image_paths(archive, 24)
+        reag_images = _slide_image_paths(archive, 20)
+        transition_images = _slide_image_paths(archive, 21)
+        manager_images = _slide_image_paths(archive, 22)
+        custodian_images = _slide_image_paths(archive, 23)
         assert len(reag_images) == 1
         assert len(transition_images) == 1
         assert len(manager_images) == 1
@@ -667,6 +671,7 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Adquirência reclass.",
         "Curadoria Cartão",
         "Ofertas encerradas",
+        "Regime de colocação",
         "Histograma ofertas",
         "Originadores 2026",
         "Top 15 ofertas",
@@ -741,7 +746,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v17";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v18";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

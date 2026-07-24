@@ -81,7 +81,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v17";
+const RENDERER_VERSION = "industry_revision_artifacts_v18";
 const EXPECTED_SLIDES = 57;
 
 const C = {
@@ -1386,6 +1386,145 @@ function addIndependentProviderRankingSlide(presentation, payload, page) {
         line: { style: "solid", fill: "none", width: 0 },
         textStyle: { fill: C.white, fontSize: 10, bold: false },
       },
+    });
+  });
+  return slide;
+}
+
+function addCombinedProviderRankingSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  const stockShort = competenceShortPt(payload.latest_complete);
+  addHeader(
+    slide,
+    "PRESTADORES · EVOLUÇÃO E RANKING",
+    `QI lidera administração; BTG lidera gestão e custódia no ranking geral de ${stockShort.toLowerCase()}`,
+    "Fonte: CVM, PL ex-FIC, jun/26. Sistema Petrobras e TAPSO excluídos dos dois universos. * Independentes = grupos sem controlador bancário identificado na curadoria societária; QI Tech inclui Singulare, Oliveira Trust permanece independente e Kanastra está consolidada no Itaú.",
+    page,
+  );
+  addLegend(
+    slide,
+    [
+      { label: "QI Tech", color: providerColor("QI Tech") },
+      { label: "BTG Pactual", color: providerColor("BTG Pactual") },
+      { label: "Oliveira Trust", color: providerColor("Oliveira Trust") },
+      { label: "Itaú", color: providerColor("Itaú") },
+      { label: "Genial", color: providerColor("Genial") },
+      { label: "CBSF / REAG", color: providerColor("CBSF") },
+      { label: "Demais", color: C.mid },
+    ],
+    { left: 160, top: 119, width: 960, height: 22 },
+    7,
+  );
+  addText(
+    slide,
+    "TODOS OS PRESTADORES",
+    { left: 60, top: 143, width: 555, height: 22 },
+    {
+      fontSize: 12.5,
+      bold: true,
+      color: C.charcoal,
+      alignment: "center",
+      verticalAlignment: "middle",
+    },
+  );
+  addText(
+    slide,
+    "INDEPENDENTES*",
+    { left: 665, top: 143, width: 555, height: 22 },
+    {
+      fontSize: 12.5,
+      bold: true,
+      color: C.charcoal,
+      alignment: "center",
+      verticalAlignment: "middle",
+    },
+  );
+
+  const bands = [
+    {
+      role: "administrador",
+      label: "ADMINISTRAÇÃO",
+      top: 168,
+    },
+    {
+      role: "gestor",
+      label: "GESTÃO",
+      top: 330,
+    },
+    {
+      role: "custodiante",
+      label: "CUSTÓDIA",
+      top: 492,
+    },
+  ];
+
+  const addProviderBars = ({ left, top, rows, label }) => {
+    const chartRows = [...rows].reverse();
+    addText(
+      slide,
+      label,
+      { left, top, width: 555, height: 18 },
+      {
+        fontSize: 10.5,
+        bold: true,
+        color: C.note,
+        verticalAlignment: "middle",
+      },
+    );
+    slide.charts.add("bar", {
+      ...chartBase({ left, top: top + 18, width: 555, height: 132 }),
+      categories: chartRows.map((row) => providerShort(row.participante)),
+      series: [
+        {
+          name: `PL ${stockShort.toLowerCase()}`,
+          values: chartRows.map((row) => num(row.current?.pl_brl) / 1e9),
+          valuesFormatCode: "0.0",
+          fill: C.charcoal,
+          points: chartRows.map((row, idx) => ({
+            idx,
+            fill: providerColor(row.participante),
+          })),
+        },
+      ],
+      barOptions: {
+        direction: "bar",
+        grouping: "clustered",
+        gapWidth: 26,
+      },
+      hasLegend: false,
+      xAxis: {
+        visible: false,
+        majorGridlines: null,
+        minorGridlines: null,
+      },
+      yAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 8.2 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      dataLabels: {
+        showValue: true,
+        position: "inEnd",
+        fill: "none",
+        line: { style: "solid", fill: "none", width: 0 },
+        textStyle: { fill: C.white, fontSize: 9.5, bold: false },
+      },
+    });
+  };
+
+  bands.forEach(({ role, label, top }) => {
+    addProviderBars({
+      left: 60,
+      top,
+      rows: providerHistoricalRows(payload, role, 6),
+      label: `${label} · RANKING GERAL`,
+    });
+    addProviderBars({
+      left: 665,
+      top,
+      rows: independentProviderRows(payload, role, 6),
+      label: `${label} · RANKING INDEPENDENTE`,
     });
   });
   return slide;
@@ -3159,11 +3298,10 @@ function buildPresentation(payload, flowAssets) {
   addMarketShareSlide(presentation, payload, "gestor", materialFocus, 12, false);
   addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 13, false);
 
-  // 14. Evolução do ranking dos prestadores.
-  addProviderHistoricalRankingSlide(presentation, payload, 14);
+  // 14. Ranking geral e independente dos prestadores.
+  addCombinedProviderRankingSlide(presentation, payload, 14);
 
-  // 16–17. Independentes e coorte atual dos cinco bancos.
-  addIndependentProviderRankingSlide(presentation, payload, 16);
+  // 16. Coorte atual dos cinco bancos.
   addBankFidcEvolutionSlide(presentation, payload, 17);
 
   // 18–20. Atribuição das lideranças e fluxos observáveis entre prestadores.
@@ -3594,7 +3732,195 @@ function buildPresentation(payload, flowAssets) {
     );
   }
 
-  // 30. Top 15 ofertas encerradas e originadores.
+  // 30. Evolução do número, volume e regime de colocação.
+  {
+    const slide = presentation.slides.add();
+    const regimeRows = [...(payload.closed_offer_placement_regime || [])]
+      .sort(
+        (a, b) =>
+          num(a.period_order) - num(b.period_order)
+          || num(a.regime_order) - num(b.regime_order),
+      );
+    const periodLabels = [
+      ...new Set(regimeRows.map((row) => row.period_label)),
+    ];
+    const periodColors = [C.note, C.charcoal, C.orange];
+    const periodDisplay = {
+      "2024 FY": "2024FY",
+      "2025 FY": "2025FY",
+      "2026 jan-jun": "2026 jan–jun",
+    };
+    const regimeLabels = regimeRows
+      .filter((row) => row.placement_regime !== "Não informado")
+      .sort((a, b) => num(a.regime_order) - num(b.regime_order))
+      .map((row) => row.placement_regime)
+      .filter((value, index, values) => values.indexOf(value) === index);
+    const rowFor = (period, regime) =>
+      regimeRows.find(
+        (row) =>
+          row.period_label === period
+          && row.placement_regime === regime,
+      ) || {};
+    const periodTotal = (period) =>
+      regimeRows.find((row) => row.period_label === period) || {};
+    const currentBestEfforts = rowFor(
+      "2026 jan-jun",
+      "Melhores esforços",
+    );
+    addHeader(
+      slide,
+      "OFERTAS ENCERRADAS · VOLUME E REGIME",
+      `Melhores esforços concentram ${pct(currentBestEfforts.closed_offers_share, 0)} das ofertas e ${pct(currentBestEfforts.registered_volume_share, 0)} do volume em jan–jun/26`,
+      "Fonte: CVM, oferta_resolucao_160.csv, snapshot 24/jul/26. Cotas de FIDC primárias e encerradas; unidade = Número do Requerimento. Regime = campo Regime_distribuicao; garantia firme consolida colocação e liquidação. Cobertura: 100%.",
+      30,
+    );
+
+    const addTotalChart = ({
+      left,
+      title,
+      valueKey,
+      formatCode,
+      yAxisFormat,
+    }) => {
+      addSectionLabel(
+        slide,
+        title,
+        { left, top: 137, width: 555, height: 24 },
+      );
+      slide.charts.add("bar", {
+        ...chartBase({ left, top: 171, width: 555, height: 198 }),
+        categories: periodLabels.map(
+          (period) => periodDisplay[period] || period,
+        ),
+        series: [
+          {
+            name: title,
+            values: periodLabels.map(
+              (period) => num(periodTotal(period)[valueKey]),
+            ),
+            valuesFormatCode: formatCode,
+            fill: C.charcoal,
+            points: periodLabels.map((period, idx) => ({
+              idx,
+              fill: periodColors[idx],
+            })),
+          },
+        ],
+        barOptions: {
+          direction: "column",
+          grouping: "clustered",
+          gapWidth: 58,
+        },
+        hasLegend: false,
+        xAxis: {
+          visible: true,
+          textStyle: { fill: C.mid, fontSize: 10 },
+          line: { style: "solid", fill: C.line, width: 1 },
+          majorGridlines: null,
+        },
+        yAxis: { ...chartAxis(8.5, yAxisFormat), min: 0 },
+        dataLabels: {
+          showValue: true,
+          position: "outEnd",
+          textStyle: { fill: C.black, fontSize: 9.2, bold: true },
+        },
+      });
+    };
+    addTotalChart({
+      left: 60,
+      title: "NÚMERO DE OFERTAS",
+      valueKey: "period_closed_offers",
+      formatCode: "0",
+      yAxisFormat: "0",
+    });
+    addTotalChart({
+      left: 665,
+      title: "VOLUME REGISTRADO · R$ BI",
+      valueKey: "period_registered_volume_brl",
+      formatCode: "0.0,,,",
+      yAxisFormat: "0.0,,,",
+    });
+
+    addLegend(
+      slide,
+      periodLabels.map((period, index) => ({
+        label: periodDisplay[period] || period,
+        color: periodColors[index],
+      })),
+      { left: 455, top: 373, width: 370, height: 22 },
+      3,
+    );
+
+    const addRegimeChart = ({
+      left,
+      title,
+      valueKey,
+      formatCode,
+      xAxisFormat,
+    }) => {
+      addSectionLabel(
+        slide,
+        title,
+        { left, top: 406, width: 555, height: 24 },
+      );
+      slide.charts.add("bar", {
+        ...chartBase({ left, top: 438, width: 555, height: 195 }),
+        categories: [...regimeLabels].reverse(),
+        series: [...periodLabels].reverse().map((period) => {
+          const periodIndex = periodLabels.indexOf(period);
+          return {
+            name: periodDisplay[period] || period,
+            values: [...regimeLabels]
+              .reverse()
+              .map((regime) => num(rowFor(period, regime)[valueKey])),
+            valuesFormatCode: formatCode,
+            fill: periodColors[periodIndex],
+          };
+        }),
+        barOptions: {
+          direction: "bar",
+          grouping: "clustered",
+          gapWidth: 42,
+        },
+        hasLegend: false,
+        xAxis: {
+          visible: true,
+          textStyle: { fill: C.mid, fontSize: 7.5 },
+          line: { style: "solid", fill: C.line, width: 1 },
+          majorGridlines: null,
+        },
+        yAxis: {
+          ...chartAxis(1, xAxisFormat),
+          visible: false,
+          textStyle: { fill: C.white, fontSize: 1 },
+          line: { style: "solid", fill: C.white, width: 0.1 },
+          min: 0,
+          majorGridlines: null,
+        },
+        dataLabels: {
+          showValue: true,
+          position: "outEnd",
+          textStyle: { fill: C.black, fontSize: 7.5, bold: false },
+        },
+      });
+    };
+    addRegimeChart({
+      left: 60,
+      title: "REGIME DE COLOCAÇÃO · NÚMERO DE OFERTAS",
+      valueKey: "closed_offers",
+      formatCode: "0",
+      xAxisFormat: "0",
+    });
+    addRegimeChart({
+      left: 665,
+      title: "REGIME DE COLOCAÇÃO · VOLUME · R$ BI",
+      valueKey: "registered_volume_brl",
+      formatCode: "0.0,,,",
+      xAxisFormat: "0.0,,,",
+    });
+  }
+
+  // 31. Top 15 ofertas encerradas e originadores.
   {
     const slide = presentation.slides.add();
     const top15 = [...(payload.closed_offer_top15 || [])];
@@ -4977,6 +5303,57 @@ async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
   sheet.getRange(`A5:U${rows.length + 4}`).format.rowHeightPx = 42;
 }
 
+async function addClosedOfferPlacementRegimeSheet(workbook, payload) {
+  const columns = [
+    ["Ordem período", "period_order"],
+    ["Período", "period_label"],
+    ["Início", "period_start"],
+    ["Fim", "period_end"],
+    ["Ano completo", "is_full_year"],
+    ["Ordem regime", "regime_order"],
+    ["Regime de colocação", "placement_regime"],
+    ["Ofertas encerradas", "closed_offers"],
+    ["Share das ofertas", "closed_offers_share"],
+    ["Volume registrado", "registered_volume_brl"],
+    ["Share do volume", "registered_volume_share"],
+    ["Ofertas no período", "period_closed_offers"],
+    ["Volume do período", "period_registered_volume_brl"],
+    ["Fonte", "source_url"],
+    ["Escopo", "scope"],
+    ["Metodologia", "methodology"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(
+    payload.closed_offer_placement_regime || [],
+    columns,
+  );
+  const sheet = resetSheet(workbook, "Regime de colocação");
+  setHeaderBand(
+    sheet,
+    "Ofertas encerradas por regime de colocação",
+    "CVM, campo Regime_distribuicao. Garantia Firme de Colocação e de Liquidação são consolidadas em Garantia firme; cada período reconcilia com a coorte de ofertas encerradas.",
+    headers,
+    rows.length,
+    { freezeColumns: 7, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(
+    sheet,
+    [75, 105, 95, 95, 85, 75, 155, 100, 100, 130, 100, 105, 135, 300, 420, 560],
+    rows.length,
+  );
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["J", "M"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat =
+      'R$ #,##0.0,,, "bi"';
+  });
+  ["I", "K"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat =
+      "0.00%";
+  });
+  sheet.getRange(`A5:P${rows.length + 4}`).format.rowHeightPx = 42;
+}
+
 async function addOfferTicketDistributionSheet(workbook, payload) {
   const columns = [
     ["Ordem período", "period_order"],
@@ -5730,6 +6107,7 @@ async function addChecksSheet(workbook, payload) {
     ["Ofertas anuais 2023–2026", (payload.closed_offers_annual || []).length, 4, '=IF(B20=C20,"OK","ERRO")'],
     ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 19, '=IF(B21=C21,"OK","ERRO")'],
     ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
+    ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, 12, '=IF(B23=C23,"OK","ERRO")'],
   ];
   setHeaderBand(sheet, "Checks revisão", "Controles executados no gerador. A ausência de markers é testada diretamente no OOXML do PPTX.", headers, tests.length, { freezeColumns: 1 });
   sheet.getRange(`A5:D${tests.length + 4}`).values = tests.map((row) => [row[0], null, row[2], null]);
@@ -5771,6 +6149,7 @@ async function buildWorkbook(payload, flowAssets) {
   await addCardReceivablesCurationSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
   await addFixedIncomeOfferComparisonSheet(workbook, payload);
+  await addClosedOfferPlacementRegimeSheet(workbook, payload);
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
@@ -5844,12 +6223,13 @@ async function exportWorkbook(workbook) {
       ["Taxonomia adquirência", "A1:N32"],
       ["Curadoria Cartão", "A1:V48"],
       ["Ofertas encerradas", "A1:Q58"],
+      ["Regime de colocação", "A1:P16"],
       ["Histograma ofertas", "A1:V25"],
       ["Originadores 2026", "A1:M24"],
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
-      ["Checks revisão", "A1:D20"],
+      ["Checks revisão", "A1:D28"],
     ];
     const workbookQa = path.join(QA_DIR, "workbook_revisado");
     await fs.mkdir(workbookQa, { recursive: true });

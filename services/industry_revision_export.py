@@ -58,6 +58,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Curadoria Cartão",
     "Ofertas encerradas",
     "Comparativo renda fixa",
+    "Regime de colocação",
     "Histograma ofertas",
     "Originadores 2026",
     "Top 15 ofertas",
@@ -230,26 +231,15 @@ def validate_revision_pptx(payload: bytes) -> None:
             if b'<c:symbol val="none"' not in marker:
                 raise RevisionExportUnavailable("PPTX revisado contém marker ativo")
         ranking_slide = _slide_xml_containing(
-            archive, "PRESTADORES", "EVOLUÇÃO DO RANKING"
+            archive, "PRESTADORES", "EVOLUÇÃO E RANKING"
         )
-        if ranking_slide.count(b"<a:tbl>") != 3:
+        if ranking_slide.count(b"<a:tbl>") != 0:
             raise RevisionExportUnavailable(
-                "slide de ranking histórico deve conter três tabelas nativas do Office"
+                "slide combinado de prestadores deve conter apenas gráficos"
             )
-        if ranking_slide.count(b"<c:chart") != 3:
+        if ranking_slide.count(b"<c:chart") != 6:
             raise RevisionExportUnavailable(
-                "slide de ranking histórico deve conter três gráficos nativos do Office"
-            )
-        independent_slide = _slide_xml_containing(
-            archive, "PRESTADORES INDEPENDENTES", "EVOLUÇÃO"
-        )
-        if independent_slide.count(b"<a:tbl>") != 3:
-            raise RevisionExportUnavailable(
-                "slide de independentes deve conter três tabelas nativas do Office"
-            )
-        if independent_slide.count(b"<c:chart") != 3:
-            raise RevisionExportUnavailable(
-                "slide de independentes deve conter três gráficos nativos do Office"
+                "slide combinado de prestadores deve conter seis gráficos nativos do Office"
             )
         delinquency_slide = _slide_xml_containing(
             archive, "INADIMPLÊNCIA", "EVOLUÇÃO E QUEBRA"
@@ -278,6 +268,13 @@ def validate_revision_pptx(payload: bytes) -> None:
         if offers_slide.count(b"<c:chart") != 3:
             raise RevisionExportUnavailable(
                 "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
+            )
+        placement_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "VOLUME E REGIME"
+        )
+        if placement_slide.count(b"<c:chart") != 4:
+            raise RevisionExportUnavailable(
+                "slide de volume e regime deve conter quatro gráficos nativos do Office"
             )
         fixed_income_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "RENDA FIXA"

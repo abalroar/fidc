@@ -13764,6 +13764,283 @@ def _render_revision_fixed_income_offer_comparison(
     )
 
 
+def _render_revision_closed_offer_placement_regime(
+    payload: dict[str, object],
+) -> None:
+    regime = _revision_frame(payload, "closed_offer_placement_regime")
+    if regime.empty:
+        return
+    regime = regime.copy()
+    numeric_columns = (
+        "period_order",
+        "regime_order",
+        "closed_offers",
+        "registered_volume_brl",
+        "closed_offers_share",
+        "registered_volume_share",
+        "period_closed_offers",
+        "period_registered_volume_brl",
+    )
+    for column in numeric_columns:
+        regime[column] = pd.to_numeric(regime[column], errors="coerce")
+    regime = regime.sort_values(
+        ["period_order", "regime_order"],
+        kind="stable",
+    )
+    period_order = regime["period_label"].drop_duplicates().tolist()
+    period_display = {
+        "2024 FY": "2024FY",
+        "2025 FY": "2025FY",
+        "2026 jan-jun": "2026 jan–jun",
+    }
+    period_colors = {
+        "2024 FY": _GRAY,
+        "2025 FY": _BLACK,
+        "2026 jan-jun": _ORANGE,
+    }
+    regime_order = (
+        regime.loc[~regime["placement_regime"].eq("Não informado")]
+        .sort_values("regime_order")["placement_regime"]
+        .drop_duplicates()
+        .tolist()
+    )
+    totals = (
+        regime.drop_duplicates("period_label")
+        .loc[
+            :,
+            [
+                "period_label",
+                "period_order",
+                "period_closed_offers",
+                "period_registered_volume_brl",
+            ],
+        ]
+        .sort_values("period_order")
+    )
+    totals["Período"] = totals["period_label"].map(period_display)
+    totals["Volume (R$ bi)"] = totals["period_registered_volume_brl"] / 1e9
+    totals["Ofertas · rótulo"] = totals["period_closed_offers"].map(
+        lambda value: _fmt_int(value)
+    )
+    totals["Volume · rótulo"] = totals["Volume (R$ bi)"].map(
+        lambda value: f"{float(value):.1f}".replace(".", ",")
+    )
+
+    current = regime[
+        regime["period_label"].eq(period_order[-1])
+        & regime["placement_regime"].eq("Melhores esforços")
+    ]
+    st.markdown(
+        "<h2>Volume e regime de colocação</h2>",
+        unsafe_allow_html=True,
+    )
+    if not current.empty:
+        current_row = current.iloc[0]
+        st.markdown(
+            '<div class="industry-note">'
+            f'Em jan–jun/26, melhores esforços responderam por '
+            f'<b>{_fmt_pct(float(current_row["closed_offers_share"]), 0)}</b> '
+            f'das ofertas encerradas e '
+            f'<b>{_fmt_pct(float(current_row["registered_volume_share"]), 0)}</b> '
+            "do volume registrado."
+            "</div>",
+            unsafe_allow_html=True,
+        )
+
+    def _total_chart(
+        *,
+        value_field: str,
+        label_field: str,
+        title: str,
+        axis_title: str,
+        key: str,
+    ) -> None:
+        bars = (
+            alt.Chart(totals)
+            .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
+            .encode(
+                x=alt.X(
+                    "Período:N",
+                    title=None,
+                    sort=[period_display.get(period, period) for period in period_order],
+                    axis=alt.Axis(labelAngle=0, grid=False),
+                ),
+                y=alt.Y(
+                    f"{value_field}:Q",
+                    title=axis_title,
+                    axis=alt.Axis(gridColor=_GRAY_LIGHT),
+                ),
+                color=alt.Color(
+                    "period_label:N",
+                    title=None,
+                    scale=alt.Scale(
+                        domain=period_order,
+                        range=[period_colors[period] for period in period_order],
+                    ),
+                    legend=None,
+                ),
+                tooltip=[
+                    alt.Tooltip("Período:N", title="Período"),
+                    alt.Tooltip(f"{value_field}:Q", title=axis_title, format=",.1f"),
+                ],
+            )
+        )
+        labels = (
+            alt.Chart(totals)
+            .mark_text(
+                dy=-8,
+                color=_BLACK,
+                font="Arial",
+                fontSize=10,
+                fontWeight=700,
+            )
+            .encode(
+                x=alt.X("Período:N", sort=[period_display.get(period, period) for period in period_order]),
+                y=alt.Y(f"{value_field}:Q"),
+                text=alt.Text(f"{label_field}:N"),
+            )
+        )
+        st.altair_chart(
+            (bars + labels).properties(height=300, title=title),
+            width="stretch",
+            key=key,
+        )
+
+    left, right = st.columns(2)
+    with left:
+        _total_chart(
+            value_field="period_closed_offers",
+            label_field="Ofertas · rótulo",
+            title="Evolução do número de ofertas",
+            axis_title="Ofertas encerradas",
+            key="industry-revision-placement-total-offers",
+        )
+    with right:
+        _total_chart(
+            value_field="Volume (R$ bi)",
+            label_field="Volume · rótulo",
+            title="Evolução do volume registrado",
+            axis_title="R$ bilhões",
+            key="industry-revision-placement-total-volume",
+        )
+
+    regime_view = regime[
+        regime["placement_regime"].isin(regime_order)
+    ].copy()
+    regime_view["Período"] = regime_view["period_label"].map(period_display)
+    regime_view["Volume (R$ bi)"] = regime_view["registered_volume_brl"] / 1e9
+    regime_view["Ofertas · rótulo"] = regime_view["closed_offers"].map(
+        lambda value: _fmt_int(value)
+    )
+    regime_view["Volume · rótulo"] = regime_view["Volume (R$ bi)"].map(
+        lambda value: f"{float(value):.1f}".replace(".", ",")
+    )
+
+    def _regime_chart(
+        *,
+        value_field: str,
+        label_field: str,
+        title: str,
+        axis_title: str,
+        key: str,
+    ) -> None:
+        bars = (
+            alt.Chart(regime_view)
+            .mark_bar()
+            .encode(
+                x=alt.X(
+                    f"{value_field}:Q",
+                    title=axis_title,
+                    axis=alt.Axis(gridColor=_GRAY_LIGHT),
+                ),
+                y=alt.Y(
+                    "placement_regime:N",
+                    title=None,
+                    sort=regime_order,
+                    axis=alt.Axis(labelLimit=180),
+                ),
+                yOffset=alt.YOffset(
+                    "Período:N",
+                    sort=[period_display.get(period, period) for period in period_order],
+                ),
+                color=alt.Color(
+                    "period_label:N",
+                    title=None,
+                    scale=alt.Scale(
+                        domain=period_order,
+                        range=[period_colors[period] for period in period_order],
+                    ),
+                    legend=alt.Legend(
+                        orient="bottom",
+                        labelExpr=(
+                            "datum.label == '2024 FY' ? '2024FY' : "
+                            "datum.label == '2025 FY' ? '2025FY' : "
+                            "'2026 jan–jun'"
+                        ),
+                    ),
+                ),
+                tooltip=[
+                    alt.Tooltip("placement_regime:N", title="Regime"),
+                    alt.Tooltip("Período:N", title="Período"),
+                    alt.Tooltip(f"{value_field}:Q", title=axis_title, format=",.1f"),
+                ],
+            )
+        )
+        labels = (
+            alt.Chart(regime_view)
+            .mark_text(
+                align="left",
+                baseline="middle",
+                dx=4,
+                color=_BLACK,
+                font="Arial",
+                fontSize=9,
+            )
+            .encode(
+                x=alt.X(f"{value_field}:Q"),
+                y=alt.Y("placement_regime:N", sort=regime_order),
+                yOffset=alt.YOffset(
+                    "Período:N",
+                    sort=[period_display.get(period, period) for period in period_order],
+                ),
+                text=alt.Text(f"{label_field}:N"),
+            )
+        )
+        st.altair_chart(
+            (bars + labels).properties(height=310, title=title),
+            width="stretch",
+            key=key,
+        )
+
+    left, right = st.columns(2)
+    with left:
+        _regime_chart(
+            value_field="closed_offers",
+            label_field="Ofertas · rótulo",
+            title="Regime de colocação · número de ofertas",
+            axis_title="Ofertas encerradas",
+            key="industry-revision-placement-regime-offers",
+        )
+    with right:
+        _regime_chart(
+            value_field="Volume (R$ bi)",
+            label_field="Volume · rótulo",
+            title="Regime de colocação · volume",
+            axis_title="R$ bilhões",
+            key="industry-revision-placement-regime-volume",
+        )
+
+    st.caption(
+        "Fonte: [CVM — Ofertas Públicas de Distribuição]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib), "
+        "oferta_resolucao_160.csv, snapshot 24/jul/26. Cotas de FIDC, oferta "
+        "primária, status Oferta Encerrada e Valor Total Registrado positivo; "
+        "unidade = Número do Requerimento. Regime usa Regime_distribuicao; "
+        "Garantia firme consolida colocação e liquidação. 2024/2025 são anos "
+        "completos; 2026 cobre janeiro a junho. Cobertura do regime: 100%."
+    )
+
+
 def _render_revision_offers(payload: dict[str, object]) -> None:
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
@@ -13941,6 +14218,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         source_as_of=source_as_of,
         chart_key="industry-revision-closed-offer-ticket-histogram",
     )
+    _render_revision_closed_offer_placement_regime(payload)
 
     annual_display_source = annual.copy()
     if not current.empty:
