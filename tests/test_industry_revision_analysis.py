@@ -444,6 +444,8 @@ def test_delinquency_qa_reconciles_aging_and_builds_ex360_sensitivity() -> None:
     row = _vehicle_rows().head(1).copy()
     row["carteira_dc"] = 100.0
     row["dc_inadimplentes"] = 80.0
+    row["dc_parcelas_inadimplentes"] = 0.0
+    row["reports_dc_parcelas_inadimplentes"] = True
     row["reports_aging"] = True
     row["reports_inad_acima_360d"] = True
     row["inad_ate_30d"] = 50.0

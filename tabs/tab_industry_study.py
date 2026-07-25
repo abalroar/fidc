@@ -12247,6 +12247,64 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 f"Fonte: CVM, Informe Mensal de FIDC, dez/23 e {stock_label_lower}. "
                 "Tabela II e Tipo/Foco ANBIMA permanecem separados."
             )
+            reconciliation = _revision_frame(
+                payload, "receivables_reconciliation_summary"
+            )
+            if not reconciliation.empty:
+                reconciliation = reconciliation.sort_values("competencia").copy()
+                reconciliation["Tabela I (R$ bi)"] = pd.to_numeric(
+                    reconciliation["tabela_i_carteira_brl"], errors="coerce"
+                ) / 1e9
+                reconciliation["Tabela II (R$ bi)"] = pd.to_numeric(
+                    reconciliation["tabela_ii_total_brl"], errors="coerce"
+                ) / 1e9
+                reconciliation["Gap II − I (R$ bi)"] = pd.to_numeric(
+                    reconciliation["gap_tabela_ii_menos_i_brl"], errors="coerce"
+                ) / 1e9
+                reconciliation["PL sem abertura (R$ bi)"] = pd.to_numeric(
+                    reconciliation["pl_sem_abertura_tabela_ii_brl"], errors="coerce"
+                ).fillna(0.0) / 1e9
+                reconciliation["Top 20 do gap positivo"] = pd.to_numeric(
+                    reconciliation["gap_positivo_top20_share"], errors="coerce"
+                )
+                display = reconciliation[
+                    [
+                        "competencia",
+                        "Tabela I (R$ bi)",
+                        "Tabela II (R$ bi)",
+                        "Gap II − I (R$ bi)",
+                        "fundos_sem_abertura_tabela_ii",
+                        "PL sem abertura (R$ bi)",
+                        "Top 20 do gap positivo",
+                    ]
+                ].rename(
+                    columns={
+                        "competencia": "Competência",
+                        "fundos_sem_abertura_tabela_ii": "Fundos sem abertura",
+                    }
+                )
+                st.markdown(
+                    "<h2>Reconciliação das Tabelas I e II</h2>",
+                    unsafe_allow_html=True,
+                )
+                st.dataframe(
+                    display.style.format(
+                        {
+                            "Tabela I (R$ bi)": "{:,.1f}",
+                            "Tabela II (R$ bi)": "{:,.1f}",
+                            "Gap II − I (R$ bi)": "{:,.1f}",
+                            "Fundos sem abertura": "{:,.0f}",
+                            "PL sem abertura (R$ bi)": "{:,.1f}",
+                            "Top 20 do gap positivo": "{:.1%}",
+                        }
+                    ),
+                    hide_index=True,
+                    width="stretch",
+                )
+                st.caption(
+                    "Fonte: CVM, Informe Mensal de FIDC, Tabelas I e II. "
+                    "A abertura é preservada como ausente quando nenhum campo da Tabela II foi reportado."
+                )
     with observability_tab:
         st.markdown("<h2>Observabilidade da inadimplência</h2>", unsafe_allow_html=True)
         cards = [
@@ -12269,6 +12327,19 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
             f"{_fmt_pct(float(qa.get('excesso_top5_share', 0)))} / {_fmt_pct(float(qa.get('excesso_top10_share', 0)))} do valor removido. "
             f"Excluindo integralmente esses casos, a métrica seria {_fmt_pct(float(qa.get('sensibilidade_ex_casos_acima_carteira_pct', 0)))}."
         )
+        if bool(qa.get("inadimplencia_ex_360d_publicavel")):
+            st.caption(
+                f"A visão ajustada ex-vencidos acima de 360 dias é "
+                f"{_fmt_pct(float(qa.get('inadimplencia_ex_360d_ajustada_pct_sobre_cobertura', 0)))}. "
+                f"Os {_fmt_bi(float(qa.get('aging_parcelas_inadimplentes_brl', 0)), 2)} que antes impediam a reconciliação "
+                "correspondem às parcelas vincendas ligadas a créditos inadimplentes, incluídas na Tabela I completa. "
+                f"O campo foi positivo em {_fmt_int(qa.get('veiculos_parcelas_inadimplentes_positivas', 0))} veículos."
+            )
+        else:
+            st.caption(
+                f"Visão ex-360 dias bloqueada: diferença residual entre o aging e a Tabela I completa de "
+                f"{_fmt_bi(float(qa.get('aging_gap_vs_tabela_i_completa_brl', 0)), 2)}."
+            )
 
         single = _revision_frame(payload, "delinquency_single_receivable")
         single_summary = dict(payload.get("delinquency_single_receivable_summary") or {})
@@ -12336,8 +12407,12 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 f"Incluídos: {_fmt_int(single_summary.get('fundos_incluidos', 0))} fundos e "
                 f"{_fmt_bi(float(single_summary.get('pl_incluido_brl', 0)), 1)}, equivalentes a "
                 f"{_fmt_pct(float(single_summary.get('cobertura_pl', 0)))} do PL ex-FIC positivo. "
-                f"Excluídos {_fmt_int(single_summary.get('fundos_multitipo_excluidos', 0))} fundos com mais de um tipo e "
-                f"{_fmt_int(single_summary.get('fundos_inad_supera_carteira_excluidos', 0))} casos com inadimplência acima da carteira. "
+                f"Excluídos {_fmt_int(single_summary.get('fundos_multitipo_excluidos', 0))} fundos com mais de um tipo "
+                f"({_fmt_bi(float(single_summary.get('pl_multitipo_excluido_brl', 0)), 1)}), "
+                f"{_fmt_int(single_summary.get('fundos_inad_supera_carteira_excluidos', 0))} acima da carteira "
+                f"({_fmt_bi(float(single_summary.get('pl_inad_supera_carteira_excluido_brl', 0)), 1)}) e "
+                f"{_fmt_int(single_summary.get('fundos_sem_tipo_excluidos', 0))} sem tipo "
+                f"({_fmt_bi(float(single_summary.get('pl_sem_tipo_excluido_brl', 0)), 1)}). "
                 "O numerador é a inadimplência reportada e o denominador é o PL total dos fundos incluídos."
             )
     with history_tab:

@@ -86,6 +86,8 @@ REQUIRED_DATA_INPUTS = (
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
     "industry_large_fund_classification.csv",
+    "anbima_documentary_overrides.csv",
+    "top20_profile_curation_overrides.csv",
     "industry_intelligence_manifest.json",
 )
 BUILDER_SOURCES = (
@@ -122,6 +124,8 @@ REQUIRED_ANALYSIS_FILES = {
     "base_fundo_cnpj.csv.gz",
     "source_presence_overlay.csv.gz",
     "qa_inadimplencia_competencia.csv",
+    "reconciliacao_tabelas_i_ii_resumo.csv",
+    "reconciliacao_tabelas_i_ii_detalhe.csv",
     "top20_fidcs.csv",
     "top20_outros.csv",
     "monoestrutura_por_fundo.csv",
@@ -1994,14 +1998,13 @@ def publish_revision_bundle(
             "--presence-months",
             ",".join(months),
         ]
+        published_overlay = publish_dir / "source_presence_overlay.csv.gz"
+        if published_overlay.is_file():
+            analysis_args.extend(
+                ["--source-presence-overlay", str(published_overlay)]
+            )
         if refresh_source_presence:
             analysis_args.append("--refresh-source-presence")
-        else:
-            published_overlay = publish_dir / "source_presence_overlay.csv.gz"
-            if published_overlay.is_file():
-                analysis_args.extend(
-                    ["--source-presence-overlay", str(published_overlay)]
-                )
         if skip_download:
             analysis_args.append("--skip-download")
         build_revision_analysis(analysis_args)

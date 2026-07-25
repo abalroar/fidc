@@ -1,0 +1,187 @@
+from __future__ import annotations
+
+from collections import Counter
+import json
+from pathlib import Path
+import re
+import zipfile
+
+import pandas as pd
+from pptx import Presentation
+
+
+ROOT = Path(__file__).resolve().parents[1]
+REVISION_DIR = ROOT / "data" / "industry_study" / "generated_revision"
+PPTX = REVISION_DIR / "industry_executive_revised.pptx"
+PAYLOAD = REVISION_DIR / "artifact_payload.json"
+
+
+def _presentation() -> Presentation:
+    return Presentation(PPTX)
+
+
+def _slide_text(slide) -> str:
+    return "\n".join(
+        shape.text
+        for shape in slide.shapes
+        if getattr(shape, "has_text_frame", False) and shape.text.strip()
+    )
+
+
+def _find_slide_index(slides: list[str], *tokens: str) -> int:
+    normalized = [token.casefold() for token in tokens]
+    return next(
+        index
+        for index, text in enumerate(slides)
+        if all(token in text.casefold() for token in normalized)
+    )
+
+
+def test_deck_has_no_duplicate_text_box_at_same_position() -> None:
+    for slide_number, slide in enumerate(_presentation().slides, start=1):
+        keys = []
+        for shape in slide.shapes:
+            if not getattr(shape, "has_text_frame", False):
+                continue
+            text = re.sub(r"\s+", " ", shape.text).strip()
+            if not text:
+                continue
+            keys.append((int(shape.left), int(shape.top), text))
+        duplicates = [key for key, count in Counter(keys).items() if count > 1]
+        assert not duplicates, (
+            f"slide {slide_number} contém caixa duplicada em posição e texto: "
+            f"{duplicates}"
+        )
+
+
+def test_deck_has_no_truncated_fragments_or_visible_technical_slugs() -> None:
+    visible = "\n".join(_slide_text(slide) for slide in _presentation().slides)
+    assert "…" not in visible
+    assert "..." not in visible
+    assert "TOS CREDITORIOS CEDIDOS SAO ORIUNDOS DO" not in visible.upper()
+    assert "ESENTE ANEXO, A CLASSE PODERA ADQUIRIR DO S" not in visible.upper()
+    assert not re.search(r"(?<=[a-záéíóúãõç])_[a-záéíóúãõç]", visible)
+    assert not re.search(
+        r"(?:^|\n)\s*[•\-]?\s*(Vale destacar|É importante notar|Cabe ressaltar)",
+        visible,
+        flags=re.IGNORECASE,
+    )
+    assert not re.search(
+        r"\b(robusto|robusta|robustos|robustas|expressivo|expressiva|"
+        r"expressivos|expressivas|significativo|significativa|"
+        r"significativos|significativas)\b",
+        visible,
+        flags=re.IGNORECASE,
+    )
+
+
+def test_material_market_share_slides_are_in_the_main_body() -> None:
+    slides = [_slide_text(slide) for slide in _presentation().slides]
+    provider = _find_slide_index(slides, "PRESTADORES · LIDERANÇA EXPLICADA")
+    admin = _find_slide_index(
+        slides, "MARKET SHARE · ADMINISTRAÇÃO", "Recebíveis Comerciais"
+    )
+    manager = _find_slide_index(
+        slides, "MARKET SHARE · GESTÃO", "Crédito Pessoal"
+    )
+    custodian = _find_slide_index(
+        slides, "MARKET SHARE · CUSTÓDIA", "Crédito Pessoal"
+    )
+    top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
+    top20_other = _find_slide_index(slides, "RANKING · TOP 20 OUTROS")
+    first_profile = _find_slide_index(
+        slides, "APÊNDICE · CURADORIA TOP 20", "#1 FIDC Sistema Petrobras"
+    )
+    full_admin = _find_slide_index(
+        slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
+    )
+    assert provider < admin < manager < custodian < top20 < top20_other
+    assert top20_other < first_profile < full_admin
+
+
+def test_top20_rankings_and_profile_layout_are_complete() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    assert len(payload["top20_fidcs"]) == 20
+    assert len(payload["top20_outros"]) == 20
+    assert [int(row["rank"]) for row in payload["top20_fidcs"]] == list(
+        range(1, 21)
+    )
+    assert [int(row["rank_outros"]) for row in payload["top20_outros"]] == list(
+        range(1, 21)
+    )
+    assert all(
+        row.get("anbima_tipo") not in {None, "", "N/D"}
+        and row.get("anbima_foco") not in {None, "", "N/D"}
+        for row in payload["top20_fidcs"]
+    )
+
+    profile_slides = [
+        slide
+        for slide in _presentation().slides
+        if "APÊNDICE · CURADORIA TOP 20" in _slide_text(slide)
+    ]
+    assert len(profile_slides) == 20
+    assert len({len(slide.shapes) for slide in profile_slides}) == 1
+    for slide in profile_slides:
+        assert "Cobertura documental:" in _slide_text(slide)
+
+
+def test_hhi_uses_antitrust_points_scale() -> None:
+    frame = pd.read_csv(REVISION_DIR / "monoestrutura_concentracao.csv")
+    hhi = pd.to_numeric(frame["hhi_fundos"], errors="raise")
+    assert hhi.between(0, 10_000).all()
+    assert hhi.max() == 10_000
+    slide = next(
+        slide
+        for slide in _presentation().slides
+        if "CONCENTRAÇÃO DAS MONOESTRUTURAS" in _slide_text(slide)
+    )
+    assert "HHI em pontos de 0 a 10.000" in _slide_text(slide)
+
+
+def test_aging_reconciles_to_full_table_i_and_ex360_is_published() -> None:
+    qa = pd.read_csv(REVISION_DIR / "qa_inadimplencia_competencia.csv")
+    latest = qa.sort_values("competencia").iloc[-1]
+    assert latest["aging_publication_status"] == "publicável"
+    assert bool(latest["inadimplencia_ex_360d_publicavel"])
+    assert abs(float(latest["aging_gap_vs_tabela_i_completa_brl"])) < 1.0
+    assert float(latest["aging_parcelas_inadimplentes_brl"]) > 6_000_000_000
+
+
+def test_table_i_ii_reconciliation_and_documentary_classification_are_published() -> None:
+    reconciliation = pd.read_csv(
+        REVISION_DIR / "reconciliacao_tabelas_i_ii_resumo.csv"
+    )
+    assert set(reconciliation["competencia"]) == {"2023-12", "2026-06"}
+    latest = reconciliation.set_index("competencia").loc["2026-06"]
+    assert int(latest["fundos_sem_abertura_tabela_ii"]) >= 0
+    assert 0 <= float(latest["gap_positivo_top20_share"]) <= 1
+
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    evidence = next(
+        row
+        for row in payload["classification_coverage"]
+        if row["categoria"] == "Evidência documental"
+    )
+    assert float(evidence["pl"]) > 0
+    mt_global = next(
+        row
+        for row in payload["top20_fidcs"]
+        if row["cnpj_fundo"] == "63953619000130"
+    )
+    assert mt_global["anbima_tipo"] == "Financeiro"
+    assert mt_global["anbima_foco"] == "Crédito Consignado"
+
+
+def test_native_line_charts_keep_markers_and_smoothing_disabled() -> None:
+    with zipfile.ZipFile(PPTX) as archive:
+        charts = b"".join(
+            archive.read(name)
+            for name in archive.namelist()
+            if "/charts/chart" in name and name.endswith(".xml")
+        )
+    assert b'<c:smooth val="1"' not in charts
+    assert b'<c:smooth val="true"' not in charts
+    for chunk in charts.replace(b" />", b"/>").split(b"<c:marker>")[1:]:
+        marker = chunk.split(b"</c:marker>", 1)[0]
+        assert b'<c:symbol val="none"' in marker

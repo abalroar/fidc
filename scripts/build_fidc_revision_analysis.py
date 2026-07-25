@@ -78,6 +78,18 @@ def main(argv: list[str] | None = None) -> None:
             latest_complete = str(vehicle["competencia"].astype(str).max())
     official = _read_optional(data_dir / "industry_anbima_classification.csv.gz")
     published = _read_optional(data_dir / "industry_large_fund_classification.csv")
+    documentary_overrides = _read_optional(
+        data_dir / "anbima_documentary_overrides.csv"
+    )
+    if documentary_overrides is not None and not documentary_overrides.empty:
+        published = pd.concat(
+            [
+                published if published is not None else pd.DataFrame(),
+                documentary_overrides,
+            ],
+            ignore_index=True,
+            sort=False,
+        )
     provider_ownership = _read_optional(data_dir / "provider_ownership_curation.csv")
     bank_fidcs = _read_optional(data_dir / "bank_fidc_curation.csv")
     acquiring_reclassification = _read_optional(
@@ -157,15 +169,30 @@ def main(argv: list[str] | None = None) -> None:
             raw_table_ii_frames.append(frame.copy())
         if args.refresh_source_presence and competence in requested_months:
             raw_frames.append(frame)
-    raw_audit = (
-        pd.concat(raw_frames, ignore_index=True)
-        if args.refresh_source_presence and raw_frames
-        else (
-            pd.DataFrame()
-            if args.refresh_source_presence
-            else reused_presence_overlay
+    if args.refresh_source_presence:
+        audit_parts = [
+            frame
+            for frame in (reused_presence_overlay, *raw_frames)
+            if frame is not None and not frame.empty
+        ]
+        raw_audit = (
+            pd.concat(audit_parts, ignore_index=True, sort=False)
+            if audit_parts
+            else pd.DataFrame()
         )
-    )
+        if not raw_audit.empty:
+            raw_audit["competencia"] = raw_audit["competencia"].astype(str).str[:7]
+            raw_audit["cnpj"] = raw_audit["cnpj"].astype(str).str.replace(
+                r"\D",
+                "",
+                regex=True,
+            ).str.zfill(14)
+            raw_audit = raw_audit.drop_duplicates(
+                ["competencia", "cnpj"],
+                keep="last",
+            )
+    else:
+        raw_audit = reused_presence_overlay
     raw_table_ii = (
         pd.concat(raw_table_ii_frames, ignore_index=True)
         if raw_table_ii_frames

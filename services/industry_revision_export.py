@@ -46,6 +46,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Ranking prestadores",
     "Inadimplência por recebível",
     "Histórico inad. coorte",
+    "Reconciliação Tabelas I-II",
     "Ranking independentes",
     "FIDCs por banco",
     "Detalhe coorte bancos",

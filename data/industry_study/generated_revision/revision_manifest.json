@@ -8,7 +8,7 @@
     "btg_provider_ex_controlled_roles": 3,
     "frozen_single_receivable_funds": 2066,
     "independent_provider_rows": 68,
-    "latest_aging_publication_status": "bloqueado_aging_nao_reconcilia_tab_I",
+    "latest_aging_publication_status": "publicável",
     "latest_funds": 4247,
     "latest_presence_exact": true,
     "latest_vehicles": 4252,
@@ -55,11 +55,11 @@
       "rows": 24
     },
     "base_competencia_cnpj.csv.gz": {
-      "columns": 108,
+      "columns": 114,
       "rows": 229451
     },
     "base_fundo_cnpj.csv.gz": {
-      "columns": 58,
+      "columns": 59,
       "rows": 229420
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14833
+      "rows": 15035
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 16,
@@ -135,7 +135,7 @@
       "rows": 17
     },
     "monoestrutura_por_fundo.csv": {
-      "columns": 71,
+      "columns": 72,
       "rows": 4247
     },
     "prestadores_independentes_ranking.csv": {
@@ -171,7 +171,7 @@
       "rows": 178
     },
     "qa_inadimplencia_competencia.csv": {
-      "columns": 49,
+      "columns": 56,
       "rows": 162
     },
     "qi_atribuicao_cnpjs_legados.csv": {
@@ -190,28 +190,36 @@
       "columns": 28,
       "rows": 1
     },
+    "reconciliacao_tabelas_i_ii_detalhe.csv": {
+      "columns": 14,
+      "rows": 6651
+    },
+    "reconciliacao_tabelas_i_ii_resumo.csv": {
+      "columns": 19,
+      "rows": 2
+    },
     "reconciliacao_veiculo_fundo_latest.csv": {
       "columns": 8,
       "rows": 4247
     },
     "source_presence_overlay.csv.gz": {
-      "columns": 35,
-      "rows": 229458
+      "columns": 49,
+      "rows": 229475
     },
     "top20_fidcs.csv": {
-      "columns": 73,
+      "columns": 74,
       "rows": 20
     },
     "top20_outros.csv": {
-      "columns": 74,
+      "columns": 75,
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-25T02:00:23+00:00",
+  "generated_at_utc": "2026-07-25T03:41:51+00:00",
   "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
-    "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; 2026-06 não passa esse teste e permanece diagnóstico, não headline.",
+    "Buckets de aging e a sensibilidade ex-360 usam os campos brutos das Tabelas V/VI e a soma dos créditos inadimplentes com as parcelas inadimplentes dos créditos a vencer na Tabela I.",
     "Gestor e custodiante históricos vêm do cadastro vigente e não constituem série histórica like-for-like.",
     "Por isso, os fluxos dez/24–dez/25 são calculados somente para administração; nenhuma troca histórica de gestor ou custodiante é inferida.",
     "Monoestrutura mede coincidência de conglomerado normalizado; não demonstra preço, contrato ou venda casada."
