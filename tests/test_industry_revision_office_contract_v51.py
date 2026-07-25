@@ -1,4 +1,4 @@
-"""Acceptance contract for the 53-slide FIDC industry revision.
+"""Acceptance contract for the 54-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -34,14 +34,14 @@ XLSX = (
     / "industry_data_revised.xlsx"
 )
 
-TARGET_SLIDES = 53
+TARGET_SLIDES = 54
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (47, 48, 49, 50, 51, 52)
+MARKET_SHARE_SLIDES = (48, 49, 50, 51, 52, 53)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -110,14 +110,20 @@ SLIDE_TOKENS = {
         "R$ 33,0 BI",
         "DOIS FIDCS CIELO",
     ),
-    26: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    47: ("MARKET SHARE · ADMINISTRAÇÃO",),
-    48: ("MARKET SHARE · GESTÃO",),
-    49: ("MARKET SHARE · CUSTÓDIA",),
-    50: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    51: ("GESTÃO POR SUBTIPO",),
-    52: ("CUSTÓDIA POR SUBTIPO",),
-    53: (
+    26: (
+        "CONCLUSÕES ESTRATÉGICAS · DCM",
+        "ONDE O FLUXO CRESCE",
+        "GARANTIA FIRME",
+        "TOP 15",
+    ),
+    27: ("ESCOPO, FONTES E LIMITAÇÕES",),
+    48: ("MARKET SHARE · ADMINISTRAÇÃO",),
+    49: ("MARKET SHARE · GESTÃO",),
+    50: ("MARKET SHARE · CUSTÓDIA",),
+    51: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    52: ("GESTÃO POR SUBTIPO",),
+    53: ("CUSTÓDIA POR SUBTIPO",),
+    54: (
         "APÊNDICE · CASO ATLÂNTICO",
         "09.194.841/0001-51",
         "A QUEBRA NO BRUTO COINCIDE",
@@ -203,15 +209,15 @@ def test_export_and_renderer_declare_53_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*53\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*54\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*53;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*54;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_53_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_54_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {

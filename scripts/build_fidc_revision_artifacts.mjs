@@ -81,8 +81,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v18";
-const EXPECTED_SLIDES = 53;
+const RENDERER_VERSION = "industry_revision_artifacts_v19";
+const EXPECTED_SLIDES = 54;
 
 const C = {
   orange: "#EC7000",
@@ -2254,6 +2254,211 @@ function addConclusionsSlide(presentation, payload, page) {
   return slide;
 }
 
+function fixedIncomeFidcShare(payload, periodLabel) {
+  const row = (payload.fixed_income_offer_comparison || []).find(
+    (item) => String(item.view_order) === "2"
+      && item.series_label === "FIDCs"
+      && item.period_label === periodLabel,
+  );
+  return row ? num(row.share_of_period_view_volume) : 0;
+}
+
+function fixedIncomeYoy(payload, seriesLabel) {
+  const rows = (payload.fixed_income_offer_comparison || []).filter(
+    (item) => String(item.view_order) === "1" && item.series_label === seriesLabel,
+  );
+  const latest = rows.at(-1);
+  return latest ? num(latest.yoy_growth) : 0;
+}
+
+function placementRegimeShare(payload, periodLabel, regime) {
+  const row = (payload.closed_offer_placement_regime || []).find(
+    (item) => item.period_label === periodLabel && item.placement_regime === regime,
+  );
+  return row ? num(row.registered_volume_share) : 0;
+}
+
+function ticketBucket(payload, periodLabel, bucket) {
+  return (payload.closed_offer_ticket_distribution || []).find(
+    (item) => item.period_label === periodLabel && item.ticket_bucket === bucket,
+  ) || {};
+}
+
+function top15SummaryFor(payload, periodLabel) {
+  return (payload.closed_offer_top15_summary || []).find(
+    (item) => item.period_label === periodLabel,
+  ) || {};
+}
+
+function largestOfferOfPeriod(payload, periodLabel) {
+  const rows = (payload.closed_offer_top15 || []).filter((item) => item.period_label === periodLabel);
+  return rows.sort((a, b) => num(a.rank) - num(b.rank))[0] || {};
+}
+
+function tn(value, digits = 1) {
+  return `R$ ${(num(value) / 1e12).toFixed(digits).replace(".", ",")} tri`;
+}
+
+// Remove a forma societária do fim do nome para o texto corrido do slide.
+// "BANCO BRADESCO BBI S.A." vira "BANCO BRADESCO BBI".
+function legalEntityShort(value) {
+  return String(value || "")
+    .replace(/[,\s]+(S\.?\/?A\.?|LTDA\.?|DTVM|CCTVM|CVMC)\.?\s*$/i, "")
+    .trim();
+}
+
+// Conclusões de posicionamento para DCM e book comercial. O slide anterior fecha
+// a leitura de servicing; este responde onde o fluxo cresce e onde o IBBA ganha
+// ou perde share. Todos os números saem do payload publicado.
+function fallbackStrategicConclusions(payload) {
+  const currentLabel = "2026 jan-jun";
+  const priorLabel = "2025 FY";
+  const bcb = (payload.bcb_expanded_credit || []).find(
+    (row) => String(row.is_latest).toLowerCase() === "true",
+  ) || {};
+  const bcbShort = competenceShortPt(String(bcb.competencia || "")).toLowerCase();
+  const securitization = num(bcb.securitization_brl);
+  const fidcReceivables = num(bcb.fidc_receivables_brl);
+  const expandedCredit = num(bcb.expanded_credit_total_brl);
+  const comparable = payload.closed_offers_jan_june || [];
+  const current = comparable.find((row) => num(row.year) === 2026) || {};
+  const prior = comparable.find((row) => num(row.year) === 2025) || {};
+  const growth = num(prior.registered_volume_brl)
+    ? num(current.registered_volume_brl) / num(prior.registered_volume_brl) - 1
+    : 0;
+  const bigTicket = ticketBucket(payload, currentLabel, "≥ R$ 500 mi");
+  const smallTickets = ["< R$ 10 mi", "R$ 10–25 mi"].map((bucket) => ticketBucket(payload, currentLabel, bucket));
+  const smallOfferShare = smallTickets.reduce((sum, row) => sum + num(row.offer_share), 0);
+  const smallVolumeShare = smallTickets.reduce((sum, row) => sum + num(row.registered_volume_share), 0);
+  const firmNow = placementRegimeShare(payload, currentLabel, "Garantia firme");
+  const firmPrior = placementRegimeShare(payload, priorLabel, "Garantia firme");
+  const bestNow = placementRegimeShare(payload, currentLabel, "Melhores esforços");
+  const bestPrior = placementRegimeShare(payload, priorLabel, "Melhores esforços");
+  const top15Now = top15SummaryFor(payload, currentLabel);
+  const top15Prior = top15SummaryFor(payload, priorLabel);
+  const firmShareNow = num(top15Now.firm_commitment_volume_top15_brl)
+    ? num(top15Now.ibba_firm_commitment_volume_top15_brl) / num(top15Now.firm_commitment_volume_top15_brl)
+    : 0;
+  const firmSharePrior = num(top15Prior.firm_commitment_volume_top15_brl)
+    ? num(top15Prior.ibba_firm_commitment_volume_top15_brl) / num(top15Prior.firm_commitment_volume_top15_brl)
+    : 0;
+  const largest = largestOfferOfPeriod(payload, currentLabel);
+  const largestLeader = legalEntityShort(largest.leader_name) || "outro coordenador";
+  return [
+    {
+      order: 1,
+      title: "FIDC já é um quarto da renda fixa ofertada",
+      bullets: [
+        `A participação do FIDC no volume ofertado saiu de ${pct(fixedIncomeFidcShare(payload, "2023 FY"), 1)} em 2023 para ${pct(fixedIncomeFidcShare(payload, currentLabel), 1)} em jan–jun/26.`,
+        `No semestre, FIDCs cresceram ${pct(fixedIncomeYoy(payload, "FIDCs"), 1)} e os demais instrumentos elegíveis recuaram ${pct(Math.abs(fixedIncomeYoy(payload, "Demais elegíveis")), 1)}.`,
+      ],
+    },
+    {
+      order: 2,
+      title: "O estoque ainda tem espaço para crescer",
+      bullets: [
+        `A carteira de FIDCs é ${bn(fidcReceivables, 1)}: ${pct(securitization ? fidcReceivables / securitization : 0, 0)} de toda a securitização brasileira (${bn(securitization, 1)} em ${bcbShort}).`,
+        `Equivale a ${pct(expandedCredit ? fidcReceivables / expandedCredit : 0, 1)} do crédito ampliado de ${tn(expandedCredit, 1)}.`,
+      ],
+    },
+    {
+      order: 3,
+      title: "O volume depende de poucos tickets grandes",
+      bullets: [
+        `${integer(bigTicket.closed_offers)} ofertas de ${mm(bigTicket.ticket_floor_brl, 0)} ou mais responderam por ${pct(bigTicket.registered_volume_share, 1)} do volume, com ${pct(bigTicket.offer_share, 1)} das ofertas.`,
+        `${pct(smallOfferShare, 1)} das ofertas ficaram abaixo de R$ 25 mi e somaram ${pct(smallVolumeShare, 1)} do volume.`,
+      ],
+    },
+    {
+      order: 4,
+      title: "O volume migra para garantia firme",
+      bullets: [
+        `Garantia firme passou de ${pct(firmPrior, 1)} do volume em 2025 para ${pct(firmNow, 1)} em jan–jun/26, o topo da série.`,
+        `Melhores esforços seguem na maioria das ofertas, mas caíram de ${pct(bestPrior, 1)} para ${pct(bestNow, 1)} do volume.`,
+      ],
+    },
+    {
+      order: 5,
+      title: "Estamos bem posicionados no topo da tabela",
+      bullets: [
+        `O IBBA participou de ${integer(top15Now.ibba_participation_offers_top15)} das 15 maiores ofertas do semestre — ${pct(top15Now.ibba_participation_share_top15_volume, 1)} do volume do bloco, ante ${pct(top15Prior.ibba_participation_share_top15_volume, 1)} em 2025.`,
+        `Liderou ${integer(top15Now.ibba_lead_offers_top15)}, contra ${integer(top15Prior.ibba_lead_offers_top15)} em 2025: ${pct(top15Now.ibba_lead_share_top15_volume, 1)} do volume do Top 15 e ${pct(top15Now.ibba_lead_share_period_volume, 1)} do mercado.`,
+      ],
+    },
+    {
+      order: 6,
+      title: "A perda de share está no regime que mais cresce",
+      bullets: [
+        `A garantia firme do Top 15 subiu para ${bn(top15Now.firm_commitment_volume_top15_brl, 1)}; a fatia do IBBA nesse recorte passou de ${pct(firmSharePrior, 1)} para ${pct(firmShareNow, 1)}.`,
+        `A maior oferta do semestre (${bn(largest.registered_volume_brl, 1)}) foi liderada por ${largestLeader}, com o IBBA como participante.`,
+      ],
+    },
+  ];
+}
+
+function strategicConclusions(payload) {
+  const rows = payload.strategic_conclusions;
+  if (!Array.isArray(rows) || rows.length !== 6) return fallbackStrategicConclusions(payload);
+  const normalized = rows.map((row, index) => ({
+    order: Math.round(num(row?.order, index + 1)),
+    title: String(row?.title || "").trim(),
+    bullets: Array.isArray(row?.bullets)
+      ? row.bullets.map((bullet) => String(bullet || "").trim())
+      : [],
+  }));
+  const valid = normalized.every(
+    (row) => row.order >= 1
+      && row.order <= 6
+      && row.title
+      && row.bullets.length === 2
+      && row.bullets.every(Boolean),
+  ) && new Set(normalized.map((row) => row.order)).size === 6;
+  return valid
+    ? normalized.sort((a, b) => a.order - b.order)
+    : fallbackStrategicConclusions(payload);
+}
+
+function addStrategicConclusionsSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  const conclusions = strategicConclusions(payload);
+  const current = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
+  const bcb = (payload.bcb_expanded_credit || []).find(
+    (row) => String(row.is_latest).toLowerCase() === "true",
+  ) || {};
+  const footer = [
+    "Fontes: CVM (SRE, ofertas encerradas até 30/jun/26) e BCB (crédito ampliado).",
+    `Estoque do BCB em ${competenceShortPt(String(bcb.competencia || "")).toLowerCase()}; ofertas comparadas jan–jun contra jan–jun.`,
+    `Coorte de ${integer(current.closed_offers)} ofertas primárias encerradas com volume registrado positivo.`,
+    "IBBA Coord = entidade do conglomerado Itaú entre as instituições intermediárias.",
+  ].join(" ");
+  addHeader(
+    slide,
+    "CONCLUSÕES ESTRATÉGICAS · DCM",
+    "Onde o fluxo cresce e onde o IBBA ganha ou perde share",
+    footer,
+    page,
+  );
+  conclusions.forEach((item, index) => {
+    const column = index % 2;
+    const row = Math.floor(index / 2);
+    const left = column === 0 ? 60 : 660;
+    const top = 140 + row * 172;
+    const order = String(item.order).padStart(2, "0");
+    addText(slide, `${order} · ${item.title.toUpperCase()}`, { left, top, width: 540, height: 20 }, {
+      fontSize: 10.5,
+      bold: true,
+      color: C.orange,
+    });
+    addText(slide, item.bullets.map((bullet) => `• ${bullet}`).join("\n"), { left, top: top + 27, width: 540, height: 118 }, {
+      fontSize: 12.6,
+      color: C.charcoal,
+      lineSpacing: 1.06,
+    });
+    addRule(slide, left, top + 156, 540, C.line, 0.7);
+  });
+  return slide;
+}
+
 function buildPresentation(payload, flowAssets) {
   automaticPageNumber = 1;
   const presentation = Presentation.create({ slideSize: SLIDE });
@@ -4125,6 +4330,7 @@ function buildPresentation(payload, flowAssets) {
   }
 
   addConclusionsSlide(presentation, payload, 31);
+  addStrategicConclusionsSlide(presentation, payload, 32);
 
   // 27. Escopo, fontes e limitações
   {

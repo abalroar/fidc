@@ -31,7 +31,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 53
+EXPECTED_SLIDES = 54
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",

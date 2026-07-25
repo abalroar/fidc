@@ -9590,6 +9590,22 @@ def _industry_export_payloads(signature: str) -> tuple[bytes, bytes, bytes]:
 
 
 @st.cache_data(show_spinner=False)
+def _industry_lean_pptx(signature: str) -> bytes | None:
+    """Recorte DCM do deck publicado; ``None`` quando o bundle ainda não o cobre."""
+
+    from services.industry_lean_deck import (
+        LeanDeckUnavailable,
+        build_lean_revision_pptx_bytes,
+    )
+
+    del signature  # the value participates in Streamlit's cache key
+    try:
+        return build_lean_revision_pptx_bytes(_DATA_DIR)
+    except LeanDeckUnavailable:
+        return None
+
+
+@st.cache_data(show_spinner=False)
 def _industry_provider_flow_html(signature: str) -> str:
     from services.industry_revision_export import build_revision_html_bytes
 
@@ -9745,8 +9761,9 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Exportação executiva indisponível: {exc}")
         return
+    lean_bytes = _industry_lean_pptx(_industry_export_signature())
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    left, middle, right, _spacer = st.columns([1, 1, 1, 2])
+    left, lean, middle, right, _spacer = st.columns([1, 1, 1, 1, 1])
     with left:
         st.download_button(
             "PPTX",
@@ -9758,6 +9775,30 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
             width="stretch",
             key=f"industry-pptx-{suffix}",
         )
+    with lean:
+        if lean_bytes is None:
+            st.button(
+                "PPTX enxuto",
+                icon=":material/slideshow:",
+                help=(
+                    "Indisponível: o bundle publicado ainda não contém as conclusões "
+                    "estratégicas. Republique o pacote da revisão."
+                ),
+                width="stretch",
+                disabled=True,
+                key=f"industry-pptx-lean-disabled-{suffix}",
+            )
+        else:
+            st.download_button(
+                "PPTX enxuto",
+                data=lean_bytes,
+                file_name=f"Industria_FIDC_Executivo_{file_period}_Resumido.pptx",
+                mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                icon=":material/slideshow:",
+                help="Baixar o recorte para DCM e book comercial",
+                width="stretch",
+                key=f"industry-pptx-lean-{suffix}",
+            )
     with middle:
         st.download_button(
             "XLSX",

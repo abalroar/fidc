@@ -224,7 +224,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 53
+    assert len(slides) == 54
     expected_body = [
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
