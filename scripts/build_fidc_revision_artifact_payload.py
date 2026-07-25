@@ -98,6 +98,9 @@ def _display_fund_name(value: object) -> str:
         ("MONEE I", "Monee I"),
         ("PICPAY I", "PicPay I"),
         ("ARTESANAL MASTER", "Artesanal Master"),
+        ("MAROBÁ", "Marobá"),
+        ("VENDA DE VEÍCULOS", "Venda de Veículos"),
+        ("ACR BEM", "ACR BEM"),
         ("HIGH TOWER", "High Tower NP"),
         ("DAY MAXX 2", "Day Maxx 2"),
     )
@@ -2081,6 +2084,24 @@ def _pick(row: pd.Series, *names: str) -> str:
     return ""
 
 
+def _usable_profile_text(value: object) -> str:
+    text = _text(value)
+    normalized = text.casefold()
+    if (
+        not text
+        or normalized == "não identificado"
+        or normalized.startswith("não identificado no")
+        or normalized.startswith("campo não identificado")
+    ):
+        return ""
+    if normalized.startswith("não identificado como entidade única;"):
+        return (
+            "Os documentos não apontam uma entidade cedente única;"
+            + text.split(";", 1)[1]
+        )
+    return text
+
+
 def _build_profiles(
     top20: pd.DataFrame,
     curation: pd.DataFrame,
@@ -2098,37 +2119,114 @@ def _build_profiles(
         doc["cnpj_key"] = doc["cnpj"].map(_digits)
         doc = doc.drop_duplicates("cnpj_key", keep="last").set_index("cnpj_key")
     profiles: list[dict[str, Any]] = []
+    origin_labels = {
+        "oficial_anbima_snapshot": "Classificação oficial ANBIMA por CNPJ da classe",
+        "nao_identificado": "Sem classificação ANBIMA no snapshot consultado",
+        "evidencia_documental": "Evidência documental primária",
+        "evidencia_publicada": "Evidência documental primária",
+        "proxy_cvm": "Proxy determinístico a partir do Informe Mensal CVM",
+    }
     for _, fund in top20.sort_values("rank").iterrows():
         key = _digits(fund.get("cnpj_fundo"))
         curated = cur.loc[key] if not cur.empty and key in cur.index else pd.Series(dtype=object)
         documented = doc.loc[key] if not doc.empty and key in doc.index else pd.Series(dtype=object)
-        nature = _pick(curated, "natureza_recebiveis", "natureza_dos_recebiveis", "recebiveis")
+        nature = _usable_profile_text(
+            _pick(
+                curated,
+                "natureza_recebiveis",
+                "natureza_dos_recebiveis",
+                "recebiveis",
+            )
+        )
         if not nature:
             d1 = _pick(documented, "document_segment_n1")
             d2 = _pick(documented, "document_segment_n2")
             nature = " — ".join(item for item in (d1, d2) if item)
-        evidence = _pick(curated, "evidencia", "evidencia_resumo", "trecho_evidencia")
+        evidence = _usable_profile_text(
+            _pick(
+                curated,
+                "evidencia",
+                "evidencia_resumo",
+                "trecho_evidencia",
+            )
+        )
         evidence = evidence or _pick(
             curated,
             "nota_classificacao",
             "segmento_economico_documental",
         )
         if not evidence:
-            evidence = _pick(documented, "classification_evidence")[:280]
-        source = _pick(curated, "fonte", "fontes", "source", "url", "links")
+            evidence = _usable_profile_text(
+                _pick(documented, "classification_evidence")[:280]
+            )
+        source = _usable_profile_text(
+            _pick(curated, "fonte", "fontes", "source", "url", "links")
+        )
         source = source or _pick(curated, "fundosnet_gerenciador")
         if not source:
             source = _pick(documented, "source")
-        classes = _pick(
-            curated,
-            "classes_subordinacao_garantias",
-            "classes_subordinacao",
-            "classes",
-            "subordinacao_garantias",
+        classes = _usable_profile_text(
+            _pick(
+                curated,
+                "classes_subordinacao_garantias",
+                "classes_subordinacao",
+                "classes",
+                "subordinacao_garantias",
+            )
         )
         guarantees = _pick(curated, "garantias")
         if guarantees and guarantees not in classes:
             classes = f"{classes} Garantias: {guarantees}".strip()
+        consultation_date = _pick(curated, "data_consulta", "consulted_at") or "2026-07-24"
+        missing_by_field = {
+            "cedente_originador": "Cedente/originador não localizado nas fontes consultadas.",
+            "sacado_devedor": "Sacado ou perfil de devedores não localizado nas fontes consultadas.",
+            "natureza_recebiveis": "Natureza dos recebíveis não localizada nas fontes consultadas.",
+            "funcionamento_economico": "Mecânica econômica não localizada nas fontes consultadas.",
+            "emissoes": "Emissões relevantes não localizadas nas fontes consultadas.",
+            "classes_subordinacao_garantias": (
+                "Classes, subordinação e garantias não localizadas nas fontes consultadas."
+            ),
+        }
+        profile_values = {
+            "cedente_originador": _usable_profile_text(
+                _pick(curated, "cedente_originador", "cedente", "originador")
+            ),
+            "sacado_devedor": _usable_profile_text(
+                _pick(
+                    curated,
+                    "sacado_devedor",
+                    "sacado",
+                    "devedor",
+                    "perfil_sacados",
+                )
+            ),
+            "natureza_recebiveis": nature,
+            "funcionamento_economico": _usable_profile_text(
+                _pick(
+                    curated,
+                    "funcionamento_economico",
+                    "funcionamento",
+                    "mecanica",
+                )
+            ),
+            "emissoes": _usable_profile_text(
+                _pick(curated, "emissoes", "emissoes_relevantes", "ofertas")
+            ),
+            "classes_subordinacao_garantias": classes,
+        }
+        identified_fields = sum(bool(value) for value in profile_values.values())
+        coverage_label = _pick(
+            curated, "cobertura_documental", "document_coverage"
+        ) or f"{identified_fields}/6 campos documentais preenchidos"
+        curated_type = _usable_profile_text(_pick(curated, "tipo_anbima"))
+        curated_focus = _usable_profile_text(_pick(curated, "foco_anbima"))
+        raw_origin = (
+            _pick(curated, "origem_tipo_foco")
+            if curated_type or curated_focus
+            else ""
+        ) or _text(fund.get("classification_status")) or "N/D"
+        readable_origin = origin_labels.get(raw_origin, raw_origin.replace("_", " ").strip())
         fields = {
             "rank": int(fund["rank"]),
             "cnpj_fundo": key,
@@ -2137,26 +2235,35 @@ def _build_profiles(
             "nome_curto": _display_fund_name(fund.get("denominacao")),
             "pl": float(fund["pl"]),
             "market_share_ex_fic": float(fund["market_share_ex_fic"]),
-            "cedente_originador": _pick(curated, "cedente_originador", "cedente", "originador") or "não identificado",
-            "sacado_devedor": _pick(curated, "sacado_devedor", "sacado", "devedor", "perfil_sacados") or "não identificado",
-            "natureza_recebiveis": nature or "não identificado",
-            "funcionamento_economico": _pick(curated, "funcionamento_economico", "funcionamento", "mecanica") or "não identificado",
-            "emissoes": _pick(curated, "emissoes", "emissoes_relevantes", "ofertas") or "não identificado",
-            "classes_subordinacao_garantias": classes or "não identificado",
+            **{
+                name: value or missing_by_field[name]
+                for name, value in profile_values.items()
+            },
             "administrador": _pick(curated, "administrador") or _text(fund.get("admin_nome")) or "não informado",
             "gestor": _pick(curated, "gestor") or _text(fund.get("gestor_nome")) or "não informado",
             "custodiante": _pick(curated, "custodiante") or _text(fund.get("custodiante_nome")) or "não informado",
-            "anbima_tipo": _pick(curated, "tipo_anbima") or _text(fund.get("anbima_tipo")) or "N/D",
-            "anbima_foco": _pick(curated, "foco_anbima") or _text(fund.get("anbima_foco")) or "N/D",
-            "origem_classificacao": _pick(curated, "origem_tipo_foco") or _text(fund.get("classification_status")) or "N/D",
-            "fonte": source or "CVM/FundosNet consultado; campo não identificado",
-            "data_consulta": _pick(curated, "data_consulta", "consulted_at") or "2026-07-16",
+            "anbima_tipo": curated_type
+            or _text(fund.get("anbima_tipo"))
+            or "N/D",
+            "anbima_foco": curated_focus
+            or _text(fund.get("anbima_foco"))
+            or "N/D",
+            "origem_classificacao": readable_origin,
+            "fonte": source
+            or (
+                "FundosNet e CVM SRE consultados em "
+                f"{consultation_date}; documento primário não localizado"
+            ),
+            "data_consulta": consultation_date,
             "evidencia": evidence
             or _pick(curated, "nota_classificacao", "segmento_economico_documental")
-            or "campo não identificado nos documentos consultados",
+            or "Sem trecho citável no corpus consultado.",
             "status_curadoria": _pick(curated, "status_curadoria") or "pendente",
-            "campos_nao_identificados": _pick(curated, "campos_nao_identificados") or "não identificado",
-            "documentos_primarios_ids": _pick(curated, "documentos_primarios_ids") or "não identificado",
+            "campos_nao_identificados": _pick(curated, "campos_nao_identificados")
+            or "Ver campos documentais sem preenchimento.",
+            "documentos_primarios_ids": _pick(curated, "documentos_primarios_ids")
+            or "Nenhum documento primário localizado.",
+            "cobertura_documental": coverage_label,
             "data_referencia_tipo_foco": (
                 _pick(curated, "data_referencia_tipo_foco") or latest
             ),
@@ -2180,6 +2287,16 @@ def _build_top20_outros_review(
         d1 = _pick(evidence, "document_segment_n1")
         d2 = _pick(evidence, "document_segment_n2")
         hypothesis = " — ".join(item for item in (d1, d2) if item)
+        if d1 and d2:
+            authored_evidence = (
+                f"O regulamento enquadra a carteira em {d2}, dentro de {d1}."
+            )
+        elif d1:
+            authored_evidence = (
+                f"O documento primário sustenta o enquadramento em {d1}."
+            )
+        else:
+            authored_evidence = "Sem trecho citável no corpus consultado."
         rows.append(
             {
                 **{key_: _json_value(value) for key_, value in fund.items()},
@@ -2187,10 +2304,10 @@ def _build_top20_outros_review(
                 "classificacao_oficial": " | ".join(
                     item for item in (_text(fund.get("anbima_tipo")), _text(fund.get("anbima_foco"))) if item
                 ) or "N/D",
-                "hipotese_revisao": hypothesis or "não identificada",
-                "evidencia_revisao": _pick(evidence, "classification_evidence")[:220]
-                or "não identificada nos documentos locais",
-                "fonte_revisao": _pick(evidence, "source") or "fonte primária pendente",
+                "hipotese_revisao": hypothesis or "Sem hipótese documental.",
+                "evidencia_revisao": authored_evidence,
+                "fonte_revisao": _pick(evidence, "source")
+                or "Fonte primária não localizada no corpus consultado.",
                 "status_revisao": (
                     f"evidência documental — {_pick(evidence, 'classification_confidence')}"
                     if hypothesis
@@ -2225,6 +2342,13 @@ def build_payload(
 
     funds = pd.read_csv(revision_dir / "base_fundo_cnpj.csv.gz", low_memory=False)
     qa = pd.read_csv(revision_dir / "qa_inadimplencia_competencia.csv", low_memory=False)
+    receivables_reconciliation_summary = _read_optional(
+        revision_dir / "reconciliacao_tabelas_i_ii_resumo.csv"
+    )
+    receivables_reconciliation_detail = _read_optional(
+        revision_dir / "reconciliacao_tabelas_i_ii_detalhe.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
     bridge_summary = pd.read_csv(
         revision_dir / "bridge_inadimplencia_2024-06_2024-07_resumo.csv", low_memory=False
     )
@@ -2235,6 +2359,10 @@ def build_payload(
     top20_outros = pd.read_csv(revision_dir / "top20_outros.csv", dtype={"cnpj_fundo": str})
     mono = pd.read_csv(revision_dir / "monoestrutura_por_fundo.csv", low_memory=False)
     mono_concentration = pd.read_csv(revision_dir / "monoestrutura_concentracao.csv", low_memory=False)
+    if not mono_concentration.empty:
+        mono_concentration["maior_fundo_nome_curto"] = mono_concentration[
+            "maior_fundo"
+        ].map(_display_fund_name)
     market = pd.read_csv(revision_dir / "market_share_por_subtipo.csv", low_memory=False)
     fixed_top10 = pd.read_csv(revision_dir / "market_share_top10_fixo.csv", low_memory=False)
     market_scope = pd.read_csv(
@@ -2422,6 +2550,20 @@ def build_payload(
     bcb_total_growth_periods = _bcb_total_growth_periods(bcb_expanded_credit)
     annual_base = annual[["year", "competencia", "cotistas_total", "n_veiculos"]].copy()
 
+    reconciliation_audit_slice = receivables_reconciliation_detail[
+        pd.to_numeric(
+            receivables_reconciliation_detail.get(
+                "rank_gap_positivo",
+                pd.Series(dtype=float),
+            ),
+            errors="coerce",
+        ).le(100)
+        | ~receivables_reconciliation_detail.get(
+            "tabela_ii_reportada",
+            pd.Series(False, index=receivables_reconciliation_detail.index),
+        ).fillna(False).astype(bool)
+    ].copy()
+
     latest_month = monthly[monthly["competencia"].astype(str).eq(latest)].iloc[0]
     offers_as_of = str(closed_source.get("latest_source_closing_date") or "2026-06-30")
     offers_source_as_of = str(closed_source.get("as_of_date") or "2026-07-21")
@@ -2471,6 +2613,16 @@ def build_payload(
     atlantico_profile, atlantico_history = _atlantico_payload(funds, data_dir, latest)
 
     curation = _load_curation(curation_path)
+    profile_overrides = _read_optional(
+        data_dir / "top20_profile_curation_overrides.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    if not profile_overrides.empty:
+        curation = pd.concat(
+            [curation, profile_overrides],
+            ignore_index=True,
+            sort=False,
+        )
     profiles = _build_profiles(
         top20,
         curation,
@@ -2552,6 +2704,12 @@ def build_payload(
         "receivables_meta_history": _records(receivables_meta_history),
         "qa_latest": {str(key): _json_value(value) for key, value in qa_latest.items()},
         "qa_series": _records(qa_series),
+        "receivables_reconciliation_summary": _records(
+            receivables_reconciliation_summary
+        ),
+        "receivables_reconciliation_detail": _records(
+            reconciliation_audit_slice
+        ),
         "delinquency_single_receivable": _records(
             delinquency_single_receivable
         ),

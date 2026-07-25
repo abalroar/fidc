@@ -603,6 +603,13 @@ def aggregate_month(
             tab1,
             ("TAB_I2A2_VL_CRED_VENC_INAD", "TAB_I2B2_VL_CRED_VENC_INAD"),
         )
+        tab1["reports_dc_parcelas_inadimplentes"] = field_reported(
+            tab1,
+            (
+                "TAB_I2A21_VL_TOTAL_PARCELA_INAD",
+                "TAB_I2B21_VL_TOTAL_PARCELA_INAD",
+            ),
+        )
         for col in (
             "TAB_I_VL_ATIVO",
             "TAB_I2A_VL_DIRCRED_RISCO",
@@ -611,6 +618,8 @@ def aggregate_month(
             "TAB_I2B3_VL_CRED_INAD",
             "TAB_I2A2_VL_CRED_VENC_INAD",
             "TAB_I2B2_VL_CRED_VENC_INAD",
+            "TAB_I2A21_VL_TOTAL_PARCELA_INAD",
+            "TAB_I2B21_VL_TOTAL_PARCELA_INAD",
         ):
             if col in tab1.columns:
                 tab1[col + "_n"] = to_num(tab1[col])
@@ -626,9 +635,14 @@ def aggregate_month(
         a_vencer_com_parcela_inad = float(
             tab1["TAB_I2A2_VL_CRED_VENC_INAD_n"].sum() + tab1["TAB_I2B2_VL_CRED_VENC_INAD_n"].sum()
         )
+        parcelas_inadimplentes = float(
+            tab1["TAB_I2A21_VL_TOTAL_PARCELA_INAD_n"].sum()
+            + tab1["TAB_I2B21_VL_TOTAL_PARCELA_INAD_n"].sum()
+        )
         industry["carteira_dc"] = dc_total
         industry["dc_inadimplentes"] = inad_vencidos
         industry["dc_a_vencer_com_parcela_inad"] = a_vencer_com_parcela_inad
+        industry["dc_parcelas_inadimplentes"] = parcelas_inadimplentes
         industry["inad_pct"] = inad_vencidos / dc_total if dc_total else 0.0
 
         # Compradores de NPL reportam creditos inadimplentes pelo valor de FACE
@@ -676,11 +690,18 @@ def aggregate_month(
                 "dc_inadimplentes_ajustado": tab1["inad_cap"],
                 "dc_a_vencer_com_parcela_inad": tab1["TAB_I2A2_VL_CRED_VENC_INAD_n"]
                 + tab1["TAB_I2B2_VL_CRED_VENC_INAD_n"],
+                "dc_parcelas_inadimplentes": (
+                    tab1["TAB_I2A21_VL_TOTAL_PARCELA_INAD_n"]
+                    + tab1["TAB_I2B21_VL_TOTAL_PARCELA_INAD_n"]
+                ),
                 "reports_tab_i": True,
                 "reports_carteira_dc": tab1["reports_carteira_dc"],
                 "reports_dc_inadimplentes": tab1["reports_dc_inadimplentes"],
                 "reports_dc_a_vencer_com_parcela_inad": tab1[
                     "reports_dc_a_vencer_com_parcela_inad"
+                ],
+                "reports_dc_parcelas_inadimplentes": tab1[
+                    "reports_dc_parcelas_inadimplentes"
                 ],
                 "report_flag_source": "campo_bruto_CVM",
                 "is_np": is_np,
@@ -789,6 +810,10 @@ def aggregate_month(
         segment_values: dict[str, object] = {
             "cnpj": tab2["cnpj"],
             "reports_table_ii": True,
+            "reports_table_ii_values": field_reported(
+                tab2,
+                tuple(SEGMENT_VALUE_COLUMNS),
+            ),
         }
         for source_column, output_column in SEGMENT_VALUE_COLUMNS.items():
             segment_values[output_column] = (
@@ -978,6 +1003,7 @@ def aggregate_month(
         "dc_inadimplentes",
         "dc_inadimplentes_ajustado",
         "dc_a_vencer_com_parcela_inad",
+        "dc_parcelas_inadimplentes",
         "captacoes",
         "resgates",
         "amortizacoes",
@@ -1047,6 +1073,13 @@ def build_universe_snapshot(
     tab1["reports_dc_inadimplentes"] = field_reported(
         tab1, ("TAB_I2A3_VL_CRED_INAD", "TAB_I2B3_VL_CRED_INAD")
     )
+    tab1["reports_dc_parcelas_inadimplentes"] = field_reported(
+        tab1,
+        (
+            "TAB_I2A21_VL_TOTAL_PARCELA_INAD",
+            "TAB_I2B21_VL_TOTAL_PARCELA_INAD",
+        ),
+    )
     out = pd.DataFrame(
         {
             "competencia": comp,
@@ -1069,9 +1102,24 @@ def build_universe_snapshot(
             + to_num(tab1.get("TAB_I2B_VL_DIRCRED_SEM_RISCO", pd.Series(dtype=str))),
             "dc_inadimplentes": to_num(tab1.get("TAB_I2A3_VL_CRED_INAD", pd.Series(dtype=str)))
             + to_num(tab1.get("TAB_I2B3_VL_CRED_INAD", pd.Series(dtype=str))),
+            "dc_parcelas_inadimplentes": to_num(
+                tab1.get(
+                    "TAB_I2A21_VL_TOTAL_PARCELA_INAD",
+                    pd.Series(dtype=str),
+                )
+            )
+            + to_num(
+                tab1.get(
+                    "TAB_I2B21_VL_TOTAL_PARCELA_INAD",
+                    pd.Series(dtype=str),
+                )
+            ),
             "reports_tab_i": True,
             "reports_carteira_dc": tab1["reports_carteira_dc"],
             "reports_dc_inadimplentes": tab1["reports_dc_inadimplentes"],
+            "reports_dc_parcelas_inadimplentes": tab1[
+                "reports_dc_parcelas_inadimplentes"
+            ],
             "report_flag_source": "campo_bruto_CVM",
         }
     )

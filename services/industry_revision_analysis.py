@@ -219,6 +219,7 @@ def add_reporting_flags(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
         "reports_carteira_dc",
         "reports_dc_inadimplentes",
         "reports_dc_a_vencer_com_parcela_inad",
+        "reports_dc_parcelas_inadimplentes",
     ):
         if column in frame.columns:
             reported = _as_nullable_bool(frame[column])
@@ -231,6 +232,12 @@ def add_reporting_flags(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
             frame[column] = tab_i.copy()
             if column in {"reports_carteira_dc", "reports_dc_inadimplentes"}:
                 exact_pair &= False
+
+    for column in ("reports_table_ii", "reports_table_ii_values"):
+        if column in frame.columns:
+            frame[column] = _as_nullable_bool(frame[column])
+        else:
+            frame[column] = pd.Series(pd.NA, index=frame.index, dtype="boolean")
 
     for value_column in AGING_VALUE_COLUMNS:
         report_column = f"reports_{value_column}"
@@ -282,6 +289,8 @@ def build_base_by_vehicle(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
         "dc_inadimplentes",
         "dc_inadimplentes_ajustado",
         "dc_a_vencer_com_parcela_inad",
+        "dc_parcelas_inadimplentes",
+        *TABLE_II_RECEIVABLE_COLUMNS,
         *AGING_VALUE_COLUMNS,
     )
     for column in numeric_columns:
@@ -332,7 +341,7 @@ def build_base_by_vehicle(vehicle_monthly: pd.DataFrame) -> pd.DataFrame:
     frame["inad_aging_total"] = frame[aging_bucket_columns].sum(axis=1, min_count=1)
     frame.loc[~frame["reports_aging"].eq(True), "inad_aging_total"] = pd.NA  # noqa: E712
     frame["inadimplencia_ex_360d"] = (
-        frame["dc_inadimplentes"] - frame["inad_acima_360d"]
+        frame["inad_aging_total"] - frame["inad_acima_360d"]
     ).clip(lower=0)
     frame.loc[~ex360_observable, "inadimplencia_ex_360d"] = pd.NA
     frame["inadimplencia_ex_360d_ajustada"] = frame["inadimplencia_ex_360d"].where(
@@ -369,9 +378,14 @@ def overlay_raw_source_presence(
         "reports_carteira_dc",
         "reports_dc_inadimplentes",
         "reports_dc_a_vencer_com_parcela_inad",
+        "reports_dc_parcelas_inadimplentes",
+        "reports_table_ii",
+        "reports_table_ii_values",
         "reports_inadimplencia_pair",
         "reports_aging",
         "reports_inad_acima_360d",
+        "dc_parcelas_inadimplentes",
+        *TABLE_II_RECEIVABLE_COLUMNS,
         *AGING_VALUE_COLUMNS,
         "inad_aging_total",
         "inadimplencia_ex_360d",
@@ -389,6 +403,15 @@ def overlay_raw_source_presence(
     raw_overlay = raw_overlay.rename(columns=rename)
     output = output.merge(raw_overlay, on=keys, how="left", suffixes=("", "_overlay"))
     matched = output["raw_audit_matched_overlay"].fillna(False).astype(bool)
+    raw_value_map = {
+        "carteira_dc": "raw_carteira_dc",
+        "dc_inadimplentes": "raw_dc_inadimplentes",
+        "dc_parcelas_inadimplentes": "raw_dc_parcelas_inadimplentes",
+    }
+    raw_values = raw[keys + list(raw_value_map)].drop_duplicates(keys).rename(
+        columns=raw_value_map
+    )
+    output = output.merge(raw_values, on=keys, how="left")
     for column in overlay_columns:
         raw_column = f"_raw_{column}"
         if raw_column not in output.columns:
@@ -455,7 +478,7 @@ def overlay_raw_source_presence(
         True  # noqa: E712
     )
     output["inadimplencia_ex_360d"] = (
-        output["dc_inadimplentes"] - output["inad_acima_360d"]
+        output["inad_aging_total"] - output["inad_acima_360d"]
     ).clip(lower=0)
     output.loc[~ex360_observable, "inadimplencia_ex_360d"] = pd.NA
     output["inadimplencia_ex_360d_ajustada"] = output[
@@ -498,6 +521,28 @@ def build_delinquency_qa(base: pd.DataFrame) -> pd.DataFrame:
         ex360_adjusted = _sum_min(aging_observed["inadimplencia_ex_360d_ajustada"])
         aging_total = _sum_min(aging_observed["inad_aging_total"])
         aging_reported_inad = _sum_min(aging_observed["dc_inadimplentes"])
+        raw_inad = pd.to_numeric(
+            aging_observed.get(
+                "raw_dc_inadimplentes",
+                aging_observed["dc_inadimplentes"],
+            ),
+            errors="coerce",
+        )
+        raw_parcels = pd.to_numeric(
+            aging_observed.get(
+                "raw_dc_parcelas_inadimplentes",
+                aging_observed.get(
+                    "dc_parcelas_inadimplentes",
+                    pd.Series(pd.NA, index=aging_observed.index),
+                ),
+            ),
+            errors="coerce",
+        )
+        aging_table_i_reference = _sum_min(raw_inad + raw_parcels)
+        parcels_total = _sum_min(raw_parcels)
+        parcels_positive = raw_parcels.gt(0)
+        only_parcels = parcels_positive & raw_inad.fillna(0).eq(0)
+        parcels_ranked = raw_parcels.clip(lower=0).sort_values(ascending=False)
         exact_flags = bool(group["field_presence_exact"].all())
         exact = group["field_presence_exact"].fillna(False).astype(bool)
         exact_pl = _sum_min(group.loc[exact, "pl"])
@@ -507,10 +552,13 @@ def build_delinquency_qa(base: pd.DataFrame) -> pd.DataFrame:
             return numerator / denominator if pd.notna(denominator) and denominator != 0 else float("nan")
 
         aging_coverage = ratio(aging_denominator, portfolio_observed)
-        aging_reconciliation = ratio(aging_total, aging_reported_inad)
+        aging_reconciliation = ratio(aging_total, aging_table_i_reference)
         if pd.isna(aging_coverage) or aging_coverage < 0.95:
             aging_status = "bloqueado_cobertura_aging_insuficiente"
-        elif pd.isna(aging_reconciliation) or not 0.98 <= aging_reconciliation <= 1.02:
+        elif (
+            pd.isna(aging_reconciliation)
+            or not 0.999 <= aging_reconciliation <= 1.001
+        ):
             aging_status = "bloqueado_aging_nao_reconcilia_tab_I"
         else:
             aging_status = "publicável"
@@ -570,6 +618,25 @@ def build_delinquency_qa(base: pd.DataFrame) -> pd.DataFrame:
                 "aging_gap_vs_inadimplencia_reportada_brl": aging_total - aging_reported_inad
                 if pd.notna(aging_total) and pd.notna(aging_reported_inad)
                 else float("nan"),
+                "aging_tabela_i_referencia_brl": aging_table_i_reference,
+                "aging_parcelas_inadimplentes_brl": parcels_total,
+                "aging_gap_vs_tabela_i_completa_brl": (
+                    aging_total - aging_table_i_reference
+                    if pd.notna(aging_total)
+                    and pd.notna(aging_table_i_reference)
+                    else float("nan")
+                ),
+                "veiculos_parcelas_inadimplentes_positivas": int(
+                    parcels_positive.sum()
+                ),
+                "veiculos_so_parcelas_inadimplentes": int(only_parcels.sum()),
+                "pl_veiculos_parcelas_inadimplentes_brl": _sum_min(
+                    aging_observed.loc[parcels_positive, "pl"]
+                ),
+                "aging_parcelas_top10_share": ratio(
+                    float(parcels_ranked.head(10).sum()),
+                    parcels_total,
+                ),
                 "aging_reconciliacao_ratio": aging_reconciliation,
                 "aging_publication_status": aging_status,
                 "inadimplencia_ex_360d_publicavel": aging_status == "publicável",
@@ -622,6 +689,137 @@ def build_delinquency_cases(base: pd.DataFrame, *, competence: str = LATEST_COMP
         "report_flag_source",
     ]
     return scoped[[column for column in columns if column in scoped.columns]]
+
+
+def build_receivables_reconciliation(
+    base: pd.DataFrame,
+    *,
+    periods: Iterable[str] = ("2023-12", LATEST_COMPLETE),
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Reconcile Table II segment totals to the Table I receivables portfolio.
+
+    The comparison uses reporting fields from the same raw CVM snapshot and
+    retains an absent Table II opening as missing. Detail is aggregated to the
+    legal-fund CNPJ before the concentration statistics are calculated.
+    """
+
+    detail_parts: list[pd.DataFrame] = []
+    summary_rows: list[dict[str, object]] = []
+    value_columns = list(TABLE_II_RECEIVABLE_COLUMNS)
+    for competence in (str(value)[:7] for value in periods):
+        scoped = base[base["competencia"].astype(str).eq(competence)].copy()
+        if scoped.empty:
+            continue
+        for column in value_columns:
+            scoped[column] = pd.to_numeric(scoped.get(column), errors="coerce")
+        scoped["tabela_ii_total_brl"] = scoped[value_columns].sum(
+            axis=1,
+            min_count=1,
+        )
+        scoped["tabela_i_carteira_brl"] = pd.to_numeric(
+            scoped.get("raw_carteira_dc", scoped["carteira_dc"]),
+            errors="coerce",
+        )
+        table_ii_reported = _as_nullable_bool(
+            scoped.get(
+                "reports_table_ii_values",
+                pd.Series(pd.NA, index=scoped.index),
+            )
+        ).eq(True)  # noqa: E712
+        scoped["tabela_ii_reportada"] = table_ii_reported
+        scoped.loc[~table_ii_reported, "tabela_ii_total_brl"] = pd.NA
+
+        fund_detail = (
+            scoped.groupby(["competencia", "cnpj_fundo"], as_index=False)
+            .agg(
+                denominacao=("denominacao", "first"),
+                pl_brl=("pl", _sum_min),
+                veiculos=("cnpj_veiculo", "nunique"),
+                tabela_i_carteira_brl=("tabela_i_carteira_brl", _sum_min),
+                tabela_ii_total_brl=("tabela_ii_total_brl", _sum_min),
+                tabela_ii_reportada=("tabela_ii_reportada", "any"),
+            )
+        )
+        fund_detail.loc[
+            ~fund_detail["tabela_ii_reportada"],
+            "tabela_ii_total_brl",
+        ] = pd.NA
+        fund_detail["gap_tabela_ii_menos_i_brl"] = (
+            fund_detail["tabela_ii_total_brl"]
+            - fund_detail["tabela_i_carteira_brl"]
+        )
+        fund_detail["gap_positivo_brl"] = fund_detail[
+            "gap_tabela_ii_menos_i_brl"
+        ].clip(lower=0)
+        fund_detail["gap_negativo_brl"] = (
+            -fund_detail["gap_tabela_ii_menos_i_brl"].clip(upper=0)
+        )
+        fund_detail = fund_detail.sort_values(
+            ["gap_positivo_brl", "pl_brl", "cnpj_fundo"],
+            ascending=[False, False, True],
+        ).reset_index(drop=True)
+        fund_detail["rank_gap_positivo"] = range(1, len(fund_detail) + 1)
+        positive_total = _sum_min(fund_detail["gap_positivo_brl"])
+        fund_detail["share_gap_positivo"] = fund_detail[
+            "gap_positivo_brl"
+        ].div(positive_total)
+        fund_detail["share_gap_positivo_acumulado"] = fund_detail[
+            "share_gap_positivo"
+        ].cumsum()
+        detail_parts.append(fund_detail)
+
+        missing = fund_detail[~fund_detail["tabela_ii_reportada"]]
+        positive = fund_detail[fund_detail["gap_positivo_brl"].gt(0)]
+        negative = fund_detail[fund_detail["gap_negativo_brl"].gt(0)]
+        table_i_total = _sum_min(fund_detail["tabela_i_carteira_brl"])
+        table_ii_total = _sum_min(
+            fund_detail.loc[
+                fund_detail["tabela_ii_reportada"],
+                "tabela_ii_total_brl",
+            ]
+        )
+
+        def share_top(n: int) -> float:
+            if not positive_total:
+                return float("nan")
+            return (
+                float(positive["gap_positivo_brl"].head(n).sum())
+                / positive_total
+            )
+
+        summary_rows.append(
+            {
+                "competencia": competence,
+                "fundos_total": int(fund_detail["cnpj_fundo"].nunique()),
+                "pl_total_brl": _sum_min(fund_detail["pl_brl"]),
+                "fundos_sem_abertura_tabela_ii": int(
+                    missing["cnpj_fundo"].nunique()
+                ),
+                "pl_sem_abertura_tabela_ii_brl": _sum_min(missing["pl_brl"]),
+                "carteira_tabela_i_sem_abertura_brl": _sum_min(
+                    missing["tabela_i_carteira_brl"]
+                ),
+                "tabela_i_carteira_brl": table_i_total,
+                "tabela_ii_total_brl": table_ii_total,
+                "gap_tabela_ii_menos_i_brl": table_ii_total - table_i_total,
+                "fundos_gap_positivo": int(positive["cnpj_fundo"].nunique()),
+                "gap_positivo_brl": positive_total,
+                "fundos_gap_negativo": int(negative["cnpj_fundo"].nunique()),
+                "gap_negativo_brl": _sum_min(negative["gap_negativo_brl"]),
+                "gap_positivo_top1_share": share_top(1),
+                "gap_positivo_top5_share": share_top(5),
+                "gap_positivo_top10_share": share_top(10),
+                "gap_positivo_top20_share": share_top(20),
+                "unidade": "CNPJ legal de fundo",
+                "fonte": "CVM, Informe Mensal de FIDC, Tabelas I e II",
+            }
+        )
+    detail = (
+        pd.concat(detail_parts, ignore_index=True)
+        if detail_parts
+        else pd.DataFrame()
+    )
+    return detail, pd.DataFrame(summary_rows)
 
 
 def build_single_receivable_delinquency(
@@ -1408,6 +1606,7 @@ def build_fund_base(
         "dc_inadimplentes",
         "dc_inadimplentes_ajustado_recalculado",
         "dc_a_vencer_com_parcela_inad",
+        "dc_parcelas_inadimplentes",
         *AGING_VALUE_COLUMNS,
         "inad_aging_total",
         "inadimplencia_ex_360d",
@@ -1586,7 +1785,7 @@ def build_top20_and_monostructure(
                 "top3_share": float(shares.head(3).sum()),
                 "top5_share": float(shares.head(5).sum()),
                 "top10_share": float(shares.head(10).sum()),
-                "hhi_fundos": float((shares**2).sum()),
+                "hhi_fundos": int(round(float((shares**2).sum()) * 10_000)),
                 "fundos_top20": int(ordered["is_top20_fidc"].sum()),
                 "pl_top20_brl": _sum_min(ordered.loc[ordered["is_top20_fidc"], "pl"]),
             }
@@ -2817,6 +3016,8 @@ class RevisionOutputs:
     base_vehicle: pd.DataFrame
     qa_delinquency: pd.DataFrame
     delinquency_cases: pd.DataFrame
+    receivables_reconciliation_detail: pd.DataFrame
+    receivables_reconciliation_summary: pd.DataFrame
     delinquency_single_receivable: pd.DataFrame
     delinquency_single_receivable_summary: pd.DataFrame
     delinquency_frozen_cohort_members: pd.DataFrame
@@ -2871,6 +3072,13 @@ def build_revision_outputs(
     base = overlay_raw_source_presence(base, raw_audit_vehicle)
     qa = build_delinquency_qa(base)
     cases = build_delinquency_cases(base, competence=latest_complete)
+    (
+        receivables_reconciliation_detail,
+        receivables_reconciliation_summary,
+    ) = build_receivables_reconciliation(
+        base,
+        periods=("2023-12", latest_complete),
+    )
     bridge_detail, bridge_summary = build_break_bridge(base)
     reconciliation = build_reconciliation(base, competence=latest_complete)
     fund_base = build_fund_base(
@@ -3015,6 +3223,8 @@ def build_revision_outputs(
             "carteira_dc",
             "dc_inadimplentes",
             "dc_a_vencer_com_parcela_inad",
+            "dc_parcelas_inadimplentes",
+            *TABLE_II_RECEIVABLE_COLUMNS,
             "report_flag_source",
             *AGING_VALUE_COLUMNS,
         ]
@@ -3035,6 +3245,8 @@ def build_revision_outputs(
         base_vehicle=base,
         qa_delinquency=qa,
         delinquency_cases=cases,
+        receivables_reconciliation_detail=receivables_reconciliation_detail,
+        receivables_reconciliation_summary=receivables_reconciliation_summary,
         delinquency_single_receivable=delinquency_single_receivable,
         delinquency_single_receivable_summary=delinquency_single_receivable_summary,
         delinquency_frozen_cohort_members=delinquency_frozen_cohort_members,
@@ -3081,6 +3293,16 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         ("base_competencia_cnpj.csv.gz", outputs.base_vehicle, True),
         ("qa_inadimplencia_competencia.csv", outputs.qa_delinquency, False),
         ("qa_inadimplencia_casos_latest.csv", outputs.delinquency_cases, False),
+        (
+            "reconciliacao_tabelas_i_ii_detalhe.csv",
+            outputs.receivables_reconciliation_detail,
+            False,
+        ),
+        (
+            "reconciliacao_tabelas_i_ii_resumo.csv",
+            outputs.receivables_reconciliation_summary,
+            False,
+        ),
         (
             "inadimplencia_tipo_recebivel_unico.csv",
             outputs.delinquency_single_receivable,
@@ -3224,11 +3446,32 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         "prestadores_ausentes",
         "is_top20_fidc",
     )
+    reconciliation_audit_slice = outputs.receivables_reconciliation_detail[
+        pd.to_numeric(
+            outputs.receivables_reconciliation_detail.get(
+                "rank_gap_positivo",
+                pd.Series(dtype=float),
+            ),
+            errors="coerce",
+        ).le(100)
+        | ~_as_nullable_bool(
+            outputs.receivables_reconciliation_detail.get(
+                "tabela_ii_reportada",
+                pd.Series(dtype=bool),
+            )
+        ).fillna(False)
+    ].copy()
     payload = {
         "schema_version": "fidc_industry_revision_v1",
         "cnpj_encoding": "string de 14 dígitos; zeros à esquerda preservados",
         "latest_complete": outputs.latest_complete,
         "qa_inadimplencia": records(outputs.qa_delinquency),
+        "reconciliacao_tabelas_i_ii_resumo": records(
+            outputs.receivables_reconciliation_summary
+        ),
+        "reconciliacao_tabelas_i_ii_detalhe": records(
+            reconciliation_audit_slice
+        ),
         "inadimplencia_tipo_recebivel_unico": records(
             outputs.delinquency_single_receivable
         ),
@@ -3447,10 +3690,9 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
                 "nesses meses, presença por campo é um limite superior inferido da linha da Tabela I."
             ),
             (
-                "Buckets de aging e a sensibilidade ex-360 exigem presença no bruto e "
-                "reconciliação entre Tabelas V/VI e a inadimplência da Tabela I; "
-                f"{outputs.latest_complete} "
-                "não passa esse teste e permanece diagnóstico, não headline."
+                "Buckets de aging e a sensibilidade ex-360 usam os campos brutos "
+                "das Tabelas V/VI e a soma dos créditos inadimplentes com as "
+                "parcelas inadimplentes dos créditos a vencer na Tabela I."
             ),
             (
                 "Gestor e custodiante históricos vêm do cadastro vigente e não "
@@ -3493,6 +3735,7 @@ __all__ = [
     "build_break_bridge",
     "build_delinquency_cases",
     "build_delinquency_qa",
+    "build_receivables_reconciliation",
     "build_frozen_single_receivable_history",
     "build_frozen_cohort_revision_audit",
     "build_fund_base",

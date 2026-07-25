@@ -247,7 +247,8 @@ function truncateWords(value, maxChars) {
   if (text.length <= maxChars) return text;
   const sliced = text.slice(0, maxChars + 1);
   const cut = sliced.lastIndexOf(" ");
-  return `${sliced.slice(0, cut > maxChars * 0.6 ? cut : maxChars).trim()}…`;
+  if (cut <= 0) return text;
+  return sliced.slice(0, cut).trim();
 }
 
 function providerShort(value) {
@@ -2736,7 +2737,7 @@ function buildPresentation(payload, flowAssets) {
     addHeader(
       slide,
       "BASE INVESTIDORA",
-      `A base atingiu ${(num(latestBase.cotistas_total) / 1000).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} mil contas em ${integer(latestBase.n_veiculos)} veículos; contas não são investidores únicos`,
+      `A base atingiu ${(num(latestBase.cotistas_total) / 1000).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} mil contas em ${integer(latestBase.n_veiculos)} veículos; uma pessoa pode aparecer em mais de uma classe ou série`,
       `Fonte: CVM, Informe Mensal de FIDC, ${stockShortLower}. Contas podem se repetir por classe ou série.`,
       4,
     );
@@ -2994,13 +2995,6 @@ function buildPresentation(payload, flowAssets) {
       `Fonte: ANBIMA Data (Tipo/Foco, dez/25) + Informe Mensal CVM (${latestPeriod.label}).`,
       6,
     );
-    addRect(slide, { left: 60, top: 673, width: 1055, height: 20 }, C.white);
-    addText(
-      slide,
-      `Fonte: ANBIMA Data (Tipo/Foco, dez/25) + Informe Mensal CVM (${latestPeriod.label}).`,
-      { left: 60, top: 674, width: 1050, height: 18 },
-      { fontSize: 10.5, color: C.note, verticalAlignment: "middle" },
-    );
     addSectionLabel(slide, "PL EX-FIC · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 185, width: 550, height: 355 }),
@@ -3083,6 +3077,9 @@ function buildPresentation(payload, flowAssets) {
     const after = history.filter((row) => row.competencia === periodAfter);
     const beforeMap = Object.fromEntries(before.map((row) => [row.segmento, row]));
     const afterMap = Object.fromEntries(after.map((row) => [row.segmento, row]));
+    const reconciliationRows = payload.receivables_reconciliation_summary || [];
+    const reconciliationBefore = reconciliationRows.find((row) => row.competencia === periodBefore) || {};
+    const reconciliationAfter = reconciliationRows.find((row) => row.competencia === periodAfter) || {};
     const categories = [...after]
       .sort((a, b) => num(b.valor) - num(a.valor))
       .map((row) => row.segmento);
@@ -3134,14 +3131,10 @@ function buildPresentation(payload, flowAssets) {
     addRect(slide, { left: 760, top: 600, width: 460, height: 24 }, C.white);
     addText(
       slide,
-      `Tabela II: R$ 439,5 bi em dez/23 e R$ 737,4 bi em ${stockShortLower}; diferenças para a Tabela I de R$ 51,7 bi e R$ 60,4 bi. Adquirência no slide anterior.`,
+      `Diferença Tabela II − Tabela I: ${bn(reconciliationBefore.gap_tabela_ii_menos_i_brl, 1)} em dez/23 e ${bn(reconciliationAfter.gap_tabela_ii_menos_i_brl, 1)} em ${stockShortLower}. Em ${stockShortLower}, ${integer(reconciliationAfter.fundos_sem_abertura_tabela_ii)} fundos sem abertura (${bn(reconciliationAfter.pl_sem_abertura_tabela_ii_brl, 1)} de PL); Top 20 explicam ${pct(reconciliationAfter.gap_positivo_top20_share, 1)} do gap positivo.`,
       { left: 60, top: 635, width: 1160, height: 24 },
-      { fontSize: 10.5, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
+      { fontSize: 9.8, color: C.charcoal, alignment: "right", verticalAlignment: "middle" },
     );
-    // Reaplicados após os gráficos para evitar que o frame do chart cubra o
-    // início do rótulo no PowerPoint/LibreOffice.
-    addSectionLabel(slide, "VALOR REPORTADO · R$ BI", { left: 60, top: 150, width: 550, height: 24 });
-    addSectionLabel(slide, "% DO VALOR SEGMENTADO DA TABELA II", { left: 670, top: 150, width: 550, height: 24 });
     addLegend(slide, [
       { label: "Dez/23", color: C.mid },
       { label: stockShort, color: C.orange },
@@ -3210,9 +3203,11 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      `Ex-360 bloqueado: aging = ${pct(qa.aging_reconciliacao_ratio, 1)} da Tabela I; diferença de ${bn(qa.aging_gap_vs_inadimplencia_reportada_brl, 2)}.`,
+      qa.inadimplencia_ex_360d_publicavel
+        ? `Ex-360 publicável: ${pct(qa.inadimplencia_ex_360d_ajustada_pct_sobre_cobertura, 1)} ajustada. O antigo excesso de ${bn(qa.aging_parcelas_inadimplentes_brl, 2)} era a parcela vincenda ligada a créditos inadimplentes, prevista na Tabela I e omitida do comparador; ${integer(qa.veiculos_parcelas_inadimplentes_positivas)} veículos reportam o campo.`
+        : `Ex-360 bloqueado: aging = ${pct(qa.aging_reconciliacao_ratio, 1)} da Tabela I completa; diferença residual de ${bn(qa.aging_gap_vs_tabela_i_completa_brl, 2)}.`,
       { left: 825, top: 550, width: 395, height: 55 },
-      { fontSize: 12.5, color: C.note },
+      { fontSize: 10.5, color: C.note },
     );
   }
 
@@ -3296,9 +3291,9 @@ function buildPresentation(payload, flowAssets) {
     addRule(slide, 60, 555, 1160, C.line, 1);
     addText(
       slide,
-      `Monotipo: ${integer(singleSummary.fundos_incluidos)} fundos e ${bn(singleSummary.pl_incluido_brl, 1)} de PL. Fora: ${integer(singleSummary.fundos_multitipo_excluidos)} multitipo, ${integer(singleSummary.fundos_inad_supera_carteira_excluidos)} acima da carteira e ${integer(singleSummary.fundos_sem_tipo_excluidos)} sem tipo; PLs no workbook.`,
+      `Monotipo: ${integer(singleSummary.fundos_incluidos)} fundos e ${bn(singleSummary.pl_incluido_brl, 1)}. Fora: ${integer(singleSummary.fundos_multitipo_excluidos)} multitipo (${bn(singleSummary.pl_multitipo_excluido_brl, 1)}), ${integer(singleSummary.fundos_inad_supera_carteira_excluidos)} acima da carteira (${bn(singleSummary.pl_inad_supera_carteira_excluido_brl, 1)}) e ${integer(singleSummary.fundos_sem_tipo_excluidos)} sem tipo (${bn(singleSummary.pl_sem_tipo_excluido_brl, 1)}).`,
       { left: 60, top: 570, width: 1160, height: 38 },
-      { fontSize: 10.8, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
+      { fontSize: 10.2, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
     );
     addText(
       slide,
@@ -3378,6 +3373,11 @@ function buildPresentation(payload, flowAssets) {
   addProviderAttributionSlide(presentation, payload, 18);
   const providerInsightOffset = 0;
 
+  // Market shares materiais permanecem no corpo, logo após prestadores.
+  addMarketShareSlide(presentation, payload, "administrador", materialFocus, 14, false);
+  addMarketShareSlide(presentation, payload, "gestor", materialFocus, 15, false);
+  addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 16, false);
+
   // 18. Top 20 FIDCs
   {
     const slide = presentation.slides.add();
@@ -3433,9 +3433,9 @@ function buildPresentation(payload, flowAssets) {
       String(row.rank_outros),
       row.nome_curto,
       bn(row.pl, 1).replace("R$ ", ""),
-      truncateWords(row.classificacao_oficial, 34),
-      truncateWords(row.hipotese_revisao, 38),
-      `${truncateWords(row.evidencia_revisao, 46)}\n${truncateWords(row.status_revisao, 26)}`,
+      row.classificacao_oficial,
+      row.hipotese_revisao,
+      `${row.evidencia_revisao}\n${row.status_revisao}`,
     ]);
     [0, 1].forEach((block) => {
       addEditorialTable(slide, {
@@ -3512,7 +3512,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "CONCENTRAÇÃO DAS MONOESTRUTURAS",
       "Sistema Petrobras é todo o PL mono do BB; TAPSO representa 54% do PL mono da Oliveira Trust",
-      `Fonte: CVM, ${stockShortLower}. A evidência mostra concentração; não permite inferir preços, propostas ou contratos.`,
+      `Fonte: CVM, ${stockShortLower}. Preço, propostas e contratos não integram a base.`,
       18 + providerInsightOffset,
     );
     addEditorialTable(slide, {
@@ -3525,7 +3525,7 @@ function buildPresentation(payload, flowAssets) {
         row.grupo_economico,
         bn(row.pl_mono_brl, 1).replace("R$ ", ""),
         integer(row.fundos_mono),
-        truncateWords(row.maior_fundo, 31),
+        row.maior_fundo_nome_curto || row.maior_fundo,
         pct(row.maior_fundo_share, 1),
         pct(row.top3_share, 1),
         integer(row.hhi_fundos),
@@ -3536,6 +3536,12 @@ function buildPresentation(payload, flowAssets) {
       rowHeight: 66,
       rowHighlights: new Set(rows.map((row, idx) => [bb, ot].includes(row) ? idx : -1).filter((idx) => idx >= 0)),
     });
+    addText(
+      slide,
+      "HHI em pontos de 0 a 10.000; 10.000 corresponde a um único fundo.",
+      { left: 60, top: 594, width: 735, height: 20 },
+      { fontSize: 9.5, color: C.note, alignment: "right" },
+    );
     addSectionLabel(slide, "DOIS CASOS", { left: 845, top: 155, width: 375, height: 24 });
     [
       {
@@ -4145,10 +4151,10 @@ function buildPresentation(payload, flowAssets) {
       headers: ["Tema", "Universo / data", "Definição e limitação"],
       rows: [
         ["PL e base investidora", `${integer(payload.qa_latest.veiculos_total)} veículos; ${integer(payload.qa_latest.fundos_total)} fundos; ${stockLong}`, "PL bruto, ex-FIC e FIC-FIDC reconciliados. Contas se repetem por classe/série e não equivalem a investidores únicos."],
-        ["Tipo e Foco ANBIMA", `${pct(coverage["Oficial ANBIMA"], 2)} oficial; ${pct(coverage["Evidência documental"], 2)} evidência; ${pct(coverage["Proxy CVM"], 2)} proxy; ${pct(coverage["N/D"], 2)} N/D`, "Tipo, Foco, origem e data permanecem separados. Séries históricas de gestor/custodiante usam cadastro vigente e não são like-for-like."],
-        ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, "Cap por veículo; vazio = ausência de reporte. Ex-360 indisponível por falta de reconciliação do aging."],
+        ["Tipo e Foco ANBIMA", `${pct(coverage["Oficial ANBIMA"], 2)} oficial; ${pct(coverage["Evidência documental"], 2)} evidência; ${pct(coverage["Proxy CVM"], 2)} proxy; ${pct(coverage["N/D"], 2)} N/D`, "Tipo, Foco, origem e data permanecem separados. Gestor e custodiante históricos usam o cadastro vigente; a base não observa a troca ao longo do tempo."],
+        ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, `Cap por veículo; vazio = ausência de reporte. Aging reconciliado à Tabela I completa; ex-360 ajustada = ${pct(payload.qa_latest.inadimplencia_ex_360d_ajustada_pct_sobre_cobertura, 1)}.`],
         ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo. Top 10 fixo por função; Outros identificados e prestador não informado separados. PL negativo consta no QA."],
-        ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "Mesma entidade econômica normalizada nas três funções. Concentração não prova poder de preço ou condições comerciais."],
+        ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "Mesma entidade econômica normalizada nas três funções. Preço, propostas e contratos não integram a base."],
         ["Ofertas encerradas", `2023–2025 FY; 2026 até ${offersShort}`, "Cotas de FIDC, ofertas públicas primárias encerradas e valor registrado positivo. Automático: Número do Requerimento; ordinário/legado: registro + emissor + data + instrumento."],
       ],
       columnWidths: [190, 340, 630],
@@ -4189,59 +4195,6 @@ function buildPresentation(payload, flowAssets) {
         { left: 60, top: 126, width: 1160, height: 38 },
         { fontSize: 12.5, color: C.note, verticalAlignment: "middle" },
       );
-      // O PowerPoint para macOS apresentou clipping intermitente em múltiplas
-      // caixas curtas nesta ficha. Mantemos o mesmo conteúdo em dois blocos
-      // editoriais contínuos, o que elimina a falha sem rasterizar o slide.
-      if (num(profile.rank) === 19) {
-        addSectionLabel(slide, "MECÂNICA DO FUNDO", { left: 60, top: 176, width: 555, height: 24 });
-        addText(
-          slide,
-          [
-            "CEDENTE / ORIGINADOR",
-            profile.cedente_originador,
-            "",
-            "SACADO / PERFIL DE DEVEDORES",
-            profile.sacado_devedor,
-            "",
-            "NATUREZA DOS RECEBÍVEIS",
-            profile.natureza_recebiveis,
-            "",
-            "FUNCIONAMENTO ECONÔMICO",
-            profile.funcionamento_economico,
-          ].join("\n"),
-          { left: 60, top: 216, width: 555, height: 370 },
-          { fontSize: 12.5, color: C.charcoal, lineSpacing: 1.04 },
-        );
-        addSectionLabel(slide, "CAPITAL, EMISSÕES E GOVERNANÇA", { left: 665, top: 176, width: 555, height: 24 });
-        addText(
-          slide,
-          [
-            "EMISSÕES / EVENTOS RELEVANTES",
-            profile.emissoes,
-            "",
-            "CLASSES, SUBORDINAÇÃO E GARANTIAS",
-            profile.classes_subordinacao_garantias,
-            "",
-            "PRESTADORES",
-            `Administrador: ${profile.administrador}`,
-            `Gestor: ${profile.gestor}`,
-            `Custodiante: ${profile.custodiante}`,
-            "",
-            "TIPO / FOCO ANBIMA",
-            `${profile.anbima_tipo} · ${profile.anbima_foco}`,
-            `Origem: ${profile.origem_classificacao}`,
-          ].join("\n"),
-          { left: 665, top: 216, width: 555, height: 370 },
-          { fontSize: 12.25, color: C.charcoal, lineSpacing: 1.03 },
-        );
-        addRule(slide, 60, 606, 1160, C.line, 1);
-        addText(slide, `Evidência: ${profile.evidencia}`, { left: 60, top: 614, width: 1160, height: 38 }, {
-          fontSize: 10.5,
-          color: C.note,
-          lineSpacing: 0.95,
-        });
-        return;
-      }
       addSectionLabel(slide, "MECÂNICA DO FUNDO", { left: 60, top: 176, width: 555, height: 24 });
       const leftFields = [
         ["CEDENTE / ORIGINADOR", profile.cedente_originador],
@@ -4287,17 +4240,14 @@ function buildPresentation(payload, flowAssets) {
         y += heights[fieldIndex] + 8;
       });
       addRule(slide, 60, 606, 1160, C.line, 1);
-      addText(slide, `Evidência: ${profile.evidencia}`, { left: 60, top: 614, width: 1160, height: 38 }, {
-        fontSize: 10.5,
+      addText(slide, `Cobertura documental: ${profile.cobertura_documental}. Fonte: ${profile.fonte}. Evidência: ${profile.evidencia}`, { left: 60, top: 614, width: 1160, height: 38 }, {
+        fontSize: 8.8,
         color: C.note,
         lineSpacing: 0.95,
       });
     });
 
-  // Market shares materiais e universo completo, após as fichas.
-  addMarketShareSlide(presentation, payload, "administrador", materialFocus, 44, false);
-  addMarketShareSlide(presentation, payload, "gestor", materialFocus, 45, false);
-  addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 46, false);
+  // Universo completo dos market shares permanece no apêndice.
   addMarketShareSlide(presentation, payload, "administrador", fullFocus, 47, true);
   addMarketShareSlide(presentation, payload, "gestor", fullFocus, 48, true);
   addMarketShareSlide(presentation, payload, "custodiante", fullFocus, 49, true);
@@ -4387,7 +4337,7 @@ function buildPresentation(payload, flowAssets) {
     addRule(slide, 60, 620, 1160, C.line, 1);
     addText(
       slide,
-      "A quebra no bruto coincide com a troca de administrador e não indica recuperação em caixa. As DFs têm opinião modificada para 01/01–19/07/24 por inconsistências de lastro e posição; a série não é like-for-like.",
+      "A quebra no bruto coincide com a troca de administrador, sem evidência de recuperação em caixa. As DFs têm opinião modificada para 01/01–19/07/24 por inconsistências de lastro e posição; a série usa bases de reporte distintas.",
       { left: 60, top: 630, width: 1160, height: 30 },
       { fontSize: 10.4, color: C.note, lineSpacing: 0.98 },
     );
@@ -4547,7 +4497,14 @@ async function addQaSheet(workbook) {
     "Top 5 excesso",
     "Top 10 excesso",
     "Aging total",
-    "Gap aging vs Tabela I",
+    "Tabela I completa para aging",
+    "Parcelas vincendas ligadas a inad.",
+    "Gap aging vs Tabela I completa",
+    "Veículos com parcelas vinculadas",
+    "Veículos só com parcelas vinculadas",
+    "PL dos veículos com parcelas",
+    "Top 10 das parcelas",
+    "Ex-360 ajustada %",
     "Status aging",
     "Presença exata",
     "Qualidade cobertura",
@@ -4577,7 +4534,14 @@ async function addQaSheet(workbook) {
     "excesso_top5_share",
     "excesso_top10_share",
     "aging_inadimplente_total_brl",
-    "aging_gap_vs_inadimplencia_reportada_brl",
+    "aging_tabela_i_referencia_brl",
+    "aging_parcelas_inadimplentes_brl",
+    "aging_gap_vs_tabela_i_completa_brl",
+    "veiculos_parcelas_inadimplentes_positivas",
+    "veiculos_so_parcelas_inadimplentes",
+    "pl_veiculos_parcelas_inadimplentes_brl",
+    "aging_parcelas_top10_share",
+    "inadimplencia_ex_360d_ajustada_pct_sobre_cobertura",
     "aging_publication_status",
     "presenca_campo_exata",
     "qualidade_cobertura",
@@ -4595,12 +4559,12 @@ async function addQaSheet(workbook) {
     { freezeColumns: 1 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [85, 80, 75, 90, 95, 110, 110, 85, 110, 110, 90, 115, 115, 80, 80, 90, 95, 110, 90, 115, 80, 80, 85, 115, 115, 180, 85, 135], rows.length);
+  applyColumnWidths(sheet, [85, 80, 75, 90, 95, 110, 110, 85, 110, 110, 90, 115, 115, 80, 80, 90, 95, 110, 90, 115, 80, 80, 85, 115, 125, 125, 125, 100, 100, 125, 95, 95, 180, 85, 135], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
-  ["F", "G", "I", "J", "L", "M", "R", "T", "X", "Y"].forEach((letter) => {
+  ["F", "G", "I", "J", "L", "M", "R", "T", "X", "Y", "Z", "AC"].forEach((letter) => {
     sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
   });
-  sheet.getRange(`A5:AB${rows.length + 4}`).format.rowHeightPx = 22;
+  sheet.getRange(`A5:${columnLetter(headers.length - 1)}${rows.length + 4}`).format.rowHeightPx = 22;
 }
 
 async function addVehicleCompetenceSheet(workbook, payload) {
@@ -4619,6 +4583,7 @@ async function addVehicleCompetenceSheet(workbook, payload) {
     ["Carteira DC", "carteira_dc"],
     ["Inadimplência reportada", "dc_inadimplentes"],
     ["Vincendas ligadas a inad.", "dc_a_vencer_com_parcela_inad"],
+    ["Parcelas inad. em créditos vincendos", "dc_parcelas_inadimplentes"],
     ["Até 30d", "inad_ate_30d"],
     ["31–60d", "inad_31_60d"],
     ["61–90d", "inad_61_90d"],
@@ -4741,7 +4706,7 @@ async function addMonoConcentrationSheet(workbook) {
   setHeaderBand(
     sheet,
     "Concentração de monoestruturas",
-    "Definição adotada: mesmo conglomerado econômico normalizado nas três funções. HHI calculado sobre o PL dos fundos do grupo.",
+    "Definição adotada: mesmo conglomerado econômico normalizado nas três funções. HHI em pontos de 0 a 10.000; 10.000 corresponde a um único fundo.",
     headers,
     rows.length,
   );
@@ -4869,6 +4834,7 @@ async function addCurationSheet(workbook, payload) {
     ["Fonte / link", "fonte"],
     ["Data consulta", "data_consulta"],
     ["Evidência / nota", "evidencia"],
+    ["Cobertura documental", "cobertura_documental"],
   ];
   const headers = columns.map(([header]) => header);
   const rows = worksheetRowsFromPayload(payload.profiles, columns);
@@ -4876,16 +4842,100 @@ async function addCurationSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Curadoria Top 20",
-    "Fontes primárias: CVM/FundosNet, regulamentos, ofertas, assembleias e informes. 'Não identificado' registra a lacuna; não é inferência pelo nome.",
+    "Fontes primárias: CVM/FundosNet, regulamentos, ofertas, assembleias e informes. Campos lacunares permanecem vazios; o preenchimento exclui deduções pelo nome do fundo.",
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [55, 120, 340, 110, 100, 360, 340, 350, 430, 430, 430, 260, 260, 260, 150, 180, 180, 110, 150, 300, 150, 360, 110, 360], rows.length);
+  applyColumnWidths(sheet, [55, 120, 340, 110, 100, 360, 340, 350, 430, 430, 430, 260, 260, 260, 150, 180, 180, 110, 150, 300, 150, 360, 110, 360, 210], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
   sheet.getRange(`D5:D${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:X${rows.length + 4}`).format.rowHeightPx = 120;
+  sheet.getRange(`A5:Y${rows.length + 4}`).format.rowHeightPx = 120;
+}
+
+async function addReceivablesReconciliationSheet(workbook, payload) {
+  const summary = payload.receivables_reconciliation_summary || [];
+  const detail = (payload.receivables_reconciliation_detail || []).filter(
+    (row) => num(row.rank_gap_positivo) <= 100 || row.tabela_ii_reportada === false,
+  );
+  const headers = [
+    "Tipo de linha",
+    "Competência",
+    "CNPJ fundo",
+    "Denominação",
+    "PL",
+    "Veículos",
+    "Tabela I · carteira",
+    "Tabela II · abertura",
+    "Gap Tabela II − I",
+    "Tabela II reportada",
+    "Gap positivo",
+    "Gap negativo",
+    "Rank gap positivo",
+    "Share acumulado gap positivo",
+    "Fundos total",
+    "Fundos sem abertura",
+    "PL sem abertura",
+    "Top 20 do gap positivo",
+    "Fonte",
+  ];
+  const rows = [
+    ...summary.map((row) => ({
+      "Tipo de linha": "Resumo",
+      "Competência": row.competencia,
+      "CNPJ fundo": "",
+      "Denominação": "",
+      "PL": row.pl_total_brl,
+      "Veículos": "",
+      "Tabela I · carteira": row.tabela_i_carteira_brl,
+      "Tabela II · abertura": row.tabela_ii_total_brl,
+      "Gap Tabela II − I": row.gap_tabela_ii_menos_i_brl,
+      "Tabela II reportada": "",
+      "Gap positivo": row.gap_positivo_brl,
+      "Gap negativo": row.gap_negativo_brl,
+      "Rank gap positivo": "",
+      "Share acumulado gap positivo": "",
+      "Fundos total": row.fundos_total,
+      "Fundos sem abertura": row.fundos_sem_abertura_tabela_ii,
+      "PL sem abertura": row.pl_sem_abertura_tabela_ii_brl,
+      "Top 20 do gap positivo": row.gap_positivo_top20_share,
+      "Fonte": row.fonte,
+    })),
+    ...detail.map((row) => ({
+      "Tipo de linha": "Fundo",
+      "Competência": row.competencia,
+      "CNPJ fundo": row.cnpj_fundo,
+      "Denominação": row.denominacao,
+      "PL": row.pl_brl,
+      "Veículos": row.veiculos,
+      "Tabela I · carteira": row.tabela_i_carteira_brl,
+      "Tabela II · abertura": row.tabela_ii_total_brl,
+      "Gap Tabela II − I": row.gap_tabela_ii_menos_i_brl,
+      "Tabela II reportada": row.tabela_ii_reportada,
+      "Gap positivo": row.gap_positivo_brl,
+      "Gap negativo": row.gap_negativo_brl,
+      "Rank gap positivo": row.rank_gap_positivo,
+      "Share acumulado gap positivo": row.share_gap_positivo_acumulado,
+      "Fundos total": "",
+      "Fundos sem abertura": "",
+      "PL sem abertura": "",
+      "Top 20 do gap positivo": "",
+      "Fonte": "CVM, Informe Mensal de FIDC, Tabelas I e II",
+    })),
+  ];
+  const sheet = resetSheet(workbook, "Reconciliação Tabelas I-II");
+  setHeaderBand(
+    sheet,
+    "Reconciliação Tabelas I e II",
+    "Resumo completo, Top 100 gaps positivos por data e todos os fundos sem abertura. O detalhe integral permanece na base analítica publicada; campo ausente não é tratado como zero.",
+    headers,
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [90, 85, 120, 300, 110, 70, 120, 120, 120, 100, 110, 110, 90, 105, 80, 105, 110, 105, 250], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
 }
 
 async function addHistoricalComparisonsSheet(workbook, payload) {
@@ -6299,6 +6349,7 @@ async function buildWorkbook(payload, flowAssets) {
   await addTop20Sheets(workbook, payload);
   await addCurationSheet(workbook, payload);
   await addHistoricalComparisonsSheet(workbook, payload);
+  await addReceivablesReconciliationSheet(workbook, payload);
   await addSingleReceivableDelinquencySheet(workbook, payload);
   await addFrozenDelinquencyHistorySheet(workbook, payload);
   await addProviderHistorySheet(workbook, payload);
@@ -6376,6 +6427,7 @@ async function exportWorkbook(workbook) {
       ["Top 20 Outros", "A1:J25"],
       ["Curadoria Top 20", "A1:X16"],
       ["Comparativos históricos", "A1:N28"],
+      ["Reconciliação Tabelas I-II", "A1:S30"],
       ["Inadimplência por recebível", "A1:J24"],
       ["Histórico inad. coorte", "A1:P28"],
       ["Ranking independentes", "A1:K76"],

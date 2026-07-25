@@ -41,7 +41,7 @@ CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (47, 48, 49, 50, 51, 52)
+MARKET_SHARE_SLIDES = (17, 18, 19, 50, 51, 52)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -85,24 +85,27 @@ SLIDE_TOKENS = {
         "DEZ/25*",
     ),
     16: ("PRESTADORES · LIDERANÇA EXPLICADA",),
-    17: ("RANKING · TOP 20 FIDCs",),
-    18: ("RANKING · TOP 20 OUTROS",),
-    19: ("MODELO DE PRESTAÇÃO",),
-    20: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    21: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
-    22: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
-    23: (
+    17: ("MARKET SHARE · ADMINISTRAÇÃO",),
+    18: ("MARKET SHARE · GESTÃO",),
+    19: ("MARKET SHARE · CUSTÓDIA",),
+    20: ("RANKING · TOP 20 FIDCs",),
+    21: ("RANKING · TOP 20 OUTROS",),
+    22: ("MODELO DE PRESTAÇÃO",),
+    23: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    24: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
+    25: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
+    26: (
         "OFERTAS · VOLUME E REGIME",
         "NÚMERO DE OFERTAS",
         "REGIME DE COLOCAÇÃO · VOLUME",
     ),
-    24: (
+    27: (
         "TOP 15 · OFERTAS ENCERRADAS",
         "IBBA PARTICIPOU DE 8 DAS 15 MAIORES",
         "JAN–JUN/26 · TOP 15",
         "2025FY · TOP 15",
     ),
-    25: (
+    28: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
         "771 OFERTAS",
@@ -110,10 +113,7 @@ SLIDE_TOKENS = {
         "R$ 33,0 BI",
         "DOIS FIDCS CIELO",
     ),
-    26: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    47: ("MARKET SHARE · ADMINISTRAÇÃO",),
-    48: ("MARKET SHARE · GESTÃO",),
-    49: ("MARKET SHARE · CUSTÓDIA",),
+    29: ("ESCOPO, FONTES E LIMITAÇÕES",),
     50: ("ADMINISTRAÇÃO POR SUBTIPO",),
     51: ("GESTÃO POR SUBTIPO",),
     52: ("CUSTÓDIA POR SUBTIPO",),
@@ -133,6 +133,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Top 20 FIDCs",
     "Top 20 Outros",
     "Curadoria Top 20",
+    "Reconciliação Tabelas I-II",
     "Comparativos históricos",
     "Ranking prestadores",
     "Taxonomia adquirência",
@@ -229,7 +230,7 @@ def test_deck_has_53_slides_in_the_reviewed_narrative_order() -> None:
                     f"texto observado: {text[:240]!r}"
                 )
 
-        profiles = [_slide_text(archive, number) for number in range(27, 47)]
+        profiles = [_slide_text(archive, number) for number in range(30, 50)]
 
     assert len(profiles) == 20
     for rank, profile in enumerate(profiles, start=1):
@@ -304,7 +305,7 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
         (11, 1, 1),  # inadimplência por recebível único da Tabela II
         (12, 1, 1),  # histórico da coorte atual por subtipo
         (15, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (21, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
+        (24, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -319,9 +320,9 @@ def test_new_analytical_slides_use_native_office_structures(
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 22)
+        chart_paths = _slide_chart_paths(archive, 25)
         assert len(chart_paths) == 3
-        assert _native_table_count(archive, 22) == 0
+        assert _native_table_count(archive, 25) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             bar_chart = chart.find(f".//{{{CHART}}}barChart")
@@ -335,9 +336,9 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
 def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 23)
+        chart_paths = _slide_chart_paths(archive, 26)
         assert len(chart_paths) == 4
-        assert _native_table_count(archive, 23) == 0
+        assert _native_table_count(archive, 26) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             assert chart.find(f".//{{{CHART}}}barChart") is not None
@@ -346,8 +347,8 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
 def test_top15_offer_slide_uses_two_native_tables_and_no_chart_images() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert _native_table_count(archive, 24) == 2
-        assert _slide_chart_paths(archive, 24) == []
+        assert _native_table_count(archive, 27) == 2
+        assert _slide_chart_paths(archive, 27) == []
 
 
 def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
@@ -355,7 +356,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
-            for path in _slide_chart_paths(archive, 21)
+            for path in _slide_chart_paths(archive, 24)
         ]
     line_charts = [
         chart
