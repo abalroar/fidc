@@ -276,7 +276,7 @@ def test_industry_revision_uses_itau_bba_orange_in_css_and_chart_specs() -> None
     assert "range=[_ORANGE, _BLACK]" in revision_source
     assert "industry-revision-type-mix-volume" in revision_source
     assert "industry-revision-type-mix-share" in revision_source
-    assert "N/D foi incorporado em Outros somente nesta visualização" in revision_source
+    assert "N/D foi incorporado em Outros nesta visualização" in revision_source
 
 
 def test_revision_history_frame_adds_period_label_to_acquiring_mix() -> None:
@@ -375,7 +375,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Ranking e concentração dos prestadores",
         "Evolução do ranking dos prestadores",
         "btg_provider_ex_controlled_scenario",
-        "BTG ex-coorte bancária de FIDCs.xlsx",
+        "BTG ex-coorte bancária curada",
         "PL observado",
         "Prestadores independentes",
         "evidencia_revisao",
@@ -388,8 +388,8 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Regime de colocação · número de ofertas",
         "Regime de colocação · volume",
         "Top 15 ofertas encerradas e originadores",
-        "Coordenador líder usa Nome_Lider",
-        "IBBA Coord usa a lista oficial",
+        "Coord. líder = coordenador informado no requerimento",
+        "IBBA Coord = ",
         "propostas, fees",
     )
     for text in required_text:
@@ -440,9 +440,9 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
     revision_source = source[source.index("def _render_revision_conclusions") :]
 
     required_notes = (
-        "Fontes: CVM, ANBIMA, FundosNet, BCB e FIDCs.xlsx",
+        "Fontes: CVM, ANBIMA, FundosNet e BCB",
         "Fonte: CVM, Informe Mensal de FIDC. Variações dezembro contra dezembro",
-        "Crescimento anual do PL ex-FIC",
+        "Crescimento do PL ex-FIC",
         "Fonte: BCB, SGS 28183–28192",
         "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}",
         "Fonte: CVM, dez/23 e {stock_label_lower}",
@@ -454,12 +454,12 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
             "A lista delimita a coorte bancária atual",
         "Singulare é consolidada em QI Tech",
         "Fonte: CVM, cadastro vigente em {stock_label_lower}",
-        "Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}",
-        "CVM — Ofertas Públicas de Distribuição",
-        "oferta_resolucao_160.csv + oferta_distribuicao.csv",
-        "todos os ritos públicos",
-        "Data_Encerramento_Oferta preenchida",
-        "abertas ficam fora",
+        "Fonte: ANBIMA, regulamentos e documentos das ofertas; ranking em {stock_label_lower}",
+        "CVM — Sistema de Registro de Ofertas (SRE)",
+        "ofertas primárias encerradas",
+        "todos os ritos",
+        "data de encerramento preenchida",
+        "Encerramento regulatório não comprova colocação integral",
         "FIDCs versus demais emissões de renda fixa",
         "A linha laranja mostra o consolidado ajustado de mercado",
         "Nos meses legados, presença de reporte é inferida por registro",
@@ -519,7 +519,7 @@ def test_industry_revision_offers_use_jan_june_cutoff_with_legacy_fallback() -> 
     assert _revision_offers_cutoff(legacy) == "2026-06-30"
 
 
-def test_industry_revision_offers_copy_and_charts_stop_at_june() -> None:
+def test_industry_revision_offers_show_full_year_history_and_stop_2026_at_june() -> None:
     source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
     offers_source = source[
         source.index("def _render_revision_offers") : source.index(
@@ -528,10 +528,11 @@ def test_industry_revision_offers_copy_and_charts_stop_at_june() -> None:
     ]
 
     assert 'key="industry-revision-closed-offers-jan-june"' in offers_source
-    assert 'title="Jan–jun comparável"' in offers_source
-    assert 'title="Janeiro a junho · acumulado"' in offers_source
+    assert 'title="Volume registrado e ticket · FY / YTD"' in offers_source
+    assert 'title="Volume acumulado · janeiro a dezembro"' in offers_source
     assert 'monthly["month"].le(6)' in offers_source
-    assert "oferta primária encerrada até" in offers_source
+    assert "ofertas primárias encerradas até" in offers_source
+    assert "as curvas de 2024 e 2025 seguem até dezembro" in offers_source
     assert "Jan–mai" not in offers_source
     assert "jan–mai" not in offers_source
     assert "17/jul/26" not in offers_source

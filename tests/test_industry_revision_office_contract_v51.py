@@ -1,4 +1,4 @@
-"""Acceptance contract for the 57-slide FIDC industry revision.
+"""Acceptance contract for the 53-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -19,29 +19,39 @@ from openpyxl import load_workbook
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PPTX = ROOT / "outputs" / "Industria_FIDC_Executivo_202607_revisado.pptx"
-XLSX = ROOT / "outputs" / "Industria_FIDC_Dados_202607_revisado.xlsx"
+PPTX = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "industry_executive_revised.pptx"
+)
+XLSX = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "industry_data_revised.xlsx"
+)
 
-TARGET_SLIDES = 57
+TARGET_SLIDES = 53
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (14, 15, 16, 34, 35, 36)
+MARKET_SHARE_SLIDES = (47, 48, 49, 50, 51, 52)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
     2: ("GRANDES NÚMEROS",),
     3: (
         "ESCALA DA INDÚSTRIA",
-        "2023 YOY",
-        "28,1%",
-        "2024 YOY",
-        "50,8%",
-        "2025 YOY",
-        "25,6%",
+        "CAGR 2015–18",
+        "2020/19",
+        "2022/21",
+        "2026 YTD",
     ),
     4: (
         "OFERTAS ENCERRADAS · RENDA FIXA",
@@ -61,15 +71,12 @@ SLIDE_TOKENS = {
     ),
     12: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
     13: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
-    14: ("MARKET SHARE · ADMINISTRAÇÃO",),
-    15: ("MARKET SHARE · GESTÃO",),
-    16: ("MARKET SHARE · CUSTÓDIA",),
-    17: (
+    14: (
         "PRESTADORES · EVOLUÇÃO E RANKING",
         "TODOS OS PRESTADORES",
         "INDEPENDENTES",
     ),
-    18: (
+    15: (
         "BANCOS",
         "FIDC",
         "R$ 7,9 BI",
@@ -77,29 +84,25 @@ SLIDE_TOKENS = {
         "DF AUDITADA 1150673",
         "DEZ/25*",
     ),
-    19: ("PRESTADORES · LIDERANÇA EXPLICADA",),
-    20: ("CBSF / REAG · DESTINO DOS FUNDOS",),
-    21: ("PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",),
-    22: ("PRESTADORES · MIGRAÇÃO EM GESTÃO",),
-    23: ("PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",),
-    24: ("RANKING · TOP 20 FIDCs",),
-    25: ("RANKING · TOP 20 OUTROS",),
-    26: ("MODELO DE PRESTAÇÃO",),
-    27: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    28: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–JUN", "14,6%"),
-    29: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",),
-    30: (
-        "OFERTAS ENCERRADAS · VOLUME E REGIME",
+    16: ("PRESTADORES · LIDERANÇA EXPLICADA",),
+    17: ("RANKING · TOP 20 FIDCs",),
+    18: ("RANKING · TOP 20 OUTROS",),
+    19: ("MODELO DE PRESTAÇÃO",),
+    20: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    21: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
+    22: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
+    23: (
+        "OFERTAS · VOLUME E REGIME",
         "NÚMERO DE OFERTAS",
         "REGIME DE COLOCAÇÃO · VOLUME",
     ),
-    31: (
+    24: (
         "TOP 15 · OFERTAS ENCERRADAS",
-        "IBBA LIDEROU 5 DAS 15 MAIORES",
+        "IBBA PARTICIPOU DE 8 DAS 15 MAIORES",
         "JAN–JUN/26 · TOP 15",
         "2025FY · TOP 15",
     ),
-    32: (
+    25: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
         "771 OFERTAS",
@@ -107,11 +110,14 @@ SLIDE_TOKENS = {
         "R$ 33,0 BI",
         "DOIS FIDCS CIELO",
     ),
-    33: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    34: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    35: ("GESTÃO POR SUBTIPO",),
-    36: ("CUSTÓDIA POR SUBTIPO",),
-    57: (
+    26: ("ESCOPO, FONTES E LIMITAÇÕES",),
+    47: ("MARKET SHARE · ADMINISTRAÇÃO",),
+    48: ("MARKET SHARE · GESTÃO",),
+    49: ("MARKET SHARE · CUSTÓDIA",),
+    50: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    51: ("GESTÃO POR SUBTIPO",),
+    52: ("CUSTÓDIA POR SUBTIPO",),
+    53: (
         "APÊNDICE · CASO ATLÂNTICO",
         "09.194.841/0001-51",
         "A QUEBRA NO BRUTO COINCIDE",
@@ -189,7 +195,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_57_slide_contract() -> None:
+def test_export_and_renderer_declare_53_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -197,15 +203,15 @@ def test_export_and_renderer_declare_57_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*57\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*53\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*57;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*53;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_57_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_53_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
@@ -223,12 +229,31 @@ def test_deck_has_57_slides_in_the_reviewed_narrative_order() -> None:
                     f"texto observado: {text[:240]!r}"
                 )
 
-        profiles = [_slide_text(archive, number) for number in range(37, 57)]
+        profiles = [_slide_text(archive, number) for number in range(27, 47)]
 
     assert len(profiles) == 20
     for rank, profile in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in profile
         assert f"#{rank} " in profile
+
+
+def test_standard_deck_omits_transition_slides_and_local_file_references() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        all_text = "\n".join(
+            _slide_text(archive, number) for number in range(1, TARGET_SLIDES + 1)
+        )
+
+    for removed_title in (
+        "CBSF / REAG · DESTINO DOS FUNDOS",
+        "PRESTADORES · MIGRAÇÃO EM ADMINISTRAÇÃO",
+        "PRESTADORES · MIGRAÇÃO EM GESTÃO",
+        "PRESTADORES · MIGRAÇÃO EM CUSTÓDIA",
+    ):
+        assert removed_title not in all_text
+    assert ".csv" not in all_text.lower()
+    assert ".xml" not in all_text.lower()
+    assert "/users/" not in all_text.lower()
 
 
 @pytest.mark.parametrize("slide_number", MARKET_SHARE_SLIDES)
@@ -248,25 +273,28 @@ def test_market_share_slides_remain_native_percent_stacked_charts(
     assert grouping.attrib.get("val") == "percentStacked"
 
 
-def test_gross_pl_evolution_remains_one_native_stacked_chart() -> None:
+def test_scale_slide_keeps_two_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, 3)
-        assert len(chart_paths) == 1
-        chart = ET.fromstring(archive.read(chart_paths[0]))
+        assert len(chart_paths) == 2
+        charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
 
-    bar_charts = chart.findall(f".//{{{CHART}}}barChart")
-    assert len(bar_charts) == 1
-    grouping = bar_charts[0].find(f"{{{CHART}}}grouping")
-    assert grouping is not None
-    assert grouping.attrib.get("val") == "stacked"
+    groupings = [
+        chart.find(f".//{{{CHART}}}barChart/{{{CHART}}}grouping")
+        for chart in charts
+    ]
+    assert {group.attrib.get("val") for group in groupings if group is not None} == {
+        "clustered",
+        "stacked",
+    }
 
 
 def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert len(_slide_chart_paths(archive, 17)) == 6
-        assert _native_table_count(archive, 17) == 0
+        assert len(_slide_chart_paths(archive, 14)) == 6
+        assert _native_table_count(archive, 14) == 0
 
 
 @pytest.mark.parametrize(
@@ -275,8 +303,8 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
         (4, 2, 1),  # FIDCs versus demais instrumentos de renda fixa
         (11, 1, 1),  # inadimplência por recebível único da Tabela II
         (12, 1, 1),  # histórico da coorte atual por subtipo
-        (18, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (28, 2, 1),  # volume/ticket comparável e acumulado mensal
+        (15, 1, 1),  # evolução dos FIDCs dos cinco bancos
+        (21, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -291,9 +319,9 @@ def test_new_analytical_slides_use_native_office_structures(
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 29)
+        chart_paths = _slide_chart_paths(archive, 22)
         assert len(chart_paths) == 3
-        assert _native_table_count(archive, 29) == 0
+        assert _native_table_count(archive, 22) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             bar_chart = chart.find(f".//{{{CHART}}}barChart")
@@ -307,9 +335,9 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
 def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 30)
+        chart_paths = _slide_chart_paths(archive, 23)
         assert len(chart_paths) == 4
-        assert _native_table_count(archive, 30) == 0
+        assert _native_table_count(archive, 23) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             assert chart.find(f".//{{{CHART}}}barChart") is not None
@@ -318,8 +346,8 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
 def test_top15_offer_slide_uses_two_native_tables_and_no_chart_images() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert _native_table_count(archive, 31) == 2
-        assert _slide_chart_paths(archive, 31) == []
+        assert _native_table_count(archive, 24) == 2
+        assert _slide_chart_paths(archive, 24) == []
 
 
 def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
@@ -327,7 +355,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
-            for path in _slide_chart_paths(archive, 28)
+            for path in _slide_chart_paths(archive, 21)
         ]
     line_charts = [
         chart

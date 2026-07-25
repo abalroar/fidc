@@ -31,7 +31,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 57
+EXPECTED_SLIDES = 53
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -269,9 +269,7 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
             )
-        placement_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "VOLUME E REGIME"
-        )
+        placement_slide = _slide_xml_containing(archive, "OFERTAS", "VOLUME E REGIME")
         if placement_slide.count(b"<c:chart") != 4:
             raise RevisionExportUnavailable(
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
@@ -294,8 +292,6 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de maiores ofertas deve conter duas tabelas nativas do Office"
             )
-        _slide_xml_containing(archive, "PRESTADORES", "MIGRAÇÃO EM GESTÃO")
-        _slide_xml_containing(archive, "PRESTADORES", "MIGRAÇÃO EM CUSTÓDIA")
         _slide_xml_containing(archive, "PRINCIPAIS CONCLUSÕES")
 
 
