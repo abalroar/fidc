@@ -122,6 +122,10 @@ DISTRIBUTION_COLUMNS = (
     "period_p25_ticket_brl",
     "period_p75_ticket_brl",
     "period_p90_ticket_brl",
+    "over_100m_closed_offers",
+    "over_100m_offer_share",
+    "over_100m_registered_volume_brl",
+    "over_100m_registered_volume_share",
     "source_dataset",
     "source_url",
     "source_as_of_date",
@@ -306,6 +310,9 @@ def build_offer_ticket_distribution(cohort: pd.DataFrame) -> pd.DataFrame:
         period = validated[validated["period_label"].eq(label)].copy()
         period_count = int(len(period))
         period_volume = float(period["registered_volume_brl"].sum())
+        over_100m = period[period["registered_volume_brl"].gt(100_000_000.0)]
+        over_100m_count = int(len(over_100m))
+        over_100m_volume = float(over_100m["registered_volume_brl"].sum())
         period_metrics = {
             "period_closed_offers": period_count,
             "period_registered_volume_brl": period_volume,
@@ -314,6 +321,10 @@ def build_offer_ticket_distribution(cohort: pd.DataFrame) -> pd.DataFrame:
             "period_p25_ticket_brl": float(period["registered_volume_brl"].quantile(0.25)),
             "period_p75_ticket_brl": float(period["registered_volume_brl"].quantile(0.75)),
             "period_p90_ticket_brl": float(period["registered_volume_brl"].quantile(0.90)),
+            "over_100m_closed_offers": over_100m_count,
+            "over_100m_offer_share": over_100m_count / period_count,
+            "over_100m_registered_volume_brl": over_100m_volume,
+            "over_100m_registered_volume_share": over_100m_volume / period_volume,
         }
         metadata = {column: str(period.iloc[0][column]) for column in metadata_columns}
         for bucket_order, bucket_label, floor, ceiling in TICKET_BUCKETS:
@@ -366,6 +377,10 @@ def validate_offer_ticket_distribution(frame: pd.DataFrame) -> pd.DataFrame:
         "period_p25_ticket_brl",
         "period_p75_ticket_brl",
         "period_p90_ticket_brl",
+        "over_100m_closed_offers",
+        "over_100m_offer_share",
+        "over_100m_registered_volume_brl",
+        "over_100m_registered_volume_share",
     ]
     for column in numeric_columns:
         result[column] = pd.to_numeric(result[column], errors="coerce")

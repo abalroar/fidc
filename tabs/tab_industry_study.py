@@ -11177,7 +11177,7 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
         st.caption(" · ".join(str(note).strip() for note in editorial_notes if str(note).strip()))
     else:
         st.caption(
-            f"Fontes: CVM, ANBIMA, FundosNet, BCB e FIDCs.xlsx. Estoque em {latest_stock_label}; "
+            f"Fontes: CVM, ANBIMA, FundosNet e BCB; coorte bancária curada a partir dos conglomerados prudenciais. Estoque em {latest_stock_label}; "
             f"ofertas até {_date_label(offers_cutoff)}; proxy colocado com {_fmt_pct(pf_coverage)} de cobertura."
         )
 
@@ -11230,6 +11230,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
     pl = _revision_frame(payload, "pl_history")
     pl_cagr_periods = _revision_frame(payload, "pl_total_cagr_periods")
     bcb_credit = _revision_frame(payload, "bcb_expanded_credit")
+    bcb_growth_periods = _revision_frame(payload, "bcb_total_growth_periods")
     qa = dict(payload.get("qa_latest") or {})
     service_model = _revision_frame(payload, "service_model")
     top20 = _revision_frame(payload, "top20_fidcs")
@@ -11306,10 +11307,10 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             )
             if not pl_cagr_periods.empty:
                 cagr_parts = [
-                    f"{int(row.end_year)}: {_fmt_pct(float(row.cagr))}"
+                    f"{getattr(row, 'period_label', int(row.end_year))}: {_fmt_pct(float(row.cagr))}"
                     for row in pl_cagr_periods.itertuples(index=False)
                 ]
-                st.caption("Crescimento anual do PL ex-FIC · " + " · ".join(cagr_parts))
+                st.caption("Crescimento do PL ex-FIC · " + " · ".join(cagr_parts))
             st.caption(
                 "Fonte: CVM, Informe Mensal de FIDC. Variações dezembro contra dezembro; "
                 f"último ponto em {latest_label.lower()}."
@@ -11374,11 +11375,33 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                         ],
                     )
                 )
+                bcb_totals = bcb_credit.copy()
+                bcb_totals["Total (R$ bi)"] = pd.to_numeric(
+                    bcb_totals["expanded_credit_total_brl"], errors="coerce"
+                ) / 1e9
+                bcb_total_labels = (
+                    alt.Chart(bcb_totals)
+                    .mark_text(dy=-8, color=_BLACK, fontSize=10, fontWeight=700)
+                    .encode(
+                        x=alt.X("period_label:N", sort=bcb_order),
+                        y=alt.Y("Total (R$ bi):Q"),
+                        text=alt.Text("Total (R$ bi):Q", format=",.0f"),
+                    )
+                )
                 st.altair_chart(
-                    bcb_chart.properties(height=340),
+                    (bcb_chart + bcb_total_labels).properties(height=340),
                     width="stretch",
                     key="industry-revision-bcb-credit",
                 )
+                if not bcb_growth_periods.empty:
+                    growth_parts = [
+                        f"{getattr(row, 'period_label', int(row.end_year))}: {_fmt_pct(float(row.cagr))}"
+                        for row in bcb_growth_periods.itertuples(index=False)
+                    ]
+                    st.caption(
+                        "Crescimento do Crédito Ampliado · "
+                        + " · ".join(growth_parts)
+                    )
                 st.caption(
                     "Fonte: BCB, SGS 28183–28192; CVM, carteira de direitos creditórios "
                     "na mesma competência. Último mês comum: mai/26. Debêntures e notas "
@@ -11534,11 +11557,29 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                 width="stretch",
                 key="industry-revision-type-mix-share",
             )
-        st.caption(
-            str(mix_meta.get("classification_method") or "")
-            + " N/D foi incorporado em Outros somente nesta visualização. "
-            + "Tipo e Foco ANBIMA permanecem campos distintos."
+        latest_period_label = period_order[-1]
+        latest_total = float(
+            mix.loc[mix["period_label"].eq(latest_period_label), "pl"].sum()
         )
+        st.caption(
+            f"As quatro categorias somam {_fmt_bi(latest_total, 1)}, equivalentes "
+            f"a 100% do PL ex-FIC de {latest_period_label}. Fonte: ANBIMA Data, "
+            "classificação Tipo/Foco; fotografia cadastral de dez/25 aplicada ao "
+            "Informe Mensal CVM. N/D foi incorporado em Outros nesta visualização."
+        )
+        with st.expander("Como ler as categorias", expanded=False):
+            st.markdown(
+                "- **Fomento Mercantil:** recebíveis classificados no foco homônimo.\n"
+                "- **Agro, Indústria e Comércio:** recebíveis comerciais, agronegócio, "
+                "crédito corporativo, infraestrutura e multicarteira AIC.\n"
+                "- **Financeiro:** crédito pessoal, consignado, imobiliário, veículos "
+                "e multicarteira financeiro.\n"
+                "- **Outros:** multicarteira outros, poder público, recuperação e N/D."
+            )
+            st.caption(
+                "Tipo e Foco ANBIMA são campos distintos; a origem da classificação "
+                "permanece identificada por fundo."
+            )
 
     acquiring_mix = _revision_history_frame(
         payload,
@@ -12750,7 +12791,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     "Cenário BTG ex-coorte bancária: em gestão, a posição passa de "
                     f"#{int(manager_scenario['btg_rank'])} para "
                     f"#{int(manager_scenario['btg_rank_ex_controlados'])}. A exclusão usa a aba BTG "
-                    "de FIDCs.xlsx; controle econômico fica fora do escopo dessa lista."
+                    "da coorte bancária curada a partir dos conglomerados prudenciais do BCB; controle econômico fica fora do escopo dessa lista."
                     "</div>",
                     unsafe_allow_html=True,
                 )
@@ -12897,7 +12938,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     "Exclusão da coorte por função: " + "; ".join(exclusion_parts) + ". "
                 )
             st.caption(
-                "Fonte: CVM e aba BTG de FIDCs.xlsx; "
+                "Fonte: CVM e coorte bancária curada a partir dos conglomerados prudenciais do BCB; "
                 f"{_fmt_int(conclusion_metrics.get('btg_bank_cohort_listed_roots', 0))} raízes listadas e "
                 f"{_fmt_int(conclusion_metrics.get('btg_bank_cohort_observed_funds', 0))} observadas em {stock_label_lower}. "
                 + btg_exclusion_note
@@ -12940,7 +12981,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 scenario["PL retirado"] = scenario[excluded_pl_column].map(
                     lambda value: _fmt_bi(float(value), 1)
                 )
-                st.markdown("**BTG ex-coorte bancária de FIDCs.xlsx**")
+                st.markdown("**BTG ex-coorte bancária curada**")
                 st.dataframe(
                     scenario[
                         [
@@ -13413,7 +13454,7 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
         display["Share ex-FIC"] = display["Share ex-FIC"].map(_fmt_pct)
         st.dataframe(display, hide_index=True, width="stretch", height=730)
         st.caption(
-            f"Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}. Evidência e links completos constam no workbook."
+            f"Fonte: ANBIMA, regulamentos e documentos das ofertas; ranking em {stock_label_lower}. Evidência e links completos constam no workbook."
         )
     with others_tab:
         top20_outros_share = float(
@@ -13452,7 +13493,7 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
         display["Share de Outros"] = display["Share de Outros"].map(_fmt_pct)
         st.dataframe(display, hide_index=True, width="stretch", height=730)
         st.caption(
-            f"Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}. Ranking dos 20 maiores fundos classificados "
+            f"Fonte: ANBIMA, regulamentos e documentos das ofertas; ranking em {stock_label_lower}. Ranking dos 20 maiores fundos classificados "
             f"em Outros, sobre o universo ex-FIC. Os 20 fundos representam {_fmt_pct(top20_outros_share)} de Outros. "
             "Hipóteses de reenquadramento permanecem separadas da classificação oficial; evidência, fonte e status documentam a revisão."
         )
@@ -13640,20 +13681,59 @@ def _render_revision_offer_ticket_distribution(
             key=f"{chart_key}-volume-absolute",
             height=330,
         )
-    current_period = ticket_distribution[
-        ticket_distribution["period_label"].eq(period_order[-1])
-        & ticket_distribution["ticket_bucket"].astype(str).str.startswith("≥")
-    ]
-    if not current_period.empty:
-        current_bucket = current_period.iloc[0]
-        st.markdown(
-            '<div class="industry-note">'
-            f'Em jan–jun/26, ofertas ≥ R$ 500 mi representam '
-            f'<b>{_fmt_pct(float(current_bucket["% do volume"]))}</b> do volume, '
-            f'ou <b>{_fmt_bi(float(current_bucket["registered_volume_brl"]), 1)}</b>.'
-            "</div>",
-            unsafe_allow_html=True,
+    if "over_100m_registered_volume_brl" in ticket_distribution:
+        summary_rows = (
+            ticket_distribution.sort_values("period_order")
+            .drop_duplicates("period_label")
         )
+    else:
+        upper_tail = ticket_distribution[
+            pd.to_numeric(ticket_distribution["bucket_order"], errors="coerce").ge(5)
+        ]
+        summary_rows = (
+            upper_tail.groupby(
+                ["period_order", "period_label"],
+                as_index=False,
+                sort=True,
+            )
+            .agg(
+                over_100m_closed_offers=("closed_offers", "sum"),
+                over_100m_registered_volume_brl=("registered_volume_brl", "sum"),
+                period_closed_offers=("period_closed_offers", "first"),
+                period_registered_volume_brl=(
+                    "period_registered_volume_brl",
+                    "first",
+                ),
+            )
+        )
+        summary_rows["over_100m_offer_share"] = (
+            summary_rows["over_100m_closed_offers"]
+            / summary_rows["period_closed_offers"]
+        )
+        summary_rows["over_100m_registered_volume_share"] = (
+            summary_rows["over_100m_registered_volume_brl"]
+            / summary_rows["period_registered_volume_brl"]
+        )
+    summary_cards = []
+    for row in summary_rows.itertuples(index=False):
+        period_label = (
+            "2026 YTD"
+            if row.period_label == "2026 jan-jun"
+            else str(row.period_label).replace(" FY", "FY")
+        )
+        summary_cards.append(
+            _industry_kpi(
+                f"{period_label} · > R$ 100 mi",
+                _fmt_bi(float(row.over_100m_registered_volume_brl), 1),
+                f"{_fmt_pct(float(row.over_100m_registered_volume_share))} do volume · "
+                f"{_fmt_int(row.over_100m_closed_offers)} ofertas "
+                f"({_fmt_pct(float(row.over_100m_offer_share))})",
+            )
+        )
+    st.markdown(
+        f'<div class="industry-kpi-grid">{"".join(summary_cards)}</div>',
+        unsafe_allow_html=True,
+    )
     st.caption(
         f"2024 e 2025 = ano completo; 2026 = jan–jun até {_date_label(offers_cutoff)}. "
         "Faixas por Valor Total Registrado; os gráficos de quantidade e volume "
@@ -13829,23 +13909,20 @@ def _render_revision_fixed_income_offer_comparison(
         .reindex(columns=period_order)
         .reset_index()
     )
-    yoy.columns = ["Instrumento", "2023", "2024", "2025", "1S26"]
-    for column in ("2023", "2024", "2025", "1S26"):
+    yoy = yoy.drop(columns=["2023 FY"])
+    yoy.columns = ["Instrumento", "2024", "2025", "1S26"]
+    for column in ("2024", "2025", "1S26"):
         yoy[column] = yoy[column].map(
             lambda value: _fmt_pct(float(value)) if pd.notna(value) else "N/D"
         )
     st.dataframe(yoy, hide_index=True, width="stretch")
     exclusions = str(comparison.iloc[0].get("excluded_instruments") or "")
     st.caption(
-        "Fonte: [CVM — Ofertas Públicas de Distribuição]"
-        "(https://dados.cvm.gov.br/dataset/oferta-distrib), "
-        "oferta_resolucao_160.csv + oferta_distribuicao.csv; todos os ritos "
-        "públicos, oferta primária encerrada e volume registrado positivo. "
-        "No rito automático, a chave é o Número do Requerimento; nos ritos "
-        "ordinários/legados, registro + emissor + encerramento + instrumento. "
-        "2026 = jan–jun e compara jan–jun/25. "
-        "Instrumentos materiais = quatro maiores tipos não FIDC por volume em "
-        f"2025FY. Exclusões: {exclusions}."
+        "Fonte: [CVM — Sistema de Registro de Ofertas (SRE)]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib). Ofertas primárias "
+        "encerradas, todos os ritos, com volume registrado positivo. 2026 compara "
+        "jan–jun/26 com jan–jun/25. Instrumentos materiais = quatro maiores tipos "
+        f"não FIDC em 2025FY. Exclusões: {exclusions}."
     )
 
 
@@ -14014,8 +14091,12 @@ def _render_revision_closed_offer_placement_regime(
     ].copy()
     regime_view["Período"] = regime_view["period_label"].map(period_display)
     regime_view["Volume (R$ bi)"] = regime_view["registered_volume_brl"] / 1e9
-    regime_view["Ofertas · rótulo"] = regime_view["closed_offers"].map(
-        lambda value: _fmt_int(value)
+    regime_view["Ofertas · rótulo"] = regime_view.apply(
+        lambda row: (
+            f"{_fmt_int(row['closed_offers'])} · "
+            f"{_fmt_pct(float(row['closed_offers_share']), 0)}"
+        ),
+        axis=1,
     )
     regime_view["Volume · rótulo"] = regime_view["Volume (R$ bi)"].map(
         lambda value: f"{float(value):.1f}".replace(".", ",")
@@ -14116,15 +14197,11 @@ def _render_revision_closed_offer_placement_regime(
         )
 
     st.caption(
-        "Fonte: [CVM — Ofertas Públicas de Distribuição]"
-        "(https://dados.cvm.gov.br/dataset/oferta-distrib), "
-        "oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot "
-        "24/jul/26. Cotas de FIDC, oferta pública primária encerrada e volume "
-        "registrado positivo, em todos os ritos disponíveis. Regime usa "
-        "Regime_distribuicao quando reportado; ritos sem abertura permanecem "
-        "em Não informado. "
-        "Garantia firme consolida colocação e liquidação. 2024/2025 são anos "
-        "completos; 2026 cobre janeiro a junho."
+        "Fonte: [CVM — Sistema de Registro de Ofertas (SRE)]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib). Cotas de FIDC, ofertas "
+        "primárias encerradas, todos os ritos, com volume registrado positivo. "
+        "Regime conforme informado; ritos sem abertura permanecem em Não informado. "
+        "2024/2025 são anos completos; 2026 cobre janeiro a junho."
     )
 
 
@@ -14170,35 +14247,50 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
 
     st.caption(
-        "Fonte: [CVM — Ofertas Públicas de Distribuição](https://dados.cvm.gov.br/dataset/oferta-distrib), "
-        "arquivos oferta_resolucao_160.csv + oferta_distribuicao.csv, consulta "
-        f"em {source_as_of}. Universo: Cotas de FIDC, todos os ritos públicos, "
-        "oferta primária encerrada até "
-        f"{_date_label(offers_cutoff)} e volume registrado positivo; ofertas "
-        "abertas ficam fora. O rito automático usa Status_Requerimento = "
-        "Oferta Encerrada e Número do Requerimento. Os ritos ordinários/legados "
-        "usam Data_Encerramento_Oferta preenchida e chave composta por registro, "
-        "emissor, data e instrumento; classes do mesmo FIDC são somadas. "
-        "Encerramento regulatório não comprova colocação integral."
+        "Fonte: [CVM — Sistema de Registro de Ofertas (SRE)]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib), consulta em "
+        f"{source_as_of}. Cotas de FIDC, ofertas primárias encerradas até "
+        f"{_date_label(offers_cutoff)}, todos os ritos, com volume registrado positivo."
     )
+    with st.expander("Critério de oferta encerrada", expanded=False):
+        st.caption(
+            "Rito automático: status Oferta Encerrada e chave Número do Requerimento. "
+            "Ritos ordinários/legados: data de encerramento preenchida e chave por "
+            "registro, emissor, data e instrumento; classes do mesmo FIDC são somadas. "
+            "Encerramento regulatório não comprova colocação integral."
+        )
 
     _render_revision_fixed_income_offer_comparison(payload)
 
-    if not jan_june.empty and not monthly.empty:
-        jan_june = jan_june.copy()
-        jan_june["year"] = pd.to_numeric(jan_june["year"], errors="coerce").astype("Int64")
-        jan_june["Período"] = jan_june["year"].astype(str) + " jan–jun"
-        jan_june["Volume (R$ bi)"] = pd.to_numeric(
-            jan_june["registered_volume_brl"], errors="coerce"
+    if not annual.empty and not monthly.empty and not current.empty:
+        annual_comparison = annual.copy()
+        annual_comparison["year"] = pd.to_numeric(
+            annual_comparison["year"], errors="coerce"
+        ).astype("Int64")
+        annual_comparison = annual_comparison[
+            annual_comparison["year"].isin([2024, 2025])
+        ]
+        annual_comparison = pd.concat(
+            [annual_comparison, current.to_frame().T],
+            ignore_index=True,
+        )
+        annual_comparison["year"] = pd.to_numeric(
+            annual_comparison["year"], errors="coerce"
+        ).astype("Int64")
+        annual_comparison["Período"] = annual_comparison["year"].map(
+            lambda value: "2026 YTD" if int(value) == 2026 else f"{int(value)}FY"
+        )
+        annual_comparison["Volume (R$ bi)"] = pd.to_numeric(
+            annual_comparison["registered_volume_brl"], errors="coerce"
         ) / 1e9
-        jan_june["Ticket médio (R$ mi)"] = pd.to_numeric(
-            jan_june["mean_registered_ticket_brl"], errors="coerce"
+        annual_comparison["Ticket médio (R$ mi)"] = pd.to_numeric(
+            annual_comparison["mean_registered_ticket_brl"], errors="coerce"
         ) / 1e6
-        current_year = int(jan_june["year"].max())
+        current_year = 2026
         left, right = st.columns(2)
         with left:
             chart = (
-                alt.Chart(jan_june)
+                alt.Chart(annual_comparison)
                 .mark_bar(cornerRadiusTopLeft=2, cornerRadiusTopRight=2)
                 .encode(
                     x=alt.X("Período:N", title=None, axis=alt.Axis(labelAngle=0)),
@@ -14211,10 +14303,10 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                         alt.Tooltip("Ticket médio (R$ mi):Q", format=",.1f"),
                     ],
                 )
-                .properties(height=340, title="Jan–jun comparável")
+                .properties(height=340, title="Volume registrado e ticket · FY / YTD")
             )
             labels = (
-                alt.Chart(jan_june)
+                alt.Chart(annual_comparison)
                 .mark_text(
                     dy=-8,
                     color=_BLACK,
@@ -14238,7 +14330,10 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             monthly["month"] = pd.to_numeric(monthly["month"], errors="coerce").astype("Int64")
             monthly = monthly[
                 monthly["year"].isin([2024, 2025, 2026])
-                & monthly["month"].le(6)
+                & (
+                    monthly["year"].isin([2024, 2025])
+                    | monthly["month"].le(6)
+                )
             ].sort_values(["year", "month"])
             monthly["Volume acumulado (R$ bi)"] = (
                 pd.to_numeric(monthly["registered_volume_brl"], errors="coerce")
@@ -14247,7 +14342,10 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 / 1e9
             )
             monthly["Mês"] = monthly["month"].map(
-                {1: "Jan", 2: "Fev", 3: "Mar", 4: "Abr", 5: "Mai", 6: "Jun"}
+                {
+                    1: "Jan", 2: "Fev", 3: "Mar", 4: "Abr", 5: "Mai", 6: "Jun",
+                    7: "Jul", 8: "Ago", 9: "Set", 10: "Out", 11: "Nov", 12: "Dez",
+                }
             )
             chart = (
                 alt.Chart(monthly)
@@ -14257,8 +14355,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                         "month:Q",
                         title=None,
                         axis=alt.Axis(
-                            values=list(range(1, 7)),
-                            labelExpr="['','Jan','Fev','Mar','Abr','Mai','Jun'][datum.value]",
+                            values=list(range(1, 13)),
+                            labelExpr="['','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'][datum.value]",
                             grid=False,
                         ),
                     ),
@@ -14270,11 +14368,12 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     ),
                     tooltip=["year:N", "Mês:N", alt.Tooltip("Volume acumulado (R$ bi):Q", format=",.1f")],
                 )
-                .properties(height=340, title="Janeiro a junho · acumulado")
+                .properties(height=340, title="Volume acumulado · janeiro a dezembro")
             )
             end_labels = (
                 alt.Chart(monthly)
-                .transform_filter(alt.datum.month == 6)
+                .transform_joinaggregate(last_month="max(month)", groupby=["year"])
+                .transform_filter(alt.datum.month == alt.datum.last_month)
                 .mark_text(
                     align="left",
                     baseline="middle",
@@ -14301,6 +14400,9 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 chart + end_labels,
                 width="stretch",
                 key="industry-revision-closed-offers-cumulative",
+            )
+            st.caption(
+                "2026 encerra em jun/26; as curvas de 2024 e 2025 seguem até dezembro."
             )
 
     _render_revision_offer_ticket_distribution(
@@ -14439,6 +14541,23 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     hide_index=True,
                     width="stretch",
                     height=610,
+                    column_config={
+                        "Coordenador líder": st.column_config.TextColumn(
+                            help="Coordenador líder informado no requerimento da oferta."
+                        ),
+                        "IBBA Coord": st.column_config.TextColumn(
+                            help="Sim quando uma entidade do conglomerado Itaú consta entre as instituições intermediárias."
+                        ),
+                        "Garantia Firme?": st.column_config.TextColumn(
+                            help="Regime de colocação com garantia firme informado na oferta."
+                        ),
+                        "Público": st.column_config.TextColumn(
+                            help="Público-alvo informado: profissional, qualificado ou geral."
+                        ),
+                        "Nº de Inv.": st.column_config.TextColumn(
+                            help="Soma das categorias de investidores informadas no encerramento."
+                        ),
+                    },
                 )
                 st.caption(
                     f"Subtotal: {_fmt_bi(float(summary['top15_registered_volume_brl']), 2)} "
@@ -14446,18 +14565,18 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     "do volume encerrado no período)."
                 )
         st.caption(
-            "Universo: CVM, Cotas de FIDC, ofertas públicas primárias encerradas "
-            "em todos os ritos disponíveis, data de encerramento no período e "
-            "volume registrado positivo. "
-            "Originador não identificável permanece como “Não identificado”. "
-            "Coordenador líder usa Nome_Lider. IBBA Coord usa a lista oficial de "
-            "participantes do SRE e inclui coordenação/requerimento por entidade "
-            "do conglomerado Itaú. Garantia Firme usa Regime_distribuicao. "
-            "Nº de Inv. soma todas as colunas Num_Invest_*; a coluna de pessoa natural "
-            "isolada não representa o total. Empates de volume usam o Número do "
-            "Requerimento em ordem crescente. A base pública não contém propostas, fees "
-            "ou preço de coordenação para atribuir competitividade."
+            "Fonte: CVM, Sistema de Registro de Ofertas (SRE). Cotas de FIDC, "
+            "ofertas primárias encerradas, todos os ritos, com volume positivo. "
+            "Originador não identificável permanece como “Não identificado”."
         )
+        with st.expander("Como ler as colunas", expanded=False):
+            st.caption(
+                "Coord. líder = coordenador informado no requerimento. IBBA Coord = "
+                "entidade do conglomerado Itaú entre as instituições intermediárias. "
+                "GF = garantia firme. Público = público-alvo. Nº de Inv. = soma das "
+                "categorias informadas no encerramento. Empates usam o Número do "
+                "Requerimento; a base pública não contém propostas, fees ou preço."
+            )
 
 
 def _render_revision_data_exports(

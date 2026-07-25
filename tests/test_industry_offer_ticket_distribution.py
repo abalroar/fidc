@@ -22,11 +22,39 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
     outputs = load_materialized_offer_ticket_outputs()
     distribution = outputs.distribution
     expected = {
-        "2024 FY": (1_009, 95_416_726_133.75, 94_565_635.41501486, 29_999_999.98),
-        "2025 FY": (1_473, 116_921_319_054.77, 79_376_319.79278342, 25_000_000.0),
-        "2026 jan-jun": (771, 65_488_118_983.56, 84_939_194.53120622, 22_500_000.0),
+        "2024 FY": (
+            1_009,
+            95_416_726_133.75,
+            94_565_635.41501486,
+            29_999_999.98,
+            71_992_614_281.85,
+            0.7545072776960997,
+        ),
+        "2025 FY": (
+            1_473,
+            116_921_319_054.77,
+            79_376_319.79278342,
+            25_000_000.0,
+            81_769_067_300.87,
+            0.6993512215044935,
+        ),
+        "2026 jan-jun": (
+            771,
+            65_488_118_983.56,
+            84_939_194.53120622,
+            22_500_000.0,
+            47_729_752_363.73,
+            0.7288307116549183,
+        ),
     }
-    for label, (offers, volume, mean_ticket, median_ticket) in expected.items():
+    for label, (
+        offers,
+        volume,
+        mean_ticket,
+        median_ticket,
+        over_100m_volume,
+        over_100m_share,
+    ) in expected.items():
         period = distribution[distribution["period_label"].eq(label)]
         assert int(period["closed_offers"].sum()) == offers
         assert math.isclose(float(period["registered_volume_brl"].sum()), volume, abs_tol=0.01)
@@ -39,6 +67,16 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
             float(period["registered_volume_share"].sum()), 1.0, abs_tol=1e-12
         )
         assert (period["closed_offers"] > 0).all()
+        assert math.isclose(
+            float(period["over_100m_registered_volume_brl"].iloc[0]),
+            over_100m_volume,
+            abs_tol=0.01,
+        )
+        assert math.isclose(
+            float(period["over_100m_registered_volume_share"].iloc[0]),
+            over_100m_share,
+            abs_tol=1e-12,
+        )
 
     assert len(outputs.cohort) == 3_253
     assert outputs.cohort["numero_requerimento"].nunique() == 3_253

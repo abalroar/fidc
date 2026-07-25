@@ -48,7 +48,15 @@ ROOT = Path(__file__).resolve().parents[1]
 HISTORICAL_REFERENCE = "2023-12"
 PROVIDER_REFERENCE = "2025-12"
 ATLANTICO_CNPJ = "09194841000151"
-PL_TOTAL_CAGR_PERIODS = ((2022, 2023), (2023, 2024), (2024, 2025))
+ANNUAL_GROWTH_PERIODS = (
+    (2015, 2018, "CAGR 2015–18", "cagr"),
+    (2019, 2020, "2020/19", "yoy"),
+    (2021, 2022, "2022/21", "yoy"),
+    (2022, 2023, "2023/22", "yoy"),
+    (2023, 2024, "2024/23", "yoy"),
+    (2024, 2025, "2025/24", "yoy"),
+    (2025, 2026, "2026 YTD", "ytd"),
+)
 EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL = 500_000_000.0
 
 
@@ -1123,7 +1131,7 @@ def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("série anual de PL sem colunas: " + ", ".join(missing))
     by_year = annual_pl.set_index("year", drop=False)
     rows: list[dict[str, Any]] = []
-    for start_year, end_year in PL_TOTAL_CAGR_PERIODS:
+    for start_year, end_year, period_label, growth_kind in ANNUAL_GROWTH_PERIODS:
         if start_year not in by_year.index or end_year not in by_year.index:
             raise ValueError(
                 f"série anual de PL não cobre CAGR {start_year}-{end_year}"
@@ -1135,9 +1143,16 @@ def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
         annual_intervals = int(end_year - start_year)
         if start_pl <= 0 or end_pl <= 0 or annual_intervals <= 0:
             raise ValueError(f"base inválida para CAGR {start_year}-{end_year}")
+        growth = (
+            (end_pl / start_pl) ** (1 / annual_intervals) - 1
+            if growth_kind == "cagr"
+            else end_pl / start_pl - 1
+        )
         rows.append(
             {
                 "metric": "PL ex-FIC",
+                "period_label": period_label,
+                "growth_kind": growth_kind,
                 "start_year": int(start_year),
                 "end_year": int(end_year),
                 "start_competencia": str(start["competencia"]),
@@ -1145,7 +1160,55 @@ def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
                 "start_pl_total_brl": start_pl,
                 "end_pl_total_brl": end_pl,
                 "annual_intervals": annual_intervals,
-                "cagr": (end_pl / start_pl) ** (1 / annual_intervals) - 1,
+                "cagr": growth,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _bcb_total_growth_periods(expanded_credit: pd.DataFrame) -> pd.DataFrame:
+    """Materialize the same growth windows for the BCB total shown in slide 3."""
+
+    required = {"competencia", "expanded_credit_total_brl"}
+    missing = sorted(required.difference(expanded_credit.columns))
+    if missing:
+        raise ValueError("série BCB sem colunas: " + ", ".join(missing))
+    scoped = expanded_credit.copy()
+    scoped["year"] = scoped["competencia"].astype(str).str[:4].astype(int)
+    by_year = scoped.set_index("year", drop=False)
+    rows: list[dict[str, Any]] = []
+    for start_year, end_year, period_label, growth_kind in ANNUAL_GROWTH_PERIODS:
+        if start_year not in by_year.index or end_year not in by_year.index:
+            raise ValueError(
+                f"série BCB não cobre crescimento {start_year}-{end_year}"
+            )
+        start = by_year.loc[start_year]
+        end = by_year.loc[end_year]
+        start_value = float(start["expanded_credit_total_brl"])
+        end_value = float(end["expanded_credit_total_brl"])
+        annual_intervals = int(end_year - start_year)
+        if start_value <= 0 or end_value <= 0 or annual_intervals <= 0:
+            raise ValueError(
+                f"base BCB inválida para crescimento {start_year}-{end_year}"
+            )
+        growth = (
+            (end_value / start_value) ** (1 / annual_intervals) - 1
+            if growth_kind == "cagr"
+            else end_value / start_value - 1
+        )
+        rows.append(
+            {
+                "metric": "Crédito Ampliado Total",
+                "period_label": period_label,
+                "growth_kind": growth_kind,
+                "start_year": int(start_year),
+                "end_year": int(end_year),
+                "start_competencia": str(start["competencia"]),
+                "end_competencia": str(end["competencia"]),
+                "start_total_brl": start_value,
+                "end_total_brl": end_value,
+                "annual_intervals": annual_intervals,
+                "cagr": growth,
             }
         )
     return pd.DataFrame(rows)
@@ -2356,6 +2419,7 @@ def build_payload(
     annual_pl["pl_ex_fic"] = annual_pl["pl_total"] - annual_pl["pl_fic_fidc"]
     annual_pl["pl_fic_componente"] = annual_pl["pl_fic_fidc"]
     pl_total_cagr_periods = _pl_total_cagr_periods(annual_pl)
+    bcb_total_growth_periods = _bcb_total_growth_periods(bcb_expanded_credit)
     annual_base = annual[["year", "competencia", "cotistas_total", "n_veiculos"]].copy()
 
     latest_month = monthly[monthly["competencia"].astype(str).eq(latest)].iloc[0]
@@ -2463,6 +2527,7 @@ def build_payload(
         "pl_history": _records(annual_pl),
         "pl_total_cagr_periods": _records(pl_total_cagr_periods),
         "bcb_expanded_credit": _records(bcb_expanded_credit),
+        "bcb_total_growth_periods": _records(bcb_total_growth_periods),
         "investor_base_history": _records(annual_base),
         "investor_composition": _records(
             _investor_composition(
