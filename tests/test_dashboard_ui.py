@@ -363,7 +363,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "holder_ge_200m_share_pl_ate_10_contas",
         "btg_bank_cohort_observed_funds",
         "btg_bank_cohort_combo_funds",
-        "Evolução do PL",
+        "FIDCs e Carteira de Crédito Ampliada",
         "Contas e veículos reportantes",
         "Distribuição por número de contas: dez/23 e {stock_label_lower}",
         "Taxonomia CVM com abertura analítica de adquirência",
@@ -388,7 +388,8 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "Regime de colocação · número de ofertas",
         "Regime de colocação · volume",
         "Top 15 ofertas encerradas e originadores",
-        "IBBA Coord-Líder usa Nome_Lider",
+        "Coordenador líder usa Nome_Lider",
+        "IBBA Coord usa a lista oficial",
         "propostas, fees",
     )
     for text in required_text:
@@ -396,6 +397,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
 
     required_chart_keys = (
         "industry-revision-pl",
+        "industry-revision-bcb-credit",
         "industry-revision-accounts",
         "industry-revision-vehicles",
         "industry-revision-investor-composition",
@@ -439,9 +441,9 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
 
     required_notes = (
         "Fontes: CVM, ANBIMA, FundosNet, BCB e FIDCs.xlsx",
-        "Fonte: CVM, Informe Mensal de FIDC. PL bruto",
-        "Crescimento anual do PL bruto",
-        "Variações calculadas dezembro contra dezembro",
+        "Fonte: CVM, Informe Mensal de FIDC. Variações dezembro contra dezembro",
+        "Crescimento anual do PL ex-FIC",
+        "Fonte: BCB, SGS 28183–28192",
         "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}",
         "Fonte: CVM, dez/23 e {stock_label_lower}",
         "Fonte: CVM, Informe Mensal e documentos primários",
@@ -454,10 +456,10 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
         "Fonte: CVM, cadastro vigente em {stock_label_lower}",
         "Fonte: ANBIMA e documentos primários locais; ranking em {stock_label_lower}",
         "CVM — Ofertas Públicas de Distribuição",
-        "arquivo oferta_resolucao_160.csv",
-        "Status_Requerimento = Oferta Encerrada",
-        "Status abertos ficam fora",
-        "Oferta Encerrada é a denominação literal",
+        "oferta_resolucao_160.csv + oferta_distribuicao.csv",
+        "todos os ritos públicos",
+        "Data_Encerramento_Oferta preenchida",
+        "abertas ficam fora",
         "FIDCs versus demais emissões de renda fixa",
         "A linha laranja mostra o consolidado ajustado de mercado",
         "Nos meses legados, presença de reporte é inferida por registro",
@@ -529,7 +531,7 @@ def test_industry_revision_offers_copy_and_charts_stop_at_june() -> None:
     assert 'title="Jan–jun comparável"' in offers_source
     assert 'title="Janeiro a junho · acumulado"' in offers_source
     assert 'monthly["month"].le(6)' in offers_source
-    assert "Data_Encerramento até" in offers_source
+    assert "oferta primária encerrada até" in offers_source
     assert "Jan–mai" not in offers_source
     assert "jan–mai" not in offers_source
     assert "17/jul/26" not in offers_source

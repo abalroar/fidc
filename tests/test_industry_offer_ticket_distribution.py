@@ -23,7 +23,7 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
     distribution = outputs.distribution
     expected = {
         "2024 FY": (1_009, 95_416_726_133.75, 94_565_635.41501486, 29_999_999.98),
-        "2025 FY": (1_470, 116_348_319_054.77, 79_148_516.36378913, 25_000_000.0),
+        "2025 FY": (1_473, 116_921_319_054.77, 79_376_319.79278342, 25_000_000.0),
         "2026 jan-jun": (771, 65_488_118_983.56, 84_939_194.53120622, 22_500_000.0),
     }
     for label, (offers, volume, mean_ticket, median_ticket) in expected.items():
@@ -40,8 +40,8 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
         )
         assert (period["closed_offers"] > 0).all()
 
-    assert len(outputs.cohort) == 3_250
-    assert outputs.cohort["numero_requerimento"].nunique() == 3_250
+    assert len(outputs.cohort) == 3_253
+    assert outputs.cohort["numero_requerimento"].nunique() == 3_253
 
 
 def test_published_bucket_counts_are_stable() -> None:
@@ -50,7 +50,7 @@ def test_published_bucket_counts_are_stable() -> None:
         index="bucket_order", columns="period_label", values="closed_offers"
     ).sort_index()
     assert pivot["2024 FY"].tolist() == [231, 237, 175, 158, 94, 83, 31]
-    assert pivot["2025 FY"].tolist() == [350, 374, 240, 232, 140, 98, 36]
+    assert pivot["2025 FY"].tolist() == [350, 375, 240, 232, 140, 100, 36]
     assert pivot["2026 jan-jun"].tolist() == [185, 207, 118, 121, 72, 46, 22]
 
 
@@ -66,8 +66,29 @@ def _write_source_zip(path: Path, rows: list[dict[str, str]]) -> None:
         "Valor_Total_Registrado",
     ]
     csv_text = pd.DataFrame(rows, columns=columns).to_csv(index=False, sep=";")
+    legacy_columns = [
+        "Numero_Registro_Oferta",
+        "Numero_Processo",
+        "Data_Encerramento_Oferta",
+        "Tipo_Ativo",
+        "Tipo_Oferta",
+        "CNPJ_Emissor",
+        "Nome_Emissor",
+        "Valor_Total",
+        "Nome_Lider",
+        "Rito_Oferta",
+        "Quantidade_Total",
+        "Nr_Pessoa_Fisica",
+        "Qtd_Pessoa_Fisica",
+    ]
+    legacy_text = pd.DataFrame(columns=legacy_columns).to_csv(
+        index=False, sep=";"
+    )
     with ZipFile(path, "w", compression=ZIP_DEFLATED) as archive:
         archive.writestr("oferta_resolucao_160.csv", csv_text.encode("latin-1"))
+        archive.writestr(
+            "oferta_distribuicao.csv", legacy_text.encode("latin-1")
+        )
 
 
 def test_source_filters_periods_and_identical_deduplication(tmp_path: Path) -> None:

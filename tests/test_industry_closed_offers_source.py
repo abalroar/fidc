@@ -12,7 +12,6 @@ from services.industry_closed_offers_source import (
     ClosedOffersSourceError,
     RELEASE_CUTOFF,
     SOURCE_ARCHIVE_SHA256,
-    SOURCE_DATASET,
     build_closed_offer_originators,
     load_closed_offer_source,
 )
@@ -50,8 +49,29 @@ def _write_archive(
 ) -> tuple[Path, str]:
     frame = pd.DataFrame(rows).drop(columns=list(drop_columns), errors="ignore")
     payload = frame.to_csv(index=False, sep=";").encode("latin-1")
+    legacy_columns = [
+        "Numero_Registro_Oferta",
+        "Numero_Processo",
+        "Data_Encerramento_Oferta",
+        "Tipo_Ativo",
+        "Tipo_Oferta",
+        "CNPJ_Emissor",
+        "Nome_Emissor",
+        "Valor_Total",
+        "Nome_Lider",
+        "Rito_Oferta",
+        "Quantidade_Total",
+        "Nr_Pessoa_Fisica",
+        "Qtd_Pessoa_Fisica",
+    ]
     with ZipFile(path, "w", compression=ZIP_DEFLATED) as archive:
-        archive.writestr(SOURCE_DATASET, payload)
+        archive.writestr("oferta_resolucao_160.csv", payload)
+        archive.writestr(
+            "oferta_distribuicao.csv",
+            pd.DataFrame(columns=legacy_columns)
+            .to_csv(index=False, sep=";")
+            .encode("latin-1"),
+        )
     digest = sha256(path.read_bytes()).hexdigest()
     return path, digest
 
@@ -83,9 +103,9 @@ def test_source_enforces_archive_hash_and_required_columns(tmp_path: Path) -> No
     incomplete_path, _ = _write_archive(
         tmp_path / "offers-missing-column.zip",
         [_offer("REQ-2")],
-        drop_columns=("Publico_alvo",),
+        drop_columns=("Valor_Total_Registrado",),
     )
-    with pytest.raises(ClosedOffersSourceError, match="Publico_alvo"):
+    with pytest.raises(ClosedOffersSourceError, match="Valor_Total_Registrado"):
         load_closed_offer_source(
             incomplete_path,
             expected_archive_sha256=None,

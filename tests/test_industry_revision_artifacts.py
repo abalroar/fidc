@@ -305,6 +305,39 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 assert symbol.attrib.get("val") == "none"
 
 
+def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = _slide_chart_paths(archive, 3)
+        slide = ET.fromstring(archive.read("ppt/slides/slide3.xml"))
+        text = " ".join(
+            node.text or "" for node in slide.iter(f"{{{DML}}}t")
+        )
+        charts = [
+            ET.fromstring(archive.read(path)) for path in chart_paths
+        ]
+
+    assert len(charts) == 2
+    assert "PL DOS FIDCs · EX-FIC" in text
+    assert "CARTEIRA DE CRÉDITO AMPLIADA" in text
+    assert "Debêntures e notas comerciais integram títulos privados" in text
+    assert "FIC-FIDC" not in text
+
+    left_bar = charts[0].find(f".//{{{CHART}}}barChart")
+    right_bar = charts[1].find(f".//{{{CHART}}}barChart")
+    assert left_bar is not None and right_bar is not None
+    assert len(left_bar.findall(f"{{{CHART}}}ser")) == 1
+    assert (
+        left_bar.find(f"{{{CHART}}}grouping").attrib.get("val")
+        == "clustered"
+    )
+    assert len(right_bar.findall(f"{{{CHART}}}ser")) == 6
+    assert (
+        right_bar.find(f"{{{CHART}}}grouping").attrib.get("val")
+        == "stacked"
+    )
+
+
 def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
@@ -673,6 +706,7 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Ofertas encerradas",
         "Regime de colocação",
         "Histograma ofertas",
+        "Crédito Ampliado BCB",
         "Originadores 2026",
         "Top 15 ofertas",
         "Principais conclusões",
@@ -715,9 +749,10 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         )
         for column, header in {
             "K": "IBBA Coord-Líder?",
-            "M": "Garantia Firme?",
-            "N": "Público",
-            "O": "Nº de Inv.",
+            "L": "IBBA Coord?",
+            "S": "Garantia Firme?",
+            "T": "Público",
+            "U": "Nº de Inv.",
         }.items():
             assert _column_values(
                 archive, sheets["Top 15 ofertas"], column, 4, 4, shared
@@ -854,7 +889,7 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert management_scenario["btg_rank_ex_controlados"] == 3
 
 
-def test_materialized_gross_pl_annual_growth_matches_the_chart_totals() -> None:
+def test_materialized_ex_fic_pl_annual_growth_matches_the_chart_totals() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     periods = {
         (int(row["start_year"]), int(row["end_year"])): row
@@ -863,11 +898,11 @@ def test_materialized_gross_pl_annual_growth_matches_the_chart_totals() -> None:
 
     assert set(periods) == {(2022, 2023), (2023, 2024), (2024, 2025)}
     assert periods[(2022, 2023)]["annual_intervals"] == 1
-    assert periods[(2022, 2023)]["cagr"] == pytest.approx(0.2809742141)
+    assert periods[(2022, 2023)]["cagr"] == pytest.approx(0.2618330649)
     assert periods[(2023, 2024)]["annual_intervals"] == 1
-    assert periods[(2023, 2024)]["cagr"] == pytest.approx(0.5078257010)
+    assert periods[(2023, 2024)]["cagr"] == pytest.approx(0.4789122071)
     assert periods[(2024, 2025)]["annual_intervals"] == 1
-    assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.2559047631)
+    assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.2201214539)
 
 
 def test_materialized_payload_uses_complete_june_stock() -> None:

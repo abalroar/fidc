@@ -375,9 +375,10 @@ def test_offer_workbook_uses_counts_billions_and_millions_consistently() -> None
     top15 = workbook["Top 15 ofertas"]
     assert '"bi"' in top15["I5"].number_format
     assert top15["K4"].value == "IBBA Coord-Líder?"
-    assert top15["M4"].value == "Garantia Firme?"
-    assert top15["N4"].value == "Público"
-    assert top15["O4"].value == "Nº de Inv."
+    assert top15["L4"].value == "IBBA Coord?"
+    assert top15["S4"].value == "Garantia Firme?"
+    assert top15["T4"].value == "Público"
+    assert top15["U4"].value == "Nº de Inv."
 
     banks = workbook["FIDCs por banco"]
     assert banks["J4"].value == "Raízes de CNPJ listadas"

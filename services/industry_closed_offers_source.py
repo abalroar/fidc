@@ -27,28 +27,31 @@ from services.industry_closed_offers import (
     validate_closed_offers_annual,
     validate_closed_offers_monthly,
 )
-
-
-SOURCE_DATASET = "oferta_resolucao_160.csv"
-SOURCE_URL = (
-    "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/"
-    "oferta_distribuicao.zip"
+from services.industry_public_offers import (
+    FIDC_CANONICAL,
+    PublicOffersError,
+    SOURCE_DATASET_LABEL,
+    SOURCE_URL,
+    load_public_primary_closed_offers,
 )
-SOURCE_AS_OF_DATE = "2026-07-21"
+
+
+SOURCE_DATASET = SOURCE_DATASET_LABEL
+SOURCE_AS_OF_DATE = "2026-07-24"
 SOURCE_ARCHIVE_SHA256 = (
-    "ff53d4406953411a3153a2701669c6d06ebad56f5d849c7e0190406ac7bfa0f3"
+    "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
 RELEASE_CUTOFF = "2026-06-30"
 
 SCOPE = (
-    "Cotas de FIDC | oferta primária | Oferta Encerrada | "
-    "Data_Encerramento até 30/06/2026 | Valor_Total_Registrado positivo"
+    "Cotas de FIDC | oferta pública primária encerrada | todos os ritos CVM | "
+    "data de encerramento até 30/06/2026 | volume registrado positivo"
 )
 METHODOLOGY = (
-    "Uma oferta = Numero_Requerimento; coorte por Data_Encerramento; "
-    "registered_volume_brl = Valor_Total_Registrado; "
-    "placed_volume_proxy_brl = min(sum(Qtde_VM_*) * "
-    "Valor_Total_Registrado / Qtde_Total_Registrada, Valor_Total_Registrado)."
+    "Rito automático: uma oferta = Numero_Requerimento. Ritos ordinários e "
+    "legados: registro + emissor + data de encerramento + instrumento; classes "
+    "do mesmo FIDC são somadas. Coorte por data de encerramento; volume colocado "
+    "é aproximado por quantidade colocada vezes preço unitário implícito."
 )
 ORIGINATOR_METHODOLOGY = (
     METHODOLOGY
@@ -144,96 +147,38 @@ def load_closed_offer_source(
 ) -> tuple[pd.DataFrame, str]:
     """Read, scope, deduplicate and enrich the official offer records."""
 
-    path = Path(archive_path)
-    if not path.is_file():
-        raise FileNotFoundError(f"Arquivo CVM de ofertas ausente: {path}")
-    digest = _archive_sha256(path)
-    if expected_archive_sha256 and digest != expected_archive_sha256:
-        raise ClosedOffersSourceError(
-            "SHA-256 do arquivo CVM diverge do snapshot esperado: " + digest
+    try:
+        selected, digest = load_public_primary_closed_offers(
+            archive_path,
+            cutoff=RELEASE_CUTOFF,
+            expected_archive_sha256=expected_archive_sha256,
         )
-
-    with ZipFile(path) as archive:
-        if SOURCE_DATASET not in archive.namelist():
-            raise ClosedOffersSourceError(f"Tabela {SOURCE_DATASET} ausente no arquivo CVM.")
-        source = pd.read_csv(
-            archive.open(SOURCE_DATASET),
-            sep=";",
-            encoding="latin-1",
-            dtype=str,
-            keep_default_na=False,
-            low_memory=False,
-        )
-    missing = [column for column in REQUIRED_COLUMNS if column not in source]
-    if missing:
-        raise ClosedOffersSourceError("Colunas CVM obrigatórias ausentes: " + ", ".join(missing))
-
-    normalized_value_type = source["Valor_Mobiliario"].map(_normalize_text)
-    normalized_offer_type = source["Tipo_Oferta"].map(_normalize_text)
-    normalized_status = source["Status_Requerimento"].map(_normalize_text)
-    selected = source.loc[
-        normalized_value_type.eq("COTAS DE FIDC")
-        & normalized_offer_type.eq("PRIMARIA")
-        & normalized_status.eq("OFERTA ENCERRADA")
+    except PublicOffersError as exc:
+        raise ClosedOffersSourceError(str(exc)) from exc
+    selected = selected[
+        selected["canonical_instrument"].eq(FIDC_CANONICAL)
+        & selected["closing_date"].ge(pd.Timestamp("2023-01-01"))
     ].copy()
-    selected["data_encerramento"] = pd.to_datetime(
-        selected["Data_Encerramento"], errors="coerce"
+    selected["data_encerramento"] = selected["closing_date"]
+    selected["Numero_Requerimento"] = selected["offer_id"]
+    selected["cnpj_emissor"] = selected["issuer_cnpj"]
+    selected["Nome_Emissor"] = selected["issuer_name"]
+    selected["Ativos_alvo"] = selected["assets_target"]
+    selected["investor_accounts"] = pd.to_numeric(
+        selected["investor_count"], errors="coerce"
     )
-    selected["registered_volume_brl"] = pd.to_numeric(
-        selected["Valor_Total_Registrado"], errors="coerce"
-    )
-    selected = selected.loc[
-        selected["data_encerramento"].notna()
-        & selected["data_encerramento"].le(RELEASE_CUTOFF)
-        & selected["registered_volume_brl"].gt(0)
-    ].copy()
-
-    selected["Numero_Requerimento"] = selected["Numero_Requerimento"].str.strip()
-    if selected["Numero_Requerimento"].eq("").any():
-        raise ClosedOffersSourceError("Numero_Requerimento vazio no universo selecionado.")
-    duplicates = selected.duplicated("Numero_Requerimento", keep=False)
-    if duplicates.any():
-        comparison = [
-            "Data_Encerramento",
-            "CNPJ_Emissor",
-            "Nome_Emissor",
-            "Valor_Total_Registrado",
-        ]
-        conflicting = [
-            str(requirement)
-            for requirement, group in selected.loc[duplicates].groupby("Numero_Requerimento")
-            if len(group[comparison].drop_duplicates()) != 1
-        ]
-        if conflicting:
-            raise ClosedOffersSourceError(
-                "Numero_Requerimento com linhas conflitantes: " + ", ".join(conflicting[:5])
-            )
-        selected = selected.drop_duplicates("Numero_Requerimento", keep="first")
-
-    selected["cnpj_emissor"] = _normalize_cnpj(selected["CNPJ_Emissor"])
-    selected["registered_quantity"] = pd.to_numeric(
-        selected["Qtde_Total_Registrada"], errors="coerce"
-    )
-    quantity_columns = [
-        column
-        for column in selected.columns
-        if column.startswith("Qtde_VM_") or column.startswith("Qdte_VM_")
-    ]
-    investor_columns = [
-        column for column in selected.columns if column.startswith("Num_Invest_")
-    ]
-    selected["placed_quantity"] = selected[quantity_columns].apply(
-        pd.to_numeric, errors="coerce"
-    ).sum(axis=1, min_count=1)
-    selected["investor_accounts"] = selected[investor_columns].apply(
-        pd.to_numeric, errors="coerce"
-    ).sum(axis=1, min_count=1)
     selected["natural_person_accounts"] = pd.to_numeric(
-        selected["Num_Invest_Pessoa_Natural"], errors="coerce"
+        selected["natural_person_accounts"], errors="coerce"
     ).fillna(0)
     selected["natural_person_quantity"] = pd.to_numeric(
-        selected["Qtde_VM_Pessoa_Natural"], errors="coerce"
+        selected["natural_person_quantity"], errors="coerce"
     ).fillna(0)
+    selected["registered_quantity"] = pd.to_numeric(
+        selected["registered_quantity"], errors="coerce"
+    )
+    selected["placed_quantity"] = pd.to_numeric(
+        selected["placed_quantity"], errors="coerce"
+    )
     unit_price = selected["registered_volume_brl"].div(
         selected["registered_quantity"].where(selected["registered_quantity"].gt(0))
     )
@@ -243,11 +188,14 @@ def load_closed_offer_source(
     selected["natural_person_placed_volume_proxy_brl"] = (
         selected["natural_person_quantity"] * unit_price
     ).clip(upper=selected["registered_volume_brl"]).fillna(0)
-    selected["publico_alvo_norm"] = selected["Publico_alvo"].map(_normalize_text)
+    selected["publico_alvo_norm"] = selected["target_public"].map(
+        _normalize_text
+    ).replace("", "NAO INFORMADO")
     unexpected_targets = set(selected["publico_alvo_norm"]) - {
         "PROFISSIONAL",
         "QUALIFICADO",
         "PUBLICO GERAL",
+        "NAO INFORMADO",
     }
     if unexpected_targets:
         raise ClosedOffersSourceError(
@@ -278,6 +226,7 @@ def _offer_metrics(frame: pd.DataFrame) -> dict[str, Any]:
         target: float(frame.loc[frame["publico_alvo_norm"].eq(target), "registered_volume_brl"].sum())
         for target in ("PROFISSIONAL", "QUALIFICADO", "PUBLICO GERAL")
     }
+    target_covered_volume = float(sum(target_volume.values()))
     natural_person_volume = float(
         frame.loc[placed_covered, "natural_person_placed_volume_proxy_brl"].sum()
     )
@@ -299,7 +248,9 @@ def _offer_metrics(frame: pd.DataFrame) -> dict[str, Any]:
         ),
         "placed_volume_proxy_brl": placed_volume,
         "mean_placed_ticket_brl": _safe_ratio(placed_volume, int(placed_covered.sum())),
-        "median_placed_ticket_brl": float(placed.median()),
+        "median_placed_ticket_brl": (
+            float(placed.median()) if not placed.empty else 0.0
+        ),
         "placed_proxy_share_of_registered_covered": _safe_ratio(
             placed_volume, placed_registered_volume
         ),
@@ -308,7 +259,11 @@ def _offer_metrics(frame: pd.DataFrame) -> dict[str, Any]:
         "investor_count_registered_volume_coverage": _safe_ratio(
             investor_registered_volume, registered_volume
         ),
-        "median_investor_accounts": float(frame.loc[investor_covered, "investor_accounts"].median()),
+        "median_investor_accounts": (
+            float(frame.loc[investor_covered, "investor_accounts"].median())
+            if investor_covered.any()
+            else 0.0
+        ),
         "offers_with_up_to_5_investors": int(up_to_five.sum()),
         "up_to_5_investors_offer_share_covered": _safe_ratio(
             int(up_to_five.sum()), int(investor_covered.sum())
@@ -316,17 +271,20 @@ def _offer_metrics(frame: pd.DataFrame) -> dict[str, Any]:
         "up_to_5_investors_registered_volume_share_covered": _safe_ratio(
             float(frame.loc[up_to_five, "registered_volume_brl"].sum()), investor_registered_volume
         ),
+        "target_public_registered_volume_coverage": min(
+            1.0, _safe_ratio(target_covered_volume, registered_volume)
+        ),
         "professional_target_registered_volume_brl": target_volume["PROFISSIONAL"],
         "professional_target_registered_volume_share": _safe_ratio(
-            target_volume["PROFISSIONAL"], registered_volume
+            target_volume["PROFISSIONAL"], target_covered_volume
         ),
         "qualified_target_registered_volume_brl": target_volume["QUALIFICADO"],
         "qualified_target_registered_volume_share": _safe_ratio(
-            target_volume["QUALIFICADO"], registered_volume
+            target_volume["QUALIFICADO"], target_covered_volume
         ),
         "general_target_registered_volume_brl": target_volume["PUBLICO GERAL"],
         "general_target_registered_volume_share": _safe_ratio(
-            target_volume["PUBLICO GERAL"], registered_volume
+            target_volume["PUBLICO GERAL"], target_covered_volume
         ),
         "natural_person_accounts": int(frame.loc[investor_covered, "natural_person_accounts"].sum()),
         "offers_with_natural_person": int(natural_person.sum()),

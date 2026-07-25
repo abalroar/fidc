@@ -2388,133 +2388,121 @@ function buildPresentation(payload, flowAssets) {
     const slide = presentation.slides.add();
     const history = payload.pl_history;
     const cagrPeriods = payload.pl_total_cagr_periods || [];
+    const expandedCredit = payload.bcb_expanded_credit || [];
     addHeader(
       slide,
       "ESCALA DA INDÚSTRIA",
-      `O PL ex-FIC chegou a ${bn(latestHistory.pl_ex_fic, 0)}; FIC-FIDC adiciona ${bn(latestHistory.pl_fic_componente, 0)}`,
-      `Fonte: CVM, Informe Mensal de FIDC. PL bruto = PL ex-FIC + PL de FIC-FIDC; ${stockShortLower}.`,
+      `FIDCs somam ${bn(latestHistory.pl_ex_fic, 0)} de PL ex-FIC; a carteira representa parte relevante da securitização`,
+      `Fontes: CVM, Informe Mensal de FIDC (${stockShortLower}); BCB, SGS 28183–28192 (último mês comum: mai/26).`,
       3,
     );
     const categories = history.map((row) =>
       String(row.competencia) === latestCompetence ? stockShort : String(row.year),
     );
-    const totalMax = Math.max(...history.map((row) => num(row.pl_total) / 1e9));
-    const axisMax = Math.ceil(totalMax / 100) * 100 + 100;
+    const plMax = Math.max(...history.map((row) => num(row.pl_ex_fic) / 1e9));
+    const plAxisMax = Math.ceil(plMax / 100) * 100 + 100;
+    addSectionLabel(slide, "PL DOS FIDCs · EX-FIC · R$ BI", { left: 60, top: 133, width: 545, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 150, width: 830, height: 465 }),
+      ...chartBase({ left: 55, top: 165, width: 555, height: 405 }),
       categories,
       series: [
         {
           name: "PL ex-FIC",
           values: history.map((row) => num(row.pl_ex_fic) / 1e9),
           fill: C.orange,
-        },
-        {
-          name: "FIC-FIDC",
-          values: history.map((row) => num(row.pl_fic_componente) / 1e9),
-          fill: C.line,
           dataLabelOverrides: history.map((row, idx) => ({
             idx,
-            text: `${Math.round(num(row.pl_total) / 1e9).toLocaleString("pt-BR")}`,
+            text: `${Math.round(num(row.pl_ex_fic) / 1e9).toLocaleString("pt-BR")}`,
             position: "outEnd",
             showValue: false,
             textStyle: {
               fill: [0, 9, 10, 11].includes(idx) ? C.black : C.note,
-              fontSize: 9.5,
+              fontSize: 8.5,
               bold: [0, 9, 10, 11].includes(idx),
             },
           })),
         },
       ],
-      barOptions: { direction: "column", grouping: "stacked", gapWidth: 55, overlap: 100 },
-      hasLegend: true,
-      legend: {
-        position: "bottom",
-        overlay: false,
-        textStyle: { fill: C.mid, fontSize: 12 },
-      },
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 52 },
+      hasLegend: false,
       xAxis: {
         visible: true,
-        textStyle: { fill: C.mid, fontSize: 11.5 },
+        textStyle: { fill: C.mid, fontSize: 8.5 },
         line: { style: "solid", fill: C.line, width: 1 },
         majorGridlines: null,
         minorGridlines: null,
       },
       yAxis: {
-        ...chartAxis(11, "0"),
+        ...chartAxis(9, "0"),
         min: 0,
-        max: axisMax,
+        max: plAxisMax,
         majorUnit: 200,
       },
     });
-    const plotLeft = 103;
-    const plotTop = 158;
-    const plotWidth = 756;
-    const plotHeight = 395;
-    history.forEach((row, index) => {
-      const total = num(row.pl_total) / 1e9;
-      const relevant = [0, 9, 10, 11].includes(index);
-      addText(
-        slide,
-        Math.round(total).toLocaleString("pt-BR"),
-        {
-          left: plotLeft + (index + 0.5) * (plotWidth / history.length) - 24,
-          top: clamp(plotTop + plotHeight - (total / axisMax) * plotHeight - 20, plotTop - 2, plotTop + plotHeight - 22),
-          width: 48,
-          height: 16,
-        },
-        {
-          fontSize: 9.5,
-          bold: relevant,
-          color: relevant ? C.black : C.note,
-          alignment: "center",
-        },
-      );
-    });
-    cagrPeriods.forEach((period) => {
-      const endYear = num(period.end_year);
-      const endIndex = history.findIndex((row) => num(row.year) === endYear);
-      if (endIndex < 0) return;
-      const total = num(history[endIndex]?.pl_total) / 1e9;
-      const center = plotLeft + (endIndex + 0.5) * (plotWidth / history.length);
-      const ruleTop = clamp(
-        plotTop + plotHeight - (total / axisMax) * plotHeight - 42,
-        plotTop + 32,
-        plotTop + plotHeight - 82,
-      );
-      addRule(slide, center - 24, ruleTop, 48, C.orange, 1.5);
-      addText(
-        slide,
-        pct(period.cagr, 1),
-        { left: center - 34, top: ruleTop - 25, width: 68, height: 18 },
-        { fontSize: 10.5, bold: true, color: C.charcoal, alignment: "center" },
-      );
-      addText(
-        slide,
-        `${endYear} YoY`,
-        { left: center - 34, top: ruleTop + 5, width: 68, height: 14 },
-        { fontSize: 8.5, color: C.note, alignment: "center" },
-      );
-    });
-    addText(slide, "R$ bi", { left: 72, top: 150, width: 42, height: 16 }, {
-      fontSize: 9.5,
-      color: C.note,
-    });
-    addSectionLabel(slide, "LEITURA", { left: 930, top: 150, width: 290, height: 24 });
-    const first = history[0];
-    const last = history.at(-1);
-    addMetric(slide, bn(last.pl_ex_fic, 0), `PL ex-FIC em ${stockShortLower}`, { left: 930, top: 205, width: 290, height: 100 }, true);
-    addMetric(
+    addText(
       slide,
-      `${(num(last.pl_ex_fic) / num(first.pl_ex_fic)).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}x`,
-      `crescimento sobre ${first.year}`,
-      { left: 930, top: 325, width: 290, height: 100 },
+      `VAR. A.A.   ${cagrPeriods
+        .map((period) => {
+          const value = num(period.cagr);
+          return `${period.end_year} ${value > 0 ? "+" : ""}${pct(value, 1)}`;
+        })
+        .join("   ·   ")}`,
+      { left: 85, top: 578, width: 485, height: 18 },
+      { fontSize: 9, bold: true, color: C.charcoal, alignment: "center" },
     );
-    addMetric(slide, bn(last.pl_fic_componente, 0), "PL de FIC-FIDC, sem dupla contagem", { left: 930, top: 445, width: 290, height: 110 });
-    addText(slide, "Totais e crescimentos anuais usam o PL bruto; dezembro contra dezembro.", { left: 930, top: 585, width: 290, height: 40 }, {
-      fontSize: 12.5,
-      color: C.note,
+    addSectionLabel(slide, "CARTEIRA DE CRÉDITO AMPLIADA · R$ BI", { left: 645, top: 133, width: 575, height: 24 });
+    const creditCategories = expandedCredit.map((row) => row.period_label);
+    const creditSeries = [
+      ["Empréstimos", "loans_brl", C.charcoal],
+      ["Títulos públicos", "public_debt_brl", C.mid],
+      ["Títulos privados", "private_debt_brl", C.note],
+      ["FIDCs · carteira", "fidc_receivables_brl", C.orange],
+      ["Outras securitizações", "other_securitization_brl", C.line],
+      ["Dívida externa", "external_debt_brl", C.light],
+    ].map(([name, field, fill]) => ({
+      name,
+      values: expandedCredit.map((row) => num(row[field]) / 1e9),
+      fill,
+    }));
+    const creditMax = Math.max(...expandedCredit.map((row) => num(row.expanded_credit_total_brl) / 1e9));
+    slide.charts.add("bar", {
+      ...chartBase({ left: 635, top: 165, width: 585, height: 405 }),
+      categories: creditCategories,
+      series: creditSeries,
+      barOptions: { direction: "column", grouping: "stacked", gapWidth: 48, overlap: 100 },
+      hasLegend: true,
+      legend: {
+        position: "bottom",
+        overlay: false,
+        textStyle: { fill: C.mid, fontSize: 8.5 },
+      },
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 8.5 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+        minorGridlines: null,
+      },
+      yAxis: {
+        ...chartAxis(9, "0"),
+        min: 0,
+        max: Math.ceil(creditMax / 2000) * 2000,
+        majorUnit: 5000,
+      },
     });
+    const latestCredit = expandedCredit.at(-1) || {};
+    addText(
+      slide,
+      `Securitização BCB: ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC CVM: ${bn(latestCredit.fidc_receivables_brl, 0)}.`,
+      { left: 650, top: 578, width: 555, height: 18 },
+      { fontSize: 9.5, bold: true, color: C.charcoal },
+    );
+    addText(
+      slide,
+      "A série 28191 reúne CRI, CRA e direitos creditórios em FIDCs. Debêntures e notas comerciais integram títulos privados. O residual inclui CRI/CRA e diferenças de perímetro.",
+      { left: 650, top: 600, width: 555, height: 32 },
+      { fontSize: 8.5, color: C.note },
+    );
   }
 
   // 4. Ofertas encerradas de renda fixa
@@ -2552,7 +2540,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · RENDA FIXA",
       "FIDCs cresceram 15% no 1S26; os demais instrumentos elegíveis recuaram 8%",
-      "Fonte: CVM, Ofertas Públicas de Distribuição, snapshot 24/jul/26. Oferta primária, status Oferta Encerrada, Data de Encerramento e valor registrado positivo.",
+      "Fonte: CVM, Ofertas Públicas de Distribuição, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot 24/jul/26. Ofertas públicas primárias encerradas em todos os ritos e volume registrado positivo.",
       4,
     );
     addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
@@ -3548,7 +3536,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · VOLUME E TICKET",
       `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre 2025`,
-      `Fonte: CVM, oferta_resolucao_160.csv (dados.cvm.gov.br/dataset/oferta-distrib), snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. Cotas de FIDC, oferta primária, status literal “Oferta Encerrada”, Data de Encerramento até 30/jun/26 e Valor Total Registrado positivo; unidade = Número do Requerimento.`,
+      `Fonte: CVM, oferta_resolucao_160.csv + oferta_distribuicao.csv (dados.cvm.gov.br/dataset/oferta-distrib), snapshot de ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. Cotas de FIDC, ofertas públicas primárias encerradas em todos os ritos até 30/jun/26 e volume registrado positivo. Automático: Número do Requerimento; ordinário/legado: registro + emissor + data + instrumento.`,
       27,
     );
     addSectionLabel(slide, "JAN–JUN · VOLUME REGISTRADO E TICKET", { left: 60, top: 145, width: 550, height: 24 });
@@ -3771,7 +3759,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · VOLUME E REGIME",
       `Melhores esforços concentram ${pct(currentBestEfforts.closed_offers_share, 0)} das ofertas e ${pct(currentBestEfforts.registered_volume_share, 0)} do volume em jan–jun/26`,
-      "Fonte: CVM, oferta_resolucao_160.csv, snapshot 24/jul/26. Cotas de FIDC primárias e encerradas; unidade = Número do Requerimento. Regime = campo Regime_distribuicao; garantia firme consolida colocação e liquidação. Cobertura: 100%.",
+      "Fonte: CVM, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot 24/jul/26. Ofertas públicas primárias encerradas em todos os ritos. Regime usa Regime_distribuicao quando reportado; ritos sem abertura permanecem em Não informado.",
       30,
     );
 
@@ -3948,20 +3936,21 @@ function buildPresentation(payload, flowAssets) {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       }),
-      row.ibba_coord_lead_label,
+      truncateWords(providerShort(row.leader_name), 15),
+      row.ibba_participant_label,
       row.firm_commitment_label,
       publicLabel(row.publico),
       Number.isFinite(num(row.investor_count))
         ? num(row.investor_count).toLocaleString("pt-BR", { maximumFractionDigits: 0 })
         : "N/D",
     ]);
-    const columnWidths = [24, 170, 104, 50, 42, 35, 78, 57];
-    const aligns = ["right", "left", "left", "right", "center", "center", "left", "right"];
+    const columnWidths = [22, 140, 82, 44, 82, 34, 28, 70, 58];
+    const aligns = ["right", "left", "left", "right", "left", "center", "center", "left", "right"];
     addHeader(
       slide,
       "TOP 15 · OFERTAS ENCERRADAS",
-      `IBBA liderou ${integer(summary2026.ibba_lead_offers_top15)} das 15 maiores em jan–jun/26, somando ${bn(summary2026.ibba_lead_volume_top15_brl, 1)}`,
-      "Fonte: CVM, Oferta Pública de Distribuição; Cotas de FIDC, primária, status Oferta Encerrada. Nº de Inv. = soma dos campos Num_Invest_*.",
+      `IBBA participou de ${integer(summary2026.ibba_participation_offers_top15)} das 15 maiores em jan–jun/26; liderou ${integer(summary2026.ibba_lead_offers_top15)}`,
+      "Fonte: CVM, ofertas públicas primárias encerradas em todos os ritos. Participação: lista oficial de participantes do SRE; líder: Nome_Lider.",
       29,
     );
     addSectionLabel(slide, "JAN–JUN/26 · TOP 15", { left: 60, top: 138, width: 560, height: 24 });
@@ -3970,7 +3959,7 @@ function buildPresentation(payload, flowAssets) {
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "IBBA", "GF", "Público", "Inv."],
+      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA Coord", "GF", "Público", "Inv."],
       rows: tableRows(table2026),
       columnWidths,
       aligns,
@@ -3978,7 +3967,7 @@ function buildPresentation(payload, flowAssets) {
       headerFontSize: 6.2,
       rowHighlights: new Set(
         table2026
-          .map((row, index) => row.ibba_coord_lead === true ? index : null)
+          .map((row, index) => row.ibba_participant === true ? index : null)
           .filter((index) => index !== null),
       ),
     });
@@ -3988,7 +3977,7 @@ function buildPresentation(payload, flowAssets) {
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "IBBA", "GF", "Público", "Inv."],
+      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA Coord", "GF", "Público", "Inv."],
       rows: tableRows(table2025),
       columnWidths,
       aligns,
@@ -3996,7 +3985,7 @@ function buildPresentation(payload, flowAssets) {
       headerFontSize: 6.2,
       rowHighlights: new Set(
         table2025
-          .map((row, index) => row.ibba_coord_lead === true ? index : null)
+          .map((row, index) => row.ibba_participant === true ? index : null)
           .filter((index) => index !== null),
       ),
     });
@@ -4014,7 +4003,7 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      "Empates usam o Número do Requerimento crescente. A base pública não contém proposta, fee ou preço de coordenação.",
+      "IBBA Coord inclui coordenação/requerimento por entidade Itaú na lista oficial do SRE. Empates usam o Número do Requerimento crescente.",
       { left: 60, top: 642, width: 1160, height: 16 },
       { fontSize: 9.2, color: C.note, alignment: "right" },
     );
@@ -4045,7 +4034,7 @@ function buildPresentation(payload, flowAssets) {
         ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, "Cap por veículo; vazio = ausência de reporte. Ex-360 indisponível por falta de reconciliação do aging."],
         ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo. Top 10 fixo por função; Outros identificados e prestador não informado separados. PL negativo consta no QA."],
         ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "Mesma entidade econômica normalizada nas três funções. Concentração não prova poder de preço ou condições comerciais."],
-        ["Ofertas encerradas", `2023–2025 FY; 2026 até ${offersShort}`, "Cotas de FIDC, oferta primária, status Oferta Encerrada e valor registrado positivo; coorte pela Data de Encerramento; unidade = Número do Requerimento."],
+        ["Ofertas encerradas", `2023–2025 FY; 2026 até ${offersShort}`, "Cotas de FIDC, ofertas públicas primárias encerradas e valor registrado positivo. Automático: Número do Requerimento; ordinário/legado: registro + emissor + data + instrumento."],
       ],
       columnWidths: [190, 340, 630],
       aligns: ["left", "left", "left"],
@@ -5229,7 +5218,7 @@ async function addClosedOffersSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Ofertas encerradas de cotas de FIDC",
-    "CVM, Ofertas Públicas. Unidade = Número do Requerimento; coorte pela Data de Encerramento; oferta primária; status Oferta Encerrada; valor registrado positivo.",
+    "CVM, oferta_resolucao_160.csv + oferta_distribuicao.csv. Ofertas públicas primárias encerradas em todos os ritos e valor registrado positivo. Automático: Número do Requerimento; ordinário/legado: registro + emissor + data + instrumento.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -5280,7 +5269,7 @@ async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "FIDCs versus demais emissões de renda fixa",
-    "CVM, oferta_resolucao_160.csv. Oferta primária, status Oferta Encerrada, Data de Encerramento no período, valor registrado positivo e unidade por Número do Requerimento. 2026 compara jan–jun com o mesmo período de 2025.",
+    "CVM, oferta_resolucao_160.csv + oferta_distribuicao.csv. Ofertas públicas primárias encerradas em todos os ritos. Automático usa Número do Requerimento; ordinário/legado agrega registro, emissor, data e instrumento. 2026 compara jan–jun com jan–jun/25.",
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
@@ -5301,6 +5290,53 @@ async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
       "0.0%";
   });
   sheet.getRange(`A5:U${rows.length + 4}`).format.rowHeightPx = 42;
+}
+
+async function addBcbExpandedCreditSheet(workbook, payload) {
+  const columns = [
+    ["Ordem", "period_order"],
+    ["Competência", "competencia"],
+    ["Período", "period_label"],
+    ["Último ponto", "is_latest"],
+    ["Crédito Ampliado", "expanded_credit_total_brl"],
+    ["Empréstimos", "loans_brl"],
+    ["Títulos públicos", "public_debt_brl"],
+    ["Títulos privados", "private_debt_brl"],
+    ["FIDCs · carteira", "fidc_receivables_brl"],
+    ["Outras securitizações", "other_securitization_brl"],
+    ["Dívida externa", "external_debt_brl"],
+    ["Títulos de dívida", "debt_securities_brl"],
+    ["Securitização BCB", "securitization_brl"],
+    ["Reconciliação total", "bcb_total_reconciliation_brl"],
+    ["Reconciliação títulos", "bcb_debt_reconciliation_brl"],
+    ["Reconciliação empréstimos", "bcb_loans_reconciliation_brl"],
+    ["Fonte BCB", "source_bcb"],
+    ["Fonte CVM", "source_cvm"],
+    ["Metodologia", "methodology"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.bcb_expanded_credit || [], columns);
+  const sheet = resetSheet(workbook, "Crédito Ampliado BCB");
+  setHeaderBand(
+    sheet,
+    "Carteira de Crédito Ampliada e FIDCs",
+    "BCB SGS 28183–28192; carteira de direitos creditórios dos FIDCs na mesma competência, conforme Informe Mensal CVM. A pilha reconcilia integralmente com a série 28183.",
+    headers,
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(
+    sheet,
+    [65, 95, 80, 80, 125, 115, 115, 115, 115, 130, 115, 115, 115, 110, 110, 125, 360, 360, 620],
+    rows.length,
+  );
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat =
+      'R$ #,##0.0,,, "bi"';
+  });
+  sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 42;
 }
 
 async function addClosedOfferPlacementRegimeSheet(workbook, payload) {
@@ -5385,7 +5421,7 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Distribuição do valor registrado das ofertas encerradas",
-    "2024 e 2025 usam o ano completo; 2026 usa jan–jun. Uma oferta corresponde ao Número do Requerimento. Ticket = Valor Total Registrado.",
+    "2024 e 2025 usam o ano completo; 2026 usa jan–jun. Ticket = volume registrado por oferta reconciliada; classes do mesmo FIDC são somadas nos ritos ordinários/legados.",
     headers,
     rows.length,
     { freezeColumns: 7, wrapText: true, bodyFontSize: 8 },
@@ -5491,12 +5527,22 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
     ["Volume registrado", "registered_volume_brl"],
     ["Coordenador líder", "leader_name"],
     ["IBBA Coord-Líder?", "ibba_coord_lead_label"],
+    ["IBBA Coord?", "ibba_participant_label"],
+    ["Entidades Itaú participantes", "ibba_participant_entities"],
+    ["Papéis Itaú", "ibba_participant_roles"],
+    ["Fonte participação", "ibba_participation_source"],
+    ["URL participantes SRE", "participants_source_url"],
+    ["Anúncio de encerramento", "closing_document_url"],
     ["Regime de distribuição", "distribution_regime"],
     ["Garantia Firme?", "firm_commitment_label"],
     ["Público", "publico"],
     ["Nº de Inv.", "investor_count"],
     ["Campo-fonte do originador", "originator_source"],
     ["Evidência do originador", "originator_evidence"],
+    ["Evidência documental do originador", "originator_evidence_document"],
+    ["Confiança da curadoria", "originator_confidence"],
+    ["Método de leitura", "document_text_method"],
+    ["Status da revisão", "review_status"],
     ["Status", "status"],
     ["Tipo de oferta", "offer_type"],
     ["Valor mobiliário", "security"],
@@ -5522,13 +5568,13 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 170, 95, 100, 85, 125, 320, 115, 90, 100, 320, 420],
+    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 105, 280, 120, 180, 320, 320, 170, 95, 100, 85, 125, 320, 360, 110, 120, 115, 90, 100, 320, 420],
     rows.length,
   );
   applyFormatsByHeader(sheet, headers, rows.length);
   sheet.getRange(`I5:I${rows.length + 4}`).format.numberFormat = 'R$ #,##0.00,,, "bi"';
-  sheet.getRange(`O5:O${rows.length + 4}`).format.numberFormat = "#,##0";
-  sheet.getRange(`A5:V${rows.length + 4}`).format.rowHeightPx = 48;
+  sheet.getRange(`U5:U${rows.length + 4}`).format.numberFormat = "#,##0";
+  sheet.getRange(`A5:AE${rows.length + 4}`).format.rowHeightPx = 48;
 
   const summaryRow = rows.length + 7;
   const summaryHeaders = [
@@ -6149,6 +6195,7 @@ async function buildWorkbook(payload, flowAssets) {
   await addCardReceivablesCurationSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
   await addFixedIncomeOfferComparisonSheet(workbook, payload);
+  await addBcbExpandedCreditSheet(workbook, payload);
   await addClosedOfferPlacementRegimeSheet(workbook, payload);
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);

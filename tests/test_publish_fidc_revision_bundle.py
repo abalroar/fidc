@@ -11,6 +11,7 @@ import pytest
 from openpyxl import Workbook
 
 from scripts.build_fidc_industry_study import parse_args as parse_study_args
+from scripts.build_fidc_revision_analysis import parse_args as parse_revision_args
 from scripts.publish_fidc_revision_bundle import (
     ANALYSIS_MANIFEST_NAME,
     BUNDLE_MANIFEST_NAME,
@@ -592,6 +593,22 @@ def _payload() -> dict[str, object]:
         "fixed_income_offer_comparison": (
             _fixed_income_offer_comparison_fixture()
         ),
+        "bcb_expanded_credit": [
+            {
+                "competencia": "2026-05",
+                "period_label": "05/26",
+                "expanded_credit_total_brl": 100.0,
+                "loans_brl": 40.0,
+                "public_debt_brl": 20.0,
+                "private_debt_brl": 10.0,
+                "fidc_receivables_brl": 5.0,
+                "other_securitization_brl": 5.0,
+                "external_debt_brl": 20.0,
+                "source_bcb": "BCB SGS 28183-28192",
+                "source_cvm": "CVM Informe Mensal",
+                "methodology": "Pilha reconciliada",
+            }
+        ],
         "closed_offer_originators_2026": [
             {
                 "rank": rank,
@@ -628,6 +645,24 @@ def _payload() -> dict[str, object]:
                 ),
                 "ibba_coord_lead": rank == 1,
                 "ibba_coord_lead_label": "Sim" if rank == 1 else "Não",
+                "ibba_participant": rank in {1, 2},
+                "ibba_participant_label": (
+                    "Sim" if rank in {1, 2} else "Não"
+                ),
+                "ibba_participant_entities": (
+                    "ITAÚ BBA ASSESSORIA FINANCEIRA S.A."
+                    if rank in {1, 2}
+                    else ""
+                ),
+                "ibba_participant_roles": (
+                    "Coordenador" if rank in {1, 2} else ""
+                ),
+                "ibba_participation_source": "participantes oficiais SRE",
+                "participants_source_url": (
+                    f"https://web.cvm.gov.br/sre-publico-cvm/"
+                    f"rest/sitePublico/pesquisar/participantes/{period_order}{rank:02d}"
+                ),
+                "closing_document_url": "",
                 "distribution_regime": (
                     "Garantia Firme de Colocação"
                     if rank == 1
@@ -661,6 +696,9 @@ def _payload() -> dict[str, object]:
                 "ibba_lead_offers_top15": 1,
                 "ibba_lead_volume_top15_brl": 15.0,
                 "ibba_lead_share_top15_volume": 0.125,
+                "ibba_participation_offers_top15": 2,
+                "ibba_participation_volume_top15_brl": 29.0,
+                "ibba_participation_share_top15_volume": 29.0 / 120.0,
                 "firm_commitment_offers_top15": 1,
                 "firm_commitment_volume_top15_brl": 15.0,
                 "ibba_firm_commitment_offers_top15": 1,
@@ -720,7 +758,7 @@ def _payload() -> dict[str, object]:
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v6"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v7"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
 
@@ -1082,3 +1120,12 @@ def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:
 
     assert args.publish_revision_bundle is True
     assert args.revision_input_workbook == "base.xlsx"
+
+
+def test_revision_analysis_accepts_validated_presence_overlay_reuse() -> None:
+    args = parse_revision_args(
+        ["--source-presence-overlay", "source_presence_overlay.csv.gz"]
+    )
+
+    assert args.refresh_source_presence is False
+    assert args.source_presence_overlay == "source_presence_overlay.csv.gz"

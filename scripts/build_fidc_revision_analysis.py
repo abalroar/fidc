@@ -44,6 +44,14 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
             "disponível para preservar vazio versus zero"
         ),
     )
+    parser.add_argument(
+        "--source-presence-overlay",
+        default="",
+        help=(
+            "overlay bruto já validado para reutilização quando não houver "
+            "reprocessamento; preserva vazio versus zero e aging"
+        ),
+    )
     parser.add_argument("--skip-download", action="store_true")
     return parser.parse_args(argv)
 
@@ -79,6 +87,29 @@ def main(argv: list[str] | None = None) -> None:
 
     store = RawStore(Path(args.raw_dir), allow_download=not args.skip_download)
     raw_frames: list[pd.DataFrame] = []
+    reused_presence_overlay: pd.DataFrame | None = None
+    overlay_path = Path(str(args.source_presence_overlay or "").strip())
+    if str(args.source_presence_overlay or "").strip():
+        if not overlay_path.is_file():
+            raise SystemExit(f"overlay de presença ausente: {overlay_path}")
+        reused_presence_overlay = pd.read_csv(overlay_path, low_memory=False)
+        required_overlay = {
+            "competencia",
+            "cnpj",
+            "carteira_dc",
+            "dc_inadimplentes",
+        }
+        missing_overlay = required_overlay.difference(reused_presence_overlay.columns)
+        if missing_overlay:
+            raise SystemExit(
+                "overlay de presença incompatível; colunas ausentes: "
+                + ", ".join(sorted(missing_overlay))
+            )
+        # `build_base_by_vehicle` requires PL, although the presence overlay
+        # never replaces PL. A neutral value keeps the audit transformation
+        # reusable without duplicating the full monthly analytical base.
+        if "pl" not in reused_presence_overlay:
+            reused_presence_overlay["pl"] = 0.0
     table_ii_columns = list(TABLE_II_RECEIVABLE_COLUMNS)
     latest_table_ii = vehicle[
         vehicle["competencia"].astype(str).eq(latest_complete)
@@ -129,7 +160,11 @@ def main(argv: list[str] | None = None) -> None:
     raw_audit = (
         pd.concat(raw_frames, ignore_index=True)
         if args.refresh_source_presence and raw_frames
-        else (pd.DataFrame() if args.refresh_source_presence else None)
+        else (
+            pd.DataFrame()
+            if args.refresh_source_presence
+            else reused_presence_overlay
+        )
     )
     raw_table_ii = (
         pd.concat(raw_table_ii_frames, ignore_index=True)

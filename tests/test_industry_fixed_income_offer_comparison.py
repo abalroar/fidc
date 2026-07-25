@@ -22,10 +22,10 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     frame = load_materialized_fixed_income_offer_comparison(DATA_DIR)
     view_a = frame[frame["view"].eq("FIDCs vs demais elegíveis")]
     expected = {
-        "2023 FY": (26_176_286_248.0, 331_117_423_570.30),
-        "2024 FY": (95_416_726_133.75, 628_315_506_257.23),
-        "2025 FY": (116_348_319_054.77, 653_756_401_596.27),
-        "2026 jan-jun": (65_488_118_983.56, 246_828_872_386.94),
+        "2023 FY": (26_476_286_193.56, 353_447_879_570.30),
+        "2024 FY": (95_416_726_133.75, 628_733_342_247.23),
+        "2025 FY": (116_921_319_054.77, 656_094_670_634.27),
+        "2026 jan-jun": (65_488_118_983.56, 246_881_237_565.94),
     }
     for period, (fidc_volume, rest_volume) in expected.items():
         scoped = view_a[view_a["period_label"].eq(period)].set_index(
@@ -39,13 +39,13 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
         ] == pytest.approx(rest_volume)
 
     yoy = view_a.set_index(["period_label", "series_label"])["yoy_growth"]
-    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2193702694)
+    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2253755059)
     assert yoy.loc[("2025 FY", "Demais elegíveis")] == pytest.approx(
-        0.0404906374
+        0.0435181762
     )
     assert yoy.loc[("2026 jan-jun", "FIDCs")] == pytest.approx(0.1457242904)
     assert yoy.loc[("2026 jan-jun", "Demais elegíveis")] == pytest.approx(
-        -0.0779777184
+        -0.0777821098
     )
 
 
@@ -67,10 +67,31 @@ def test_material_2025_instruments_are_selected_by_registered_volume() -> None:
 
 def _write_archive(path: Path, rows: list[dict[str, object]]) -> Path:
     frame = pd.DataFrame(rows)
+    legacy_columns = [
+        "Numero_Registro_Oferta",
+        "Numero_Processo",
+        "Data_Encerramento_Oferta",
+        "Tipo_Ativo",
+        "Tipo_Oferta",
+        "CNPJ_Emissor",
+        "Nome_Emissor",
+        "Valor_Total",
+        "Nome_Lider",
+        "Rito_Oferta",
+        "Quantidade_Total",
+        "Nr_Pessoa_Fisica",
+        "Qtd_Pessoa_Fisica",
+    ]
     with ZipFile(path, "w", compression=ZIP_DEFLATED) as archive:
         archive.writestr(
             "oferta_resolucao_160.csv",
             frame.to_csv(index=False, sep=";").encode("latin-1"),
+        )
+        archive.writestr(
+            "oferta_distribuicao.csv",
+            pd.DataFrame(columns=legacy_columns)
+            .to_csv(index=False, sep=";")
+            .encode("latin-1"),
         )
     return path
 
