@@ -54,7 +54,7 @@ NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v6"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -74,6 +74,8 @@ REQUIRED_DATA_INPUTS = (
     "industry_closed_offer_ticket_cohort.csv.gz",
     "industry_closed_offer_placement_regime.csv",
     "industry_fixed_income_offer_comparison.csv",
+    "industry_bcb_expanded_credit.csv",
+    "industry_offer_document_curation.csv",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
@@ -94,6 +96,8 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_closed_offers.py",
     ROOT / "scripts" / "build_fidc_closed_offer_placement_regime.py",
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
+    ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
+    ROOT / "scripts" / "build_fidc_offer_document_curation.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
@@ -109,6 +113,9 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_closed_offer_rankings.py",
     ROOT / "services" / "industry_closed_offer_placement_regime.py",
     ROOT / "services" / "industry_fixed_income_offer_comparison.py",
+    ROOT / "services" / "industry_public_offers.py",
+    ROOT / "services" / "industry_bcb_expanded_credit.py",
+    ROOT / "services" / "industry_offer_document_curation.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -1018,6 +1025,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "closed_offer_top15",
         "closed_offer_top15_summary",
         "fixed_income_offer_comparison",
+        "bcb_expanded_credit",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
         "provider_history_cvm_detail",
@@ -1220,6 +1228,13 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "leader_name",
             "ibba_coord_lead",
             "ibba_coord_lead_label",
+            "ibba_participant",
+            "ibba_participant_label",
+            "ibba_participant_entities",
+            "ibba_participant_roles",
+            "ibba_participation_source",
+            "participants_source_url",
+            "closing_document_url",
             "distribution_regime",
             "firm_commitment",
             "firm_commitment_label",
@@ -1242,6 +1257,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "ibba_lead_offers_top15",
             "ibba_lead_volume_top15_brl",
             "ibba_lead_share_top15_volume",
+            "ibba_participation_offers_top15",
+            "ibba_participation_volume_top15_brl",
+            "ibba_participation_share_top15_volume",
             "firm_commitment_offers_top15",
             "firm_commitment_volume_top15_brl",
             "ibba_firm_commitment_offers_top15",
@@ -1261,6 +1279,20 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "source_url",
             "scope",
             "excluded_instruments",
+        },
+        "bcb_expanded_credit": {
+            "competencia",
+            "period_label",
+            "expanded_credit_total_brl",
+            "loans_brl",
+            "public_debt_brl",
+            "private_debt_brl",
+            "fidc_receivables_brl",
+            "other_securitization_brl",
+            "external_debt_brl",
+            "source_bcb",
+            "source_cvm",
+            "methodology",
         },
         "closed_offer_placement_regime": {
             "period_label",
@@ -1964,12 +1996,38 @@ def publish_revision_bundle(
         ]
         if refresh_source_presence:
             analysis_args.append("--refresh-source-presence")
+        else:
+            published_overlay = publish_dir / "source_presence_overlay.csv.gz"
+            if published_overlay.is_file():
+                analysis_args.extend(
+                    ["--source-presence-overlay", str(published_overlay)]
+                )
         if skip_download:
             analysis_args.append("--skip-download")
         build_revision_analysis(analysis_args)
 
         analysis_manifest_path = stage_revision / ANALYSIS_MANIFEST_NAME
         analysis_manifest = json.loads(analysis_manifest_path.read_text(encoding="utf-8"))
+        if not refresh_source_presence:
+            published_overlay = publish_dir / "source_presence_overlay.csv.gz"
+            staged_overlay = stage_revision / "source_presence_overlay.csv.gz"
+            if published_overlay.is_file():
+                shutil.copy2(published_overlay, staged_overlay)
+                with gzip.open(
+                    staged_overlay,
+                    "rt",
+                    encoding="utf-8",
+                    newline="",
+                ) as handle:
+                    reader = csv.reader(handle)
+                    header = next(reader, [])
+                    row_count = sum(1 for _ in reader)
+                files = dict(analysis_manifest.get("files") or {})
+                files["source_presence_overlay.csv.gz"] = {
+                    "rows": row_count,
+                    "columns": len(header),
+                }
+                analysis_manifest["files"] = files
         # The analysis builder records wall-clock time.  Replace it with the
         # publisher timestamp so SOURCE_DATE_EPOCH/--generated-at-utc also
         # stabilizes the staged analysis metadata.

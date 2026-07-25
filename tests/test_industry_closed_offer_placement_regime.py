@@ -25,13 +25,13 @@ def test_materialized_placement_regime_reconciles_offer_cohort() -> None:
         )
     )
     assert totals.loc["2024 FY", "offers"] == 1009
-    assert totals.loc["2025 FY", "offers"] == 1470
+    assert totals.loc["2025 FY", "offers"] == 1473
     assert totals.loc["2026 jan-jun", "offers"] == 771
     assert totals.loc["2024 FY", "volume"] == pytest.approx(
         95_416_726_133.75
     )
     assert totals.loc["2025 FY", "volume"] == pytest.approx(
-        116_348_319_054.77
+        116_921_319_054.77
     )
     assert totals.loc["2026 jan-jun", "volume"] == pytest.approx(
         65_488_118_983.56

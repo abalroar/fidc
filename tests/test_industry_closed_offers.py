@@ -45,7 +45,7 @@ def test_full_payload_is_json_serializable_and_has_stable_blocks() -> None:
     assert payload["jan_may_2024_2026"]["row_count"] == 3
     assert payload["originators_2026_ytd"]["row_count"] == 17
     assert payload["annual"]["source"]["archive_sha256"] == (
-        "ff53d4406953411a3153a2701669c6d06ebad56f5d849c7e0190406ac7bfa0f3"
+        "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
     )
 
 

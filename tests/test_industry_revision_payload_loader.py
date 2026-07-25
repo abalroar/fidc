@@ -21,6 +21,7 @@ SCHEMA_V4 = "fidc_revision_artifact_payload_v4"
 SCHEMA_V5 = "fidc_revision_artifact_payload_v5"
 SCHEMA_V6 = "fidc_revision_artifact_payload_v6"
 SCHEMA_V7 = "fidc_revision_artifact_payload_v7"
+SCHEMA_V8 = "fidc_revision_artifact_payload_v8"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -141,7 +142,14 @@ def _core_payload(schema: str) -> dict[str, object]:
 
 def _payload_for_schema(schema: str) -> dict[str, object]:
     payload = _core_payload(schema)
-    if schema in {SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6}:
+    if schema in {
+        SCHEMA_V2,
+        SCHEMA_V3,
+        SCHEMA_V4,
+        SCHEMA_V5,
+        SCHEMA_V6,
+        SCHEMA_V7,
+    }:
         payload.update(
             {
                 "holder_distribution_history": [
@@ -197,7 +205,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6}:
+    if schema in {SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7}:
         payload.update(
             {
                 "provider_historical_ranking": [
@@ -223,7 +231,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "acquiring_taxonomy": {"classification": "Tabela II.g - Cartão"},
             }
         )
-    if schema in {SCHEMA_V4, SCHEMA_V5, SCHEMA_V6}:
+    if schema in {SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7}:
         payload.update(
             {
                 "delinquency_single_receivable": [
@@ -315,7 +323,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V5, SCHEMA_V6}:
+    if schema in {SCHEMA_V5, SCHEMA_V6, SCHEMA_V7}:
         payload.update(
             {
                 "delinquency_frozen_cohort_history": [
@@ -405,7 +413,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "conclusion_metrics": {"competencia": "2026-05"},
             }
         )
-    if schema == SCHEMA_V6:
+    if schema in {SCHEMA_V6, SCHEMA_V7}:
         statuses = (
             ["Incluído em Adquirência"] * 26
             + ["Fora de Adquirência"] * 17
@@ -448,6 +456,23 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
+    if schema == SCHEMA_V7:
+        payload["bcb_expanded_credit"] = [
+            {
+                "competencia": "2026-05",
+                "period_label": "05/26",
+                "expanded_credit_total_brl": 100.0,
+                "loans_brl": 40.0,
+                "public_debt_brl": 20.0,
+                "private_debt_brl": 10.0,
+                "fidc_receivables_brl": 5.0,
+                "other_securitization_brl": 5.0,
+                "external_debt_brl": 20.0,
+                "source_bcb": "BCB",
+                "source_cvm": "CVM",
+                "methodology": "reconciliado",
+            }
+        ]
     return payload
 
 
@@ -469,7 +494,8 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
 
 
 @pytest.mark.parametrize(
-    "schema", [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6]
+    "schema",
+    [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7],
 )
 def test_revision_payload_loader_accepts_each_published_schema(
     tmp_path: Path,
@@ -486,7 +512,7 @@ def test_revision_payload_loader_accepts_each_published_schema(
         assert "market_share_scope_summary" not in loaded
 
 
-@pytest.mark.parametrize("schema", [SCHEMA_V4, SCHEMA_V5, SCHEMA_V6])
+@pytest.mark.parametrize("schema", [SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7])
 def test_revision_payload_loader_accepts_jan_june_without_legacy_alias(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -535,13 +561,13 @@ def test_revision_payload_loader_accepts_forward_compatible_schema(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    payload = _payload_for_schema(SCHEMA_V6)
-    payload["schema_version"] = SCHEMA_V7
+    payload = _payload_for_schema(SCHEMA_V7)
+    payload["schema_version"] = SCHEMA_V8
     _write_payload(tmp_path, payload)
 
     loaded = _load_payload(tmp_path, monkeypatch)
 
-    assert loaded["schema_version"] == SCHEMA_V7
+    assert loaded["schema_version"] == SCHEMA_V8
 
 
 def test_revision_payload_loader_rejects_malformed_schema(
@@ -587,6 +613,7 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V6, "card_taxonomy_summary"),
         (SCHEMA_V6, "acquiring_curation_detail"),
         (SCHEMA_V6, "fixed_income_offer_comparison"),
+        (SCHEMA_V7, "bcb_expanded_credit"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
@@ -640,14 +667,14 @@ def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    payload = _payload_for_schema(SCHEMA_V6)
-    payload["schema_version"] = SCHEMA_V7
+    payload = _payload_for_schema(SCHEMA_V7)
+    payload["schema_version"] = SCHEMA_V8
     _write_payload(tmp_path, payload)
     manifest_path = tmp_path / "generated_revision" / "industry_export_bundle.json"
     manifest_path.write_text(
         json.dumps(
             {
-                "payload_schema": SCHEMA_V6,
+                "payload_schema": SCHEMA_V7,
                 "payload_sha256": "0" * 64,
             }
         ),
@@ -656,7 +683,7 @@ def test_revision_payload_loader_accepts_newer_payload_while_old_bundle_is_stale
 
     loaded = _load_payload(tmp_path, monkeypatch)
 
-    assert loaded["schema_version"] == SCHEMA_V7
+    assert loaded["schema_version"] == SCHEMA_V8
 
 
 def test_office_export_remains_strictly_current_schema(

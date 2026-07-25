@@ -7,22 +7,24 @@ deduplicated by ``Numero_Requerimento`` before aggregation.
 
 from __future__ import annotations
 
-from hashlib import sha256
 from pathlib import Path
 import math
-import unicodedata
 from typing import Any
-from zipfile import ZipFile
 
 import numpy as np
 import pandas as pd
 
-
-SOURCE_DATASET = "oferta_resolucao_160.csv"
-SOURCE_URL = (
-    "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/"
-    "oferta_distribuicao.zip"
+from services.industry_public_offers import (
+    EXCLUDED_CANONICAL,
+    FIDC_CANONICAL,
+    PublicOffersError,
+    SOURCE_DATASET_LABEL,
+    SOURCE_URL,
+    load_public_primary_closed_offers,
+    normalize_text,
 )
+
+SOURCE_DATASET = SOURCE_DATASET_LABEL
 SOURCE_AS_OF_DATE = "2026-07-24"
 SOURCE_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
@@ -30,7 +32,7 @@ SOURCE_ARCHIVE_SHA256 = (
 RELEASE_CUTOFF = "2026-06-30"
 OUTPUT_FILENAME = "industry_fixed_income_offer_comparison.csv"
 
-FIDC_INSTRUMENT = "COTAS DE FIDC"
+FIDC_INSTRUMENT = FIDC_CANONICAL
 EXCLUDED_INSTRUMENTS = (
     "Cotas de FII",
     "Cotas de FIF",
@@ -140,101 +142,25 @@ class FixedIncomeOfferComparisonError(ValueError):
     """Raised when the public-offering comparison violates its contract."""
 
 
-def normalize_text(value: object) -> str:
-    text = unicodedata.normalize("NFKD", str(value or ""))
-    text = "".join(character for character in text if not unicodedata.combining(character))
-    return " ".join(text.upper().split())
-
-
-def _archive_sha256(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def _read_source(
     archive_path: str | Path,
     *,
     expected_archive_sha256: str | None,
 ) -> tuple[pd.DataFrame, str]:
-    path = Path(archive_path)
-    if not path.is_file():
-        raise FileNotFoundError(f"Arquivo CVM de ofertas ausente: {path}")
-    digest = _archive_sha256(path)
-    if expected_archive_sha256 and digest != expected_archive_sha256:
-        raise FixedIncomeOfferComparisonError(
-            "SHA-256 do arquivo CVM diverge do snapshot esperado: " + digest
+    try:
+        source, digest = load_public_primary_closed_offers(
+            archive_path,
+            cutoff=RELEASE_CUTOFF,
+            expected_archive_sha256=expected_archive_sha256,
         )
-    with ZipFile(path) as archive:
-        if SOURCE_DATASET not in archive.namelist():
-            raise FixedIncomeOfferComparisonError(
-                f"Tabela {SOURCE_DATASET} ausente no arquivo CVM."
-            )
-        source = pd.read_csv(
-            archive.open(SOURCE_DATASET),
-            sep=";",
-            encoding="latin-1",
-            dtype=str,
-            keep_default_na=False,
-            low_memory=False,
-        )
-    required = (
-        "Numero_Requerimento",
-        "Data_Encerramento",
-        "Status_Requerimento",
-        "Valor_Mobiliario",
-        "Tipo_Oferta",
-        "Valor_Total_Registrado",
-    )
-    missing = [column for column in required if column not in source]
-    if missing:
-        raise FixedIncomeOfferComparisonError(
-            "Colunas CVM obrigatórias ausentes: " + ", ".join(missing)
-        )
-
-    source["instrument_norm"] = source["Valor_Mobiliario"].map(normalize_text)
-    source["data_encerramento"] = pd.to_datetime(
-        source["Data_Encerramento"], errors="coerce"
-    )
-    source["registered_volume_brl"] = pd.to_numeric(
-        source["Valor_Total_Registrado"], errors="coerce"
-    )
-    excluded = {normalize_text(value) for value in EXCLUDED_INSTRUMENTS}
-    selected = source.loc[
-        source["Status_Requerimento"].map(normalize_text).eq("OFERTA ENCERRADA")
-        & source["Tipo_Oferta"].map(normalize_text).eq("PRIMARIA")
-        & source["data_encerramento"].notna()
-        & source["data_encerramento"].le(RELEASE_CUTOFF)
-        & source["registered_volume_brl"].gt(0)
-        & ~source["instrument_norm"].isin(excluded)
+    except PublicOffersError as exc:
+        raise FixedIncomeOfferComparisonError(str(exc)) from exc
+    selected = source[
+        source["canonical_instrument"].ne(EXCLUDED_CANONICAL)
     ].copy()
-    selected["Numero_Requerimento"] = selected["Numero_Requerimento"].str.strip()
-    if selected["Numero_Requerimento"].eq("").any():
-        raise FixedIncomeOfferComparisonError(
-            "Numero_Requerimento vazio no universo selecionado."
-        )
-    duplicates = selected.duplicated("Numero_Requerimento", keep=False)
-    if duplicates.any():
-        comparison = [
-            "Data_Encerramento",
-            "Valor_Mobiliario",
-            "Valor_Total_Registrado",
-        ]
-        conflicts = [
-            str(requirement)
-            for requirement, group in selected.loc[duplicates].groupby(
-                "Numero_Requerimento"
-            )
-            if len(group[comparison].drop_duplicates()) != 1
-        ]
-        if conflicts:
-            raise FixedIncomeOfferComparisonError(
-                "Numero_Requerimento com linhas conflitantes: "
-                + ", ".join(conflicts[:5])
-            )
-        selected = selected.drop_duplicates("Numero_Requerimento", keep="first")
+    selected["instrument_norm"] = selected["canonical_instrument"]
+    selected["data_encerramento"] = selected["closing_date"]
+    selected["Numero_Requerimento"] = selected["offer_id"]
     return selected, digest
 
 
@@ -294,14 +220,16 @@ def build_fixed_income_offer_comparison(
     top_series = [FIDC_INSTRUMENT, *ranking_2025["instrument_norm"].tolist()]
     exclusions = " | ".join(EXCLUDED_INSTRUMENTS)
     scope = (
-        "Oferta primária | status oficial Oferta Encerrada | "
-        "Data_Encerramento no período | Valor_Total_Registrado positivo | "
+        "Oferta pública primária encerrada | todos os ritos disponíveis na CVM | "
+        "data de encerramento no período | volume registrado positivo | "
         "instrumentos da lista de exclusão removidos"
     )
     methodology = (
-        "Uma oferta = Numero_Requerimento. 2024/2025 YoY compara anos completos; "
-        "2026 compara jan-jun/26 com jan-jun/25. Os instrumentos materiais são os "
-        "quatro maiores tipos não FIDC por volume registrado em 2025FY."
+        "Rito automático: uma oferta = Numero_Requerimento. Ritos ordinários e "
+        "legados: registro + emissor + data de encerramento + instrumento; "
+        "classes de FIDC do mesmo registro são somadas. 2024/2025 YoY compara "
+        "anos completos; 2026 compara jan-jun/26 com jan-jun/25. Os instrumentos "
+        "materiais são os quatro maiores tipos não FIDC por volume em 2025FY."
     )
     rows: list[dict[str, Any]] = []
 

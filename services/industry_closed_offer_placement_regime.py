@@ -7,20 +7,20 @@ snapshot by ``Numero_Requerimento``.  No missing regime is imputed.
 
 from __future__ import annotations
 
-from hashlib import sha256
 from pathlib import Path
 import unicodedata
-from zipfile import ZipFile
 
 import numpy as np
 import pandas as pd
 
-
-SOURCE_DATASET = "oferta_resolucao_160.csv"
-SOURCE_URL = (
-    "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/"
-    "oferta_distribuicao.zip"
+from services.industry_public_offers import (
+    FIDC_CANONICAL,
+    SOURCE_DATASET_LABEL,
+    SOURCE_URL,
+    load_public_primary_closed_offers,
 )
+
+SOURCE_DATASET = SOURCE_DATASET_LABEL
 SOURCE_AS_OF_DATE = "2026-07-24"
 SOURCE_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
@@ -71,14 +71,6 @@ def _normalize_text(value: object) -> str:
     return " ".join(text.upper().split())
 
 
-def _archive_sha256(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
 def _regime_bucket(value: object) -> str:
     normalized = _normalize_text(value)
     if not normalized:
@@ -99,54 +91,14 @@ def _read_source(
     *,
     expected_archive_sha256: str | None,
 ) -> tuple[pd.DataFrame, str]:
-    path = Path(archive_path)
-    if not path.is_file():
-        raise FileNotFoundError(f"Arquivo CVM de ofertas ausente: {path}")
-    digest = _archive_sha256(path)
-    if expected_archive_sha256 and digest != expected_archive_sha256:
-        raise ClosedOfferPlacementRegimeError(
-            "SHA-256 do arquivo CVM diverge do snapshot esperado: " + digest
-        )
-    with ZipFile(path) as archive:
-        if SOURCE_DATASET not in archive.namelist():
-            raise ClosedOfferPlacementRegimeError(
-                f"Tabela {SOURCE_DATASET} ausente no arquivo CVM."
-            )
-        source = pd.read_csv(
-            archive.open(SOURCE_DATASET),
-            sep=";",
-            encoding="latin-1",
-            dtype=str,
-            keep_default_na=False,
-            low_memory=False,
-        )
-    required = {
-        "Numero_Requerimento",
-        "Status_Requerimento",
-        "Valor_Mobiliario",
-        "Tipo_Oferta",
-        "Regime_distribuicao",
-    }
-    missing = sorted(required.difference(source.columns))
-    if missing:
-        raise ClosedOfferPlacementRegimeError(
-            "Colunas CVM obrigatórias ausentes: " + ", ".join(missing)
-        )
-    source = source.rename(
-        columns={"Numero_Requerimento": "offer_id"}
-    ).copy()
-    source["offer_id"] = source["offer_id"].str.strip()
-    source = source[source["Valor_Mobiliario"].str.contains(
-        "FIDC", case=False, na=False
-    )].copy()
-    if source["offer_id"].eq("").any():
-        raise ClosedOfferPlacementRegimeError(
-            "Numero_Requerimento vazio na fonte CVM."
-        )
-    if source["offer_id"].duplicated().any():
-        raise ClosedOfferPlacementRegimeError(
-            "Numero_Requerimento duplicado na fonte CVM."
-        )
+    source, digest = load_public_primary_closed_offers(
+        archive_path,
+        cutoff="2026-06-30",
+        expected_archive_sha256=expected_archive_sha256,
+    )
+    source = source[
+        source["canonical_instrument"].eq(FIDC_CANONICAL)
+    ].copy()
     return source, digest
 
 
@@ -210,10 +162,9 @@ def build_closed_offer_placement_regime(
         source[
             [
                 "offer_id",
-                "Status_Requerimento",
-                "Valor_Mobiliario",
-                "Tipo_Oferta",
-                "Regime_distribuicao",
+                "status_norm",
+                "offer_type_norm",
+                "distribution_regime",
             ]
         ],
         on="offer_id",
@@ -228,29 +179,29 @@ def build_closed_offer_placement_regime(
         raise ClosedOfferPlacementRegimeError(
             "Coorte sem correspondência na fonte CVM: " + ", ".join(missing_ids)
         )
-    if not joined["Status_Requerimento"].map(_normalize_text).eq(
+    if not joined["status_norm"].map(_normalize_text).eq(
         "OFERTA ENCERRADA"
     ).all():
         raise ClosedOfferPlacementRegimeError(
             "Coorte contém status diferente de Oferta Encerrada na fonte."
         )
-    if not joined["Tipo_Oferta"].map(_normalize_text).eq("PRIMARIA").all():
+    if not joined["offer_type_norm"].map(_normalize_text).eq("PRIMARIA").all():
         raise ClosedOfferPlacementRegimeError(
             "Coorte contém oferta diferente de primária na fonte."
         )
-    joined["placement_regime"] = joined["Regime_distribuicao"].map(
+    joined["placement_regime"] = joined["distribution_regime"].map(
         _regime_bucket
     )
 
     scope = (
-        "Cotas de FIDC | oferta primária | status oficial Oferta Encerrada | "
-        "Data_Encerramento no período | Valor_Total_Registrado positivo"
+        "Cotas de FIDC | oferta pública primária encerrada | todos os ritos CVM | "
+        "data de encerramento no período | volume registrado positivo"
     )
     methodology = (
-        "Uma oferta = Numero_Requerimento. Regime usa o campo oficial "
-        "Regime_distribuicao; Garantia Firme de Colocação e de Liquidação "
-        "são consolidadas em Garantia firme. 2024/2025 são anos completos; "
-        "2026 cobre janeiro a junho."
+        "Rito automático: uma oferta = Numero_Requerimento. Ritos ordinários "
+        "e legados usam a chave reconciliada do estudo. Regime usa o campo "
+        "oficial Regime_distribuicao quando disponível; ausência permanece "
+        "Não informado. 2024/2025 são anos completos; 2026 cobre janeiro a junho."
     )
     rows: list[dict[str, object]] = []
     for period_label in PERIODS:

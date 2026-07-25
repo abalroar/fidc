@@ -35,6 +35,9 @@ from services.industry_offer_ticket_distribution import (
 from services.industry_fixed_income_offer_comparison import (
     load_materialized_fixed_income_offer_comparison,
 )
+from services.industry_bcb_expanded_credit import (
+    load_materialized_expanded_credit_history,
+)
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -1112,9 +1115,9 @@ def _last_observation_by_year(monthly: pd.DataFrame, latest: str) -> pd.DataFram
 
 
 def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
-    """Materialize CAGRs from the same gross-PL series shown above the bars."""
+    """Materialize annual growth from the ex-FIC series shown in the chart."""
 
-    required = {"year", "competencia", "pl_total"}
+    required = {"year", "competencia", "pl_ex_fic"}
     missing = sorted(required.difference(annual_pl.columns))
     if missing:
         raise ValueError("série anual de PL sem colunas: " + ", ".join(missing))
@@ -1127,14 +1130,14 @@ def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
             )
         start = by_year.loc[start_year]
         end = by_year.loc[end_year]
-        start_pl = float(start["pl_total"])
-        end_pl = float(end["pl_total"])
+        start_pl = float(start["pl_ex_fic"])
+        end_pl = float(end["pl_ex_fic"])
         annual_intervals = int(end_year - start_year)
         if start_pl <= 0 or end_pl <= 0 or annual_intervals <= 0:
             raise ValueError(f"base inválida para CAGR {start_year}-{end_year}")
         rows.append(
             {
-                "metric": "PL bruto",
+                "metric": "PL ex-FIC",
                 "start_year": int(start_year),
                 "end_year": int(end_year),
                 "start_competencia": str(start["competencia"]),
@@ -2297,6 +2300,7 @@ def build_payload(
     fixed_income_offer_comparison = (
         load_materialized_fixed_income_offer_comparison(data_dir)
     )
+    bcb_expanded_credit = load_materialized_expanded_credit_history(data_dir)
     closed_offer_ticket_distribution = offer_ticket_outputs.distribution.copy()
     offer_rankings = build_closed_offer_top15(data_dir)
     closed_offer_top15 = offer_rankings.rankings.copy()
@@ -2450,7 +2454,7 @@ def build_payload(
     )
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v6",
+        "schema_version": "fidc_revision_artifact_payload_v7",
         "latest_complete": latest,
         "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,
@@ -2458,6 +2462,7 @@ def build_payload(
         "generated_at": pd.Timestamp.now(tz="America/Sao_Paulo").isoformat(),
         "pl_history": _records(annual_pl),
         "pl_total_cagr_periods": _records(pl_total_cagr_periods),
+        "bcb_expanded_credit": _records(bcb_expanded_credit),
         "investor_base_history": _records(annual_base),
         "investor_composition": _records(
             _investor_composition(

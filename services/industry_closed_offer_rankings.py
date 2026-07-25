@@ -17,6 +17,7 @@ import pandas as pd
 
 COHORT_FILENAME = "industry_closed_offer_ticket_cohort.csv.gz"
 OFFERS_FILENAME = "industry_offers.csv.gz"
+DOCUMENT_CURATION_FILENAME = "industry_offer_document_curation.csv"
 TOP_PERIODS = ("2025 FY", "2026 jan-jun")
 IBBA_LEADER = "ITAU BBA ASSESSORIA FINANCEIRA S.A"
 
@@ -179,8 +180,71 @@ def build_closed_offer_top15(
         )
 
     joined["metadata_matched"] = joined["_merge"].eq("both")
+    curation_path = data_dir / DOCUMENT_CURATION_FILENAME
+    if curation_path.is_file():
+        curation = pd.read_csv(
+            curation_path, dtype=str, keep_default_na=False
+        )
+        required_curation = {
+            "offer_id",
+            "originator_group_curated",
+            "originator_confidence",
+            "originator_evidence",
+            "ibba_participant",
+            "ibba_participant_label",
+            "ibba_participant_entities",
+            "ibba_participant_roles",
+            "ibba_participation_source",
+            "participants_source_url",
+            "closing_document_url",
+            "document_text_method",
+            "review_status",
+        }
+        missing_curation = sorted(
+            required_curation.difference(curation.columns)
+        )
+        if missing_curation:
+            raise ClosedOfferRankingError(
+                "curadoria documental sem colunas: "
+                + ", ".join(missing_curation)
+            )
+        if curation["offer_id"].duplicated().any():
+            raise ClosedOfferRankingError(
+                "curadoria documental contém offer_id duplicado"
+            )
+        joined = joined.merge(
+            curation[list(required_curation)],
+            on="offer_id",
+            how="left",
+            validate="one_to_one",
+        )
+    else:
+        joined["originator_group_curated"] = ""
+        joined["originator_confidence"] = ""
+        joined["originator_evidence_y"] = ""
+        joined["ibba_participant"] = ""
+        joined["ibba_participant_label"] = ""
+        joined["ibba_participant_entities"] = ""
+        joined["ibba_participant_roles"] = ""
+        joined["ibba_participation_source"] = ""
+        joined["participants_source_url"] = ""
+        joined["closing_document_url"] = ""
+        joined["document_text_method"] = ""
+        joined["review_status"] = ""
+    if "originator_evidence_y" in joined:
+        joined["originator_evidence_document"] = joined[
+            "originator_evidence_y"
+        ]
+    else:
+        joined["originator_evidence_document"] = ""
+    if "originator_evidence_x" in joined:
+        joined["originator_evidence"] = joined["originator_evidence_x"]
     joined["originator_group"] = joined["originator_group"].map(
         lambda value: _clean_text(value, "Não identificado")
+    )
+    curated_originator = joined["originator_group_curated"].map(_clean_text)
+    joined.loc[curated_originator.ne(""), "originator_group"] = (
+        curated_originator[curated_originator.ne("")]
     )
     joined["originator_group"] = joined["originator_group"].replace(
         {"N/D": "Não identificado", "Não Identificado": "Não identificado"}
@@ -197,6 +261,15 @@ def build_closed_offer_top15(
     ).round()
     joined["ibba_coord_lead"] = joined["leader_name"].map(
         lambda value: _normalized_text(value) == IBBA_LEADER
+    )
+    curated_participant = (
+        joined["ibba_participant"].astype(str).str.strip().str.casefold()
+    )
+    joined["ibba_participant"] = curated_participant.isin(
+        {"true", "1", "sim", "yes"}
+    ) | joined["ibba_coord_lead"]
+    joined["ibba_participant_label"] = joined["ibba_participant"].map(
+        {True: "Sim", False: "Não"}
     )
     joined["firm_commitment"] = joined["distribution_regime"].map(
         lambda value: "GARANTIA FIRME" in _normalized_text(value)
@@ -227,6 +300,7 @@ def build_closed_offer_top15(
         period_volume = float(period["registered_volume_brl"].sum())
         top_volume = float(top["registered_volume_brl"].sum())
         ibba = top["ibba_coord_lead"]
+        ibba_participation = top["ibba_participant"]
         firm = top["firm_commitment"]
         summary_rows.append(
             {
@@ -251,6 +325,20 @@ def build_closed_offer_top15(
                 "ibba_lead_share_period_volume": float(
                     top.loc[ibba, "registered_volume_brl"].sum() / period_volume
                 ) if period_volume else 0.0,
+                "ibba_participation_offers_top15": int(
+                    ibba_participation.sum()
+                ),
+                "ibba_participation_volume_top15_brl": float(
+                    top.loc[
+                        ibba_participation, "registered_volume_brl"
+                    ].sum()
+                ),
+                "ibba_participation_share_top15_volume": float(
+                    top.loc[
+                        ibba_participation, "registered_volume_brl"
+                    ].sum()
+                    / top_volume
+                ) if top_volume else 0.0,
                 "firm_commitment_offers_top15": int(firm.sum()),
                 "firm_commitment_volume_top15_brl": float(
                     top.loc[firm, "registered_volume_brl"].sum()
@@ -295,6 +383,13 @@ def build_closed_offer_top15(
             "leader_name",
             "ibba_coord_lead",
             "ibba_coord_lead_label",
+            "ibba_participant",
+            "ibba_participant_label",
+            "ibba_participant_entities",
+            "ibba_participant_roles",
+            "ibba_participation_source",
+            "participants_source_url",
+            "closing_document_url",
             "distribution_regime",
             "firm_commitment",
             "firm_commitment_label",
@@ -302,6 +397,10 @@ def build_closed_offer_top15(
             "investor_count",
             "originator_source",
             "originator_evidence",
+            "originator_evidence_document",
+            "originator_confidence",
+            "document_text_method",
+            "review_status",
             "metadata_matched",
             "status",
             "offer_type",

@@ -9258,6 +9258,8 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "fixed_income_offer_comparison",
             }
         )
+    if schema_version >= 7:
+        required.add("bcb_expanded_credit")
     missing = sorted(required.difference(payload))
     comparable_offer_key = next(
         (
@@ -9507,6 +9509,21 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             "source_url",
             "scope",
             "excluded_instruments",
+        }
+    if schema_version >= 7:
+        required_columns["bcb_expanded_credit"] = {
+            "competencia",
+            "period_label",
+            "expanded_credit_total_brl",
+            "loans_brl",
+            "public_debt_brl",
+            "private_debt_brl",
+            "fidc_receivables_brl",
+            "other_securitization_brl",
+            "external_debt_brl",
+            "source_bcb",
+            "source_cvm",
+            "methodology",
         }
     for key, columns in required_columns.items():
         rows = payload.get(key)
@@ -11212,6 +11229,7 @@ def _render_revision_conclusions(payload: dict[str, object]) -> None:
 def _render_revision_overview(payload: dict[str, object]) -> None:
     pl = _revision_frame(payload, "pl_history")
     pl_cagr_periods = _revision_frame(payload, "pl_total_cagr_periods")
+    bcb_credit = _revision_frame(payload, "bcb_expanded_credit")
     qa = dict(payload.get("qa_latest") or {})
     service_model = _revision_frame(payload, "service_model")
     top20 = _revision_frame(payload, "top20_fidcs")
@@ -11226,7 +11244,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
         _industry_kpi(
             "PL ex-FIC",
             _fmt_bi(float(latest.get("pl_ex_fic", 0.0)), 0),
-            f"FIC-FIDC adiciona {_fmt_bi(float(latest.get('pl_fic_componente', 0.0)), 0)}",
+            f"data-base {latest_label.lower()}",
         ),
         _industry_kpi(
             "Top 20 FIDCs",
@@ -11246,7 +11264,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
-    st.markdown("<h2>Evolução do PL</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>FIDCs e Carteira de Crédito Ampliada</h2>", unsafe_allow_html=True)
     if not pl.empty:
         pl = pl.copy()
         pl["Período"] = pl.apply(
@@ -11256,53 +11274,117 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             axis=1,
         )
         order = pl["Período"].tolist()
-        long = pd.concat(
-            [
-                pl.assign(Série="PL ex-FIC", valor_bi=pl["pl_ex_fic"] / 1e9),
-                pl.assign(Série="FIC-FIDC", valor_bi=pl["pl_fic_componente"] / 1e9),
-            ],
-            ignore_index=True,
-        )
+        pl["valor_bi"] = pl["pl_ex_fic"] / 1e9
         bars = (
-            alt.Chart(long)
-            .mark_bar()
+            alt.Chart(pl)
+            .mark_bar(color=_ORANGE)
             .encode(
                 x=alt.X("Período:N", title=None, sort=order, axis=alt.Axis(labelAngle=0, grid=False)),
                 y=alt.Y("sum(valor_bi):Q", title="R$ bi", stack="zero", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
-                color=alt.Color(
-                    "Série:N",
-                    scale=alt.Scale(domain=["PL ex-FIC", "FIC-FIDC"], range=[_ORANGE, _GRAY_LIGHT]),
-                    legend=alt.Legend(title=None, orient="bottom"),
-                ),
-                order=alt.Order("Série:N", sort="ascending"),
                 tooltip=[
                     alt.Tooltip("Período:N"),
-                    alt.Tooltip("Série:N"),
-                    alt.Tooltip("valor_bi:Q", title="PL (R$ bi)", format=",.1f"),
+                    alt.Tooltip("valor_bi:Q", title="PL ex-FIC (R$ bi)", format=",.1f"),
                 ],
             )
         )
         labels = (
-            alt.Chart(pl.assign(total_bi=pl["pl_total"] / 1e9))
+            alt.Chart(pl)
             .mark_text(dy=-8, color=_BLACK, fontSize=11)
             .encode(
                 x=alt.X("Período:N", sort=order),
-                y=alt.Y("total_bi:Q"),
-                text=alt.Text("total_bi:Q", format=",.0f"),
+                y=alt.Y("valor_bi:Q"),
+                text=alt.Text("valor_bi:Q", format=",.0f"),
             )
         )
-        st.altair_chart((bars + labels).properties(height=360), width="stretch", key="industry-revision-pl")
-        if not pl_cagr_periods.empty:
-            cagr_parts = [
-                f"{int(row.end_year)}: {_fmt_pct(float(row.cagr))}"
-                for row in pl_cagr_periods.itertuples(index=False)
-            ]
-            st.caption("Crescimento anual do PL bruto · " + " · ".join(cagr_parts))
-        st.caption(
-            "Fonte: CVM, Informe Mensal de FIDC. PL bruto = PL ex-FIC + PL dos FIC-FIDCs; "
-            "os dois componentes não se sobrepõem. Variações calculadas dezembro contra dezembro. "
-            f"Data-base: {latest_label.lower()}."
-        )
+        left, right = st.columns(2)
+        with left:
+            st.markdown("**PL dos FIDCs · ex-FIC**")
+            st.altair_chart(
+                (bars + labels).properties(height=340),
+                width="stretch",
+                key="industry-revision-pl",
+            )
+            if not pl_cagr_periods.empty:
+                cagr_parts = [
+                    f"{int(row.end_year)}: {_fmt_pct(float(row.cagr))}"
+                    for row in pl_cagr_periods.itertuples(index=False)
+                ]
+                st.caption("Crescimento anual do PL ex-FIC · " + " · ".join(cagr_parts))
+            st.caption(
+                "Fonte: CVM, Informe Mensal de FIDC. Variações dezembro contra dezembro; "
+                f"último ponto em {latest_label.lower()}."
+            )
+        with right:
+            st.markdown("**Carteira de Crédito Ampliada**")
+            if not bcb_credit.empty:
+                components = [
+                    ("Empréstimos", "loans_brl"),
+                    ("Títulos públicos", "public_debt_brl"),
+                    ("Títulos privados", "private_debt_brl"),
+                    ("FIDCs · carteira", "fidc_receivables_brl"),
+                    ("Outras securitizações", "other_securitization_brl"),
+                    ("Dívida externa", "external_debt_brl"),
+                ]
+                bcb_long = pd.concat(
+                    [
+                        bcb_credit.assign(
+                            Componente=label,
+                            valor_bi=pd.to_numeric(bcb_credit[column], errors="coerce") / 1e9,
+                        )
+                        for label, column in components
+                    ],
+                    ignore_index=True,
+                )
+                bcb_order = bcb_credit["period_label"].astype(str).tolist()
+                bcb_chart = (
+                    alt.Chart(bcb_long)
+                    .mark_bar()
+                    .encode(
+                        x=alt.X(
+                            "period_label:N",
+                            title=None,
+                            sort=bcb_order,
+                            axis=alt.Axis(labelAngle=0, grid=False),
+                        ),
+                        y=alt.Y(
+                            "sum(valor_bi):Q",
+                            title="R$ bi",
+                            stack="zero",
+                            axis=alt.Axis(gridColor=_GRAY_LIGHT),
+                        ),
+                        color=alt.Color(
+                            "Componente:N",
+                            scale=alt.Scale(
+                                domain=[label for label, _ in components],
+                                range=[
+                                    "#30353A",
+                                    "#73787D",
+                                    "#8D9399",
+                                    _ORANGE,
+                                    "#D7DADD",
+                                    "#F5F6F7",
+                                ],
+                            ),
+                            legend=alt.Legend(title=None, orient="bottom", columns=2),
+                        ),
+                        tooltip=[
+                            alt.Tooltip("period_label:N", title="Período"),
+                            alt.Tooltip("Componente:N"),
+                            alt.Tooltip("valor_bi:Q", title="R$ bi", format=",.0f"),
+                        ],
+                    )
+                )
+                st.altair_chart(
+                    bcb_chart.properties(height=340),
+                    width="stretch",
+                    key="industry-revision-bcb-credit",
+                )
+                st.caption(
+                    "Fonte: BCB, SGS 28183–28192; CVM, carteira de direitos creditórios "
+                    "na mesma competência. Último mês comum: mai/26. Debêntures e notas "
+                    "comerciais integram títulos privados; outras securitizações são o "
+                    "residual da série 28191 após a carteira FIDC."
+                )
 
     st.markdown(
         "<h2>Classificação ANBIMA · evolução do PL ex-FIC</h2>",
@@ -12545,6 +12627,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         "fidc_revision_artifact_payload_v4",
         "fidc_revision_artifact_payload_v5",
         "fidc_revision_artifact_payload_v6",
+        "fidc_revision_artifact_payload_v7",
     }
     ranking_tab, flows_tab, market_share_tab, model_tab = st.tabs(
         ["Ranking", "Bancos e fluxos", "Market share", "Modelo de prestação"]
@@ -13756,9 +13839,11 @@ def _render_revision_fixed_income_offer_comparison(
     st.caption(
         "Fonte: [CVM — Ofertas Públicas de Distribuição]"
         "(https://dados.cvm.gov.br/dataset/oferta-distrib), "
-        "oferta_resolucao_160.csv. Oferta primária, status Oferta Encerrada, "
-        "Data de Encerramento no período e Valor Total Registrado positivo; "
-        "unidade = Número do Requerimento. 2026 = jan–jun e compara jan–jun/25. "
+        "oferta_resolucao_160.csv + oferta_distribuicao.csv; todos os ritos "
+        "públicos, oferta primária encerrada e volume registrado positivo. "
+        "No rito automático, a chave é o Número do Requerimento; nos ritos "
+        "ordinários/legados, registro + emissor + encerramento + instrumento. "
+        "2026 = jan–jun e compara jan–jun/25. "
         "Instrumentos materiais = quatro maiores tipos não FIDC por volume em "
         f"2025FY. Exclusões: {exclusions}."
     )
@@ -14033,11 +14118,13 @@ def _render_revision_closed_offer_placement_regime(
     st.caption(
         "Fonte: [CVM — Ofertas Públicas de Distribuição]"
         "(https://dados.cvm.gov.br/dataset/oferta-distrib), "
-        "oferta_resolucao_160.csv, snapshot 24/jul/26. Cotas de FIDC, oferta "
-        "primária, status Oferta Encerrada e Valor Total Registrado positivo; "
-        "unidade = Número do Requerimento. Regime usa Regime_distribuicao; "
+        "oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot "
+        "24/jul/26. Cotas de FIDC, oferta pública primária encerrada e volume "
+        "registrado positivo, em todos os ritos disponíveis. Regime usa "
+        "Regime_distribuicao quando reportado; ritos sem abertura permanecem "
+        "em Não informado. "
         "Garantia firme consolida colocação e liquidação. 2024/2025 são anos "
-        "completos; 2026 cobre janeiro a junho. Cobertura do regime: 100%."
+        "completos; 2026 cobre janeiro a junho."
     )
 
 
@@ -14084,11 +14171,15 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
 
     st.caption(
         "Fonte: [CVM — Ofertas Públicas de Distribuição](https://dados.cvm.gov.br/dataset/oferta-distrib), "
-        f"arquivo oferta_resolucao_160.csv, consulta em {source_as_of}. Uma oferta corresponde a "
-        "Numero_Requerimento. Filtros: Valor_Mobiliario = Cotas de FIDC; Tipo_Oferta = Primária; "
-        "Status_Requerimento = Oferta Encerrada; Data_Encerramento até "
-        f"{_date_label(offers_cutoff)}; Valor_Total_Registrado positivo. Status abertos ficam fora. "
-        "Oferta Encerrada é a denominação literal do fluxo da CVM e não comprova colocação integral."
+        "arquivos oferta_resolucao_160.csv + oferta_distribuicao.csv, consulta "
+        f"em {source_as_of}. Universo: Cotas de FIDC, todos os ritos públicos, "
+        "oferta primária encerrada até "
+        f"{_date_label(offers_cutoff)} e volume registrado positivo; ofertas "
+        "abertas ficam fora. O rito automático usa Status_Requerimento = "
+        "Oferta Encerrada e Número do Requerimento. Os ritos ordinários/legados "
+        "usam Data_Encerramento_Oferta preenchida e chave composta por registro, "
+        "emissor, data e instrumento; classes do mesmo FIDC são somadas. "
+        "Encerramento regulatório não comprova colocação integral."
     )
 
     _render_revision_fixed_income_offer_comparison(payload)
@@ -14292,7 +14383,9 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             f'das 15 maiores ofertas em jan–jun/26 '
             f'({_fmt_bi(float(summary_2026["ibba_lead_volume_top15_brl"]), 1)}), '
             f'ante <b>{_fmt_int(summary_2025["ibba_lead_offers_top15"])}</b> em 2025FY '
-            f'({_fmt_bi(float(summary_2025["ibba_lead_volume_top15_brl"]), 1)}).'
+            f'({_fmt_bi(float(summary_2025["ibba_lead_volume_top15_brl"]), 1)}). '
+            f'Como participante, esteve em <b>{_fmt_int(summary_2026["ibba_participation_offers_top15"])}</b> '
+            "das 15 maiores em jan–jun/26."
             "</div>",
             unsafe_allow_html=True,
         )
@@ -14313,7 +14406,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     "fund_name_short",
                     "originator_group",
                     "Volume",
-                    "ibba_coord_lead_label",
+                    "leader_name",
+                    "ibba_participant_label",
                     "firm_commitment_label",
                     "publico",
                     "Nº de Inv.",
@@ -14324,7 +14418,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 "FIDC",
                 "Originador",
                 "Volume",
-                "IBBA Coord-Líder?",
+                "Coordenador líder",
+                "IBBA Coord",
                 "Garantia Firme?",
                 "Público",
                 "Nº de Inv.",
@@ -14351,10 +14446,13 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     "do volume encerrado no período)."
                 )
         st.caption(
-            "Universo: CVM, Cotas de FIDC, oferta primária, status Oferta Encerrada, "
-            "Data de Encerramento no período e Valor Total Registrado positivo. "
+            "Universo: CVM, Cotas de FIDC, ofertas públicas primárias encerradas "
+            "em todos os ritos disponíveis, data de encerramento no período e "
+            "volume registrado positivo. "
             "Originador não identificável permanece como “Não identificado”. "
-            "IBBA Coord-Líder usa Nome_Lider; Garantia Firme usa Regime_distribuicao. "
+            "Coordenador líder usa Nome_Lider. IBBA Coord usa a lista oficial de "
+            "participantes do SRE e inclui coordenação/requerimento por entidade "
+            "do conglomerado Itaú. Garantia Firme usa Regime_distribuicao. "
             "Nº de Inv. soma todas as colunas Num_Invest_*; a coluna de pessoa natural "
             "isolada não representa o total. Empates de volume usam o Número do "
             "Requerimento em ordem crescente. A base pública não contém propostas, fees "
@@ -14400,7 +14498,8 @@ def _render_revision_data_exports(
         [
             ["Estoque, cotistas e carteira", "CVM — Informe Mensal FIDC", payload.get("latest_complete"), f"{_fmt_int(qa.get('veiculos_total', 0))} veículos / {_fmt_int(qa.get('fundos_total', 0))} fundos"],
             ["Tipo e Foco ANBIMA", "ANBIMA Data + evidência documental + proxy CVM", sources.get("anbima", payload.get("latest_complete")), f"{_fmt_pct(float(coverage.loc[coverage['categoria'].eq('Oficial ANBIMA'), 'share'].sum()))} do PL oficial" if not coverage.empty else "n/d"],
-            ["Ofertas", "CVM — Ofertas Públicas", payload.get("offers_as_of"), "comparação YTD no mesmo corte"],
+            ["Ofertas", "CVM — ofertas públicas primárias, todos os ritos", payload.get("offers_as_of"), "encerramento no período; volume registrado positivo"],
+            ["Crédito Ampliado", "BCB — SGS 28183–28192", "mai/26", "FIDC aberto pela carteira de direitos creditórios CVM"],
             ["Curadoria Top 20", "CVM, FundosNet e documentos de emissão", curation_date, "lacunas marcadas como não identificado"],
         ],
         columns=["Dimensão", "Fonte", "Data-base", "Cobertura/regra"],
@@ -14430,6 +14529,8 @@ def _render_revision_data_exports(
             "BTG ex-coorte bancária": "btg_prestadores_ex_controlados.csv",
             "Histórico CVM de prestadores": "prestadores_historico_cvm_transicoes_links.csv",
             "Histograma das ofertas": "../industry_closed_offer_ticket_distribution.csv",
+            "Carteira de Crédito Ampliada": "../industry_bcb_expanded_credit.csv",
+            "Curadoria documental das 30 ofertas": "../industry_offer_document_curation.csv",
             "Manifest analítico": "revision_manifest.json",
             "Manifest do bundle": "industry_export_bundle.json",
         }
@@ -14444,6 +14545,20 @@ def _render_revision_data_exports(
                     key=f"industry-revision-download-{path.name}",
                     width="stretch",
                 )
+    with st.expander("Atualização reproduzível por analista", expanded=False):
+        st.code(
+            ".venv/bin/python scripts/update_fidc_industry_offers.py\n"
+            ".venv/bin/python scripts/publish_fidc_revision_bundle.py "
+            "--input-workbook /caminho/para/Industria_FIDC_Dados_202607.xlsx "
+            "--refresh-source-presence --presence-months all",
+            language="bash",
+        )
+        st.caption(
+            "O primeiro comando baixa o ZIP oficial da CVM, reconcilia os ritos "
+            "automático, ordinário e legado, atualiza ofertas, tickets, regimes, "
+            "participantes/documentos e séries BCB. O segundo publica PPTX, XLSX e "
+            "HTML apenas depois das validações do bundle."
+        )
 
 
 def _render_industry_data_audit(

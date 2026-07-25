@@ -54,6 +54,7 @@ OFFER_METRIC_COLUMNS = (
     "offers_with_up_to_5_investors",
     "up_to_5_investors_offer_share_covered",
     "up_to_5_investors_registered_volume_share_covered",
+    "target_public_registered_volume_coverage",
     "professional_target_registered_volume_brl",
     "professional_target_registered_volume_share",
     "qualified_target_registered_volume_brl",
@@ -295,7 +296,11 @@ def _validate_offer_metrics(frame: pd.DataFrame, *, name: str) -> None:
     if not np.isclose(frame["mean_registered_ticket_brl"], expected_mean, rtol=1e-10, atol=1e-4).all():
         raise ClosedOffersDataError(f"{name}: ticket médio registrado não reconcilia com volume/ofertas.")
 
-    expected_placed_mean = frame["placed_volume_proxy_brl"] / frame["offers_with_placed_quantity"]
+    expected_placed_mean = (
+        frame["placed_volume_proxy_brl"]
+        .div(frame["offers_with_placed_quantity"].replace(0, np.nan))
+        .fillna(0.0)
+    )
     if not np.isclose(frame["mean_placed_ticket_brl"], expected_placed_mean, rtol=1e-10, atol=1e-4).all():
         raise ClosedOffersDataError(f"{name}: ticket médio colocado não reconcilia com volume/ofertas cobertas.")
 
@@ -306,8 +311,14 @@ def _validate_offer_metrics(frame: pd.DataFrame, *, name: str) -> None:
             "general_target_registered_volume_brl",
         ]
     ].sum(axis=1)
-    if not np.isclose(target_total, frame["registered_volume_brl"], rtol=1e-10, atol=1e-4).all():
-        raise ClosedOffersDataError(f"{name}: público-alvo não reconcilia com o volume registrado.")
+    target_covered = (
+        frame["target_public_registered_volume_coverage"]
+        * frame["registered_volume_brl"]
+    )
+    if not np.isclose(target_total, target_covered, rtol=1e-10, atol=1e-4).all():
+        raise ClosedOffersDataError(
+            f"{name}: público-alvo não reconcilia com o volume coberto."
+        )
 
     target_shares = frame[
         [
@@ -316,7 +327,12 @@ def _validate_offer_metrics(frame: pd.DataFrame, *, name: str) -> None:
             "general_target_registered_volume_share",
         ]
     ].sum(axis=1)
-    if not np.isclose(target_shares, 1.0, rtol=1e-10, atol=2e-6).all():
+    expected_target_shares = frame[
+        "target_public_registered_volume_coverage"
+    ].gt(0).astype(float)
+    if not np.isclose(
+        target_shares, expected_target_shares, rtol=1e-10, atol=2e-6
+    ).all():
         raise ClosedOffersDataError(f"{name}: shares de público-alvo não fecham em 100%.")
 
 

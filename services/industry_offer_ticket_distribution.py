@@ -9,39 +9,39 @@ volume are retained.  FIAGRO-FIDC offerings are outside this scope.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from hashlib import sha256
 from pathlib import Path
 import math
-import unicodedata
 from typing import Any
-from zipfile import ZipFile
 
 import numpy as np
 import pandas as pd
 
+from services.industry_public_offers import (
+    FIDC_CANONICAL,
+    PublicOffersError,
+    SOURCE_DATASET_LABEL,
+    SOURCE_URL,
+    load_public_primary_closed_offers,
+)
 
 INDUSTRY_STUDY_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 
-SOURCE_DATASET = "oferta_resolucao_160.csv"
-SOURCE_URL = (
-    "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/"
-    "oferta_distribuicao.zip"
-)
+SOURCE_DATASET = SOURCE_DATASET_LABEL
 SOURCE_AS_OF_DATE = "2026-07-21"
 EXPECTED_SOURCE_ARCHIVE_SHA256 = (
-    "ff53d4406953411a3153a2701669c6d06ebad56f5d849c7e0190406ac7bfa0f3"
+    "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
 
 DISTRIBUTION_FILENAME = "industry_closed_offer_ticket_distribution.csv"
 COHORT_FILENAME = "industry_closed_offer_ticket_cohort.csv.gz"
 
 SCOPE = (
-    "Cotas de FIDC | oferta primária | Oferta Encerrada | "
-    "Data_Encerramento no período | Valor_Total_Registrado positivo"
+    "Cotas de FIDC | oferta pública primária encerrada | todos os ritos CVM | "
+    "data de encerramento no período | volume registrado positivo"
 )
 DEDUPLICATION = (
-    "Uma oferta = Numero_Requerimento; duplicatas idênticas são removidas e "
-    "duplicatas conflitantes bloqueiam a materialização."
+    "Rito automático: Numero_Requerimento. Ritos ordinários/legados: registro + "
+    "emissor + data de encerramento + instrumento; classes do mesmo FIDC são somadas."
 )
 METHODOLOGY = (
     "Coorte por Data_Encerramento; ticket = Valor_Total_Registrado. "
@@ -142,20 +142,6 @@ class OfferTicketOutputs:
     distribution: pd.DataFrame
 
 
-def _archive_sha256(path: Path) -> str:
-    digest = sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
-
-
-def _normalized_text(value: object) -> str:
-    text = unicodedata.normalize("NFKD", str(value or ""))
-    text = "".join(character for character in text if not unicodedata.combining(character))
-    return " ".join(text.upper().split())
-
-
 def _normalize_cnpj(series: pd.Series) -> pd.Series:
     return series.astype(str).str.replace(r"\D", "", regex=True)
 
@@ -237,67 +223,30 @@ def load_closed_offer_ticket_cohort(
 ) -> pd.DataFrame:
     """Read the official archive and return the three published cohorts."""
 
-    path = Path(archive_path)
-    if not path.is_file():
-        raise FileNotFoundError(f"Arquivo CVM de ofertas ausente: {path}")
-    archive_digest = _archive_sha256(path)
-    if expected_archive_sha256 and archive_digest != expected_archive_sha256:
-        raise OfferTicketDataError(
-            "SHA-256 do arquivo CVM diverge do snapshot esperado: "
-            f"{archive_digest}"
+    try:
+        selected, archive_digest = load_public_primary_closed_offers(
+            archive_path,
+            cutoff="2026-06-30",
+            expected_archive_sha256=expected_archive_sha256,
         )
-
-    with ZipFile(path) as archive:
-        if SOURCE_DATASET not in archive.namelist():
-            raise OfferTicketDataError(
-                f"Tabela {SOURCE_DATASET} ausente no arquivo CVM."
-            )
-        source = pd.read_csv(
-            archive.open(SOURCE_DATASET),
-            sep=";",
-            encoding="latin-1",
-            dtype=str,
-            keep_default_na=False,
-            low_memory=False,
-        )
-    missing = [column for column in REQUIRED_SOURCE_COLUMNS if column not in source]
-    if missing:
-        raise OfferTicketDataError(
-            "Colunas CVM obrigatórias ausentes: " + ", ".join(missing)
-        )
-
-    value_type = source["Valor_Mobiliario"].map(_normalized_text)
-    offer_type = source["Tipo_Oferta"].map(_normalized_text)
-    status = source["Status_Requerimento"].map(_normalized_text)
-    selected = source.loc[
-        value_type.eq("COTAS DE FIDC")
-        & offer_type.eq("PRIMARIA")
-        & status.eq("OFERTA ENCERRADA")
-    ].copy()
-    selected["Valor_Total_Registrado"] = pd.to_numeric(
-        selected["Valor_Total_Registrado"], errors="coerce"
-    )
-    selected["Data_Encerramento"] = pd.to_datetime(
-        selected["Data_Encerramento"], errors="coerce"
-    )
+    except PublicOffersError as exc:
+        raise OfferTicketDataError(str(exc)) from exc
     selected = selected[
-        selected["Data_Encerramento"].notna()
-        & selected["Valor_Total_Registrado"].gt(0)
+        selected["canonical_instrument"].eq(FIDC_CANONICAL)
     ].copy()
-    selected = _deduplicate_offers(selected)
 
     cohort = pd.DataFrame(
         {
-            "numero_requerimento": selected["Numero_Requerimento"].str.strip(),
-            "data_encerramento": selected["Data_Encerramento"].dt.strftime("%Y-%m-%d"),
-            "cnpj_emissor": _normalize_cnpj(selected["CNPJ_Emissor"]),
-            "nome_emissor": selected["Nome_Emissor"].str.strip(),
-            "registered_volume_brl": selected["Valor_Total_Registrado"].astype(float),
+            "numero_requerimento": selected["offer_id"].str.strip(),
+            "data_encerramento": selected["closing_date"].dt.strftime("%Y-%m-%d"),
+            "cnpj_emissor": _normalize_cnpj(selected["issuer_cnpj"]),
+            "nome_emissor": selected["issuer_name"].str.strip(),
+            "registered_volume_brl": selected["registered_volume_brl"].astype(float),
+            "source_dataset": selected["source_dataset"],
         }
     )
     cohort = _assign_period(cohort)
     cohort = _assign_ticket_bucket(cohort)
-    cohort["source_dataset"] = SOURCE_DATASET
     cohort["source_url"] = SOURCE_URL
     cohort["source_as_of_date"] = source_as_of_date
     cohort["source_archive_sha256"] = archive_digest
