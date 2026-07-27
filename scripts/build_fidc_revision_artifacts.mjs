@@ -81,8 +81,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v20";
-const EXPECTED_SLIDES = 57;
+const RENDERER_VERSION = "industry_revision_artifacts_v21";
+const EXPECTED_SLIDES = 63;
 
 const C = {
   orange: "#EC7000",
@@ -589,25 +589,24 @@ function chartAxis(fontSize = 12, numberFormatCode) {
 }
 
 function addLegend(slide, entries, position, columns = 4) {
-  const rows = Math.ceil(entries.length / columns);
-  const cellW = position.width / columns;
-  const cellH = position.height / rows;
-  entries.forEach((entry, index) => {
-    const col = index % columns;
-    const row = Math.floor(index / columns);
-    const x = position.left + col * cellW;
-    const y = position.top + row * cellH;
-    addRect(slide, { left: x, top: y + 5, width: 10, height: 10 }, entry.color, {
-      lineFill: entry.line || "none",
-      lineWidth: entry.line ? 1 : 0,
-    });
-    addText(
-      slide,
-      truncateWords(entry.label, 34),
-      { left: x + 16, top: y, width: cellW - 20, height: cellH },
-      { fontSize: 10.5, color: C.mid, verticalAlignment: "middle" },
-    );
+  const chart = slide.charts.add("line", {
+    ...chartBase(position),
+    categories: [""],
+    series: entries.map((entry) => ({
+      name: truncateWords(entry.label, 34),
+      values: [null],
+      line: { style: "solid", fill: entry.color, width: 3 },
+      marker: { symbol: "none" },
+    })),
+    hasLegend: true,
+    legend: {
+      position: "bottom",
+      textStyle: { fill: C.mid, fontSize: 10.5 },
+    },
+    xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
+    yAxis: { visible: false, majorGridlines: null, minorGridlines: null },
   });
+  return chart;
 }
 
 function chartBase(position) {
@@ -624,51 +623,32 @@ function addStraightLineChart(slide, options) {
   const categories = options.categories || [];
   const position = options.position;
   const labelIndices = options.labelIndices || categories.map((_, index) => index);
-  const labelBand = options.labelBand ?? 18;
-  const chartHeight = position.height - labelBand;
+  const visibleLabels = new Set(labelIndices);
+  const nativeCategories = categories.map((label, index) => visibleLabels.has(index) ? label : "");
   const series = (options.series || []).map((item) => {
-    const cleanValues = [];
-    const xValues = [];
-    (item.values || []).forEach((value, index) => {
-      if (value === null || value === undefined || !Number.isFinite(Number(value))) return;
-      xValues.push(index);
-      cleanValues.push(Number(value));
-    });
     return {
       ...item,
-      values: cleanValues,
-      xValues,
+      values: (item.values || []).map((value) => (
+        value === null || value === undefined || !Number.isFinite(Number(value)) ? null : Number(value)
+      )),
       marker: { symbol: "none" },
     };
   });
-  const chart = slide.charts.add("scatter", {
-    ...chartBase({ ...position, height: chartHeight }),
+  const chart = slide.charts.add("line", {
+    ...chartBase(position),
+    categories: nativeCategories,
     series,
-    scatterOptions: { style: "line", varyColors: false },
+    lineOptions: { grouping: "standard" },
     hasLegend: false,
     xAxis: {
-      visible: false,
-      tickLabelPosition: "none",
-      min: 0,
-      max: Math.max(1, categories.length - 1),
+      visible: true,
+      tickLabelPosition: "low",
+      textStyle: { fill: C.mid, fontSize: options.labelFontSize ?? 10 },
+      line: { style: "solid", fill: C.line, width: 1 },
       majorGridlines: null,
       minorGridlines: null,
     },
     yAxis: options.yAxis,
-  });
-  const plotLeft = position.left + 52;
-  const plotWidth = position.width - 72;
-  labelIndices.forEach((index) => {
-    const left =
-      plotLeft +
-      (categories.length <= 1 ? 0 : (index / (categories.length - 1)) * plotWidth) -
-      28;
-    addText(
-      slide,
-      categories[index],
-      { left, top: position.top + chartHeight - 1, width: 56, height: labelBand + 2 },
-      { fontSize: options.labelFontSize ?? 10, color: C.mid, alignment: "center" },
-    );
   });
   return chart;
 }
@@ -965,7 +945,6 @@ function addMarketShareSlide(presentation, payload, role, focusRows, page, appen
         idx,
         showValue: true,
         position: "center",
-        text: value < 0.0005 ? "<0,1%" : undefined,
         textStyle: {
           fill: C.white,
           fontSize: 13.333333,
@@ -2402,6 +2381,139 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
   ]);
 }
 
+function addTaxonomyTop15Slide(presentation, payload, view) {
+  const rows = [...(payload.taxonomy_top15 || [])]
+    .filter((row) => row.visao === view)
+    .sort((a, b) => num(a.rank) - num(b.rank));
+  const slide = presentation.slides.add();
+  const source = rows[0]?.fonte || "Fonte indisponível na base materializada.";
+  const isReclassified = view === "Tabela II reclassificada";
+  addHeader(
+    slide,
+    "RANKING · TOP 15 POR TAXONOMIA",
+    `${view} · maiores FIDCs por PL`,
+    `${source}. Competência ${competenceShortPt(payload.latest_complete).toLowerCase()}. ${isReclassified ? "Reclassificação analítica; categoria reportada preservada na visão anterior." : "Classificação atual preservada."}`,
+    0,
+  );
+  addNativeEditorialTable(slide, {
+    left: 60,
+    top: 142,
+    width: 1160,
+    height: 505,
+    headers: ["#", "FIDC", "CNPJ", "Taxonomia atual", "PL · R$ bi"],
+    rows: rows.map((row) => [
+      String(integer(row.rank)),
+      truncateWords(row.denominacao || "N/D", 52),
+      row.cnpj_fundo_formatado || "N/D",
+      row.taxonomia_atual || "N/D",
+      bn(row.pl_brl, 2).replace("R$ ", ""),
+    ]),
+    columnWidths: [55, 485, 185, 310, 125],
+    aligns: ["right", "left", "left", "left", "right"],
+    fontSize: 10.8,
+    headerFontSize: 10.2,
+    rowHighlights: new Set([0, 1, 2]),
+  });
+  addSourceNotes(slide, [
+    source,
+    rows[0]?.metodologia || "Classificação atual preservada.",
+    "Ranking ordenado pelo PL do universo ex-FIC; a taxonomia não altera a posição do fundo.",
+  ]);
+}
+
+function addDelinquencyDispersionSlides(presentation, payload) {
+  const rows = [...(payload.delinquency_dispersion || [])]
+    .sort((a, b) => num(b.inadimplencia_total_subcategoria_brl) - num(a.inadimplencia_total_subcategoria_brl));
+  const summary = payload.delinquency_dispersion_summary || {};
+  const source = summary.fonte || `CVM, Informe Mensal FIDC, ${payload.latest_complete}`;
+  {
+    const slide = presentation.slides.add();
+    addHeader(
+      slide,
+      "INADIMPLÊNCIA · DISPERSÃO ENTRE REPORTANTES",
+      "Concentração do valor reportado por subcategoria da Tabela II",
+      `${source}. Somente fundos da coorte tipo único com inadimplência ajustada positiva.`,
+      0,
+    );
+    addNativeEditorialTable(slide, {
+      left: 60,
+      top: 142,
+      width: 1160,
+      height: 500,
+      headers: ["Subcategoria", "Fundos", "Inad. · R$ bi", "Top 1", "Top 3", "Top 5", "HHI", "Gini", "Leitura"],
+      rows: rows.map((row) => [
+        row.tipo_recebivel_tabela_ii,
+        integer(row.fundos_reportantes_inadimplencia),
+        bn(row.inadimplencia_total_subcategoria_brl, 2).replace("R$ ", ""),
+        `${bn(row.top1_inadimplencia_brl, 2).replace("R$ ", "")} · ${pct(row.top1_share, 1)}`,
+        `${bn(row.top3_inadimplencia_brl, 2).replace("R$ ", "")} · ${pct(row.top3_share, 1)}`,
+        `${bn(row.top5_inadimplencia_brl, 2).replace("R$ ", "")} · ${pct(row.top5_share, 1)}`,
+        num(row.hhi).toLocaleString("pt-BR", { minimumFractionDigits: 3, maximumFractionDigits: 3 }),
+        num(row.gini).toLocaleString("pt-BR", { minimumFractionDigits: 3, maximumFractionDigits: 3 }),
+        row.leitura_concentracao,
+      ]),
+      columnWidths: [205, 60, 105, 135, 135, 135, 70, 70, 245],
+      aligns: ["left", "right", "right", "right", "right", "right", "right", "right", "left"],
+      fontSize: 8.4,
+      headerFontSize: 8.1,
+    });
+    addText(
+      slide,
+      "Regra analítica: concentrada se HHI ≥ 0,25 ou Top 5 ≥ 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários. HHI e Gini medem concentração do valor reportado.",
+      { left: 60, top: 646, width: 1160, height: 17 },
+      { fontSize: 8.5, color: C.note, alignment: "right" },
+    );
+    addSourceNotes(slide, [source, summary.metodologia, summary.limitacoes]);
+  }
+  {
+    const slide = presentation.slides.add();
+    const priority = rows.slice(0, 5);
+    addHeader(
+      slide,
+      "INADIMPLÊNCIA · SÍNTESE EXECUTIVA",
+      `${integer(summary.fundos_reportantes_inadimplencia_positiva)} fundos com inadimplência positiva representam ${pct(summary.cobertura_pl_vs_universo, 1)} do PL ex-FIC positivo`,
+      `${source}. Universo: ${integer(summary.fundos_universo_ex_fic_pl_positivo)} fundos e ${bn(summary.pl_universo_ex_fic_positivo_brl, 1)}; amostra positiva: ${bn(summary.pl_reportantes_inadimplencia_positiva_brl, 1)}.`,
+      0,
+    );
+    addSectionLabel(slide, "SUBCATEGORIAS PRIORITÁRIAS POR VALOR REPORTADO", { left: 60, top: 142, width: 1160, height: 24 });
+    addNativeEditorialTable(slide, {
+      left: 60,
+      top: 180,
+      width: 1160,
+      height: 325,
+      headers: ["Prioridade", "Subcategoria", "Inadimplência", "Fundos", "Top 5", "Leitura", "Interpretação cautelar"],
+      rows: priority.map((row, index) => [
+        String(index + 1),
+        row.tipo_recebivel_tabela_ii,
+        bn(row.inadimplencia_total_subcategoria_brl, 2),
+        integer(row.fundos_reportantes_inadimplencia),
+        pct(row.top5_share, 1),
+        row.leitura_concentracao,
+        row.implicacao_analitica,
+      ]),
+      columnWidths: [70, 205, 125, 70, 85, 220, 385],
+      aligns: ["right", "left", "right", "right", "right", "left", "left"],
+      fontSize: 10,
+      headerFontSize: 9.2,
+      rowHighlights: new Set([0]),
+    });
+    addRule(slide, 60, 530, 1160, C.line, 1);
+    addText(
+      slide,
+      `Cobertura: ${integer(summary.fundos_coorte_tipo_unico)} fundos na coorte tipo único (${bn(summary.pl_coorte_tipo_unico_brl, 1)}); ${integer(summary.fundos_reportantes_inadimplencia_positiva)} reportam valor positivo. A comparação com o universo de ${bn(summary.pl_universo_ex_fic_positivo_brl, 1)} delimita a amostra.`,
+      { left: 60, top: 548, width: 1160, height: 42 },
+      { fontSize: 12, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
+    );
+    addText(
+      slide,
+      "Limitações: zeros e ausências de reporte ficam fora da dispersão; atrasos e inconsistências podem reduzir a cobertura. Concentração sugere prioridade de validação e não identifica causalidade nem risco sistêmico por si só.",
+      { left: 60, top: 602, width: 1160, height: 38 },
+      { fontSize: 10.5, color: C.note, alignment: "center", verticalAlignment: "middle" },
+    );
+    addSourceNotes(slide, [source, summary.metodologia, summary.limitacoes]);
+  }
+}
+
 function buildPresentation(payload, flowAssets) {
   automaticPageNumber = 1;
   const presentation = Presentation.create({ slideSize: SLIDE });
@@ -2578,17 +2690,6 @@ function buildPresentation(payload, flowAssets) {
           name: "PL ex-FIC",
           values: history.map((row) => num(row.pl_ex_fic) / 1e9),
           fill: C.orange,
-          dataLabelOverrides: history.map((row, idx) => ({
-            idx,
-            text: `${Math.round(num(row.pl_ex_fic) / 1e9).toLocaleString("pt-BR")}`,
-            position: "outEnd",
-            showValue: false,
-            textStyle: {
-              fill: [0, 9, 10, 11].includes(idx) ? C.black : C.note,
-              fontSize: 8.5,
-              bold: [0, 9, 10, 11].includes(idx),
-            },
-          })),
         },
       ],
       barOptions: { direction: "column", grouping: "clustered", gapWidth: 52 },
@@ -2601,40 +2702,11 @@ function buildPresentation(payload, flowAssets) {
         minorGridlines: null,
       },
       yAxis: {
-        ...chartAxis(9, "0"),
+        ...chartAxis(9, "[>=1000]#\\.##0;0"),
         min: 0,
         max: plAxisMax,
         majorUnit: 200,
       },
-      dataLabels: {
-        showValue: true,
-        position: "outEnd",
-        textStyle: { fill: C.black, fontSize: 8.3, bold: true },
-      },
-    });
-    const plPlotLeft = 91;
-    const plPlotWidth = 493;
-    const plPlotTop = 194;
-    const plPlotHeight = 300;
-    history.forEach((row, index) => {
-      const value = num(row.pl_ex_fic) / 1e9;
-      const x = plPlotLeft
-        + (index / Math.max(1, history.length - 1)) * plPlotWidth
-        - 18;
-      const y = plPlotTop
-        + (1 - value / plAxisMax) * plPlotHeight
-        - 11;
-      addText(
-        slide,
-        `${Math.round(value).toLocaleString("pt-BR")}`,
-        { left: x, top: y, width: 36, height: 13 },
-        {
-          fontSize: 6.8,
-          bold: [0, 9, 10, 11].includes(index),
-          color: C.black,
-          alignment: "center",
-        },
-      );
     });
     addText(
       slide,
@@ -2653,11 +2725,11 @@ function buildPresentation(payload, flowAssets) {
     ].map(([name, field, fill], seriesIndex) => ({
       name,
       values: expandedCredit.map((row) => num(row[field]) / 1e9),
+      valuesFormatCode: "[>=1000]#\\.##0;0",
       fill,
       dataLabelOverrides: expandedCredit.map((row, idx) => ({
         idx,
-        text: `${Math.round(num(row[field]) / 1e9).toLocaleString("pt-BR")}`,
-        showValue: false,
+        showValue: true,
         position: "center",
         textStyle: {
           fill: [0, 2].includes(seriesIndex) ? C.white : C.black,
@@ -2681,7 +2753,7 @@ function buildPresentation(payload, flowAssets) {
         minorGridlines: null,
       },
       yAxis: {
-        ...chartAxis(9, "0"),
+        ...chartAxis(9, "[>=1000]#\\.##0;0"),
         min: 0,
         max: Math.ceil(creditMax / 2000) * 2000,
         majorUnit: 5000,
@@ -2691,25 +2763,6 @@ function buildPresentation(payload, flowAssets) {
         position: "center",
         textStyle: { fill: C.black, fontSize: 5.8, bold: false },
       },
-    });
-    const creditAxisMax = Math.ceil(creditMax / 2000) * 2000;
-    const creditPlotLeft = 681;
-    const creditPlotWidth = 505;
-    const creditPlotTop = 198;
-    const creditPlotHeight = 282;
-    expandedCredit.forEach((row, index) => {
-      const x = creditPlotLeft
-        + (index / Math.max(1, expandedCredit.length - 1)) * creditPlotWidth
-        - 21;
-      const y = creditPlotTop
-        + (1 - num(row.private_expanded_credit_total_brl) / 1e9 / creditAxisMax) * creditPlotHeight
-        - 12;
-      addText(
-        slide,
-        `${Math.round(num(row.private_expanded_credit_total_brl) / 1e9).toLocaleString("pt-BR")}`,
-        { left: x, top: y, width: 42, height: 14 },
-        { fontSize: 6.7, bold: true, color: C.black, alignment: "center" },
-      );
     });
     const latestCredit = expandedCredit.at(-1) || {};
     addLegend(slide, [
@@ -3686,6 +3739,7 @@ function buildPresentation(payload, flowAssets) {
   }
 
   addFrozenDelinquencyHistorySlide(presentation, payload, 11);
+  addDelinquencyDispersionSlides(presentation, payload);
 
   // 10. Prestadores e concentração
   {
@@ -3749,16 +3803,7 @@ function buildPresentation(payload, flowAssets) {
   // Market shares detalhados passam ao apêndice.
   const materialFocus = payload.material_focus_top6;
 
-  // Ranking, coorte bancária e atribuição das lideranças.
-  addCombinedProviderRankingSlide(presentation, payload, 14);
-  addBankFidcEvolutionSlide(presentation, payload, 17);
-  addProviderAttributionSlide(presentation, payload, 18);
   const providerInsightOffset = 0;
-
-  // Market shares materiais permanecem no corpo, logo após prestadores.
-  addMarketShareSlide(presentation, payload, "administrador", materialFocus, 14, false);
-  addMarketShareSlide(presentation, payload, "gestor", materialFocus, 15, false);
-  addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 16, false);
 
   // 18. Top 20 FIDCs
   {
@@ -3783,7 +3828,7 @@ function buildPresentation(payload, flowAssets) {
       row.modelo_prestacao || "N/D",
     ]);
     [0, 1].forEach((block) => {
-      addEditorialTable(slide, {
+      addNativeEditorialTable(slide, {
         left: block === 0 ? 60 : 650,
         top: 150,
         width: 570,
@@ -3832,7 +3877,7 @@ function buildPresentation(payload, flowAssets) {
       reclassificationLabel(row.reclassification_status),
     ]);
     [0, 1].forEach((block) => {
-      addEditorialTable(slide, {
+      addNativeEditorialTable(slide, {
         left: block === 0 ? 60 : 650,
         top: 150,
         width: 570,
@@ -3846,6 +3891,9 @@ function buildPresentation(payload, flowAssets) {
       });
     });
   }
+
+  ["Tipo ANBIMA", "Foco ANBIMA", "Tabela II reportada", "Tabela II reclassificada"]
+    .forEach((view) => addTaxonomyTop15Slide(presentation, payload, view));
 
   // 20. Modelo de prestação
   {
@@ -4040,7 +4088,6 @@ function buildPresentation(payload, flowAssets) {
             idx,
             showValue: true,
             position: "outEnd",
-            text: `${(num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} bi\n${integer(row.closed_offers)} · ${mm(row.mean_registered_ticket_brl, 0)}`,
             textStyle: { fill: C.black, fontSize: 9.5, bold: true },
           })),
         },
@@ -4694,6 +4741,14 @@ function buildPresentation(payload, flowAssets) {
         lineSpacing: 0.95,
       });
     });
+
+  // Prestadores e market shares permanecem contíguos no apêndice.
+  addCombinedProviderRankingSlide(presentation, payload, 0);
+  addBankFidcEvolutionSlide(presentation, payload, 0);
+  addProviderAttributionSlide(presentation, payload, 0);
+  addMarketShareSlide(presentation, payload, "administrador", materialFocus, 0, false);
+  addMarketShareSlide(presentation, payload, "gestor", materialFocus, 0, false);
+  addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 0, false);
 
   // Universo completo dos market shares permanece no apêndice.
   addMarketShareSlide(presentation, payload, "administrador", fullFocus, 47, true);
@@ -5844,6 +5899,138 @@ async function addCardReceivablesCurationSheet(workbook, payload) {
   sheet.getRange(`A5:V${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
+async function addAcquiringAnbimaReviewSheet(workbook, payload) {
+  const columns = [
+    ["FIDC", "denominacao"],
+    ["CNPJ", "cnpj_fundo_formatado"],
+    ["PL atual", "pl_referencia_brl"],
+    ["Competência PL", "pl_referencia_competencia"],
+    ["Tipo ANBIMA atual", "tipo_anbima_atual"],
+    ["Foco ANBIMA atual", "foco_anbima_atual"],
+    ["Categoria sugerida", "categoria_referencia_sugerida"],
+    ["Fonte da classificação", "classification_source"],
+    ["Status da classificação", "classification_status"],
+    ["Base alterada", "base_alterada"],
+    ["Critério da sugestão", "criterio_sugestao"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.acquiring_anbima_review || [], columns);
+  const summary = payload.acquiring_anbima_review_summary || {};
+  const sheet = resetSheet(workbook, "Reclass. adquirência");
+  setHeaderBand(
+    sheet,
+    "FIDCs incluídos em Adquirência · revisão ANBIMA",
+    `${integer(summary.fundos_filtrados)} fundos atendem ao filtro literal ${summary.filtro_aplicado || "solicitado"}. ${summary.limitacao_contagem || ""} A base não foi alterada.`,
+    headers,
+    rows.length,
+    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [310, 120, 120, 100, 170, 180, 210, 250, 155, 90, 520], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`C5:C${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`A5:K${rows.length + 4}`).format.rowHeightPx = 46;
+}
+
+async function addTaxonomyTop15Sheet(workbook, payload) {
+  const columns = [
+    ["Visão", "visao"],
+    ["#", "rank"],
+    ["FIDC", "denominacao"],
+    ["CNPJ", "cnpj_fundo_formatado"],
+    ["Taxonomia atual", "taxonomia_atual"],
+    ["PL", "pl_brl"],
+    ["Competência", "competencia"],
+    ["Fonte", "fonte"],
+    ["Metodologia", "metodologia"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.taxonomy_top15 || [], columns);
+  const sheet = resetSheet(workbook, "Top 15 taxonomias");
+  setHeaderBand(
+    sheet,
+    "Top 15 por taxonomia",
+    "Quatro visões do mesmo ranking por PL: Tipo ANBIMA, Foco ANBIMA, Tabela II reportada e Tabela II com reclassificação analítica de Adquirência.",
+    headers,
+    rows.length,
+    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [180, 45, 330, 120, 220, 125, 90, 320, 480], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`F5:F${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`A5:I${rows.length + 4}`).format.rowHeightPx = 42;
+}
+
+async function addDelinquencyDispersionSheet(workbook, payload) {
+  const columns = [
+    ["Competência", "competencia"],
+    ["Subcategoria Tabela II", "tipo_recebivel_tabela_ii"],
+    ["Fundos reportantes", "fundos_reportantes_inadimplencia"],
+    ["PL reportantes", "pl_reportantes_inadimplencia_brl"],
+    ["Carteira reportantes", "carteira_reportantes_inadimplencia_brl"],
+    ["Inadimplência total", "inadimplencia_total_subcategoria_brl"],
+    ["Top 1 · R$", "top1_inadimplencia_brl"],
+    ["Top 1 · %", "top1_share"],
+    ["Top 3 · R$", "top3_inadimplencia_brl"],
+    ["Top 3 · %", "top3_share"],
+    ["Top 5 · R$", "top5_inadimplencia_brl"],
+    ["Top 5 · %", "top5_share"],
+    ["HHI", "hhi"],
+    ["Número efetivo", "numero_efetivo_fundos"],
+    ["Gini", "gini"],
+    ["Leitura", "leitura_concentracao"],
+    ["Implicação", "implicacao_analitica"],
+    ["Regra", "regra_leitura"],
+    ["Fonte", "fonte"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.delinquency_dispersion || [], columns);
+  const summary = payload.delinquency_dispersion_summary || {};
+  const sheet = resetSheet(workbook, "Dispersão inadimplência");
+  setHeaderBand(
+    sheet,
+    "Dispersão da inadimplência entre fundos com reporte positivo",
+    `${integer(summary.fundos_reportantes_inadimplencia_positiva)} fundos positivos em uma coorte tipo único de ${integer(summary.fundos_coorte_tipo_unico)}; universo ex-FIC positivo de ${integer(summary.fundos_universo_ex_fic_pl_positivo)} fundos e ${bn(summary.pl_universo_ex_fic_positivo_brl, 1)}.`,
+    headers,
+    rows.length,
+    { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [90, 210, 95, 125, 135, 130, 115, 85, 115, 85, 115, 85, 75, 100, 75, 220, 430, 450, 330], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["D", "E", "F", "G", "I", "K"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  });
+  ["H", "J", "L"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = "0.00%";
+  });
+  sheet.getRange(`M5:O${rows.length + 4}`).format.numberFormat = "0.000";
+  sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 48;
+}
+
+async function addNumericLocaleAuditSheet(workbook, payload) {
+  const columns = [
+    ["Artefato", "artefato"],
+    ["Ponto auditado", "ponto"],
+    ["Padrão aplicado", "padrao"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.numeric_locale_audit || [], columns);
+  const sheet = resetSheet(workbook, "Auditoria numérica");
+  setHeaderBand(
+    sheet,
+    "Auditoria de separadores numéricos",
+    "Padrão brasileiro na camada visível. Códigos internos de formatação do Office permanecem no padrão técnico OOXML para preservar valores numéricos editáveis.",
+    headers,
+    rows.length,
+    { freezeColumns: 1, wrapText: true, bodyFontSize: 10 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [180, 360, 620], rows.length);
+  sheet.getRange(`A5:C${rows.length + 4}`).format.rowHeightPx = 50;
+}
+
 async function addClosedOffersSheet(workbook, payload) {
   const rows = [];
   (payload.closed_offers_annual || []).forEach((row) => rows.push({ "Painel": "Ano / YTD", ...row }));
@@ -6981,6 +7168,10 @@ async function buildWorkbook(payload, flowAssets) {
   await addAcquiringTaxonomySheet(workbook, payload);
   await addAcquiringReclassificationSheet(workbook, payload);
   await addCardReceivablesCurationSheet(workbook, payload);
+  await addAcquiringAnbimaReviewSheet(workbook, payload);
+  await addTaxonomyTop15Sheet(workbook, payload);
+  await addDelinquencyDispersionSheet(workbook, payload);
+  await addNumericLocaleAuditSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
   await addFixedIncomeOfferComparisonSheet(workbook, payload);
   await addOfferValidationSheet(workbook, payload);
@@ -7072,6 +7263,10 @@ async function exportWorkbook(workbook) {
       ["Adquirência reclass.", "A1:G28"],
       ["Taxonomia adquirência", "A1:N32"],
       ["Curadoria Cartão", "A1:V48"],
+      ["Reclass. adquirência", "A1:K32"],
+      ["Top 15 taxonomias", "A1:I64"],
+      ["Dispersão inadimplência", "A1:S24"],
+      ["Auditoria numérica", "A1:C12"],
       ["Ofertas encerradas", "A1:Q58"],
       ["Regime de colocação", "A1:P16"],
       ["Histograma ofertas", "A1:V25"],

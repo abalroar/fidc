@@ -9376,9 +9376,9 @@
       "sensibilidade_ex_casos_acima_carteira_pct": 0.0531719041,
       "veiculos_com_aging_ex360": 4252,
       "cobertura_carteira_aging_ex360": 1.0,
-      "aging_inadimplente_total_brl": 61646718715.049995,
-      "aging_gap_vs_inadimplencia_reportada_brl": 6875143751.670006,
-      "aging_tabela_i_referencia_brl": 61646718715.049995,
+      "aging_inadimplente_total_brl": 61663812589.36,
+      "aging_gap_vs_inadimplencia_reportada_brl": 6892237625.980011,
+      "aging_tabela_i_referencia_brl": 61663812589.36,
       "aging_parcelas_inadimplentes_brl": 6892237625.9800005,
       "aging_gap_vs_tabela_i_completa_brl": 0.0,
       "veiculos_parcelas_inadimplentes_positivas": 555,
@@ -9388,8 +9388,8 @@
       "aging_reconciliacao_ratio": 1.0,
       "aging_publication_status": "publicável",
       "inadimplencia_ex_360d_publicavel": true,
-      "inadimplencia_ex_360d_pct_sobre_cobertura": 0.0555772527,
-      "inadimplencia_ex_360d_ajustada_pct_sobre_cobertura": 0.049319646,
+      "inadimplencia_ex_360d_pct_sobre_cobertura": 0.0556025029,
+      "inadimplencia_ex_360d_ajustada_pct_sobre_cobertura": 0.0493132093,
       "casos_carteira_negativa": 0,
       "casos_inadimplencia_negativa": 0,
       "presenca_campo_exata": true,
@@ -9429,17 +9429,17 @@
       "fundos_sem_abertura_tabela_ii": 0,
       "pl_sem_abertura_tabela_ii_brl": null,
       "carteira_tabela_i_sem_abertura_brl": null,
-      "tabela_i_carteira_brl": 676978650410.7201,
-      "tabela_ii_total_brl": 737411138210.76,
-      "gap_tabela_ii_menos_i_brl": 60432487800.03992,
+      "tabela_i_carteira_brl": 676978804606.29,
+      "tabela_ii_total_brl": 737410963402.27,
+      "gap_tabela_ii_menos_i_brl": 60432158795.97998,
       "fundos_gap_positivo": 1797,
-      "gap_positivo_brl": 60432487800.04001,
-      "fundos_gap_negativo": 37,
-      "gap_negativo_brl": 6.461e-07,
-      "gap_positivo_top1_share": 0.0417720547,
-      "gap_positivo_top5_share": 0.1512080904,
-      "gap_positivo_top10_share": 0.2641470172,
-      "gap_positivo_top20_share": 0.4048149933,
+      "gap_positivo_brl": 60432158795.98,
+      "fundos_gap_negativo": 36,
+      "gap_negativo_brl": 6.347e-07,
+      "gap_positivo_top1_share": 0.0417722821,
+      "gap_positivo_top5_share": 0.1512089136,
+      "gap_positivo_top10_share": 0.2641484553,
+      "gap_positivo_top20_share": 0.4048171972,
       "unidade": "CNPJ legal de fundo",
       "fonte": "CVM, Informe Mensal de FIDC, Tabelas I e II"
     }
@@ -11058,8 +11058,8 @@
       "gap_positivo_brl": 2524389185.84,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 1,
-      "share_gap_positivo": 0.0417720547,
-      "share_gap_positivo_acumulado": 0.0417720547
+      "share_gap_positivo": 0.0417722821,
+      "share_gap_positivo_acumulado": 0.0417722821
     },
     {
       "competencia": "2026-06",
@@ -11074,8 +11074,8 @@
       "gap_positivo_brl": 1733179697.43,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 2,
-      "share_gap_positivo": 0.028679602,
-      "share_gap_positivo_acumulado": 0.0704516567
+      "share_gap_positivo": 0.0286797581,
+      "share_gap_positivo_acumulado": 0.0704520402
     },
     {
       "competencia": "2026-06",
@@ -11090,8 +11090,8 @@
       "gap_positivo_brl": 1682948512.9,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 3,
-      "share_gap_positivo": 0.0278484069,
-      "share_gap_positivo_acumulado": 0.0983000636
+      "share_gap_positivo": 0.0278485586,
+      "share_gap_positivo_acumulado": 0.0983005988
     },
     {
       "competencia": "2026-06",
@@ -11106,8 +11106,8 @@
       "gap_positivo_brl": 1677393166.06,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 4,
-      "share_gap_positivo": 0.0277564804,
-      "share_gap_positivo_acumulado": 0.1260565441
+      "share_gap_positivo": 0.0277566316,
+      "share_gap_positivo_acumulado": 0.1260572304
     },
     {
       "competencia": "2026-06",
@@ -11122,8 +11122,8 @@
       "gap_positivo_brl": 1519970518.5,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 5,
-      "share_gap_positivo": 0.0251515464,
-      "share_gap_positivo_acumulado": 0.1512080904
+      "share_gap_positivo": 0.0251516833,
+      "share_gap_positivo_acumulado": 0.1512089136
     },
     {
       "competencia": "2026-06",
@@ -11138,8 +11138,8 @@
       "gap_positivo_brl": 1443843834.2300003,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 6,
-      "share_gap_positivo": 0.0238918484,
-      "share_gap_positivo_acumulado": 0.1750999388
+      "share_gap_positivo": 0.0238919784,
+      "share_gap_positivo_acumulado": 0.1751008921
     },
     {
       "competencia": "2026-06",
@@ -11154,8 +11154,8 @@
       "gap_positivo_brl": 1418887278.96,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 7,
-      "share_gap_positivo": 0.0234788825,
-      "share_gap_positivo_acumulado": 0.1985788213
+      "share_gap_positivo": 0.0234790103,
+      "share_gap_positivo_acumulado": 0.1985799024
     },
     {
       "competencia": "2026-06",
@@ -11170,8 +11170,8 @@
       "gap_positivo_brl": 1393324932.53,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 8,
-      "share_gap_positivo": 0.0230558923,
-      "share_gap_positivo_acumulado": 0.2216347136
+      "share_gap_positivo": 0.0230560179,
+      "share_gap_positivo_acumulado": 0.2216359202
     },
     {
       "competencia": "2026-06",
@@ -11186,8 +11186,8 @@
       "gap_positivo_brl": 1296158932.37,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 9,
-      "share_gap_positivo": 0.0214480486,
-      "share_gap_positivo_acumulado": 0.2430827622
+      "share_gap_positivo": 0.0214481653,
+      "share_gap_positivo_acumulado": 0.2430840856
     },
     {
       "competencia": "2026-06",
@@ -11202,8 +11202,8 @@
       "gap_positivo_brl": 1272965338.4500003,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 10,
-      "share_gap_positivo": 0.0210642551,
-      "share_gap_positivo_acumulado": 0.2641470172
+      "share_gap_positivo": 0.0210643698,
+      "share_gap_positivo_acumulado": 0.2641484553
     },
     {
       "competencia": "2026-06",
@@ -11218,8 +11218,8 @@
       "gap_positivo_brl": 1102064309.4599998,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 11,
-      "share_gap_positivo": 0.0182362889,
-      "share_gap_positivo_acumulado": 0.2823833062
+      "share_gap_positivo": 0.0182363882,
+      "share_gap_positivo_acumulado": 0.2823848435
     },
     {
       "competencia": "2026-06",
@@ -11234,8 +11234,8 @@
       "gap_positivo_brl": 1086460518.45,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 12,
-      "share_gap_positivo": 0.0179780869,
-      "share_gap_positivo_acumulado": 0.3003613931
+      "share_gap_positivo": 0.0179781848,
+      "share_gap_positivo_acumulado": 0.3003630283
     },
     {
       "competencia": "2026-06",
@@ -11250,8 +11250,8 @@
       "gap_positivo_brl": 1072484718.1199999,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 13,
-      "share_gap_positivo": 0.0177468239,
-      "share_gap_positivo_acumulado": 0.318108217
+      "share_gap_positivo": 0.0177469205,
+      "share_gap_positivo_acumulado": 0.3181099488
     },
     {
       "competencia": "2026-06",
@@ -11266,8 +11266,8 @@
       "gap_positivo_brl": 970428616.7700001,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 14,
-      "share_gap_positivo": 0.0160580617,
-      "share_gap_positivo_acumulado": 0.3341662787
+      "share_gap_positivo": 0.0160581491,
+      "share_gap_positivo_acumulado": 0.334168098
     },
     {
       "competencia": "2026-06",
@@ -11282,8 +11282,8 @@
       "gap_positivo_brl": 886031591.4000001,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 15,
-      "share_gap_positivo": 0.0146615111,
-      "share_gap_positivo_acumulado": 0.3488277898
+      "share_gap_positivo": 0.0146615909,
+      "share_gap_positivo_acumulado": 0.3488296889
     },
     {
       "competencia": "2026-06",
@@ -11298,8 +11298,8 @@
       "gap_positivo_brl": 851375687.47,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 16,
-      "share_gap_positivo": 0.0140880463,
-      "share_gap_positivo_acumulado": 0.3629158361
+      "share_gap_positivo": 0.014088123,
+      "share_gap_positivo_acumulado": 0.3629178119
     },
     {
       "competencia": "2026-06",
@@ -11314,8 +11314,8 @@
       "gap_positivo_brl": 803933525.8999999,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 17,
-      "share_gap_positivo": 0.0133030023,
-      "share_gap_positivo_acumulado": 0.3762188385
+      "share_gap_positivo": 0.0133030748,
+      "share_gap_positivo_acumulado": 0.3762208867
     },
     {
       "competencia": "2026-06",
@@ -11330,8 +11330,8 @@
       "gap_positivo_brl": 596815171.5,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 18,
-      "share_gap_positivo": 0.009875734,
-      "share_gap_positivo_acumulado": 0.3860945724
+      "share_gap_positivo": 0.0098757877,
+      "share_gap_positivo_acumulado": 0.3860966744
     },
     {
       "competencia": "2026-06",
@@ -11346,8 +11346,8 @@
       "gap_positivo_brl": 566936422.19,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 19,
-      "share_gap_positivo": 0.0093813186,
-      "share_gap_positivo_acumulado": 0.395475891
+      "share_gap_positivo": 0.0093813697,
+      "share_gap_positivo_acumulado": 0.3954780441
     },
     {
       "competencia": "2026-06",
@@ -11362,8 +11362,8 @@
       "gap_positivo_brl": 564385185.6400001,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 20,
-      "share_gap_positivo": 0.0093391023,
-      "share_gap_positivo_acumulado": 0.4048149933
+      "share_gap_positivo": 0.0093391531,
+      "share_gap_positivo_acumulado": 0.4048171972
     },
     {
       "competencia": "2026-06",
@@ -11378,8 +11378,8 @@
       "gap_positivo_brl": 542870073.1600001,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 21,
-      "share_gap_positivo": 0.0089830833,
-      "share_gap_positivo_acumulado": 0.4137980766
+      "share_gap_positivo": 0.0089831322,
+      "share_gap_positivo_acumulado": 0.4138003294
     },
     {
       "competencia": "2026-06",
@@ -11394,8 +11394,8 @@
       "gap_positivo_brl": 526737561.19000006,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 22,
-      "share_gap_positivo": 0.0087161323,
-      "share_gap_positivo_acumulado": 0.422514209
+      "share_gap_positivo": 0.0087161798,
+      "share_gap_positivo_acumulado": 0.4225165092
     },
     {
       "competencia": "2026-06",
@@ -11410,8 +11410,8 @@
       "gap_positivo_brl": 518318462.6,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 23,
-      "share_gap_positivo": 0.0085768182,
-      "share_gap_positivo_acumulado": 0.4310910272
+      "share_gap_positivo": 0.0085768649,
+      "share_gap_positivo_acumulado": 0.4310933741
     },
     {
       "competencia": "2026-06",
@@ -11426,8 +11426,8 @@
       "gap_positivo_brl": 491091687.04999995,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 24,
-      "share_gap_positivo": 0.0081262861,
-      "share_gap_positivo_acumulado": 0.4392173133
+      "share_gap_positivo": 0.0081263304,
+      "share_gap_positivo_acumulado": 0.4392197045
     },
     {
       "competencia": "2026-06",
@@ -11442,8 +11442,8 @@
       "gap_positivo_brl": 488133094.49,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 25,
-      "share_gap_positivo": 0.0080773291,
-      "share_gap_positivo_acumulado": 0.4472946424
+      "share_gap_positivo": 0.0080773731,
+      "share_gap_positivo_acumulado": 0.4472970776
     },
     {
       "competencia": "2026-06",
@@ -11458,8 +11458,8 @@
       "gap_positivo_brl": 487799213.79999995,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 26,
-      "share_gap_positivo": 0.0080718043,
-      "share_gap_positivo_acumulado": 0.4553664467
+      "share_gap_positivo": 0.0080718482,
+      "share_gap_positivo_acumulado": 0.4553689258
     },
     {
       "competencia": "2026-06",
@@ -11474,8 +11474,8 @@
       "gap_positivo_brl": 458732997.0699997,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 27,
-      "share_gap_positivo": 0.0075908342,
-      "share_gap_positivo_acumulado": 0.462957281
+      "share_gap_positivo": 0.0075908756,
+      "share_gap_positivo_acumulado": 0.4629598014
     },
     {
       "competencia": "2026-06",
@@ -11490,8 +11490,8 @@
       "gap_positivo_brl": 444499269.39000005,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 28,
-      "share_gap_positivo": 0.0073553032,
-      "share_gap_positivo_acumulado": 0.4703125841
+      "share_gap_positivo": 0.0073553432,
+      "share_gap_positivo_acumulado": 0.4703151446
     },
     {
       "competencia": "2026-06",
@@ -11506,8 +11506,8 @@
       "gap_positivo_brl": 440958566.4900007,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 29,
-      "share_gap_positivo": 0.0072967138,
-      "share_gap_positivo_acumulado": 0.4776092979
+      "share_gap_positivo": 0.0072967535,
+      "share_gap_positivo_acumulado": 0.4776118981
     },
     {
       "competencia": "2026-06",
@@ -11522,8 +11522,8 @@
       "gap_positivo_brl": 438711523.95,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 30,
-      "share_gap_positivo": 0.0072595311,
-      "share_gap_positivo_acumulado": 0.484868829
+      "share_gap_positivo": 0.0072595706,
+      "share_gap_positivo_acumulado": 0.4848714687
     },
     {
       "competencia": "2026-06",
@@ -11538,8 +11538,8 @@
       "gap_positivo_brl": 436080192.32000005,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 31,
-      "share_gap_positivo": 0.0072159894,
-      "share_gap_positivo_acumulado": 0.4920848184
+      "share_gap_positivo": 0.0072160287,
+      "share_gap_positivo_acumulado": 0.4920874974
     },
     {
       "competencia": "2026-06",
@@ -11554,8 +11554,8 @@
       "gap_positivo_brl": 400400000.0,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 32,
-      "share_gap_positivo": 0.0066255753,
-      "share_gap_positivo_acumulado": 0.4987103937
+      "share_gap_positivo": 0.0066256114,
+      "share_gap_positivo_acumulado": 0.4987131088
     },
     {
       "competencia": "2026-06",
@@ -11570,8 +11570,8 @@
       "gap_positivo_brl": 399515319.68000007,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 33,
-      "share_gap_positivo": 0.0066109362,
-      "share_gap_positivo_acumulado": 0.5053213299
+      "share_gap_positivo": 0.0066109722,
+      "share_gap_positivo_acumulado": 0.505324081
     },
     {
       "competencia": "2026-06",
@@ -11586,8 +11586,8 @@
       "gap_positivo_brl": 395029887.4300003,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 34,
-      "share_gap_positivo": 0.006536714,
-      "share_gap_positivo_acumulado": 0.5118580439
+      "share_gap_positivo": 0.0065367496,
+      "share_gap_positivo_acumulado": 0.5118608305
     },
     {
       "competencia": "2026-06",
@@ -11602,8 +11602,8 @@
       "gap_positivo_brl": 363609460.6299999,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 35,
-      "share_gap_positivo": 0.0060167879,
-      "share_gap_positivo_acumulado": 0.5178748318
+      "share_gap_positivo": 0.0060168206,
+      "share_gap_positivo_acumulado": 0.5178776512
     },
     {
       "competencia": "2026-06",
@@ -11618,8 +11618,8 @@
       "gap_positivo_brl": 345808556.35,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 36,
-      "share_gap_positivo": 0.0057222294,
-      "share_gap_positivo_acumulado": 0.5235970611
+      "share_gap_positivo": 0.0057222605,
+      "share_gap_positivo_acumulado": 0.5235999117
     },
     {
       "competencia": "2026-06",
@@ -11634,8 +11634,8 @@
       "gap_positivo_brl": 340977064.27,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 37,
-      "share_gap_positivo": 0.0056422808,
-      "share_gap_positivo_acumulado": 0.5292393419
+      "share_gap_positivo": 0.0056423115,
+      "share_gap_positivo_acumulado": 0.5292422232
     },
     {
       "competencia": "2026-06",
@@ -11650,8 +11650,8 @@
       "gap_positivo_brl": 340639132.86000013,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 38,
-      "share_gap_positivo": 0.0056366889,
-      "share_gap_positivo_acumulado": 0.5348760308
+      "share_gap_positivo": 0.0056367196,
+      "share_gap_positivo_acumulado": 0.5348789428
     },
     {
       "competencia": "2026-06",
@@ -11666,8 +11666,8 @@
       "gap_positivo_brl": 330631436.8299999,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 39,
-      "share_gap_positivo": 0.0054710876,
-      "share_gap_positivo_acumulado": 0.5403471185
+      "share_gap_positivo": 0.0054711174,
+      "share_gap_positivo_acumulado": 0.5403500602
     },
     {
       "competencia": "2026-06",
@@ -11682,8 +11682,8 @@
       "gap_positivo_brl": 301141039.63,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 40,
-      "share_gap_positivo": 0.0049830985,
-      "share_gap_positivo_acumulado": 0.545330217
+      "share_gap_positivo": 0.0049831256,
+      "share_gap_positivo_acumulado": 0.5453331858
     },
     {
       "competencia": "2026-06",
@@ -11691,15 +11691,15 @@
       "denominacao": "EXCLUSIVO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISEGMENTOS DE RESPONSABILIDADE LIMITADA",
       "pl_brl": 256890104.05,
       "veiculos": 1,
-      "tabela_i_carteira_brl": 234957210.49,
+      "tabela_i_carteira_brl": 234957210.48999998,
       "tabela_ii_total_brl": 526884415.15999997,
       "tabela_ii_reportada": true,
       "gap_tabela_ii_menos_i_brl": 291927204.66999996,
       "gap_positivo_brl": 291927204.66999996,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 41,
-      "share_gap_positivo": 0.0048306336,
-      "share_gap_positivo_acumulado": 0.5501608505
+      "share_gap_positivo": 0.0048306599,
+      "share_gap_positivo_acumulado": 0.5501638457
     },
     {
       "competencia": "2026-06",
@@ -11714,8 +11714,8 @@
       "gap_positivo_brl": 290687822.15,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 42,
-      "share_gap_positivo": 0.004810125,
-      "share_gap_positivo_acumulado": 0.5549709756
+      "share_gap_positivo": 0.0048101512,
+      "share_gap_positivo_acumulado": 0.5549739969
     },
     {
       "competencia": "2026-06",
@@ -11730,8 +11730,8 @@
       "gap_positivo_brl": 287570484.25999993,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 43,
-      "share_gap_positivo": 0.0047585412,
-      "share_gap_positivo_acumulado": 0.5597295168
+      "share_gap_positivo": 0.0047585671,
+      "share_gap_positivo_acumulado": 0.5597325641
     },
     {
       "competencia": "2026-06",
@@ -11746,8 +11746,8 @@
       "gap_positivo_brl": 260420418.9,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 44,
-      "share_gap_positivo": 0.0043092785,
-      "share_gap_positivo_acumulado": 0.5640387953
+      "share_gap_positivo": 0.0043093019,
+      "share_gap_positivo_acumulado": 0.564041866
     },
     {
       "competencia": "2026-06",
@@ -11762,8 +11762,8 @@
       "gap_positivo_brl": 259752519.83,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 45,
-      "share_gap_positivo": 0.0042982265,
-      "share_gap_positivo_acumulado": 0.5683370217
+      "share_gap_positivo": 0.0042982499,
+      "share_gap_positivo_acumulado": 0.5683401159
     },
     {
       "competencia": "2026-06",
@@ -11778,8 +11778,8 @@
       "gap_positivo_brl": 255822912.37999994,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 46,
-      "share_gap_positivo": 0.0042332017,
-      "share_gap_positivo_acumulado": 0.5725702235
+      "share_gap_positivo": 0.0042332248,
+      "share_gap_positivo_acumulado": 0.5725733407
     },
     {
       "competencia": "2026-06",
@@ -11794,8 +11794,8 @@
       "gap_positivo_brl": 252500798.0,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 47,
-      "share_gap_positivo": 0.0041782294,
-      "share_gap_positivo_acumulado": 0.5767484529
+      "share_gap_positivo": 0.0041782522,
+      "share_gap_positivo_acumulado": 0.5767515928
     },
     {
       "competencia": "2026-06",
@@ -11810,8 +11810,8 @@
       "gap_positivo_brl": 248010568.73000002,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 48,
-      "share_gap_positivo": 0.0041039278,
-      "share_gap_positivo_acumulado": 0.5808523807
+      "share_gap_positivo": 0.0041039502,
+      "share_gap_positivo_acumulado": 0.580855543
     },
     {
       "competencia": "2026-06",
@@ -11826,8 +11826,8 @@
       "gap_positivo_brl": 229537911.87999988,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 49,
-      "share_gap_positivo": 0.0037982536,
-      "share_gap_positivo_acumulado": 0.5846506343
+      "share_gap_positivo": 0.0037982742,
+      "share_gap_positivo_acumulado": 0.5846538172
     },
     {
       "competencia": "2026-06",
@@ -11842,8 +11842,8 @@
       "gap_positivo_brl": 225170839.82999998,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 50,
-      "share_gap_positivo": 0.0037259899,
-      "share_gap_positivo_acumulado": 0.5883766242
+      "share_gap_positivo": 0.0037260102,
+      "share_gap_positivo_acumulado": 0.5883798274
     },
     {
       "competencia": "2026-06",
@@ -11858,8 +11858,8 @@
       "gap_positivo_brl": 224649246.40999997,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 51,
-      "share_gap_positivo": 0.0037173589,
-      "share_gap_positivo_acumulado": 0.5920939831
+      "share_gap_positivo": 0.0037173791,
+      "share_gap_positivo_acumulado": 0.5920972066
     },
     {
       "competencia": "2026-06",
@@ -11874,8 +11874,8 @@
       "gap_positivo_brl": 222172261.86,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 52,
-      "share_gap_positivo": 0.0036763713,
-      "share_gap_positivo_acumulado": 0.5957703544
+      "share_gap_positivo": 0.0036763913,
+      "share_gap_positivo_acumulado": 0.5957735979
     },
     {
       "competencia": "2026-06",
@@ -11890,8 +11890,8 @@
       "gap_positivo_brl": 217951664.99,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 53,
-      "share_gap_positivo": 0.0036065314,
-      "share_gap_positivo_acumulado": 0.5993768858
+      "share_gap_positivo": 0.003606551,
+      "share_gap_positivo_acumulado": 0.5993801489
     },
     {
       "competencia": "2026-06",
@@ -11906,8 +11906,8 @@
       "gap_positivo_brl": 215818286.22,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 54,
-      "share_gap_positivo": 0.0035712296,
-      "share_gap_positivo_acumulado": 0.6029481153
+      "share_gap_positivo": 0.003571249,
+      "share_gap_positivo_acumulado": 0.6029513979
     },
     {
       "competencia": "2026-06",
@@ -11922,8 +11922,8 @@
       "gap_positivo_brl": 207383622.32000002,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 55,
-      "share_gap_positivo": 0.0034316579,
-      "share_gap_positivo_acumulado": 0.6063797732
+      "share_gap_positivo": 0.0034316766,
+      "share_gap_positivo_acumulado": 0.6063830744
     },
     {
       "competencia": "2026-06",
@@ -11938,8 +11938,8 @@
       "gap_positivo_brl": 189175493.51,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 56,
-      "share_gap_positivo": 0.0031303608,
-      "share_gap_positivo_acumulado": 0.609510134
+      "share_gap_positivo": 0.0031303779,
+      "share_gap_positivo_acumulado": 0.6095134523
     },
     {
       "competencia": "2026-06",
@@ -11954,8 +11954,8 @@
       "gap_positivo_brl": 186390145.75,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 57,
-      "share_gap_positivo": 0.0030842706,
-      "share_gap_positivo_acumulado": 0.6125944046
+      "share_gap_positivo": 0.0030842874,
+      "share_gap_positivo_acumulado": 0.6125977397
     },
     {
       "competencia": "2026-06",
@@ -11970,8 +11970,8 @@
       "gap_positivo_brl": 179359687.89,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 58,
-      "share_gap_positivo": 0.0029679349,
-      "share_gap_positivo_acumulado": 0.6155623395
+      "share_gap_positivo": 0.002967951,
+      "share_gap_positivo_acumulado": 0.6155656908
     },
     {
       "competencia": "2026-06",
@@ -11986,8 +11986,8 @@
       "gap_positivo_brl": 176664141.47,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 59,
-      "share_gap_positivo": 0.0029233306,
-      "share_gap_positivo_acumulado": 0.6184856701
+      "share_gap_positivo": 0.0029233465,
+      "share_gap_positivo_acumulado": 0.6184890373
     },
     {
       "competencia": "2026-06",
@@ -12002,8 +12002,8 @@
       "gap_positivo_brl": 175610624.71,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 60,
-      "share_gap_positivo": 0.0029058977,
-      "share_gap_positivo_acumulado": 0.6213915678
+      "share_gap_positivo": 0.0029059135,
+      "share_gap_positivo_acumulado": 0.6213949508
     },
     {
       "competencia": "2026-06",
@@ -12018,8 +12018,8 @@
       "gap_positivo_brl": 172252635.92000055,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 61,
-      "share_gap_positivo": 0.0028503317,
-      "share_gap_positivo_acumulado": 0.6242418995
+      "share_gap_positivo": 0.0028503472,
+      "share_gap_positivo_acumulado": 0.624245298
     },
     {
       "competencia": "2026-06",
@@ -12034,8 +12034,8 @@
       "gap_positivo_brl": 171851300.79000002,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 62,
-      "share_gap_positivo": 0.0028436907,
-      "share_gap_positivo_acumulado": 0.6270855901
+      "share_gap_positivo": 0.0028437061,
+      "share_gap_positivo_acumulado": 0.6270890041
     },
     {
       "competencia": "2026-06",
@@ -12050,8 +12050,8 @@
       "gap_positivo_brl": 170434287.97,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 63,
-      "share_gap_positivo": 0.0028202428,
-      "share_gap_positivo_acumulado": 0.6299058329
+      "share_gap_positivo": 0.0028202581,
+      "share_gap_positivo_acumulado": 0.6299092623
     },
     {
       "competencia": "2026-06",
@@ -12066,8 +12066,8 @@
       "gap_positivo_brl": 168375451.85,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 64,
-      "share_gap_positivo": 0.0027861744,
-      "share_gap_positivo_acumulado": 0.6326920074
+      "share_gap_positivo": 0.0027861896,
+      "share_gap_positivo_acumulado": 0.6326954518
     },
     {
       "competencia": "2026-06",
@@ -12082,8 +12082,8 @@
       "gap_positivo_brl": 168141950.17999995,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 65,
-      "share_gap_positivo": 0.0027823106,
-      "share_gap_positivo_acumulado": 0.6354743179
+      "share_gap_positivo": 0.0027823257,
+      "share_gap_positivo_acumulado": 0.6354777776
     },
     {
       "competencia": "2026-06",
@@ -12098,8 +12098,8 @@
       "gap_positivo_brl": 166070377.17999995,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 66,
-      "share_gap_positivo": 0.0027480315,
-      "share_gap_positivo_acumulado": 0.6382223494
+      "share_gap_positivo": 0.0027480464,
+      "share_gap_positivo_acumulado": 0.638225824
     },
     {
       "competencia": "2026-06",
@@ -12114,8 +12114,8 @@
       "gap_positivo_brl": 164504169.8,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 67,
-      "share_gap_positivo": 0.0027221148,
-      "share_gap_positivo_acumulado": 0.6409444642
+      "share_gap_positivo": 0.0027221296,
+      "share_gap_positivo_acumulado": 0.6409479536
     },
     {
       "competencia": "2026-06",
@@ -12130,8 +12130,8 @@
       "gap_positivo_brl": 162466699.43,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 68,
-      "share_gap_positivo": 0.0026884,
-      "share_gap_positivo_acumulado": 0.6436328642
+      "share_gap_positivo": 0.0026884146,
+      "share_gap_positivo_acumulado": 0.6436363682
     },
     {
       "competencia": "2026-06",
@@ -12146,8 +12146,8 @@
       "gap_positivo_brl": 161392234.09000003,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 69,
-      "share_gap_positivo": 0.0026706204,
-      "share_gap_positivo_acumulado": 0.6463034846
+      "share_gap_positivo": 0.0026706349,
+      "share_gap_positivo_acumulado": 0.6463070032
     },
     {
       "competencia": "2026-06",
@@ -12162,8 +12162,8 @@
       "gap_positivo_brl": 160894815.4400003,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 70,
-      "share_gap_positivo": 0.0026623894,
-      "share_gap_positivo_acumulado": 0.648965874
+      "share_gap_positivo": 0.0026624039,
+      "share_gap_positivo_acumulado": 0.6489694071
     },
     {
       "competencia": "2026-06",
@@ -12178,8 +12178,8 @@
       "gap_positivo_brl": 155960175.0,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 71,
-      "share_gap_positivo": 0.002580734,
-      "share_gap_positivo_acumulado": 0.651546608
+      "share_gap_positivo": 0.002580748,
+      "share_gap_positivo_acumulado": 0.6515501551
     },
     {
       "competencia": "2026-06",
@@ -12194,8 +12194,8 @@
       "gap_positivo_brl": 150752330.09,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 72,
-      "share_gap_positivo": 0.0024945577,
-      "share_gap_positivo_acumulado": 0.6540411657
+      "share_gap_positivo": 0.0024945713,
+      "share_gap_positivo_acumulado": 0.6540447264
     },
     {
       "competencia": "2026-06",
@@ -12210,8 +12210,8 @@
       "gap_positivo_brl": 148290828.8,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 73,
-      "share_gap_positivo": 0.0024538263,
-      "share_gap_positivo_acumulado": 0.656494992
+      "share_gap_positivo": 0.0024538397,
+      "share_gap_positivo_acumulado": 0.6564985661
     },
     {
       "competencia": "2026-06",
@@ -12226,8 +12226,8 @@
       "gap_positivo_brl": 146368774.06,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 74,
-      "share_gap_positivo": 0.0024220213,
-      "share_gap_positivo_acumulado": 0.6589170133
+      "share_gap_positivo": 0.0024220345,
+      "share_gap_positivo_acumulado": 0.6589206006
     },
     {
       "competencia": "2026-06",
@@ -12242,8 +12242,8 @@
       "gap_positivo_brl": 142476672.28000003,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 75,
-      "share_gap_positivo": 0.0023576172,
-      "share_gap_positivo_acumulado": 0.6612746305
+      "share_gap_positivo": 0.00235763,
+      "share_gap_positivo_acumulado": 0.6612782306
     },
     {
       "competencia": "2026-06",
@@ -12258,8 +12258,8 @@
       "gap_positivo_brl": 141661026.26999992,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 76,
-      "share_gap_positivo": 0.0023441204,
-      "share_gap_positivo_acumulado": 0.6636187509
+      "share_gap_positivo": 0.0023441331,
+      "share_gap_positivo_acumulado": 0.6636223638
     },
     {
       "competencia": "2026-06",
@@ -12274,8 +12274,8 @@
       "gap_positivo_brl": 140275760.68999994,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 77,
-      "share_gap_positivo": 0.0023211978,
-      "share_gap_positivo_acumulado": 0.6659399488
+      "share_gap_positivo": 0.0023212105,
+      "share_gap_positivo_acumulado": 0.6659435743
     },
     {
       "competencia": "2026-06",
@@ -12290,8 +12290,8 @@
       "gap_positivo_brl": 139794874.43,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 78,
-      "share_gap_positivo": 0.0023132404,
-      "share_gap_positivo_acumulado": 0.6682531892
+      "share_gap_positivo": 0.002313253,
+      "share_gap_positivo_acumulado": 0.6682568273
     },
     {
       "competencia": "2026-06",
@@ -12306,8 +12306,8 @@
       "gap_positivo_brl": 138401869.52999997,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 79,
-      "share_gap_positivo": 0.0022901898,
-      "share_gap_positivo_acumulado": 0.670543379
+      "share_gap_positivo": 0.0022902023,
+      "share_gap_positivo_acumulado": 0.6705470296
     },
     {
       "competencia": "2026-06",
@@ -12322,8 +12322,8 @@
       "gap_positivo_brl": 138160915.4,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 80,
-      "share_gap_positivo": 0.0022862027,
-      "share_gap_positivo_acumulado": 0.6728295817
+      "share_gap_positivo": 0.0022862151,
+      "share_gap_positivo_acumulado": 0.6728332447
     },
     {
       "competencia": "2026-06",
@@ -12338,8 +12338,8 @@
       "gap_positivo_brl": 134951406.44,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 81,
-      "share_gap_positivo": 0.0022330937,
-      "share_gap_positivo_acumulado": 0.6750626754
+      "share_gap_positivo": 0.0022331058,
+      "share_gap_positivo_acumulado": 0.6750663506
     },
     {
       "competencia": "2026-06",
@@ -12354,8 +12354,8 @@
       "gap_positivo_brl": 133317869.73000002,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 82,
-      "share_gap_positivo": 0.0022060629,
-      "share_gap_positivo_acumulado": 0.6772687383
+      "share_gap_positivo": 0.0022060749,
+      "share_gap_positivo_acumulado": 0.6772724255
     },
     {
       "competencia": "2026-06",
@@ -12370,8 +12370,8 @@
       "gap_positivo_brl": 131258108.28999996,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 83,
-      "share_gap_positivo": 0.0021719792,
-      "share_gap_positivo_acumulado": 0.6794407175
+      "share_gap_positivo": 0.0021719911,
+      "share_gap_positivo_acumulado": 0.6794444165
     },
     {
       "competencia": "2026-06",
@@ -12386,8 +12386,8 @@
       "gap_positivo_brl": 128808206.21,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 84,
-      "share_gap_positivo": 0.0021314397,
-      "share_gap_positivo_acumulado": 0.6815721573
+      "share_gap_positivo": 0.0021314513,
+      "share_gap_positivo_acumulado": 0.6815758679
     },
     {
       "competencia": "2026-06",
@@ -12402,8 +12402,8 @@
       "gap_positivo_brl": 127207436.94000006,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 85,
-      "share_gap_positivo": 0.0021049512,
-      "share_gap_positivo_acumulado": 0.6836771085
+      "share_gap_positivo": 0.0021049626,
+      "share_gap_positivo_acumulado": 0.6836808305
     },
     {
       "competencia": "2026-06",
@@ -12418,8 +12418,8 @@
       "gap_positivo_brl": 127202427.87,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 86,
-      "share_gap_positivo": 0.0021048683,
-      "share_gap_positivo_acumulado": 0.6857819768
+      "share_gap_positivo": 0.0021048798,
+      "share_gap_positivo_acumulado": 0.6857857103
     },
     {
       "competencia": "2026-06",
@@ -12434,8 +12434,8 @@
       "gap_positivo_brl": 127095626.10000001,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 87,
-      "share_gap_positivo": 0.002103101,
-      "share_gap_positivo_acumulado": 0.6878850778
+      "share_gap_positivo": 0.0021031125,
+      "share_gap_positivo_acumulado": 0.6878888227
     },
     {
       "competencia": "2026-06",
@@ -12450,8 +12450,8 @@
       "gap_positivo_brl": 125970905.91999999,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 88,
-      "share_gap_positivo": 0.0020844898,
-      "share_gap_positivo_acumulado": 0.6899695676
+      "share_gap_positivo": 0.0020845012,
+      "share_gap_positivo_acumulado": 0.6899733239
     },
     {
       "competencia": "2026-06",
@@ -12466,8 +12466,8 @@
       "gap_positivo_brl": 125042777.86999995,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 89,
-      "share_gap_positivo": 0.0020691317,
-      "share_gap_positivo_acumulado": 0.6920386993
+      "share_gap_positivo": 0.002069143,
+      "share_gap_positivo_acumulado": 0.6920424669
     },
     {
       "competencia": "2026-06",
@@ -12482,8 +12482,8 @@
       "gap_positivo_brl": 123231992.60000002,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 90,
-      "share_gap_positivo": 0.002039168,
-      "share_gap_positivo_acumulado": 0.6940778673
+      "share_gap_positivo": 0.0020391791,
+      "share_gap_positivo_acumulado": 0.694081646
     },
     {
       "competencia": "2026-06",
@@ -12498,8 +12498,8 @@
       "gap_positivo_brl": 122465025.59,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 91,
-      "share_gap_positivo": 0.0020264767,
-      "share_gap_positivo_acumulado": 0.6961043439
+      "share_gap_positivo": 0.0020264877,
+      "share_gap_positivo_acumulado": 0.6961081336
     },
     {
       "competencia": "2026-06",
@@ -12514,8 +12514,8 @@
       "gap_positivo_brl": 122188221.88,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 92,
-      "share_gap_positivo": 0.0020218963,
-      "share_gap_positivo_acumulado": 0.6981262402
+      "share_gap_positivo": 0.0020219073,
+      "share_gap_positivo_acumulado": 0.6981300409
     },
     {
       "competencia": "2026-06",
@@ -12530,8 +12530,8 @@
       "gap_positivo_brl": 119757777.13,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 93,
-      "share_gap_positivo": 0.0019816788,
-      "share_gap_positivo_acumulado": 0.700107919
+      "share_gap_positivo": 0.0019816895,
+      "share_gap_positivo_acumulado": 0.7001117305
     },
     {
       "competencia": "2026-06",
@@ -12546,8 +12546,8 @@
       "gap_positivo_brl": 118390807.68999994,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 94,
-      "share_gap_positivo": 0.001959059,
-      "share_gap_positivo_acumulado": 0.7020669779
+      "share_gap_positivo": 0.0019590696,
+      "share_gap_positivo_acumulado": 0.7020708001
     },
     {
       "competencia": "2026-06",
@@ -12562,8 +12562,8 @@
       "gap_positivo_brl": 118292366.99000013,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 95,
-      "share_gap_positivo": 0.00195743,
-      "share_gap_positivo_acumulado": 0.704024408
+      "share_gap_positivo": 0.0019574407,
+      "share_gap_positivo_acumulado": 0.7040282408
     },
     {
       "competencia": "2026-06",
@@ -12571,15 +12571,15 @@
       "denominacao": "FIDC AGRO CAPITAL FINANCE RESPONSABILIDADE LIMITADA",
       "pl_brl": 522132133.94,
       "veiculos": 1,
-      "tabela_i_carteira_brl": 484845747.21,
+      "tabela_i_carteira_brl": 484845747.21000004,
       "tabela_ii_total_brl": 602737600.99,
       "tabela_ii_reportada": true,
-      "gap_tabela_ii_menos_i_brl": 117891853.78000003,
-      "gap_positivo_brl": 117891853.78000003,
+      "gap_tabela_ii_menos_i_brl": 117891853.77999997,
+      "gap_positivo_brl": 117891853.77999997,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 96,
-      "share_gap_positivo": 0.0019508026,
-      "share_gap_positivo_acumulado": 0.7059752106
+      "share_gap_positivo": 0.0019508132,
+      "share_gap_positivo_acumulado": 0.705979054
     },
     {
       "competencia": "2026-06",
@@ -12594,8 +12594,8 @@
       "gap_positivo_brl": 117821208.3,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 97,
-      "share_gap_positivo": 0.0019496336,
-      "share_gap_positivo_acumulado": 0.7079248442
+      "share_gap_positivo": 0.0019496442,
+      "share_gap_positivo_acumulado": 0.7079286982
     },
     {
       "competencia": "2026-06",
@@ -12610,8 +12610,8 @@
       "gap_positivo_brl": 116877407.92000002,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 98,
-      "share_gap_positivo": 0.0019340162,
-      "share_gap_positivo_acumulado": 0.7098588603
+      "share_gap_positivo": 0.0019340267,
+      "share_gap_positivo_acumulado": 0.7098627249
     },
     {
       "competencia": "2026-06",
@@ -12626,8 +12626,8 @@
       "gap_positivo_brl": 115730823.41,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 99,
-      "share_gap_positivo": 0.0019150432,
-      "share_gap_positivo_acumulado": 0.7117739035
+      "share_gap_positivo": 0.0019150536,
+      "share_gap_positivo_acumulado": 0.7117777785
     },
     {
       "competencia": "2026-06",
@@ -12642,8 +12642,8 @@
       "gap_positivo_brl": 112852018.93,
       "gap_negativo_brl": 0.0,
       "rank_gap_positivo": 100,
-      "share_gap_positivo": 0.0018674065,
-      "share_gap_positivo_acumulado": 0.71364131
+      "share_gap_positivo": 0.0018674166,
+      "share_gap_positivo_acumulado": 0.7136451952
     }
   ],
   "inadimplencia_tipo_recebivel_unico": [
@@ -99809,6 +99809,235 @@
       "delta_inadimplencia_pp": null,
       "competencia_coorte_anterior": "2026-05",
       "competencia_coorte_atual": "2026-06"
+    }
+  ],
+  "inadimplencia_dispersao_subcategoria": [
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Financeiro",
+      "fundos_reportantes_inadimplencia": 649,
+      "pl_reportantes_inadimplencia_brl": 137771983812.59,
+      "carteira_reportantes_inadimplencia_brl": 124598009593.97,
+      "inadimplencia_total_subcategoria_brl": 16671268513.960001,
+      "top1_inadimplencia_brl": 1411677797.07,
+      "top1_share": 0.0846772875,
+      "top3_inadimplencia_brl": 3607934555.3199997,
+      "top3_share": 0.2164163184,
+      "top5_inadimplencia_brl": 5457001767.71,
+      "top5_share": 0.3273297268,
+      "hhi": 0.0304227972,
+      "numero_efetivo_fundos": 32.8700873235,
+      "gini": 0.8908228265,
+      "leitura_concentracao": "Dispersa entre reportantes",
+      "implicacao_analitica": "Sinal distribuído no subsetor reportante; não comprova risco sistêmico.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Comercial",
+      "fundos_reportantes_inadimplencia": 129,
+      "pl_reportantes_inadimplencia_brl": 26333210757.61,
+      "carteira_reportantes_inadimplencia_brl": 21926470850.91,
+      "inadimplencia_total_subcategoria_brl": 2806645330.2700005,
+      "top1_inadimplencia_brl": 1379908942.75,
+      "top1_share": 0.4916577552,
+      "top3_inadimplencia_brl": 1939733995.86,
+      "top3_share": 0.6911218795,
+      "top5_inadimplencia_brl": 2100643933.19,
+      "top5_share": 0.748453647,
+      "hhi": 0.271507073,
+      "numero_efetivo_fundos": 3.6831453012,
+      "gini": 0.9005344744,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Cartão de crédito",
+      "fundos_reportantes_inadimplencia": 12,
+      "pl_reportantes_inadimplencia_brl": 10800328980.539999,
+      "carteira_reportantes_inadimplencia_brl": 9146935042.379997,
+      "inadimplencia_total_subcategoria_brl": 897937627.78,
+      "top1_inadimplencia_brl": 337434366.0,
+      "top1_share": 0.3757882013,
+      "top3_inadimplencia_brl": 690502502.84,
+      "top3_share": 0.7689871562,
+      "top5_inadimplencia_brl": 840611070.53,
+      "top5_share": 0.9361575287,
+      "hhi": 0.2366791049,
+      "numero_efetivo_fundos": 4.2251300579,
+      "gini": 0.6622571914,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Setor público",
+      "fundos_reportantes_inadimplencia": 26,
+      "pl_reportantes_inadimplencia_brl": 2714453308.1,
+      "carteira_reportantes_inadimplencia_brl": 2659242340.84,
+      "inadimplencia_total_subcategoria_brl": 660957941.2700001,
+      "top1_inadimplencia_brl": 501489076.11,
+      "top1_share": 0.7587306919,
+      "top3_inadimplencia_brl": 566680549.5600001,
+      "top3_share": 0.8573624949,
+      "top5_inadimplencia_brl": 588559791.86,
+      "top5_share": 0.8904648165,
+      "hhi": 0.583544817,
+      "numero_efetivo_fundos": 1.7136644366,
+      "gini": 0.8586921143,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Industrial",
+      "fundos_reportantes_inadimplencia": 32,
+      "pl_reportantes_inadimplencia_brl": 2466999215.02,
+      "carteira_reportantes_inadimplencia_brl": 2136582447.7,
+      "inadimplencia_total_subcategoria_brl": 654573322.99,
+      "top1_inadimplencia_brl": 209002258.93,
+      "top1_share": 0.3192954121,
+      "top3_inadimplencia_brl": 462273437.52000004,
+      "top3_share": 0.7062210165,
+      "top5_inadimplencia_brl": 534185209.15000004,
+      "top5_share": 0.8160815456,
+      "hhi": 0.2055655567,
+      "numero_efetivo_fundos": 4.8646281802,
+      "gini": 0.8222725024,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Ações judiciais",
+      "fundos_reportantes_inadimplencia": 20,
+      "pl_reportantes_inadimplencia_brl": 2528707159.81,
+      "carteira_reportantes_inadimplencia_brl": 2147310998.3400002,
+      "inadimplencia_total_subcategoria_brl": 544610917.35,
+      "top1_inadimplencia_brl": 215878563.53,
+      "top1_share": 0.3963904444,
+      "top3_inadimplencia_brl": 439411336.81,
+      "top3_share": 0.8068353439,
+      "top5_inadimplencia_brl": 489330956.78,
+      "top5_share": 0.8984964149,
+      "hhi": 0.250859783,
+      "numero_efetivo_fundos": 3.9862906211,
+      "gini": 0.787968072,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Serviços",
+      "fundos_reportantes_inadimplencia": 66,
+      "pl_reportantes_inadimplencia_brl": 7221729021.450001,
+      "carteira_reportantes_inadimplencia_brl": 6693967309.710001,
+      "inadimplencia_total_subcategoria_brl": 486889778.28,
+      "top1_inadimplencia_brl": 122507640.78,
+      "top1_share": 0.2516126775,
+      "top3_inadimplencia_brl": 205751715.19000003,
+      "top3_share": 0.4225837641,
+      "top5_inadimplencia_brl": 251191391.55,
+      "top5_share": 0.5159101767,
+      "hhi": 0.0932659853,
+      "numero_efetivo_fundos": 10.722022571,
+      "gini": 0.7435687941,
+      "leitura_concentracao": "Concentração intermediária",
+      "implicacao_analitica": "Combina cauda material e dispersão; requer leitura dos maiores e do restante.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Agronegócio",
+      "fundos_reportantes_inadimplencia": 14,
+      "pl_reportantes_inadimplencia_brl": 2912251316.7499995,
+      "carteira_reportantes_inadimplencia_brl": 2031781466.5499997,
+      "inadimplencia_total_subcategoria_brl": 464036713.2999999,
+      "top1_inadimplencia_brl": 129100201.4,
+      "top1_share": 0.2782111796,
+      "top3_inadimplencia_brl": 267827019.27999997,
+      "top3_share": 0.5771677361,
+      "top5_inadimplencia_brl": 360965080.86999995,
+      "top5_share": 0.777880436,
+      "hhi": 0.1543189293,
+      "numero_efetivo_fundos": 6.4800864335,
+      "gini": 0.561032009,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Imobiliário",
+      "fundos_reportantes_inadimplencia": 7,
+      "pl_reportantes_inadimplencia_brl": 568622305.45,
+      "carteira_reportantes_inadimplencia_brl": 523395421.74999994,
+      "inadimplencia_total_subcategoria_brl": 51005709.67,
+      "top1_inadimplencia_brl": 21543419.64,
+      "top1_share": 0.4223727065,
+      "top3_inadimplencia_brl": 40588138.08,
+      "top3_share": 0.7957567563,
+      "top5_inadimplencia_brl": 47806263.88,
+      "top5_share": 0.9372727914,
+      "hhi": 0.2740569019,
+      "numero_efetivo_fundos": 3.6488772698,
+      "gini": 0.4883701352,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    },
+    {
+      "competencia": "2026-06",
+      "tipo_recebivel_tabela_ii": "Factoring",
+      "fundos_reportantes_inadimplencia": 1,
+      "pl_reportantes_inadimplencia_brl": 103640698.41,
+      "carteira_reportantes_inadimplencia_brl": 82562643.94999999,
+      "inadimplencia_total_subcategoria_brl": 11487687.9,
+      "top1_inadimplencia_brl": 11487687.9,
+      "top1_share": 1.0,
+      "top3_inadimplencia_brl": 11487687.9,
+      "top3_share": 1.0,
+      "top5_inadimplencia_brl": 11487687.9,
+      "top5_share": 1.0,
+      "hhi": 1.0,
+      "numero_efetivo_fundos": 1.0,
+      "gini": 0.0,
+      "leitura_concentracao": "Concentrada em poucos fundos",
+      "implicacao_analitica": "Sinal compatível com casos específicos; requer validação fundo a fundo.",
+      "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
+    }
+  ],
+  "inadimplencia_dispersao_resumo": [
+    {
+      "competencia": "2026-06",
+      "fundos_universo_ex_fic_pl_positivo": 3626,
+      "pl_universo_ex_fic_positivo_brl": 880440149730.6101,
+      "fundos_coorte_tipo_unico": 2066,
+      "pl_coorte_tipo_unico_brl": 608713543906.14,
+      "fundos_reportantes_inadimplencia_positiva": 956,
+      "pl_reportantes_inadimplencia_positiva_brl": 193421926575.72998,
+      "inadimplencia_total_reportantes_brl": 23249413542.769997,
+      "cobertura_fundos_vs_universo": 0.2636514065,
+      "cobertura_pl_vs_universo": 0.2196877626,
+      "metodologia": "coorte atual ex-FIC, PL positivo e um único tipo Tabela II; concentração calculada somente entre fundos com inadimplência ajustada positiva",
+      "limitacoes": "fundos com zero, ausência de reporte, atraso de reporte ou inconsistência carteira/inadimplência ficam fora da dispersão; HHI e Gini medem concentração do valor reportado e não causalidade",
+      "fonte": "CVM, Informe Mensal FIDC, Tabelas I, II e IV, 2026-06"
     }
   ],
   "bridge_resumo": [

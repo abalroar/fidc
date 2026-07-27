@@ -29,6 +29,7 @@ from services.industry_revision_analysis import (
     build_break_bridge,
     build_classification_coverage,
     build_delinquency_qa,
+    build_delinquency_dispersion,
     build_frozen_cohort_revision_audit,
     build_frozen_single_receivable_history,
     build_market_share_by_subtype,
@@ -1219,3 +1220,61 @@ def test_optional_payload_reader_preserves_leading_zero_cnpj(tmp_path) -> None:
     records = _read_optional(path, cnpj_columns=("admin_destino_cnpj",))
 
     assert records.iloc[0]["admin_destino_cnpj"] == "00806535000154"
+
+
+def test_delinquency_dispersion_uses_only_positive_reporters() -> None:
+    members = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "1",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "pl_referencia_brl": 100.0,
+                "carteira_referencia_brl": 80.0,
+                "inadimplencia_ajustada_referencia_brl": 60.0,
+            },
+            {
+                "cnpj_fundo": "2",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "pl_referencia_brl": 100.0,
+                "carteira_referencia_brl": 80.0,
+                "inadimplencia_ajustada_referencia_brl": 30.0,
+            },
+            {
+                "cnpj_fundo": "3",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "pl_referencia_brl": 100.0,
+                "carteira_referencia_brl": 80.0,
+                "inadimplencia_ajustada_referencia_brl": 10.0,
+            },
+            {
+                "cnpj_fundo": "4",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "pl_referencia_brl": 100.0,
+                "carteira_referencia_brl": 80.0,
+                "inadimplencia_ajustada_referencia_brl": 0.0,
+            },
+        ]
+    )
+    universe = pd.DataFrame(
+        [
+            {
+                "fundos_universo_ex_fic_pl_positivo": 10,
+                "pl_universo_ex_fic_positivo_brl": 1_000.0,
+            }
+        ]
+    )
+
+    detail, summary = build_delinquency_dispersion(
+        members, universe, competence="2026-06"
+    )
+
+    row = detail.iloc[0]
+    assert row["fundos_reportantes_inadimplencia"] == 3
+    assert row["inadimplencia_total_subcategoria_brl"] == pytest.approx(100.0)
+    assert row["top1_share"] == pytest.approx(0.6)
+    assert row["top3_share"] == pytest.approx(1.0)
+    assert row["hhi"] == pytest.approx(0.46)
+    assert row["gini"] == pytest.approx(1 / 3)
+    assert row["leitura_concentracao"] == "Concentrada em poucos fundos"
+    assert summary.iloc[0]["fundos_reportantes_inadimplencia_positiva"] == 3
+    assert summary.iloc[0]["cobertura_fundos_vs_universo"] == pytest.approx(0.3)

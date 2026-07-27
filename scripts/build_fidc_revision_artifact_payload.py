@@ -2545,6 +2545,12 @@ def build_payload(
     delinquency_cohort_revision_sensitivity = _read_optional(
         revision_dir / "inadimplencia_coorte_revisao_sensibilidade.csv"
     )
+    delinquency_dispersion = _read_optional(
+        revision_dir / "inadimplencia_dispersao_subcategoria.csv"
+    )
+    delinquency_dispersion_summary = _read_optional(
+        revision_dir / "inadimplencia_dispersao_resumo.csv"
+    )
     provider_transition_summary = _read_optional(
         revision_dir / "prestadores_transicoes_resumo.csv"
     )
@@ -2663,6 +2669,96 @@ def build_payload(
         latest=latest,
         card_curation=card_receivables_curation,
     )
+    included_card = card_taxonomy_audit[
+        card_taxonomy_audit["status_curadoria"].eq("Incluído em Adquirência")
+    ].copy()
+    requested_type_labels = {
+        "OUTROS": "Outros",
+        "FOMENTO MERCANTIL": "Fomento Mercantil",
+        "AGRO, INDUSTRIA E COMERCIO": "Agro Indústria e Comércio",
+        "AGRO INDUSTRIA E COMERCIO": "Agro Indústria e Comércio",
+        "FINANCEIRO": "Financeiro",
+    }
+
+    def suggested_reference_category(value: object) -> str:
+        raw = "" if value is None or pd.isna(value) else str(value).strip()
+        if not raw:
+            return "N/D — Tipo ANBIMA ausente"
+        return requested_type_labels.get(
+            _fold_text(raw),
+            "N/D — Tipo ANBIMA fora das quatro categorias de referência",
+        )
+
+    acquiring_anbima_review = included_card[
+        [
+            "cnpj_fundo_formatado",
+            "denominacao",
+            "pl_referencia_brl",
+            "pl_referencia_competencia",
+            "anbima_tipo",
+            "anbima_foco",
+            "classification_source",
+            "classification_status",
+        ]
+    ].copy()
+    acquiring_anbima_review["tipo_anbima_atual"] = acquiring_anbima_review[
+        "anbima_tipo"
+    ].where(acquiring_anbima_review["anbima_tipo"].fillna("").astype(str).str.strip().ne(""), "N/D")
+    acquiring_anbima_review["foco_anbima_atual"] = acquiring_anbima_review[
+        "anbima_foco"
+    ].where(acquiring_anbima_review["anbima_foco"].fillna("").astype(str).str.strip().ne(""), "N/D")
+    acquiring_anbima_review["categoria_referencia_sugerida"] = acquiring_anbima_review[
+        "anbima_tipo"
+    ].map(suggested_reference_category)
+    acquiring_anbima_review["base_alterada"] = "Não"
+    acquiring_anbima_review["criterio_sugestao"] = (
+        "correspondência literal do Tipo ANBIMA atual com uma das quatro categorias de referência; sem uso do nome do fundo ou de fonte indireta"
+    )
+    acquiring_anbima_review = acquiring_anbima_review.sort_values(
+        ["denominacao", "cnpj_fundo_formatado"]
+    ).reset_index(drop=True)
+
+    acquiring_cnpjs = {
+        _digits(value)
+        for value in included_card.get("cnpj_fundo_formatado", pd.Series(dtype="object"))
+    }
+    taxonomy_top15_rows: list[dict[str, object]] = []
+    for _, row in top20.head(15).sort_values("rank").iterrows():
+        cnpj = _digits(row.get("cnpj_fundo"))
+        reported_table_ii = str(row.get("segmento_principal") or "N/D")
+        views = (
+            ("Tipo ANBIMA", str(row.get("anbima_tipo") or "N/D")),
+            ("Foco ANBIMA", str(row.get("anbima_foco") or "N/D")),
+            ("Tabela II reportada", reported_table_ii),
+            (
+                "Tabela II reclassificada",
+                "Adquirência" if cnpj in acquiring_cnpjs else reported_table_ii,
+            ),
+        )
+        for view, taxonomy in views:
+            taxonomy_top15_rows.append(
+                {
+                    "visao": view,
+                    "rank": int(row.get("rank") or 0),
+                    "cnpj_fundo": cnpj,
+                    "cnpj_fundo_formatado": str(row.get("cnpj_fundo_formatado") or ""),
+                    "denominacao": str(row.get("denominacao") or "N/D"),
+                    "taxonomia_atual": taxonomy,
+                    "pl_brl": float(row.get("pl") or 0.0),
+                    "competencia": latest,
+                    "fonte": (
+                        "ANBIMA Data, fotografia cadastral de dez/25"
+                        if "ANBIMA" in view
+                        else f"CVM, Informe Mensal FIDC, Tabela II, {latest}"
+                    ),
+                    "metodologia": (
+                        "classificação atual preservada"
+                        if view != "Tabela II reclassificada"
+                        else "somente CNPJs com decisão Incluído em Adquirência são exibidos em Adquirência; Tabela II original preservada na visão reportada"
+                    ),
+                }
+            )
+    taxonomy_top15 = pd.DataFrame(taxonomy_top15_rows)
     acquiring_curation_detail = _acquiring_curation_detail(
         acquiring_curation,
         card_taxonomy_audit,
@@ -2912,6 +3008,10 @@ def build_payload(
         "delinquency_cohort_revision_sensitivity": _records(
             delinquency_cohort_revision_sensitivity
         ),
+        "delinquency_dispersion": _records(delinquency_dispersion),
+        "delinquency_dispersion_summary": _single_record(
+            delinquency_dispersion_summary
+        ),
         "bridge_summary": _records(bridge_summary),
         "bridge_top_contributors": _records(bridge_detail.head(30)),
         "bridge_atlantico": _records(atlantic),
@@ -3005,6 +3105,32 @@ def build_payload(
             str(key): _json_value(value)
             for key, value in card_taxonomy_summary.items()
         },
+        "acquiring_anbima_review": _records(acquiring_anbima_review),
+        "acquiring_anbima_review_summary": {
+            "fundos_filtrados": int(len(acquiring_anbima_review)),
+            "fundos_total_breakdown_cartao": int(card_taxonomy_summary.get("fundos_total") or 0),
+            "filtro_aplicado": 'Decisão = "Incluído em Adquirência"',
+            "limitacao_contagem": (
+                "a base vigente contém 44 fundos revisados em Cartão; 26 atendem ao filtro literal solicitado"
+            ),
+            "base_alterada": False,
+        },
+        "taxonomy_top15": _records(taxonomy_top15),
+        "numeric_locale_audit": [
+            {"artefato": "PPTX", "ponto": "KPIs, títulos, notas e rodapés", "padrao": "vírgula decimal e ponto de milhar"},
+            {"artefato": "PPTX", "ponto": "eixos X e Y nativos dos gráficos", "padrao": "chartSpace em pt-BR, formato numérico vinculado ao dado e unidades explícitas no título do eixo ou do painel"},
+            {"artefato": "PPTX", "ponto": "data labels nativos", "padrao": "percentual, R$ bi, R$ mi ou valor absoluto conforme a escala do gráfico"},
+            {"artefato": "PPTX", "ponto": "limitação de compatibilidade regional", "padrao": "PowerPoint usa o idioma pt-BR gravado no gráfico; renderizadores que ignoram chartSpace.lang podem exibir o separador da máquina"},
+            {"artefato": "PPTX", "ponto": "tabelas nativas dos rankings e Top 15", "padrao": "texto pt-BR; colunas monetárias identificadas em R$ bi"},
+            {"artefato": "XLSX", "ponto": "células monetárias", "padrao": "valor numérico editável com formato R$ e unidade bi/mi quando indicada"},
+            {"artefato": "XLSX", "ponto": "percentuais e índices", "padrao": "célula numérica editável; vírgula decimal na localidade pt-BR"},
+            {"artefato": "XLSX", "ponto": "inteiros, contagens e rankings", "padrao": "ponto de milhar na localidade pt-BR"},
+            {"artefato": "Streamlit", "ponto": "KPIs, captions e campos editoriais", "padrao": "funções de formatação pt-BR"},
+            {"artefato": "Streamlit", "ponto": "tabelas pandas", "padrao": "formatadores pt-BR para números, percentuais e variações"},
+            {"artefato": "Streamlit", "ponto": "gráficos Altair/Vega", "padrao": "locale numérico global pt-BR para eixos, labels e tooltips"},
+            {"artefato": "CSV exportado no Streamlit", "ponto": "arquivos numéricos revisados", "padrao": "separador ponto e vírgula e vírgula decimal"},
+            {"artefato": "Novos exports", "ponto": "reclassificação de adquirência, Top 15 por taxonomia e dispersão", "padrao": "mesma convenção pt-BR do workbook e do Streamlit"},
+        ],
         "material_focus_top6": _records(material_top6),
         "material_focus_omitted": {
             "focuses": int(len(material_omitted)),

@@ -12,6 +12,7 @@ import os
 import posixpath
 import sys
 import tempfile
+from copy import deepcopy
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from zipfile import ZIP_DEFLATED, ZipFile
@@ -36,8 +37,8 @@ def _a(tag: str) -> str:
     return f"{{{DRAWING}}}{tag}"
 
 
-def _chart_targets(archive: ZipFile) -> dict[str, bool]:
-    targets: dict[str, bool] = {}
+def _chart_targets(archive: ZipFile) -> dict[str, str]:
+    targets: dict[str, str] = {}
     slide_names = sorted(
         (
             name
@@ -55,34 +56,43 @@ def _chart_targets(archive: ZipFile) -> dict[str, bool]:
             node.text or "" for node in slide_root.findall(f".//{_a('t')}")
         )
         normalized_text = slide_text.upper().strip()
-        if not (
+        is_market_share = (
             normalized_text.startswith("MARKET SHARE ·")
             or normalized_text.startswith("APÊNDICE · MARKET SHARE")
-        ):
+        )
+        is_scale = normalized_text.startswith("ESCALA DA INDÚSTRIA")
+        if not (is_market_share or is_scale):
             continue
-        appendix = normalized_text.startswith("APÊNDICE")
+        appendix = is_market_share and normalized_text.startswith("APÊNDICE")
         rels_name = f"ppt/slides/_rels/slide{slide_number}.xml.rels"
         root = ET.fromstring(archive.read(rels_name))
         chart_paths = []
         for relationship in root.findall(f"{{{PACKAGE_REL}}}Relationship"):
             if str(relationship.get("Type") or "").endswith("/chart"):
                 chart_paths.append(str(relationship.get("Target") or "").lstrip("/"))
-        if len(chart_paths) != 1:
+        if is_market_share and len(chart_paths) != 1:
             raise RuntimeError(
                 f"slide {slide_number} deveria conter exatamente um gráfico nativo; "
                 f"encontrados {len(chart_paths)}"
             )
-        target = chart_paths[0]
-        resolved = (
-            target.lstrip("/")
-            if target.startswith("/") or target.startswith("ppt/")
-            else posixpath.normpath(posixpath.join("ppt/slides", target))
-        )
-        targets[resolved] = appendix
-    if len(targets) != EXPECTED_MARKET_SHARE_SLIDES:
+        for target in chart_paths:
+            resolved = (
+                target.lstrip("/")
+                if target.startswith("/") or target.startswith("ppt/")
+                else posixpath.normpath(posixpath.join("ppt/slides", target))
+            )
+            targets[resolved] = (
+                "scale"
+                if is_scale
+                else "market_appendix"
+                if appendix
+                else "market_body"
+            )
+    market_count = sum(mode.startswith("market_") for mode in targets.values())
+    if market_count != EXPECTED_MARKET_SHARE_SLIDES:
         raise RuntimeError(
             "deveriam existir seis slides de market share nativo; "
-            f"foram encontrados {len(targets)}"
+            f"foram encontrados {market_count}"
         )
     return targets
 
@@ -143,6 +153,33 @@ def _set_arial_10(root: ET.Element) -> None:
                 if font is None:
                     font = ET.SubElement(default_run, _a(tag))
                 font.set("typeface", "Arial")
+
+
+def _set_chart_language_ptbr(payload: bytes) -> bytes:
+    """Bind native chart formatting to Brazilian Portuguese without currency tags."""
+
+    root = ET.fromstring(payload)
+    changed = False
+    language = root.find(_c("lang"))
+    if language is not None and language.get("val") != "pt-BR":
+        language.set("val", "pt-BR")
+        changed = True
+    for node in root.iter():
+        if node.tag == _c("numFmt"):
+            code = str(node.get("formatCode") or "")
+            clean_code = code.removeprefix("[$-416]")
+            if clean_code != code:
+                node.set("formatCode", clean_code)
+                changed = True
+        elif node.tag == _c("formatCode"):
+            code = str(node.text or "")
+            clean_code = code.removeprefix("[$-416]")
+            if clean_code != code:
+                node.text = clean_code
+                changed = True
+    if not changed:
+        return payload
+    return ET.tostring(root, encoding="UTF-8", xml_declaration=True)
 
 
 def _patch_chart(payload: bytes, *, appendix: bool) -> bytes:
@@ -208,6 +245,104 @@ def _patch_chart(payload: bytes, *, appendix: bool) -> bytes:
     return ET.tostring(root, encoding="UTF-8", xml_declaration=True)
 
 
+def _text_properties(font_size: int = 850, *, bold: bool = True) -> ET.Element:
+    tx_pr = ET.Element(_c("txPr"))
+    ET.SubElement(tx_pr, _a("bodyPr"))
+    ET.SubElement(tx_pr, _a("lstStyle"))
+    paragraph = ET.SubElement(tx_pr, _a("p"))
+    paragraph_props = ET.SubElement(paragraph, _a("pPr"))
+    default_props = ET.SubElement(
+        paragraph_props,
+        _a("defRPr"),
+        {"sz": str(font_size), "b": "1" if bold else "0"},
+    )
+    for tag in ("latin", "ea", "cs"):
+        ET.SubElement(default_props, _a(tag), {"typeface": "Arial"})
+    ET.SubElement(paragraph, _a("endParaRPr"), {"lang": "pt-BR"})
+    return tx_pr
+
+
+def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
+    """Add an invisible auxiliary line series with native total labels."""
+
+    root = ET.fromstring(payload)
+    plot_area = root.find(f".//{_c('plotArea')}")
+    bar_chart = root.find(f".//{_c('barChart')}")
+    if plot_area is None or bar_chart is None:
+        return payload, False
+    series = bar_chart.findall(_c("ser"))
+    if len(series) not in {1, 5}:
+        return payload, False
+    values_by_series = [_series_values(item) for item in series]
+    category_count = max(
+        (max(values, default=-1) for values in values_by_series), default=-1
+    ) + 1
+    if category_count <= 0:
+        raise RuntimeError("gráfico de escala sem valores em cache")
+    totals = [
+        sum(values.get(index, 0.0) for values in values_by_series)
+        for index in range(category_count)
+    ]
+
+    all_indices = [
+        int(node.get("val") or 0)
+        for node in root.findall(f".//{_c('ser')}/{_c('idx')}")
+    ]
+    series_index = max(all_indices, default=-1) + 1
+    line_chart = ET.Element(_c("lineChart"))
+    ET.SubElement(line_chart, _c("grouping"), {"val": "standard"})
+    ET.SubElement(line_chart, _c("varyColors"), {"val": "0"})
+    aux = ET.SubElement(line_chart, _c("ser"))
+    ET.SubElement(aux, _c("idx"), {"val": str(series_index)})
+    ET.SubElement(aux, _c("order"), {"val": str(series_index)})
+    tx = ET.SubElement(aux, _c("tx"))
+    str_lit = ET.SubElement(tx, _c("strLit"))
+    ET.SubElement(str_lit, _c("ptCount"), {"val": "1"})
+    point = ET.SubElement(str_lit, _c("pt"), {"idx": "0"})
+    ET.SubElement(point, _c("v")).text = "Total"
+    shape_props = ET.SubElement(aux, _c("spPr"))
+    line = ET.SubElement(shape_props, _a("ln"))
+    ET.SubElement(line, _a("noFill"))
+    marker = ET.SubElement(aux, _c("marker"))
+    ET.SubElement(marker, _c("symbol"), {"val": "none"})
+    ET.SubElement(marker, _c("size"), {"val": "2"})
+    category = series[0].find(_c("cat"))
+    if category is None:
+        raise RuntimeError("gráfico de escala sem categorias nativas")
+    aux.append(deepcopy(category))
+    values = ET.SubElement(aux, _c("val"))
+    literal = ET.SubElement(values, _c("numLit"))
+    ET.SubElement(literal, _c("formatCode")).text = "0"
+    ET.SubElement(literal, _c("ptCount"), {"val": str(category_count)})
+    for index, value in enumerate(totals):
+        point = ET.SubElement(literal, _c("pt"), {"idx": str(index)})
+        ET.SubElement(point, _c("v")).text = f"{value:.12g}"
+    labels = ET.SubElement(aux, _c("dLbls"))
+    ET.SubElement(labels, _c("dLblPos"), {"val": "inEnd"})
+    ET.SubElement(
+        labels,
+        _c("numFmt"),
+        {"formatCode": "[>=1000]#\\.##0;0", "sourceLinked": "0"},
+    )
+    for tag, value in (
+        ("showLegendKey", "0"),
+        ("showVal", "1"),
+        ("showCatName", "0"),
+        ("showSerName", "0"),
+        ("showPercent", "0"),
+        ("showBubbleSize", "0"),
+        ("showLeaderLines", "0"),
+    ):
+        ET.SubElement(labels, _c(tag), {"val": value})
+    labels.append(_text_properties())
+    ET.SubElement(aux, _c("smooth"), {"val": "0"})
+    for axis_id in bar_chart.findall(_c("axId")):
+        line_chart.append(deepcopy(axis_id))
+    insert_at = list(plot_area).index(bar_chart) + 1
+    plot_area.insert(insert_at, line_chart)
+    return ET.tostring(root, encoding="UTF-8", xml_declaration=True), True
+
+
 def patch_pptx(path: Path) -> None:
     path = path.resolve()
     with ZipFile(path) as archive:
@@ -217,12 +352,31 @@ def patch_pptx(path: Path) -> None:
         ) as handle:
             temporary = Path(handle.name)
         try:
+            scale_charts_patched = 0
             with ZipFile(temporary, "w", ZIP_DEFLATED) as output:
                 for info in archive.infolist():
                     data = archive.read(info.filename)
                     if info.filename in targets:
-                        data = _patch_chart(data, appendix=targets[info.filename])
+                        mode = targets[info.filename]
+                        if mode == "scale":
+                            data, patched = _patch_scale_chart(data)
+                            scale_charts_patched += int(patched)
+                        else:
+                            data = _patch_chart(
+                                data,
+                                appendix=mode == "market_appendix",
+                            )
+                    if (
+                        info.filename.startswith("ppt/slides/charts/chart")
+                        and info.filename.endswith(".xml")
+                    ):
+                        data = _set_chart_language_ptbr(data)
                     output.writestr(info, data)
+            if scale_charts_patched != 2:
+                raise RuntimeError(
+                    "slide Escala da Indústria deveria ter dois gráficos de barras "
+                    f"com série auxiliar; foram ajustados {scale_charts_patched}"
+                )
             os.replace(temporary, path)
         finally:
             temporary.unlink(missing_ok=True)

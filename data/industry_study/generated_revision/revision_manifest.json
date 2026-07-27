@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 15035
+      "rows": 15046
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
@@ -109,6 +109,14 @@
     "inadimplencia_coorte_revisao_transicoes.csv": {
       "columns": 8,
       "rows": 17
+    },
+    "inadimplencia_dispersao_resumo.csv": {
+      "columns": 13,
+      "rows": 1
+    },
+    "inadimplencia_dispersao_subcategoria.csv": {
+      "columns": 19,
+      "rows": 10
     },
     "inadimplencia_tipo_recebivel_unico.csv": {
       "columns": 18,
@@ -215,7 +223,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-07-27T19:34:48+00:00",
+  "generated_at_utc": "2026-07-27T21:05:09+00:00",
   "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

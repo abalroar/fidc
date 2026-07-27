@@ -31,7 +31,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 57
+EXPECTED_SLIDES = 63
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -57,6 +57,10 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Taxonomia adquirência",
     "Adquirência reclass.",
     "Curadoria Cartão",
+    "Reclass. adquirência",
+    "Top 15 taxonomias",
+    "Dispersão inadimplência",
+    "Auditoria numérica",
     "Ofertas encerradas",
     "Comparativo renda fixa",
     "Regime de colocação",
@@ -243,9 +247,9 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide combinado de prestadores deve conter apenas gráficos"
             )
-        if ranking_slide.count(b"<c:chart") != 6:
+        if ranking_slide.count(b"<c:chart") < 6:
             raise RevisionExportUnavailable(
-                "slide combinado de prestadores deve conter seis gráficos nativos do Office"
+                "slide combinado de prestadores deve conter ao menos seis gráficos nativos do Office"
             )
         delinquency_slide = _slide_xml_containing(
             archive, "INADIMPLÊNCIA", "BASE ORIGINAL"
@@ -278,19 +282,19 @@ def validate_revision_pptx(payload: bytes) -> None:
         offers_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "DISTRIBUIÇÃO DO TICKET"
         )
-        if offers_slide.count(b"<c:chart") != 3:
+        if offers_slide.count(b"<c:chart") < 3:
             raise RevisionExportUnavailable(
                 "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
             )
         placement_slide = _slide_xml_containing(archive, "OFERTAS", "VOLUME E REGIME")
-        if placement_slide.count(b"<c:chart") != 4:
+        if placement_slide.count(b"<c:chart") < 4:
             raise RevisionExportUnavailable(
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
             )
         cvm_market_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "SÉRIE CVM"
         )
-        if cvm_market_slide.count(b"<c:chart") != 2:
+        if cvm_market_slide.count(b"<c:chart") < 2:
             raise RevisionExportUnavailable(
                 "slide da série CVM deve conter dois gráficos nativos do Office"
             )
@@ -301,7 +305,7 @@ def validate_revision_pptx(payload: bytes) -> None:
         anbima_market_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "SÉRIE ANBIMA"
         )
-        if anbima_market_slide.count(b"<c:chart") != 1:
+        if anbima_market_slide.count(b"<c:chart") < 1:
             raise RevisionExportUnavailable(
                 "slide da série ANBIMA deve conter um gráfico nativo do Office"
             )

@@ -81,6 +81,24 @@ from services.industry_study import (
     save_cedente_structured,
 )
 
+
+@alt.theme.register("fidc_ptbr_numbers", enable=True)
+def _fidc_ptbr_numbers_theme() -> alt.theme.ThemeConfig:
+    """Keep Vega/Altair number rendering aligned with the pt-BR UI."""
+
+    return {
+        "config": {
+            "locale": {
+                "number": {
+                    "decimal": ",",
+                    "thousands": ".",
+                    "grouping": [3],
+                    "currency": ["R$ ", ""],
+                }
+            }
+        }
+    }
+
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
 INDUSTRY_VIEW_TABS = (
@@ -392,6 +410,20 @@ def _fmt_pct(value: float, digits: int = 1) -> str:
 
 def _fmt_int(value: float) -> str:
     return f"{int(round(value)):,}".replace(",", ".")
+
+
+def _fmt_number_ptbr(value: object, digits: int = 1, *, signed: bool = False) -> str:
+    number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
+    if pd.isna(number):
+        return "—"
+    pattern = f"{{:{'+' if signed else ''},.{digits}f}}"
+    return pattern.format(float(number)).replace(",", "@").replace(".", ",").replace("@", ".")
+
+
+def _ptbr_csv_bytes(frame: pd.DataFrame) -> bytes:
+    """Serialize a user-facing CSV with semicolon and decimal comma."""
+
+    return frame.to_csv(index=False, sep=";", decimal=",").encode("utf-8-sig")
 
 
 def _pct_label(value: float | None, digits: int = 1) -> str:
@@ -11819,7 +11851,7 @@ def _render_revision_card_breakdown(payload: dict[str, object]) -> None:
     )
     st.download_button(
         "Baixar curadoria em CSV",
-        data=visible.to_csv(index=False).encode("utf-8-sig"),
+        data=_ptbr_csv_bytes(visible),
         file_name="fidcs_cartao_credito_curadoria_202606.csv",
         mime="text/csv",
         key="industry-revision-card-taxonomy-download",
@@ -11829,6 +11861,45 @@ def _render_revision_card_breakdown(payload: dict[str, object]) -> None:
         "crédito a PF/PJ ou CCB permanece fora. Fonte principal: regulamento vigente no FundosNet. "
         "A categoria reportada na Tabela II continua preservada."
     )
+
+    anbima_review = _revision_frame(payload, "acquiring_anbima_review")
+    anbima_summary = dict(payload.get("acquiring_anbima_review_summary") or {})
+    if not anbima_review.empty:
+        st.markdown(
+            "<h3>Tipo e Foco ANBIMA dos fundos incluídos em Adquirência</h3>",
+            unsafe_allow_html=True,
+        )
+        review_display = anbima_review[
+            [
+                "denominacao",
+                "cnpj_fundo_formatado",
+                "tipo_anbima_atual",
+                "foco_anbima_atual",
+                "categoria_referencia_sugerida",
+                "base_alterada",
+            ]
+        ].rename(
+            columns={
+                "denominacao": "FIDC",
+                "cnpj_fundo_formatado": "CNPJ",
+                "tipo_anbima_atual": "Tipo ANBIMA atual",
+                "foco_anbima_atual": "Foco ANBIMA atual",
+                "categoria_referencia_sugerida": "Categoria sugerida",
+                "base_alterada": "Base alterada",
+            }
+        )
+        st.dataframe(review_display, hide_index=True, width="stretch", height=560)
+        st.download_button(
+            "Baixar revisão ANBIMA em CSV",
+            data=_ptbr_csv_bytes(anbima_review),
+            file_name="fidcs_adquirencia_revisao_anbima_202606.csv",
+            mime="text/csv",
+            key="industry-revision-acquiring-anbima-download",
+        )
+        st.caption(
+            f"Filtro literal: {anbima_summary.get('filtro_aplicado', 'Decisão = Incluído em Adquirência')}. "
+            f"{anbima_summary.get('limitacao_contagem', '')}. A sugestão reproduz o Tipo ANBIMA atual quando ele corresponde a uma das quatro categorias de referência; lacunas permanecem N/D. Nenhuma classificação foi alterada automaticamente."
+        )
 
 def _render_revision_investors(payload: dict[str, object]) -> None:
     stock_competence = str(payload.get("latest_complete") or "")
@@ -12313,12 +12384,12 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 st.dataframe(
                     display.style.format(
                         {
-                            "Tabela I (R$ bi)": "{:,.1f}",
-                            "Tabela II (R$ bi)": "{:,.1f}",
-                            "Gap II − I (R$ bi)": "{:,.1f}",
-                            "Fundos sem abertura": "{:,.0f}",
-                            "PL sem abertura (R$ bi)": "{:,.1f}",
-                            "Top 20 do gap positivo": "{:.1%}",
+                            "Tabela I (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
+                            "Tabela II (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
+                            "Gap II − I (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
+                            "Fundos sem abertura": lambda value: _fmt_number_ptbr(value, 0),
+                            "PL sem abertura (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
+                            "Top 20 do gap positivo": lambda value: _fmt_pct(float(value)),
                         }
                     ),
                     hide_index=True,
@@ -12418,9 +12489,9 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
             st.dataframe(
                 display.style.format(
                     {
-                        "Fundos": "{:,.0f}",
-                        "PL incluído (R$ bi)": "{:,.1f}",
-                        "Inadimplência / PL": "{:.2%}",
+                        "Fundos": lambda value: _fmt_number_ptbr(value, 0),
+                        "PL incluído (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
+                        "Inadimplência / PL": lambda value: _fmt_pct(float(value), 2),
                     }
                 ),
                 hide_index=True,
@@ -12437,6 +12508,74 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 f"{_fmt_int(single_summary.get('fundos_sem_tipo_excluidos', 0))} sem tipo "
                 f"({_fmt_bi(float(single_summary.get('pl_sem_tipo_excluido_brl', 0)), 1)}). "
                 "O numerador é a inadimplência reportada e o denominador é o PL total dos fundos incluídos."
+            )
+        dispersion = _revision_frame(payload, "delinquency_dispersion")
+        dispersion_summary = dict(payload.get("delinquency_dispersion_summary") or {})
+        if not dispersion.empty:
+            st.markdown(
+                "<h2>Dispersão da inadimplência entre fundos com reporte positivo</h2>",
+                unsafe_allow_html=True,
+            )
+            dispersion_display = dispersion[
+                [
+                    "tipo_recebivel_tabela_ii",
+                    "fundos_reportantes_inadimplencia",
+                    "inadimplencia_total_subcategoria_brl",
+                    "top1_inadimplencia_brl",
+                    "top1_share",
+                    "top3_inadimplencia_brl",
+                    "top3_share",
+                    "top5_inadimplencia_brl",
+                    "top5_share",
+                    "hhi",
+                    "gini",
+                    "leitura_concentracao",
+                ]
+            ].copy()
+            for column in (
+                "inadimplencia_total_subcategoria_brl",
+                "top1_inadimplencia_brl",
+                "top3_inadimplencia_brl",
+                "top5_inadimplencia_brl",
+            ):
+                dispersion_display[column] = pd.to_numeric(
+                    dispersion_display[column], errors="coerce"
+                ).map(lambda value: _fmt_bi(float(value), 2) if pd.notna(value) else "N/D")
+            for column in ("top1_share", "top3_share", "top5_share"):
+                dispersion_display[column] = pd.to_numeric(
+                    dispersion_display[column], errors="coerce"
+                ).map(lambda value: _fmt_pct(float(value)) if pd.notna(value) else "N/D")
+            for column in ("hhi", "gini"):
+                dispersion_display[column] = pd.to_numeric(
+                    dispersion_display[column], errors="coerce"
+                ).map(
+                    lambda value: f"{float(value):.3f}".replace(".", ",")
+                    if pd.notna(value)
+                    else "N/D"
+                )
+            dispersion_display = dispersion_display.rename(
+                columns={
+                    "tipo_recebivel_tabela_ii": "Subcategoria Tabela II",
+                    "fundos_reportantes_inadimplencia": "Fundos",
+                    "inadimplencia_total_subcategoria_brl": "Inadimplência",
+                    "top1_inadimplencia_brl": "Top 1 · R$",
+                    "top1_share": "Top 1 · %",
+                    "top3_inadimplencia_brl": "Top 3 · R$",
+                    "top3_share": "Top 3 · %",
+                    "top5_inadimplencia_brl": "Top 5 · R$",
+                    "top5_share": "Top 5 · %",
+                    "hhi": "HHI",
+                    "gini": "Gini",
+                    "leitura_concentracao": "Leitura",
+                }
+            )
+            st.dataframe(dispersion_display, hide_index=True, width="stretch")
+            st.caption(
+                f"Amostra positiva: {_fmt_int(dispersion_summary.get('fundos_reportantes_inadimplencia_positiva', 0))} fundos e "
+                f"{_fmt_bi(float(dispersion_summary.get('pl_reportantes_inadimplencia_positiva_brl', 0)), 1)}; "
+                f"universo ex-FIC com PL positivo: {_fmt_int(dispersion_summary.get('fundos_universo_ex_fic_pl_positivo', 0))} fundos e "
+                f"{_fmt_bi(float(dispersion_summary.get('pl_universo_ex_fic_positivo_brl', 0)), 1)}. "
+                "Zeros, ausências de reporte e inconsistências ficam fora da dispersão. HHI e Gini medem concentração do valor reportado e não causalidade."
             )
     with history_tab:
         frozen = _revision_frame(payload, "delinquency_frozen_cohort_history")
@@ -12493,8 +12632,8 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                                     ]
                                 ].style.format(
                                     {
-                                        "Fundos": "{:,.0f}",
-                                        "PL atual (R$ bi)": "{:,.1f}",
+                                        "Fundos": lambda value: _fmt_number_ptbr(value, 0),
+                                        "PL atual (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
                                     }
                                 ),
                                 hide_index=True,
@@ -12540,9 +12679,9 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                                     ]
                                 ].style.format(
                                     {
-                                        "Coorte anterior": "{:.2%}",
-                                        "Coorte atual": "{:.2%}",
-                                        "Δ (p.p.)": "{:+.2f}",
+                                        "Coorte anterior": lambda value: _fmt_pct(float(value), 2),
+                                        "Coorte atual": lambda value: _fmt_pct(float(value), 2),
+                                        "Δ (p.p.)": lambda value: _fmt_number_ptbr(value, 2, signed=True),
                                     }
                                 ),
                                 hide_index=True,
@@ -12666,9 +12805,9 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 st.dataframe(
                     display.style.format(
                         {
-                            "Fundos": "{:,.0f}",
-                            "PL incluído (R$ bi)": "{:,.1f}",
-                            "Inadimplência / carteira": "{:.2%}",
+                            "Fundos": lambda value: _fmt_number_ptbr(value, 0),
+                            "PL incluído (R$ bi)": lambda value: _fmt_number_ptbr(value, 1),
+                            "Inadimplência / carteira": lambda value: _fmt_pct(float(value), 2),
                         }
                     ),
                     hide_index=True,
@@ -13225,7 +13364,10 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             )
             st.altair_chart(chart, width="stretch", key="industry-revision-bank-fidc-history")
             pivot = groups.pivot(index="grupo_bancario", columns="Período", values="PL (R$ bi)").reindex(bank_order)
-            st.dataframe(pivot.style.format("{:,.1f}", na_rep="—"), width="stretch")
+            st.dataframe(
+                pivot.style.format(lambda value: _fmt_number_ptbr(value, 1), na_rep="—"),
+                width="stretch",
+            )
             bank_detail = _revision_frame(payload, "bank_fidc_detail")
             if not bank_detail.empty:
                 latest_detail = bank_detail[
@@ -13246,7 +13388,9 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     ].rename(columns={"denominacao": "FIDC"})
                     st.markdown(f"**BTG Pactual · cinco maiores FIDCs em {stock_label_lower}**")
                     st.dataframe(
-                        btg_table.style.format({"PL (R$ mm)": "{:,.0f}"}),
+                        btg_table.style.format(
+                            {"PL (R$ mm)": lambda value: _fmt_number_ptbr(value, 0)}
+                        ),
                         hide_index=True,
                         width="stretch",
                     )
@@ -14772,6 +14916,8 @@ def _render_revision_data_exports(
             "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
             "Histórico de inadimplência da coorte atual": "inadimplencia_coorte_atual_historico.csv",
+            "Dispersão da inadimplência por subcategoria": "inadimplencia_dispersao_subcategoria.csv",
+            "Resumo da amostra de dispersão": "inadimplencia_dispersao_resumo.csv",
             "Top 20 FIDCs": "top20_fidcs.csv",
             "Top 20 Outros": "top20_outros.csv",
             "Top 20 Outros · regulamentos": "../industry_top20_outros_regulation_review.csv",
@@ -14795,10 +14941,14 @@ def _render_revision_data_exports(
                     ".json": "application/json",
                     ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 }.get(path.suffix, "text/csv")
+                data = path.read_bytes()
+                download_name = path.name
+                if path.suffix == ".csv":
+                    data = _ptbr_csv_bytes(pd.read_csv(path, low_memory=False))
                 st.download_button(
                     label,
-                    path.read_bytes(),
-                    file_name=path.name,
+                    data,
+                    file_name=download_name,
                     mime=mime,
                     key=f"industry-revision-download-{path.name}",
                     width="stretch",
