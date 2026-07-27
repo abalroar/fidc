@@ -272,6 +272,46 @@ def _fixed_income_offer_comparison_fixture() -> list[dict[str, object]]:
     return rows
 
 
+def _market_offer_reconciliation_fixture() -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    for period_order, period in enumerate(
+        ("2023 FY", "2024 FY", "2025 FY", "2026 jan-mai"),
+        start=1,
+    ):
+        for instrument_order, instrument in enumerate(
+            ("Debêntures", "FIDCs", "CRI", "Notas comerciais", "CRA"),
+            start=1,
+        ):
+            rows.append(
+                {
+                    "period_order": period_order,
+                    "period_label": period,
+                    "instrument_order": instrument_order,
+                    "instrument_label": instrument,
+                    "cvm_registered_volume_brl": 1.0,
+                    "cvm_harmonization_volume_brl": 0.5 if instrument == "Debêntures" else 0.0,
+                    "cvm_harmonized_volume_brl": 1.5 if instrument == "Debêntures" else 1.0,
+                    "anbima_closed_volume_brl": 1.0,
+                    "raw_gap_brl": 0.0,
+                    "raw_gap_pct": 0.0,
+                    "harmonized_gap_brl": 0.5 if instrument == "Debêntures" else 0.0,
+                    "harmonized_gap_pct": 0.5 if instrument == "Debêntures" else 0.0,
+                    "primary_explanation": "Reconciliação por instrumento.",
+                    "cvm_source_url": "https://dados.cvm.gov.br/",
+                    "cvm_source_as_of_date": "2026-07-24",
+                    "cvm_metric": "Valor registrado",
+                    "cvm_scope": "Ofertas públicas primárias encerradas.",
+                    "anbima_source_url": "https://data.anbima.com.br/",
+                    "anbima_source_snapshot": "mai/26",
+                    "anbima_source_sheet": "02-02-Vlr",
+                    "anbima_metric": "Valor Encerrado",
+                    "anbima_scope": "Ofertas públicas encerradas.",
+                    "limitation": "Série sujeita a retificações.",
+                }
+            )
+    return rows
+
+
 def _closed_offer_placement_regime_fixture() -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for period_order, period in enumerate(
@@ -593,6 +633,9 @@ def _payload() -> dict[str, object]:
         "fixed_income_offer_comparison": (
             _fixed_income_offer_comparison_fixture()
         ),
+        "market_offer_reconciliation": (
+            _market_offer_reconciliation_fixture()
+        ),
         "bcb_expanded_credit": [
             {
                 "competencia": "2026-05",
@@ -838,6 +881,7 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "closed_offer_top15",
         "closed_offer_top15_summary",
         "fixed_income_offer_comparison",
+        "market_offer_reconciliation",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
         "provider_history_cvm_detail",
@@ -974,7 +1018,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 56
+    assert first["checks"]["slides"] == 57
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

@@ -74,6 +74,8 @@ REQUIRED_DATA_INPUTS = (
     "industry_closed_offer_ticket_cohort.csv.gz",
     "industry_closed_offer_placement_regime.csv",
     "industry_fixed_income_offer_comparison.csv",
+    "industry_anbima_market_offers.csv",
+    "industry_market_offer_reconciliation.csv",
     "industry_bcb_expanded_credit.csv",
     "industry_offer_document_curation.csv",
     "industry_offer_rating_review.csv",
@@ -103,6 +105,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_closed_offers.py",
     ROOT / "scripts" / "build_fidc_closed_offer_placement_regime.py",
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
+    ROOT / "scripts" / "build_fidc_market_offer_reconciliation.py",
     ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
     ROOT / "scripts" / "build_fidc_offer_document_curation.py",
     ROOT / "scripts" / "build_fidc_offer_rating_review.py",
@@ -122,6 +125,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_closed_offer_rankings.py",
     ROOT / "services" / "industry_closed_offer_placement_regime.py",
     ROOT / "services" / "industry_fixed_income_offer_comparison.py",
+    ROOT / "services" / "industry_market_offer_reconciliation.py",
     ROOT / "services" / "industry_public_offers.py",
     ROOT / "services" / "industry_bcb_expanded_credit.py",
     ROOT / "services" / "industry_offer_document_curation.py",
@@ -979,6 +983,56 @@ def _validate_closed_offer_placement_regime(
             )
 
 
+def _validate_market_offer_reconciliation(
+    payload: Mapping[str, object],
+) -> None:
+    rows = payload.get("market_offer_reconciliation")
+    if not isinstance(rows, list) or len(rows) != 20:
+        raise RevisionBundlePublishError(
+            "market_offer_reconciliation deve conter 20 linhas"
+        )
+    expected_periods = (
+        "2023 FY",
+        "2024 FY",
+        "2025 FY",
+        "2026 jan-mai",
+    )
+    expected_instruments = (
+        "Debêntures",
+        "FIDCs",
+        "CRI",
+        "Notas comerciais",
+        "CRA",
+    )
+    for period_label in expected_periods:
+        period = [
+            row
+            for row in rows
+            if isinstance(row, Mapping)
+            and row.get("period_label") == period_label
+        ]
+        period.sort(key=lambda row: int(row.get("instrument_order") or 0))
+        if tuple(row.get("instrument_label") for row in period) != expected_instruments:
+            raise RevisionBundlePublishError(
+                f"reconciliação de mercado incompleta em {period_label}"
+            )
+        for row in period:
+            cvm = _finite_payload_number(
+                row.get("cvm_registered_volume_brl"),
+                "market_offer_reconciliation.cvm_registered_volume_brl",
+            )
+            bridge = _finite_payload_number(
+                row.get("cvm_harmonization_volume_brl"),
+                "market_offer_reconciliation.cvm_harmonization_volume_brl",
+            )
+            harmonized = _finite_payload_number(
+                row.get("cvm_harmonized_volume_brl"),
+                "market_offer_reconciliation.cvm_harmonized_volume_brl",
+            )
+            if abs(harmonized - cvm - bridge) > max(1.0, abs(harmonized) * 1e-10):
+                raise RevisionBundlePublishError(
+                    f"harmonização CVM não reconcilia em {period_label}"
+                )
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
@@ -1063,6 +1117,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "closed_offer_top15_summary",
         "top20_outros_regulation_review",
         "fixed_income_offer_comparison",
+        "market_offer_reconciliation",
         "bcb_expanded_credit",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
@@ -1335,6 +1390,21 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "scope",
             "excluded_instruments",
         },
+        "market_offer_reconciliation": {
+            "period_label",
+            "instrument_label",
+            "cvm_registered_volume_brl",
+            "cvm_harmonization_volume_brl",
+            "cvm_harmonized_volume_brl",
+            "anbima_closed_volume_brl",
+            "raw_gap_pct",
+            "harmonized_gap_pct",
+            "primary_explanation",
+            "cvm_source_url",
+            "anbima_source_url",
+            "anbima_source_snapshot",
+            "limitation",
+        },
         "bcb_expanded_credit": {
             "competencia",
             "period_label",
@@ -1483,6 +1553,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
     _validate_closed_offer_originator_order(payload)
     _validate_closed_offer_top15(payload)
     _validate_fixed_income_offer_comparison(payload)
+    _validate_market_offer_reconciliation(payload)
     _validate_closed_offer_placement_regime(payload)
     conclusion_metrics = payload["conclusion_metrics"]
     required_btg_metrics = {

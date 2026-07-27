@@ -125,6 +125,8 @@ _INDUSTRY_EXPORT_INPUTS = (
     "industry_closed_offers_monthly.csv",
     "industry_closed_offer_originators_2026.csv",
     "industry_fixed_income_offer_comparison.csv",
+    "industry_anbima_market_offers.csv",
+    "industry_market_offer_reconciliation.csv",
     "industry_competitive_position.csv",
     "industry_offer_rankings.csv.gz",
     "industry_stock_ranking_deltas.csv.gz",
@@ -9259,7 +9261,7 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             }
         )
     if schema_version >= 7:
-        required.add("bcb_expanded_credit")
+        required.update({"bcb_expanded_credit", "market_offer_reconciliation"})
     missing = sorted(required.difference(payload))
     comparable_offer_key = next(
         (
@@ -9524,6 +9526,21 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             "source_bcb",
             "source_cvm",
             "methodology",
+        }
+        required_columns["market_offer_reconciliation"] = {
+            "period_label",
+            "instrument_label",
+            "cvm_registered_volume_brl",
+            "cvm_harmonization_volume_brl",
+            "cvm_harmonized_volume_brl",
+            "anbima_closed_volume_brl",
+            "raw_gap_pct",
+            "harmonized_gap_pct",
+            "primary_explanation",
+            "cvm_source_url",
+            "anbima_source_url",
+            "anbima_source_snapshot",
+            "limitation",
         }
     for key, columns in required_columns.items():
         rows = payload.get(key)

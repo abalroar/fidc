@@ -31,7 +31,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 56
+EXPECTED_SLIDES = 57
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -287,19 +287,30 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
             )
-        fixed_income_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "VALIDAÇÃO PÚBLICA"
+        cvm_market_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "SÉRIE CVM"
         )
-        if fixed_income_slide.count(b"<c:chart") != 2:
+        if cvm_market_slide.count(b"<c:chart") != 2:
             raise RevisionExportUnavailable(
-                "slide de renda fixa deve conter dois gráficos nativos do Office"
+                "slide da série CVM deve conter dois gráficos nativos do Office"
             )
-        if fixed_income_slide.count(b"<a:tbl>") != 1:
+        if cvm_market_slide.count(b"<a:tbl>") != 0:
             raise RevisionExportUnavailable(
-                "slide de renda fixa deve conter uma tabela nativa do Office"
+                "slide da série CVM não deve conter tabela nativa"
+            )
+        anbima_market_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "SÉRIE ANBIMA"
+        )
+        if anbima_market_slide.count(b"<c:chart") != 1:
+            raise RevisionExportUnavailable(
+                "slide da série ANBIMA deve conter um gráfico nativo do Office"
+            )
+        if anbima_market_slide.count(b"<a:tbl>") != 0:
+            raise RevisionExportUnavailable(
+                "slide da série ANBIMA não deve conter tabela nativa"
             )
         top15_offers_slide = _slide_xml_containing(
-            archive, "TOP 15", "OFERTAS ENCERRADAS"
+            archive, "TOP 15", "IBBA PARTICIPOU", "JAN–JUN/26"
         )
         if top15_offers_slide.count(b"<a:tbl>") != 2:
             raise RevisionExportUnavailable(

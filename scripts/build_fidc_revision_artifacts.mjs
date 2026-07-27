@@ -81,8 +81,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v19";
-const EXPECTED_SLIDES = 56;
+const RENDERER_VERSION = "industry_revision_artifacts_v20";
+const EXPECTED_SLIDES = 57;
 
 const C = {
   orange: "#EC7000",
@@ -371,6 +371,16 @@ function addHeader(slide, eyebrow, title, source, _page) {
     { left: 1170, top: 673, width: 50, height: 18 },
     { fontSize: 10.5, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
+}
+
+function addSourceNotes(slide, sources) {
+  const lines = Array.isArray(sources) ? sources.filter(Boolean) : [String(sources || "")];
+  slide.speakerNotes.textFrame.setText([
+    "[Sources]",
+    ...lines.map((source) => `- ${source}`),
+    "[/Sources]",
+  ].join("\n"));
+  slide.speakerNotes.setVisible(true);
 }
 
 function addSectionLabel(slide, text, position) {
@@ -2225,7 +2235,7 @@ function addConclusionsSlide(presentation, payload, page) {
     "Fontes: CVM, ANBIMA e BCB; coorte bancária curada a partir dos conglomerados prudenciais.",
     `PF: proxy com ${pct(currentOffer.placed_quantity_registered_volume_coverage, 1)} de cobertura; contas não equivalem a investidores únicos.`,
     "Verticalização inclui FIC-FIDC; Top 10 ex-Petrobras/TAPSO.",
-    `BTG: ${integer(metrics.btg_bank_cohort_observed_funds)}/${integer(metrics.btg_bank_cohort_listed_roots)} raízes observadas; ofertas até 30/jun/26.`,
+    `BTG: ${integer(metrics.btg_bank_cohort_observed_funds)}/${integer(metrics.btg_bank_cohort_listed_roots)} raízes observadas; ofertas CVM até 30/jun/26 e ANBIMA até 31/mai/26.`,
   ].join(" ");
   addHeader(
     slide,
@@ -2252,6 +2262,11 @@ function addConclusionsSlide(presentation, payload, page) {
     });
     addRule(slide, left, top + 117, 540, C.line, 0.7);
   });
+  addSourceNotes(slide, [
+    "CVM/SRE — análises granulares de ofertas públicas primárias encerradas, todos os ritos disponíveis, volume registrado; 2026 = jan–jun: https://dados.cvm.gov.br/dataset/oferta-distrib",
+    "ANBIMA Data — comparativo de mercado por valor encerrado, snapshot mai/26; 2026 = jan–mai: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
+    "FundosNet/B3 — evidência documental de ratings; rating sem documento público verificável ou sem vínculo exato = N/D.",
+  ]);
   return slide;
 }
 
@@ -2300,7 +2315,7 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
     slide,
     "TOP 15 · HISTÓRICO",
     `${display(leftPeriod)} e ${display(rightPeriod)} com agência e rating em colunas separadas`,
-    "Fonte: CVM/SRE e FundosNet. Detalhes no export.",
+    "Fonte: CVM/SRE, dois arquivos de ofertas, e FundosNet. Primárias encerradas, todos os ritos; volume registrado.",
     slideNumber,
   );
   [
@@ -2334,6 +2349,12 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
     { left: 60, top: 641, width: 1160, height: 22 },
     { fontSize: 8.1, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
+  addSourceNotes(slide, [
+    "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+    "FundosNet/B3 — documento público de rating mais recente conciliado com a oferta, emissão, série ou subclasse.",
+    "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; snapshot CVM 24/jul/26.",
+    "Limitação: rating sem documento público verificável ou sem vínculo exato = N/D.",
+  ]);
 }
 
 function addPartial2022Top15Slide(presentation, payload, slideNumber) {
@@ -2346,7 +2367,7 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
     slide,
     "TOP 15 · 2022 PARCIAL",
     `A base pública recuperada contém ${integer(rows.length)} ofertas legadas; o período não forma um Top 15 completo`,
-    "Fonte: CVM/SRE e FundosNet. Registros legados encerrados em 2022 disponíveis no arquivo público consultado; cobertura parcial.",
+    "Fonte: CVM/SRE, base de distribuição dos ritos ordinário e legado, e FundosNet. Registros encerrados em 2022; cobertura parcial.",
     slideNumber,
   );
   addEditorialTable(slide, {
@@ -2374,6 +2395,11 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
     { left: 60, top: 590, width: 1160, height: 32 },
     { fontSize: 10, color: C.note, alignment: "center" },
   );
+  addSourceNotes(slide, [
+    "CVM/SRE — oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+    "FundosNet/B3 — documento público de rating mais recente conciliado com a oferta, emissão, série ou subclasse.",
+    "Limitação: a base pública recuperada contém sete ofertas legadas encerradas em 2022; o período é parcial e não sustenta Top 15 anual completo.",
+  ]);
 }
 
 function buildPresentation(payload, flowAssets) {
@@ -2442,7 +2468,7 @@ function buildPresentation(payload, flowAssets) {
       fontSize: 16,
       color: C.white,
     });
-    addText(slide, `Ofertas encerradas até ${offersLong}`, { left: 60, top: 589, width: 520, height: 28 }, {
+    addText(slide, "Ofertas CVM até 30 de junho de 2026; comparativo ANBIMA até 31 de maio", { left: 60, top: 589, width: 720, height: 28 }, {
       fontSize: 16,
       color: C.light,
     });
@@ -2451,6 +2477,10 @@ function buildPresentation(payload, flowAssets) {
       bold: true,
       color: C.orange,
     });
+    addSourceNotes(slide, [
+      "CVM/SRE — Ofertas Públicas de Distribuição: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "ANBIMA Data — Boletim de Mercado de Capitais, snapshot mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
+    ]);
   }
 
   // 2. Grandes números
@@ -2460,7 +2490,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "GRANDES NÚMEROS",
       `${bn(latestHistory.pl_ex_fic, 0)} ex-FIC; a concentração aparece em fundos, prestadores e ajustes de qualidade`,
-      `Fonte: CVM, ANBIMA e FundosNet; ${stockShortLower}, salvo ofertas até ${offersShort}.`,
+      `Fonte: CVM, ANBIMA e FundosNet; ${stockShortLower}. Ofertas CVM até jun/26; ANBIMA até mai/26.`,
       2,
     );
     const qa = payload.qa_latest;
@@ -2506,6 +2536,12 @@ function buildPresentation(payload, flowAssets) {
       });
       if (index < summary.length - 1) addRule(slide, 68, y + 104, 1084, C.line, 0.75);
     });
+    addSourceNotes(slide, [
+      "CVM — Informe Mensal de FIDC e cadastro de fundos para PL, cotistas e prestadores.",
+      "CVM/SRE — ofertas granulares até jun/26: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "ANBIMA Data — comparativo de mercado por valor encerrado até mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
+      "FundosNet/B3 — documentos públicos usados nas análises documentais.",
+    ]);
   }
 
   // 3. Evolução do PL
@@ -2707,18 +2743,6 @@ function buildPresentation(payload, flowAssets) {
   {
     const slide = presentation.slides.add();
     const comparison = payload.fixed_income_offer_comparison || [];
-    const validation = payload.offer_public_validation || [];
-    const offerHistory = Object.fromEntries(
-      (payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]),
-    );
-    const offers2023 = offerHistory["2023 FY"] || {};
-    const offers2024 = offerHistory["2024 FY"] || {};
-    const growth2024 = num(offers2023.period_registered_volume_brl)
-      ? num(offers2024.period_registered_volume_brl) / num(offers2023.period_registered_volume_brl) - 1
-      : null;
-    const automaticGrowth2024 = num(offers2023.automatic_rite_registered_volume_brl)
-      ? num(offers2024.automatic_rite_registered_volume_brl) / num(offers2023.automatic_rite_registered_volume_brl) - 1
-      : null;
     const periodOrder = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"];
     const seriesValues = (view, label) =>
       periodOrder.map((period) =>
@@ -2748,9 +2772,9 @@ function buildPresentation(payload, flowAssets) {
     const viewB = "FIDCs vs instrumentos materiais de 2025";
     addHeader(
       slide,
-      "OFERTAS ENCERRADAS · VALIDAÇÃO PÚBLICA",
-      "A série interna CVM/SRE e o total publicado pela ANBIMA têm diferenças materiais em todos os anos comparáveis",
-      "Fontes: CVM/SRE, consulta em 24/jul/26; ANBIMA, Boletim de Mercado de Capitais e apresentação anual, referências indicadas no export.",
+      "OFERTAS ENCERRADAS · SÉRIE CVM",
+      "A série CVM preserva o volume registrado e a granularidade por oferta",
+      "Fonte: CVM/SRE, bases do rito automático e de distribuição, snapshot 24/jul/26. 2026 = jan–jun.",
       4,
     );
     addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
@@ -2761,7 +2785,7 @@ function buildPresentation(payload, flowAssets) {
     });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 166, width: 555, height: 290 }),
-      categories: ["2023FY", "2024FY", "2025FY", "2026 1S"],
+      categories: ["2023FY", "2024FY", "2025FY", "2026 jan–jun"],
       series: [
         {
           name: "FIDCs",
@@ -2811,7 +2835,7 @@ function buildPresentation(payload, flowAssets) {
     ];
     slide.charts.add("bar", {
       ...chartBase({ left: 665, top: 166, width: 555, height: 290 }),
-      categories: ["2023FY", "2024FY", "2025FY", "2026 1S"],
+      categories: ["2023FY", "2024FY", "2025FY", "2026 jan–jun"],
       series: materialSeries.map(([label, color]) => ({
         name: label,
         values: seriesValues(viewB, label),
@@ -2838,46 +2862,142 @@ function buildPresentation(payload, flowAssets) {
         textStyle: { fill: C.black, fontSize: 8.5, bold: true },
       },
     });
-    addEditorialTable(slide, {
-      left: 60,
-      top: 478,
-      width: 1160,
-      height: 142,
-      headers: ["Período", "Interno CVM", "Comparável", "ANBIMA", "Diferença", "Conclusão"],
-      rows: validation.map((row) => [
-        row.period_label === "2026 jan-jun" ? "1S26" : row.period_label.replace(" FY", "FY"),
-        bn(row.internal_headline_volume_brl, 1),
-        `${bn(row.internal_comparable_volume_brl, 1)} · ${row.internal_comparable_period}`,
-        `${bn(row.official_volume_brl, 1)} · ${row.official_period}`,
-        `${num(row.gap_brl) >= 0 ? "+" : ""}${bn(row.gap_brl, 1).replace("R$ ", "")}`,
-        row.validation_status,
-      ]),
-      columnWidths: [105, 155, 235, 235, 150, 280],
-      aligns: ["left", "right", "right", "right", "right", "left"],
-      fontSize: 8.4,
-      headerFontSize: 8.2,
-      rowHighlights: new Set(),
+    const methodology = [
+      ["MÉTRICA", "Valor total registrado, informado à CVM."],
+      ["UNIVERSO", "Ofertas públicas primárias encerradas; rito automático da RCVM 160, ordinário e regimes legados disponíveis."],
+      ["CORTE E LIMITAÇÃO", "Data de encerramento no período; volume positivo. O valor registrado pode diferir do valor encerrado e a taxonomia declarada mantém Outros títulos de securitização separado."],
+    ];
+    methodology.forEach(([label, text], index) => {
+      const left = 60 + index * 395;
+      addSectionLabel(slide, label, { left, top: 490, width: 365, height: 20 });
+      addText(slide, text, { left, top: 521, width: 365, height: 92 }, {
+        fontSize: 10.2,
+        color: C.charcoal,
+        verticalAlignment: "top",
+      });
+      if (index < methodology.length - 1) addRule(slide, left + 380, 488, 1, C.line, 128);
     });
-    // Mantém a tabela Office exigida pelo contrato de exportação. O renderer
-    // nativo expande linhas com auto-fit e prejudica a legibilidade desta
-    // matriz densa; a versão editorial visível acima preserva o mesmo conteúdo.
-    addNativeEditorialTable(slide, {
-      left: 1300,
-      top: 700,
-      width: 10,
-      height: 44,
-      headers: ["Tabela"],
-      rows: [["Validação ANBIMA"]],
-      columnWidths: [10],
-      fontSize: 1,
-      headerFontSize: 1,
+    addText(slide, "* Perímetro aplicado aos slides granulares de emissões, inclusive público-alvo, tickets, regime de colocação e Top 15.", { left: 60, top: 635, width: 1160, height: 18 }, {
+      fontSize: 8.7,
+      color: C.note,
+      alignment: "right",
+    });
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "Metodologia: ofertas públicas primárias, status Oferta Encerrada, data de encerramento no período e Valor_Total_Registrado positivo; snapshot 24/jul/26.",
+      "Limitação: volume registrado pode diferir do valor efetivamente encerrado; taxonomia CVM declarada preservada.",
+    ]);
+  }
+
+  // 4B. Ofertas encerradas: série ampla de mercado ANBIMA.
+  {
+    const slide = presentation.slides.add();
+    const reconciliation = payload.market_offer_reconciliation || [];
+    const periodOrder = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-mai"];
+    const instruments = [
+      ["Debêntures", C.black],
+      ["FIDCs", C.orange],
+      ["CRI", C.mid],
+      ["Notas comerciais", C.note],
+      ["CRA", C.line],
+    ];
+    const rowFor = (period, instrument) => reconciliation.find(
+      (row) => row.period_label === period && row.instrument_label === instrument,
+    ) || {};
+    const value = (period, instrument, field) => num(rowFor(period, instrument)[field]);
+    const deb2025 = rowFor("2025 FY", "Debêntures");
+    const deb2026 = rowFor("2026 jan-mai", "Debêntures");
+    const fidc2025 = rowFor("2025 FY", "FIDCs");
+    const cri2025 = rowFor("2025 FY", "CRI");
+    const cri2026 = rowFor("2026 jan-mai", "CRI");
+    const note2026 = rowFor("2026 jan-mai", "Notas comerciais");
+    const cra2023 = rowFor("2023 FY", "CRA");
+    addHeader(
+      slide,
+      "OFERTAS ENCERRADAS · SÉRIE ANBIMA",
+      "O valor encerrado oferece a referência comparável do mercado por instrumento",
+      "Fonte: ANBIMA Data, Boletim de Mercado de Capitais, snapshot mai/26. Valor encerrado; 2026 = jan–mai.",
+      5,
+    );
+    addSectionLabel(slide, "VALOR ENCERRADO POR INSTRUMENTO · R$ BI", {
+      left: 60,
+      top: 136,
+      width: 630,
+      height: 24,
+    });
+    slide.charts.add("bar", {
+      ...chartBase({ left: 60, top: 174, width: 630, height: 410 }),
+      categories: ["2023FY", "2024FY", "2025FY", "2026 jan–mai"],
+      series: instruments.map(([instrument, color]) => ({
+        name: instrument,
+        values: periodOrder.map((period) => value(period, instrument, "anbima_closed_volume_brl") / 1e9),
+        valuesFormatCode: "0.0",
+        fill: color,
+      })),
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 34 },
+      hasLegend: true,
+      legend: {
+        position: "bottom",
+        overlay: false,
+        textStyle: { fill: C.mid, fontSize: 9.2 },
+      },
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 9.5 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: { ...chartAxis(8.5, "0"), min: 0 },
+      dataLabels: {
+        showValue: true,
+        position: "outEnd",
+        textStyle: { fill: C.black, fontSize: 7.2, bold: true },
+      },
+    });
+    const findings = [
+      [
+        "DEBÊNTURES · PONTE TAXONÔMICA",
+        `2025: CVM ${bn(deb2025.cvm_registered_volume_brl, 1)} + ${bn(deb2025.cvm_harmonization_volume_brl, 1)} em Outros títulos de securitização = ${bn(deb2025.cvm_harmonized_volume_brl, 1)}, ante ${bn(deb2025.anbima_closed_volume_brl, 1)} na ANBIMA. Jan–mai/26: ${bn(deb2026.cvm_harmonized_volume_brl, 1)} ante ${bn(deb2026.anbima_closed_volume_brl, 1)}.`,
+      ],
+      [
+        "FIDCs · MÉTRICA E COBERTURA",
+        `Em 2025, a CVM registra ${bn(fidc2025.cvm_registered_volume_brl, 1)} e a ANBIMA encerra ${bn(fidc2025.anbima_closed_volume_brl, 1)}. A diferença combina valor registrado versus encerrado, cobertura e presença de ofertas secundárias na ANBIMA; a causa individual exige reconciliação por oferta.`,
+      ],
+      [
+        "CRI E NOTAS COMERCIAIS",
+        `CRI: CVM ${pct(cri2025.raw_gap_pct, 1)} em 2025 e ${pct(cri2026.raw_gap_pct, 1)} em jan–mai/26 versus ANBIMA. Notas comerciais: ${pct(note2026.raw_gap_pct, 1)} em jan–mai/26. O residual pode refletir métrica, rito, retificações e data do snapshot.`,
+      ],
+      [
+        "CRA · PONTO PENDENTE",
+        `A CVM ficou ${pct(cra2023.raw_gap_pct, 1)} acima da ANBIMA em 2023. De 2024 a jan–mai/26, o desvio ficou em até 2,7%. A causa de 2023 permanece sem comprovação oferta a oferta.`,
+      ],
+    ];
+    findings.forEach(([label, text], index) => {
+      const top = 136 + index * 123;
+      addText(slide, label, { left: 730, top, width: 490, height: 18 }, {
+        fontSize: 9.5,
+        bold: true,
+        color: index === 0 ? C.orange : C.charcoal,
+      });
+      addText(slide, text, { left: 730, top: top + 25, width: 490, height: 76 }, {
+        fontSize: 9.3,
+        color: C.charcoal,
+        lineSpacing: 1.02,
+      });
+      if (index < findings.length - 1) addRule(slide, 730, top + 110, 490, C.line, 0.8);
     });
     addText(
       slide,
-      "Tratamento: preservar a série interna para análise do SRE/CVM e usar o total ANBIMA na comunicação pública do volume de mercado. A diferença pode refletir classificação, deduplicação e tratamento editorial; as referências públicas consultadas não trazem reconciliação oferta a oferta. Para 2026, o último comparável ANBIMA localizado é jan–mai.",
-      { left: 60, top: 628, width: 1160, height: 18 },
-      { fontSize: 8.8, color: C.note, alignment: "left" },
+      "* Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente ofertas primárias e secundárias para renda fixa e fundos. Série sujeita a retificações.",
+      { left: 60, top: 626, width: 1160, height: 28 },
+      { fontSize: 8.6, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
+    addSourceNotes(slide, [
+      "ANBIMA Data — Boletim de Mercado de Capitais, snapshot mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
+      "Anexo oficial XLSX, aba 02-02-Vlr e Anexo - Doméstico: https://data-strapi.prd.anbima.com.br/uploads/Boletim_MK_Anexo_8_33b8963678.xlsx",
+      "Métrica: Valor Encerrado por data de encerramento das ofertas públicas; 2026 considera jan–mai. Debêntures incluem debêntures de securitização.",
+      "Limitação: o anexo não segrega sistematicamente ofertas primárias e secundárias para renda fixa e fundos e está sujeito a retificações.",
+    ]);
   }
 
   // 5. Base investidora
@@ -2894,7 +3014,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "BASE INVESTIDORA",
       `Entre 92,8% e 96,8% do volume anual foi destinado ao público profissional; a classificação mede elegibilidade, não alocação final`,
-      "Fonte: CVM/SRE, Público-alvo; 24/jul/26. Definições: Resolução CVM 30. Detalhes e limitações no export.",
+      "Fonte: CVM/SRE, dois arquivos de ofertas; 24/jul/26. Primárias encerradas, todos os ritos. Definições: RCVM 30.",
       4,
     );
     addSectionLabel(slide, "CONTAS DE COTISTAS", { left: 60, top: 140, width: 690, height: 24 });
@@ -2917,7 +3037,7 @@ function buildPresentation(payload, flowAssets) {
     addSectionLabel(slide, "% DO VOLUME EMITIDO POR PÚBLICO-ALVO CVM", { left: 60, top: 382, width: 690, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 417, width: 690, height: 190 }),
-      categories: ["2023FY", "2024FY", "2025FY", "1S26"],
+      categories: ["2023FY", "2024FY", "2025FY", "Jan–jun/26"],
       series: [
         {
           name: "Profissional",
@@ -2972,10 +3092,16 @@ function buildPresentation(payload, flowAssets) {
     });
     addText(
       slide,
-      `A emissão é majoritariamente elegível a investidores profissionais, padrão compatível com demanda institucional/gestoras. A base de público-alvo não separa pessoa física de pessoa jurídica; Público Geral foi 0,0% em 2024 e 0,5% no 1S26. N/D: 1,1% em 2023 e 0,5% em 2025.`,
+      `A emissão é majoritariamente elegível a investidores profissionais, padrão compatível com demanda institucional/gestoras. A base de público-alvo não separa pessoa física de pessoa jurídica; Público Geral foi 0,0% em 2024 e 0,5% em jan–jun/26. N/D: 1,1% em 2023 e 0,5% em 2025.`,
       { left: 795, top: 535, width: 425, height: 70 },
       { fontSize: 10.2, color: C.note },
     );
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "Resolução CVM 30 — categorias de investidor profissional e qualificado: https://conteudo.cvm.gov.br/legislacao/resolucoes/resolucao030.html",
+      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado positivo e data de encerramento no período; 2026 = jan–jun.",
+      "Limitação: público-alvo mede elegibilidade e não alocação final; não separa pessoa física de pessoa jurídica. Campo ausente em registros legados = N/D.",
+    ]);
   }
 
   // 5. Distribuição por cotistas
@@ -3893,7 +4019,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · VOLUME E TICKET",
       `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre 2025`,
-      `Fonte: CVM, SRE — Ofertas Públicas de Distribuição (consulta ${dateShortPt(payload.offers_source_as_of || offersAsOf)}). Cotas de FIDC; ofertas primárias encerradas, todos os ritos, volume registrado > 0.`,
+      `Fonte: CVM/SRE, dois arquivos de ofertas, snapshot ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. Primárias encerradas, todos os ritos; volume registrado.`,
       27,
     );
     addSectionLabel(slide, "VOLUME REGISTRADO E TICKET · FY / YTD", { left: 60, top: 145, width: 550, height: 24 });
@@ -3985,6 +4111,12 @@ function buildPresentation(payload, flowAssets) {
       { left: 60, top: 626, width: 1160, height: 30 },
       { fontSize: 10.2, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado positivo e data de encerramento no período; 2026 = jan–jun.",
+      "Métrica: volume = Valor_Total_Registrado; ticket = volume registrado por oferta deduplicada. PF usa quantidade colocada e depende da cobertura do campo.",
+      "Limitação: valor registrado pode diferir do valor encerrado informado à ANBIMA.",
+    ]);
   }
 
   // 29. Distribuição do ticket.
@@ -4007,7 +4139,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
       `${integer(over500.closed_offers)} ofertas ≥ R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume em jan–jun/26`,
-      "Fonte: CVM; mesma coorte do slide anterior. 2024/2025 = ano completo; 2026 = jan–jun.",
+      "Fonte: CVM/SRE, dois arquivos de ofertas; mesma coorte primária encerrada do slide anterior. 2026 = jan–jun.",
       28,
     );
 
@@ -4094,6 +4226,11 @@ function buildPresentation(payload, flowAssets) {
       );
       if (index < 2) addRule(slide, left + 375, 610, 1, C.line, 1);
     });
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; 2024/2025 = FY e 2026 = jan–jun.",
+      "Limitação: faixas e participações usam o valor registrado, que pode diferir do valor encerrado informado à ANBIMA.",
+    ]);
   }
 
   // 30. Evolução do número, volume e regime de colocação.
@@ -4135,7 +4272,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "OFERTAS · VOLUME E REGIME",
       `Melhores esforços concentram ${pct(currentBestEfforts.closed_offers_share, 0)} das ofertas e ${pct(currentBestEfforts.registered_volume_share, 0)} do volume em jan–jun/26`,
-      "Fonte: CVM, SRE — Ofertas Públicas de Distribuição (consulta 24/jul/26). Regime conforme informado; ritos sem abertura = Não informado.",
+      "Fonte: CVM/SRE, dois arquivos de ofertas, snapshot 24/jul/26. Regime declarado; campo ausente = Não informado.",
       30,
     );
 
@@ -4295,6 +4432,12 @@ function buildPresentation(payload, flowAssets) {
       formatCode: "0.0,,,",
       xAxisFormat: "0.0,,,",
     });
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; 2026 = jan–jun.",
+      "Métrica: regime de colocação conforme declarado na oferta; campo ausente nos arquivos consultados = Não informado.",
+      "Limitação: volume registrado pode diferir do valor encerrado informado à ANBIMA.",
+    ]);
   }
 
   // 31. Top 15 ofertas encerradas e originadores.
@@ -4316,6 +4459,7 @@ function buildPresentation(payload, flowAssets) {
       Profissional: "Prof.",
       Qualificado: "Qualif.",
       Geral: "Geral",
+      "Público Geral": "Geral",
     }[value] || "N/D");
     const agencyLabel = (value) => ({
       "S&P Global Ratings": "S&P",
@@ -4346,7 +4490,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "TOP 15 · OFERTAS ENCERRADAS",
       `IBBA participou de ${integer(summary2026.ibba_participation_offers_top15)} das 15 maiores em jan–jun/26; liderou ${integer(summary2026.ibba_lead_offers_top15)}`,
-      "Fonte: CVM/SRE e FundosNet; ratings conciliados por oferta, emissão, série ou subclasse. Ausência de vínculo documental = N/D.",
+      "Fonte: CVM/SRE, dois arquivos de ofertas, e FundosNet. Primárias encerradas, todos os ritos; volume registrado.",
       29,
     );
     addSectionLabel(slide, "JAN–JUN/26 · TOP 15", { left: 60, top: 138, width: 560, height: 24 });
@@ -4416,6 +4560,12 @@ function buildPresentation(payload, flowAssets) {
         headerFontSize: 1,
       });
     });
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "FundosNet/B3 — documento público de rating mais recente conciliado com a oferta, emissão, série ou subclasse.",
+      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; snapshot CVM 24/jul/26.",
+      "Limitação: rating sem documento público verificável ou sem vínculo exato = N/D; o volume registrado pode diferir do valor encerrado informado à ANBIMA.",
+    ]);
   }
 
   addHistoricalTop15PairSlide(presentation, payload, "2024 FY", "2023 FY", 30);
@@ -4446,13 +4596,20 @@ function buildPresentation(payload, flowAssets) {
         ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, `Cap por veículo; vazio = ausência de reporte. Aging reconciliado à Tabela I completa; ex-360 ajustada = ${pct(payload.qa_latest.inadimplencia_ex_360d_ajustada_pct_sobre_cobertura, 1)}.`],
         ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo. Top 10 fixo por função; Outros identificados e prestador não informado separados. PL negativo consta no QA."],
         ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "Mesma entidade econômica normalizada nas três funções. Preço, propostas e contratos não integram a base."],
-        ["Ofertas encerradas", `2023–2025 FY; 2026 até ${offersShort}`, "Cotas de FIDC, ofertas públicas primárias encerradas e valor registrado positivo. Automático: Número do Requerimento; ordinário/legado: registro + emissor + data + instrumento."],
+        ["Comparativo por instrumento", "2023–2025 FY; 2026 jan–mai", "ANBIMA Data, Valor Encerrado por data de encerramento das ofertas públicas. Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente primárias e secundárias."],
+        ["Análises granulares de ofertas", "2022 parcial; 2023–2025 FY; 2026 jan–jun", "CVM/SRE, Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis e valor registrado positivo. Automático: requerimento; ordinário/legado: registro + emissor + data + instrumento."],
       ],
       columnWidths: [190, 340, 630],
       aligns: ["left", "left", "left"],
-      fontSize: 13.2,
-      rowHeight: 75,
+      fontSize: 12.3,
+      rowHeight: 64,
     });
+    addSourceNotes(slide, [
+      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
+      "ANBIMA Data — Boletim de Mercado de Capitais, snapshot mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
+      "ANBIMA — anexo oficial XLSX: https://data-strapi.prd.anbima.com.br/uploads/Boletim_MK_Anexo_8_33b8963678.xlsx",
+      "FundosNet/B3 — documentos públicos usados na conciliação de ratings.",
+    ]);
   }
 
   // 24–26. Universo completo dos market shares.
@@ -5703,7 +5860,7 @@ async function addClosedOffersSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Ofertas encerradas de cotas de FIDC",
-    "CVM, Sistema de Registro de Ofertas (SRE), base pública de Ofertas Públicas de Distribuição. Ofertas primárias encerradas em todos os ritos e valor registrado positivo.",
+    "CVM/SRE, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot 24/jul/26. Ofertas públicas primárias encerradas, todos os ritos disponíveis, data de encerramento no período e valor registrado positivo.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -5754,7 +5911,7 @@ async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "FIDCs versus demais emissões de renda fixa",
-    "CVM, Sistema de Registro de Ofertas (SRE), base pública de Ofertas Públicas de Distribuição. Ofertas primárias encerradas em todos os ritos; 2026 compara jan–jun com jan–jun/25.",
+    "CVM/SRE, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot 24/jul/26. Ofertas públicas primárias encerradas, todos os ritos disponíveis, volume registrado; 2026 compara jan–jun com jan–jun/25.",
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
@@ -6658,7 +6815,7 @@ async function addChecksSheet(workbook, payload) {
     ["Rank mínimo", "=MIN('Top 20 FIDCs'!A5:A24)", 1, '=IF(B6=C6,"OK","ERRO")'],
     ["Rank máximo", "=MAX('Top 20 FIDCs'!A5:A24)", 20, '=IF(B7=C7,"OK","ERRO")'],
     ["Classificação fecha 100%", payload.classification_coverage.reduce((s, r) => s + num(r.share), 0), 1, '=IF(ABS(B8-C8)<0.0000001,"OK","ERRO")'],
-    ["Slides antes do apêndice", 27, 27, '=IF(B9=C9,"OK","ERRO")'],
+    ["Slides antes do apêndice", 28, 28, '=IF(B9=C9,"OK","ERRO")'],
     ["Perfis Top 20", payload.profiles.length, 20, '=IF(B10=C10,"OK","ERRO")'],
     ["Combinações função×foco", focusRows.length, 42, '=IF(B11=C11,"OK","ERRO")'],
     ["Histograma cotistas dez/23 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share_fundos), 0), 1, '=IF(ABS(B12-C12)<0.0000001,"OK","ERRO")'],
@@ -6673,6 +6830,7 @@ async function addChecksSheet(workbook, payload) {
     ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 19, '=IF(B21=C21,"OK","ERRO")'],
     ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
     ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, 12, '=IF(B23=C23,"OK","ERRO")'],
+    ["Reconciliação CVM x ANBIMA", (payload.market_offer_reconciliation || []).length, 20, '=IF(B24=C24,"OK","ERRO")'],
   ];
   setHeaderBand(sheet, "Checks revisão", "Controles executados no gerador. A ausência de markers é testada diretamente no OOXML do PPTX.", headers, tests.length, { freezeColumns: 1 });
   sheet.getRange(`A5:D${tests.length + 4}`).values = tests.map((row) => [row[0], null, row[2], null]);
@@ -6691,43 +6849,49 @@ async function addChecksSheet(workbook, payload) {
 
 async function addOfferValidationSheet(workbook, payload) {
   const columns = [
-    ["Período interno", "period_label"],
-    ["Corte interno", "internal_headline_period"],
-    ["Volume interno", "internal_headline_volume_brl"],
-    ["Corte comparável", "internal_comparable_period"],
-    ["Volume interno comparável", "internal_comparable_volume_brl"],
-    ["Corte ANBIMA", "official_period"],
-    ["Volume ANBIMA", "official_volume_brl"],
-    ["Diferença", "gap_brl"],
-    ["Diferença %", "gap_pct"],
-    ["Compatível", "compatible"],
-    ["Conclusão", "public_use_conclusion"],
-    ["Relatório", "report_name"],
-    ["Referência", "report_reference"],
-    ["Link", "source_url"],
-    ["Diferença de escopo", "scope_difference"],
-    ["Tratamento recomendado", "recommended_treatment"],
-    ["Data da consulta", "source_consulted_at"],
+    ["Período", "period_label"],
+    ["Instrumento", "instrument_label"],
+    ["CVM · volume registrado", "cvm_registered_volume_brl"],
+    ["Ponte taxonômica", "cvm_harmonization_volume_brl"],
+    ["CVM harmonizado", "cvm_harmonized_volume_brl"],
+    ["ANBIMA · valor encerrado", "anbima_closed_volume_brl"],
+    ["Diferença bruta", "raw_gap_brl"],
+    ["Diferença bruta %", "raw_gap_pct"],
+    ["Diferença harmonizada", "harmonized_gap_brl"],
+    ["Diferença harmonizada %", "harmonized_gap_pct"],
+    ["Explicação principal", "primary_explanation"],
+    ["Fonte CVM", "cvm_source_url"],
+    ["Data CVM", "cvm_source_as_of_date"],
+    ["Métrica CVM", "cvm_metric"],
+    ["Escopo CVM", "cvm_scope"],
+    ["Fonte ANBIMA", "anbima_source_url"],
+    ["Snapshot ANBIMA", "anbima_source_snapshot"],
+    ["Aba ANBIMA", "anbima_source_sheet"],
+    ["Métrica ANBIMA", "anbima_metric"],
+    ["Escopo ANBIMA", "anbima_scope"],
+    ["Limitação", "limitation"],
   ];
   const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload.offer_public_validation || [], columns);
+  const rows = worksheetRowsFromPayload(payload.market_offer_reconciliation || [], columns);
   const sheet = resetSheet(workbook, "Validação emissões");
   setHeaderBand(
     sheet,
-    "Validação pública dos volumes de emissão de FIDCs",
-    "A série interna CVM/SRE é preservada como métrica própria. Para comunicação pública do volume de mercado, o benchmark ANBIMA deve permanecer identificado em coluna separada.",
+    "Reconciliação CVM x ANBIMA por instrumento",
+    "CVM: ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado. ANBIMA: ofertas públicas encerradas, Valor Encerrado; 2026 = jan–mai. A ponte taxonômica soma Outros títulos de securitização somente a debêntures.",
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [105, 105, 120, 110, 135, 105, 120, 120, 95, 80, 300, 290, 220, 420, 560, 500, 105], rows.length);
+  applyColumnWidths(sheet, [105, 125, 135, 125, 135, 140, 125, 100, 145, 115, 480, 320, 105, 105, 520, 320, 110, 105, 115, 420, 560], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
-  ["C", "E", "G", "H"].forEach((letter) => {
+  ["C", "D", "E", "F", "G", "I"].forEach((letter) => {
     sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
   });
-  sheet.getRange(`I5:I${rows.length + 4}`).format.numberFormat = "0.0%";
-  sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 88;
+  ["H", "J"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = "0.0%";
+  });
+  sheet.getRange(`A5:U${rows.length + 4}`).format.rowHeightPx = 78;
 }
 
 async function addOfferTargetPublicSheet(workbook, payload) {
@@ -6749,7 +6913,7 @@ async function addOfferTargetPublicSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Volume emitido por público-alvo CVM",
-    "Público-alvo mede elegibilidade regulatória da oferta. A base não identifica a alocação efetiva entre pessoas físicas, instituições e gestoras.",
+    "CVM/SRE, dois arquivos de ofertas; mesma coorte primária encerrada, todos os ritos, por volume registrado. Público-alvo mede elegibilidade regulatória; a base não identifica alocação efetiva entre pessoas físicas, instituições e gestoras. Campo ausente em registros legados = N/D.",
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
@@ -6914,7 +7078,7 @@ async function exportWorkbook(workbook) {
       ["Crédito Privado Ampliado", "A1:T16"],
       ["Originadores 2026", "A1:M24"],
       ["Top 15 ofertas", "A1:AZ28"],
-      ["Validação emissões", "A1:Q12"],
+      ["Validação emissões", "A1:U25"],
       ["Público-alvo ofertas", "A1:J24"],
       ["Reclass. ANBIMA", "A1:H35"],
       ["Reclass. CVM", "A1:H35"],

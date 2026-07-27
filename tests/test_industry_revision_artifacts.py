@@ -224,11 +224,12 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 56
+    assert len(slides) == 57
     expected_body = [
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
-        "OFERTAS ENCERRADAS · VALIDAÇÃO PÚBLICA",
+        "OFERTAS ENCERRADAS · SÉRIE CVM",
+        "OFERTAS ENCERRADAS · SÉRIE ANBIMA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
         "TAXONOMIA VIGENTE",
@@ -258,29 +259,29 @@ def test_deck_order_and_profile_count() -> None:
         "PRINCIPAIS CONCLUSÕES",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
-    for slide_text, expected in zip(slides[1:31], expected_body, strict=True):
+    for slide_text, expected in zip(slides[1:32], expected_body, strict=True):
         assert expected in slide_text
-    assert "Escopo, fontes e limitações" in slides[31]
-    profiles = slides[32:52]
+    assert "Escopo, fontes e limitações" in slides[32]
+    profiles = slides[33:53]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
-    assert "Ex-360 publicável" in slides[9]
-    assert "R$ 6,89 bi" in slides[9]
-    assert "4,4% da carteira" in slides[10]
-    assert "13,5%" in slides[11]
-    assert "9,1 p.p." in slides[11]
-    assert "MARKET SHARE · ADMINISTRAÇÃO" in slides[17]
-    assert "MARKET SHARE · GESTÃO" in slides[18]
-    assert "MARKET SHARE · CUSTÓDIA" in slides[19]
-    assert "Administração por subtipo" in slides[52]
-    assert "Gestão por subtipo" in slides[53]
-    assert "Custódia por subtipo" in slides[54]
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[55]
-    assert "09.194.841/0001-51" in slides[55]
-    assert "A quebra no bruto coincide" in slides[55]
+    assert "Ex-360 publicável" in slides[10]
+    assert "R$ 6,89 bi" in slides[10]
+    assert "4,4% da carteira" in slides[11]
+    assert "13,5%" in slides[12]
+    assert "9,1 p.p." in slides[12]
+    assert "MARKET SHARE · ADMINISTRAÇÃO" in slides[18]
+    assert "MARKET SHARE · GESTÃO" in slides[19]
+    assert "MARKET SHARE · CUSTÓDIA" in slides[20]
+    assert "Administração por subtipo" in slides[53]
+    assert "Gestão por subtipo" in slides[54]
+    assert "Custódia por subtipo" in slides[55]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[56]
+    assert "09.194.841/0001-51" in slides[56]
+    assert "A quebra no bruto coincide" in slides[56]
     deck_text = "\n".join(slides)
     assert deck_text.count("R$ 16,69 bi") == 0
     assert "Visão ex-360 bloqueada" not in deck_text
@@ -345,7 +346,7 @@ def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
 def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 7)
+        chart_paths = _slide_chart_paths(archive, 8)
         assert len(chart_paths) == 2
         chart_xml = [archive.read(name) for name in chart_paths]
 
@@ -368,9 +369,9 @@ def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> N
 def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        ticket_charts = _slide_chart_paths(archive, 26)
+        ticket_charts = _slide_chart_paths(archive, 27)
         assert len(ticket_charts) == 3
-        slide25 = ET.fromstring(archive.read("ppt/slides/slide26.xml"))
+        slide25 = ET.fromstring(archive.read("ppt/slides/slide27.xml"))
         assert slide25.findall(f".//{{{DML}}}tbl") == []
         for chart_path in ticket_charts:
             chart = ET.fromstring(archive.read(chart_path))
@@ -381,13 +382,13 @@ def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
             assert grouping.attrib.get("val") == "clustered"
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
-        regime_charts = _slide_chart_paths(archive, 27)
+        regime_charts = _slide_chart_paths(archive, 28)
         assert len(regime_charts) == 4
-        slide26 = ET.fromstring(archive.read("ppt/slides/slide27.xml"))
+        slide26 = ET.fromstring(archive.read("ppt/slides/slide28.xml"))
         assert slide26.findall(f".//{{{DML}}}tbl") == []
 
-        assert _slide_chart_paths(archive, 28) == []
-        slide27 = ET.fromstring(archive.read("ppt/slides/slide28.xml"))
+        assert _slide_chart_paths(archive, 29) == []
+        slide27 = ET.fromstring(archive.read("ppt/slides/slide29.xml"))
         assert len(slide27.findall(f".//{{{DML}}}tbl")) == 2
         text = " ".join(node.text or "" for node in slide27.iter(f"{{{DML}}}t"))
         for token in (
@@ -437,7 +438,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [18, 19, 20, 53, 54, 55])
+@pytest.mark.parametrize("slide_number", [19, 20, 21, 54, 55, 56])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -528,9 +529,9 @@ def test_market_share_slides_use_one_native_percent_stacked_chart(
 def test_provider_ranking_slide_has_six_native_charts_and_method_note() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide15.xml"))
+        slide = ET.fromstring(archive.read("ppt/slides/slide16.xml"))
         text = " ".join(node.text or "" for node in slide.iter(f"{{{DML}}}t"))
-        chart_paths = _slide_chart_paths(archive, 15)
+        chart_paths = _slide_chart_paths(archive, 16)
 
     assert len(chart_paths) == 6
     assert slide.findall(f".//{{{DML}}}tbl") == []
@@ -550,7 +551,7 @@ def test_provider_ranking_slide_has_six_native_charts_and_method_note() -> None:
 def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide6.xml"))
+        slide = ET.fromstring(archive.read("ppt/slides/slide7.xml"))
         chart_frames = slide.findall(f".//{{{PML}}}graphicFrame")
         assert len(chart_frames) == 4
 
@@ -570,7 +571,7 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 
         chart_series = [
             _chart_series_values(ET.fromstring(archive.read(chart_path)))
-            for chart_path in _slide_chart_paths(archive, 6)
+            for chart_path in _slide_chart_paths(archive, 7)
         ]
 
     assert len(chart_series) == 4
@@ -588,9 +589,9 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 @pytest.mark.parametrize(
     ("slide_number", "periods"),
     [
-        (8, {"Dez/23", "Jun/26"}),
         (9, {"Dez/23", "Jun/26"}),
-        (14, {"Dez/25", "Jun/26"}),
+        (10, {"Dez/23", "Jun/26"}),
+        (15, {"Dez/25", "Jun/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -606,7 +607,7 @@ def test_before_after_slides_have_two_clustered_charts(
 
     assert len(chart_series) == 2
     assert all(set(series) == periods for series in chart_series)
-    if slide_number in {7, 8}:
+    if slide_number in {8, 9}:
         normalized = [
             series
             for series in chart_series
@@ -753,7 +754,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v19";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v20";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

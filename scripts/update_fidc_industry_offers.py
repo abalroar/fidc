@@ -36,6 +36,11 @@ from services.industry_fixed_income_offer_comparison import (
     build_fixed_income_offer_comparison,
     write_fixed_income_offer_comparison,
 )
+from services.industry_market_offer_reconciliation import (
+    build_market_offer_reconciliation,
+    load_anbima_market_offers,
+    write_market_offer_reconciliation,
+)
 from services.industry_offer_document_curation import (
     build_offer_document_curation,
     write_offer_document_curation,
@@ -112,6 +117,15 @@ def main(argv: list[str] | None = None) -> None:
             archive,
             source_as_of_date=source_as_of,
             expected_archive_sha256=digest,
+        ),
+        data_dir,
+    )
+    write_market_offer_reconciliation(
+        build_market_offer_reconciliation(
+            archive,
+            load_anbima_market_offers(data_dir),
+            cvm_source_as_of_date=source_as_of,
+            expected_cvm_archive_sha256=digest,
         ),
         data_dir,
     )

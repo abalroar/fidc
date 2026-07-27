@@ -1,4 +1,4 @@
-"""Acceptance contract for the 56-slide FIDC industry revision.
+"""Acceptance contract for the 57-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -34,14 +34,14 @@ XLSX = (
     / "industry_data_revised.xlsx"
 )
 
-TARGET_SLIDES = 56
+TARGET_SLIDES = 57
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (18, 19, 20, 53, 54, 55)
+MARKET_SHARE_SLIDES = (19, 20, 21, 54, 55, 56)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -54,30 +54,31 @@ SLIDE_TOKENS = {
         "2026 YTD",
     ),
     4: (
-        "OFERTAS ENCERRADAS · VALIDAÇÃO PÚBLICA",
+        "OFERTAS ENCERRADAS · SÉRIE CVM",
         "FIDCS E DEMAIS INSTRUMENTOS ELEGÍVEIS",
         "INSTRUMENTOS MAIS EMITIDOS EM 2025",
     ),
-    5: ("BASE INVESTIDORA",),
-    6: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
-    7: ("TAXONOMIA VIGENTE",),
-    8: ("TAXONOMIA CVM", "ADQUIRÊNCIA", "33 CNPJs"),
-    9: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
-    10: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
-    11: (
+    5: ("OFERTAS ENCERRADAS · SÉRIE ANBIMA", "VALOR ENCERRADO POR INSTRUMENTO"),
+    6: ("BASE INVESTIDORA",),
+    7: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
+    8: ("TAXONOMIA VIGENTE",),
+    9: ("TAXONOMIA CVM", "ADQUIRÊNCIA", "33 CNPJs"),
+    10: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
+    11: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
+    12: (
         "INADIMPLÊNCIA · BASE ORIGINAL",
         "TIPO NA TABELA II",
         "4,4% DA CARTEIRA",
     ),
-    12: ("INADIMPLÊNCIA · EX-ZEROS", "13,5%", "9,1 P.P."),
-    13: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
-    14: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
-    15: (
+    13: ("INADIMPLÊNCIA · EX-ZEROS", "13,5%", "9,1 P.P."),
+    14: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
+    15: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
+    16: (
         "PRESTADORES · EVOLUÇÃO E RANKING",
         "TODOS OS PRESTADORES",
         "INDEPENDENTES",
     ),
-    16: (
+    17: (
         "BANCOS",
         "FIDC",
         "R$ 7,9 BI",
@@ -85,30 +86,30 @@ SLIDE_TOKENS = {
         "DF AUDITADA 1150673",
         "DEZ/25*",
     ),
-    17: ("PRESTADORES · LIDERANÇA EXPLICADA",),
-    18: ("MARKET SHARE · ADMINISTRAÇÃO",),
-    19: ("MARKET SHARE · GESTÃO",),
-    20: ("MARKET SHARE · CUSTÓDIA",),
-    21: ("RANKING · TOP 20 FIDCs",),
-    22: ("RANKING · TOP 20 OUTROS",),
-    23: ("MODELO DE PRESTAÇÃO",),
-    24: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    25: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
-    26: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
-    27: (
+    18: ("PRESTADORES · LIDERANÇA EXPLICADA",),
+    19: ("MARKET SHARE · ADMINISTRAÇÃO",),
+    20: ("MARKET SHARE · GESTÃO",),
+    21: ("MARKET SHARE · CUSTÓDIA",),
+    22: ("RANKING · TOP 20 FIDCs",),
+    23: ("RANKING · TOP 20 OUTROS",),
+    24: ("MODELO DE PRESTAÇÃO",),
+    25: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    26: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
+    27: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
+    28: (
         "OFERTAS · VOLUME E REGIME",
         "NÚMERO DE OFERTAS",
         "REGIME DE COLOCAÇÃO · VOLUME",
     ),
-    28: (
+    29: (
         "TOP 15 · OFERTAS ENCERRADAS",
         "IBBA PARTICIPOU DE 8 DAS 15 MAIORES",
         "JAN–JUN/26 · TOP 15",
         "2025FY · TOP 15",
     ),
-    29: ("TOP 15 · HISTÓRICO", "2024FY · TOP 15", "2023FY · TOP 15"),
-    30: ("TOP 15 · 2022 PARCIAL", "7 OFERTAS LEGADAS"),
-    31: (
+    30: ("TOP 15 · HISTÓRICO", "2024FY · TOP 15", "2023FY · TOP 15"),
+    31: ("TOP 15 · 2022 PARCIAL", "7 OFERTAS LEGADAS"),
+    32: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
         "771 OFERTAS",
@@ -116,11 +117,11 @@ SLIDE_TOKENS = {
         "R$ 33,0 BI",
         "DOIS FIDCS CIELO",
     ),
-    32: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    53: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    54: ("GESTÃO POR SUBTIPO",),
-    55: ("CUSTÓDIA POR SUBTIPO",),
-    56: (
+    33: ("ESCOPO, FONTES E LIMITAÇÕES",),
+    54: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    55: ("GESTÃO POR SUBTIPO",),
+    56: ("CUSTÓDIA POR SUBTIPO",),
+    57: (
         "APÊNDICE · CASO ATLÂNTICO",
         "09.194.841/0001-51",
         "A QUEBRA NO BRUTO COINCIDE",
@@ -203,7 +204,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_56_slide_contract() -> None:
+def test_export_and_renderer_declare_57_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -211,15 +212,15 @@ def test_export_and_renderer_declare_56_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*56\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*57\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*56;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*57;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_56_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_57_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
@@ -237,7 +238,7 @@ def test_deck_has_56_slides_in_the_reviewed_narrative_order() -> None:
                     f"texto observado: {text[:240]!r}"
                 )
 
-        profiles = [_slide_text(archive, number) for number in range(33, 53)]
+        profiles = [_slide_text(archive, number) for number in range(34, 54)]
 
     assert len(profiles) == 20
     for rank, profile in enumerate(profiles, start=1):
@@ -301,19 +302,20 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
 def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert len(_slide_chart_paths(archive, 15)) == 6
-        assert _native_table_count(archive, 15) == 0
+        assert len(_slide_chart_paths(archive, 16)) == 6
+        assert _native_table_count(archive, 16) == 0
 
 
 @pytest.mark.parametrize(
     ("slide_number", "minimum_charts", "minimum_tables"),
     [
-        (4, 2, 1),  # FIDCs versus demais instrumentos de renda fixa
-        (11, 1, 1),  # inadimplência por recebível único da Tabela II
-        (12, 1, 1),  # sensibilidade ex-zeros
-        (13, 1, 1),  # histórico da coorte atual por subtipo
-        (16, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (25, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
+        (4, 2, 0),  # série CVM por instrumento
+        (5, 1, 0),  # série ANBIMA por instrumento
+        (12, 1, 1),  # inadimplência por recebível único da Tabela II
+        (13, 1, 1),  # sensibilidade ex-zeros
+        (14, 1, 1),  # histórico da coorte atual por subtipo
+        (17, 1, 1),  # evolução dos FIDCs dos cinco bancos
+        (26, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -328,9 +330,9 @@ def test_new_analytical_slides_use_native_office_structures(
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 26)
+        chart_paths = _slide_chart_paths(archive, 27)
         assert len(chart_paths) == 3
-        assert _native_table_count(archive, 26) == 0
+        assert _native_table_count(archive, 27) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             bar_chart = chart.find(f".//{{{CHART}}}barChart")
@@ -344,9 +346,9 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
 def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 27)
+        chart_paths = _slide_chart_paths(archive, 28)
         assert len(chart_paths) == 4
-        assert _native_table_count(archive, 27) == 0
+        assert _native_table_count(archive, 28) == 0
         for chart_path in chart_paths:
             chart = ET.fromstring(archive.read(chart_path))
             assert chart.find(f".//{{{CHART}}}barChart") is not None
@@ -355,8 +357,8 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
 def test_top15_offer_slide_uses_two_native_tables_and_no_chart_images() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert _native_table_count(archive, 28) == 2
-        assert _slide_chart_paths(archive, 28) == []
+        assert _native_table_count(archive, 29) == 2
+        assert _slide_chart_paths(archive, 29) == []
 
 
 def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
@@ -364,7 +366,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
-            for path in _slide_chart_paths(archive, 25)
+            for path in _slide_chart_paths(archive, 26)
         ]
     line_charts = [
         chart
@@ -381,7 +383,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
         assert smooth is None or smooth.attrib.get("val") in {"0", "false"}
 
 
-def test_workbook_exposes_the_v56_analysis_tabs() -> None:
+def test_workbook_exposes_the_v57_analysis_tabs() -> None:
     _require(XLSX)
     with ZipFile(XLSX) as archive:
         sheet_names = _sheet_names(archive)

@@ -473,6 +473,23 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "methodology": "reconciliado",
             }
         ]
+        payload["market_offer_reconciliation"] = [
+            {
+                "period_label": "2026 jan-mai",
+                "instrument_label": "Debêntures",
+                "cvm_registered_volume_brl": 1.0,
+                "cvm_harmonization_volume_brl": 0.5,
+                "cvm_harmonized_volume_brl": 1.5,
+                "anbima_closed_volume_brl": 1.4,
+                "raw_gap_pct": -0.2857,
+                "harmonized_gap_pct": 0.0714,
+                "primary_explanation": "Ponte taxonômica.",
+                "cvm_source_url": "https://dados.cvm.gov.br/",
+                "anbima_source_url": "https://data.anbima.com.br/",
+                "anbima_source_snapshot": "mai/26",
+                "limitation": "Série sujeita a retificações.",
+            }
+        ]
     return payload
 
 
@@ -614,6 +631,7 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V6, "acquiring_curation_detail"),
         (SCHEMA_V6, "fixed_income_offer_comparison"),
         (SCHEMA_V7, "bcb_expanded_credit"),
+        (SCHEMA_V7, "market_offer_reconciliation"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
