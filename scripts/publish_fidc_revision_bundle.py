@@ -157,6 +157,8 @@ REQUIRED_ANALYSIS_FILES = {
     "inadimplencia_coorte_revisao_resumo.csv",
     "inadimplencia_coorte_revisao_transicoes.csv",
     "inadimplencia_coorte_revisao_sensibilidade.csv",
+    "inadimplencia_dispersao_subcategoria.csv",
+    "inadimplencia_dispersao_resumo.csv",
     "prestadores_transicoes_resumo.csv",
     "prestadores_transicoes_links.csv",
     "prestadores_transicoes_detalhe.csv",
@@ -1099,8 +1101,12 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "delinquency_frozen_cohort_summary",
         "delinquency_cohort_revision_transitions",
         "delinquency_cohort_revision_sensitivity",
+        "delinquency_dispersion",
         "acquiring_curation_detail",
         "card_taxonomy_audit",
+        "acquiring_anbima_review",
+        "taxonomy_top15",
+        "numeric_locale_audit",
         "provider_independent_ranking",
         "bank_fidc_evolution",
         "bank_fidc_detail",
@@ -1170,6 +1176,22 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "competencia_coorte_anterior",
             "competencia_coorte_atual",
         },
+        "delinquency_dispersion": {
+            "competencia",
+            "tipo_recebivel_tabela_ii",
+            "fundos_reportantes_inadimplencia",
+            "inadimplencia_total_subcategoria_brl",
+            "top1_inadimplencia_brl",
+            "top1_share",
+            "top3_inadimplencia_brl",
+            "top3_share",
+            "top5_inadimplencia_brl",
+            "top5_share",
+            "hhi",
+            "gini",
+            "leitura_concentracao",
+            "fonte",
+        },
         "card_taxonomy_audit": {
             "ordem_materialidade",
             "cnpj_fundo_formatado",
@@ -1195,6 +1217,26 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "anbima_cartao_explicito",
             "ja_curado_como_adquirencia",
             "consistencia_decisao_reclassificacao",
+        },
+        "acquiring_anbima_review": {
+            "cnpj_fundo_formatado",
+            "denominacao",
+            "tipo_anbima_atual",
+            "foco_anbima_atual",
+            "categoria_referencia_sugerida",
+            "base_alterada",
+            "criterio_sugestao",
+        },
+        "taxonomy_top15": {
+            "visao",
+            "rank",
+            "cnpj_fundo",
+            "denominacao",
+            "taxonomia_atual",
+            "pl_brl",
+            "competencia",
+            "fonte",
+            "metodologia",
         },
         "acquiring_curation_detail": {
             "ordem_materialidade",
@@ -1494,6 +1536,14 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
     if not isinstance(payload.get("delinquency_single_receivable_summary"), Mapping):
         raise RevisionBundlePublishError(
             "payload editorial sem delinquency_single_receivable_summary"
+        )
+    if not isinstance(payload.get("delinquency_dispersion_summary"), Mapping):
+        raise RevisionBundlePublishError(
+            "payload editorial sem delinquency_dispersion_summary"
+        )
+    if not isinstance(payload.get("acquiring_anbima_review_summary"), Mapping):
+        raise RevisionBundlePublishError(
+            "payload editorial sem acquiring_anbima_review_summary"
         )
     summary = payload["delinquency_single_receivable_summary"]
     required_summary = {

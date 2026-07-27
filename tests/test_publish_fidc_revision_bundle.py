@@ -502,6 +502,28 @@ def _payload() -> dict[str, object]:
                 "competencia_coorte_atual": "2026-05",
             }
         ],
+        "delinquency_dispersion": [
+            {
+                "competencia": "2026-05",
+                "tipo_recebivel_tabela_ii": "Financeiro",
+                "fundos_reportantes_inadimplencia": 1,
+                "inadimplencia_total_subcategoria_brl": 1.0,
+                "top1_inadimplencia_brl": 1.0,
+                "top1_share": 1.0,
+                "top3_inadimplencia_brl": 1.0,
+                "top3_share": 1.0,
+                "top5_inadimplencia_brl": 1.0,
+                "top5_share": 1.0,
+                "hhi": 1.0,
+                "gini": 0.0,
+                "leitura_concentracao": "Concentrada em poucos fundos",
+                "fonte": "CVM",
+            }
+        ],
+        "delinquency_dispersion_summary": {
+            "fundos_reportantes_inadimplencia_positiva": 1,
+            "pl_reportantes_inadimplencia_positiva_brl": 1.0,
+        },
         "acquiring_curation_detail": [
             {
                 "ordem_materialidade": 1,
@@ -518,6 +540,34 @@ def _payload() -> dict[str, object]:
         ],
         "card_taxonomy_audit": card_rows,
         "card_taxonomy_summary": _card_taxonomy_summary(card_rows),
+        "acquiring_anbima_review": [
+            {
+                "cnpj_fundo_formatado": "10.000.000/0000-01",
+                "denominacao": "FIDC A",
+                "tipo_anbima_atual": "Outros",
+                "foco_anbima_atual": "N/D",
+                "categoria_referencia_sugerida": "Outros",
+                "base_alterada": "Não",
+                "criterio_sugestao": "correspondência literal",
+            }
+        ],
+        "acquiring_anbima_review_summary": {"fundos_filtrados": 1},
+        "taxonomy_top15": [
+            {
+                "visao": "Tipo ANBIMA",
+                "rank": 1,
+                "cnpj_fundo": "10000000000001",
+                "denominacao": "FIDC A",
+                "taxonomia_atual": "Outros",
+                "pl_brl": 1.0,
+                "competencia": "2026-05",
+                "fonte": "ANBIMA",
+                "metodologia": "classificação atual preservada",
+            }
+        ],
+        "numeric_locale_audit": [
+            {"artefato": "PPTX", "ponto": "tabelas", "padrao": "pt-BR"}
+        ],
         "provider_independent_ranking": [
             {
                 "competencia": "2026-05",
@@ -1018,7 +1068,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 57
+    assert first["checks"]["slides"] == 63
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

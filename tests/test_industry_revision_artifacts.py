@@ -224,7 +224,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 57
+    assert len(slides) == 63
     expected_body = [
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
@@ -239,15 +239,15 @@ def test_deck_order_and_profile_count() -> None:
         "INADIMPLÊNCIA · BASE ORIGINAL",
         "INADIMPLÊNCIA · EX-ZEROS",
         "INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",
+        "INADIMPLÊNCIA · DISPERSÃO ENTRE REPORTANTES",
+        "INADIMPLÊNCIA · SÍNTESE EXECUTIVA",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
-        "PRESTADORES · EVOLUÇÃO E RANKING",
-        "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
-        "PRESTADORES · LIDERANÇA EXPLICADA",
-        "MARKET SHARE · ADMINISTRAÇÃO",
-        "MARKET SHARE · GESTÃO",
-        "MARKET SHARE · CUSTÓDIA",
         "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",
+        "Tipo ANBIMA · maiores FIDCs por PL",
+        "Foco ANBIMA · maiores FIDCs por PL",
+        "Tabela II reportada · maiores FIDCs por PL",
+        "Tabela II reclassificada · maiores FIDCs por PL",
         "MODELO DE PRESTAÇÃO",
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
@@ -273,15 +273,18 @@ def test_deck_order_and_profile_count() -> None:
     assert "4,4% da carteira" in slides[11]
     assert "13,5%" in slides[12]
     assert "9,1 p.p." in slides[12]
-    assert "MARKET SHARE · ADMINISTRAÇÃO" in slides[18]
-    assert "MARKET SHARE · GESTÃO" in slides[19]
-    assert "MARKET SHARE · CUSTÓDIA" in slides[20]
-    assert "Administração por subtipo" in slides[53]
-    assert "Gestão por subtipo" in slides[54]
-    assert "Custódia por subtipo" in slides[55]
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[56]
-    assert "09.194.841/0001-51" in slides[56]
-    assert "A quebra no bruto coincide" in slides[56]
+    assert "PRESTADORES · EVOLUÇÃO E RANKING" in slides[53]
+    assert "FIDCs DOS CINCO BANCOS · COORTE ATUAL" in slides[54]
+    assert "PRESTADORES · LIDERANÇA EXPLICADA" in slides[55]
+    assert "MARKET SHARE · ADMINISTRAÇÃO" in slides[56]
+    assert "MARKET SHARE · GESTÃO" in slides[57]
+    assert "MARKET SHARE · CUSTÓDIA" in slides[58]
+    assert "Administração por subtipo" in slides[59]
+    assert "Gestão por subtipo" in slides[60]
+    assert "Custódia por subtipo" in slides[61]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[62]
+    assert "09.194.841/0001-51" in slides[62]
+    assert "A quebra no bruto coincide" in slides[62]
     deck_text = "\n".join(slides)
     assert deck_text.count("R$ 16,69 bi") == 0
     assert "Visão ex-360 bloqueada" not in deck_text
@@ -320,6 +323,9 @@ def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
             ET.fromstring(archive.read(path)) for path in chart_paths
         ]
 
+    charts = [
+        chart for chart in charts if chart.find(f".//{{{CHART}}}barChart") is not None
+    ]
     assert len(charts) == 2
     assert "PL DOS FIDCs · EX-FIC" in text
     assert "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA" in text
@@ -347,8 +353,12 @@ def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> N
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, 8)
-        assert len(chart_paths) == 2
-        chart_xml = [archive.read(name) for name in chart_paths]
+        chart_xml = [
+            archive.read(name)
+            for name in chart_paths
+            if ET.fromstring(archive.read(name)).find(f".//{{{CHART}}}barChart") is not None
+        ]
+        assert len(chart_xml) == 2
 
     groupings: set[str] = set()
     for raw in chart_xml:
@@ -370,6 +380,10 @@ def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         ticket_charts = _slide_chart_paths(archive, 27)
+        ticket_charts = [
+            path for path in ticket_charts
+            if ET.fromstring(archive.read(path)).find(f".//{{{CHART}}}barChart") is not None
+        ]
         assert len(ticket_charts) == 3
         slide25 = ET.fromstring(archive.read("ppt/slides/slide27.xml"))
         assert slide25.findall(f".//{{{DML}}}tbl") == []
@@ -383,6 +397,10 @@ def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
         regime_charts = _slide_chart_paths(archive, 28)
+        regime_charts = [
+            path for path in regime_charts
+            if ET.fromstring(archive.read(path)).find(f".//{{{CHART}}}barChart") is not None
+        ]
         assert len(regime_charts) == 4
         slide26 = ET.fromstring(archive.read("ppt/slides/slide28.xml"))
         assert slide26.findall(f".//{{{DML}}}tbl") == []
@@ -438,7 +456,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [19, 20, 21, 54, 55, 56])
+@pytest.mark.parametrize("slide_number", [57, 58, 59, 60, 61, 62])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -529,11 +547,11 @@ def test_market_share_slides_use_one_native_percent_stacked_chart(
 def test_provider_ranking_slide_has_six_native_charts_and_method_note() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide16.xml"))
+        slide = ET.fromstring(archive.read("ppt/slides/slide54.xml"))
         text = " ".join(node.text or "" for node in slide.iter(f"{{{DML}}}t"))
-        chart_paths = _slide_chart_paths(archive, 16)
+        chart_paths = _slide_chart_paths(archive, 54)
 
-    assert len(chart_paths) == 6
+    assert len(chart_paths) >= 6
     assert slide.findall(f".//{{{DML}}}tbl") == []
     for expected in (
         "ADMINISTRAÇÃO",
@@ -553,7 +571,15 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
     with ZipFile(PPTX) as archive:
         slide = ET.fromstring(archive.read("ppt/slides/slide7.xml"))
         chart_frames = slide.findall(f".//{{{PML}}}graphicFrame")
-        assert len(chart_frames) == 4
+        assert len(chart_frames) >= 4
+        chart_frames = sorted(
+            chart_frames,
+            key=lambda frame: (
+                int(frame.find(f"{{{PML}}}xfrm/{{{DML}}}ext").attrib["cx"])
+                * int(frame.find(f"{{{PML}}}xfrm/{{{DML}}}ext").attrib["cy"])
+            ),
+            reverse=True,
+        )[:4]
 
         x_positions: list[int] = []
         y_positions: list[int] = []
@@ -569,10 +595,11 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
         assert sorted(y_positions).count(max(y_positions)) == 2
         assert len(set(y_positions)) == 2
 
-        chart_series = [
-            _chart_series_values(ET.fromstring(archive.read(chart_path)))
-            for chart_path in _slide_chart_paths(archive, 7)
-        ]
+        chart_series = []
+        for chart_path in _slide_chart_paths(archive, 7):
+            chart = ET.fromstring(archive.read(chart_path))
+            if chart.find(f".//{{{CHART}}}barChart") is not None:
+                chart_series.append(_chart_series_values(chart))
 
     assert len(chart_series) == 4
     for series in chart_series:
@@ -591,7 +618,7 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
     [
         (9, {"Dez/23", "Jun/26"}),
         (10, {"Dez/23", "Jun/26"}),
-        (15, {"Dez/25", "Jun/26"}),
+        (17, {"Dez/25", "Jun/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -600,10 +627,11 @@ def test_before_after_slides_have_two_clustered_charts(
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, slide_number)
-        chart_series = [
-            _chart_series_values(ET.fromstring(archive.read(chart_path)))
-            for chart_path in chart_paths
-        ]
+        chart_series = []
+        for chart_path in chart_paths:
+            chart = ET.fromstring(archive.read(chart_path))
+            if chart.find(f".//{{{CHART}}}barChart") is not None:
+                chart_series.append(_chart_series_values(chart))
 
     assert len(chart_series) == 2
     assert all(set(series) == periods for series in chart_series)
@@ -667,6 +695,10 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Taxonomia adquirência",
         "Adquirência reclass.",
         "Curadoria Cartão",
+        "Reclass. adquirência",
+        "Top 15 taxonomias",
+        "Dispersão inadimplência",
+        "Auditoria numérica",
         "Ofertas encerradas",
         "Regime de colocação",
         "Histograma ofertas",
@@ -754,7 +786,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v20";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v21";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

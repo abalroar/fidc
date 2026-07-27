@@ -18,6 +18,7 @@ from pathlib import Path
 import re
 from typing import Iterable, Mapping
 
+import numpy as np
 import pandas as pd
 
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
@@ -1416,6 +1417,169 @@ def build_frozen_single_receivable_history(
     summary["fonte"] = "CVM, Informe Mensal FIDC, Tabelas I, II e IV"
     summary = summary[summary_columns]
     return members, history, summary
+
+
+def build_delinquency_dispersion(
+    cohort_members: pd.DataFrame,
+    single_receivable_summary: pd.DataFrame,
+    *,
+    competence: str = LATEST_COMPLETE,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Measure concentration among cohort funds with positive delinquency.
+
+    The calculation uses the same current single-receivable cohort already
+    published in the delinquency sensitivity.  Funds whose adjusted reported
+    delinquency is zero or missing are excluded from both the concentration
+    numerator and its reporter count.  HHI and Gini describe the distribution
+    of the positive delinquency amount, not credit quality or causality.
+    """
+
+    detail_columns = [
+        "competencia",
+        "tipo_recebivel_tabela_ii",
+        "fundos_reportantes_inadimplencia",
+        "pl_reportantes_inadimplencia_brl",
+        "carteira_reportantes_inadimplencia_brl",
+        "inadimplencia_total_subcategoria_brl",
+        "top1_inadimplencia_brl",
+        "top1_share",
+        "top3_inadimplencia_brl",
+        "top3_share",
+        "top5_inadimplencia_brl",
+        "top5_share",
+        "hhi",
+        "numero_efetivo_fundos",
+        "gini",
+        "leitura_concentracao",
+        "implicacao_analitica",
+        "regra_leitura",
+        "fonte",
+    ]
+    summary_columns = [
+        "competencia",
+        "fundos_universo_ex_fic_pl_positivo",
+        "pl_universo_ex_fic_positivo_brl",
+        "fundos_coorte_tipo_unico",
+        "pl_coorte_tipo_unico_brl",
+        "fundos_reportantes_inadimplencia_positiva",
+        "pl_reportantes_inadimplencia_positiva_brl",
+        "inadimplencia_total_reportantes_brl",
+        "cobertura_fundos_vs_universo",
+        "cobertura_pl_vs_universo",
+        "metodologia",
+        "limitacoes",
+        "fonte",
+    ]
+    if cohort_members.empty:
+        return pd.DataFrame(columns=detail_columns), pd.DataFrame(columns=summary_columns)
+
+    members = cohort_members.copy()
+    for column in (
+        "pl_referencia_brl",
+        "carteira_referencia_brl",
+        "inadimplencia_ajustada_referencia_brl",
+    ):
+        members[column] = pd.to_numeric(members.get(column), errors="coerce")
+    positive = members[
+        members["inadimplencia_ajustada_referencia_brl"].gt(0)
+    ].copy()
+
+    def _gini(values: pd.Series) -> float:
+        array = np.sort(pd.to_numeric(values, errors="coerce").dropna().to_numpy(dtype=float))
+        array = array[array > 0]
+        if array.size <= 1:
+            return 0.0
+        total = float(array.sum())
+        index = np.arange(1, array.size + 1, dtype=float)
+        return float((2.0 * np.dot(index, array) / (array.size * total)) - ((array.size + 1.0) / array.size))
+
+    rows: list[dict[str, object]] = []
+    for category, group in positive.groupby("tipo_recebivel_tabela_ii", sort=False):
+        ranked = group.sort_values(
+            ["inadimplencia_ajustada_referencia_brl", "cnpj_fundo"],
+            ascending=[False, True],
+        )
+        amounts = ranked["inadimplencia_ajustada_referencia_brl"]
+        total = float(amounts.sum())
+        shares = amounts.div(total) if total else amounts * np.nan
+        hhi = float((shares.pow(2)).sum()) if total else float("nan")
+
+        def _top(n: int) -> tuple[float, float]:
+            amount = float(amounts.head(n).sum())
+            return amount, amount / total if total else float("nan")
+
+        top1_amount, top1_share = _top(1)
+        top3_amount, top3_share = _top(3)
+        top5_amount, top5_share = _top(5)
+        if hhi >= 0.25 or top5_share >= 0.70:
+            reading = "Concentrada em poucos fundos"
+            implication = "Sinal compatível com casos específicos; requer validação fundo a fundo."
+        elif hhi < 0.10 and top5_share < 0.40:
+            reading = "Dispersa entre reportantes"
+            implication = "Sinal distribuído no subsetor reportante; não comprova risco sistêmico."
+        else:
+            reading = "Concentração intermediária"
+            implication = "Combina cauda material e dispersão; requer leitura dos maiores e do restante."
+        rows.append(
+            {
+                "competencia": competence,
+                "tipo_recebivel_tabela_ii": category,
+                "fundos_reportantes_inadimplencia": int(ranked["cnpj_fundo"].nunique()),
+                "pl_reportantes_inadimplencia_brl": float(ranked["pl_referencia_brl"].sum()),
+                "carteira_reportantes_inadimplencia_brl": float(ranked["carteira_referencia_brl"].sum()),
+                "inadimplencia_total_subcategoria_brl": total,
+                "top1_inadimplencia_brl": top1_amount,
+                "top1_share": top1_share,
+                "top3_inadimplencia_brl": top3_amount,
+                "top3_share": top3_share,
+                "top5_inadimplencia_brl": top5_amount,
+                "top5_share": top5_share,
+                "hhi": hhi,
+                "numero_efetivo_fundos": 1.0 / hhi if hhi else float("nan"),
+                "gini": _gini(amounts),
+                "leitura_concentracao": reading,
+                "implicacao_analitica": implication,
+                "regra_leitura": "concentrada se HHI >= 0,25 ou Top 5 >= 70%; dispersa se HHI < 0,10 e Top 5 < 40%; demais casos intermediários",
+                "fonte": f"CVM, Informe Mensal FIDC, Tabelas I, II e IV, {competence}",
+            }
+        )
+    detail = pd.DataFrame(rows, columns=detail_columns).sort_values(
+        ["inadimplencia_total_subcategoria_brl", "tipo_recebivel_tabela_ii"],
+        ascending=[False, True],
+    ).reset_index(drop=True)
+
+    source_summary = (
+        single_receivable_summary.iloc[0].to_dict()
+        if not single_receivable_summary.empty
+        else {}
+    )
+    universe_funds = int(source_summary.get("fundos_universo_ex_fic_pl_positivo") or 0)
+    universe_pl = float(source_summary.get("pl_universo_ex_fic_positivo_brl") or 0.0)
+    cohort_funds = int(members["cnpj_fundo"].nunique())
+    cohort_pl = float(members["pl_referencia_brl"].sum())
+    reporter_funds = int(positive["cnpj_fundo"].nunique())
+    reporter_pl = float(positive["pl_referencia_brl"].sum())
+    summary = pd.DataFrame(
+        [
+            {
+                "competencia": competence,
+                "fundos_universo_ex_fic_pl_positivo": universe_funds,
+                "pl_universo_ex_fic_positivo_brl": universe_pl,
+                "fundos_coorte_tipo_unico": cohort_funds,
+                "pl_coorte_tipo_unico_brl": cohort_pl,
+                "fundos_reportantes_inadimplencia_positiva": reporter_funds,
+                "pl_reportantes_inadimplencia_positiva_brl": reporter_pl,
+                "inadimplencia_total_reportantes_brl": float(positive["inadimplencia_ajustada_referencia_brl"].sum()),
+                "cobertura_fundos_vs_universo": reporter_funds / universe_funds if universe_funds else float("nan"),
+                "cobertura_pl_vs_universo": reporter_pl / universe_pl if universe_pl else float("nan"),
+                "metodologia": "coorte atual ex-FIC, PL positivo e um único tipo Tabela II; concentração calculada somente entre fundos com inadimplência ajustada positiva",
+                "limitacoes": "fundos com zero, ausência de reporte, atraso de reporte ou inconsistência carteira/inadimplência ficam fora da dispersão; HHI e Gini medem concentração do valor reportado e não causalidade",
+                "fonte": f"CVM, Informe Mensal FIDC, Tabelas I, II e IV, {competence}",
+            }
+        ],
+        columns=summary_columns,
+    )
+    return detail, summary
 
 
 def build_frozen_cohort_revision_audit(
@@ -3138,6 +3302,8 @@ class RevisionOutputs:
     delinquency_cohort_revision_summary: pd.DataFrame
     delinquency_cohort_revision_transitions: pd.DataFrame
     delinquency_cohort_revision_sensitivity: pd.DataFrame
+    delinquency_dispersion: pd.DataFrame
+    delinquency_dispersion_summary: pd.DataFrame
     bridge_detail: pd.DataFrame
     bridge_summary: pd.DataFrame
     reconciliation: pd.DataFrame
@@ -3239,6 +3405,11 @@ def build_revision_outputs(
         delinquency_frozen_cohort_history,
         previous_competence=previous_complete,
         current_competence=latest_complete,
+    )
+    delinquency_dispersion, delinquency_dispersion_summary = build_delinquency_dispersion(
+        delinquency_frozen_cohort_members,
+        delinquency_single_receivable_summary,
+        competence=latest_complete,
     )
     top20, top20_outros, structured_funds, concentration = build_top20_and_monostructure(
         fund_base, competence=latest_complete
@@ -3367,6 +3538,8 @@ def build_revision_outputs(
         delinquency_cohort_revision_summary=delinquency_cohort_revision_summary,
         delinquency_cohort_revision_transitions=delinquency_cohort_revision_transitions,
         delinquency_cohort_revision_sensitivity=delinquency_cohort_revision_sensitivity,
+        delinquency_dispersion=delinquency_dispersion,
+        delinquency_dispersion_summary=delinquency_dispersion_summary,
         bridge_detail=bridge_detail,
         bridge_summary=bridge_summary,
         reconciliation=reconciliation,
@@ -3453,6 +3626,16 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         (
             "inadimplencia_coorte_revisao_sensibilidade.csv",
             outputs.delinquency_cohort_revision_sensitivity,
+            False,
+        ),
+        (
+            "inadimplencia_dispersao_subcategoria.csv",
+            outputs.delinquency_dispersion,
+            False,
+        ),
+        (
+            "inadimplencia_dispersao_resumo.csv",
+            outputs.delinquency_dispersion_summary,
             False,
         ),
         ("bridge_inadimplencia_2024-06_2024-07_detalhe.csv", outputs.bridge_detail, False),
@@ -3608,6 +3791,8 @@ def write_revision_outputs(outputs: RevisionOutputs, output_dir: Path) -> dict[s
         "inadimplencia_coorte_revisao_sensibilidade": records(
             outputs.delinquency_cohort_revision_sensitivity
         ),
+        "inadimplencia_dispersao_subcategoria": records(outputs.delinquency_dispersion),
+        "inadimplencia_dispersao_resumo": records(outputs.delinquency_dispersion_summary),
         "bridge_resumo": records(outputs.bridge_summary),
         "bridge_top_contribuidores": records(outputs.bridge_detail.head(30)),
         "reconciliacao_multiveiculo": records(
