@@ -33,6 +33,7 @@ OUTPUT_COLUMNS = (
     "period_label",
     "is_latest",
     "expanded_credit_total_brl",
+    "private_expanded_credit_total_brl",
     "loans_brl",
     "public_debt_brl",
     "private_debt_brl",
@@ -185,6 +186,9 @@ def build_expanded_credit_history(
             ),
             "is_latest": selected["competencia"].eq(latest_2026),
             "expanded_credit_total_brl": selected["expanded_credit_total"],
+            "private_expanded_credit_total_brl": (
+                selected["expanded_credit_total"] - selected["public_debt"]
+            ),
             "loans_brl": selected["loans"],
             "public_debt_brl": selected["public_debt"],
             "private_debt_brl": selected["private_debt"],
@@ -213,6 +217,7 @@ def build_expanded_credit_history(
             "methodology": (
                 "BCB: Crédito Ampliado = empréstimos + títulos de dívida + "
                 "dívida externa; títulos = públicos + privados + securitização. "
+                "Carteira de Crédito Privada Ampliada exclui títulos públicos. "
                 "FIDC usa carteira de direitos creditórios CVM; outras "
                 "securitizações são o residual da SGS 28191. Debêntures e notas "
                 "comerciais integram títulos privados."
@@ -253,6 +258,20 @@ def validate_expanded_credit_history(frame: pd.DataFrame) -> pd.DataFrame:
         <= result["expanded_credit_total_brl"].abs() * 1e-8 + 1
     ).all():
         raise ExpandedCreditError("Pilha não fecha no Crédito Ampliado.")
+    private_components = (
+        result["loans_brl"]
+        + result["private_debt_brl"]
+        + result["fidc_receivables_brl"]
+        + result["other_securitization_brl"]
+        + result["external_debt_brl"]
+    )
+    if not (
+        (private_components - result["private_expanded_credit_total_brl"]).abs()
+        <= result["private_expanded_credit_total_brl"].abs() * 1e-8 + 1
+    ).all():
+        raise ExpandedCreditError(
+            "Pilha não fecha na Carteira de Crédito Privada Ampliada."
+        )
     return result.sort_values("period_order").reset_index(drop=True)
 
 
@@ -272,7 +291,9 @@ def load_materialized_expanded_credit_history(
 ) -> pd.DataFrame:
     path = Path(data_dir) / OUTPUT_FILENAME
     if not path.is_file():
-        raise FileNotFoundError(f"Carteira de Crédito Ampliada ausente: {path}")
+        raise FileNotFoundError(
+            f"Carteira de Crédito Privada Ampliada ausente: {path}"
+        )
     return validate_expanded_credit_history(pd.read_csv(path))
 
 

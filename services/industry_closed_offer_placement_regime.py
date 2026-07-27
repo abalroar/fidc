@@ -158,15 +158,16 @@ def build_closed_offer_placement_regime(
         archive_path,
         expected_archive_sha256=expected_archive_sha256,
     )
-    joined = cohort.merge(
-        source[
+    source_regime = source[
             [
                 "offer_id",
                 "status_norm",
                 "offer_type_norm",
                 "distribution_regime",
             ]
-        ],
+        ].rename(columns={"distribution_regime": "source_distribution_regime"})
+    joined = cohort.merge(
+        source_regime,
         on="offer_id",
         how="left",
         validate="one_to_one",
@@ -189,7 +190,7 @@ def build_closed_offer_placement_regime(
         raise ClosedOfferPlacementRegimeError(
             "Coorte contém oferta diferente de primária na fonte."
         )
-    joined["placement_regime"] = joined["distribution_regime"].map(
+    joined["placement_regime"] = joined["source_distribution_regime"].map(
         _regime_bucket
     )
 

@@ -11,11 +11,14 @@ def _write_fixture(data_dir: Path) -> None:
     cohort_rows = []
     offer_rows = []
     offer_id = 1
-    for order, label, start, end in (
-        (2, "2025 FY", "2025-01-01", "2025-12-31"),
-        (3, "2026 jan-jun", "2026-01-01", "2026-06-30"),
+    for order, label, start, end, row_count in (
+        (1, "2022 FY parcial", "2022-01-01", "2022-12-31", 7),
+        (2, "2023 FY", "2023-01-01", "2023-12-31", 16),
+        (3, "2024 FY", "2024-01-01", "2024-12-31", 16),
+        (4, "2025 FY", "2025-01-01", "2025-12-31", 16),
+        (5, "2026 jan-jun", "2026-01-01", "2026-06-30", 16),
     ):
-        for rank in range(1, 17):
+        for rank in range(1, row_count + 1):
             volume = float((20 - rank) * 100_000_000)
             cohort_rows.append(
                 {
@@ -28,6 +31,19 @@ def _write_fixture(data_dir: Path) -> None:
                     "cnpj_emissor": str(offer_id).zfill(14),
                     "nome_emissor": f"FIDC {label} {rank}",
                     "registered_volume_brl": volume,
+                    "rite": "Automático RCVM 160",
+                    "leader_name": "",
+                    "distribution_regime": "",
+                    "target_public": "",
+                    "investor_count": "",
+                    "investor_person_natural": 0,
+                    "investor_funds": 0,
+                    "investor_financial_institutions": 0,
+                    "investor_other_legal_entities": 0,
+                    "investor_pension": 0,
+                    "investor_insurers": 0,
+                    "investor_foreign": 0,
+                    "investor_clubs": 0,
                     "source_dataset": "oferta_resolucao_160.csv",
                     "source_url": "https://dados.cvm.gov.br/",
                     "source_as_of_date": "2026-07-21",
@@ -80,8 +96,11 @@ def test_top15_uses_closed_cohort_and_enriches_offer_metadata(
 
     outputs = build_closed_offer_top15(tmp_path)
 
-    assert len(outputs.rankings) == 30
+    assert len(outputs.rankings) == 67
     assert outputs.rankings.groupby("period_label")["rank"].apply(list).to_dict() == {
+        "2022 FY parcial": list(range(1, 8)),
+        "2023 FY": list(range(1, 16)),
+        "2024 FY": list(range(1, 16)),
         "2025 FY": list(range(1, 16)),
         "2026 jan-jun": list(range(1, 16)),
     }
@@ -90,6 +109,14 @@ def test_top15_uses_closed_cohort_and_enriches_offer_metadata(
     assert first["ibba_coord_lead_label"] == "Sim"
     assert first["firm_commitment_label"] == "Sim"
     assert first["publico"] == "Geral"
-    assert outputs.summary["metadata_matched_top15"].eq(15).all()
+    assert outputs.summary.set_index("period_label")[
+        "metadata_matched_top15"
+    ].to_dict() == {
+        "2022 FY parcial": 7,
+        "2023 FY": 15,
+        "2024 FY": 15,
+        "2025 FY": 15,
+        "2026 jan-jun": 15,
+    }
     assert outputs.summary["ibba_lead_offers_top15"].eq(2).all()
     assert outputs.summary["ibba_firm_commitment_offers_top15"].eq(1).all()

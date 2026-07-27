@@ -552,7 +552,7 @@ def _payload() -> dict[str, object]:
                 "placed_quantity_registered_volume_coverage": 0.99,
                 "professional_target_registered_volume_share": 0.95,
             }
-            for year in (2023, 2024, 2025, 2026)
+            for year in (2022, 2023, 2024, 2025, 2026)
         ],
         "closed_offers_monthly": [
             {"year": 2026, "month": 1, "registered_volume_brl": 1.0}
@@ -598,6 +598,7 @@ def _payload() -> dict[str, object]:
                 "competencia": "2026-05",
                 "period_label": "05/26",
                 "expanded_credit_total_brl": 100.0,
+                "private_expanded_credit_total_brl": 80.0,
                 "loans_brl": 40.0,
                 "public_debt_brl": 20.0,
                 "private_debt_brl": 10.0,
@@ -672,6 +673,18 @@ def _payload() -> dict[str, object]:
                 "firm_commitment_label": "Sim" if rank == 1 else "Não",
                 "publico": "Profissional",
                 "investor_count": rank,
+                "investor_categories": f"Pessoa física: {rank}",
+                "coordinator_entities": "COORDENADOR A",
+                "firm_commitment_coordinators": (
+                    "COORDENADOR A" if rank == 1 else "Não aplicável"
+                ),
+                "firm_commitment_amount_by_coordinator": "N/D",
+                "firm_commitment_source_limitation": "API SRE sem rateio.",
+                "rating_agency": "N/D",
+                "rating_assigned": "N/D",
+                "rating_scope": "N/D",
+                "rating_availability_status": "sem documento público localizado",
+                "rating_limitation": "Nenhum documento localizado.",
                 "metadata_matched": True,
                 "status": "Oferta Encerrada",
                 "offer_type": "PRIMARIA",
@@ -679,20 +692,23 @@ def _payload() -> dict[str, object]:
                 "source_url": "https://dados.cvm.gov.br/",
                 "scope": "Cotas de FIDC | oferta primária | Oferta Encerrada",
             }
-            for period_order, period in (
-                (2, "2025 FY"),
-                (3, "2026 jan-jun"),
+            for period_order, period, row_count in (
+                (0, "2022 FY parcial", 7),
+                (1, "2023 FY", 15),
+                (2, "2024 FY", 15),
+                (3, "2025 FY", 15),
+                (4, "2026 jan-jun", 15),
             )
-            for rank in range(1, 16)
+            for rank in range(1, row_count + 1)
         ],
         "closed_offer_top15_summary": [
             {
                 "period_label": period,
                 "period_closed_offers": 100,
                 "period_registered_volume_brl": 200.0,
-                "top15_offers": 15,
-                "top15_registered_volume_brl": 120.0,
-                "top15_share_of_period_volume": 0.6,
+                "top15_offers": row_count,
+                "top15_registered_volume_brl": 84.0 if row_count == 7 else 120.0,
+                "top15_share_of_period_volume": 0.42 if row_count == 7 else 0.6,
                 "ibba_lead_offers_top15": 1,
                 "ibba_lead_volume_top15_brl": 15.0,
                 "ibba_lead_share_top15_volume": 0.125,
@@ -705,9 +721,19 @@ def _payload() -> dict[str, object]:
                 "ibba_firm_commitment_volume_top15_brl": 15.0,
                 "investor_count_methodology": "soma dos campos Num_Invest_*",
                 "ranking_methodology": "volume desc; offer_id asc",
+                "automatic_rite_registered_volume_share": 0.0 if row_count == 7 else 1.0,
+                "comparability_status": "parcial_não_comparável" if row_count == 7 else "comparável_todos_os_ritos",
+                "coverage_note": "2022 parcial" if row_count == 7 else "comparável",
             }
-            for period in ("2025 FY", "2026 jan-jun")
+            for period, row_count in (
+                ("2022 FY parcial", 7),
+                ("2023 FY", 15),
+                ("2024 FY", 15),
+                ("2025 FY", 15),
+                ("2026 jan-jun", 15),
+            )
         ],
+        "top20_outros_regulation_review": [{} for _ in range(20)],
         "provider_history_cvm_coverage": [
             {
                 "papel": "gestor",

@@ -3,7 +3,8 @@
 This is the analyst-facing refresh entrypoint.  It downloads the current CVM
 archive, normalizes every public-primary rite, rebuilds all offer views,
 refreshes the BCB bridge and re-runs the official SRE document curation for the
-current Top 15 in 2025FY and 2026 YTD.
+Top 15 from 2022 through 2026 YTD. The seven legacy observations available for
+2022 are retained as a partial, non-comparable period.
 """
 
 from __future__ import annotations
@@ -128,7 +129,7 @@ def main(argv: list[str] | None = None) -> None:
             data_dir,
         )
     print(
-        "[ok] ofertas públicas e Carteira de Crédito Ampliada atualizadas; "
+        "[ok] ofertas públicas e Carteira de Crédito Privada Ampliada atualizadas; "
         f"SHA-256 CVM {digest}"
     )
 

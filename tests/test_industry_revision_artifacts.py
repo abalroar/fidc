@@ -317,14 +317,10 @@ def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
 
     assert len(charts) == 2
     assert "PL DOS FIDCs · EX-FIC" in text
-    assert "CARTEIRA DE CRÉDITO AMPLIADA" in text
-    assert "debêntures e notas comerciais estão em títulos privados" in text
-    assert (
-        "A ótica de crédito ampliado considera os direitos creditórios "
-        "mantidos pelos FIDCs. O PL ex-FIC também incorpora demais ativos; "
-        "as duas medidas representam perímetros contábeis distintos."
-        in text
-    )
+    assert "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA" in text
+    assert "excluídos títulos públicos" in text
+    assert "demais securitizações (CRIs e CRAs)" in text
+    assert "PL ex-FIC e carteira privada têm perímetros contábeis distintos" in text
     assert "FIC-FIDC" not in text
 
     left_bar = charts[0].find(f".//{{{CHART}}}barChart")
@@ -335,7 +331,7 @@ def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
         left_bar.find(f"{{{CHART}}}grouping").attrib.get("val")
         == "clustered"
     )
-    assert len(right_bar.findall(f"{{{CHART}}}ser")) == 6
+    assert len(right_bar.findall(f"{{{CHART}}}ser")) == 5
     assert (
         right_bar.find(f"{{{CHART}}}grouping").attrib.get("val")
         == "stacked"
@@ -668,7 +664,7 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Ofertas encerradas",
         "Regime de colocação",
         "Histograma ofertas",
-        "Crédito Ampliado BCB",
+        "Crédito Privado Ampliado",
         "Originadores 2026",
         "Top 15 ofertas",
         "Principais conclusões",
@@ -700,14 +696,21 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
                 shared,
             ) == [""]
         top15_periods = _column_values(
-            archive, sheets["Top 15 ofertas"], "A", 5, 34, shared
+            archive, sheets["Top 15 ofertas"], "A", 5, 71, shared
         )
         top15_ranks = _column_values(
-            archive, sheets["Top 15 ofertas"], "B", 5, 34, shared
+            archive, sheets["Top 15 ofertas"], "B", 5, 71, shared
         )
-        assert top15_periods == ["2025 FY"] * 15 + ["2026 jan-jun"] * 15
+        assert top15_periods == (
+            ["2022 FY parcial"] * 7
+            + ["2023 FY"] * 15
+            + ["2024 FY"] * 15
+            + ["2025 FY"] * 15
+            + ["2026 jan-jun"] * 15
+        )
         assert [int(float(value)) for value in top15_ranks] == (
-            list(range(1, 16)) + list(range(1, 16))
+            list(range(1, 8))
+            + list(range(1, 16)) * 4
         )
         for column, header in {
             "K": "IBBA Coord-Líder?",
@@ -715,6 +718,8 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
             "S": "Garantia Firme?",
             "T": "Público",
             "U": "Nº de Inv.",
+            "AI": "Agência de rating",
+            "AJ": "Rating",
         }.items():
             assert _column_values(
                 archive, sheets["Top 15 ofertas"], column, 4, 4, shared
@@ -881,9 +886,9 @@ def test_materialized_ex_fic_pl_annual_growth_matches_the_chart_totals() -> None
         for row in payload["bcb_total_growth_periods"]
     }
     assert set(bcb_periods) == set(periods)
-    assert bcb_periods[(2015, 2018)]["cagr"] == pytest.approx(0.0563971505)
-    assert bcb_periods[(2019, 2020)]["cagr"] == pytest.approx(0.1682700815)
-    assert bcb_periods[(2025, 2026)]["cagr"] == pytest.approx(0.0316504273)
+    assert bcb_periods[(2015, 2018)]["cagr"] == pytest.approx(0.0155136903)
+    assert bcb_periods[(2019, 2020)]["cagr"] == pytest.approx(0.1604784933)
+    assert bcb_periods[(2025, 2026)]["cagr"] == pytest.approx(0.0227787625)
 
 
 def test_materialized_payload_uses_complete_june_stock() -> None:

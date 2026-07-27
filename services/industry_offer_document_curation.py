@@ -21,7 +21,13 @@ DOCUMENTS_URL = (
     SRE_BASE + "/rest/sitePublico/pesquisar/documentosPublicados/{offer_id}"
 )
 DOWNLOAD_URL = SRE_BASE + "/rest/download/{document_uuid}"
-TOP_PERIODS = ("2025 FY", "2026 jan-jun")
+TOP_PERIODS = (
+    "2022 FY parcial",
+    "2023 FY",
+    "2024 FY",
+    "2025 FY",
+    "2026 jan-jun",
+)
 ITAU_CNPJS = {
     "04845753000159",  # Itaú BBA Assessoria Financeira
     "60701190000104",  # Itaú Unibanco
@@ -45,6 +51,10 @@ OUTPUT_COLUMNS = (
     "ibba_participant_roles",
     "ibba_participation_source",
     "participants_source_url",
+    "coordinator_entities",
+    "firm_commitment_coordinators",
+    "firm_commitment_amount_by_coordinator",
+    "firm_commitment_source_limitation",
     "closing_document_name",
     "closing_document_date",
     "closing_document_url",
@@ -239,11 +249,12 @@ def build_offer_document_curation(
             ["registered_volume_brl", "numero_requerimento"],
             ascending=[False, True],
         ).head(top_n)
-        if len(period) != top_n:
+        expected = min(top_n, len(period))
+        if expected != top_n and period_label != "2022 FY parcial":
             raise OfferDocumentCurationError(
                 f"{period_label} possui apenas {len(period)} ofertas."
             )
-        period["rank"] = range(1, top_n + 1)
+        period["rank"] = range(1, expected + 1)
         selected_parts.append(period)
     selected = pd.concat(selected_parts, ignore_index=True)
 
@@ -251,28 +262,36 @@ def build_offer_document_curation(
     rows: list[dict[str, object]] = []
     for item in selected.itertuples(index=False):
         offer_id = str(item.numero_requerimento).strip()
-        if not offer_id.isdigit():
-            raise OfferDocumentCurationError(
-                f"Top 15 contém oferta legada sem endpoint SRE: {offer_id}"
-            )
-        participants_url = PARTICIPANTS_URL.format(offer_id=offer_id)
-        participant_response = client.get(participants_url, timeout=timeout)
-        participant_response.raise_for_status()
-        participants = participant_response.json()
-        if not isinstance(participants, list):
-            raise OfferDocumentCurationError(
-                f"{offer_id}: participantes inválidos."
-            )
+        is_sre_offer = offer_id.isdigit()
+        participants_url = (
+            PARTICIPANTS_URL.format(offer_id=offer_id)
+            if is_sre_offer else ""
+        )
+        participants: list[dict[str, object]] = []
+        if is_sre_offer:
+            participant_response = client.get(participants_url, timeout=timeout)
+            participant_response.raise_for_status()
+            participants = participant_response.json()
+            if not isinstance(participants, list):
+                raise OfferDocumentCurationError(
+                    f"{offer_id}: participantes inválidos."
+                )
         itau_rows = [row for row in participants if _is_itau_participant(row)]
+        coordinator_rows = [
+            row for row in participants
+            if _normalize(row.get("tipo")) == "COORDENADOR"
+        ]
 
-        documents_url = DOCUMENTS_URL.format(offer_id=offer_id)
-        documents_response = client.get(documents_url, timeout=timeout)
-        documents_response.raise_for_status()
-        documents = documents_response.json()
-        if not isinstance(documents, list):
-            raise OfferDocumentCurationError(
-                f"{offer_id}: documentos inválidos."
-            )
+        documents: list[dict[str, object]] = []
+        if is_sre_offer:
+            documents_url = DOCUMENTS_URL.format(offer_id=offer_id)
+            documents_response = client.get(documents_url, timeout=timeout)
+            documents_response.raise_for_status()
+            documents = documents_response.json()
+            if not isinstance(documents, list):
+                raise OfferDocumentCurationError(
+                    f"{offer_id}: documentos inválidos."
+                )
         closing = _select_closing_document(documents)
         document_text = ""
         document_method = "anúncio de encerramento ausente"
@@ -293,7 +312,11 @@ def build_offer_document_curation(
         source = (
             "participantes oficiais SRE"
             if ibba_participant
-            else "participantes oficiais SRE; anúncio conferido"
+            else (
+                "participantes oficiais SRE; anúncio conferido"
+                if is_sre_offer
+                else "N/D — oferta legada sem endpoint SRE"
+            )
         )
         originator, confidence, evidence = _originator_curation(
             offer_id,
@@ -324,6 +347,29 @@ def build_offer_document_curation(
                 ),
                 "ibba_participation_source": source,
                 "participants_source_url": participants_url,
+                "coordinator_entities": " | ".join(
+                    dict.fromkeys(
+                        str(row.get("razaoSocial") or "").strip()
+                        for row in coordinator_rows
+                        if str(row.get("razaoSocial") or "").strip()
+                    )
+                ) or "N/D",
+                "firm_commitment_coordinators": (
+                    " | ".join(
+                        dict.fromkeys(
+                            str(row.get("razaoSocial") or "").strip()
+                            for row in coordinator_rows
+                            if str(row.get("razaoSocial") or "").strip()
+                        )
+                    ) or "N/D"
+                ),
+                "firm_commitment_amount_by_coordinator": "N/D",
+                "firm_commitment_source_limitation": (
+                    "A API pública SRE identifica os coordenadores, mas não "
+                    "individualiza o valor garantido por coordenador."
+                    if is_sre_offer else
+                    "Oferta legada sem endpoint público SRE; abertura não disponível."
+                ),
                 "closing_document_name": (
                     str(closing.get("nome") or "") if closing else ""
                 ),
@@ -352,15 +398,17 @@ def validate_offer_document_curation(frame: pd.DataFrame) -> pd.DataFrame:
             "Curadoria sem colunas: " + ", ".join(missing)
         )
     result = frame.loc[:, OUTPUT_COLUMNS].copy()
-    if len(result) != 30:
+    expected_rows = 4 * 15 + 7
+    if len(result) != expected_rows:
         raise OfferDocumentCurationError(
-            f"Curadoria deveria conter 30 ofertas; contém {len(result)}."
+            f"Curadoria deveria conter {expected_rows} ofertas; contém {len(result)}."
         )
     if result["offer_id"].duplicated().any():
         raise OfferDocumentCurationError("Oferta duplicada na curadoria.")
     for period in TOP_PERIODS:
         ranks = result.loc[result["period_label"].eq(period), "rank"].tolist()
-        if ranks != list(range(1, 16)):
+        expected = 7 if period == "2022 FY parcial" else 15
+        if ranks != list(range(1, expected + 1)):
             raise OfferDocumentCurationError(
                 f"Ranking incompleto em {period}."
             )

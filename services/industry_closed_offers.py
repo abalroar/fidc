@@ -348,10 +348,10 @@ def validate_closed_offers_annual(frame: pd.DataFrame) -> pd.DataFrame:
     )
     _assert_unique(result, ("year",), name="ofertas anuais")
     result = result.sort_values("year", kind="stable").reset_index(drop=True)
-    if tuple(result["year"]) != (2023, 2024, 2025, 2026):
-        raise ClosedOffersDataError("ofertas anuais: são esperados os anos de 2023 a 2026.")
+    if tuple(result["year"]) != (2022, 2023, 2024, 2025, 2026):
+        raise ClosedOffersDataError("ofertas anuais: são esperados os anos de 2022 a 2026.")
     if not result.loc[result["year"].lt(2026), "is_full_year"].all():
-        raise ClosedOffersDataError("ofertas anuais: 2023–2025 devem estar marcados como anos completos.")
+        raise ClosedOffersDataError("ofertas anuais: 2022–2025 devem estar marcados como anos completos.")
     if bool(result.loc[result["year"].eq(2026), "is_full_year"].iloc[0]):
         raise ClosedOffersDataError("ofertas anuais: 2026 deve permanecer identificado como YTD.")
     starts = pd.to_datetime(result["period_start"])

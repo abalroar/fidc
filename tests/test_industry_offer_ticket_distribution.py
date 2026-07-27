@@ -78,8 +78,8 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
             abs_tol=1e-12,
         )
 
-    assert len(outputs.cohort) == 3_253
-    assert outputs.cohort["numero_requerimento"].nunique() == 3_253
+    assert len(outputs.cohort) == 3_610
+    assert outputs.cohort["numero_requerimento"].nunique() == 3_610
 
 
 def test_published_bucket_counts_are_stable() -> None:

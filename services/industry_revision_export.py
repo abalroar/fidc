@@ -61,6 +61,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Comparativo renda fixa",
     "Regime de colocação",
     "Histograma ofertas",
+    "Crédito Privado Ampliado",
     "Originadores 2026",
     "Top 15 ofertas",
     "Principais conclusões",

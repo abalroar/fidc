@@ -1069,11 +1069,14 @@ def _read_optional(
 ) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
-    frame = pd.read_csv(
-        path,
-        low_memory=False,
-        dtype={column: str for column in cnpj_columns},
-    )
+    try:
+        frame = pd.read_csv(
+            path,
+            low_memory=False,
+            dtype={column: str for column in cnpj_columns},
+        )
+    except pd.errors.EmptyDataError:
+        return pd.DataFrame()
     for column in cnpj_columns:
         if column in frame:
             frame[column] = frame[column].map(_digits)
@@ -1170,9 +1173,9 @@ def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
 
 
 def _bcb_total_growth_periods(expanded_credit: pd.DataFrame) -> pd.DataFrame:
-    """Materialize the same growth windows for the BCB total shown in slide 3."""
+    """Materialize growth windows for private expanded credit in slide 3."""
 
-    required = {"competencia", "expanded_credit_total_brl"}
+    required = {"competencia", "private_expanded_credit_total_brl"}
     missing = sorted(required.difference(expanded_credit.columns))
     if missing:
         raise ValueError("série BCB sem colunas: " + ", ".join(missing))
@@ -1187,8 +1190,8 @@ def _bcb_total_growth_periods(expanded_credit: pd.DataFrame) -> pd.DataFrame:
             )
         start = by_year.loc[start_year]
         end = by_year.loc[end_year]
-        start_value = float(start["expanded_credit_total_brl"])
-        end_value = float(end["expanded_credit_total_brl"])
+        start_value = float(start["private_expanded_credit_total_brl"])
+        end_value = float(end["private_expanded_credit_total_brl"])
         annual_intervals = int(end_year - start_year)
         if start_value <= 0 or end_value <= 0 or annual_intervals <= 0:
             raise ValueError(
@@ -1201,7 +1204,7 @@ def _bcb_total_growth_periods(expanded_credit: pd.DataFrame) -> pd.DataFrame:
         )
         rows.append(
             {
-                "metric": "Crédito Ampliado Total",
+                "metric": "Carteira de Crédito Privada Ampliada",
                 "period_label": period_label,
                 "growth_kind": growth_kind,
                 "start_year": int(start_year),
@@ -2275,15 +2278,27 @@ def _build_profiles(
 def _build_top20_outros_review(
     top20_outros: pd.DataFrame,
     documentary: pd.DataFrame,
+    regulation_review: pd.DataFrame,
 ) -> pd.DataFrame:
     doc = documentary.copy()
     if not doc.empty:
         doc["cnpj_key"] = doc["cnpj"].map(_digits)
         doc = doc.drop_duplicates("cnpj_key", keep="last").set_index("cnpj_key")
+    regulations = regulation_review.copy()
+    if not regulations.empty:
+        regulations["cnpj_key"] = regulations["cnpj_fundo"].map(_digits)
+        regulations = regulations.drop_duplicates(
+            "cnpj_key", keep="last"
+        ).set_index("cnpj_key")
     rows: list[dict[str, Any]] = []
     for _, fund in top20_outros.sort_values("rank_outros").iterrows():
         key = _digits(fund.get("cnpj_fundo"))
         evidence = doc.loc[key] if not doc.empty and key in doc.index else pd.Series(dtype=object)
+        regulation = (
+            regulations.loc[key]
+            if not regulations.empty and key in regulations.index
+            else pd.Series(dtype=object)
+        )
         d1 = _pick(evidence, "document_segment_n1")
         d2 = _pick(evidence, "document_segment_n2")
         hypothesis = " — ".join(item for item in (d1, d2) if item)
@@ -2309,10 +2324,27 @@ def _build_top20_outros_review(
                 "fonte_revisao": _pick(evidence, "source")
                 or "Fonte primária não localizada no corpus consultado.",
                 "status_revisao": (
-                    f"evidência documental — {_pick(evidence, 'classification_confidence')}"
-                    if hypothesis
-                    else "pendente"
+                    _pick(regulation, "reclassification_status")
+                    or (
+                        f"evidência documental — {_pick(evidence, 'classification_confidence')}"
+                        if hypothesis
+                        else "pendente"
+                    )
                 ),
+                "cedente_originador_regulamento": _pick(
+                    regulation, "cedent_originator_explicit"
+                ) or "N/D",
+                "regulamento_id": _pick(regulation, "document_id") or "N/D",
+                "regulamento_data": _pick(
+                    regulation, "document_reference_date"
+                ) or "N/D",
+                "regulamento_url": _pick(regulation, "document_url"),
+                "categoria_proposta_regulamento": _pick(
+                    regulation, "proposed_category"
+                ) or "N/D",
+                "motivo_validacao_manual": _pick(
+                    regulation, "manual_validation_reason"
+                ) or "N/D",
             }
         )
     return pd.DataFrame(rows)
@@ -2331,6 +2363,9 @@ def build_payload(
     segments = pd.read_csv(data_dir / "segments_monthly.csv", low_memory=False)
     providers = pd.read_csv(data_dir / "prestadores_latest.csv", low_memory=False)
     documentary = _read_optional(data_dir / "industry_large_fund_classification.csv")
+    top20_outros_regulations = _read_optional(
+        data_dir / "industry_top20_outros_regulation_review.csv"
+    )
     acquiring_curation = _read_optional(
         data_dir / "acquiring_reclassification_curation.csv",
         cnpj_columns=("cnpj14_digits",),
@@ -2629,7 +2664,36 @@ def build_payload(
         documentary,
         latest=latest,
     )
-    top20_outros_review = _build_top20_outros_review(top20_outros, documentary)
+    top20_outros_review = _build_top20_outros_review(
+        top20_outros, documentary, top20_outros_regulations
+    )
+    reclassification_candidates = top20_outros_review[
+        top20_outros_review["status_revisao"].eq(
+            "potencial_reclassificação"
+        )
+    ]
+    top20_outros_reclassification_summary = {
+        "candidate_funds": int(len(reclassification_candidates)),
+        "candidate_pl_brl": float(
+            reclassification_candidates["pl"].sum()
+        ),
+        "candidate_share_of_outros": float(
+            reclassification_candidates["market_share_outros"].sum()
+        ),
+        "candidate_share_of_ex_fic": float(
+            reclassification_candidates["market_share_ex_fic"].sum()
+        ),
+        "manual_validation_funds": int(
+            top20_outros_review["status_revisao"].eq(
+                "validação_manual"
+            ).sum()
+        ),
+        "methodology": (
+            "Potencial considera somente regulamentos com evidência expressa "
+            "compatível com categoria já existente fora de Outros; nenhuma "
+            "mudança taxonômica é aplicada automaticamente."
+        ),
+    }
 
     material_focus = (
         market[["tipo_anbima", "foco_anbima", "denominador_pl_subtipo_brl"]]
@@ -2835,6 +2899,12 @@ def build_payload(
         },
         "top20_fidcs": _records(top20.assign(nome_curto=top20["denominacao"].map(_display_fund_name))),
         "top20_outros": _records(top20_outros_review),
+        "top20_outros_regulation_review": _records(
+            top20_outros_regulations
+        ),
+        "top20_outros_reclassification_summary": (
+            top20_outros_reclassification_summary
+        ),
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,

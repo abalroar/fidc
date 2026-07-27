@@ -11265,7 +11265,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
 
-    st.markdown("<h2>FIDCs e Carteira de Crédito Ampliada</h2>", unsafe_allow_html=True)
+    st.markdown("<h2>FIDCs e Carteira de Crédito Privada Ampliada</h2>", unsafe_allow_html=True)
     if not pl.empty:
         pl = pl.copy()
         pl["Período"] = pl.apply(
@@ -11316,11 +11316,10 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                 f"último ponto em {latest_label.lower()}."
             )
         with right:
-            st.markdown("**Carteira de Crédito Ampliada**")
+            st.markdown("**Carteira de Crédito Privada Ampliada**")
             if not bcb_credit.empty:
                 components = [
                     ("Empréstimos", "loans_brl"),
-                    ("Títulos públicos", "public_debt_brl"),
                     ("Títulos privados", "private_debt_brl"),
                     ("FIDCs · carteira", "fidc_receivables_brl"),
                     ("Outras securitizações", "other_securitization_brl"),
@@ -11359,7 +11358,6 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                                 domain=[label for label, _ in components],
                                 range=[
                                     "#30353A",
-                                    "#73787D",
                                     "#8D9399",
                                     _ORANGE,
                                     "#D7DADD",
@@ -11376,8 +11374,16 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                     )
                 )
                 bcb_totals = bcb_credit.copy()
+                private_total = bcb_totals.get("private_expanded_credit_total_brl")
+                if private_total is None:
+                    private_total = (
+                        pd.to_numeric(
+                            bcb_totals["expanded_credit_total_brl"], errors="coerce"
+                        )
+                        - pd.to_numeric(bcb_totals["public_debt_brl"], errors="coerce")
+                    )
                 bcb_totals["Total (R$ bi)"] = pd.to_numeric(
-                    bcb_totals["expanded_credit_total_brl"], errors="coerce"
+                    private_total, errors="coerce"
                 ) / 1e9
                 bcb_total_labels = (
                     alt.Chart(bcb_totals)
@@ -11399,14 +11405,14 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                         for row in bcb_growth_periods.itertuples(index=False)
                     ]
                     st.caption(
-                        "Crescimento do Crédito Ampliado · "
+                        "Crescimento da Carteira de Crédito Privada Ampliada · "
                         + " · ".join(growth_parts)
                     )
                 st.caption(
-                    "Fonte: BCB, SGS 28183–28192; CVM, carteira de direitos creditórios "
-                    "na mesma competência. Último mês comum: mai/26. Debêntures e notas "
-                    "comerciais integram títulos privados; outras securitizações são o "
-                    "residual da série 28191 após a carteira FIDC."
+                    "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, "
+                    "excluídos títulos públicos. As securitizações são abertas entre (i) "
+                    "FIDCs e (ii) demais securitizações, correspondentes a CRIs e CRAs. "
+                    "Último mês comum com a CVM: mai/26."
                 )
 
     st.markdown(
@@ -13513,6 +13519,10 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
     stock_label_lower = _short_competence_label(payload.get("latest_complete")).lower()
     top20 = _revision_frame(payload, "top20_fidcs")
     outros = _revision_frame(payload, "top20_outros")
+    outros_regs = _revision_frame(payload, "top20_outros_regulation_review")
+    outros_summary = dict(
+        payload.get("top20_outros_reclassification_summary") or {}
+    )
     profiles = _revision_frame(payload, "profiles")
     ranking_tab, others_tab, profile_tab = st.tabs(["Top 20 FIDCs", "Top 20 Outros", "Ficha do fundo"])
     with ranking_tab:
@@ -13536,41 +13546,42 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
             pd.to_numeric(outros["market_share_outros"], errors="coerce").fillna(0).sum()
         )
         _industry_headline(
-            f"Top 20 representam {_fmt_pct(top20_outros_share)} de Outros; classificação oficial, hipótese e status permanecem separados."
+            f"{_fmt_int(outros_summary.get('candidate_funds', 0))} candidatos documentais somam "
+            f"{_fmt_bi(float(outros_summary.get('candidate_pl_brl', 0)), 1)} e "
+            f"{_fmt_pct(float(outros_summary.get('candidate_share_of_outros', 0)))} de Outros; "
+            "a taxonomia vigente permanece inalterada até validação manual."
         )
         columns = [
-            "rank_outros",
-            "denominacao",
-            "pl",
-            "market_share_outros",
-            "classificacao_oficial",
-            "hipotese_revisao",
-            "evidencia_revisao",
-            "fonte_revisao",
-            "status_revisao",
+            "rank_outros", "nome_fidc", "pl_atual_brl",
+            "cedent_originator_explicit", "document_reference_date",
+            "proposed_category", "reclassification_status",
+            "manual_validation_reason", "source_limitations",
         ]
-        available = [column for column in columns if column in outros]
-        display = outros[available].copy()
+        source = outros_regs if not outros_regs.empty else outros
+        available = [column for column in columns if column in source]
+        display = source[available].copy()
         display = display.rename(
             columns={
                 "rank_outros": "#",
-                "denominacao": "Fundo",
-                "pl": "PL",
-                "market_share_outros": "Share de Outros",
-                "classificacao_oficial": "Classificação oficial",
-                "hipotese_revisao": "Hipótese",
-                "evidencia_revisao": "Evidência",
-                "fonte_revisao": "Fonte",
-                "status_revisao": "Status",
+                "nome_fidc": "Fundo",
+                "pl_atual_brl": "PL atual",
+                "cedent_originator_explicit": "Cedente/originador expresso",
+                "document_reference_date": "Data regulamento",
+                "proposed_category": "Categoria proposta",
+                "reclassification_status": "Status",
+                "manual_validation_reason": "Validação manual",
+                "source_limitations": "Limitações",
             }
         )
-        display["PL"] = display["PL"].map(lambda value: _fmt_bi(value, 1))
-        display["Share de Outros"] = display["Share de Outros"].map(_fmt_pct)
+        if "PL atual" in display:
+            display["PL atual"] = display["PL atual"].map(
+                lambda value: _fmt_bi(value, 1)
+            )
         st.dataframe(display, hide_index=True, width="stretch", height=730)
         st.caption(
-            f"Fonte: ANBIMA, regulamentos e documentos das ofertas; ranking em {stock_label_lower}. Ranking dos 20 maiores fundos classificados "
-            f"em Outros, sobre o universo ex-FIC. Os 20 fundos representam {_fmt_pct(top20_outros_share)} de Outros. "
-            "Hipóteses de reenquadramento permanecem separadas da classificação oficial; evidência, fonte e status documentam a revisão."
+            f"Fonte: CVM e FundosNet; ranking em {stock_label_lower}. Somente FIDCs existentes/ativos. "
+            "O cedente/originador é transcrito do regulamento público mais recente; nome do fundo, gestor e administrador não são usados como inferência. "
+            f"Os 20 fundos representam {_fmt_pct(top20_outros_share)} de Outros."
         )
     with profile_tab:
         if profiles.empty:
@@ -14588,6 +14599,10 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     "firm_commitment_label",
                     "publico",
                     "Nº de Inv.",
+                    "investor_categories",
+                    "coordinator_entities",
+                    "rating_agency",
+                    "rating_assigned",
                 ]
             ]
             frame.columns = [
@@ -14600,17 +14615,27 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 "Garantia Firme?",
                 "Público",
                 "Nº de Inv.",
+                "Abertura de demanda",
+                "Coordenadores",
+                "Agência",
+                "Rating",
             ]
             return frame
 
-        left, right = st.columns(2)
-        for column, period_label, heading in (
-            (left, "2026 jan-jun", "Jan–jun/26"),
-            (right, "2025 FY", "2025FY"),
+        period_tabs = st.tabs(
+            ["2026 jan–jun", "2025FY", "2024FY", "2023FY", "2022 parcial"]
+        )
+        for period_tab, period_label, heading in (
+            (period_tabs[0], "2026 jan-jun", "Jan–jun/26"),
+            (period_tabs[1], "2025 FY", "2025FY"),
+            (period_tabs[2], "2024 FY", "2024FY"),
+            (period_tabs[3], "2023 FY", "2023FY"),
+            (period_tabs[4], "2022 FY parcial", "2022 · base parcial"),
         ):
             summary = summary_by_period.loc[period_label]
-            with column:
-                st.markdown(f"#### {heading} · 15 maiores")
+            with period_tab:
+                count = int(summary["top15_offers"])
+                st.markdown(f"#### {heading} · {count} maiores")
                 st.dataframe(
                     _top15_display(period_label),
                     hide_index=True,
@@ -14632,6 +14657,12 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                         "Nº de Inv.": st.column_config.TextColumn(
                             help="Soma das categorias de investidores informadas no encerramento."
                         ),
+                        "Abertura de demanda": st.column_config.TextColumn(
+                            help="Categorias disponíveis na base CVM; N/D indica ausência da abertura na linha-fonte."
+                        ),
+                        "Rating": st.column_config.TextColumn(
+                            help="Transcrição do documento de rating mais recente localizado no FundosNet; lacunas não são inferidas."
+                        ),
                     },
                 )
                 st.caption(
@@ -14642,7 +14673,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         st.caption(
             "Fonte: CVM, Sistema de Registro de Ofertas (SRE). Cotas de FIDC, "
             "ofertas primárias encerradas, todos os ritos, com volume positivo. "
-            "Originador não identificável permanece como “Não identificado”."
+            "2022 contém sete registros legados e é uma base parcial, sem comparabilidade anual. "
+            "Originador e rating não identificáveis permanecem como N/D."
         )
         with st.expander("Como ler as colunas", expanded=False):
             st.caption(
@@ -14693,7 +14725,7 @@ def _render_revision_data_exports(
             ["Estoque, cotistas e carteira", "CVM — Informe Mensal FIDC", payload.get("latest_complete"), f"{_fmt_int(qa.get('veiculos_total', 0))} veículos / {_fmt_int(qa.get('fundos_total', 0))} fundos"],
             ["Tipo e Foco ANBIMA", "ANBIMA Data + evidência documental + proxy CVM", sources.get("anbima", payload.get("latest_complete")), f"{_fmt_pct(float(coverage.loc[coverage['categoria'].eq('Oficial ANBIMA'), 'share'].sum()))} do PL oficial" if not coverage.empty else "n/d"],
             ["Ofertas", "CVM — ofertas públicas primárias, todos os ritos", payload.get("offers_as_of"), "encerramento no período; volume registrado positivo"],
-            ["Crédito Ampliado", "BCB — SGS 28183–28192", "mai/26", "FIDC aberto pela carteira de direitos creditórios CVM"],
+            ["Crédito Privado Ampliado", "BCB — SGS 28183–28192, excluídos títulos públicos", "mai/26", "Securitizações abertas entre FIDCs e CRIs/CRAs"],
             ["Curadoria Top 20", "CVM, FundosNet e documentos de emissão", curation_date, "lacunas marcadas como não identificado"],
         ],
         columns=["Dimensão", "Fonte", "Data-base", "Cobertura/regra"],
@@ -14717,14 +14749,16 @@ def _render_revision_data_exports(
             "Histórico de inadimplência da coorte atual": "inadimplencia_coorte_atual_historico.csv",
             "Top 20 FIDCs": "top20_fidcs.csv",
             "Top 20 Outros": "top20_outros.csv",
+            "Top 20 Outros · regulamentos": "../industry_top20_outros_regulation_review.csv",
             "Market share por subtipo": "market_share_por_subtipo.csv",
             "Concentração de monoestruturas": "monoestrutura_concentracao.csv",
             "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",
             "BTG ex-coorte bancária": "btg_prestadores_ex_controlados.csv",
             "Histórico CVM de prestadores": "prestadores_historico_cvm_transicoes_links.csv",
             "Histograma das ofertas": "../industry_closed_offer_ticket_distribution.csv",
-            "Carteira de Crédito Ampliada": "../industry_bcb_expanded_credit.csv",
-            "Curadoria documental das 30 ofertas": "../industry_offer_document_curation.csv",
+            "Carteira de Crédito Privada Ampliada": "../industry_bcb_expanded_credit.csv",
+            "Curadoria documental das 67 ofertas": "../industry_offer_document_curation.csv",
+            "Curadoria de ratings": "../industry_offer_rating_review.csv",
             "Manifest analítico": "revision_manifest.json",
             "Manifest do bundle": "industry_export_bundle.json",
         }
