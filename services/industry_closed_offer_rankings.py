@@ -18,7 +18,14 @@ import pandas as pd
 COHORT_FILENAME = "industry_closed_offer_ticket_cohort.csv.gz"
 OFFERS_FILENAME = "industry_offers.csv.gz"
 DOCUMENT_CURATION_FILENAME = "industry_offer_document_curation.csv"
-TOP_PERIODS = ("2025 FY", "2026 jan-jun")
+RATING_REVIEW_FILENAME = "industry_offer_rating_review.csv"
+TOP_PERIODS = (
+    "2022 FY parcial",
+    "2023 FY",
+    "2024 FY",
+    "2025 FY",
+    "2026 jan-jun",
+)
 IBBA_LEADER = "ITAU BBA ASSESSORIA FINANCEIRA S.A"
 
 
@@ -83,6 +90,19 @@ def _read_inputs(data_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
         "cnpj_emissor",
         "nome_emissor",
         "registered_volume_brl",
+        "rite",
+        "leader_name",
+        "distribution_regime",
+        "target_public",
+        "investor_count",
+        "investor_person_natural",
+        "investor_funds",
+        "investor_financial_institutions",
+        "investor_other_legal_entities",
+        "investor_pension",
+        "investor_insurers",
+        "investor_foreign",
+        "investor_clubs",
         "source_dataset",
         "source_url",
         "source_as_of_date",
@@ -161,8 +181,15 @@ def build_closed_offer_top15(
         "offer_type",
         "security",
     ]
+    offer_metadata = offers[metadata_columns].rename(
+        columns={
+            column: f"offer_{column}"
+            for column in metadata_columns
+            if column != "offer_id"
+        }
+    )
     joined = cohort.merge(
-        offers[metadata_columns],
+        offer_metadata,
         on="offer_id",
         how="left",
         validate="one_to_one",
@@ -180,6 +207,30 @@ def build_closed_offer_top15(
         )
 
     joined["metadata_matched"] = joined["_merge"].eq("both")
+    for column in (
+        "leader_name",
+        "distribution_regime",
+        "target_public",
+        "investor_count",
+    ):
+        offer_column = f"offer_{column}"
+        if offer_column not in joined:
+            continue
+        current = joined[column].map(_clean_text)
+        supplement = joined[offer_column].map(_clean_text)
+        joined[column] = current.where(current.ne(""), supplement)
+    joined["originator_group"] = joined["offer_originator_group"]
+    joined["originator_source"] = joined["offer_originator_source"]
+    joined["originator_evidence"] = joined["offer_originator_evidence"]
+    joined["status"] = joined["offer_status"].map(
+        lambda value: _clean_text(value, "Oferta encerrada")
+    )
+    joined["offer_type"] = joined["offer_offer_type"].map(
+        lambda value: _clean_text(value, "PRIMARIA")
+    )
+    joined["security"] = joined["offer_security"].map(
+        lambda value: _clean_text(value, "Cotas de FIDC")
+    )
     curation_path = data_dir / DOCUMENT_CURATION_FILENAME
     if curation_path.is_file():
         curation = pd.read_csv(
@@ -196,6 +247,10 @@ def build_closed_offer_top15(
             "ibba_participant_roles",
             "ibba_participation_source",
             "participants_source_url",
+            "coordinator_entities",
+            "firm_commitment_coordinators",
+            "firm_commitment_amount_by_coordinator",
+            "firm_commitment_source_limitation",
             "closing_document_url",
             "document_text_method",
             "review_status",
@@ -228,6 +283,10 @@ def build_closed_offer_top15(
         joined["ibba_participant_roles"] = ""
         joined["ibba_participation_source"] = ""
         joined["participants_source_url"] = ""
+        joined["coordinator_entities"] = ""
+        joined["firm_commitment_coordinators"] = ""
+        joined["firm_commitment_amount_by_coordinator"] = ""
+        joined["firm_commitment_source_limitation"] = ""
         joined["closing_document_url"] = ""
         joined["document_text_method"] = ""
         joined["review_status"] = ""
@@ -259,6 +318,37 @@ def build_closed_offer_top15(
     joined["investor_count"] = pd.to_numeric(
         joined["investor_count"], errors="coerce"
     ).round()
+    investor_columns = {
+        "Pessoa física": "investor_person_natural",
+        "Fundos": "investor_funds",
+        "Instituições financeiras": "investor_financial_institutions",
+        "Demais pessoas jurídicas": "investor_other_legal_entities",
+        "Previdência": "investor_pension",
+        "Seguradoras": "investor_insurers",
+        "Investidor estrangeiro": "investor_foreign",
+        "Clubes": "investor_clubs",
+    }
+    for column in investor_columns.values():
+        joined[column] = pd.to_numeric(joined[column], errors="coerce")
+
+    def investor_categories(row: pd.Series) -> str:
+        available = [
+            f"{label}: {int(row[column])}"
+            for label, column in investor_columns.items()
+            if pd.notna(row[column]) and float(row[column]) > 0
+        ]
+        return " | ".join(available) if available else "N/D"
+
+    joined["investor_categories"] = joined.apply(
+        investor_categories, axis=1
+    )
+    joined["investor_categories_source"] = joined["source_dataset"].map(
+        lambda value: (
+            "CVM, oferta_resolucao_160.csv, categorias Num_Invest_*"
+            if "resolucao_160" in str(value)
+            else "CVM, oferta_distribuicao.csv; categorias não disponíveis para esta linha"
+        )
+    )
     joined["ibba_coord_lead"] = joined["leader_name"].map(
         lambda value: _normalized_text(value) == IBBA_LEADER
     )
@@ -274,6 +364,88 @@ def build_closed_offer_top15(
     joined["firm_commitment"] = joined["distribution_regime"].map(
         lambda value: "GARANTIA FIRME" in _normalized_text(value)
     )
+    joined.loc[
+        ~joined["firm_commitment"], "firm_commitment_coordinators"
+    ] = "Não aplicável"
+    joined.loc[
+        ~joined["firm_commitment"], "firm_commitment_amount_by_coordinator"
+    ] = "Não aplicável"
+
+    rating_path = data_dir / RATING_REVIEW_FILENAME
+    if rating_path.is_file():
+        rating = pd.read_csv(rating_path, dtype=str, keep_default_na=False)
+        required_rating = {
+            "cnpj",
+            "rating_document_count",
+            "latest_document_id",
+            "latest_document_date",
+            "rating_agency",
+            "rating_assigned",
+            "rating_scope",
+            "rating_availability_status",
+            "rating_limitation",
+        }
+        missing_rating = sorted(required_rating.difference(rating.columns))
+        if missing_rating:
+            raise ClosedOfferRankingError(
+                "curadoria de rating sem colunas: "
+                + ", ".join(missing_rating)
+            )
+        rating["cnpj"] = rating["cnpj"].astype(str).str.replace(
+            r"\D", "", regex=True
+        ).str.zfill(14)
+        rating = rating.sort_values(
+            ["cnpj", "latest_document_date"], ascending=[True, False]
+        ).drop_duplicates("cnpj")
+        joined["cnpj_key"] = joined["cnpj_emissor"].astype(str).str.replace(
+            r"\D", "", regex=True
+        ).str.zfill(14)
+        joined = joined.merge(
+            rating[list(required_rating)],
+            left_on="cnpj_key",
+            right_on="cnpj",
+            how="left",
+            validate="many_to_one",
+        )
+        joined["rating_document_count"] = joined[
+            "rating_document_count"
+        ].map(lambda value: _clean_text(value, "0"))
+        for column in (
+            "latest_document_id",
+            "latest_document_date",
+            "rating_agency",
+            "rating_assigned",
+            "rating_scope",
+        ):
+            joined[column] = joined[column].map(
+                lambda value: _clean_text(value, "N/D")
+            )
+        joined["rating_availability_status"] = joined[
+            "rating_availability_status"
+        ].map(
+            lambda value: _clean_text(
+                value, "sem documento público localizado"
+            )
+        )
+        joined["rating_limitation"] = joined["rating_limitation"].map(
+            lambda value: _clean_text(
+                value,
+                "Nenhum Relatório de Agência de Rating localizado no "
+                "FundosNet em 27/07/2026.",
+            )
+        )
+    else:
+        for column in (
+            "rating_document_count",
+            "latest_document_id",
+            "latest_document_date",
+            "rating_agency",
+            "rating_assigned",
+            "rating_scope",
+            "rating_availability_status",
+            "rating_limitation",
+        ):
+            joined[column] = "N/D"
 
     ranking_parts: list[pd.DataFrame] = []
     summary_rows: list[dict[str, object]] = []
@@ -284,11 +456,11 @@ def build_closed_offer_top15(
             ascending=[False, True],
         ).reset_index(drop=True)
         top = period.head(top_n).copy()
-        if len(top) != top_n:
+        if len(top) < top_n and period_label != "2022 FY parcial":
             raise ClosedOfferRankingError(
                 f"{period_label} possui apenas {len(top)} ofertas"
             )
-        top["rank"] = range(1, top_n + 1)
+        top["rank"] = range(1, len(top) + 1)
         top["ibba_coord_lead_label"] = top["ibba_coord_lead"].map(
             {True: "Sim", False: "Não"}
         )
@@ -299,6 +471,12 @@ def build_closed_offer_top15(
 
         period_volume = float(period["registered_volume_brl"].sum())
         top_volume = float(top["registered_volume_brl"].sum())
+        automatic = period["source_dataset"].eq(
+            "oferta_resolucao_160.csv"
+        )
+        automatic_volume = float(
+            period.loc[automatic, "registered_volume_brl"].sum()
+        )
         ibba = top["ibba_coord_lead"]
         ibba_participation = top["ibba_participant"]
         firm = top["firm_commitment"]
@@ -310,6 +488,16 @@ def build_closed_offer_top15(
                 "period_end": top["period_end"].iloc[0],
                 "period_closed_offers": int(len(period)),
                 "period_registered_volume_brl": period_volume,
+                "automatic_rite_offers": int(automatic.sum()),
+                "automatic_rite_offer_share": float(automatic.mean()),
+                "automatic_rite_registered_volume_brl": automatic_volume,
+                "automatic_rite_registered_volume_share": (
+                    automatic_volume / period_volume if period_volume else 0.0
+                ),
+                "legacy_rite_offers": int((~automatic).sum()),
+                "legacy_rite_registered_volume_brl": float(
+                    period.loc[~automatic, "registered_volume_brl"].sum()
+                ),
                 "top15_offers": int(len(top)),
                 "top15_registered_volume_brl": top_volume,
                 "top15_share_of_period_volume": (
@@ -363,6 +551,16 @@ def build_closed_offer_top15(
                     "Valor Total Registrado decrescente; empates por "
                     "Numero_Requerimento crescente"
                 ),
+                "comparability_status": (
+                    "parcial_não_comparável"
+                    if period_label == "2022 FY parcial"
+                    else "comparável_todos_os_ritos"
+                ),
+                "coverage_note": (
+                    "A tabela legada CVM contém somente sete ofertas de cotas de FIDC encerradas em 2022; o período é contextual e não sustenta comparação de crescimento."
+                    if period_label == "2022 FY parcial"
+                    else "Coorte de ofertas encerradas reconciliada entre rito automático e ritos ordinários/legados."
+                ),
             }
         )
 
@@ -380,6 +578,7 @@ def build_closed_offer_top15(
             "nome_emissor",
             "originator_group",
             "registered_volume_brl",
+            "rite",
             "leader_name",
             "ibba_coord_lead",
             "ibba_coord_lead_label",
@@ -389,12 +588,34 @@ def build_closed_offer_top15(
             "ibba_participant_roles",
             "ibba_participation_source",
             "participants_source_url",
+            "coordinator_entities",
+            "firm_commitment_coordinators",
+            "firm_commitment_amount_by_coordinator",
+            "firm_commitment_source_limitation",
             "closing_document_url",
             "distribution_regime",
             "firm_commitment",
             "firm_commitment_label",
+            "rating_document_count",
+            "latest_document_id",
+            "latest_document_date",
+            "rating_agency",
+            "rating_assigned",
+            "rating_scope",
+            "rating_availability_status",
+            "rating_limitation",
             "publico",
             "investor_count",
+            "investor_categories",
+            "investor_categories_source",
+            "investor_person_natural",
+            "investor_funds",
+            "investor_financial_institutions",
+            "investor_other_legal_entities",
+            "investor_pension",
+            "investor_insurers",
+            "investor_foreign",
+            "investor_clubs",
             "originator_source",
             "originator_evidence",
             "originator_evidence_document",

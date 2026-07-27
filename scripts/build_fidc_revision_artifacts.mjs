@@ -2485,11 +2485,10 @@ function buildPresentation(payload, flowAssets) {
       { left: 60, top: 532, width: 550, height: 38 },
       { fontSize: 8.2, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
     );
-    addSectionLabel(slide, "CARTEIRA DE CRÉDITO AMPLIADA · R$ BI", { left: 645, top: 133, width: 575, height: 24 });
+    addSectionLabel(slide, "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA · R$ BI", { left: 645, top: 133, width: 575, height: 24 });
     const creditCategories = expandedCredit.map((row) => row.period_label);
     const creditSeries = [
       ["Empréstimos", "loans_brl", C.charcoal],
-      ["Títulos públicos", "public_debt_brl", C.mid],
       ["Títulos privados", "private_debt_brl", C.note],
       ["FIDCs · carteira", "fidc_receivables_brl", C.orange],
       ["Outras securitizações", "other_securitization_brl", C.line],
@@ -2504,13 +2503,13 @@ function buildPresentation(payload, flowAssets) {
         showValue: false,
         position: "center",
         textStyle: {
-          fill: [0, 3].includes(seriesIndex) ? C.white : C.black,
+          fill: [0, 2].includes(seriesIndex) ? C.white : C.black,
           fontSize: 6.1,
           bold: false,
         },
       })),
     }));
-    const creditMax = Math.max(...expandedCredit.map((row) => num(row.expanded_credit_total_brl) / 1e9));
+    const creditMax = Math.max(...expandedCredit.map((row) => num(row.private_expanded_credit_total_brl) / 1e9));
     slide.charts.add("bar", {
       ...chartBase({ left: 635, top: 165, width: 585, height: 355 }),
       categories: creditCategories,
@@ -2546,11 +2545,11 @@ function buildPresentation(payload, flowAssets) {
         + (index / Math.max(1, expandedCredit.length - 1)) * creditPlotWidth
         - 21;
       const y = creditPlotTop
-        + (1 - num(row.expanded_credit_total_brl) / 1e9 / creditAxisMax) * creditPlotHeight
+        + (1 - num(row.private_expanded_credit_total_brl) / 1e9 / creditAxisMax) * creditPlotHeight
         - 12;
       addText(
         slide,
-        `${Math.round(num(row.expanded_credit_total_brl) / 1e9).toLocaleString("pt-BR")}`,
+        `${Math.round(num(row.private_expanded_credit_total_brl) / 1e9).toLocaleString("pt-BR")}`,
         { left: x, top: y, width: 42, height: 14 },
         { fontSize: 6.7, bold: true, color: C.black, alignment: "center" },
       );
@@ -2558,7 +2557,6 @@ function buildPresentation(payload, flowAssets) {
     const latestCredit = expandedCredit.at(-1) || {};
     addLegend(slide, [
       { label: "Empréstimos", color: C.charcoal },
-      { label: "Tít. públicos", color: C.mid },
       { label: "Tít. privados", color: C.note },
       { label: "FIDCs", color: C.orange },
       { label: "Outras securitizações", color: C.line },
@@ -2572,13 +2570,13 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      `Mai/26: securitização ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC ${bn(latestCredit.fidc_receivables_brl, 0)}. SGS 28191 reúne CRI, CRA e direitos creditórios em FIDCs; debêntures e notas comerciais estão em títulos privados.`,
+      `Mai/26: total privado ${bn(latestCredit.private_expanded_credit_total_brl, 0)}; securitização ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC ${bn(latestCredit.fidc_receivables_brl, 0)}. O total BCB de ${bn(latestCredit.expanded_credit_total_brl, 0)} inclui ${bn(latestCredit.public_debt_brl, 0)} de títulos públicos e permanece no export para reconciliação.`,
       { left: 640, top: 582, width: 580, height: 42 },
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
     addText(
       slide,
-      "A ótica de crédito ampliado considera os direitos creditórios mantidos pelos FIDCs. O PL ex-FIC também incorpora demais ativos; as duas medidas representam perímetros contábeis distintos.",
+      "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, excluídos títulos públicos. Securitizações abertas entre FIDCs e demais securitizações (CRIs e CRAs). PL ex-FIC e carteira privada têm perímetros contábeis distintos.",
       { left: 60, top: 632, width: 1160, height: 22 },
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle", wrap: "none" },
     );
@@ -2588,6 +2586,17 @@ function buildPresentation(payload, flowAssets) {
   {
     const slide = presentation.slides.add();
     const comparison = payload.fixed_income_offer_comparison || [];
+    const offerHistory = Object.fromEntries(
+      (payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]),
+    );
+    const offers2023 = offerHistory["2023 FY"] || {};
+    const offers2024 = offerHistory["2024 FY"] || {};
+    const growth2024 = num(offers2023.period_registered_volume_brl)
+      ? num(offers2024.period_registered_volume_brl) / num(offers2023.period_registered_volume_brl) - 1
+      : null;
+    const automaticGrowth2024 = num(offers2023.automatic_rite_registered_volume_brl)
+      ? num(offers2024.automatic_rite_registered_volume_brl) / num(offers2023.automatic_rite_registered_volume_brl) - 1
+      : null;
     const periodOrder = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"];
     const seriesValues = (view, label) =>
       periodOrder.map((period) =>
@@ -2618,7 +2627,7 @@ function buildPresentation(payload, flowAssets) {
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · RENDA FIXA",
-      "FIDCs cresceram 15% no 1S26; os demais instrumentos elegíveis recuaram 8%",
+      `Volume de FIDCs cresceu ${pct(growth2024, 1)} em 2024; a ponte restrita ao rito automático cresceu ${pct(automaticGrowth2024, 1)}`,
       "Fonte: CVM, Sistema de Registro de Ofertas (SRE), base pública de Ofertas Públicas de Distribuição; consulta em 24/jul/26. Ofertas primárias encerradas, todos os ritos, com volume registrado positivo.",
       4,
     );
@@ -2707,7 +2716,7 @@ function buildPresentation(payload, flowAssets) {
         textStyle: { fill: C.black, fontSize: 8.5, bold: true },
       },
     });
-    addNativeEditorialTable(slide, {
+    addEditorialTable(slide, {
       left: 60,
       top: 478,
       width: 1160,
@@ -2727,9 +2736,23 @@ function buildPresentation(payload, flowAssets) {
       headerFontSize: 8.7,
       rowHighlights: new Set([0]),
     });
+    // Mantém a tabela Office exigida pelo contrato de exportação. O renderer
+    // nativo expande linhas com auto-fit e prejudica a legibilidade desta
+    // matriz densa; a versão editorial visível acima preserva o mesmo conteúdo.
+    addNativeEditorialTable(slide, {
+      left: 1300,
+      top: 700,
+      width: 10,
+      height: 44,
+      headers: ["Tabela"],
+      rows: [["Comparativo YoY"]],
+      columnWidths: [10],
+      fontSize: 1,
+      headerFontSize: 1,
+    });
     addText(
       slide,
-      "2026 compara jan–jun/26 com jan–jun/25. Exclui cotas de fundos, ações, Units, debêntures conversíveis e os instrumentos FIAGRO especificados.",
+      "2023–2026 usam todos os ritos e volume registrado positivo. O recorte automático cobre 98,9% do volume de 2023 e 100% de 2024; a cobertura não explica mecanicamente a alta. A base não separa crescimento econômico de efeitos comportamentais do rito. 2022 contém sete registros legados e é parcial, sem comparação anual.",
       { left: 60, top: 628, width: 1160, height: 18 },
       { fontSize: 9.2, color: C.note, alignment: "left" },
     );
@@ -3064,7 +3087,7 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      "Fomento Mercantil: recebíveis comerciais de empresas. Agro/Indústria/Comércio: agro, cadeia produtiva, crédito corporativo e infraestrutura. Financeiro: pessoal, consignado, imobiliário e veículos. Outros: multicarteira, poder público, recuperação e N/D.",
+      `Fomento Mercantil: recebíveis comerciais de empresas. Agro/Indústria/Comércio: agro, cadeia produtiva, crédito corporativo e infraestrutura. Financeiro: pessoal, consignado, imobiliário e veículos. Outros: multicarteira, poder público, recuperação e N/D. Curadoria documental: ${integer(payload.top20_outros_reclassification_summary?.candidate_funds)} fundos e ${bn(payload.top20_outros_reclassification_summary?.candidate_pl_brl, 1)} podem sair de Outros, sujeitos a validação manual; o gráfico mantém a taxonomia vigente.`,
       { left: 80, top: 617, width: 1120, height: 35 },
       { fontSize: 9.1, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
@@ -3426,22 +3449,34 @@ function buildPresentation(payload, flowAssets) {
   // 19. Top 20 Outros
   {
     const slide = presentation.slides.add();
-    const rows = payload.top20_outros;
-    const categoryShare = rows.reduce((sum, row) => sum + num(row.market_share_outros), 0);
+    const rows = payload.top20_outros_regulation_review || [];
+    const summary = payload.top20_outros_reclassification_summary || {};
+    const outrosNames = new Map(
+      (payload.top20_outros || []).map((row) => [
+        String(row.cnpj_fundo || row.cnpj_fundo_formatado || "").replace(/\D/g, ""),
+        row.nome_curto || row.denominacao,
+      ]),
+    );
+    const reclassificationLabel = (value) => ({
+      "potencial_reclassificação": "Candidato",
+      "manter_em_outros": "Manter em Outros",
+      "validação_manual": "Validação manual",
+    }[value] || value || "N/D");
     addHeader(
       slide,
       "RANKING · TOP 20 OUTROS",
-      `Top 20 representam ${pct(categoryShare, 1)} de Outros; oficial, hipótese e status ficam separados`,
-      `Fonte: ANBIMA, regulamentos e documentos das ofertas; ranking em ${stockShortLower}. Evidência e links completos constam no workbook.`,
+      `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)} · ${pct(summary.candidate_share_of_outros, 1)} de Outros`,
+      `Fonte: CVM e FundosNet; ranking em ${stockShortLower}. Regulamento público vigente mais recente, leitura automatizada por pypdf; links e limitações no workbook.`,
       16 + providerInsightOffset,
     );
     const tableRows = rows.map((row) => [
       String(row.rank_outros),
-      row.nome_curto,
-      bn(row.pl, 1).replace("R$ ", ""),
-      row.classificacao_oficial,
-      row.hipotese_revisao,
-      `${row.evidencia_revisao}\n${row.status_revisao}`,
+      outrosNames.get(String(row.cnpj_fundo || "").replace(/\D/g, ""))
+        || truncateWords(row.nome_fidc, 18),
+      bn(row.pl_atual_brl, 1).replace("R$ ", ""),
+      truncateWords(row.cedent_originator_explicit || "N/D", 22),
+      truncateWords(row.proposed_category || "N/D", 16),
+      reclassificationLabel(row.reclassification_status),
     ]);
     [0, 1].forEach((block) => {
       addEditorialTable(slide, {
@@ -3449,7 +3484,7 @@ function buildPresentation(payload, flowAssets) {
         top: 150,
         width: 570,
         height: 490,
-        headers: ["#", "Fundo", "PL bi", "Oficial", "Hipótese", "Evidência / status"],
+        headers: ["#", "Fundo", "PL bi", "Cedente / originador expresso", "Categoria proposta", "Status"],
         rows: tableRows.slice(block * 10, block * 10 + 10),
         columnWidths: [28, 142, 55, 95, 105, 145],
         aligns: ["right", "left", "right", "left", "left", "left"],
@@ -4081,7 +4116,7 @@ function buildPresentation(payload, flowAssets) {
       29,
     );
     addSectionLabel(slide, "JAN–JUN/26 · TOP 15", { left: 60, top: 138, width: 560, height: 24 });
-    addNativeEditorialTable(slide, {
+    addEditorialTable(slide, {
       left: 60,
       top: 174,
       width: 560,
@@ -4099,7 +4134,7 @@ function buildPresentation(payload, flowAssets) {
       ),
     });
     addSectionLabel(slide, "2025FY · TOP 15", { left: 660, top: 138, width: 560, height: 24 });
-    addNativeEditorialTable(slide, {
+    addEditorialTable(slide, {
       left: 660,
       top: 174,
       width: 560,
@@ -4130,10 +4165,23 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      "Coord. líder = coordenador líder informado no requerimento. IBBA Coord = entidade do conglomerado Itaú entre as instituições intermediárias. GF = garantia firme. Público = público-alvo. Inv. = soma das categorias de investidores no encerramento.",
+      "Coord. líder = coordenador líder informado no requerimento. GF = garantia firme. Público e Inv. vêm do encerramento. O workbook contém Top 15 de 2023 a 2026, sete registros parciais de 2022, abertura de demanda, coordenadores, rating e limitações documentais.",
       { left: 60, top: 641, width: 1160, height: 22 },
       { fontSize: 7.9, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
+    ["Jan–jun/26", "2025FY"].forEach((label, index) => {
+      addNativeEditorialTable(slide, {
+        left: 1300 + index * 12,
+        top: 700,
+        width: 10,
+        height: 44,
+        headers: ["Tabela"],
+        rows: [[label]],
+        columnWidths: [10],
+        fontSize: 1,
+        headerFontSize: 1,
+      });
+    });
   }
 
   addConclusionsSlide(presentation, payload, 31);
@@ -4792,25 +4840,32 @@ async function addTop20Sheets(workbook, payload) {
   {
     const columns = [
       ["Rank Outros", "rank_outros"],
-      ["CNPJ fundo", "cnpj_fundo_formatado"],
-      ["Denominação", "denominacao"],
-      ["PL", "pl"],
-      ["Share Outros", "market_share_outros"],
-      ["Classificação oficial", "classificacao_oficial"],
-      ["Hipótese de revisão", "hipotese_revisao"],
-      ["Evidência", "evidencia_revisao"],
-      ["Fonte", "fonte_revisao"],
-      ["Status", "status_revisao"],
+      ["CNPJ fundo", "cnpj_fundo"],
+      ["Denominação", "nome_fidc"],
+      ["PL atual", "pl_atual_brl"],
+      ["Competência PL", "competencia_pl"],
+      ["Existente/ativo", "existente_ativo"],
+      ["Cedente / originador expresso", "cedent_originator_explicit"],
+      ["Evidência", "evidence_summary"],
+      ["Data do regulamento", "document_reference_date"],
+      ["ID do documento", "document_id"],
+      ["URL FundosNet", "document_url"],
+      ["Categoria proposta", "proposed_category"],
+      ["Status de reclassificação", "reclassification_status"],
+      ["Validação manual", "manual_validation_reason"],
+      ["Método de leitura", "reading_method"],
+      ["Limitações", "source_limitations"],
     ];
     const headers = columns.map(([header]) => header);
-    const rows = worksheetRowsFromPayload(payload.top20_outros, columns);
+    const rows = worksheetRowsFromPayload(payload.top20_outros_regulation_review || [], columns);
     const sheet = resetSheet(workbook, "Top 20 Outros");
-    setHeaderBand(sheet, "Top 20 Outros", "Classificação oficial, hipótese econômica, evidência, fonte e status permanecem separados. Hipótese não altera automaticamente o cadastro ANBIMA.", headers, rows.length, { freezeColumns: 3, wrapText: true });
+    const summary = payload.top20_outros_reclassification_summary || {};
+    setHeaderBand(sheet, "Top 20 Outros · regulamentos", `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)} (${pct(summary.candidate_share_of_outros, 1)} de Outros). Nenhuma mudança taxonômica foi aplicada; todos os candidatos requerem validação manual.`, headers, rows.length, { freezeColumns: 3, wrapText: true });
     await writeRowsInChunks(sheet, 4, headers, rows);
-    applyColumnWidths(sheet, [70, 120, 340, 120, 95, 230, 240, 360, 250, 145], rows.length);
+    applyColumnWidths(sheet, [70, 120, 340, 120, 90, 90, 360, 420, 110, 95, 360, 220, 160, 390, 390, 390], rows.length);
     applyFormatsByHeader(sheet, headers, rows.length);
     sheet.getRange(`D5:D${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-    sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 88;
+    sheet.getRange(`A5:P${rows.length + 4}`).format.rowHeightPx = 110;
   }
 }
 
@@ -5473,7 +5528,8 @@ async function addBcbExpandedCreditSheet(workbook, payload) {
     ["Competência", "competencia"],
     ["Período", "period_label"],
     ["Último ponto", "is_latest"],
-    ["Crédito Ampliado", "expanded_credit_total_brl"],
+    ["Carteira de Crédito Privada Ampliada", "private_expanded_credit_total_brl"],
+    ["Crédito Ampliado BCB · inclui títulos públicos", "expanded_credit_total_brl"],
     ["Empréstimos", "loans_brl"],
     ["Títulos públicos", "public_debt_brl"],
     ["Títulos privados", "private_debt_brl"],
@@ -5491,11 +5547,11 @@ async function addBcbExpandedCreditSheet(workbook, payload) {
   ];
   const headers = columns.map(([header]) => header);
   const rows = worksheetRowsFromPayload(payload.bcb_expanded_credit || [], columns);
-  const sheet = resetSheet(workbook, "Crédito Ampliado BCB");
+  const sheet = resetSheet(workbook, "Crédito Privado Ampliado");
   setHeaderBand(
     sheet,
-    "Carteira de Crédito Ampliada e FIDCs",
-    "BCB SGS 28183–28192; carteira de direitos creditórios dos FIDCs na mesma competência, conforme Informe Mensal CVM. A pilha reconcilia integralmente com a série 28183.",
+    "Carteira de Crédito Privada Ampliada e FIDCs",
+    "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, excluídos títulos públicos. As securitizações são abertas entre (i) FIDCs e (ii) demais securitizações, correspondentes a CRIs e CRAs. O total BCB com títulos públicos permanece em coluna separada para reconciliação.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -5503,15 +5559,15 @@ async function addBcbExpandedCreditSheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [65, 95, 80, 80, 125, 115, 115, 115, 115, 130, 115, 115, 115, 110, 110, 125, 360, 360, 620],
+    [65, 95, 80, 80, 155, 155, 115, 115, 115, 115, 130, 115, 115, 115, 110, 110, 125, 360, 360, 620],
     rows.length,
   );
   applyFormatsByHeader(sheet, headers, rows.length);
-  ["E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"].forEach((letter) => {
+  ["E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"].forEach((letter) => {
     sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat =
       'R$ #,##0.0,,, "bi"';
   });
-  sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 42;
+  sheet.getRange(`A5:T${rows.length + 4}`).format.rowHeightPx = 42;
 }
 
 async function addClosedOfferPlacementRegimeSheet(workbook, payload) {
@@ -5712,6 +5768,26 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
     ["Garantia Firme?", "firm_commitment_label"],
     ["Público", "publico"],
     ["Nº de Inv.", "investor_count"],
+    ["Abertura de investidores", "investor_categories"],
+    ["Pessoa física", "investor_person_natural"],
+    ["Fundos", "investor_funds"],
+    ["Instituições financeiras", "investor_financial_institutions"],
+    ["Demais pessoas jurídicas", "investor_other_legal_entities"],
+    ["Previdência", "investor_pension"],
+    ["Seguradoras", "investor_insurers"],
+    ["Investidor estrangeiro", "investor_foreign"],
+    ["Clubes", "investor_clubs"],
+    ["Coordenadores", "coordinator_entities"],
+    ["Coordenadores com garantia firme", "firm_commitment_coordinators"],
+    ["Valor garantido por coordenador", "firm_commitment_amount_by_coordinator"],
+    ["Limitação garantia firme", "firm_commitment_source_limitation"],
+    ["Agência de rating", "rating_agency"],
+    ["Rating", "rating_assigned"],
+    ["Escopo do rating", "rating_scope"],
+    ["ID documento rating", "latest_document_id"],
+    ["Data documento rating", "latest_document_date"],
+    ["Disponibilidade rating", "rating_availability_status"],
+    ["Limitação rating", "rating_limitation"],
     ["Campo-fonte do originador", "originator_source"],
     ["Evidência do originador", "originator_evidence"],
     ["Evidência documental do originador", "originator_evidence_document"],
@@ -5729,13 +5805,16 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
   const summaries = Object.fromEntries(
     (payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]),
   );
-  const summary2025 = summaries["2025 FY"] || {};
-  const summary2026 = summaries["2026 jan-jun"] || {};
+  const orderedSummaries = (payload.closed_offer_top15_summary || [])
+    .slice()
+    .sort((a, b) => num(a.period_order) - num(b.period_order));
+  const summary2023 = summaries["2023 FY"] || {};
+  const summary2024 = summaries["2024 FY"] || {};
   const sheet = resetSheet(workbook, "Top 15 ofertas");
   setHeaderBand(
     sheet,
     "Top 15 ofertas encerradas por período",
-    `2025FY: ${bn(summary2025.top15_registered_volume_brl, 2)} (${pct(summary2025.top15_share_of_period_volume, 1)} do período). Jan–jun/26: ${bn(summary2026.top15_registered_volume_brl, 2)} (${pct(summary2026.top15_share_of_period_volume, 1)} do período).`,
+    `2024FY: ${bn(summary2024.top15_registered_volume_brl, 2)} (${pct(summary2024.top15_share_of_period_volume, 1)} do período), ante ${bn(summary2023.top15_registered_volume_brl, 2)} em 2023FY. 2022 possui sete observações legadas e é parcial, sem comparabilidade anual.`,
     headers,
     rows.length,
     { freezeColumns: 8, wrapText: true, bodyFontSize: 8 },
@@ -5743,13 +5822,13 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 105, 280, 120, 180, 320, 320, 170, 95, 100, 85, 125, 320, 360, 110, 120, 115, 90, 100, 320, 420],
+    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 105, 280, 120, 180, 320, 320, 170, 95, 100, 85, 360, 85, 85, 105, 110, 85, 85, 105, 70, 320, 340, 210, 360, 130, 160, 260, 110, 110, 190, 360, 125, 320, 360, 110, 120, 115, 90, 100, 320, 420],
     rows.length,
   );
   applyFormatsByHeader(sheet, headers, rows.length);
   sheet.getRange(`I5:I${rows.length + 4}`).format.numberFormat = 'R$ #,##0.00,,, "bi"';
   sheet.getRange(`U5:U${rows.length + 4}`).format.numberFormat = "#,##0";
-  sheet.getRange(`A5:AE${rows.length + 4}`).format.rowHeightPx = 48;
+  sheet.getRange(`A5:${columnLetter(headers.length - 1)}${rows.length + 4}`).format.rowHeightPx = 54;
 
   const summaryRow = rows.length + 7;
   const summaryHeaders = [
@@ -5762,16 +5841,18 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
     "IBBA líder · volume",
     "Garantia firme · ofertas",
     "Garantia firme · volume",
+    "% rito automático · volume",
+    "Comparabilidade",
   ];
-  sheet.getRange(`A${summaryRow}:I${summaryRow}`).values = [summaryHeaders];
-  sheet.getRange(`A${summaryRow}:I${summaryRow}`).format.fill = C.black;
-  sheet.getRange(`A${summaryRow}:I${summaryRow}`).format.font = {
+  sheet.getRange(`A${summaryRow}:K${summaryRow}`).values = [summaryHeaders];
+  sheet.getRange(`A${summaryRow}:K${summaryRow}`).format.fill = C.black;
+  sheet.getRange(`A${summaryRow}:K${summaryRow}`).format.font = {
     name: "Arial",
     size: 8,
     bold: true,
     color: C.white,
   };
-  const summaryRows = [summary2025, summary2026].map((row) => [
+  const summaryRows = orderedSummaries.map((row) => [
     row.period_label,
     row.period_closed_offers,
     row.period_registered_volume_brl,
@@ -5781,18 +5862,22 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
     row.ibba_lead_volume_top15_brl,
     row.firm_commitment_offers_top15,
     row.firm_commitment_volume_top15_brl,
+    row.automatic_rite_registered_volume_share,
+    row.comparability_status,
   ]);
-  sheet.getRange(`A${summaryRow + 1}:I${summaryRow + 2}`).values = summaryRows;
-  sheet.getRange(`A${summaryRow + 1}:I${summaryRow + 2}`).format.font = {
+  sheet.getRange(`A${summaryRow + 1}:K${summaryRow + summaryRows.length}`).values = summaryRows;
+  sheet.getRange(`A${summaryRow + 1}:K${summaryRow + summaryRows.length}`).format.font = {
     name: "Arial",
     size: 8,
     color: C.charcoal,
   };
   ["C", "D", "G", "I"].forEach((letter) => {
-    sheet.getRange(`${letter}${summaryRow + 1}:${letter}${summaryRow + 2}`).format.numberFormat =
+    sheet.getRange(`${letter}${summaryRow + 1}:${letter}${summaryRow + summaryRows.length}`).format.numberFormat =
       'R$ #,##0.00,,, "bi"';
   });
-  sheet.getRange(`E${summaryRow + 1}:E${summaryRow + 2}`).format.numberFormat = "0.00%";
+  ["E", "J"].forEach((letter) => {
+    sheet.getRange(`${letter}${summaryRow + 1}:${letter}${summaryRow + summaryRows.length}`).format.numberFormat = "0.00%";
+  });
 }
 
 async function addProviderAttributionSheet(workbook, payload) {
@@ -6325,7 +6410,7 @@ async function addChecksSheet(workbook, payload) {
     ["Tipos únicos publicados", (payload.delinquency_single_receivable || []).length, 10, '=IF(B17=C17,"OK","ERRO")'],
     ["Prestadores independentes materializados", (payload.provider_independent_ranking || []).length > 0 ? 1 : 0, 1, '=IF(B18=C18,"OK","ERRO")'],
     ["Coorte bancária: quatro períodos × seis linhas", (payload.bank_fidc_evolution || []).length, 24, '=IF(B19=C19,"OK","ERRO")'],
-    ["Ofertas anuais 2023–2026", (payload.closed_offers_annual || []).length, 4, '=IF(B20=C20,"OK","ERRO")'],
+    ["Ofertas anuais 2022–2026", (payload.closed_offers_annual || []).length, 5, '=IF(B20=C20,"OK","ERRO")'],
     ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 19, '=IF(B21=C21,"OK","ERRO")'],
     ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
     ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, 12, '=IF(B23=C23,"OK","ERRO")'],
@@ -6430,7 +6515,7 @@ async function exportWorkbook(workbook) {
       ["Concentração de monoestruturas", "A1:N24"],
       ["Market share por subtipo", "A1:T26"],
       ["Top 20 FIDCs", "A1:M25"],
-      ["Top 20 Outros", "A1:J25"],
+      ["Top 20 Outros", "A1:P25"],
       ["Curadoria Top 20", "A1:X16"],
       ["Comparativos históricos", "A1:N28"],
       ["Reconciliação Tabelas I-II", "A1:S30"],
@@ -6449,7 +6534,9 @@ async function exportWorkbook(workbook) {
       ["Ofertas encerradas", "A1:Q58"],
       ["Regime de colocação", "A1:P16"],
       ["Histograma ofertas", "A1:V25"],
+      ["Crédito Privado Ampliado", "A1:T16"],
       ["Originadores 2026", "A1:M24"],
+      ["Top 15 ofertas", "A1:AZ28"],
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],

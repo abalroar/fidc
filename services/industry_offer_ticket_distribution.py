@@ -45,15 +45,20 @@ DEDUPLICATION = (
 )
 METHODOLOGY = (
     "Coorte por Data_Encerramento; ticket = Valor_Total_Registrado. "
-    "2024 e 2025 usam o ano completo; 2026 usa 1 jan a 30 jun. "
+    "2022 a 2025 usam o ano completo; 2026 usa 1 jan a 30 jun. "
+    "2022 é série parcial legada e não comparável ao rito automático. "
     "Os buckets são fechados à esquerda e abertos à direita, exceto o último."
 )
 
 PERIODS = (
-    (1, "2024 FY", "2024-01-01", "2024-12-31", True),
-    (2, "2025 FY", "2025-01-01", "2025-12-31", True),
-    (3, "2026 jan-jun", "2026-01-01", "2026-06-30", False),
+    (1, "2022 FY parcial", "2022-01-01", "2022-12-31", True),
+    (2, "2023 FY", "2023-01-01", "2023-12-31", True),
+    (3, "2024 FY", "2024-01-01", "2024-12-31", True),
+    (4, "2025 FY", "2025-01-01", "2025-12-31", True),
+    (5, "2026 jan-jun", "2026-01-01", "2026-06-30", False),
 )
+
+DISTRIBUTION_PERIODS = PERIODS[2:]
 
 # The cuts separate the dense sub-R$50m population from the economically
 # material upper tail.  Every bucket is populated in each published period.
@@ -89,6 +94,19 @@ COHORT_COLUMNS = (
     "cnpj_emissor",
     "nome_emissor",
     "registered_volume_brl",
+    "rite",
+    "leader_name",
+    "distribution_regime",
+    "target_public",
+    "investor_count",
+    "investor_person_natural",
+    "investor_funds",
+    "investor_financial_institutions",
+    "investor_other_legal_entities",
+    "investor_pension",
+    "investor_insurers",
+    "investor_foreign",
+    "investor_clubs",
     "bucket_order",
     "ticket_bucket",
     "ticket_floor_brl",
@@ -246,6 +264,19 @@ def load_closed_offer_ticket_cohort(
             "cnpj_emissor": _normalize_cnpj(selected["issuer_cnpj"]),
             "nome_emissor": selected["issuer_name"].str.strip(),
             "registered_volume_brl": selected["registered_volume_brl"].astype(float),
+            "rite": selected["rite"].astype(str),
+            "leader_name": selected["leader_name"].astype(str),
+            "distribution_regime": selected["distribution_regime"].astype(str),
+            "target_public": selected["target_public"].astype(str),
+            "investor_count": selected["investor_count"],
+            "investor_person_natural": selected["investor_person_natural"],
+            "investor_funds": selected["investor_funds"],
+            "investor_financial_institutions": selected["investor_financial_institutions"],
+            "investor_other_legal_entities": selected["investor_other_legal_entities"],
+            "investor_pension": selected["investor_pension"],
+            "investor_insurers": selected["investor_insurers"],
+            "investor_foreign": selected["investor_foreign"],
+            "investor_clubs": selected["investor_clubs"],
             "source_dataset": selected["source_dataset"],
         }
     )
@@ -292,7 +323,10 @@ def build_offer_ticket_distribution(cohort: pd.DataFrame) -> pd.DataFrame:
     """Aggregate a validated offer cohort into stable chart buckets."""
 
     validated = validate_offer_ticket_cohort(cohort)
-    expected_periods = {period[1] for period in PERIODS}
+    expected_periods = {period[1] for period in DISTRIBUTION_PERIODS}
+    validated = validated[
+        validated["period_label"].isin(expected_periods)
+    ].copy()
     if set(validated["period_label"].astype(str)) != expected_periods:
         raise OfferTicketDataError(
             "A distribuição requer exatamente os três períodos publicados."
@@ -306,7 +340,7 @@ def build_offer_ticket_distribution(cohort: pd.DataFrame) -> pd.DataFrame:
         "scope",
         "deduplication",
     ]
-    for order, label, start, end, full_year in PERIODS:
+    for order, label, start, end, full_year in DISTRIBUTION_PERIODS:
         period = validated[validated["period_label"].eq(label)].copy()
         period_count = int(len(period))
         period_volume = float(period["registered_volume_brl"].sum())
@@ -386,7 +420,7 @@ def validate_offer_ticket_distribution(frame: pd.DataFrame) -> pd.DataFrame:
         result[column] = pd.to_numeric(result[column], errors="coerce")
     if result[numeric_columns].isna().any().any():
         raise OfferTicketDataError("Distribuição contém métrica numérica ausente.")
-    if len(result) != len(PERIODS) * len(TICKET_BUCKETS):
+    if len(result) != len(DISTRIBUTION_PERIODS) * len(TICKET_BUCKETS):
         raise OfferTicketDataError("Distribuição deve conter 7 buckets por período.")
     for label, period in result.groupby("period_label", sort=False):
         if period["bucket_order"].nunique() != len(TICKET_BUCKETS):
@@ -465,6 +499,7 @@ def build_offer_ticket_outputs(
 __all__ = [
     "COHORT_FILENAME",
     "DISTRIBUTION_FILENAME",
+    "DISTRIBUTION_PERIODS",
     "EXPECTED_SOURCE_ARCHIVE_SHA256",
     "INDUSTRY_STUDY_DIR",
     "OfferTicketDataError",

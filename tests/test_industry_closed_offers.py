@@ -25,8 +25,8 @@ from services.industry_closed_offers import (
 def test_loads_and_reconciles_materialized_closed_offer_tables() -> None:
     tables = load_closed_offers_tables()
 
-    assert tables.annual["year"].tolist() == [2023, 2024, 2025, 2026]
-    assert len(tables.monthly) == 41
+    assert tables.annual["year"].tolist() == [2022, 2023, 2024, 2025, 2026]
+    assert len(tables.monthly) == 44
     assert tables.monthly.iloc[-1]["competence"] == "2026-06"
     assert bool(tables.monthly.iloc[-1]["is_complete_month"])
     assert len(tables.originators) == 17
@@ -39,8 +39,8 @@ def test_full_payload_is_json_serializable_and_has_stable_blocks() -> None:
     encoded = json.dumps(payload, ensure_ascii=False, allow_nan=False)
     assert encoded
     assert payload["schema"] == "industry_closed_offers.v1"
-    assert payload["annual"]["row_count"] == 4
-    assert payload["monthly"]["row_count"] == 41
+    assert payload["annual"]["row_count"] == 5
+    assert payload["monthly"]["row_count"] == 44
     assert payload["jan_june_2024_2026"]["row_count"] == 3
     assert payload["jan_may_2024_2026"]["row_count"] == 3
     assert payload["originators_2026_ytd"]["row_count"] == 17
@@ -103,5 +103,5 @@ def test_cross_table_validation_rejects_non_reconciling_monthly_value(tmp_path: 
     monthly.loc[0, "natural_person_accounts"] += 1
     monthly.to_csv(monthly_path, index=False)
 
-    with pytest.raises(ClosedOffersDataError, match="natural_person_accounts não reconcilia em 2023"):
+    with pytest.raises(ClosedOffersDataError, match="natural_person_accounts não reconcilia em 2022"):
         load_closed_offers_tables(tmp_path)

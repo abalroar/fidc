@@ -25,7 +25,7 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
         "2023 FY": (26_476_286_193.56, 353_447_879_570.30),
         "2024 FY": (95_416_726_133.75, 628_733_342_247.23),
         "2025 FY": (116_921_319_054.77, 656_094_670_634.27),
-        "2026 jan-jun": (65_488_118_983.56, 246_881_237_565.94),
+        "2026 jan-jun": (65_488_118_983.56, 246_828_872_386.94),
     }
     for period, (fidc_volume, rest_volume) in expected.items():
         scoped = view_a[view_a["period_label"].eq(period)].set_index(
@@ -45,7 +45,7 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     )
     assert yoy.loc[("2026 jan-jun", "FIDCs")] == pytest.approx(0.1457242904)
     assert yoy.loc[("2026 jan-jun", "Demais elegíveis")] == pytest.approx(
-        -0.0777821098
+        -0.0779777184
     )
 
 

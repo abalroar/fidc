@@ -164,6 +164,7 @@ def _automatic_rows(source: pd.DataFrame) -> pd.DataFrame:
             "distribution_regime": source.get(
                 "Regime_distribuicao", blank
             ).str.strip(),
+            "rite": "Automático RCVM 160",
             "status_basis": "Status_Requerimento = Oferta Encerrada",
         }
     )
@@ -190,6 +191,33 @@ def _automatic_rows(source: pd.DataFrame) -> pd.DataFrame:
     result["natural_person_quantity"] = pd.to_numeric(
         source.get("Qtde_VM_Pessoa_Natural", blank), errors="coerce"
     )
+    investor_groups = {
+        "investor_person_natural": ("Num_Invest_Pessoa_Natural",),
+        "investor_funds": ("Num_Invest_Fundos_Investimento",),
+        "investor_financial_institutions": (
+            "Num_Invest_Instit_Intermed_Partic_Consorcio_Distrib",
+            "Num_Invest_Instit_Financ_Emissora_Partic_Consorcio",
+            "Num_Invest_Demais_Instit_Financ",
+        ),
+        "investor_other_legal_entities": (
+            "Num_Invest_Demais_Pessoa_Juridica_Emissora_Partic_Consorcio",
+            "Num_Invest_Demais_Pessoa_Juridica",
+            "Num_Invest_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio",
+        ),
+        "investor_pension": ("Num_Invest_Entidade_Previdencia_Privada",),
+        "investor_insurers": ("Num_Invest_Companhia_Seguradora",),
+        "investor_foreign": ("Num_Invest_Investidor_Estrangeiro",),
+        "investor_clubs": ("Num_Invest_Clube_Investimento",),
+    }
+    for output_column, source_columns in investor_groups.items():
+        available = [column for column in source_columns if column in source]
+        result[output_column] = (
+            source[available].apply(pd.to_numeric, errors="coerce").sum(
+                axis=1, min_count=1
+            )
+            if available
+            else pd.Series(float("nan"), index=source.index)
+        )
     result["assets_target"] = source.get("Ativos_alvo", blank).str.strip()
     result["receivables_description"] = source.get(
         "Descricao_lastro", blank
@@ -281,6 +309,33 @@ def _legacy_rows(source: pd.DataFrame) -> pd.DataFrame:
     source["natural_person_quantity"] = pd.to_numeric(
         source["Qtd_Pessoa_Fisica"], errors="coerce"
     )
+    legacy_investor_groups = {
+        "investor_person_natural": ("Nr_Pessoa_Fisica",),
+        "investor_funds": ("Nr_Fundos_Investimento",),
+        "investor_financial_institutions": (
+            "Nr_Instit_Intermed_Partic_Consorcio_Distrib",
+            "Nr_Instit_Financ_Emissora_Partic_Consorcio",
+            "Nr_Demais_Instit_Financ",
+        ),
+        "investor_other_legal_entities": (
+            "Nr_Demais_Pessoa_Juridica_Emissora_Partic_Consorcio",
+            "Nr_Demais_Pessoa_Juridica",
+            "Nr_Soc_Adm_Emp_Prop_Demais_Pess_Jurid_Emiss_Partic_Consorcio",
+        ),
+        "investor_pension": ("Nr_Entidade_Previdencia_Privada",),
+        "investor_insurers": ("Nr_Companhia_Seguradora",),
+        "investor_foreign": ("Nr_Investidor_Estrangeiro",),
+        "investor_clubs": ("Nr_Clube_Investimento",),
+    }
+    for output_column, source_columns in legacy_investor_groups.items():
+        available = [column for column in source_columns if column in source]
+        source[output_column] = (
+            source[available].apply(pd.to_numeric, errors="coerce").sum(
+                axis=1, min_count=1
+            )
+            if available
+            else pd.Series(float("nan"), index=source.index)
+        )
 
     # A legacy registration may list senior, mezzanine and subordinated FIDC
     # quotas on separate rows.  They form one offering for the analytical
@@ -351,6 +406,7 @@ def _legacy_rows(source: pd.DataFrame) -> pd.DataFrame:
                 ),
                 "target_public": "",
                 "distribution_regime": "",
+                "rite": str(first["Rito_Oferta"]).strip() or "Legado/ordinário",
                 "investor_count": float(
                     group["investor_count"].sum(min_count=1)
                 ),
@@ -366,6 +422,10 @@ def _legacy_rows(source: pd.DataFrame) -> pd.DataFrame:
                 "natural_person_quantity": float(
                     group["natural_person_quantity"].sum(min_count=1)
                 ),
+                **{
+                    column: float(group[column].sum(min_count=1))
+                    for column in legacy_investor_groups
+                },
                 "assets_target": "",
                 "receivables_description": "",
                 "debtor_identification": "",

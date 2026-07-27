@@ -157,7 +157,7 @@ def load_closed_offer_source(
         raise ClosedOffersSourceError(str(exc)) from exc
     selected = selected[
         selected["canonical_instrument"].eq(FIDC_CANONICAL)
-        & selected["closing_date"].ge(pd.Timestamp("2023-01-01"))
+        & selected["closing_date"].ge(pd.Timestamp("2022-01-01"))
     ].copy()
     selected["data_encerramento"] = selected["closing_date"]
     selected["Numero_Requerimento"] = selected["offer_id"]
@@ -303,7 +303,7 @@ def build_closed_offer_annual(
     metadata = _source_metadata(
         source_as_of_date=source_as_of_date, archive_digest=archive_digest
     )
-    for year in (2023, 2024, 2025, 2026):
+    for year in (2022, 2023, 2024, 2025, 2026):
         end = f"{year}-12-31" if year < 2026 else RELEASE_CUTOFF
         period = source.loc[source["data_encerramento"].between(f"{year}-01-01", end)]
         rows.append(

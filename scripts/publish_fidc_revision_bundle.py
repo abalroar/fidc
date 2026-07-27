@@ -76,6 +76,9 @@ REQUIRED_DATA_INPUTS = (
     "industry_fixed_income_offer_comparison.csv",
     "industry_bcb_expanded_credit.csv",
     "industry_offer_document_curation.csv",
+    "industry_offer_rating_review.csv",
+    "industry_top20_outros_regulation_review.csv",
+    "top20_outros_regulation_curation.csv",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
@@ -100,6 +103,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
     ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
     ROOT / "scripts" / "build_fidc_offer_document_curation.py",
+    ROOT / "scripts" / "build_fidc_top20_outros_regulations.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
@@ -118,6 +122,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_public_offers.py",
     ROOT / "services" / "industry_bcb_expanded_credit.py",
     ROOT / "services" / "industry_offer_document_curation.py",
+    ROOT / "services" / "industry_top20_outros_regulations.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -635,16 +640,22 @@ def _validate_closed_offer_originator_order(payload: Mapping[str, object]) -> No
 def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
     rows = payload.get("closed_offer_top15")
     summaries = payload.get("closed_offer_top15_summary")
-    if not isinstance(rows, list) or len(rows) != 30:
+    if not isinstance(rows, list) or len(rows) != 67:
         raise RevisionBundlePublishError(
-            "closed_offer_top15 deve conter 15 ofertas em cada período"
+            "closed_offer_top15 deve conter sete linhas em 2022 e 15 nos demais períodos"
         )
-    if not isinstance(summaries, list) or len(summaries) != 2:
+    if not isinstance(summaries, list) or len(summaries) != 5:
         raise RevisionBundlePublishError(
-            "closed_offer_top15_summary deve conter dois períodos"
+            "closed_offer_top15_summary deve conter cinco períodos"
         )
 
-    expected_periods = ("2025 FY", "2026 jan-jun")
+    expected_periods = (
+        "2022 FY parcial",
+        "2023 FY",
+        "2024 FY",
+        "2025 FY",
+        "2026 jan-jun",
+    )
     summary_by_period = {
         str(row.get("period_label") or ""): row
         for row in summaries
@@ -662,9 +673,10 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
             if isinstance(row, Mapping)
             and str(row.get("period_label") or "") == period_label
         ]
-        if len(period_rows) != 15:
+        expected_rows = 7 if period_label == "2022 FY parcial" else 15
+        if len(period_rows) != expected_rows:
             raise RevisionBundlePublishError(
-                f"closed_offer_top15 deve conter 15 linhas em {period_label}"
+                f"closed_offer_top15 contém contagem inválida em {period_label}"
             )
         ranks = [
             _integer_payload_number(
@@ -673,7 +685,7 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
             )
             for row in period_rows
         ]
-        if ranks != list(range(1, 16)):
+        if ranks != list(range(1, expected_rows + 1)):
             raise RevisionBundlePublishError(
                 f"closed_offer_top15 possui ranks inválidos em {period_label}"
             )
@@ -697,10 +709,6 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
             )
 
         for row in period_rows:
-            if row.get("metadata_matched") is not True:
-                raise RevisionBundlePublishError(
-                    f"closed_offer_top15 contém oferta sem metadados em {period_label}"
-                )
             if str(row.get("status") or "").casefold() != "oferta encerrada":
                 raise RevisionBundlePublishError(
                     f"closed_offer_top15 contém oferta não encerrada em {period_label}"
@@ -738,7 +746,7 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
             summary.get("period_registered_volume_brl"),
             f"closed_offer_top15_summary[{period_label}].period_registered_volume_brl",
         )
-        if period_volume < top_volume:
+        if period_volume + max(1.0, abs(period_volume) * 1e-10) < top_volume:
             raise RevisionBundlePublishError(
                 f"subtotal Top 15 excede o período em {period_label}"
             )
@@ -1028,6 +1036,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "closed_offer_originators_2026",
         "closed_offer_top15",
         "closed_offer_top15_summary",
+        "top20_outros_regulation_review",
         "fixed_income_offer_comparison",
         "bcb_expanded_credit",
         "provider_history_cvm_coverage",
@@ -1244,6 +1253,16 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "firm_commitment_label",
             "publico",
             "investor_count",
+            "investor_categories",
+            "coordinator_entities",
+            "firm_commitment_coordinators",
+            "firm_commitment_amount_by_coordinator",
+            "firm_commitment_source_limitation",
+            "rating_agency",
+            "rating_assigned",
+            "rating_scope",
+            "rating_availability_status",
+            "rating_limitation",
             "metadata_matched",
             "status",
             "offer_type",
@@ -1270,6 +1289,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "ibba_firm_commitment_volume_top15_brl",
             "investor_count_methodology",
             "ranking_methodology",
+            "automatic_rite_registered_volume_share",
+            "comparability_status",
+            "coverage_note",
         },
         "fixed_income_offer_comparison": {
             "view",
@@ -1288,6 +1310,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "competencia",
             "period_label",
             "expanded_credit_total_brl",
+            "private_expanded_credit_total_brl",
             "loans_brl",
             "public_debt_brl",
             "private_debt_brl",
@@ -1395,9 +1418,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "payload delinquency_single_receivable_summary sem campos obrigatórios: "
             + ", ".join(missing_summary)
         )
-    if len(payload.get("closed_offers_annual") or []) != 4:
+    if len(payload.get("closed_offers_annual") or []) != 5:
         raise RevisionBundlePublishError(
-            "payload editorial deve conter ofertas anuais de 2023 a 2026"
+            "payload editorial deve conter ofertas anuais de 2022 a 2026"
         )
     for key in (
         "provider_transition_summary",

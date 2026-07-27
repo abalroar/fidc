@@ -43,8 +43,14 @@ def test_document_curation_uses_official_participants_for_ibba_flag() -> None:
     cohort_rows = []
     offer_rows = []
     offer_id = 1
-    for period in ("2025 FY", "2026 jan-jun"):
-        for rank in range(1, 16):
+    for period, row_count in (
+        ("2022 FY parcial", 7),
+        ("2023 FY", 15),
+        ("2024 FY", 15),
+        ("2025 FY", 15),
+        ("2026 jan-jun", 15),
+    ):
+        for rank in range(1, row_count + 1):
             cohort_rows.append(
                 {
                     "numero_requerimento": str(offer_id),
