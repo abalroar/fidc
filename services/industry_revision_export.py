@@ -31,7 +31,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 53
+EXPECTED_SLIDES = 56
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -64,6 +64,10 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Crédito Privado Ampliado",
     "Originadores 2026",
     "Top 15 ofertas",
+    "Validação emissões",
+    "Público-alvo ofertas",
+    "Reclass. ANBIMA",
+    "Reclass. CVM",
     "Principais conclusões",
     "Curadoria Atlântico",
     "Série Atlântico",
@@ -244,11 +248,18 @@ def validate_revision_pptx(payload: bytes) -> None:
                 "slide combinado de prestadores deve conter seis gráficos nativos do Office"
             )
         delinquency_slide = _slide_xml_containing(
-            archive, "INADIMPLÊNCIA", "EVOLUÇÃO E QUEBRA"
+            archive, "INADIMPLÊNCIA", "BASE ORIGINAL"
         )
         if delinquency_slide.count(b"<a:tbl>") < 1 or delinquency_slide.count(b"<c:chart") < 1:
             raise RevisionExportUnavailable(
                 "slide de inadimplência por recebível deve conter tabela e gráfico nativos do Office"
+            )
+        adjusted_delinquency_slide = _slide_xml_containing(
+        archive, "INADIMPLÊNCIA", "EX-ZEROS"
+        )
+        if adjusted_delinquency_slide.count(b"<a:tbl>") < 1 or adjusted_delinquency_slide.count(b"<c:chart") < 1:
+            raise RevisionExportUnavailable(
+                "slide de sensibilidade ex-zeros deve conter tabela e gráfico nativos do Office"
             )
         frozen_delinquency_slide = _slide_xml_containing(
             archive, "INADIMPLÊNCIA", "COORTE ATUAL POR RECEBÍVEL"
@@ -277,7 +288,7 @@ def validate_revision_pptx(payload: bytes) -> None:
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
             )
         fixed_income_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "RENDA FIXA"
+            archive, "OFERTAS ENCERRADAS", "VALIDAÇÃO PÚBLICA"
         )
         if fixed_income_slide.count(b"<c:chart") != 2:
             raise RevisionExportUnavailable(

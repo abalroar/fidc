@@ -183,7 +183,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 53
+    assert len(presentation.slides) == EXPECTED_SLIDES == 56
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -198,9 +198,11 @@ def test_industry_exports_are_valid_office_files() -> None:
         "INDÚSTRIA DE FIDCs",
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
-        "OFERTAS ENCERRADAS · RENDA FIXA",
+        "OFERTAS ENCERRADAS · VALIDAÇÃO PÚBLICA",
         "BASE INVESTIDORA",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
+        "INADIMPLÊNCIA · BASE ORIGINAL",
+        "INADIMPLÊNCIA · EX-ZEROS",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "MARKET SHARE · ADMINISTRAÇÃO",
         "MARKET SHARE · GESTÃO",
@@ -213,6 +215,8 @@ def test_industry_exports_are_valid_office_files() -> None:
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
         "OFERTAS · VOLUME E REGIME",
         "TOP 15 · OFERTAS ENCERRADAS",
+        "TOP 15 · HISTÓRICO",
+        "TOP 15 · 2022 PARCIAL",
         "PRINCIPAIS CONCLUSÕES",
         "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",

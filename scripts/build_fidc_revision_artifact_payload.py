@@ -59,6 +59,41 @@ ANNUAL_GROWTH_PERIODS = (
 )
 EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL = 500_000_000.0
 
+OFFER_PUBLIC_VALIDATION = (
+    {
+        "period_label": "2023 FY",
+        "official_period": "jan–dez/23",
+        "official_volume_brl": 43_700_000_000.0,
+        "report_name": "Coletiva Mercado de Capitais 2024 — apresentação",
+        "report_reference": "fechamento de 2024; anexo com 2023 e 2024",
+        "source_url": "https://www.anbima.com.br/data/files/56/66/80/A5/DAE849109036A849B82BA2A8/Coletiva_MercadodeCapitais_2024_apresentacao.pdf",
+    },
+    {
+        "period_label": "2024 FY",
+        "official_period": "jan–dez/24",
+        "official_volume_brl": 81_400_000_000.0,
+        "report_name": "Coletiva Mercado de Capitais 2024 — apresentação",
+        "report_reference": "fechamento de 2024",
+        "source_url": "https://www.anbima.com.br/data/files/56/66/80/A5/DAE849109036A849B82BA2A8/Coletiva_MercadodeCapitais_2024_apresentacao.pdf",
+    },
+    {
+        "period_label": "2025 FY",
+        "official_period": "jan–dez/25",
+        "official_volume_brl": 90_800_000_000.0,
+        "report_name": "Ofertas no mercado de capitais atingem R$ 838,8 bilhões e batem recorde em 2025",
+        "report_reference": "Boletim de Mercado de Capitais; fechamento de 2025; 22/jan/26",
+        "source_url": "https://www.anbima.com.br/pt_br/imprensa/ofertas-no-mercado-de-capitais-atingem-r-838-8-bilhoes-e-batem-recorde-em-2025.htm",
+    },
+    {
+        "period_label": "2026 jan-jun",
+        "official_period": "jan–mai/26",
+        "official_volume_brl": 41_700_000_000.0,
+        "report_name": "Mercado de capitais movimenta R$ 283 bilhões em ofertas puxado por FIDCs, híbridos e ações",
+        "report_reference": "Boletim de Mercado de Capitais; jan–mai/26; 16/jun/26",
+        "source_url": "https://www.anbima.com.br/pt_br/imprensa/mercado-de-capitais-movimenta-r-283-bilhoes-em-ofertas-puxado-por-fidcs-hibridos-e-acoes-8A2AB2AB9EB9C3A5019ED1B250202429-00.htm",
+    },
+)
+
 
 def _digits(value: object) -> str:
     if value is None or (isinstance(value, float) and pd.isna(value)):
@@ -120,6 +155,174 @@ def _format_cnpj(value: object) -> str:
 def _fold_text(value: object) -> str:
     text = unicodedata.normalize("NFKD", _text(value))
     return re.sub(r"\s+", " ", "".join(char for char in text if not unicodedata.combining(char))).upper()
+
+
+def _offer_public_validation(
+    fixed_income: pd.DataFrame,
+    offer_cohort: pd.DataFrame,
+) -> pd.DataFrame:
+    internal = fixed_income[
+        fixed_income["view"].eq("FIDCs vs demais elegíveis")
+        & fixed_income["series_label"].eq("FIDCs")
+    ].set_index("period_label")
+    cohort = offer_cohort.copy()
+    cohort["data_encerramento"] = pd.to_datetime(
+        cohort["data_encerramento"], errors="coerce"
+    )
+    rows: list[dict[str, Any]] = []
+    for evidence in OFFER_PUBLIC_VALIDATION:
+        period_label = evidence["period_label"]
+        headline = float(internal.loc[period_label, "registered_volume_brl"])
+        comparable = headline
+        comparable_period = evidence["official_period"]
+        if period_label == "2026 jan-jun":
+            comparable = float(
+                cohort.loc[
+                    cohort["data_encerramento"].between(
+                        "2026-01-01", "2026-05-31"
+                    ),
+                    "registered_volume_brl",
+                ].sum()
+            )
+        official = float(evidence["official_volume_brl"])
+        gap = comparable - official
+        gap_pct = gap / official if official else float("nan")
+        compatible = abs(gap_pct) <= 0.05
+        rows.append(
+            {
+                **evidence,
+                "internal_headline_volume_brl": headline,
+                "internal_headline_period": (
+                    "jan–jun/26" if period_label == "2026 jan-jun" else comparable_period
+                ),
+                "internal_comparable_volume_brl": comparable,
+                "internal_comparable_period": comparable_period,
+                "gap_brl": gap,
+                "gap_pct": gap_pct,
+                "compatible": compatible,
+                "validation_status": "Compatível" if compatible else "Divergência material",
+                "public_use_conclusion": (
+                    "Confiável como número público reconciliado"
+                    if compatible
+                    else "Usar como métrica interna CVM com nota de escopo; não apresentar como equivalente ao total ANBIMA"
+                ),
+                "scope_difference": (
+                    "A base interna soma volume registrado das ofertas primárias encerradas de Cotas de FIDC no SRE/CVM, "
+                    "todos os ritos, com deduplicação própria por requerimento ou chave legada. A ANBIMA publica captação "
+                    "por instrumento com tratamento editorial próprio e não disponibiliza, na referência consultada, "
+                    "a reconciliação oferta a oferta necessária para atribuir integralmente a diferença."
+                ),
+                "recommended_treatment": (
+                    "Preservar a série interna para análise do SRE/CVM e exibir o benchmark ANBIMA em coluna separada. "
+                    "Para comunicação pública do volume de mercado, priorizar o total ANBIMA."
+                ),
+                "source_consulted_at": "2026-07-27",
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def _offer_target_public_shares(offer_cohort: pd.DataFrame) -> pd.DataFrame:
+    periods = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"]
+    categories = ["Profissional", "Qualificado", "Público Geral", "N/D"]
+    source_url = "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip"
+    rows: list[dict[str, Any]] = []
+    for period in periods:
+        frame = offer_cohort[offer_cohort["period_label"].eq(period)].copy()
+        total = float(frame["registered_volume_brl"].sum())
+        for category in categories:
+            mask = (
+                frame["target_public"].fillna("N/D").eq(category)
+                if category != "N/D"
+                else frame["target_public"].fillna("N/D").eq("N/D")
+            )
+            volume = float(frame.loc[mask, "registered_volume_brl"].sum())
+            rows.append(
+                {
+                    "period_label": period,
+                    "target_public": category,
+                    "offers": int(mask.sum()),
+                    "registered_volume_brl": volume,
+                    "share_registered_volume": volume / total if total else float("nan"),
+                    "period_registered_volume_brl": total,
+                    "source": "CVM, Ofertas Públicas de Distribuição, campo Público_alvo",
+                    "source_url": source_url,
+                    "source_as_of_date": "2026-07-24",
+                    "limitation": (
+                        "Público-alvo é elegibilidade regulatória da oferta e não mede a alocação efetiva por pessoa física, "
+                        "instituição ou gestora. Profissional e Qualificado incluem pessoas naturais e jurídicas previstas "
+                        "na Resolução CVM 30; Público Geral permite varejo, mas não identifica o investidor final."
+                    ),
+                }
+            )
+    return pd.DataFrame(rows)
+
+
+def _reclassification_exports(
+    funds: pd.DataFrame,
+    *,
+    latest: str,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    current = funds[funds["competencia"].astype(str).eq(latest)].copy()
+    current["pl"] = pd.to_numeric(current["pl"], errors="coerce")
+    current["is_fic_fidc"] = (
+        current["is_fic_fidc"]
+        .fillna(False)
+        .map(lambda value: str(value).strip().lower() in {"true", "1", "sim"})
+    )
+    current = current[current["pl"].gt(0) & ~current["is_fic_fidc"]].copy()
+    current["cnpj_fundo_formatado"] = current["cnpj_fundo"].map(_format_cnpj)
+    base_columns = ["cnpj_fundo_formatado", "denominacao", "pl"]
+
+    anbima = current[current["anbima_tipo"].eq("Outros")].copy()
+    anbima["taxonomia_atual"] = (
+        anbima["anbima_tipo"].fillna("N/D")
+        + " · "
+        + anbima["anbima_foco"].fillna("N/D")
+    )
+    anbima["nova_classificacao_proposta"] = ""
+    anbima["fonte"] = anbima["classification_source"].fillna(
+        "ANBIMA Data — Fundos 175"
+    )
+    anbima["data_referencia"] = "ANBIMA dez/25 aplicada à fotografia CVM jun/26"
+    anbima["limitacao"] = anbima["classification_warning"].fillna(
+        "Classificação cadastral ANBIMA de dez/25; validar fundos novos e alterações posteriores."
+    )
+    anbima = anbima[
+        base_columns
+        + [
+            "taxonomia_atual",
+            "nova_classificacao_proposta",
+            "fonte",
+            "data_referencia",
+            "limitacao",
+        ]
+    ].sort_values("pl", ascending=False)
+
+    cvm = current[
+        current["segmento_principal"].eq("Financeiro")
+        &
+        current["segmento_financeiro_principal"].eq("Financeiro: outros")
+    ].copy()
+    cvm["taxonomia_atual"] = "Financeiro · Outros"
+    cvm["nova_classificacao_proposta"] = ""
+    cvm["fonte"] = "CVM, Informe Mensal FIDC, Tabela II, campo Financeiro: Outros"
+    cvm["data_referencia"] = latest
+    cvm["limitacao"] = (
+        "O rótulo corresponde ao maior subtipo financeiro reportado na Tabela II; fundos com múltiplos tipos "
+        "podem exigir leitura da composição completa antes de reclassificação."
+    )
+    cvm = cvm[
+        base_columns
+        + [
+            "taxonomia_atual",
+            "nova_classificacao_proposta",
+            "fonte",
+            "data_referencia",
+            "limitacao",
+        ]
+    ].sort_values("pl", ascending=False)
+    return anbima.reset_index(drop=True), cvm.reset_index(drop=True)
 
 
 def _card_taxonomy_audit(
@@ -2526,6 +2729,19 @@ def build_payload(
     fixed_income_offer_comparison = (
         load_materialized_fixed_income_offer_comparison(data_dir)
     )
+    offer_cohort = pd.read_csv(
+        data_dir / "industry_closed_offer_ticket_cohort.csv.gz",
+        compression="gzip",
+        low_memory=False,
+    )
+    offer_public_validation = _offer_public_validation(
+        fixed_income_offer_comparison,
+        offer_cohort,
+    )
+    offer_target_public_shares = _offer_target_public_shares(offer_cohort)
+    anbima_outros_reclassification, cvm_outros_reclassification = (
+        _reclassification_exports(funds, latest=latest)
+    )
     bcb_expanded_credit = load_materialized_expanded_credit_history(data_dir)
     closed_offer_ticket_distribution = offer_ticket_outputs.distribution.copy()
     offer_rankings = build_closed_offer_top15(data_dir)
@@ -2928,6 +3144,12 @@ def build_payload(
         "fixed_income_offer_comparison": _records(
             fixed_income_offer_comparison
         ),
+        "offer_public_validation": _records(offer_public_validation),
+        "offer_target_public_shares": _records(offer_target_public_shares),
+        "anbima_outros_reclassification": _records(
+            anbima_outros_reclassification
+        ),
+        "cvm_outros_reclassification": _records(cvm_outros_reclassification),
         "closed_offer_top15": _records(closed_offer_top15),
         "closed_offer_top15_summary": _records(
             closed_offer_top15_summary

@@ -14728,6 +14728,10 @@ def _render_revision_data_exports(
             ["Estoque, cotistas e carteira", "CVM — Informe Mensal FIDC", payload.get("latest_complete"), f"{_fmt_int(qa.get('veiculos_total', 0))} veículos / {_fmt_int(qa.get('fundos_total', 0))} fundos"],
             ["Tipo e Foco ANBIMA", "ANBIMA Data + evidência documental + proxy CVM", sources.get("anbima", payload.get("latest_complete")), f"{_fmt_pct(float(coverage.loc[coverage['categoria'].eq('Oficial ANBIMA'), 'share'].sum()))} do PL oficial" if not coverage.empty else "n/d"],
             ["Ofertas", "CVM — ofertas públicas primárias, todos os ritos", payload.get("offers_as_of"), "encerramento no período; volume registrado positivo"],
+            ["Público-alvo das ofertas", "CVM — campo Público_alvo; Resolução CVM 30", "24/jul/26", "mede elegibilidade; não identifica alocação final PF/PJ"],
+            ["Ratings Top 15", "CVM/SRE e FundosNet", "24/jul/26", "documento mais recente aplicável; ausência de vínculo exato = N/D"],
+            ["Reclassificação ANBIMA", "ANBIMA Data — Fundos 175", "dez/25 sobre PL jun/26", "Outros; ex-FIC, PL positivo; validar alterações posteriores"],
+            ["Reclassificação CVM", "CVM — Informe Mensal, Tabela II", "jun/26", "Financeiro: Outros; ex-FIC, PL positivo; fundos multitipo exigem revisão"],
             ["Crédito Privado Ampliado", "BCB — SGS 28183–28192, excluídos títulos públicos", "mai/26", "Securitizações abertas entre FIDCs e CRIs/CRAs"],
             ["Curadoria Top 20", "CVM, FundosNet e documentos de emissão", curation_date, "lacunas marcadas como não identificado"],
         ],
@@ -14748,6 +14752,7 @@ def _render_revision_data_exports(
 
     with st.expander("Bases revisadas para download", expanded=False):
         files = {
+            "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
             "Histórico de inadimplência da coorte atual": "inadimplencia_coorte_atual_historico.csv",
             "Top 20 FIDCs": "top20_fidcs.csv",
@@ -14769,11 +14774,15 @@ def _render_revision_data_exports(
         for label, filename in files.items():
             path = (_DATA_DIR / "generated_revision" / filename).resolve()
             if path.exists():
+                mime = {
+                    ".json": "application/json",
+                    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                }.get(path.suffix, "text/csv")
                 st.download_button(
                     label,
                     path.read_bytes(),
                     file_name=path.name,
-                    mime="application/json" if path.suffix == ".json" else "text/csv",
+                    mime=mime,
                     key=f"industry-revision-download-{path.name}",
                     width="stretch",
                 )

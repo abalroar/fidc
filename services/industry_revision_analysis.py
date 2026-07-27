@@ -849,6 +849,14 @@ def build_single_receivable_delinquency(
         "inadimplencia_sobre_pl",
         "inadimplencia_sobre_carteira",
         "share_pl_universo_ex_fic_positivo",
+        "fundos_inadimplencia_positiva",
+        "pl_inadimplencia_positiva_brl",
+        "carteira_inadimplencia_positiva_brl",
+        "inadimplencia_positiva_brl",
+        "inadimplencia_sobre_pl_ex_zeros",
+        "inadimplencia_sobre_carteira_ex_zeros",
+        "variacao_inadimplencia_sobre_pl_pp",
+        "variacao_inadimplencia_sobre_carteira_pp",
     ]
     summary_columns = [
         "competencia",
@@ -945,6 +953,18 @@ def build_single_receivable_delinquency(
     universe = ex_fic & positive_pl
     eligible = universe & one_type & reports_pair & ~over_portfolio
     eligible_frame = scoped[eligible].copy()
+    eligible_frame["inadimplencia_positiva"] = eligible_frame[
+        "dc_inadimplentes"
+    ].gt(0)
+    eligible_frame["pl_inadimplencia_positiva"] = eligible_frame["pl"].where(
+        eligible_frame["inadimplencia_positiva"], 0.0
+    )
+    eligible_frame["carteira_inadimplencia_positiva"] = eligible_frame[
+        "carteira_dc"
+    ].where(eligible_frame["inadimplencia_positiva"], 0.0)
+    eligible_frame["inadimplencia_positiva_brl"] = eligible_frame[
+        "dc_inadimplentes"
+    ].where(eligible_frame["inadimplencia_positiva"], 0.0)
 
     grouped = (
         eligible_frame.groupby("tipo_recebivel_tabela_ii", as_index=False)
@@ -954,6 +974,13 @@ def build_single_receivable_delinquency(
             carteira_incluida_brl=("carteira_dc", "sum"),
             inadimplencia_reportada_brl=("dc_inadimplentes", "sum"),
             valor_tabela_ii_brl=("valor_tabela_ii_brl", "sum"),
+            fundos_inadimplencia_positiva=("inadimplencia_positiva", "sum"),
+            pl_inadimplencia_positiva_brl=("pl_inadimplencia_positiva", "sum"),
+            carteira_inadimplencia_positiva_brl=(
+                "carteira_inadimplencia_positiva",
+                "sum",
+            ),
+            inadimplencia_positiva_brl=("inadimplencia_positiva_brl", "sum"),
         )
         .sort_values(
             ["pl_incluido_brl", "tipo_recebivel_tabela_ii"],
@@ -972,6 +999,20 @@ def build_single_receivable_delinquency(
     universe_funds = int(scoped.loc[universe, "cnpj_fundo"].nunique())
     grouped["share_pl_universo_ex_fic_positivo"] = grouped["pl_incluido_brl"].div(
         universe_pl
+    )
+    grouped["inadimplencia_sobre_pl_ex_zeros"] = grouped[
+        "inadimplencia_positiva_brl"
+    ].div(grouped["pl_inadimplencia_positiva_brl"].replace(0, pd.NA))
+    grouped["inadimplencia_sobre_carteira_ex_zeros"] = grouped[
+        "inadimplencia_positiva_brl"
+    ].div(grouped["carteira_inadimplencia_positiva_brl"].replace(0, pd.NA))
+    grouped["variacao_inadimplencia_sobre_pl_pp"] = (
+        grouped["inadimplencia_sobre_pl_ex_zeros"]
+        - grouped["inadimplencia_sobre_pl"]
+    )
+    grouped["variacao_inadimplencia_sobre_carteira_pp"] = (
+        grouped["inadimplencia_sobre_carteira_ex_zeros"]
+        - grouped["inadimplencia_sobre_carteira"]
     )
 
     def excluded_stats(mask: pd.Series) -> tuple[int, float]:
@@ -1082,6 +1123,14 @@ def build_frozen_single_receivable_history(
         "pl_coorte_referencia_brl",
         "cobertura_fundos_coorte",
         "cobertura_pl_referencia_coorte",
+        "fundos_inadimplencia_positiva",
+        "pl_inadimplencia_positiva_brl",
+        "carteira_inadimplencia_positiva_brl",
+        "inadimplencia_positiva_brl",
+        "inadimplencia_sobre_pl_ex_zeros",
+        "inadimplencia_sobre_carteira_ex_zeros",
+        "variacao_inadimplencia_sobre_pl_pp",
+        "variacao_inadimplencia_sobre_carteira_pp",
     ]
     summary_columns = [
         "competencia",
@@ -1099,6 +1148,14 @@ def build_frozen_single_receivable_history(
         "pl_coorte_referencia_brl",
         "cobertura_fundos_coorte",
         "cobertura_pl_referencia_coorte",
+        "fundos_inadimplencia_positiva",
+        "pl_inadimplencia_positiva_brl",
+        "carteira_inadimplencia_positiva_brl",
+        "inadimplencia_positiva_brl",
+        "inadimplencia_sobre_pl_ex_zeros",
+        "inadimplencia_sobre_carteira_ex_zeros",
+        "variacao_inadimplencia_sobre_pl_pp",
+        "variacao_inadimplencia_sobre_carteira_pp",
         "regra",
         "fonte",
     ]
@@ -1229,6 +1286,17 @@ def build_frozen_single_receivable_history(
     historical["carteira_included"] = historical["carteira_dc"].where(eligible, 0.0)
     historical["inad_included"] = historical["inad_ajustada_usada"].where(eligible, 0.0)
     historical["latest_pl_included"] = historical["pl_referencia_brl"].where(eligible, 0.0)
+    positive_delinquency = eligible & historical["dc_inadimplentes"].gt(0)
+    historical["positive_delinquency"] = positive_delinquency
+    historical["pl_positive_delinquency"] = historical["pl"].where(
+        positive_delinquency, 0.0
+    )
+    historical["carteira_positive_delinquency"] = historical["carteira_dc"].where(
+        positive_delinquency, 0.0
+    )
+    historical["inad_positive_delinquency"] = historical[
+        "inad_ajustada_usada"
+    ].where(positive_delinquency, 0.0)
 
     cohort_by_type = members.groupby("tipo_recebivel_tabela_ii", as_index=False).agg(
         fundos_coorte=("cnpj_fundo", "nunique"),
@@ -1246,6 +1314,13 @@ def build_frozen_single_receivable_history(
             fundos_inad_supera_carteira_excluidos=("over", "sum"),
             fundos_campos_ausentes_excluidos=("missing_pair", "sum"),
             pl_referencia_incluido_brl=("latest_pl_included", "sum"),
+            fundos_inadimplencia_positiva=("positive_delinquency", "sum"),
+            pl_inadimplencia_positiva_brl=("pl_positive_delinquency", "sum"),
+            carteira_inadimplencia_positiva_brl=(
+                "carteira_positive_delinquency",
+                "sum",
+            ),
+            inadimplencia_positiva_brl=("inad_positive_delinquency", "sum"),
         )
         .merge(cohort_by_type, on="tipo_recebivel_tabela_ii", how="left")
     )
@@ -1261,6 +1336,20 @@ def build_frozen_single_receivable_history(
     history["cobertura_pl_referencia_coorte"] = history[
         "pl_referencia_incluido_brl"
     ].div(history["pl_coorte_referencia_brl"].replace(0, pd.NA))
+    history["inadimplencia_sobre_pl_ex_zeros"] = history[
+        "inadimplencia_positiva_brl"
+    ].div(history["pl_inadimplencia_positiva_brl"].replace(0, pd.NA))
+    history["inadimplencia_sobre_carteira_ex_zeros"] = history[
+        "inadimplencia_positiva_brl"
+    ].div(history["carteira_inadimplencia_positiva_brl"].replace(0, pd.NA))
+    history["variacao_inadimplencia_sobre_pl_pp"] = (
+        history["inadimplencia_sobre_pl_ex_zeros"]
+        - history["inadimplencia_sobre_pl"]
+    )
+    history["variacao_inadimplencia_sobre_carteira_pp"] = (
+        history["inadimplencia_sobre_carteira_ex_zeros"]
+        - history["inadimplencia_sobre_carteira"]
+    )
     history = history[history_columns].sort_values(
         ["competencia", "pl_coorte_referencia_brl"], ascending=[True, False]
     ).reset_index(drop=True)
@@ -1277,6 +1366,13 @@ def build_frozen_single_receivable_history(
             fundos_inad_supera_carteira_excluidos=("over", "sum"),
             fundos_campos_ausentes_excluidos=("missing_pair", "sum"),
             pl_referencia_incluido_brl=("latest_pl_included", "sum"),
+            fundos_inadimplencia_positiva=("positive_delinquency", "sum"),
+            pl_inadimplencia_positiva_brl=("pl_positive_delinquency", "sum"),
+            carteira_inadimplencia_positiva_brl=(
+                "carteira_positive_delinquency",
+                "sum",
+            ),
+            inadimplencia_positiva_brl=("inad_positive_delinquency", "sum"),
         )
         .sort_values("competencia")
         .reset_index(drop=True)
@@ -1297,9 +1393,25 @@ def build_frozen_single_receivable_history(
     summary["cobertura_pl_referencia_coorte"] = summary[
         "pl_referencia_incluido_brl"
     ].div(total_cohort_pl)
+    summary["inadimplencia_sobre_pl_ex_zeros"] = summary[
+        "inadimplencia_positiva_brl"
+    ].div(summary["pl_inadimplencia_positiva_brl"].replace(0, pd.NA))
+    summary["inadimplencia_sobre_carteira_ex_zeros"] = summary[
+        "inadimplencia_positiva_brl"
+    ].div(summary["carteira_inadimplencia_positiva_brl"].replace(0, pd.NA))
+    summary["variacao_inadimplencia_sobre_pl_pp"] = (
+        summary["inadimplencia_sobre_pl_ex_zeros"]
+        - summary["inadimplencia_sobre_pl"]
+    )
+    summary["variacao_inadimplencia_sobre_carteira_pp"] = (
+        summary["inadimplencia_sobre_carteira_ex_zeros"]
+        - summary["inadimplencia_sobre_carteira"]
+    )
     summary["regra"] = (
         f"coorte e subtipo congelados em {competence}; em cada competência: ex-FIC, "
-        "PL positivo, carteira e inadimplência reportadas, inadimplência <= carteira"
+        "PL positivo, carteira e inadimplência reportadas, inadimplência <= carteira; "
+        "sensibilidade ex-zeros remove fundos com inadimplência reportada igual a zero "
+        "do numerador e dos denominadores de PL e carteira"
     )
     summary["fonte"] = "CVM, Informe Mensal FIDC, Tabelas I, II e IV"
     summary = summary[summary_columns]
