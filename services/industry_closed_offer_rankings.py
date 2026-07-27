@@ -18,7 +18,7 @@ import pandas as pd
 COHORT_FILENAME = "industry_closed_offer_ticket_cohort.csv.gz"
 OFFERS_FILENAME = "industry_offers.csv.gz"
 DOCUMENT_CURATION_FILENAME = "industry_offer_document_curation.csv"
-RATING_REVIEW_FILENAME = "industry_offer_rating_review.csv"
+RATING_REVIEW_FILENAME = "industry_offer_rating_by_offer.csv"
 TOP_PERIODS = (
     "2022 FY parcial",
     "2023 FY",
@@ -152,6 +152,7 @@ def build_closed_offer_top15(
     data_dir: Path,
     *,
     top_n: int = 15,
+    include_ratings: bool = True,
 ) -> ClosedOfferRankingOutputs:
     """Build offer-level rankings from the materialized closed-offer cohort."""
 
@@ -372,16 +373,20 @@ def build_closed_offer_top15(
     ] = "Não aplicável"
 
     rating_path = data_dir / RATING_REVIEW_FILENAME
-    if rating_path.is_file():
+    if include_ratings and rating_path.is_file():
         rating = pd.read_csv(rating_path, dtype=str, keep_default_na=False)
         required_rating = {
-            "cnpj",
+            "offer_id",
             "rating_document_count",
             "latest_document_id",
             "latest_document_date",
             "rating_agency",
             "rating_assigned",
             "rating_scope",
+            "rating_source_type",
+            "rating_source_url",
+            "rating_match_status",
+            "rating_evidence",
             "rating_availability_status",
             "rating_limitation",
         }
@@ -391,19 +396,15 @@ def build_closed_offer_top15(
                 "curadoria de rating sem colunas: "
                 + ", ".join(missing_rating)
             )
-        rating["cnpj"] = rating["cnpj"].astype(str).str.replace(
-            r"\D", "", regex=True
-        ).str.zfill(14)
-        rating = rating.sort_values(
-            ["cnpj", "latest_document_date"], ascending=[True, False]
-        ).drop_duplicates("cnpj")
-        joined["cnpj_key"] = joined["cnpj_emissor"].astype(str).str.replace(
-            r"\D", "", regex=True
-        ).str.zfill(14)
+        rating["offer_id"] = rating["offer_id"].astype(str).str.strip()
+        if rating["offer_id"].duplicated().any():
+            raise ClosedOfferRankingError(
+                "curadoria de rating contém offer_id duplicado"
+            )
+        joined["offer_id"] = joined["offer_id"].astype(str).str.strip()
         joined = joined.merge(
             rating[list(required_rating)],
-            left_on="cnpj_key",
-            right_on="cnpj",
+            on="offer_id",
             how="left",
             validate="many_to_one",
         )
@@ -416,6 +417,10 @@ def build_closed_offer_top15(
             "rating_agency",
             "rating_assigned",
             "rating_scope",
+            "rating_source_type",
+            "rating_source_url",
+            "rating_match_status",
+            "rating_evidence",
         ):
             joined[column] = joined[column].map(
                 lambda value: _clean_text(value, "N/D")
@@ -442,6 +447,10 @@ def build_closed_offer_top15(
             "rating_agency",
             "rating_assigned",
             "rating_scope",
+            "rating_source_type",
+            "rating_source_url",
+            "rating_match_status",
+            "rating_evidence",
             "rating_availability_status",
             "rating_limitation",
         ):
@@ -602,6 +611,10 @@ def build_closed_offer_top15(
             "rating_agency",
             "rating_assigned",
             "rating_scope",
+            "rating_source_type",
+            "rating_source_url",
+            "rating_match_status",
+            "rating_evidence",
             "rating_availability_status",
             "rating_limitation",
             "publico",

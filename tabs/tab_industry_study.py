@@ -14660,8 +14660,11 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                         "Abertura de demanda": st.column_config.TextColumn(
                             help="Categorias disponíveis na base CVM; N/D indica ausência da abertura na linha-fonte."
                         ),
+                        "Agência": st.column_config.TextColumn(
+                            help="Agência identificada no documento público conciliado com a oferta, emissão, série ou subclasse."
+                        ),
                         "Rating": st.column_config.TextColumn(
-                            help="Transcrição do documento de rating mais recente localizado no FundosNet; lacunas não são inferidas."
+                            help="Rating conciliado com a oferta, emissão, série ou subclasse. Prioriza o documento mais recente aplicável no FundosNet e usa o SRE/CVM quando a evidência exata está no documento da oferta; lacunas permanecem como N/D."
                         ),
                     },
                 )
@@ -14758,7 +14761,8 @@ def _render_revision_data_exports(
             "Histograma das ofertas": "../industry_closed_offer_ticket_distribution.csv",
             "Carteira de Crédito Privada Ampliada": "../industry_bcb_expanded_credit.csv",
             "Curadoria documental das 67 ofertas": "../industry_offer_document_curation.csv",
-            "Curadoria de ratings": "../industry_offer_rating_review.csv",
+            "Curadoria de ratings por oferta": "../industry_offer_rating_by_offer.csv",
+            "Curadoria-base de ratings por fundo": "../industry_offer_rating_review.csv",
             "Manifest analítico": "revision_manifest.json",
             "Manifest do bundle": "industry_export_bundle.json",
         }

@@ -77,6 +77,8 @@ REQUIRED_DATA_INPUTS = (
     "industry_bcb_expanded_credit.csv",
     "industry_offer_document_curation.csv",
     "industry_offer_rating_review.csv",
+    "industry_offer_rating_curation.csv",
+    "industry_offer_rating_by_offer.csv",
     "industry_top20_outros_regulation_review.csv",
     "top20_outros_regulation_curation.csv",
     "provider_ownership_curation.csv",
@@ -103,6 +105,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
     ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
     ROOT / "scripts" / "build_fidc_offer_document_curation.py",
+    ROOT / "scripts" / "build_fidc_offer_rating_review.py",
     ROOT / "scripts" / "build_fidc_top20_outros_regulations.py",
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
@@ -725,6 +728,28 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
                 raise RevisionBundlePublishError(
                     f"closed_offer_top15 contém originador vazio em {period_label}"
                 )
+            rating_agency = str(row.get("rating_agency") or "").strip()
+            rating_assigned = str(row.get("rating_assigned") or "").strip()
+            if not rating_agency or not rating_assigned:
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém rating vazio em {period_label}"
+                )
+            if (rating_agency == "N/D") != (rating_assigned == "N/D"):
+                raise RevisionBundlePublishError(
+                    f"closed_offer_top15 contém agência/rating incompatíveis em {period_label}"
+                )
+            if rating_agency != "N/D":
+                for evidence_field in (
+                    "rating_source_type",
+                    "rating_source_url",
+                    "rating_match_status",
+                    "rating_evidence",
+                ):
+                    if not str(row.get(evidence_field) or "").strip():
+                        raise RevisionBundlePublishError(
+                            "closed_offer_top15 contém rating verificado sem "
+                            f"{evidence_field} em {period_label}"
+                        )
             for boolean_field, label_field in (
                 ("ibba_coord_lead", "ibba_coord_lead_label"),
                 ("firm_commitment", "firm_commitment_label"),
@@ -1261,6 +1286,10 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "rating_agency",
             "rating_assigned",
             "rating_scope",
+            "rating_source_type",
+            "rating_source_url",
+            "rating_match_status",
+            "rating_evidence",
             "rating_availability_status",
             "rating_limitation",
             "metadata_matched",

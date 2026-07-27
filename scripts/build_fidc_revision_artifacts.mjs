@@ -4090,6 +4090,14 @@ function buildPresentation(payload, flowAssets) {
       Qualificado: "Qualif.",
       Geral: "Geral",
     }[value] || "N/D");
+    const agencyLabel = (value) => ({
+      "S&P Global Ratings": "S&P",
+      "Moody's Local": "Moody's",
+      "Austin Rating": "Austin",
+      "Fitch Ratings": "Fitch",
+      "Liberum Ratings": "Liberum",
+      "SR Rating": "SR",
+    }[value] || "N/D");
     const tableRows = (rows) => rows.map((row) => [
       integer(row.rank),
       row.fund_name_short,
@@ -4102,17 +4110,16 @@ function buildPresentation(payload, flowAssets) {
       row.ibba_participant_label,
       row.firm_commitment_label,
       publicLabel(row.publico),
-      Number.isFinite(num(row.investor_count))
-        ? num(row.investor_count).toLocaleString("pt-BR", { maximumFractionDigits: 0 })
-        : "N/D",
+      agencyLabel(row.rating_agency),
+      String(row.rating_assigned || "N/D").split(" | ").join("\n"),
     ]);
-    const columnWidths = [22, 140, 82, 44, 82, 34, 28, 70, 58];
-    const aligns = ["right", "left", "left", "right", "left", "center", "center", "left", "right"];
+    const columnWidths = [22, 105, 60, 42, 60, 30, 26, 45, 74, 96];
+    const aligns = ["right", "left", "left", "right", "left", "center", "center", "left", "left", "left"];
     addHeader(
       slide,
       "TOP 15 · OFERTAS ENCERRADAS",
       `IBBA participou de ${integer(summary2026.ibba_participation_offers_top15)} das 15 maiores em jan–jun/26; liderou ${integer(summary2026.ibba_lead_offers_top15)}`,
-      "Fonte: CVM, SRE; ofertas primárias encerradas, todos os ritos. Coordenação e distribuição conforme requerimento e informe de encerramento.",
+      "Fonte: CVM/SRE e FundosNet; ratings conciliados por oferta, emissão, série ou subclasse. Ausência de vínculo documental = N/D.",
       29,
     );
     addSectionLabel(slide, "JAN–JUN/26 · TOP 15", { left: 60, top: 138, width: 560, height: 24 });
@@ -4121,12 +4128,12 @@ function buildPresentation(payload, flowAssets) {
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA Coord", "GF", "Público", "Inv."],
+      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA", "GF", "Público", "Agência", "Rating"],
       rows: tableRows(table2026),
       columnWidths,
       aligns,
-      fontSize: 6.5,
-      headerFontSize: 6.2,
+      fontSize: 5.9,
+      headerFontSize: 5.8,
       rowHighlights: new Set(
         table2026
           .map((row, index) => row.ibba_participant === true ? index : null)
@@ -4139,12 +4146,12 @@ function buildPresentation(payload, flowAssets) {
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA Coord", "GF", "Público", "Inv."],
+      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA", "GF", "Público", "Agência", "Rating"],
       rows: tableRows(table2025),
       columnWidths,
       aligns,
-      fontSize: 6.5,
-      headerFontSize: 6.2,
+      fontSize: 5.9,
+      headerFontSize: 5.8,
       rowHighlights: new Set(
         table2025
           .map((row, index) => row.ibba_participant === true ? index : null)
@@ -4165,7 +4172,7 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      "Coord. líder = coordenador líder informado no requerimento. GF = garantia firme. Público e Inv. vêm do encerramento. O workbook contém Top 15 de 2023 a 2026, sete registros parciais de 2022, abertura de demanda, coordenadores, rating e limitações documentais.",
+      "Coord. líder = coordenador líder informado no requerimento. GF = garantia firme. Agência e Rating referem-se à emissão/série/subclasse conciliada; N/D indica ausência de documento aplicável. O workbook contém todos os períodos e a trilha documental.",
       { left: 60, top: 641, width: 1160, height: 22 },
       { fontSize: 7.9, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
@@ -5786,6 +5793,10 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
     ["Escopo do rating", "rating_scope"],
     ["ID documento rating", "latest_document_id"],
     ["Data documento rating", "latest_document_date"],
+    ["Fonte documental rating", "rating_source_type"],
+    ["URL documento rating", "rating_source_url"],
+    ["Vínculo rating-oferta", "rating_match_status"],
+    ["Evidência rating-oferta", "rating_evidence"],
     ["Disponibilidade rating", "rating_availability_status"],
     ["Limitação rating", "rating_limitation"],
     ["Campo-fonte do originador", "originator_source"],
@@ -5822,7 +5833,7 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 105, 280, 120, 180, 320, 320, 170, 95, 100, 85, 360, 85, 85, 105, 110, 85, 85, 105, 70, 320, 340, 210, 360, 130, 160, 260, 110, 110, 190, 360, 125, 320, 360, 110, 120, 115, 90, 100, 320, 420],
+    [100, 65, 115, 105, 120, 360, 170, 170, 125, 290, 105, 105, 280, 120, 180, 320, 320, 170, 95, 100, 85, 360, 85, 85, 105, 110, 85, 85, 105, 70, 320, 340, 210, 360, 130, 160, 260, 110, 110, 130, 360, 240, 360, 190, 360, 125, 320, 360, 110, 120, 115, 90, 100, 320, 420, 420],
     rows.length,
   );
   applyFormatsByHeader(sheet, headers, rows.length);

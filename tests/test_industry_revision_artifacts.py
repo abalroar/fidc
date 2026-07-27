@@ -393,7 +393,8 @@ def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
             "IBBA",
             "GF",
             "Público",
-            "Inv.",
+            "Agência",
+            "Rating",
         ):
             assert token in text
 
