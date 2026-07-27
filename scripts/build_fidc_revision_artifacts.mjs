@@ -2576,6 +2576,12 @@ function buildPresentation(payload, flowAssets) {
       { left: 640, top: 582, width: 580, height: 42 },
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
+    addText(
+      slide,
+      "A ótica de crédito ampliado considera os direitos creditórios mantidos pelos FIDCs. O PL ex-FIC também incorpora demais ativos; as duas medidas representam perímetros contábeis distintos.",
+      { left: 60, top: 632, width: 1160, height: 22 },
+      { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle", wrap: "none" },
+    );
   }
 
   // 4. Ofertas encerradas de renda fixa
