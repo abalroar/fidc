@@ -75,7 +75,7 @@ def test_deck_has_no_truncated_fragments_or_visible_technical_slugs() -> None:
     )
 
 
-def test_material_market_share_slides_are_in_the_main_body() -> None:
+def test_material_market_share_slides_are_contiguous_in_the_provider_appendix() -> None:
     slides = [_slide_text(slide) for slide in _presentation().slides]
     provider = _find_slide_index(slides, "PRESTADORES · LIDERANÇA EXPLICADA")
     admin = _find_slide_index(
@@ -95,8 +95,8 @@ def test_material_market_share_slides_are_in_the_main_body() -> None:
     full_admin = _find_slide_index(
         slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
     )
-    assert provider < admin < manager < custodian < top20 < top20_other
-    assert top20_other < first_profile < full_admin
+    assert top20 < top20_other < first_profile < provider
+    assert provider < admin < manager < custodian < full_admin
 
 
 def test_top20_rankings_and_profile_layout_are_complete() -> None:

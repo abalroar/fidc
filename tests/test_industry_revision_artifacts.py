@@ -224,7 +224,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 63
+    assert len(slides) == 64
     expected_body = [
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
@@ -279,15 +279,48 @@ def test_deck_order_and_profile_count() -> None:
     assert "MARKET SHARE · ADMINISTRAÇÃO" in slides[56]
     assert "MARKET SHARE · GESTÃO" in slides[57]
     assert "MARKET SHARE · CUSTÓDIA" in slides[58]
-    assert "Administração por subtipo" in slides[59]
-    assert "Gestão por subtipo" in slides[60]
-    assert "Custódia por subtipo" in slides[61]
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[62]
-    assert "09.194.841/0001-51" in slides[62]
-    assert "A quebra no bruto coincide" in slides[62]
+    assert "PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" in slides[59]
+    assert "Administração por subtipo" in slides[60]
+    assert "Gestão por subtipo" in slides[61]
+    assert "Custódia por subtipo" in slides[62]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[63]
+    assert "09.194.841/0001-51" in slides[63]
+    assert "A quebra no bruto coincide" in slides[63]
     deck_text = "\n".join(slides)
     assert deck_text.count("R$ 16,69 bi") == 0
     assert "Visão ex-360 bloqueada" not in deck_text
+
+
+def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        slides = _slide_texts(archive)
+
+    assert all(token in slides[1] for token in ("58,4%", "59,5%", "R$ 733,1 bi", "PL ≥ R$ 200 mi"))
+    assert "70,1% do aumento líquido" in slides[9]
+    assert "10,0% do Tipo literal Outros" in slides[18]
+    assert "9,7% do bucket do slide 8" in slides[18]
+    assert "inclui FIC-FIDC" in slides[23]
+    assert "Kanastra permanece separada do Itaú" in slides[23]
+    assert "sobre jan–jun/25" in slides[25]
+    assert re.search(r"2022 FY.*N/D N/D", slides[25])
+    assert slides[12].index("Setor público") < slides[12].index("Agronegócio")
+    assert "65,7% dos R$ 78,1 bi" in slides[31]
+    assert "PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" in slides[59]
+    assert "100,0% é coerente com a estratégia NPL" in slides[63]
+
+    deck_text = "\n".join(slides)
+    for stale in (
+        "R$ 5.500 bi",
+        "R$ 4.200 bi",
+        "R$ 2.500 bi",
+        "R$ 1.000 bi",
+        "R$ 11.000 bi",
+        "explicou 67%",
+        "1 pendentes",
+        "O 99% é coerente",
+    ):
+        assert stale not in deck_text
     assert "Factoring→Fomento" not in deck_text
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
@@ -456,7 +489,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [57, 58, 59, 60, 61, 62])
+@pytest.mark.parametrize("slide_number", [57, 58, 59, 61, 62, 63])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -786,7 +819,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v21";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v22";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

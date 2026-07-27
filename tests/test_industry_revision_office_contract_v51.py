@@ -1,4 +1,4 @@
-"""Acceptance contract for the 63-slide FIDC industry revision.
+"""Acceptance contract for the 64-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -34,14 +34,14 @@ XLSX = (
     / "industry_data_revised.xlsx"
 )
 
-TARGET_SLIDES = 63
+TARGET_SLIDES = 64
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (57, 58, 59, 60, 61, 62)
+MARKET_SHARE_SLIDES = (57, 58, 59, 61, 62, 63)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -113,10 +113,11 @@ SLIDE_TOKENS = {
     57: ("MARKET SHARE · ADMINISTRAÇÃO",),
     58: ("MARKET SHARE · GESTÃO",),
     59: ("MARKET SHARE · CUSTÓDIA",),
-    60: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    61: ("GESTÃO POR SUBTIPO",),
-    62: ("CUSTÓDIA POR SUBTIPO",),
-    63: (
+    60: ("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO", "7,2%", "35,0%"),
+    61: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    62: ("GESTÃO POR SUBTIPO",),
+    63: ("CUSTÓDIA POR SUBTIPO",),
+    64: (
         "APÊNDICE · CASO ATLÂNTICO",
         "09.194.841/0001-51",
         "A QUEBRA NO BRUTO COINCIDE",
@@ -203,7 +204,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_63_slide_contract() -> None:
+def test_export_and_renderer_declare_64_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -211,15 +212,15 @@ def test_export_and_renderer_declare_63_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*63\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*64\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*63;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*64;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_63_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_64_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
