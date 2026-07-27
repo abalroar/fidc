@@ -87,6 +87,25 @@ def _write_fixture(data_dir: Path) -> None:
         index=False,
         compression="gzip",
     )
+    pd.DataFrame(
+        [
+            {
+                "offer_id": "1",
+                "rating_document_count": "2",
+                "latest_document_id": "doc-1",
+                "latest_document_date": "01/07/2026",
+                "rating_agency": "Agência Teste",
+                "rating_assigned": "AAA(sf)",
+                "rating_scope": "Série sênior",
+                "rating_source_type": "FundosNet",
+                "rating_source_url": "https://example.test/doc-1",
+                "rating_match_status": "vínculo por oferta e série",
+                "rating_evidence": "Documento identifica a oferta e a série.",
+                "rating_availability_status": "rating da emissão verificado",
+                "rating_limitation": "Aplicável somente à série indicada.",
+            }
+        ]
+    ).to_csv(data_dir / "industry_offer_rating_by_offer.csv", index=False)
 
 
 def test_top15_uses_closed_cohort_and_enriches_offer_metadata(
@@ -109,6 +128,10 @@ def test_top15_uses_closed_cohort_and_enriches_offer_metadata(
     assert first["ibba_coord_lead_label"] == "Sim"
     assert first["firm_commitment_label"] == "Sim"
     assert first["publico"] == "Geral"
+    assert first["rating_agency"] == "Agência Teste"
+    assert first["rating_assigned"] == "AAA(sf)"
+    assert first["rating_match_status"] == "vínculo por oferta e série"
+    assert outputs.rankings.iloc[1]["rating_agency"] == "N/D"
     assert outputs.summary.set_index("period_label")[
         "metadata_matched_top15"
     ].to_dict() == {
