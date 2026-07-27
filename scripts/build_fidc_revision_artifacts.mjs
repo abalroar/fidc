@@ -81,8 +81,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v21";
-const EXPECTED_SLIDES = 63;
+const RENDERER_VERSION = "industry_revision_artifacts_v22";
+const EXPECTED_SLIDES = 64;
 
 const C = {
   orange: "#EC7000",
@@ -261,6 +261,17 @@ function providerShort(value) {
     .replace(/\s+/g, " ")
     .replace(/[.,\- ]+$/g, "")
     .trim();
+}
+
+function top15CoordinatorLabel(value) {
+  const normalized = normalizeProviderName(value);
+  if (normalized.includes("banco votorantim")) return "Votorantim";
+  if (normalized.includes("banco itau bba")) return "Itaú BBA";
+  return truncateWords(providerShort(value), 18) || "N/D";
+}
+
+function withoutTrailingPeriod(value) {
+  return String(value || "").trim().replace(/[.]+$/g, "");
 }
 
 function focusShort(type, focus) {
@@ -593,7 +604,7 @@ function addLegend(slide, entries, position, columns = 4) {
     ...chartBase(position),
     categories: [""],
     series: entries.map((entry) => ({
-      name: truncateWords(entry.label, 34),
+      name: truncateWords(entry.label, 48),
       values: [null],
       line: { style: "solid", fill: entry.color, width: 3 },
       marker: { symbol: "none" },
@@ -923,7 +934,7 @@ function addMarketShareSlide(presentation, payload, role, focusRows, page, appen
   const scope = (payload.market_share_scope_summary || []).find((row) => row.papel === role) || {};
   const coverage = pct(scope.cobertura_classificacao_14_focos_pl, 1);
   const outside = pct(1 - num(scope.cobertura_classificacao_14_focos_pl), 1);
-  const source = `Fonte: CVM/ANBIMA, ${stockShortLower}. Subtipo = Tipo+Foco ANBIMA (cadastro dez/25, evidência e proxy determinístico da Tabela II). PL ex-FIC sem Sistema Petrobras/TAPSO; cobertura ${coverage}, fora ${outside}.`;
+  const source = `Fonte: CVM/ANBIMA, ${stockShortLower}. Subtipo = Tipo+Foco ANBIMA (cadastro dez/25, evidência e proxy determinístico da Tabela II). PL ex-FIC sem Sistema Petrobras/TAPSO; cobertura de classificação por Tipo+Foco (PL): ${coverage}; fora: ${outside}.`;
   const titles = {
     administrador: appendix
       ? "Administração por subtipo: universo completo dos 14 focos"
@@ -1715,7 +1726,7 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
   ], { left: 930, top: 126, width: 290, height: 22 }, 2);
   addText(
     slide,
-    `Bucket Cartão: ${integer(auditSummary.fundos_incluidos_adquirencia)} incluídos, ${integer(auditSummary.fundos_fora_adquirencia)} fora e ${integer(auditSummary.fundos_pendentes_curadoria)} pendentes. Em ${afterShortLower}, ${integer(observedCount)} dos ${curatedCount} CNPJs selecionados têm reporte ativo; ${integer(missingCount)} não reportam.`,
+    `Bucket Cartão: ${integer(auditSummary.fundos_incluidos_adquirencia)} incluídos, ${integer(auditSummary.fundos_fora_adquirencia)} fora e ${integer(auditSummary.fundos_pendentes_curadoria)} ${num(auditSummary.fundos_pendentes_curadoria) === 1 ? "pendente" : "pendentes"}. Em ${afterShortLower}, ${integer(observedCount)} dos ${curatedCount} CNPJs selecionados têm reporte ativo; ${integer(missingCount)} não reportam.`,
     { left: 60, top: 625, width: 1160, height: 30 },
     { fontSize: 10.7, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
@@ -2084,6 +2095,97 @@ function addProviderTransitionSlide(presentation, payload, page, pngBytes, role 
   return slide;
 }
 
+function addProviderMigrationEvidenceSlide(presentation, payload, page) {
+  const slide = presentation.slides.add();
+  const metrics = payload.conclusion_metrics || {};
+  const reag = payload.reag_admin_summary || {};
+  const reagLinks = payload.reag_admin_links || [];
+  const cieloShare = num(metrics.admin_transition_2024_2025_changed_pl_brl)
+    ? num(metrics.admin_transition_2024_2025_cielo_pl_brl)
+      / num(metrics.admin_transition_2024_2025_changed_pl_brl)
+    : 0;
+  const masterPlannerRows = reagLinks.filter((row) => {
+    const label = normalizeProviderName(row.destino_grupo);
+    return label.includes("banco master") || label.includes("planner");
+  });
+  const masterPlannerFunds = masterPlannerRows.reduce((sum, row) => sum + num(row.fundos), 0);
+  const masterPlannerPl = masterPlannerRows.reduce(
+    (sum, row) => sum + num(row.pl_current_brl ?? row.pl_2026_05_brl),
+    0,
+  );
+  addHeader(
+    slide,
+    "PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO",
+    `${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável mudou em 2025; ${pct(reag.migrated_share_current, 1)} do PL continuante da coorte CBSF/Reag migrou até jun/26`,
+    "Fonte: CVM, Informe Mensal. Métricas por CNPJ legal, ex-FIC-FIDC e sem Sistema Petrobras/TAPSO; PL positivo e administrador informado nos períodos comparáveis.",
+    page,
+  );
+  addSectionLabel(slide, "INDÚSTRIA · DEZ/24 → DEZ/25", { left: 60, top: 145, width: 555, height: 24 });
+  addNativeEditorialTable(slide, {
+    left: 60,
+    top: 180,
+    width: 555,
+    height: 310,
+    headers: ["Métrica", "Resultado"],
+    rows: [
+      ["Fundos comparáveis", integer(metrics.admin_transition_2024_2025_continuing_funds)],
+      ["PL comparável", bn(metrics.admin_transition_2024_2025_comparable_pl_brl, 1)],
+      ["Fundos que mudaram", integer(metrics.admin_transition_2024_2025_changed_funds)],
+      ["PL que mudou", bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)],
+      ["PL que mudou / comparável", pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)],
+      ["Cielo · 2 FIDCs", `${bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1)} · ${pct(cieloShare, 1)} do PL migrado`],
+    ],
+    columnWidths: [300, 255],
+    aligns: ["left", "right"],
+    fontSize: 11.2,
+    headerFontSize: 10,
+    rowHighlights: new Set([4, 5]),
+  });
+  addSectionLabel(slide, "COORTE CBSF/REAG · DEZ/25 → JUN/26", { left: 665, top: 145, width: 555, height: 24 });
+  addNativeEditorialTable(slide, {
+    left: 665,
+    top: 180,
+    width: 555,
+    height: 310,
+    headers: ["Métrica", "Resultado"],
+    rows: [
+      ["Fundos na origem", integer(reag.funds_origin)],
+      ["PL na origem", bn(reag.pl_origin_brl, 1)],
+      ["Fundos continuantes", integer(reag.continuing_funds)],
+      ["PL continuante atual", bn(reag.continuing_pl_current_brl, 1)],
+      ["Fundos migrados", integer(reag.migrated_funds)],
+      ["PL migrado / continuante", `${bn(reag.migrated_pl_current_brl, 1)} · ${pct(reag.migrated_share_current, 1)}`],
+      ["Master + Planner", `${integer(masterPlannerFunds)} fundos · ${bn(masterPlannerPl, 1)}`],
+      ["Saída / sem reporte", `${integer(reag.exited_funds)} fundos · ${bn(reag.exited_pl_origin_brl, 1)} na origem`],
+    ],
+    columnWidths: [280, 275],
+    aligns: ["left", "right"],
+    fontSize: 10.6,
+    headerFontSize: 10,
+    rowHighlights: new Set([5, 6]),
+  });
+  addRule(slide, 60, 518, 1160, C.line, 1);
+  addText(
+    slide,
+    `Indústria: ${metrics.admin_transition_2024_2025_methodology || "metodologia indisponível"}.`,
+    { left: 60, top: 532, width: 555, height: 72 },
+    { fontSize: 10.1, color: C.charcoal, lineSpacing: 1.02 },
+  );
+  addText(
+    slide,
+    `CBSF/Reag: coorte administrada pelo CNPJ ${reag.origin_admin_cnpj_formatado || "N/D"} em dez/25; continuante exige PL positivo em jun/26. Gestor e custodiante são fotografias atuais e não comprovam transição histórica.`,
+    { left: 665, top: 532, width: 555, height: 72 },
+    { fontSize: 10.1, color: C.charcoal, lineSpacing: 1.02 },
+  );
+  addSourceNotes(slide, [
+    "CVM — Informe Mensal de FIDC e cadastro de prestadores por competência.",
+    "PL comparável da indústria = menor PL entre dez/24 e dez/25 para cada CNPJ elegível.",
+    "Coorte CBSF/Reag: administrador de origem CNPJ 34.829.992/0001-86 em dez/25; destino em jun/26.",
+    "Limitação: ausência de reporte no destino não comprova liquidação do fundo; gestor e custodiante históricos não são observáveis na mesma base.",
+  ]);
+  return slide;
+}
+
 function fallbackExecutiveConclusions(payload) {
   const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const metrics = payload.conclusion_metrics || {};
@@ -2169,7 +2271,7 @@ function fallbackExecutiveConclusions(payload) {
       order: 7,
       title: "Ofertas encerradas em 2026",
       bullets: [
-        `${integer(currentOfferYtd.closed_offers)} ofertas encerradas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} em jan–jun/26; alta de ${pct(offerGrowth, 0)} sobre 2025 e ${pct(offerGrowth2024, 0)} sobre 2024.`,
+        `${integer(currentOfferYtd.closed_offers)} ofertas encerradas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} em jan–jun/26; alta de ${pct(offerGrowth, 0)} sobre jan–jun/25 e ${pct(offerGrowth2024, 0)} sobre jan–jun/24.`,
         `Ofertas nomináveis da CloudWalk somaram ${bn(cloudwalk.registered_volume_brl, 1)}.`,
       ],
     },
@@ -2270,7 +2372,7 @@ function top15SlideRows(rows) {
     row.fund_name_short,
     truncateWords(row.originator_group || "Não identificado", 22),
     (num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-    truncateWords(providerShort(row.leader_name), 15),
+    top15CoordinatorLabel(row.leader_name),
     row.firm_commitment_label,
     top15PublicLabel(row.publico),
     top15AgencyLabel(row.rating_agency),
@@ -2607,6 +2709,7 @@ function buildPresentation(payload, flowAssets) {
     );
     const qa = payload.qa_latest;
     const mono = payload.service_model.find((row) => row.modelo_prestacao === "Monoestrutura");
+    const conclusionMetrics = payload.conclusion_metrics || {};
     const summary = [
       {
         value: bn(latestHistory.pl_ex_fic, 0),
@@ -2614,9 +2717,9 @@ function buildPresentation(payload, flowAssets) {
         detail: `${(num(latestHistory.pl_ex_fic) / num(payload.pl_history[0]?.pl_ex_fic)).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}× ${payload.pl_history[0]?.year}; FIC-FIDC: ${bn(latestHistory.pl_fic_componente, 1)}.`,
       },
       {
-        value: "59%",
-        claim: "dos fundos acima de R$ 200 mi têm até 10 contas",
-        detail: "60,7% do PL no recorte de R$ 733,9 bi.",
+        value: pct(conclusionMetrics.holder_ge_200m_share_fundos_ate_10_contas, 1),
+        claim: "dos fundos com PL ≥ R$ 200 mi têm até 10 contas",
+        detail: `${pct(conclusionMetrics.holder_ge_200m_share_pl_ate_10_contas, 1)} do PL no recorte de ${bn(conclusionMetrics.holder_ge_200m_pl_brl, 1)}.`,
       },
       {
         value: integer(qa.casos_inad_supera_carteira),
@@ -2626,7 +2729,7 @@ function buildPresentation(payload, flowAssets) {
       {
         value: pct(mono?.share_pl, 1),
         claim: "do PL em monoestruturas",
-        detail: "Administração, gestão e custódia no mesmo conglomerado.",
+        detail: `${bn(mono?.pl, 1)} de ${bn(conclusionMetrics.service_model_universe_pl_brl, 1)} de PL bruto; inclui FIC-FIDC.`,
       },
     ];
     summary.forEach((item, index) => {
@@ -3451,11 +3554,15 @@ function buildPresentation(payload, flowAssets) {
     }[category] || category));
     const financeBefore = beforeMap.Financeiro;
     const financeAfter = afterMap.Financeiro;
+    const financeDelta = num(financeAfter?.valor) - num(financeBefore?.valor);
+    const totalSegmentedDelta = after.reduce((sum, row) => sum + num(row.valor), 0)
+      - before.reduce((sum, row) => sum + num(row.valor), 0);
+    const financeContribution = totalSegmentedDelta ? financeDelta / totalSegmentedDelta : 0;
     addHeader(
       slide,
       "CARTEIRA POR TIPO DE RECEBÍVEL",
-      `Financeiro ganhou ${pct(num(financeAfter?.share_reported) - num(financeBefore?.share_reported), 1).replace("%", " p.p.")} e explicou 67% do crescimento segmentado`,
-      `Fonte: CVM, Informe Mensal, Tabela II; dez/23 e ${stockShortLower}. Percentuais sobre a soma dos segmentos reportados.`,
+      `Financeiro ganhou ${pct(num(financeAfter?.share_reported) - num(financeBefore?.share_reported), 1).replace("%", " p.p.")} e explicou ${pct(financeContribution, 1)} do aumento líquido do valor segmentado`,
+      `Fonte: CVM, Informe Mensal, Tabela II; dez/23 e ${stockShortLower}. Percentuais sobre a soma dos segmentos reportados; contribuição = Δ Financeiro / Δ total líquido.`,
       7,
     );
     addSectionLabel(slide, "VALOR REPORTADO · R$ BI", { left: 60, top: 150, width: 550, height: 24 });
@@ -3619,7 +3726,7 @@ function buildPresentation(payload, flowAssets) {
       [
         { label: "Original · inclui zeros no denominador", color: C.orange },
       ],
-      { left: 185, top: 509, width: 380, height: 24 },
+      { left: 115, top: 509, width: 520, height: 24 },
       1,
     );
     addSectionLabel(slide, "FIDCs COM UM ÚNICO TIPO NA TABELA II", { left: 710, top: 139, width: 510, height: 24 });
@@ -3671,7 +3778,7 @@ function buildPresentation(payload, flowAssets) {
       return `${month}/${year.slice(2)}`;
     });
     const singleRows = [...(payload.delinquency_single_receivable || [])]
-      .sort((a, b) => num(b.pl_inadimplencia_positiva_brl) - num(a.pl_inadimplencia_positiva_brl));
+      .sort((a, b) => num(b.carteira_inadimplencia_positiva_brl) - num(a.carteira_inadimplencia_positiva_brl));
     const latestAdjusted = series.at(-1) || {};
     const latestImpactPp = num(latestAdjusted.variacao_inadimplencia_sobre_carteira_pp);
     addHeader(
@@ -3849,6 +3956,12 @@ function buildPresentation(payload, flowAssets) {
     const slide = presentation.slides.add();
     const rows = payload.top20_outros_regulation_review || [];
     const summary = payload.top20_outros_reclassification_summary || {};
+    const currentOutrosBucket = (payload.type_mix_history || []).find(
+      (row) => row.competencia === payload.latest_complete && row.anbima_tipo === "Outros",
+    ) || {};
+    const candidateShareExpandedOutros = num(currentOutrosBucket.pl)
+      ? num(summary.candidate_pl_brl) / num(currentOutrosBucket.pl)
+      : 0;
     const outrosNames = new Map(
       (payload.top20_outros || []).map((row) => [
         String(row.cnpj_fundo || row.cnpj_fundo_formatado || "").replace(/\D/g, ""),
@@ -3863,7 +3976,7 @@ function buildPresentation(payload, flowAssets) {
     addHeader(
       slide,
       "RANKING · TOP 20 OUTROS",
-      `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)} · ${pct(summary.candidate_share_of_outros, 1)} de Outros`,
+      `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)} · ${pct(summary.candidate_share_of_outros, 1)} do Tipo literal Outros; ${pct(candidateShareExpandedOutros, 1)} do bucket do slide 8, que inclui N/D`,
       `Fonte: CVM e FundosNet; ranking em ${stockShortLower}. Regulamento público vigente mais recente, leitura automatizada por pypdf; links e limitações no workbook.`,
       16 + providerInsightOffset,
     );
@@ -3905,7 +4018,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "MODELO DE PRESTAÇÃO",
       `Monoestruturas são ${pct(mono?.share_fundos, 1)} dos fundos e ${pct(mono?.share_pl, 1)} do PL; dados incompletos cobrem ${pct(missing?.share_pl, 1)}`,
-      `Fonte: CVM, cadastro vigente em ${stockShortLower}. Definição mono: mesmo conglomerado normalizado em administração, gestão e custódia.`,
+      `Fonte: CVM, cadastro vigente em ${stockShortLower}. PL bruto, inclui FIC-FIDC. Definição mono: mesmo conglomerado normalizado nas três funções.`,
       17 + providerInsightOffset,
     );
     const labels = rows.map((row) => row.modelo_prestacao.replace("Administração", "Adm.").replace("Três prestadores distintos", "Três distintos"));
@@ -3941,6 +4054,12 @@ function buildPresentation(payload, flowAssets) {
       })),
       { left: 850, top: 200, width: 370, height: 355 },
       { fontSize: 12.5 },
+    );
+    addText(
+      slide,
+      "Conglomerado econômico normalizado: Kanastra permanece separada do Itaú e CBSF da REAG. A afiliação Kanastra→Itaú é exclusiva do ranking de independentes.",
+      { left: 60, top: 622, width: 1160, height: 25 },
+      { fontSize: 9.1, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
   }
 
@@ -4049,6 +4168,14 @@ function buildPresentation(payload, flowAssets) {
     const yoy = num(priorComparable.registered_volume_brl)
       ? num(currentComparable.registered_volume_brl) / num(priorComparable.registered_volume_brl) - 1
       : 0;
+    const naturalPersonShareLabel = (row) => num(row.placed_quantity_registered_volume_coverage) > 0
+      ? pct(row.natural_person_placed_volume_share, 1)
+      : "N/D";
+    const professionalShareLabel = (row) => (
+      num(row.target_public_registered_volume_coverage) > 0 && num(row.registered_volume_brl) > 0
+        ? pct(num(row.professional_target_registered_volume_brl) / num(row.registered_volume_brl), 1)
+        : "N/D"
+    );
     const cumulative = (year) => {
       const maxMonth = year === currentOfferYear ? 6 : 12;
       const byMonth = new Map(
@@ -4066,7 +4193,7 @@ function buildPresentation(payload, flowAssets) {
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · VOLUME E TICKET",
-      `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre 2025`,
+      `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre jan–jun/25`,
       `Fonte: CVM/SRE, dois arquivos de ofertas, snapshot ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. Primárias encerradas, todos os ritos; volume registrado.`,
       27,
     );
@@ -4143,8 +4270,8 @@ function buildPresentation(payload, flowAssets) {
         bn(row.registered_volume_brl, 1),
         mm(row.mean_registered_ticket_brl, 1),
         mm(row.median_registered_ticket_brl, 1),
-        pct(row.natural_person_placed_volume_share, 1),
-        pct(row.professional_target_registered_volume_share, 1),
+        naturalPersonShareLabel(row),
+        professionalShareLabel(row),
       ]),
       columnWidths: [100, 155, 180, 155, 155, 205, 210],
       aligns: ["left", "right", "right", "right", "right", "right", "right"],
@@ -4154,7 +4281,7 @@ function buildPresentation(payload, flowAssets) {
     });
     addText(
       slide,
-      `PF representa ${pct(current.natural_person_placed_volume_share, 1)} do proxy de volume colocado; a cobertura por quantidade colocada equivale a ${pct(current.placed_quantity_registered_volume_coverage, 1)} do valor registrado.`,
+      `PF representa ${pct(current.natural_person_placed_volume_share, 1)} do proxy colocado; cobertura ${pct(current.placed_quantity_registered_volume_coverage, 1)}. Público profissional usa o volume registrado total como denominador, incluindo N/D; 2022 = N/D por ausência de reporte.`,
       { left: 60, top: 626, width: 1160, height: 30 },
       { fontSize: 10.2, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
@@ -4253,7 +4380,13 @@ function buildPresentation(payload, flowAssets) {
       { label: "2024FY", color: C.note },
       { label: "2025FY", color: C.charcoal },
       { label: "2026 jan–jun", color: C.orange },
-    ], { left: 425, top: 580, width: 430, height: 22 }, 3);
+    ], { left: 425, top: 576, width: 430, height: 22 }, 3);
+    addText(
+      slide,
+      "Faixas fecham no limite inferior; “> R$ 100 mi” é estrito e exclui ofertas exatamente iguais a R$ 100 mi.",
+      { left: 60, top: 599, width: 1160, height: 14 },
+      { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle" },
+    );
     summaries.forEach((summary, index) => {
       const label = summary.period_label === "2026 jan-jun"
         ? "2026 YTD"
@@ -4262,16 +4395,16 @@ function buildPresentation(payload, flowAssets) {
       addText(
         slide,
         `${label} · > R$ 100 mi`,
-        { left, top: 610, width: 360, height: 16 },
+        { left, top: 616, width: 360, height: 16 },
         { fontSize: 8.8, bold: true, color: index === 2 ? C.orange : C.charcoal },
       );
       addText(
         slide,
         `${bn(summary.over_100m_registered_volume_brl, 1)} · ${pct(summary.over_100m_registered_volume_share, 1)} do volume · ${integer(summary.over_100m_closed_offers)} ofertas (${pct(summary.over_100m_offer_share, 1)})`,
-        { left, top: 629, width: 360, height: 22 },
+        { left, top: 635, width: 360, height: 22 },
         { fontSize: 8.7, color: C.note },
       );
-      if (index < 2) addRule(slide, left + 375, 610, 1, C.line, 1);
+      if (index < 2) addRule(slide, left + 375, 616, 1, C.line, 1);
     });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
@@ -4524,7 +4657,7 @@ function buildPresentation(payload, flowAssets) {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       }),
-      truncateWords(providerShort(row.leader_name), 15),
+      top15CoordinatorLabel(row.leader_name),
       row.ibba_participant_label,
       row.firm_commitment_label,
       publicLabel(row.publico),
@@ -4641,8 +4774,8 @@ function buildPresentation(payload, flowAssets) {
         ["PL e base investidora", `${integer(payload.qa_latest.veiculos_total)} veículos; ${integer(payload.qa_latest.fundos_total)} fundos; ${stockLong}`, "PL bruto, ex-FIC e FIC-FIDC reconciliados. Contas se repetem por classe/série e não equivalem a investidores únicos."],
         ["Tipo e Foco ANBIMA", `${pct(coverage["Oficial ANBIMA"], 2)} oficial; ${pct(coverage["Evidência documental"], 2)} evidência; ${pct(coverage["Proxy CVM"], 2)} proxy; ${pct(coverage["N/D"], 2)} N/D`, "Tipo, Foco, origem e data permanecem separados. Gestor e custodiante históricos usam o cadastro vigente; a base não observa a troca ao longo do tempo."],
         ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, `Cap por veículo; vazio = ausência de reporte. Aging reconciliado à Tabela I completa; ex-360 ajustada = ${pct(payload.qa_latest.inadimplencia_ex_360d_ajustada_pct_sobre_cobertura, 1)}.`],
-        ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo. Top 10 fixo por função; Outros identificados e prestador não informado separados. PL negativo consta no QA."],
-        ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "Mesma entidade econômica normalizada nas três funções. Preço, propostas e contratos não integram a base."],
+        ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo; cobertura de classificação Tipo+Foco por PL é reportada em cada slide. Top 10 fixo por função; Outros identificados e prestador não informado separados."],
+        ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "PL bruto, inclui FIC-FIDC. Mesmo conglomerado nas três funções; Kanastra permanece separada do Itaú e CBSF da REAG. Afiliação Kanastra→Itaú só no ranking de independentes."],
         ["Comparativo por instrumento", "2023–2025 FY; 2026 jan–mai", "ANBIMA Data, Valor Encerrado por data de encerramento das ofertas públicas. Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente primárias e secundárias."],
         ["Análises granulares de ofertas", "2022 parcial; 2023–2025 FY; 2026 jan–jun", "CVM/SRE, Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis e valor registrado positivo. Automático: requerimento; ordinário/legado: registro + emissor + data + instrumento."],
       ],
@@ -4735,7 +4868,7 @@ function buildPresentation(payload, flowAssets) {
         y += heights[fieldIndex] + 8;
       });
       addRule(slide, 60, 606, 1160, C.line, 1);
-      addText(slide, `Cobertura documental: ${profile.cobertura_documental}. Fonte: ${profile.fonte}. Evidência: ${profile.evidencia}`, { left: 60, top: 614, width: 1160, height: 38 }, {
+      addText(slide, `Cobertura documental: ${withoutTrailingPeriod(profile.cobertura_documental)}. Fonte: ${withoutTrailingPeriod(profile.fonte)}. Evidência: ${withoutTrailingPeriod(profile.evidencia)}.`, { left: 60, top: 614, width: 1160, height: 38 }, {
         fontSize: 8.8,
         color: C.note,
         lineSpacing: 0.95,
@@ -4749,6 +4882,7 @@ function buildPresentation(payload, flowAssets) {
   addMarketShareSlide(presentation, payload, "administrador", materialFocus, 0, false);
   addMarketShareSlide(presentation, payload, "gestor", materialFocus, 0, false);
   addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 0, false);
+  addProviderMigrationEvidenceSlide(presentation, payload, 0);
 
   // Universo completo dos market shares permanece no apêndice.
   addMarketShareSlide(presentation, payload, "administrador", fullFocus, 47, true);
@@ -4816,7 +4950,7 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      "O 99% é coerente com a estratégia NPL: o fundo compra créditos já vencidos. Aging mede o estado jurídico do crédito; não representa perda adicional de 100% sobre o valor contábil.",
+      `${pct(snapshot.mais_1080_share_inadimplencia, 1)} é coerente com a estratégia NPL: o fundo compra créditos já vencidos. Aging mede o estado jurídico do crédito; não representa perda adicional de 100% sobre o valor contábil.`,
       { left: 665, top: 374, width: 555, height: 60 },
       { fontSize: 12.2, color: C.charcoal, lineSpacing: 1.03 },
     );
@@ -5309,7 +5443,13 @@ async function addTop20Sheets(workbook, payload) {
     const rows = worksheetRowsFromPayload(payload.top20_outros_regulation_review || [], columns);
     const sheet = resetSheet(workbook, "Top 20 Outros");
     const summary = payload.top20_outros_reclassification_summary || {};
-    setHeaderBand(sheet, "Top 20 Outros · regulamentos", `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)} (${pct(summary.candidate_share_of_outros, 1)} de Outros). Nenhuma mudança taxonômica foi aplicada; todos os candidatos requerem validação manual.`, headers, rows.length, { freezeColumns: 3, wrapText: true });
+    const currentOutrosBucket = (payload.type_mix_history || []).find(
+      (row) => row.competencia === payload.latest_complete && row.anbima_tipo === "Outros",
+    ) || {};
+    const candidateShareExpandedOutros = num(currentOutrosBucket.pl)
+      ? num(summary.candidate_pl_brl) / num(currentOutrosBucket.pl)
+      : 0;
+    setHeaderBand(sheet, "Top 20 Outros · regulamentos", `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)}: ${pct(summary.candidate_share_of_outros, 1)} do Tipo literal Outros e ${pct(candidateShareExpandedOutros, 1)} do bucket Outros do slide 8, que inclui N/D. Nenhuma mudança taxonômica foi aplicada; todos os candidatos requerem validação manual.`, headers, rows.length, { freezeColumns: 3, wrapText: true });
     await writeRowsInChunks(sheet, 4, headers, rows);
     applyColumnWidths(sheet, [70, 120, 340, 120, 90, 90, 360, 420, 110, 95, 360, 220, 160, 390, 390, 390], rows.length);
     applyFormatsByHeader(sheet, headers, rows.length);
@@ -5837,7 +5977,7 @@ async function addAcquiringReclassificationSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Taxonomia CVM com abertura analítica de adquirência",
-    `${curatedCount} CNPJs compõem a abertura de Adquirência. No bucket Cartão, ${integer(cardSummary.fundos_incluidos_adquirencia)} foram incluídos, ${integer(cardSummary.fundos_fora_adquirencia)} ficaram fora e ${integer(cardSummary.fundos_pendentes_curadoria)} permanecem pendentes. A classificação CVM reportada continua na base detalhada.`,
+    `${curatedCount} CNPJs compõem a abertura de Adquirência. No bucket Cartão, ${integer(cardSummary.fundos_incluidos_adquirencia)} foram incluídos, ${integer(cardSummary.fundos_fora_adquirencia)} ficaram fora e ${integer(cardSummary.fundos_pendentes_curadoria)} ${num(cardSummary.fundos_pendentes_curadoria) === 1 ? "permanece pendente" : "permanecem pendentes"}. A classificação CVM reportada continua na base detalhada.`,
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
@@ -5883,7 +6023,7 @@ async function addCardReceivablesCurationSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Curadoria do bucket Cartão de crédito",
-    `${integer(summary.fundos_incluidos_adquirencia)} fundos foram associados à cadeia de pagamentos; ${integer(summary.fundos_fora_adquirencia)} ficaram fora por crédito PF/PJ, CCB ou natureza distinta; ${integer(summary.fundos_pendentes_curadoria)} permanecem pendentes. PL em ${competenceShortPt(summary.competencia_pl_atual || payload.latest_complete).toLowerCase()}, com fallback ao mês anterior somente quando ausente.`,
+    `${integer(summary.fundos_incluidos_adquirencia)} fundos foram associados à cadeia de pagamentos; ${integer(summary.fundos_fora_adquirencia)} ficaram fora por crédito PF/PJ, CCB ou natureza distinta; ${integer(summary.fundos_pendentes_curadoria)} ${num(summary.fundos_pendentes_curadoria) === 1 ? "permanece pendente" : "permanecem pendentes"}. PL em ${competenceShortPt(summary.competencia_pl_atual || payload.latest_complete).toLowerCase()}, com fallback ao mês anterior somente quando ausente.`,
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },

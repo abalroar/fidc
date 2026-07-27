@@ -1104,9 +1104,11 @@ def _executive_conclusions(
                     f"do PL da coorte — {_pt_brl_bi(conclusion_metrics.get('btg_bank_cohort_combo_pl_brl'))}."
                 ),
                 (
-                    "Essa carteira responde por "
-                    f"{_pt_pct(btg_cohort_combo_share_total, 0)} de todo o PL atendido pelo "
-                    "BTG no combo completo, indicando forte ancoragem nos veículos da coorte bancária."
+                    f"Os {_pt_brl_bi(conclusion_metrics.get('btg_bank_cohort_combo_pl_brl'))} "
+                    "da coorte equivalem a "
+                    f"{_pt_pct(btg_cohort_combo_share_total, 1)} dos "
+                    f"{_pt_brl_bi(conclusion_metrics.get('btg_combo_tres_funcoes_pl_brl'))} "
+                    "de PL ex-FIC atendidos pelo BTG nas três funções."
                 ),
             ],
         },
@@ -1117,12 +1119,13 @@ def _executive_conclusions(
                 (
                     f"As {_pt_integer(offer_2026.get('closed_offers'))} ofertas encerradas "
                     f"em jan–jun/26 somaram {_pt_brl_bi(current_volume)}, avanço de "
-                    f"{_pt_pct(growth_2025, 0)} sobre 2025 e {_pt_pct(growth_2024, 0)} sobre 2024."
+                    f"{_pt_pct(growth_2025, 0)} sobre jan–jun/25 e "
+                    f"{_pt_pct(growth_2024, 0)} sobre jan–jun/24."
                 ),
                 (
                     f"A oferta {largest_offer_name}, de {_pt_brl_bi(largest_offer_volume)}, "
                     f"representou {_pt_pct(largest_offer_share)} do volume e "
-                    f"{_pt_pct(largest_offer_share_increment)} do crescimento sobre 2025; "
+                    f"{_pt_pct(largest_offer_share_increment)} do crescimento sobre jan–jun/25; "
                     "na sensibilidade sem essa oferta, o mercado teria avançado "
                     f"{_pt_pct(growth_ex_largest_offer)}."
                 ),
