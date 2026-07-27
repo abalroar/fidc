@@ -319,6 +319,12 @@ def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
     assert "PL DOS FIDCs · EX-FIC" in text
     assert "CARTEIRA DE CRÉDITO AMPLIADA" in text
     assert "debêntures e notas comerciais estão em títulos privados" in text
+    assert (
+        "A ótica de crédito ampliado considera os direitos creditórios "
+        "mantidos pelos FIDCs. O PL ex-FIC também incorpora demais ativos; "
+        "as duas medidas representam perímetros contábeis distintos."
+        in text
+    )
     assert "FIC-FIDC" not in text
 
     left_bar = charts[0].find(f".//{{{CHART}}}barChart")
