@@ -9,6 +9,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from services.industry_taxonomy_review import TAXONOMY_REVIEW_COLUMNS
+
 
 CEDENTE_REVIEW_COLUMNS = [
     "review_id",
@@ -88,6 +90,19 @@ CATALOG_GAP_ACTION_COLUMNS = [
 ]
 
 MANUAL_REVIEW_LEDGER_SPECS = [
+    {
+        "domain_id": "taxonomy_review",
+        "label": "Taxonomia analítica de Outros",
+        "module_id": "revision_exports",
+        "action_file": "taxonomy_review_actions.csv",
+        "audit_file": "taxonomy_review_audit.csv",
+        "key_column": "cnpj_fundo",
+        "status_column": "status",
+        "ui_surface": "Curadoria Outros",
+        "comparison": "Tipo/Foco ANBIMA oficial × classificação analítica aprovada",
+        "rerun_command": "python scripts/publish_fidc_revision_bundle.py",
+        "action_columns": list(TAXONOMY_REVIEW_COLUMNS),
+    },
     {
         "domain_id": "cedente_review",
         "label": "Cedentes/sacados",

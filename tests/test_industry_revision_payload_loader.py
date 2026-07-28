@@ -4,12 +4,21 @@ import hashlib
 import json
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
 from services.industry_revision_export import (
     BUNDLE_SCHEMA,
     RevisionExportUnavailable,
     _load_validated_bundle,
+    revision_export_signature,
+)
+from services.industry_taxonomy_review import (
+    TAXONOMY_REVIEW_AUDIT_COLUMNS,
+    TAXONOMY_REVIEW_COLUMNS,
+    save_taxonomy_review_actions,
+    taxonomy_review_audit_digest,
+    taxonomy_review_ledger_digest,
 )
 from tabs import tab_industry_study
 
@@ -727,3 +736,135 @@ def test_office_export_remains_strictly_current_schema(
         match="schema do payload revisado incompatível",
     ):
         _load_validated_bundle(tmp_path)
+
+
+def _write_taxonomy_action(path: Path) -> None:
+    action = {column: "" for column in TAXONOMY_REVIEW_COLUMNS}
+    action.update(
+        {
+            "cnpj_fundo": "1",
+            "denominacao_referencia": "FIDC TESTE",
+            "status": "em_revisao",
+            "updated_at_utc": "2026-07-28T12:00:00+00:00",
+        }
+    )
+    save_taxonomy_review_actions(
+        pd.DataFrame([action], columns=list(TAXONOMY_REVIEW_COLUMNS)),
+        path,
+    )
+
+
+def _write_current_bundle_metadata(
+    data_dir: Path,
+    *,
+    ledger_sha256: str,
+) -> None:
+    revision_dir = data_dir / "generated_revision"
+    revision_dir.mkdir(parents=True, exist_ok=True)
+    audit_path = data_dir / "taxonomy_review_audit.csv"
+    if not audit_path.exists():
+        pd.DataFrame(columns=list(TAXONOMY_REVIEW_AUDIT_COLUMNS)).to_csv(
+            audit_path,
+            index=False,
+        )
+    payload = {
+        "schema_version": SCHEMA_V7,
+        "latest_complete": "2026-06",
+        "taxonomy_review_meta": {
+            "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
+            "ledger_sha256": ledger_sha256,
+            "audit_path": "data/industry_study/taxonomy_review_audit.csv",
+            "audit_sha256": taxonomy_review_audit_digest(audit_path),
+        },
+    }
+    payload_bytes = json.dumps(payload, sort_keys=True).encode("utf-8")
+    (revision_dir / "artifact_payload.json").write_bytes(payload_bytes)
+    payload_hash = hashlib.sha256(payload_bytes).hexdigest()
+    (revision_dir / "industry_export_bundle.json").write_text(
+        json.dumps(
+            {
+                "schema_version": BUNDLE_SCHEMA,
+                "payload_schema": SCHEMA_V7,
+                "payload_sha256": payload_hash,
+                "source_signature": payload_hash,
+                "latest_complete": "2026-06",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+
+def test_direct_bundle_rejects_divergent_taxonomy_ledger(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ledger_path = tmp_path / "taxonomy_review_actions.csv"
+    save_taxonomy_review_actions(
+        pd.DataFrame(columns=list(TAXONOMY_REVIEW_COLUMNS)),
+        ledger_path,
+    )
+    published_digest = taxonomy_review_ledger_digest(ledger_path)
+    _write_current_bundle_metadata(tmp_path, ledger_sha256=published_digest)
+    _write_taxonomy_action(ledger_path)
+    monkeypatch.delenv("FIDC_EXPORT_MANIFEST", raising=False)
+
+    with pytest.raises(
+        RevisionExportUnavailable,
+        match="curadoria ou auditoria de Outros mudou após a publicação",
+    ):
+        _load_validated_bundle(tmp_path)
+
+
+def test_direct_bundle_rejects_divergent_taxonomy_audit(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ledger_path = tmp_path / "taxonomy_review_actions.csv"
+    save_taxonomy_review_actions(
+        pd.DataFrame(columns=list(TAXONOMY_REVIEW_COLUMNS)),
+        ledger_path,
+    )
+    published_digest = taxonomy_review_ledger_digest(ledger_path)
+    _write_current_bundle_metadata(tmp_path, ledger_sha256=published_digest)
+    audit_path = tmp_path / "taxonomy_review_audit.csv"
+    audit = pd.read_csv(audit_path, dtype=str, keep_default_na=False)
+    audit.loc[0] = [
+        "event-1",
+        "2026-07-28T12:00:00+00:00",
+        "taxonomy_review",
+        "00000000000001",
+        "status",
+        "pendente",
+        "em_revisao",
+        "em_revisao",
+        "teste",
+    ]
+    audit.to_csv(audit_path, index=False)
+    monkeypatch.delenv("FIDC_EXPORT_MANIFEST", raising=False)
+
+    with pytest.raises(
+        RevisionExportUnavailable,
+        match="curadoria ou auditoria de Outros mudou após a publicação",
+    ):
+        _load_validated_bundle(tmp_path)
+
+
+def test_revision_export_signature_changes_with_taxonomy_ledger(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ledger_path = tmp_path / "taxonomy_review_actions.csv"
+    save_taxonomy_review_actions(
+        pd.DataFrame(columns=list(TAXONOMY_REVIEW_COLUMNS)),
+        ledger_path,
+    )
+    published_digest = taxonomy_review_ledger_digest(ledger_path)
+    _write_current_bundle_metadata(tmp_path, ledger_sha256=published_digest)
+    monkeypatch.delenv("FIDC_EXPORT_MANIFEST", raising=False)
+
+    before = revision_export_signature(tmp_path)
+    _write_taxonomy_action(ledger_path)
+    after = revision_export_signature(tmp_path)
+
+    assert before != after
+    assert before.split(":", 1)[0] == after.split(":", 1)[0]

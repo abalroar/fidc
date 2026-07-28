@@ -251,6 +251,20 @@ function truncateWords(value, maxChars) {
   return sliced.slice(0, cut).trim();
 }
 
+function fundEditorialName(value, maxChars = 34) {
+  const original = String(value || "").replace(/\s+/g, " ").trim();
+  const compact = original
+    .replace(/\bFUNDO DE INVESTI(?:MENTO|MNTO) EM DIREITOS CRED[IÍ]T[OÓ]RIOS\b/gi, " ")
+    .replace(/\bDE RESPONSABILIDADE (?:LIMITADA|ILIMITADA)\b/gi, " ")
+    .replace(/\bRESPONSABILIDADE (?:LIMITADA|ILIMITADA)\b/gi, " ")
+    .replace(/\bRESP(?:ONSABILIDADE)?\.?\s+(?:LIMITADA|ILIMITADA|LTDA)\b/gi, " ")
+    .replace(/\bDE CLASSE [UÚ]NICA FECHADA\b/gi, " ")
+    .replace(/\s+-\s*$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return truncateWords(compact || original, maxChars);
+}
+
 function providerShort(value) {
   return String(value || "")
     .replace(/SOCIEDADE AN[ÔO]NIMA/gi, "")
@@ -491,7 +505,9 @@ function addNativeEditorialTable(slide, options) {
     aligns = [],
     fontSize = 9,
     headerFontSize = 8.5,
+    headerHeight = 22,
     rowHighlights = new Set(),
+    emphasizeHighlightedRows = false,
   } = options;
   const table = slide.tables.add({
     rows: rows.length + 1,
@@ -527,7 +543,7 @@ function addNativeEditorialTable(slide, options) {
     margins: { top: 2, right: 5, bottom: 2, left: 5 },
     anchor: "middle",
   });
-  table.rows[0].height = 22;
+  table.rows[0].height = headerHeight;
   rows.forEach((row, rowIndex) => {
     const fill = rowHighlights.has(rowIndex)
       ? "#FFF1E6"
@@ -553,7 +569,17 @@ function addNativeEditorialTable(slide, options) {
       margins: { top: 1.5, right: 5, bottom: 1.5, left: 5 },
       anchor: "middle",
     });
-    table.rows[rowIndex + 1].height = (height - 22) / Math.max(rows.length, 1);
+    if (emphasizeHighlightedRows && rowHighlights.has(rowIndex)) {
+      const emphasis = table.cells.block({
+        row: rowIndex + 1,
+        column: 0,
+        rowCount: 1,
+        columnCount: Math.min(2, headers.length),
+      });
+      emphasis.textStyle.bold = true;
+      emphasis.textStyle.color = C.orange;
+    }
+    table.rows[rowIndex + 1].height = (height - headerHeight) / Math.max(rows.length, 1);
   });
   aligns.forEach((alignment, columnIndex) => {
     const body = table.cells.block({
@@ -783,6 +809,8 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       top20_fidcs: payload.top20_fidcs.length,
       top20_outros: payload.top20_outros.length,
       profiles: payload.profiles.length,
+      top20_by_anbima_type: payload.top20_by_anbima_type.length,
+      top100_outros_review: payload.top100_outros_review.length,
       market_share_combinations: new Set(
         payload.market_share.map(
           (row) => `${row.papel}|${row.tipo_anbima}|${row.foco_anbima}`,
@@ -2404,7 +2432,7 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
     [rightPeriod, rightRows, rightSummary, 660],
   ].forEach(([period, rows, summary, left]) => {
     addSectionLabel(slide, `${display(period)} · TOP 15`, { left, top: 138, width: 560, height: 24 });
-    addEditorialTable(slide, {
+    addNativeEditorialTable(slide, {
       left,
       top: 174,
       width: 560,
@@ -2415,6 +2443,7 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
       aligns,
       fontSize: 6.1,
       headerFontSize: 5.9,
+      headerHeight: 34,
       rowHighlights: new Set(),
     });
     addText(
@@ -2451,7 +2480,7 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
     "Fonte: CVM/SRE, base de distribuição dos ritos ordinário e legado, e FundosNet. Registros encerrados em 2022; cobertura parcial.",
     slideNumber,
   );
-  addEditorialTable(slide, {
+  addNativeEditorialTable(slide, {
     left: 60,
     top: 155,
     width: 1160,
@@ -2462,6 +2491,7 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
     aligns: ["right", "left", "left", "right", "left", "center", "left", "left", "left"],
     fontSize: 8.5,
     headerFontSize: 8.2,
+    headerHeight: 34,
     rowHighlights: new Set(),
   });
   addText(
@@ -2483,43 +2513,47 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
   ]);
 }
 
-function addTaxonomyTop15Slide(presentation, payload, view) {
-  const rows = [...(payload.taxonomy_top15 || [])]
-    .filter((row) => row.visao === view)
-    .sort((a, b) => num(a.rank) - num(b.rank));
+function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
+  const rows = [...(payload.top20_by_anbima_type || [])]
+    .filter((row) => row.tipo_exibicao === typeName)
+    .sort((a, b) => num(a.rank_tipo) - num(b.rank_tipo));
+  const coverage = (payload.top20_by_anbima_type_coverage || [])
+    .find((row) => row.tipo_exibicao === typeName) || {};
   const slide = presentation.slides.add();
-  const source = rows[0]?.fonte || "Fonte indisponível na base materializada.";
-  const isReclassified = view === "Tabela II reclassificada";
+  const typePl = rows[0]?.pl_tipo_brl || 0;
+  const top20Pl = rows.reduce((sum, row) => sum + num(row.pl), 0);
   addHeader(
     slide,
-    "RANKING · TOP 15 POR TAXONOMIA",
-    `${view} · maiores FIDCs por PL`,
-    `${source}. Competência ${competenceShortPt(payload.latest_complete).toLowerCase()}. ${isReclassified ? "Reclassificação analítica; categoria reportada preservada na visão anterior." : "Classificação atual preservada."}`,
+    "RANKING · TOP 20 POR TIPO ANBIMA",
+    `${typeName} · ${bn(top20Pl, 1)} · ${pct(typePl ? top20Pl / typePl : 0, 1)} do bucket`,
+    `PL: CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}. Tipo/Foco: fotografia ANBIMA de 29/dez/25; níveis documental e proxy permanecem identificados no workbook.`,
     0,
   );
   addNativeEditorialTable(slide, {
     left: 60,
     top: 142,
     width: 1160,
-    height: 505,
-    headers: ["#", "FIDC", "CNPJ", "Taxonomia atual", "PL · R$ bi"],
+    height: 510,
+    headers: ["#", "FIDC", "PL · R$ bi", "Gestor", "Administrador", "Custodiante", "Cedente / originador expresso"],
     rows: rows.map((row) => [
-      String(integer(row.rank)),
-      truncateWords(row.denominacao || "N/D", 52),
-      row.cnpj_fundo_formatado || "N/D",
-      row.taxonomia_atual || "N/D",
-      bn(row.pl_brl, 2).replace("R$ ", ""),
+      String(integer(row.rank_tipo)),
+      fundEditorialName(row.denominacao || "N/D", 34),
+      bn(row.pl, 2).replace("R$ ", ""),
+      truncateWords(providerShort(row.gestor || "N/D"), 12),
+      truncateWords(providerShort(row.administrador || "N/D"), 12),
+      truncateWords(providerShort(row.custodiante || "N/D"), 11),
+      row.cedente_originador || "N/D",
     ]),
-    columnWidths: [55, 485, 185, 310, 125],
-    aligns: ["right", "left", "left", "left", "right"],
-    fontSize: 10.8,
-    headerFontSize: 10.2,
+    columnWidths: [34, 246, 70, 96, 96, 92, 526],
+    aligns: ["right", "left", "right", "left", "left", "left", "left"],
+    fontSize: 6.5,
+    headerFontSize: 7.0,
     rowHighlights: new Set([0, 1, 2]),
   });
   addSourceNotes(slide, [
-    source,
-    rows[0]?.metodologia || "Classificação atual preservada.",
-    "Ranking ordenado pelo PL do universo ex-FIC; a taxonomia não altera a posição do fundo.",
+    `PL jun/26 possui cobertura integral de 20/20 neste grupo; mai/26 também cobre os mesmos fundos. Unidade: CNPJ do fundo, com classes agregadas.`,
+    `Prestadores: administrador do Informe Mensal jun/26; gestor e custodiante da fotografia cadastral carregada em 21/jul/26.`,
+    `Cedente/originador: ${integer(coverage.cedente_curadoria_concluida)} de 20 com leitura curada concluída; lacunas permanecem N/D. Fonte, data, evidência e limitações constam no workbook.`,
   ]);
 }
 
@@ -3441,6 +3475,10 @@ function buildPresentation(payload, flowAssets) {
     );
     const financeAndOtherShare =
       valueFor(latestPeriod, "Financeiro", "share") + valueFor(latestPeriod, "Outros", "share");
+    const taxonomySummary = payload.top100_outros_summary || {};
+    const approvedReduction = num(taxonomySummary.reducao_aprovada_brl);
+    const approvedOutflows = integer(taxonomySummary.decisoes_aprovadas_com_saida);
+    const hasAnalyticalOverlay = approvedReduction > 0 || approvedOutflows > 0;
     const maxTotalBn = Math.max(
       ...periods.map((period) =>
         categories.reduce(
@@ -3451,9 +3489,11 @@ function buildPresentation(payload, flowAssets) {
     );
     addHeader(
       slide,
-      "TAXONOMIA VIGENTE",
+      hasAnalyticalOverlay ? "TAXONOMIA ANALÍTICA · DECISÕES APROVADAS" : "TAXONOMIA VIGENTE",
       `Financeiro + Outros = ${pct(financeAndOtherShare, 1)} do PL ex-FIC · ${latestPeriod.label}`,
-      `Fonte: ANBIMA Data (Tipo/Foco, dez/25) + Informe Mensal CVM (${latestPeriod.label}).`,
+      hasAnalyticalOverlay
+        ? `Fonte: ANBIMA Data (Tipo/Foco, dez/25), Informe Mensal CVM (${latestPeriod.label}) e ledger documental aprovado; classificação oficial preservada no workbook.`
+        : `Fonte: ANBIMA Data (Tipo/Foco, dez/25) + Informe Mensal CVM (${latestPeriod.label}).`,
       6,
     );
     addSectionLabel(slide, "PL EX-FIC · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
@@ -3519,7 +3559,9 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      `Fomento Mercantil: recebíveis comerciais de empresas. Agro/Indústria/Comércio: agro, cadeia produtiva, crédito corporativo e infraestrutura. Financeiro: pessoal, consignado, imobiliário e veículos. Outros: multicarteira, poder público, recuperação e N/D. Curadoria documental: ${integer(payload.top20_outros_reclassification_summary?.candidate_funds)} fundos e ${bn(payload.top20_outros_reclassification_summary?.candidate_pl_brl, 1)} podem sair de Outros, sujeitos a validação manual; o gráfico mantém a taxonomia vigente.`,
+      hasAnalyticalOverlay
+        ? `Camada analítica: ${approvedOutflows} decisões aprovadas retiram ${bn(approvedReduction, 1)} de Outros; residual ${bn(taxonomySummary.outros_curado_brl, 1)}. Tipo/Foco oficial, documento, página, evidência e responsável permanecem no workbook.`
+        : `Fomento Mercantil: recebíveis comerciais de empresas. Agro/Indústria/Comércio: agro, cadeia produtiva, crédito corporativo e infraestrutura. Financeiro: pessoal, consignado, imobiliário e veículos. Outros: multicarteira, poder público, recuperação e N/D. Cinco propostas documentais, somando ${bn(taxonomySummary.candidatos_documentais_brl, 1)}, permanecem em validação; o gráfico reproduz a classificação oficial.`,
       { left: 80, top: 617, width: 1120, height: 35 },
       { fontSize: 9.1, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
@@ -4005,8 +4047,8 @@ function buildPresentation(payload, flowAssets) {
     });
   }
 
-  ["Tipo ANBIMA", "Foco ANBIMA", "Tabela II reportada", "Tabela II reclassificada"]
-    .forEach((view) => addTaxonomyTop15Slide(presentation, payload, view));
+  ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"]
+    .forEach((typeName) => addTop20ByAnbimaTypeSlide(presentation, payload, typeName));
 
   // 20. Modelo de prestação
   {
@@ -4674,7 +4716,7 @@ function buildPresentation(payload, flowAssets) {
       29,
     );
     addSectionLabel(slide, "JAN–JUN/26 · TOP 15", { left: 60, top: 138, width: 560, height: 24 });
-    addEditorialTable(slide, {
+    addNativeEditorialTable(slide, {
       left: 60,
       top: 174,
       width: 560,
@@ -4685,14 +4727,16 @@ function buildPresentation(payload, flowAssets) {
       aligns,
       fontSize: 5.9,
       headerFontSize: 5.8,
+      headerHeight: 34,
       rowHighlights: new Set(
         table2026
           .map((row, index) => row.ibba_participant === true ? index : null)
           .filter((index) => index !== null),
       ),
+      emphasizeHighlightedRows: true,
     });
     addSectionLabel(slide, "2025FY · TOP 15", { left: 660, top: 138, width: 560, height: 24 });
-    addEditorialTable(slide, {
+    addNativeEditorialTable(slide, {
       left: 660,
       top: 174,
       width: 560,
@@ -4703,11 +4747,13 @@ function buildPresentation(payload, flowAssets) {
       aligns,
       fontSize: 5.9,
       headerFontSize: 5.8,
+      headerHeight: 34,
       rowHighlights: new Set(
         table2025
           .map((row, index) => row.ibba_participant === true ? index : null)
           .filter((index) => index !== null),
       ),
+      emphasizeHighlightedRows: true,
     });
     addText(
       slide,
@@ -4727,19 +4773,6 @@ function buildPresentation(payload, flowAssets) {
       { left: 60, top: 641, width: 1160, height: 22 },
       { fontSize: 7.9, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
-    ["Jan–jun/26", "2025FY"].forEach((label, index) => {
-      addNativeEditorialTable(slide, {
-        left: 1300 + index * 12,
-        top: 700,
-        width: 10,
-        height: 44,
-        headers: ["Tabela"],
-        rows: [[label]],
-        columnWidths: [10],
-        fontSize: 1,
-        headerFontSize: 1,
-      });
-    });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "FundosNet/B3 — documento público de rating mais recente conciliado com a oferta, emissão, série ou subclasse.",
@@ -6072,34 +6105,154 @@ async function addAcquiringAnbimaReviewSheet(workbook, payload) {
   sheet.getRange(`A5:K${rows.length + 4}`).format.rowHeightPx = 46;
 }
 
-async function addTaxonomyTop15Sheet(workbook, payload) {
+async function addTop20ByTypeSheets(workbook, payload) {
   const columns = [
-    ["Visão", "visao"],
-    ["#", "rank"],
+    ["Tipo exibido", "tipo_exibicao"],
+    ["Rank", "rank_tipo"],
     ["FIDC", "denominacao"],
     ["CNPJ", "cnpj_fundo_formatado"],
-    ["Taxonomia atual", "taxonomia_atual"],
-    ["PL", "pl_brl"],
-    ["Competência", "competencia"],
-    ["Fonte", "fonte"],
-    ["Metodologia", "metodologia"],
+    ["PL", "pl"],
+    ["% do bucket", "share_tipo"],
+    ["Competência", "competencia_pl"],
+    ["Mai/26 disponível", "pl_anterior_positivo"],
+    ["Fonte PL", "pl_source"],
+    ["Tipo ANBIMA original", "anbima_tipo"],
+    ["Foco ANBIMA", "anbima_foco"],
+    ["Nível classificação", "classification_tier"],
+    ["Status classificação", "classification_status"],
+    ["Fonte classificação", "classification_source"],
+    ["Data classificação", "classification_reference_date"],
+    ["Limitação classificação", "classification_limitation"],
+    ["Classes agregadas", "cnpj_classe_count"],
+    ["Administrador", "administrador"],
+    ["Fonte administrador", "administrador_source"],
+    ["Gestor", "gestor"],
+    ["Fonte gestor", "gestor_source"],
+    ["Custodiante", "custodiante"],
+    ["Fonte custodiante", "custodiante_source"],
+    ["Cedente/originador expresso", "cedente_originador"],
+    ["Status cedente", "cedente_status"],
+    ["Regulamento ID", "regulamento_id"],
+    ["Data regulamento", "regulamento_data"],
+    ["URL regulamento", "regulamento_url"],
+    ["Página/cláusula", "pagina_clausula"],
+    ["Evidência", "evidencia_cedente"],
+    ["Confiança", "confianca_cedente"],
+    ["Limitação cedente", "limitacao_cedente"],
   ];
   const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload.taxonomy_top15 || [], columns);
-  const sheet = resetSheet(workbook, "Top 15 taxonomias");
+  const rows = worksheetRowsFromPayload(payload.top20_by_anbima_type || [], columns);
+  const sheet = resetSheet(workbook, "Top 20 por Tipo ANBIMA");
   setHeaderBand(
     sheet,
-    "Top 15 por taxonomia",
-    "Quatro visões do mesmo ranking por PL: Tipo ANBIMA, Foco ANBIMA, Tabela II reportada e Tabela II com reclassificação analítica de Adquirência.",
+    "Top 20 FIDCs por Tipo ANBIMA",
+    "Jun/26 foi escolhida por ser a competência completa mais recente: 80/80 fundos possuem PL positivo em mai/26 e jun/26. O bucket Outros incorpora N/D como no slide 8. Campos sem leitura documental concluída permanecem N/D.",
     headers,
     rows.length,
-    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
   );
   await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [180, 45, 330, 120, 220, 125, 90, 320, 480], rows.length);
+  applyColumnWidths(sheet, [180, 65, 360, 120, 125, 95, 95, 110, 420, 170, 180, 150, 210, 300, 105, 360, 90, 260, 260, 260, 260, 260, 260, 430, 220, 95, 105, 350, 190, 480, 130, 440], rows.length);
   applyFormatsByHeader(sheet, headers, rows.length);
-  sheet.getRange(`F5:F${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:I${rows.length + 4}`).format.rowHeightPx = 42;
+  sheet.getRange(`E5:E${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  sheet.getRange(`F5:F${rows.length + 4}`).format.numberFormat = "0.0%";
+  sheet.getRange(`A5:AF${rows.length + 4}`).format.rowHeightPx = 72;
+
+  const coverageColumns = [
+    ["Tipo exibido", "tipo_exibicao"],
+    ["Fundos", "fundos"],
+    ["PL", "pl_brl"],
+    ["Administrador preenchido", "administrador_preenchido"],
+    ["Gestor preenchido", "gestor_preenchido"],
+    ["Custodiante preenchido", "custodiante_preenchido"],
+    ["Cedente com curadoria", "cedente_curadoria_concluida"],
+    ["Regulamento local sem curadoria", "regulamento_local_sem_curadoria"],
+    ["Sem regulamento local", "sem_regulamento_local"],
+    ["Competência PL", "competencia_pl"],
+    ["Competência anterior verificada", "competencia_anterior_verificada"],
+    ["Fundos com PL anterior positivo", "fundos_pl_anterior_positivo"],
+    ["Critério", "criterio_competencia"],
+  ];
+  const coverageHeaders = coverageColumns.map(([header]) => header);
+  const coverageRows = worksheetRowsFromPayload(payload.top20_by_anbima_type_coverage || [], coverageColumns);
+  const coverageSheet = resetSheet(workbook, "Auditoria Top 20 Tipo");
+  setHeaderBand(
+    coverageSheet,
+    "Cobertura · Top 20 por Tipo ANBIMA",
+    "Contagens documentais e cadastrais do ranking. Sinais automáticos pendentes de cedente não são promovidos a preenchimento definitivo.",
+    coverageHeaders,
+    coverageRows.length,
+    { freezeColumns: 1, wrapText: true, bodyFontSize: 9 },
+  );
+  await writeRowsInChunks(coverageSheet, 4, coverageHeaders, coverageRows);
+  applyColumnWidths(coverageSheet, [210, 75, 130, 145, 130, 145, 150, 175, 150, 100, 135, 160, 620], coverageRows.length);
+  applyFormatsByHeader(coverageSheet, coverageHeaders, coverageRows.length);
+  coverageSheet.getRange(`C5:C${coverageRows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  coverageSheet.getRange(`A5:M${coverageRows.length + 4}`).format.rowHeightPx = 54;
+}
+
+async function addTop100OutrosSheet(workbook, payload) {
+  const columns = [
+    ["Competência PL", "competencia_pl"],
+    ["# Outros slide", "rank_outros_slide"],
+    ["CNPJ", "cnpj_fundo_formatado"],
+    ["FIDC", "denominacao"],
+    ["PL", "pl"],
+    ["Bucket slide atual", "bucket_slide_atual"],
+    ["Tipo ANBIMA oficial", "anbima_tipo_oficial"],
+    ["Foco ANBIMA oficial", "anbima_foco_oficial"],
+    ["Fonte ANBIMA", "classification_source"],
+    ["Data ANBIMA", "anbima_referencia"],
+    ["Tabela II reportada", "tabela_ii_reportada"],
+    ["Tabela II dominante", "tabela_ii_dominante"],
+    ["Multissegmento", "tabela_ii_multisegmento"],
+    ["Documento ID", "documento_id_base"],
+    ["Data documento", "documento_data_base"],
+    ["URL documento", "documento_url_base"],
+    ["Página/cláusula", "pagina_clausula_base"],
+    ["Evidência documental", "evidencia_documental"],
+    ["Cedente/originador expresso", "cedente_originador_expresso"],
+    ["Taxonomia funcional N1", "taxonomia_funcional_n1_sugerida"],
+    ["Taxonomia funcional N2", "taxonomia_funcional_n2_sugerida"],
+    ["Tipo ANBIMA proposto", "tipo_anbima_sugerido"],
+    ["Foco ANBIMA proposto", "foco_anbima_sugerido"],
+    ["Tabela II proposta", "tabela_ii_sugerida"],
+    ["Correção de perímetro", "perimeter_proposal"],
+    ["FIC-FIDC sugerido", "is_fic_fidc_sugerido"],
+    ["Confiança", "confianca_base"],
+    ["Status revisão", "status_revisao_base"],
+    ["Motivo validação manual", "motivo_validacao_manual_base"],
+    ["Status ação", "acao_status"],
+    ["Tipo analítico aplicado", "anbima_tipo_curado"],
+    ["Foco analítico aplicado", "anbima_foco_curado"],
+    ["Tabela II aplicada", "tabela_ii_curada"],
+    ["Decisão aplicada", "taxonomy_review_applied"],
+    ["PL candidato", "pl_candidato_documental_brl"],
+    ["PL correção perímetro", "pl_correcao_perimetro_candidata_brl"],
+    ["PL aprovado", "pl_reclassificado_aprovado_brl"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.top100_outros_review || [], columns);
+  const summary = payload.top100_outros_summary || {};
+  const sheet = resetSheet(workbook, "Curadoria Outros Top 100");
+  setHeaderBand(
+    sheet,
+    "100 maiores FIDCs do bucket Outros",
+    `Bucket publicado: ${bn(summary.outros_oficial_brl, 1)}. ${integer(summary.candidatos_documentais)} propostas documentais somam ${bn(summary.candidatos_documentais_brl, 1)} — ${bn(summary.candidatos_reclassificacao_tipo_brl, 1)} por Tipo e ${bn(summary.candidatos_correcao_perimetro_brl, 1)} por perímetro ex-FIC — e deixariam ${bn(summary.outros_pos_candidatos_brl, 1)}. Mesmo a migração integral do Top 100 deixaria ${bn(summary.residual_minimo_top100_brl, 1)}.`,
+    headers,
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [95, 75, 120, 370, 125, 120, 155, 170, 300, 100, 520, 160, 100, 95, 105, 350, 180, 480, 420, 200, 220, 190, 210, 210, 105, 150, 95, 150, 440, 120, 180, 190, 150, 95, 125, 135, 125], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  sheet.getRange(`E5:E${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  ["PL candidato", "PL correção perímetro", "PL aprovado"].forEach((header) => {
+    const letter = columnLetter(headers.indexOf(header));
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  });
+  const lastColumn = columnLetter(headers.length - 1);
+  sheet.getRange(`A5:${lastColumn}${rows.length + 4}`).format.rowHeightPx = 92;
 }
 
 async function addDelinquencyDispersionSheet(workbook, payload) {
@@ -7309,7 +7462,8 @@ async function buildWorkbook(payload, flowAssets) {
   await addAcquiringReclassificationSheet(workbook, payload);
   await addCardReceivablesCurationSheet(workbook, payload);
   await addAcquiringAnbimaReviewSheet(workbook, payload);
-  await addTaxonomyTop15Sheet(workbook, payload);
+  await addTop20ByTypeSheets(workbook, payload);
+  await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);
   await addNumericLocaleAuditSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
@@ -7404,7 +7558,9 @@ async function exportWorkbook(workbook) {
       ["Taxonomia adquirência", "A1:N32"],
       ["Curadoria Cartão", "A1:V48"],
       ["Reclass. adquirência", "A1:K32"],
-      ["Top 15 taxonomias", "A1:I64"],
+      ["Top 20 por Tipo ANBIMA", "A1:AF28"],
+      ["Auditoria Top 20 Tipo", "A1:M10"],
+      ["Curadoria Outros Top 100", "A1:AH28"],
       ["Dispersão inadimplência", "A1:S24"],
       ["Auditoria numérica", "A1:C12"],
       ["Ofertas encerradas", "A1:Q58"],

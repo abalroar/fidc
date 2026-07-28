@@ -14,8 +14,10 @@ rotulo direto ou tabela ao lado.
 from __future__ import annotations
 
 import hashlib
+import hmac
 import html
 import json
+import os
 import re
 import sqlite3
 from datetime import datetime, timezone
@@ -80,6 +82,18 @@ from services.industry_study import (
     save_pipeline_manifest,
     save_cedente_structured,
 )
+from services.industry_taxonomy_review import (
+    CVM_TABLE_II_CATEGORIES,
+    FUNCTIONAL_TAXONOMY,
+    TAXONOMY_CONFIDENCE_LEVELS,
+    TAXONOMY_REVIEW_COLUMNS,
+    apply_taxonomy_review_overlay,
+    assert_taxonomy_review_ledger_matches_audit,
+    commit_taxonomy_review_action,
+    load_taxonomy_review_actions,
+    taxonomy_review_audit_digest,
+    taxonomy_review_ledger_digest,
+)
 
 
 @alt.theme.register("fidc_ptbr_numbers", enable=True)
@@ -109,6 +123,7 @@ INDUSTRY_VIEW_TABS = (
     "Carteira e inadimplência",
     "Prestadores",
     "Top 20",
+    "Curadoria Outros",
     "Ofertas e originação",
     "Dados e exportações",
 )
@@ -210,6 +225,25 @@ _DOCUMENT_CHUNK_ACTIONS_PATH = _DATA_DIR / "document_chunk_actions.csv"
 _DOCUMENT_CHUNK_ACTION_AUDIT_PATH = _DATA_DIR / "document_chunk_action_audit.csv"
 _CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
 _CRITERIA_REVIEW_AUDIT_PATH = _DATA_DIR / "criteria_review_audit.csv"
+_TAXONOMY_REVIEW_PATH = _DATA_DIR / "taxonomy_review_actions.csv"
+_TAXONOMY_REVIEW_AUDIT_PATH = _DATA_DIR / "taxonomy_review_audit.csv"
+
+
+def _taxonomy_review_write_token() -> str:
+    configured = str(os.environ.get("FIDC_TAXONOMY_REVIEW_WRITE_TOKEN") or "").strip()
+    if configured:
+        return configured
+    try:
+        return str(st.secrets.get("taxonomy_review_write_token") or "").strip()
+    # Ausência ou erro de leitura dos secrets fecha a escrita por padrão.
+    except Exception:
+        return ""
+
+
+def _taxonomy_review_write_authorized(configured: str, provided: str) -> bool:
+    expected = str(configured or "").strip()
+    candidate = str(provided or "")
+    return bool(expected) and hmac.compare_digest(candidate, expected)
 _CRITERIA_STRUCTURED_PATH = _DATA_DIR / "criteria_structured.csv.gz"
 _CRITERIA_MANIFEST_PATH = _DATA_DIR / "industry_criteria_manifest.json"
 _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
@@ -13776,6 +13810,514 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
                 st.markdown(f"[Fonte primária]({row['fonte']}) · consulta em {row.get('data_consulta', 'n/d')}")
 
 
+def _render_taxonomy_review(payload: dict[str, object]) -> None:
+    base = _revision_frame(payload, "top100_outros_review")
+    if base.empty:
+        st.info("Fila Top 100 de Outros indisponível no bundle publicado.")
+        return
+    latest = str(payload.get("latest_complete") or "")
+    actions = load_taxonomy_review_actions(_TAXONOMY_REVIEW_PATH)
+    overlay_input = base.copy()
+    overlay_input["anbima_tipo"] = overlay_input["anbima_tipo_oficial"]
+    overlay_input["anbima_foco"] = overlay_input["anbima_foco_oficial"]
+    overlay_input["competencia"] = latest
+    live = apply_taxonomy_review_overlay(overlay_input, actions)
+    if not actions.empty:
+        action_view = actions.add_prefix("acao_").rename(
+            columns={"acao_cnpj_fundo": "cnpj_fundo"}
+        )
+        live = live.merge(
+            action_view,
+            on="cnpj_fundo",
+            how="left",
+            validate="one_to_one",
+        )
+    if "acao_status" not in live:
+        live["acao_status"] = "pendente"
+    live["acao_status"] = live["acao_status"].fillna("").replace("", "pendente")
+    live["tipo_slide_curado"] = live["anbima_tipo_curado"].where(
+        live["anbima_tipo_curado"].isin(ANBIMA_TYPES[:-1]), "Outros"
+    )
+    live["pl"] = pd.to_numeric(live["pl"], errors="coerce").fillna(0.0)
+    live["reducao_aprovada"] = live["pl"].where(
+        live["taxonomy_review_applied"] & live["tipo_slide_curado"].ne("Outros"),
+        0.0,
+    )
+
+    published_summary = dict(payload.get("top100_outros_summary") or {})
+    official_outros = float(published_summary.get("outros_oficial_brl") or 0.0)
+    published_applied = base.get(
+        "taxonomy_review_applied",
+        pd.Series(False, index=base.index),
+    ).fillna(False).astype(bool)
+    published_type = base.get(
+        "anbima_tipo_curado",
+        base.get("anbima_tipo_oficial", pd.Series("Outros", index=base.index)),
+    ).fillna("Outros").astype(str)
+    published_top100_reduction = float(
+        pd.to_numeric(base.get("pl"), errors="coerce")
+        .fillna(0.0)
+        .where(published_applied & published_type.ne("Outros"), 0.0)
+        .sum()
+    )
+    live_top100_reduction = float(live["reducao_aprovada"].sum())
+    published_total_reduction = float(
+        published_summary.get("reducao_aprovada_brl") or 0.0
+    )
+    approved_reduction = max(
+        0.0,
+        published_total_reduction
+        + live_top100_reduction
+        - published_top100_reduction,
+    )
+    published_total_decisions = int(
+        published_summary.get("decisoes_aprovadas_com_saida") or 0
+    )
+    approved_decisions = max(
+        0,
+        published_total_decisions
+        + int(live["reducao_aprovada"].gt(0).sum())
+        - int((published_applied & published_type.ne("Outros")).sum()),
+    )
+    live_residual = official_outros - approved_reduction
+    candidate_pl = float(published_summary.get("candidatos_documentais_brl") or 0.0)
+    minimum_residual = float(published_summary.get("residual_minimo_top100_brl") or 0.0)
+
+    flash = st.session_state.pop("industry_taxonomy_review_flash", "")
+    if flash:
+        st.success(flash)
+    st.markdown("<h2>Fila de reclassificação de Outros</h2>", unsafe_allow_html=True)
+    st.caption(
+        "A fila contém os 100 maiores FIDCs do mesmo bucket exibido no slide 8: Outros literal e N/D incorporado. "
+        "Tipo/Foco ANBIMA e Tabela II reportados permanecem preservados; somente decisões aprovadas alimentam a camada analítica do próximo bundle."
+    )
+    configured_write_token = _taxonomy_review_write_token()
+    if configured_write_token:
+        with st.expander("Acesso de edição", expanded=False):
+            provided_write_token = st.text_input(
+                "Chave de curadoria",
+                type="password",
+                key="industry-taxonomy-review-write-token",
+                help="A chave fica somente na sessão e não é gravada no ledger.",
+            )
+            write_authorized = _taxonomy_review_write_authorized(
+                configured_write_token,
+                provided_write_token,
+            )
+            if write_authorized:
+                st.success("Edição autorizada nesta sessão.")
+            else:
+                st.caption("Informe a chave de curadoria para habilitar as ações de escrita.")
+    else:
+        write_authorized = False
+        st.info(
+            "Fila em modo somente leitura. Configure `taxonomy_review_write_token` nos secrets "
+            "ou `FIDC_TAXONOMY_REVIEW_WRITE_TOKEN` no ambiente para habilitar a curadoria."
+        )
+    cards = [
+        _industry_kpi(
+            "Outros publicado",
+            _fmt_bi(official_outros, 1),
+            f"{_fmt_int(published_summary.get('fundos_outros_oficial', 0))} fundos",
+        ),
+        _industry_kpi(
+            "Redução aprovada",
+            _fmt_bi(approved_reduction, 1),
+            f"{_fmt_int(approved_decisions)} decisões aplicáveis",
+        ),
+        _industry_kpi(
+            "Outros após aprovação",
+            _fmt_bi(live_residual, 1),
+            "prévia do próximo PPTX",
+        ),
+        _industry_kpi(
+            "Cenário documental",
+            _fmt_bi(candidate_pl, 1),
+            f"{_fmt_int(published_summary.get('candidatos_documentais', 0))} casos em validação",
+        ),
+    ]
+    st.markdown(
+        f'<div class="industry-kpi-grid">{"".join(cards)}</div>',
+        unsafe_allow_html=True,
+    )
+
+    bridge = pd.DataFrame(
+        [
+            {"Linha": "Composição", "Parcela": "Reclassificado e aprovado", "PL (R$ bi)": approved_reduction / 1e9, "ordem": 0},
+            {"Linha": "Composição", "Parcela": "Ainda em Outros", "PL (R$ bi)": max(0.0, live_residual) / 1e9, "ordem": 1},
+        ]
+    )
+    progress = (
+        alt.Chart(bridge)
+        .mark_bar(size=34, cornerRadiusEnd=3)
+        .encode(
+            x=alt.X("sum(PL (R$ bi)):Q", title=None, axis=alt.Axis(grid=False, format=",.0f")),
+            y=alt.Y("Linha:N", title=None, axis=None),
+            color=alt.Color(
+                "Parcela:N",
+                scale=alt.Scale(
+                    domain=["Reclassificado e aprovado", "Ainda em Outros"],
+                    range=[_ORANGE, _GRAY_LIGHT],
+                ),
+                legend=alt.Legend(title=None, orient="bottom"),
+            ),
+            order=alt.Order("ordem:Q"),
+            tooltip=["Parcela:N", alt.Tooltip("PL (R$ bi):Q", format=",.1f")],
+        )
+        .properties(height=84)
+    )
+    st.altair_chart(progress, width="stretch", key="industry-taxonomy-review-progress")
+    st.info(
+        f"O Top 100 soma {_fmt_bi(float(published_summary.get('top100_outros_brl') or 0), 1)}. "
+        f"Mesmo a migração integral deixaria {_fmt_bi(minimum_residual, 1)}, com gap de "
+        f"{_fmt_bi(float(published_summary.get('gap_meta_minimo_top100_brl') or 0), 1)} para a meta de R$ 150 bi."
+    )
+
+    filters = st.columns([1.15, 1.2, 2.3])
+    with filters[0]:
+        status_filter = st.multiselect(
+            "Status",
+            ["pendente", "em_revisao", "aprovado", "rejeitado"],
+            default=["pendente", "em_revisao", "aprovado"],
+            key="industry-taxonomy-status-filter",
+        )
+    with filters[1]:
+        evidence_filter = st.selectbox(
+            "Evidência",
+            ["Todos", "Com proposta", "Regulamento local", "Sem regulamento"],
+            key="industry-taxonomy-evidence-filter",
+        )
+    with filters[2]:
+        query = st.text_input(
+            "Buscar fundo ou CNPJ",
+            key="industry-taxonomy-query",
+            placeholder="Nome ou CNPJ",
+        )
+    filtered = live[live["acao_status"].isin(status_filter)].copy() if status_filter else live.iloc[0:0]
+    if evidence_filter == "Com proposta":
+        filtered = filtered[filtered["tipo_anbima_sugerido"].fillna("").ne("")]
+    elif evidence_filter == "Regulamento local":
+        filtered = filtered[filtered["documento_id_base"].fillna("").ne("")]
+    elif evidence_filter == "Sem regulamento":
+        filtered = filtered[filtered["documento_id_base"].fillna("").eq("")]
+    if query:
+        search = filtered["denominacao"].fillna("").astype(str) + " " + filtered["cnpj_fundo"].fillna("").astype(str)
+        filtered = filtered[search.str.contains(re.escape(query), case=False, na=False)]
+    if filtered.empty:
+        st.info("Nenhum fundo corresponde aos filtros atuais.")
+        return
+
+    display = pd.DataFrame(
+        {
+            "#": filtered["rank_outros_slide"].astype(int),
+            "FIDC": filtered["denominacao"].astype(str),
+            "PL": filtered["pl"].map(lambda value: _fmt_bi(float(value), 1)),
+            "ANBIMA oficial": filtered["anbima_tipo_oficial"].astype(str) + " | " + filtered["anbima_foco_oficial"].astype(str),
+            "Proposta": filtered["tipo_anbima_sugerido"].fillna("").replace("", "N/D") + filtered["foco_anbima_sugerido"].fillna("").map(lambda value: f" | {value}" if value else ""),
+            "Tabela II": filtered["tabela_ii_sugerida"].fillna("N/D"),
+            "Perímetro": filtered.get(
+                "perimeter_proposal",
+                pd.Series("", index=filtered.index),
+            ).fillna("").replace("", "N/D"),
+            "Documento": filtered["documento_id_base"].fillna("").replace("", "N/D"),
+            "Ação": filtered["acao_status"].astype(str),
+        }
+    )
+    st.dataframe(display, hide_index=True, width="stretch", height=min(520, 86 + 34 * len(display)))
+
+    options = filtered["cnpj_fundo"].astype(str).tolist()
+    labels = {
+        str(row["cnpj_fundo"]): f"#{int(row['rank_outros_slide'])} · {row['denominacao']} · {_fmt_bi(float(row['pl']), 1)}"
+        for _, row in filtered.iterrows()
+    }
+    selected_cnpj = st.selectbox(
+        "Fundo em revisão",
+        options,
+        format_func=lambda value: labels[value],
+        key="industry-taxonomy-selected-fund",
+    )
+    selected = live[live["cnpj_fundo"].astype(str).eq(selected_cnpj)].iloc[0]
+    existing = actions[actions["cnpj_fundo"].astype(str).eq(selected_cnpj)]
+    existing_row = existing.iloc[0] if not existing.empty else pd.Series(dtype=object)
+
+    def saved(field: str, fallback: object = "") -> str:
+        value = str(existing_row.get(field, "") or "").strip()
+        return value or str(fallback or "").strip()
+
+    st.markdown(f"### {selected['denominacao']}")
+    st.caption(
+        f"{selected.get('cnpj_fundo_formatado') or selected_cnpj} · {_fmt_bi(float(selected['pl']), 1)} · "
+        f"#{int(selected['rank_outros_slide'])} no bucket Outros"
+    )
+    official_col, evidence_col, effect_col = st.columns(3)
+    with official_col:
+        st.markdown("**Classificação preservada**")
+        st.write(f"ANBIMA: {selected['anbima_tipo_oficial']} | {selected['anbima_foco_oficial']}")
+        st.write(f"Tabela II dominante: {selected.get('tabela_ii_dominante') or 'N/D'}")
+        st.caption(str(selected.get("classification_source") or "fonte ANBIMA indisponível"))
+    with evidence_col:
+        st.markdown("**Evidência disponível**")
+        st.write(str(selected.get("evidencia_documental") or "Sem trecho documental curado"))
+        st.caption(
+            f"Documento {selected.get('documento_id_base') or 'N/D'} · {selected.get('documento_data_base') or 'data N/D'}"
+        )
+    with effect_col:
+        st.markdown("**Efeito se aprovado**")
+        preview_type = saved("tipo_analitico", selected.get("tipo_anbima_sugerido") or "Outros")
+        perimeter_effect = float(
+            selected.get("pl_correcao_perimetro_candidata_brl") or 0.0
+        )
+        if perimeter_effect > 0:
+            st.write(
+                f"pode retirar {_fmt_bi(perimeter_effect, 1)} do perímetro ex-FIC, após validação manual"
+            )
+        elif preview_type != "Outros":
+            st.write(f"reduz Outros em {_fmt_bi(float(selected['pl']), 1)}")
+        else:
+            st.write("mantém o PL em Outros")
+        st.caption(
+            "a correção de perímetro exige validação no cadastro fonte"
+            if perimeter_effect > 0
+            else "o bundle aplica somente status aprovado"
+        )
+
+    initial_type = saved("tipo_analitico", selected.get("tipo_anbima_sugerido") or "Outros")
+    if initial_type not in ANBIMA_TYPES:
+        initial_type = "Outros"
+    target_type = st.selectbox(
+        "Tipo ANBIMA analítico",
+        list(ANBIMA_TYPES),
+        index=list(ANBIMA_TYPES).index(initial_type),
+        key=f"industry-taxonomy-target-type-{selected_cnpj}",
+    )
+    focus_options = list(ANBIMA_FOCUS_BY_TYPE[target_type])
+    initial_focus = saved("foco_analitico", selected.get("foco_anbima_sugerido"))
+    if initial_focus not in focus_options:
+        initial_focus = focus_options[0]
+    target_focus = st.selectbox(
+        "Foco ANBIMA analítico",
+        focus_options,
+        index=focus_options.index(initial_focus),
+        key=f"industry-taxonomy-target-focus-{selected_cnpj}-{target_type}",
+    )
+    table_options = list(CVM_TABLE_II_CATEGORIES)
+    initial_table = saved("tabela_ii_analitica", selected.get("tabela_ii_sugerida") or "N/D")
+    if initial_table not in table_options:
+        initial_table = "N/D"
+    target_table = st.selectbox(
+        "Categoria analítica da Tabela II",
+        table_options,
+        index=table_options.index(initial_table),
+        key=f"industry-taxonomy-table-ii-{selected_cnpj}",
+    )
+
+    functional_n1_options = list(FUNCTIONAL_TAXONOMY)
+    initial_n1 = saved("taxonomia_funcional_n1", selected.get("taxonomia_funcional_n1_sugerida"))
+    if initial_n1 not in functional_n1_options:
+        initial_n1 = ""
+    functional_n1 = st.selectbox(
+        "Taxonomia funcional N1",
+        functional_n1_options,
+        index=functional_n1_options.index(initial_n1),
+        format_func=lambda value: value or "Não informada",
+        key=f"industry-taxonomy-functional-n1-{selected_cnpj}",
+    )
+    functional_n2_options = list(FUNCTIONAL_TAXONOMY[functional_n1])
+    initial_n2 = saved("taxonomia_funcional_n2", selected.get("taxonomia_funcional_n2_sugerida"))
+    if initial_n2 not in functional_n2_options:
+        initial_n2 = functional_n2_options[0]
+    functional_n2 = st.selectbox(
+        "Taxonomia funcional N2",
+        functional_n2_options,
+        index=functional_n2_options.index(initial_n2),
+        format_func=lambda value: value or "Não informada",
+        key=f"industry-taxonomy-functional-n2-{selected_cnpj}-{functional_n1}",
+    )
+
+    form_cols = st.columns(3)
+    with form_cols[0]:
+        confidence_options = list(TAXONOMY_CONFIDENCE_LEVELS)
+        initial_confidence = saved("confianca", selected.get("confianca_base"))
+        if initial_confidence not in confidence_options:
+            initial_confidence = ""
+        confidence = st.selectbox(
+            "Confiança",
+            confidence_options,
+            index=confidence_options.index(initial_confidence),
+            format_func=lambda value: value or "Selecione",
+            key=f"industry-taxonomy-confidence-{selected_cnpj}",
+        )
+    with form_cols[1]:
+        reviewer = st.text_input(
+            "Responsável",
+            value=saved("responsavel"),
+            key=f"industry-taxonomy-reviewer-{selected_cnpj}",
+        )
+    with form_cols[2]:
+        competence_start = st.text_input(
+            "Vigência a partir de",
+            value=saved("competencia_inicio", latest),
+            key=f"industry-taxonomy-start-{selected_cnpj}",
+        )
+    document_id = st.text_input(
+        "ID do documento",
+        value=saved("documento_id", selected.get("documento_id_base")),
+        key=f"industry-taxonomy-document-id-{selected_cnpj}",
+    )
+    source = st.text_input(
+        "Fonte documental",
+        value=saved("fonte_documental", selected.get("documento_url_base")),
+        key=f"industry-taxonomy-source-{selected_cnpj}",
+    )
+    document_date = st.text_input(
+        "Data do documento",
+        value=saved("documento_data", selected.get("documento_data_base")),
+        key=f"industry-taxonomy-document-date-{selected_cnpj}",
+    )
+    page_clause = st.text_input(
+        "Página ou cláusula",
+        value=saved("pagina_clausula", ""),
+        key=f"industry-taxonomy-page-{selected_cnpj}",
+    )
+    evidence = st.text_area(
+        "Evidência documental",
+        value=saved("evidencia", selected.get("evidencia_documental")),
+        height=105,
+        key=f"industry-taxonomy-evidence-{selected_cnpj}",
+    )
+    originator = st.text_area(
+        "Cedente/originador explicitamente mencionado",
+        value=saved("cedente_originador_expresso", selected.get("cedente_originador_expresso")),
+        height=80,
+        key=f"industry-taxonomy-originator-{selected_cnpj}",
+    )
+    notes = st.text_area(
+        "Notas e motivo de validação manual",
+        value=saved("notas", selected.get("motivo_validacao_manual_base")),
+        height=80,
+        key=f"industry-taxonomy-notes-{selected_cnpj}",
+    )
+
+    def persist(status_value: str) -> None:
+        if not write_authorized:
+            raise PermissionError("sessão sem autorização de escrita")
+        saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        action = {
+            "cnpj_fundo": selected_cnpj,
+            "denominacao_referencia": str(selected["denominacao"]),
+            "status": status_value,
+            "tipo_analitico": target_type,
+            "foco_analitico": target_focus,
+            "tabela_ii_analitica": target_table,
+            "taxonomia_funcional_n1": functional_n1,
+            "taxonomia_funcional_n2": functional_n2,
+            "confianca": confidence,
+            "documento_id": document_id,
+            "fonte_documental": source,
+            "documento_data": document_date,
+            "pagina_clausula": page_clause,
+            "evidencia": evidence,
+            "cedente_originador_expresso": originator,
+            "notas": notes,
+            "responsavel": reviewer,
+            "competencia_inicio": competence_start,
+            "updated_at_utc": saved_at,
+        }
+        _, audit_events = commit_taxonomy_review_action(
+            action,
+            _TAXONOMY_REVIEW_PATH,
+            _TAXONOMY_REVIEW_AUDIT_PATH,
+            saved_at_utc=saved_at,
+            source="industry_taxonomy_review",
+        )
+        st.session_state["industry_taxonomy_review_flash"] = (
+            f"{selected['denominacao']}: revisão salva como {status_value}; "
+            f"{len(audit_events)} eventos registrados."
+        )
+        st.rerun()
+
+    draft_col, approve_col, reject_col = st.columns([1.0, 1.2, 1.0])
+    with draft_col:
+        if st.button(
+            "Salvar rascunho",
+            width="stretch",
+            key=f"industry-taxonomy-draft-{selected_cnpj}",
+            disabled=not write_authorized,
+        ):
+            try:
+                persist("em_revisao")
+            except (PermissionError, ValueError) as exc:
+                st.error(str(exc))
+    with approve_col:
+        if st.button(
+            "Aprovar e aplicar",
+            type="primary",
+            width="stretch",
+            key=f"industry-taxonomy-approve-{selected_cnpj}",
+            disabled=not write_authorized,
+        ):
+            try:
+                persist("aprovado")
+            except (PermissionError, ValueError) as exc:
+                st.error(str(exc))
+    with reject_col:
+        if st.button(
+            "Rejeitar proposta",
+            width="stretch",
+            key=f"industry-taxonomy-reject-{selected_cnpj}",
+            disabled=not write_authorized,
+        ):
+            try:
+                persist("rejeitado")
+            except (PermissionError, ValueError) as exc:
+                st.error(str(exc))
+
+    current_digest = taxonomy_review_ledger_digest(_TAXONOMY_REVIEW_PATH)
+    current_audit_digest = taxonomy_review_audit_digest(
+        _TAXONOMY_REVIEW_AUDIT_PATH
+    )
+    review_meta = dict(payload.get("taxonomy_review_meta") or {})
+    published_digest = str(review_meta.get("ledger_sha256") or "")
+    published_audit_digest = str(review_meta.get("audit_sha256") or "")
+    try:
+        assert_taxonomy_review_ledger_matches_audit(
+            _TAXONOMY_REVIEW_PATH,
+            _TAXONOMY_REVIEW_AUDIT_PATH,
+        )
+    except ValueError as exc:
+        st.error(
+            "O ledger e a trilha de auditoria estão inconsistentes. "
+            f"A publicação permanece bloqueada: {exc}"
+        )
+    else:
+        if (
+            current_digest != published_digest
+            or current_audit_digest != published_audit_digest
+        ):
+            st.warning(
+                "O ledger ou sua auditoria ainda não foi incorporado ao PPTX/XLSX publicado. Os downloads revisados ficam bloqueados até a republicação atômica do bundle."
+            )
+            with st.expander("Comando de publicação"):
+                st.code(
+                    ".venv/bin/python scripts/publish_fidc_revision_bundle.py --input-workbook /caminho/para/Industria_FIDC_Dados_202607.xlsx",
+                    language="bash",
+                )
+        else:
+            st.caption("O bundle publicado está sincronizado com o ledger atual.")
+    st.download_button(
+        "Baixar fila completa em CSV",
+        data=_ptbr_csv_bytes(live),
+        file_name=f"fila_reclassificacao_outros_{latest}.csv",
+        mime="text/csv",
+        key="industry-taxonomy-download-queue",
+    )
+    with st.expander("Histórico de alterações"):
+        _render_review_audit(
+            _TAXONOMY_REVIEW_AUDIT_PATH,
+            empty_label="Nenhuma alteração de taxonomia foi salva.",
+        )
+
+
 def _render_revision_offer_ticket_distribution(
     payload: dict[str, object],
     *,
@@ -14858,16 +15400,25 @@ def _render_revision_data_exports(
     from services.industry_revision_export import get_revision_export_status
 
     export_status = get_revision_export_status(_DATA_DIR)
+    current_ledger_digest = taxonomy_review_ledger_digest(_TAXONOMY_REVIEW_PATH)
+    published_ledger_digest = str(
+        dict(payload.get("taxonomy_review_meta") or {}).get("ledger_sha256") or ""
+    )
+    ledger_synced = current_ledger_digest == published_ledger_digest
     st.markdown(
         "<h2>Apresentação, workbook e explorador revisados</h2>",
         unsafe_allow_html=True,
     )
-    if export_status.bundle_valid:
+    if export_status.bundle_valid and ledger_synced:
         st.success(
             f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
             "PPTX, XLSX e HTML reconciliados pelo mesmo payload e por hashes."
         )
         _render_industry_exports(suffix="revision", as_of_date=str(payload.get("offers_as_of") or ""))
+    elif not ledger_synced:
+        st.error(
+            "Exportação revisada bloqueada: o ledger de taxonomia foi alterado após a publicação do bundle. Republique PPTX, XLSX e HTML para sincronizar a decisão."
+        )
     else:
         st.error(
             "Exportação revisada bloqueada. "
@@ -14912,6 +15463,26 @@ def _render_revision_data_exports(
     st.markdown("\n".join(f"- {item}" for item in limitations))
 
     with st.expander("Bases revisadas para download", expanded=False):
+        top20_by_type_export = _revision_frame(payload, "top20_by_anbima_type")
+        top100_outros_export = _revision_frame(payload, "top100_outros_review")
+        if not top20_by_type_export.empty:
+            st.download_button(
+                "Top 20 por Tipo ANBIMA · CSV",
+                data=_ptbr_csv_bytes(top20_by_type_export),
+                file_name=f"top20_por_tipo_anbima_{payload.get('latest_complete')}.csv",
+                mime="text/csv",
+                key="industry-revision-top20-type-csv",
+                width="stretch",
+            )
+        if not top100_outros_export.empty:
+            st.download_button(
+                "Curadoria Top 100 Outros · CSV",
+                data=_ptbr_csv_bytes(top100_outros_export),
+                file_name=f"curadoria_top100_outros_{payload.get('latest_complete')}.csv",
+                mime="text/csv",
+                key="industry-revision-top100-outros-csv",
+                width="stretch",
+            )
         files = {
             "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
@@ -14921,6 +15492,7 @@ def _render_revision_data_exports(
             "Top 20 FIDCs": "top20_fidcs.csv",
             "Top 20 Outros": "top20_outros.csv",
             "Top 20 Outros · regulamentos": "../industry_top20_outros_regulation_review.csv",
+            "Ledger de decisões de taxonomia": "../taxonomy_review_actions.csv",
             "Market share por subtipo": "market_share_por_subtipo.csv",
             "Concentração de monoestruturas": "monoestrutura_concentracao.csv",
             "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",
@@ -15088,6 +15660,7 @@ def render_tab_industry_study() -> None:
         credit_tab,
         providers_tab,
         top20_tab,
+        taxonomy_tab,
         offers_tab,
         audit_tab,
     ) = st.tabs(INDUSTRY_VIEW_TABS)
@@ -15105,6 +15678,8 @@ def render_tab_industry_study() -> None:
         _render_revision_providers(revision_payload)
     with top20_tab:
         _render_revision_top20(revision_payload)
+    with taxonomy_tab:
+        _render_taxonomy_review(revision_payload)
     with offers_tab:
         _render_revision_offers(revision_payload)
     with audit_tab:
