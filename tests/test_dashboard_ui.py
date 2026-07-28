@@ -44,6 +44,8 @@ from tabs.tab_industry_study import (
     _revision_period_encoding,
     _render_industry_tab4_conflict_notice,
     _taxonomy_review_write_authorized,
+    _taxonomy_review_access_error,
+    _taxonomy_review_action_choice,
     _industry_tab4_conflict_notice,
 )
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +56,47 @@ def test_taxonomy_review_write_authorization_fails_closed() -> None:
     assert _taxonomy_review_write_authorized("segredo", "") is False
     assert _taxonomy_review_write_authorized("segredo", "outro") is False
     assert _taxonomy_review_write_authorized("segredo", "segredo") is True
+
+
+@pytest.mark.parametrize(
+    ("clicked_label", "expected_status"),
+    [
+        ("Salvar rascunho", "em_revisao"),
+        ("Aprovar e aplicar", "aprovado"),
+        ("Rejeitar proposta", "rejeitado"),
+    ],
+)
+def test_taxonomy_review_actions_remain_clickable_without_authorization(
+    monkeypatch: pytest.MonkeyPatch,
+    clicked_label: str,
+    expected_status: str,
+) -> None:
+    rendered: list[tuple[str, dict[str, object]]] = []
+
+    monkeypatch.setattr(
+        tab_industry_study.st,
+        "columns",
+        lambda widths: [nullcontext() for _ in widths],
+    )
+
+    def click_selected(label: str, **kwargs: object) -> bool:
+        rendered.append((label, kwargs))
+        return label == clicked_label
+
+    monkeypatch.setattr(tab_industry_study.st, "button", click_selected)
+
+    assert _taxonomy_review_action_choice("12345678000199") == expected_status
+    assert [label for label, _ in rendered] == [
+        "Salvar rascunho",
+        "Aprovar e aplicar",
+        "Rejeitar proposta",
+    ]
+    assert all("disabled" not in kwargs for _, kwargs in rendered)
+
+
+def test_taxonomy_review_click_explains_missing_write_access() -> None:
+    assert "Informe a chave" in _taxonomy_review_access_error("segredo")
+    assert "modo somente leitura" in _taxonomy_review_access_error("")
 
 
 def test_diagnostic_mode_is_opt_in() -> None:
