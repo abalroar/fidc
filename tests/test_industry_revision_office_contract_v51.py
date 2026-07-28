@@ -564,6 +564,7 @@ def test_top15_offer_slides_use_only_on_canvas_native_tables(
 
 def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     _require(PPTX)
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
@@ -580,13 +581,45 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
         )
     ]
     assert len(line_charts) == 1
-    series = line_charts[0].findall(f".//{{{CHART}}}lineChart/{{{CHART}}}ser")
+    line_chart = line_charts[0]
+    blanks = line_chart.find(f".//{{{CHART}}}dispBlanksAs")
+    assert blanks is not None and blanks.attrib.get("val") == "gap"
+    series = line_chart.findall(f".//{{{CHART}}}lineChart/{{{CHART}}}ser")
     assert len(series) == 3
+    series_by_name = {
+        str(item.findtext(f"{{{CHART}}}tx/{{{CHART}}}v") or ""): item
+        for item in series
+    }
+    assert set(series_by_name) == {"2024", "2025", "2026"}
     for item in series:
         symbol = item.find(f".//{{{CHART}}}marker/{{{CHART}}}symbol")
         assert symbol is not None and symbol.attrib.get("val") == "none"
         smooth = item.find(f"{{{CHART}}}smooth")
         assert smooth is None or smooth.attrib.get("val") in {"0", "false"}
+
+    point_indices: dict[str, list[int]] = {}
+    point_values: dict[str, dict[int, float]] = {}
+    for name, item in series_by_name.items():
+        points = item.findall(
+            f"{{{CHART}}}val/{{{CHART}}}numLit/{{{CHART}}}pt"
+        )
+        point_indices[name] = [int(point.attrib["idx"]) for point in points]
+        point_values[name] = {
+            int(point.attrib["idx"]): float(
+                point.findtext(f"{{{CHART}}}v") or "nan"
+            )
+            for point in points
+        }
+
+    assert point_indices["2024"] == list(range(12))
+    assert point_indices["2025"] == list(range(12))
+    assert point_indices["2026"] == list(range(6))
+    expected_june_2026 = sum(
+        float(row["registered_volume_brl"])
+        for row in payload["closed_offers_monthly"]
+        if int(row["year"]) == 2026 and int(row["month"]) <= 6
+    ) / 1e9
+    assert point_values["2026"][5] == pytest.approx(expected_june_2026)
 
 
 def test_workbook_exposes_the_v63_analysis_tabs() -> None:

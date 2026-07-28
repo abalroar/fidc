@@ -81,7 +81,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v22";
+const RENDERER_VERSION = "industry_revision_artifacts_v23";
 const EXPECTED_SLIDES = 64;
 
 const C = {
@@ -676,6 +676,7 @@ function addStraightLineChart(slide, options) {
     categories: nativeCategories,
     series,
     lineOptions: { grouping: "standard" },
+    ...(options.displayBlanksAs ? { displayBlanksAs: options.displayBlanksAs } : {}),
     hasLegend: false,
     xAxis: {
       visible: true,
@@ -4226,8 +4227,7 @@ function buildPresentation(payload, flowAssets) {
           .map((row) => [num(row.month), row]),
       );
       let running = 0;
-      return Array.from({ length: 12 }, (_, index) => {
-        if (index + 1 > maxMonth) return null;
+      return Array.from({ length: maxMonth }, (_, index) => {
         running += num(byMonth.get(index + 1)?.registered_volume_brl);
         return running / 1e9;
       });
@@ -4288,6 +4288,7 @@ function buildPresentation(payload, flowAssets) {
       yAxis: { ...chartAxis(9, "0"), min: 0 },
       labelIndices: [0, 2, 4, 5, 7, 9, 11],
       labelFontSize: 8.8,
+      displayBlanksAs: "gap",
     });
     addLegend(slide, [
       { label: "2024", color: C.note },
