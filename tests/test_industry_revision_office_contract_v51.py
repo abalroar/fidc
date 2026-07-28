@@ -403,11 +403,39 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
                 total_series.append(series)
     assert len(total_series) == 2
     for series in total_series:
+        title = series.find(f"{{{CHART}}}tx")
+        assert title is not None
+        assert title.find(f"{{{CHART}}}v") is not None
+        assert title.find(f"{{{CHART}}}strLit") is None
         labels = series.find(f"{{{CHART}}}dLbls")
         assert labels is not None
+        children = [node.tag for node in series]
+        assert children.index(f"{{{CHART}}}dLbls") < children.index(
+            f"{{{CHART}}}cat"
+        ) < children.index(f"{{{CHART}}}val")
+        position = labels.find(f"{{{CHART}}}dLblPos")
+        assert position is not None
+        assert position.attrib.get("val") == "t"
         number_format = labels.find(f"{{{CHART}}}numFmt")
         assert number_format is not None
         assert number_format.attrib.get("formatCode") == "[>=1000]#\\.##0;0"
+
+
+def test_native_chart_series_titles_use_schema_supported_forms() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = [
+            name
+            for name in archive.namelist()
+            if "/charts/chart" in name and name.endswith(".xml")
+        ]
+        assert chart_paths
+        for chart_path in chart_paths:
+            chart = ET.fromstring(archive.read(chart_path))
+            invalid_titles = chart.findall(
+                f".//{{{CHART}}}ser/{{{CHART}}}tx/{{{CHART}}}strLit"
+            )
+            assert invalid_titles == []
 
 
 def test_native_charts_are_bound_to_ptbr_without_currency_locale_prefix() -> None:

@@ -81,7 +81,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v23";
+const RENDERER_VERSION = "industry_revision_artifacts_v24";
 const EXPECTED_SLIDES = 64;
 
 const C = {

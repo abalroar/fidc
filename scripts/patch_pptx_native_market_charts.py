@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Ajusta data labels sem converter os gráficos de market share em shapes.
+"""Ajusta data labels sem converter os gráficos nativos em shapes.
 
 O renderer cria gráficos OOXML nativos e data labels editáveis. Este pós-processo
 mantém o chart intacto, fixa Arial 10 pt e distribui somente os rótulos de
-segmentos curtos em três faixas internas do próprio gráfico.
+segmentos curtos em três faixas internas do próprio gráfico. No slide de escala,
+inclui uma série de linha invisível com totais em uma sequência válida de
+``CT_LineSer`` e uma posição de rótulo aceita pelo PowerPoint.
 """
 
 from __future__ import annotations
@@ -296,29 +298,17 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     ET.SubElement(aux, _c("idx"), {"val": str(series_index)})
     ET.SubElement(aux, _c("order"), {"val": str(series_index)})
     tx = ET.SubElement(aux, _c("tx"))
-    str_lit = ET.SubElement(tx, _c("strLit"))
-    ET.SubElement(str_lit, _c("ptCount"), {"val": "1"})
-    point = ET.SubElement(str_lit, _c("pt"), {"idx": "0"})
-    ET.SubElement(point, _c("v")).text = "Total"
+    ET.SubElement(tx, _c("v")).text = "Total"
     shape_props = ET.SubElement(aux, _c("spPr"))
     line = ET.SubElement(shape_props, _a("ln"))
     ET.SubElement(line, _a("noFill"))
     marker = ET.SubElement(aux, _c("marker"))
     ET.SubElement(marker, _c("symbol"), {"val": "none"})
     ET.SubElement(marker, _c("size"), {"val": "2"})
-    category = series[0].find(_c("cat"))
-    if category is None:
-        raise RuntimeError("gráfico de escala sem categorias nativas")
-    aux.append(deepcopy(category))
-    values = ET.SubElement(aux, _c("val"))
-    literal = ET.SubElement(values, _c("numLit"))
-    ET.SubElement(literal, _c("formatCode")).text = "0"
-    ET.SubElement(literal, _c("ptCount"), {"val": str(category_count)})
-    for index, value in enumerate(totals):
-        point = ET.SubElement(literal, _c("pt"), {"idx": str(index)})
-        ET.SubElement(point, _c("v")).text = f"{value:.12g}"
+    # CT_LineSer exige dLbls antes de cat e val. O PowerPoint também rejeita
+    # ``inEnd`` nessa série de linha; ``t`` mantém o total acima de cada ponto.
     labels = ET.SubElement(aux, _c("dLbls"))
-    ET.SubElement(labels, _c("dLblPos"), {"val": "inEnd"})
+    ET.SubElement(labels, _c("dLblPos"), {"val": "t"})
     ET.SubElement(
         labels,
         _c("numFmt"),
@@ -335,6 +325,17 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     ):
         ET.SubElement(labels, _c(tag), {"val": value})
     labels.append(_text_properties())
+    category = series[0].find(_c("cat"))
+    if category is None:
+        raise RuntimeError("gráfico de escala sem categorias nativas")
+    aux.append(deepcopy(category))
+    values = ET.SubElement(aux, _c("val"))
+    literal = ET.SubElement(values, _c("numLit"))
+    ET.SubElement(literal, _c("formatCode")).text = "0"
+    ET.SubElement(literal, _c("ptCount"), {"val": str(category_count)})
+    for index, value in enumerate(totals):
+        point = ET.SubElement(literal, _c("pt"), {"idx": str(index)})
+        ET.SubElement(point, _c("v")).text = f"{value:.12g}"
     ET.SubElement(aux, _c("smooth"), {"val": "0"})
     for axis_id in bar_chart.findall(_c("axId")):
         line_chart.append(deepcopy(axis_id))
