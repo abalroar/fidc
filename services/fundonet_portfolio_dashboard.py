@@ -7,6 +7,7 @@ import pandas as pd
 from services.fidc_monitoring import build_risk_metrics_df
 from services.fundonet_dashboard import FundonetDashboardData
 from services import fundonet_dashboard as single
+from services.portfolio_competence import PortfolioCompetenceAssessment, assess_portfolio_competence
 
 
 _VALID_SOURCE_STATUSES = {"reported_value", "reported_zero"}
@@ -56,23 +57,42 @@ _QUOTA_MACRO_ORDER = {
 class PortfolioDashboardBundle:
     dashboard: FundonetDashboardData
     fund_scope_df: pd.DataFrame
+    competence_coverage_df: pd.DataFrame
     coverage_df: pd.DataFrame
     reconciliation_df: pd.DataFrame
     temporal_rule: str
+    competence_note: str
 
 
 def build_portfolio_dashboard_bundle(
     *,
     portfolio_name: str,
     dashboards_by_cnpj: dict[str, tuple[str, FundonetDashboardData]],
+    reporting_status_by_cnpj: dict[str, dict[str, str]] | None = None,
 ) -> PortfolioDashboardBundle:
     if not dashboards_by_cnpj:
         raise ValueError("Nenhum fundo carregado para montar a visão agregada da carteira.")
 
-    fund_scope_df = _build_fund_scope_df(dashboards_by_cnpj)
-    common_competencias = _common_competencias(dashboards_by_cnpj)
+    assessment = assess_portfolio_competence(
+        {
+            cnpj: (display_name, dashboard.competencias)
+            for cnpj, (display_name, dashboard) in dashboards_by_cnpj.items()
+        },
+        reporting_status_by_cnpj=reporting_status_by_cnpj,
+    )
+    fund_scope_df = _build_fund_scope_df(
+        dashboards_by_cnpj,
+        assessment=assessment,
+        reporting_status_by_cnpj=reporting_status_by_cnpj or {},
+    )
+    dashboards_by_cnpj = {
+        cnpj: payload
+        for cnpj, payload in dashboards_by_cnpj.items()
+        if cnpj in set(assessment.eligible_cnpjs)
+    }
+    common_competencias = list(assessment.common_competences)
     if not common_competencias:
-        raise ValueError("Os fundos carregados não compartilham nenhuma competência em comum.")
+        raise ValueError(assessment.note)
 
     latest_competencia = common_competencias[-1]
     coverage_rows: list[dict[str, object]] = []
@@ -220,7 +240,8 @@ def build_portfolio_dashboard_bundle(
         dc_canonical_history_df=dc_canonical_history_df,
     )
     methodology_notes = [
-        "Visão carteira usa interseção estrita das competências comuns entre todos os fundos incluídos.",
+        "Visão carteira usa interseção estrita das competências comuns entre 100% dos fundos elegíveis.",
+        "Fundo cancelado antes da competência de referência fica fora do denominador; fundo em liquidação permanece elegível sem evidência documental de dispensa do informe mensal.",
         "A soma é analítica e auditável entre fundos standalone; não representa consolidação societária ou contábil formal.",
         "Todos os percentuais são recalculados a partir de numeradores e denominadores agregados; percentuais individuais não são somados.",
         "Subordinação reportada preserva a lógica econômica do projeto: numerador = mezzanino + subordinadas residuais.",
@@ -231,6 +252,8 @@ def build_portfolio_dashboard_bundle(
         methodology_notes.append(
             "Eventos de cotas da competência mais recente ficam desabilitados quando a última competência comum não coincide com a última competência individual de todos os fundos."
         )
+    if assessment.latest_observed_competence != assessment.reference_competence or assessment.excluded_cnpjs:
+        methodology_notes.append(assessment.note)
 
     fund_info = {
         "nome_fundo": portfolio_name,
@@ -293,32 +316,42 @@ def build_portfolio_dashboard_bundle(
     return PortfolioDashboardBundle(
         dashboard=dashboard,
         fund_scope_df=fund_scope_df,
+        competence_coverage_df=assessment.coverage_df,
         coverage_df=coverage_df,
         reconciliation_df=reconciliation_df,
-        temporal_rule="intersecao_estrita_ultima_competencia_comum",
+        temporal_rule="intersecao_estrita_ultima_competencia_comum_fundos_elegiveis",
+        competence_note=assessment.note,
     )
 
 
-def _build_fund_scope_df(dashboards_by_cnpj: dict[str, tuple[str, FundonetDashboardData]]) -> pd.DataFrame:
+def _build_fund_scope_df(
+    dashboards_by_cnpj: dict[str, tuple[str, FundonetDashboardData]],
+    *,
+    assessment: PortfolioCompetenceAssessment,
+    reporting_status_by_cnpj: dict[str, dict[str, str]],
+) -> pd.DataFrame:
     rows: list[dict[str, object]] = []
+    eligible = set(assessment.eligible_cnpjs)
     for cnpj, (display_name, dashboard) in dashboards_by_cnpj.items():
         competencias = list(dashboard.competencias)
+        status = reporting_status_by_cnpj.get(cnpj, {})
         rows.append(
             {
                 "cnpj": cnpj,
                 "fundo": display_name,
+                "situacao_cadastral": status.get("situacao") or "N/D",
+                "elegivel_competencia": "Sim" if cnpj in eligible else "Não",
+                "motivo_elegibilidade": (
+                    "Obrigação mantida na checagem"
+                    if cnpj in eligible
+                    else assessment.exclusion_reasons_by_cnpj.get(cnpj, "Ausência de obrigação comprovada")
+                ),
                 "competencia_inicial": competencias[0] if competencias else pd.NA,
                 "competencia_final": competencias[-1] if competencias else pd.NA,
                 "competencias_carregadas": len(competencias),
             }
         )
     return pd.DataFrame(rows).sort_values(["fundo", "cnpj"]).reset_index(drop=True)
-
-
-def _common_competencias(dashboards_by_cnpj: dict[str, tuple[str, FundonetDashboardData]]) -> list[str]:
-    sets = [set(dashboard.competencias) for _, dashboard in dashboards_by_cnpj.values()]
-    common = set.intersection(*sets) if sets else set()
-    return sorted(common, key=single._competencia_sort_key)
 
 
 def _aggregate_scalar_history(

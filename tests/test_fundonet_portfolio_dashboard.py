@@ -51,6 +51,41 @@ class FundonetPortfolioDashboardTests(unittest.TestCase):
         self.assertEqual(1, len(subordinate_rows))
         self.assertEqual({"Sênior", "Mezzanino", "Subordinada"}, set(dashboard.quota_pl_history_df["class_macro_label"]))
 
+    def test_bundle_excludes_fund_cancelled_before_reference_competence(self) -> None:
+        active = self._make_manual_dashboard(
+            fund_name="Fundo ativo",
+            competencias=["02/2026"],
+            latest_competencia="02/2026",
+            pl_series={"02/2026": {"senior": 10_000.0, "mezzanino": 0.0, "subordinada": 2_000.0}},
+            dc_total={"02/2026": 12_000.0},
+            dc_vencidos={"02/2026": 300.0},
+            provisao={"02/2026": 50.0},
+            ativos_totais={"02/2026": 13_000.0},
+            carteira={"02/2026": 12_500.0},
+            liquidity={"02/2026": {"liquidez_imediata": 500.0, "liquidez_30": 700.0}},
+            maturity_buckets={"02/2026": {"Vencidos": 100.0, "Em 30 dias": 2_000.0, "31 a 60 dias": 1_000.0}},
+            aging_buckets={"02/2026": {"Até 30 dias": 100.0, "31 a 60 dias": 100.0, "61 a 90 dias": 100.0, "361 a 720 dias": 0.0}},
+            event_summary_latest_df=pd.DataFrame(),
+        )
+        cancelled = replace(active, competencias=["10/2024"], latest_competencia="10/2024")
+
+        bundle = build_portfolio_dashboard_bundle(
+            portfolio_name="Carteira Teste",
+            dashboards_by_cnpj={
+                "11111111000111": ("Fundo ativo", active),
+                "22222222000122": ("Fundo cancelado", cancelled),
+            },
+            reporting_status_by_cnpj={
+                "11111111000111": {"situacao": "Em Funcionamento Normal"},
+                "22222222000122": {"situacao": "Cancelado", "data_cancelamento": "2024-10-31"},
+            },
+        )
+
+        self.assertEqual("02/2026", bundle.dashboard.latest_competencia)
+        scope = bundle.fund_scope_df.set_index("cnpj")
+        self.assertEqual("Não", scope.loc["22222222000122", "elegivel_competencia"])
+        self.assertIn("Fundo cancelado", bundle.competence_note)
+
     def test_build_portfolio_dashboard_bundle_recalculates_subordination_duration_and_over(self) -> None:
         dashboard_a = self._make_manual_dashboard(
             fund_name="Fundo A",

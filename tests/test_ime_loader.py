@@ -8,7 +8,13 @@ import unittest
 
 import pandas as pd
 
-from services.ime_loader import export_cached_informe_package, load_or_extract_informe, peek_cached_informe
+from services.ime_loader import (
+    MISSING_COMPETENCE_REFRESH_TTL_SECONDS,
+    export_cached_informe_package,
+    load_or_extract_informe,
+    missing_competence_refresh_reason,
+    peek_cached_informe,
+)
 from services.fundonet_service import InformeMensalResult
 
 
@@ -62,6 +68,55 @@ class _FakeInformeService:
 
 
 class ImeLoaderTests(unittest.TestCase):
+    def test_missing_competence_refresh_retries_stale_complete_cache(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            cache_dir = Path(tmp_dir)
+            manifest_path = cache_dir / "manifest.json"
+            manifest_path.write_text("{}", encoding="utf-8")
+            cached = type(
+                "CachedResult",
+                (),
+                {
+                    "cache_status": "hit",
+                    "source_refresh_attempted": True,
+                    "cache_dir": cache_dir,
+                },
+            )()
+            manifest_timestamp = manifest_path.stat().st_mtime
+
+            self.assertEqual(
+                "",
+                missing_competence_refresh_reason(
+                    cached,
+                    missing_competences=["06/2026"],
+                    now_timestamp=manifest_timestamp + MISSING_COMPETENCE_REFRESH_TTL_SECONDS - 1,
+                ),
+            )
+            self.assertEqual(
+                "cache_missing_requested_competencies_stale_after_prior_refresh",
+                missing_competence_refresh_reason(
+                    cached,
+                    missing_competences=["06/2026"],
+                    now_timestamp=manifest_timestamp + MISSING_COMPETENCE_REFRESH_TTL_SECONDS,
+                ),
+            )
+
+    def test_missing_competence_refresh_retries_partial_cache_immediately(self) -> None:
+        cached = type(
+            "CachedResult",
+            (),
+            {
+                "cache_status": "github_cache_partial",
+                "source_refresh_attempted": False,
+                "cache_dir": Path("unused"),
+            },
+        )()
+
+        self.assertEqual(
+            "cache_partial_or_compatible_missing_requested_competencies",
+            missing_competence_refresh_reason(cached, missing_competences=["06/2026"]),
+        )
+
     def test_loader_reuses_persisted_cache_between_calls(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)

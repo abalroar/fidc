@@ -7,6 +7,7 @@ from typing import Any, Callable
 import pandas as pd
 import streamlit as st
 
+from services.cvm_cadastro import fetch_fidc_reporting_statuses
 from services.dashboard_ui import diagnostics_enabled
 from services.fund_name_display import short_fund_name
 from services.fundonet_dashboard import filter_dashboard_to_competencias
@@ -633,9 +634,11 @@ def _load_portfolio_analysis_data(
         )
 
     try:
+        reporting_statuses = fetch_fidc_reporting_statuses(set(dashboards_by_cnpj))
         aggregate_bundle = build_portfolio_dashboard_bundle(
             portfolio_name=selected_portfolio.name,
             dashboards_by_cnpj=dashboards_by_cnpj,
+            reporting_status_by_cnpj=reporting_statuses,
         )
     except Exception as exc:  # noqa: BLE001
         aggregate_bundle = None
@@ -735,6 +738,14 @@ def _render_analysis_coverage_alert(
     analysis: PortfolioAnalysisData,
     selected_portfolio: PortfolioRecord,
 ) -> None:
+    if analysis.aggregate_bundle is not None:
+        competence_coverage = analysis.aggregate_bundle.competence_coverage_df
+        latest_incomplete = (
+            not competence_coverage.empty
+            and str(competence_coverage.iloc[-1].get("status") or "") != "Completa"
+        )
+        if latest_incomplete or analysis.aggregate_bundle.fund_scope_df["elegivel_competencia"].eq("Não").any():
+            st.warning(analysis.aggregate_bundle.competence_note)
     if analysis.load_errors:
         st.warning(
             "A análise está parcial: um ou mais fundos da seleção não foram carregados. "
