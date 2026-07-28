@@ -11,10 +11,11 @@ import uuid
 import pandas as pd
 import streamlit as st
 
+from services.cvm_cadastro import fetch_fidc_reporting_statuses
 from services.dashboard_ui import diagnostics_enabled
 from services.fundonet_errors import FundosNetError, ProviderUnavailableError
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
-from services.ime_loader import load_or_extract_informe, peek_cached_informe
+from services.ime_loader import load_or_extract_informe, missing_competence_refresh_reason, peek_cached_informe
 from services.ime_period import ImePeriodSelection
 from services.portfolio_store import PortfolioFund, PortfolioRecord
 from tabs import tab_fidc_ime as ime_tab
@@ -949,15 +950,10 @@ def _missing_expected_competencias(*, expected_competencias: list[str], found_co
 
 
 def _cache_refresh_reason(*, cached, missing_competencias: list[str]) -> str:  # noqa: ANN001
-    if not missing_competencias:
-        return ""
-    if cached.cache_status in {"miss", "refresh"}:
-        return ""
-    if cached.cache_status in PARTIAL_CACHE_STATUSES:
-        return "cache_partial_or_compatible_missing_requested_competencies"
-    if not getattr(cached, "source_refresh_attempted", False):
-        return "cache_missing_requested_competencies_without_prior_source_refresh"
-    return ""
+    return missing_competence_refresh_reason(
+        cached,
+        missing_competences=missing_competencias,
+    )
 
 
 def _cache_refresh_skipped_reason(
@@ -1225,9 +1221,11 @@ def _render_portfolio_aggregate_analysis(
     section_mode: str = "tabs",
 ) -> None:
     try:
+        reporting_statuses = fetch_fidc_reporting_statuses(set(dashboards_by_cnpj))
         bundle = build_portfolio_dashboard_bundle(
             portfolio_name=selected_portfolio.name,
             dashboards_by_cnpj=dashboards_by_cnpj,
+            reporting_status_by_cnpj=reporting_statuses,
         )
     except ValueError as exc:
         st.warning(str(exc))
@@ -1255,6 +1253,13 @@ def _render_portfolio_aggregate_analysis(
                 loaded_count=loaded_count,
                 total_selected=total_selected,
             )
+        competence_coverage = bundle.competence_coverage_df
+        latest_incomplete = (
+            not competence_coverage.empty
+            and str(competence_coverage.iloc[-1].get("status") or "") != "Completa"
+        )
+        if latest_incomplete or bundle.fund_scope_df["elegivel_competencia"].eq("Não").any():
+            st.warning(bundle.competence_note)
         with st.expander("Dados e exportações", expanded=False):
             _render_portfolio_aggregate_pptx_export_button(
                 selected_portfolio=selected_portfolio,
@@ -1424,6 +1429,12 @@ def _render_portfolio_aggregate_audit(
             width="stretch",
             hide_index=True,
         )
+        st.markdown("**Cobertura da competência comum**")
+        st.dataframe(
+            _format_portfolio_competence_coverage_table(bundle.competence_coverage_df),
+            width="stretch",
+            hide_index=True,
+        )
 
     def _render_reconciliation() -> None:
         st.dataframe(
@@ -1460,9 +1471,45 @@ def _format_portfolio_scope_table(scope_df: pd.DataFrame) -> pd.DataFrame:
         columns={
             "cnpj": "CNPJ",
             "fundo": "Fundo",
+            "situacao_cadastral": "Situação cadastral",
+            "elegivel_competencia": "Elegível",
+            "motivo_elegibilidade": "Critério de elegibilidade",
             "competencia_inicial": "Competência inicial",
             "competencia_final": "Competência final",
             "competencias_carregadas": "Competências carregadas",
+        }
+    )
+
+
+def _format_portfolio_competence_coverage_table(coverage_df: pd.DataFrame) -> pd.DataFrame:
+    if coverage_df.empty:
+        return pd.DataFrame(
+            columns=[
+                "Competência",
+                "Fundos selecionados",
+                "Fundos elegíveis",
+                "Fundos reportantes",
+                "Cobertura",
+                "Status",
+                "Fundos ausentes",
+                "Fundos excluídos",
+            ]
+        )
+    output = coverage_df.copy()
+    output["competencia"] = output["competencia"].map(ime_tab._format_competencia_label)
+    output["cobertura_pct"] = output["cobertura_pct"].map(
+        lambda value: ime_tab._format_percent(value * 100.0) if pd.notna(value) else "N/D"
+    )
+    return output.rename(
+        columns={
+            "competencia": "Competência",
+            "fundos_selecionados": "Fundos selecionados",
+            "fundos_elegiveis": "Fundos elegíveis",
+            "fundos_reportantes": "Fundos reportantes",
+            "cobertura_pct": "Cobertura",
+            "status": "Status",
+            "fundos_ausentes": "Fundos ausentes",
+            "fundos_excluidos": "Fundos excluídos",
         }
     )
 

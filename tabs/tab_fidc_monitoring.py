@@ -6,7 +6,6 @@ from datetime import date
 import hashlib
 from html import escape
 import json
-import math
 from pathlib import Path
 import re
 import time
@@ -15,8 +14,9 @@ from typing import Any
 import pandas as pd
 import streamlit as st
 
+from services.cvm_cadastro import fetch_fidc_reporting_statuses
 from services.fundonet_dashboard import build_dashboard_data
-from services.ime_loader import load_or_extract_informe, peek_cached_informe
+from services.ime_loader import load_or_extract_informe, missing_competence_refresh_reason, peek_cached_informe
 from services.ime_period import (
     ImePeriodSelection,
     build_custom_period,
@@ -34,6 +34,7 @@ from services.monitoring_metrics import (
     read_wide_csv,
 )
 from services.portfolio_store import PortfolioRecord
+from services.portfolio_competence import assess_portfolio_competence
 from services.regulatory_knowledge import (
     common_criteria_summary,
     document_inventory_rows,
@@ -444,9 +445,22 @@ def _load_single_monitoring_fund(
         data_inicial=load_period.start_month,
         data_final=load_period.end_month,
     )
+    requested_latest = f"{period.end_month.month:02d}/{period.end_month.year}"
+    missing_latest = (
+        []
+        if requested_latest in set(str(value) for value in (cached.result.competencias or []))
+        else [requested_latest]
+    )
+    if missing_competence_refresh_reason(cached, missing_competences=missing_latest):
+        cached = load_or_extract_informe(
+            cnpj_fundo=fund.cnpj,
+            data_inicial=load_period.start_month,
+            data_final=load_period.end_month,
+            force_refresh=True,
+        )
     wide_df = read_wide_csv(cached.result.wide_csv_path)
     all_competencias = _available_competencias_from_wide(wide_df)
-    competencias = select_competencia_labels_for_period(all_competencias, period) or all_competencias
+    competencias = select_competencia_labels_for_period(all_competencias, period)
     overrides = load_manual_overrides(fund.cnpj)
     tables, metric_source, dashboard_error, derived_cache_status = _load_or_build_monitoring_tables(
         wide_df=wide_df,
@@ -656,20 +670,34 @@ def _available_competencias_from_wide(wide_df: pd.DataFrame) -> list[str]:
 
 
 def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
-    reference, reference_count, reference_total = _portfolio_reference_competencia(
-        outputs,
-        min_coverage_pct=1.0,
+    reporting_statuses = fetch_fidc_reporting_statuses(
+        {str(item.get("cnpj") or "") for item in outputs}
     )
+    assessment = assess_portfolio_competence(
+        {
+            str(item.get("cnpj") or ""): (
+                str(item.get("display_name") or item.get("cnpj") or "Fundo"),
+                list(item.get("competencias") or []),
+            )
+            for item in outputs
+            if item.get("tables") is not None
+        },
+        reporting_status_by_cnpj=reporting_statuses,
+    )
+    reference = assessment.reference_competence
     if not reference:
-        st.info("Não há competência disponível para montar o cockpit.")
+        st.warning(assessment.note)
         return
-    if reference_count < reference_total:
-        st.warning(
-            "Sem competência comum a 100% dos fundos selecionados; o comparativo mais recente foi omitido "
-            "para não apresentar um consolidado parcial."
-        )
-        return
-    st.markdown(_render_cockpit_table_html(outputs, reference), unsafe_allow_html=True)
+    if assessment.latest_observed_competence != reference or assessment.excluded_cnpjs:
+        st.warning(assessment.note)
+    eligible = set(assessment.eligible_cnpjs)
+    st.markdown(
+        _render_cockpit_table_html(
+            [item for item in outputs if str(item.get("cnpj") or "") in eligible],
+            reference,
+        ),
+        unsafe_allow_html=True,
+    )
 
 
 def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool = False) -> None:
@@ -1107,30 +1135,6 @@ def _format_month_date_label(value: date) -> str:
 
 def _format_period_label(period: ImePeriodSelection) -> str:
     return f"{_format_month_date_label(period.start_month)} → {_format_month_date_label(period.end_month)}"
-
-
-def _portfolio_reference_competencia(
-    outputs: list[dict[str, Any]],
-    *,
-    min_coverage_pct: float = 0.8,
-) -> tuple[str | None, int, int]:
-    total = len([item for item in outputs if item.get("tables") is not None])
-    if total <= 0:
-        return None, 0, 0
-    coverage: dict[str, int] = {}
-    for item in outputs:
-        competencias = {str(value) for value in (item.get("competencias") or []) if str(value or "").strip()}
-        for competencia in competencias:
-            coverage[competencia] = coverage.get(competencia, 0) + 1
-    if not coverage:
-        return None, 0, total
-    required = max(1, math.ceil(total * min_coverage_pct))
-    ordered = sorted(coverage, key=lambda value: parse_competencia_label(value), reverse=True)
-    for competencia in ordered:
-        if coverage.get(competencia, 0) >= required:
-            return competencia, coverage.get(competencia, 0), total
-    latest = ordered[0]
-    return latest, coverage.get(latest, 0), total
 
 
 def _latest_competencia(item: dict[str, Any]) -> str | None:

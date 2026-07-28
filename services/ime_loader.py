@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import time
 from urllib import error, request
 from zipfile import BadZipFile, ZIP_DEFLATED, ZipFile
 
@@ -19,6 +20,7 @@ IME_CACHE_SCHEMA_VERSION = 1
 DEFAULT_RUNTIME_CACHE_ROOT = Path(".cache/fundonet-ime")
 DEFAULT_PORTABLE_CACHE_ROOT = Path("data/ime_cache/fundonet-ime")
 REMOTE_CACHE_BASE_URL_ENV = "FIDC_IME_CACHE_BASE_URL"
+MISSING_COMPETENCE_REFRESH_TTL_SECONDS = 24 * 60 * 60
 REQUIRED_CACHE_FILE_KEYS = {
     "docs_csv_path",
     "contas_csv_path",
@@ -50,6 +52,34 @@ class CachedInformeProbe:
     cache_source: str = ""
     requested_cache_key: str = ""
     source_refresh_attempted: bool = False
+
+
+def missing_competence_refresh_reason(
+    cached,  # noqa: ANN001
+    *,
+    missing_competences: list[str],
+    now_timestamp: float | None = None,
+) -> str:
+    """Decide whether an incomplete cached period should query Fundos.NET again."""
+
+    if not missing_competences:
+        return ""
+    cache_status = str(getattr(cached, "cache_status", "") or "")
+    if cache_status in {"miss", "refresh"}:
+        return ""
+    if cache_status in {"partial_hit", "github_cache_partial"}:
+        return "cache_partial_or_compatible_missing_requested_competencies"
+    if not bool(getattr(cached, "source_refresh_attempted", False)):
+        return "cache_missing_requested_competencies_without_prior_source_refresh"
+    cache_dir = Path(getattr(cached, "cache_dir", "") or "")
+    manifest_path = cache_dir / "manifest.json"
+    try:
+        cache_age_seconds = (now_timestamp if now_timestamp is not None else time.time()) - manifest_path.stat().st_mtime
+    except OSError:
+        return ""
+    if cache_age_seconds >= MISSING_COMPETENCE_REFRESH_TTL_SECONDS:
+        return "cache_missing_requested_competencies_stale_after_prior_refresh"
+    return ""
 
 
 def load_or_extract_informe(

@@ -359,6 +359,65 @@ def fetch_fidc_participantes(
     }
 
 
+def fetch_fidc_reporting_statuses(
+    cnpjs: list[str] | tuple[str, ...] | set[str],
+    *,
+    allow_network: bool = True,
+) -> dict[str, dict[str, str]]:
+    """Return current reporting-status evidence from the official fund registry.
+
+    The fund record is authoritative for cancellation. Class data is used only
+    as a fallback when the fund record is unavailable. Liquidation is preserved
+    as a status and is not interpreted here as an exemption from periodic filings.
+    """
+
+    requested = {_strip_digits(cnpj) for cnpj in cnpjs if len(_strip_digits(cnpj)) == 14}
+    if not requested:
+        return {}
+    fundo_df, classe_df = _load_registro_fundo_classe(allow_network)
+    output: dict[str, dict[str, str]] = {}
+    if fundo_df is not None and not fundo_df.empty and "CNPJ_Fundo" in fundo_df.columns:
+        fundo_df = _ensure_norm_column(fundo_df, "CNPJ_Fundo", "_cnpj_fundo_norm")
+        matches = fundo_df[fundo_df["_cnpj_fundo_norm"].isin(requested)].copy()
+        for cnpj, frame in matches.groupby("_cnpj_fundo_norm", sort=False):
+            row = _prefer_best_row(
+                frame,
+                situation_column="Situacao",
+                preferred_columns=["Situacao", "Data_Cancelamento", "Data_Inicio_Situacao"],
+                date_columns=["Data_Inicio_Situacao", "Data_Cancelamento", "Data_Registro"],
+            )
+            if row is None:
+                continue
+            output[str(cnpj)] = {
+                "situacao": _clean(row.get("Situacao", "")),
+                "data_cancelamento": _clean(row.get("Data_Cancelamento", "")),
+                "data_inicio_situacao": _clean(row.get("Data_Inicio_Situacao", "")),
+                "data_registro": _clean(row.get("Data_Registro", "")),
+                "fonte": "CVM registro_fundo.csv",
+            }
+    missing = requested - set(output)
+    if missing and classe_df is not None and not classe_df.empty and "CNPJ_Classe" in classe_df.columns:
+        classe_df = _ensure_norm_column(classe_df, "CNPJ_Classe", "_cnpj_classe_norm")
+        matches = classe_df[classe_df["_cnpj_classe_norm"].isin(missing)].copy()
+        for cnpj, frame in matches.groupby("_cnpj_classe_norm", sort=False):
+            row = _prefer_best_row(
+                frame,
+                situation_column="Situacao",
+                preferred_columns=["Situacao", "Data_Inicio_Situacao"],
+                date_columns=["Data_Inicio_Situacao", "Data_Registro", "Data_Constituicao"],
+            )
+            if row is None:
+                continue
+            output[str(cnpj)] = {
+                "situacao": _clean(row.get("Situacao", "")),
+                "data_cancelamento": "",
+                "data_inicio_situacao": _clean(row.get("Data_Inicio_Situacao", "")),
+                "data_registro": _clean(row.get("Data_Registro", "")),
+                "fonte": "CVM registro_classe.csv",
+            }
+    return output
+
+
 def _catalog_from_legacy() -> pd.DataFrame:
     df = _load_fi_cad_legacy()
     if df is None or df.empty:

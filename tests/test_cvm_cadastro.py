@@ -200,3 +200,35 @@ class CvmCadastroTests(unittest.TestCase):
         lookup = catalog.set_index("cnpj_fundo")
         self.assertEqual("FIDC Registro Completo", lookup.loc["12345678000190", "nome_fundo"])
         self.assertEqual("FIDC Ativo Legado", lookup.loc["98765432000109", "nome_fundo"])
+
+    def test_reporting_statuses_preserve_liquidation_and_cancellation_date(self) -> None:
+        fundo_df = pd.DataFrame(
+            [
+                {
+                    "CNPJ_Fundo": "11.111.111/0001-11",
+                    "Tipo_Fundo": "FIDC",
+                    "Situacao": "Em Liquidação",
+                    "Data_Inicio_Situacao": "2026-03-27",
+                    "Data_Cancelamento": "",
+                    "Data_Registro": "2021-01-01",
+                },
+                {
+                    "CNPJ_Fundo": "22.222.222/0001-22",
+                    "Tipo_Fundo": "FIDC",
+                    "Situacao": "Cancelado",
+                    "Data_Inicio_Situacao": "2024-10-31",
+                    "Data_Cancelamento": "2024-10-31",
+                    "Data_Registro": "2021-01-01",
+                },
+            ]
+        )
+        classe_df = pd.DataFrame(columns=["CNPJ_Classe", "Tipo_Classe", "Situacao"])
+
+        with patch.object(cvm_cadastro, "_load_registro_fundo_classe", return_value=(fundo_df, classe_df)):
+            statuses = cvm_cadastro.fetch_fidc_reporting_statuses(
+                {"11111111000111", "22222222000122"}
+            )
+
+        self.assertEqual("Em Liquidação", statuses["11111111000111"]["situacao"])
+        self.assertEqual("Cancelado", statuses["22222222000122"]["situacao"])
+        self.assertEqual("2024-10-31", statuses["22222222000122"]["data_cancelamento"])
