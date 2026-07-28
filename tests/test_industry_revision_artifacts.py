@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import posixpath
 import re
 from pathlib import Path
@@ -11,12 +12,15 @@ import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PPTX = (
-    ROOT
-    / "data"
-    / "industry_study"
-    / "generated_revision"
-    / "industry_executive_revised.pptx"
+PPTX = Path(
+    os.environ.get(
+        "FIDC_TEST_PPTX",
+        ROOT
+        / "data"
+        / "industry_study"
+        / "generated_revision"
+        / "industry_executive_revised.pptx",
+    )
 )
 XLSX = (
     ROOT
@@ -244,10 +248,10 @@ def test_deck_order_and_profile_count() -> None:
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "RANKING · TOP 20 FIDCs",
         "RANKING · TOP 20 OUTROS",
-        "Tipo ANBIMA · maiores FIDCs por PL",
-        "Foco ANBIMA · maiores FIDCs por PL",
-        "Tabela II reportada · maiores FIDCs por PL",
-        "Tabela II reclassificada · maiores FIDCs por PL",
+        "Fomento Mercantil · R$",
+        "Agro, Indústria e Comércio · R$",
+        "Financeiro · R$",
+        "Outros · R$",
         "MODELO DE PRESTAÇÃO",
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
@@ -409,7 +413,7 @@ def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> N
     assert groupings == {"stacked", "percentStacked"}
 
 
-def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
+def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         ticket_charts = _slide_chart_paths(archive, 27)
@@ -453,6 +457,11 @@ def test_offer_slides_use_native_charts_and_two_native_tables() -> None:
             "Rating",
         ):
             assert token in text
+
+        slide28 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        assert len(slide28.findall(f".//{{{DML}}}tbl")) == 2
+        slide29 = ET.fromstring(archive.read("ppt/slides/slide31.xml"))
+        assert len(slide29.findall(f".//{{{DML}}}tbl")) == 1
 
 
 def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() -> None:
@@ -729,7 +738,9 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Adquirência reclass.",
         "Curadoria Cartão",
         "Reclass. adquirência",
-        "Top 15 taxonomias",
+        "Top 20 por Tipo ANBIMA",
+        "Auditoria Top 20 Tipo",
+        "Curadoria Outros Top 100",
         "Dispersão inadimplência",
         "Auditoria numérica",
         "Ofertas encerradas",
@@ -819,7 +830,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v22";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v24";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

@@ -43,9 +43,17 @@ from tabs.tab_industry_study import (
     _revision_offers_cutoff,
     _revision_period_encoding,
     _render_industry_tab4_conflict_notice,
+    _taxonomy_review_write_authorized,
     _industry_tab4_conflict_notice,
 )
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_taxonomy_review_write_authorization_fails_closed() -> None:
+    assert _taxonomy_review_write_authorized("", "") is False
+    assert _taxonomy_review_write_authorized("segredo", "") is False
+    assert _taxonomy_review_write_authorized("segredo", "outro") is False
+    assert _taxonomy_review_write_authorized("segredo", "segredo") is True
 
 
 def test_diagnostic_mode_is_opt_in() -> None:
@@ -169,6 +177,7 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
         "Carteira e inadimplência",
         "Prestadores",
         "Top 20",
+        "Curadoria Outros",
         "Ofertas e originação",
         "Dados e exportações",
     )

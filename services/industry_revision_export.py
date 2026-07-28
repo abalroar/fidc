@@ -15,11 +15,19 @@ from io import BytesIO
 import json
 import os
 from pathlib import Path
+import posixpath
+import re
 import shutil
 from typing import Callable, Iterable
 import unicodedata
 import zipfile
 from xml.etree import ElementTree
+
+from services.industry_taxonomy_review import (
+    assert_taxonomy_review_ledger_matches_audit,
+    taxonomy_review_audit_digest,
+    taxonomy_review_ledger_digest,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,7 +66,9 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Adquirência reclass.",
     "Curadoria Cartão",
     "Reclass. adquirência",
-    "Top 15 taxonomias",
+    "Top 20 por Tipo ANBIMA",
+    "Auditoria Top 20 Tipo",
+    "Curadoria Outros Top 100",
     "Dispersão inadimplência",
     "Auditoria numérica",
     "Ofertas encerradas",
@@ -204,6 +214,139 @@ def _slide_xml_containing(
     )
 
 
+_PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
+_DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
+_DOC_REL = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+_PKG_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
+
+
+def _ordered_slide_parts(archive: zipfile.ZipFile) -> list[str]:
+    presentation = ElementTree.fromstring(archive.read("ppt/presentation.xml"))
+    relationships = ElementTree.fromstring(
+        archive.read("ppt/_rels/presentation.xml.rels")
+    )
+    targets = {
+        node.attrib.get("Id", ""): node.attrib.get("Target", "")
+        for node in relationships.findall(f"{{{_PKG_REL}}}Relationship")
+        if node.attrib.get("Type", "").endswith("/slide")
+    }
+    ordered: list[str] = []
+    slide_ids = presentation.findall(f".//{{{_PML}}}sldId")
+    if len({node.attrib.get("id") for node in slide_ids}) != len(slide_ids):
+        raise RevisionExportUnavailable("PPTX revisado contém sldId duplicado")
+    for node in slide_ids:
+        relation_id = node.attrib.get(f"{{{_DOC_REL}}}id", "")
+        target = targets.get(relation_id, "")
+        if not target:
+            raise RevisionExportUnavailable(
+                "PPTX revisado contém relação de slide ausente"
+            )
+        part = (
+            target.lstrip("/")
+            if target.startswith("/")
+            else posixpath.normpath(posixpath.join("ppt", target))
+        )
+        slide_root = ElementTree.fromstring(archive.read(part))
+        if str(slide_root.attrib.get("show", "1")).casefold() in {"0", "false"}:
+            raise RevisionExportUnavailable("PPTX revisado contém slide oculto")
+        ordered.append(part)
+    if len(set(ordered)) != len(ordered):
+        raise RevisionExportUnavailable("PPTX revisado contém relação de slide duplicada")
+    physical = {
+        name
+        for name in archive.namelist()
+        if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)
+    }
+    if set(ordered) != physical:
+        raise RevisionExportUnavailable(
+            "PPTX revisado contém slide órfão ou fora da sequência"
+        )
+    return ordered
+
+
+def _xfrm_bbox(node: ElementTree.Element | None) -> tuple[int, int, int, int] | None:
+    if node is None:
+        return None
+    offset = node.find(f"{{{_DML}}}off")
+    extent = node.find(f"{{{_DML}}}ext")
+    if offset is None or extent is None:
+        return None
+    return (
+        int(offset.attrib["x"]),
+        int(offset.attrib["y"]),
+        int(extent.attrib["cx"]),
+        int(extent.attrib["cy"]),
+    )
+
+
+def _overlap(
+    left: tuple[int, int, int, int],
+    right: tuple[int, int, int, int],
+) -> bool:
+    left_x, left_y, left_w, left_h = left
+    right_x, right_y, right_w, right_h = right
+    return (
+        max(left_x, right_x) < min(left_x + left_w, right_x + right_w)
+        and max(left_y, right_y) < min(left_y + left_h, right_y + right_h)
+    )
+
+
+def _validate_native_table_slide(
+    archive: zipfile.ZipFile,
+    slide_number: int,
+    *,
+    expected_dimensions: tuple[tuple[int, int], ...],
+    canvas: tuple[int, int],
+) -> None:
+    root = ElementTree.fromstring(
+        archive.read(f"ppt/slides/slide{slide_number}.xml")
+    )
+    tables: list[tuple[tuple[int, int, int, int], tuple[int, int]]] = []
+    for frame in root.findall(f".//{{{_PML}}}graphicFrame"):
+        table = frame.find(f".//{{{_DML}}}tbl")
+        if table is None:
+            continue
+        bbox = _xfrm_bbox(frame.find(f"{{{_PML}}}xfrm"))
+        if bbox is None:
+            raise RevisionExportUnavailable(
+                f"slide {slide_number} contém tabela nativa sem posição"
+            )
+        rows = len(table.findall(f"{{{_DML}}}tr"))
+        columns = len(table.findall(f"{{{_DML}}}tblGrid/{{{_DML}}}gridCol"))
+        tables.append((bbox, (rows, columns)))
+    if tuple(dimensions for _, dimensions in tables) != expected_dimensions:
+        raise RevisionExportUnavailable(
+            f"slide {slide_number} não contém as tabelas Office esperadas"
+        )
+    canvas_width, canvas_height = canvas
+    for bbox, _ in tables:
+        left, top, width, height = bbox
+        if (
+            left < 0
+            or top < 0
+            or width <= 0
+            or height <= 0
+            or left + width > canvas_width
+            or top + height > canvas_height
+        ):
+            raise RevisionExportUnavailable(
+                f"slide {slide_number} contém tabela fora do canvas"
+            )
+    shape_bboxes: list[tuple[int, int, int, int]] = []
+    for shape in root.findall(f".//{{{_PML}}}sp"):
+        bbox = _xfrm_bbox(shape.find(f"{{{_PML}}}spPr/{{{_DML}}}xfrm"))
+        if bbox is not None:
+            shape_bboxes.append(bbox)
+    if any(
+        _overlap(shape_bbox, table_bbox)
+        for shape_bbox in shape_bboxes
+        for table_bbox, _ in tables
+    ):
+        raise RevisionExportUnavailable(
+            f"slide {slide_number} contém shape sobreposto à tabela nativa"
+        )
+
+
 def validate_revision_pptx(payload: bytes) -> None:
     """Validate the visual contract directly in the exported OOXML."""
 
@@ -221,6 +364,50 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 f"PPTX revisado deveria conter {EXPECTED_SLIDES} slides; contém {len(slides)}"
             )
+        ordered_slides = _ordered_slide_parts(archive)
+        if len(ordered_slides) != EXPECTED_SLIDES:
+            raise RevisionExportUnavailable(
+                f"sequência do PPTX deveria conter {EXPECTED_SLIDES} slides; contém {len(ordered_slides)}"
+            )
+        if ordered_slides[2] != "ppt/slides/slide3.xml":
+            raise RevisionExportUnavailable(
+                "slide 3 perdeu sua posição na sequência da apresentação"
+            )
+        slide3 = archive.read(ordered_slides[2])
+        if "escala da industria" not in _normalized_slide_text(slide3):
+            raise RevisionExportUnavailable(
+                "slide 3 não contém o conteúdo Escala da Indústria"
+            )
+        if slide3.count(b"<c:chart") < 3:
+            raise RevisionExportUnavailable(
+                "slide 3 deve conter três gráficos nativos do Office"
+            )
+        slide3_root = ElementTree.fromstring(slide3)
+        if str(slide3_root.attrib.get("show", "1")).casefold() in {"0", "false"}:
+            raise RevisionExportUnavailable("slide 3 está oculto")
+        presentation = ElementTree.fromstring(archive.read("ppt/presentation.xml"))
+        slide_size = presentation.find(f"{{{_PML}}}sldSz")
+        if slide_size is None:
+            raise RevisionExportUnavailable("PPTX revisado sem dimensão de slide")
+        canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
+        _validate_native_table_slide(
+            archive,
+            29,
+            expected_dimensions=((16, 10), (16, 10)),
+            canvas=canvas,
+        )
+        _validate_native_table_slide(
+            archive,
+            30,
+            expected_dimensions=((16, 9), (16, 9)),
+            canvas=canvas,
+        )
+        _validate_native_table_slide(
+            archive,
+            31,
+            expected_dimensions=((8, 9),),
+            canvas=canvas,
+        )
         office_xml = b"".join(
             archive.read(name)
             for name in archive.namelist()
@@ -457,6 +644,75 @@ def _payload_metadata(path: Path) -> tuple[str, str]:
     return str(payload.get("schema_version") or ""), str(payload.get("latest_complete") or "")
 
 
+def _taxonomy_review_ledger_path(
+    data_dir: Path,
+    payload: dict[str, object] | None,
+) -> Path:
+    """Resolve the payload-declared ledger inside the selected industry data dir."""
+
+    meta = dict((payload or {}).get("taxonomy_review_meta") or {})
+    configured = str(
+        meta.get("ledger_path") or "taxonomy_review_actions.csv"
+    ).strip()
+    raw_path = Path(configured).expanduser()
+    if raw_path.is_absolute():
+        return raw_path.resolve()
+
+    parts = raw_path.parts
+    if "industry_study" in parts:
+        anchor = parts.index("industry_study")
+        suffix = parts[anchor + 1 :]
+        raw_path = Path(*suffix) if suffix else Path("taxonomy_review_actions.csv")
+
+    resolved_data_dir = Path(data_dir).resolve()
+    resolved = (resolved_data_dir / raw_path).resolve()
+    try:
+        resolved.relative_to(resolved_data_dir)
+    except ValueError as exc:
+        raise RevisionExportUnavailable(
+            "caminho do ledger de taxonomia está fora do diretório de dados"
+        ) from exc
+    return resolved
+
+
+def _taxonomy_review_audit_path(
+    data_dir: Path,
+    payload: dict[str, object] | None,
+) -> Path:
+    """Resolve the payload-declared audit inside the selected industry data dir."""
+
+    meta = dict((payload or {}).get("taxonomy_review_meta") or {})
+    configured = str(
+        meta.get("audit_path") or "taxonomy_review_audit.csv"
+    ).strip()
+    raw_path = Path(configured).expanduser()
+    if raw_path.is_absolute():
+        return raw_path.resolve()
+    parts = raw_path.parts
+    if "industry_study" in parts:
+        anchor = parts.index("industry_study")
+        suffix = parts[anchor + 1 :]
+        raw_path = Path(*suffix) if suffix else Path("taxonomy_review_audit.csv")
+    resolved_data_dir = Path(data_dir).resolve()
+    resolved = (resolved_data_dir / raw_path).resolve()
+    try:
+        resolved.relative_to(resolved_data_dir)
+    except ValueError as exc:
+        raise RevisionExportUnavailable(
+            "caminho da auditoria de taxonomia está fora do diretório de dados"
+        ) from exc
+    return resolved
+
+
+def _taxonomy_review_signature(data_dir: Path, payload: dict[str, object] | None) -> str:
+    ledger_path = _taxonomy_review_ledger_path(data_dir, payload)
+    audit_path = _taxonomy_review_audit_path(data_dir, payload)
+    return (
+        f"{taxonomy_review_ledger_digest(ledger_path)}:"
+        f"{taxonomy_review_audit_digest(audit_path)}"
+    )
+
+
 def _matching_candidate(
     paths: Iterable[Path],
     expected: dict[str, object],
@@ -504,6 +760,40 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         raise RevisionExportUnavailable("schema do payload revisado incompatível")
     if manifest.get("latest_complete") != payload.get("latest_complete"):
         raise RevisionExportUnavailable("competência do bundle diverge do payload")
+    taxonomy_meta = dict(payload.get("taxonomy_review_meta") or {})
+    if taxonomy_meta:
+        published_taxonomy_digest = str(
+            taxonomy_meta.get("ledger_sha256") or ""
+        ).strip()
+        published_audit_digest = str(
+            taxonomy_meta.get("audit_sha256") or ""
+        ).strip()
+        if not published_taxonomy_digest or not published_audit_digest:
+            raise RevisionExportUnavailable(
+                "payload revisado não registra os hashes da curadoria de taxonomia"
+            )
+        ledger_path = _taxonomy_review_ledger_path(data_dir, payload)
+        audit_path = _taxonomy_review_audit_path(data_dir, payload)
+        try:
+            assert_taxonomy_review_ledger_matches_audit(
+                ledger_path,
+                audit_path,
+            )
+        except ValueError as exc:
+            raise RevisionExportUnavailable(
+                "curadoria ou auditoria de Outros mudou após a publicação; "
+                "ledger e auditoria são inconsistentes: "
+                f"{exc}"
+            ) from exc
+        if (
+            taxonomy_review_ledger_digest(ledger_path)
+            != published_taxonomy_digest
+            or taxonomy_review_audit_digest(audit_path)
+            != published_audit_digest
+        ):
+            raise RevisionExportUnavailable(
+                "curadoria ou auditoria de Outros mudou após a publicação; regenere o bundle"
+            )
     pptx_path, pptx_bytes = _matching_candidate(
         revision_pptx_candidates(data_dir),
         dict(manifest.get("pptx") or {}),
@@ -531,12 +821,26 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
 
 
 def revision_export_signature(data_dir: Path = DEFAULT_DATA_DIR) -> str:
-    """Cache key that changes whenever the published bundle manifest changes."""
+    """Cache key for the immutable bundle and its live taxonomy ledger."""
 
-    path = revision_bundle_manifest_path(data_dir)
-    if not path.exists():
-        return f"missing:{path}"
-    return _sha256(path.read_bytes())
+    data_dir = Path(data_dir).resolve()
+    manifest_path = revision_bundle_manifest_path(data_dir)
+    manifest_digest = (
+        _sha256(manifest_path.read_bytes())
+        if manifest_path.exists()
+        else f"missing:{manifest_path}"
+    )
+    payload: dict[str, object] = {}
+    payload_path = revision_payload_path(data_dir)
+    if payload_path.exists():
+        try:
+            loaded = json.loads(payload_path.read_text(encoding="utf-8"))
+            if isinstance(loaded, dict):
+                payload = loaded
+        except (OSError, json.JSONDecodeError):
+            payload = {}
+    taxonomy_digest = _taxonomy_review_signature(data_dir, payload)
+    return f"{manifest_digest}:{taxonomy_digest}"
 
 
 def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExportStatus:

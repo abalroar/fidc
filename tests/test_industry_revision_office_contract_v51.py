@@ -8,23 +8,34 @@ image or a collection of text boxes cannot satisfy a native Office contract.
 
 from __future__ import annotations
 
+from io import BytesIO
+import json
+import os
 import posixpath
 import re
 from pathlib import Path
 from xml.etree import ElementTree as ET
-from zipfile import ZipFile
+from zipfile import ZIP_DEFLATED, ZipFile
 
 import pytest
 from openpyxl import load_workbook
 
+from services.industry_revision_export import (
+    RevisionExportUnavailable,
+    validate_revision_pptx,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
-PPTX = (
-    ROOT
-    / "data"
-    / "industry_study"
-    / "generated_revision"
-    / "industry_executive_revised.pptx"
+PPTX = Path(
+    os.environ.get(
+        "FIDC_TEST_PPTX",
+        ROOT
+        / "data"
+        / "industry_study"
+        / "generated_revision"
+        / "industry_executive_revised.pptx",
+    )
 )
 XLSX = (
     ROOT
@@ -33,11 +44,19 @@ XLSX = (
     / "generated_revision"
     / "industry_data_revised.xlsx"
 )
+PAYLOAD = (
+    ROOT
+    / "data"
+    / "industry_study"
+    / "generated_revision"
+    / "artifact_payload.json"
+)
 
 TARGET_SLIDES = 64
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
@@ -77,10 +96,10 @@ SLIDE_TOKENS = {
     17: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
     18: ("RANKING · TOP 20 FIDCs",),
     19: ("RANKING · TOP 20 OUTROS",),
-    20: ("TIPO ANBIMA · MAIORES FIDCS POR PL",),
-    21: ("FOCO ANBIMA · MAIORES FIDCS POR PL",),
-    22: ("TABELA II REPORTADA · MAIORES FIDCS POR PL",),
-    23: ("TABELA II RECLASSIFICADA · MAIORES FIDCS POR PL",),
+    20: ("TOP 20 POR TIPO ANBIMA", "FOMENTO MERCANTIL"),
+    21: ("TOP 20 POR TIPO ANBIMA", "AGRO, INDÚSTRIA E COMÉRCIO"),
+    22: ("TOP 20 POR TIPO ANBIMA", "FINANCEIRO"),
+    23: ("TOP 20 POR TIPO ANBIMA", "OUTROS"),
     24: ("MODELO DE PRESTAÇÃO",),
     25: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
     26: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
@@ -139,7 +158,9 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Taxonomia adquirência",
     "Curadoria Cartão",
     "Reclass. adquirência",
-    "Top 15 taxonomias",
+    "Top 20 por Tipo ANBIMA",
+    "Auditoria Top 20 Tipo",
+    "Curadoria Outros Top 100",
     "Dispersão inadimplência",
     "Auditoria numérica",
     "Atribuição prestadores",
@@ -196,6 +217,60 @@ def _native_table_count(archive: ZipFile, slide_number: int) -> int:
     return len(slide.findall(f".//{{{DML}}}tbl"))
 
 
+def _xfrm_bbox(xfrm: ET.Element | None) -> tuple[int, int, int, int] | None:
+    if xfrm is None:
+        return None
+    offset = xfrm.find(f"{{{DML}}}off")
+    extent = xfrm.find(f"{{{DML}}}ext")
+    if offset is None or extent is None:
+        return None
+    return (
+        int(offset.attrib["x"]),
+        int(offset.attrib["y"]),
+        int(extent.attrib["cx"]),
+        int(extent.attrib["cy"]),
+    )
+
+
+def _native_table_bboxes(
+    archive: ZipFile, slide_number: int
+) -> list[tuple[int, int, int, int]]:
+    slide = ET.fromstring(archive.read(f"ppt/slides/slide{slide_number}.xml"))
+    bboxes: list[tuple[int, int, int, int]] = []
+    for frame in slide.findall(f".//{{{PML}}}graphicFrame"):
+        if frame.find(f".//{{{DML}}}tbl") is None:
+            continue
+        bbox = _xfrm_bbox(frame.find(f"{{{PML}}}xfrm"))
+        assert bbox is not None
+        bboxes.append(bbox)
+    return bboxes
+
+
+def _shape_bboxes(
+    archive: ZipFile, slide_number: int
+) -> list[tuple[tuple[int, int, int, int], str]]:
+    slide = ET.fromstring(archive.read(f"ppt/slides/slide{slide_number}.xml"))
+    bboxes: list[tuple[tuple[int, int, int, int], str]] = []
+    for shape in slide.findall(f".//{{{PML}}}sp"):
+        bbox = _xfrm_bbox(shape.find(f"{{{PML}}}spPr/{{{DML}}}xfrm"))
+        if bbox is None:
+            continue
+        text = " ".join(node.text or "" for node in shape.iter(f"{{{DML}}}t"))
+        bboxes.append((bbox, text))
+    return bboxes
+
+
+def _overlap(
+    left: tuple[int, int, int, int], right: tuple[int, int, int, int]
+) -> bool:
+    left_x, left_y, left_w, left_h = left
+    right_x, right_y, right_w, right_h = right
+    return (
+        max(left_x, right_x) < min(left_x + left_w, right_x + right_w)
+        and max(left_y, right_y) < min(left_y + left_h, right_y + right_h)
+    )
+
+
 def _sheet_names(archive: ZipFile) -> set[str]:
     workbook = ET.fromstring(archive.read("xl/workbook.xml"))
     return {
@@ -244,6 +319,22 @@ def test_deck_has_64_slides_in_the_reviewed_narrative_order() -> None:
     for rank, profile in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in profile
         assert f"#{rank} " in profile
+
+
+def test_validator_rejects_a_hidden_slide_outside_slide_three() -> None:
+    _require(PPTX)
+    mutated = BytesIO()
+    with ZipFile(PPTX) as source, ZipFile(mutated, "w", ZIP_DEFLATED) as target:
+        for member in source.infolist():
+            content = source.read(member.filename)
+            if member.filename == "ppt/slides/slide4.xml":
+                root = ET.fromstring(content)
+                root.set("show", "0")
+                content = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            target.writestr(member, content)
+
+    with pytest.raises(RevisionExportUnavailable, match="slide oculto"):
+        validate_revision_pptx(mutated.getvalue())
 
 
 def test_standard_deck_omits_transition_slides_and_local_file_references() -> None:
@@ -312,11 +403,39 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
                 total_series.append(series)
     assert len(total_series) == 2
     for series in total_series:
+        title = series.find(f"{{{CHART}}}tx")
+        assert title is not None
+        assert title.find(f"{{{CHART}}}v") is not None
+        assert title.find(f"{{{CHART}}}strLit") is None
         labels = series.find(f"{{{CHART}}}dLbls")
         assert labels is not None
+        children = [node.tag for node in series]
+        assert children.index(f"{{{CHART}}}dLbls") < children.index(
+            f"{{{CHART}}}cat"
+        ) < children.index(f"{{{CHART}}}val")
+        position = labels.find(f"{{{CHART}}}dLblPos")
+        assert position is not None
+        assert position.attrib.get("val") == "t"
         number_format = labels.find(f"{{{CHART}}}numFmt")
         assert number_format is not None
         assert number_format.attrib.get("formatCode") == "[>=1000]#\\.##0;0"
+
+
+def test_native_chart_series_titles_use_schema_supported_forms() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        chart_paths = [
+            name
+            for name in archive.namelist()
+            if "/charts/chart" in name and name.endswith(".xml")
+        ]
+        assert chart_paths
+        for chart_path in chart_paths:
+            chart = ET.fromstring(archive.read(chart_path))
+            invalid_titles = chart.findall(
+                f".//{{{CHART}}}ser/{{{CHART}}}tx/{{{CHART}}}strLit"
+            )
+            assert invalid_titles == []
 
 
 def test_native_charts_are_bound_to_ptbr_without_currency_locale_prefix() -> None:
@@ -364,10 +483,10 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
         (16, 0, 1),  # síntese executiva da dispersão
         (18, 0, 2),  # Top 20 FIDCs em tabelas nativas
         (19, 0, 2),  # Top 20 Outros em tabelas nativas
-        (20, 0, 1),  # Top 15 Tipo ANBIMA
-        (21, 0, 1),  # Top 15 Foco ANBIMA
-        (22, 0, 1),  # Top 15 Tabela II reportada
-        (23, 0, 1),  # Top 15 Tabela II reclassificada
+        (20, 0, 1),  # Top 20 Fomento Mercantil
+        (21, 0, 1),  # Top 20 Agro, Indústria e Comércio
+        (22, 0, 1),  # Top 20 Financeiro
+        (23, 0, 1),  # Top 20 Outros
         (55, 1, 1),  # evolução dos FIDCs dos cinco bancos
         (26, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
@@ -379,6 +498,31 @@ def test_new_analytical_slides_use_native_office_structures(
     with ZipFile(PPTX) as archive:
         assert len(_slide_chart_paths(archive, slide_number)) >= minimum_charts
         assert _native_table_count(archive, slide_number) >= minimum_tables
+
+
+def test_top20_type_slides_keep_complete_curated_originator_text() -> None:
+    _require(PPTX)
+    _require(PAYLOAD)
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    slides_by_type = {
+        "Fomento Mercantil": 20,
+        "Agro, Indústria e Comércio": 21,
+        "Financeiro": 22,
+        "Outros": 23,
+    }
+    with ZipFile(PPTX) as archive:
+        slide_text = {
+            type_name: _slide_text(archive, slide_number)
+            for type_name, slide_number in slides_by_type.items()
+        }
+    curated = [
+        row
+        for row in payload["top20_by_anbima_type"]
+        if row.get("cedente_status") == "curadoria_documental_concluida"
+    ]
+    assert curated
+    for row in curated:
+        assert row["cedente_originador"] in slide_text[row["tipo_exibicao"]]
 
 
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
@@ -411,15 +555,44 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
         ) == 4
 
 
-def test_top15_offer_slide_uses_two_native_tables_and_no_chart_images() -> None:
+@pytest.mark.parametrize(
+    ("slide_number", "expected_tables"),
+    [(29, 2), (30, 2), (31, 1)],
+)
+def test_top15_offer_slides_use_only_on_canvas_native_tables(
+    slide_number: int, expected_tables: int
+) -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert _native_table_count(archive, 29) == 2
-        assert _slide_chart_paths(archive, 29) == []
+        presentation = ET.fromstring(archive.read("ppt/presentation.xml"))
+        slide_size = presentation.find(f"{{{PML}}}sldSz")
+        assert slide_size is not None
+        canvas_width = int(slide_size.attrib["cx"])
+        canvas_height = int(slide_size.attrib["cy"])
+
+        tables = _native_table_bboxes(archive, slide_number)
+        assert len(tables) == expected_tables
+        assert _native_table_count(archive, slide_number) == expected_tables
+        assert _slide_chart_paths(archive, slide_number) == []
+        for left, top, width, height in tables:
+            assert left >= 0
+            assert top >= 0
+            assert width > 0
+            assert height > 0
+            assert left + width <= canvas_width
+            assert top + height <= canvas_height
+
+        overlapping_shapes = [
+            text or "<shape sem texto>"
+            for shape_bbox, text in _shape_bboxes(archive, slide_number)
+            if any(_overlap(shape_bbox, table_bbox) for table_bbox in tables)
+        ]
+        assert overlapping_shapes == []
 
 
 def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     _require(PPTX)
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
@@ -436,13 +609,45 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
         )
     ]
     assert len(line_charts) == 1
-    series = line_charts[0].findall(f".//{{{CHART}}}lineChart/{{{CHART}}}ser")
+    line_chart = line_charts[0]
+    blanks = line_chart.find(f".//{{{CHART}}}dispBlanksAs")
+    assert blanks is not None and blanks.attrib.get("val") == "gap"
+    series = line_chart.findall(f".//{{{CHART}}}lineChart/{{{CHART}}}ser")
     assert len(series) == 3
+    series_by_name = {
+        str(item.findtext(f"{{{CHART}}}tx/{{{CHART}}}v") or ""): item
+        for item in series
+    }
+    assert set(series_by_name) == {"2024", "2025", "2026"}
     for item in series:
         symbol = item.find(f".//{{{CHART}}}marker/{{{CHART}}}symbol")
         assert symbol is not None and symbol.attrib.get("val") == "none"
         smooth = item.find(f"{{{CHART}}}smooth")
         assert smooth is None or smooth.attrib.get("val") in {"0", "false"}
+
+    point_indices: dict[str, list[int]] = {}
+    point_values: dict[str, dict[int, float]] = {}
+    for name, item in series_by_name.items():
+        points = item.findall(
+            f"{{{CHART}}}val/{{{CHART}}}numLit/{{{CHART}}}pt"
+        )
+        point_indices[name] = [int(point.attrib["idx"]) for point in points]
+        point_values[name] = {
+            int(point.attrib["idx"]): float(
+                point.findtext(f"{{{CHART}}}v") or "nan"
+            )
+            for point in points
+        }
+
+    assert point_indices["2024"] == list(range(12))
+    assert point_indices["2025"] == list(range(12))
+    assert point_indices["2026"] == list(range(6))
+    expected_june_2026 = sum(
+        float(row["registered_volume_brl"])
+        for row in payload["closed_offers_monthly"]
+        if int(row["year"]) == 2026 and int(row["month"]) <= 6
+    ) / 1e9
+    assert point_values["2026"][5] == pytest.approx(expected_june_2026)
 
 
 def test_workbook_exposes_the_v63_analysis_tabs() -> None:
@@ -454,6 +659,24 @@ def test_workbook_exposes_the_v63_analysis_tabs() -> None:
         "abas ausentes: "
         + ", ".join(sorted(REQUIRED_WORKBOOK_SHEETS_V51 - sheet_names))
     )
+
+
+def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:
+    _require(XLSX)
+    workbook = load_workbook(XLSX, read_only=False, data_only=False)
+    sheet = workbook["Top 20 por Tipo ANBIMA"]
+
+    assert sheet["B4"].value == "Rank"
+    assert isinstance(sheet["B5"].value, (int, float))
+    assert sheet["F4"].value == "% do bucket"
+    assert isinstance(sheet["F5"].value, (int, float))
+    assert sheet["F5"].number_format == "0.0%"
+    assert sheet["G4"].value == "Competência"
+    assert sheet["G5"].value == "2026-06"
+    assert "R$" not in sheet["G5"].number_format
+    assert sheet["H4"].value == "Mai/26 disponível"
+    assert isinstance(sheet["H5"].value, bool)
+    assert "R$" not in sheet["H5"].number_format
 
 
 def test_offer_workbook_uses_counts_billions_and_millions_consistently() -> None:

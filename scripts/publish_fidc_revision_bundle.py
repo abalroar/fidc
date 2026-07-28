@@ -83,6 +83,10 @@ REQUIRED_DATA_INPUTS = (
     "industry_offer_rating_by_offer.csv",
     "industry_top20_outros_regulation_review.csv",
     "top20_outros_regulation_curation.csv",
+    "document_inventory.csv.gz",
+    "taxonomy_review_actions.csv",
+    "taxonomy_review_audit.csv",
+    "industry_taxonomy_document_review.csv",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
@@ -120,6 +124,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_executive_pack.py",
     ROOT / "services" / "industry_ppt_export.py",
     ROOT / "services" / "industry_revision_export.py",
+    ROOT / "services" / "industry_taxonomy_review.py",
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
     ROOT / "services" / "industry_closed_offer_rankings.py",
@@ -1106,6 +1111,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "card_taxonomy_audit",
         "acquiring_anbima_review",
         "taxonomy_top15",
+        "top20_by_anbima_type",
+        "top20_by_anbima_type_coverage",
+        "top100_outros_review",
         "numeric_locale_audit",
         "provider_independent_ranking",
         "bank_fidc_evolution",
@@ -1237,6 +1245,71 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "competencia",
             "fonte",
             "metodologia",
+        },
+        "top20_by_anbima_type": {
+            "tipo_exibicao",
+            "rank_tipo",
+            "cnpj_fundo",
+            "denominacao",
+            "pl",
+            "competencia_pl",
+            "pl_anterior_positivo",
+            "administrador",
+            "gestor",
+            "custodiante",
+            "cedente_originador",
+            "cedente_status",
+            "regulamento_id",
+            "regulamento_data",
+            "regulamento_url",
+            "pagina_clausula",
+            "evidencia_cedente",
+            "limitacao_cedente",
+        },
+        "top20_by_anbima_type_coverage": {
+            "tipo_exibicao",
+            "fundos",
+            "administrador_preenchido",
+            "gestor_preenchido",
+            "custodiante_preenchido",
+            "cedente_curadoria_concluida",
+            "regulamento_local_sem_curadoria",
+            "sem_regulamento_local",
+            "competencia_pl",
+            "competencia_anterior_verificada",
+            "fundos_pl_anterior_positivo",
+        },
+        "top100_outros_review": {
+            "competencia_pl",
+            "rank_outros_slide",
+            "cnpj_fundo",
+            "denominacao",
+            "pl",
+            "bucket_slide_atual",
+            "anbima_tipo_oficial",
+            "anbima_foco_oficial",
+            "tabela_ii_reportada",
+            "tabela_ii_dominante",
+            "tabela_ii_multisegmento",
+            "documento_id_base",
+            "documento_data_base",
+            "documento_url_base",
+            "evidencia_documental",
+            "cedente_originador_expresso",
+            "tipo_anbima_sugerido",
+            "foco_anbima_sugerido",
+            "tabela_ii_sugerida",
+            "perimeter_proposal",
+            "is_fic_fidc_sugerido",
+            "pl_correcao_perimetro_candidata_brl",
+            "confianca_base",
+            "status_revisao_base",
+            "motivo_validacao_manual_base",
+            "acao_status",
+            "anbima_tipo_curado",
+            "anbima_foco_curado",
+            "tabela_ii_curada",
+            "taxonomy_review_applied",
         },
         "acquiring_curation_detail": {
             "ordem_materialidade",
@@ -1523,6 +1596,88 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
                     f"payload {key} linha {index} sem colunas obrigatórias: "
                     + ", ".join(missing_columns)
                 )
+    top20_by_type = list(payload.get("top20_by_anbima_type") or [])
+    if len(top20_by_type) != 80:
+        raise RevisionBundlePublishError(
+            "top20_by_anbima_type deve conter exatamente 80 linhas"
+        )
+    expected_types = {
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    }
+    observed_types = {str(row.get("tipo_exibicao") or "") for row in top20_by_type}
+    if observed_types != expected_types:
+        raise RevisionBundlePublishError(
+            "top20_by_anbima_type deve conter as quatro categorias do slide 8"
+        )
+    for type_name in expected_types:
+        group = sorted(
+            (row for row in top20_by_type if row.get("tipo_exibicao") == type_name),
+            key=lambda row: int(row.get("rank_tipo") or 0),
+        )
+        if len(group) != 20 or [int(row.get("rank_tipo") or 0) for row in group] != list(range(1, 21)):
+            raise RevisionBundlePublishError(
+                f"ranking Top 20 inválido em {type_name}"
+            )
+        if any(str(row.get("competencia_pl") or "") != latest_complete for row in group):
+            raise RevisionBundlePublishError(
+                f"competência do Top 20 diverge em {type_name}"
+            )
+        if any(float(row.get("pl") or 0) <= 0 for row in group):
+            raise RevisionBundlePublishError(
+                f"Top 20 contém PL ausente ou não positivo em {type_name}"
+            )
+    if len({str(row.get("cnpj_fundo") or "") for row in top20_by_type}) != 80:
+        raise RevisionBundlePublishError("Top 20 por Tipo contém CNPJ duplicado")
+
+    top100_outros = list(payload.get("top100_outros_review") or [])
+    if len(top100_outros) != 100:
+        raise RevisionBundlePublishError(
+            "top100_outros_review deve conter exatamente 100 linhas"
+        )
+    if [int(row.get("rank_outros_slide") or 0) for row in top100_outros] != list(range(1, 101)):
+        raise RevisionBundlePublishError(
+            "top100_outros_review deve usar ranks sequenciais de 1 a 100"
+        )
+    if any(str(row.get("bucket_slide_atual") or "") != "Outros" for row in top100_outros):
+        raise RevisionBundlePublishError(
+            "top100_outros_review contém fundo fora do bucket exibido no slide 8"
+        )
+    summary_outros = payload.get("top100_outros_summary")
+    if not isinstance(summary_outros, Mapping):
+        raise RevisionBundlePublishError("payload sem top100_outros_summary")
+    required_outros_summary = {
+        "outros_oficial_brl",
+        "outros_curado_brl",
+        "reducao_aprovada_brl",
+        "top100_outros_brl",
+        "candidatos_documentais_brl",
+        "candidatos_reclassificacao_tipo_brl",
+        "candidatos_correcao_perimetro_brl",
+        "outros_pos_candidatos_brl",
+        "residual_minimo_top100_brl",
+        "gap_meta_minimo_top100_brl",
+        "meta_atingivel_top100",
+    }
+    if missing := sorted(required_outros_summary.difference(summary_outros)):
+        raise RevisionBundlePublishError(
+            "top100_outros_summary sem campos obrigatórios: " + ", ".join(missing)
+        )
+    review_meta = payload.get("taxonomy_review_meta")
+    if (
+        not isinstance(review_meta, Mapping)
+        or not re.fullmatch(
+            r"[0-9a-f]{64}", str(review_meta.get("ledger_sha256") or "")
+        )
+        or not re.fullmatch(
+            r"[0-9a-f]{64}", str(review_meta.get("audit_sha256") or "")
+        )
+        or not str(review_meta.get("ledger_path") or "").strip()
+        or not str(review_meta.get("audit_path") or "").strip()
+    ):
+        raise RevisionBundlePublishError("metadata do ledger de taxonomia inválida")
     exclusions = payload.get("market_share_exclusions")
     if not isinstance(exclusions, list) or len(exclusions) != 2:
         raise RevisionBundlePublishError(
@@ -1805,6 +1960,12 @@ def build_bundle_manifest(
             "top20_fidcs": len(list(payload.get("top20_fidcs") or [])),
             "top20_outros": len(list(payload.get("top20_outros") or [])),
             "profiles": len(list(payload.get("profiles") or [])),
+            "top20_by_anbima_type": len(
+                list(payload.get("top20_by_anbima_type") or [])
+            ),
+            "top100_outros_review": len(
+                list(payload.get("top100_outros_review") or [])
+            ),
         },
     }
 
@@ -1889,6 +2050,10 @@ def validate_renderer_manifest(
         )
     if any(int(checks.get(key) or 0) != 20 for key in ("top20_fidcs", "top20_outros", "profiles")):
         raise RevisionBundlePublishError("manifest do renderer falhou nos checks Top 20")
+    if int(checks.get("top20_by_anbima_type") or 0) != 80:
+        raise RevisionBundlePublishError("manifest do renderer falhou no Top 20 por Tipo")
+    if int(checks.get("top100_outros_review") or 0) != 100:
+        raise RevisionBundlePublishError("manifest do renderer falhou na fila Top 100 Outros")
 
 
 def publish_staged_bundle(
@@ -2273,6 +2438,20 @@ def publish_revision_bundle(
             curation_path=curation_path,
             latest=latest_complete,
         )
+        taxonomy_ledger = data_dir / "taxonomy_review_actions.csv"
+        taxonomy_audit = data_dir / "taxonomy_review_audit.csv"
+        if _sha256_semantic_file(taxonomy_ledger) != input_hashes.get(
+            "data/taxonomy_review_actions.csv"
+        ):
+            raise RevisionBundlePublishError(
+                "ledger de taxonomia mudou durante a publicação; execute novamente para preservar atomicidade"
+            )
+        if _sha256_semantic_file(taxonomy_audit) != input_hashes.get(
+            "data/taxonomy_review_audit.csv"
+        ):
+            raise RevisionBundlePublishError(
+                "auditoria de taxonomia mudou durante a publicação; execute novamente para preservar atomicidade"
+            )
         payload["generated_at"] = published_at
         validate_artifact_payload(payload, latest_complete)
         payload_bytes = json.dumps(

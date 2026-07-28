@@ -45,6 +45,16 @@ from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
 )
+from services.industry_taxonomy_review import (
+    assert_taxonomy_review_ledger_matches_audit,
+    build_curated_type_mix,
+    build_taxonomy_review_queue,
+    build_top20_by_anbima_type,
+    load_taxonomy_review_actions,
+    taxonomy_review_audit_digest,
+    taxonomy_review_ledger_digest,
+    taxonomy_review_summary,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -2482,6 +2492,21 @@ def build_payload(
         data_dir / "card_receivables_curation.csv",
         cnpj_columns=("cnpj14_digits",),
     )
+    document_inventory = _read_optional(
+        data_dir / "document_inventory.csv.gz",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    taxonomy_document_review = _read_optional(
+        data_dir / "industry_taxonomy_document_review.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    taxonomy_review_path = data_dir / "taxonomy_review_actions.csv"
+    taxonomy_review_audit_path = data_dir / "taxonomy_review_audit.csv"
+    assert_taxonomy_review_ledger_matches_audit(
+        taxonomy_review_path,
+        taxonomy_review_audit_path,
+    )
+    taxonomy_review_actions = load_taxonomy_review_actions(taxonomy_review_path)
 
     funds = pd.read_csv(revision_dir / "base_fundo_cnpj.csv.gz", low_memory=False)
     qa = pd.read_csv(revision_dir / "qa_inadimplencia_competencia.csv", low_memory=False)
@@ -2833,6 +2858,34 @@ def build_payload(
     ) = _type_mix_history(
         funds, type_mix_periods
     )
+    type_mix_history_official = type_mix_history.copy()
+    for mix_period in type_mix_periods:
+        curated_period_mix = build_curated_type_mix(
+            funds,
+            taxonomy_review_actions,
+            latest=mix_period,
+        )
+        curated_lookup = curated_period_mix.set_index("anbima_tipo")
+        period_mask = type_mix_history["competencia"].eq(mix_period)
+        for index in type_mix_history[period_mask].index:
+            category = str(type_mix_history.at[index, "anbima_tipo"])
+            if category in curated_lookup.index:
+                type_mix_history.at[index, "pl"] = float(
+                    curated_lookup.at[category, "pl"]
+                )
+                type_mix_history.at[index, "share"] = float(
+                    curated_lookup.at[category, "share"]
+                )
+    type_mix_meta["taxonomy_review_overlay"] = {
+        "ledger_sha256": taxonomy_review_ledger_digest(taxonomy_review_path),
+        "decisions_effective": int(
+            (
+                taxonomy_review_actions.get("status", pd.Series(dtype="object")).eq("aprovado")
+                & taxonomy_review_actions.get("competencia_inicio", pd.Series(dtype="object")).le(latest)
+            ).sum()
+        ),
+        "official_history_preserved_in": "type_mix_history_official",
+    }
     receivables_history, receivables_meta_history = _receivables_history(
         segments, monthly, comparison_periods
     )
@@ -2910,6 +2963,33 @@ def build_payload(
             "mudança taxonômica é aplicada automaticamente."
         ),
     }
+    top20_by_anbima_type, top20_by_anbima_type_coverage = (
+        build_top20_by_anbima_type(
+            funds,
+            latest=latest,
+            curated_top20=curation,
+            regulation_review=top20_outros_regulations,
+            document_inventory=document_inventory,
+            card_curation=card_receivables_curation,
+            document_review=taxonomy_document_review,
+        )
+    )
+    top100_outros_review = build_taxonomy_review_queue(
+        funds,
+        taxonomy_review_actions,
+        latest=latest,
+        table_ii=vehicle,
+        regulation_review=top20_outros_regulations,
+        document_inventory=document_inventory,
+        card_curation=card_receivables_curation,
+        document_review=taxonomy_document_review,
+    )
+    top100_outros_summary = taxonomy_review_summary(
+        funds,
+        taxonomy_review_actions,
+        latest=latest,
+        queue=top100_outros_review,
+    )
 
     material_focus = (
         market[["tipo_anbima", "foco_anbima", "denominador_pl_subtipo_brl"]]
@@ -2978,6 +3058,7 @@ def build_payload(
         "type_mix_meta": type_mix_meta,
         "classification_coverage": _records(classification_coverage),
         "type_mix_history": _records(type_mix_history),
+        "type_mix_history_official": _records(type_mix_history_official),
         "classification_coverage_history": _records(classification_coverage_history),
         "receivables": receivables,
         "receivables_history": _records(receivables_history),
@@ -3119,6 +3200,31 @@ def build_payload(
             "base_alterada": False,
         },
         "taxonomy_top15": _records(taxonomy_top15),
+        "top20_by_anbima_type": _records(top20_by_anbima_type),
+        "top20_by_anbima_type_coverage": _records(
+            top20_by_anbima_type_coverage
+        ),
+        "top100_outros_review": _records(top100_outros_review),
+        "top100_outros_summary": {
+            str(key): _json_value(value)
+            for key, value in top100_outros_summary.items()
+            if key != "destinos"
+        },
+        "top100_outros_destinations": _records(
+            top100_outros_summary.get("destinos", pd.DataFrame())
+        ),
+        "taxonomy_review_meta": {
+            "ledger_sha256": taxonomy_review_ledger_digest(taxonomy_review_path),
+            "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
+            "audit_sha256": taxonomy_review_audit_digest(
+                taxonomy_review_audit_path
+            ),
+            "audit_path": "data/industry_study/taxonomy_review_audit.csv",
+            "official_fields_mutated": False,
+            "application_rule": (
+                "somente status aprovado com documento, página/cláusula, evidência e par Tipo/Foco válido"
+            ),
+        },
         "numeric_locale_audit": [
             {"artefato": "PPTX", "ponto": "KPIs, títulos, notas e rodapés", "padrao": "vírgula decimal e ponto de milhar"},
             {"artefato": "PPTX", "ponto": "eixos X e Y nativos dos gráficos", "padrao": "chartSpace em pt-BR, formato numérico vinculado ao dado e unidades explícitas no título do eixo ou do painel"},

@@ -350,6 +350,71 @@ def _closed_offer_placement_regime_fixture() -> list[dict[str, object]]:
 
 def _payload() -> dict[str, object]:
     card_rows = _card_taxonomy_rows()
+    type_names = (
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    )
+    top20_by_type = [
+        {
+            "tipo_exibicao": type_name,
+            "rank_tipo": rank,
+            "cnpj_fundo": f"{type_index + 1:02d}{rank:012d}",
+            "denominacao": f"FIDC {type_name} {rank}",
+            "pl": float(21 - rank),
+            "competencia_pl": "2026-05",
+            "pl_anterior_positivo": True,
+            "administrador": "Administrador",
+            "gestor": "Gestor",
+            "custodiante": "Custodiante",
+            "cedente_originador": "N/D",
+            "cedente_status": "regulamento_nao_localizado_no_corpus_versionado",
+            "regulamento_id": "",
+            "regulamento_data": "",
+            "regulamento_url": "https://example.com/fundosnet",
+            "pagina_clausula": "N/D",
+            "evidencia_cedente": "",
+            "limitacao_cedente": "documento não localizado",
+        }
+        for type_index, type_name in enumerate(type_names)
+        for rank in range(1, 21)
+    ]
+    top100_outros = [
+        {
+            "competencia_pl": "2026-05",
+            "rank_outros_slide": rank,
+            "cnpj_fundo": f"99{rank:012d}",
+            "denominacao": f"FIDC Outros {rank}",
+            "pl": float(101 - rank),
+            "bucket_slide_atual": "Outros",
+            "anbima_tipo_oficial": "Outros",
+            "anbima_foco_oficial": "Multicarteira Outros",
+            "tabela_ii_reportada": "N/D",
+            "tabela_ii_dominante": "N/D",
+            "tabela_ii_multisegmento": False,
+            "documento_id_base": "",
+            "documento_data_base": "",
+            "documento_url_base": "https://example.com/fundosnet",
+            "evidencia_documental": "",
+            "cedente_originador_expresso": "N/D",
+            "tipo_anbima_sugerido": "",
+            "foco_anbima_sugerido": "",
+            "tabela_ii_sugerida": "N/D",
+            "perimeter_proposal": "",
+            "is_fic_fidc_sugerido": False,
+            "pl_correcao_perimetro_candidata_brl": 0.0,
+            "confianca_base": "baixa",
+            "status_revisao_base": "sem_regulamento_versionado",
+            "motivo_validacao_manual_base": "documento não localizado",
+            "acao_status": "pendente",
+            "anbima_tipo_curado": "Outros",
+            "anbima_foco_curado": "Multicarteira Outros",
+            "tabela_ii_curada": "N/D",
+            "taxonomy_review_applied": False,
+        }
+        for rank in range(1, 101)
+    ]
     return {
         "schema_version": PAYLOAD_SCHEMA,
         "latest_complete": "2026-05",
@@ -565,6 +630,43 @@ def _payload() -> dict[str, object]:
                 "metodologia": "classificação atual preservada",
             }
         ],
+        "top20_by_anbima_type": top20_by_type,
+        "top20_by_anbima_type_coverage": [
+            {
+                "tipo_exibicao": type_name,
+                "fundos": 20,
+                "administrador_preenchido": 20,
+                "gestor_preenchido": 20,
+                "custodiante_preenchido": 20,
+                "cedente_curadoria_concluida": 0,
+                "regulamento_local_sem_curadoria": 0,
+                "sem_regulamento_local": 20,
+                "competencia_pl": "2026-05",
+                "competencia_anterior_verificada": "2026-04",
+                "fundos_pl_anterior_positivo": 20,
+            }
+            for type_name in type_names
+        ],
+        "top100_outros_review": top100_outros,
+        "top100_outros_summary": {
+            "outros_oficial_brl": 1000.0,
+            "outros_curado_brl": 1000.0,
+            "reducao_aprovada_brl": 0.0,
+            "top100_outros_brl": 5050.0,
+            "candidatos_documentais_brl": 0.0,
+            "candidatos_reclassificacao_tipo_brl": 0.0,
+            "candidatos_correcao_perimetro_brl": 0.0,
+            "outros_pos_candidatos_brl": 1000.0,
+            "residual_minimo_top100_brl": -4050.0,
+            "gap_meta_minimo_top100_brl": 0.0,
+            "meta_atingivel_top100": True,
+        },
+        "taxonomy_review_meta": {
+            "ledger_sha256": "0" * 64,
+            "audit_sha256": "1" * 64,
+            "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
+            "audit_path": "data/industry_study/taxonomy_review_audit.csv",
+        },
         "numeric_locale_audit": [
             {"artefato": "PPTX", "ponto": "tabelas", "padrao": "pt-BR"}
         ],
@@ -1231,6 +1333,10 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
     assert "industry_closed_offer_ticket_distribution.csv" in REQUIRED_DATA_INPUTS
     assert "industry_closed_offer_ticket_cohort.csv.gz" in REQUIRED_DATA_INPUTS
     assert "industry_closed_offer_placement_regime.csv" in REQUIRED_DATA_INPUTS
+    assert "document_inventory.csv.gz" in REQUIRED_DATA_INPUTS
+    assert "taxonomy_review_actions.csv" in REQUIRED_DATA_INPUTS
+    assert "taxonomy_review_audit.csv" in REQUIRED_DATA_INPUTS
+    assert "industry_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:
