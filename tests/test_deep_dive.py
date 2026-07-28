@@ -10,7 +10,12 @@ from zipfile import ZipFile
 import pandas as pd
 
 from services.deep_dive_ppt_export import build_deep_dive_pptx_bytes
-from services.deep_dive_store import deep_dive_matches_portfolio, list_deep_dives, load_deep_dive_table
+from services.deep_dive_store import (
+    deep_dive_matches_portfolio,
+    deep_dive_portfolio_match_rank,
+    list_deep_dives,
+    load_deep_dive_table,
+)
 from tabs import tab_deep_dive
 
 
@@ -56,6 +61,38 @@ def test_deep_dive_store_loads_manifest_and_table(tmp_path: Path) -> None:
     frame = load_deep_dive_table(manifests[0], manifests[0].tables[0])
     assert list(frame.columns) == ["Nome", "FIDC A", "FIDC B"]
     assert frame.iloc[0]["FIDC A"] == "R$ 100 mm"
+
+
+def test_exact_portfolio_manifest_ranks_above_same_basket_fallback(tmp_path: Path) -> None:
+    package = _write_package(tmp_path)
+    payload = json.loads((package / "manifest.json").read_text(encoding="utf-8"))
+    payload.update(
+        {
+            "portfolio_id": "portfolio-exato",
+            "portfolio_signature": "11111111000111|22222222000122",
+        }
+    )
+    (package / "manifest.json").write_text(
+        json.dumps(payload, ensure_ascii=False),
+        encoding="utf-8",
+    )
+    manifest = list_deep_dives(tmp_path)[0]
+
+    assert deep_dive_matches_portfolio(
+        manifest,
+        "portfolio-exato",
+        "11111111000111|22222222000122",
+    )
+    assert deep_dive_portfolio_match_rank(
+        manifest,
+        "portfolio-exato",
+        "11111111000111|22222222000122",
+    ) == 2
+    assert deep_dive_portfolio_match_rank(
+        manifest,
+        "outro-id",
+        "11111111000111|22222222000122",
+    ) == 1
 
 
 def test_deep_dive_pptx_is_editable_office_package(tmp_path: Path) -> None:

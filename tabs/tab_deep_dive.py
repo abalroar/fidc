@@ -13,6 +13,7 @@ import streamlit as st
 from services.dashboard_ui import render_page_header
 from services.deep_dive_store import (
     deep_dive_matches_portfolio,
+    deep_dive_portfolio_match_rank,
     list_deep_dives,
     load_deep_dive_table,
 )
@@ -329,7 +330,14 @@ def render_tab_deep_dive(
         for manifest in manifests
         if selected_portfolio_id == "Todos" or deep_dive_matches_portfolio(manifest, selected_portfolio_id, selected_signature)
     ]
-    available = sorted(available, key=lambda item: item.generated_at or "", reverse=True)
+    available = sorted(
+        available,
+        key=lambda item: (
+            deep_dive_portfolio_match_rank(item, selected_portfolio_id, selected_signature),
+            item.generated_at or "",
+        ),
+        reverse=True,
+    )
     if not available:
         st.info("Ainda não há curadoria documental para esta carteira.")
         _render_update_prompt()

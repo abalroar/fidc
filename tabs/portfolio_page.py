@@ -396,14 +396,19 @@ def _render_portfolio_analysis_surface(
         )
         return False
 
+    # Preserve the calculation window (which includes the 12-month YoY
+    # lookback) until after the monitor has been built.  Building the monitor
+    # from ``display_outputs`` discards the prior-year bases and leaves the YoY
+    # panel empty even though the portfolio values themselves are available.
+    calculation_outputs = analysis.outputs
     display_outputs = somatorio_tab._render_loaded_period_window(
-        analysis.outputs,
+        calculation_outputs,
         show_caption=True,
         control_label="Filtro visual de toda a análise",
     )
     analysis = _filter_analysis_dashboards_to_outputs(analysis, display_outputs)
     monitor_outputs = somatorio_tab._build_credit_monitor_for_display(
-        outputs=analysis.outputs,
+        outputs=calculation_outputs,
         display_outputs=display_outputs,
     )
     research_outputs = build_meli_research_outputs(monitor_outputs)

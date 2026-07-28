@@ -413,6 +413,73 @@ class PortfolioPageTests(unittest.TestCase):
         self.assertIn("falha inesperada", failure.message)
         self.assertIn("RuntimeError: falha analítica", failure.details)
 
+    def test_portfolio_monitor_keeps_calculation_lookback_before_display_filter(self) -> None:
+        calculation_outputs = SimpleNamespace(name="calculation")
+        display_outputs = SimpleNamespace(name="display")
+        monitor_outputs = SimpleNamespace(
+            consolidated_monitor=SimpleNamespace(),
+            fund_monitor={},
+        )
+        scope = portfolio_page.PortfolioAnalysisScope(
+            value="consolidated",
+            label="Consolidado",
+            kind="consolidated",
+            cnpj="",
+            dashboard=SimpleNamespace(),
+        )
+        analysis = portfolio_page.PortfolioAnalysisData(
+            scopes=(scope,),
+            aggregate_bundle=None,
+            outputs=calculation_outputs,
+            monitor_outputs=None,
+            research_outputs=None,
+            verification_report=None,
+            dashboard_errors={},
+            load_errors={},
+        )
+        portfolio = Mock(id="portfolio-1")
+        period = Mock()
+        tabs = [nullcontext() for _ in portfolio_page.PORTFOLIO_VIEW_TABS]
+
+        with (
+            patch("tabs.portfolio_page._preload_portfolio_data"),
+            patch("tabs.portfolio_page._load_portfolio_analysis_data", return_value=analysis),
+            patch(
+                "tabs.portfolio_page.somatorio_tab._render_loaded_period_window",
+                return_value=display_outputs,
+            ),
+            patch(
+                "tabs.portfolio_page._filter_analysis_dashboards_to_outputs",
+                return_value=portfolio_page.replace(analysis, outputs=display_outputs),
+            ),
+            patch(
+                "tabs.portfolio_page.somatorio_tab._build_credit_monitor_for_display",
+                return_value=monitor_outputs,
+            ) as build_monitor,
+            patch("tabs.portfolio_page.build_meli_research_outputs", return_value=SimpleNamespace()),
+            patch("tabs.portfolio_page.verify_meli_research_outputs", return_value=SimpleNamespace()),
+            patch("tabs.portfolio_page._render_analysis_coverage_alert"),
+            patch("tabs.portfolio_page._render_unified_portfolio_download"),
+            patch("tabs.portfolio_page._render_scope_selector", return_value=(scope,)),
+            patch("tabs.portfolio_page.st.tabs", return_value=tabs),
+            patch("tabs.portfolio_page.deep_dive_tab.render_tab_deep_dive"),
+            patch("tabs.portfolio_page._render_structure_tab"),
+            patch("tabs.portfolio_page._render_credit_term_tab"),
+            patch("tabs.portfolio_page._render_delinquency_tab"),
+            patch("tabs.portfolio_page._render_returns_tab"),
+        ):
+            ready = portfolio_page._render_portfolio_analysis_surface(
+                selected_portfolio=portfolio,
+                period=period,
+                selected_sections=portfolio_page.DEFAULT_SECTIONS,
+            )
+
+        self.assertTrue(ready)
+        build_monitor.assert_called_once_with(
+            outputs=calculation_outputs,
+            display_outputs=display_outputs,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

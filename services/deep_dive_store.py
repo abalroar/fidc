@@ -49,13 +49,24 @@ def load_deep_dive_table(manifest: DeepDiveManifest, table_spec: DeepDiveTableSp
 
 
 def deep_dive_matches_portfolio(manifest: DeepDiveManifest, portfolio_id: str | None, portfolio_signature: str | None) -> bool:
+    return deep_dive_portfolio_match_rank(manifest, portfolio_id, portfolio_signature) > 0
+
+
+def deep_dive_portfolio_match_rank(
+    manifest: DeepDiveManifest,
+    portfolio_id: str | None,
+    portfolio_signature: str | None,
+) -> int:
+    """Rank an exact saved-portfolio package above a basket-signature fallback."""
     if not portfolio_id and not portfolio_signature:
-        return True
+        return 1
     if portfolio_signature and manifest.portfolio_signature:
-        return manifest.portfolio_signature == portfolio_signature
-    if portfolio_id and manifest.portfolio_id:
-        return manifest.portfolio_id == portfolio_id
-    return False
+        if manifest.portfolio_signature != portfolio_signature:
+            return 0
+        return 2 if portfolio_id and manifest.portfolio_id == portfolio_id else 1
+    if portfolio_id and manifest.portfolio_id == portfolio_id:
+        return 1
+    return 0
 
 
 def write_deep_dive_index(base_dir: Path = DEFAULT_DEEP_DIVE_ROOT) -> Path:
