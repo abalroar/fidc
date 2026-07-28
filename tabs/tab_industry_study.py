@@ -244,6 +244,44 @@ def _taxonomy_review_write_authorized(configured: str, provided: str) -> bool:
     expected = str(configured or "").strip()
     candidate = str(provided or "")
     return bool(expected) and hmac.compare_digest(candidate, expected)
+
+
+def _taxonomy_review_action_choice(selected_cnpj: str) -> str | None:
+    """Render the three per-fund actions without hiding them behind auth state."""
+
+    specs = (
+        ("Salvar rascunho", "em_revisao", "secondary", 1.0, "draft"),
+        ("Aprovar e aplicar", "aprovado", "primary", 1.2, "approve"),
+        ("Rejeitar proposta", "rejeitado", "secondary", 1.0, "reject"),
+    )
+    columns = st.columns([spec[3] for spec in specs])
+    selected_status: str | None = None
+    for column, (label, status, button_type, _, key_suffix) in zip(
+        columns,
+        specs,
+        strict=True,
+    ):
+        with column:
+            if st.button(
+                label,
+                type=button_type,
+                width="stretch",
+                key=f"industry-taxonomy-{key_suffix}-{selected_cnpj}",
+            ):
+                selected_status = status
+    return selected_status
+
+
+def _taxonomy_review_access_error(configured_write_token: str) -> str:
+    if configured_write_token:
+        return "Informe a chave de curadoria em Acesso de edição antes de registrar esta decisão."
+    return (
+        "A decisão não foi salva porque este ambiente está em modo somente leitura. "
+        "Configure taxonomy_review_write_token nos secrets ou "
+        "FIDC_TAXONOMY_REVIEW_WRITE_TOKEN no ambiente."
+    )
+
+
 _CRITERIA_STRUCTURED_PATH = _DATA_DIR / "criteria_structured.csv.gz"
 _CRITERIA_MANIFEST_PATH = _DATA_DIR / "industry_criteria_manifest.json"
 _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
@@ -13892,28 +13930,6 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
         "Tipo/Foco ANBIMA e Tabela II reportados permanecem preservados; somente decisões aprovadas alimentam a camada analítica do próximo bundle."
     )
     configured_write_token = _taxonomy_review_write_token()
-    if configured_write_token:
-        with st.expander("Acesso de edição", expanded=False):
-            provided_write_token = st.text_input(
-                "Chave de curadoria",
-                type="password",
-                key="industry-taxonomy-review-write-token",
-                help="A chave fica somente na sessão e não é gravada no ledger.",
-            )
-            write_authorized = _taxonomy_review_write_authorized(
-                configured_write_token,
-                provided_write_token,
-            )
-            if write_authorized:
-                st.success("Edição autorizada nesta sessão.")
-            else:
-                st.caption("Informe a chave de curadoria para habilitar as ações de escrita.")
-    else:
-        write_authorized = False
-        st.info(
-            "Fila em modo somente leitura. Configure `taxonomy_review_write_token` nos secrets "
-            "ou `FIDC_TAXONOMY_REVIEW_WRITE_TOKEN` no ambiente para habilitar a curadoria."
-        )
     cards = [
         _industry_kpi(
             "Outros publicado",
@@ -14023,19 +14039,25 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
             "Ação": filtered["acao_status"].astype(str),
         }
     )
-    st.dataframe(display, hide_index=True, width="stretch", height=min(520, 86 + 34 * len(display)))
-
     options = filtered["cnpj_fundo"].astype(str).tolist()
     labels = {
         str(row["cnpj_fundo"]): f"#{int(row['rank_outros_slide'])} · {row['denominacao']} · {_fmt_bi(float(row['pl']), 1)}"
         for _, row in filtered.iterrows()
     }
     selected_cnpj = st.selectbox(
-        "Fundo em revisão",
+        "FIDC para reclassificar",
         options,
         format_func=lambda value: labels[value],
         key="industry-taxonomy-selected-fund",
+        help="Selecione um fundo e registre uma decisão por vez.",
     )
+    with st.expander(f"Ver os {len(display)} fundos filtrados", expanded=False):
+        st.dataframe(
+            display,
+            hide_index=True,
+            width="stretch",
+            height=min(520, 86 + 34 * len(display)),
+        )
     selected = live[live["cnpj_fundo"].astype(str).eq(selected_cnpj)].iloc[0]
     existing = actions[actions["cnpj_fundo"].astype(str).eq(selected_cnpj)]
     existing_row = existing.iloc[0] if not existing.empty else pd.Series(dtype=object)
@@ -14198,9 +14220,39 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
         key=f"industry-taxonomy-notes-{selected_cnpj}",
     )
 
+    provided_write_token = str(
+        st.session_state.get("industry-taxonomy-review-write-token") or ""
+    )
+    write_authorized = _taxonomy_review_write_authorized(
+        configured_write_token,
+        provided_write_token,
+    )
+    with st.expander("Acesso de edição", expanded=not write_authorized):
+        if configured_write_token:
+            provided_write_token = st.text_input(
+                "Chave de curadoria",
+                type="password",
+                key="industry-taxonomy-review-write-token",
+                help="A chave fica somente na sessão e não é gravada no ledger.",
+            )
+            write_authorized = _taxonomy_review_write_authorized(
+                configured_write_token,
+                provided_write_token,
+            )
+            if write_authorized:
+                st.success("Edição autorizada nesta sessão.")
+            else:
+                st.caption("Informe a chave para registrar a decisão deste FIDC.")
+        else:
+            st.warning(
+                "Este ambiente está em modo somente leitura porque a chave de curadoria não foi configurada."
+            )
+
     def persist(status_value: str) -> None:
         if not write_authorized:
-            raise PermissionError("sessão sem autorização de escrita")
+            raise PermissionError(
+                _taxonomy_review_access_error(configured_write_token)
+            )
         saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
         action = {
             "cnpj_fundo": selected_cnpj,
@@ -14236,41 +14288,12 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
         )
         st.rerun()
 
-    draft_col, approve_col, reject_col = st.columns([1.0, 1.2, 1.0])
-    with draft_col:
-        if st.button(
-            "Salvar rascunho",
-            width="stretch",
-            key=f"industry-taxonomy-draft-{selected_cnpj}",
-            disabled=not write_authorized,
-        ):
-            try:
-                persist("em_revisao")
-            except (PermissionError, ValueError) as exc:
-                st.error(str(exc))
-    with approve_col:
-        if st.button(
-            "Aprovar e aplicar",
-            type="primary",
-            width="stretch",
-            key=f"industry-taxonomy-approve-{selected_cnpj}",
-            disabled=not write_authorized,
-        ):
-            try:
-                persist("aprovado")
-            except (PermissionError, ValueError) as exc:
-                st.error(str(exc))
-    with reject_col:
-        if st.button(
-            "Rejeitar proposta",
-            width="stretch",
-            key=f"industry-taxonomy-reject-{selected_cnpj}",
-            disabled=not write_authorized,
-        ):
-            try:
-                persist("rejeitado")
-            except (PermissionError, ValueError) as exc:
-                st.error(str(exc))
+    selected_action = _taxonomy_review_action_choice(selected_cnpj)
+    if selected_action:
+        try:
+            persist(selected_action)
+        except (PermissionError, ValueError) as exc:
+            st.error(str(exc))
 
     current_digest = taxonomy_review_ledger_digest(_TAXONOMY_REVIEW_PATH)
     current_audit_digest = taxonomy_review_audit_digest(
