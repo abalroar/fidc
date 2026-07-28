@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import shutil
 import sys
 
 if __package__ in {None, ""}:
@@ -36,6 +37,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--presence-months",
         default="2024-06,2024-07,2026-05",
     )
+    parser.add_argument(
+        "--source-presence-overlay",
+        default="",
+        help="overlay já auditado a preservar quando --refresh-source-presence não for usado",
+    )
     parser.add_argument("--skip-download", action="store_true")
     return parser.parse_args(argv)
 
@@ -63,6 +69,7 @@ def main(argv: list[str] | None = None) -> None:
     official = _read_optional(data_dir / "industry_anbima_classification.csv.gz")
     published = _read_optional(data_dir / "industry_large_fund_classification.csv")
     raw_audit = None
+    preserved_overlay_path: Path | None = None
     if args.refresh_source_presence:
         from scripts.build_fidc_industry_study import RawStore, aggregate_month, load_tab4
 
@@ -77,6 +84,13 @@ def main(argv: list[str] | None = None) -> None:
                 continue
             raw_frames.append(pd.DataFrame(aggregate.vehicle))
         raw_audit = pd.concat(raw_frames, ignore_index=True) if raw_frames else pd.DataFrame()
+    elif str(args.source_presence_overlay or "").strip():
+        overlay_path = Path(args.source_presence_overlay).expanduser().resolve()
+        if overlay_path.exists():
+            raw_audit = pd.read_csv(overlay_path, low_memory=False)
+            preserved_overlay_path = overlay_path
+        else:
+            raise SystemExit(f"overlay de presença ausente: {overlay_path}")
     outputs = build_revision_outputs(
         vehicle_monthly=vehicle,
         anbima_classification=official,
@@ -84,7 +98,13 @@ def main(argv: list[str] | None = None) -> None:
         raw_audit_vehicle=raw_audit,
         latest_complete=latest_complete,
     )
-    manifest = write_revision_outputs(outputs, Path(args.output_dir))
+    output_dir = Path(args.output_dir)
+    manifest = write_revision_outputs(outputs, output_dir)
+    if preserved_overlay_path is not None:
+        shutil.copyfile(
+            preserved_overlay_path,
+            output_dir / "source_presence_overlay.csv.gz",
+        )
     checks = manifest["checks"]
     print(
         "[ok] revisão analítica materializada em "

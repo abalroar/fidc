@@ -19,6 +19,11 @@ import shutil
 from typing import Callable, Iterable
 import zipfile
 
+from services.industry_taxonomy_review import (
+    load_taxonomy_review_actions,
+    taxonomy_review_ledger_digest,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DATA_DIR = ROOT / "data" / "industry_study"
@@ -37,6 +42,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Market share por subtipo",
     "Top 20 FIDCs",
     "Top 20 Outros",
+    "Curadoria Outros",
     "Curadoria Top 20",
 }
 
@@ -279,6 +285,21 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         raise RevisionExportUnavailable("schema do payload diverge do bundle")
     if manifest.get("latest_complete") != payload.get("latest_complete"):
         raise RevisionExportUnavailable("competência do bundle diverge do payload")
+    taxonomy_meta = dict(payload.get("taxonomy_review_meta") or {})
+    taxonomy_path = data_dir / str(
+        taxonomy_meta.get("ledger_file") or "taxonomy_review_actions.csv"
+    )
+    current_taxonomy_actions = load_taxonomy_review_actions(taxonomy_path)
+    published_taxonomy_digest = str(taxonomy_meta.get("ledger_sha256") or "")
+    if published_taxonomy_digest:
+        if taxonomy_review_ledger_digest(taxonomy_path) != published_taxonomy_digest:
+            raise RevisionExportUnavailable(
+                "curadoria de Outros mudou após a publicação; regenere o bundle"
+            )
+    elif not current_taxonomy_actions.empty:
+        raise RevisionExportUnavailable(
+            "bundle publicado ainda não incorpora a curadoria de Outros"
+        )
     pptx_path, pptx_bytes = _matching_candidate(
         revision_pptx_candidates(data_dir),
         dict(manifest.get("pptx") or {}),
@@ -299,12 +320,14 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
 
 
 def revision_export_signature(data_dir: Path = DEFAULT_DATA_DIR) -> str:
-    """Cache key that changes whenever the published bundle manifest changes."""
+    """Cache key for both the immutable bundle and the live taxonomy ledger."""
 
     path = revision_bundle_manifest_path(data_dir)
-    if not path.exists():
-        return f"missing:{path}"
-    return _sha256(path.read_bytes())
+    manifest_digest = _sha256(path.read_bytes()) if path.exists() else f"missing:{path}"
+    taxonomy_digest = taxonomy_review_ledger_digest(
+        Path(data_dir).resolve() / "taxonomy_review_actions.csv"
+    )
+    return f"{manifest_digest}:{taxonomy_digest}"
 
 
 def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExportStatus:

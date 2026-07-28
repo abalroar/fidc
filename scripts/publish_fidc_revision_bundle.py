@@ -65,6 +65,7 @@ OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
     "industry_large_fund_classification.csv",
     "industry_intelligence_manifest.json",
+    "taxonomy_review_actions.csv",
 )
 BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
@@ -72,6 +73,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_export.py",
+    ROOT / "services" / "industry_taxonomy_review.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -717,6 +719,12 @@ def publish_revision_bundle(
         ]
         if refresh_source_presence:
             analysis_args.append("--refresh-source-presence")
+        else:
+            prior_presence_overlay = publish_dir / "source_presence_overlay.csv.gz"
+            if prior_presence_overlay.exists():
+                analysis_args.extend(
+                    ["--source-presence-overlay", str(prior_presence_overlay)]
+                )
         if skip_download:
             analysis_args.append("--skip-download")
         build_revision_analysis(analysis_args)

@@ -79,6 +79,16 @@ from services.industry_study import (
     save_pipeline_manifest,
     save_cedente_structured,
 )
+from services.industry_taxonomy_review import (
+    FUNCTIONAL_TAXONOMY,
+    TAXONOMY_CONFIDENCE_LEVELS,
+    TAXONOMY_REVIEW_COLUMNS,
+    build_taxonomy_review_queue,
+    load_taxonomy_review_actions,
+    save_taxonomy_review_actions,
+    taxonomy_review_ledger_digest,
+    taxonomy_review_summary,
+)
 
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
@@ -88,6 +98,7 @@ INDUSTRY_VIEW_TABS = (
     "Carteira e inadimplência",
     "Prestadores",
     "Top 20",
+    "Curadoria Outros",
     "Ofertas e originação",
     "Dados e exportações",
 )
@@ -178,6 +189,8 @@ _DOCUMENT_CHUNK_ACTIONS_PATH = _DATA_DIR / "document_chunk_actions.csv"
 _DOCUMENT_CHUNK_ACTION_AUDIT_PATH = _DATA_DIR / "document_chunk_action_audit.csv"
 _CRITERIA_REVIEW_PATH = _DATA_DIR / "criteria_reviews.csv"
 _CRITERIA_REVIEW_AUDIT_PATH = _DATA_DIR / "criteria_review_audit.csv"
+_TAXONOMY_REVIEW_PATH = _DATA_DIR / "taxonomy_review_actions.csv"
+_TAXONOMY_REVIEW_AUDIT_PATH = _DATA_DIR / "taxonomy_review_audit.csv"
 _CRITERIA_STRUCTURED_PATH = _DATA_DIR / "criteria_structured.csv.gz"
 _CRITERIA_MANIFEST_PATH = _DATA_DIR / "industry_criteria_manifest.json"
 _CEDENTE_REVIEW_COLUMNS = CEDENTE_REVIEW_COLUMNS
@@ -10718,6 +10731,434 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
                 st.markdown(f"[Fonte primária]({row['fonte']}) · consulta em {row.get('data_consulta', 'n/d')}")
 
 
+def _render_taxonomy_review(payload: dict[str, object]) -> None:
+    funds = _load_csv("generated_revision/base_fundo_cnpj.csv.gz")
+    if funds is None or funds.empty:
+        st.info("Base por fundo indisponível para montar a fila.")
+        return
+    latest = str(payload.get("latest_complete") or "")
+    actions = load_taxonomy_review_actions(_TAXONOMY_REVIEW_PATH)
+    documentary = _load_csv("industry_large_fund_classification.csv")
+    reconciliation = _load_csv("generated_revision/reconciliacao_veiculo_fundo_latest.csv")
+    queue = build_taxonomy_review_queue(
+        funds,
+        actions,
+        latest=latest,
+        documentary=documentary,
+        reconciliation=reconciliation,
+    )
+    summary = taxonomy_review_summary(funds, actions, latest=latest)
+
+    flash = st.session_state.pop("industry_taxonomy_review_flash", "")
+    if flash:
+        st.success(flash)
+
+    st.markdown("<h2>Curadoria de Outros</h2>", unsafe_allow_html=True)
+    st.markdown(
+        '<div class="industry-curation-note">A fila parte do PL ex-FIC classificado como Outros '
+        "no gráfico. A classificação ANBIMA oficial permanece visível e imutável. Decisões "
+        "aprovadas alimentam a camada analítica usada pelo próximo bundle.</div>",
+        unsafe_allow_html=True,
+    )
+
+    cards = [
+        _industry_kpi(
+            "Outros no publicado",
+            _fmt_bi(float(summary["outros_oficial_brl"]), 1),
+            f"{_fmt_int(float(summary['fundos_outros_oficial']))} fundos, inclui N/D",
+        ),
+        _industry_kpi(
+            "Redução aprovada",
+            _fmt_bi(float(summary["reducao_liquida_brl"]), 1),
+            f"{_fmt_int(float(summary['decisoes_com_mudanca']))} decisões com mudança",
+        ),
+        _industry_kpi(
+            "Outros após curadoria",
+            _fmt_bi(float(summary["outros_curado_brl"]), 1),
+            f"{_fmt_int(float(summary['fundos_outros_curado']))} fundos",
+        ),
+        _industry_kpi(
+            "Top 100 ainda em Outros",
+            _fmt_bi(float(summary["top100_outros_curado_brl"]), 1),
+            "prioridade inicial da fila",
+        ),
+    ]
+    st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
+
+    reduction = max(0.0, float(summary["pl_reclassificado_para_fora_brl"]))
+    residual = max(0.0, float(summary["outros_curado_brl"]))
+    bridge = pd.DataFrame(
+        [
+            {"Linha": "Composição", "Parcela": "Reclassificado", "PL (R$ bi)": reduction / 1e9, "ordem": 0},
+            {"Linha": "Composição", "Parcela": "Ainda em Outros", "PL (R$ bi)": residual / 1e9, "ordem": 1},
+        ]
+    )
+    chart = (
+        alt.Chart(bridge)
+        .mark_bar(size=34, cornerRadiusEnd=3)
+        .encode(
+            x=alt.X("sum(PL (R$ bi)):Q", title=None, axis=alt.Axis(grid=False, format=",.0f")),
+            y=alt.Y("Linha:N", title=None, axis=None),
+            color=alt.Color(
+                "Parcela:N",
+                scale=alt.Scale(
+                    domain=["Reclassificado", "Ainda em Outros"],
+                    range=[_ORANGE, _GRAY_LIGHT],
+                ),
+                legend=alt.Legend(title=None, orient="bottom"),
+            ),
+            order=alt.Order("ordem:Q"),
+            tooltip=["Parcela:N", alt.Tooltip("PL (R$ bi):Q", format=",.1f")],
+        )
+        .properties(height=88)
+    )
+    st.altair_chart(chart, width="stretch", key="industry-taxonomy-review-progress")
+
+    destinations = summary.get("destinos")
+    if isinstance(destinations, pd.DataFrame) and not destinations.empty:
+        destination_view = destinations.copy()
+        destination_view["Destino"] = (
+            destination_view["anbima_tipo_curado"].astype(str)
+            + " | "
+            + destination_view["anbima_foco_curado"].astype(str)
+        )
+        destination_view["PL (R$ bi)"] = destination_view["pl_brl"] / 1e9
+        destination_chart = (
+            alt.Chart(destination_view)
+            .mark_bar(cornerRadiusEnd=2, color=_ORANGE)
+            .encode(
+                x=alt.X("PL (R$ bi):Q", title=None, axis=alt.Axis(gridColor=_GRAY_LIGHT)),
+                y=alt.Y("Destino:N", title=None, sort="-x"),
+                tooltip=["Destino:N", "fundos:Q", alt.Tooltip("PL (R$ bi):Q", format=",.1f")],
+            )
+            .properties(height=max(90, min(260, 42 * len(destination_view))))
+        )
+        st.altair_chart(destination_chart, width="stretch", key="industry-taxonomy-destinations")
+
+    filters = st.columns([1.0, 1.1, 2.2])
+    with filters[0]:
+        scope = st.segmented_control(
+            "Escopo",
+            ["Top 100", "Todos"],
+            default="Top 100",
+            key="industry-taxonomy-scope",
+        )
+    with filters[1]:
+        status_filter = st.multiselect(
+            "Status",
+            ["pendente", "em_revisao", "aprovado", "rejeitado"],
+            default=["pendente", "em_revisao", "aprovado"],
+            key="industry-taxonomy-status-filter",
+        )
+    with filters[2]:
+        query = st.text_input(
+            "Buscar fundo ou CNPJ",
+            key="industry-taxonomy-query",
+            placeholder="Nome ou CNPJ",
+        )
+
+    filtered = queue.copy()
+    if scope == "Top 100":
+        filtered = filtered[filtered["top100"]]
+    if status_filter:
+        filtered = filtered[filtered["acao_status"].isin(status_filter)]
+    else:
+        filtered = filtered.iloc[0:0]
+    if query:
+        search = (
+            filtered["denominacao"].fillna("").astype(str)
+            + " "
+            + filtered["cnpj_fundo"].fillna("").astype(str)
+        )
+        filtered = filtered[search.str.contains(re.escape(query), case=False, na=False)]
+
+    if filtered.empty:
+        st.info("Nenhum fundo corresponde aos filtros atuais.")
+        return
+
+    display = pd.DataFrame(
+        {
+            "#": filtered["rank_mercado"].astype(int),
+            "Fundo": filtered["denominacao"].astype(str),
+            "CNPJ": filtered["cnpj_fundo"].astype(str),
+            "PL": filtered["pl"].map(lambda value: _fmt_bi(float(value), 1)),
+            "Oficial": filtered["anbima_tipo_oficial"].astype(str)
+            + " | "
+            + filtered["anbima_foco_oficial"].astype(str),
+            "Sugestão documental": filtered["document_segment_n1"].replace("", "sem evidência")
+            + filtered["document_segment_n2"].map(lambda value: f" | {value}" if value else ""),
+            "Decisão": filtered["tipo_slide_curado"].astype(str),
+            "Status": filtered["acao_status"].astype(str),
+        }
+    )
+    st.dataframe(
+        display,
+        hide_index=True,
+        width="stretch",
+        height=min(520, 86 + 36 * len(display)),
+        column_config={
+            "#": st.column_config.NumberColumn("#", width="small"),
+            "PL": st.column_config.TextColumn("PL", width="small"),
+            "Status": st.column_config.TextColumn("Status", width="small"),
+        },
+    )
+
+    options = filtered["cnpj_fundo"].astype(str).tolist()
+    labels = {
+        str(row["cnpj_fundo"]): f"#{int(row['rank_mercado'])} | {row['denominacao']} | {_fmt_bi(float(row['pl']), 1)}"
+        for _, row in filtered.iterrows()
+    }
+    selected_cnpj = st.selectbox(
+        "Fundo em revisão",
+        options,
+        format_func=lambda value: labels[value],
+        key="industry-taxonomy-selected-fund",
+    )
+    selected = queue[queue["cnpj_fundo"].astype(str).eq(selected_cnpj)].iloc[0]
+    existing = actions[actions["cnpj_fundo"].astype(str).eq(selected_cnpj)]
+    existing_row = existing.iloc[0] if not existing.empty else pd.Series(dtype=object)
+
+    def saved(field: str, fallback: object = "") -> str:
+        value = str(existing_row.get(field, "") or "").strip()
+        return value or str(fallback or "").strip()
+
+    st.markdown(f"### {selected['denominacao']}")
+    st.caption(
+        f"{selected_cnpj} | {_fmt_bi(float(selected['pl']), 1)} | "
+        f"#{int(selected['rank_mercado'])} no mercado ex-FIC"
+    )
+    official_col, documentary_col, effect_col = st.columns(3)
+    with official_col:
+        st.markdown("**ANBIMA oficial**")
+        st.write(f"{selected['anbima_tipo_oficial']} | {selected['anbima_foco_oficial']}")
+        st.caption(str(selected.get("classification_status") or "origem não informada"))
+    with documentary_col:
+        st.markdown("**Taxonomia funcional documental**")
+        documentary_label = " | ".join(
+            item
+            for item in (
+                str(selected.get("document_segment_n1") or "").strip(),
+                str(selected.get("document_segment_n2") or "").strip(),
+            )
+            if item
+        )
+        st.write(documentary_label or "Sem evidência documental associada")
+        st.caption(
+            f"confiança: {selected.get('classification_confidence') or 'n/d'}"
+        )
+    with effect_col:
+        st.markdown("**Efeito se aprovado**")
+        target_preview = saved("tipo_analitico", selected.get("sugestao_tipo_analitico"))
+        if target_preview and target_preview != "Outros":
+            st.write(f"reduz Outros em {_fmt_bi(float(selected['pl']), 1)}")
+        else:
+            st.write("mantém o PL em Outros")
+        st.caption("o bundle usa somente decisões aprovadas")
+
+    suggested_type = str(selected.get("sugestao_tipo_analitico") or "").strip()
+    initial_type = saved("tipo_analitico", suggested_type or "Outros")
+    if initial_type not in ANBIMA_TYPES:
+        initial_type = "Outros"
+    target_type = st.selectbox(
+        "Tipo analítico para o gráfico",
+        list(ANBIMA_TYPES),
+        index=list(ANBIMA_TYPES).index(initial_type),
+        key=f"industry-taxonomy-target-type-{selected_cnpj}",
+        help="Este campo alimenta o agrupamento analítico do próximo PPTX.",
+    )
+    focus_options = list(ANBIMA_FOCUS_BY_TYPE[target_type])
+    suggested_focus = str(selected.get("sugestao_foco_analitico") or "").strip()
+    initial_focus = saved("foco_analitico", suggested_focus)
+    if initial_focus not in focus_options:
+        initial_focus = focus_options[0]
+    target_focus = st.selectbox(
+        "Foco analítico",
+        focus_options,
+        index=focus_options.index(initial_focus),
+        key=f"industry-taxonomy-target-focus-{selected_cnpj}-{target_type}",
+    )
+
+    functional_n1_options = list(FUNCTIONAL_TAXONOMY)
+    initial_functional_n1 = saved(
+        "taxonomia_funcional_n1", selected.get("document_segment_n1")
+    )
+    if initial_functional_n1 not in functional_n1_options:
+        initial_functional_n1 = ""
+    functional_n1 = st.selectbox(
+        "Taxonomia funcional N1",
+        functional_n1_options,
+        index=functional_n1_options.index(initial_functional_n1),
+        format_func=lambda value: value or "Não informada",
+        key=f"industry-taxonomy-functional-n1-{selected_cnpj}",
+    )
+    functional_n2_options = list(FUNCTIONAL_TAXONOMY[functional_n1])
+    initial_functional_n2 = saved(
+        "taxonomia_funcional_n2", selected.get("document_segment_n2")
+    )
+    if initial_functional_n2 not in functional_n2_options:
+        initial_functional_n2 = functional_n2_options[0]
+    functional_n2 = st.selectbox(
+        "Taxonomia funcional N2",
+        functional_n2_options,
+        index=functional_n2_options.index(initial_functional_n2),
+        format_func=lambda value: value or "Não informada",
+        key=f"industry-taxonomy-functional-n2-{selected_cnpj}-{functional_n1}",
+    )
+
+    evidence_cols = st.columns([1.0, 1.0, 1.0])
+    with evidence_cols[0]:
+        initial_confidence = saved("confianca", selected.get("classification_confidence"))
+        confidence_options = list(TAXONOMY_CONFIDENCE_LEVELS)
+        if initial_confidence == "média":
+            initial_confidence = "media"
+        if initial_confidence not in confidence_options:
+            initial_confidence = ""
+        confidence = st.selectbox(
+            "Confiança",
+            confidence_options,
+            index=confidence_options.index(initial_confidence),
+            format_func=lambda value: value or "Selecione",
+            key=f"industry-taxonomy-confidence-{selected_cnpj}",
+        )
+    with evidence_cols[1]:
+        reviewer = st.text_input(
+            "Responsável",
+            value=saved("responsavel"),
+            key=f"industry-taxonomy-reviewer-{selected_cnpj}",
+        )
+    with evidence_cols[2]:
+        competence_start = st.text_input(
+            "Vigência a partir de",
+            value=saved("competencia_inicio", latest),
+            key=f"industry-taxonomy-start-{selected_cnpj}",
+            help="Formato AAAA-MM. A decisão vale para esta competência e as posteriores.",
+        )
+    source = st.text_input(
+        "Fonte documental",
+        value=saved("fonte_documental", selected.get("source")),
+        key=f"industry-taxonomy-source-{selected_cnpj}",
+        placeholder="Arquivo, URL ou identificação do documento primário",
+    )
+    page_clause = st.text_input(
+        "Página ou cláusula",
+        value=saved("pagina_clausula"),
+        key=f"industry-taxonomy-page-{selected_cnpj}",
+    )
+    evidence = st.text_area(
+        "Evidência",
+        value=saved(
+            "evidencia",
+            selected.get("document_classification_evidence")
+            or selected.get("classification_evidence"),
+        ),
+        height=110,
+        key=f"industry-taxonomy-evidence-{selected_cnpj}",
+        placeholder="Trecho curto que sustenta a decisão econômica",
+    )
+    notes = st.text_area(
+        "Notas de revisão",
+        value=saved("notas"),
+        height=80,
+        key=f"industry-taxonomy-notes-{selected_cnpj}",
+    )
+
+    def persist(status_value: str) -> None:
+        saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        action = {
+            "cnpj_fundo": selected_cnpj,
+            "denominacao_referencia": str(selected["denominacao"]),
+            "status": status_value,
+            "tipo_analitico": target_type,
+            "foco_analitico": target_focus,
+            "taxonomia_funcional_n1": functional_n1,
+            "taxonomia_funcional_n2": functional_n2,
+            "confianca": confidence,
+            "fonte_documental": source,
+            "pagina_clausula": page_clause,
+            "evidencia": evidence,
+            "notas": notes,
+            "responsavel": reviewer,
+            "competencia_inicio": competence_start,
+            "updated_at_utc": saved_at,
+        }
+        updated = pd.concat(
+            [
+                actions[~actions["cnpj_fundo"].astype(str).eq(selected_cnpj)],
+                pd.DataFrame([action], columns=list(TAXONOMY_REVIEW_COLUMNS)),
+            ],
+            ignore_index=True,
+        )
+        audit_events = build_review_audit_events(
+            previous=actions,
+            updated=updated,
+            key_column="cnpj_fundo",
+            review_domain="taxonomy_review",
+            saved_at_utc=saved_at,
+            source="industry_taxonomy_review",
+        )
+        save_taxonomy_review_actions(updated, _TAXONOMY_REVIEW_PATH)
+        append_review_audit_events(audit_events, _TAXONOMY_REVIEW_AUDIT_PATH)
+        st.session_state["industry_taxonomy_review_flash"] = (
+            f"{selected['denominacao']}: revisão salva como {status_value}. "
+            f"Histórico atualizado com {len(audit_events)} eventos."
+        )
+        st.rerun()
+
+    draft_col, approve_col, remove_col = st.columns([1.0, 1.2, 1.0])
+    with draft_col:
+        if st.button(
+            "Salvar rascunho",
+            width="stretch",
+            key=f"industry-taxonomy-save-draft-{selected_cnpj}",
+        ):
+            persist("em_revisao")
+    with approve_col:
+        if st.button(
+            "Aprovar e aplicar",
+            type="primary",
+            width="stretch",
+            key=f"industry-taxonomy-approve-{selected_cnpj}",
+        ):
+            try:
+                persist("aprovado")
+            except ValueError as exc:
+                st.error(str(exc))
+    with remove_col:
+        if st.button(
+            "Retirar do cálculo",
+            width="stretch",
+            key=f"industry-taxonomy-remove-{selected_cnpj}",
+            help="Mantém a trilha de auditoria e devolve a decisão para revisão.",
+        ):
+            persist("em_revisao")
+
+    current_digest = taxonomy_review_ledger_digest(_TAXONOMY_REVIEW_PATH)
+    published_meta = dict(payload.get("taxonomy_review_meta") or {})
+    if str(published_meta.get("ledger_sha256") or "") != current_digest:
+        st.warning(
+            "O ledger atual ainda não foi incorporado ao PPTX publicado. "
+            "O download fica bloqueado até a regeneração atômica do bundle."
+        )
+        with st.expander("Comando de publicação"):
+            st.code(".venv/bin/python scripts/publish_fidc_revision_bundle.py")
+    else:
+        st.caption("O PPTX publicado está sincronizado com o ledger atual.")
+
+    download_queue = queue.copy()
+    st.download_button(
+        "Baixar fila completa em CSV",
+        data=download_queue.to_csv(index=False).encode("utf-8"),
+        file_name=f"fila_reclassificacao_outros_{latest}.csv",
+        mime="text/csv",
+        key="industry-taxonomy-download-queue",
+    )
+    with st.expander("Histórico de alterações"):
+        _render_review_audit(
+            _TAXONOMY_REVIEW_AUDIT_PATH,
+            empty_label="Nenhuma alteração de taxonomia foi salva.",
+        )
+
+
 def _render_revision_offers(payload: dict[str, object]) -> None:
     offers = _revision_frame(payload, "offers_ytd")
     st.markdown("<h2>Ofertas comparadas no mesmo período</h2>", unsafe_allow_html=True)
@@ -10988,9 +11429,16 @@ def render_tab_industry_study() -> None:
             f"payload revisado publicado usa {payload_latest}. Atualize o bundle antes de publicar."
         )
 
-    overview_tab, investors_tab, credit_tab, providers_tab, top20_tab, offers_tab, audit_tab = st.tabs(
-        INDUSTRY_VIEW_TABS
-    )
+    (
+        overview_tab,
+        investors_tab,
+        credit_tab,
+        providers_tab,
+        top20_tab,
+        taxonomy_tab,
+        offers_tab,
+        audit_tab,
+    ) = st.tabs(INDUSTRY_VIEW_TABS)
     with overview_tab:
         _render_revision_overview(revision_payload)
     with investors_tab:
@@ -11001,6 +11449,8 @@ def render_tab_industry_study() -> None:
         _render_revision_providers(revision_payload)
     with top20_tab:
         _render_revision_top20(revision_payload)
+    with taxonomy_tab:
+        _render_taxonomy_review(revision_payload)
     with offers_tab:
         _render_revision_offers(revision_payload)
     with audit_tab:

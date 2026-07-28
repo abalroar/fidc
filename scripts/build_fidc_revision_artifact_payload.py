@@ -22,6 +22,13 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from services.fund_name_display import short_fund_name
+from services.industry_taxonomy_review import (
+    apply_taxonomy_review_overlay,
+    build_taxonomy_review_queue,
+    load_taxonomy_review_actions,
+    taxonomy_review_ledger_digest,
+    taxonomy_review_summary,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -183,12 +190,15 @@ def _holder_distribution(vehicle: pd.DataFrame, latest: str) -> pd.DataFrame:
 def _type_mix(
     funds: pd.DataFrame,
     latest: str,
+    taxonomy_actions: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, Any]]:
-    """Build the four-date ANBIMA view used by the site and slide 6.
+    """Build the four-date ANBIMA view used by the site and the taxonomy slide.
 
     ``N/D`` remains identifiable in the classification coverage audit.  The
     requested presentation view incorporates it into ``Outros`` so that both
-    charts use the same four mutually exclusive displayed categories.
+    charts use the same four mutually exclusive displayed categories. Approved
+    manual decisions enter through analytical columns and never overwrite the
+    official ANBIMA fields.
     """
 
     categories = [
@@ -206,8 +216,9 @@ def _type_mix(
     scoped_history["anbima_tipo_original"] = (
         scoped_history["anbima_tipo"].map(_text).replace("", "N/D")
     )
-    scoped_history["anbima_tipo"] = scoped_history["anbima_tipo_original"].where(
-        scoped_history["anbima_tipo_original"].isin(categories[:-1]),
+    scoped_history = apply_taxonomy_review_overlay(scoped_history, taxonomy_actions)
+    scoped_history["anbima_tipo"] = scoped_history["anbima_tipo_curado"].where(
+        scoped_history["anbima_tipo_curado"].isin(categories[:-1]),
         "Outros",
     )
 
@@ -285,8 +296,8 @@ def _type_mix(
         "nd_incorporated_into": "Outros",
         "classification_method": (
             "Fotografia cadastral ANBIMA de dez/25 aplicada ao PL ex-FIC de cada "
-            "competência; evidência documental e proxy CVM nos fundos sem "
-            "correspondência oficial."
+            "competência, com decisões analíticas aprovadas em ledger separado; "
+            "evidência documental e proxy CVM nos fundos sem correspondência oficial."
         ),
     }
     return mix, coverage, meta
@@ -485,18 +496,39 @@ def _build_profiles(
 def _build_top20_outros_review(
     top20_outros: pd.DataFrame,
     documentary: pd.DataFrame,
+    taxonomy_actions: pd.DataFrame | None = None,
+    taxonomy_queue: pd.DataFrame | None = None,
 ) -> pd.DataFrame:
     doc = documentary.copy()
     if not doc.empty:
         doc["cnpj_key"] = doc["cnpj"].map(_digits)
         doc = doc.drop_duplicates("cnpj_key", keep="last").set_index("cnpj_key")
+    actions = taxonomy_actions.copy() if taxonomy_actions is not None else pd.DataFrame()
+    if not actions.empty:
+        actions["cnpj_key"] = actions["cnpj_fundo"].map(_digits)
+        actions = actions.drop_duplicates("cnpj_key", keep="last").set_index("cnpj_key")
+    queue = taxonomy_queue.copy() if taxonomy_queue is not None else pd.DataFrame()
+    if not queue.empty:
+        queue["cnpj_key"] = queue["cnpj_fundo"].map(_digits)
+        queue = queue.drop_duplicates("cnpj_key", keep="last").set_index("cnpj_key")
     rows: list[dict[str, Any]] = []
     for _, fund in top20_outros.sort_values("rank_outros").iterrows():
         key = _digits(fund.get("cnpj_fundo"))
-        evidence = doc.loc[key] if not doc.empty and key in doc.index else pd.Series(dtype=object)
+        evidence = (
+            queue.loc[key]
+            if not queue.empty and key in queue.index
+            else (doc.loc[key] if not doc.empty and key in doc.index else pd.Series(dtype=object))
+        )
+        action = actions.loc[key] if not actions.empty and key in actions.index else pd.Series(dtype=object)
         d1 = _pick(evidence, "document_segment_n1")
         d2 = _pick(evidence, "document_segment_n2")
-        hypothesis = " — ".join(item for item in (d1, d2) if item)
+        hypothesis = " | ".join(item for item in (d1, d2) if item)
+        approved = _pick(action, "status") == "aprovado"
+        analytical_type = _pick(action, "tipo_analitico") if approved else ""
+        analytical_focus = _pick(action, "foco_analitico") if approved else ""
+        analytical_label = " | ".join(
+            item for item in (analytical_type, analytical_focus) if item
+        )
         rows.append(
             {
                 **{key_: _json_value(value) for key_, value in fund.items()},
@@ -505,13 +537,26 @@ def _build_top20_outros_review(
                     item for item in (_text(fund.get("anbima_tipo")), _text(fund.get("anbima_foco"))) if item
                 ) or "N/D",
                 "hipotese_revisao": hypothesis or "não identificada",
-                "evidencia_revisao": _pick(evidence, "classification_evidence")[:220]
+                "classificacao_analitica": analytical_label or "pendente",
+                "tipo_analitico": analytical_type,
+                "foco_analitico": analytical_focus,
+                "decisao_aprovada": approved,
+                "impacta_outros": bool(approved and analytical_type and analytical_type != "Outros"),
+                "evidencia_revisao": (
+                    _pick(evidence, "document_classification_evidence")
+                    or _pick(evidence, "classification_evidence_y")
+                    or _pick(evidence, "classification_evidence")
+                )[:220]
                 or "não identificada nos documentos locais",
                 "fonte_revisao": _pick(evidence, "source") or "fonte primária pendente",
                 "status_revisao": (
-                    f"evidência documental — {_pick(evidence, 'classification_confidence')}"
-                    if hypothesis
-                    else "pendente"
+                    "aprovado no ledger"
+                    if approved
+                    else (
+                        f"evidência documental | {_pick(evidence, 'classification_confidence')}"
+                        if hypothesis
+                        else "pendente"
+                    )
                 ),
             }
         )
@@ -532,6 +577,8 @@ def build_payload(
     offers = pd.read_csv(data_dir / "industry_offers.csv.gz", low_memory=False)
     originators = pd.read_csv(data_dir / "industry_originators_annual.csv", low_memory=False)
     documentary = _read_optional(data_dir / "industry_large_fund_classification.csv")
+    taxonomy_review_path = data_dir / "taxonomy_review_actions.csv"
+    taxonomy_actions = load_taxonomy_review_actions(taxonomy_review_path)
     intelligence_manifest_path = data_dir / "industry_intelligence_manifest.json"
     intelligence_manifest = (
         json.loads(intelligence_manifest_path.read_text(encoding="utf-8"))
@@ -549,6 +596,11 @@ def build_payload(
     )
     top20 = pd.read_csv(revision_dir / "top20_fidcs.csv", dtype={"cnpj_fundo": str})
     top20_outros = pd.read_csv(revision_dir / "top20_outros.csv", dtype={"cnpj_fundo": str})
+    reconciliation = pd.read_csv(
+        revision_dir / "reconciliacao_veiculo_fundo_latest.csv",
+        dtype=str,
+        keep_default_na=False,
+    )
     mono = pd.read_csv(revision_dir / "monoestrutura_por_fundo.csv", low_memory=False)
     mono_concentration = pd.read_csv(revision_dir / "monoestrutura_concentracao.csv", low_memory=False)
     market = pd.read_csv(revision_dir / "market_share_por_subtipo.csv", low_memory=False)
@@ -579,7 +631,27 @@ def build_payload(
     latest_period = pd.Period(latest, freq="M")
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
-    type_mix, classification_coverage, type_mix_meta = _type_mix(funds, latest)
+    type_mix, classification_coverage, type_mix_meta = _type_mix(
+        funds, latest, taxonomy_actions
+    )
+    taxonomy_summary = taxonomy_review_summary(
+        funds, taxonomy_actions, latest=latest
+    )
+    taxonomy_destinations = taxonomy_summary.pop("destinos", pd.DataFrame())
+    taxonomy_review_meta = {
+        **taxonomy_summary,
+        "ledger_sha256": taxonomy_review_ledger_digest(taxonomy_review_path),
+        "ledger_file": taxonomy_review_path.name,
+        "destinos": _records(taxonomy_destinations),
+    }
+    type_mix_meta["taxonomy_review"] = taxonomy_review_meta
+    taxonomy_queue = build_taxonomy_review_queue(
+        funds,
+        taxonomy_actions,
+        latest=latest,
+        documentary=documentary,
+        reconciliation=reconciliation,
+    )
     receivables = _receivables(segments, latest, float(latest_month["carteira_dc"]))
     qa_latest = qa[qa["competencia"].astype(str).eq(latest)].iloc[0].to_dict()
     qa_series = qa[qa["competencia"].astype(str).between("2023-01", latest)].copy()
@@ -599,7 +671,10 @@ def build_payload(
 
     curation = _load_curation(curation_path)
     profiles = _build_profiles(top20, curation, documentary)
-    top20_outros_review = _build_top20_outros_review(top20_outros, documentary)
+    top20_outros_review = _build_top20_outros_review(
+        top20_outros, documentary, taxonomy_actions, taxonomy_queue
+    )
+    top20_curated = apply_taxonomy_review_overlay(top20, taxonomy_actions)
 
     material_focus = (
         market[["tipo_anbima", "foco_anbima", "denominador_pl_subtipo_brl"]]
@@ -644,6 +719,9 @@ def build_payload(
         },
         "type_mix": _records(type_mix),
         "type_mix_meta": type_mix_meta,
+        "taxonomy_review_meta": taxonomy_review_meta,
+        "taxonomy_review_actions": _records(taxonomy_actions),
+        "taxonomy_review_queue": _records(taxonomy_queue),
         "classification_coverage": _records(classification_coverage),
         "receivables": receivables,
         "qa_latest": {str(key): _json_value(value) for key, value in qa_latest.items()},
@@ -663,7 +741,11 @@ def build_payload(
                 / material_focus["denominador_pl_subtipo_brl"].sum()
             ),
         },
-        "top20_fidcs": _records(top20.assign(nome_curto=top20["denominacao"].map(_display_fund_name))),
+        "top20_fidcs": _records(
+            top20_curated.assign(
+                nome_curto=top20_curated["denominacao"].map(_display_fund_name)
+            )
+        ),
         "top20_outros": _records(top20_outros_review),
         "profiles": _records(profiles),
         "service_model": _records(_service_model(mono, latest)),
@@ -674,7 +756,7 @@ def build_payload(
         "originators_2026": _originators(originators, offers_year),
         "sources": {
             "pl_cotistas_recebiveis": f"CVM, Informe Mensal de FIDC, competência {latest_label}",
-            "anbima": f"ANBIMA Data, fotografia cadastral de dez/25 aplicada a {latest_label}; evidência documental; proxy CVM; N/D",
+            "anbima": f"ANBIMA Data, fotografia cadastral de dez/25 aplicada a {latest_label}; overlay analítico aprovado em ledger separado; evidência documental; proxy CVM; N/D",
             "offers": f"CVM, Ofertas Públicas de Distribuição, registros até {offers_as_of}",
             "cvm_489": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/instrucoes/anexos/400/inst489.pdf",
             "cvm_writeoff": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/oficios-circulares/sin-snc/anexos/oc-sin-snc-0113.pdf",

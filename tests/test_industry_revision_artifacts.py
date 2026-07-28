@@ -122,7 +122,7 @@ def test_deck_order_and_profile_count() -> None:
         "ESCALA DA INDÚSTRIA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
-        "TAXONOMIA VIGENTE",
+        "TAXONOMIA OFICIAL + CURADORIA",
         "CARTEIRA POR TIPO DE RECEBÍVEL",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
         "INADIMPLÊNCIA · EVOLUÇÃO E QUEBRA",

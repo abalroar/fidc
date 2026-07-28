@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 from io import BytesIO
+import gzip
 import json
 import os
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
+import pandas as pd
 import pytest
 
+import scripts.build_fidc_revision_analysis as revision_analysis_script
 from scripts.build_fidc_industry_study import parse_args as parse_study_args
 from scripts.publish_fidc_revision_bundle import (
     ANALYSIS_MANIFEST_NAME,
@@ -232,3 +235,55 @@ def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:
 
     assert args.publish_revision_bundle is True
     assert args.revision_input_workbook == "base.xlsx"
+
+
+def test_revision_analysis_preserves_existing_presence_overlay_bytes(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    data_dir = tmp_path / "data"
+    output_dir = tmp_path / "output"
+    data_dir.mkdir()
+    pd.DataFrame({"competencia": ["2026-06"]}).to_csv(
+        data_dir / "vehicle_monthly.csv.gz",
+        index=False,
+        compression="gzip",
+    )
+    overlay_path = tmp_path / "source_presence_overlay.csv.gz"
+    overlay_bytes = gzip.compress(b"competencia,cnpj\n2026-06,1\n", mtime=0)
+    overlay_path.write_bytes(overlay_bytes)
+
+    monkeypatch.setattr(
+        revision_analysis_script,
+        "build_revision_outputs",
+        lambda **_: object(),
+    )
+
+    def fake_write(_outputs: object, destination: Path) -> dict[str, object]:
+        destination.mkdir(parents=True, exist_ok=True)
+        (destination / "source_presence_overlay.csv.gz").write_bytes(b"rewritten")
+        return {
+            "checks": {
+                "latest_vehicles": 1,
+                "latest_funds": 1,
+                "top20_fidcs_rows": 20,
+            }
+        }
+
+    monkeypatch.setattr(revision_analysis_script, "write_revision_outputs", fake_write)
+
+    revision_analysis_script.main(
+        [
+            "--data-dir",
+            str(data_dir),
+            "--output-dir",
+            str(output_dir),
+            "--latest-complete",
+            "2026-06",
+            "--source-presence-overlay",
+            str(overlay_path),
+            "--skip-download",
+        ]
+    )
+
+    assert (output_dir / "source_presence_overlay.csv.gz").read_bytes() == overlay_bytes

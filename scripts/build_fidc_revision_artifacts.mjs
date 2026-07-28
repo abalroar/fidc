@@ -1149,6 +1149,10 @@ function buildPresentation(payload) {
       fill: colors[category],
     }));
     const latestPeriod = periods.at(-1);
+    const taxonomyReview = mixMeta.taxonomy_review || payload.taxonomy_review_meta || {};
+    const officialOutros = num(taxonomyReview.outros_oficial_brl);
+    const curatedOutros = num(taxonomyReview.outros_curado_brl);
+    const approvedDecisions = num(taxonomyReview.decisoes_com_mudanca);
     const financeAndOtherShare =
       valueFor(latestPeriod, "Financeiro", "share") + valueFor(latestPeriod, "Outros", "share");
     const maxTotalBn = Math.max(
@@ -1161,9 +1165,11 @@ function buildPresentation(payload) {
     );
     addHeader(
       slide,
-      "TAXONOMIA VIGENTE",
-      `Financeiro e Outros representam ${pct(financeAndOtherShare, 1)} do PL ex-FIC em ${latestPeriod.label}`,
-      `Fonte: CVM e ANBIMA; PL ex-FIC em dez/23, dez/24, dez/25 e ${latestPeriod.label}. Fotografia ANBIMA de dez/25 aplicada às competências; N/D incorporado em Outros.`,
+      "TAXONOMIA OFICIAL + CURADORIA",
+      approvedDecisions > 0
+        ? `Outros: ${bn(officialOutros, 1)} oficial e ${bn(curatedOutros, 1)} após ${integer(approvedDecisions)} decisões aprovadas`
+        : `Outros soma ${bn(curatedOutros, 1)} antes de decisões aprovadas`,
+      `Fonte: CVM e ANBIMA; PL ex-FIC em dez/23, dez/24, dez/25 e ${latestPeriod.label}. O último período incorpora o ledger aprovado; N/D permanece dentro de Outros na visão editorial.`,
       6,
     );
     addSectionLabel(slide, "PL EX-FIC · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
@@ -1223,7 +1229,7 @@ function buildPresentation(payload) {
     );
     addText(
       slide,
-      "Tipo e Foco ANBIMA são campos distintos. Evidência documental e proxy CVM complementam os fundos sem correspondência oficial; a origem permanece identificada por fundo.",
+      `Tipo e Foco oficiais permanecem preservados por fundo. A camada analítica aprovada reduz Outros em ${bn(num(taxonomyReview.reducao_liquida_brl), 1)}; rascunhos não entram no gráfico.`,
       { left: 120, top: 600, width: 1040, height: 35 },
       { fontSize: 11.5, color: C.mid, alignment: "center", verticalAlignment: "middle" },
     );
@@ -1511,12 +1517,17 @@ function buildPresentation(payload) {
   {
     const slide = presentation.slides.add();
     const rows = payload.top20_outros;
+    const taxonomyReview = payload.taxonomy_review_meta || {};
     const categoryShare = rows.reduce((sum, row) => sum + num(row.market_share_outros), 0);
+    const approvedChanges = num(taxonomyReview.decisoes_com_mudanca);
+    const curationHeadline = approvedChanges > 0
+      ? `${integer(approvedChanges)} decisões reduzem Outros em ${bn(taxonomyReview.reducao_liquida_brl, 1)}`
+      : "nenhuma decisão de reclassificação foi aprovada";
     addHeader(
       slide,
       "RANKING · TOP 20 OUTROS",
-      `Top 20 representam ${pct(categoryShare, 1)} de Outros; oficial, hipótese e status ficam separados`,
-      "Fonte: ANBIMA e documentos primários locais, mai/26. Evidência e links completos constam no workbook.",
+      `Top 20 representam ${pct(categoryShare, 1)} do bucket oficial; ${curationHeadline}`,
+      "Fonte: ANBIMA, ledger de curadoria e documentos primários locais. Evidência e links completos constam no workbook.",
       15,
     );
     const tableRows = rows.map((row) => [
@@ -1525,7 +1536,7 @@ function buildPresentation(payload) {
       bn(row.pl, 1).replace("R$ ", ""),
       truncateWords(row.classificacao_oficial, 34),
       truncateWords(row.hipotese_revisao, 38),
-      `${truncateWords(row.evidencia_revisao, 46)}\n${truncateWords(row.status_revisao, 26)}`,
+      `${truncateWords(row.classificacao_analitica, 34)}\n${truncateWords(row.status_revisao, 26)}`,
     ]);
     [0, 1].forEach((block) => {
       addEditorialTable(slide, {
@@ -1533,7 +1544,7 @@ function buildPresentation(payload) {
         top: 150,
         width: 570,
         height: 490,
-        headers: ["#", "Fundo", "PL bi", "Oficial", "Hipótese", "Evidência / status"],
+        headers: ["#", "Fundo", "PL bi", "Oficial", "Evidência doc.", "Decisão / status"],
         rows: tableRows.slice(block * 10, block * 10 + 10),
         columnWidths: [28, 142, 55, 95, 105, 145],
         aligns: ["right", "left", "right", "left", "left", "left"],
@@ -2330,6 +2341,9 @@ async function addTop20Sheets(workbook, payload) {
       ["Share Outros", "market_share_outros"],
       ["Classificação oficial", "classificacao_oficial"],
       ["Hipótese de revisão", "hipotese_revisao"],
+      ["Classificação analítica", "classificacao_analitica"],
+      ["Decisão aprovada", "decisao_aprovada"],
+      ["Impacta Outros", "impacta_outros"],
       ["Evidência", "evidencia_revisao"],
       ["Fonte", "fonte_revisao"],
       ["Status", "status_revisao"],
@@ -2339,10 +2353,70 @@ async function addTop20Sheets(workbook, payload) {
     const sheet = resetSheet(workbook, "Top 20 Outros");
     setHeaderBand(sheet, "Top 20 Outros", "Classificação oficial, hipótese econômica, evidência, fonte e status permanecem separados. Hipótese não altera automaticamente o cadastro ANBIMA.", headers, rows.length, { freezeColumns: 3, wrapText: true });
     await writeRowsInChunks(sheet, 4, headers, rows);
-    applyColumnWidths(sheet, [70, 120, 340, 120, 95, 230, 240, 360, 250, 145], rows.length);
+    applyColumnWidths(sheet, [70, 120, 340, 120, 95, 230, 240, 230, 95, 95, 360, 250, 145], rows.length);
     applyFormatsByHeader(sheet, headers, rows.length);
     sheet.getRange(`D5:D${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-    sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 88;
+    sheet.getRange(`A5:M${rows.length + 4}`).format.rowHeightPx = 88;
+  }
+}
+
+async function addTaxonomyReviewSheet(workbook, payload) {
+  const columns = [
+    ["Rank mercado", "rank_mercado"],
+    ["Top 100", "top100"],
+    ["CNPJ fundo", "cnpj_fundo"],
+    ["Denominação", "denominacao"],
+    ["PL", "pl"],
+    ["Tipo ANBIMA oficial", "anbima_tipo_oficial"],
+    ["Foco ANBIMA oficial", "anbima_foco_oficial"],
+    ["Origem oficial", "classification_tier"],
+    ["Status oficial", "classification_status"],
+    ["Taxonomia funcional N1 sugerida", "document_segment_n1"],
+    ["Taxonomia funcional N2 sugerida", "document_segment_n2"],
+    ["Confiança documental", "classification_confidence"],
+    ["Sugestão Tipo analítico", "sugestao_tipo_analitico"],
+    ["Sugestão Foco analítico", "sugestao_foco_analitico"],
+    ["Status da ação", "acao_status"],
+    ["Tipo analítico salvo", "acao_tipo_analitico"],
+    ["Foco analítico salvo", "acao_foco_analitico"],
+    ["Tipo usado no gráfico", "tipo_slide_curado"],
+    ["PL reclassificado", "pl_reclassificado_brl"],
+    ["Fonte documental", "acao_fonte_documental"],
+    ["Página ou cláusula", "acao_pagina_clausula"],
+    ["Evidência", "acao_evidencia"],
+    ["Notas", "acao_notas"],
+    ["Responsável", "acao_responsavel"],
+    ["Vigência", "acao_competencia_inicio"],
+    ["Atualizado em UTC", "acao_updated_at_utc"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const reviewQueue = (payload.taxonomy_review_queue || []).map((row) => ({
+    ...row,
+    acao_fonte_documental: row.acao_fonte_documental || row.document_source || row.source || "",
+    acao_evidencia:
+      row.acao_evidencia ||
+      row.document_classification_evidence ||
+      row.classification_evidence ||
+      "",
+  }));
+  const rows = worksheetRowsFromPayload(reviewQueue, columns);
+  const meta = payload.taxonomy_review_meta || {};
+  const sheet = resetSheet(workbook, "Curadoria Outros");
+  setHeaderBand(
+    sheet,
+    "Curadoria Outros",
+    `Bucket oficial: ${bn(meta.outros_oficial_brl, 1)}. Redução aprovada: ${bn(meta.reducao_liquida_brl, 1)}. Residual analítico: ${bn(meta.outros_curado_brl, 1)}. Campos oficiais e decisões permanecem separados.`,
+    headers,
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [70, 65, 120, 360, 115, 150, 180, 130, 260, 170, 210, 100, 170, 190, 100, 160, 185, 145, 125, 260, 130, 360, 280, 140, 90, 155], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  if (rows.length) {
+    sheet.getRange(`E5:E${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+    sheet.getRange(`S5:S${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+    sheet.getRange(`A5:Z${rows.length + 4}`).format.rowHeightPx = 72;
   }
 }
 
@@ -2429,6 +2503,7 @@ async function buildWorkbook(payload) {
   await addMonoConcentrationSheet(workbook);
   await addMarketShareSheet(workbook);
   await addTop20Sheets(workbook, payload);
+  await addTaxonomyReviewSheet(workbook, payload);
   await addCurationSheet(workbook, payload);
   await addChecksSheet(workbook, payload);
   return workbook;
@@ -2466,7 +2541,8 @@ async function exportWorkbook(workbook) {
       ["Concentração de monoestruturas", "A1:N24"],
       ["Market share por subtipo", "A1:S26"],
       ["Top 20 FIDCs", "A1:M25"],
-      ["Top 20 Outros", "A1:J25"],
+      ["Top 20 Outros", "A1:M25"],
+      ["Curadoria Outros", "A1:Z28"],
       ["Curadoria Top 20", "A1:X16"],
       ["Checks revisão", "A1:D14"],
     ];

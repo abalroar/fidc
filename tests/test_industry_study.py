@@ -3356,22 +3356,22 @@ def test_manual_review_ledgers_initialize_headers_without_fake_events():
             ledger_files=ledger_files,
         )
 
-    assert len(ledger_files) == 12
-    assert quality["files"] == 12
-    assert quality["files_present"] == 12
-    assert quality["files_created"] == 11
-    assert quality["schema_ok_files"] == 12
-    assert quality["domains"] == 6
-    assert quality["action_files"] == 6
-    assert quality["audit_files"] == 6
+    assert len(ledger_files) == 14
+    assert quality["files"] == 14
+    assert quality["files_present"] == 14
+    assert quality["files_created"] == 13
+    assert quality["schema_ok_files"] == 14
+    assert quality["domains"] == 7
+    assert quality["action_files"] == 7
+    assert quality["audit_files"] == 7
     assert quality["rows"] == 1
     assert set(ledger_files["file_role"]) == {"actions", "audit"}
     assert int(ledger_files[ledger_files["file_role"].eq("audit")]["rows"].sum()) == 0
     assert manifest["inputs"] == {}
-    assert manifest["review_specs"]["files_expected"] == 12
-    assert len(manifest["outputs"]) == 13
-    assert manifest["quality"]["schema_ok_files"] == 12
-    assert manifest["stages"][0]["files_created"] == 11
+    assert manifest["review_specs"]["files_expected"] == 14
+    assert len(manifest["outputs"]) == 15
+    assert manifest["quality"]["schema_ok_files"] == 14
+    assert manifest["stages"][0]["files_created"] == 13
 
 
 def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
@@ -3762,7 +3762,7 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
     assert monthly_plan["dimension_monthly"]["validacao"] == "python scripts/build_fidc_industry_pipeline_index.py"
     assert "industry_dimension_monthly" in monthly_plan["dimension_monthly"]["saidas"]
     assert monthly_plan["dimension_dossiers"]["comando"] == "python scripts/build_fidc_industry_dimension_dossiers.py"
-    assert index["quality_rollup"]["manual_review_domains_total"] == 6
+    assert index["quality_rollup"]["manual_review_domains_total"] == 7
     assert index["quality_rollup"]["manual_review_domains_with_actions"] == 6
     assert index["quality_rollup"]["manual_review_domains_with_audit"] == 6
     assert index["quality_rollup"]["manual_review_action_rows"] == 6
@@ -3775,9 +3775,11 @@ def test_industry_pipeline_index_rolls_up_modules_and_refresh_plan():
         "document_chunk_action",
         "snapshot_gap",
         "dimension_catalog_gap",
+        "taxonomy_review",
     }
     assert ledger["cedente_review"]["status_ledger"] == "ok"
     assert ledger["dimension_catalog_gap"]["audit_events"] == 1
+    assert ledger["taxonomy_review"]["status_ledger"] == "sem_uso"
     assert "critério" in ledger["criteria_review"]["comparison"]
     assert {stage["module_id"] for stage in index["refresh_plan"]} >= {
         "base_monthly",
