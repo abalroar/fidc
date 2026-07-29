@@ -24,6 +24,7 @@ from services.industry_ppt_export import (
 )
 from services.industry_revision_export import (
     EXPECTED_SLIDES,
+    _contains_blocked_rgb_color,
     get_revision_export_status,
     validate_revision_pptx,
     validate_revision_xlsx,
@@ -234,8 +235,8 @@ def test_industry_exports_are_valid_office_files() -> None:
         assert f"#{rank} " in slide_text
 
     with ZipFile(BytesIO(pptx)) as archive:
-        office_xml = b"".join(
-            archive.read(name).upper()
+        office_xml_parts = [
+            archive.read(name)
             for name in archive.namelist()
             if name.endswith(".xml")
             and (
@@ -243,9 +244,10 @@ def test_industry_exports_are_valid_office_files() -> None:
                 or name.startswith("ppt/theme/")
                 or "/charts/chart" in name
             )
-        )
+        ]
+        office_xml = b"".join(office_xml_parts).upper()
         assert b"EC7000" in office_xml
-        assert b"172A3A" not in office_xml
+        assert not _contains_blocked_rgb_color(office_xml_parts, "172A3A")
 
         chart_names = [
             name

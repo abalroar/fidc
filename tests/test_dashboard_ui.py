@@ -220,7 +220,7 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
         "Carteira e inadimplência",
         "Prestadores",
         "Top 20",
-        "Curadoria Outros",
+        "Curadoria Top 20",
         "Ofertas e originação",
         "Dados e exportações",
     )

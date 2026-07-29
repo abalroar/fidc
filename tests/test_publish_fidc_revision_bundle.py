@@ -380,6 +380,21 @@ def _payload() -> dict[str, object]:
         for type_index, type_name in enumerate(type_names)
         for rank in range(1, 21)
     ]
+    historical_periods = ("2023-12", "2024-12", "2025-12", "2026-05")
+    historical_top20 = []
+    for period_index, period in enumerate(historical_periods, start=1):
+        for type_index, type_name in enumerate(type_names, start=1):
+            for rank in range(1, 21):
+                cnpj = f"{period_index:02d}{type_index:02d}{rank:010d}"
+                historical_top20.append(
+                    {
+                        "competencia": period,
+                        "tipo_exibicao": type_name,
+                        "rank_tipo": rank,
+                        "cnpj_fundo": cnpj,
+                        "review_id": f"{period}|{cnpj}",
+                    }
+                )
     top100_outros = [
         {
             "competencia_pl": "2026-05",
@@ -647,6 +662,7 @@ def _payload() -> dict[str, object]:
             }
             for type_name in type_names
         ],
+        "top20_taxonomy_review": historical_top20,
         "top100_outros_review": top100_outros,
         "top100_outros_summary": {
             "outros_oficial_brl": 1000.0,

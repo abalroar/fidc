@@ -22,6 +22,7 @@ from openpyxl import load_workbook
 
 from services.industry_revision_export import (
     RevisionExportUnavailable,
+    _contains_blocked_rgb_color,
     validate_revision_pptx,
 )
 
@@ -44,6 +45,18 @@ XLSX = (
     / "generated_revision"
     / "industry_data_revised.xlsx"
 )
+
+
+def test_blocked_palette_detector_only_reads_color_elements() -> None:
+    metadata = b'<p:cNvPr xmlns:p="p" id="1" descr="random token 172A3A"/>'
+    blocked = b'<a:srgbClr xmlns:a="a" val="172a3a"/>'
+    system_fallback = b'<a:sysClr xmlns:a="a" val="window" lastClr="172A3A"/>'
+
+    assert not _contains_blocked_rgb_color([metadata], "172A3A")
+    assert _contains_blocked_rgb_color([blocked], "172A3A")
+    assert _contains_blocked_rgb_color([system_fallback], "172A3A")
+
+
 PAYLOAD = (
     ROOT
     / "data"

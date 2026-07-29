@@ -48,6 +48,7 @@ from services.industry_revision_analysis import (
 from services.industry_taxonomy_review import (
     assert_taxonomy_review_ledger_matches_audit,
     build_curated_type_mix,
+    build_historical_top20_taxonomy_review,
     build_taxonomy_review_queue,
     build_top20_by_anbima_type,
     load_taxonomy_review_actions,
@@ -2500,6 +2501,16 @@ def build_payload(
         data_dir / "industry_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
     )
+    historical_top20_document_review = _read_optional(
+        data_dir / "industry_top20_taxonomy_document_review.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    if not historical_top20_document_review.empty:
+        taxonomy_document_review = pd.concat(
+            [historical_top20_document_review, taxonomy_document_review],
+            ignore_index=True,
+            sort=False,
+        ).drop_duplicates("cnpj_fundo", keep="last")
     taxonomy_review_path = data_dir / "taxonomy_review_actions.csv"
     taxonomy_review_audit_path = data_dir / "taxonomy_review_audit.csv"
     assert_taxonomy_review_ledger_matches_audit(
@@ -2974,6 +2985,17 @@ def build_payload(
             document_review=taxonomy_document_review,
         )
     )
+    top20_taxonomy_review = build_historical_top20_taxonomy_review(
+        funds,
+        taxonomy_review_actions,
+        periods=tuple(type_mix_periods),
+        table_ii=vehicle,
+        curated_top20=curation,
+        regulation_review=top20_outros_regulations,
+        document_inventory=document_inventory,
+        card_curation=card_receivables_curation,
+        document_review=taxonomy_document_review,
+    )
     top100_outros_review = build_taxonomy_review_queue(
         funds,
         taxonomy_review_actions,
@@ -3204,6 +3226,7 @@ def build_payload(
         "top20_by_anbima_type_coverage": _records(
             top20_by_anbima_type_coverage
         ),
+        "top20_taxonomy_review": _records(top20_taxonomy_review),
         "top100_outros_review": _records(top100_outros_review),
         "top100_outros_summary": {
             str(key): _json_value(value)
@@ -3221,8 +3244,15 @@ def build_payload(
             ),
             "audit_path": "data/industry_study/taxonomy_review_audit.csv",
             "official_fields_mutated": False,
+            "review_key": "competencia_referencia|cnpj_fundo",
+            "historical_periods": list(type_mix_periods),
+            "historical_positions": int(len(top20_taxonomy_review)),
+            "historical_unique_funds": int(
+                top20_taxonomy_review["cnpj_fundo"].nunique()
+            ),
             "application_rule": (
-                "somente status aprovado com documento, página/cláusula, evidência e par Tipo/Foco válido"
+                "decisão aprovada e documentada entra em vigor na competência de referência e permanece "
+                "aplicável às competências posteriores até nova decisão para o mesmo CNPJ"
             ),
         },
         "numeric_locale_audit": [

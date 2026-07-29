@@ -745,6 +745,8 @@ def _write_taxonomy_action(path: Path) -> None:
             "cnpj_fundo": "1",
             "denominacao_referencia": "FIDC TESTE",
             "status": "em_revisao",
+            "competencia_referencia": "2026-06",
+            "competencia_inicio": "2026-06",
             "updated_at_utc": "2026-07-28T12:00:00+00:00",
         }
     )

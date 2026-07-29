@@ -92,6 +92,7 @@ from services.industry_taxonomy_review import (
     commit_taxonomy_review_action,
     load_taxonomy_review_actions,
     taxonomy_review_audit_digest,
+    taxonomy_review_id,
     taxonomy_review_ledger_digest,
 )
 
@@ -123,7 +124,7 @@ INDUSTRY_VIEW_TABS = (
     "Carteira e inadimplência",
     "Prestadores",
     "Top 20",
-    "Curadoria Outros",
+    "Curadoria Top 20",
     "Ofertas e originação",
     "Dados e exportações",
 )
@@ -13848,7 +13849,379 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
                 st.markdown(f"[Fonte primária]({row['fonte']}) · consulta em {row.get('data_consulta', 'n/d')}")
 
 
-def _render_taxonomy_review(payload: dict[str, object]) -> None:
+def _render_historical_top20_taxonomy_review(payload: dict[str, object]) -> None:
+    base = _revision_frame(payload, "top20_taxonomy_review")
+    if base.empty:
+        st.info("Fila histórica Top 20 indisponível no bundle publicado.")
+        return
+    actions = load_taxonomy_review_actions(_TAXONOMY_REVIEW_PATH)
+    base["competencia"] = base["competencia"].astype(str)
+    live = apply_taxonomy_review_overlay(base, actions)
+    live = live.drop(
+        columns=[column for column in live.columns if column.startswith("acao_")],
+        errors="ignore",
+    )
+    if not actions.empty:
+        action_view = actions.add_prefix("acao_").rename(
+            columns={"acao_review_id": "review_id"}
+        )
+        live = live.merge(
+            action_view,
+            on="review_id",
+            how="left",
+            validate="one_to_one",
+        )
+    if "acao_status" not in live:
+        live["acao_status"] = "pendente"
+    live["acao_status"] = live["acao_status"].fillna("").replace("", "pendente")
+    periods = sorted(live["competencia"].dropna().astype(str).unique(), reverse=True)
+
+    st.markdown("<h2>Top 20 por categoria ANBIMA e competência</h2>", unsafe_allow_html=True)
+    st.caption(
+        "Cada competência contém os 20 maiores fundos de Fomento Mercantil, Agro, Indústria e Comércio, "
+        "Financeiro e Outros. A fotografia ANBIMA de 29/dez/25 permanece preservada; decisões aprovadas "
+        "são gravadas na camada analítica com competência e CNPJ próprios."
+    )
+    controls = st.columns([1, 1.5, 1.3, 2.2])
+    with controls[0]:
+        selected_period = st.selectbox(
+            "Competência",
+            periods,
+            key="industry-top20-taxonomy-period",
+        )
+    with controls[1]:
+        selected_category = st.selectbox(
+            "Categoria ANBIMA",
+            list(ANBIMA_TYPES),
+            key="industry-top20-taxonomy-category",
+        )
+    with controls[2]:
+        status_filter = st.multiselect(
+            "Status",
+            ["pendente", "em_revisao", "aprovado", "rejeitado"],
+            default=["pendente", "em_revisao", "aprovado"],
+            key="industry-top20-taxonomy-status",
+        )
+    with controls[3]:
+        query = st.text_input(
+            "Buscar fundo ou CNPJ",
+            key="industry-top20-taxonomy-query",
+            placeholder="Nome ou CNPJ",
+        )
+
+    selected_rows = live[
+        live["competencia"].eq(selected_period)
+        & live["tipo_exibicao"].eq(selected_category)
+    ].copy()
+    if status_filter:
+        selected_rows = selected_rows[
+            selected_rows["acao_status"].isin(status_filter)
+        ]
+    else:
+        selected_rows = selected_rows.iloc[0:0]
+    if query:
+        search = (
+            selected_rows["denominacao"].fillna("").astype(str)
+            + " "
+            + selected_rows["cnpj_fundo"].fillna("").astype(str)
+        )
+        selected_rows = selected_rows[
+            search.str.contains(re.escape(query), case=False, na=False)
+        ]
+    if selected_rows.empty:
+        st.info("Nenhum fundo corresponde aos filtros atuais.")
+        return
+
+    selected_rows["pl"] = pd.to_numeric(selected_rows["pl"], errors="coerce").fillna(0.0)
+    display = pd.DataFrame(
+        {
+            "#": selected_rows["rank_tipo"].astype(int),
+            "FIDC": selected_rows["denominacao"].astype(str),
+            "PL": selected_rows["pl"].map(lambda value: _fmt_bi(float(value), 1)),
+            "ANBIMA preservada": selected_rows["anbima_tipo_oficial"].astype(str)
+            + " | "
+            + selected_rows["anbima_foco_oficial"].astype(str),
+            "Classificação analítica": selected_rows["anbima_tipo_curado"].astype(str)
+            + " | "
+            + selected_rows["anbima_foco_curado"].astype(str),
+            "Tabela II": selected_rows["tabela_ii_dominante"].fillna("N/D"),
+            "Documento": selected_rows["regulamento_id"].fillna("").replace("", "N/D"),
+            "Leitura": selected_rows["cedente_status"].astype(str),
+            "Ação": selected_rows["acao_status"].astype(str),
+            "Alteração manual": selected_rows["manual_override_applied"].map(
+                lambda value: "Sim" if bool(value) else "Não"
+            ),
+        }
+    )
+    st.dataframe(display, hide_index=True, width="stretch", height=430)
+
+    options = selected_rows["review_id"].astype(str).tolist()
+    labels = {
+        str(row["review_id"]): (
+            f"#{int(row['rank_tipo'])} · {row['denominacao']} · {_fmt_bi(float(row['pl']), 1)}"
+        )
+        for _, row in selected_rows.iterrows()
+    }
+    selected_review_id = st.selectbox(
+        "FIDC para revisar",
+        options,
+        format_func=lambda value: labels[value],
+        key=f"industry-top20-taxonomy-selected-{selected_period}-{selected_category}",
+    )
+    selected = live[live["review_id"].astype(str).eq(selected_review_id)].iloc[0]
+    existing = actions[actions["review_id"].astype(str).eq(selected_review_id)]
+    existing_row = existing.iloc[0] if not existing.empty else pd.Series(dtype=object)
+
+    def saved(field: str, fallback: object = "") -> str:
+        value = str(existing_row.get(field, "") or "").strip()
+        return value or str(fallback or "").strip()
+
+    selected_cnpj = str(selected["cnpj_fundo"])
+    st.markdown(f"### {selected['denominacao']}")
+    st.caption(
+        f"{selected.get('cnpj_fundo_formatado') or selected_cnpj} · {selected_period} · "
+        f"#{int(selected['rank_tipo'])} em {selected_category}"
+    )
+    official_col, document_col, source_col = st.columns(3)
+    with official_col:
+        st.markdown("**Campos preservados**")
+        st.write(
+            f"ANBIMA: {selected['anbima_tipo_oficial']} | {selected['anbima_foco_oficial']}"
+        )
+        st.write(f"Tabela II dominante: {selected.get('tabela_ii_dominante') or 'N/D'}")
+        st.caption(str(selected.get("classification_period_status") or "N/D"))
+    with document_col:
+        st.markdown("**Leitura documental**")
+        st.write(str(selected.get("evidencia_cedente") or "Sem trecho documental curado"))
+        st.caption(
+            f"Documento {selected.get('regulamento_id') or 'N/D'} · "
+            f"{selected.get('pagina_clausula') or 'página N/D'}"
+        )
+    with source_col:
+        st.markdown("**Cedente/originador**")
+        st.write(str(selected.get("cedente_originador") or "N/D"))
+        st.caption(str(selected.get("cedente_status") or "pendente"))
+        if selected.get("regulamento_url"):
+            st.markdown(f"[Abrir FundosNet]({selected['regulamento_url']})")
+
+    initial_type = saved(
+        "tipo_analitico", selected.get("tipo_anbima_sugerido") or selected_category
+    )
+    if initial_type not in ANBIMA_TYPES:
+        initial_type = selected_category
+    target_type = st.selectbox(
+        "Tipo ANBIMA analítico",
+        list(ANBIMA_TYPES),
+        index=list(ANBIMA_TYPES).index(initial_type),
+        key=f"industry-top20-taxonomy-type-{selected_review_id}",
+    )
+    focus_options = list(ANBIMA_FOCUS_BY_TYPE[target_type])
+    initial_focus = saved(
+        "foco_analitico", selected.get("foco_anbima_sugerido")
+    )
+    if initial_focus not in focus_options:
+        initial_focus = focus_options[0]
+    target_focus = st.selectbox(
+        "Foco ANBIMA analítico",
+        focus_options,
+        index=focus_options.index(initial_focus),
+        key=f"industry-top20-taxonomy-focus-{selected_review_id}-{target_type}",
+    )
+    table_options = list(CVM_TABLE_II_CATEGORIES)
+    initial_table = saved(
+        "tabela_ii_analitica", selected.get("tabela_ii_sugerida") or "N/D"
+    )
+    if initial_table not in table_options:
+        initial_table = "N/D"
+    target_table = st.selectbox(
+        "Categoria analítica da Tabela II",
+        table_options,
+        index=table_options.index(initial_table),
+        key=f"industry-top20-taxonomy-table-{selected_review_id}",
+    )
+
+    functional_n1_options = list(FUNCTIONAL_TAXONOMY)
+    initial_n1 = saved(
+        "taxonomia_funcional_n1",
+        selected.get("taxonomia_funcional_n1_sugerida"),
+    )
+    if initial_n1 not in functional_n1_options:
+        initial_n1 = ""
+    functional_n1 = st.selectbox(
+        "Taxonomia funcional N1",
+        functional_n1_options,
+        index=functional_n1_options.index(initial_n1),
+        format_func=lambda value: value or "Não informada",
+        key=f"industry-top20-taxonomy-n1-{selected_review_id}",
+    )
+    functional_n2_options = list(FUNCTIONAL_TAXONOMY[functional_n1])
+    initial_n2 = saved(
+        "taxonomia_funcional_n2",
+        selected.get("taxonomia_funcional_n2_sugerida"),
+    )
+    if initial_n2 not in functional_n2_options:
+        initial_n2 = functional_n2_options[0]
+    functional_n2 = st.selectbox(
+        "Taxonomia funcional N2",
+        functional_n2_options,
+        index=functional_n2_options.index(initial_n2),
+        format_func=lambda value: value or "Não informada",
+        key=f"industry-top20-taxonomy-n2-{selected_review_id}-{functional_n1}",
+    )
+
+    detail_cols = st.columns(2)
+    with detail_cols[0]:
+        confidence_options = list(TAXONOMY_CONFIDENCE_LEVELS)
+        initial_confidence = saved(
+            "confianca", selected.get("confianca_documental")
+        )
+        if initial_confidence not in confidence_options:
+            initial_confidence = ""
+        confidence = st.selectbox(
+            "Confiança",
+            confidence_options,
+            index=confidence_options.index(initial_confidence),
+            format_func=lambda value: value or "Selecione",
+            key=f"industry-top20-taxonomy-confidence-{selected_review_id}",
+        )
+    with detail_cols[1]:
+        reviewer = st.text_input(
+            "Responsável",
+            value=saved("responsavel"),
+            key=f"industry-top20-taxonomy-reviewer-{selected_review_id}",
+        )
+    document_id = st.text_input(
+        "ID do documento",
+        value=saved("documento_id", selected.get("regulamento_id")),
+        key=f"industry-top20-taxonomy-document-{selected_review_id}",
+    )
+    source = st.text_input(
+        "Fonte documental",
+        value=saved("fonte_documental", selected.get("regulamento_url")),
+        key=f"industry-top20-taxonomy-source-{selected_review_id}",
+    )
+    document_date = st.text_input(
+        "Data do documento",
+        value=saved("documento_data", selected.get("regulamento_data")),
+        key=f"industry-top20-taxonomy-date-{selected_review_id}",
+    )
+    page_clause = st.text_input(
+        "Página ou cláusula",
+        value=saved("pagina_clausula", selected.get("pagina_clausula")),
+        key=f"industry-top20-taxonomy-page-{selected_review_id}",
+    )
+    evidence = st.text_area(
+        "Evidência documental",
+        value=saved("evidencia", selected.get("evidencia_cedente")),
+        height=105,
+        key=f"industry-top20-taxonomy-evidence-{selected_review_id}",
+    )
+    originator = st.text_area(
+        "Cedente/originador explicitamente mencionado",
+        value=saved("cedente_originador_expresso", selected.get("cedente_originador")),
+        height=80,
+        key=f"industry-top20-taxonomy-originator-{selected_review_id}",
+    )
+    notes = st.text_area(
+        "Notas e limitações",
+        value=saved(
+            "notas",
+            selected.get("manual_validation_reason")
+            or selected.get("classification_limitation"),
+        ),
+        height=80,
+        key=f"industry-top20-taxonomy-notes-{selected_review_id}",
+    )
+
+    configured_write_token = _taxonomy_review_write_token()
+    provided_write_token = str(
+        st.session_state.get("industry-taxonomy-review-write-token") or ""
+    )
+    write_authorized = _taxonomy_review_write_authorized(
+        configured_write_token, provided_write_token
+    )
+    with st.expander("Acesso de edição", expanded=not write_authorized):
+        if configured_write_token:
+            provided_write_token = st.text_input(
+                "Chave de curadoria",
+                type="password",
+                key="industry-top20-taxonomy-review-write-token",
+                help="A chave fica somente na sessão e não é gravada no ledger.",
+            )
+            st.session_state["industry-taxonomy-review-write-token"] = (
+                provided_write_token
+            )
+            write_authorized = _taxonomy_review_write_authorized(
+                configured_write_token, provided_write_token
+            )
+            if write_authorized:
+                st.success("Edição autorizada nesta sessão.")
+            else:
+                st.caption("Informe a chave para registrar a decisão deste FIDC.")
+        else:
+            st.warning(
+                "Este ambiente está em modo somente leitura porque a chave de curadoria não foi configurada."
+            )
+
+    def persist(status_value: str) -> None:
+        if not write_authorized:
+            raise PermissionError(_taxonomy_review_access_error(configured_write_token))
+        saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        action = {
+            "review_id": selected_review_id,
+            "competencia_referencia": selected_period,
+            "cnpj_fundo": selected_cnpj,
+            "denominacao_referencia": str(selected["denominacao"]),
+            "status": status_value,
+            "tipo_analitico": target_type,
+            "foco_analitico": target_focus,
+            "tabela_ii_analitica": target_table,
+            "taxonomia_funcional_n1": functional_n1,
+            "taxonomia_funcional_n2": functional_n2,
+            "confianca": confidence,
+            "documento_id": document_id,
+            "fonte_documental": source,
+            "documento_data": document_date,
+            "pagina_clausula": page_clause,
+            "evidencia": evidence,
+            "cedente_originador_expresso": originator,
+            "notas": notes,
+            "responsavel": reviewer,
+            "competencia_inicio": selected_period,
+            "updated_at_utc": saved_at,
+        }
+        _, audit_events = commit_taxonomy_review_action(
+            action,
+            _TAXONOMY_REVIEW_PATH,
+            _TAXONOMY_REVIEW_AUDIT_PATH,
+            saved_at_utc=saved_at,
+            source="industry_top20_taxonomy_review",
+        )
+        st.session_state["industry_taxonomy_review_flash"] = (
+            f"{selected['denominacao']} ({selected_period}): revisão salva como "
+            f"{status_value}; {len(audit_events)} eventos registrados."
+        )
+        st.rerun()
+
+    selected_action = _taxonomy_review_action_choice(selected_review_id)
+    if selected_action:
+        try:
+            persist(selected_action)
+        except (PermissionError, ValueError) as exc:
+            st.error(str(exc))
+
+    st.download_button(
+        "Baixar Top 20 filtrado em CSV",
+        data=_ptbr_csv_bytes(selected_rows),
+        file_name=f"top20_taxonomia_{selected_period}_{selected_category}.csv".replace(
+            ",", ""
+        ).replace(" ", "_"),
+        mime="text/csv",
+        key=f"industry-top20-taxonomy-download-{selected_period}-{selected_category}",
+    )
+
+
+def _render_current_outros_taxonomy_review(payload: dict[str, object]) -> None:
     base = _revision_frame(payload, "top100_outros_review")
     if base.empty:
         st.info("Fila Top 100 de Outros indisponível no bundle publicado.")
@@ -13860,13 +14233,17 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
     overlay_input["anbima_foco"] = overlay_input["anbima_foco_oficial"]
     overlay_input["competencia"] = latest
     live = apply_taxonomy_review_overlay(overlay_input, actions)
+    live["competencia_referencia"] = latest
+    live["review_id"] = live["cnpj_fundo"].map(
+        lambda cnpj: taxonomy_review_id(latest, cnpj)
+    )
     if not actions.empty:
-        action_view = actions.add_prefix("acao_").rename(
-            columns={"acao_cnpj_fundo": "cnpj_fundo"}
-        )
+        action_view = actions[
+            actions["competencia_referencia"].eq(latest)
+        ].add_prefix("acao_").rename(columns={"acao_review_id": "review_id"})
         live = live.merge(
             action_view,
-            on="cnpj_fundo",
+            on="review_id",
             how="left",
             validate="one_to_one",
         )
@@ -14059,7 +14436,8 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
             height=min(520, 86 + 34 * len(display)),
         )
     selected = live[live["cnpj_fundo"].astype(str).eq(selected_cnpj)].iloc[0]
-    existing = actions[actions["cnpj_fundo"].astype(str).eq(selected_cnpj)]
+    selected_review_id = taxonomy_review_id(latest, selected_cnpj)
+    existing = actions[actions["review_id"].astype(str).eq(selected_review_id)]
     existing_row = existing.iloc[0] if not existing.empty else pd.Series(dtype=object)
 
     def saved(field: str, fallback: object = "") -> str:
@@ -14177,8 +14555,9 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
         )
     with form_cols[2]:
         competence_start = st.text_input(
-            "Vigência a partir de",
-            value=saved("competencia_inicio", latest),
+            "Competência de referência",
+            value=latest,
+            disabled=True,
             key=f"industry-taxonomy-start-{selected_cnpj}",
         )
     document_id = st.text_input(
@@ -14255,6 +14634,8 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
             )
         saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
         action = {
+            "review_id": selected_review_id,
+            "competencia_referencia": latest,
             "cnpj_fundo": selected_cnpj,
             "denominacao_referencia": str(selected["denominacao"]),
             "status": status_value,
@@ -14288,7 +14669,7 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
         )
         st.rerun()
 
-    selected_action = _taxonomy_review_action_choice(selected_cnpj)
+    selected_action = _taxonomy_review_action_choice(selected_review_id)
     if selected_action:
         try:
             persist(selected_action)
@@ -14339,6 +14720,15 @@ def _render_taxonomy_review(payload: dict[str, object]) -> None:
             _TAXONOMY_REVIEW_AUDIT_PATH,
             empty_label="Nenhuma alteração de taxonomia foi salva.",
         )
+
+
+def _render_taxonomy_review(payload: dict[str, object]) -> None:
+    flash = st.session_state.pop("industry_taxonomy_review_flash", "")
+    if flash:
+        st.success(flash)
+    _render_historical_top20_taxonomy_review(payload)
+    st.divider()
+    _render_current_outros_taxonomy_review(payload)
 
 
 def _render_revision_offer_ticket_distribution(

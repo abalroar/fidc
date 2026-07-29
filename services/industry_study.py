@@ -9,7 +9,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from services.industry_taxonomy_review import TAXONOMY_REVIEW_COLUMNS
+from services.industry_taxonomy_review import (
+    TAXONOMY_REVIEW_COLUMNS,
+    TAXONOMY_REVIEW_KEY_COLUMN,
+)
 
 
 CEDENTE_REVIEW_COLUMNS = [
@@ -96,7 +99,7 @@ MANUAL_REVIEW_LEDGER_SPECS = [
         "module_id": "revision_exports",
         "action_file": "taxonomy_review_actions.csv",
         "audit_file": "taxonomy_review_audit.csv",
-        "key_column": "cnpj_fundo",
+        "key_column": TAXONOMY_REVIEW_KEY_COLUMN,
         "status_column": "status",
         "ui_surface": "Curadoria Outros",
         "comparison": "Tipo/Foco ANBIMA oficial × classificação analítica aprovada",
