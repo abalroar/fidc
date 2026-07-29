@@ -194,13 +194,21 @@ def test_documentary_overrides_preserve_mixed_mandates_and_bank_issuers() -> Non
     )
     assert indexed.loc["43911620000195", "tipo_anbima_sugerido"] == "Financeiro"
     assert indexed.loc["43911620000195", "taxonomia_funcional_n2_sugerida"] == (
-        "Bancos Emissores"
+        "Banco emissor/cartão de crédito"
     )
     assert indexed.loc["52256912000122", "reclassification_status"] == (
         "manter_classificacao_oficial"
     )
     assert indexed.loc["24761946000139", "foco_anbima_sugerido"] == "Crédito Pessoal"
-    assert indexed.loc["32527650000186", "tabela_ii_sugerida_documental"] == "N/D"
+    assert indexed.loc["32527650000186", "tabela_ii_sugerida_documental"] == (
+        "Adquirência"
+    )
+    assert indexed.loc["12817329000129", "foco_anbima_sugerido"] == (
+        "Multicarteira Financeiro"
+    )
+    assert indexed.loc["42922136000107", "taxonomia_funcional_n2_sugerida"] == (
+        "Crédito PF parcelado / BNPL"
+    )
     acquiring = indexed.loc[list(ACQUIRING_CNPJS)]
     assert acquiring["tipo_anbima_sugerido"].eq("Financeiro").all()
     assert acquiring["foco_anbima_sugerido"].eq("Adquirência").all()

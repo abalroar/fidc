@@ -15,6 +15,7 @@ from services.industry_taxonomy_review import (
     assert_taxonomy_review_ledger_matches_audit,
     build_curated_type_mix,
     build_historical_top20_taxonomy_review,
+    build_unique_taxonomy_operational_queue,
     build_taxonomy_review_queue,
     build_top20_by_anbima_type,
     commit_taxonomy_review_action,
@@ -124,7 +125,7 @@ def test_top20_by_type_has_four_groups_and_uses_slide_bucket() -> None:
     assert coverage.loc[coverage["tipo_exibicao"].eq("Total"), "fundos"].item() == 80
 
 
-def test_historical_top20_has_period_aware_review_keys_and_preserves_official_fields() -> None:
+def test_historical_top20_reuses_cnpj_review_keys_and_preserves_official_fields() -> None:
     current = _funds()
     template = current[current["competencia"].eq("2026-06")]
     funds = pd.concat(
@@ -139,13 +140,14 @@ def test_historical_top20_has_period_aware_review_keys_and_preserves_official_fi
     )
 
     assert len(queue) == 320
-    assert queue["review_id"].is_unique
+    assert queue["review_id"].nunique() == queue["cnpj_fundo"].nunique()
+    assert queue.groupby("cnpj_fundo")["review_id"].nunique().eq(1).all()
     assert set(queue.groupby(["competencia", "tipo_exibicao"]).size()) == {20}
     assert queue["anbima_tipo_oficial"].equals(queue["anbima_tipo"])
     assert not queue["manual_override_applied"].any()
 
 
-def test_period_decisions_for_same_fund_form_a_chronological_overlay() -> None:
+def test_latest_cnpj_decision_applies_to_every_occurrence() -> None:
     funds = pd.DataFrame(
         [
             {
@@ -173,10 +175,50 @@ def test_period_decisions_for_same_fund_form_a_chronological_overlay() -> None:
 
     overlaid = apply_taxonomy_review_overlay(funds, actions).set_index("competencia")
 
-    assert overlaid.at["2024-12", "anbima_tipo_curado"] == "Outros"
-    assert overlaid.at["2025-12", "anbima_tipo_curado"] == "Financeiro"
+    assert overlaid.at["2024-12", "anbima_tipo_curado"] == "Agro, Indústria e Comércio"
+    assert overlaid.at["2025-12", "anbima_tipo_curado"] == "Agro, Indústria e Comércio"
     assert overlaid.at["2026-06", "anbima_tipo_curado"] == "Agro, Indústria e Comércio"
-    assert taxonomy_review_id("2025-12", "1") == "2025-12|00000000000001"
+    assert taxonomy_review_id("2025-12", "1") == "00000000000001"
+
+
+def test_operational_queue_is_unique_by_cnpj_and_uses_highest_pl() -> None:
+    rows = pd.DataFrame(
+        [
+            {
+                "competencia": "2025-12",
+                "cnpj_fundo": "1",
+                "denominacao": "FIDC UM",
+                "pl": 100.0,
+                "anbima_tipo": "Outros",
+                "anbima_foco": "Multicarteira Outros",
+                "reclassification_status": "propor_reclassificacao_documental",
+            },
+            {
+                "competencia": "2026-06",
+                "cnpj_fundo": "1",
+                "denominacao": "FIDC UM",
+                "pl": 150.0,
+                "anbima_tipo": "Outros",
+                "anbima_foco": "Multicarteira Outros",
+                "reclassification_status": "propor_reclassificacao_documental",
+            },
+            {
+                "competencia": "2026-06",
+                "cnpj_fundo": "2",
+                "denominacao": "FIDC DOIS",
+                "pl": 200.0,
+                "anbima_tipo": "Outros",
+                "anbima_foco": "Multicarteira Outros",
+                "reclassification_status": "requer_validacao_manual",
+            },
+        ]
+    )
+
+    queue = build_unique_taxonomy_operational_queue(rows, _action())
+
+    assert queue["cnpj_fundo"].tolist() == ["00000000000002"]
+    assert queue.iloc[0]["pl_max"] == pytest.approx(200.0)
+    assert queue.iloc[0]["ocorrencias"] == 1
 
 
 def test_top20_type_denominator_keeps_negative_pl_from_slide_universe() -> None:
@@ -420,7 +462,7 @@ def test_approved_overlay_preserves_official_fields_and_changes_analytical_mix()
     assert summary["outros_curado_brl"] == pytest.approx(50.0)
 
 
-def test_approved_overlay_respects_the_starting_competence() -> None:
+def test_approved_overlay_is_independent_of_starting_competence() -> None:
     funds = pd.DataFrame(
         [
             {
@@ -444,8 +486,8 @@ def test_approved_overlay_respects_the_starting_competence() -> None:
         "anbima_tipo"
     )
 
-    assert historical.loc["Outros", "pl"] == pytest.approx(100.0)
-    assert historical.loc["Agro, Indústria e Comércio", "pl"] == pytest.approx(0.0)
+    assert historical.loc["Outros", "pl"] == pytest.approx(0.0)
+    assert historical.loc["Agro, Indústria e Comércio", "pl"] == pytest.approx(100.0)
     assert current.loc["Outros", "pl"] == pytest.approx(0.0)
     assert current.loc["Agro, Indústria e Comércio", "pl"] == pytest.approx(100.0)
 
@@ -620,7 +662,7 @@ def test_overlay_applies_approved_action_without_hidden_documentary_metadata() -
     "competence",
     ["", "invalida", "2026/06", "2026-00", "2026-13"],
 )
-def test_overlay_fails_closed_for_invalid_fund_competence(competence: str) -> None:
+def test_overlay_uses_cnpj_even_when_occurrence_has_invalid_competence(competence: str) -> None:
     funds = pd.DataFrame(
         [
             {
@@ -634,7 +676,7 @@ def test_overlay_fails_closed_for_invalid_fund_competence(competence: str) -> No
 
     overlaid = apply_taxonomy_review_overlay(funds, _action())
 
-    assert not bool(overlaid.iloc[0]["taxonomy_review_applied"])
+    assert bool(overlaid.iloc[0]["taxonomy_review_applied"])
 
 
 def test_approval_accepts_analytical_acquiring_focus(tmp_path: Path) -> None:
@@ -717,7 +759,7 @@ def test_commit_persists_decision_with_append_only_audit(tmp_path: Path) -> None
     assert len(updated) == 1
     assert not events.empty
     assert set(audit["review_domain"]) == {"taxonomy_review"}
-    assert set(audit["record_id"]) == {"2026-06|00000000000001"}
+    assert set(audit["record_id"]) == {"00000000000001"}
     assert not audit["source"].str.contains(":prepared:", regex=False).any()
 
 
@@ -792,8 +834,8 @@ def test_commit_recovers_an_interrupted_prepared_audit(
     audit = load_taxonomy_review_audit(audit_path)
     assert not taxonomy_review_audit_has_pending(audit_path)
     assert set(audit["record_id"]) == {
-        "2026-06|00000000000001",
-        "2026-06|00000000000002",
+        "00000000000001",
+        "00000000000002",
     }
     assert audit["event_id"].map(
         lambda value: bool(re.fullmatch(r"[0-9a-f]{32}:[0-9a-f]{20}", value))

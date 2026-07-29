@@ -572,20 +572,20 @@ CURATED_CLASSIFICATION_OVERRIDES: dict[str, dict[str, object]] = {
         "source_limitations": "A materialidade por instrumento depende da carteira efetiva.",
     },
     "12817329000129": {
-        "pagina_clausula": "p. 30 — definição das quatro famílias de direitos creditórios",
+        "pagina_clausula": "Regulamento p. 30; DF 2025 p. 17",
         "evidence_summary": (
             "O regulamento reúne vendas varejistas à vista e parceladas, CCBs de renegociação, "
             "recebíveis de cartão e créditos contra devedores especiais de adquirência."
         ),
-        "tipo_anbima_sugerido": "Agro, Indústria e Comércio",
-        "foco_anbima_sugerido": "Multicarteira Agro, Indústria e Comércio",
+        "tipo_anbima_sugerido": "Financeiro",
+        "foco_anbima_sugerido": "Multicarteira Financeiro",
         "tabela_ii_sugerida_documental": "N/D",
-        "taxonomia_funcional_n1_sugerida": "Crédito PF",
-        "taxonomia_funcional_n2_sugerida": "Recebíveis comerciais/multissetorial",
+        "taxonomia_funcional_n1_sugerida": "Multissetorial / Outros",
+        "taxonomia_funcional_n2_sugerida": "Multicarteira financeiro",
         "reclassification_status": "propor_reclassificacao_documental",
         "confianca_documental": "alta",
-        "manual_validation_reason": "Conclusão documental propõe classificação multicarteira; confirmar antes de Aprovar e aplicar.",
-        "source_limitations": "As quatro famílias podem ter materialidades distintas ao longo do tempo.",
+        "manual_validation_reason": "Regulamento e DF confirmam lastro misto sem abertura de saldo por família; aplicada a regra de Multicarteira Financeiro.",
+        "source_limitations": "A DF não segrega o PL entre vendas, CCBs, cartão e unidades de recebíveis.",
     },
     "24761946000139": {
         "pagina_clausula": "p. 85-86 — definição dos direitos creditórios",
@@ -624,22 +624,34 @@ CURATED_CLASSIFICATION_OVERRIDES: dict[str, dict[str, object]] = {
             "O regulamento abrange créditos de lojistas e subcredenciadores em arranjos de "
             "pagamento e créditos de usuários decorrentes de operações de cash-in."
         ),
-        "tipo_anbima_sugerido": "Agro, Indústria e Comércio",
-        "foco_anbima_sugerido": "Recebíveis Comerciais",
-        "tabela_ii_sugerida_documental": "N/D",
+        "tipo_anbima_sugerido": "Financeiro",
+        "foco_anbima_sugerido": "Adquirência",
+        "tabela_ii_sugerida_documental": "Adquirência",
         "taxonomia_funcional_n1_sugerida": "Meios de Pagamento e Cartões",
         "taxonomia_funcional_n2_sugerida": "Arranjos de pagamento/adquirência",
         "reclassification_status": "propor_reclassificacao_documental",
-        "confianca_documental": "media",
-        "manual_validation_reason": "Conclusão documental propõe Recebíveis Comerciais; confirmar o peso das famílias de pagamento.",
-        "source_limitations": "O lastro combina créditos de lojistas e créditos de usuários de cash-in.",
+        "confianca_documental": "alta",
+        "manual_validation_reason": "PicPay é o devedor direto dos créditos de cash-in e pagamentos; a DF não evidencia empréstimo ao consumidor na carteira.",
+        "source_limitations": "A carteira pode variar dentro dos critérios de elegibilidade do regulamento.",
+    },
+    "42922136000107": {
+        "pagina_clausula": "Regulamento p. 29, 31 e 36; DF 2025",
+        "tipo_anbima_sugerido": "Financeiro",
+        "foco_anbima_sugerido": "Crédito PF",
+        "tabela_ii_sugerida_documental": "Cartão de crédito",
+        "taxonomia_funcional_n1_sugerida": "Crédito PF",
+        "taxonomia_funcional_n2_sugerida": "Crédito PF parcelado / BNPL",
+        "reclassification_status": "propor_reclassificacao_documental",
+        "confianca_documental": "alta",
+        "manual_validation_reason": "Crédito PF parcelado/BNPL adotado como risco econômico predominante.",
+        "source_limitations": "O regulamento admite mais de uma família; a DF não abre o saldo por família.",
     },
 }
 
 ACQUIRING_CNPJS: frozenset[str] = frozenset(
     {
         "57609282000146",  # Cloudwalk A.I.
-        "62393679000183",  # Cloudwalk Bela
+        "60356171000180",  # Cloudwalk PI
         "28169275000172",  # PagSeguro I
         "26287464000114",  # Tapso
         "50473039000102",  # Seller I
@@ -656,6 +668,7 @@ BANK_ISSUER_CNPJS: tuple[str, ...] = (
     "43911620000195",
     "52256912000122",
     "40906126000144",
+    "62393679000183",
 )
 
 BANK_ISSUER_KEEP_OFFICIAL_CNPJS: frozenset[str] = frozenset({"52256912000122"})
@@ -1062,16 +1075,16 @@ def _apply_documentary_overrides(output: pd.DataFrame) -> pd.DataFrame:
                 "bancos emissores de cartões, no fluxo financeiro dos arranjos de pagamento."
             ),
             "tipo_anbima_sugerido": "Financeiro",
-            "foco_anbima_sugerido": "Multicarteira Financeiro",
+            "foco_anbima_sugerido": "Cartão de crédito",
             "tabela_ii_sugerida_documental": "Cartão de crédito",
             "taxonomia_funcional_n1_sugerida": "Meios de Pagamento e Cartões",
-            "taxonomia_funcional_n2_sugerida": "Bancos Emissores",
+            "taxonomia_funcional_n2_sugerida": "Banco emissor/cartão de crédito",
             "reclassification_status": status,
             "confianca_documental": "alta",
             "manual_validation_reason": (
                 "Conclusão documental recomenda manter a classificação oficial de bancos emissores."
                 if status == "manter_classificacao_oficial"
-                else "Conclusão documental propõe Financeiro / Multicarteira Financeiro pela contraparte bancária emissora."
+                else "Conclusão documental propõe Financeiro / Cartão de crédito pela contraparte bancária emissora."
             ),
             "source_limitations": (
                 "A carteira decorre do fluxo de cartão, mas a obrigação cedida recai sobre os bancos emissores."
@@ -1097,6 +1110,24 @@ def _apply_documentary_overrides(output: pd.DataFrame) -> pd.DataFrame:
         }
         for column, value in values.items():
             result.loc[mask, column] = value
+    unresolved = {
+        "40906116000109": (
+            "O regulamento identifica Banco Bradesco e Banco Bradescard como emissores/devedores; "
+            "as demonstrações financeiras não foram localizadas no corpus para concluir a verificação tripla.",
+            "Ausência de demonstrações financeiras anexadas para confirmar a composição efetiva.",
+        ),
+        "38376526000143": (
+            "O regulamento combina adquirência com créditos parcelados de cursos e conteúdo sem predominância mensurável.",
+            "Abertura da carteira por família de lastro não disponível.",
+        ),
+    }
+    for cnpj, (reason, limitation) in unresolved.items():
+        mask = result["cnpj_fundo"].eq(cnpj)
+        if int(mask.sum()) != 1:
+            raise ValueError(f"caso manual sem CNPJ único: {cnpj}")
+        result.loc[mask, "reclassification_status"] = "requer_validacao_manual"
+        result.loc[mask, "manual_validation_reason"] = reason
+        result.loc[mask, "source_limitations"] = limitation
     return result
 
 

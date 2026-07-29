@@ -2936,10 +2936,9 @@ def build_payload(
     type_mix_meta["taxonomy_review_overlay"] = {
         "ledger_sha256": taxonomy_review_ledger_digest(taxonomy_review_path),
         "decisions_effective": int(
-            (
-                taxonomy_review_actions.get("status", pd.Series(dtype="object")).eq("aprovado")
-                & taxonomy_review_actions.get("competencia_inicio", pd.Series(dtype="object")).le(latest)
-            ).sum()
+            taxonomy_review_actions.get(
+                "status", pd.Series(dtype="object")
+            ).eq("aprovado").sum()
         ),
         "official_history_preserved_in": "type_mix_history_official",
     }
@@ -3290,15 +3289,15 @@ def build_payload(
             ),
             "audit_path": "data/industry_study/taxonomy_review_audit.csv",
             "official_fields_mutated": False,
-            "review_key": "competencia_referencia|cnpj_fundo",
+            "review_key": "cnpj_fundo",
             "historical_periods": list(type_mix_periods),
             "historical_positions": int(len(top20_taxonomy_review)),
             "historical_unique_funds": int(
                 top20_taxonomy_review["cnpj_fundo"].nunique()
             ),
             "application_rule": (
-                "decisão aprovada e documentada entra em vigor na competência de referência e permanece "
-                "aplicável às competências posteriores até nova decisão para o mesmo CNPJ"
+                "decisão aprovada por CNPJ é aplicada a todas as competências passadas e futuras "
+                "em que o mesmo fundo apareça"
             ),
         },
         "numeric_locale_audit": [
