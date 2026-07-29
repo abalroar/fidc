@@ -10,6 +10,8 @@ from zipfile import ZipFile
 
 import pytest
 
+from services.industry_revision_export import _contains_blocked_rgb_color
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PPTX = Path(
@@ -697,7 +699,7 @@ def test_deck_palette_and_explicit_slide_font() -> None:
             for name in archive.namelist()
             if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)
         )
-        office_xml = b"".join(
+        office_xml_parts = [
             archive.read(name)
             for name in archive.namelist()
             if name.endswith(".xml")
@@ -706,10 +708,10 @@ def test_deck_palette_and_explicit_slide_font() -> None:
                 or name.startswith("ppt/theme/")
                 or "/charts/chart" in name
             )
-        )
+        ]
+        office_xml = b"".join(office_xml_parts)
         assert b"EC7000" in office_xml.upper()
-        assert b"172A3A" not in office_xml.upper()
-        assert b'COLOR="172A3A"' not in office_xml.upper()
+        assert not _contains_blocked_rgb_color(office_xml_parts, "172A3A")
         assert b'typeface="Calibri"' not in slide_xml
         assert b'typeface="Arial"' in slide_xml
 

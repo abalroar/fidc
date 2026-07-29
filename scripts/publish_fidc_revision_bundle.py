@@ -1113,6 +1113,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "taxonomy_top15",
         "top20_by_anbima_type",
         "top20_by_anbima_type_coverage",
+        "top20_taxonomy_review",
         "top100_outros_review",
         "numeric_locale_audit",
         "provider_independent_ranking",
@@ -1632,6 +1633,41 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
     if len({str(row.get("cnpj_fundo") or "") for row in top20_by_type}) != 80:
         raise RevisionBundlePublishError("Top 20 por Tipo contém CNPJ duplicado")
 
+    historical_top20 = list(payload.get("top20_taxonomy_review") or [])
+    if len(historical_top20) != 320:
+        raise RevisionBundlePublishError(
+            "top20_taxonomy_review deve conter 320 linhas"
+        )
+    historical_periods = {
+        str(row.get("competencia") or "") for row in historical_top20
+    }
+    if historical_periods != set(expected_periods):
+        raise RevisionBundlePublishError(
+            "top20_taxonomy_review diverge das quatro competências editoriais"
+        )
+    historical_groups: dict[tuple[str, str], int] = {}
+    review_ids: set[str] = set()
+    for row in historical_top20:
+        group = (
+            str(row.get("competencia") or ""),
+            str(row.get("tipo_exibicao") or ""),
+        )
+        historical_groups[group] = historical_groups.get(group, 0) + 1
+        review_id = str(row.get("review_id") or "")
+        if not re.fullmatch(r"[0-9]{4}-[0-9]{2}\|[0-9]{14}", review_id):
+            raise RevisionBundlePublishError(
+                "top20_taxonomy_review contém review_id inválido"
+            )
+        review_ids.add(review_id)
+    if len(historical_groups) != 16 or set(historical_groups.values()) != {20}:
+        raise RevisionBundlePublishError(
+            "top20_taxonomy_review deve conter 20 fundos por Tipo e competência"
+        )
+    if len(review_ids) != 320:
+        raise RevisionBundlePublishError(
+            "top20_taxonomy_review contém review_id duplicado"
+        )
+
     top100_outros = list(payload.get("top100_outros_review") or [])
     if len(top100_outros) != 100:
         raise RevisionBundlePublishError(
@@ -1963,6 +1999,9 @@ def build_bundle_manifest(
             "top20_by_anbima_type": len(
                 list(payload.get("top20_by_anbima_type") or [])
             ),
+            "top20_taxonomy_review": len(
+                list(payload.get("top20_taxonomy_review") or [])
+            ),
             "top100_outros_review": len(
                 list(payload.get("top100_outros_review") or [])
             ),
@@ -2052,6 +2091,10 @@ def validate_renderer_manifest(
         raise RevisionBundlePublishError("manifest do renderer falhou nos checks Top 20")
     if int(checks.get("top20_by_anbima_type") or 0) != 80:
         raise RevisionBundlePublishError("manifest do renderer falhou no Top 20 por Tipo")
+    if int(checks.get("top20_taxonomy_review") or 0) != 320:
+        raise RevisionBundlePublishError(
+            "manifest do renderer falhou na fila histórica Top 20"
+        )
     if int(checks.get("top100_outros_review") or 0) != 100:
         raise RevisionBundlePublishError("manifest do renderer falhou na fila Top 100 Outros")
 

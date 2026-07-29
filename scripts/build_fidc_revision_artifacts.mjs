@@ -811,6 +811,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       top20_outros: payload.top20_outros.length,
       profiles: payload.profiles.length,
       top20_by_anbima_type: payload.top20_by_anbima_type.length,
+      top20_taxonomy_review: payload.top20_taxonomy_review.length,
       top100_outros_review: payload.top100_outros_review.length,
       market_share_combinations: new Set(
         payload.market_share.map(

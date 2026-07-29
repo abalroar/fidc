@@ -347,6 +347,28 @@ def _validate_native_table_slide(
         )
 
 
+def _contains_blocked_rgb_color(
+    xml_parts: Iterable[bytes],
+    blocked_color: str,
+) -> bool:
+    """Match a blocked RGB value only in DrawingML color elements."""
+
+    blocked = str(blocked_color).strip().removeprefix("#").upper()
+    for xml in xml_parts:
+        root = ElementTree.fromstring(xml)
+        for element in root.iter():
+            local_name = str(element.tag).rsplit("}", 1)[-1]
+            if local_name not in {"srgbClr", "sysClr"}:
+                continue
+            values = (
+                str(element.attrib.get("val") or "").removeprefix("#").upper(),
+                str(element.attrib.get("lastClr") or "").removeprefix("#").upper(),
+            )
+            if blocked in values:
+                return True
+    return False
+
+
 def validate_revision_pptx(payload: bytes) -> None:
     """Validate the visual contract directly in the exported OOXML."""
 
@@ -408,7 +430,7 @@ def validate_revision_pptx(payload: bytes) -> None:
             expected_dimensions=((8, 9),),
             canvas=canvas,
         )
-        office_xml = b"".join(
+        office_xml_parts = [
             archive.read(name)
             for name in archive.namelist()
             if name.endswith(".xml") and (
@@ -416,8 +438,8 @@ def validate_revision_pptx(payload: bytes) -> None:
                 or name.startswith("ppt/theme/")
                 or "/charts/chart" in name
             )
-        )
-        if b"172A3A" in office_xml.upper():
+        ]
+        if _contains_blocked_rgb_color(office_xml_parts, "172A3A"):
             raise RevisionExportUnavailable("PPTX revisado contém a cor navy bloqueada")
         chart_xml = b"".join(archive.read(name) for name in _chart_members(archive))
         if b'<c:smooth val="1"' in chart_xml or b'<c:smooth val="true"' in chart_xml:

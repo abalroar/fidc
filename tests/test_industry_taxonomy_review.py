@@ -14,6 +14,7 @@ from services.industry_taxonomy_review import (
     apply_taxonomy_review_overlay,
     assert_taxonomy_review_ledger_matches_audit,
     build_curated_type_mix,
+    build_historical_top20_taxonomy_review,
     build_taxonomy_review_queue,
     build_top20_by_anbima_type,
     commit_taxonomy_review_action,
@@ -21,6 +22,7 @@ from services.industry_taxonomy_review import (
     load_taxonomy_review_actions,
     save_taxonomy_review_actions,
     taxonomy_review_summary,
+    taxonomy_review_id,
     taxonomy_review_audit_has_pending,
     upsert_taxonomy_review_action,
 )
@@ -122,6 +124,61 @@ def test_top20_by_type_has_four_groups_and_uses_slide_bucket() -> None:
     assert coverage.loc[coverage["tipo_exibicao"].eq("Total"), "fundos"].item() == 80
 
 
+def test_historical_top20_has_period_aware_review_keys_and_preserves_official_fields() -> None:
+    current = _funds()
+    template = current[current["competencia"].eq("2026-06")]
+    funds = pd.concat(
+        [template.assign(competencia=period) for period in ("2023-12", "2024-12", "2025-12", "2026-06")],
+        ignore_index=True,
+    )
+
+    queue = build_historical_top20_taxonomy_review(
+        funds,
+        None,
+        periods=("2023-12", "2024-12", "2025-12", "2026-06"),
+    )
+
+    assert len(queue) == 320
+    assert queue["review_id"].is_unique
+    assert set(queue.groupby(["competencia", "tipo_exibicao"]).size()) == {20}
+    assert queue["anbima_tipo_oficial"].equals(queue["anbima_tipo"])
+    assert not queue["manual_override_applied"].any()
+
+
+def test_period_decisions_for_same_fund_form_a_chronological_overlay() -> None:
+    funds = pd.DataFrame(
+        [
+            {
+                "competencia": period,
+                "cnpj_fundo": "1",
+                "anbima_tipo": "Outros",
+                "anbima_foco": "Multicarteira Outros",
+            }
+            for period in ("2024-12", "2025-12", "2026-06")
+        ]
+    )
+    action_2025 = _action(
+        competencia_referencia="2025-12",
+        competencia_inicio="2025-12",
+        tipo_analitico="Financeiro",
+        foco_analitico="Crédito Pessoal",
+    )
+    action_2026 = _action(
+        competencia_referencia="2026-06",
+        competencia_inicio="2026-06",
+        tipo_analitico="Agro, Indústria e Comércio",
+        foco_analitico="Crédito Corporativo",
+    )
+    actions = pd.concat([action_2025, action_2026], ignore_index=True)
+
+    overlaid = apply_taxonomy_review_overlay(funds, actions).set_index("competencia")
+
+    assert overlaid.at["2024-12", "anbima_tipo_curado"] == "Outros"
+    assert overlaid.at["2025-12", "anbima_tipo_curado"] == "Financeiro"
+    assert overlaid.at["2026-06", "anbima_tipo_curado"] == "Agro, Indústria e Comércio"
+    assert taxonomy_review_id("2025-12", "1") == "2025-12|00000000000001"
+
+
 def test_top20_type_denominator_keeps_negative_pl_from_slide_universe() -> None:
     funds = _funds()
     baseline, _ = build_top20_by_anbima_type(funds, latest="2026-06")
@@ -185,6 +242,81 @@ def test_supplemental_document_review_completes_top20_originator_evidence() -> N
         coverage["tipo_exibicao"].eq("Fomento Mercantil"),
         "cedente_curadoria_concluida",
     ].item() == 1
+
+
+def test_automated_document_review_requires_a_readable_document() -> None:
+    funds = _funds()
+    cnpj = funds.loc[
+        funds["competencia"].eq("2026-06")
+        & funds["anbima_tipo"].eq("Fomento Mercantil"),
+        "cnpj_fundo",
+    ].iloc[0]
+    review = pd.DataFrame(
+        [
+            {
+                "review_scope": "top20_por_tipo_periodos_2023_2026",
+                "cnpj_fundo": cnpj,
+                "document_id": "",
+                "reading_method": "documento não localizado",
+                "document_url": "https://exemplo.invalid/fundosnet",
+            }
+        ]
+    )
+
+    top20, coverage = build_top20_by_anbima_type(
+        funds,
+        latest="2026-06",
+        document_review=review,
+    )
+
+    row = top20[top20["cnpj_fundo"].eq(str(cnpj).zfill(14))].iloc[0]
+    assert row["cedente_status"] == "regulamento_nao_localizado_no_corpus_versionado"
+    assert coverage.loc[
+        coverage["tipo_exibicao"].eq("Fomento Mercantil"),
+        "cedente_curadoria_concluida",
+    ].item() == 0
+
+
+def test_automated_document_review_does_not_override_human_curation() -> None:
+    funds = _funds()
+    cnpj = funds.loc[
+        funds["competencia"].eq("2026-06")
+        & funds["anbima_tipo"].eq("Fomento Mercantil"),
+        "cnpj_fundo",
+    ].iloc[0]
+    curated = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": cnpj,
+                "cedente_originador": "Cedente validado S.A.",
+                "documentos_primarios_ids": "doc-manual",
+                "nota_classificacao": "Trecho validado manualmente.",
+            }
+        ]
+    )
+    automated = pd.DataFrame(
+        [
+            {
+                "review_scope": "top20_por_tipo_periodos_2023_2026",
+                "cnpj_fundo": cnpj,
+                "document_id": "doc-auto",
+                "reading_method": "leitura integral automatizada de 10 páginas por pypdf",
+                "cedent_originator_explicit": "Candidato textual para validação",
+            }
+        ]
+    )
+
+    top20, _ = build_top20_by_anbima_type(
+        funds,
+        latest="2026-06",
+        curated_top20=curated,
+        document_review=automated,
+    )
+
+    row = top20[top20["cnpj_fundo"].eq(str(cnpj).zfill(14))].iloc[0]
+    assert row["cedente_status"] == "curadoria_documental_concluida"
+    assert row["cedente_originador"] == "Cedente validado S.A."
+    assert row["regulamento_id"] == "doc-manual"
 
 
 def test_queue_filters_bucket_before_ranking_top100() -> None:
@@ -392,7 +524,7 @@ def test_approval_rejects_invalid_calendar_competence(
     tmp_path: Path,
     competence: str,
 ) -> None:
-    with pytest.raises(ValueError, match="competência inicial deve seguir AAAA-MM"):
+    with pytest.raises(ValueError, match="competência de referência deve seguir AAAA-MM"):
         save_taxonomy_review_actions(
             _action(competencia_inicio=competence),
             tmp_path / "taxonomy_review_actions.csv",
@@ -593,7 +725,7 @@ def test_commit_persists_decision_with_append_only_audit(tmp_path: Path) -> None
     assert len(updated) == 1
     assert not events.empty
     assert set(audit["review_domain"]) == {"taxonomy_review"}
-    assert set(audit["record_id"]) == {"00000000000001"}
+    assert set(audit["record_id"]) == {"2026-06|00000000000001"}
     assert not audit["source"].str.contains(":prepared:", regex=False).any()
 
 
@@ -667,7 +799,10 @@ def test_commit_recovers_an_interrupted_prepared_audit(
 
     audit = load_taxonomy_review_audit(audit_path)
     assert not taxonomy_review_audit_has_pending(audit_path)
-    assert set(audit["record_id"]) == {"00000000000001", "00000000000002"}
+    assert set(audit["record_id"]) == {
+        "2026-06|00000000000001",
+        "2026-06|00000000000002",
+    }
     assert audit["event_id"].map(
         lambda value: bool(re.fullmatch(r"[0-9a-f]{32}:[0-9a-f]{20}", value))
     ).all()

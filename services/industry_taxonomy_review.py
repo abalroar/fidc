@@ -41,6 +41,8 @@ CVM_TABLE_II_CATEGORIES: tuple[str, ...] = (
 )
 
 TAXONOMY_REVIEW_COLUMNS: tuple[str, ...] = (
+    "review_id",
+    "competencia_referencia",
     "cnpj_fundo",
     "denominacao_referencia",
     "status",
@@ -61,6 +63,7 @@ TAXONOMY_REVIEW_COLUMNS: tuple[str, ...] = (
     "competencia_inicio",
     "updated_at_utc",
 )
+TAXONOMY_REVIEW_KEY_COLUMN = "review_id"
 TAXONOMY_REVIEW_STATUSES: tuple[str, ...] = (
     "pendente",
     "em_revisao",
@@ -227,12 +230,28 @@ def _valid_month_competence(value: object) -> bool:
     return bool(match and 1 <= int(match.group(2)) <= 12)
 
 
+def taxonomy_review_id(competence: object, cnpj: object) -> str:
+    """Return the stable period-aware key used by the taxonomy ledger."""
+
+    competence_text = _text(competence)
+    if not _valid_month_competence(competence_text):
+        raise ValueError("competência de referência deve seguir AAAA-MM")
+    return f"{competence_text}|{_normalize_review_cnpj(cnpj)}"
+
+
+def _safe_taxonomy_review_id(competence: object, cnpj: object) -> str:
+    try:
+        return taxonomy_review_id(competence, cnpj)
+    except ValueError:
+        return ""
+
+
 def _blank_actions() -> pd.DataFrame:
     return pd.DataFrame(columns=list(TAXONOMY_REVIEW_COLUMNS))
 
 
 def load_taxonomy_review_actions(path: Path) -> pd.DataFrame:
-    """Load one current action per fund; an absent ledger means no decisions."""
+    """Load one current action per reference period and fund."""
 
     path = Path(path)
     if not path.exists() or not path.stat().st_size:
@@ -243,8 +262,18 @@ def load_taxonomy_review_actions(path: Path) -> pd.DataFrame:
             frame[column] = ""
     frame = frame[list(TAXONOMY_REVIEW_COLUMNS)].copy()
     frame["cnpj_fundo"] = frame["cnpj_fundo"].map(_normalize_review_cnpj)
-    frame = frame[frame["cnpj_fundo"].ne("")]
-    return frame.drop_duplicates("cnpj_fundo", keep="last").reset_index(drop=True)
+    frame["competencia_referencia"] = frame["competencia_referencia"].where(
+        frame["competencia_referencia"].astype(str).str.strip().ne(""),
+        frame["competencia_inicio"],
+    )
+    frame["review_id"] = frame.apply(
+        lambda row: _safe_taxonomy_review_id(
+            row.get("competencia_referencia"), row.get("cnpj_fundo")
+        ),
+        axis=1,
+    )
+    frame = frame[frame["review_id"].ne("")]
+    return frame.drop_duplicates("review_id", keep="last").reset_index(drop=True)
 
 
 def validate_taxonomy_review_action(action: Mapping[str, object]) -> None:
@@ -257,6 +286,13 @@ def validate_taxonomy_review_action(action: Mapping[str, object]) -> None:
     confidence = _text(action.get("confianca"))
     if confidence not in TAXONOMY_CONFIDENCE_LEVELS:
         raise ValueError(f"confiança inválida: {confidence}")
+    competence_reference = _text(action.get("competencia_referencia")) or _text(
+        action.get("competencia_inicio")
+    )
+    review_id = taxonomy_review_id(competence_reference, cnpj)
+    supplied_review_id = _text(action.get("review_id"))
+    if supplied_review_id and supplied_review_id != review_id:
+        raise ValueError("review_id incompatível com competência e CNPJ")
     functional_n1 = _text(action.get("taxonomia_funcional_n1"))
     functional_n2 = _text(action.get("taxonomia_funcional_n2"))
     if functional_n1 not in FUNCTIONAL_TAXONOMY:
@@ -316,12 +352,30 @@ def _prepare_taxonomy_review_actions(actions: pd.DataFrame | None) -> pd.DataFra
         if column not in out.columns:
             out[column] = ""
     out = out[list(TAXONOMY_REVIEW_COLUMNS)].fillna("").astype(str)
+    if out.empty:
+        return out
     out["cnpj_fundo"] = out["cnpj_fundo"].map(_normalize_review_cnpj)
+    out["competencia_referencia"] = out["competencia_referencia"].where(
+        out["competencia_referencia"].str.strip().ne(""),
+        out["competencia_inicio"],
+    )
+    out["competencia_inicio"] = out["competencia_inicio"].where(
+        out["competencia_inicio"].str.strip().ne(""),
+        out["competencia_referencia"],
+    )
+    out["review_id"] = out.apply(
+        lambda row: taxonomy_review_id(
+            row.get("competencia_referencia"), row.get("cnpj_fundo")
+        ),
+        axis=1,
+    )
     out["status"] = out["status"].replace("", "pendente")
-    out = out[out["cnpj_fundo"].ne("")].drop_duplicates("cnpj_fundo", keep="last")
+    out = out[out["review_id"].ne("")].drop_duplicates("review_id", keep="last")
     for action in out.to_dict(orient="records"):
         validate_taxonomy_review_action(action)
-    return out.sort_values(["status", "cnpj_fundo"]).reset_index(drop=True)
+    return out.sort_values(
+        ["status", "competencia_referencia", "cnpj_fundo"]
+    ).reset_index(drop=True)
 
 
 @contextmanager
@@ -382,12 +436,12 @@ def upsert_taxonomy_review_action(
     candidate = _prepare_taxonomy_review_actions(candidate)
     if len(candidate) != 1:
         raise ValueError("upsert requer uma ação com CNPJ válido")
-    cnpj = str(candidate.iloc[0]["cnpj_fundo"])
+    review_id = str(candidate.iloc[0]["review_id"])
     with _taxonomy_review_ledger_lock(path):
         current = load_taxonomy_review_actions(path)
         updated = pd.concat(
             [
-                current[~current["cnpj_fundo"].astype(str).eq(cnpj)],
+                current[~current["review_id"].astype(str).eq(review_id)],
                 candidate,
             ],
             ignore_index=True,
@@ -443,7 +497,7 @@ def _recover_prepared_taxonomy_audit(
     if audit.empty or not audit["source"].astype(str).str.contains(":prepared:", regex=False).any():
         return audit.copy()
     recovered = audit.copy()
-    ledger_by_cnpj = ledger.set_index("cnpj_fundo", drop=False)
+    ledger_by_review_id = ledger.set_index("review_id", drop=False)
     prepared_sources = recovered.loc[
         recovered["source"].astype(str).str.contains(":prepared:", regex=False),
         "source",
@@ -452,9 +506,11 @@ def _recover_prepared_taxonomy_audit(
         mask = recovered["source"].eq(prepared_source)
         events = recovered[mask]
         record_ids = events["record_id"].drop_duplicates().tolist()
-        committed = len(record_ids) == 1 and record_ids[0] in ledger_by_cnpj.index
+        committed = (
+            len(record_ids) == 1 and record_ids[0] in ledger_by_review_id.index
+        )
         if committed:
-            ledger_row = ledger_by_cnpj.loc[record_ids[0]]
+            ledger_row = ledger_by_review_id.loc[record_ids[0]]
             committed = all(
                 _text(ledger_row.get(field)) == _text(new_value)
                 for field, new_value in zip(events["field"], events["new_value"], strict=True)
@@ -497,14 +553,14 @@ def commit_taxonomy_review_action(
     candidate = _prepare_taxonomy_review_actions(candidate)
     if len(candidate) != 1:
         raise ValueError("commit requer uma ação com CNPJ válido")
-    cnpj = str(candidate.iloc[0]["cnpj_fundo"])
+    review_id = str(candidate.iloc[0]["review_id"])
 
     with _taxonomy_review_ledger_lock(ledger_path):
         with _taxonomy_review_ledger_lock(audit_path):
             previous = load_taxonomy_review_actions(ledger_path)
             updated = pd.concat(
                 [
-                    previous[~previous["cnpj_fundo"].astype(str).eq(cnpj)],
+                    previous[~previous["review_id"].astype(str).eq(review_id)],
                     candidate,
                 ],
                 ignore_index=True,
@@ -519,7 +575,7 @@ def commit_taxonomy_review_action(
             events = build_review_audit_events(
                 previous=previous,
                 updated=updated,
-                key_column="cnpj_fundo",
+                key_column="review_id",
                 review_domain="taxonomy_review",
                 saved_at_utc=saved_at_utc,
                 source=transaction_source,
@@ -594,21 +650,17 @@ def assert_taxonomy_review_ledger_matches_audit(
         raise ValueError("auditoria de taxonomia contém event_id duplicado")
 
     state: dict[str, dict[str, str]] = {}
-    valid_fields = set(TAXONOMY_REVIEW_COLUMNS).difference({"cnpj_fundo"})
+    valid_fields = set(TAXONOMY_REVIEW_COLUMNS).difference({"review_id"})
     for row_number, row in enumerate(audit.to_dict(orient="records"), start=2):
         if _text(row.get("review_domain")) != "taxonomy_review":
             raise ValueError(
                 f"auditoria de taxonomia possui domínio inválido na linha {row_number}"
             )
-        try:
-            record_id = _normalize_review_cnpj(row.get("record_id"))
-        except ValueError as exc:
+        record_id = _text(row.get("record_id"))
+        record_match = re.fullmatch(r"([0-9]{4}-[0-9]{2})\|([0-9]{14})", record_id)
+        if not record_match or not _valid_month_competence(record_match.group(1)):
             raise ValueError(
-                f"auditoria de taxonomia possui CNPJ inválido na linha {row_number}"
-            ) from exc
-        if record_id != _text(row.get("record_id")):
-            raise ValueError(
-                f"auditoria de taxonomia possui CNPJ não canônico na linha {row_number}"
+                f"auditoria de taxonomia possui review_id inválido na linha {row_number}"
             )
         field = _text(row.get("field"))
         if field not in valid_fields:
@@ -638,7 +690,7 @@ def assert_taxonomy_review_ledger_matches_audit(
     reconstructed = _prepare_taxonomy_review_actions(
         pd.DataFrame(
             [
-                {"cnpj_fundo": record_id, **values}
+                {"review_id": record_id, **values}
                 for record_id, values in state.items()
             ],
             columns=list(TAXONOMY_REVIEW_COLUMNS),
@@ -676,7 +728,19 @@ def _effective_actions(actions: pd.DataFrame | None, competence: str) -> pd.Data
         lambda row: valid_type_focus_pair(row.get("tipo_analitico"), row.get("foco_analitico")),
         axis=1,
     )
-    return frame[valid].drop_duplicates("cnpj_fundo", keep="last")
+    frame = frame.loc[valid.fillna(False).astype(bool)].copy()
+    if frame.empty:
+        return frame
+    frame["_updated_at"] = pd.to_datetime(
+        frame.get("updated_at_utc"), errors="coerce", utc=True
+    )
+    return (
+        frame.sort_values(
+            ["competencia_inicio", "competencia_referencia", "_updated_at"]
+        )
+        .drop_duplicates("cnpj_fundo", keep="last")
+        .drop(columns="_updated_at")
+    )
 
 
 def apply_taxonomy_review_overlay(
@@ -704,24 +768,17 @@ def apply_taxonomy_review_overlay(
     frame["taxonomia_funcional_n2_curada"] = ""
     frame["taxonomy_review_status"] = "pendente"
     frame["taxonomy_review_applied"] = False
-    action_frame = _blank_actions() if actions is None else actions.copy()
-    if action_frame.empty:
-        return frame
-    for column in TAXONOMY_REVIEW_COLUMNS:
-        if column not in action_frame.columns:
-            action_frame[column] = ""
-    action_frame["cnpj_fundo"] = action_frame["cnpj_fundo"].map(
-        _safe_normalize_review_cnpj
-    )
-    action_frame = action_frame[action_frame["cnpj_fundo"].ne("")]
-    action_frame = action_frame.drop_duplicates("cnpj_fundo", keep="last").set_index("cnpj_fundo")
     for index, row in frame.iterrows():
         cnpj = row["cnpj_fundo"]
+        competence = _text(row.get("competencia"))
+        action_frame = _effective_actions(actions, competence)
+        if action_frame.empty:
+            continue
+        action_frame = action_frame.set_index("cnpj_fundo")
         if cnpj not in action_frame.index:
             continue
         action = action_frame.loc[cnpj]
         frame.at[index, "taxonomy_review_status"] = _text(action.get("status")) or "pendente"
-        competence = _text(row.get("competencia"))
         starts_at = _text(action.get("competencia_inicio"))
         if _text(action.get("status")) != "aprovado":
             continue
@@ -747,6 +804,7 @@ def apply_taxonomy_review_overlay(
         frame.at[index, "taxonomia_funcional_n1_curada"] = _text(action.get("taxonomia_funcional_n1"))
         frame.at[index, "taxonomia_funcional_n2_curada"] = _text(action.get("taxonomia_funcional_n2"))
         frame.at[index, "taxonomy_review_applied"] = True
+    frame["manual_override_applied"] = frame["taxonomy_review_applied"]
     return frame
 
 
@@ -843,6 +901,18 @@ def _originator_evidence(
             )
     if document_review is not None and not document_review.empty:
         for row in document_review.to_dict(orient="records"):
+            historical_automation = _text(row.get("review_scope")).startswith(
+                "top20_por_tipo_periodos_"
+            )
+            automated = (
+                historical_automation
+                and _meaningful_documentary_text(row.get("document_id"))
+                and _text(row.get("reading_method")).startswith(
+                    "leitura integral automatizada"
+                )
+            )
+            if historical_automation and not automated:
+                continue
             rows.append(
                 {
                     "cnpj_fundo": normalize_cnpj(row.get("cnpj_fundo")),
@@ -850,7 +920,11 @@ def _originator_evidence(
                         row.get("cedent_originator_explicit")
                     )
                     or "N/D",
-                    "cedente_status": "curadoria_documental_concluida",
+                    "cedente_status": (
+                        "leitura_automatizada_pendente_validacao"
+                        if automated
+                        else "curadoria_documental_concluida"
+                    ),
                     "regulamento_id": _text(row.get("document_id")),
                     "regulamento_data": _text(row.get("document_reference_date")),
                     "regulamento_url": _text(
@@ -865,7 +939,7 @@ def _originator_evidence(
                         row.get("manual_validation_reason")
                         or row.get("source_limitations")
                     ),
-                    "_priority": 4,
+                    "_priority": 0 if automated else 4,
                 }
             )
     if not rows:
@@ -956,14 +1030,17 @@ def build_top20_by_anbima_type(
             top[column] = ""
         top[column] = top[column].fillna("").map(_text)
     has_curated = top["cedente_status"].eq("curadoria_documental_concluida")
+    has_automated = top["cedente_status"].eq(
+        "leitura_automatizada_pendente_validacao"
+    )
     has_local = top["inventario_documento_id"].ne("")
-    top.loc[~has_curated, "cedente_originador"] = "N/D"
-    top.loc[~has_curated & has_local, "cedente_status"] = "regulamento_local_sem_curadoria_concluida"
-    top.loc[~has_curated & ~has_local, "cedente_status"] = "regulamento_nao_localizado_no_corpus_versionado"
-    top.loc[~has_curated & has_local, "limitacao_cedente"] = (
+    top.loc[~has_curated & ~has_automated, "cedente_originador"] = "N/D"
+    top.loc[~has_curated & ~has_automated & has_local, "cedente_status"] = "regulamento_local_sem_curadoria_concluida"
+    top.loc[~has_curated & ~has_automated & ~has_local, "cedente_status"] = "regulamento_nao_localizado_no_corpus_versionado"
+    top.loc[~has_curated & ~has_automated & has_local, "limitacao_cedente"] = (
         "Regulamento local inventariado; leitura curada de cedente/originador ainda não concluída."
     )
-    top.loc[~has_curated & ~has_local, "limitacao_cedente"] = (
+    top.loc[~has_curated & ~has_automated & ~has_local, "limitacao_cedente"] = (
         "Documento oficial não localizado no corpus versionado em 28/jul/26; nome do fundo e prestadores não foram usados como inferência."
     )
     top.loc[top["regulamento_id"].eq(""), "regulamento_id"] = top["inventario_documento_id"]
@@ -1399,19 +1476,24 @@ def build_taxonomy_review_queue(
     )
 
     current = apply_taxonomy_review_overlay(current, actions)
+    current["competencia_referencia"] = latest
+    current["review_id"] = current["cnpj_fundo"].map(
+        lambda cnpj: taxonomy_review_id(latest, cnpj)
+    )
     action_frame = _blank_actions() if actions is None else actions.copy()
     if not action_frame.empty:
         for column in TAXONOMY_REVIEW_COLUMNS:
             if column not in action_frame:
                 action_frame[column] = ""
-        action_frame["cnpj_fundo"] = action_frame["cnpj_fundo"].map(
-            _safe_normalize_review_cnpj
-        )
-        action_frame = action_frame[action_frame["cnpj_fundo"].ne("")]
-        action_frame = action_frame.drop_duplicates("cnpj_fundo", keep="last")
+        action_frame = _prepare_taxonomy_review_actions(action_frame)
+        action_frame = action_frame[
+            action_frame["competencia_referencia"].eq(latest)
+        ].drop_duplicates("review_id", keep="last")
         current = current.merge(
-            action_frame.add_prefix("acao_").rename(columns={"acao_cnpj_fundo": "cnpj_fundo"}),
-            on="cnpj_fundo",
+            action_frame.add_prefix("acao_").rename(
+                columns={"acao_review_id": "review_id"}
+            ),
+            on="review_id",
             how="left",
             validate="one_to_one",
         )
@@ -1436,6 +1518,220 @@ def build_taxonomy_review_queue(
         lambda value: ANBIMA_REFERENCE_DATE if _text(value) == "oficial_anbima" else latest
     )
     return current.sort_values("rank_outros_slide").reset_index(drop=True)
+
+
+def build_historical_top20_taxonomy_review(
+    funds: pd.DataFrame,
+    actions: pd.DataFrame | None,
+    *,
+    periods: tuple[str, ...],
+    table_ii: pd.DataFrame | None = None,
+    curated_top20: pd.DataFrame | None = None,
+    regulation_review: pd.DataFrame | None = None,
+    document_inventory: pd.DataFrame | None = None,
+    card_curation: pd.DataFrame | None = None,
+    document_review: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Build the auditable Top 20 by displayed ANBIMA Type for each period."""
+
+    if not periods or any(not _valid_month_competence(period) for period in periods):
+        raise ValueError("competências do Top 20 histórico devem seguir AAAA-MM")
+    scoped = funds[
+        funds["competencia"].astype(str).isin(periods)
+        & ~funds["is_fic_fidc"].map(_bool)
+    ].copy()
+    scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
+    scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(normalize_cnpj)
+    scoped["tipo_exibicao"] = scoped["anbima_tipo"].map(_display_type)
+    scoped = scoped[scoped["pl"].gt(0)].sort_values(
+        ["competencia", "tipo_exibicao", "pl", "cnpj_fundo"],
+        ascending=[True, True, False, True],
+    )
+    scoped["rank_tipo"] = scoped.groupby(
+        ["competencia", "tipo_exibicao"]
+    ).cumcount() + 1
+    top = scoped[scoped["rank_tipo"].le(20)].copy()
+    counts = top.groupby(["competencia", "tipo_exibicao"]).size()
+    expected = pd.MultiIndex.from_product(
+        [periods, DISPLAY_TYPES], names=["competencia", "tipo_exibicao"]
+    )
+    if not counts.reindex(expected, fill_value=0).eq(20).all() or len(top) != 80 * len(periods):
+        raise ValueError("Top 20 histórico deve conter 20 fundos em cada Tipo e competência")
+
+    table_profiles: list[pd.DataFrame] = []
+    for period in periods:
+        profile = _table_ii_by_fund(table_ii, period)
+        profile["competencia"] = period
+        table_profiles.append(profile)
+    if table_profiles:
+        top = top.merge(
+            pd.concat(table_profiles, ignore_index=True),
+            on=["competencia", "cnpj_fundo"],
+            how="left",
+            validate="one_to_one",
+        )
+
+    evidence = _originator_evidence(
+        curated_top20,
+        regulation_review,
+        card_curation,
+        document_review,
+    )
+    if not evidence.empty:
+        top = top.merge(evidence, on="cnpj_fundo", how="left", validate="many_to_one")
+    regulations = _latest_regulations(document_inventory)
+    top = top.merge(regulations, on="cnpj_fundo", how="left", validate="many_to_one")
+
+    documentary = _documentary_top20(regulation_review)
+    supplemental = _supplemental_documentary(document_review)
+    if not supplemental.empty:
+        documentary = pd.concat(
+            [documentary, supplemental], ignore_index=True, sort=False
+        ).drop_duplicates("cnpj_fundo", keep="last")
+    if not documentary.empty:
+        wanted = [
+            "cnpj_fundo",
+            "tipo_anbima_sugerido",
+            "foco_anbima_sugerido",
+            "tabela_ii_sugerida_documental",
+            "taxonomia_funcional_n1_sugerida",
+            "taxonomia_funcional_n2_sugerida",
+            "status_revisao_documental",
+            "confianca_documental",
+            "pagina_clausula",
+            "manual_validation_reason",
+            "source_limitations",
+        ]
+        top = top.merge(
+            documentary[[column for column in wanted if column in documentary]],
+            on="cnpj_fundo",
+            how="left",
+            validate="many_to_one",
+        )
+
+    text_columns = (
+        "tabela_ii_reportada",
+        "tabela_ii_dominante",
+        "cedente_originador",
+        "cedente_status",
+        "regulamento_id",
+        "regulamento_data",
+        "regulamento_url",
+        "pagina_clausula",
+        "evidencia_cedente",
+        "confianca_cedente",
+        "limitacao_cedente",
+        "inventario_documento_id",
+        "inventario_documento_data",
+        "inventario_documento_origem",
+        "tipo_anbima_sugerido",
+        "foco_anbima_sugerido",
+        "tabela_ii_sugerida_documental",
+        "taxonomia_funcional_n1_sugerida",
+        "taxonomia_funcional_n2_sugerida",
+        "status_revisao_documental",
+        "confianca_documental",
+        "manual_validation_reason",
+        "source_limitations",
+    )
+    for column in text_columns:
+        if column not in top:
+            top[column] = ""
+        top[column] = top[column].fillna("").map(_text)
+
+    has_curated = top["cedente_status"].eq("curadoria_documental_concluida")
+    has_automated = top["cedente_status"].eq(
+        "leitura_automatizada_pendente_validacao"
+    )
+    has_local = top["inventario_documento_id"].ne("")
+    top.loc[~has_curated & ~has_automated & has_local, "cedente_status"] = (
+        "regulamento_local_sem_curadoria_concluida"
+    )
+    top.loc[~has_curated & ~has_automated & ~has_local, "cedente_status"] = (
+        "regulamento_nao_localizado_no_corpus_versionado"
+    )
+    top.loc[~has_curated & ~has_automated, "cedente_originador"] = "N/D"
+    top["regulamento_id"] = top["regulamento_id"].where(
+        top["regulamento_id"].ne(""), top["inventario_documento_id"]
+    )
+    top["regulamento_data"] = top["regulamento_data"].where(
+        top["regulamento_data"].ne(""), top["inventario_documento_data"]
+    )
+    top["regulamento_url"] = top["regulamento_url"].where(
+        top["regulamento_url"].ne(""),
+        top["cnpj_fundo"].map(
+            lambda cnpj: "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo="
+            + cnpj
+        ),
+    )
+    top["pagina_clausula"] = top["pagina_clausula"].replace(
+        "", "N/D — página não registrada"
+    )
+    top["tabela_ii_dominante"] = top["tabela_ii_dominante"].replace("", "N/D")
+    top["tabela_ii_reportada"] = top["tabela_ii_reportada"].replace(
+        "", "N/D — nenhuma categoria positiva observada"
+    )
+    top["sugestao_documental_disponivel"] = top[
+        "tipo_anbima_sugerido"
+    ].ne("")
+    top["tipo_anbima_sugerido"] = top["tipo_anbima_sugerido"].where(
+        top["tipo_anbima_sugerido"].ne(""), top["anbima_tipo"]
+    )
+    top["foco_anbima_sugerido"] = top["foco_anbima_sugerido"].where(
+        top["foco_anbima_sugerido"].ne(""), top["anbima_foco"]
+    )
+    top["tabela_ii_sugerida"] = top["tabela_ii_sugerida_documental"].where(
+        top["tabela_ii_sugerida_documental"].ne(""), top["tabela_ii_dominante"]
+    )
+    top["competencia_referencia"] = top["competencia"].astype(str)
+    top["review_id"] = top.apply(
+        lambda row: taxonomy_review_id(
+            row["competencia_referencia"], row["cnpj_fundo"]
+        ),
+        axis=1,
+    )
+    top["anbima_tipo_oficial"] = top["anbima_tipo"].map(_text)
+    top["anbima_foco_oficial"] = top["anbima_foco"].map(_text)
+    top["classification_reference_date"] = top["classification_tier"].map(
+        lambda value: ANBIMA_REFERENCE_DATE
+        if _text(value) == "oficial_anbima"
+        else ""
+    )
+    top["classification_limitation"] = top.get(
+        "classification_warning", pd.Series("", index=top.index)
+    ).fillna("").map(_text)
+    top["classification_period_status"] = (
+        "fotografia_cadastral_2025-12-29_aplicada_ao_periodo"
+    )
+    top.loc[
+        top["classification_tier"].ne("oficial_anbima"),
+        "classification_period_status",
+    ] = "classificacao_nao_oficial_ou_indisponivel"
+    top["cnpj_fundo_formatado"] = top["cnpj_fundo"].map(format_cnpj)
+
+    top = apply_taxonomy_review_overlay(top, actions)
+    exact_actions = _blank_actions() if actions is None else _prepare_taxonomy_review_actions(actions)
+    if not exact_actions.empty:
+        top = top.merge(
+            exact_actions.add_prefix("acao_").rename(
+                columns={"acao_review_id": "review_id"}
+            ),
+            on="review_id",
+            how="left",
+            validate="one_to_one",
+        )
+    if "acao_status" not in top:
+        top["acao_status"] = "pendente"
+    top["acao_status"] = top["acao_status"].fillna("").replace("", "pendente")
+    top["manual_override_applied"] = top["taxonomy_review_applied"].astype(bool)
+    return top.sort_values(
+        ["competencia", "tipo_exibicao", "rank_tipo"],
+        key=lambda series: series.map(
+            {name: index for index, name in enumerate(DISPLAY_TYPES)}
+        )
+        if series.name == "tipo_exibicao"
+        else series,
+    ).reset_index(drop=True)
 
 
 def taxonomy_review_summary(
@@ -1561,10 +1857,12 @@ __all__ = [
     "TAXONOMY_CONFIDENCE_LEVELS",
     "TAXONOMY_REVIEW_AUDIT_COLUMNS",
     "TAXONOMY_REVIEW_COLUMNS",
+    "TAXONOMY_REVIEW_KEY_COLUMN",
     "TAXONOMY_REVIEW_STATUSES",
     "apply_taxonomy_review_overlay",
     "assert_taxonomy_review_ledger_matches_audit",
     "build_curated_type_mix",
+    "build_historical_top20_taxonomy_review",
     "build_taxonomy_review_queue",
     "build_top20_by_anbima_type",
     "commit_taxonomy_review_action",
@@ -1576,5 +1874,6 @@ __all__ = [
     "taxonomy_review_audit_digest",
     "taxonomy_review_audit_has_pending",
     "taxonomy_review_summary",
+    "taxonomy_review_id",
     "validate_taxonomy_review_action",
 ]
