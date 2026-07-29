@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-outros-reclassification/v1",
-  "generated_at_utc": "2026-07-29T20:48:48+00:00",
+  "generated_at_utc": "2026-07-29T21:59:50+00:00",
   "periods": [
     "2023-12",
     "2024-12",
@@ -8,9 +8,18 @@
     "2026-06"
   ],
   "queue_size": 2158,
-  "conclusions": 0,
-  "status_counts": {},
-  "confidence_counts": {},
+  "conclusions": 800,
+  "status_counts": {
+    "aprovado": 526,
+    "em_revisao": 206,
+    "pendente": 65,
+    "rejeitado": 3
+  },
+  "confidence_counts": {
+    "alta": 327,
+    "baixa": 271,
+    "media": 202
+  },
   "official_fields_mutated": false,
   "input_sha256": {
     "data/industry_study/generated_revision/base_fundo_cnpj.csv.gz": "3ca512bd8111eae3250acb21c8587b681139108d5d3ea15bd3c1e085d019c433"

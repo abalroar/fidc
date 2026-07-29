@@ -47,7 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--audit-source", default="documentary_outros_expansion")
     parser.add_argument(
         "--statuses",
-        default="aprovado,em_revisao,rejeitado",
+        default="aprovado,em_revisao,rejeitado,pendente",
         help="decision_status values that should reach the ledger",
     )
     parser.add_argument("--allow-override", action="store_true")
