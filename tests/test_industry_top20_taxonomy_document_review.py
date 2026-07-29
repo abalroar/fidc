@@ -14,6 +14,7 @@ from scripts.build_fidc_top20_taxonomy_document_review import (
     classify_regulation_pages,
 )
 from scripts.build_fidc_top20_taxonomy_document_conclusions import (
+    ACQUIRING_CNPJS,
     BANK_ISSUER_CNPJS,
     CURATED_CLASSIFICATION_OVERRIDES,
     DOCUMENTARY_OVERRIDES,
@@ -175,6 +176,7 @@ def test_documentary_overrides_preserve_mixed_mandates_and_bank_issuers() -> Non
         set(DOCUMENTARY_OVERRIDES)
         | set(CURATED_CLASSIFICATION_OVERRIDES)
         | set(BANK_ISSUER_CNPJS)
+        | set(ACQUIRING_CNPJS)
     )
     rows = [
         {**{column: "" for column in OUTPUT_COLUMNS}, "cnpj_fundo": cnpj}
@@ -199,6 +201,16 @@ def test_documentary_overrides_preserve_mixed_mandates_and_bank_issuers() -> Non
     )
     assert indexed.loc["24761946000139", "foco_anbima_sugerido"] == "Crédito Pessoal"
     assert indexed.loc["32527650000186", "tabela_ii_sugerida_documental"] == "N/D"
+    acquiring = indexed.loc[list(ACQUIRING_CNPJS)]
+    assert acquiring["tipo_anbima_sugerido"].eq("Financeiro").all()
+    assert acquiring["foco_anbima_sugerido"].eq("Adquirência").all()
+    assert acquiring["tabela_ii_sugerida_documental"].eq("Adquirência").all()
+    assert acquiring["taxonomia_funcional_n1_sugerida"].eq(
+        "Meios de Pagamento e Cartões"
+    ).all()
+    assert acquiring["taxonomia_funcional_n2_sugerida"].eq(
+        "Arranjos de pagamento/adquirência"
+    ).all()
 
 
 def test_documentary_layer_precedence_is_field_by_field() -> None:

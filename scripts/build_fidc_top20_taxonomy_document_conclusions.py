@@ -636,6 +636,18 @@ CURATED_CLASSIFICATION_OVERRIDES: dict[str, dict[str, object]] = {
     },
 }
 
+ACQUIRING_CNPJS: frozenset[str] = frozenset(
+    {
+        "57609282000146",  # Cloudwalk A.I.
+        "62393679000183",  # Cloudwalk Bela
+        "28169275000172",  # PagSeguro I
+        "26287464000114",  # Tapso
+        "50473039000102",  # Seller I
+        "55471753000177",  # Seller II
+        "63572282000111",  # Seller 3
+    }
+)
+
 
 BANK_ISSUER_CNPJS: tuple[str, ...] = (
     "43616756000172",
@@ -1063,6 +1075,24 @@ def _apply_documentary_overrides(output: pd.DataFrame) -> pd.DataFrame:
             ),
             "source_limitations": (
                 "A carteira decorre do fluxo de cartão, mas a obrigação cedida recai sobre os bancos emissores."
+            ),
+        }
+        for column, value in values.items():
+            result.loc[mask, column] = value
+
+    for cnpj in ACQUIRING_CNPJS:
+        mask = result["cnpj_fundo"].eq(cnpj)
+        if int(mask.sum()) != 1:
+            raise ValueError(f"fundo de adquirência sem CNPJ único: {cnpj}")
+        values = {
+            "tipo_anbima_sugerido": "Financeiro",
+            "foco_anbima_sugerido": "Adquirência",
+            "tabela_ii_sugerida_documental": "Adquirência",
+            "taxonomia_funcional_n1_sugerida": "Meios de Pagamento e Cartões",
+            "taxonomia_funcional_n2_sugerida": "Arranjos de pagamento/adquirência",
+            "reclassification_status": "propor_reclassificacao_documental",
+            "manual_validation_reason": (
+                "Pré-classificação analítica de adquirência; a decisão permanece pendente de revisão manual."
             ),
         }
         for column, value in values.items():

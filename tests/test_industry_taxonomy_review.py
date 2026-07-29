@@ -474,41 +474,21 @@ def test_draft_is_saved_but_does_not_apply(tmp_path: Path) -> None:
     assert not overlaid["taxonomy_review_applied"].any()
 
 
-def test_approval_requires_document_page_and_evidence(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="aprovação requer página ou cláusula"):
-        save_taxonomy_review_actions(
-            _action(pagina_clausula=""),
-            tmp_path / "taxonomy_review_actions.csv",
-        )
+def test_approval_allows_hidden_documentary_metadata_to_be_empty(tmp_path: Path) -> None:
+    saved = save_taxonomy_review_actions(
+        _action(
+            confianca="",
+            documento_id="",
+            fonte_documental="",
+            documento_data="",
+            pagina_clausula="",
+            evidencia="",
+            responsavel="",
+        ),
+        tmp_path / "taxonomy_review_actions.csv",
+    )
 
-
-def test_approval_rejects_documentary_placeholders(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="aprovação requer"):
-        save_taxonomy_review_actions(
-            _action(
-                documento_id="N/D",
-                fonte_documental="não localizado",
-                documento_data="N/D",
-                pagina_clausula="N/D",
-                evidencia="sem evidência",
-            ),
-            tmp_path / "taxonomy_review_actions.csv",
-        )
-
-
-@pytest.mark.parametrize(
-    "placeholder",
-    ["pendente", "a definir", "não disponível", "aguardando documento"],
-)
-def test_approval_rejects_additional_documentary_placeholders(
-    tmp_path: Path,
-    placeholder: str,
-) -> None:
-    with pytest.raises(ValueError, match="aprovação requer ID do documento"):
-        save_taxonomy_review_actions(
-            _action(documento_id=placeholder),
-            tmp_path / "taxonomy_review_actions.csv",
-        )
+    assert saved.iloc[0]["status"] == "aprovado"
 
 
 def test_approval_rejects_invalid_document_date(tmp_path: Path) -> None:
@@ -608,7 +588,7 @@ def test_review_action_accepts_common_cnpj_mask(tmp_path: Path) -> None:
     assert saved.iloc[0]["cnpj_fundo"] == "12345678901234"
 
 
-def test_overlay_fails_closed_for_approved_action_without_documentary_guardrails() -> None:
+def test_overlay_applies_approved_action_without_hidden_documentary_metadata() -> None:
     action = _action(
         confianca="",
         documento_id="",
@@ -631,9 +611,9 @@ def test_overlay_fails_closed_for_approved_action_without_documentary_guardrails
 
     overlaid = apply_taxonomy_review_overlay(funds, action)
 
-    assert overlaid.iloc[0]["anbima_tipo_curado"] == "Outros"
-    assert overlaid.iloc[0]["anbima_foco_curado"] == "Multicarteira Outros"
-    assert not bool(overlaid.iloc[0]["taxonomy_review_applied"])
+    assert overlaid.iloc[0]["anbima_tipo_curado"] == "Agro, Indústria e Comércio"
+    assert overlaid.iloc[0]["anbima_foco_curado"] == "Recebíveis Comerciais"
+    assert bool(overlaid.iloc[0]["taxonomy_review_applied"])
 
 
 @pytest.mark.parametrize(
@@ -655,6 +635,18 @@ def test_overlay_fails_closed_for_invalid_fund_competence(competence: str) -> No
     overlaid = apply_taxonomy_review_overlay(funds, _action())
 
     assert not bool(overlaid.iloc[0]["taxonomy_review_applied"])
+
+
+def test_approval_accepts_analytical_acquiring_focus(tmp_path: Path) -> None:
+    saved = save_taxonomy_review_actions(
+        _action(
+            tipo_analitico="Financeiro",
+            foco_analitico="Adquirência",
+        ),
+        tmp_path / "taxonomy_review_actions.csv",
+    )
+
+    assert saved.iloc[0]["foco_analitico"] == "Adquirência"
 
 
 def test_approval_requires_nonempty_focus(tmp_path: Path) -> None:

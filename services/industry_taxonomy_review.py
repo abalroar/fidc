@@ -27,7 +27,6 @@ from services.industry_anbima import (
     ANBIMA_TYPES,
     normalize_anbima_focus,
     normalize_anbima_type,
-    valid_type_focus_pair,
 )
 from services.industry_revision_analysis import TABLE_II_RECEIVABLE_COLUMNS
 
@@ -71,6 +70,10 @@ TAXONOMY_REVIEW_STATUSES: tuple[str, ...] = (
     "rejeitado",
 )
 TAXONOMY_CONFIDENCE_LEVELS: tuple[str, ...] = ("", "baixa", "media", "alta")
+ANALYTICAL_ANBIMA_FOCUS_BY_TYPE: Mapping[str, tuple[str, ...]] = {
+    **ANBIMA_FOCUS_BY_TYPE,
+    "Financeiro": (*ANBIMA_FOCUS_BY_TYPE["Financeiro"], "Adquirência"),
+}
 TAXONOMY_REVIEW_AUDIT_COLUMNS: tuple[str, ...] = (
     "event_id",
     "saved_at_utc",
@@ -111,6 +114,26 @@ FUNCTIONAL_TAXONOMY: Mapping[str, tuple[str, ...]] = {
     ),
     "Multissetorial / Outros": ("Multicarteira outros",),
 }
+
+
+def normalize_analytical_anbima_focus(value: object) -> str:
+    """Normalize a review focus without expanding the official ANBIMA vocabulary."""
+
+    normalized = unicodedata.normalize("NFKD", _text(value))
+    normalized = "".join(char for char in normalized if not unicodedata.combining(char))
+    if normalized.casefold() == "adquirencia":
+        return "Adquirência"
+    return normalize_anbima_focus(value)
+
+
+def valid_analytical_type_focus_pair(anbima_type: object, focus: object) -> bool:
+    normalized_type = normalize_anbima_type(anbima_type)
+    normalized_focus = normalize_analytical_anbima_focus(focus)
+    return bool(
+        normalized_type
+        and normalized_focus
+        and normalized_focus in ANALYTICAL_ANBIMA_FOCUS_BY_TYPE[normalized_type]
+    )
 
 
 def normalize_cnpj(value: object) -> str:
@@ -284,7 +307,7 @@ def validate_taxonomy_review_action(action: Mapping[str, object]) -> None:
     if status not in TAXONOMY_REVIEW_STATUSES:
         raise ValueError(f"status de revisão inválido: {status}")
     confidence = _text(action.get("confianca"))
-    if confidence not in TAXONOMY_CONFIDENCE_LEVELS:
+    if confidence and confidence not in TAXONOMY_CONFIDENCE_LEVELS:
         raise ValueError(f"confiança inválida: {confidence}")
     competence_reference = _text(action.get("competencia_referencia")) or _text(
         action.get("competencia_inicio")
@@ -309,35 +332,21 @@ def validate_taxonomy_review_action(action: Mapping[str, object]) -> None:
     if not table_ii:
         raise ValueError("aprovação requer categoria analítica da Tabela II")
     anbima_type = normalize_anbima_type(action.get("tipo_analitico"))
-    anbima_focus = normalize_anbima_focus(action.get("foco_analitico"))
+    anbima_focus = normalize_analytical_anbima_focus(action.get("foco_analitico"))
     if (
         not anbima_type
         or not anbima_focus
-        or not valid_type_focus_pair(anbima_type, anbima_focus)
+        or not valid_analytical_type_focus_pair(anbima_type, anbima_focus)
     ):
         raise ValueError("Tipo e Foco analíticos formam uma combinação inválida")
     competence = _text(action.get("competencia_inicio"))
     if not _valid_month_competence(competence):
         raise ValueError("competência inicial deve seguir AAAA-MM")
-    required = {
-        "confianca": "confiança",
-        "documento_id": "ID do documento",
-        "fonte_documental": "fonte documental",
-        "documento_data": "data do documento",
-        "pagina_clausula": "página ou cláusula",
-        "evidencia": "evidência",
-        "responsavel": "responsável",
-    }
-    missing = [
-        label
-        for field, label in required.items()
-        if not _meaningful_documentary_text(action.get(field))
-    ]
-    if missing:
-        raise ValueError("aprovação requer " + ", ".join(missing))
     document_date = _text(action.get("documento_data"))
-    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", document_date):
+    if document_date and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", document_date):
         raise ValueError("data do documento deve seguir AAAA-MM-DD")
+    if not document_date:
+        return
     try:
         parsed_date = pd.Timestamp(document_date)
     except (TypeError, ValueError) as exc:
@@ -725,7 +734,9 @@ def _effective_actions(actions: pd.DataFrame | None, competence: str) -> pd.Data
         & frame["competencia_inicio"].astype(str).le(str(competence))
     ].copy()
     valid = frame.apply(
-        lambda row: valid_type_focus_pair(row.get("tipo_analitico"), row.get("foco_analitico")),
+        lambda row: valid_analytical_type_focus_pair(
+            row.get("tipo_analitico"), row.get("foco_analitico")
+        ),
         axis=1,
     )
     frame = frame.loc[valid.fillna(False).astype(bool)].copy()
@@ -794,10 +805,14 @@ def apply_taxonomy_review_overlay(
             or starts_at > competence
         ):
             continue
-        if not valid_type_focus_pair(action.get("tipo_analitico"), action.get("foco_analitico")):
+        if not valid_analytical_type_focus_pair(
+            action.get("tipo_analitico"), action.get("foco_analitico")
+        ):
             continue
         frame.at[index, "anbima_tipo_curado"] = normalize_anbima_type(action.get("tipo_analitico"))
-        frame.at[index, "anbima_foco_curado"] = normalize_anbima_focus(action.get("foco_analitico"))
+        frame.at[index, "anbima_foco_curado"] = normalize_analytical_anbima_focus(
+            action.get("foco_analitico")
+        )
         table_ii = _text(action.get("tabela_ii_analitica"))
         if table_ii in CVM_TABLE_II_CATEGORIES:
             frame.at[index, "tabela_ii_curada"] = table_ii
@@ -1850,7 +1865,7 @@ def build_curated_type_mix(
 
 
 __all__ = [
-    "ANBIMA_FOCUS_BY_TYPE",
+    "ANALYTICAL_ANBIMA_FOCUS_BY_TYPE",
     "ANBIMA_TYPES",
     "CVM_TABLE_II_CATEGORIES",
     "FUNCTIONAL_TAXONOMY",
@@ -1869,6 +1884,7 @@ __all__ = [
     "format_cnpj",
     "load_taxonomy_review_actions",
     "load_taxonomy_review_audit",
+    "normalize_analytical_anbima_focus",
     "normalize_cnpj",
     "taxonomy_review_ledger_digest",
     "taxonomy_review_audit_digest",
@@ -1876,4 +1892,5 @@ __all__ = [
     "taxonomy_review_summary",
     "taxonomy_review_id",
     "validate_taxonomy_review_action",
+    "valid_analytical_type_focus_pair",
 ]
