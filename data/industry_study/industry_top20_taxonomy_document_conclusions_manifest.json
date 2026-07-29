@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-top20-taxonomy-document-conclusions/v1",
-  "generated_at_utc": "2026-07-29T13:11:39+00:00",
+  "generated_at_utc": "2026-07-29T19:08:50+00:00",
   "periods": [
     "2023-12",
     "2024-12",
@@ -14,13 +14,14 @@
   "provisional_conclusions": 2,
   "status_counts": {
     "manter_classificacao_oficial": 111,
-    "propor_reclassificacao_documental": 27,
+    "propor_reclassificacao_documental": 25,
     "propor_correcao_perimetro_documental": 3,
-    "manter_provisoriamente_por_limitacao_documental": 2
+    "manter_provisoriamente_por_limitacao_documental": 2,
+    "requer_validacao_manual": 2
   },
   "confidence_counts": {
-    "alta": 82,
-    "media": 58,
+    "alta": 83,
+    "media": 57,
     "baixa": 3
   },
   "official_fields_mutated": false,

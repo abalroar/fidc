@@ -52,9 +52,9 @@ ROOT = Path(__file__).resolve().parents[1]
 @pytest.mark.parametrize(
     ("clicked_label", "expected_status"),
     [
-        ("Salvar rascunho", "em_revisao"),
-        ("Aprovar e aplicar", "aprovado"),
-        ("Rejeitar proposta", "rejeitado"),
+        ("Aprovar e próximo", "approve"),
+        ("Salvar e permanecer", "save"),
+        ("Pular", "skip"),
     ],
 )
 def test_taxonomy_review_actions_remain_clickable_without_authorization(
@@ -78,9 +78,9 @@ def test_taxonomy_review_actions_remain_clickable_without_authorization(
 
     assert _taxonomy_review_action_choice("12345678000199") == expected_status
     assert [label for label, _ in rendered] == [
-        "Salvar rascunho",
-        "Aprovar e aplicar",
-        "Rejeitar proposta",
+        "Aprovar e próximo",
+        "Salvar e permanecer",
+        "Pular",
     ]
     assert all("disabled" not in kwargs for _, kwargs in rendered)
 

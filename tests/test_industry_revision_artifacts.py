@@ -238,7 +238,7 @@ def test_deck_order_and_profile_count() -> None:
         "OFERTAS ENCERRADAS · SÉRIE ANBIMA",
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
-        "TAXONOMIA VIGENTE",
+        "TAXONOMIA ANALÍTICA · DECISÕES APROVADAS",
         "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
         "CARTEIRA POR TIPO DE RECEBÍVEL",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -305,7 +305,7 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
     assert all(token in slides[1] for token in ("58,4%", "59,5%", "R$ 733,1 bi", "PL ≥ R$ 200 mi"))
     assert "70,1% do aumento líquido" in slides[9]
     assert "10,0% do Tipo literal Outros" in slides[18]
-    assert "9,7% do bucket do slide 8" in slides[18]
+    assert "11,5% do bucket do slide 8" in slides[18]
     assert "inclui FIC-FIDC" in slides[23]
     assert "Kanastra permanece separada do Itaú" in slides[23]
     assert "sobre jan–jun/25" in slides[25]

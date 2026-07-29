@@ -392,7 +392,7 @@ def _payload() -> dict[str, object]:
                         "tipo_exibicao": type_name,
                         "rank_tipo": rank,
                         "cnpj_fundo": cnpj,
-                        "review_id": f"{period}|{cnpj}",
+                        "review_id": cnpj,
                     }
                 )
     top100_outros = [
@@ -1351,6 +1351,7 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
     assert "industry_closed_offer_placement_regime.csv" in REQUIRED_DATA_INPUTS
     assert "document_inventory.csv.gz" in REQUIRED_DATA_INPUTS
     assert "taxonomy_review_actions.csv" in REQUIRED_DATA_INPUTS
+    assert "taxonomy_user_comment_overrides.csv" in REQUIRED_DATA_INPUTS
     assert "taxonomy_review_audit.csv" in REQUIRED_DATA_INPUTS
     assert "industry_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS
     assert "industry_top20_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS

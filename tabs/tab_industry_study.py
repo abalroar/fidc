@@ -88,7 +88,9 @@ from services.industry_taxonomy_review import (
     TAXONOMY_REVIEW_COLUMNS,
     apply_taxonomy_review_overlay,
     assert_taxonomy_review_ledger_matches_audit,
+    build_unique_taxonomy_operational_queue,
     commit_taxonomy_review_action,
+    format_cnpj,
     load_taxonomy_review_actions,
     taxonomy_review_audit_digest,
     taxonomy_review_id,
@@ -230,12 +232,12 @@ _TAXONOMY_REVIEW_AUDIT_PATH = _DATA_DIR / "taxonomy_review_audit.csv"
 
 
 def _taxonomy_review_action_choice(selected_cnpj: str) -> str | None:
-    """Render the three per-fund actions without hiding them behind auth state."""
+    """Render the three direct actions for the current fund."""
 
     specs = (
-        ("Salvar rascunho", "em_revisao", "secondary", 1.0, "draft"),
-        ("Aprovar e aplicar", "aprovado", "primary", 1.2, "approve"),
-        ("Rejeitar proposta", "rejeitado", "secondary", 1.0, "reject"),
+        ("Aprovar e próximo", "approve", "primary", 1.2, "approve"),
+        ("Salvar e permanecer", "save", "secondary", 1.1, "save"),
+        ("Pular", "skip", "secondary", 0.8, "skip"),
     )
     columns = st.columns([spec[3] for spec in specs])
     selected_status: str | None = None
@@ -13824,97 +13826,23 @@ def _render_revision_top20(payload: dict[str, object]) -> None:
 def _render_historical_top20_taxonomy_review(payload: dict[str, object]) -> None:
     base = _revision_frame(payload, "top20_taxonomy_review")
     if base.empty:
-        st.info("Fila histórica Top 20 indisponível no bundle publicado.")
+        st.info("Fila de classificação indisponível no bundle publicado.")
         return
     actions = load_taxonomy_review_actions(_TAXONOMY_REVIEW_PATH)
-    base["competencia"] = base["competencia"].astype(str)
-    live = apply_taxonomy_review_overlay(base, actions)
-    live = live.drop(
-        columns=[column for column in live.columns if column.startswith("acao_")],
-        errors="ignore",
-    )
-    if not actions.empty:
-        action_view = actions.add_prefix("acao_").rename(
-            columns={"acao_review_id": "review_id"}
-        )
-        live = live.merge(
-            action_view,
-            on="review_id",
-            how="left",
-            validate="one_to_one",
-        )
-    if "acao_status" not in live:
-        live["acao_status"] = "pendente"
-    live["acao_status"] = live["acao_status"].fillna("").replace("", "pendente")
-    periods = sorted(live["competencia"].dropna().astype(str).unique(), reverse=True)
-
-    st.markdown("<h2>Reclassificação manual</h2>", unsafe_allow_html=True)
-    controls = st.columns([1, 1.5, 1.3, 2.2])
-    with controls[0]:
-        selected_period = st.selectbox(
-            "Competência",
-            periods,
-            key="industry-top20-taxonomy-period",
-        )
-    with controls[1]:
-        selected_category = st.selectbox(
-            "Categoria ANBIMA",
-            list(ANBIMA_TYPES),
-            key="industry-top20-taxonomy-category",
-        )
-    with controls[2]:
-        status_filter = st.multiselect(
-            "Status",
-            ["pendente", "em_revisao", "aprovado", "rejeitado"],
-            default=["pendente", "em_revisao", "aprovado"],
-            key="industry-top20-taxonomy-status",
-        )
-    with controls[3]:
-        query = st.text_input(
-            "Buscar fundo ou CNPJ",
-            key="industry-top20-taxonomy-query",
-            placeholder="Nome ou CNPJ",
-        )
-
-    selected_rows = live[
-        live["competencia"].eq(selected_period)
-        & live["tipo_exibicao"].eq(selected_category)
-    ].copy()
-    if status_filter:
-        selected_rows = selected_rows[
-            selected_rows["acao_status"].isin(status_filter)
-        ]
-    else:
-        selected_rows = selected_rows.iloc[0:0]
-    if query:
-        search = (
-            selected_rows["denominacao"].fillna("").astype(str)
-            + " "
-            + selected_rows["cnpj_fundo"].fillna("").astype(str)
-        )
-        selected_rows = selected_rows[
-            search.str.contains(re.escape(query), case=False, na=False)
-        ]
-    if selected_rows.empty:
-        st.info("Nenhum fundo corresponde aos filtros atuais.")
+    queue = build_unique_taxonomy_operational_queue(base, actions)
+    st.markdown("<h2>FIDCs a classificar</h2>", unsafe_allow_html=True)
+    if queue.empty:
+        st.success("Nenhum FIDC aguarda classificação.")
         return
 
-    selected_rows["pl"] = pd.to_numeric(selected_rows["pl"], errors="coerce").fillna(0.0)
-
-    options = selected_rows["review_id"].astype(str).tolist()
-    labels = {
-        str(row["review_id"]): (
-            f"#{int(row['rank_tipo'])} · {row['denominacao']} · {_fmt_bi(float(row['pl']), 1)}"
-        )
-        for _, row in selected_rows.iterrows()
-    }
-    selected_review_id = st.selectbox(
-        "FIDC para revisar",
-        options,
-        format_func=lambda value: labels[value],
-        key=f"industry-top20-taxonomy-selected-{selected_period}-{selected_category}",
-    )
-    selected = live[live["review_id"].astype(str).eq(selected_review_id)].iloc[0]
+    cnpjs = queue["cnpj_fundo"].astype(str).tolist()
+    cursor_key = "industry-taxonomy-cnpj-cursor"
+    selected_cnpj = str(st.session_state.get(cursor_key) or "")
+    if selected_cnpj not in cnpjs:
+        selected_cnpj = cnpjs[0]
+        st.session_state[cursor_key] = selected_cnpj
+    selected = queue[queue["cnpj_fundo"].astype(str).eq(selected_cnpj)].iloc[0]
+    selected_review_id = taxonomy_review_id(selected_cnpj)
     existing = actions[actions["review_id"].astype(str).eq(selected_review_id)]
     existing_row = existing.iloc[0] if not existing.empty else pd.Series(dtype=object)
 
@@ -13922,21 +13850,20 @@ def _render_historical_top20_taxonomy_review(payload: dict[str, object]) -> None
         value = str(existing_row.get(field, "") or "").strip()
         return value or str(fallback or "").strip()
 
-    selected_cnpj = str(selected["cnpj_fundo"])
     st.markdown(f"### {selected['denominacao']}")
     st.caption(
-        f"{selected.get('cnpj_fundo_formatado') or selected_cnpj} · {selected_period} · "
-        f"#{int(selected['rank_tipo'])} em {selected_category}"
+        f"{selected.get('cnpj_fundo_formatado') or format_cnpj(selected_cnpj)} · "
+        f"maior PL disponível: {_fmt_bi(float(selected['pl_max']), 1)}"
     )
     evidence = saved("evidencia", selected.get("evidencia_cedente"))
     st.markdown("**Evidência disponível**")
     st.write(evidence or "Sem evidência documental disponível.")
 
     initial_type = saved(
-        "tipo_analitico", selected.get("tipo_anbima_sugerido") or selected_category
+        "tipo_analitico", selected.get("tipo_anbima_sugerido") or selected.get("anbima_tipo")
     )
     if initial_type not in ANBIMA_TYPES:
-        initial_type = selected_category
+        initial_type = "Outros"
     field_cols = st.columns([1.0, 1.0, 1.0, 1.05, 1.15, 1.2])
     with field_cols[0]:
         target_type = st.selectbox(
@@ -14022,9 +13949,10 @@ def _render_historical_top20_taxonomy_review(payload: dict[str, object]) -> None
 
     def persist(status_value: str) -> None:
         saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        reference_period = str(selected.get("competencia_pl_max") or "")
         action = {
             "review_id": selected_review_id,
-            "competencia_referencia": selected_period,
+            "competencia_referencia": reference_period,
             "cnpj_fundo": selected_cnpj,
             "denominacao_referencia": str(selected["denominacao"]),
             "status": status_value,
@@ -14042,7 +13970,7 @@ def _render_historical_top20_taxonomy_review(payload: dict[str, object]) -> None
             "cedente_originador_expresso": originator,
             "notas": notes,
             "responsavel": reviewer,
-            "competencia_inicio": selected_period,
+            "competencia_inicio": "",
             "updated_at_utc": saved_at,
         }
         _, audit_events = commit_taxonomy_review_action(
@@ -14053,15 +13981,18 @@ def _render_historical_top20_taxonomy_review(payload: dict[str, object]) -> None
             source="industry_top20_taxonomy_review",
         )
         st.session_state["industry_taxonomy_review_flash"] = (
-            f"{selected['denominacao']} ({selected_period}): revisão salva como "
-            f"{status_value}; {len(audit_events)} eventos registrados."
+            f"{selected['denominacao']}: classificação salva."
         )
         st.rerun()
 
     selected_action = _taxonomy_review_action_choice(selected_review_id)
-    if selected_action:
+    if selected_action == "skip":
+        current_index = cnpjs.index(selected_cnpj)
+        st.session_state[cursor_key] = cnpjs[(current_index + 1) % len(cnpjs)]
+        st.rerun()
+    if selected_action in {"approve", "save"}:
         try:
-            persist(selected_action)
+            persist("aprovado" if selected_action == "approve" else "em_revisao")
         except ValueError as exc:
             st.error(str(exc))
 

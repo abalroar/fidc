@@ -86,6 +86,7 @@ REQUIRED_DATA_INPUTS = (
     "document_inventory.csv.gz",
     "taxonomy_review_actions.csv",
     "taxonomy_review_audit.csv",
+    "taxonomy_user_comment_overrides.csv",
     "industry_taxonomy_document_review.csv",
     "industry_top20_taxonomy_document_review.csv",
     "industry_top20_taxonomy_document_conclusions.csv",
@@ -107,6 +108,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
     ROOT / "scripts" / "build_fidc_top20_taxonomy_document_conclusions.py",
+    ROOT / "scripts" / "apply_consolidated_taxonomy_decisions.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
     ROOT / "scripts" / "build_fidc_offer_ticket_distribution.py",
     ROOT / "scripts" / "build_fidc_closed_offers.py",
@@ -1657,18 +1659,25 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         )
         historical_groups[group] = historical_groups.get(group, 0) + 1
         review_id = str(row.get("review_id") or "")
-        if not re.fullmatch(r"[0-9]{4}-[0-9]{2}\|[0-9]{14}", review_id):
+        if not re.fullmatch(r"[0-9]{14}", review_id):
             raise RevisionBundlePublishError(
                 "top20_taxonomy_review contém review_id inválido"
+            )
+        if review_id != str(row.get("cnpj_fundo") or ""):
+            raise RevisionBundlePublishError(
+                "top20_taxonomy_review diverge entre review_id e CNPJ"
             )
         review_ids.add(review_id)
     if len(historical_groups) != 16 or set(historical_groups.values()) != {20}:
         raise RevisionBundlePublishError(
             "top20_taxonomy_review deve conter 20 fundos por Tipo e competência"
         )
-    if len(review_ids) != 320:
+    historical_cnpjs = {
+        str(row.get("cnpj_fundo") or "") for row in historical_top20
+    }
+    if review_ids != historical_cnpjs:
         raise RevisionBundlePublishError(
-            "top20_taxonomy_review contém review_id duplicado"
+            "top20_taxonomy_review deve reutilizar um review_id por CNPJ"
         )
 
     top100_outros = list(payload.get("top100_outros_review") or [])
