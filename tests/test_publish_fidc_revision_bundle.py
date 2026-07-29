@@ -1353,6 +1353,8 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
     assert "taxonomy_review_actions.csv" in REQUIRED_DATA_INPUTS
     assert "taxonomy_review_audit.csv" in REQUIRED_DATA_INPUTS
     assert "industry_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS
+    assert "industry_top20_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS
+    assert "industry_top20_taxonomy_document_conclusions.csv" in REQUIRED_DATA_INPUTS
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:

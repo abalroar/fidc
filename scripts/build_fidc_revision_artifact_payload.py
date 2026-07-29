@@ -1202,6 +1202,45 @@ def _read_optional(
     return frame
 
 
+def _merge_documentary_review_layers(
+    *layers: pd.DataFrame,
+) -> pd.DataFrame:
+    """Overlay documentary layers by CNPJ, preserving only explicit values.
+
+    Layers are ordered from lowest to highest precedence. A later row replaces
+    a field only when that field is populated, so a focused human review can
+    override its conclusions without erasing complementary classification
+    fields produced by the complete Top 20 review.
+    """
+    result = pd.DataFrame()
+    for layer in layers:
+        if layer is None or layer.empty:
+            continue
+        current = layer.copy()
+        current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
+        current = current[current["cnpj_fundo"].ne("")].drop_duplicates(
+            "cnpj_fundo", keep="last"
+        )
+        if result.empty:
+            result = current.reset_index(drop=True)
+            continue
+
+        result = result.set_index("cnpj_fundo")
+        current = current.set_index("cnpj_fundo")
+        all_index = result.index.union(current.index)
+        all_columns = result.columns.union(current.columns, sort=False)
+        result = result.reindex(index=all_index, columns=all_columns).astype(object)
+        current = current.reindex(index=all_index, columns=all_columns).astype(object)
+        for column in all_columns:
+            values = current[column]
+            populated = values.notna() & values.map(
+                lambda value: not isinstance(value, str) or bool(value.strip())
+            )
+            result.loc[populated, column] = values.loc[populated]
+        result = result.reset_index()
+    return result
+
+
 def _single_record(frame: pd.DataFrame) -> dict[str, Any]:
     records = _records(frame)
     return records[0] if records else {}
@@ -2505,12 +2544,19 @@ def build_payload(
         data_dir / "industry_top20_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
     )
-    if not historical_top20_document_review.empty:
-        taxonomy_document_review = pd.concat(
-            [historical_top20_document_review, taxonomy_document_review],
-            ignore_index=True,
-            sort=False,
-        ).drop_duplicates("cnpj_fundo", keep="last")
+    historical_top20_document_conclusions = _read_optional(
+        data_dir / "industry_top20_taxonomy_document_conclusions.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    if (
+        not historical_top20_document_review.empty
+        or not historical_top20_document_conclusions.empty
+    ):
+        taxonomy_document_review = _merge_documentary_review_layers(
+            historical_top20_document_review,
+            historical_top20_document_conclusions,
+            taxonomy_document_review,
+        )
     taxonomy_review_path = data_dir / "taxonomy_review_actions.csv"
     taxonomy_review_audit_path = data_dir / "taxonomy_review_audit.csv"
     assert_taxonomy_review_ledger_matches_audit(

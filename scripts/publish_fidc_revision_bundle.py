@@ -87,6 +87,8 @@ REQUIRED_DATA_INPUTS = (
     "taxonomy_review_actions.csv",
     "taxonomy_review_audit.csv",
     "industry_taxonomy_document_review.csv",
+    "industry_top20_taxonomy_document_review.csv",
+    "industry_top20_taxonomy_document_conclusions.csv",
     "provider_ownership_curation.csv",
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
@@ -104,6 +106,7 @@ OPTIONAL_DATA_INPUTS = (
 BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
+    ROOT / "scripts" / "build_fidc_top20_taxonomy_document_conclusions.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
     ROOT / "scripts" / "build_fidc_offer_ticket_distribution.py",
     ROOT / "scripts" / "build_fidc_closed_offers.py",

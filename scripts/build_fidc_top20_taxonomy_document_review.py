@@ -377,13 +377,15 @@ def _fetch_or_load(
     if local:
         path = ROOT / local["local_path"]
         if path.is_file() and path.stat().st_size:
-            return (
-                path.read_bytes(),
-                local["document_id"],
-                local["document_date"],
-                _repo_relative(path),
-                "corpus_local_versionado",
-            )
+            content = path.read_bytes()
+            if content.startswith(b"%PDF"):
+                return (
+                    content,
+                    local["document_id"],
+                    local["document_date"],
+                    _repo_relative(path),
+                    "corpus_local_versionado",
+                )
     cached = sorted((raw_dir / cnpj).glob("*_regulamento.pdf"), reverse=True)
     if cached and cached[0].stat().st_size:
         path = cached[0]
