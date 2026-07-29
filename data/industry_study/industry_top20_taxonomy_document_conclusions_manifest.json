@@ -1,0 +1,32 @@
+{
+  "schema_version": "industry-top20-taxonomy-document-conclusions/v1",
+  "generated_at_utc": "2026-07-29T06:22:56+00:00",
+  "periods": [
+    "2023-12",
+    "2024-12",
+    "2025-12",
+    "2026-06"
+  ],
+  "ranking_positions": 320,
+  "unique_cnpjs": 143,
+  "conclusions": 143,
+  "conclusions_with_readable_regulation": 136,
+  "provisional_conclusions": 2,
+  "status_counts": {
+    "manter_classificacao_oficial": 113,
+    "propor_reclassificacao_documental": 25,
+    "propor_correcao_perimetro_documental": 3,
+    "manter_provisoriamente_por_limitacao_documental": 2
+  },
+  "confidence_counts": {
+    "alta": 82,
+    "media": 58,
+    "baixa": 3
+  },
+  "official_fields_mutated": false,
+  "manual_ledger_mutated": false,
+  "input_sha256": {
+    "data/industry_study/industry_top20_taxonomy_document_review.csv": "06789b41cfcbea89073a3257ef26b83aee7a6bb97a87802ae0c5d9dc0f9b6635",
+    "data/industry_study/generated_revision/base_fundo_cnpj.csv.gz": "3dcc8b8d2a42e6fec769c5b3efcc371616aec832edf197c9cb4db3c14faf76e1"
+  }
+}
