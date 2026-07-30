@@ -7,22 +7,32 @@ import pandas as pd
 import pytest
 
 from services.industry_fixed_income_offer_comparison import (
+    ANBIMA_2023_FIDC_CORRECTION_NOTE,
     EXCLUDED_INSTRUMENTS,
     FixedIncomeOfferComparisonError,
+    apply_anbima_2023_fidc_issuance_correction,
     build_fixed_income_offer_comparison,
     load_materialized_fixed_income_offer_comparison,
+)
+from services.industry_market_offer_reconciliation import (
+    load_anbima_market_offers,
 )
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data" / "industry_study"
 
+#: Valor Encerrado ANBIMA de FIDCs em 2023 FY — Boletim de Mercado de Capitais,
+#: snapshot mai/26, aba 02-02-Vlr.  Substitui o volume registrado CVM de
+#: R$ 26,5 bi, que subestima 2023 (primeiro ano da Resolução CVM 160).
+ANBIMA_FIDC_2023 = 43_746_140_196.22
+
 
 def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     frame = load_materialized_fixed_income_offer_comparison(DATA_DIR)
     view_a = frame[frame["view"].eq("FIDCs vs demais elegíveis")]
     expected = {
-        "2023 FY": (26_476_286_193.56, 353_447_879_570.30),
+        "2023 FY": (ANBIMA_FIDC_2023, 353_447_879_570.30),
         "2024 FY": (95_416_726_133.75, 628_733_342_247.23),
         "2025 FY": (116_921_319_054.77, 656_094_670_634.27),
         "2026 jan-jun": (65_488_118_983.56, 246_828_872_386.94),
@@ -39,6 +49,9 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
         ] == pytest.approx(rest_volume)
 
     yoy = view_a.set_index(["period_label", "series_label"])["yoy_growth"]
+    assert yoy.loc[("2024 FY", "FIDCs")] == pytest.approx(
+        95_416_726_133.75 / ANBIMA_FIDC_2023 - 1
+    )
     assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2253755059)
     assert yoy.loc[("2025 FY", "Demais elegíveis")] == pytest.approx(
         0.0435181762
@@ -47,6 +60,42 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     assert yoy.loc[("2026 jan-jun", "Demais elegíveis")] == pytest.approx(
         -0.0779777184
     )
+
+
+def test_2023_fidc_level_comes_from_anbima_with_documented_source() -> None:
+    frame = load_materialized_fixed_income_offer_comparison(DATA_DIR)
+    fidc_2023 = frame[
+        frame["series_label"].eq("FIDCs") & frame["period_label"].eq("2023 FY")
+    ]
+    assert not fidc_2023.empty
+    assert fidc_2023["registered_volume_brl"].tolist() == pytest.approx(
+        [ANBIMA_FIDC_2023] * len(fidc_2023)
+    )
+    assert (
+        fidc_2023["source_dataset"]
+        .str.contains("ANBIMA", regex=False)
+        .all()
+    )
+    assert (
+        fidc_2023["methodology"]
+        .str.contains("Correção 2023", regex=False)
+        .all()
+    )
+    # O universo de 2023 reconcilia com FIDC ANBIMA + demais CVM.
+    view_a_2023 = frame[
+        frame["view"].eq("FIDCs vs demais elegíveis")
+        & frame["period_label"].eq("2023 FY")
+    ]
+    assert view_a_2023["universe_registered_volume_brl"].iloc[0] == pytest.approx(
+        view_a_2023["registered_volume_brl"].sum()
+    )
+
+
+def test_anbima_2023_correction_is_idempotent() -> None:
+    anbima = load_anbima_market_offers(DATA_DIR)
+    once = load_materialized_fixed_income_offer_comparison(DATA_DIR)
+    twice = apply_anbima_2023_fidc_issuance_correction(once, anbima)
+    pd.testing.assert_frame_equal(once, twice)
 
 
 def test_material_2025_instruments_are_selected_by_registered_volume() -> None:

@@ -14777,7 +14777,9 @@ def _render_revision_fixed_income_offer_comparison(
         '<div class="industry-note">'
         "FIDCs cresceram <b>21,9%</b> em 2025 e <b>14,6%</b> no 1S26. "
         "O conjunto dos demais instrumentos elegíveis cresceu 4,0% em 2025 "
-        "e recuou 7,8% no 1S26."
+        "e recuou 7,8% no 1S26. O nível de 2023 de FIDCs usa o valor "
+        "encerrado ANBIMA: a série CVM/SRE só captura o universo "
+        "integralmente a partir de 2024."
         "</div>",
         unsafe_allow_html=True,
     )
@@ -14932,6 +14934,15 @@ def _render_revision_fixed_income_offer_comparison(
         "encerradas, todos os ritos, com volume registrado positivo. 2026 compara "
         "jan–jun/26 com jan–jun/25. Instrumentos materiais = quatro maiores tipos "
         f"não FIDC em 2025FY. Exclusões: {exclusions}."
+    )
+    st.caption(
+        "Correção 2023: o ponto de FIDCs em 2023 usa o valor encerrado do "
+        "[Boletim de Mercado de Capitais da ANBIMA]"
+        "(https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais)"
+        " (snapshot mai/26, aba 02-02-Vlr), porque o volume registrado na CVM "
+        "subestima 2023 — primeiro ano da Resolução CVM 160 — em cerca de 40%. "
+        "O YoY de 2024 de FIDCs é calculado sobre a base ANBIMA; o gap por "
+        "instrumento está em `industry_market_offer_reconciliation.csv`."
     )
 
 
