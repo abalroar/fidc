@@ -101,6 +101,7 @@ OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
     "industry_large_fund_classification.csv",
     "anbima_documentary_overrides.csv",
+    "fic_perimeter_overrides.csv",
     "top20_profile_curation_overrides.csv",
     "industry_intelligence_manifest.json",
 )
