@@ -314,29 +314,46 @@ remote, não sobrevive ao comando. E `redact()` cobre toda mensagem devolvida
 pelo publisher, porque o git ecoa a URL do remoto em vários erros — sem isso um
 push recusado imprimiria o token na tela de quem estiver usando o painel.
 
+**É o mesmo token do cadastro de carteiras.** `services/portfolio_store.py` já
+lê `github_token` e `github_repo` do mesmo `st.secrets` para gravar
+`portfolios.json`, e pede exatamente a mesma permissão — a diferença é só o
+caminho: carteiras vão pela API de conteúdo do GitHub, o ledger vai por `git
+push`. As chaves de repositório e branch do publisher começam por `github_repo`
+e `github_branch` justamente para reaproveitar as entradas que já existem, sem
+duplicar configuração.
+
 Passo a passo:
 
-1. **Gerar o token.** GitHub → Settings → Developer settings → Personal access
-   tokens → Fine-grained tokens → Generate new token. Repository access:
-   **Only select repositories → `abalroar/fidc`**. Repository permissions:
-   **Contents: Read and write**. Nada além disso — essa única permissão é o que
-   o push do ledger precisa. Se o repositório pertence a uma organização com
-   SSO, autorize o token para ela na lista de tokens, senão o push volta 403.
+1. **Token.** Se o cadastro de carteiras já grava no GitHub, o token existente
+   serve e não há nada a gerar — pule para o passo 3. Para criar um novo: GitHub
+   → Settings → Developer settings → Personal access tokens → Fine-grained
+   tokens → Generate new token. Repository access: **Only select repositories →
+   `abalroar/fidc`**. Repository permissions: **Contents: Read and write**. Nada
+   além disso. Se o repositório pertence a uma organização com SSO, autorize o
+   token para ela na lista de tokens, senão o push volta 403.
 2. **Rodando local:** copie `.streamlit/secrets.toml.example` para
    `.streamlit/secrets.toml`, cole o token em `github_token` e reinicie o app.
    O `.gitignore` já ignora `secrets.toml`; confirme com
    `git check-ignore -v .streamlit/secrets.toml` antes de colar.
-3. **No Streamlit Community Cloud:** Manage app → Settings → Secrets, cole o
-   mesmo conteúdo TOML e salve. O app reinicia sozinho. Não suba o arquivo pelo
-   repositório.
+3. **No Streamlit Community Cloud:** Manage app → Settings → Secrets. Se
+   `github_token` e `github_repo` já estão lá ao lado de
+   `github_portfolios_path`, não mexa em nada — o ledger passa a usá-los
+   sozinho. Se só `github_token` estiver definido, o repositório é descoberto
+   pelo remoto do clone.
 4. **Conferir:** o painel imprime `Token dos secrets em uso. Publicando em
    owner/repo.` logo abaixo dos controles de publicação. Sem essa linha, o
    token não foi lido e o push está tentando a credencial do clone.
 5. **Atrás de proxy corporativo**, se o push travar sem resposta:
    `git config --global http.proxy http://usuario:senha@proxy.empresa:8080`.
 
-Revogar é o botão de emergência: apagar o token no GitHub derruba o acesso na
-hora, sem mexer no código nem no repositório.
+Um host que publica a partir de um commit deixa o HEAD destacado, e nesse estado
+`git push <remoto> HEAD` falha porque HEAD não resolve para branch nenhuma.
+`_push_target()` cobre o caso: sem branch checada, o destino vem de
+`github_branch` (padrão `main`) e o refspec é explícito.
+
+Revogar é o botão de emergência: apagar o token no GitHub derruba de uma vez o
+push do ledger e a gravação de carteiras, sem mexer no código nem no
+repositório.
 
 Abrir a fila troca autenticação por atribuição, e a atribuição é a parte que
 vale preservar. O painel pede **Quem está revisando** — assinatura, não login,

@@ -6,7 +6,9 @@ import subprocess
 import pytest
 
 from services.ledger_publisher import (
+    DEFAULT_BRANCH,
     LEDGER_FILES,
+    _push_target,
     publish_decisions,
     redact,
     repository_status,
@@ -166,7 +168,7 @@ def test_a_token_without_a_repository_reports_instead_of_pushing_blind() -> None
     credential = resolve_push_credential(Path("/nonexistent"), {"github_token": "x"})
 
     assert not credential.configured
-    assert "github_repository" in credential.detail
+    assert "github_repo" in credential.detail
 
 
 def test_the_token_is_never_echoed_back_to_the_screen() -> None:
@@ -194,3 +196,42 @@ def test_a_failed_authenticated_push_reports_without_the_token(repository: Path)
     assert result.committed
     assert not result.pushed
     assert "ghp_segredo" not in result.detail
+
+
+def test_the_repo_key_of_the_portfolio_store_is_reused(tmp_path: Path) -> None:
+    """One secrets entry serves both features; do not ask for the repo twice."""
+
+    credential = resolve_push_credential(
+        tmp_path,
+        {
+            "github_token": "ghp_exemplo",
+            "github_repo": "abalroar/fidc",
+            "github_portfolios_path": "portfolios.json",
+        },
+    )
+
+    assert credential.configured
+    assert credential.url.endswith("@github.com/abalroar/fidc.git")
+
+
+def test_a_checked_out_branch_is_pushed_by_name() -> None:
+    assert _push_target("principal", {}) == ("principal", "principal")
+
+
+def test_a_detached_head_falls_back_to_the_configured_branch() -> None:
+    """A deploy that checks out a commit has no branch to push back to."""
+
+    assert _push_target("HEAD", {"github_branch": "producao"}) == (
+        "producao",
+        "HEAD:refs/heads/producao",
+    )
+    assert _push_target("", {}) == (DEFAULT_BRANCH, f"HEAD:refs/heads/{DEFAULT_BRANCH}")
+
+
+def test_a_detached_head_still_publishes(repository: Path) -> None:
+    _git(repository, "checkout", "-q", "--detach", "HEAD")
+    (repository / LEDGER_FILES[0]).write_text("review_id\n00000000000191\n", encoding="utf-8")
+
+    result = publish_decisions(repository, message="destacado", push=False)
+
+    assert result.committed

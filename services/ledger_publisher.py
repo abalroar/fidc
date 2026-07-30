@@ -38,8 +38,16 @@ TOKEN_SECRET_KEYS: tuple[str, ...] = (
     "GITHUB_TOKEN",
     "ledger_github_token",
 )
-#: Optional ``owner/repo`` override, for when the clone has no usable remote.
-REPOSITORY_SECRET_KEYS: tuple[str, ...] = ("github_repository", "GITHUB_REPOSITORY")
+#: ``owner/repo``.  ``github_repo`` comes first because the portfolio store
+#: already uses that name: one entry in the secrets serves both features.
+REPOSITORY_SECRET_KEYS: tuple[str, ...] = (
+    "github_repo",
+    "github_repository",
+    "GITHUB_REPOSITORY",
+)
+#: Only consulted when HEAD is detached and there is no branch to push back to.
+BRANCH_SECRET_KEYS: tuple[str, ...] = ("github_branch", "GITHUB_BRANCH")
+DEFAULT_BRANCH = "main"
 
 #: GitHub accepts any username with a token; this is the documented one.
 TOKEN_USERNAME = "x-access-token"
@@ -117,12 +125,30 @@ def resolve_push_credential(
         return PushCredential(
             detail=(
                 "Token encontrado, mas não foi possível descobrir o repositório. "
-                "Defina github_repository = \"owner/repo\" nos secrets."
+                "Defina github_repo = \"owner/repo\" nos secrets."
             )
         )
     netloc = f"{TOKEN_USERNAME}:{quote(token, safe='')}@github.com"
     url = urlunsplit(("https", netloc, f"/{repository}.git", "", ""))
     return PushCredential(url=url, configured=True, detail=f"Publicando em {repository}.")
+
+
+def _push_target(
+    branch: str, secrets: Mapping[str, Any] | None = None
+) -> tuple[str, str]:
+    """Return the branch to push to and the refspec that reaches it.
+
+    A host that deploys the app by checking out a commit leaves HEAD detached,
+    and ``git push <remote> HEAD`` then fails because HEAD resolves to no
+    branch.  In that state the target comes from ``github_branch`` — the same
+    entry the portfolio store already uses — and the refspec is explicit.
+    """
+
+    current = str(branch or "").strip()
+    if current and current != "HEAD":
+        return current, current
+    target = _first_secret(secrets or {}, BRANCH_SECRET_KEYS) or DEFAULT_BRANCH
+    return target, f"HEAD:refs/heads/{target}"
 
 
 @dataclass(frozen=True)
@@ -235,11 +261,11 @@ def publish_decisions(
     if not push:
         return PublishResult(True, False, "Commit criado; publicação remota não solicitada.")
 
-    branch = status.branch or "HEAD"
     credential = resolve_push_credential(root, secrets)
     remote = credential.url or "origin"
+    branch, refspec = _push_target(status.branch, secrets)
 
-    pushed = _run(["push", remote, branch], root)
+    pushed = _run(["push", remote, refspec], root)
     if pushed.returncode == 0:
         return PublishResult(True, True, f"Publicado em origin/{branch}.")
 
@@ -253,7 +279,7 @@ def publish_decisions(
                 + (rebased.stderr.strip() or pushed.stderr.strip())
             ),
         )
-    retried = _run(["push", remote, branch], root)
+    retried = _run(["push", remote, refspec], root)
     if retried.returncode == 0:
         return PublishResult(
             True, True, f"Publicado em origin/{branch} após rebase no remoto."
