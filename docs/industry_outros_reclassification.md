@@ -214,3 +214,18 @@ combinação que o ledger recuse.
 A gravação passa por `commit_taxonomy_review_action`, com a mesma trilha de
 auditoria de qualquer outra decisão, e o responsável fica registrado como
 `curadoria_manual_streamlit`.
+
+### Publicação no repositório
+
+As decisões tomadas no painel gravam nos dois CSV do ledger. Enquanto não forem
+commitadas, existem apenas no clone onde o app roda — a próxima sessão, aqui ou
+no Codex, partiria do estado anterior.
+
+O painel resolve isso: mostra quantos arquivos do ledger têm decisões não
+publicadas, oferece **Publicar no repositório** (commit e push) e um alternador
+para publicar automaticamente a cada decisão. `services/ledger_publisher.py`
+prepara **apenas** os dois arquivos do ledger, nunca a árvore inteira, de modo
+que trabalho em andamento em outros arquivos não é arrastado junto. Um push
+recusado é tentado uma segunda vez após rebase no remoto, que é o que acontece
+quando o mesmo ledger avançou em outra máquina; se ainda assim falhar, o commit
+local permanece e o motivo é exibido.

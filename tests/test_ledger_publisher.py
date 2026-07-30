@@ -1,0 +1,120 @@
+from __future__ import annotations
+
+from pathlib import Path
+import subprocess
+
+import pytest
+
+from services.ledger_publisher import (
+    LEDGER_FILES,
+    publish_decisions,
+    repository_status,
+)
+
+
+def _git(root: Path, *arguments: str) -> None:
+    subprocess.run(
+        ["git", *arguments], cwd=str(root), check=True, capture_output=True, text=True
+    )
+
+
+@pytest.fixture()
+def repository(tmp_path: Path) -> Path:
+    root = tmp_path / "clone"
+    (root / "data" / "industry_study").mkdir(parents=True)
+    _git(root, "init", "-q", "-b", "principal")
+    for name in LEDGER_FILES:
+        (root / name).write_text("review_id\n", encoding="utf-8")
+    (root / "outro.txt").write_text("intocado\n", encoding="utf-8")
+    _git(root, "add", "-A")
+    _git(
+        root,
+        "-c",
+        "user.name=teste",
+        "-c",
+        "user.email=teste@local",
+        "commit",
+        "-qm",
+        "estado inicial",
+    )
+    return root
+
+
+def test_a_directory_without_git_is_reported_instead_of_raising(tmp_path: Path) -> None:
+    status = repository_status(tmp_path)
+
+    assert not status.is_repository
+    assert status.detail
+    assert not status.has_pending
+
+
+def test_a_clean_repository_has_nothing_to_publish(repository: Path) -> None:
+    status = repository_status(repository)
+
+    assert status.is_repository
+    assert status.branch == "principal"
+    assert not status.has_pending
+
+    result = publish_decisions(repository, message="nada", push=False)
+    assert not result.committed
+    assert "Nenhuma decisão nova" in result.detail
+
+
+def test_a_changed_ledger_is_detected_and_committed(repository: Path) -> None:
+    (repository / LEDGER_FILES[0]).write_text("review_id\n00000000000191\n", encoding="utf-8")
+
+    status = repository_status(repository)
+    assert status.has_pending
+
+    result = publish_decisions(repository, message="uma decisão", push=False)
+    assert result.committed
+    assert not result.pushed
+
+    assert not repository_status(repository).has_pending
+    log = subprocess.run(
+        ["git", "log", "-1", "--pretty=%s"],
+        cwd=str(repository),
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    assert log.stdout.strip() == "uma decisão"
+
+
+def test_publishing_never_stages_unrelated_work(repository: Path) -> None:
+    """Work in progress on other files must survive a publication untouched."""
+
+    (repository / LEDGER_FILES[0]).write_text("review_id\n00000000000191\n", encoding="utf-8")
+    (repository / "outro.txt").write_text("trabalho em andamento\n", encoding="utf-8")
+
+    publish_decisions(repository, message="somente o ledger", push=False)
+
+    pending = subprocess.run(
+        ["git", "status", "--porcelain"],
+        cwd=str(repository),
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout
+    assert "outro.txt" in pending
+    assert "taxonomy_review_actions.csv" not in pending
+
+
+def test_a_clone_without_identity_still_commits(repository: Path) -> None:
+    _git(repository, "config", "--local", "user.name", "")
+    _git(repository, "config", "--local", "user.email", "")
+    (repository / LEDGER_FILES[1]).write_text("event_id\nabc\n", encoding="utf-8")
+
+    result = publish_decisions(repository, message="sem identidade", push=False)
+
+    assert result.committed
+
+
+def test_a_missing_remote_reports_instead_of_losing_the_commit(repository: Path) -> None:
+    (repository / LEDGER_FILES[0]).write_text("review_id\n00000000000191\n", encoding="utf-8")
+
+    result = publish_decisions(repository, message="sem remoto", push=True)
+
+    assert result.committed
+    assert not result.pushed
+    assert result.detail
