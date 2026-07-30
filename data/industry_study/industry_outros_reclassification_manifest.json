@@ -1,6 +1,6 @@
 {
   "schema_version": "industry-outros-reclassification/v1",
-  "generated_at_utc": "2026-07-29T22:49:41+00:00",
+  "generated_at_utc": "2026-07-29T23:41:51+00:00",
   "periods": [
     "2023-12",
     "2024-12",
@@ -8,17 +8,17 @@
     "2026-06"
   ],
   "queue_size": 2158,
-  "conclusions": 1600,
+  "conclusions": 2158,
   "status_counts": {
-    "aprovado": 1015,
-    "em_revisao": 409,
-    "pendente": 171,
-    "rejeitado": 5
+    "aprovado": 1371,
+    "em_revisao": 544,
+    "pendente": 236,
+    "rejeitado": 7
   },
   "confidence_counts": {
-    "alta": 609,
-    "baixa": 580,
-    "media": 411
+    "alta": 804,
+    "baixa": 780,
+    "media": 574
   },
   "official_fields_mutated": false,
   "input_sha256": {
