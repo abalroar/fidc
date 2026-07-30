@@ -234,7 +234,7 @@ python3 scripts/publish_fidc_revision_bundle.py \
 ```
 
 O ledger em si está íntegro: `assert_taxonomy_review_ledger_matches_audit`
-reproduz as 2.299 decisões a partir da trilha de auditoria.
+reproduz as 2.332 decisões a partir da trilha de auditoria.
 
 ## Normalização de espaços em branco
 
