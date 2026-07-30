@@ -187,3 +187,30 @@ reescrita ficou registrada na auditoria.
 A conclusão descreve o mandato permitido pelo documento. A materialidade efetiva
 de cada família depende da carteira observada em cada competência. Nome de fundo
 não é evidência e não determina classificação em nenhuma etapa.
+
+## Fila de taxonomia no Streamlit
+
+A seção **Fila de Taxonomia** do app (`tabs/tab_taxonomy_queue.py`) permite
+aprovar, editar, manter em revisão ou rejeitar a classificação de qualquer CNPJ
+com conclusão documental.
+
+O painel lê `industry_outros_reclassification_conclusions.csv`,
+`industry_top20_pending_curation.csv` e o ledger diretamente do disco — **não**
+depende do bundle Office publicado. Essa separação é deliberada: o bundle falha
+fechado sempre que o ledger muda, que é justamente o que curar faz, de modo que
+uma fila alimentada pelo bundle se trancaria após a primeira decisão.
+
+Por padrão a fila mostra apenas o que ainda pede decisão (`em_revisao` e
+`pendente`), ordenado pelo maior PL. O botão *Incluir já decididos* reabre
+qualquer fundo aprovado ou rejeitado para edição, e a busca aceita nome, CNPJ
+com ou sem máscara.
+
+Os cinco campos são listas fechadas encadeadas: o Foco depende do Tipo, o N2
+depende do N1, e a Tabela II usa o vocabulário da CVM. Um teste percorre as
+2.162 linhas da fila e confirma que os valores pré-preenchidos sempre produzem
+uma ação que `validate_taxonomy_review_action` aceita — o formulário não oferece
+combinação que o ledger recuse.
+
+A gravação passa por `commit_taxonomy_review_action`, com a mesma trilha de
+auditoria de qualquer outra decisão, e o responsável fica registrado como
+`curadoria_manual_streamlit`.
