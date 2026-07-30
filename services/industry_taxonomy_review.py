@@ -634,6 +634,92 @@ def commit_taxonomy_review_action(
     return updated, events.reset_index(drop=True)
 
 
+def commit_taxonomy_review_actions(
+    actions: pd.DataFrame,
+    ledger_path: Path,
+    audit_path: Path,
+    *,
+    saved_at_utc: str,
+    source: str = "industry_taxonomy_review",
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Persist many decisions as one transaction, with the same guarantees.
+
+    ``commit_taxonomy_review_action`` rewrites the ledger and the audit once per
+    decision, which is quadratic and unusable for a whole-queue reprocessing.
+    This variant computes the field-level diff for every CNPJ at once and
+    replaces both files a single time, keeping the audit-first ordering, the
+    rollback on failure and the prepared/committed event identifiers.
+    """
+
+    from services.industry_study import build_review_audit_events  # Local import avoids module cycle.
+
+    ledger_path = Path(ledger_path)
+    audit_path = Path(audit_path)
+    candidate = _prepare_taxonomy_review_actions(actions)
+    if candidate.empty:
+        return (
+            load_taxonomy_review_actions(ledger_path),
+            load_taxonomy_review_audit(audit_path).head(0),
+        )
+    review_ids = set(candidate["review_id"].astype(str))
+
+    with _taxonomy_review_ledger_lock(ledger_path):
+        with _taxonomy_review_ledger_lock(audit_path):
+            previous = load_taxonomy_review_actions(ledger_path)
+            updated = pd.concat(
+                [
+                    previous[~previous["review_id"].astype(str).isin(review_ids)],
+                    candidate,
+                ],
+                ignore_index=True,
+            )
+            updated = _prepare_taxonomy_review_actions(updated)
+            previous_audit = _recover_prepared_taxonomy_audit(
+                load_taxonomy_review_audit(audit_path),
+                previous,
+            )
+            transaction_id = uuid.uuid4().hex
+            transaction_source = f"{source}:prepared:{transaction_id}"
+            events = build_review_audit_events(
+                previous=previous,
+                updated=updated,
+                key_column="review_id",
+                review_domain="taxonomy_review",
+                saved_at_utc=saved_at_utc,
+                source=transaction_source,
+            )
+            next_audit = pd.concat(
+                [previous_audit, events[list(TAXONOMY_REVIEW_AUDIT_COLUMNS)]],
+                ignore_index=True,
+            ).drop_duplicates("event_id", keep="last")
+            _write_taxonomy_review_actions(next_audit, audit_path)
+            try:
+                _write_taxonomy_review_actions(updated, ledger_path)
+            except Exception:
+                _write_taxonomy_review_actions(previous_audit, audit_path)
+                raise
+            committed_mask = next_audit["source"].eq(transaction_source)
+            next_audit.loc[committed_mask, "source"] = source
+            next_audit.loc[committed_mask, "event_id"] = next_audit.loc[
+                committed_mask
+            ].apply(
+                lambda row: _taxonomy_audit_event_id(
+                    row,
+                    transaction_id=transaction_id,
+                ),
+                axis=1,
+            )
+            committed_event_ids = set(
+                next_audit.loc[committed_mask, "event_id"].astype(str)
+            )
+            next_audit = next_audit.drop_duplicates("event_id", keep="last")
+            _write_taxonomy_review_actions(next_audit, audit_path)
+            events = next_audit[
+                next_audit["event_id"].astype(str).isin(committed_event_ids)
+            ].copy()
+    return updated, events.reset_index(drop=True)
+
+
 def taxonomy_review_ledger_digest(path: Path) -> str:
     frame = load_taxonomy_review_actions(path)
     payload = frame.to_csv(index=False, lineterminator="\n").encode("utf-8")
