@@ -101,15 +101,79 @@ complementares para 780 veículos.
 
 Efeito no mix analítico, comparado à fotografia oficial ANBIMA:
 
-| Competência | Outros oficial | Outros curado | Redução | Cobertura do PL por decisão aprovada |
-|---|---:|---:|---:|---:|
-| dez/23 | R$ 171,9 bi (37,2%) | R$ 123,2 bi (26,7%) | R$ 48,7 bi | 76,7% |
-| dez/24 | R$ 261,6 bi (38,3%) | R$ 182,3 bi (26,7%) | R$ 79,2 bi | 75,7% |
-| dez/25 | R$ 371,2 bi (44,6%) | R$ 254,0 bi (30,5%) | R$ 117,3 bi | 72,3% |
-| jun/26 | R$ 355,7 bi (40,4%) | R$ 219,2 bi (24,9%) | R$ 136,5 bi | 68,3% |
+| Competência | PL direto | Outros oficial | Outros curado | Redução | Cobertura do PL por decisão aprovada |
+|---|---:|---:|---:|---:|---:|
+| dez/23 | R$ 452,3 bi | R$ 163,5 bi (36,1%) | R$ 117,7 bi (26,0%) | R$ 45,8 bi | 76,8% |
+| dez/24 | R$ 651,5 bi | R$ 235,2 bi (36,1%) | R$ 162,1 bi (24,9%) | R$ 73,1 bi | 76,6% |
+| dez/25 | R$ 772,1 bi | R$ 316,3 bi (41,0%) | R$ 206,4 bi (26,7%) | R$ 109,9 bi | 74,0% |
+| jun/26 | R$ 821,4 bi | R$ 303,3 bi (36,9%) | R$ 175,2 bi (21,3%) | R$ 128,1 bi | 69,2% |
 
-O ledger analítico passou de 137 para **2.299 decisões** por CNPJ, todas com
+Os valores já descontam a correção de perímetro FIC descrita adiante: os 355
+veículos que só detêm cotas saíram do PL direto e do numerador de `Outros`, de
+modo que a coluna "Outros oficial" também é menor que a fotografia ANBIMA
+publicada antes da correção.
+
+O ledger analítico passou de 137 para **2.332 decisões** por CNPJ, todas com
 evidência, página, justificativa, nível de confiança e trilha de auditoria.
+
+## Correção de perímetro FIC
+
+A curadoria documental encontrou veículos registrados como FIDC que nunca
+compram um direito creditório: o ativo deles são cotas de outros FIDCs. Contados
+dentro dos quatro tipos ANBIMA, esses fundos somam o mesmo patrimônio duas vezes
+— uma no fundo investido, com a taxonomia dele, e outra no veículo que só detém
+a cota. O informe mensal traz o campo `is_fic_fidc`, mas parte desses fundos o
+reporta como falso.
+
+A varredura (`scripts/build_fidc_fic_perimeter_review.py`) parte de dois
+critérios objetivos, ambos lidos do Informe Mensal Estruturado, nunca do nome do
+fundo:
+
+1. **Nunca deteve direitos creditórios.** `VL_DICRED` igual a zero em *toda* a
+   série histórica do CNPJ, não apenas nas competências de referência. Um fundo
+   que comprou recebíveis em qualquer mês permanece no perímetro FIDC.
+2. **Detém cotas de FIDC acima do limiar.** `VL_COTA_FIDC + VL_COTA_FIDC_NAO_PADRAO`
+   representando pelo menos 50% de `VL_SOM_APLIC_ATIVO` (`FEEDER_MIN_SHARE`).
+
+De 470 candidatos ao primeiro critério, **355 confirmaram** o segundo — mediana
+de 96% das aplicações em cotas de FIDC. Os 115 restantes ficaram como
+`sem_evidencia_suficiente` e continuam no perímetro FIDC.
+
+A correção é gravada em `data/industry_study/fic_perimeter_overrides.csv` e
+aplicada por `services/fic_perimeter.py` **antes de qualquer agregação**, dentro
+de `scripts/build_fidc_revision_analysis.py`. Ela só liga a flag; um fundo que a
+CVM já reporta como FIC nunca volta a ser FIDC direto por esta camada.
+
+| Competência | Fundos movidos | PL movido para o saldo FIC | Saldo FIC | PL direto |
+|---|---:|---:|---:|---:|
+| dez/23 | 65 | R$ 9,42 bi | R$ 23,60 → 33,02 bi | R$ 461,8 → 452,3 bi |
+| dez/24 | 171 | R$ 31,44 bi | R$ 48,94 → 80,38 bi | R$ 682,9 → 651,5 bi |
+| dez/25 | 292 | R$ 61,11 bi | R$ 85,90 → 147,01 bi | R$ 833,2 → 772,1 bi |
+| jun/26 | 318 | R$ 59,01 bi | R$ 81,11 → 140,12 bi | R$ 880,4 → 821,4 bi |
+
+Em jun/26, R$ 46,64 bi dos R$ 59,01 bi movidos estavam classificados como
+`Outros` pela ANBIMA — a correção de perímetro sozinha responde por boa parte da
+queda do bucket. Outros R$ 5,74 bi estavam sem classificação (`N/D`).
+
+O método não é baseado em nome: na medição anterior, 257 dos veículos
+confirmados não traziam qualquer forma de "FIC" na denominação registrada.
+
+Cada correção também vira uma decisão `rejeitado` no ledger analítico
+(`scripts/apply_fic_perimeter_to_ledger.py`, responsável
+`curadoria_perimetro_fic`), com a evidência do informe e a nota explicando que o
+patrimônio passou a alimentar o saldo de FIC. Rejeitar é a decisão honesta: a
+hipótese de classificar o veículo como FIDC direto está incorreta, e o overlay
+de taxonomia só aplica decisões aprovadas. Quando o critério foi apertado para
+exigir ausência de direitos creditórios em toda a série, as rejeições que
+deixaram de valer foram revertidas para a conclusão documental de cada fundo —
+20 delas — e as três sem conclusão própria voltaram para `em_revisao`.
+
+Uma única decisão manual do usuário foi substituída pela correção, e o script
+avisa em voz alta quando isso acontece: **EXPERT III FIDC**
+(`53073485000100`, R$ 3,52 bi), aprovado à mão. O informe de jun/26 mostra
+R$ 2,997 bi de cotas de FIDC em R$ 3,520 bi aplicados (85%) e direitos
+creditórios em R$ 0,00 nas quatro competências — é um FIC. Vale conferir a mão,
+já que contraria uma aprovação humana.
 
 ## Três fontes de evidência, em ordem de força
 

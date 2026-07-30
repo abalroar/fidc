@@ -1,230 +1,230 @@
 {
-  "checks": {
-    "acquiring_reclassified_rows": 24,
-    "bank_fidc_detail_rows": 260,
-    "bank_fidc_evolution_rows": 24,
-    "blocked_market_share_combinations": 0,
-    "btg_controlled_fidcs_reconciled": 6,
-    "btg_provider_ex_controlled_roles": 3,
-    "frozen_single_receivable_funds": 2066,
-    "independent_provider_rows": 68,
-    "latest_aging_publication_status": "publicável",
-    "latest_funds": 4247,
-    "latest_presence_exact": true,
-    "latest_vehicles": 4252,
-    "market_share_foci": 14,
-    "market_share_roles": 3,
-    "provider_transition_changed_funds": 363,
-    "provider_transition_continuing_funds": 2315,
-    "reag_cohort_exited_funds": 37,
-    "single_receivable_funds": 2066,
-    "single_receivable_rows": 10,
-    "top20_fidcs_rows": 20,
-    "top20_outros_rows": 20
-  },
+  "generated_at_utc": "2026-07-30T14:37:12+00:00",
+  "latest_complete": "2026-06",
   "definitions": {
-    "acquiring_reclassification": "somente os 33 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
-    "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação; BTG Consignados I em dez/25 usa valor oficial recuperado do IME v2 e reconciliado à demonstração financeira auditada",
-    "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
-    "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
+    "vehicle": "CNPJ reportante do Informe Mensal (fundo ou classe, conforme regime)",
     "fund": "CNPJ do fundo no cadastro; classes são agregadas por competência",
+    "monostructure": "mesmo conglomerado econômico normalizado para administração, gestão e custódia",
+    "delinquency_adjustment": "min(max(inadimplência reportada, 0), max(carteira de direitos creditórios, 0)) por veículo",
+    "single_receivable_delinquency": "ex-FIC com PL positivo e exatamente um dos 11 campos superiores da Tabela II não zero; casos com inadimplência acima da carteira são excluídos; numerador = inadimplência reportada e denominador = PL",
+    "frozen_single_receivable_history": "coorte e subtipo Tabela II congelados na competência mais recente; histórico mantém o mesmo CNPJ e exclui por competência FIC, PL não positivo, campos ausentes e inadimplência acima da carteira",
     "independent_provider": "grupo com independência revisada na curadoria societária; aliases consolidados antes do ranking; Singulare integra QI Tech e Kanastra é alocada ao Itaú pela regra de afiliação solicitada",
+    "bank_fidc_fixed_cohort": "coorte fixa das raízes de CNPJ listadas no workbook FIDCs.xlsx; PL histórico do conjunto atual, sem inferir data societária de consolidação; BTG Consignados I em dez/25 usa valor oficial recuperado do IME v2 e reconciliado à demonstração financeira auditada",
+    "acquiring_reclassification": "somente os 33 CNPJs curados são removidos do segmento principal CVM e apresentados em Adquirência; classificação original permanece preservada",
+    "market_share_subtype_denominator": "PL positivo do Tipo + Foco ANBIMA, incluindo prestador não informado; PL negativo é quantificado e excluído apenas da normalização percentual",
     "market_share_excluded_funds": {
       "09195235000150": "FIDC Sistema Petrobras",
       "26287464000114": "FIDC TAPSO"
     },
-    "market_share_subtype_denominator": "PL positivo do Tipo + Foco ANBIMA, incluindo prestador não informado; PL negativo é quantificado e excluído apenas da normalização percentual",
-    "monostructure": "mesmo conglomerado econômico normalizado para administração, gestão e custódia",
     "provider_transition_flow": "CNPJs ex-FIC com PL positivo em dez/24 e dez/25; PL comparável = min(PL_dez24, PL_dez25) por CNPJ",
     "provider_transition_roles": "somente administrador é observado por competência; gestor e custodiante históricos são indisponíveis por overlay cadastral vigente",
-    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-06",
-    "single_receivable_delinquency": "ex-FIC com PL positivo e exatamente um dos 11 campos superiores da Tabela II não zero; casos com inadimplência acima da carteira são excluídos; numerador = inadimplência reportada e denominador = PL",
-    "vehicle": "CNPJ reportante do Informe Mensal (fundo ou classe, conforme regime)"
+    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-06"
   },
   "files": {
-    "adquirencia_mix_reclassificado.csv": {
-      "columns": 22,
-      "rows": 24
-    },
-    "bancos_fidcs_detalhe.csv": {
-      "columns": 13,
-      "rows": 260
-    },
-    "bancos_fidcs_evolucao.csv": {
-      "columns": 17,
-      "rows": 24
+    "source_presence_overlay.csv.gz": {
+      "rows": 229475,
+      "columns": 49
     },
     "base_competencia_cnpj.csv.gz": {
-      "columns": 114,
-      "rows": 229451
-    },
-    "base_fundo_cnpj.csv.gz": {
-      "columns": 59,
-      "rows": 229420
-    },
-    "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
-      "columns": 26,
-      "rows": 2769
-    },
-    "bridge_inadimplencia_2024-06_2024-07_resumo.csv": {
-      "columns": 9,
-      "rows": 3
-    },
-    "btg_fidcs_controlados_reconciliacao.csv": {
-      "columns": 32,
-      "rows": 6
-    },
-    "btg_prestadores_ex_controlados.csv": {
-      "columns": 16,
-      "rows": 3
-    },
-    "cobertura_classificacao.csv": {
-      "columns": 10,
-      "rows": 4
-    },
-    "deck_workbook_payload.json": {
-      "columns": "schema por bloco",
-      "rows": 15046
-    },
-    "inadimplencia_coorte_atual_historico.csv": {
-      "columns": 24,
-      "rows": 1505
-    },
-    "inadimplencia_coorte_atual_membros.csv.gz": {
-      "columns": 8,
-      "rows": 2066
-    },
-    "inadimplencia_coorte_atual_resumo.csv": {
-      "columns": 25,
-      "rows": 162
-    },
-    "inadimplencia_coorte_revisao_resumo.csv": {
-      "columns": 15,
-      "rows": 1
-    },
-    "inadimplencia_coorte_revisao_sensibilidade.csv": {
-      "columns": 13,
-      "rows": 1505
-    },
-    "inadimplencia_coorte_revisao_transicoes.csv": {
-      "columns": 8,
-      "rows": 17
-    },
-    "inadimplencia_dispersao_resumo.csv": {
-      "columns": 13,
-      "rows": 1
-    },
-    "inadimplencia_dispersao_subcategoria.csv": {
-      "columns": 19,
-      "rows": 10
-    },
-    "inadimplencia_tipo_recebivel_unico.csv": {
-      "columns": 18,
-      "rows": 10
-    },
-    "inadimplencia_tipo_recebivel_unico_resumo.csv": {
-      "columns": 21,
-      "rows": 1
-    },
-    "market_share_escopo_resumo.csv": {
-      "columns": 14,
-      "rows": 3
-    },
-    "market_share_por_subtipo.csv": {
-      "columns": 21,
-      "rows": 504
-    },
-    "market_share_top10_fixo.csv": {
-      "columns": 6,
-      "rows": 30
-    },
-    "monoestrutura_concentracao.csv": {
-      "columns": 14,
-      "rows": 17
-    },
-    "monoestrutura_por_fundo.csv": {
-      "columns": 72,
-      "rows": 4247
-    },
-    "prestadores_independentes_ranking.csv": {
-      "columns": 19,
-      "rows": 68
-    },
-    "prestadores_lideranca_atribuicao.csv": {
-      "columns": 18,
-      "rows": 2
-    },
-    "prestadores_ranking_historico.csv": {
-      "columns": 10,
-      "rows": 1541
-    },
-    "prestadores_transicoes_detalhe.csv": {
-      "columns": 22,
-      "rows": 2315
-    },
-    "prestadores_transicoes_disponibilidade.csv": {
-      "columns": 5,
-      "rows": 3
-    },
-    "prestadores_transicoes_links.csv": {
-      "columns": 10,
-      "rows": 137
-    },
-    "prestadores_transicoes_resumo.csv": {
-      "columns": 16,
-      "rows": 1
-    },
-    "qa_inadimplencia_casos_latest.csv": {
-      "columns": 16,
-      "rows": 178
+      "rows": 229451,
+      "columns": 114
     },
     "qa_inadimplencia_competencia.csv": {
-      "columns": 56,
-      "rows": 162
+      "rows": 162,
+      "columns": 56
     },
-    "qi_atribuicao_cnpjs_legados.csv": {
-      "columns": 12,
-      "rows": 2
-    },
-    "reag_cbsf_coorte_detalhe.csv": {
-      "columns": 30,
-      "rows": 131
-    },
-    "reag_cbsf_coorte_links.csv": {
-      "columns": 8,
-      "rows": 5
-    },
-    "reag_cbsf_coorte_resumo.csv": {
-      "columns": 28,
-      "rows": 1
+    "qa_inadimplencia_casos_latest.csv": {
+      "rows": 178,
+      "columns": 16
     },
     "reconciliacao_tabelas_i_ii_detalhe.csv": {
-      "columns": 14,
-      "rows": 6651
+      "rows": 6651,
+      "columns": 14
     },
     "reconciliacao_tabelas_i_ii_resumo.csv": {
-      "columns": 19,
-      "rows": 2
+      "rows": 2,
+      "columns": 19
+    },
+    "inadimplencia_tipo_recebivel_unico.csv": {
+      "rows": 10,
+      "columns": 18
+    },
+    "inadimplencia_tipo_recebivel_unico_resumo.csv": {
+      "rows": 1,
+      "columns": 21
+    },
+    "inadimplencia_coorte_atual_membros.csv.gz": {
+      "rows": 2066,
+      "columns": 8
+    },
+    "inadimplencia_coorte_atual_historico.csv": {
+      "rows": 1505,
+      "columns": 24
+    },
+    "inadimplencia_coorte_atual_resumo.csv": {
+      "rows": 162,
+      "columns": 25
+    },
+    "inadimplencia_coorte_revisao_resumo.csv": {
+      "rows": 1,
+      "columns": 15
+    },
+    "inadimplencia_coorte_revisao_transicoes.csv": {
+      "rows": 16,
+      "columns": 8
+    },
+    "inadimplencia_coorte_revisao_sensibilidade.csv": {
+      "rows": 1505,
+      "columns": 13
+    },
+    "inadimplencia_dispersao_subcategoria.csv": {
+      "rows": 10,
+      "columns": 19
+    },
+    "inadimplencia_dispersao_resumo.csv": {
+      "rows": 1,
+      "columns": 13
+    },
+    "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
+      "rows": 2769,
+      "columns": 26
+    },
+    "bridge_inadimplencia_2024-06_2024-07_resumo.csv": {
+      "rows": 3,
+      "columns": 9
     },
     "reconciliacao_veiculo_fundo_latest.csv": {
-      "columns": 8,
-      "rows": 4247
+      "rows": 4247,
+      "columns": 8
     },
-    "source_presence_overlay.csv.gz": {
-      "columns": 49,
-      "rows": 229475
+    "base_fundo_cnpj.csv.gz": {
+      "rows": 229420,
+      "columns": 59
     },
     "top20_fidcs.csv": {
-      "columns": 74,
-      "rows": 20
+      "rows": 20,
+      "columns": 74
     },
     "top20_outros.csv": {
-      "columns": 75,
-      "rows": 20
+      "rows": 20,
+      "columns": 75
+    },
+    "monoestrutura_por_fundo.csv": {
+      "rows": 4247,
+      "columns": 72
+    },
+    "monoestrutura_concentracao.csv": {
+      "rows": 17,
+      "columns": 14
+    },
+    "market_share_por_subtipo.csv": {
+      "rows": 504,
+      "columns": 21
+    },
+    "market_share_top10_fixo.csv": {
+      "rows": 30,
+      "columns": 6
+    },
+    "market_share_escopo_resumo.csv": {
+      "rows": 3,
+      "columns": 14
+    },
+    "prestadores_ranking_historico.csv": {
+      "rows": 1488,
+      "columns": 10
+    },
+    "prestadores_independentes_ranking.csv": {
+      "rows": 68,
+      "columns": 19
+    },
+    "bancos_fidcs_evolucao.csv": {
+      "rows": 24,
+      "columns": 17
+    },
+    "bancos_fidcs_detalhe.csv": {
+      "rows": 260,
+      "columns": 13
+    },
+    "adquirencia_mix_reclassificado.csv": {
+      "rows": 24,
+      "columns": 22
+    },
+    "cobertura_classificacao.csv": {
+      "rows": 4,
+      "columns": 10
+    },
+    "prestadores_transicoes_resumo.csv": {
+      "rows": 1,
+      "columns": 16
+    },
+    "prestadores_transicoes_links.csv": {
+      "rows": 135,
+      "columns": 10
+    },
+    "prestadores_transicoes_detalhe.csv": {
+      "rows": 2170,
+      "columns": 22
+    },
+    "prestadores_transicoes_disponibilidade.csv": {
+      "rows": 3,
+      "columns": 5
+    },
+    "reag_cbsf_coorte_resumo.csv": {
+      "rows": 1,
+      "columns": 28
+    },
+    "reag_cbsf_coorte_links.csv": {
+      "rows": 5,
+      "columns": 8
+    },
+    "reag_cbsf_coorte_detalhe.csv": {
+      "rows": 126,
+      "columns": 30
+    },
+    "prestadores_lideranca_atribuicao.csv": {
+      "rows": 2,
+      "columns": 18
+    },
+    "btg_fidcs_controlados_reconciliacao.csv": {
+      "rows": 6,
+      "columns": 32
+    },
+    "btg_prestadores_ex_controlados.csv": {
+      "rows": 3,
+      "columns": 16
+    },
+    "qi_atribuicao_cnpjs_legados.csv": {
+      "rows": 2,
+      "columns": 12
+    },
+    "deck_workbook_payload.json": {
+      "rows": 14840,
+      "columns": "schema por bloco"
     }
   },
-  "generated_at_utc": "2026-07-29T20:24:16+00:00",
-  "latest_complete": "2026-06",
+  "checks": {
+    "top20_fidcs_rows": 20,
+    "top20_outros_rows": 20,
+    "market_share_roles": 3,
+    "market_share_foci": 14,
+    "blocked_market_share_combinations": 0,
+    "latest_vehicles": 4252,
+    "latest_funds": 4247,
+    "latest_presence_exact": true,
+    "latest_aging_publication_status": "publicável",
+    "single_receivable_rows": 10,
+    "single_receivable_funds": 2066,
+    "frozen_single_receivable_funds": 2066,
+    "independent_provider_rows": 68,
+    "bank_fidc_evolution_rows": 24,
+    "bank_fidc_detail_rows": 260,
+    "acquiring_reclassified_rows": 24,
+    "provider_transition_continuing_funds": 2170,
+    "provider_transition_changed_funds": 348,
+    "reag_cohort_exited_funds": 36,
+    "btg_controlled_fidcs_reconciled": 6,
+    "btg_provider_ex_controlled_roles": 3
+  },
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
     "Buckets de aging e a sensibilidade ex-360 usam os campos brutos das Tabelas V/VI e a soma dos créditos inadimplentes com as parcelas inadimplentes dos créditos a vencer na Tabela I.",

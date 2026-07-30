@@ -11,6 +11,10 @@ if __package__ in {None, ""}:
 
 import pandas as pd
 
+from services.fic_perimeter import (
+    apply_fic_perimeter_overrides,
+    load_fic_perimeter_overrides,
+)
 from services.industry_revision_analysis import (
     TABLE_II_RECEIVABLE_COLUMNS,
     build_revision_outputs,
@@ -67,6 +71,18 @@ def main(argv: list[str] | None = None) -> None:
     if not vehicle_path.exists():
         raise SystemExit(f"base ausente: {vehicle_path}")
     vehicle = pd.read_csv(vehicle_path, low_memory=False)
+    # A curadoria de perímetro precede qualquer agregação: um veículo que só
+    # detém cotas de outros FIDCs tem de sair dos quatro tipos ANBIMA antes de
+    # o mix ser calculado, sob pena de contar o mesmo patrimônio duas vezes.
+    fic_overrides = load_fic_perimeter_overrides(data_dir)
+    vehicle, fic_correction = apply_fic_perimeter_overrides(vehicle, fic_overrides)
+    if fic_correction.cnpj_count:
+        print(
+            f"correção de perímetro FIC: {fic_correction.cnpj_count} CNPJs, "
+            f"{fic_correction.rows_changed} linhas-mês, "
+            f"R$ {fic_correction.pl_moved_last_competence_brl / 1e9:.2f} bi de PL "
+            f"em {fic_correction.last_competence or 'n/d'} movidos para o saldo de FIC"
+        )
     latest_complete = str(args.latest_complete or "").strip()
     if not latest_complete:
         status = _read_optional(data_dir / "industry_competence_status.csv")
