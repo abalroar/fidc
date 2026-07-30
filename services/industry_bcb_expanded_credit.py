@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import time
 from typing import Any
 
 import pandas as pd
@@ -55,26 +56,47 @@ class ExpandedCreditError(ValueError):
     """Raised when the BCB identities or the CVM bridge do not reconcile."""
 
 
+#: O SGS derruba requisições em sequência rápida, e são dez séries seguidas.
+#: Uma resposta não-JSON é o sintoma; a série existe e a repetição a traz.
+_DOWNLOAD_ATTEMPTS = 4
+_DOWNLOAD_BACKOFF_SECONDS = 3.0
+
+
 def _download_series(
     code: int,
     *,
     start: str = "01/01/2015",
     end: str = "31/12/2026",
     timeout: int = 60,
+    attempts: int = _DOWNLOAD_ATTEMPTS,
 ) -> pd.DataFrame:
-    response = requests.get(
-        BCB_API.format(code=code),
-        params={
-            "formato": "json",
-            "dataInicial": start,
-            "dataFinal": end,
-        },
-        timeout=timeout,
-    )
-    response.raise_for_status()
-    rows = response.json()
+    rows: object = None
+    last_error = ""
+    for attempt in range(attempts):
+        if attempt:
+            time.sleep(_DOWNLOAD_BACKOFF_SECONDS * attempt)
+        try:
+            response = requests.get(
+                BCB_API.format(code=code),
+                params={
+                    "formato": "json",
+                    "dataInicial": start,
+                    "dataFinal": end,
+                },
+                timeout=timeout,
+            )
+            response.raise_for_status()
+            rows = response.json()
+        except (requests.RequestException, ValueError) as error:
+            last_error = str(error)
+            continue
+        if isinstance(rows, list) and rows:
+            break
+        last_error = "série vazia"
     if not isinstance(rows, list) or not rows:
-        raise ExpandedCreditError(f"BCB SGS {code} retornou série vazia.")
+        raise ExpandedCreditError(
+            f"BCB SGS {code} não respondeu em {attempts} tentativas: {last_error}"
+        )
     frame = pd.DataFrame(rows)
     frame["date"] = pd.to_datetime(frame["data"], format="%d/%m/%Y")
     frame["competencia"] = frame["date"].dt.to_period("M").astype(str)

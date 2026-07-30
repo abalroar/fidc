@@ -102,6 +102,11 @@ OPTIONAL_DATA_INPUTS = (
     "industry_large_fund_classification.csv",
     "anbima_documentary_overrides.csv",
     "fic_perimeter_overrides.csv",
+    # Auditoria da exclusão de FICs e cross-check da taxonomia: viajam com o
+    # bundle para que o Excel exportado reproduza o que os gráficos mostram e
+    # diga por que cada fundo saiu do universo.
+    "industry_fic_detection_audit.csv",
+    "industry_taxonomy_crosscheck.csv",
     "top20_profile_curation_overrides.csv",
     "industry_intelligence_manifest.json",
 )

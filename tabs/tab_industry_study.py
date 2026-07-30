@@ -117,17 +117,26 @@ def _fidc_ptbr_numbers_theme() -> alt.theme.ThemeConfig:
 
 _DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 _REGULATORY_DB = Path(__file__).resolve().parents[1] / "data" / "fidc_credit_strategy" / "fidc_credit_strategy.sqlite"
+#: Abas exibidas no menu.  "Breakdown FIDCs Cartão", "Top 20" e
+#: "Reclassificação Manual - Tipo ANBIMA" saíram daqui, e só daqui: as funções
+#: que as renderizavam continuam no módulo e os dados que as alimentavam
+#: continuam na base analítica.  A classificação de Adquirência segue viva na
+#: Categoria analítica da Tabela II, na taxonomia funcional N1/N2 e no Foco
+#: ANBIMA analítico, disponível para gráficos, exportações e PPTX.
 INDUSTRY_VIEW_TABS = (
     "Principais conclusões",
     "Escala e taxonomia",
-    "Breakdown FIDCs Cartão",
     "Base investidora",
     "Carteira e inadimplência",
     "Prestadores",
-    "Top 20",
-    "Reclassificação Manual - Tipo ANBIMA",
     "Ofertas e originação",
     "Dados e exportações",
+)
+#: Os dois modos do seletor de classificação.  A ordem importa: o segundo é o
+#: padrão, porque a taxonomia curada é o produto do trabalho analítico.
+_ANBIMA_MIX_MODES = (
+    "Sem reclassificação analítica",
+    "Com reclassificação analítica",
 )
 INDUSTRY_EXECUTIVE_CHARTS = (
     "industry-executive-pl",
@@ -11413,6 +11422,24 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             )
         with right:
             st.markdown("**Carteira de Crédito Privada Ampliada**")
+            bcb_latest = (
+                str(bcb_credit["competencia"].astype(str).max())
+                if not bcb_credit.empty and "competencia" in bcb_credit
+                else ""
+            )
+            # Os dois gráficos têm de terminar na mesma competência. Quando o
+            # BCB ainda não publicou o mês que a CVM já tem, o desalinhamento é
+            # de disponibilidade da fonte, não erro de cálculo, e é dito em voz
+            # alta em vez de mascarado.
+            if bcb_latest and latest_competence and bcb_latest != latest_competence:
+                st.warning(
+                    f"O PL usa {_short_competence_label(latest_competence).lower()} e a "
+                    f"carteira ampliada para em {_short_competence_label(bcb_latest).lower()}: "
+                    "o BCB ainda não publicou a série de crédito ampliado para a "
+                    "competência mais recente da CVM. Rode "
+                    "`scripts/build_fidc_bcb_expanded_credit.py` quando ela sair.",
+                    icon=":material/schedule:",
+                )
             if not bcb_credit.empty:
                 components = [
                     ("Empréstimos", "loans_brl"),
@@ -11508,14 +11535,53 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                     "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, "
                     "excluídos títulos públicos. As securitizações são abertas entre (i) "
                     "FIDCs e (ii) demais securitizações, correspondentes a CRIs e CRAs. "
-                    "Último mês comum com a CVM: mai/26."
+                    "A carteira de FIDCs é reconstruída sobre o universo elegível, "
+                    "depois da exclusão de FICs, e o último ponto acompanha a mesma "
+                    "competência do gráfico de PL à esquerda."
+                    + (
+                        f" Último mês comum com a CVM: {_short_competence_label(str(bcb_latest)).lower()}."
+                        if bcb_latest
+                        else ""
+                    )
                 )
 
     st.markdown(
         "<h2>Classificação ANBIMA · evolução do PL ex-FIC</h2>",
         unsafe_allow_html=True,
     )
-    mix = _revision_history_frame(payload, "type_mix_history", fallback_key="type_mix")
+    # A exclusão de FICs acontece a montante, no pipeline, e vale igualmente
+    # para os dois modos: o seletor escolhe qual classificação é aplicada ao
+    # universo já elegível, nunca qual universo é considerado. Por isso são
+    # quatro combinações — volume e participação, com e sem reclassificação — e
+    # nenhuma delas reintroduz um FIC.
+    reclassified_mode = st.segmented_control(
+        "Classificação",
+        options=_ANBIMA_MIX_MODES,
+        default=_ANBIMA_MIX_MODES[1],
+        key="industry-revision-type-mix-mode",
+        label_visibility="collapsed",
+    )
+    if reclassified_mode not in _ANBIMA_MIX_MODES:
+        reclassified_mode = _ANBIMA_MIX_MODES[1]
+    with_reclassification = reclassified_mode == _ANBIMA_MIX_MODES[1]
+    mix_key = "type_mix_history" if with_reclassification else "type_mix_history_official"
+    mix = _revision_history_frame(payload, mix_key, fallback_key="type_mix")
+    if mix.empty and not with_reclassification:
+        st.info(
+            "A série sem reclassificação não está publicada neste bundle; "
+            "exibindo a série com reclassificação analítica."
+        )
+        mix = _revision_history_frame(payload, "type_mix_history", fallback_key="type_mix")
+        with_reclassification = True
+    st.caption(
+        (
+            "Modo **com reclassificação analítica**: taxonomia curada aplicada por "
+            "CNPJ sobre o universo sem FICs."
+            if with_reclassification
+            else "Modo **sem reclassificação analítica**: classificação ANBIMA "
+            "oficial preservada, sobre o mesmo universo sem FICs."
+        )
+    )
     mix_meta = dict(payload.get("type_mix_meta") or {})
     if not mix.empty:
         if "period_order" not in mix:
@@ -15809,12 +15875,9 @@ def render_tab_industry_study() -> None:
     (
         conclusions_tab,
         overview_tab,
-        card_breakdown_tab,
         investors_tab,
         credit_tab,
         providers_tab,
-        top20_tab,
-        taxonomy_tab,
         offers_tab,
         audit_tab,
     ) = st.tabs(INDUSTRY_VIEW_TABS)
@@ -15822,18 +15885,12 @@ def render_tab_industry_study() -> None:
         _render_revision_conclusions(revision_payload)
     with overview_tab:
         _render_revision_overview(revision_payload)
-    with card_breakdown_tab:
-        _render_revision_card_breakdown(revision_payload)
     with investors_tab:
         _render_revision_investors(revision_payload)
     with credit_tab:
         _render_revision_credit(revision_payload)
     with providers_tab:
         _render_revision_providers(revision_payload)
-    with top20_tab:
-        _render_revision_top20(revision_payload)
-    with taxonomy_tab:
-        _render_taxonomy_review(revision_payload)
     with offers_tab:
         _render_revision_offers(revision_payload)
     with audit_tab:

@@ -175,6 +175,51 @@ R$ 2,997 bi de cotas de FIDC em R$ 3,520 bi aplicados (85%) e direitos
 creditórios em R$ 0,00 nas quatro competências — é um FIC. Vale conferir a mão,
 já que contraria uma aprovação humana.
 
+## Detecção de FIC auditável e o portão único
+
+`services/fic_detection.py` concentra a regra. Três fontes dizem se um fundo é
+FIC, e elas não têm a mesma força:
+
+1. **Flag cadastral** — `is_fic_fidc` do informe mensal. Resolve o caso.
+2. **Informe Mensal Estruturado** — `VL_DICRED` zerado em toda a série e cotas
+   de FIDC acima de metade das aplicações. É a regra que achou o que a flag
+   perde, e é quantitativa: lê o que o fundo detém, não como se chama.
+3. **O nome** — a mais fraca, e **nunca decisiva sozinha**. Nesta base, 214 dos
+   fundos excluídos (23%) não trazem qualquer sinal de FIC na denominação, então
+   uma regra por nome perderia a maioria; e um nome pode dizer FIC enquanto o
+   fundo compra recebíveis direto. O nome fica como cross-check.
+
+`FIC_TOKEN_PATTERN` casa "FIC" apenas como token isolado — delimitado por início
+ou fim da string, espaço, hífen, barra, parêntese ou pontuação. `FICÇÃO`,
+`SIFIC`, `FIC123` e `PACIFICO` não disparam, porque o caractere vizinho é
+alfanumérico. Um nome que diz FIC sem confirmação quantitativa **permanece no
+universo** e vai para revisão humana: excluir por nome é justamente o falso
+positivo que esta auditoria existe para impedir.
+
+Cada linha recebe `is_fic`, `fic_detection_method`, `fic_detection_evidence` e
+`fic_exclusion_reason`, e a auditoria completa fica em
+`industry_fic_detection_audit.csv`.
+
+`exclude_fics_from_fidc_universe()` é o portão único, e `split_fidc_universe()`
+devolve os dois lados. Os dois são necessários: o elegível alimenta tudo que é
+analítico, o excluído alimenta o saldo de FIC. Apagar as linhas excluídas
+zeraria justamente o saldo que a exclusão existe para construir.
+`assert_universe_excludes_fics()` roda sobre os produtos derivados e falha em
+voz alta se um FIC reaparecer num ranking ou no mix.
+
+## Cross-check da taxonomia
+
+`services/taxonomy_crosscheck.py` procura contradições internas nas decisões
+aprovadas e **não reescreve nada**: cada achado traz evidência, motivo e ação
+sugerida. Duas armadilhas moldaram as regras. A primeira foi escrever a tabela
+Tabela II × N1 com rótulos inventados em vez do vocabulário real de
+`FUNCTIONAL_TAXONOMY` — isso produziu 686 falsos achados, entre eles todos os
+609 "Ações judiciais / Judicial-Precatórios-NPL", que estão corretos. A segunda
+foi casar as regras contra o rótulo de família entre colchetes e a linha
+"Escores documentais" das notas: são a saída do próprio classificador, e casar
+contra elas é confirmar a classificação com ela mesma. `_documentary_text()`
+remove as duas antes de qualquer busca.
+
 ## Três fontes de evidência, em ordem de força
 
 1. **Classificação ANBIMA declarada no regulamento.** Regulamentos adaptados à

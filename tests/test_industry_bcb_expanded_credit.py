@@ -80,7 +80,12 @@ def test_materialized_bcb_history_has_all_required_series() -> None:
         "securitization",
         "external_debt",
     }
-    assert frame.iloc[-1]["competencia"] == "2026-05"
-    assert frame.iloc[-1]["expanded_credit_total_brl"] == pytest.approx(
-        21_513_125_000_000
-    )
+    # O último ponto acompanha o que BCB e CVM têm em comum e avança quando o
+    # BCB publica. Fixar o mês literal quebraria o teste a cada divulgação, sem
+    # dizer nada sobre a série; o que importa é que a ponta seja a mais recente
+    # e que a identidade do crédito ampliado feche nela.
+    latest = frame.iloc[-1]
+    assert latest["competencia"] == frame["competencia"].max()
+    assert bool(latest["is_latest"])
+    assert latest["competencia"] >= "2026-06"
+    assert latest["expanded_credit_total_brl"] > 20_000_000_000_000

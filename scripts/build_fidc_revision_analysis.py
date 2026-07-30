@@ -11,6 +11,11 @@ if __package__ in {None, ""}:
 
 import pandas as pd
 
+from services.fic_detection import (
+    annotate_fic_detection,
+    assert_universe_excludes_fics,
+    split_fidc_universe,
+)
 from services.fic_perimeter import (
     apply_fic_perimeter_overrides,
     load_fic_perimeter_overrides,
@@ -64,6 +69,31 @@ def _read_optional(path: Path) -> pd.DataFrame | None:
     return pd.read_csv(path, low_memory=False) if path.exists() else None
 
 
+#: Produtos analíticos que jamais podem conter um FIC.  ``base_vehicle`` fica
+#: de fora de propósito: é a base bruta que carrega os dois lados, e é dela que
+#: o saldo de FIC é calculado.
+_FIC_FREE_PRODUCTS: tuple[str, ...] = (
+    "top20_fidcs",
+    "top20_outros",
+    "acquiring_reclassified_mix",
+)
+
+
+def _validate_no_fic_in_products(outputs: object, excluded: list[str]) -> None:
+    if not excluded:
+        return
+    for name in _FIC_FREE_PRODUCTS:
+        frame = getattr(outputs, name, None)
+        if frame is None:
+            continue
+        for column in ("cnpj_fundo", "cnpj"):
+            if column in getattr(frame, "columns", []):
+                assert_universe_excludes_fics(
+                    frame, excluded, label=name, cnpj_column=column
+                )
+                break
+
+
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     data_dir = Path(args.data_dir)
@@ -83,6 +113,30 @@ def main(argv: list[str] | None = None) -> None:
             f"R$ {fic_correction.pl_moved_last_competence_brl / 1e9:.2f} bi de PL "
             f"em {fic_correction.last_competence or 'n/d'} movidos para o saldo de FIC"
         )
+    # O portão único: anota is_fic e as colunas auditáveis, e separa o universo
+    # elegível dos FICs. Os dois lados são necessários — o elegível alimenta
+    # tudo que é analítico, o excluído alimenta o saldo de FIC. Apagar as linhas
+    # excluídas zeraria justamente o saldo que a exclusão existe para construir.
+    vehicle = annotate_fic_detection(
+        vehicle,
+        curated_cnpjs=fic_overrides["cnpj_fundo"].tolist() if not fic_overrides.empty else (),
+        curated_evidence=(
+            dict(zip(fic_overrides["cnpj_fundo"], fic_overrides["evidencia"]))
+            if not fic_overrides.empty
+            else None
+        ),
+        cnpj_column="cnpj",
+    )
+    _eligible, excluded_fics, exclusion = split_fidc_universe(vehicle, cnpj_column="cnpj")
+    excluded_fic_cnpjs = (
+        sorted(set(excluded_fics["cnpj"].astype(str))) if not excluded_fics.empty else []
+    )
+    print(
+        f"universo elegível: {exclusion.rows_out} linhas-mês; "
+        f"{exclusion.cnpj_excluded} CNPJs excluídos como FIC, "
+        f"R$ {exclusion.pl_excluded_last_competence_brl / 1e9:.2f} bi de PL em "
+        f"{exclusion.last_competence or 'n/d'} fora dos quatro tipos ANBIMA"
+    )
     latest_complete = str(args.latest_complete or "").strip()
     if not latest_complete:
         status = _read_optional(data_dir / "industry_competence_status.csv")
@@ -226,6 +280,10 @@ def main(argv: list[str] | None = None) -> None:
         latest_complete=latest_complete,
     )
     manifest = write_revision_outputs(outputs, Path(args.output_dir))
+    # A regra é centralizada acima, mas uma regressão silenciosa num produto
+    # derivado é justamente o que esta verificação torna impossível: se um FIC
+    # reaparecer num ranking ou no mix, a materialização falha em voz alta.
+    _validate_no_fic_in_products(outputs, excluded_fic_cnpjs)
     checks = manifest["checks"]
     print(
         "[ok] revisão analítica materializada em "

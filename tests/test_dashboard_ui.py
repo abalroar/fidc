@@ -198,18 +198,24 @@ def test_scoped_css_includes_mobile_and_hover_chart_rules() -> None:
 
 
 def test_all_primary_views_and_chart_series_are_preserved() -> None:
+    # "Breakdown FIDCs Cartão", "Top 20" e "Reclassificação Manual - Tipo
+    # ANBIMA" saíram da navegação; os dados e a classificação de adquirência
+    # continuam no backend, cobertos pelos testes de taxonomia.
     assert INDUSTRY_VIEW_TABS == (
         "Principais conclusões",
         "Escala e taxonomia",
-        "Breakdown FIDCs Cartão",
         "Base investidora",
         "Carteira e inadimplência",
         "Prestadores",
-        "Top 20",
-        "Reclassificação Manual - Tipo ANBIMA",
         "Ofertas e originação",
         "Dados e exportações",
     )
+    for removed in (
+        "Breakdown FIDCs Cartão",
+        "Top 20",
+        "Reclassificação Manual - Tipo ANBIMA",
+    ):
+        assert removed not in INDUSTRY_VIEW_TABS
     assert CLOUDWALK_VIEW_TABS == (
         "Resumo",
         "Séries",
