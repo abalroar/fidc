@@ -15,7 +15,11 @@ import pandas as pd
 import streamlit as st
 
 from services.dashboard_ui import render_page_header
-from services.ledger_publisher import publish_decisions, repository_status
+from services.ledger_publisher import (
+    publish_decisions,
+    repository_status,
+    resolve_push_credential,
+)
 from services.industry_taxonomy_review import (
     commit_taxonomy_review_action,
     format_cnpj,
@@ -71,10 +75,17 @@ def _ledger_signature() -> float:
         return 0.0
 
 
+def _secrets() -> dict[str, object]:
+    try:
+        return dict(st.secrets)  # type: ignore[arg-type]
+    except Exception:  # noqa: BLE001 - no secrets file is a normal setup.
+        return {}
+
+
 def _publish(reason: str) -> None:
     """Commit and push the ledger, recording the outcome for the next run."""
 
-    result = publish_decisions(_ROOT, message=reason)
+    result = publish_decisions(_ROOT, message=reason, secrets=_secrets())
     st.session_state["taxonomy_queue_publish_flash"] = (
         ("ok" if result.pushed else "erro"),
         result.detail,
@@ -113,6 +124,12 @@ def _render_publish_controls() -> None:
                 st.rerun()
         else:
             st.caption(f"Ledger sincronizado com o último commit de {status.branch}.")
+
+    credential = resolve_push_credential(_ROOT, _secrets())
+    st.caption(
+        ("Token dos secrets em uso. " if credential.configured else "")
+        + credential.detail
+    )
 
 
 def _render_bundle_notice() -> None:

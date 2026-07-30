@@ -8,7 +8,9 @@ import pytest
 from services.ledger_publisher import (
     LEDGER_FILES,
     publish_decisions,
+    redact,
     repository_status,
+    resolve_push_credential,
 )
 
 
@@ -118,3 +120,77 @@ def test_a_missing_remote_reports_instead_of_losing_the_commit(repository: Path)
     assert result.committed
     assert not result.pushed
     assert result.detail
+
+
+def test_without_a_token_the_clone_credential_is_used(repository: Path) -> None:
+    credential = resolve_push_credential(repository, {})
+
+    assert not credential.configured
+    assert credential.url == ""
+
+
+def test_a_token_becomes_an_authenticated_push_url(repository: Path) -> None:
+    _git(repository, "remote", "add", "origin", "https://github.com/abalroar/fidc.git")
+
+    credential = resolve_push_credential(repository, {"github_token": "ghp_exemplo"})
+
+    assert credential.configured
+    assert credential.url == (
+        "https://x-access-token:ghp_exemplo@github.com/abalroar/fidc.git"
+    )
+
+
+def test_the_repository_can_come_from_the_secrets(tmp_path: Path) -> None:
+    """A clone with no usable remote still publishes when the secret says where."""
+
+    credential = resolve_push_credential(
+        tmp_path,
+        {"github_token": "ghp_exemplo", "github_repository": "abalroar/fidc"},
+    )
+
+    assert credential.configured
+    assert credential.url.endswith("@github.com/abalroar/fidc.git")
+
+
+def test_a_token_with_url_characters_survives_the_round_trip(repository: Path) -> None:
+    _git(repository, "remote", "add", "origin", "git@github.com:abalroar/fidc.git")
+
+    credential = resolve_push_credential(repository, {"github_token": "a/b?c#d@e"})
+
+    assert credential.url == (
+        "https://x-access-token:a%2Fb%3Fc%23d%40e@github.com/abalroar/fidc.git"
+    )
+
+
+def test_a_token_without_a_repository_reports_instead_of_pushing_blind() -> None:
+    credential = resolve_push_credential(Path("/nonexistent"), {"github_token": "x"})
+
+    assert not credential.configured
+    assert "github_repository" in credential.detail
+
+
+def test_the_token_is_never_echoed_back_to_the_screen() -> None:
+    """Git prints the remote URL on failure; the token must not ride along."""
+
+    leaked = (
+        "fatal: unable to access "
+        "'https://x-access-token:ghp_segredo@github.com/abalroar/fidc.git/': 403"
+    )
+
+    assert "ghp_segredo" not in redact(leaked)
+    assert "***@github.com" in redact(leaked)
+
+
+def test_a_failed_authenticated_push_reports_without_the_token(repository: Path) -> None:
+    (repository / LEDGER_FILES[0]).write_text("review_id\n00000000000191\n", encoding="utf-8")
+
+    result = publish_decisions(
+        repository,
+        message="com token",
+        push=True,
+        secrets={"github_token": "ghp_segredo", "github_repository": "abalroar/fidc"},
+    )
+
+    assert result.committed
+    assert not result.pushed
+    assert "ghp_segredo" not in result.detail

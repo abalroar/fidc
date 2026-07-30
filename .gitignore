@@ -35,6 +35,7 @@ env/
 .streamlit/*
 !.streamlit/
 !.streamlit/config.toml
+!.streamlit/secrets.toml.example
 
 # Local environment files
 .env

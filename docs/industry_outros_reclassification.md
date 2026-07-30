@@ -300,6 +300,44 @@ nunca a vê nem a fornece. Duas formas:
 Sem credencial alguma o app ainda revisa e grava, mas só no disco de onde ele
 roda; num host efêmero as decisões se perdem no restart.
 
+#### Credencial por secret
+
+Numa máquina corporativa o caminho da credencial ambiente costuma não existir:
+sem credential helper, sem chaveiro, sem SSH na porta 22, sem direito de
+instalar nada. O secret resolve isso porque só depende de HTTPS na 443, que é o
+que o proxy da empresa deixa passar de qualquer jeito.
+
+`resolve_push_credential()` lê `github_token` de `st.secrets` e monta
+`https://x-access-token:<token>@github.com/<owner>/<repo>.git`. A URL é passada
+como argumento de um único `git push`: não entra em `.git/config`, não vira
+remote, não sobrevive ao comando. E `redact()` cobre toda mensagem devolvida
+pelo publisher, porque o git ecoa a URL do remoto em vários erros — sem isso um
+push recusado imprimiria o token na tela de quem estiver usando o painel.
+
+Passo a passo:
+
+1. **Gerar o token.** GitHub → Settings → Developer settings → Personal access
+   tokens → Fine-grained tokens → Generate new token. Repository access:
+   **Only select repositories → `abalroar/fidc`**. Repository permissions:
+   **Contents: Read and write**. Nada além disso — essa única permissão é o que
+   o push do ledger precisa. Se o repositório pertence a uma organização com
+   SSO, autorize o token para ela na lista de tokens, senão o push volta 403.
+2. **Rodando local:** copie `.streamlit/secrets.toml.example` para
+   `.streamlit/secrets.toml`, cole o token em `github_token` e reinicie o app.
+   O `.gitignore` já ignora `secrets.toml`; confirme com
+   `git check-ignore -v .streamlit/secrets.toml` antes de colar.
+3. **No Streamlit Community Cloud:** Manage app → Settings → Secrets, cole o
+   mesmo conteúdo TOML e salve. O app reinicia sozinho. Não suba o arquivo pelo
+   repositório.
+4. **Conferir:** o painel imprime `Token dos secrets em uso. Publicando em
+   owner/repo.` logo abaixo dos controles de publicação. Sem essa linha, o
+   token não foi lido e o push está tentando a credencial do clone.
+5. **Atrás de proxy corporativo**, se o push travar sem resposta:
+   `git config --global http.proxy http://usuario:senha@proxy.empresa:8080`.
+
+Revogar é o botão de emergência: apagar o token no GitHub derruba o acesso na
+hora, sem mexer no código nem no repositório.
+
 Abrir a fila troca autenticação por atribuição, e a atribuição é a parte que
 vale preservar. O painel pede **Quem está revisando** — assinatura, não login,
 sem verificação — e `reviewer_responsible()` grava o nome em `responsavel` como
