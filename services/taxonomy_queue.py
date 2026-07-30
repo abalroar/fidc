@@ -32,6 +32,11 @@ DEFAULT_DATA_DIR = Path("data/industry_study")
 CONCLUSIONS_FILENAME = "industry_outros_reclassification_conclusions.csv"
 PENDING_CURATION_FILENAME = "industry_top20_pending_curation.csv"
 
+#: Recorded in ``responsavel`` when the queue is open and nobody signed.
+ANONYMOUS_REVIEWER = "curadoria_manual_streamlit"
+REVIEWER_PREFIX = "curadoria_manual_streamlit"
+MAX_SIGNATURE_LENGTH = 48
+
 #: Statuses that still ask for a human decision, in the order they are offered.
 OPEN_STATUSES: tuple[str, ...] = ("em_revisao", "pendente")
 DECISION_STATUSES: tuple[str, ...] = ("aprovado", "em_revisao", "pendente", "rejeitado")
@@ -220,6 +225,31 @@ def filter_queue(
     return frame.reset_index(drop=True)
 
 
+def reviewer_responsible(signature: str) -> str:
+    """Turn a free-text signature into a stable value for ``responsavel``.
+
+    The queue is meant to be open: whoever holds the link reviews, with no login
+    and no token.  That trades authentication for attribution, and attribution
+    is the part worth keeping — a ledger where every decision is
+    ``curadoria_manual_streamlit`` cannot tell you who decided what.  So the
+    panel asks for a name and this function records it.
+
+    It is a signature, not an identity.  Nothing verifies it, and the audit
+    trail is what makes the claim checkable: an unsigned decision is honestly
+    recorded as anonymous rather than attributed to someone who did not take it.
+    """
+
+    cleaned = _text(signature).casefold()
+    kept = [
+        character if (character.isalnum() or character in {".", "-", "_"}) else " "
+        for character in cleaned
+    ]
+    slug = "-".join("".join(kept).split())[:MAX_SIGNATURE_LENGTH].strip("-")
+    if not slug:
+        return ANONYMOUS_REVIEWER
+    return f"{REVIEWER_PREFIX}:{slug}"
+
+
 def build_decision(
     row: pd.Series,
     *,
@@ -233,13 +263,21 @@ def build_decision(
     justificativa: str,
     responsavel: str,
     saved_at_utc: str,
+    motivo_override: str = "",
 ) -> dict[str, object]:
-    """Assemble the ledger action for one manual decision."""
+    """Assemble the ledger action for one manual decision.
+
+    ``motivo_override`` leads the notes when the decision replaces an existing
+    approval, mirroring the ``--override-reason`` the batch scripts demand.
+    """
 
     cnpj = normalize_cnpj(row["cnpj_fundo"])
     notes = " ".join(
         part
         for part in (
+            f"Sobrescreve aprovação anterior: {_text(motivo_override)}"
+            if _text(motivo_override)
+            else "",
             _text(justificativa),
             _text(row.get("limitacao")),
             f"Escores documentais: {_text(row.get('family_scores'))}."

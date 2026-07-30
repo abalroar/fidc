@@ -279,6 +279,39 @@ A gravação passa por `commit_taxonomy_review_action`, com a mesma trilha de
 auditoria de qualquer outra decisão, e o responsável fica registrado como
 `curadoria_manual_streamlit`.
 
+### Fila aberta, sem token para quem revisa
+
+Ler a fila e gravar uma decisão não toca em credencial nenhuma: a fila é montada
+a partir de CSV em disco e a decisão é escrita em CSV, sob `flock`, que serializa
+revisores simultâneos no mesmo servidor. Quem abre o link revisa — sem login,
+sem token, sem secret.
+
+O único ponto que exige credencial é **publicar no GitHub**, porque o GitHub não
+aceita push anônimo. Essa credencial fica no servidor, uma vez, e o visitante
+nunca a vê nem a fornece. Duas formas:
+
+- **App rodando numa máquina com o clone já autenticado** (`streamlit run app.py`,
+  exposto na rede local ou por túnel): funciona sem nenhuma configuração
+  adicional, porque o push usa a credencial git que já está ali.
+- **Servidor público** (Streamlit Community Cloud e afins): exige exatamente um
+  secret no servidor — uma deploy key com escopo de escrita neste repositório.
+  Continua sem token para o visitante.
+
+Sem credencial alguma o app ainda revisa e grava, mas só no disco de onde ele
+roda; num host efêmero as decisões se perdem no restart.
+
+Abrir a fila troca autenticação por atribuição, e a atribuição é a parte que
+vale preservar. O painel pede **Quem está revisando** — assinatura, não login,
+sem verificação — e `reviewer_responsible()` grava o nome em `responsavel` como
+`curadoria_manual_streamlit:<nome>`. Em branco, a decisão fica honestamente
+registrada como anônima, nunca atribuída a quem não a tomou. A trilha de
+auditoria é o que torna a alegação conferível.
+
+O trabalho já concluído fica protegido por um único caminho de destruição, e ele
+é guardado: reabrir um fundo **aprovado** exige motivo explícito, que lidera as
+notas da decisão — o mesmo `--override-reason` que os scripts em lote cobram.
+Sem motivo, a decisão anterior é preservada e nada é gravado.
+
 ### Publicação no repositório
 
 As decisões tomadas no painel gravam nos dois CSV do ledger. Enquanto não forem

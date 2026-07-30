@@ -30,6 +30,7 @@ from services.taxonomy_queue import (
     focus_options,
     functional_level2_options,
     queue_summary,
+    reviewer_responsible,
     taxonomy_vocabularies,
 )
 
@@ -185,6 +186,18 @@ def render_tab_taxonomy_queue() -> None:
     _render_publish_controls()
     _render_bundle_notice()
 
+    signature = st.text_input(
+        "Quem está revisando",
+        key="taxonomy-queue-signature",
+        placeholder="seu nome ou apelido",
+        help=(
+            "Assinatura, não login: fica gravada em cada decisão para que o "
+            "ledger diga quem decidiu o quê. Em branco, a decisão é registrada "
+            "como anônima."
+        ),
+    )
+    responsavel = reviewer_responsible(signature)
+
     filter_column, search_column = st.columns([2, 3])
     with filter_column:
         show_all = st.toggle(
@@ -308,6 +321,24 @@ def render_tab_taxonomy_queue() -> None:
             key=f"tq-just-{selected_cnpj}",
         )
 
+    # Reabrir um fundo já aprovado é o único caminho pelo qual a fila aberta
+    # pode destruir trabalho concluído. Exigir motivo explícito aqui espelha o
+    # --override-reason que os scripts em lote cobram.
+    overriding = str(row["status_atual"]) == "aprovado"
+    motivo_override = ""
+    if overriding:
+        st.warning(
+            "Este fundo já está aprovado"
+            + (f" por {row['responsavel_atual']}." if row["responsavel_atual"] else ".")
+            + " Gravar por cima exige um motivo.",
+            icon=":material/lock_reset:",
+        )
+        motivo_override = st.text_input(
+            "Motivo para sobrescrever a aprovação",
+            key=f"tq-override-{selected_cnpj}",
+            placeholder="o que na evidência mudou a conclusão",
+        )
+
     approve, review, reject, skip = st.columns(4)
     decision: str | None = None
     if approve.button("Aprovar e próximo", type="primary", width="stretch"):
@@ -323,6 +354,12 @@ def render_tab_taxonomy_queue() -> None:
 
     if decision is None:
         return
+    if overriding and not motivo_override.strip():
+        st.error(
+            "Informe o motivo antes de sobrescrever uma aprovação. A decisão "
+            "anterior foi preservada."
+        )
+        return
 
     action = build_decision(
         row,
@@ -334,8 +371,9 @@ def render_tab_taxonomy_queue() -> None:
         n2=n2,
         confianca=confianca,
         justificativa=justificativa,
-        responsavel="curadoria_manual_streamlit",
+        responsavel=responsavel,
         saved_at_utc=datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
+        motivo_override=motivo_override,
     )
     try:
         validate_taxonomy_review_action(action)

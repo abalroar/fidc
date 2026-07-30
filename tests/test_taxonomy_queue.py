@@ -11,7 +11,10 @@ from services.industry_taxonomy_review import (
     validate_taxonomy_review_action,
 )
 from services.taxonomy_queue import (
+    ANONYMOUS_REVIEWER,
     DECISION_STATUSES,
+    MAX_SIGNATURE_LENGTH,
+    REVIEWER_PREFIX,
     OPEN_STATUSES,
     QUEUE_COLUMNS,
     build_decision,
@@ -20,6 +23,7 @@ from services.taxonomy_queue import (
     focus_options,
     functional_level2_options,
     queue_summary,
+    reviewer_responsible,
     taxonomy_vocabularies,
 )
 
@@ -171,3 +175,62 @@ def test_the_app_registers_the_section() -> None:
 
     assert '("taxonomia", "Fila de Taxonomia")' in source
     assert "render_tab_taxonomy_queue()" in source
+
+
+def test_a_signature_becomes_an_attributable_responsible() -> None:
+    assert reviewer_responsible("Matheus Prates") == (
+        "curadoria_manual_streamlit:matheus-prates"
+    )
+    assert reviewer_responsible("  ANA/Ré  Silva ") == (
+        "curadoria_manual_streamlit:ana-ré-silva"
+    )
+
+
+def test_an_unsigned_review_is_recorded_as_anonymous_not_as_someone_else() -> None:
+    """A blank field must never borrow the previous reviewer's name."""
+
+    assert reviewer_responsible("") == ANONYMOUS_REVIEWER
+    assert reviewer_responsible("   ") == ANONYMOUS_REVIEWER
+    assert reviewer_responsible("///") == ANONYMOUS_REVIEWER
+
+
+def test_a_signature_cannot_break_the_ledger_row() -> None:
+    responsible = reviewer_responsible("a" * 200 + ' ";\n\tdrop')
+
+    assert "\n" not in responsible and '"' not in responsible
+    assert len(responsible) <= len(REVIEWER_PREFIX) + 1 + MAX_SIGNATURE_LENGTH
+
+
+def test_an_override_reason_leads_the_notes(queue: pd.DataFrame) -> None:
+    documented = queue[queue["evidencia"].str.len().gt(0)].iloc[0]
+
+    action = build_decision(
+        documented,
+        status="aprovado",
+        tipo=documented["tipo_sugerido"] or "Outros",
+        foco=documented["foco_sugerido"] or "Multicarteira Outros",
+        tabela_ii=documented["tabela_ii_sugerida"] or "N/D",
+        n1=documented["n1_sugerida"] or "Multissetorial / Outros",
+        n2=documented["n2_sugerida"] or "Multicarteira outros",
+        confianca="alta",
+        justificativa="Validado manualmente.",
+        responsavel=reviewer_responsible("ana"),
+        saved_at_utc="2026-07-30T00:00:00+00:00",
+        motivo_override="o regulamento novo declara outro foco",
+    )
+
+    assert str(action["notas"]).startswith(
+        "Sobrescreve aprovação anterior: o regulamento novo declara outro foco"
+    )
+    assert action["responsavel"] == "curadoria_manual_streamlit:ana"
+    validate_taxonomy_review_action(action)
+
+
+def test_the_panel_refuses_to_overwrite_an_approval_without_a_reason() -> None:
+    """The guardrail lives in the panel; assert it is wired, not decorative."""
+
+    source = (ROOT / "tabs" / "tab_taxonomy_queue.py").read_text(encoding="utf-8")
+
+    assert 'overriding = str(row["status_atual"]) == "aprovado"' in source
+    assert "if overriding and not motivo_override.strip():" in source
+    assert "motivo_override=motivo_override" in source
