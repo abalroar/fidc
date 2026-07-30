@@ -76,6 +76,7 @@ _FIC_FREE_PRODUCTS: tuple[str, ...] = (
     "top20_fidcs",
     "top20_outros",
     "acquiring_reclassified_mix",
+    "monostructure_funds",
 )
 
 
@@ -146,6 +147,18 @@ def main(argv: list[str] | None = None) -> None:
                 latest_complete = str(complete["competencia"].astype(str).max())
         if not latest_complete:
             latest_complete = str(vehicle["competencia"].astype(str).max())
+    excluded_fic_cnpjs = (
+        sorted(
+            set(
+                excluded_fics.loc[
+                    excluded_fics["competencia"].astype(str).eq(latest_complete),
+                    "cnpj",
+                ].astype(str)
+            )
+        )
+        if not excluded_fics.empty
+        else []
+    )
     official = _read_optional(data_dir / "industry_anbima_classification.csv.gz")
     published = _read_optional(data_dir / "industry_large_fund_classification.csv")
     documentary_overrides = _read_optional(

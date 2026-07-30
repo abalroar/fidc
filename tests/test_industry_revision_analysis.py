@@ -577,6 +577,18 @@ def _fund_base_for_rankings() -> pd.DataFrame:
 
 def test_top20_uses_full_universe_and_mono_uses_one_group_definition() -> None:
     funds = _fund_base_for_rankings()
+    fic = funds.iloc[[2]].copy()
+    fic["cnpj_fundo"] = "99999999000199"
+    fic["denominacao"] = "FIC EXCLUÍDO"
+    fic["pl"] = 1_000_000_000_000.0
+    fic["is_fic_fidc"] = True
+    fic["admin_nome"] = "BTG PACTUAL"
+    fic["admin_cnpj"] = "30306294000145"
+    fic["gestor_nome"] = "BTG PACTUAL"
+    fic["gestor_cnpj"] = "30306294000145"
+    fic["custodiante_nome"] = "BTG PACTUAL"
+    fic["custodiante_cnpj"] = "30306294000145"
+    funds = pd.concat([funds, fic], ignore_index=True)
     top20, _, structured, concentration = build_top20_and_monostructure(
         funds, competence="2026-05"
     )
@@ -584,6 +596,7 @@ def test_top20_uses_full_universe_and_mono_uses_one_group_definition() -> None:
     assert len(top20) == 20
     assert top20["rank"].tolist() == list(range(1, 21))
     assert top20["market_share_ex_fic"].is_monotonic_decreasing
+    assert "99999999000199" not in set(structured["cnpj_fundo"])
     selected = structured[structured["denominacao"].isin({"FIDC DO SISTEMA PETROBRAS", "TAPSO FIDC"})]
     assert selected["monoestrutura_conglomerado"].all()
     assert not selected["monoestrutura_entidade_legal"].all()

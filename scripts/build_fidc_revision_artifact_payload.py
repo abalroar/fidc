@@ -1286,6 +1286,61 @@ def _last_observation_by_year(monthly: pd.DataFrame, latest: str) -> pd.DataFram
     )
 
 
+def _apply_detected_fic_history(
+    annual_pl: pd.DataFrame,
+    fic_detection_audit: pd.DataFrame,
+) -> pd.DataFrame:
+    """Replace the legacy FIC flag with the auditable single-gate perimeter."""
+
+    output = annual_pl.copy()
+    if fic_detection_audit.empty:
+        output["pl_ex_fic"] = output["pl_total"] - output["pl_fic_fidc"]
+        output["pl_fic_componente"] = output["pl_fic_fidc"]
+        return output
+
+    required = {"competencia", "cnpj_fundo", "is_fic", "pl"}
+    missing = sorted(required.difference(fic_detection_audit.columns))
+    if missing:
+        raise ValueError(
+            "auditoria FIC sem colunas obrigatórias: " + ", ".join(missing)
+        )
+    audit = fic_detection_audit.copy()
+    audit = audit[
+        audit["is_fic"]
+        .astype(str)
+        .str.strip()
+        .str.casefold()
+        .isin({"true", "1", "sim", "yes"})
+    ].copy()
+    audit["pl"] = pd.to_numeric(audit["pl"], errors="coerce").fillna(0.0)
+    by_period = (
+        audit.groupby("competencia", as_index=False)
+        .agg(
+            pl_fic_detectado=("pl", "sum"),
+            fundos_fic_detectados=("cnpj_fundo", "nunique"),
+        )
+        .set_index("competencia")
+    )
+    output["pl_fic_fidc"] = (
+        output["competencia"].astype(str).map(by_period["pl_fic_detectado"]).fillna(0.0)
+    )
+    output["fundos_fic_detectados"] = (
+        output["competencia"]
+        .astype(str)
+        .map(by_period["fundos_fic_detectados"])
+        .fillna(0)
+        .astype(int)
+    )
+    output["pl_ex_fic"] = output["pl_total"] - output["pl_fic_fidc"]
+    output["pl_fic_componente"] = output["pl_fic_fidc"]
+    output["fic_detection_source"] = "industry_fic_detection_audit.csv"
+    output["fic_detection_rule"] = (
+        "flag cadastral CVM ou VL_DICRED zerado em toda a série com cotas de FIDC "
+        "representando pelo menos 50% das aplicações"
+    )
+    return output
+
+
 def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
     """Materialize annual growth from the ex-FIC series shown in the chart."""
 
@@ -2084,8 +2139,8 @@ def _conclusion_metrics(
                 else None
             ),
             "service_model_definition": (
-                f"universo bruto de CNPJs legais em {latest}; mesmo conglomerado "
-                "econômico normalizado; inclui FIC-FIDC"
+                f"universo elegível de CNPJs legais em {latest}; mesmo conglomerado "
+                "econômico normalizado; FICs excluídos pelo portão único"
             ),
         }
         if bank_fidc_detail is not None and not bank_fidc_detail.empty:
@@ -2515,6 +2570,10 @@ def build_payload(
     latest: str,
 ) -> dict[str, Any]:
     monthly = pd.read_csv(data_dir / "industry_monthly.csv", low_memory=False)
+    fic_detection_audit = _read_optional(
+        data_dir / "industry_fic_detection_audit.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
     competence_status = _read_optional(data_dir / "industry_competence_status.csv")
     vehicle = pd.read_csv(data_dir / "vehicle_monthly.csv.gz", low_memory=False)
     cotistas = pd.read_csv(data_dir / "cotistas_tipo_monthly.csv", low_memory=False)
@@ -2877,8 +2936,7 @@ def build_payload(
 
     annual = _last_observation_by_year(monthly, latest)
     annual_pl = annual[["year", "competencia", "pl_total", "pl_fic_fidc"]].copy()
-    annual_pl["pl_ex_fic"] = annual_pl["pl_total"] - annual_pl["pl_fic_fidc"]
-    annual_pl["pl_fic_componente"] = annual_pl["pl_fic_fidc"]
+    annual_pl = _apply_detected_fic_history(annual_pl, fic_detection_audit)
     pl_total_cagr_periods = _pl_total_cagr_periods(annual_pl)
     bcb_total_growth_periods = _bcb_total_growth_periods(bcb_expanded_credit)
     annual_base = annual[["year", "competencia", "cotistas_total", "n_veiculos"]].copy()

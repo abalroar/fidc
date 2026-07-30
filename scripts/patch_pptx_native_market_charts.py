@@ -273,7 +273,7 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     if plot_area is None or bar_chart is None:
         return payload, False
     series = bar_chart.findall(_c("ser"))
-    if len(series) not in {1, 5}:
+    if len(series) not in {1, 2, 5}:
         return payload, False
     values_by_series = [_series_values(item) for item in series]
     category_count = max(

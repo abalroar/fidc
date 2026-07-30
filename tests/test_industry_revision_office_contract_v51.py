@@ -135,7 +135,7 @@ SLIDE_TOKENS = {
         "RCVM 175",
         "771 OFERTAS",
         "R$ 65,5 BI",
-        "R$ 33,0 BI",
+        "R$ 32,4 BI",
         "DOIS FIDCS CIELO",
     ),
     33: ("ESCOPO, FONTES E LIMITAÇÕES",),
@@ -145,7 +145,7 @@ SLIDE_TOKENS = {
     57: ("MARKET SHARE · ADMINISTRAÇÃO",),
     58: ("MARKET SHARE · GESTÃO",),
     59: ("MARKET SHARE · CUSTÓDIA",),
-    60: ("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO", "7,2%", "35,0%"),
+    60: ("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO", "7,6%", "35,1%"),
     61: ("ADMINISTRAÇÃO POR SUBTIPO",),
     62: ("GESTÃO POR SUBTIPO",),
     63: ("CUSTÓDIA POR SUBTIPO",),
@@ -402,7 +402,6 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
         for chart in bar_charts
     ]
     assert {group.attrib.get("val") for group in groupings if group is not None} == {
-        "clustered",
         "stacked",
     }
 

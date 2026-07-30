@@ -110,6 +110,11 @@ OPTIONAL_DATA_INPUTS = (
     "top20_profile_curation_overrides.csv",
     "industry_intelligence_manifest.json",
 )
+WORKBOOK_AUDIT_DATA_INPUTS = (
+    "industry_fic_detection_audit.csv",
+    "industry_taxonomy_crosscheck.csv",
+    "taxonomy_review_actions.csv",
+)
 BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
@@ -2152,6 +2157,7 @@ def _run_artifact_builder(
     artifact_script: Path,
     provider_flow_builder: Path,
     node_modules: Path,
+    data_dir: Path,
     input_workbook: Path,
     revision_dir: Path,
     payload_path: Path,
@@ -2166,6 +2172,7 @@ def _run_artifact_builder(
     env.update(
         {
             "CODEX_NODE_MODULES": str(node_modules),
+            "FIDC_DATA_DIR": str(data_dir),
             "FIDC_INPUT_WORKBOOK": str(input_workbook),
             "FIDC_REVISION_DIR": str(revision_dir),
             "FIDC_PAYLOAD_PATH": str(payload_path),
@@ -2179,25 +2186,35 @@ def _run_artifact_builder(
             "FIDC_SKIP_QA": "1",
         }
     )
-    try:
-        completed = subprocess.run(
-            [str(node), "--max-old-space-size=4096", str(artifact_script)],
-            cwd=ROOT,
-            env=env,
-            check=False,
-            capture_output=True,
-            text=True,
-            timeout=timeout_seconds,
-        )
-    except subprocess.TimeoutExpired as exc:
-        raise RevisionBundlePublishError(
-            f"renderer excedeu {timeout_seconds}s"
-        ) from exc
-    if completed.returncode:
-        detail = (completed.stderr or completed.stdout or "falha sem log").strip()
-        raise RevisionBundlePublishError(
-            "renderer do bundle falhou: " + detail[-2000:]
-        )
+    phases = (
+        ("PPTX", "4096", {"FIDC_SKIP_WORKBOOK": "1"}),
+        (
+            "XLSX",
+            "8192",
+            {"FIDC_SKIP_PRESENTATION": "1", "FIDC_WRITE_MANIFEST": "1"},
+        ),
+    )
+    for phase, heap_mb, overrides in phases:
+        phase_env = env | overrides
+        try:
+            completed = subprocess.run(
+                [str(node), f"--max-old-space-size={heap_mb}", str(artifact_script)],
+                cwd=ROOT,
+                env=phase_env,
+                check=False,
+                capture_output=True,
+                text=True,
+                timeout=timeout_seconds,
+            )
+        except subprocess.TimeoutExpired as exc:
+            raise RevisionBundlePublishError(
+                f"renderer {phase} excedeu {timeout_seconds}s"
+            ) from exc
+        if completed.returncode:
+            detail = (completed.stderr or completed.stdout or "falha sem log").strip()
+            raise RevisionBundlePublishError(
+                f"renderer {phase} do bundle falhou: " + detail[-4000:]
+            )
     if (
         not pptx_path.exists()
         or not xlsx_path.exists()
@@ -2370,6 +2387,21 @@ def publish_revision_bundle(
         stage_exports = stage / "exports"
         stage_revision.mkdir(parents=True)
         stage_exports.mkdir(parents=True)
+        stage_data = stage / "data_inputs"
+        stage_data.mkdir(parents=True)
+        for name in WORKBOOK_AUDIT_DATA_INPUTS:
+            source = data_dir / name
+            if not source.is_file():
+                raise RevisionBundlePublishError(
+                    f"input auditável do workbook ausente: {source}"
+                )
+            target = stage_data / name
+            shutil.copy2(source, target)
+            expected_hash = input_hashes.get(f"data/{name}")
+            if expected_hash and _sha256_semantic_file(target) != expected_hash:
+                raise RevisionBundlePublishError(
+                    f"input auditável mudou durante a publicação: {name}"
+                )
         staged_renderer = stage / ARTIFACT_SCRIPT.name
         staged_renderer.write_bytes(artifact_script_bytes)
         staged_native_chart_patcher = stage / NATIVE_CHART_PATCHER.name
@@ -2546,6 +2578,7 @@ def publish_revision_bundle(
             artifact_script=staged_renderer,
             provider_flow_builder=staged_provider_flow_builder,
             node_modules=resolved_modules,
+            data_dir=stage_data,
             input_workbook=staged_input_workbook,
             revision_dir=stage_revision,
             payload_path=payload_path,

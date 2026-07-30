@@ -304,14 +304,14 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
 
     assert all(token in slides[1] for token in ("58,4%", "59,5%", "R$ 733,1 bi", "PL ≥ R$ 200 mi"))
     assert "70,1% do aumento líquido" in slides[9]
-    assert "10,0% do Tipo literal Outros" in slides[18]
-    assert "11,5% do bucket do slide 8" in slides[18]
-    assert "inclui FIC-FIDC" in slides[23]
+    assert "11,5% do Tipo literal Outros" in slides[18]
+    assert "19,6% do bucket do slide 8" in slides[18]
+    assert "FICs excluídos pelo portão único" in slides[23]
     assert "Kanastra permanece separada do Itaú" in slides[23]
     assert "sobre jan–jun/25" in slides[25]
     assert re.search(r"2022 FY.*N/D N/D", slides[25])
     assert slides[12].index("Setor público") < slides[12].index("Agronegócio")
-    assert "65,7% dos R$ 78,1 bi" in slides[31]
+    assert "66,0% dos R$ 77,7 bi" in slides[31]
     assert "PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" in slides[59]
     assert "100,0% é coerente com a estratégia NPL" in slides[63]
 
@@ -350,7 +350,7 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 assert symbol.attrib.get("val") == "none"
 
 
-def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
+def test_scale_slide_uses_two_native_office_charts_with_direct_pl_and_fic_balance() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, 3)
@@ -366,20 +366,20 @@ def test_scale_slide_uses_two_native_office_charts_and_ex_fic_only() -> None:
         chart for chart in charts if chart.find(f".//{{{CHART}}}barChart") is not None
     ]
     assert len(charts) == 2
-    assert "PL DOS FIDCs · EX-FIC" in text
+    assert "PL DIRETO + SALDO FIC" in text
     assert "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA" in text
     assert "excluídos títulos públicos" in text
     assert "demais securitizações (CRIs e CRAs)" in text
-    assert "PL ex-FIC e carteira privada têm perímetros contábeis distintos" in text
-    assert "FIC-FIDC" not in text
+    assert "PL direto e carteira privada têm perímetros contábeis distintos" in text
+    assert "Mai/26" not in text
 
     left_bar = charts[0].find(f".//{{{CHART}}}barChart")
     right_bar = charts[1].find(f".//{{{CHART}}}barChart")
     assert left_bar is not None and right_bar is not None
-    assert len(left_bar.findall(f"{{{CHART}}}ser")) == 1
+    assert len(left_bar.findall(f"{{{CHART}}}ser")) == 2
     assert (
         left_bar.find(f"{{{CHART}}}grouping").attrib.get("val")
-        == "clustered"
+        == "stacked"
     )
     assert len(right_bar.findall(f"{{{CHART}}}ser")) == 5
     assert (
@@ -756,6 +756,11 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Fluxos prestadores",
         "Migração CBSF",
         "Checks revisão",
+        "Universo elegível",
+        "FICs excluídos",
+        "Cross-check taxonomia",
+        "Taxonomia por CNPJ",
+        "Decisões do ledger",
     }
     with ZipFile(XLSX) as archive:
         sheets = _workbook_sheets(archive)
@@ -832,7 +837,7 @@ def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v24";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v25";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 
@@ -855,13 +860,17 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert metrics["holder_ge_200m_share_fundos_ate_10_contas"] == pytest.approx(
         0.5841836735
     )
-    assert metrics["service_model_universe_funds"] == 4247
-    assert metrics["admin_custodia_juntas_fundos"] == 3782
-    assert metrics["admin_custodia_juntas_share_pl"] == pytest.approx(0.9028615536)
-    assert metrics["monoestrutura_share_pl"] == pytest.approx(0.3566815953)
-    assert metrics["btg_combo_tres_funcoes_fundos"] == 70
+    assert metrics["service_model_universe_funds"] == 3474
+    assert metrics["service_model_universe_pl_brl"] == pytest.approx(
+        821_361_559_284.45
+    )
+    assert metrics["admin_custodia_juntas_fundos"] == 3076
+    assert metrics["admin_custodia_juntas_share_pl"] == pytest.approx(0.9072333490)
+    assert metrics["monoestrutura_fundos"] == 304
+    assert metrics["monoestrutura_share_pl"] == pytest.approx(0.4037434723)
+    assert metrics["btg_combo_tres_funcoes_fundos"] == 67
     assert metrics["btg_combo_tres_funcoes_pl_brl"] == pytest.approx(
-        78_061_458_101.28
+        77_692_063_823.57
     )
     assert metrics["btg_bank_cohort_listed_roots"] == 32
     assert metrics["btg_bank_cohort_observed_funds"] == 30
@@ -875,13 +884,13 @@ def test_materialized_conclusions_reconcile_their_declared_universes() -> None:
     assert metrics["btg_bank_cohort_combo_share_pl"] == pytest.approx(
         0.9822977539
     )
-    assert metrics["admin_transition_2024_2025_continuing_funds"] == 2477
-    assert metrics["admin_transition_2024_2025_changed_funds"] == 257
+    assert metrics["admin_transition_2024_2025_continuing_funds"] == 2323
+    assert metrics["admin_transition_2024_2025_changed_funds"] == 243
     assert metrics["admin_transition_2024_2025_changed_pl_brl"] == pytest.approx(
-        33_020_408_763.18
+        32_410_254_665.61
     )
     assert metrics["admin_transition_2024_2025_changed_share_pl"] == pytest.approx(
-        0.07243504065
+        0.07591989563
     )
     assert metrics["admin_transition_2024_2025_cielo_funds"] == 2
     assert metrics["admin_transition_2024_2025_cielo_pl_brl"] == pytest.approx(
@@ -957,13 +966,13 @@ def test_materialized_ex_fic_pl_annual_growth_matches_the_chart_totals() -> None
         (2025, 2026),
     }
     assert periods[(2015, 2018)]["annual_intervals"] == 3
-    assert periods[(2015, 2018)]["cagr"] == pytest.approx(0.1674179735)
-    assert periods[(2019, 2020)]["cagr"] == pytest.approx(-0.0908521704)
-    assert periods[(2021, 2022)]["cagr"] == pytest.approx(0.2259472276)
-    assert periods[(2022, 2023)]["cagr"] == pytest.approx(0.2618330649)
-    assert periods[(2023, 2024)]["cagr"] == pytest.approx(0.4789122071)
-    assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.2201214539)
-    assert periods[(2025, 2026)]["cagr"] == pytest.approx(0.0565975091)
+    assert periods[(2015, 2018)]["cagr"] == pytest.approx(0.1672417821)
+    assert periods[(2019, 2020)]["cagr"] == pytest.approx(-0.0900760950)
+    assert periods[(2021, 2022)]["cagr"] == pytest.approx(0.2211881031)
+    assert periods[(2022, 2023)]["cagr"] == pytest.approx(0.2513602654)
+    assert periods[(2023, 2024)]["cagr"] == pytest.approx(0.4401995990)
+    assert periods[(2024, 2025)]["cagr"] == pytest.approx(0.1852101948)
+    assert periods[(2025, 2026)]["cagr"] == pytest.approx(0.0637904277)
 
     bcb_periods = {
         (int(row["start_year"]), int(row["end_year"])): row
@@ -972,7 +981,7 @@ def test_materialized_ex_fic_pl_annual_growth_matches_the_chart_totals() -> None
     assert set(bcb_periods) == set(periods)
     assert bcb_periods[(2015, 2018)]["cagr"] == pytest.approx(0.0155136903)
     assert bcb_periods[(2019, 2020)]["cagr"] == pytest.approx(0.1604784933)
-    assert bcb_periods[(2025, 2026)]["cagr"] == pytest.approx(0.0227787625)
+    assert bcb_periods[(2025, 2026)]["cagr"] == pytest.approx(0.0308222993)
 
 
 def test_materialized_payload_uses_complete_june_stock() -> None:
@@ -1143,8 +1152,8 @@ def test_materialized_acquiring_mix_includes_the_documented_card_curations() -> 
     assert current["fundos_adquirencia_observados"] == 31
     assert current["fundos_movidos_para_adquirencia"] == 31
     assert current["pl_brl"] == pytest.approx(99_246_541_247.99)
-    assert current["share_pl"] == pytest.approx(0.1127320769)
-    assert current["denominador_pl_brl"] == pytest.approx(880_375_346_502.31)
+    assert current["share_pl"] == pytest.approx(0.1208317338)
+    assert current["denominador_pl_brl"] == pytest.approx(821_361_559_284.45)
     assert current["rank_reclassificado"] == 3
     moved = set(current["cnpjs_movidos_para_adquirencia"].split(";"))
     assert {"50473039000102", "55471753000177", "63572282000111"}.issubset(moved)

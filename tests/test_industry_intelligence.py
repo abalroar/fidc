@@ -288,4 +288,9 @@ def test_industry_exports_are_valid_office_files() -> None:
         "Fluxos prestadores",
         "Migração CBSF",
         "Checks revisão",
+        "Universo elegível",
+        "FICs excluídos",
+        "Cross-check taxonomia",
+        "Taxonomia por CNPJ",
+        "Decisões do ledger",
     }.issubset(sheet_names)
