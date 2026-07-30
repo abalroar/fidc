@@ -15,6 +15,7 @@ import pandas as pd
 import streamlit as st
 
 from services.dashboard_ui import render_page_header
+from services.ledger_publisher import publish_decisions, repository_status
 from services.industry_taxonomy_review import (
     commit_taxonomy_review_action,
     format_cnpj,
@@ -33,6 +34,7 @@ from services.taxonomy_queue import (
 )
 
 
+_ROOT = Path(__file__).resolve().parents[1]
 _DATA_DIR = Path("data/industry_study")
 _LEDGER_PATH = _DATA_DIR / "taxonomy_review_actions.csv"
 _AUDIT_PATH = _DATA_DIR / "taxonomy_review_audit.csv"
@@ -68,6 +70,85 @@ def _ledger_signature() -> float:
         return 0.0
 
 
+def _publish(reason: str) -> None:
+    """Commit and push the ledger, recording the outcome for the next run."""
+
+    result = publish_decisions(_ROOT, message=reason)
+    st.session_state["taxonomy_queue_publish_flash"] = (
+        ("ok" if result.pushed else "erro"),
+        result.detail,
+    )
+
+
+def _render_publish_controls() -> None:
+    status = repository_status(_ROOT)
+    if not status.is_repository:
+        st.caption(
+            "As decisões são gravadas nos CSV do ledger. Este diretório não é um "
+            f"repositório git ({status.detail}), então a publicação é manual."
+        )
+        return
+
+    auto_key = "taxonomy-queue-autopublish"
+    control, toggle_column = st.columns([3, 2])
+    with toggle_column:
+        st.toggle(
+            "Publicar a cada decisão",
+            key=auto_key,
+            help=(
+                "Faz commit e push do ledger no repositório logo após gravar, "
+                f"na branch {status.branch}."
+            ),
+        )
+    with control:
+        if status.has_pending:
+            st.warning(
+                f"{len(status.pending_files)} arquivo(s) do ledger com decisões "
+                f"ainda não publicadas em {status.branch}.",
+                icon=":material/cloud_upload:",
+            )
+            if st.button("Publicar no repositório", width="stretch"):
+                _publish("Curadoria manual de taxonomia pela fila do app")
+                st.rerun()
+        else:
+            st.caption(f"Ledger sincronizado com o último commit de {status.branch}.")
+
+
+def _render_bundle_notice() -> None:
+    """Warn that curating invalidates the published Office bundle.
+
+    The bundle records the ledger hash and refuses to serve once the curation
+    moves past it, which takes the industry screen offline until someone
+    republishes.  Saying so here, next to the decisions that cause it, is
+    cheaper than discovering it in the other tab.
+    """
+
+    try:
+        from services.industry_revision_export import get_revision_export_status
+
+        status = get_revision_export_status(_DATA_DIR)
+    except Exception:  # noqa: BLE001
+        return
+    if getattr(status, "bundle_valid", False):
+        return
+    with st.expander(
+        "A tela Dados da Indústria precisa do bundle republicado", expanded=False
+    ):
+        st.write(
+            "O pacote Office publicado guarda o hash do ledger e recusa servir "
+            "quando a curadoria avança além dele. Curar aqui é justamente o que "
+            "faz o hash mudar. A fila de taxonomia não depende do pacote e "
+            "continua funcionando; a tela Dados da Indústria fica indisponível "
+            "até a republicação, que exige o runtime Node do Codex."
+        )
+        st.code(
+            "python3 scripts/publish_fidc_revision_bundle.py \\\n"
+            "    --input-workbook ~/Downloads/Industria_FIDC_Dados_202607.xlsx \\\n"
+            "    --skip-download",
+            language="bash",
+        )
+
+
 def render_tab_taxonomy_queue() -> None:
     render_page_header(
         "Fila de taxonomia",
@@ -96,6 +177,13 @@ def render_tab_taxonomy_queue() -> None:
     flash = st.session_state.pop("taxonomy_queue_flash", "")
     if flash:
         st.success(flash)
+    publish_flash = st.session_state.pop("taxonomy_queue_publish_flash", None)
+    if publish_flash is not None:
+        level, detail = publish_flash
+        (st.success if level == "ok" else st.error)(detail)
+
+    _render_publish_controls()
+    _render_bundle_notice()
 
     filter_column, search_column = st.columns([2, 3])
     with filter_column:
@@ -269,4 +357,9 @@ def render_tab_taxonomy_queue() -> None:
         f"{row['nome_fidc'][:60]} gravado como "
         f"{_STATUS_LABELS.get(decision, decision)}."
     )
+    if st.session_state.get("taxonomy-queue-autopublish"):
+        _publish(
+            f"Curadoria manual: {row['nome_fidc'][:60]} como "
+            f"{_STATUS_LABELS.get(decision, decision)}"
+        )
     st.rerun()
