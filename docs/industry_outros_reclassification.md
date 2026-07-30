@@ -86,12 +86,93 @@ cessão: critérios de elegibilidade, condições de cessão, cedente, contrato 
 cessão ou documentos comprobatórios. A detecção de perímetro usa exatamente essa
 diferença, e não o nome do fundo.
 
+## Resultado desta rodada
+
+A fila cobriu **2.158 CNPJs** exibidos como `Outros` nas quatro competências.
+Foram lidas **121.414 páginas**: 1.930 CNPJs concluídos pelo regulamento, 45 por
+documentos complementares e 183 sem documento com camada de texto.
+
+| Status | CNPJs | PL máximo observado |
+|---|---:|---:|
+| `aprovado` | 1.437 | R$ 245,75 bi |
+| `em_revisao` | 520 | R$ 76,36 bi |
+| `pendente` | 194 | R$ 12,70 bi |
+| `rejeitado` | 7 | R$ 2,15 bi |
+
+Das 1.437 aprovações, **453 saem de `Outros`** (R$ 71,7 bi de PL máximo) — 247
+para `Agro, Indústria e Comércio`, 202 para `Financeiro` e 4 para
+`Fomento Mercantil`. As **984** restantes permanecem em `Outros` porque é onde o
+risco descrito cabe, mas deixam de ser indistintas: 699 com foco
+`Poder Público`, 156 com `Recuperação` e 129 multicarteira com evidência.
+
+Efeito no mix analítico, comparado à fotografia oficial ANBIMA:
+
+| Competência | Outros oficial | Outros curado | Redução | Cobertura do PL por decisão aprovada |
+|---|---:|---:|---:|---:|
+| dez/23 | R$ 171,9 bi (37,2%) | R$ 135,5 bi (29,3%) | R$ 36,4 bi | 72,5% |
+| dez/24 | R$ 261,6 bi (38,3%) | R$ 202,8 bi (29,7%) | R$ 58,7 bi | 71,8% |
+| dez/25 | R$ 371,2 bi (44,6%) | R$ 281,0 bi (33,7%) | R$ 90,2 bi | 67,9% |
+| jun/26 | R$ 355,7 bi (40,4%) | R$ 246,5 bi (28,0%) | R$ 109,3 bi | 66,4% |
+
+A rodada anterior havia reduzido `Outros` em R$ 56,0 bi em jun/26; esta rodada
+leva a redução a R$ 109,3 bi e derruba a participação do bucket de 40,4% para
+28,0% do patrimônio da competência.
+
+O ledger analítico passou de 137 para **2.299 decisões** por CNPJ, todas com
+evidência, página, justificativa, nível de confiança e trilha de auditoria.
+
+## Revisão automática
+
+`report_fidc_outros_reclassification.py` grava
+`industry_outros_consistency_review.csv` com os casos que merecem olhar humano,
+ordenados pelo patrimônio envolvido:
+
+- **50** focos minoritários dentro do mesmo gestor e mesmo foco oficial — quando
+  um gestor tem três ou mais fundos com o mesmo foco oficial e apenas um recebeu
+  destino diferente dos demais;
+- **13** famílias de fundos irmãos (`JC 4870` e `JC 4870 IV`, por exemplo) com
+  Tipos ANBIMA divergentes entre si;
+- mudanças de Tipo oficial fechadas com confiança apenas média, listadas pelas
+  25 maiores.
+
 ## Continuidade
 
 O pipeline nunca reinicia o trabalho. A fila exclui todo CNPJ que já tenha
 decisão no ledger, e `apply_fidc_documentary_decisions.py` preserva aprovações
 existentes: sobrescrever uma aprovação exige `--allow-override` acompanhado de
 `--override-reason`, que fica gravado nas notas e na auditoria.
+
+## Republicação do bundle pendente
+
+O bundle Office publicado em `data/industry_study/generated_revision/` registra
+os hashes SHA-256 do ledger e da auditoria de taxonomia no momento da
+publicação, e a aplicação falha fechada quando a curadoria muda depois disso.
+Como esta rodada alterou o ledger, o bundle publicado ficou defasado e
+`test_industry_exports_are_valid_office_files` acusa
+`curadoria ou auditoria de Outros mudou após a publicação; regenere o bundle`.
+
+A regeneração não pôde ser executada nesta sessão porque o renderizador
+`scripts/build_fidc_revision_artifacts.mjs` depende de `@oai/artifact-tool`, que
+não está presente no runtime Node deste ambiente. Em um ambiente com o runtime
+disponível, basta:
+
+```
+python3 scripts/publish_fidc_revision_bundle.py \
+    --input-workbook <workbook-base.xlsx> --skip-download
+```
+
+O ledger em si está íntegro: `assert_taxonomy_review_ledger_matches_audit`
+reproduz as 2.299 decisões a partir da trilha de auditoria.
+
+## Normalização de espaços em branco
+
+A trilha de auditoria é reexecutada pela normalização do próprio módulo, que
+colapsa sequências de espaços. Uma decisão gravada com espaço duplo na evidência
+deixa de ser reproduzível por sua própria trilha sem que nada da decisão tenha
+mudado. `apply_fidc_documentary_decisions.py` passou a normalizar os campos na
+gravação, e `normalize_taxonomy_ledger_whitespace.py` reescreveu as 555 decisões
+já gravadas que tinham essa característica — apenas espaços mudaram, e cada
+reescrita ficou registrada na auditoria.
 
 ## Limitações
 

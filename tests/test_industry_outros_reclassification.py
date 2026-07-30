@@ -153,6 +153,20 @@ def test_published_conclusions_are_internally_consistent() -> None:
     assert frame["decision_status"].isin(
         {"aprovado", "em_revisao", "pendente", "rejeitado"}
     ).all()
+    #: Every CNPJ in the queue must carry a decision, and a pending one must
+    #: always come with the documentary limitation that explains it.
+    queue = pd.read_csv(
+        CONCLUSIONS.parent / "industry_outros_reclassification_queue.csv",
+        dtype=str,
+        keep_default_na=False,
+    )
+    assert set(queue["cnpj_fundo"]) == set(frame["cnpj_fundo"])
+    pending = frame[frame["decision_status"].eq("pendente")]
+    assert pending.empty or pending["source_limitations"].str.len().gt(0).all()
+    rejected = frame[frame["decision_status"].eq("rejeitado")]
+    assert rejected.empty or rejected["perimeter_proposal"].str.len().gt(0).all()
+    review = frame[frame["decision_status"].eq("em_revisao")]
+    assert review.empty or review["manual_validation_reason"].str.len().gt(0).all()
     approved = frame[frame["decision_status"].eq("aprovado")]
     for row in approved.to_dict(orient="records"):
         assert valid_analytical_type_focus_pair(

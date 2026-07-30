@@ -1,0 +1,77 @@
+{
+  "periods": [
+    "2023-12",
+    "2024-12",
+    "2025-12",
+    "2026-06"
+  ],
+  "por_competencia": [
+    {
+      "competencia": "2023-12",
+      "fundos": 2259,
+      "pl_total": 461756303294.11993,
+      "outros_oficial": 171873144436.95,
+      "outros_curado": 135493010562.74998,
+      "reducao_outros": 36380133874.20003,
+      "pl_com_decisao_aplicada": 334742345418.19,
+      "cobertura_pl_pct": 72.49329203092064,
+      "outros_pct_oficial": 37.22161304801374,
+      "outros_pct_curado": 29.342969353348806
+    },
+    {
+      "competencia": "2024-12",
+      "fundos": 2905,
+      "pl_total": 682897033647.45,
+      "outros_oficial": 261561116367.91,
+      "outros_curado": 202813707249.22998,
+      "reducao_outros": 58747409118.68002,
+      "pl_com_decisao_aplicada": 490559772935.49005,
+      "cobertura_pl_pct": 71.83510086657438,
+      "outros_pct_oficial": 38.301691687087136,
+      "outros_pct_curado": 29.699017166024753
+    },
+    {
+      "competencia": "2025-12",
+      "fundos": 3579,
+      "pl_total": 833217321564.8201,
+      "outros_oficial": 371220026734.0,
+      "outros_curado": 280972946325.70996,
+      "reducao_outros": 90247080408.29004,
+      "pl_com_decisao_aplicada": 566141323974.13,
+      "cobertura_pl_pct": 67.9464179778321,
+      "outros_pct_oficial": 44.55260555995546,
+      "outros_pct_curado": 33.72144806087684
+    },
+    {
+      "competencia": "2026-06",
+      "fundos": 3792,
+      "pl_total": 880375346502.3099,
+      "outros_oficial": 355705040548.69,
+      "outros_curado": 246454134587.72,
+      "reducao_outros": 109250905960.97,
+      "pl_com_decisao_aplicada": 584927868878.2699,
+      "cobertura_pl_pct": 66.44073703360289,
+      "outros_pct_oficial": 40.40379390016877,
+      "outros_pct_curado": 27.99421128350206
+    }
+  ],
+  "ledger_status": {
+    "aprovado": 1577,
+    "em_revisao": 519,
+    "pendente": 194,
+    "rejeitado": 9
+  },
+  "conclusoes_outros": {
+    "aprovado": 1437,
+    "em_revisao": 520,
+    "pendente": 194,
+    "rejeitado": 7
+  },
+  "confianca_aprovados": {
+    "alta": 824,
+    "media": 613
+  },
+  "fila_outros_total": 2158,
+  "fila_outros_remanescente": 0,
+  "revisao_humana_sugerida": 63
+}

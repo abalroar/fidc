@@ -57,10 +57,19 @@ def parse_args() -> argparse.Namespace:
 
 
 def _text(value: object) -> str:
+    """Normalize exactly like the ledger reader does.
+
+    ``assert_taxonomy_review_ledger_matches_audit`` replays the audit through
+    the module's own whitespace normalization, so a value stored with double
+    spaces in the ledger would no longer be reproducible from its trail.
+    """
+
     if value is None:
         return ""
     text = str(value)
-    return "" if text.lower() == "nan" else text.strip()
+    if text.lower() == "nan":
+        return ""
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def build_action(row: pd.Series, *, responsavel: str, saved_at_utc: str) -> dict[str, object]:
@@ -132,6 +141,11 @@ def main() -> None:
     approved_before = set(
         previous.loc[previous["status"].eq("aprovado"), "cnpj_fundo"].map(normalize_cnpj)
     )
+    #: A ``pendente`` conclusion carries no information: it must never erase a
+    #: decision that some earlier reading already recorded for the same CNPJ.
+    decided_before = set(
+        previous.loc[previous["status"].ne("pendente"), "cnpj_fundo"].map(normalize_cnpj)
+    )
 
     committed = 0
     preserved = 0
@@ -140,6 +154,9 @@ def main() -> None:
         row = pd.Series(record)
         cnpj = str(row["cnpj_fundo"])
         if cnpj in approved_before and not args.allow_override:
+            preserved += 1
+            continue
+        if str(row.get("decision_status")) == "pendente" and cnpj in decided_before:
             preserved += 1
             continue
         action = build_action(row, responsavel=args.responsavel, saved_at_utc=saved_at_utc)
