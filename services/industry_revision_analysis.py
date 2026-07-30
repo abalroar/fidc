@@ -179,6 +179,15 @@ def _as_nullable_bool(series: pd.Series) -> pd.Series:
     return output
 
 
+def _canonical_fic_mask(frame: pd.DataFrame) -> pd.Series:
+    """Return the single-gate FIC mask while preserving the declared legacy flag."""
+
+    column = "is_fic" if "is_fic" in frame.columns else "is_fic_fidc"
+    if column not in frame.columns:
+        return pd.Series(False, index=frame.index, dtype=bool)
+    return _as_nullable_bool(frame[column]).fillna(False).astype(bool)
+
+
 def _sum_min(values: pd.Series) -> float:
     numeric = pd.to_numeric(values, errors="coerce")
     return float(numeric.sum(min_count=1)) if numeric.notna().any() else float("nan")
@@ -946,7 +955,7 @@ def build_single_receivable_delinquency(
         & _as_nullable_bool(scoped["reports_dc_inadimplentes"]).eq(True)  # noqa: E712
     )
     positive_pl = scoped["pl"].gt(0)
-    ex_fic = ~scoped["is_fic_fidc"]
+    ex_fic = ~_canonical_fic_mask(scoped)
     one_type = scoped["tipos_recebivel_nao_zero"].eq(1)
     multi_type = scoped["tipos_recebivel_nao_zero"].gt(1)
     no_type = scoped["tipos_recebivel_nao_zero"].fillna(0).eq(0)
@@ -1027,7 +1036,7 @@ def build_single_receivable_delinquency(
     none_n, none_pl = excluded_stats(no_type)
     over_n, over_pl = excluded_stats(one_type & over_portfolio)
     missing_n, missing_pl = excluded_stats(one_type & ~reports_pair)
-    fic_mask = scoped["is_fic_fidc"] & positive_pl
+    fic_mask = _canonical_fic_mask(scoped) & positive_pl
     included_pl = _sum_min(eligible_frame["pl"])
     summary = pd.DataFrame(
         [
@@ -1209,7 +1218,7 @@ def build_frozen_single_receivable_history(
     )
     for column in ("pl", "carteira_dc", "dc_inadimplentes"):
         latest[column] = pd.to_numeric(latest[column], errors="coerce")
-    latest_is_fic = _as_nullable_bool(latest["is_fic_fidc"]).fillna(False)
+    latest_is_fic = _canonical_fic_mask(latest)
     latest_pair = (
         _as_nullable_bool(latest["reports_carteira_dc"]).eq(True)  # noqa: E712
         & _as_nullable_bool(latest["reports_dc_inadimplentes"]).eq(True)  # noqa: E712
@@ -1261,7 +1270,7 @@ def build_frozen_single_receivable_history(
         "dc_inadimplentes_ajustado_recalculado",
     ):
         historical[column] = pd.to_numeric(historical.get(column), errors="coerce")
-    is_fic = _as_nullable_bool(historical["is_fic_fidc"]).fillna(False)
+    is_fic = _canonical_fic_mask(historical)
     pair = (
         _as_nullable_bool(historical["reports_carteira_dc"]).eq(True)  # noqa: E712
         & _as_nullable_bool(historical["reports_dc_inadimplentes"]).eq(True)  # noqa: E712
@@ -1907,6 +1916,8 @@ def build_fund_base(
             "field_presence_exact": ("field_presence_exact", "all"),
         }
     )
+    if "is_fic" in base.columns:
+        aggregations["is_fic"] = ("is_fic", "max")
     grouped = base.groupby(keys, as_index=False).agg(**aggregations)
     funds = grouped.merge(dominant, on=keys, how="left", validate="one_to_one")
     funds["fund_key"] = funds["cnpj_fundo"]
@@ -2025,7 +2036,8 @@ def build_top20_and_monostructure(
     latest = fund_base[fund_base["competencia"].eq(competence)].copy()
     latest = _attach_structure_model(latest)
     latest["pl"] = pd.to_numeric(latest["pl"], errors="coerce")
-    ex_fic = latest[~latest["is_fic_fidc"].fillna(False)].copy()
+    latest = latest[~_canonical_fic_mask(latest)].copy()
+    ex_fic = latest.copy()
     denominator = _sum_min(ex_fic["pl"])
     ranked = ex_fic.sort_values(["pl", "cnpj_fundo"], ascending=[False, True]).reset_index(drop=True)
     ranked["rank"] = range(1, len(ranked) + 1)
@@ -2088,7 +2100,7 @@ def build_market_share_by_subtype(
     """
 
     latest = fund_base[
-        fund_base["competencia"].eq(competence) & ~fund_base["is_fic_fidc"].fillna(False)
+        fund_base["competencia"].eq(competence) & ~_canonical_fic_mask(fund_base)
     ].copy()
     latest = exclude_market_share_funds(
         latest, excluded_fund_cnpjs=excluded_fund_cnpjs
@@ -2242,7 +2254,7 @@ def build_market_share_scope_summary(
     """Summarize what sits inside and outside the 14-focus market-share scope."""
 
     latest = fund_base[
-        fund_base["competencia"].eq(competence) & ~fund_base["is_fic_fidc"].fillna(False)
+        fund_base["competencia"].eq(competence) & ~_canonical_fic_mask(fund_base)
     ].copy()
     latest = exclude_market_share_funds(
         latest, excluded_fund_cnpjs=excluded_fund_cnpjs
@@ -2319,7 +2331,7 @@ def build_classification_coverage(
 
     latest = fund_base[fund_base["competencia"].eq(competence)].copy()
     latest["pl"] = pd.to_numeric(latest["pl"], errors="coerce")
-    ex_fic = latest[~latest["is_fic_fidc"].fillna(False)]
+    ex_fic = latest[~_canonical_fic_mask(latest)]
     denominator = _sum_min(ex_fic["pl"])
     tier_labels = {
         "oficial_anbima": "Oficial ANBIMA",
@@ -2361,7 +2373,7 @@ def build_provider_historical_ranking(
     for period in (str(value) for value in periods):
         scoped = fund_base[
             fund_base["competencia"].astype(str).eq(period)
-            & ~fund_base["is_fic_fidc"].fillna(False)
+            & ~_canonical_fic_mask(fund_base)
         ].copy()
         scoped = exclude_market_share_funds(
             scoped, excluded_fund_cnpjs=excluded_fund_cnpjs
@@ -2422,10 +2434,7 @@ def _period_provider_scope(
     ].copy()
     scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(_digits)
     scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
-    if "is_fic_fidc" in scoped:
-        is_fic = _as_nullable_bool(scoped["is_fic_fidc"]).fillna(False).astype(bool)
-    else:
-        is_fic = pd.Series(False, index=scoped.index, dtype=bool)
+    is_fic = _canonical_fic_mask(scoped)
     scoped = scoped.loc[scoped["cnpj_fundo"].ne("") & ~is_fic].copy()
     if positive_pl_only:
         scoped = scoped.loc[scoped["pl"].gt(0)].copy()
@@ -2661,10 +2670,12 @@ def build_reag_admin_cohort(
         "gestor_cnpj",
         "custodiante_nome",
         "custodiante_cnpj",
+        "is_fic",
         "is_fic_fidc",
     ):
         if column not in current:
-            current[column] = False if column == "is_fic_fidc" else ""
+            current[column] = False if column in {"is_fic", "is_fic_fidc"} else ""
+    current["is_fic"] = _canonical_fic_mask(current)
     current["is_fic_fidc"] = _as_nullable_bool(current["is_fic_fidc"]).fillna(
         False
     )
@@ -2682,6 +2693,7 @@ def build_reag_admin_cohort(
                 "gestor_cnpj",
                 "custodiante_nome",
                 "custodiante_cnpj",
+                "is_fic",
                 "is_fic_fidc",
             ]
         ]
@@ -2695,6 +2707,7 @@ def build_reag_admin_cohort(
                 "gestor_cnpj": "gestor_destino_cnpj_observado",
                 "custodiante_nome": "custodiante_destino_nome_observado",
                 "custodiante_cnpj": "custodiante_destino_cnpj_observado",
+                "is_fic": "is_fic_destino",
                 "is_fic_fidc": "is_fic_fidc_destino",
             }
         )
@@ -2740,7 +2753,7 @@ def build_reag_admin_cohort(
     ].gt(0)
     detail.loc[nonpositive, "status_destino"] = "saida_pl_nao_positivo"
     outside_ex_fic = detail["_merge"].eq("both") & detail[
-        "is_fic_fidc_destino"
+        "is_fic_destino"
     ].fillna(False).astype(bool)
     detail.loc[outside_ex_fic, "status_destino"] = "saida_fora_escopo_ex_fic"
     active = detail["status_destino"].eq("continuante_ativo")
@@ -2934,6 +2947,7 @@ def build_btg_controlled_reconciliation(
     for column in (
         "cnpj_fundo",
         "denominacao",
+        "is_fic",
         "is_fic_fidc",
         "admin_nome",
         "admin_cnpj",
@@ -2943,7 +2957,7 @@ def build_btg_controlled_reconciliation(
         "custodiante_cnpj",
     ):
         if column not in current:
-            current[column] = False if column == "is_fic_fidc" else ""
+            current[column] = False if column in {"is_fic", "is_fic_fidc"} else ""
     current = (
         current.sort_values(["pl", "cnpj_veiculo"], ascending=[False, True])
         .drop_duplicates("cnpj_veiculo", keep="first")
@@ -2962,6 +2976,7 @@ def build_btg_controlled_reconciliation(
                 "cnpj_fundo",
                 "denominacao",
                 "pl",
+                "is_fic",
                 "is_fic_fidc",
                 "admin_nome",
                 "admin_cnpj",
@@ -2987,10 +3002,11 @@ def build_btg_controlled_reconciliation(
         detail[f"{role}_grupo"] = detail[f"{role}_nome"].map(canonical_provider)
         detail[f"btg_no_papel_{role}"] = detail[f"{role}_grupo"].eq("BTG Pactual")
     detail["is_fic_fidc"] = _as_nullable_bool(detail["is_fic_fidc"]).fillna(False)
+    detail["is_fic"] = _canonical_fic_mask(detail)
     detail["reconciliado_controlado_ativo"] = (
         detail["observado_competencia"]
         & detail["pl_mai26_brl"].gt(0)
-        & ~detail["is_fic_fidc"].astype(bool)
+        & ~detail["is_fic"].astype(bool)
         & detail["btg_no_papel_gestor"]
     )
     if not detail["reconciliado_controlado_ativo"].all():
@@ -3225,7 +3241,7 @@ def build_btg_provider_ex_controlled_scenario(
     current_funds["pl"] = pd.to_numeric(current_funds["pl"], errors="coerce")
     current_funds = current_funds[
         current_funds["cnpj_fundo"].isin(cohort_cnpjs)
-        & ~_as_nullable_bool(current_funds["is_fic_fidc"]).fillna(False)
+        & ~_canonical_fic_mask(current_funds)
         & current_funds["pl"].gt(0)
         & ~current_funds["cnpj_fundo"].isin(
             {_digits(value) for value in MARKET_SHARE_EXCLUDED_FUNDS}

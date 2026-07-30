@@ -45,6 +45,9 @@ const REVISION_DIR = path.resolve(
   process.env.FIDC_REVISION_DIR ||
     path.join(ROOT, "data/industry_study/generated_revision"),
 );
+const DATA_DIR = path.resolve(
+  process.env.FIDC_DATA_DIR || path.join(ROOT, "data/industry_study"),
+);
 const PAYLOAD_PATH = path.resolve(
   process.env.FIDC_PAYLOAD_PATH || path.join(REVISION_DIR, "artifact_payload.json"),
 );
@@ -81,7 +84,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v24";
+const RENDERER_VERSION = "industry_revision_artifacts_v25";
 const EXPECTED_SLIDES = 64;
 
 const C = {
@@ -2345,7 +2348,7 @@ function addConclusionsSlide(presentation, payload, page) {
   const footer = [
     "Fontes: CVM, ANBIMA e BCB; coorte bancária curada a partir dos conglomerados prudenciais.",
     `PF: proxy com ${pct(currentOffer.placed_quantity_registered_volume_coverage, 1)} de cobertura; contas não equivalem a investidores únicos.`,
-    "Verticalização inclui FIC-FIDC; Top 10 ex-Petrobras/TAPSO.",
+    "Verticalização no universo elegível; Top 10 ex-Petrobras/TAPSO.",
     `BTG: ${integer(metrics.btg_bank_cohort_observed_funds)}/${integer(metrics.btg_bank_cohort_listed_roots)} raízes observadas; ofertas CVM até 30/jun/26 e ANBIMA até 31/mai/26.`,
   ].join(" ");
   addHeader(
@@ -2765,7 +2768,7 @@ function buildPresentation(payload, flowAssets) {
       {
         value: pct(mono?.share_pl, 1),
         claim: "do PL em monoestruturas",
-        detail: `${bn(mono?.pl, 1)} de ${bn(conclusionMetrics.service_model_universe_pl_brl, 1)} de PL bruto; inclui FIC-FIDC.`,
+        detail: `${bn(mono?.pl, 1)} de ${bn(conclusionMetrics.service_model_universe_pl_brl, 1)} de PL direto; FICs excluídos pelo portão único.`,
       },
     ];
     summary.forEach((item, index) => {
@@ -2811,27 +2814,32 @@ function buildPresentation(payload, flowAssets) {
     addHeader(
       slide,
       "ESCALA DA INDÚSTRIA",
-      `FIDCs somam ${bn(latestHistory.pl_ex_fic, 0)} de PL ex-FIC; a carteira representa parte relevante da securitização`,
-      `Fontes: CVM, Informe Mensal de FIDC (${stockShortLower}); BCB, SGS 28183–28192 (último mês comum: mai/26).`,
+      `FIDCs somam ${bn(latestHistory.pl_ex_fic, 0)} de PL direto; o saldo FIC é ${bn(latestHistory.pl_fic_componente, 0)}`,
+      `Fontes: CVM, Informe Mensal de FIDC (${stockShortLower}); BCB, SGS 28183–28192 (último mês comum: ${stockShortLower}).`,
       3,
     );
     const categories = history.map((row) =>
       String(row.competencia) === latestCompetence ? stockShort : String(row.year),
     );
-    const plMax = Math.max(...history.map((row) => num(row.pl_ex_fic) / 1e9));
+    const plMax = Math.max(...history.map((row) => (num(row.pl_ex_fic) + num(row.pl_fic_componente)) / 1e9));
     const plAxisMax = Math.ceil(plMax / 100) * 100 + 100;
-    addSectionLabel(slide, "PL DOS FIDCs · EX-FIC · R$ BI", { left: 60, top: 133, width: 545, height: 24 });
+    addSectionLabel(slide, "PL DIRETO + SALDO FIC · R$ BI", { left: 60, top: 133, width: 545, height: 24 });
     slide.charts.add("bar", {
-      ...chartBase({ left: 55, top: 165, width: 555, height: 355 }),
+      ...chartBase({ left: 55, top: 165, width: 555, height: 330 }),
       categories,
       series: [
         {
-          name: "PL ex-FIC",
+          name: "PL direto",
           values: history.map((row) => num(row.pl_ex_fic) / 1e9),
           fill: C.orange,
         },
+        {
+          name: "Saldo FIC",
+          values: history.map((row) => num(row.pl_fic_componente) / 1e9),
+          fill: C.charcoal,
+        },
       ],
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 52 },
+      barOptions: { direction: "column", grouping: "stacked", gapWidth: 52, overlap: 100 },
       hasLegend: false,
       xAxis: {
         visible: true,
@@ -2847,10 +2855,20 @@ function buildPresentation(payload, flowAssets) {
         majorUnit: 200,
       },
     });
+    addLegend(slide, [
+      { label: "PL direto", color: C.orange },
+      { label: "Saldo FIC", color: C.charcoal },
+    ], { left: 85, top: 500, width: 500, height: 20 }, 2);
+    addText(
+      slide,
+      `${stockShort}: ${bn(latestHistory.pl_ex_fic, 1)} de PL direto + ${bn(latestHistory.pl_fic_componente, 2)} de saldo FIC = ${bn(num(latestHistory.pl_ex_fic) + num(latestHistory.pl_fic_componente), 1)}.`,
+      { left: 60, top: 523, width: 550, height: 30 },
+      { fontSize: 8.8, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
+    );
     addText(
       slide,
       growthSummary(cagrPeriods),
-      { left: 60, top: 532, width: 550, height: 38 },
+      { left: 60, top: 556, width: 550, height: 30 },
       { fontSize: 8.2, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
     );
     addSectionLabel(slide, "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA · R$ BI", { left: 645, top: 133, width: 575, height: 24 });
@@ -2919,13 +2937,13 @@ function buildPresentation(payload, flowAssets) {
     );
     addText(
       slide,
-      `Mai/26: total privado ${bn(latestCredit.private_expanded_credit_total_brl, 0)}; securitização ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC ${bn(latestCredit.fidc_receivables_brl, 0)}. O total BCB de ${bn(latestCredit.expanded_credit_total_brl, 0)} inclui ${bn(latestCredit.public_debt_brl, 0)} de títulos públicos e permanece no export para reconciliação.`,
+      `${competenceShortPt(latestCredit.competencia)}: total privado ${bn(latestCredit.private_expanded_credit_total_brl, 0)}; securitização ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC ${bn(latestCredit.fidc_receivables_brl, 0)}. O total BCB de ${bn(latestCredit.expanded_credit_total_brl, 0)} inclui ${bn(latestCredit.public_debt_brl, 0)} de títulos públicos e permanece no export para reconciliação.`,
       { left: 640, top: 582, width: 580, height: 42 },
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
     addText(
       slide,
-      "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, excluídos títulos públicos. Securitizações abertas entre FIDCs e demais securitizações (CRIs e CRAs). PL ex-FIC e carteira privada têm perímetros contábeis distintos.",
+      "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, excluídos títulos públicos. Securitizações abertas entre FIDCs e demais securitizações (CRIs e CRAs). PL direto e carteira privada têm perímetros contábeis distintos.",
       { left: 60, top: 632, width: 1160, height: 22 },
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle", wrap: "none" },
     );
@@ -4062,7 +4080,7 @@ function buildPresentation(payload, flowAssets) {
       slide,
       "MODELO DE PRESTAÇÃO",
       `Monoestruturas são ${pct(mono?.share_fundos, 1)} dos fundos e ${pct(mono?.share_pl, 1)} do PL; dados incompletos cobrem ${pct(missing?.share_pl, 1)}`,
-      `Fonte: CVM, cadastro vigente em ${stockShortLower}. PL bruto, inclui FIC-FIDC. Definição mono: mesmo conglomerado normalizado nas três funções.`,
+      `Fonte: CVM, cadastro vigente em ${stockShortLower}. PL direto; FICs excluídos pelo portão único. Definição mono: mesmo conglomerado normalizado nas três funções.`,
       17 + providerInsightOffset,
     );
     const labels = rows.map((row) => row.modelo_prestacao.replace("Administração", "Adm.").replace("Três prestadores distintos", "Três distintos"));
@@ -4810,20 +4828,22 @@ function buildPresentation(payload, flowAssets) {
         ["Tipo e Foco ANBIMA", `${pct(coverage["Oficial ANBIMA"], 2)} oficial; ${pct(coverage["Evidência documental"], 2)} evidência; ${pct(coverage["Proxy CVM"], 2)} proxy; ${pct(coverage["N/D"], 2)} N/D`, "Tipo, Foco, origem e data permanecem separados. Gestor e custodiante históricos usam o cadastro vigente; a base não observa a troca ao longo do tempo."],
         ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, `Cap por veículo; vazio = ausência de reporte. Aging reconciliado à Tabela I completa; ex-360 ajustada = ${pct(payload.qa_latest.inadimplencia_ex_360d_ajustada_pct_sobre_cobertura, 1)}.`],
         ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo; cobertura de classificação Tipo+Foco por PL é reportada em cada slide. Top 10 fixo por função; Outros identificados e prestador não informado separados."],
-        ["Monoestrutura", `${integer(payload.qa_latest.fundos_total)} fundos; ${stockShortLower}`, "PL bruto, inclui FIC-FIDC. Mesmo conglomerado nas três funções; Kanastra permanece separada do Itaú e CBSF da REAG. Afiliação Kanastra→Itaú só no ranking de independentes."],
+        ["Monoestrutura", `${integer(payload.conclusion_metrics?.service_model_universe_funds)} fundos; ${stockShortLower}`, "PL direto; FICs excluídos pelo portão único. Mesmo conglomerado nas três funções; Kanastra permanece separada do Itaú e CBSF da REAG. Afiliação Kanastra→Itaú só no ranking de independentes."],
         ["Comparativo por instrumento", "2023–2025 FY; 2026 jan–mai", "ANBIMA Data, Valor Encerrado por data de encerramento das ofertas públicas. Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente primárias e secundárias."],
         ["Análises granulares de ofertas", "2022 parcial; 2023–2025 FY; 2026 jan–jun", "CVM/SRE, Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis e valor registrado positivo. Automático: requerimento; ordinário/legado: registro + emissor + data + instrumento."],
+        ["Perímetro FIC e cross-check", "30 nomes FIC mantidos; 319 inconsistências (R$ 139,03 bi)", "Nome não determina FIC. O cross-check registrou 243 multicarteira com classificação específica, 70 aprovações sem evidência suficiente, 5 emissor × credenciadora e 1 divergência aprovada × publicada, sem correção automática. EXPERT III (53.073.485/0001-00; R$ 3,52 bi) é o único caso em que a correção de perímetro sobrescreveu aprovação manual."],
       ],
       columnWidths: [190, 340, 630],
       aligns: ["left", "left", "left"],
-      fontSize: 12.3,
-      rowHeight: 64,
+      fontSize: 10.8,
+      rowHeight: 54,
     });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "ANBIMA Data — Boletim de Mercado de Capitais, snapshot mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
       "ANBIMA — anexo oficial XLSX: https://data-strapi.prd.anbima.com.br/uploads/Boletim_MK_Anexo_8_33b8963678.xlsx",
       "FundosNet/B3 — documentos públicos usados na conciliação de ratings.",
+      "Auditoria de perímetro e taxonomia — industry_fic_detection_audit.csv, industry_taxonomy_crosscheck.csv e taxonomy_review_actions.csv; competência 2026-06.",
     ]);
   }
 
@@ -5124,6 +5144,171 @@ function applyFormatsByHeader(sheet, headers, rowCount) {
   });
 }
 
+function auditColumnWidth(header) {
+  const normalized = String(header).toLowerCase();
+  if (/evidencia|motivo|notas|regra|reason|source/.test(normalized)) return 420;
+  if (/denominacao|nome_fidc/.test(normalized)) return 360;
+  if (/classificacao|taxonomia|fic_detection/.test(normalized)) return 240;
+  if (/cnpj/.test(normalized)) return 130;
+  if (/competencia|updated|documento_data/.test(normalized)) return 115;
+  if (/pl|valor/.test(normalized)) return 125;
+  return 150;
+}
+
+function auditCellValue(header, value) {
+  if (!/^cnpj(?:$|_fundo$|_formatado$|_fundo_formatado$)/i.test(String(header))) return value;
+  const digits = String(value || "").replace(/\D/g, "").padStart(14, "0").slice(-14);
+  if (!digits || /^0+$/.test(digits)) return value;
+  return `${digits.slice(0, 2)}.${digits.slice(2, 5)}.${digits.slice(5, 8)}/${digits.slice(8, 12)}-${digits.slice(12)}`;
+}
+
+async function addCsvAuditSheet(workbook, {
+  filePath,
+  sheetName,
+  title,
+  subtitle,
+  sourceHeaders = null,
+  filter = null,
+  uniqueBy = null,
+}) {
+  const csv = await readCsv(filePath);
+  const headers = sourceHeaders || csv.headers;
+  const indexByHeader = Object.fromEntries(csv.headers.map((header, index) => [header, index]));
+  const selected = [];
+  const selectedByKey = new Map();
+  for (const values of csv.rows) {
+    const row = Object.fromEntries(csv.headers.map((header, index) => [header, values[index] ?? ""]));
+    if (filter && !filter(row)) continue;
+    const record = Object.fromEntries(
+      headers.map((header) => [header, auditCellValue(header, values[indexByHeader[header]] ?? "")]),
+    );
+    if (!uniqueBy) {
+      selected.push(record);
+      continue;
+    }
+    const key = String(row[uniqueBy] || "");
+    const previous = selectedByKey.get(key);
+    if (!previous || String(row.competencia || "") >= previous.competencia) {
+      selectedByKey.set(key, { competencia: String(row.competencia || ""), record });
+    }
+  }
+  if (uniqueBy) selected.push(...[...selectedByKey.values()].map((item) => item.record));
+  const sheet = resetSheet(workbook, sheetName);
+  setHeaderBand(sheet, title, subtitle, headers, selected.length, {
+    freezeColumns: 2,
+    wrapText: false,
+    bodyFontSize: 8.5,
+  });
+  await writeRowsInChunks(sheet, 4, headers, selected);
+  applyColumnWidths(sheet, headers.map(auditColumnWidth), selected.length);
+  applyFormatsByHeader(sheet, headers, selected.length);
+  headers.forEach((header, index) => {
+    if (/evidencia|motivo|notas|regra|reason|source|denominacao|classificacao|taxonomia/i.test(header)) {
+      const letter = columnLetter(index);
+      sheet.getRange(`${letter}5:${letter}${selected.length + 4}`).format.wrapText = true;
+    }
+  });
+  return { headers, rows: selected };
+}
+
+async function addPerimeterAuditSheets(workbook, payload) {
+  const generatedAt = String(payload.generated_at || "N/D");
+  const universeColumns = [
+    "competencia", "cnpj", "cnpj_formatado", "cnpj_fundo", "cnpj_fundo_formatado",
+    "tp_registro", "denominacao", "pl", "carteira_dc", "dc_inadimplentes",
+    "dc_a_vencer_com_parcela_inad", "cotistas", "publico_alvo", "classificacao_anbima",
+    "segmento_principal", "segmento_financeiro_principal", "reports_carteira_dc",
+    "reports_dc_inadimplentes", "reports_aging", "is_fic", "fic_detection_method",
+    "fic_detection_evidence", "fic_exclusion_reason", "regra_inclusao",
+  ];
+  const universe = await addCsvAuditSheet(workbook, {
+    filePath: path.join(REVISION_DIR, "base_competencia_cnpj.csv.gz"),
+    sheetName: "Universo elegível",
+    title: "Universo elegível após o portão único de FICs",
+    subtitle: `Competência ${payload.latest_complete}; fonte CVM/Informe Mensal; atualização ${generatedAt}. Regra: exclui is_fic=true antes de gráficos, rankings e agregações; a série histórica permanece nos CSVs do bundle.`,
+    sourceHeaders: universeColumns,
+    filter: (row) => String(row.competencia || "") === String(payload.latest_complete || "") && String(row.is_fic || "").toLowerCase() !== "true",
+  });
+  if (universe.rows.some((row) => row.is_fic === true || String(row.is_fic).toLowerCase() === "true")) {
+    throw new Error("aba Universo elegível contém is_fic=true");
+  }
+  await addCsvAuditSheet(workbook, {
+    filePath: path.join(DATA_DIR, "industry_fic_detection_audit.csv"),
+    sheetName: "FICs excluídos",
+    title: "FICs excluídos do universo analítico",
+    subtitle: `Fonte industry_fic_detection_audit.csv; atualização ${generatedAt}; uma linha por CNPJ, na última competência observada. Regra: flag cadastral CVM ou VL_DICRED zerado em toda a série com cotas de FIDC ≥ 50% das aplicações; o histórico completo permanece no CSV.`,
+    filter: (row) => String(row.is_fic || "").toLowerCase() === "true",
+    uniqueBy: "cnpj_fundo",
+  });
+  await addCsvAuditSheet(workbook, {
+    filePath: path.join(DATA_DIR, "industry_taxonomy_crosscheck.csv"),
+    sheetName: "Cross-check taxonomia",
+    title: "Cross-check da taxonomia analítica",
+    subtitle: `Fonte industry_taxonomy_crosscheck.csv; competência ${payload.latest_complete}; atualização ${generatedAt}. As inconsistências são registradas para revisão e nenhuma classificação é corrigida automaticamente.`,
+  });
+  const taxonomyColumns = [
+    "cnpj_fundo", "denominacao_referencia", "status", "tipo_analitico",
+    "foco_analitico", "tabela_ii_analitica", "taxonomia_funcional_n1",
+    "taxonomia_funcional_n2", "confianca", "competencia_referencia",
+    "competencia_inicio", "fonte_documental", "documento_data",
+    "pagina_clausula", "evidencia", "notas", "responsavel", "updated_at_utc",
+  ];
+  await addCsvAuditSheet(workbook, {
+    filePath: path.join(DATA_DIR, "taxonomy_review_actions.csv"),
+    sheetName: "Taxonomia por CNPJ",
+    title: "Taxonomia analítica vigente por CNPJ",
+    subtitle: `Fonte taxonomy_review_actions.csv; competência de publicação ${payload.latest_complete}; atualização ${generatedAt}. Uma decisão única por CNPJ é aplicada a todas as competências pelo overlay, com os campos oficiais preservados.`,
+    sourceHeaders: taxonomyColumns,
+  });
+  await addCsvAuditSheet(workbook, {
+    filePath: path.join(DATA_DIR, "taxonomy_review_actions.csv"),
+    sheetName: "Decisões do ledger",
+    title: "Decisões completas do ledger de taxonomia",
+    subtitle: `Fonte taxonomy_review_actions.csv; atualização ${generatedAt}. Todas as aprovações, rejeições, revisões e pendências permanecem no histórico auditável; nenhuma linha é deduzida pelo nome do fundo.`,
+  });
+}
+
+function patchLegacyPlSheets(workbook, ficAuditRows) {
+  const detected = ficAuditRows.filter((row) => String(row.is_fic || "").toLowerCase() === "true");
+  const stats = new Map();
+  for (const row of detected) {
+    const competence = String(row.competencia || "");
+    const current = stats.get(competence) || { pl: 0, cnpjs: new Set() };
+    current.pl += num(row.pl);
+    current.cnpjs.add(String(row.cnpj_fundo || ""));
+    stats.set(competence, current);
+  }
+  for (const sheetName of ["PL histórico", "PL anual"]) {
+    const sheet = workbook.worksheets.getItem(sheetName);
+    const used = sheet.getUsedRange();
+    const values = used.values;
+    if (!values.length) continue;
+    const headers = values[0].map((value) => String(value || "").toLowerCase());
+    const competenceCol = headers.indexOf("competencia");
+    const totalCol = headers.findIndex((value) => ["pl_total", "pl_total_brl"].includes(value));
+    const ficCol = headers.findIndex((value) => ["pl_fic_fidc", "pl_fic_fidc_brl"].includes(value));
+    const directCol = headers.findIndex((value) => ["pl_ex_fic", "pl_ex_fic_brl"].includes(value));
+    const ficFundsCol = headers.indexOf("funds_fic_fidc");
+    const growthCol = headers.indexOf("pl_ex_fic_growth");
+    if ([competenceCol, totalCol, ficCol, directCol].some((index) => index < 0)) continue;
+    let previousDirect = null;
+    for (let rowIndex = 1; rowIndex < values.length; rowIndex += 1) {
+      const competence = String(values[rowIndex][competenceCol] || "");
+      const period = stats.get(competence);
+      if (!period) continue;
+      const total = num(values[rowIndex][totalCol]);
+      const direct = total - period.pl;
+      sheet.getCell(rowIndex, ficCol).values = [[period.pl]];
+      sheet.getCell(rowIndex, directCol).values = [[direct]];
+      if (ficFundsCol >= 0) sheet.getCell(rowIndex, ficFundsCol).values = [[period.cnpjs.size]];
+      if (growthCol >= 0) {
+        sheet.getCell(rowIndex, growthCol).values = [[previousDirect && previousDirect > 0 ? direct / previousDirect - 1 : null]];
+      }
+      previousDirect = direct;
+    }
+  }
+}
+
 async function writeRowsInChunks(sheet, startRowZeroBased, headers, rows, chunkSize = 5000) {
   for (let offset = 0; offset < rows.length; offset += chunkSize) {
     const chunk = rows.slice(offset, offset + chunkSize).map((row) =>
@@ -5242,9 +5427,12 @@ async function addQaSheet(workbook) {
 async function addVehicleCompetenceSheet(workbook, payload) {
   const csv = await readCsv(path.join(REVISION_DIR, "base_competencia_cnpj.csv.gz"));
   const competenceIndex = csv.headers.indexOf("competencia");
+  const isFicIndex = csv.headers.indexOf("is_fic");
   const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const auditMonths = new Set(["2024-06", "2024-07", payload.latest_complete]);
-  const scopedCsvRows = csv.rows.filter((row) => auditMonths.has(row[competenceIndex]));
+  const scopedCsvRows = csv.rows.filter(
+    (row) => auditMonths.has(row[competenceIndex]) && String(row[isFicIndex] || "").toLowerCase() !== "true",
+  );
   const selected = [
     ["Competência", "competencia"],
     ["CNPJ veículo", "cnpj_formatado"],
@@ -5313,7 +5501,9 @@ async function addVehicleCompetenceSheet(workbook, payload) {
 
 async function addFundBaseSheet(workbook, payload) {
   const csv = await readCsv(path.join(REVISION_DIR, "monoestrutura_por_fundo.csv"));
-  const sourceRows = csvRowsAsObjects(csv);
+  const sourceRows = csvRowsAsObjects(csv).filter(
+    (row) => String(row.is_fic_fidc || "").toLowerCase() !== "true",
+  );
   const columns = [
     ["Competência", "competencia"],
     ["CNPJ fundo", "cnpj_fundo_formatado"],
@@ -5641,6 +5831,29 @@ async function addHistoricalComparisonsSheet(workbook, payload) {
     "Nota",
   ];
   const rows = [];
+  payload.pl_history.forEach((row) => {
+    const total = num(row.pl_ex_fic) + num(row.pl_fic_componente);
+    [
+      ["PL direto", row.pl_ex_fic],
+      ["Saldo FIC", row.pl_fic_componente],
+      ["PL total reconciliado", total],
+    ].forEach(([label, value]) => rows.push({
+      "Painel": "PL e saldo FIC",
+      "Competência": row.competencia,
+      "Categoria / função": label,
+      "Quantidade": label === "Saldo FIC" ? row.fundos_fic_detectados : null,
+      "Share quantidade": null,
+      "PL / valor": value,
+      "Share PL / valor": total ? num(value) / total : null,
+      "Denominador quantidade": null,
+      "Denominador PL / valor": total,
+      "Cobertura PL": 1,
+      "PL N/D": null,
+      "Top 5": null,
+      "Top 10": null,
+      "Nota": row.fic_detection_rule || "Portão único de FICs.",
+    }));
+  });
   const holderMeta = Object.fromEntries(
     payload.holder_distribution_meta_history.map((row) => [row.competencia, row]),
   );
@@ -5728,7 +5941,7 @@ async function addHistoricalComparisonsSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Comparativos históricos",
-    "Bases dos slides 5, 6, 7 e 10. Percentuais de recebíveis fecham sobre a soma segmentada da Tabela II; prestador não informado permanece no denominador.",
+    "Bases dos slides 3, 5, 6, 7 e 10. PL direto e saldo FIC reconciliam o total; recebíveis fecham sobre a soma segmentada da Tabela II.",
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
@@ -7441,9 +7654,12 @@ async function addReclassificationSheet(workbook, payload, config) {
 
 async function buildWorkbook(payload, flowAssets) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
+  const ficAudit = await readCsv(path.join(DATA_DIR, "industry_fic_detection_audit.csv"));
+  patchLegacyPlSheets(workbook, csvRowsAsObjects(ficAudit));
   await addQaSheet(workbook);
   await addVehicleCompetenceSheet(workbook, payload);
   await addFundBaseSheet(workbook, payload);
+  await addPerimeterAuditSheets(workbook, payload);
   await addMonoConcentrationSheet(workbook);
   await addMarketShareSheet(workbook);
   await addTop20Sheets(workbook, payload);
@@ -7579,6 +7795,11 @@ async function exportWorkbook(workbook) {
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
       ["Checks revisão", "A1:D28"],
+      ["Universo elegível", "A1:P25"],
+      ["FICs excluídos", "A1:J25"],
+      ["Cross-check taxonomia", "A1:J25"],
+      ["Taxonomia por CNPJ", "A1:R25"],
+      ["Decisões do ledger", "A1:U25"],
     ];
     const workbookQa = path.join(QA_DIR, "workbook_revisado");
     await fs.mkdir(workbookQa, { recursive: true });
@@ -7618,8 +7839,9 @@ async function main() {
     await exportWorkbook(workbook);
   }
   if (
-    process.env.FIDC_SKIP_PRESENTATION !== "1" &&
-    process.env.FIDC_SKIP_WORKBOOK !== "1"
+    process.env.FIDC_WRITE_MANIFEST === "1" ||
+    (process.env.FIDC_SKIP_PRESENTATION !== "1" &&
+      process.env.FIDC_SKIP_WORKBOOK !== "1")
   ) {
     await writeExportBundleManifest(payload, payloadRaw);
   }

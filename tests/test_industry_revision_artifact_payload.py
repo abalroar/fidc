@@ -3,7 +3,33 @@ from __future__ import annotations
 import pandas as pd
 import pytest
 
-from scripts.build_fidc_revision_artifact_payload import _type_mix_history
+from scripts.build_fidc_revision_artifact_payload import (
+    _apply_detected_fic_history,
+    _type_mix_history,
+)
+
+
+def test_detected_fic_history_replaces_the_legacy_component() -> None:
+    annual = pd.DataFrame(
+        [
+            {"year": 2025, "competencia": "2025-12", "pl_total": 200.0, "pl_fic_fidc": 10.0},
+            {"year": 2026, "competencia": "2026-06", "pl_total": 300.0, "pl_fic_fidc": 20.0},
+        ]
+    )
+    audit = pd.DataFrame(
+        [
+            {"competencia": "2025-12", "cnpj_fundo": "1", "is_fic": True, "pl": 30.0},
+            {"competencia": "2026-06", "cnpj_fundo": "1", "is_fic": True, "pl": 40.0},
+            {"competencia": "2026-06", "cnpj_fundo": "2", "is_fic": True, "pl": 10.0},
+            {"competencia": "2026-06", "cnpj_fundo": "3", "is_fic": False, "pl": 99.0},
+        ]
+    )
+
+    output = _apply_detected_fic_history(annual, audit)
+
+    assert output["pl_fic_fidc"].tolist() == pytest.approx([30.0, 50.0])
+    assert output["pl_ex_fic"].tolist() == pytest.approx([170.0, 250.0])
+    assert output["fundos_fic_detectados"].tolist() == [1, 2]
 
 
 def test_type_mix_builds_four_periods_and_incorporates_nd_into_outros() -> None:

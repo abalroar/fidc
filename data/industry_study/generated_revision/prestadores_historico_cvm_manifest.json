@@ -1,7 +1,7 @@
 {
   "checks": {
-    "cohort_funds": 3624,
-    "cohort_pl_may26_brl": 777689131876.01,
+    "cohort_funds": 3306,
+    "cohort_pl_may26_brl": 718675344658.15,
     "excluded_fund_cnpjs": [
       "09195235000150",
       "26287464000114"
@@ -15,31 +15,31 @@
     "to_date": "2026-05-31",
     "weight_definition": "PL de mai/26 por CNPJ legal de fundo"
   },
-  "generated_at_utc": "2026-07-29T20:24:16+00:00",
+  "generated_at_utc": "2026-07-30T21:52:13+00:00",
   "outputs": {
     "coverage": {
-      "bytes": 4323,
+      "bytes": 4257,
       "path": "prestadores_historico_cvm_cobertura.csv",
       "rows": 9,
-      "sha256": "2e0a08e604152e33a5aa22e2d1c89a7e0bcaec666ffe9bec3a0c20d58cee289e"
+      "sha256": "d4dba1221ae4a065415e803d034070d044fce305e85c6dfc4817b5456a78f215"
     },
     "detail": {
-      "bytes": 419170,
+      "bytes": 376852,
       "path": "prestadores_historico_cvm_transicoes_detalhe.csv.gz",
-      "rows": 10872,
-      "sha256": "445aea4c706aac8844e01fb20bc61dbd4fb23c4ab90b8fabf7697b2ff4331556"
+      "rows": 9918,
+      "sha256": "73d4230cd1de4346f59952c789347b831461e5357f5efafadb83de54c7bbef6f"
     },
     "links": {
-      "bytes": 44021,
+      "bytes": 24909,
       "path": "prestadores_historico_cvm_transicoes_links.csv",
-      "rows": 136,
-      "sha256": "541c922e8f4fbaac3bfcc16ad800bcfbfb7bec842af08b7acf510bf036445cec"
+      "rows": 78,
+      "sha256": "58fec9d216c9a7d3a9eba2218590f25351c26ece3d1f7720a27102f36e1a53e3"
     },
     "snapshot": {
-      "bytes": 857408,
+      "bytes": 763461,
       "path": "prestadores_historico_cvm_snapshot.csv.gz",
-      "rows": 21744,
-      "sha256": "967c950bea8d33ace4ef3088c972df04e5fd22a8b2de080af334d52f23feefaa"
+      "rows": 19836,
+      "sha256": "bd42711159d51418b3ad70aca85530e790e7b8a51a42c1c2304412a301705336"
     }
   },
   "schema_version": "provider_history_cvm_v1",
