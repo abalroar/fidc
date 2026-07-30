@@ -31,7 +31,7 @@ if str(ROOT) not in sys.path:
 
 from services.industry_taxonomy_review import (  # noqa: E402
     TAXONOMY_REVIEW_COLUMNS,
-    commit_taxonomy_review_action,
+    commit_taxonomy_review_actions,
     load_taxonomy_review_actions,
     normalize_cnpj,
     taxonomy_review_id,
@@ -149,6 +149,7 @@ def main() -> None:
 
     committed = 0
     preserved = 0
+    staged: list[dict[str, object]] = []
     invalid: list[tuple[str, str]] = []
     for record in selected.sort_values("cnpj_fundo").to_dict(orient="records"):
         row = pd.Series(record)
@@ -170,14 +171,17 @@ def main() -> None:
         except ValueError as error:
             invalid.append((cnpj, str(error)))
             continue
-        commit_taxonomy_review_action(
-            action,
+        staged.append(action)
+
+    if staged:
+        commit_taxonomy_review_actions(
+            pd.DataFrame(staged, columns=list(TAXONOMY_REVIEW_COLUMNS)),
             ledger_path,
             audit_path,
             saved_at_utc=saved_at_utc,
             source=args.audit_source,
         )
-        committed += 1
+        committed = len(staged)
 
     updated = load_taxonomy_review_actions(ledger_path)
     print(

@@ -11,6 +11,8 @@ from services.industry_outros_reclassification import (
     RECEIVABLE_FAMILIES,
     decide,
     detect_fic_fidc,
+    extract_anbima_declaration,
+    resolve_with_declared_segment,
     detect_perimeter,
     fold_text,
     score_families,
@@ -186,14 +188,115 @@ def test_pending_top20_curation_closes_every_remaining_cnpj() -> None:
 
     assert len(frame) == 6
     assert not frame["cnpj_fundo"].duplicated().any()
-    assert set(frame["decision_status"]) == {"aprovado", "rejeitado"}
+    assert set(frame["decision_status"]) == {"aprovado", "em_revisao", "rejeitado"}
     for row in frame.to_dict(orient="records"):
         assert row["evidence_summary"]
         assert row["justificativa_curta"]
         assert row["documentos_lidos"]
-        if row["decision_status"] == "aprovado":
+        if row["decision_status"] in {"aprovado", "em_revisao"}:
             assert valid_analytical_type_focus_pair(
                 row["tipo_anbima_sugerido"], row["foco_anbima_sugerido"]
             )
+            n1 = row["taxonomia_funcional_n1_sugerida"]
+            assert row["taxonomia_funcional_n2_sugerida"] in FUNCTIONAL_TAXONOMY[n1]
         else:
             assert row["perimeter_proposal"]
+        if row["decision_status"] == "em_revisao":
+            assert row["manual_validation_reason"]
+
+
+def test_resolution_175_duty_boilerplate_does_not_create_a_precatorio_fund() -> None:
+    page = (
+        "OBRIGACOES DO ADMINISTRADOR: E) NO CASO DE CLASSE DESTINADA AO PUBLICO "
+        "EM GERAL QUE ADQUIRA PRECATORIOS FEDERAIS: 1. SE O PRECATORIO PERMANECE "
+        "NA ORDEM DE PAGAMENTO DA UNIAO, NOS TERMOS DO ARTIGO 27 DA RESOLUCAO "
+        "CVM 175"
+    )
+    scores = score_families(_document(page))
+
+    assert "precatorios" not in scores
+
+
+def test_collection_contract_boilerplate_does_not_create_an_npl_fund() -> None:
+    page = (
+        "CONTRATO DE COBRANCA: O CONTRATO DE PRESTACAO DE SERVICOS DE COBRANCA "
+        "DE DIREITOS DE CREDITO INADIMPLIDOS CELEBRADO ENTRE O FUNDO E O AGENTE "
+        "DE COBRANCA"
+    )
+    scores = score_families(_document(page))
+
+    assert "npl" not in scores
+
+
+def test_the_eligibility_clause_still_creates_a_precatorio_fund() -> None:
+    page = (
+        "CRITERIOS DE ELEGIBILIDADE: A CLASSE PODERA ADQUIRIR DO CEDENTE "
+        "DIREITOS CREDITORIOS ORIGINARIOS DE PRECATORIOS OU AINDA CREDITOS "
+        "DECORRENTES DE RECEITAS OU DIVIDAS PUBLICAS DA UNIAO, ESTADOS, "
+        "DISTRITO FEDERAL E MUNICIPIOS"
+    )
+    decision = decide(_document(page), official_type="Outros")
+
+    assert decision.decision_status == "aprovado"
+    assert decision.foco == "Poder Público"
+
+
+def test_a_declared_anbima_classification_wins_over_the_vocabulary() -> None:
+    page = (
+        "PARA OS FINS DE CLASSIFICACAO ANBIMA, ESTA CLASSE E CLASSIFICADA COMO "
+        "UM FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS DO TIPO ANBIMA OUTROS "
+        "- NON PERFORMING. A CARTEIRA PODE CONTER DUPLICATAS DUPLICATAS "
+        "DUPLICATAS E VENDAS MERCANTIS VENDAS MERCANTIS VENDAS MERCANTIS."
+    )
+    decision = decide(_document(page), official_type="Agro, Indústria e Comércio")
+
+    assert decision.decision_status == "aprovado"
+    assert decision.confidence == "alta"
+    assert (decision.tipo, decision.foco) == ("Outros", "Recuperação")
+
+
+def test_a_declared_classification_is_ignored_when_type_and_focus_disagree() -> None:
+    declaration = extract_anbima_declaration(
+        _document("TIPO ANBIMA: FINANCEIRO - PODER PUBLICO")
+    )
+
+    assert declaration is None
+
+
+def test_declared_segment_closes_a_fund_without_readable_documents() -> None:
+    outcome = resolve_with_declared_segment(
+        decision_status="pendente",
+        family_scores="",
+        declared_segment="Financeiro",
+        declared_share=1.0,
+        competence="2026-06",
+    )
+
+    assert outcome.resolved
+    assert outcome.tipo == "Financeiro"
+    assert outcome.tabela_ii == "Financeiro"
+
+
+def test_declared_segment_breaks_a_tie_between_competing_families() -> None:
+    outcome = resolve_with_declared_segment(
+        decision_status="em_revisao",
+        family_scores="agronegócio=20.0; crédito imobiliário=18.0",
+        declared_segment="Agronegocio",
+        declared_share=0.75,
+        competence="2025-12",
+    )
+
+    assert outcome.resolved
+    assert outcome.n2 == "Agro"
+
+
+def test_declared_segment_never_touches_a_closed_decision() -> None:
+    outcome = resolve_with_declared_segment(
+        decision_status="aprovado",
+        family_scores="agronegócio=20.0",
+        declared_segment="Agronegocio",
+        declared_share=1.0,
+        competence="2025-12",
+    )
+
+    assert not outcome.resolved

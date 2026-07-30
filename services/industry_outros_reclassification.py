@@ -52,6 +52,7 @@ class ReceivableFamily:
     n1: str
     n2: str
     dominates: frozenset[str] = frozenset()
+    negative_contexts: tuple[str, ...] = ()
 
 
 #: Sections whose wording actually defines the mandate.
@@ -74,6 +75,21 @@ RISK_ANCHORS: tuple[str, ...] = (
     r"RISCO DE (?:CREDITO|MERCADO|LIQUIDEZ)",
     r"COBRANCA DOS? DIREITOS? CREDITORIOS? INADIMPLIDOS?",
 )
+
+#: Wording that makes a match meaningless wherever it appears.  A regulation
+#: under CVM Resolution 175 repeats the administrator's duties verbatim, and
+#: those duties name families the fund may never buy; the same happens with the
+#: boilerplate enumeration of the CVM Tabela II segments.
+GLOBAL_NEGATIVE_CONTEXTS: tuple[str, ...] = (
+    r"COMERCIAL, FINANCEIRO, INDUSTRIAL",
+    r"FINANCEIRO, INDUSTRIAL, IMOBILIARIO",
+    r"INDUSTRIAL, IMOBILIARIO, AGRONEGOCIO",
+    r"AGRONEGOCIO E (?:DE )?PRESTACAO DE SERVICOS",
+    r"AGRONEGOCIO E DE PRESTACAO DE SERVICOS",
+)
+
+#: How far around a match the negative context is looked for.
+NEGATIVE_CONTEXT_WINDOW = 320
 
 POLICY_PAGE_MULTIPLIER = 2.0
 RISK_PAGE_MULTIPLIER = 0.35
@@ -285,6 +301,18 @@ RECEIVABLE_FAMILIES: tuple[ReceivableFamily, ...] = (
         n1="Judicial/Precatórios/NPL",
         n2="Precatórios/direitos judiciais",
         dominates=frozenset({"npl", "setor_publico", "direitos_judiciais"}),
+        negative_contexts=(
+            r"DESTINADAS? AO PUBLICO EM GERAL",
+            r"CLASSE DESTINADA AO PUBLICO EM GERAL",
+            r"NAO HA CLASSE DESTINADA AO PUBLICO",
+            r"OBRIGACOES DO ADMINISTRADOR",
+            r"OBRIGACOES DO GESTOR",
+            r"INCLUEM-SE ENTRE AS OBRIGACOES",
+            r"RELATORIO TRIMESTRAL D[AO] GESTORA?",
+            r"ART(?:IGO|\.)? ?27",
+            r"RESOLUCAO CVM (?:NO )?175",
+            r"COMPETE (?:A|AO) (?:ADMINISTRADORA?|GESTORA?)",
+        ),
     ),
     ReceivableFamily(
         family_id="direitos_judiciais",
@@ -314,12 +342,27 @@ RECEIVABLE_FAMILIES: tuple[ReceivableFamily, ...] = (
             (r"CREDITOS? VENCIDOS? E NAO PAGOS?", 2.5),
             (r"CREDITOS? EM ATRASO", 2.0),
             (r"SPECIAL SITUATIONS?", 2.5),
+            (r"VENCIDOS? E PENDENTES? DE PAGAMENTO QUANDO D[AO]", 3.5),
         ),
         tipo="Outros",
         foco="Recuperação",
         tabela_ii="N/D",
         n1="Judicial/Precatórios/NPL",
         n2="Não padronizado/NPL",
+        negative_contexts=(
+            r"CONTRATO DE COBRANCA",
+            r"AGENTE DE COBRANCA",
+            r"PROCEDIMENTOS? DE COBRANCA",
+            r"POLITICA DE COBRANCA",
+            r"REALIZARA? A COBRANCA",
+            r"COBRANCA (?:EXTRA)?JUDICIAL",
+            r"PROVISAO PARA PERDAS",
+            r"LIQUIDACAO DUVIDOSA",
+            r"EM CASO DE INADIMPLEMENTO",
+            r"HIPOTESE DE INADIMPLEMENTO",
+            r"GARANTIAS VINCULADAS",
+            r"RISCO DE INADIMPL",
+        ),
     ),
     ReceivableFamily(
         family_id="setor_publico",
@@ -465,6 +508,96 @@ MULTICARTEIRA_BY_TYPE: Mapping[str, tuple[str, str, str, str]] = {
     ),
 }
 
+#: Tabela II segment declared by the fund itself in the CVM structured monthly
+#: report, mapped to the five project taxonomies.  The informe is a regulatory
+#: filing of the vehicle, so it is documentary evidence in its own right — and
+#: it is the only evidence that speaks about the portfolio actually held, not
+#: about the mandate the regulation permits.
+DECLARED_SEGMENT_TARGETS: Mapping[str, tuple[str, str, str, str, str]] = {
+    "financeiro": (
+        "Financeiro",
+        "Multicarteira Financeiro",
+        "Financeiro",
+        "Multissetorial / Outros",
+        "Multicarteira financeiro",
+    ),
+    "comercial": (
+        "Agro, Indústria e Comércio",
+        "Recebíveis Comerciais",
+        "Comercial",
+        "Crédito PJ",
+        "Recebíveis comerciais/multissetorial",
+    ),
+    "industrial": (
+        "Agro, Indústria e Comércio",
+        "Recebíveis Comerciais",
+        "Industrial",
+        "Crédito PJ",
+        "Recebíveis comerciais/multissetorial",
+    ),
+    "servicos": (
+        "Agro, Indústria e Comércio",
+        "Recebíveis Comerciais",
+        "Serviços",
+        "Crédito PJ",
+        "Recebíveis comerciais/multissetorial",
+    ),
+    "agronegocio": (
+        "Agro, Indústria e Comércio",
+        "Agronegócio",
+        "Agronegócio",
+        "Agro",
+        "Agro",
+    ),
+    "imobiliario": (
+        "Financeiro",
+        "Crédito Imobiliário",
+        "Imobiliário",
+        "Imobiliário",
+        "Imobiliário",
+    ),
+    "cartao de credito": (
+        "Financeiro",
+        "Cartão de crédito",
+        "Cartão de crédito",
+        "Meios de Pagamento e Cartões",
+        "Banco emissor/cartão de crédito",
+    ),
+    "factoring": (
+        "Fomento Mercantil",
+        "Fomento Mercantil",
+        "Factoring",
+        "Crédito PJ",
+        "Recebíveis comerciais/multissetorial",
+    ),
+    "setor publico": (
+        "Outros",
+        "Poder Público",
+        "Setor público",
+        "Multissetorial / Outros",
+        "Multicarteira outros",
+    ),
+    "acoes judiciais": (
+        "Outros",
+        "Recuperação",
+        "Ações judiciais",
+        "Judicial/Precatórios/NPL",
+        "Precatórios/direitos judiciais",
+    ),
+    "marcas e patentes": (
+        "Outros",
+        "Multicarteira Outros",
+        "Marcas e patentes",
+        "Multissetorial / Outros",
+        "Multicarteira outros",
+    ),
+}
+
+#: Concentration the declared segment needs to stand alone as evidence.
+DECLARED_SEGMENT_MIN_SHARE = 0.9
+#: Concentration the declared segment needs to break a tie between families.
+DECLARED_SEGMENT_TIEBREAK_SHARE = 0.6
+
 CEDENT_PATTERNS: tuple[str, ...] = (
     r"(?:CEDENTES?|ORIGINADOR(?:ES|A|AS)?)[^.]{0,220}?CNPJ[^.]{0,60}",
     r"CNPJ[^.]{0,60}?(?:CEDENTES?|ORIGINADOR(?:ES|A|AS)?)[^.]{0,120}",
@@ -513,6 +646,18 @@ def _snippet(folded_page: str, match: re.Match[str]) -> str:
     return folded_page[start:end]
 
 
+def _is_neutralized(
+    folded_page: str, match: re.Match[str], family: ReceivableFamily
+) -> bool:
+    """Discard a match that sits inside boilerplate rather than the mandate."""
+
+    start = max(0, match.start() - NEGATIVE_CONTEXT_WINDOW)
+    end = min(len(folded_page), match.end() + NEGATIVE_CONTEXT_WINDOW)
+    window = folded_page[start:end]
+    contexts = GLOBAL_NEGATIVE_CONTEXTS + family.negative_contexts
+    return any(re.search(context, window) for context in contexts)
+
+
 @dataclass(frozen=True)
 class FamilyEvidence:
     family_id: str
@@ -540,7 +685,11 @@ def score_families(
             multiplier = _page_multiplier(folded)
             for family in RECEIVABLE_FAMILIES:
                 for pattern, weight in family.patterns:
-                    matches = list(re.finditer(pattern, folded))
+                    matches = [
+                        match
+                        for match in re.finditer(pattern, folded)
+                        if not _is_neutralized(folded, match, family)
+                    ]
                     if not matches:
                         continue
                     capped = min(len(matches), MAX_MATCHES_PER_PATTERN_PER_PAGE)
@@ -731,6 +880,7 @@ def decide(
         )
 
     perimeter = detect_perimeter(documents)
+    declaration = extract_anbima_declaration(documents)
     raw_scores = score_families(documents, np_prior=np_prior)
     scores = {
         family_id: evidence.score for family_id, evidence in raw_scores.items()
@@ -759,6 +909,41 @@ def decide(
             family_scores=score_text,
             limitation=perimeter,
             reason=perimeter,
+        )
+
+    if declaration is not None:
+        tabela_ii, n1, n2 = _FOCUS_TARGETS[declaration.foco]
+        evidence_text, pages = _evidence_text(
+            raw_scores, [item[0] for item in ranked]
+        )
+        declared_evidence = (
+            f"{declaration.document_label} p. {declaration.page} "
+            f"[classificação ANBIMA declarada no regulamento]: "
+            f"{declaration.snippet}"
+        )
+        return Decision(
+            decision_status="aprovado",
+            tipo=declaration.tipo,
+            foco=declaration.foco,
+            tabela_ii=tabela_ii,
+            n1=n1,
+            n2=n2,
+            confidence="alta",
+            rationale=(
+                "O próprio regulamento declara a classificação ANBIMA da "
+                f"classe como Tipo {declaration.tipo} / Foco {declaration.foco}. "
+                "Essa é a mesma taxonomia que a curadoria preenche, escrita por "
+                "quem responde pela classificação, e prevalece sobre a "
+                "inferência por vocabulário."
+            ),
+            evidence=f"{declared_evidence} || {evidence_text}"[:4600],
+            pages=f"{declaration.document_label} p. {declaration.page}; {pages}",
+            family_scores=score_text,
+            limitation=(
+                "A declaração fixa Tipo e Foco ANBIMA; a Tabela II e a taxonomia "
+                "funcional derivam do foco declarado e não de cláusula própria."
+            ),
+            reason="",
         )
 
     if not ranked or ranked[0][1] < MIN_DECISIVE_SCORE:
@@ -921,3 +1106,286 @@ def decide(
             "reclassificação."
         ),
     )
+
+
+LABEL_TO_FAMILY: Mapping[str, str] = {
+    family.label: family.family_id for family in RECEIVABLE_FAMILIES
+}
+
+
+def normalize_declared_segment(value: object) -> str:
+    """Fold a Tabela II segment name to the key used by the target table."""
+
+    text = unicodedata.normalize("NFKD", str(value or ""))
+    text = "".join(char for char in text if not unicodedata.combining(char))
+    return re.sub(r"\s+", " ", text).strip().casefold()
+
+
+def parse_family_scores(value: object) -> list[tuple[str, float]]:
+    """Read back the ``label=score`` summary stored with each conclusion."""
+
+    pairs: list[tuple[str, float]] = []
+    for chunk in str(value or "").split(";"):
+        label, _, score = chunk.rpartition("=")
+        label = label.strip()
+        if not label or label not in LABEL_TO_FAMILY:
+            continue
+        try:
+            pairs.append((LABEL_TO_FAMILY[label], float(score)))
+        except ValueError:
+            continue
+    return sorted(pairs, key=lambda item: item[1], reverse=True)
+
+
+@dataclass(frozen=True)
+class SegmentResolution:
+    """Outcome of confronting a conclusion with the declared Tabela II."""
+
+    resolved: bool
+    reason: str
+    tipo: str = ""
+    foco: str = ""
+    tabela_ii: str = ""
+    n1: str = ""
+    n2: str = ""
+    confidence: str = "media"
+    rationale: str = ""
+
+
+def resolve_with_declared_segment(
+    *,
+    decision_status: str,
+    family_scores: object,
+    declared_segment: object,
+    declared_share: float,
+    competence: str,
+) -> SegmentResolution:
+    """Close an open conclusion using the segment the fund itself declared.
+
+    Two situations are handled and nothing else.  When the reading left two or
+    more families disputing the mandate and exactly one of them matches the
+    declared segment, that family wins.  When the reading produced no usable
+    family at all — or no document existed — a segment concentrated at 90% or
+    more of the reported portfolio stands on its own.
+    """
+
+    if decision_status not in {"em_revisao", "pendente"}:
+        return SegmentResolution(False, "decisão já fechada")
+    segment = normalize_declared_segment(declared_segment)
+    target = DECLARED_SEGMENT_TARGETS.get(segment)
+    if target is None:
+        return SegmentResolution(False, "sem segmento declarado no informe")
+
+    ranked = parse_family_scores(family_scores)
+    if ranked:
+        leader_score = ranked[0][1]
+        competing = [
+            family_id
+            for family_id, score in ranked
+            if score >= COMPETING_FAMILY_SHARE * leader_score
+        ]
+        matching = [
+            family_id
+            for family_id in competing
+            if FAMILY_BY_ID[family_id].tabela_ii == target[2]
+        ]
+        if (
+            len(competing) >= 2
+            and len(matching) == 1
+            and declared_share >= DECLARED_SEGMENT_TIEBREAK_SHARE
+        ):
+            family = FAMILY_BY_ID[matching[0]]
+            return SegmentResolution(
+                True,
+                "desempate pelo segmento declarado",
+                tipo=family.tipo,
+                foco=family.foco,
+                tabela_ii=family.tabela_ii,
+                n1=family.n1,
+                n2=family.n2,
+                confidence="media",
+                rationale=(
+                    f"A leitura documental deixou {len(competing)} famílias em "
+                    f"disputa. O informe mensal estruturado de {competence} "
+                    f"declara {declared_share:.0%} da carteira no segmento "
+                    f"{declared_segment}, que corresponde exatamente à família "
+                    f"{family.label}; o desempate usa a carteira observada, e "
+                    "não o mandato permitido."
+                ),
+            )
+
+    if declared_share >= DECLARED_SEGMENT_MIN_SHARE:
+        tipo, foco, tabela_ii, n1, n2 = target
+        return SegmentResolution(
+            True,
+            "segmento declarado isolado",
+            tipo=tipo,
+            foco=foco,
+            tabela_ii=tabela_ii,
+            n1=n1,
+            n2=n2,
+            confidence="media",
+            rationale=(
+                f"A leitura documental não individualizou o lastro. O informe "
+                f"mensal estruturado de {competence}, entregue à CVM pelo "
+                f"próprio veículo, declara {declared_share:.0%} da carteira de "
+                f"direitos creditórios no segmento {declared_segment} da Tabela "
+                "II, o que fixa o tipo econômico sem depender do regulamento."
+            ),
+        )
+    return SegmentResolution(False, "segmento declarado sem concentração suficiente")
+
+
+#: Regulations adapted to CVM Resolution 175 usually carry, in the class annex,
+#: the ANBIMA classification the manager itself assigned to the class.  That is
+#: the strongest possible evidence for the two ANBIMA taxonomies, because it is
+#: the same vocabulary written by the party that files the classification.
+ANBIMA_DECLARATION_PATTERNS: tuple[str, ...] = (
+    r"CLASSIFICACAO ANBIMA[^A-Z0-9]{0,12}(.{0,180})",
+    r"TIPO ANBIMA[^A-Z0-9]{0,12}(.{0,140})",
+    r"FOCO DE ATUACAO[^A-Z0-9]{0,12}(.{0,140})",
+)
+
+_DECLARED_TYPE_PATTERNS: tuple[tuple[str, str], ...] = (
+    (r"FOMENTO MERCANTIL", "Fomento Mercantil"),
+    (r"AGRO,? INDUSTRIA E COMERCIO", "Agro, Indústria e Comércio"),
+    (r"\bFINANCEIRO\b", "Financeiro"),
+    (r"\bOUTROS\b", "Outros"),
+)
+
+_DECLARED_FOCUS_PATTERNS: tuple[tuple[str, str], ...] = (
+    (r"NON[ -]?PERFORMING", "Recuperação"),
+    (r"RECUPERACAO", "Recuperação"),
+    (r"PODER PUBLICO", "Poder Público"),
+    (r"MULTICARTEIRA OUTROS", "Multicarteira Outros"),
+    (r"MULTICARTEIRA FINANCEIRO", "Multicarteira Financeiro"),
+    (r"MULTICARTEIRA AGRO", "Multicarteira Agro, Indústria e Comércio"),
+    (r"CREDITOS? CONSIGNADOS?", "Crédito Consignado"),
+    (r"CREDITO IMOBILIARIO", "Crédito Imobiliário"),
+    (r"CREDITO PESSOAL", "Crédito Pessoal"),
+    (r"FINANCIAMENTO DE VEICULOS", "Financiamento de Veículos"),
+    (r"INFRAESTRUTURA", "Infraestrutura"),
+    (r"RECEBIVEIS COMERCIAIS", "Recebíveis Comerciais"),
+    (r"CREDITO CORPORATIVO", "Crédito Corporativo"),
+    (r"AGRONEGOCIO", "Agronegócio"),
+    (r"FOMENTO MERCANTIL", "Fomento Mercantil"),
+)
+
+#: Focus values that only make sense under one type, used to repair a
+#: declaration that names the focus but not the type.
+_FOCUS_TO_TYPE: Mapping[str, str] = {
+    "Recuperação": "Outros",
+    "Poder Público": "Outros",
+    "Multicarteira Outros": "Outros",
+    "Multicarteira Financeiro": "Financeiro",
+    "Crédito Consignado": "Financeiro",
+    "Crédito Imobiliário": "Financeiro",
+    "Crédito Pessoal": "Financeiro",
+    "Financiamento de Veículos": "Financeiro",
+    "Multicarteira Agro, Indústria e Comércio": "Agro, Indústria e Comércio",
+    "Infraestrutura": "Agro, Indústria e Comércio",
+    "Recebíveis Comerciais": "Agro, Indústria e Comércio",
+    "Crédito Corporativo": "Agro, Indústria e Comércio",
+    "Agronegócio": "Agro, Indústria e Comércio",
+    "Fomento Mercantil": "Fomento Mercantil",
+}
+
+#: Tabela II and functional taxonomy implied by a declared ANBIMA focus.
+_FOCUS_TARGETS: Mapping[str, tuple[str, str, str]] = {
+    "Recuperação": ("N/D", "Judicial/Precatórios/NPL", "Não padronizado/NPL"),
+    "Poder Público": (
+        "Ações judiciais",
+        "Judicial/Precatórios/NPL",
+        "Precatórios/direitos judiciais",
+    ),
+    "Multicarteira Outros": ("N/D", "Multissetorial / Outros", "Multicarteira outros"),
+    "Multicarteira Financeiro": (
+        "Financeiro",
+        "Multissetorial / Outros",
+        "Multicarteira financeiro",
+    ),
+    "Crédito Consignado": ("Financeiro", "Crédito PF", "Consignado/INSS"),
+    "Crédito Imobiliário": ("Imobiliário", "Imobiliário", "Imobiliário"),
+    "Crédito Pessoal": ("Financeiro", "Crédito PF", "Crédito pessoal/consumo"),
+    "Financiamento de Veículos": ("Financeiro", "Crédito PF", "Auto/Veículos"),
+    "Multicarteira Agro, Indústria e Comércio": (
+        "N/D",
+        "Multissetorial / Outros",
+        "Multicarteira outros",
+    ),
+    "Infraestrutura": ("Serviços", "Infra/Energia", "Energia/infra"),
+    "Recebíveis Comerciais": (
+        "Comercial",
+        "Crédito PJ",
+        "Recebíveis comerciais/multissetorial",
+    ),
+    "Crédito Corporativo": (
+        "Financeiro",
+        "Crédito PJ",
+        "Crédito privado/mercado de capitais",
+    ),
+    "Agronegócio": ("Agronegócio", "Agro", "Agro"),
+    "Fomento Mercantil": (
+        "Factoring",
+        "Crédito PJ",
+        "Recebíveis comerciais/multissetorial",
+    ),
+}
+
+
+@dataclass(frozen=True)
+class AnbimaDeclaration:
+    """ANBIMA classification the regulation assigns to itself."""
+
+    tipo: str
+    foco: str
+    document_label: str
+    page: int
+    snippet: str
+
+
+def extract_anbima_declaration(
+    documents: Sequence[tuple[str, Sequence[str]]]
+) -> AnbimaDeclaration | None:
+    """Find the ANBIMA type and focus the class declares for itself."""
+
+    for document_label, pages in documents:
+        for page_number, page in enumerate(pages, start=1):
+            folded = fold_text(page)
+            if not folded:
+                continue
+            for pattern in ANBIMA_DECLARATION_PATTERNS:
+                for match in re.finditer(pattern, folded):
+                    window = match.group(1)
+                    foco = next(
+                        (
+                            value
+                            for expression, value in _DECLARED_FOCUS_PATTERNS
+                            if re.search(expression, window)
+                        ),
+                        "",
+                    )
+                    tipo = next(
+                        (
+                            value
+                            for expression, value in _DECLARED_TYPE_PATTERNS
+                            if re.search(expression, window)
+                        ),
+                        "",
+                    )
+                    if foco and not tipo:
+                        tipo = _FOCUS_TO_TYPE.get(foco, "")
+                    if not foco or not tipo:
+                        continue
+                    if _FOCUS_TO_TYPE.get(foco) != tipo:
+                        continue
+                    start = max(0, match.start() - 80)
+                    end = min(len(folded), match.end() + 120)
+                    return AnbimaDeclaration(
+                        tipo=tipo,
+                        foco=foco,
+                        document_label=document_label,
+                        page=page_number,
+                        snippet=folded[start:end][:700],
+                    )
+    return None

@@ -42,43 +42,75 @@ DECISIONS: tuple[dict[str, object], ...] = (
         "document_id": "1245057",
         "document_reference_date": "2026-06-30",
         "documentos_lidos": (
-            "Informe Mensal Estruturado 1245057 (06/2026); Instrumento "
-            "Particular de Deliberação Conjunta 1142758 (18/03/2026)"
+            "Informes Mensais Estruturados 1162975 (03/2026), 1189871 "
+            "(04/2026), 1216989 (05/2026) e 1245057 (06/2026); Informe "
+            "Trimestral 1196918 (03/2026); Instrumento Particular de "
+            "Deliberacao Conjunta 1142758 (18/03/2026); demonstracoes "
+            "financeiras de cisao do BTG EMPRESAS FIDC 1223038 (18/03/2026) e "
+            "1241702 (08/04/2026); AGE 1142743 (18/03/2026)"
         ),
-        "pagina_clausula": "IME 06/2026, bloco SEGMT; IPC 18/03/2026, item (i)",
+        "pagina_clausula": (
+            "IME 03 a 06/2026, blocos SEGMT, COMPMT_DICRED_SEM_AQUIS e "
+            "PRAZO_VENC; DF de cisao 18/03/2026, balanco patrimonial"
+        ),
         "cedent_originator_expresso": (
-            "Classe cindida do BTG EMPRESAS FUNDO DE INVESTIMENTO EM DIREITOS "
-            "CREDITÓRIOS, CNPJ 55.521.594/0001-78"
+            "Nao nomeado em documento. A parcela cindida do BTG EMPRESAS FIDC "
+            "(CNPJ 55.521.594/0001-78) era caixa: em 18/03/2026 aquela classe "
+            "tinha R$ 1,254 bi de PL com apenas R$ 2,3 mi em direitos "
+            "creditorios (0,19%). A carteira de R$ 17,3 bi foi adquirida depois."
         ),
         "evidence_summary": (
-            "Informe Mensal Estruturado de 06/2026: VL_DICRED 17.285.378.512,80 "
-            "e VL_SOM_SEGMT_COMERC 17.285.378.512,80 — 100% da carteira de "
-            "direitos creditórios declarada no segmento Comercial, com "
-            "VL_PRAZO_VENC_1080 igual ao total (integralidade acima de 1.080 "
-            "dias) e VL_DICRED_CEDENT igual ao total (aquisição integral de "
-            "cedentes). O Instrumento Particular de Deliberação Conjunta de "
-            "18/03/2026 registra a constituição por incorporação da parcela "
-            "cindida da classe única do BTG EMPRESAS FIDC."
+            "Informes mensais de 03 a 06/2026, os quatro consistentes entre si: "
+            "100% da carteira de direitos creditorios no segmento Comercial da "
+            "Tabela II (VL_SOM_SEGMT_COMERC = VL_DICRED, R$ 17,285 bi em "
+            "06/2026); 100% do saldo no bucket VL_PRAZO_VENC_1080, ou seja "
+            "vencimento acima de 1.080 dias; todo o saldo registrado no bloco "
+            "COMPMT_DICRED_SEM_AQUIS, isto e, aquisicao SEM transferencia "
+            "substancial de riscos e beneficios; VL_DICRED_CEDENT igual ao "
+            "total; inadimplencia zero em todos os aging; um unico cotista, que "
+            "e outro fundo; condominio fechado, sem estrutura de subordinacao. "
+            "O informe trimestral de 03/2026 afirma aquisicao de precatorios "
+            "federais, mas o informe mensal da mesma competencia reporta "
+            "Acoes judiciais = R$ 0,00 e Comercial = 100%; o texto e o "
+            "formulario-padrao do administrador, cuja versao do BTG EMPRESAS "
+            "FIDC responde a mesma pergunta com outra opcao."
         ),
-        "tipo_anbima_sugerido": "Agro, Indústria e Comércio",
-        "foco_anbima_sugerido": "Recebíveis Comerciais",
+        "tipo_anbima_sugerido": "Financeiro",
+        "foco_anbima_sugerido": "Financiamento de Veículos",
         "tabela_ii_sugerida_documental": "Comercial",
-        "taxonomia_funcional_n1_sugerida": "Crédito PJ",
-        "taxonomia_funcional_n2_sugerida": "Recebíveis comerciais/multissetorial",
-        "decision_status": "aprovado",
+        "taxonomia_funcional_n1_sugerida": "Crédito PF",
+        "taxonomia_funcional_n2_sugerida": "Auto/Veículos",
+        "decision_status": "em_revisao",
         "confianca_documental": "media",
         "justificativa_curta": (
-            "O informe mensal estruturado — documento regulatório do próprio "
-            "veículo — aloca 100% dos direitos creditórios no segmento "
-            "Comercial, sustentando a classificação oficial em Agro, Indústria "
-            "e Comércio / Recebíveis Comerciais e fixando a Tabela II analítica "
-            "em Comercial, hoje N/D."
+            "A hipotese de carteira de credito PF veiculos e sustentada por "
+            "quatro fatos documentais convergentes e nao e refutada por nenhum: "
+            "(i) 100% do saldo com vencimento acima de 1.080 dias, perfil "
+            "impossivel para recebiveis comerciais e tipico de CDC de veiculos "
+            "de 48 a 60 meses; (ii) registro integral como aquisicao sem "
+            "transferencia substancial de riscos, que e a estrutura de funding "
+            "em que o originador retem o risco; (iii) o segmento Comercial e "
+            "exatamente o que o FIDC GM - Venda de Veiculos e o Venda de "
+            "Veiculos FIDC declaram para carteiras de veiculos, enquanto bancos "
+            "que cedem CDC proprio declaram Financeiro; (iv) o administrador e "
+            "a BTG Pactual Servicos Financeiros e o custodiante e o Banco BTG "
+            "Pactual, controlador do Banco Pan, que constituiu na mesma data o "
+            "PAN CONSIGNADO FIDC - uma familia segmentada por produto de "
+            "varejo. Falta a clausula que nomeie o lastro, de modo que a "
+            "decisao fica em revisao e nao entra no mix analitico."
         ),
-        "reading_method": "informe_mensal_estruturado_e_ato_de_constituicao",
+        "reading_method": (
+            "informes_mensais_estruturados_trimestral_e_demonstracoes_de_cisao"
+        ),
+        "manual_validation_reason": (
+            "O regulamento do fundo nao foi publicado no FundosNet - as unicas "
+            "pecas disponiveis sob o CNPJ sao informes periodicos e um ato de "
+            "emissao de cotas. Reprocessar quando o regulamento for publicado."
+        ),
         "source_limitations": (
-            "O regulamento ainda não foi publicado no FundosNet; a família "
-            "econômica dentro do segmento Comercial não é individualizada por "
-            "documento e não é inferida pelo nome do fundo."
+            "Sem regulamento publicado, nenhum documento nomeia o produto de "
+            "credito. O nome do fundo nao e usado como evidencia. A Tabela II "
+            "analitica adota o segmento declarado pelo proprio veiculo."
         ),
     },
     {

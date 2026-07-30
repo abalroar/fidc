@@ -86,54 +86,62 @@ cessão: critérios de elegibilidade, condições de cessão, cedente, contrato 
 cessão ou documentos comprobatórios. A detecção de perímetro usa exatamente essa
 diferença, e não o nome do fundo.
 
-## Resultado desta rodada
+## Resultado
 
-A fila cobriu **2.158 CNPJs** exibidos como `Outros` nas quatro competências.
-Foram lidas **121.414 páginas**: 1.930 CNPJs concluídos pelo regulamento, 45 por
-documentos complementares e 183 sem documento com camada de texto.
+A fila cobriu **2.158 CNPJs** exibidos como `Outros` nas quatro competências,
+com download de regulamento e, quando ele não bastou, de documentos
+complementares para 780 veículos.
 
-| Status | CNPJs | PL máximo observado |
-|---|---:|---:|
-| `aprovado` | 1.437 | R$ 245,75 bi |
-| `em_revisao` | 520 | R$ 76,36 bi |
-| `pendente` | 194 | R$ 12,70 bi |
-| `rejeitado` | 7 | R$ 2,15 bi |
-
-Das 1.437 aprovações, **453 saem de `Outros`** (R$ 71,7 bi de PL máximo) — 247
-para `Agro, Indústria e Comércio`, 202 para `Financeiro` e 4 para
-`Fomento Mercantil`. As **984** restantes permanecem em `Outros` porque é onde o
-risco descrito cabe, mas deixam de ser indistintas: 699 com foco
-`Poder Público`, 156 com `Recuperação` e 129 multicarteira com evidência.
+| Status | CNPJs |
+|---|---:|
+| `aprovado` | 1.892 |
+| `em_revisao` | 219 |
+| `pendente` | 40 |
+| `rejeitado` | 7 |
 
 Efeito no mix analítico, comparado à fotografia oficial ANBIMA:
 
 | Competência | Outros oficial | Outros curado | Redução | Cobertura do PL por decisão aprovada |
 |---|---:|---:|---:|---:|
-| dez/23 | R$ 171,9 bi (37,2%) | R$ 135,5 bi (29,3%) | R$ 36,4 bi | 72,5% |
-| dez/24 | R$ 261,6 bi (38,3%) | R$ 202,8 bi (29,7%) | R$ 58,7 bi | 71,8% |
-| dez/25 | R$ 371,2 bi (44,6%) | R$ 281,0 bi (33,7%) | R$ 90,2 bi | 67,9% |
-| jun/26 | R$ 355,7 bi (40,4%) | R$ 246,5 bi (28,0%) | R$ 109,3 bi | 66,4% |
-
-A rodada anterior havia reduzido `Outros` em R$ 56,0 bi em jun/26; esta rodada
-leva a redução a R$ 109,3 bi e derruba a participação do bucket de 40,4% para
-28,0% do patrimônio da competência.
+| dez/23 | R$ 171,9 bi (37,2%) | R$ 123,2 bi (26,7%) | R$ 48,7 bi | 76,7% |
+| dez/24 | R$ 261,6 bi (38,3%) | R$ 182,3 bi (26,7%) | R$ 79,2 bi | 75,7% |
+| dez/25 | R$ 371,2 bi (44,6%) | R$ 254,0 bi (30,5%) | R$ 117,3 bi | 72,3% |
+| jun/26 | R$ 355,7 bi (40,4%) | R$ 219,2 bi (24,9%) | R$ 136,5 bi | 68,3% |
 
 O ledger analítico passou de 137 para **2.299 decisões** por CNPJ, todas com
 evidência, página, justificativa, nível de confiança e trilha de auditoria.
 
-## Revisão automática
+## Três fontes de evidência, em ordem de força
 
-`report_fidc_outros_reclassification.py` grava
-`industry_outros_consistency_review.csv` com os casos que merecem olhar humano,
-ordenados pelo patrimônio envolvido:
+1. **Classificação ANBIMA declarada no regulamento.** Regulamentos adaptados à
+   Resolução CVM 175 costumam trazer, no anexo da classe, o Tipo e o Foco de
+   atuação que o próprio gestor atribuiu — a mesma taxonomia que a curadoria
+   preenche, escrita por quem responde por ela. Quando existe, prevalece sobre
+   qualquer inferência por vocabulário e fecha a decisão com confiança alta.
+2. **Definição do lastro, política de investimento e critérios de
+   elegibilidade**, pontuados por família econômica com os pesos descritos
+   acima.
+3. **Segmento da Tabela II declarado no informe mensal estruturado.** É o único
+   documento que fala da carteira efetivamente detida, e não do mandato
+   permitido. Usado para desempatar famílias em disputa (concentração ≥ 60%) ou
+   para fechar sozinho um caso sem documento legível (concentração ≥ 90%).
 
-- **50** focos minoritários dentro do mesmo gestor e mesmo foco oficial — quando
-  um gestor tem três ou mais fundos com o mesmo foco oficial e apenas um recebeu
-  destino diferente dos demais;
-- **13** famílias de fundos irmãos (`JC 4870` e `JC 4870 IV`, por exemplo) com
-  Tipos ANBIMA divergentes entre si;
-- mudanças de Tipo oficial fechadas com confiança apenas média, listadas pelas
-  25 maiores.
+## Contextos negativos
+
+Duas construções aparecem literalmente em quase todo regulamento e não são
+evidência de nada:
+
+- as **obrigações do administrador e do gestor** da Resolução CVM 175, que
+  citam precatórios federais em uma hipótese condicional (`no caso de classe
+  destinada ao público em geral que adquira precatórios federais...`);
+- a **definição de Contrato de Cobrança** e os procedimentos de cobrança, que
+  citam direitos de crédito inadimplidos em qualquer fundo, performado ou não.
+
+Uma ocorrência dentro de uma janela de 320 caracteres dessas expressões é
+descartada. A calibração inicial desta rodada aprovou dezenas de fundos como
+`Poder Público` ou `Recuperação` com base nesses trechos; a inspeção manual dos
+vinte maiores de cada foco expôs o padrão e o filtro foi introduzido antes de
+qualquer publicação.
 
 ## Continuidade
 

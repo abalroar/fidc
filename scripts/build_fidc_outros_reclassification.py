@@ -191,7 +191,11 @@ def build_queue(
 def _cached_documents(fund_dir: Path) -> list[Path]:
     if not fund_dir.is_dir():
         return []
-    return sorted(path for path in fund_dir.glob("*.pdf") if path.stat().st_size)
+    return sorted(
+        path
+        for path in fund_dir.glob("*.pdf")
+        if path.stat().st_size and not path.name.endswith(".pages.json.gz")
+    )
 
 
 def fetch_regulation(
@@ -306,6 +310,37 @@ def fetch_supplementary(
 
 
 def extract_pages(path: Path) -> list[str]:
+    """Extract the text of every page, caching it next to the PDF.
+
+    Re-reading a corpus of two thousand regulations costs far more than the
+    classification itself, and the calibration of the rules is iterative.  The
+    cache is keyed by the size of the source file so a re-downloaded document
+    invalidates it.
+    """
+
+    cache_path = path.with_suffix(".pages.json.gz")
+    try:
+        if cache_path.is_file():
+            import gzip
+
+            with gzip.open(cache_path, "rt", encoding="utf-8") as handle:
+                cached = json.load(handle)
+            if cached.get("bytes") == path.stat().st_size:
+                return list(cached.get("pages", []))
+    except Exception:  # noqa: BLE001
+        pass
+    pages = _extract_pages_uncached(path)
+    try:
+        import gzip
+
+        with gzip.open(cache_path, "wt", encoding="utf-8") as handle:
+            json.dump({"bytes": path.stat().st_size, "pages": pages}, handle)
+    except Exception:  # noqa: BLE001
+        pass
+    return pages
+
+
+def _extract_pages_uncached(path: Path) -> list[str]:
     try:
         reader = PdfReader(str(path))
     except Exception:  # noqa: BLE001
