@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -11,12 +12,18 @@ from services.industry_revision_export import validate_revision_html
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAYLOAD_PATH = (
-    ROOT / "data" / "industry_study" / "generated_revision" / "artifact_payload.json"
+PAYLOAD_PATH = Path(
+    os.environ.get(
+        "FIDC_TEST_PAYLOAD",
+        ROOT / "data" / "industry_study" / "generated_revision" / "artifact_payload.json",
+    )
 )
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
-MAX_COMPACT_HTML_BYTES = 130_000
+MAX_COMPACT_HTML_BYTES = 225_000
 EXPECTED_PAYLOAD_KEYS = {
+    "flagship_curation",
+    "flagship_curation_summary",
+    "flagship_families",
     "latest_complete",
     "provider_history_cvm_coverage",
     "provider_history_cvm_detail",
@@ -26,6 +33,7 @@ EXPECTED_PAYLOAD_KEYS = {
     "provider_transition_summary",
     "reag_admin_detail",
     "reag_admin_summary",
+    "taxonomy_level_history",
 }
 
 
@@ -80,6 +88,11 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
 
     compact = _embedded_data(document)
     assert compact["schemaVersion"] == "provider_flow_compact_v1"
+    assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
+    assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v1"
+    assert len(compact["taxonomy"]["rows"]) == 358
+    assert len(compact["flagships"]["families"]) == 26
+    assert len(compact["flagships"]["details"]) == 47
     fields = compact["fields"]
     views = compact["views"]
     assert set(views) == {"admin", "gestor", "custodiante", "reag"}

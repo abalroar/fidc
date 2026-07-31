@@ -41,6 +41,7 @@ from services.industry_market_offer_reconciliation import (
 from services.industry_bcb_expanded_credit import (
     load_materialized_expanded_credit_history,
 )
+from services.industry_flagship_curation import build_flagship_curation
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -3057,6 +3058,13 @@ def build_payload(
         documentary,
         latest=latest,
     )
+    flagship_curation = build_flagship_curation(
+        scope_path=data_dir / "industry_flagship_scope.csv",
+        funds=funds,
+        vehicle=vehicle,
+        latest=latest,
+        deep_dives_dir=ROOT / "data" / "deep_dives",
+    )
     top20_outros_review = _build_top20_outros_review(
         top20_outros, documentary, top20_outros_regulations
     )
@@ -3403,6 +3411,12 @@ def build_payload(
             top20_outros_reclassification_summary
         ),
         "profiles": _records(profiles),
+        "flagship_curation": _records(flagship_curation.detail),
+        "flagship_families": _records(flagship_curation.families),
+        "flagship_curation_summary": {
+            str(key): _json_value(value)
+            for key, value in flagship_curation.summary.items()
+        },
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,
         "executive_conclusions": executive_conclusions,

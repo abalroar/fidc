@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import Counter
 import json
+import os
 from pathlib import Path
 import re
 import zipfile
@@ -12,8 +13,12 @@ from pptx import Presentation
 
 ROOT = Path(__file__).resolve().parents[1]
 REVISION_DIR = ROOT / "data" / "industry_study" / "generated_revision"
-PPTX = REVISION_DIR / "industry_executive_revised.pptx"
-PAYLOAD = REVISION_DIR / "artifact_payload.json"
+PPTX = Path(
+    os.environ.get("FIDC_TEST_PPTX", REVISION_DIR / "industry_executive_revised.pptx")
+)
+PAYLOAD = Path(
+    os.environ.get("FIDC_TEST_PAYLOAD", REVISION_DIR / "artifact_payload.json")
+)
 
 
 def _presentation() -> Presentation:
@@ -88,14 +93,17 @@ def test_material_market_share_slides_are_contiguous_in_the_provider_appendix() 
         slides, "MARKET SHARE · CUSTÓDIA", "Crédito Pessoal"
     )
     top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
-    top20_other = _find_slide_index(slides, "RANKING · TOP 20 OUTROS")
+    top20_other = _find_slide_index(
+        slides, "RANKING · TOP 20 POR TIPO ANALÍTICO", "Outros"
+    )
+    flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
     first_profile = _find_slide_index(
         slides, "APÊNDICE · CURADORIA TOP 20", "#1 FIDC Sistema Petrobras"
     )
     full_admin = _find_slide_index(
         slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
     )
-    assert top20 < top20_other < first_profile < provider
+    assert top20 < top20_other < flagship < first_profile < provider
     assert provider < admin < manager < custodian < full_admin
 
 

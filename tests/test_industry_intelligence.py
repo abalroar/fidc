@@ -184,7 +184,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 68
+    assert len(presentation.slides) == EXPECTED_SLIDES == 64
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -221,7 +221,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "TOP 15 · 2022 PARCIAL",
         "PRINCIPAIS CONCLUSÕES",
         "RANKING · TOP 20 FIDCs",
-        "RANKING · TOP 20 OUTROS",
+        "CURADORIA · FUNDOS FLAGSHIP",
         "APÊNDICE · CURADORIA TOP 20",
     ):
         assert expected in visible_text
