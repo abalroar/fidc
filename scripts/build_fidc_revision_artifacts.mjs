@@ -90,6 +90,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
   "Ofertas anual",
+  "Posição Itaú",
 ];
 
 const C = {

@@ -51,6 +51,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
     "Warnings",
     "Ofertas anual",
+    "Posição Itaú",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
 
