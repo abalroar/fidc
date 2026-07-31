@@ -174,7 +174,6 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Auditoria Top 20 Tipo",
     "Curadoria Outros Top 100",
     "Dispersão inadimplência",
-    "Auditoria numérica",
     "Atribuição prestadores",
     "Fluxos prestadores",
     "Migração CBSF",

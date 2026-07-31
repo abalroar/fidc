@@ -99,6 +99,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Cross-check taxonomia",
   "Taxonomia por CNPJ",
   "Reclass. adquirência",
+  "Auditoria numérica",
 ];
 
 const C = {
@@ -6489,28 +6490,6 @@ async function addDelinquencyDispersionSheet(workbook, payload) {
   sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 48;
 }
 
-async function addNumericLocaleAuditSheet(workbook, payload) {
-  const columns = [
-    ["Artefato", "artefato"],
-    ["Ponto auditado", "ponto"],
-    ["Padrão aplicado", "padrao"],
-  ];
-  const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload.numeric_locale_audit || [], columns);
-  const sheet = resetSheet(workbook, "Auditoria numérica");
-  setHeaderBand(
-    sheet,
-    "Auditoria de separadores numéricos",
-    "Padrão brasileiro na camada visível. Códigos internos de formatação do Office permanecem no padrão técnico OOXML para preservar valores numéricos editáveis.",
-    headers,
-    rows.length,
-    { freezeColumns: 1, wrapText: true, bodyFontSize: 10 },
-  );
-  await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [180, 360, 620], rows.length);
-  sheet.getRange(`A5:C${rows.length + 4}`).format.rowHeightPx = 50;
-}
-
 async function addClosedOffersSheet(workbook, payload) {
   const rows = [];
   (payload.closed_offers_annual || []).forEach((row) => rows.push({ "Painel": "Ano / YTD", ...row }));
@@ -7654,7 +7633,6 @@ async function buildWorkbook(payload, flowAssets) {
   await addTop20ByTypeSheets(workbook, payload);
   await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);
-  await addNumericLocaleAuditSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
   await addFixedIncomeOfferComparisonSheet(workbook, payload);
   await addOfferValidationSheet(workbook, payload);
@@ -7751,7 +7729,6 @@ async function exportWorkbook(workbook) {
       ["Auditoria Top 20 Tipo", "A1:M10"],
       ["Curadoria Outros Top 100", "A1:AH28"],
       ["Dispersão inadimplência", "A1:S24"],
-      ["Auditoria numérica", "A1:C12"],
       ["Ofertas encerradas", "A1:Q58"],
       ["Regime de colocação", "A1:P16"],
       ["Histograma ofertas", "A1:V25"],

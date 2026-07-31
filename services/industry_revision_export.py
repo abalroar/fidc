@@ -69,7 +69,6 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Auditoria Top 20 Tipo",
     "Curadoria Outros Top 100",
     "Dispersão inadimplência",
-    "Auditoria numérica",
     "Ofertas encerradas",
     "Comparativo renda fixa",
     "Regime de colocação",

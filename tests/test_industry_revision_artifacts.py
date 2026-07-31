@@ -743,7 +743,6 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Auditoria Top 20 Tipo",
         "Curadoria Outros Top 100",
         "Dispersão inadimplência",
-        "Auditoria numérica",
         "Ofertas encerradas",
         "Regime de colocação",
         "Histograma ofertas",
