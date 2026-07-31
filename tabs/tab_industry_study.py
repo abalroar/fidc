@@ -15039,6 +15039,95 @@ def _render_revision_fixed_income_offer_comparison(
     )
 
 
+def _render_revision_issuance_taxonomy() -> None:
+    """Show which sectors the issuance went into, year by year.
+
+    Reads the materialized decomposition rather than the payload, so the table
+    is available regardless of when the Office bundle was last published — the
+    same reason the taxonomy queue reads the ledger straight from disk.
+    """
+
+    from services.industry_issuance_taxonomy import (
+        DISPLAY_CATEGORIES,
+        build_wide_table,
+        load_issuance_taxonomy,
+    )
+
+    st.markdown(
+        "<h2>Emissões por categoria ANBIMA · 2023 a jun/26</h2>",
+        unsafe_allow_html=True,
+    )
+    try:
+        long_frame = load_issuance_taxonomy(_DATA_DIR)
+    except (FileNotFoundError, ValueError, RuntimeError) as exc:
+        st.info(
+            "Decomposição de emissões por taxonomia não materializada. "
+            "Rode `python3 scripts/build_fidc_issuance_taxonomy_delta.py`. "
+            f"Detalhe: {exc}"
+        )
+        return
+
+    table = build_wide_table(long_frame)
+    display = table.copy()
+    for column in display.columns:
+        if column == "Categoria":
+            continue
+        if column.endswith("(%)"):
+            display[column] = display[column].map(lambda value: _fmt_pct(float(value)))
+        else:
+            display[column] = display[column].map(
+                lambda value: f"{float(value):,.1f}".replace(",", "·")
+                .replace(".", ",")
+                .replace("·", ".")
+            )
+    total_row = {"Categoria": "Total (quatro tipos ANBIMA)"}
+    for column in table.columns:
+        if column == "Categoria":
+            continue
+        if column.endswith("(%)"):
+            total_row[column] = _fmt_pct(1.0)
+        else:
+            total = float(table[column].sum())
+            total_row[column] = (
+                f"{total:,.1f}".replace(",", "·").replace(".", ",").replace("·", ".")
+            )
+    display = pd.concat([display, pd.DataFrame([total_row])], ignore_index=True)
+    st.dataframe(display, hide_index=True, width="stretch")
+
+    latest = long_frame[long_frame["period_key"].eq("jun26")].set_index("categoria")
+    previous = long_frame[long_frame["period_key"].eq("jun25")].set_index("categoria")
+    deltas = (
+        (latest["volume_brl"] - previous["volume_brl"])
+        .reindex(DISPLAY_CATEGORIES)
+        .sort_values(ascending=False)
+    )
+    leader = deltas.index[0]
+    laggard = deltas.index[-1]
+    st.markdown(
+        '<div class="industry-note">'
+        f"No primeiro semestre, <b>{html.escape(str(leader))}</b> avançou "
+        f"{_fmt_bi(float(deltas.iloc[0]), 1)} sobre jan–jun/25 e responde por "
+        f"{_fmt_pct(float(latest.loc[leader, 'share']))} das emissões; "
+        f"{html.escape(str(laggard))} recuou {_fmt_bi(abs(float(deltas.iloc[-1])), 1)}."
+        "</div>",
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        "Fonte: [CVM — Sistema de Registro de Ofertas (SRE)]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib), ofertas primárias "
+        "encerradas. Aberturas pela reclassificação analítica final, a mesma "
+        "regra da aba Escala e taxonomia: fundo sem tipo ANBIMA nomeado entra "
+        "em Outros, e FIC-FIDC fica fora dos quatro tipos porque é fundo de "
+        "cotas — contá-lo somaria o mesmo dinheiro duas vezes. O total dos "
+        "quatro tipos mais os FIC-FIDCs reproduz o volume do gráfico acima."
+    )
+    st.caption(
+        "2023 usa o valor encerrado da ANBIMA: a base granular da CVM observa "
+        "parte do ano, e o não observado é distribuído com a composição do "
+        "observado. jan–jun/26 é comparado a jan–jun/25 porque 2026 não fechou."
+    )
+
+
 def _render_revision_closed_offer_placement_regime(
     payload: dict[str, object],
 ) -> None:
@@ -15374,6 +15463,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         )
 
     _render_revision_fixed_income_offer_comparison(payload)
+    _render_revision_issuance_taxonomy()
 
     if not annual.empty and not monthly.empty and not current.empty:
         annual_comparison = annual.copy()
