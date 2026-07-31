@@ -184,7 +184,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 64
+    assert len(presentation.slides) == EXPECTED_SLIDES == 36
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -199,13 +199,10 @@ def test_industry_exports_are_valid_office_files() -> None:
         "INDÚSTRIA DE FIDCs",
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
-        "OFERTAS ENCERRADAS · SÉRIE CVM",
-        "OFERTAS ENCERRADAS · SÉRIE ANBIMA",
+        "OFERTAS ENCERRADAS · CVM E ANBIMA",
+        "EMISSÕES POR CATEGORIA ANBIMA",
         "BASE INVESTIDORA",
-        "OUTROS · ABERTURA ANALÍTICA",
-        "OBSERVABILIDADE DA INADIMPLÊNCIA",
-        "INADIMPLÊNCIA · BASE ORIGINAL",
-        "INADIMPLÊNCIA · EX-ZEROS",
+        "Precatórios e/ou Ações Judiciais",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "MARKET SHARE · ADMINISTRAÇÃO",
         "MARKET SHARE · GESTÃO",
@@ -213,7 +210,6 @@ def test_industry_exports_are_valid_office_files() -> None:
         "PRESTADORES · EVOLUÇÃO E RANKING",
         "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
         "PRESTADORES · LIDERANÇA EXPLICADA",
-        "INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
         "OFERTAS · VOLUME E REGIME",
@@ -223,17 +219,10 @@ def test_industry_exports_are_valid_office_files() -> None:
         "RANKING · TOP 20 FIDCs",
         "CURADORIA · FUNDOS FLAGSHIP",
         "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
-        "APÊNDICE · CURADORIA TOP 20",
     ):
         assert expected in visible_text
-    profiles = [
-        slide_text
-        for slide_text in slide_texts
-        if "APÊNDICE · CURADORIA TOP 20" in slide_text
-    ]
-    assert len(profiles) == 20
-    for rank, slide_text in enumerate(profiles, start=1):
-        assert f"#{rank} " in slide_text
+    assert "APÊNDICE · CURADORIA TOP 20" not in visible_text
+    assert "OBSERVABILIDADE DA INADIMPLÊNCIA" not in visible_text
 
     with ZipFile(BytesIO(pptx)) as archive:
         office_xml_parts = [
