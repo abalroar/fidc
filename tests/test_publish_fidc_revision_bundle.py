@@ -1374,7 +1374,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 36
+    assert first["checks"]["slides"] == 33
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

@@ -49,6 +49,7 @@ from services.industry_bcb_expanded_credit import (
 from services.industry_flagship_curation import (
     build_flagship_curation,
     build_portfolio_curation,
+    build_portfolio_flagship_comparison,
 )
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
@@ -3012,21 +3013,26 @@ def build_payload(
         ["denominacao", "cnpj_fundo_formatado"]
     ).reset_index(drop=True)
 
-    acquiring_cnpjs = {
-        _digits(value)
-        for value in included_card.get("cnpj_fundo_formatado", pd.Series(dtype="object"))
-    }
     taxonomy_top15_rows: list[dict[str, object]] = []
     for _, row in top20.head(15).sort_values("rank").iterrows():
         cnpj = _digits(row.get("cnpj_fundo"))
-        reported_table_ii = str(row.get("segmento_principal") or "N/D")
+        reported_table_ii = _text(row.get("segmento_principal")) or "N/D"
+        curated_table_ii = _text(row.get("tabela_ii_curada"))
+        if not curated_table_ii or curated_table_ii == "N/D":
+            curated_table_ii = reported_table_ii
         views = (
-            ("Tipo ANBIMA", str(row.get("anbima_tipo") or "N/D")),
-            ("Foco ANBIMA", str(row.get("anbima_foco") or "N/D")),
+            (
+                "Tipo ANBIMA reclassificado",
+                _text(row.get("anbima_tipo_curado")) or "N/D",
+            ),
+            (
+                "Foco ANBIMA reclassificado",
+                _text(row.get("anbima_foco_curado")) or "N/D",
+            ),
             ("Tabela II reportada", reported_table_ii),
             (
                 "Tabela II reclassificada",
-                "Adquirência" if cnpj in acquiring_cnpjs else reported_table_ii,
+                curated_table_ii,
             ),
         )
         for view, taxonomy in views:
@@ -3046,9 +3052,9 @@ def build_payload(
                         else f"CVM, Informe Mensal FIDC, Tabela II, {latest}"
                     ),
                     "metodologia": (
-                        "classificação atual preservada"
-                        if view != "Tabela II reclassificada"
-                        else "somente CNPJs com decisão Incluído em Adquirência são exibidos em Adquirência; Tabela II original preservada na visão reportada"
+                        "overlay analítico aprovado por CNPJ; campos oficiais preservados no payload"
+                        if "reclassificado" in view.lower()
+                        else "Tabela II original preservada na visão reportada"
                     ),
                 }
             )
@@ -3232,6 +3238,11 @@ def build_payload(
         funds=funds,
         vehicle=vehicle,
         taxonomy_actions=taxonomy_review_actions,
+        latest=latest,
+    )
+    carteira_1_flagship_comparison = build_portfolio_flagship_comparison(
+        portfolio_detail=carteira_1_curation.detail,
+        flagship_detail=flagship_curation.detail,
         latest=latest,
     )
     top20_outros_review = _build_top20_outros_review(
@@ -3596,6 +3607,13 @@ def build_payload(
         "carteira_1_curation_summary": {
             str(key): _json_value(value)
             for key, value in carteira_1_curation.summary.items()
+        },
+        "carteira_1_flagship_comparison": _records(
+            carteira_1_flagship_comparison.detail
+        ),
+        "carteira_1_flagship_comparison_summary": {
+            str(key): _json_value(value)
+            for key, value in carteira_1_flagship_comparison.summary.items()
         },
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,
