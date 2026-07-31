@@ -29,8 +29,9 @@ def _eligible_receivables(data_dir: Path) -> pd.DataFrame | None:
 
     ``industry_monthly`` aggregates every vehicle, FICs included.  A FIC holds
     quotas and normally books no receivables, so the two totals nearly agree —
-    but a handful of funds the CVM flags as FIC still report a book, and the
-    chart has to stand on the eligible universe rather than nearly.
+    but a handful of funds selected by the canonical FIC gate still report a
+    book, and the chart has to stand on the eligible universe rather than
+    nearly.
     """
 
     base_path = data_dir / "generated_revision" / "base_fundo_cnpj.csv.gz"

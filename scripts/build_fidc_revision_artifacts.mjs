@@ -4832,7 +4832,7 @@ function buildPresentation(payload, flowAssets) {
         ["Monoestrutura", `${integer(payload.conclusion_metrics?.service_model_universe_funds)} fundos; ${stockShortLower}`, "PL direto; FICs excluídos pelo portão único. Mesmo conglomerado nas três funções; Kanastra permanece separada do Itaú e CBSF da REAG. Afiliação Kanastra→Itaú só no ranking de independentes."],
         ["Comparativo por instrumento", "2023–2025 FY; 2026 jan–mai", "ANBIMA Data, Valor Encerrado por data de encerramento das ofertas públicas. Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente primárias e secundárias."],
         ["Análises granulares de ofertas", "2022 parcial; 2023–2025 FY; 2026 jan–jun", "CVM/SRE, Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis e valor registrado positivo. Automático: requerimento; ordinário/legado: registro + emissor + data + instrumento."],
-        ["Perímetro FIC e cross-check", "30 nomes FIC mantidos; 319 inconsistências (R$ 139,03 bi)", "Nome não determina FIC. O cross-check registrou 243 multicarteira com classificação específica, 70 aprovações sem evidência suficiente, 5 emissor × credenciadora e 1 divergência aprovada × publicada, sem correção automática. EXPERT III (53.073.485/0001-00; R$ 3,52 bi) é o único caso em que a correção de perímetro sobrescreveu aprovação manual."],
+        ["Perímetro FIC e cross-check", "30 nomes FIC mantidos; 319 inconsistências (R$ 139,03 bi)", "O portão FIC usa sinal nominal legado e revisão quantitativa; a auditoria separa a origem registrada de cada decisão. O cross-check registrou 243 multicarteira com classificação específica, 70 aprovações sem evidência suficiente, 5 emissor × credenciadora e 1 divergência aprovada × publicada, sem correção automática. EXPERT III (53.073.485/0001-00; R$ 3,52 bi) é o único caso em que a correção de perímetro sobrescreveu aprovação manual."],
       ],
       columnWidths: [190, 340, 630],
       aligns: ["left", "left", "left"],
@@ -5237,7 +5237,7 @@ async function addPerimeterAuditSheets(workbook, payload) {
     filePath: path.join(DATA_DIR, "industry_fic_detection_audit.csv"),
     sheetName: "FICs excluídos",
     title: "FICs excluídos do universo analítico",
-    subtitle: `Fonte industry_fic_detection_audit.csv; atualização ${generatedAt}; uma linha por CNPJ, na última competência observada. Regra: flag cadastral CVM ou VL_DICRED zerado em toda a série com cotas de FIDC ≥ 50% das aplicações; o histórico completo permanece no CSV.`,
+    subtitle: `Fonte industry_fic_detection_audit.csv; atualização ${generatedAt}; uma linha por CNPJ, na última competência observada. Regra: sinal nominal legado derivado da denominação social ou VL_DICRED zerado em toda a série com cotas de FIDC ≥ 50% das aplicações; o histórico completo permanece no CSV.`,
     filter: (row) => String(row.is_fic || "").toLowerCase() === "true",
     uniqueBy: "cnpj_fundo",
   });

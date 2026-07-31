@@ -1,17 +1,18 @@
 """Curated correction of the FIC-FIDC perimeter.
 
-The CVM monthly report carries an ``is_fic_fidc`` flag and the whole industry
-mix depends on it.  A flagged fund leaves the four ANBIMA types and only feeds
-the FIC net-asset balance, because its assets are already counted inside the
-funds whose quotas it holds.
+The upstream industry builder initializes ``is_fic_fidc`` as a legacy nominal
+signal derived locally from the registered corporate name.  No dedicated
+official FIC flag was identified in the CVM layouts used by this pipeline.  A
+fund selected by the perimeter leaves the four ANBIMA types and only feeds the
+FIC net-asset balance.
 
-Some vehicles registered as FIDC never buy a receivable — they hold quotas of
-other FIDCs — yet report the flag as false.  Counted inside the types, they
-inflate the market by the same money twice.  This module applies the curated
-correction produced by ``scripts/build_fidc_fic_perimeter_review.py``.
+Some vehicles registered as FIDC never buy a receivable and hold quotas of
+other FIDCs.  This module writes the quantitative confirmations produced by
+``scripts/build_fidc_fic_perimeter_review.py`` into the same perimeter column.
 
-The correction only ever turns the flag **on**.  A fund the CVM already reports
-as FIC is never turned back into a direct FIDC by this layer.
+The correction only ever turns the indicator **on**.  A fund already selected
+by the upstream local signal is never turned back into a direct FIDC by this
+layer.
 """
 
 from __future__ import annotations
@@ -81,7 +82,7 @@ def apply_fic_perimeter_overrides(
     pl_column: str = "pl",
     competence_column: str = "competencia",
 ) -> tuple[pd.DataFrame, PerimeterCorrection]:
-    """Turn the FIC flag on for every curated CNPJ, reporting what moved."""
+    """Turn the FIC perimeter indicator on for every curated CNPJ."""
 
     if frame is None or frame.empty or overrides.empty:
         return (

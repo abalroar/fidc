@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-"""Materialize the FIC detection audit and cross-check it for both error kinds.
+"""Materialize the FIC audit with the provenance of each perimeter decision.
 
-False negative: a fund the quantitative rule left in the universe while its
-name announces it is a FIC.  False positive: a fund the rule excluded whose
-name says nothing — not an error by itself, since 257 confirmed FICs carry no
-"FIC" in the registered name, but worth counting so the gap between the two
-sources is measured instead of assumed.
+The audit separates the legacy nominal signal, quantitative confirmations from
+the structured monthly report, and cases raised only by the stricter secondary
+nominal cross-check.
 """
 
 from __future__ import annotations
@@ -26,6 +24,7 @@ from services.fic_detection import (  # noqa: E402
     annotate_fic_detection,
     build_fic_audit,
     exclude_fics_from_fidc_universe,
+    name_says_fic,
 )
 from services.fic_perimeter import load_fic_perimeter_overrides  # noqa: E402
 
@@ -66,10 +65,8 @@ def main() -> None:
 
     by_cnpj = annotated.drop_duplicates("cnpj_fundo")
     excluded = by_cnpj[by_cnpj["is_fic"]]
-    name_says = by_cnpj["denominacao"].map(lambda text: bool(text)) & by_cnpj[
-        "fic_detection_evidence"
-    ].str.contains("denominação", na=False)
-    false_negatives = by_cnpj[by_cnpj["fic_detection_method"].eq(METHOD_NAME)]
+    name_says = by_cnpj["denominacao"].map(lambda text: bool(name_says_fic(text)))
+    nominal_review = by_cnpj[by_cnpj["fic_detection_method"].eq(METHOD_NAME)]
     silent_names = excluded[~excluded["cnpj_fundo"].isin(set(by_cnpj[name_says]["cnpj_fundo"]))]
 
     print(f"auditoria gravada em {audit_path} ({len(audit)} linhas)")
@@ -84,18 +81,19 @@ def main() -> None:
     print(excluded["fic_detection_method"].value_counts().to_string())
 
     print(
-        f"\nfalsos negativos candidatos (nome diz FIC, regra quantitativa não "
-        f"confirma): {len(false_negatives)}"
+        "\ncandidatos levantados apenas pelo cross-check nominal secundário: "
+        f"{len(nominal_review)}"
     )
-    if len(false_negatives):
-        top = false_negatives.nlargest(min(15, len(false_negatives)), "pl")
+    if len(nominal_review):
+        top = nominal_review.nlargest(min(15, len(nominal_review)), "pl")
         for _, row in top.iterrows():
             print(f"  R$ {row['pl'] / 1e9:6.2f} bi  {row['denominacao'][:72]}")
 
     print(
-        f"\nexcluídos sem qualquer sinal no nome: {len(silent_names)} "
+        f"\nexcluídos sem correspondência no cross-check nominal secundário: "
+        f"{len(silent_names)} "
         f"({len(silent_names) / max(len(excluded), 1) * 100:.0f}% dos excluídos) — "
-        "a medida de por que a regra não pode ser por nome"
+        "proveniência quantitativa registrada separadamente"
     )
 
     print("\nPL excluído por competência de referência:")

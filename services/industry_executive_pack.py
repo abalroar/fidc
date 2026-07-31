@@ -643,7 +643,10 @@ def apply_anbima_classification(
             focus = ANBIMA_FIC
             tier = "fic_separado"
             status = "FIC separado"
-            source = "campo is_fic_fidc do Informe Mensal CVM"
+            source = (
+                "perímetro FIC: sinal nominal legado e/ou confirmação "
+                "quantitativa do Informe Mensal Estruturado"
+            )
             evidence = "FIC-FIDC é apresentado fora da taxonomia de quatro tipos"
             requires_warning = False
         else:
