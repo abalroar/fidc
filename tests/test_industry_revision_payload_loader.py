@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+import shutil
 
 import pandas as pd
 import pytest
@@ -870,3 +871,110 @@ def test_revision_export_signature_changes_with_taxonomy_ledger(
 
     assert before != after
     assert before.split(":", 1)[0] == after.split(":", 1)[0]
+
+
+def _write_anbima_market_offers(data_dir: Path) -> None:
+    """Materialize the ANBIMA snapshot the 2023 correction reads."""
+
+    source = Path(__file__).resolve().parents[1] / "data" / "industry_study"
+    shutil.copy(
+        source / "industry_anbima_market_offers.csv",
+        data_dir / "industry_anbima_market_offers.csv",
+    )
+
+
+def _stale_comparison_records() -> list[dict[str, object]]:
+    """The real 28-row comparison, rewound to the CVM level for 2023.
+
+    The published bundle carries exactly this: a valid frame whose 2023 FIDC
+    observation is the CVM registered volume.  Building the fixture from the
+    materialized artifact keeps the test honest about the contract the
+    correction has to satisfy — 28 rows, both views, reconciling universes.
+    """
+
+    source = Path(__file__).resolve().parents[1] / "data" / "industry_study"
+    frame = pd.read_csv(source / "industry_fixed_income_offer_comparison.csv")
+    stale = frame["period_label"].eq("2023 FY") & frame["series_label"].eq("FIDCs")
+    frame.loc[stale, "registered_volume_brl"] = 26_476_286_193.56
+    frame.loc[stale, "methodology"] = "volume registrado CVM"
+    frame.loc[stale, "source_dataset"] = "oferta_resolucao_160.csv"
+    fidc_2024 = frame["period_label"].eq("2024 FY") & frame["series_label"].eq("FIDCs")
+    frame.loc[fidc_2024, "previous_registered_volume_brl"] = 26_476_286_193.56
+    frame.loc[fidc_2024, "yoy_growth"] = 95_416_726_133.75 / 26_476_286_193.56 - 1
+    view_a_2023 = frame["period_label"].eq("2023 FY") & frame["view"].eq(
+        "FIDCs vs demais elegíveis"
+    )
+    frame.loc[frame["period_label"].eq("2023 FY"), "universe_registered_volume_brl"] = (
+        frame.loc[view_a_2023, "registered_volume_brl"].sum()
+    )
+    return frame.to_dict("records")
+
+
+def test_loader_corrects_2023_issuance_in_a_bundle_published_before_it(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """A stale bundle must not put the CVM 2023 level on the page.
+
+    The payload is hashed against the published Office bundle, so a bundle
+    published before the correction cannot be rewritten in place.  The loader
+    corrects the loaded copy instead, and this is the regression that guards it.
+    """
+
+    payload = _payload_for_schema(SCHEMA_V7)
+    payload["fixed_income_offer_comparison"] = _stale_comparison_records()
+    _write_payload(tmp_path, payload)
+    _write_anbima_market_offers(tmp_path)
+
+    loaded = _load_payload(tmp_path, monkeypatch)
+
+    comparison = pd.DataFrame(loaded["fixed_income_offer_comparison"])
+    corrected = comparison[
+        comparison["period_label"].eq("2023 FY")
+        & comparison["series_label"].eq("FIDCs")
+    ]
+    assert not corrected.empty
+    assert corrected["registered_volume_brl"].tolist() == pytest.approx(
+        [43_746_140_196.22] * len(corrected)
+    )
+    assert corrected["methodology"].str.contains("Correção 2023", regex=False).all()
+    yoy_2024 = comparison[
+        comparison["period_label"].eq("2024 FY")
+        & comparison["series_label"].eq("FIDCs")
+    ]["yoy_growth"]
+    assert yoy_2024.tolist() == pytest.approx(
+        [95_416_726_133.75 / 43_746_140_196.22 - 1] * len(yoy_2024)
+    )
+    assert tab_industry_study._issuance_correction_applied(comparison)
+
+
+def test_loader_leaves_payload_intact_when_the_anbima_snapshot_is_absent(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Without the snapshot the page keeps working and says so at the chart."""
+
+    payload = _payload_for_schema(SCHEMA_V7)
+    payload["fixed_income_offer_comparison"] = _stale_comparison_records()
+    _write_payload(tmp_path, payload)
+
+    loaded = _load_payload(tmp_path, monkeypatch)
+
+    # Comparado bloco a bloco em vez de dicionário inteiro: o CSV traz NaN em
+    # previous_registered_volume_brl e yoy_growth de 2023, e NaN nunca é igual
+    # a si mesmo, de modo que uma igualdade de dicionários falharia sem que
+    # nada tivesse mudado.  As colunas são reordenadas porque o payload é
+    # gravado com as chaves em ordem alfabética.
+    comparison = pd.DataFrame(loaded["fixed_income_offer_comparison"])
+    published = pd.DataFrame(payload["fixed_income_offer_comparison"])
+    pd.testing.assert_frame_equal(
+        comparison.sort_index(axis=1), published.sort_index(axis=1)
+    )
+    stale = comparison[
+        comparison["period_label"].eq("2023 FY")
+        & comparison["series_label"].eq("FIDCs")
+    ]
+    assert stale["registered_volume_brl"].tolist() == pytest.approx(
+        [26_476_286_193.56] * len(stale)
+    )
+    assert not tab_industry_study._issuance_correction_applied(comparison)

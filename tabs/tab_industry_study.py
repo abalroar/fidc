@@ -9672,7 +9672,91 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         payload.get("conclusion_metrics"), dict
     ):
         raise ValueError("conclusion_metrics inválido")
+    return _apply_issuance_corrections(payload)
+
+
+def _apply_issuance_corrections(payload: dict[str, object]) -> dict[str, object]:
+    """Enforce the 2023 ANBIMA issuance level over whatever the bundle carries.
+
+    The payload is a materialized artifact whose bytes are hashed against the
+    published Office bundle, so it cannot be rewritten in place without
+    invalidating the bundle and failing the page closed.  A bundle published
+    before the correction therefore still carries the CVM volume for 2023,
+    which understates the year by roughly 40%.
+
+    The correction is applied here, on the loaded dictionary, by the same
+    central function the CSV loader and the payload builder use.  It is
+    idempotent: once the bundle is republished from the corrected builder, the
+    block already satisfies the correction and this becomes a no-op.
+
+    A failure to apply must not take the whole view down — every other chart on
+    the page is independent of this one series — so the payload is returned
+    untouched and the chart itself says the correction did not land, which is
+    what :func:`_issuance_correction_applied` reads.  Returning the payload
+    unchanged also keeps the loader's contract: what was published is what
+    comes back, minus a correction that could not be computed.
+    """
+
+    block = payload.get("fixed_income_offer_comparison")
+    if not isinstance(block, list) or not block:
+        return payload
+    try:
+        from services.industry_fixed_income_offer_comparison import (
+            apply_anbima_2023_fidc_issuance_correction,
+        )
+        from services.industry_market_offer_reconciliation import (
+            load_anbima_market_offers,
+        )
+
+        corrected = apply_anbima_2023_fidc_issuance_correction(
+            pd.DataFrame(block), load_anbima_market_offers(_DATA_DIR)
+        )
+    except Exception:  # noqa: BLE001
+        return payload
+    payload["fixed_income_offer_comparison"] = corrected.to_dict("records")
     return payload
+
+
+def _issuance_correction_applied(comparison: pd.DataFrame) -> bool:
+    """Whether the 2023 rows carry the ANBIMA level rather than the CVM one."""
+
+    if comparison.empty or "methodology" not in comparison.columns:
+        return False
+    scoped = comparison[
+        comparison["period_label"].astype(str).eq("2023 FY")
+        & comparison["series_label"].astype(str).eq("FIDCs")
+    ]
+    if scoped.empty:
+        return False
+    return bool(
+        scoped["methodology"].astype(str).str.contains("Correção 2023", regex=False).all()
+    )
+
+
+def _bundle_predates_issuance_correction() -> bool:
+    """Say whether the published Office files still carry the CVM 2023 level.
+
+    Read from the payload bytes on disk rather than from the loaded dictionary,
+    because the loader corrects the dictionary in memory — asking the corrected
+    copy whether it needs correcting would always answer no.
+    """
+
+    path = _DATA_DIR / "generated_revision" / "artifact_payload.json"
+    if not path.exists():
+        return False
+    try:
+        block = json.loads(path.read_bytes()).get("fixed_income_offer_comparison")
+        if not isinstance(block, list):
+            return False
+        return any(
+            row.get("period_label") == "2023 FY"
+            and row.get("series_label") == "FIDCs"
+            and "Correção 2023" not in str(row.get("methodology") or "")
+            for row in block
+            if isinstance(row, dict)
+        )
+    except (OSError, json.JSONDecodeError):
+        return False
 
 
 def _industry_export_signature() -> str:
@@ -14773,11 +14857,22 @@ def _render_revision_fixed_income_offer_comparison(
         "<h2>FIDCs versus demais emissões de renda fixa</h2>",
         unsafe_allow_html=True,
     )
+    if not _issuance_correction_applied(comparison):
+        st.warning(
+            "O nível de 2023 de FIDCs não pôde ser corrigido pelo valor "
+            "encerrado da ANBIMA e está exibindo o volume registrado na CVM, "
+            "que subestima o ano em cerca de 40%. Confirme se "
+            "`data/industry_study/industry_anbima_market_offers.csv` está "
+            "presente e íntegro.",
+            icon=":material/warning:",
+        )
     st.markdown(
         '<div class="industry-note">'
         "FIDCs cresceram <b>21,9%</b> em 2025 e <b>14,6%</b> no 1S26. "
         "O conjunto dos demais instrumentos elegíveis cresceu 4,0% em 2025 "
-        "e recuou 7,8% no 1S26."
+        "e recuou 7,8% no 1S26. O nível de 2023 de FIDCs usa o valor "
+        "encerrado ANBIMA: a série CVM/SRE só captura o universo "
+        "integralmente a partir de 2024."
         "</div>",
         unsafe_allow_html=True,
     )
@@ -14932,6 +15027,104 @@ def _render_revision_fixed_income_offer_comparison(
         "encerradas, todos os ritos, com volume registrado positivo. 2026 compara "
         "jan–jun/26 com jan–jun/25. Instrumentos materiais = quatro maiores tipos "
         f"não FIDC em 2025FY. Exclusões: {exclusions}."
+    )
+    st.caption(
+        "Correção 2023: o ponto de FIDCs em 2023 usa o valor encerrado do "
+        "[Boletim de Mercado de Capitais da ANBIMA]"
+        "(https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais)"
+        " (snapshot mai/26, aba 02-02-Vlr), porque o volume registrado na CVM "
+        "subestima 2023 — primeiro ano da Resolução CVM 160 — em cerca de 40%. "
+        "O YoY de 2024 de FIDCs é calculado sobre a base ANBIMA; o gap por "
+        "instrumento está em `industry_market_offer_reconciliation.csv`."
+    )
+
+
+def _render_revision_issuance_taxonomy() -> None:
+    """Show which sectors the issuance went into, year by year.
+
+    Reads the materialized decomposition rather than the payload, so the table
+    is available regardless of when the Office bundle was last published — the
+    same reason the taxonomy queue reads the ledger straight from disk.
+    """
+
+    from services.industry_issuance_taxonomy import (
+        DISPLAY_CATEGORIES,
+        build_wide_table,
+        load_issuance_taxonomy,
+    )
+
+    st.markdown(
+        "<h2>Emissões por categoria ANBIMA · 2023 a jun/26</h2>",
+        unsafe_allow_html=True,
+    )
+    try:
+        long_frame = load_issuance_taxonomy(_DATA_DIR)
+    except (FileNotFoundError, ValueError, RuntimeError) as exc:
+        st.info(
+            "Decomposição de emissões por taxonomia não materializada. "
+            "Rode `python3 scripts/build_fidc_issuance_taxonomy_delta.py`. "
+            f"Detalhe: {exc}"
+        )
+        return
+
+    table = build_wide_table(long_frame)
+    display = table.copy()
+    for column in display.columns:
+        if column == "Categoria":
+            continue
+        if column.endswith("(%)"):
+            display[column] = display[column].map(lambda value: _fmt_pct(float(value)))
+        else:
+            display[column] = display[column].map(
+                lambda value: f"{float(value):,.1f}".replace(",", "·")
+                .replace(".", ",")
+                .replace("·", ".")
+            )
+    total_row = {"Categoria": "Total (quatro tipos ANBIMA)"}
+    for column in table.columns:
+        if column == "Categoria":
+            continue
+        if column.endswith("(%)"):
+            total_row[column] = _fmt_pct(1.0)
+        else:
+            total = float(table[column].sum())
+            total_row[column] = (
+                f"{total:,.1f}".replace(",", "·").replace(".", ",").replace("·", ".")
+            )
+    display = pd.concat([display, pd.DataFrame([total_row])], ignore_index=True)
+    st.dataframe(display, hide_index=True, width="stretch")
+
+    latest = long_frame[long_frame["period_key"].eq("jun26")].set_index("categoria")
+    previous = long_frame[long_frame["period_key"].eq("jun25")].set_index("categoria")
+    deltas = (
+        (latest["volume_brl"] - previous["volume_brl"])
+        .reindex(DISPLAY_CATEGORIES)
+        .sort_values(ascending=False)
+    )
+    leader = deltas.index[0]
+    laggard = deltas.index[-1]
+    st.markdown(
+        '<div class="industry-note">'
+        f"No primeiro semestre, <b>{html.escape(str(leader))}</b> avançou "
+        f"{_fmt_bi(float(deltas.iloc[0]), 1)} sobre jan–jun/25 e responde por "
+        f"{_fmt_pct(float(latest.loc[leader, 'share']))} das emissões; "
+        f"{html.escape(str(laggard))} recuou {_fmt_bi(abs(float(deltas.iloc[-1])), 1)}."
+        "</div>",
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        "Fonte: [CVM — Sistema de Registro de Ofertas (SRE)]"
+        "(https://dados.cvm.gov.br/dataset/oferta-distrib), ofertas primárias "
+        "encerradas. Aberturas pela reclassificação analítica final, a mesma "
+        "regra da aba Escala e taxonomia: fundo sem tipo ANBIMA nomeado entra "
+        "em Outros, e FIC-FIDC fica fora dos quatro tipos porque é fundo de "
+        "cotas — contá-lo somaria o mesmo dinheiro duas vezes. O total dos "
+        "quatro tipos mais os FIC-FIDCs reproduz o volume do gráfico acima."
+    )
+    st.caption(
+        "2023 usa o valor encerrado da ANBIMA: a base granular da CVM observa "
+        "parte do ano, e o não observado é distribuído com a composição do "
+        "observado. jan–jun/26 é comparado a jan–jun/25 porque 2026 não fechou."
     )
 
 
@@ -15270,6 +15463,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         )
 
     _render_revision_fixed_income_offer_comparison(payload)
+    _render_revision_issuance_taxonomy()
 
     if not annual.empty and not monthly.empty and not current.empty:
         annual_comparison = annual.copy()
@@ -15634,6 +15828,20 @@ def _render_revision_data_exports(
             f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
             "PPTX, XLSX e HTML reconciliados pelo mesmo payload e por hashes."
         )
+        # O bundle é coerente consigo mesmo, mas foi publicado antes da correção
+        # de 2023: os arquivos Office trazem o volume registrado na CVM, que
+        # subestima o ano. O painel corrige na leitura; o Office só depois de
+        # republicado. Dizer isso é mais útil do que bloquear o download.
+        if _bundle_predates_issuance_correction():
+            st.warning(
+                "Os arquivos Office deste bundle foram gerados antes da correção "
+                "de 2023 e trazem o volume registrado na CVM para as emissões de "
+                "FIDCs daquele ano, não o valor encerrado da ANBIMA. Os gráficos "
+                "desta página já usam o número corrigido. Republique o bundle "
+                "(`python3 scripts/publish_fidc_revision_bundle.py`) para "
+                "sincronizar PPTX e XLSX.",
+                icon=":material/sync_problem:",
+            )
         _render_industry_exports(suffix="revision", as_of_date=str(payload.get("offers_as_of") or ""))
     elif not ledger_synced:
         st.error(

@@ -2983,8 +2983,8 @@ function buildPresentation(payload, flowAssets) {
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · SÉRIE CVM",
-      "A série CVM preserva o volume registrado e a granularidade por oferta",
-      "Fonte: CVM/SRE, bases do rito automático e de distribuição, snapshot 24/jul/26. 2026 = jan–jun.",
+      "A série CVM preserva o volume registrado; o nível de FIDCs em 2023 vem da ANBIMA",
+      "Fonte: CVM/SRE, bases do rito automático e de distribuição, snapshot 24/jul/26. 2026 = jan–jun. FIDCs 2023: valor encerrado ANBIMA.",
       4,
     );
     addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
@@ -3073,7 +3073,7 @@ function buildPresentation(payload, flowAssets) {
       },
     });
     const methodology = [
-      ["MÉTRICA", "Valor total registrado, informado à CVM."],
+      ["MÉTRICA", "Valor total registrado, informado à CVM. FIDCs em 2023: valor encerrado do Boletim ANBIMA, porque a série CVM só captura o universo integralmente a partir de 2024; o YoY 2024 usa a base ANBIMA."],
       ["UNIVERSO", "Ofertas públicas primárias encerradas; rito automático da RCVM 160, ordinário e regimes legados disponíveis."],
       ["CORTE E LIMITAÇÃO", "Data de encerramento no período; volume positivo. O valor registrado pode diferir do valor encerrado e a taxonomia declarada mantém Outros títulos de securitização separado."],
     ];
@@ -3095,6 +3095,7 @@ function buildPresentation(payload, flowAssets) {
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "Metodologia: ofertas públicas primárias, status Oferta Encerrada, data de encerramento no período e Valor_Total_Registrado positivo; snapshot 24/jul/26.",
+      "FIDCs 2023: valor encerrado ANBIMA (Boletim de Mercado de Capitais, snapshot mai/26, aba 02-02-Vlr); gap por instrumento em industry_market_offer_reconciliation.csv.",
       "Limitação: volume registrado pode diferir do valor efetivamente encerrado; taxonomia CVM declarada preservada.",
     ]);
   }

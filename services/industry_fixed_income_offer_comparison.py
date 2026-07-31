@@ -3,6 +3,17 @@
 The comparison uses the official CVM public-offering dataset and keeps the
 same release cut-off used by the industry deck: 30 June 2026.  Rows are
 deduplicated by ``Numero_Requerimento`` before aggregation.
+
+The 2023 FIDC observation is the one point the CVM series cannot carry alone.
+2023 was the first year of Resolução CVM 160 and the SRE registry only captures
+the FIDC quota universe integrally from 2024 onwards; the registered volume for
+2023 understates the market by roughly 40% against the ANBIMA closed-value
+series, a gap documented per instrument in
+``industry_market_offer_reconciliation.csv``.  Every consumer of this
+comparison — dashboard, PPTX, XLSX — therefore receives the series with the
+2023 FIDC level replaced by the ANBIMA Boletim de Mercado de Capitais figure,
+applied by :func:`apply_anbima_2023_fidc_issuance_correction` before anything
+is charted.
 """
 
 from __future__ import annotations
@@ -484,14 +495,137 @@ def validate_fixed_income_offer_comparison(frame: pd.DataFrame) -> pd.DataFrame:
     ).reset_index(drop=True)
 
 
+#: Nota anexada à metodologia das linhas tocadas pela correção de 2023.  Sem
+#: números literais de propósito: os valores vivem nos artefatos, não no código.
+ANBIMA_2023_FIDC_CORRECTION_NOTE = (
+    "Correção 2023: o nível de FIDCs em 2023 FY usa o Valor Encerrado do "
+    "Boletim de Mercado de Capitais da ANBIMA, porque a série CVM/SRE só "
+    "captura o universo de cotas de FIDC integralmente a partir de 2024 — "
+    "2023 foi o primeiro ano da Resolução CVM 160 e o volume registrado "
+    "subestima o mercado; o gap por instrumento está em "
+    "industry_market_offer_reconciliation.csv. O YoY de 2024 de FIDCs é "
+    "calculado sobre a base ANBIMA de 2023. A contagem de ofertas e o "
+    "universo de contagem permanecem CVM."
+)
+
+_CORRECTED_PERIOD = "2023 FY"
+_CORRECTED_SERIES = "FIDCs"
+
+
+def apply_anbima_2023_fidc_issuance_correction(
+    frame: pd.DataFrame,
+    anbima_market_offers: pd.DataFrame,
+) -> pd.DataFrame:
+    """Replace the 2023 FIDC level with the ANBIMA closed value, coherently.
+
+    The substitution touches everything the level participates in, so the
+    validated invariants keep holding: the 2024 FIDC YoY is recomputed over the
+    ANBIMA base, the 2023 universe volume becomes FIDC ANBIMA plus the CVM
+    rest, and the per-view shares of 2023 are renormalized.  Source columns of
+    the corrected rows point to the ANBIMA workbook, never to the CVM archive.
+
+    Idempotent: applying the correction to an already-corrected series changes
+    nothing, so the loader can enforce it regardless of the vintage of the
+    materialized CSV.
+    """
+
+    result = validate_fixed_income_offer_comparison(frame)
+    anbima_row = anbima_market_offers[
+        anbima_market_offers["instrument_label"].astype(str).eq(_CORRECTED_SERIES)
+        & anbima_market_offers["period_label"].astype(str).eq(_CORRECTED_PERIOD)
+    ]
+    if len(anbima_row) != 1:
+        raise FixedIncomeOfferComparisonError(
+            "Snapshot ANBIMA sem a observação de FIDCs em 2023 FY; a correção "
+            "de nível não pode ser aplicada."
+        )
+    anbima = anbima_row.iloc[0]
+    corrected_volume = float(anbima["closed_volume_brl"])
+    if not np.isfinite(corrected_volume) or corrected_volume <= 0:
+        raise FixedIncomeOfferComparisonError(
+            "Valor Encerrado ANBIMA de FIDCs em 2023 FY inválido."
+        )
+
+    fidc_2023 = result["series_label"].eq(_CORRECTED_SERIES) & result[
+        "period_label"
+    ].eq(_CORRECTED_PERIOD)
+    if not bool(fidc_2023.any()):
+        raise FixedIncomeOfferComparisonError(
+            "Comparativo sem a observação de FIDCs em 2023 FY."
+        )
+    result.loc[fidc_2023, "registered_volume_brl"] = corrected_volume
+    result.loc[fidc_2023, "source_dataset"] = (
+        f"{anbima['source_name']} — {anbima['metric']} "
+        f"(aba {anbima['source_sheet']})"
+    )
+    result.loc[fidc_2023, "source_url"] = str(anbima["source_url"])
+    result.loc[fidc_2023, "source_archive_sha256"] = str(
+        anbima["source_workbook_sha256"]
+    )
+    result.loc[fidc_2023, "source_as_of_date"] = (
+        f"snapshot {anbima['source_snapshot']}"
+    )
+
+    fidc_2024 = result["series_label"].eq(_CORRECTED_SERIES) & result[
+        "period_label"
+    ].eq("2024 FY")
+    result.loc[fidc_2024, "previous_registered_volume_brl"] = corrected_volume
+    result.loc[fidc_2024, "yoy_growth"] = (
+        pd.to_numeric(result.loc[fidc_2024, "registered_volume_brl"])
+        / corrected_volume
+        - 1
+    )
+
+    period_2023 = result["period_label"].eq(_CORRECTED_PERIOD)
+    view_a_2023 = period_2023 & result["view"].eq("FIDCs vs demais elegíveis")
+    universe_2023 = float(
+        pd.to_numeric(result.loc[view_a_2023, "registered_volume_brl"]).sum()
+    )
+    result.loc[period_2023, "universe_registered_volume_brl"] = universe_2023
+    for _, view_index in result.loc[period_2023].groupby("view").groups.items():
+        view_total = float(
+            pd.to_numeric(
+                result.loc[view_index, "registered_volume_brl"]
+            ).sum()
+        )
+        if view_total > 0:
+            result.loc[view_index, "share_of_period_view_volume"] = (
+                pd.to_numeric(result.loc[view_index, "registered_volume_brl"])
+                / view_total
+            )
+
+    touched = fidc_2023 | fidc_2024
+    note_missing = ~result["methodology"].astype(str).str.contains(
+        "Correção 2023", regex=False
+    )
+    result.loc[touched & note_missing, "methodology"] = (
+        result.loc[touched & note_missing, "methodology"].astype(str)
+        + " "
+        + ANBIMA_2023_FIDC_CORRECTION_NOTE
+    )
+    return validate_fixed_income_offer_comparison(result)
+
+
 def load_materialized_fixed_income_offer_comparison(
     data_dir: str | Path,
 ) -> pd.DataFrame:
+    """Load the materialized comparison with the 2023 correction enforced.
+
+    The correction is applied on read, whatever the vintage of the CSV: a
+    freshly rebuilt CVM-only artifact and an already-corrected one converge to
+    the same series, so no consumer can chart the understated 2023 level.
+    """
+
+    from services.industry_market_offer_reconciliation import (
+        load_anbima_market_offers,
+    )
+
     path = Path(data_dir) / OUTPUT_FILENAME
     if not path.is_file():
         raise FileNotFoundError(f"Comparativo de ofertas ausente: {path}")
-    return validate_fixed_income_offer_comparison(
-        pd.read_csv(path, low_memory=False)
+    return apply_anbima_2023_fidc_issuance_correction(
+        pd.read_csv(path, low_memory=False),
+        load_anbima_market_offers(data_dir),
     )
 
 
@@ -507,6 +641,7 @@ def write_fixed_income_offer_comparison(
 
 
 __all__ = [
+    "ANBIMA_2023_FIDC_CORRECTION_NOTE",
     "EXCLUDED_INSTRUMENTS",
     "FixedIncomeOfferComparisonError",
     "OUTPUT_FILENAME",
@@ -515,6 +650,7 @@ __all__ = [
     "SOURCE_AS_OF_DATE",
     "SOURCE_DATASET",
     "SOURCE_URL",
+    "apply_anbima_2023_fidc_issuance_correction",
     "build_fixed_income_offer_comparison",
     "load_materialized_fixed_income_offer_comparison",
     "normalize_text",
