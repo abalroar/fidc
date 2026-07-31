@@ -52,6 +52,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Warnings",
     "Ofertas anual",
     "Posição Itaú",
+    "Ranking ofertas",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
 
