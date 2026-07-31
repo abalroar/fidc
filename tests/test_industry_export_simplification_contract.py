@@ -57,6 +57,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Investidores hist",
     "Tipos investidor",
     "_Listas",
+    "Cross-check taxonomia",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
@@ -476,6 +477,8 @@ def test_user_facing_snapshot_sheets_are_preserved_by_the_input_pipeline() -> No
 
 
 def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
+    from services.industry_revision_export import REQUIRED_WORKBOOK_SHEETS
+
     renderer_source = RENDERER_PATH.read_text(encoding="utf-8")
     build_workbook_source = renderer_source.split(
         "async function buildWorkbook",
@@ -498,3 +501,6 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert "sheet.delete();" in renderer_source
     assert "sheet.dataValidations.clear();" in renderer_source
     assert 'resetSheet(workbook, "Top 20 Outros")' in renderer_source
+    assert set(sheets_to_remove).isdisjoint(REQUIRED_WORKBOOK_SHEETS)
+    assert 'sheetName: "Cross-check taxonomia"' not in renderer_source
+    assert '["Cross-check taxonomia", "A1:' not in renderer_source

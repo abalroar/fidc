@@ -87,7 +87,6 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Série Atlântico",
     "Universo elegível",
     "FICs excluídos",
-    "Cross-check taxonomia",
     "Taxonomia por CNPJ",
     "Decisões do ledger",
 }

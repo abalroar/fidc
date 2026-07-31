@@ -758,7 +758,6 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Checks revisão",
         "Universo elegível",
         "FICs excluídos",
-        "Cross-check taxonomia",
         "Taxonomia por CNPJ",
         "Decisões do ledger",
     }

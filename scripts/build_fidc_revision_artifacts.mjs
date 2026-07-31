@@ -96,6 +96,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Investidores hist",
   "Tipos investidor",
   "_Listas",
+  "Cross-check taxonomia",
 ];
 
 const C = {
@@ -5262,12 +5263,6 @@ async function addPerimeterAuditSheets(workbook, payload) {
     filter: (row) => String(row.is_fic || "").toLowerCase() === "true",
     uniqueBy: "cnpj_fundo",
   });
-  await addCsvAuditSheet(workbook, {
-    filePath: path.join(DATA_DIR, "industry_taxonomy_crosscheck.csv"),
-    sheetName: "Cross-check taxonomia",
-    title: "Cross-check da taxonomia analítica",
-    subtitle: `Fonte industry_taxonomy_crosscheck.csv; competência ${payload.latest_complete}; atualização ${generatedAt}. As inconsistências são registradas para revisão e nenhuma classificação é corrigida automaticamente.`,
-  });
   const taxonomyColumns = [
     "cnpj_fundo", "denominacao_referencia", "status", "tipo_analitico",
     "foco_analitico", "tabela_ii_analitica", "taxonomia_funcional_n1",
@@ -7820,7 +7815,6 @@ async function exportWorkbook(workbook) {
       ["Checks revisão", "A1:D28"],
       ["Universo elegível", "A1:P25"],
       ["FICs excluídos", "A1:J25"],
-      ["Cross-check taxonomia", "A1:J25"],
       ["Taxonomia por CNPJ", "A1:R25"],
       ["Decisões do ledger", "A1:U25"],
     ];
