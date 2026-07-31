@@ -829,11 +829,11 @@ def test_legacy_industry_export_no_longer_requests_line_markers() -> None:
     assert 'font.name = "Calibri"' not in source
 
 
-def test_revision_renderer_version_tracks_provider_flow_assets() -> None:
+def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v25";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v26";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

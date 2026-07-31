@@ -3,6 +3,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { isDeepStrictEqual } from "node:util";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,6 +13,14 @@ const DEFAULT_PAYLOAD = path.join(
   ROOT,
   "data/industry_study/generated_revision/artifact_payload.json",
 );
+const FUNDOSNET_CNPJ_BASE =
+  "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=";
+const COMPACT_FIELDS = Object.freeze({
+  marketLink: ["source", "target", "funds", "value", "origin", "current", "shareUniverse"],
+  cohortLink: ["source", "target", "funds", "value", "origin", "current"],
+  marketDetail: ["fund", "cnpj", "source", "target", "pl0", "pl1", "flow"],
+  cohortDetail: ["fund", "cnpj", "target", "status", "pl0", "pl1", "flow", "manager", "custodian"],
+});
 
 function argsFrom(argv) {
   const args = {};
@@ -33,6 +42,18 @@ function argsFrom(argv) {
 function number(value, fallback = 0) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function nullableNumber(...values) {
+  const value = values.find(
+    (candidate) => candidate !== null && candidate !== undefined && candidate !== "",
+  );
+  if (value === undefined) return null;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(`Valor numérico inválido no fluxo de prestadores: ${value}`);
+  }
+  return parsed;
 }
 
 function truthy(value) {
@@ -238,7 +259,7 @@ function viewModels(payload) {
       target,
       status: active ? "Continuante" : "Saída / sem reporte",
       pl0: number(row.pl_origem_brl),
-      pl1: number(row.pl_destino_brl || row.pl_destino_observado_brl),
+      pl1: nullableNumber(row.pl_destino_brl, row.pl_destino_observado_brl),
       flow: number(row.pl_origem_brl),
       manager: compactProvider(row.gestor_destino_grupo_observado || row.gestor_destino_nome_observado),
       custodian: compactProvider(row.custodiante_destino_grupo_observado || row.custodiante_destino_nome_observado),
@@ -256,12 +277,14 @@ function viewModels(payload) {
       funds: 0,
       value: 0,
       origin: 0,
-      current: 0,
+      current: null,
     };
     item.funds += 1;
     item.value += row.flow;
     item.origin += row.pl0;
-    item.current += row.pl1;
+    if (row.pl1 !== null) {
+      item.current = number(item.current) + row.pl1;
+    }
     reagLinkMap.set(key, item);
   }
   const reagLinks = [...reagLinkMap.values()].sort((a, b) => b.value - a.value);
@@ -340,6 +363,113 @@ function validateViews(data) {
   assertClose(sum(data.reag.links, "value"), data.reag.summary.primary, "PL dos links CBSF/REAG");
   assertClose(sum(data.reag.details, "flow"), data.reag.summary.primary, "PL do detalhe CBSF/REAG");
   if (unique(data.reag.details) !== data.reag.details.length) throw new Error("CNPJ duplicado no detalhe CBSF/REAG");
+}
+
+function constantDetailValue(details, key, viewId) {
+  const values = new Set(details.map((row) => String(row[key] ?? "")));
+  if (values.size > 1) {
+    throw new Error(`${viewId}.${key} deixou de ser constante; atualize o esquema compacto`);
+  }
+  return values.values().next().value || "";
+}
+
+function compactViews(data) {
+  const views = {};
+  for (const [viewId, view] of Object.entries(data)) {
+    const { links, details, ...metadata } = view;
+    const linkFields = COMPACT_FIELDS[`${view.kind}Link`];
+    const detailFields = COMPACT_FIELDS[`${view.kind}Detail`];
+    if (!linkFields || !detailFields) {
+      throw new Error(`Tipo de visão sem esquema compacto: ${view.kind}`);
+    }
+    const fundosnetRows = details.filter((row) => row.fundosnetUrl);
+    if (fundosnetRows.length > 0 && fundosnetRows.length !== details.length) {
+      throw new Error(`${viewId}.fundosnetUrl deixou de ter cobertura uniforme`);
+    }
+    const fundosnetFromCnpj = fundosnetRows.length > 0;
+    if (
+      fundosnetFromCnpj
+      && fundosnetRows.some(
+        (row) => (
+          row.fundosnetUrl
+          !== `${FUNDOSNET_CNPJ_BASE}${String(row.cnpj || "").replace(/\D/g, "")}`
+        ),
+      )
+    ) {
+      throw new Error(`${viewId}.fundosnetUrl deixou de ser derivável do CNPJ`);
+    }
+    const documents = {
+      fundosnetBase: fundosnetFromCnpj ? FUNDOSNET_CNPJ_BASE : "",
+      sourceUrl: constantDetailValue(details, "sourceUrl", viewId),
+      targetUrl: constantDetailValue(details, "targetUrl", viewId),
+      ...(view.kind === "cohort"
+        ? { detailSource: constantDetailValue(details, "source", viewId) }
+        : {}),
+    };
+    views[viewId] = {
+      ...metadata,
+      documents,
+      links: links.map((row) => linkFields.map((field) => row[field])),
+      details: details.map((row) => detailFields.map((field) => row[field])),
+    };
+  }
+  return {
+    schemaVersion: "provider_flow_compact_v1",
+    fields: COMPACT_FIELDS,
+    views,
+  };
+}
+
+function expandCompactViews(compact) {
+  if (compact.schemaVersion !== "provider_flow_compact_v1") {
+    throw new Error(`Esquema compacto desconhecido: ${compact.schemaVersion}`);
+  }
+  const rowObject = (fields, values) => Object.fromEntries(
+    fields.map((field, index) => [field, values[index]]),
+  );
+  const views = {};
+  for (const [viewId, compactView] of Object.entries(compact.views)) {
+    const {
+      documents,
+      links: compactLinks,
+      details: compactDetails,
+      ...metadata
+    } = compactView;
+    const linkFields = compact.fields[`${metadata.kind}Link`];
+    const detailFields = compact.fields[`${metadata.kind}Detail`];
+    const links = compactLinks.map((row) => rowObject(linkFields, row));
+    const details = compactDetails.map((row) => {
+      const detail = rowObject(detailFields, row);
+      const fundosnetUrl = documents.fundosnetBase
+        ? `${documents.fundosnetBase}${String(detail.cnpj || "").replace(/\D/g, "")}`
+        : "";
+      if (metadata.kind === "market") {
+        return {
+          ...detail,
+          fundosnetUrl,
+          sourceUrl: documents.sourceUrl,
+          targetUrl: documents.targetUrl,
+        };
+      }
+      return {
+        fund: detail.fund,
+        cnpj: detail.cnpj,
+        source: documents.detailSource,
+        target: detail.target,
+        status: detail.status,
+        pl0: detail.pl0,
+        pl1: detail.pl1,
+        flow: detail.flow,
+        manager: detail.manager,
+        custodian: detail.custodian,
+        fundosnetUrl,
+        sourceUrl: documents.sourceUrl,
+        targetUrl: documents.targetUrl,
+      };
+    });
+    views[viewId] = { ...metadata, links, details };
+  }
+  return views;
 }
 
 function percent(value, digits = 1) {
@@ -431,12 +561,12 @@ function browserApp(DATA) {
     state.page=Math.min(state.page,pages-1);
     const selected=v.links.find(l=>l.source+"|||"+l.target===state.selected);
     caption.textContent=selected
-      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL ${v.currentLabel}`:` de origem | ${selected.current?money(selected.current)+" em "+v.currentLabel:"sem PL positivo em "+v.currentLabel}`}`
+      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL ${v.currentLabel}`:` de origem | ${selected.current==null?"sem PL reportado em "+v.currentLabel:money(selected.current)+" em "+v.currentLabel}`}`
       : state.query?`${rows.length} fundos encontrados para “${state.query}”`:`${rows.length} fundos na base; selecione um fluxo ou pesquise para filtrar.`;
     const slice=rows.slice(state.page*8,state.page*8+8);
     tbody.innerHTML=slice.map(r=>v.kind==="market"
       ? `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.source)}</td><td>${esc(r.target)}</td><td class="num">${money(r.flow)}</td><td class="num optional">${money(r.pl0)}</td><td class="num optional">${money(r.pl1)}</td><td>${docs(r)}</td></tr>`
-      : `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.target)}</td><td class="num">${money(r.pl0)}</td><td class="num optional">${r.pl1?money(r.pl1):"—"}</td><td class="optional">${esc(r.manager||"N/D")}</td><td class="optional">${esc(r.custodian||"N/D")}</td><td>${docs(r)}</td></tr>`
+      : `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.target)}</td><td class="num">${money(r.pl0)}</td><td class="num optional">${r.pl1==null?"—":money(r.pl1)}</td><td class="optional">${esc(r.manager||"N/D")}</td><td class="optional">${esc(r.custodian||"N/D")}</td><td>${docs(r)}</td></tr>`
     ).join("")||`<tr><td colspan="8">Nenhum fundo encontrado.</td></tr>`;
     root.querySelector("thead").innerHTML=v.kind==="market"
       ? `<tr><th>Fundo</th><th>CNPJ</th><th>Origem</th><th>Destino</th><th>PL ${esc(v.currentLabel)}</th><th class='optional'>PL origem</th><th class='optional'>PL atual</th><th>Fontes</th></tr>`
@@ -449,7 +579,7 @@ function browserApp(DATA) {
       el.addEventListener("click",()=>{state.selected=state.selected===el.dataset.key?null:el.dataset.key;state.page=0;render()});
       el.addEventListener("mousemove",e=>{
         const v=DATA[state.view],l=v.links.find(x=>x.source+"|||"+x.target===el.dataset.key),total=v.summary.primary;
-        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${v.kind==="market"?` de PL ${esc(v.currentLabel)} · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current?money(l.current)+" em "+esc(v.currentLabel):"sem PL positivo em "+esc(v.currentLabel)}`}`:"";
+        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${v.kind==="market"?` de PL ${esc(v.currentLabel)} · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current==null?"sem PL reportado em "+esc(v.currentLabel):money(l.current)+" em "+esc(v.currentLabel)}`}`:"";
         tooltip.hidden=false;const r=root.getBoundingClientRect(),t=tooltip.getBoundingClientRect();tooltip.style.left=Math.min(r.width-t.width-8,Math.max(8,e.clientX-r.left+14))+"px";tooltip.style.top=Math.max(8,e.clientY-r.top-t.height-12)+"px";
       });
       el.addEventListener("mouseleave",()=>tooltip.hidden=true)
@@ -475,7 +605,8 @@ function browserApp(DATA) {
 
 function clientRuntime(data) {
   const serialized = JSON.stringify(data).replace(/</g, "\\u003c");
-  return `<script>(${browserApp.toString()})(${serialized});<\/script>`;
+  return `<script type="application/json" id="provider-flow-data">${serialized}<\/script>
+<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);(${browserApp.toString()})(expanded)})();<\/script>`;
 }
 
 function fragmentHtml(data, standalone = false) {
@@ -562,11 +693,17 @@ async function main() {
   const payload = JSON.parse(await fs.readFile(payloadPath, "utf8"));
   const data = viewModels(payload);
   validateViews(data);
+  const compact = compactViews(data);
+  const expanded = expandCompactViews(compact);
+  if (!isDeepStrictEqual(expanded, data)) {
+    throw new Error("O esquema compacto não preservou integralmente o view-model");
+  }
+  validateViews(expanded);
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
-  await fs.writeFile(htmlPath, standaloneHtml(data), "utf8");
+  await fs.writeFile(htmlPath, standaloneHtml(compact), "utf8");
   if (fragmentPath) {
     await fs.mkdir(path.dirname(fragmentPath), { recursive: true });
-    await fs.writeFile(fragmentPath, fragmentHtml(data, false), "utf8");
+    await fs.writeFile(fragmentPath, fragmentHtml(compact, false), "utf8");
   }
   process.stdout.write(`${htmlPath}\n`);
 }
