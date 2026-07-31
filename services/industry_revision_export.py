@@ -39,31 +39,24 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 64
+EXPECTED_SLIDES = 36
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("industria de fidcs",),
     ("grandes numeros",),
     ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
-    ("ofertas encerradas", "emissoes por categoria anbima"),
-    ("ofertas encerradas", "serie anbima"),
+    ("ofertas encerradas", "cvm e anbima", "valor encerrado por instrumento"),
+    ("emissoes por categoria anbima", "emissoes por setor"),
     ("base investidora",),
     ("distribuicao por numero de cotistas",),
-    ("taxonomia analitica",),
-    ("outros", "abertura analitica"),
+    ("taxonomia analitica", "precatorios e/ou acoes judiciais", "multicedente/multisacado"),
     ("reclassificacao de adquirencia",),
     ("carteira por tipo de recebivel",),
-    ("observabilidade da inadimplencia",),
-    ("inadimplencia", "base original"),
-    ("inadimplencia", "ex-zeros"),
-    ("coorte atual por recebivel",),
-    ("dispersao entre reportantes",),
-    ("inadimplencia", "sintese executiva"),
     ("prestadores", "ranking e concentracao"),
     ("ranking", "top 20 fidcs"),
-    ("top 20 por tipo analitico", "fomento mercantil"),
-    ("top 20 por tipo analitico", "agro, industria e comercio"),
-    ("top 20 por tipo analitico", "financeiro"),
-    ("top 20 por tipo analitico", "outros"),
+    ("top fundos e originadores", "fomento mercantil"),
+    ("top fundos e originadores", "agro, industria e comercio"),
+    ("top fundos e originadores", "financeiro"),
+    ("top fundos e originadores", "outros"),
     ("curadoria", "fundos flagship"),
     ("curadoria", "carteira 1"),
     ("carteira 1", "taxonomia analitica"),
@@ -75,26 +68,6 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("top 15", "ofertas encerradas"),
     ("top 15", "historico"),
     ("principais conclusoes",),
-    ("apendice", "curadoria top 20", "#1"),
-    ("apendice", "curadoria top 20", "#2"),
-    ("apendice", "curadoria top 20", "#3"),
-    ("apendice", "curadoria top 20", "#4"),
-    ("apendice", "curadoria top 20", "#5"),
-    ("apendice", "curadoria top 20", "#6"),
-    ("apendice", "curadoria top 20", "#7"),
-    ("apendice", "curadoria top 20", "#8"),
-    ("apendice", "curadoria top 20", "#9"),
-    ("apendice", "curadoria top 20", "#10"),
-    ("apendice", "curadoria top 20", "#11"),
-    ("apendice", "curadoria top 20", "#12"),
-    ("apendice", "curadoria top 20", "#13"),
-    ("apendice", "curadoria top 20", "#14"),
-    ("apendice", "curadoria top 20", "#15"),
-    ("apendice", "curadoria top 20", "#16"),
-    ("apendice", "curadoria top 20", "#17"),
-    ("apendice", "curadoria top 20", "#18"),
-    ("apendice", "curadoria top 20", "#19"),
-    ("apendice", "curadoria top 20", "#20"),
     ("prestadores", "evolucao e ranking"),
     ("fidcs dos cinco bancos",),
     ("prestadores", "lideranca explicada"),
@@ -104,10 +77,9 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("apendice", "market share", "administracao"),
     ("apendice", "market share", "gestao"),
     ("apendice", "market share", "custodia"),
-    ("apendice", "caso atlantico"),
 )
 if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
-    raise RuntimeError("contrato ordinal do PPTX não fecha 64 slides")
+    raise RuntimeError("contrato ordinal do PPTX não fecha 36 slides")
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -502,19 +474,26 @@ def validate_revision_pptx(payload: bytes) -> None:
         canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
         _validate_native_table_slide(
             archive,
-            4,
-            expected_dimensions=((8, 14),),
+            5,
+            expected_dimensions=((8, 11),),
             canvas=canvas,
         )
+        for ranking_slide_number in range(13, 17):
+            _validate_native_table_slide(
+                archive,
+                ranking_slide_number,
+                expected_dimensions=((16, 4), (16, 4)),
+                canvas=canvas,
+            )
         _validate_native_table_slide(
             archive,
-            32,
+            25,
             expected_dimensions=((16, 10), (16, 10)),
             canvas=canvas,
         )
         _validate_native_table_slide(
             archive,
-            33,
+            26,
             expected_dimensions=((16, 9), (16, 9)),
             canvas=canvas,
         )
@@ -548,27 +527,6 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide combinado de prestadores deve conter ao menos seis gráficos nativos do Office"
             )
-        delinquency_slide = _slide_xml_containing(
-            archive, "INADIMPLÊNCIA", "BASE ORIGINAL"
-        )
-        if delinquency_slide.count(b"<a:tbl>") < 1 or delinquency_slide.count(b"<c:chart") < 1:
-            raise RevisionExportUnavailable(
-                "slide de inadimplência por recebível deve conter tabela e gráfico nativos do Office"
-            )
-        adjusted_delinquency_slide = _slide_xml_containing(
-        archive, "INADIMPLÊNCIA", "EX-ZEROS"
-        )
-        if adjusted_delinquency_slide.count(b"<a:tbl>") < 1 or adjusted_delinquency_slide.count(b"<c:chart") < 1:
-            raise RevisionExportUnavailable(
-                "slide de sensibilidade ex-zeros deve conter tabela e gráfico nativos do Office"
-            )
-        frozen_delinquency_slide = _slide_xml_containing(
-            archive, "INADIMPLÊNCIA", "COORTE ATUAL POR RECEBÍVEL"
-        )
-        if frozen_delinquency_slide.count(b"<c:chart") < 1:
-            raise RevisionExportUnavailable(
-                "slide da coorte atual de inadimplência deve conter gráfico nativo do Office"
-            )
         bank_slide = _slide_xml_containing(
             archive, "FIDCs DOS CINCO BANCOS", "COORTE ATUAL"
         )
@@ -588,27 +546,27 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
             )
-        cvm_market_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "SÉRIE CVM"
+        combined_market_slide = _slide_xml_containing(
+            archive, "OFERTAS ENCERRADAS", "CVM E ANBIMA"
         )
-        if cvm_market_slide.count(b"<c:chart") != 1:
+        if combined_market_slide.count(b"<c:chart") != 2:
             raise RevisionExportUnavailable(
-                "slide da série CVM deve conter um gráfico nativo do Office"
+                "slide conjunto CVM e ANBIMA deve conter dois gráficos nativos do Office"
             )
-        if cvm_market_slide.count(b"<a:tbl>") != 1:
+        if combined_market_slide.count(b"<a:tbl>") != 0:
             raise RevisionExportUnavailable(
-                "slide da série CVM deve conter a tabela nativa de emissões por categoria"
+                "slide conjunto CVM e ANBIMA não deve conter tabela nativa"
             )
-        anbima_market_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "SÉRIE ANBIMA"
+        taxonomy_market_slide = _slide_xml_containing(
+            archive, "EMISSÕES POR CATEGORIA ANBIMA"
         )
-        if anbima_market_slide.count(b"<c:chart") < 1:
+        if taxonomy_market_slide.count(b"<c:chart") != 2:
             raise RevisionExportUnavailable(
-                "slide da série ANBIMA deve conter um gráfico nativo do Office"
+                "slide de emissões por categoria deve conter dois gráficos nativos do Office"
             )
-        if anbima_market_slide.count(b"<a:tbl>") != 0:
+        if taxonomy_market_slide.count(b"<a:tbl>") != 1:
             raise RevisionExportUnavailable(
-                "slide da série ANBIMA não deve conter tabela nativa"
+                "slide de emissões por categoria deve conter uma tabela nativa"
             )
         top15_offers_slide = _slide_xml_containing(
             archive, "TOP 15", "IBBA PARTICIPOU", "JAN–JUN/26"

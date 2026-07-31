@@ -94,21 +94,18 @@ def test_material_market_share_slides_are_contiguous_in_the_provider_appendix() 
     )
     top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
     top20_other = _find_slide_index(
-        slides, "RANKING · TOP 20 POR TIPO ANALÍTICO", "Outros"
+        slides, "RANKING · TOP FUNDOS E ORIGINADORES", "Outros"
     )
     flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
     carteira_1 = _find_slide_index(slides, "CURADORIA · CARTEIRA 1")
-    first_profile = _find_slide_index(
-        slides, "APÊNDICE · CURADORIA TOP 20", "#1 FIDC Sistema Petrobras"
-    )
     full_admin = _find_slide_index(
         slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
     )
-    assert top20 < top20_other < flagship < carteira_1 < first_profile < provider
+    assert top20 < top20_other < flagship < carteira_1 < provider
     assert provider < admin < manager < custodian < full_admin
 
 
-def test_top20_rankings_and_profile_layout_are_complete() -> None:
+def test_top20_rankings_remain_in_payload_and_profiles_are_omitted_from_deck() -> None:
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     assert len(payload["top20_fidcs"]) == 20
     assert len(payload["top20_outros"]) == 20
@@ -124,15 +121,9 @@ def test_top20_rankings_and_profile_layout_are_complete() -> None:
         for row in payload["top20_fidcs"]
     )
 
-    profile_slides = [
-        slide
-        for slide in _presentation().slides
-        if "APÊNDICE · CURADORIA TOP 20" in _slide_text(slide)
-    ]
-    assert len(profile_slides) == 20
-    assert len({len(slide.shapes) for slide in profile_slides}) == 1
-    for slide in profile_slides:
-        assert "Cobertura documental:" in _slide_text(slide)
+    assert len(payload["profiles"]) == 20
+    visible = "\n".join(_slide_text(slide) for slide in _presentation().slides)
+    assert "APÊNDICE · CURADORIA TOP 20" not in visible
 
 
 def test_hhi_uses_antitrust_points_scale() -> None:

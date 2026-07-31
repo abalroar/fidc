@@ -33,10 +33,10 @@ DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
 PUBLISHED_PAYLOAD_BYTES = 15_630_138
 PUBLISHED_PAYLOAD_SHA256 = (
-    "705885158caaa04207354078f01d5daf483fe2b7f800ca9a7b949a948b6a497d"
+    "ed3519e906d55e77346f58aa9fa934da83e1b0db7c2e44645d1dd7de1641decf"
 )
 PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "a6d9964075d94e2b724afba277da0051a7dcebb981779aaa1b994a96684775d9"
+    "68e22c462e1621512e472306243beaee83f9ea4043d45d4226ec4c0b52338d3d"
 )
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
@@ -293,9 +293,9 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 80
+    assert len(pptx_keys) == 75
     assert len(dashboard_keys) == 91
-    assert len(consumer_keys) == 106
+    assert len(consumer_keys) == 105
     assert {
         "carteira_1_curation_summary",
         "carteira_1_taxonomy_history",
