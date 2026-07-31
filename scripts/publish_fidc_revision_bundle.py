@@ -493,6 +493,37 @@ def _require_payload_amount_close(
         )
 
 
+def validate_fic_detection_audit_provenance(data_dir: Path) -> None:
+    """Reject a FIC audit that still labels the nominal signal as cadastral."""
+
+    path = Path(data_dir) / "industry_fic_detection_audit.csv"
+    if not path.is_file():
+        raise RevisionBundlePublishError(
+            f"auditoria de proveniência FIC ausente: {path}"
+        )
+    legacy_methods: dict[str, int] = {}
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        if "fic_detection_method" not in (reader.fieldnames or ()):
+            raise RevisionBundlePublishError(
+                "industry_fic_detection_audit.csv sem fic_detection_method"
+            )
+        for row in reader:
+            method = str(row.get("fic_detection_method") or "")
+            if method in {"flag_cadastral", "combinacao"}:
+                legacy_methods[method] = legacy_methods.get(method, 0) + 1
+    if legacy_methods:
+        details = ", ".join(
+            f"{method}={count}"
+            for method, count in sorted(legacy_methods.items())
+        )
+        raise RevisionBundlePublishError(
+            "auditoria FIC ainda usa rótulos de proveniência legados "
+            f"({details}); execute scripts/build_fic_detection_audit.py "
+            f"--data-dir {Path(data_dir)}"
+        )
+
+
 def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
     rows = payload.get("card_taxonomy_audit")
     summary = payload.get("card_taxonomy_summary")
@@ -907,8 +938,23 @@ def _validate_fixed_income_offer_comparison(
         )
         for row in payload.get("closed_offers_annual") or []
         if isinstance(row, Mapping)
-        and str(row.get("period_label") or "") in expected_periods[:3]
+        and str(row.get("period_label") or "") in expected_periods[1:3]
     }
+    anbima_2023_rows = [
+        row
+        for row in payload.get("market_offer_reconciliation") or []
+        if isinstance(row, Mapping)
+        and str(row.get("period_label") or "") == "2023 FY"
+        and str(row.get("instrument_label") or "") == "FIDCs"
+    ]
+    if len(anbima_2023_rows) != 1:
+        raise RevisionBundlePublishError(
+            "reconciliação ANBIMA de FIDCs em 2023 FY deve ser única"
+        )
+    official_fidc["2023 FY"] = _finite_payload_number(
+        anbima_2023_rows[0].get("anbima_closed_volume_brl"),
+        "market_offer_reconciliation[2023 FY/FIDCs].anbima_closed_volume_brl",
+    )
     official_fidc.update(
         {
             "2026 jan-jun": _finite_payload_number(
@@ -921,10 +967,11 @@ def _validate_fixed_income_offer_comparison(
     )
     for period_label, expected in official_fidc.items():
         observed = fidc_by_period.get(period_label)
-        if observed is None or abs(observed - expected) > max(1.0, expected * 1e-10):
-            raise RevisionBundlePublishError(
-                f"FIDCs não reconciliam em {period_label}"
-            )
+        _require_payload_amount_close(
+            observed,
+            expected,
+            f"fixed_income_offer_comparison.FIDCs[{period_label}]",
+        )
 
 
 def _validate_closed_offer_placement_regime(
@@ -2353,6 +2400,7 @@ def publish_revision_bundle(
     )
     latest_complete = latest_complete or discover_latest_complete(data_dir)
     _validate_input_workbook(input_workbook)
+    validate_fic_detection_audit_provenance(data_dir)
     # Capture the long-running renderer once.  The staged build must execute
     # the exact bytes recorded in the input signature even if the worktree is
     # edited concurrently.

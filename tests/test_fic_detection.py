@@ -7,6 +7,7 @@ import pandas as pd
 import pytest
 
 from scripts.build_fidc_industry_study import FIC_FIDC_PATTERN
+from scripts.build_fic_detection_audit import build_fic_detection_audit_frame
 from services.fic_detection import (
     METHOD_INFORME,
     METHOD_LEGACY_NOMINAL,
@@ -226,6 +227,29 @@ def test_the_published_audit_is_well_formed() -> None:
     assert excluded["fic_detection_method"].str.len().gt(0).all()
     assert excluded["fic_detection_evidence"].str.len().gt(0).all()
     assert excluded["fic_exclusion_reason"].str.len().gt(0).all()
+    assert set(audit["fic_detection_method"]) == {
+        METHOD_LEGACY_NOMINAL,
+        METHOD_INFORME,
+        METHOD_NAME,
+    }
+    nominal = audit[
+        audit["fic_detection_method"].eq(METHOD_LEGACY_NOMINAL)
+    ]
+    assert nominal["fic_detection_evidence"].str.startswith(
+        "Sinal nominal legado:"
+    ).all()
+    assert not audit["fic_detection_evidence"].str.contains(
+        "flag cadastral",
+        case=False,
+        regex=False,
+    ).any()
+
+
+def test_the_versioned_audit_matches_the_current_provenance_rules() -> None:
+    path = DATA_DIR / "industry_fic_detection_audit.csv"
+    expected = build_fic_detection_audit_frame(DATA_DIR)
+
+    assert path.read_bytes() == expected.to_csv(index=False).encode("utf-8")
 
 
 def test_provenance_relabel_preserves_the_full_fic_mask_and_pl() -> None:

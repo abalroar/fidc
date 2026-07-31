@@ -9,8 +9,10 @@ nominal cross-check.
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 import sys
+import uuid
 
 import pandas as pd
 
@@ -33,17 +35,34 @@ AUDIT_FILENAME = "industry_fic_detection_audit.csv"
 BASE_RELATIVE = Path("generated_revision") / "base_fundo_cnpj.csv.gz"
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=Path("data/industry_study"))
-    return parser.parse_args()
+    parser.add_argument(
+        "--base-path",
+        type=Path,
+        help=(
+            "Base por fundo-CNPJ; por padrão usa "
+            "generated_revision/base_fundo_cnpj.csv.gz dentro de --data-dir."
+        ),
+    )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Falha se a auditoria materializada divergir da recomposição.",
+    )
+    return parser.parse_args(argv)
 
 
-def main() -> None:
-    args = parse_args()
-    data_dir = args.data_dir
+def _annotated_fic_frame(
+    data_dir: Path,
+    *,
+    base_path: Path | None = None,
+) -> pd.DataFrame:
+    data_dir = Path(data_dir)
+    source = Path(base_path) if base_path is not None else data_dir / BASE_RELATIVE
     base = pd.read_csv(
-        data_dir / BASE_RELATIVE,
+        source,
         dtype=str,
         keep_default_na=False,
         usecols=["competencia", "cnpj_fundo", "denominacao", "is_fic_fidc", "pl"],
@@ -56,10 +75,57 @@ def main() -> None:
         curated_cnpjs=overrides["cnpj_fundo"].tolist(),
         curated_evidence=dict(zip(overrides["cnpj_fundo"], overrides["evidencia"])),
     )
+    return annotated
 
+
+def build_fic_detection_audit_frame(
+    data_dir: Path,
+    *,
+    base_path: Path | None = None,
+) -> pd.DataFrame:
+    """Recompose the audit without changing any materialized file."""
+
+    return build_fic_audit(
+        _annotated_fic_frame(Path(data_dir), base_path=base_path)
+    )
+
+
+def _audit_bytes(audit: pd.DataFrame) -> bytes:
+    return audit.to_csv(index=False).encode("utf-8")
+
+
+def _write_audit_atomically(audit: pd.DataFrame, audit_path: Path) -> None:
+    audit_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = audit_path.with_name(
+        f".{audit_path.name}.{uuid.uuid4().hex}.tmp"
+    )
+    try:
+        temporary.write_bytes(_audit_bytes(audit))
+        os.replace(temporary, audit_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
+    data_dir = Path(args.data_dir)
+    annotated = _annotated_fic_frame(
+        data_dir,
+        base_path=args.base_path,
+    )
     audit = build_fic_audit(annotated)
     audit_path = data_dir / AUDIT_FILENAME
-    audit.to_csv(audit_path, index=False)
+    expected_bytes = _audit_bytes(audit)
+    if args.check:
+        if not audit_path.is_file() or audit_path.read_bytes() != expected_bytes:
+            raise SystemExit(
+                "auditoria FIC desatualizada; execute "
+                f"{Path(__file__).name} --data-dir {data_dir}"
+            )
+        print(f"auditoria atual em {audit_path} ({len(audit)} linhas)")
+    else:
+        _write_audit_atomically(audit, audit_path)
+        print(f"auditoria gravada em {audit_path} ({len(audit)} linhas)")
 
     _kept, report = exclude_fics_from_fidc_universe(annotated)
 
@@ -69,7 +135,6 @@ def main() -> None:
     nominal_review = by_cnpj[by_cnpj["fic_detection_method"].eq(METHOD_NAME)]
     silent_names = excluded[~excluded["cnpj_fundo"].isin(set(by_cnpj[name_says]["cnpj_fundo"]))]
 
-    print(f"auditoria gravada em {audit_path} ({len(audit)} linhas)")
     print(f"CNPJs excluídos como FIC: {excluded['cnpj_fundo'].nunique()}")
     print(
         "PL excluído na competência mais recente "
