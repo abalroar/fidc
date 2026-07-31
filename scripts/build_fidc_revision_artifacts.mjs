@@ -93,6 +93,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Posição Itaú",
   "Ranking ofertas",
   "Cedentes",
+  "Investidores hist",
 ];
 
 const C = {
