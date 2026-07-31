@@ -46,7 +46,9 @@ from services.industry_revision_analysis import (
     MARKET_SHARE_EXCLUDED_FUNDS,
 )
 from services.industry_taxonomy_review import (
+    apply_taxonomy_review_overlay,
     assert_taxonomy_review_ledger_matches_audit,
+    build_curated_taxonomy_level_history,
     build_curated_type_mix,
     build_historical_top20_taxonomy_review,
     build_taxonomy_review_queue,
@@ -2641,6 +2643,7 @@ def build_payload(
         revision_dir / "bridge_inadimplencia_2024-06_2024-07_detalhe.csv", low_memory=False
     )
     top20 = pd.read_csv(revision_dir / "top20_fidcs.csv", dtype={"cnpj_fundo": str})
+    top20 = apply_taxonomy_review_overlay(top20, taxonomy_review_actions)
     top20_outros = pd.read_csv(revision_dir / "top20_outros.csv", dtype={"cnpj_fundo": str})
     mono = pd.read_csv(revision_dir / "monoestrutura_por_fundo.csv", low_memory=False)
     mono_concentration = pd.read_csv(revision_dir / "monoestrutura_concentracao.csv", low_memory=False)
@@ -3001,6 +3004,12 @@ def build_payload(
         ),
         "official_history_preserved_in": "type_mix_history_official",
     }
+    taxonomy_level_history = build_curated_taxonomy_level_history(
+        funds,
+        taxonomy_review_actions,
+        periods=tuple(type_mix_periods),
+        table_ii=vehicle,
+    )
     receivables_history, receivables_meta_history = _receivables_history(
         segments, monthly, comparison_periods
     )
@@ -3082,6 +3091,7 @@ def build_payload(
         build_top20_by_anbima_type(
             funds,
             latest=latest,
+            actions=taxonomy_review_actions,
             curated_top20=curation,
             regulation_review=top20_outros_regulations,
             document_inventory=document_inventory,
@@ -3185,6 +3195,7 @@ def build_payload(
         "classification_coverage": _records(classification_coverage),
         "type_mix_history": _records(type_mix_history),
         "type_mix_history_official": _records(type_mix_history_official),
+        "taxonomy_level_history": _records(taxonomy_level_history),
         "classification_coverage_history": _records(classification_coverage_history),
         "receivables": receivables,
         "receivables_history": _records(receivables_history),

@@ -13,6 +13,7 @@ from services.industry_taxonomy_review import (
     TAXONOMY_REVIEW_COLUMNS,
     apply_taxonomy_review_overlay,
     assert_taxonomy_review_ledger_matches_audit,
+    build_curated_taxonomy_level_history,
     build_curated_type_mix,
     build_historical_top20_taxonomy_review,
     build_unique_taxonomy_operational_queue,
@@ -123,6 +124,30 @@ def test_top20_by_type_has_four_groups_and_uses_slide_bucket() -> None:
     assert set(top20.groupby("tipo_exibicao")["rank_tipo"].max()) == {20}
     assert "FIDC N/D GRANDE" in set(top20.loc[top20["tipo_exibicao"].eq("Outros"), "denominacao"])
     assert coverage.loc[coverage["tipo_exibicao"].eq("Total"), "fundos"].item() == 80
+
+
+def test_top20_groups_by_approved_analytical_type_before_ranking() -> None:
+    action = _action(
+        cnpj_fundo="3001",
+        denominacao_referencia="FIDC Outros 1",
+        tipo_analitico="Financeiro",
+        foco_analitico="Crédito Pessoal",
+        tabela_ii_analitica="N/D",
+        taxonomia_funcional_n1="Crédito PF",
+        taxonomia_funcional_n2="Crédito pessoal/consumo",
+    )
+
+    top20, _ = build_top20_by_anbima_type(
+        _funds(),
+        latest="2026-06",
+        actions=action,
+    )
+    row = top20[top20["cnpj_fundo"].eq("00000000003001")].iloc[0]
+
+    assert row["tipo_exibicao"] == "Financeiro"
+    assert row["anbima_tipo_oficial"] == "Outros"
+    assert row["anbima_tipo_curado"] == "Financeiro"
+    assert bool(row["taxonomy_review_applied"])
 
 
 def test_historical_top20_reuses_cnpj_review_keys_and_preserves_official_fields() -> None:
@@ -490,6 +515,80 @@ def test_approved_overlay_is_independent_of_starting_competence() -> None:
     assert historical.loc["Agro, Indústria e Comércio", "pl"] == pytest.approx(100.0)
     assert current.loc["Outros", "pl"] == pytest.approx(0.0)
     assert current.loc["Agro, Indústria e Comércio", "pl"] == pytest.approx(100.0)
+
+
+def test_taxonomy_level_history_reconciles_each_parent_and_surfaces_outros() -> None:
+    periods = ("2025-12", "2026-06")
+    rows = []
+    for period in periods:
+        rows.extend(
+            [
+                {
+                    "competencia": period,
+                    "cnpj_fundo": "1",
+                    "denominacao": "FIDC NPL",
+                    "pl": 60.0,
+                    "is_fic_fidc": False,
+                    "anbima_tipo": "Outros",
+                    "anbima_foco": "Multicarteira Outros",
+                    "tabela_ii_dominante": "N/D",
+                },
+                {
+                    "competencia": period,
+                    "cnpj_fundo": "2",
+                    "denominacao": "FIDC PODER PUBLICO",
+                    "pl": 40.0,
+                    "is_fic_fidc": False,
+                    "anbima_tipo": "Outros",
+                    "anbima_foco": "Poder Público",
+                    "tabela_ii_dominante": "Setor público",
+                },
+                {
+                    "competencia": period,
+                    "cnpj_fundo": "3",
+                    "denominacao": "FIDC FINANCEIRO",
+                    "pl": 100.0,
+                    "is_fic_fidc": False,
+                    "anbima_tipo": "Financeiro",
+                    "anbima_foco": "Crédito Pessoal",
+                    "tabela_ii_dominante": "Crédito pessoal",
+                },
+            ]
+        )
+    action = _action(
+        cnpj_fundo="1",
+        denominacao_referencia="FIDC NPL",
+        tipo_analitico="Outros",
+        foco_analitico="Recuperação",
+        tabela_ii_analitica="Ações judiciais",
+        taxonomia_funcional_n1="Judicial/Precatórios/NPL",
+        taxonomia_funcional_n2="Não padronizado/NPL",
+    )
+
+    history = build_curated_taxonomy_level_history(
+        pd.DataFrame(rows),
+        action,
+        periods=periods,
+    )
+
+    reconciliation = history.groupby(
+        ["nivel", "competencia", "tipo_exibicao"]
+    ).agg(pl_brl=("pl_brl", "sum"), pl_tipo_brl=("pl_tipo_brl", "first"))
+    assert (reconciliation["pl_brl"] - reconciliation["pl_tipo_brl"]).abs().max() < 0.01
+    shares = history.groupby(["nivel", "competencia", "tipo_exibicao"])[
+        "share_tipo"
+    ].sum()
+    assert (shares - 1.0).abs().max() < 1e-12
+    outros = history[history["tipo_exibicao"].eq("Outros")]
+    assert "Recuperação" in set(
+        outros.loc[outros["nivel"].eq("foco_analitico"), "categoria"]
+    )
+    assert "Ações judiciais" in set(
+        outros.loc[outros["nivel"].eq("tabela_ii_analitica"), "categoria"]
+    )
+    assert "Judicial/Precatórios/NPL" in set(
+        outros.loc[outros["nivel"].eq("taxonomia_funcional_n1"), "categoria"]
+    )
 
 
 def test_draft_is_saved_but_does_not_apply(tmp_path: Path) -> None:

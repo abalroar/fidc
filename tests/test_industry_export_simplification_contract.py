@@ -31,15 +31,14 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-PUBLISHED_PAYLOAD_BYTES = 15_058_779
+PUBLISHED_PAYLOAD_BYTES = 15_171_505
 PUBLISHED_PAYLOAD_SHA256 = (
-    "f6df27c24ec20e5ae41183494abef36f9a7fa78d1fd6c3b3018b234b21edf3a3"
+    "29c9e75edf1025889f071e35859d986eb8ea2c5325d0b55396f3c322cf032d46"
 )
 PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "5f8531871174700ed14122f5162335911a65f543067327d6bc70410a4dfb4dc8"
+    "d8b431be25f127e7a5e13db75e67ecb67fc85ea3a6013cbdb64166a0eea28d69"
 )
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
-CVM_2023_FIDC_VOLUME_BRL = 26_476_286_193.56
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
     "1236172468f5aa3ddde24382bfa9c5f6372f9b35cd03993ef2482d358845b524"
 )
@@ -272,7 +271,7 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     }
     assert manifest["payload_sha256"] == PUBLISHED_PAYLOAD_SHA256
     assert payload["schema_version"] == "fidc_revision_artifact_payload_v7"
-    assert len(payload) == 117
+    assert len(payload) == 118
 
     renderer_source = RENDERER_PATH.read_text(encoding="utf-8")
     dashboard_source = DASHBOARD_PATH.read_text(encoding="utf-8")
@@ -280,9 +279,9 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 73
+    assert len(pptx_keys) == 72
     assert len(dashboard_keys) == 91
-    assert len(consumer_keys) == 96
+    assert len(consumer_keys) == 97
     assert pptx_keys.issubset(payload)
     assert dashboard_keys.issubset(payload)
     assert _dimensions_digest(payload, consumer_keys) == (
@@ -290,7 +289,7 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     )
 
 
-def test_published_bundle_has_two_level_issuance_baseline(
+def test_published_bundle_has_converged_issuance_baseline(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload_bytes, disk_payload = _published_payload()
@@ -304,13 +303,13 @@ def test_published_bundle_has_two_level_issuance_baseline(
 
     assert len(disk_fidc_2023) == 2
     assert disk_fidc_2023["registered_volume_brl"].tolist() == pytest.approx(
-        [CVM_2023_FIDC_VOLUME_BRL] * 2,
+        [ANBIMA_2023_FIDC_VOLUME_BRL] * 2,
         abs=0.01,
     )
-    assert not disk_fidc_2023["methodology"].astype(str).str.contains(
+    assert disk_fidc_2023["methodology"].astype(str).str.contains(
         "Correção 2023",
         regex=False,
-    ).any()
+    ).all()
 
     monkeypatch.setattr(tab_industry_study, "_DATA_DIR", DATA_DIR)
     loaded = tab_industry_study._load_industry_revision_payload.__wrapped__(
@@ -320,6 +319,12 @@ def test_published_bundle_has_two_level_issuance_baseline(
     assert set(loaded) == set(disk_payload)
     for key in disk_payload.keys() - {"fixed_income_offer_comparison"}:
         assert loaded[key] == disk_payload[key], key
+    pd.testing.assert_frame_equal(
+        pd.DataFrame(loaded["fixed_income_offer_comparison"]),
+        disk_comparison,
+        check_dtype=False,
+        check_like=True,
+    )
 
     comparison = pd.DataFrame(loaded["fixed_income_offer_comparison"])
     rendered_fidc = comparison[
@@ -372,10 +377,9 @@ def test_published_bundle_has_two_level_issuance_baseline(
         )
     )
     assert tab_industry_study._issuance_correction_applied(comparison)
-    assert tab_industry_study._bundle_predates_issuance_correction()
+    assert not tab_industry_study._bundle_predates_issuance_correction()
 
-    # Loading corrects only the in-memory dictionary.  The published bundle
-    # remains content-addressed by its original bytes.
+    # Loading is idempotent once the corrected series is present on disk.
     assert PAYLOAD_PATH.read_bytes() == payload_bytes
     assert hashlib.sha256(PAYLOAD_PATH.read_bytes()).hexdigest() == (
         PUBLISHED_PAYLOAD_SHA256
@@ -505,7 +509,7 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert "removeWorkbookSheets(workbook);" in build_workbook_source
     assert "getItemOrNullObject(sheetName)" in renderer_source
     assert "sheet.delete();" in renderer_source
-    assert "sheet.dataValidations.clear();" in renderer_source
+    assert "sheet.dataValidations.clear(used.address);" in renderer_source
     assert 'resetSheet(workbook, "Top 20 Outros")' in renderer_source
     assert set(sheets_to_remove).isdisjoint(REQUIRED_WORKBOOK_SHEETS)
     assert 'sheetName: "Cross-check taxonomia"' not in renderer_source

@@ -80,8 +80,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v26";
-const EXPECTED_SLIDES = 64;
+const RENDERER_VERSION = "industry_revision_artifacts_v27";
+const EXPECTED_SLIDES = 68;
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
@@ -1743,6 +1743,149 @@ function addAcquiringReclassificationSlide(presentation, payload, page) {
   return slide;
 }
 
+function addTaxonomyLevelDrilldownSlide(presentation, payload, config) {
+  const slide = presentation.slides.add();
+  const history = (payload.taxonomy_level_history || []).filter(
+    (row) => row.nivel === config.level && row.tipo_exibicao === "Outros",
+  );
+  const periods = (payload.type_mix_meta?.periods || [])
+    .map((row) => ({ competencia: row.competencia, label: row.label }))
+    .filter((row) => row.competencia && row.label);
+  if (!periods.length) {
+    [...new Set(history.map((row) => row.competencia))].sort().forEach((competencia) => {
+      periods.push({ competencia, label: competenceShortPt(competencia).toLowerCase() });
+    });
+  }
+  const latestPeriod = periods.at(-1);
+  const latestRows = history
+    .filter((row) => row.competencia === latestPeriod?.competencia)
+    .sort((a, b) => num(b.pl_brl) - num(a.pl_brl) || String(a.categoria).localeCompare(String(b.categoria)));
+  const categories = latestRows.map((row) => row.categoria);
+  [...new Set(history.map((row) => row.categoria))]
+    .filter((category) => !categories.includes(category))
+    .sort()
+    .forEach((category) => categories.push(category));
+  const palette = [
+    C.orange,
+    C.charcoal,
+    C.mid,
+    "#A5A9AD",
+    C.line,
+    "#B65A15",
+    "#527A91",
+    "#8A6D5A",
+  ];
+  const colors = Object.fromEntries(
+    categories.map((category, index) => [category, palette[index % palette.length]]),
+  );
+  const rowByKey = new Map(
+    history.map((row) => [`${row.competencia}::${row.categoria}`, row]),
+  );
+  const valueFor = (period, category, field) =>
+    num(rowByKey.get(`${period.competencia}::${category}`)?.[field]);
+  const volumeSeries = categories.map((category) => ({
+    name: category,
+    values: periods.map((period) => valueFor(period, category, "pl_brl") / 1e9),
+    valuesFormatCode: "0.0",
+    fill: colors[category],
+  }));
+  const shareSeries = categories.map((category) => ({
+    name: category,
+    values: periods.map((period) => valueFor(period, category, "share_tipo")),
+    valuesFormatCode: "0.0%",
+    fill: colors[category],
+  }));
+  const latestTotal = latestRows.reduce((sum, row) => sum + num(row.pl_brl), 0);
+  const latestLead = latestRows
+    .slice(0, 3)
+    .map((row) => `${row.categoria} ${pct(row.share_tipo, 1)}`)
+    .join(" · ");
+  const maxTotalBn = Math.max(
+    1,
+    ...periods.map((period) =>
+      categories.reduce(
+        (sum, category) => sum + valueFor(period, category, "pl_brl") / 1e9,
+        0,
+      ),
+    ),
+  );
+  addHeader(
+    slide,
+    `OUTROS · ${config.title}`,
+    latestLead || `Composição do bucket Outros em ${latestPeriod?.label || payload.latest_complete}`,
+    `Fonte: ANBIMA Data (Tipo/Foco, dez/25), Informe Mensal CVM e ledger documental aprovado. Tipo/Foco e Tabela II oficiais permanecem preservados no workbook.`,
+    0,
+  );
+  addSectionLabel(slide, "PL DO BUCKET OUTROS · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 60, top: 185, width: 550, height: 350 }),
+    categories: periods.map((row) => row.label),
+    series: volumeSeries,
+    barOptions: { direction: "column", grouping: "stacked", gapWidth: 52, overlap: 100 },
+    hasLegend: false,
+    xAxis: {
+      visible: true,
+      textStyle: { fill: C.mid, fontSize: 11.5 },
+      line: { style: "solid", fill: C.line, width: 1 },
+      majorGridlines: null,
+    },
+    yAxis: {
+      ...chartAxis(10.5, "0"),
+      min: 0,
+      max: Math.ceil(maxTotalBn / 25) * 25,
+    },
+    dataLabels: {
+      showValue: categories.length <= 6,
+      position: "center",
+      textStyle: { fill: C.black, fontSize: 8.4, bold: true },
+    },
+  });
+  addSectionLabel(slide, "COMPOSIÇÃO DO BUCKET OUTROS", { left: 670, top: 145, width: 550, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 670, top: 185, width: 550, height: 350 }),
+    categories: periods.map((row) => row.label),
+    series: shareSeries,
+    barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 52, overlap: 100 },
+    hasLegend: false,
+    xAxis: {
+      visible: true,
+      textStyle: { fill: C.mid, fontSize: 11.5 },
+      line: { style: "solid", fill: C.line, width: 1 },
+      majorGridlines: null,
+    },
+    yAxis: {
+      ...chartAxis(10.5, "0%"),
+      min: 0,
+      max: 1,
+      majorUnit: 0.2,
+    },
+    dataLabels: {
+      showValue: categories.length <= 6,
+      position: "center",
+      textStyle: { fill: C.black, fontSize: 8.4, bold: true },
+    },
+  });
+  addLegend(
+    slide,
+    categories.map((category) => ({ label: category, color: colors[category] })),
+    { left: 100, top: 545, width: 1080, height: 42 },
+    Math.min(4, categories.length),
+  );
+  addText(
+    slide,
+    `As categorias somam ${bn(latestTotal, 1)}, equivalentes a 100% do Tipo analítico Outros em ${latestPeriod?.label || payload.latest_complete}. Ausência permanece N/D.`,
+    { left: 90, top: 594, width: 1100, height: 24 },
+    { fontSize: 10.3, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
+  );
+  addText(
+    slide,
+    config.note,
+    { left: 90, top: 622, width: 1100, height: 32 },
+    { fontSize: 9.1, color: C.note, alignment: "center", verticalAlignment: "middle" },
+  );
+  return slide;
+}
+
 function providerAttributionFallback(payload) {
   const ranking = payload.provider_historical_ranking || [];
   const current = (role, provider) => ranking.find(
@@ -2506,9 +2649,9 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
   const top20Pl = rows.reduce((sum, row) => sum + num(row.pl), 0);
   addHeader(
     slide,
-    "RANKING · TOP 20 POR TIPO ANBIMA",
+    "RANKING · TOP 20 POR TIPO ANALÍTICO",
     `${typeName} · ${bn(top20Pl, 1)} · ${pct(typePl ? top20Pl / typePl : 0, 1)} do bucket`,
-    `PL: CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}. Tipo/Foco: fotografia ANBIMA de 29/dez/25; níveis documental e proxy permanecem identificados no workbook.`,
+    `PL: CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}. Agrupamento: Tipo analítico após decisões aprovadas; campos ANBIMA oficiais permanecem no workbook.`,
     0,
   );
   addNativeEditorialTable(slide, {
@@ -3565,6 +3708,29 @@ function buildPresentation(payload) {
     );
   }
 
+  [
+    {
+      level: "foco_analitico",
+      title: "FOCO ANALÍTICO",
+      note: "Foco analítico combina a fotografia ANBIMA com decisões aprovadas. A classificação ANBIMA oficial continua disponível para auditoria.",
+    },
+    {
+      level: "tabela_ii_analitica",
+      title: "TABELA II ANALÍTICA",
+      note: "Tabela II analítica mantém o reporte CVM como origem e aplica somente decisões aprovadas. Ações judiciais e Setor público permanecem identificáveis.",
+    },
+    {
+      level: "taxonomia_funcional_n1",
+      title: "TAXONOMIA FUNCIONAL N1",
+      note: "Nível funcional 1 organiza a natureza econômica da carteira. Judicial/Precatórios/NPL aparece separadamente de Multissetorial/Outros.",
+    },
+    {
+      level: "taxonomia_funcional_n2",
+      title: "TAXONOMIA FUNCIONAL N2",
+      note: "Nível funcional 2 detalha NPL, precatórios/direitos judiciais e multicarteira. Casos sem decisão documental permanecem N/D.",
+    },
+  ].forEach((config) => addTaxonomyLevelDrilldownSlide(presentation, payload, config));
+
   // 7. Carteira por recebível
   addAcquiringReclassificationSlide(presentation, payload, 7);
 
@@ -3963,7 +4129,7 @@ function buildPresentation(payload) {
       slide,
       "RANKING · TOP 20 FIDCs",
       `Top 20 somam ${pct(share, 1)} do PL ex-FIC; Petrobras e TAPSO são ${pct(topTwo, 1)} do bloco`,
-      `Fonte: CVM e ANBIMA, ${stockShortLower}. Ranking derivado do universo completo ex-FIC; denominação legal completa no apêndice.`,
+      `Fonte: CVM, ANBIMA e ledger analítico aprovado, ${stockShortLower}. Ranking derivado do universo completo ex-FIC; denominação legal completa no apêndice.`,
       15 + providerInsightOffset,
     );
     const tableRows = top20.map((row) => [
@@ -3971,7 +4137,7 @@ function buildPresentation(payload) {
       row.nome_curto,
       bn(row.pl, 1).replace("R$ ", ""),
       pct(row.market_share_ex_fic, 1),
-      `${row.anbima_tipo || "N/D"}\n${row.anbima_foco || "N/D"}`,
+      `${row.anbima_tipo_curado || row.anbima_tipo || "N/D"}\n${row.anbima_foco_curado || row.anbima_foco || "N/D"}`,
       row.modelo_prestacao || "N/D",
     ]);
     [0, 1].forEach((block) => {
@@ -3994,40 +4160,25 @@ function buildPresentation(payload) {
   // 19. Top 20 Outros
   {
     const slide = presentation.slides.add();
-    const rows = payload.top20_outros_regulation_review || [];
-    const summary = payload.top20_outros_reclassification_summary || {};
-    const currentOutrosBucket = (payload.type_mix_history || []).find(
-      (row) => row.competencia === payload.latest_complete && row.anbima_tipo === "Outros",
-    ) || {};
-    const candidateShareExpandedOutros = num(currentOutrosBucket.pl)
-      ? num(summary.candidate_pl_brl) / num(currentOutrosBucket.pl)
-      : 0;
-    const outrosNames = new Map(
-      (payload.top20_outros || []).map((row) => [
-        String(row.cnpj_fundo || row.cnpj_fundo_formatado || "").replace(/\D/g, ""),
-        row.nome_curto || row.denominacao,
-      ]),
-    );
-    const reclassificationLabel = (value) => ({
-      "potencial_reclassificação": "Candidato",
-      "manter_em_outros": "Manter em Outros",
-      "validação_manual": "Validação manual",
-    }[value] || value || "N/D");
+    const rows = [...(payload.top20_by_anbima_type || [])]
+      .filter((row) => row.tipo_exibicao === "Outros")
+      .sort((a, b) => num(a.rank_tipo) - num(b.rank_tipo));
+    const outrosPl = num(rows[0]?.pl_tipo_brl);
+    const top20Pl = rows.reduce((sum, row) => sum + num(row.pl), 0);
     addHeader(
       slide,
       "RANKING · TOP 20 OUTROS",
-      `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)} · ${pct(summary.candidate_share_of_outros, 1)} do Tipo literal Outros; ${pct(candidateShareExpandedOutros, 1)} do bucket do slide 8, que inclui N/D`,
-      `Fonte: CVM e FundosNet; ranking em ${stockShortLower}. Regulamento público vigente mais recente, leitura automatizada por pypdf; links e limitações no workbook.`,
+      `Top 20 somam ${bn(top20Pl, 1)} · ${pct(outrosPl ? top20Pl / outrosPl : 0, 1)} do Tipo analítico Outros`,
+      `Fonte: CVM, ANBIMA e ledger analítico aprovado; ranking em ${stockShortLower}. Tipo/Foco e Tabela II oficiais permanecem no workbook.`,
       16 + providerInsightOffset,
     );
     const tableRows = rows.map((row) => [
-      String(row.rank_outros),
-      outrosNames.get(String(row.cnpj_fundo || "").replace(/\D/g, ""))
-        || truncateWords(row.nome_fidc, 18),
-      bn(row.pl_atual_brl, 1).replace("R$ ", ""),
-      truncateWords(row.cedent_originator_explicit || "N/D", 22),
-      truncateWords(row.proposed_category || "N/D", 16),
-      reclassificationLabel(row.reclassification_status),
+      String(row.rank_tipo),
+      fundEditorialName(row.denominacao || "N/D", 30),
+      bn(row.pl, 1).replace("R$ ", ""),
+      truncateWords(row.anbima_foco_curado || row.anbima_foco || "N/D", 16),
+      truncateWords(row.tabela_ii_curada || "N/D", 14),
+      truncateWords(row.taxonomia_funcional_n1_curada || "N/D", 16),
     ]);
     [0, 1].forEach((block) => {
       addNativeEditorialTable(slide, {
@@ -4035,12 +4186,12 @@ function buildPresentation(payload) {
         top: 150,
         width: 570,
         height: 490,
-        headers: ["#", "Fundo", "PL bi", "Cedente / originador expresso", "Categoria proposta", "Status"],
+        headers: ["#", "Fundo", "PL bi", "Foco analítico", "Tabela II analítica", "Funcional N1"],
         rows: tableRows.slice(block * 10, block * 10 + 10),
-        columnWidths: [28, 142, 55, 95, 105, 145],
+        columnWidths: [28, 168, 55, 105, 100, 114],
         aligns: ["right", "left", "right", "left", "left", "left"],
-        fontSize: 9.7,
-        headerFontSize: 9.3,
+        fontSize: 9.3,
+        headerFontSize: 8.9,
       });
     });
   }
@@ -5032,9 +5183,9 @@ function resetSheet(workbook, name) {
     renameFirstIfOnlyNewSpreadsheet: true,
   });
   sheet.deleteAllDrawings();
-  sheet.dataValidations.clear();
   const used = sheet.getUsedRange();
   if (used) {
+    sheet.dataValidations.clear(used.address);
     try {
       used.unmerge();
     } catch {
