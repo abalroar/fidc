@@ -97,13 +97,14 @@ def test_material_market_share_slides_are_contiguous_in_the_provider_appendix() 
         slides, "RANKING · TOP 20 POR TIPO ANALÍTICO", "Outros"
     )
     flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
+    carteira_1 = _find_slide_index(slides, "CURADORIA · CARTEIRA 1")
     first_profile = _find_slide_index(
         slides, "APÊNDICE · CURADORIA TOP 20", "#1 FIDC Sistema Petrobras"
     )
     full_admin = _find_slide_index(
         slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
     )
-    assert top20 < top20_other < flagship < first_profile < provider
+    assert top20 < top20_other < flagship < carteira_1 < first_profile < provider
     assert provider < admin < manager < custodian < full_admin
 
 

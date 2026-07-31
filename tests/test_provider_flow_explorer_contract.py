@@ -19,8 +19,11 @@ PAYLOAD_PATH = Path(
     )
 )
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
-MAX_COMPACT_HTML_BYTES = 225_000
+MAX_COMPACT_HTML_BYTES = 400_000
 EXPECTED_PAYLOAD_KEYS = {
+    "carteira_1_curation",
+    "carteira_1_curation_ranges",
+    "carteira_1_curation_summary",
     "flagship_curation",
     "flagship_curation_summary",
     "flagship_families",
@@ -90,9 +93,23 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert compact["schemaVersion"] == "provider_flow_compact_v1"
     assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
     assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v1"
+    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v1"
     assert len(compact["taxonomy"]["rows"]) == 358
     assert len(compact["flagships"]["families"]) == 26
     assert len(compact["flagships"]["details"]) == 47
+    assert len(compact["carteira1"]["ranges"]) == 7
+    assert len(compact["carteira1"]["details"]) == 101
+    carteira_fields = compact["carteira1"]["fields"]["detail"]
+    carteira_cnpj_index = carteira_fields.index("cnpj")
+    carteira_pl_index = carteira_fields.index("pl")
+    carteira_ratio_index = carteira_fields.index("ratio")
+    canaa = next(
+        row
+        for row in compact["carteira1"]["details"]
+        if row[carteira_cnpj_index] == "45.123.558/0001-00"
+    )
+    assert canaa[carteira_pl_index] is None
+    assert canaa[carteira_ratio_index] is None
     fields = compact["fields"]
     views = compact["views"]
     assert set(views) == {"admin", "gestor", "custodiante", "reag"}
@@ -133,3 +150,6 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert 'r.pl1==null?"—":money(r.pl1)' in document
     assert 'l.current==null?"sem PL reportado em "' in document
     assert 'String(v??"")' in document
+    assert 'value == null || value === ""' in document
+    assert '${money(row.pl)}' in document
+    assert '${pct(row.ratio)}' in document

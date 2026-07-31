@@ -1,4 +1,4 @@
-"""Acceptance contract for the 64-slide FIDC industry revision.
+"""Acceptance contract for the 65-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -68,7 +68,7 @@ PAYLOAD = (
     / "artifact_payload.json"
 )
 
-TARGET_SLIDES = 64
+TARGET_SLIDES = 65
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
@@ -76,7 +76,7 @@ PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (57, 58, 59, 61, 62, 63)
+MARKET_SHARE_SLIDES = (58, 59, 60, 62, 63, 64)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
@@ -116,24 +116,25 @@ SLIDE_TOKENS = {
     21: ("TOP 20 POR TIPO ANALÍTICO", "FINANCEIRO"),
     22: ("TOP 20 POR TIPO ANALÍTICO", "OUTROS"),
     23: ("CURADORIA · FUNDOS FLAGSHIP", "FAIXAS DESCRITIVAS"),
-    24: ("MODELO DE PRESTAÇÃO",),
-    25: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    26: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
-    27: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
-    28: (
+    24: ("CURADORIA · CARTEIRA 1", "DISTRIBUIÇÃO POR FAIXA E TIPO"),
+    25: ("MODELO DE PRESTAÇÃO",),
+    26: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    27: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
+    28: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
+    29: (
         "OFERTAS · VOLUME E REGIME",
         "NÚMERO DE OFERTAS",
         "REGIME DE COLOCAÇÃO · VOLUME",
     ),
-    29: (
+    30: (
         "TOP 15 · OFERTAS ENCERRADAS",
         "IBBA PARTICIPOU DE 8 DAS 15 MAIORES",
         "JAN–JUN/26 · TOP 15",
         "2025FY · TOP 15",
     ),
-    30: ("TOP 15 · HISTÓRICO", "2024FY · TOP 15", "2023FY · TOP 15"),
-    31: ("TOP 15 · 2022 PARCIAL", "7 OFERTAS LEGADAS"),
-    32: (
+    31: ("TOP 15 · HISTÓRICO", "2024FY · TOP 15", "2023FY · TOP 15"),
+    32: ("TOP 15 · 2022 PARCIAL", "7 OFERTAS LEGADAS"),
+    33: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
         "771 OFERTAS",
@@ -141,18 +142,18 @@ SLIDE_TOKENS = {
         "R$ 32,4 BI",
         "DOIS FIDCS CIELO",
     ),
-    33: ("ESCOPO, FONTES E LIMITAÇÕES",),
-    54: ("PRESTADORES · EVOLUÇÃO E RANKING",),
-    55: ("FIDCS DOS CINCO BANCOS · COORTE ATUAL",),
-    56: ("PRESTADORES · LIDERANÇA EXPLICADA",),
-    57: ("MARKET SHARE · ADMINISTRAÇÃO",),
-    58: ("MARKET SHARE · GESTÃO",),
-    59: ("MARKET SHARE · CUSTÓDIA",),
-    60: ("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO", "7,6%", "35,1%"),
-    61: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    62: ("GESTÃO POR SUBTIPO",),
-    63: ("CUSTÓDIA POR SUBTIPO",),
-    64: (
+    34: ("ESCOPO, FONTES E LIMITAÇÕES",),
+    55: ("PRESTADORES · EVOLUÇÃO E RANKING",),
+    56: ("FIDCS DOS CINCO BANCOS · COORTE ATUAL",),
+    57: ("PRESTADORES · LIDERANÇA EXPLICADA",),
+    58: ("MARKET SHARE · ADMINISTRAÇÃO",),
+    59: ("MARKET SHARE · GESTÃO",),
+    60: ("MARKET SHARE · CUSTÓDIA",),
+    61: ("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO", "7,6%", "35,1%"),
+    62: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    63: ("GESTÃO POR SUBTIPO",),
+    64: ("CUSTÓDIA POR SUBTIPO",),
+    65: (
         "APÊNDICE · CASO ATLÂNTICO",
         "09.194.841/0001-51",
         "A QUEBRA NO BRUTO COINCIDE",
@@ -177,6 +178,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Auditoria Top 20 Tipo",
     "Taxonomia por nível",
     "Curadoria flagship",
+    "Carteira 1 curadoria",
     "Curadoria Outros Top 100",
     "Dispersão inadimplência",
     "Atribuição prestadores",
@@ -293,7 +295,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_64_slide_contract() -> None:
+def test_export_and_renderer_declare_65_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -301,15 +303,15 @@ def test_export_and_renderer_declare_64_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*64\s*$", export_source, re.MULTILINE)
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*65\s*$", export_source, re.MULTILINE)
     assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*64;\s*$", renderer_source, re.MULTILINE
+        r"^const EXPECTED_SLIDES\s*=\s*65;\s*$", renderer_source, re.MULTILINE
     )
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_64_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_65_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
@@ -327,7 +329,7 @@ def test_deck_has_64_slides_in_the_reviewed_narrative_order() -> None:
                     f"texto observado: {text[:240]!r}"
                 )
 
-        profiles = [_slide_text(archive, number) for number in range(34, 54)]
+        profiles = [_slide_text(archive, number) for number in range(35, 55)]
 
     assert len(profiles) == 20
     for rank, profile in enumerate(profiles, start=1):
@@ -485,8 +487,8 @@ def test_native_charts_are_bound_to_ptbr_without_currency_locale_prefix() -> Non
 def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        assert len(_slide_chart_paths(archive, 54)) >= 6
-        assert _native_table_count(archive, 54) == 0
+        assert len(_slide_chart_paths(archive, 55)) >= 6
+        assert _native_table_count(archive, 55) == 0
 
 
 @pytest.mark.parametrize(
@@ -504,8 +506,8 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
         (20, 0, 1),  # Top 20 Agro, Indústria e Comércio
         (21, 0, 1),  # Top 20 Financeiro
         (22, 0, 1),  # Top 20 Outros
-        (55, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (26, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
+        (56, 1, 1),  # evolução dos FIDCs dos cinco bancos
+        (27, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -545,8 +547,8 @@ def test_top20_type_slides_keep_complete_curated_originator_text() -> None:
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 27)
-        assert _native_table_count(archive, 27) == 0
+        chart_paths = _slide_chart_paths(archive, 28)
+        assert _native_table_count(archive, 28) == 0
         charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
         bar_charts = [
             chart for chart in charts if chart.find(f".//{{{CHART}}}barChart") is not None
@@ -564,8 +566,8 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
 def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 28)
-        assert _native_table_count(archive, 28) == 0
+        chart_paths = _slide_chart_paths(archive, 29)
+        assert _native_table_count(archive, 29) == 0
         charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
         assert sum(
             chart.find(f".//{{{CHART}}}barChart") is not None for chart in charts
@@ -574,7 +576,7 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
 
 @pytest.mark.parametrize(
     ("slide_number", "expected_tables"),
-    [(29, 2), (30, 2), (31, 1)],
+    [(30, 2), (31, 2), (32, 1)],
 )
 def test_top15_offer_slides_use_only_on_canvas_native_tables(
     slide_number: int, expected_tables: int
@@ -613,7 +615,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
-            for path in _slide_chart_paths(archive, 26)
+            for path in _slide_chart_paths(archive, 27)
         ]
     line_charts = [
         chart
@@ -712,6 +714,27 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert all(row[17] is None or row[17] > 0 for row in rows)
     assert any(row[13] is None and row[14] == "N/D" for row in rows)
     assert any(row[17] is None and row[18] == "N/D" for row in rows)
+
+    carteira_1 = workbook["Carteira 1 curadoria"]
+    assert carteira_1["C4"].value == "Raiz CNPJ · foto"
+    assert carteira_1["D4"].value == "Nome · foto"
+    assert carteira_1["J4"].value == "PL atual"
+    assert carteira_1["L4"].value == "Subordinação atual / PL"
+    assert carteira_1["O4"].value == "Mínimo júnior"
+    assert carteira_1["T4"].value == "Emissão · mês/ano"
+    carteira_rows = list(
+        carteira_1.iter_rows(min_row=5, max_col=35, values_only=True)
+    )
+    carteira_rows = [row for row in carteira_rows if row[0] not in {None, ""}]
+    assert len(carteira_rows) == 101
+    assert len({row[7] for row in carteira_rows}) == 101
+    assert sum(row[9] is not None for row in carteira_rows) == 78
+    assert sum(row[11] is not None for row in carteira_rows) == 68
+    assert sum(row[14] is not None for row in carteira_rows) == 50
+    assert sum(row[19] != "N/D" for row in carteira_rows) == 97
+    assert sum(str(row[31]).startswith("fora do perímetro FIDC") for row in carteira_rows) == 1
+    assert all(row[9] is None or row[9] > 0 for row in carteira_rows)
+    assert all(row[14] is None or row[14] > 0 for row in carteira_rows)
 
 
 def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:
