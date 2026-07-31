@@ -472,6 +472,212 @@ function expandCompactViews(compact) {
   return views;
 }
 
+function flagshipModels(payload) {
+  const summary = payload.flagship_curation_summary || {};
+  const families = [...(payload.flagship_families || [])]
+    .sort((a, b) => number(a.ordem_familia) - number(b.ordem_familia))
+    .map((row) => ({
+      order: Math.round(number(row.ordem_familia)),
+      category: String(row.categoria || "N/D"),
+      family: String(row.familia_flagship || "N/D"),
+      cnpjs: String(row.cnpjs || ""),
+      funds: Math.round(number(row.fundos)),
+      pl: nullableNumber(row.pl_atual_brl),
+      subordinate: nullableNumber(row.pl_subordinado_atual_brl),
+      ratio: nullableNumber(row.subordinacao_atual_pct),
+      range: String(row.faixa_subordinacao_atual || "N/D"),
+      minJunior: String(row.subordinacao_minima_junior_display || "N/D"),
+      price: String(row.preco_emissao_display || "N/D"),
+      mezzanine: String(row.cota_mezanino || "N/D"),
+      documented: Math.round(number(row.cnpjs_com_pacote_documental)),
+      status: String(row.status_curadoria || "N/D"),
+    }));
+  const details = [...(payload.flagship_curation || [])]
+    .sort(
+      (a, b) =>
+        number(a.ordem_familia) - number(b.ordem_familia)
+        || number(b.representante_familia) - number(a.representante_familia)
+        || number(b.pl_atual_brl) - number(a.pl_atual_brl),
+    )
+    .map((row) => ({
+      order: Math.round(number(row.ordem_familia)),
+      category: String(row.categoria || "N/D"),
+      family: String(row.familia_flagship || "N/D"),
+      representative: truthy(row.representante_familia),
+      fund: compactFund(row.denominacao || "N/D"),
+      cnpj: String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo)),
+      pl: nullableNumber(row.pl_atual_brl),
+      subordinate: nullableNumber(row.pl_subordinado_atual_brl),
+      ratio: nullableNumber(row.subordinacao_atual_pct),
+      range: String(row.faixa_subordinacao_atual || "N/D"),
+      minJunior: String(row.subordinacao_minima_junior_display || "N/D"),
+      threshold: String(row.subordinacao_minima_texto || "N/D"),
+      thresholdSource: String(row.subordinacao_minima_fonte || "N/D"),
+      price: String(row.preco_emissao_display || "N/D"),
+      priceClass: String(row.preco_emissao_classe || "N/D"),
+      priceDate: String(row.preco_emissao_data || "N/D"),
+      priceSource: String(row.preco_emissao_fonte || "N/D"),
+      mezzanine: String(row.cota_mezanino || "N/D"),
+      mezzanineSource: String(row.cota_mezanino_fonte || "N/D"),
+      acceleration: String(row.vencimento_antecipado || "N/D"),
+      accelerationSource: String(row.vencimento_antecipado_fonte || "N/D"),
+      packageStatus: String(row.pacote_documental_status || "N/D"),
+      packagePath: String(row.pacote_documental_path || "N/D"),
+      fundosnetUrl: String(row.fundosnet_url || ""),
+      gaps: String(row.lacunas || "N/D"),
+    }));
+  return {
+    summary: {
+      competence: String(summary.competencia || payload.latest_complete || "N/D"),
+      families: Math.round(number(summary.familias)),
+      cnpjs: Math.round(number(summary.cnpjs)),
+      current: Math.round(number(summary.cnpjs_com_subordinacao_atual)),
+      documented: Math.round(number(summary.cnpjs_com_pacote_documental)),
+      minJunior: Math.round(number(summary.cnpjs_com_minimo_junior)),
+      price: Math.round(number(summary.cnpjs_com_preco_vnu)),
+      mezzanine: Math.round(number(summary.cnpjs_com_mezanino_comprovado)),
+      acceleration: Math.round(number(summary.cnpjs_com_evento)),
+      currentSource: String(summary.fonte_pl_subordinacao || "N/D"),
+      documentarySource: String(summary.fonte_documental || "N/D"),
+      methodology: String(summary.metodologia || "N/D"),
+    },
+    families,
+    details,
+  };
+}
+
+const FLAGSHIP_FIELDS = Object.freeze({
+  family: [
+    "order", "category", "family", "cnpjs", "funds", "pl", "subordinate",
+    "ratio", "range", "minJunior", "price", "mezzanine", "documented", "status",
+  ],
+  detail: [
+    "order", "category", "family", "representative", "fund", "cnpj", "pl",
+    "subordinate", "ratio", "range", "minJunior", "threshold",
+    "thresholdSource", "price", "priceClass", "priceDate", "priceSource",
+    "mezzanine", "mezzanineSource", "acceleration", "accelerationSource",
+    "packageStatus", "packagePath", "fundosnetUrl", "gaps",
+  ],
+});
+
+function compactFlagships(data) {
+  return {
+    schemaVersion: "flagship_curation_compact_v1",
+    fields: FLAGSHIP_FIELDS,
+    summary: data.summary,
+    families: data.families.map(
+      (row) => FLAGSHIP_FIELDS.family.map((field) => row[field]),
+    ),
+    details: data.details.map(
+      (row) => FLAGSHIP_FIELDS.detail.map((field) => row[field]),
+    ),
+  };
+}
+
+function expandCompactFlagships(compact) {
+  if (compact.schemaVersion !== "flagship_curation_compact_v1") {
+    throw new Error(`Esquema de flagship desconhecido: ${compact.schemaVersion}`);
+  }
+  const object = (fields, values) => Object.fromEntries(
+    fields.map((field, index) => [field, values[index]]),
+  );
+  return {
+    summary: compact.summary,
+    families: compact.families.map((values) => object(compact.fields.family, values)),
+    details: compact.details.map((values) => object(compact.fields.detail, values)),
+  };
+}
+
+function validateFlagships(data) {
+  if (data.families.length !== 26) {
+    throw new Error(`Curadoria flagship deveria conter 26 famílias; contém ${data.families.length}`);
+  }
+  if (data.details.length !== 47) {
+    throw new Error(`Curadoria flagship deveria conter 47 CNPJs; contém ${data.details.length}`);
+  }
+  if (new Set(data.details.map((row) => row.cnpj)).size !== data.details.length) {
+    throw new Error("Curadoria flagship contém CNPJ duplicado");
+  }
+  if (data.details.some((row) => row.pl === null || row.ratio === null)) {
+    throw new Error("Curadoria flagship contém PL ou subordinação atual ausente");
+  }
+  if (data.families.reduce((total, row) => total + row.funds, 0) !== data.details.length) {
+    throw new Error("Curadoria flagship não reconcilia famílias e CNPJs");
+  }
+  if (
+    data.summary.families !== data.families.length
+    || data.summary.cnpjs !== data.details.length
+    || data.summary.current !== data.details.length
+  ) {
+    throw new Error("Resumo da curadoria flagship não reconcilia com o detalhe");
+  }
+}
+
+const TAXONOMY_FIELDS = Object.freeze([
+  "competence", "level", "type", "category", "funds", "pl", "typePl", "totalPl",
+  "shareType", "shareTotal",
+]);
+
+function taxonomyModels(payload) {
+  return [...(payload.taxonomy_level_history || [])]
+    .map((row) => ({
+      competence: String(row.competencia || "N/D"),
+      level: String(row.nivel || "N/D"),
+      type: String(row.tipo_exibicao || "N/D"),
+      category: String(row.categoria || "N/D"),
+      funds: Math.round(number(row.fundos)),
+      pl: nullableNumber(row.pl_brl),
+      typePl: nullableNumber(row.pl_tipo_brl),
+      totalPl: nullableNumber(row.pl_total_brl),
+      shareType: nullableNumber(row.share_tipo),
+      shareTotal: nullableNumber(row.share_total),
+    }))
+    .sort(
+      (a, b) =>
+        a.competence.localeCompare(b.competence)
+        || a.level.localeCompare(b.level)
+        || a.type.localeCompare(b.type)
+        || b.pl - a.pl,
+    );
+}
+
+function compactTaxonomy(rows) {
+  return {
+    schemaVersion: "taxonomy_levels_compact_v1",
+    fields: TAXONOMY_FIELDS,
+    rows: rows.map((row) => TAXONOMY_FIELDS.map((field) => row[field])),
+  };
+}
+
+function expandCompactTaxonomy(compact) {
+  if (compact.schemaVersion !== "taxonomy_levels_compact_v1") {
+    throw new Error(`Esquema de taxonomia desconhecido: ${compact.schemaVersion}`);
+  }
+  return compact.rows.map((values) => Object.fromEntries(
+    compact.fields.map((field, index) => [field, values[index]]),
+  ));
+}
+
+function validateTaxonomy(rows) {
+  const expectedLevels = new Set([
+    "foco_analitico",
+    "tabela_ii_analitica",
+    "taxonomia_funcional_n1",
+    "taxonomia_funcional_n2",
+  ]);
+  const levels = new Set(rows.map((row) => row.level));
+  if (
+    rows.length === 0
+    || levels.size !== expectedLevels.size
+    || [...expectedLevels].some((level) => !levels.has(level))
+  ) {
+    throw new Error("Explorador não preservou os quatro níveis de taxonomia");
+  }
+  if (rows.some((row) => row.pl === null || row.typePl === null || row.totalPl === null)) {
+    throw new Error("Taxonomia por nível contém PL ausente");
+  }
+}
+
 function percent(value, digits = 1) {
   return `${(number(value) * 100).toLocaleString("pt-BR", {
     minimumFractionDigits: digits,
@@ -603,10 +809,152 @@ function browserApp(DATA) {
   render();
 }
 
+function flagshipApp(DATA) {
+  const root = document.getElementById("flagship-curation-explorer");
+  const category = root.querySelector("[data-flag-category]");
+  const search = root.querySelector("[data-flag-search]");
+  const grid = root.querySelector("[data-flag-grid]");
+  const tbody = root.querySelector("tbody");
+  const caption = root.querySelector("[data-flag-caption]");
+  const pager = root.querySelector("[data-flag-pager]");
+  let state = { category: "all", query: "", page: 0 };
+  const n = value => Number.isFinite(Number(value)) ? Number(value) : null;
+  const norm = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
+  const money = value => n(value) === null
+    ? "N/D"
+    : Math.abs(n(value)) < 1e9
+      ? "R$ " + (n(value) / 1e6).toLocaleString("pt-BR", {minimumFractionDigits: 0, maximumFractionDigits: 1}) + " mi"
+      : "R$ " + (n(value) / 1e9).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " bi";
+  const pct = value => n(value) === null
+    ? "N/D"
+    : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
+  const ranges = [
+    ["< 10%", "#ECEEEF"], ["10%–15%", "#D7DADD"], ["15%–20%", "#BEC2C5"],
+    ["20%–35%", "#E8BE9D"], ["35%–60%", "#F29A52"], ["≥ 60%", "#EC7000"],
+  ];
+  const categories = [...new Set(DATA.families.map(row => row.category))];
+  category.innerHTML = `<option value="all">Todas as categorias</option>` + categories.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  const matches = row => {
+    if (state.category !== "all" && row.category !== state.category) return false;
+    if (!state.query) return true;
+    return norm(Object.values(row).join(" ")).includes(norm(state.query));
+  };
+  const renderGrid = () => {
+    const scoped = DATA.families.filter(matches);
+    grid.innerHTML = ranges.map(([range, color]) => {
+      const rows = scoped.filter(row => row.range === range);
+      return `<section class="flag-range"><h3 style="--range-color:${color}"><span>${esc(range)}</span><b>${rows.length}</b></h3><div>${rows.map(row => `
+        <article class="flag-card">
+          <strong>${esc(row.family)}</strong>
+          <span>${money(row.pl)} · atual ${pct(row.ratio)}</span>
+          <small>mín. jr ${esc(row.minJunior)} · VNU ${esc(row.price)}</small>
+          <small>${esc(row.documented + "/" + row.funds + " CNPJs com pacote")}</small>
+        </article>`).join("") || `<p class="flag-empty">Sem famílias neste filtro.</p>`}</div></section>`;
+    }).join("");
+  };
+  const filteredDetails = () => DATA.details.filter(matches);
+  const sourceDetails = row => {
+    const links = row.fundosnetUrl
+      ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>`
+      : "";
+    return `<details><summary>Fontes</summary><div class="flag-sources">${links}<span>${esc(row.packagePath)}</span><span>Subord.: ${esc(row.thresholdSource)}</span><span>VNU: ${esc(row.priceSource)}</span><span>Eventos: ${esc(row.accelerationSource)}</span></div></details>`;
+  };
+  const renderTable = () => {
+    const rows = filteredDetails();
+    const pages = Math.max(1, Math.ceil(rows.length / 10));
+    state.page = Math.min(state.page, pages - 1);
+    const current = rows.slice(state.page * 10, state.page * 10 + 10);
+    caption.textContent = `${rows.length} CNPJs no filtro · competência ${DATA.summary.competence}.`;
+    tbody.innerHTML = current.map(row => `<tr>
+      <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.family)}</small></td>
+      <td>${esc(row.cnpj)}</td>
+      <td class="num">${money(row.pl)}</td>
+      <td class="num">${pct(row.ratio)}<br><small>${esc(row.range)}</small></td>
+      <td>${esc(row.minJunior)}<br><small>${esc(row.threshold)}</small></td>
+      <td>${esc(row.price)}<br><small>${esc(row.priceClass)} · ${esc(row.priceDate)}</small></td>
+      <td>${esc(row.mezzanine)}</td>
+      <td>${esc(row.acceleration)}</td>
+      <td>${esc(row.packageStatus)}<br><small>${esc(row.gaps)}</small></td>
+      <td>${sourceDetails(row)}</td>
+    </tr>`).join("") || `<tr><td colspan="10">Nenhum CNPJ encontrado.</td></tr>`;
+    pager.querySelector("span").textContent = `${rows.length ? state.page + 1 : 0} / ${rows.length ? pages : 0}`;
+    pager.querySelector("[data-flag-prev]").disabled = state.page <= 0;
+    pager.querySelector("[data-flag-next]").disabled = state.page >= pages - 1;
+  };
+  const render = () => { renderGrid(); renderTable(); };
+  const downloadCsv = () => {
+    const headers = ["categoria","familia","fundo","cnpj","pl_atual_brl","pl_subordinado_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","preco_vnu","mezanino","vencimento_antecipado","status_pacote","lacunas","fundosnet_url"];
+    const rows = filteredDetails().map(row => [row.category,row.family,row.fund,row.cnpj,row.pl,row.subordinate,row.ratio,row.range,row.minJunior,row.price,row.mezzanine,row.acceleration,row.packageStatus,row.gaps,row.fundosnetUrl]);
+    const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
+    const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
+    const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob), anchor = document.createElement("a");
+    anchor.href = url; anchor.download = "curadoria_flagship.csv"; document.body.appendChild(anchor); anchor.click(); anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 500);
+  };
+  category.addEventListener("change", () => { state.category = category.value; state.page = 0; render(); });
+  search.addEventListener("input", () => { state.query = search.value; state.page = 0; render(); });
+  pager.querySelector("[data-flag-prev]").addEventListener("click", () => { state.page = Math.max(0, state.page - 1); renderTable(); });
+  pager.querySelector("[data-flag-next]").addEventListener("click", () => { state.page += 1; renderTable(); });
+  root.querySelector("[data-flag-csv]").addEventListener("click", downloadCsv);
+  render();
+}
+
+function taxonomyApp(DATA) {
+  const root = document.getElementById("taxonomy-level-explorer");
+  const level = root.querySelector("[data-tax-level]");
+  const type = root.querySelector("[data-tax-type]");
+  const competence = root.querySelector("[data-tax-competence]");
+  const chart = root.querySelector("[data-tax-chart]");
+  const tbody = root.querySelector("tbody");
+  const caption = root.querySelector("[data-tax-caption]");
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
+  const n = value => Number.isFinite(Number(value)) ? Number(value) : null;
+  const money = value => n(value) === null
+    ? "N/D"
+    : Math.abs(n(value)) < 1e9
+      ? "R$ " + (n(value) / 1e6).toLocaleString("pt-BR", {minimumFractionDigits: 0, maximumFractionDigits: 1}) + " mi"
+      : "R$ " + (n(value) / 1e9).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " bi";
+  const pct = value => n(value) === null
+    ? "N/D"
+    : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
+  const levelLabels = {
+    foco_analitico: "Foco analítico",
+    tabela_ii_analitica: "Tabela II analítica",
+    taxonomia_funcional_n1: "Taxonomia funcional N1",
+    taxonomia_funcional_n2: "Taxonomia funcional N2",
+  };
+  const values = field => [...new Set(DATA.map((row) => row[field]))];
+  level.innerHTML = values("level").map((value) => `<option value="${esc(value)}">${esc(levelLabels[value] || value)}</option>`).join("");
+  type.innerHTML = values("type").map((value) => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  competence.innerHTML = values("competence").sort().reverse().map((value) => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  level.value = values("level").includes("foco_analitico") ? "foco_analitico" : values("level")[0];
+  type.value = values("type").includes("Outros") ? "Outros" : values("type")[0];
+  const rows = () => DATA
+    .filter((row) => row.level === level.value && row.type === type.value && row.competence === competence.value)
+    .sort((a, b) => b.pl - a.pl);
+  const render = () => {
+    const scoped = rows();
+    caption.textContent = `${levelLabels[level.value] || level.value} · ${type.value} · ${competence.value} · ${scoped.length} categorias.`;
+    chart.innerHTML = scoped.map((row) => `<article class="tax-bar">
+      <div><strong>${esc(row.category)}</strong><span>${money(row.pl)} · ${pct(row.shareType)} do tipo</span></div>
+      <div class="tax-track" aria-label="${esc(row.category + ": " + pct(row.shareType))}"><i style="width:${Math.max(0, Math.min(100, Number(row.shareType || 0) * 100))}%"></i></div>
+    </article>`).join("") || `<p class="tax-empty">Sem categorias para esta combinação.</p>`;
+    tbody.innerHTML = scoped.map((row) => `<tr>
+      <td>${esc(row.category)}</td><td class="num">${row.funds.toLocaleString("pt-BR")}</td>
+      <td class="num">${money(row.pl)}</td><td class="num">${pct(row.shareType)}</td>
+      <td class="num">${pct(row.shareTotal)}</td>
+    </tr>`).join("") || `<tr><td colspan="5">Sem categorias para esta combinação.</td></tr>`;
+  };
+  [level, type, competence].forEach((control) => control.addEventListener("change", render));
+  render();
+}
+
 function clientRuntime(data) {
   const serialized = JSON.stringify(data).replace(/</g, "\\u003c");
   return `<script type="application/json" id="provider-flow-data">${serialized}<\/script>
-<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);(${browserApp.toString()})(expanded)})();<\/script>`;
+<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${flagshipApp.toString()})(flagships)})();<\/script>`;
 }
 
 function fragmentHtml(data, standalone = false) {
@@ -651,7 +999,57 @@ function fragmentHtml(data, standalone = false) {
     #provider-flow-explorer td.num,#provider-flow-explorer th.num{text-align:right;white-space:nowrap}
     #provider-flow-explorer .pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flow-muted)}
     #provider-flow-explorer .flow-tooltip{position:absolute;z-index:2;max-width:320px;padding:8px 10px;background:var(--flow-fg);color:var(--flow-bg);border-radius:4px;pointer-events:none}
+    #taxonomy-level-explorer,#flagship-curation-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
+    #taxonomy-level-explorer .tax-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
+    #taxonomy-level-explorer .tax-heading p{margin:0;color:var(--flag-muted);font-size:14px}
+    #taxonomy-level-explorer .tax-controls{display:flex;gap:12px;align-items:end;margin:18px 0 14px;flex-wrap:wrap}
+    #taxonomy-level-explorer label{display:grid;gap:4px;color:var(--flag-muted)}
+    #taxonomy-level-explorer select{font:inherit;border:1px solid var(--flag-border);background:var(--flag-bg);color:var(--flag-fg);border-radius:4px;padding:7px 9px}
+    #taxonomy-level-explorer .tax-caption{color:var(--flag-muted);font-size:13px;margin-bottom:12px}
+    #taxonomy-level-explorer .tax-chart{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 20px}
+    #taxonomy-level-explorer .tax-bar{display:grid;gap:5px}
+    #taxonomy-level-explorer .tax-bar>div:first-child{display:flex;justify-content:space-between;gap:12px;font-size:12px}
+    #taxonomy-level-explorer .tax-bar span{color:var(--flag-muted);white-space:nowrap}
+    #taxonomy-level-explorer .tax-track{height:8px;background:var(--flag-pale);overflow:hidden}
+    #taxonomy-level-explorer .tax-track i{display:block;height:100%;background:#EC7000}
+    #taxonomy-level-explorer table{border-collapse:collapse;width:100%;margin-top:20px;font-size:12px}
+    #taxonomy-level-explorer th,#taxonomy-level-explorer td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--flag-border)}
+    #taxonomy-level-explorer th{color:var(--flag-muted)}
+    #taxonomy-level-explorer td.num,#taxonomy-level-explorer th.num{text-align:right;white-space:nowrap}
+    #flagship-curation-explorer .flag-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
+    #flagship-curation-explorer .flag-heading p{margin:0;color:var(--flag-muted);font-size:14px}
+    #flagship-curation-explorer .flag-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0}
+    #flagship-curation-explorer .flag-metric{border:1px solid var(--flag-border);padding:12px 13px}
+    #flagship-curation-explorer .flag-metric strong{display:block;font-size:24px;line-height:1}
+    #flagship-curation-explorer .flag-metric span{display:block;color:var(--flag-muted);font-size:12px;margin-top:6px}
+    #flagship-curation-explorer .flag-controls{display:flex;gap:12px;align-items:end;margin:0 0 14px;flex-wrap:wrap}
+    #flagship-curation-explorer label{display:grid;gap:4px;color:var(--flag-muted)}
+    #flagship-curation-explorer input,#flagship-curation-explorer select,#flagship-curation-explorer button{font:inherit;border:1px solid var(--flag-border);background:var(--flag-bg);color:var(--flag-fg);border-radius:4px;padding:7px 9px}
+    #flagship-curation-explorer .flag-search{flex:1;min-width:240px}
+    #flagship-curation-explorer button{cursor:pointer;margin-left:auto}
+    #flagship-curation-explorer .flag-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;align-items:start}
+    #flagship-curation-explorer .flag-range{min-width:0}
+    #flagship-curation-explorer .flag-range h3{display:flex;justify-content:space-between;align-items:center;margin:0;padding:8px 9px;background:var(--range-color);font-size:12px}
+    #flagship-curation-explorer .flag-range h3 b{font-size:11px}
+    #flagship-curation-explorer .flag-card{border:1px solid var(--flag-border);border-top:0;padding:9px;min-height:82px;display:grid;gap:4px;background:var(--flag-bg)}
+    #flagship-curation-explorer .flag-card:nth-child(even){background:var(--flag-pale)}
+    #flagship-curation-explorer .flag-card strong{font-size:12px;line-height:1.2}
+    #flagship-curation-explorer .flag-card span{font-size:11px;font-weight:700}
+    #flagship-curation-explorer .flag-card small{color:var(--flag-muted);font-size:10px;line-height:1.2}
+    #flagship-curation-explorer .flag-empty{font-size:11px;color:var(--flag-muted);padding:8px;margin:0;border:1px solid var(--flag-border);border-top:0}
+    #flagship-curation-explorer .flag-caption{margin-top:22px;color:var(--flag-muted);font-size:13px}
+    #flagship-curation-explorer table{border-collapse:collapse;width:100%;margin-top:8px;font-size:12px}
+    #flagship-curation-explorer th,#flagship-curation-explorer td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--flag-border);vertical-align:top}
+    #flagship-curation-explorer th{color:var(--flag-muted)}
+    #flagship-curation-explorer td.num,#flagship-curation-explorer th.num{text-align:right;white-space:nowrap}
+    #flagship-curation-explorer td small{color:var(--flag-muted)}
+    #flagship-curation-explorer details summary{cursor:pointer;color:var(--flag-fg)}
+    #flagship-curation-explorer .flag-sources{display:grid;gap:4px;margin-top:6px;min-width:220px;color:var(--flag-muted)}
+    #flagship-curation-explorer .flag-sources a{color:var(--flag-fg)}
+    #flagship-curation-explorer .flag-pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flag-muted)}
     @media(max-width:720px){#provider-flow-explorer .optional{display:none}#provider-flow-explorer [data-chart]{min-height:260px}#provider-flow-explorer .metric{font-size:22px}#provider-flow-explorer .node-label{font-size:13px}#provider-flow-explorer th,#provider-flow-explorer td{padding:7px 4px}}
+    @media(max-width:980px){#flagship-curation-explorer .flag-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#flagship-curation-explorer .flag-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){#taxonomy-level-explorer .tax-chart{grid-template-columns:1fr}#flagship-curation-explorer .flag-grid{grid-template-columns:1fr}#flagship-curation-explorer .flag-metrics{grid-template-columns:1fr}#flagship-curation-explorer table{font-size:11px}}
     @media(prefers-reduced-motion:reduce){#provider-flow-explorer .flow-link{transition:none}}
   </style>
   <header class="flow-heading"><h2>Movimentação de prestadores da indústria de FIDCs</h2><p>Selecione um fluxo para abrir os fundos, compare o PL nas duas datas e copie a visão para o Office.</p></header>
@@ -672,13 +1070,48 @@ function fragmentHtml(data, standalone = false) {
   <div class="pager" data-pager><button type="button" data-prev aria-label="Página anterior">Anterior</button><span>0 / 0</span><button type="button" data-next aria-label="Próxima página">Próxima</button></div>
   <div class="flow-tooltip" data-tooltip-box hidden></div>
 </div>
+<section id="taxonomy-level-explorer" aria-labelledby="taxonomy-level-title">
+  <header class="tax-heading"><h2 id="taxonomy-level-title">Taxonomia reclassificada por nível</h2><p>Os quatro níveis analíticos permanecem disponíveis para comparar composição, PL e participação dentro de cada tipo.</p></header>
+  <div class="tax-controls">
+    <label>Nível<select data-tax-level aria-label="Nível de taxonomia"></select></label>
+    <label>Tipo<select data-tax-type aria-label="Tipo ANBIMA reclassificado"></select></label>
+    <label>Competência<select data-tax-competence aria-label="Competência"></select></label>
+  </div>
+  <div class="tax-caption" data-tax-caption aria-live="polite"></div>
+  <div class="tax-chart" data-tax-chart></div>
+  <table aria-label="Categorias do nível de taxonomia selecionado">
+    <thead><tr><th>Categoria</th><th class="num">Fundos</th><th class="num">PL</th><th class="num">% do tipo</th><th class="num">% da indústria</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+<section id="flagship-curation-explorer" aria-labelledby="flagship-curation-title">
+  <header class="flag-heading"><h2 id="flagship-curation-title">Curadoria comparável dos fundos flagship</h2><p>PL e subordinação atual são calculados por CNPJ. Mínimos, VNUs, mezanino e eventos reproduzem somente os documentos curados.</p></header>
+  <div class="flag-metrics">
+    <div class="flag-metric"><strong>${data.flagships.summary.families}</strong><span>famílias flagship</span></div>
+    <div class="flag-metric"><strong>${data.flagships.summary.current}/${data.flagships.summary.cnpjs}</strong><span>CNPJs com subordinação atual</span></div>
+    <div class="flag-metric"><strong>${data.flagships.summary.minJunior}</strong><span>mínimos júnior localizados</span></div>
+    <div class="flag-metric"><strong>${data.flagships.summary.price}</strong><span>preços/VNUs localizados</span></div>
+  </div>
+  <div class="flag-controls">
+    <label>Categoria<select data-flag-category aria-label="Categoria flagship"></select></label>
+    <label class="flag-search">Buscar fundo, família ou CNPJ<input data-flag-search type="search" placeholder="Ex.: Cloudwalk Bela, Veículos, 62.393.679/0001-83"></label>
+    <button type="button" data-flag-csv>Exportar CSV</button>
+  </div>
+  <div class="flag-grid" data-flag-grid aria-label="Famílias por faixa de subordinação atual"></div>
+  <div class="flag-caption" data-flag-caption aria-live="polite"></div>
+  <table aria-label="Curadoria documental dos CNPJs flagship">
+    <thead><tr><th>Fundo / família</th><th>CNPJ</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo júnior</th><th>Preço/VNU</th><th>Mezanino</th><th>Vencimento antecipado / avaliação</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="flag-pager" data-flag-pager><button type="button" data-flag-prev>Anterior</button><span>0 / 0</span><button type="button" data-flag-next>Próxima</button></div>
+</section>
 ${clientRuntime(data)}`;
 }
 
 function standaloneHtml(data) {
   return `<!doctype html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E"><title>Fluxos de prestadores de FIDC</title></head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E"><title>Explorador da indústria de FIDCs</title></head>
 <body style="margin:0;padding:24px;background:#FFFFFF">${fragmentHtml(data, true)}</body>
 </html>`;
 }
@@ -692,13 +1125,31 @@ async function main() {
   const fragmentPath = args.fragment ? path.resolve(String(args.fragment)) : "";
   const payload = JSON.parse(await fs.readFile(payloadPath, "utf8"));
   const data = viewModels(payload);
+  const taxonomy = taxonomyModels(payload);
+  const flagships = flagshipModels(payload);
   validateViews(data);
-  const compact = compactViews(data);
+  validateTaxonomy(taxonomy);
+  validateFlagships(flagships);
+  const compact = {
+    ...compactViews(data),
+    taxonomy: compactTaxonomy(taxonomy),
+    flagships: compactFlagships(flagships),
+  };
   const expanded = expandCompactViews(compact);
+  const expandedTaxonomy = expandCompactTaxonomy(compact.taxonomy);
+  const expandedFlagships = expandCompactFlagships(compact.flagships);
   if (!isDeepStrictEqual(expanded, data)) {
     throw new Error("O esquema compacto não preservou integralmente o view-model");
   }
+  if (!isDeepStrictEqual(expandedTaxonomy, taxonomy)) {
+    throw new Error("O esquema compacto não preservou integralmente a taxonomia");
+  }
+  if (!isDeepStrictEqual(expandedFlagships, flagships)) {
+    throw new Error("O esquema compacto não preservou integralmente a curadoria flagship");
+  }
   validateViews(expanded);
+  validateTaxonomy(expandedTaxonomy);
+  validateFlagships(expandedFlagships);
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
   await fs.writeFile(htmlPath, standaloneHtml(compact), "utf8");
   if (fragmentPath) {

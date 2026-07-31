@@ -1,8 +1,10 @@
 # Shortlist de FIDCs flagship — base jun/26
 
-Status: **aguarda validação do usuário**. A curadoria documental de CNPJs,
-subordinação, vencimento antecipado, cotas mezanino e preço de emissão permanece
-fora deste trabalho até aprovação explícita desta lista.
+Status: **validada para a curadoria comparável em 31/jul/26**. O escopo
+versionado contém 47 CNPJs em 26 famílias. PL e subordinação atual foram
+materializados para os 47 CNPJs; 15 possuem pacote documental já curado no
+projeto. Mínimos contratuais, preço/VNU, mezanino e eventos permanecem `N/D`
+quando o pacote ou o campo específico está ausente.
 
 ## Critério e limites
 
