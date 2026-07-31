@@ -86,6 +86,9 @@ const EXPORT_MANIFEST_PATH = path.resolve(
 );
 const RENDERER_VERSION = "industry_revision_artifacts_v25";
 const EXPECTED_SLIDES = 64;
+const WORKBOOK_SHEETS_TO_REMOVE = [
+  "Conflitos Tab IV",
+];
 
 const C = {
   orange: "#EC7000",
@@ -5068,6 +5071,15 @@ function resetSheet(workbook, name) {
   return sheet;
 }
 
+function removeWorkbookSheets(workbook) {
+  for (const sheetName of WORKBOOK_SHEETS_TO_REMOVE) {
+    const sheet = workbook.worksheets.getItemOrNullObject(sheetName);
+    if (!sheet.isNullObject) {
+      sheet.delete();
+    }
+  }
+}
+
 function setHeaderBand(sheet, title, subtitle, headers, rowCount, options = {}) {
   const lastColumn = columnLetter(headers.length - 1);
   sheet.getRange(`A1:${lastColumn}1`).merge();
@@ -7710,6 +7722,7 @@ async function buildWorkbook(payload, flowAssets) {
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
   await addChecksSheet(workbook, payload);
+  removeWorkbookSheets(workbook);
   return workbook;
 }
 

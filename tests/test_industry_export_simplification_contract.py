@@ -47,6 +47,10 @@ ANBIMA_SOURCE_WORKBOOK_SHA256 = (
 # Optional compatibility read in the presentation renderer.  The current
 # payload uses ``reag_admin_summary`` and intentionally has no legacy block.
 OPTIONAL_ABSENT_PPTX_KEYS = frozenset({"reag_admin_migration"})
+EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
+    "Conflitos Tab IV",
+)
+INHERITED_WORKBOOK_SHEETS_TO_REMOVE = EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
 
 
 def _published_payload() -> tuple[bytes, dict[str, object]]:
@@ -446,6 +450,9 @@ def test_user_facing_snapshot_sheets_are_preserved_by_the_input_pipeline() -> No
     )
     try:
         assert set(USER_FACING_SNAPSHOT_SHEETS).issubset(workbook.sheetnames)
+        assert set(INHERITED_WORKBOOK_SHEETS_TO_REMOVE).issubset(
+            workbook.sheetnames
+        )
     finally:
         workbook.close()
 
@@ -464,5 +471,8 @@ def test_user_facing_snapshot_sheets_are_preserved_by_the_input_pipeline() -> No
         renderer_source,
         "WORKBOOK_SHEETS_TO_REMOVE",
     )
-    if sheets_to_remove is not None:
-        assert set(sheets_to_remove).isdisjoint(USER_FACING_SNAPSHOT_SHEETS)
+    assert sheets_to_remove == EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
+    assert set(sheets_to_remove).isdisjoint(USER_FACING_SNAPSHOT_SHEETS)
+    assert "removeWorkbookSheets(workbook);" in build_workbook_source
+    assert "getItemOrNullObject(sheetName)" in renderer_source
+    assert "sheet.delete();" in renderer_source
