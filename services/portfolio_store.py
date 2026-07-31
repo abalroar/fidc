@@ -12,6 +12,7 @@ import uuid
 
 
 PORTFOLIO_SCHEMA_VERSION = 1
+MAX_PORTFOLIO_FUNDS = 150
 
 
 def _utc_now_iso() -> str:
@@ -79,8 +80,10 @@ class PortfolioRecord:
             deduped.append(fund)
         if not deduped:
             raise ValueError("A carteira precisa conter ao menos um fundo.")
-        if len(deduped) > 20:
-            raise ValueError("A carteira pode conter no máximo 20 fundos.")
+        if len(deduped) > MAX_PORTFOLIO_FUNDS:
+            raise ValueError(
+                f"A carteira pode conter no máximo {MAX_PORTFOLIO_FUNDS} fundos."
+            )
         object.__setattr__(self, "name", cleaned_name)
         object.__setattr__(self, "funds", tuple(deduped))
         object.__setattr__(self, "notes", str(self.notes or "").strip())

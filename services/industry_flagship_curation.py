@@ -33,6 +33,13 @@ class FlagshipCurationResult:
     summary: dict[str, object]
 
 
+@dataclass(frozen=True)
+class PortfolioCurationResult:
+    detail: pd.DataFrame
+    ranges: pd.DataFrame
+    summary: dict[str, object]
+
+
 def _digits(value: object) -> str:
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return ""
@@ -120,6 +127,17 @@ def _is_concrete_price(value: object) -> bool:
     )
 
 
+def _month_year_display(value: object) -> str:
+    parsed = pd.to_datetime(value, dayfirst=True, errors="coerce")
+    if pd.isna(parsed):
+        return "N/D"
+    months = (
+        "jan", "fev", "mar", "abr", "mai", "jun",
+        "jul", "ago", "set", "out", "nov", "dez",
+    )
+    return f"{months[int(parsed.month) - 1]}/{str(int(parsed.year))[-2:]}"
+
+
 def _document_fields(
     *,
     package_dir: Path | None,
@@ -137,6 +155,9 @@ def _document_fields(
             "preco_emissao_classe": "N/D",
             "preco_emissao_data": "N/D",
             "preco_emissao_fonte": "N/D",
+            "emissao_data": "N/D",
+            "emissao_data_display": "N/D",
+            "emissao_fonte": "N/D",
             "cota_mezanino": "N/D",
             "cota_mezanino_fonte": "N/D",
             "vencimento_antecipado": "N/D — pacote documental não disponível",
@@ -262,6 +283,22 @@ def _document_fields(
         price_sources = "N/D"
         price_date = "N/D"
 
+    if not emissions.empty:
+        emission_dates = pd.to_datetime(
+            emissions.get("Data"), format="%d/%m/%Y", errors="coerce"
+        )
+        if emission_dates.notna().any():
+            latest_emission_date = emission_dates.max()
+            latest_emission_rows = emissions.loc[emission_dates.eq(latest_emission_date)]
+            emission_date = latest_emission_date.strftime("%d/%m/%Y")
+            emission_source = _unique_join(latest_emission_rows["Fonte"].tolist()) or "N/D"
+        else:
+            emission_date = _text(emissions.iloc[-1].get("Data")) or "N/D"
+            emission_source = _text(emissions.iloc[-1].get("Fonte")) or "N/D"
+    else:
+        emission_date = "N/D"
+        emission_source = "N/D"
+
     documentary_text = " ".join(
         threshold_combined.tolist()
         + (
@@ -334,6 +371,9 @@ def _document_fields(
         "preco_emissao_classe": price_classes,
         "preco_emissao_data": price_date,
         "preco_emissao_fonte": price_sources,
+        "emissao_data": emission_date,
+        "emissao_data_display": _month_year_display(emission_date),
+        "emissao_fonte": emission_source,
         "cota_mezanino": "Sim" if has_mezzanine else "N/D",
         "cota_mezanino_fonte": _unique_join(mezzanine_sources) or "N/D",
         "vencimento_antecipado": _unique_join(event_texts)
@@ -579,6 +619,9 @@ def build_flagship_curation(
                     junior_displays
                 ),
                 "preco_emissao_display": _compact_values(price_displays),
+                "emissao_data": representative["emissao_data"],
+                "emissao_data_display": representative["emissao_data_display"],
+                "emissao_fonte": representative["emissao_fonte"],
                 "cota_mezanino": (
                     "Sim" if group["cota_mezanino"].eq("Sim").any() else "N/D"
                 ),
@@ -623,6 +666,7 @@ def build_flagship_curation(
         "cnpjs_com_preco_vnu": int(
             detail["preco_emissao_display"].ne("N/D").sum()
         ),
+        "cnpjs_com_data_emissao": int(detail["emissao_data"].ne("N/D").sum()),
         "cnpjs_com_mezanino_comprovado": int(detail["cota_mezanino"].eq("Sim").sum()),
         "cnpjs_com_evento": int(
             (~detail["vencimento_antecipado"].str.startswith("N/D")).sum()
@@ -648,5 +692,300 @@ def build_flagship_curation(
             na_position="last",
         ).reset_index(drop=True),
         families=families,
+        summary=summary,
+    )
+
+
+def _flagship_reference(row: pd.Series) -> tuple[str, str]:
+    """Map only direct, auditable correspondences to the approved flagship set."""
+
+    cnpj = _digits(row.get("cnpj_fundo"))
+    direct = {
+        "54810968000102": "Consignado FGTS",
+        "53270983000142": "Consignado FGTS",
+        "53577135000180": "Consignado FGTS",
+        "54252144000164": "Consignado FGTS",
+        "55401645000128": "Consignado FGTS",
+        "54464892000100": "Consignado FGTS",
+        "44173467000109": "Consignado INSS",
+        "62588266000154": "Consignado INSS",
+        "65976848000104": "Consignado INSS",
+        "63546406000194": "Consignado INSS",
+        "65347578000164": "Consignado INSS",
+        "44124617000194": "Adquirência — banco emissor",
+        "42085816000105": "Adquirência — banco emissor",
+        "42102603000144": "Adquirência — banco emissor",
+        "42085830000109": "Adquirência — banco emissor",
+        "28169275000172": "Adquirência — risco adquirente",
+        "50473039000102": "Adquirência — risco adquirente",
+        "35868110000154": "Veículos",
+    }
+    if cnpj in direct:
+        return direct[cnpj], "correspondência direta por CNPJ e família aprovada"
+    if (
+        _text(row.get("status_taxonomia")) == "aprovado"
+        and _fold(row.get("foco_analitico")) == "FOMENTO MERCANTIL"
+    ):
+        return "Factoring", "correspondência por classificação analítica aprovada"
+    return "N/D — sem família flagship equivalente", "nenhuma correspondência direta aprovada"
+
+
+def build_portfolio_curation(
+    *,
+    scope_path: Path,
+    documentary_path: Path,
+    funds: pd.DataFrame,
+    vehicle: pd.DataFrame,
+    taxonomy_actions: pd.DataFrame,
+    latest: str,
+) -> PortfolioCurationResult:
+    """Build the saved Carteira 1 comparison without filling source gaps."""
+
+    scope = pd.read_csv(scope_path, dtype=str, keep_default_na=False)
+    required_scope = {
+        "ordem",
+        "imagem",
+        "raiz_cnpj_foto",
+        "nome_foto",
+        "cnpj_fundo",
+        "status_identidade",
+        "regra_identidade",
+        "observacao_identidade",
+    }
+    missing_scope = sorted(required_scope.difference(scope.columns))
+    if missing_scope:
+        raise ValueError("escopo Carteira 1 sem campos: " + ", ".join(missing_scope))
+    scope["cnpj_fundo"] = scope["cnpj_fundo"].map(_digits)
+    scope["ordem"] = pd.to_numeric(scope["ordem"], errors="raise").astype(int)
+    if len(scope) != 101 or scope["cnpj_fundo"].nunique() != 101:
+        raise ValueError("escopo Carteira 1 deve conter 101 CNPJs únicos")
+    if scope["ordem"].tolist() != list(range(1, 102)):
+        raise ValueError("escopo Carteira 1 deve preservar a ordem 1–101 das imagens")
+
+    documentary = pd.read_csv(documentary_path, dtype=str, keep_default_na=False)
+    required_documentary = {
+        "cnpj_fundo",
+        "documento_id_regulamento",
+        "documento_data_regulamento",
+        "pagina_clausula",
+        "subordinacao_minima_junior_pct",
+        "subordinacao_minima_junior_display",
+        "subordinacao_minima_texto",
+        "subordinacao_minima_fonte",
+        "emissao_data",
+        "emissao_data_display",
+        "emissao_fonte",
+        "paginas_lidas",
+        "status_curadoria_documental",
+        "observacao_documental",
+    }
+    missing_documentary = sorted(required_documentary.difference(documentary.columns))
+    if missing_documentary:
+        raise ValueError(
+            "curadoria documental Carteira 1 sem campos: "
+            + ", ".join(missing_documentary)
+        )
+    documentary["cnpj_fundo"] = documentary["cnpj_fundo"].map(_digits)
+    if documentary["cnpj_fundo"].duplicated().any():
+        raise ValueError("curadoria documental Carteira 1 contém CNPJ duplicado")
+    if set(documentary["cnpj_fundo"]) != set(scope["cnpj_fundo"]):
+        raise ValueError("curadoria documental Carteira 1 não cobre exatamente o escopo")
+
+    fund_history = funds.copy()
+    fund_history["cnpj_fundo"] = fund_history["cnpj_fundo"].map(_digits)
+    fund_history = fund_history.sort_values("competencia", kind="stable")
+    identity_columns = ["cnpj_fundo", "denominacao", "competencia"]
+    for column in ("classificacao_anbima", "anbima_tipo", "anbima_foco"):
+        if column in fund_history.columns:
+            identity_columns.append(column)
+    latest_identity = fund_history.drop_duplicates("cnpj_fundo", keep="last")[
+        identity_columns
+    ].rename(columns={"competencia": "competencia_classificacao"})
+
+    current_funds = fund_history[
+        fund_history["competencia"].astype(str).eq(latest)
+    ].copy()
+    current_funds = current_funds.drop_duplicates("cnpj_fundo", keep="last")
+    current_funds["pl_atual_brl"] = pd.to_numeric(
+        current_funds.get("pl"), errors="coerce"
+    )
+    current_funds = current_funds[["cnpj_fundo", "pl_atual_brl"]]
+
+    current_vehicle = vehicle[vehicle["competencia"].astype(str).eq(latest)].copy()
+    current_vehicle["cnpj_fundo"] = current_vehicle.get(
+        "cnpj_fundo", current_vehicle.get("cnpj")
+    ).map(_digits)
+    current_vehicle["cnpj_fundo"] = current_vehicle["cnpj_fundo"].where(
+        current_vehicle["cnpj_fundo"].ne(""),
+        current_vehicle.get("cnpj", pd.Series("", index=current_vehicle.index)).map(_digits),
+    )
+    quota = (
+        current_vehicle.groupby("cnpj_fundo")[
+            ["vl_cotas_total", "vl_cotas_subordinadas"]
+        ]
+        .sum(min_count=1)
+        .reset_index()
+        .rename(
+            columns={
+                "vl_cotas_total": "pl_classes_reportadas_brl",
+                "vl_cotas_subordinadas": "pl_subordinado_atual_brl",
+            }
+        )
+    )
+
+    actions = taxonomy_actions.copy()
+    if not actions.empty:
+        actions["cnpj_fundo"] = actions["cnpj_fundo"].map(_digits)
+        actions = actions[actions.get("status", "").astype(str).eq("aprovado")]
+        actions = actions.sort_values("updated_at_utc", kind="stable").drop_duplicates(
+            "cnpj_fundo", keep="last"
+        )
+        action_columns = [
+            "cnpj_fundo",
+            "status",
+            "tipo_analitico",
+            "foco_analitico",
+            "taxonomia_funcional_n1",
+            "taxonomia_funcional_n2",
+            "fonte_documental",
+            "confianca",
+        ]
+        actions = actions[[column for column in action_columns if column in actions.columns]].rename(
+            columns={"status": "status_taxonomia", "fonte_documental": "fonte_taxonomia"}
+        )
+
+    detail = (
+        scope.merge(latest_identity, on="cnpj_fundo", how="left", validate="one_to_one")
+        .merge(current_funds, on="cnpj_fundo", how="left", validate="one_to_one")
+        .merge(quota, on="cnpj_fundo", how="left", validate="one_to_one")
+        .merge(documentary, on="cnpj_fundo", how="left", validate="one_to_one")
+    )
+    if not actions.empty:
+        detail = detail.merge(actions, on="cnpj_fundo", how="left", validate="one_to_one")
+    detail["denominacao"] = detail["denominacao"].where(
+        detail["denominacao"].map(_text).ne(""), detail["nome_foto"]
+    )
+    detail["cnpj_fundo_formatado"] = detail["cnpj_fundo"].map(_format_cnpj)
+    detail["fundosnet_url"] = FUNDOSNET_CNPJ_BASE + detail["cnpj_fundo"]
+    detail["pl_reconciliacao_delta_pct"] = (
+        (detail["pl_classes_reportadas_brl"] - detail["pl_atual_brl"]).abs()
+        / detail["pl_atual_brl"]
+        * 100.0
+    ).where(detail["pl_atual_brl"].gt(0))
+    detail["subordinacao_atual_pct"] = (
+        detail["pl_subordinado_atual_brl"] / detail["pl_atual_brl"]
+    ).where(
+        detail["pl_atual_brl"].gt(0)
+        & detail["pl_classes_reportadas_brl"].gt(0)
+        & detail["pl_reconciliacao_delta_pct"].le(PL_RECONCILIATION_WARNING_PCT)
+    )
+    detail["subordinacao_atual_status"] = np.select(
+        [
+            detail["pl_atual_brl"].isna() | detail["pl_atual_brl"].le(0),
+            detail["pl_classes_reportadas_brl"].isna()
+            | detail["pl_classes_reportadas_brl"].le(0),
+            detail["pl_reconciliacao_delta_pct"].gt(PL_RECONCILIATION_WARNING_PCT),
+        ],
+        [
+            f"PL oficial ausente em {latest}",
+            f"classes de cotas ausentes em {latest}",
+            "N/D — PL oficial diverge das classes acima de 0,5%",
+        ],
+        default="Calculado com classes reportadas e PL oficial reconciliado",
+    )
+    detail["subordinacao_minima_junior_pct"] = pd.to_numeric(
+        detail["subordinacao_minima_junior_pct"], errors="coerce"
+    )
+    detail["faixa_subordinacao_atual"] = detail["subordinacao_atual_pct"].map(
+        lambda value: _range_label(float(value)) if pd.notna(value) else "N/D"
+    )
+    analytical = detail.get("tipo_analitico", pd.Series("", index=detail.index)).map(_text)
+    official = detail.get("anbima_tipo", pd.Series("", index=detail.index)).map(_text)
+    official = official.where(
+        official.ne(""),
+        detail.get("classificacao_anbima", pd.Series("", index=detail.index)).map(_text),
+    )
+    detail["tipo_exibicao"] = analytical.where(analytical.ne(""), official).replace("", "N/D")
+    analytical_focus = detail.get("foco_analitico", pd.Series("", index=detail.index)).map(_text)
+    official_focus = detail.get("anbima_foco", pd.Series("", index=detail.index)).map(_text)
+    detail["foco_exibicao"] = analytical_focus.where(
+        analytical_focus.ne(""), official_focus
+    ).replace("", "N/D")
+    detail["classificacao_fonte"] = np.where(
+        analytical.ne(""),
+        "taxonomia analítica aprovada",
+        np.where(
+            official.ne(""),
+            "classificação oficial ANBIMA · competência "
+            + detail["competencia_classificacao"].map(_text),
+            "N/D",
+        ),
+    )
+    references = detail.apply(_flagship_reference, axis=1)
+    detail["familia_flagship_referencia"] = [item[0] for item in references]
+    detail["familia_flagship_regra"] = [item[1] for item in references]
+    detail["lacunas"] = detail.apply(
+        lambda row: _unique_join(
+            [
+                label
+                for condition, label in (
+                    (pd.isna(row.get("pl_atual_brl")), "PL atual ausente"),
+                    (pd.isna(row.get("subordinacao_atual_pct")), "subordinação atual não calculável"),
+                    (_text(row.get("subordinacao_minima_junior_display")) == "N/D", "mínimo júnior não localizado"),
+                    (_text(row.get("emissao_data_display")) == "N/D", "data de emissão não localizada"),
+                    (_text(row.get("tipo_exibicao")) == "N/D", "tipo não localizado"),
+                )
+                if condition
+            ],
+            separator="; ",
+        )
+        or "Sem lacunas nos campos do slide",
+        axis=1,
+    )
+
+    range_order = {label: index for index, label in enumerate(
+        ("< 10%", "10%–15%", "15%–20%", "20%–35%", "35%–60%", "≥ 60%", "N/D")
+    )}
+    range_rows: list[dict[str, object]] = []
+    for label, group in detail.groupby("faixa_subordinacao_atual", sort=False):
+        type_counts = group["tipo_exibicao"].value_counts()
+        type_summary = " · ".join(
+            f"{name} {int(count)}" for name, count in type_counts.head(4).items()
+        )
+        if len(type_counts) > 4:
+            type_summary += f" · +{int(type_counts.iloc[4:].sum())} outros"
+        pl = pd.to_numeric(group["pl_atual_brl"], errors="coerce").sum(min_count=1)
+        range_rows.append(
+            {
+                "ordem_faixa": range_order.get(str(label), 99),
+                "faixa_subordinacao_atual": str(label),
+                "fundos": int(len(group)),
+                "fundos_com_pl": int(group["pl_atual_brl"].notna().sum()),
+                "pl_atual_brl": float(pl) if pd.notna(pl) else None,
+                "tipos": int(type_counts.size),
+                "tipos_resumo": type_summary or "N/D",
+            }
+        )
+    ranges = pd.DataFrame(range_rows).sort_values("ordem_faixa").reset_index(drop=True)
+    summary = {
+        "carteira": "Carteira 1",
+        "competencia": latest,
+        "cnpjs": int(len(detail)),
+        "cnpjs_localizados_base_fidc": int(detail["pl_atual_brl"].notna().sum()),
+        "cnpjs_fora_base_fidc": int(scope["status_identidade"].eq("fora_base_fidc").sum()),
+        "cnpjs_com_subordinacao_atual": int(detail["subordinacao_atual_pct"].notna().sum()),
+        "cnpjs_com_minimo_junior": int(detail["subordinacao_minima_junior_pct"].notna().sum()),
+        "cnpjs_com_data_emissao": int(detail["emissao_data_display"].ne("N/D").sum()),
+        "cnpjs_com_familia_flagship": int(
+            detail["familia_flagship_referencia"].ne("N/D — sem família flagship equivalente").sum()
+        ),
+        "fonte": (
+            f"CVM, Informe Mensal FIDC, {latest}; FundosNet/B3 e curadoria documental "
+            "versionada por CNPJ"
+        ),
+    }
+    return PortfolioCurationResult(
+        detail=detail.sort_values("ordem").reset_index(drop=True),
+        ranges=ranges,
         summary=summary,
     )

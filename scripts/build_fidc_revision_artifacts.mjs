@@ -80,8 +80,8 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v28";
-const EXPECTED_SLIDES = 64;
+const RENDERER_VERSION = "industry_revision_artifacts_v29";
+const EXPECTED_SLIDES = 65;
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
@@ -186,6 +186,10 @@ function mm(value, digits = 0) {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   })} mi`;
+}
+
+function moneyScale(value) {
+  return Math.abs(num(value)) < 1e9 ? mm(value, 1) : bn(value, 1);
 }
 
 function integer(value) {
@@ -2626,13 +2630,13 @@ function addFlagshipCurationSlide(presentation, payload) {
       );
       addText(
         slide,
-        `${bn(row.pl_atual_brl, 1)} · atual ${pct(row.subordinacao_atual_pct, 1)}`,
+        `${moneyScale(row.pl_atual_brl)} · atual ${pct(row.subordinacao_atual_pct, 1)}`,
         { left: x + 10, top: y + 27, width: columnWidth - 18, height: 16 },
         { fontSize: 8.1, bold: true, color: C.charcoal, verticalAlignment: "middle", wrap: "none" },
       );
       addText(
         slide,
-        `mín. jr ${row.subordinacao_minima_junior_display || "N/D"} · VNU ${row.preco_emissao_display || "N/D"}`,
+        `mín. jr ${row.subordinacao_minima_junior_display || "N/D"} · emissão ${row.emissao_data_display || "N/D"}`,
         { left: x + 10, top: y + 44, width: columnWidth - 18, height: 15 },
         { fontSize: 7.2, color: C.mid, verticalAlignment: "middle", wrap: "none" },
       );
@@ -2656,7 +2660,7 @@ function addFlagshipCurationSlide(presentation, payload) {
   });
   addText(
     slide,
-    `${integer(summary.cnpjs_com_subordinacao_atual)}/${integer(summary.cnpjs)} CNPJs com subordinação atual · ${integer(summary.cnpjs_com_minimo_junior)} com mínimo júnior localizado · ${integer(summary.cnpjs_com_preco_vnu)} com preço/VNU localizado`,
+    `${integer(summary.cnpjs_com_subordinacao_atual)}/${integer(summary.cnpjs)} CNPJs com subordinação atual · ${integer(summary.cnpjs_com_minimo_junior)} com mínimo júnior · ${integer(summary.cnpjs_com_data_emissao)} com data de emissão`,
     { left: 60, top: 649, width: 1160, height: 14 },
     { fontSize: 8.6, bold: true, color: C.charcoal, alignment: "right", wrap: "none" },
   );
@@ -2664,7 +2668,89 @@ function addFlagshipCurationSlide(presentation, payload) {
     `CVM, Informe Mensal FIDC, competência ${payload.latest_complete}: https://dados.cvm.gov.br/dataset/fi-doc-inf_mensal`,
     "FundosNet/B3, regulamentos, emissões e assembleias: https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM",
     "Pacotes documentais versionados em data/deep_dives; fontes e lacunas por CNPJ na aba Curadoria flagship.",
-    "Faixas descritivas; não constituem nota de risco. PL e subordinação atual são agregados por família; mínimos e VNUs exibem somente valores localizados.",
+    "Faixas descritivas; não constituem nota de risco. PL e subordinação atual são agregados por família; mínimos e datas de emissão exibem somente valores localizados.",
+  ]);
+}
+
+function addCarteira1CurationSlide(presentation, payload) {
+  const rows = [...(payload.carteira_1_curation_ranges || [])]
+    .sort((a, b) => num(a.ordem_faixa) - num(b.ordem_faixa));
+  const summary = payload.carteira_1_curation_summary || {};
+  if (rows.reduce((sum, row) => sum + num(row.fundos), 0) !== 101) {
+    throw new Error("Curadoria da Carteira 1 deve reconciliar 101 CNPJs.");
+  }
+  const rangeColors = {
+    "< 10%": "#ECEEEF",
+    "10%–15%": "#D7DADD",
+    "15%–20%": "#BEC2C5",
+    "20%–35%": "#E8BE9D",
+    "35%–60%": "#F29A52",
+    "≥ 60%": C.orange,
+    "N/D": C.pale,
+  };
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "CURADORIA · CARTEIRA 1",
+    `${integer(summary.cnpjs)} CNPJs transcritos · ${integer(summary.cnpjs_com_subordinacao_atual)} com subordinação atual comparável · detalhe individual no workbook`,
+    `CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}; FundosNet/B3 para documentos e emissões. Ausência permanece N/D.`,
+    0,
+  );
+  addText(
+    slide,
+    "SUBORDINAÇÃO ATUAL / PL · DISTRIBUIÇÃO POR FAIXA E TIPO",
+    { left: 60, top: 116, width: 1160, height: 16 },
+    { fontSize: 9, bold: true, color: C.mid, alignment: "right", wrap: "none" },
+  );
+  const top = 140;
+  const rowHeight = 64;
+  const gap = 7;
+  rows.forEach((row, index) => {
+    const y = top + index * (rowHeight + gap);
+    const color = rangeColors[row.faixa_subordinacao_atual] || C.pale;
+    const isOrange = row.faixa_subordinacao_atual === "≥ 60%";
+    addRect(slide, { left: 60, top: y, width: 150, height: rowHeight }, color, { lineFill: C.line, lineWidth: 0.6 });
+    addText(
+      slide,
+      row.faixa_subordinacao_atual,
+      { left: 70, top: y + 7, width: 130, height: 22 },
+      { fontSize: 13, bold: true, color: isOrange ? C.white : C.charcoal, alignment: "center", verticalAlignment: "middle", wrap: "none" },
+    );
+    addText(
+      slide,
+      `${integer(row.fundos)} fundos`,
+      { left: 70, top: y + 34, width: 130, height: 16 },
+      { fontSize: 8.5, bold: true, color: isOrange ? C.white : C.mid, alignment: "center", wrap: "none" },
+    );
+    addRect(slide, { left: 218, top: y, width: 1002, height: rowHeight }, index % 2 ? C.pale : C.white, { lineFill: C.line, lineWidth: 0.6 });
+    addText(
+      slide,
+      row.pl_atual_brl == null ? "PL N/D" : `${moneyScale(row.pl_atual_brl)} de PL conhecido`,
+      { left: 235, top: y + 8, width: 190, height: 18 },
+      { fontSize: 10.2, bold: true, color: C.black, wrap: "none" },
+    );
+    addText(
+      slide,
+      `${integer(row.fundos_com_pl)}/${integer(row.fundos)} com PL em ${competenceShortPt(payload.latest_complete).toLowerCase()}`,
+      { left: 235, top: y + 33, width: 190, height: 16 },
+      { fontSize: 8.2, color: C.mid, wrap: "none" },
+    );
+    addText(
+      slide,
+      truncateWords(row.tipos_resumo || "N/D", 135),
+      { left: 445, top: y + 8, width: 748, height: 40 },
+      { fontSize: 9, color: C.charcoal, verticalAlignment: "middle" },
+    );
+  });
+  addText(
+    slide,
+    `${integer(summary.cnpjs_com_minimo_junior)}/101 com mínimo júnior localizado · ${integer(summary.cnpjs_com_data_emissao)}/101 com data de emissão · ${integer(summary.cnpjs_com_familia_flagship)}/101 com correspondência direta às famílias flagship`,
+    { left: 60, top: 647, width: 1160, height: 16 },
+    { fontSize: 8.5, bold: true, color: C.charcoal, alignment: "right", wrap: "none" },
+  );
+  addSourceNotes(slide, [
+    "A aba Carteira 1 curadoria preserva raiz e nome fotografados, identidade oficial, PL, subordinação, emissão, tipo, família de referência, documento, página e lacunas por CNPJ.",
+    `${integer(summary.cnpjs_fora_base_fidc)} veículo fora da base mensal FIDC foi mantido com status explícito; métricas FIDC não foram imputadas.`,
   ]);
 }
 
@@ -4123,6 +4209,7 @@ function buildPresentation(payload) {
   ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"]
     .forEach((typeName) => addTop20ByAnbimaTypeSlide(presentation, payload, typeName));
   addFlagshipCurationSlide(presentation, payload);
+  addCarteira1CurationSlide(presentation, payload);
 
   // 20. Modelo de prestação
   {
@@ -6483,6 +6570,8 @@ async function addFlagshipCurationSheet(workbook, payload) {
     ["Classe/série da emissão", "preco_emissao_classe"],
     ["Data da emissão", "preco_emissao_data"],
     ["Fonte preço/VNU", "preco_emissao_fonte"],
+    ["Emissão considerada · mês/ano", "emissao_data_display"],
+    ["Fonte da emissão considerada", "emissao_fonte"],
     ["Cota mezanino comprovada", "cota_mezanino"],
     ["Fonte mezanino", "cota_mezanino_fonte"],
     ["Vencimento antecipado / avaliação", "vencimento_antecipado"],
@@ -6507,7 +6596,7 @@ async function addFlagshipCurationSheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [70, 190, 260, 95, 125, 390, 125, 135, 120, 95, 135, 105, 300, 100, 125, 520, 440, 115, 135, 220, 105, 440, 125, 420, 620, 440, 230, 260, 360, 360],
+    [70, 190, 260, 95, 125, 390, 125, 135, 120, 95, 135, 105, 300, 100, 125, 520, 440, 115, 135, 220, 105, 440, 120, 440, 125, 420, 620, 440, 230, 260, 360, 360],
     rows.length,
   );
   applyFormatsByHeader(sheet, headers, rows.length);
@@ -6537,7 +6626,96 @@ async function addFlagshipCurationSheet(workbook, payload) {
       color: row["Faixa atual"] === "≥ 60%" ? C.white : C.charcoal,
     };
   });
-  sheet.getRange(`A5:AD${rows.length + 4}`).format.rowHeightPx = 72;
+  sheet.getRange(`A5:AF${rows.length + 4}`).format.rowHeightPx = 72;
+}
+
+async function addCarteira1CurationSheet(workbook, payload) {
+  const columns = [
+    ["#", "ordem"],
+    ["Imagem", "imagem"],
+    ["Raiz CNPJ · foto", "raiz_cnpj_foto"],
+    ["Nome · foto", "nome_foto"],
+    ["Status identidade", "status_identidade"],
+    ["Regra identidade", "regra_identidade"],
+    ["Observação identidade", "observacao_identidade"],
+    ["CNPJ", "cnpj_fundo_formatado"],
+    ["Denominação oficial", "denominacao"],
+    ["PL atual", "pl_atual_brl"],
+    ["PL subordinado atual", "pl_subordinado_atual_brl"],
+    ["Subordinação atual / PL", "subordinacao_atual_pct"],
+    ["Faixa atual", "faixa_subordinacao_atual"],
+    ["Status subordinação atual", "subordinacao_atual_status"],
+    ["Mínimo júnior", "subordinacao_minima_junior_pct", (value) => value == null ? null : num(value) / 100],
+    ["Mínimo júnior · leitura", "subordinacao_minima_junior_display"],
+    ["Cláusula / leitura", "subordinacao_minima_texto"],
+    ["Fonte do mínimo", "subordinacao_minima_fonte"],
+    ["Data da emissão considerada", "emissao_data"],
+    ["Emissão · mês/ano", "emissao_data_display"],
+    ["Fonte da emissão", "emissao_fonte"],
+    ["Tipo exibido", "tipo_exibicao"],
+    ["Foco exibido", "foco_exibicao"],
+    ["Competência da classificação", "competencia_classificacao"],
+    ["Fonte classificação", "classificacao_fonte"],
+    ["Família flagship de referência", "familia_flagship_referencia"],
+    ["Regra da família", "familia_flagship_regra"],
+    ["Documento do regulamento", "documento_id_regulamento"],
+    ["Data do regulamento", "documento_data_regulamento"],
+    ["Página / cláusula", "pagina_clausula"],
+    ["Páginas lidas", "paginas_lidas"],
+    ["Status curadoria documental", "status_curadoria_documental"],
+    ["Observação documental", "observacao_documental"],
+    ["FundosNet", "fundosnet_url"],
+    ["Lacunas", "lacunas"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.carteira_1_curation || [], columns);
+  const summary = payload.carteira_1_curation_summary || {};
+  if (rows.length !== 101) {
+    throw new Error(`Carteira 1 deveria conter 101 linhas; contém ${rows.length}.`);
+  }
+  const sheet = resetSheet(workbook, "Carteira 1 curadoria");
+  setHeaderBand(
+    sheet,
+    "Carteira 1 · curadoria comparável",
+    `101 CNPJs transcritos das três imagens; ${integer(summary.cnpjs_localizados_base_fidc)} com PL em ${competenceShortPt(summary.competencia || payload.latest_complete).toLowerCase()}, ${integer(summary.cnpjs_com_subordinacao_atual)} com subordinação atual, ${integer(summary.cnpjs_com_minimo_junior)} com mínimo júnior e ${integer(summary.cnpjs_com_data_emissao)} com data de emissão. Lacunas permanecem N/D.`,
+    headers,
+    rows.length,
+    { freezeColumns: 9, wrapText: true, bodyFontSize: 8.2 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(
+    sheet,
+    [45, 105, 95, 260, 125, 225, 280, 125, 390, 120, 135, 120, 95, 300, 100, 125, 520, 430, 110, 105, 430, 170, 235, 105, 185, 230, 270, 120, 110, 150, 90, 220, 380, 360, 360],
+    rows.length,
+  );
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["J", "K"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.00';
+  });
+  ["L", "O"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = "0.0%";
+  });
+  const rangeColors = {
+    "< 10%": "#ECEEEF",
+    "10%–15%": "#D7DADD",
+    "15%–20%": "#BEC2C5",
+    "20%–35%": "#E8BE9D",
+    "35%–60%": "#F29A52",
+    "≥ 60%": C.orange,
+    "N/D": C.pale,
+  };
+  rows.forEach((row, index) => {
+    const value = row["Faixa atual"];
+    const cell = sheet.getRange(`M${index + 5}:M${index + 5}`);
+    cell.format.fill = rangeColors[value] || C.white;
+    cell.format.font = {
+      name: "Arial",
+      size: 9,
+      bold: true,
+      color: value === "≥ 60%" ? C.white : C.charcoal,
+    };
+  });
+  sheet.getRange(`A5:AI${rows.length + 4}`).format.rowHeightPx = 78;
 }
 
 async function addTop100OutrosSheet(workbook, payload) {
@@ -7688,6 +7866,7 @@ async function buildWorkbook(payload) {
   await addTop20ByTypeSheets(workbook, payload);
   await addTaxonomyLevelSheet(workbook, payload);
   await addFlagshipCurationSheet(workbook, payload);
+  await addCarteira1CurationSheet(workbook, payload);
   await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);

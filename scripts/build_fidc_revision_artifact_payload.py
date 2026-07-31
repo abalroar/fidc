@@ -41,7 +41,10 @@ from services.industry_market_offer_reconciliation import (
 from services.industry_bcb_expanded_credit import (
     load_materialized_expanded_credit_history,
 )
-from services.industry_flagship_curation import build_flagship_curation
+from services.industry_flagship_curation import (
+    build_flagship_curation,
+    build_portfolio_curation,
+)
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -3065,6 +3068,14 @@ def build_payload(
         latest=latest,
         deep_dives_dir=ROOT / "data" / "deep_dives",
     )
+    carteira_1_curation = build_portfolio_curation(
+        scope_path=data_dir / "industry_carteira_1_scope.csv",
+        documentary_path=data_dir / "industry_carteira_1_document_curation.csv",
+        funds=funds,
+        vehicle=vehicle,
+        taxonomy_actions=taxonomy_review_actions,
+        latest=latest,
+    )
     top20_outros_review = _build_top20_outros_review(
         top20_outros, documentary, top20_outros_regulations
     )
@@ -3416,6 +3427,12 @@ def build_payload(
         "flagship_curation_summary": {
             str(key): _json_value(value)
             for key, value in flagship_curation.summary.items()
+        },
+        "carteira_1_curation": _records(carteira_1_curation.detail),
+        "carteira_1_curation_ranges": _records(carteira_1_curation.ranges),
+        "carteira_1_curation_summary": {
+            str(key): _json_value(value)
+            for key, value in carteira_1_curation.summary.items()
         },
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,

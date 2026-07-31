@@ -33,6 +33,25 @@ class _FakeResponse:
 
 
 class PortfolioStoreTests(unittest.TestCase):
+    def test_portfolio_accepts_carteira_1_scale(self) -> None:
+        funds = tuple(
+            PortfolioFund(
+                cnpj=f"{index:08d}0001{index % 100:02d}",
+                display_name=f"FIDC {index}",
+            )
+            for index in range(1, 102)
+        )
+
+        portfolio = PortfolioRecord(
+            id="carteira-1",
+            name="Carteira 1",
+            funds=funds,
+            created_at="2026-07-31T12:00:00Z",
+            updated_at="2026-07-31T12:00:00Z",
+        )
+
+        self.assertEqual(101, len(portfolio.funds))
+
     def test_portfolio_basket_signature_is_order_insensitive(self) -> None:
         funds_a = (
             PortfolioFund(cnpj="12345678000199", display_name="FIDC A"),

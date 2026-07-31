@@ -488,6 +488,7 @@ function flagshipModels(payload) {
       range: String(row.faixa_subordinacao_atual || "N/D"),
       minJunior: String(row.subordinacao_minima_junior_display || "N/D"),
       price: String(row.preco_emissao_display || "N/D"),
+      emissionDate: String(row.emissao_data_display || "N/D"),
       mezzanine: String(row.cota_mezanino || "N/D"),
       documented: Math.round(number(row.cnpjs_com_pacote_documental)),
       status: String(row.status_curadoria || "N/D"),
@@ -517,6 +518,8 @@ function flagshipModels(payload) {
       priceClass: String(row.preco_emissao_classe || "N/D"),
       priceDate: String(row.preco_emissao_data || "N/D"),
       priceSource: String(row.preco_emissao_fonte || "N/D"),
+      emissionDate: String(row.emissao_data_display || "N/D"),
+      emissionSource: String(row.emissao_fonte || "N/D"),
       mezzanine: String(row.cota_mezanino || "N/D"),
       mezzanineSource: String(row.cota_mezanino_fonte || "N/D"),
       acceleration: String(row.vencimento_antecipado || "N/D"),
@@ -535,6 +538,7 @@ function flagshipModels(payload) {
       documented: Math.round(number(summary.cnpjs_com_pacote_documental)),
       minJunior: Math.round(number(summary.cnpjs_com_minimo_junior)),
       price: Math.round(number(summary.cnpjs_com_preco_vnu)),
+      emission: Math.round(number(summary.cnpjs_com_data_emissao)),
       mezzanine: Math.round(number(summary.cnpjs_com_mezanino_comprovado)),
       acceleration: Math.round(number(summary.cnpjs_com_evento)),
       currentSource: String(summary.fonte_pl_subordinacao || "N/D"),
@@ -549,12 +553,13 @@ function flagshipModels(payload) {
 const FLAGSHIP_FIELDS = Object.freeze({
   family: [
     "order", "category", "family", "cnpjs", "funds", "pl", "subordinate",
-    "ratio", "range", "minJunior", "price", "mezzanine", "documented", "status",
+    "ratio", "range", "minJunior", "price", "emissionDate", "mezzanine", "documented", "status",
   ],
   detail: [
     "order", "category", "family", "representative", "fund", "cnpj", "pl",
     "subordinate", "ratio", "range", "minJunior", "threshold",
     "thresholdSource", "price", "priceClass", "priceDate", "priceSource",
+    "emissionDate", "emissionSource",
     "mezzanine", "mezzanineSource", "acceleration", "accelerationSource",
     "packageStatus", "packagePath", "fundosnetUrl", "gaps",
   ],
@@ -610,6 +615,127 @@ function validateFlagships(data) {
     || data.summary.current !== data.details.length
   ) {
     throw new Error("Resumo da curadoria flagship não reconcilia com o detalhe");
+  }
+}
+
+function carteira1Models(payload) {
+  const summary = payload.carteira_1_curation_summary || {};
+  const ranges = [...(payload.carteira_1_curation_ranges || [])]
+    .sort((a, b) => number(a.ordem_faixa) - number(b.ordem_faixa))
+    .map((row) => ({
+      order: Math.round(number(row.ordem_faixa)),
+      range: String(row.faixa_subordinacao_atual || "N/D"),
+      funds: Math.round(number(row.fundos)),
+      fundsWithPl: Math.round(number(row.fundos_com_pl)),
+      pl: nullableNumber(row.pl_atual_brl),
+      types: Math.round(number(row.tipos)),
+      typeSummary: String(row.tipos_resumo || "N/D"),
+    }));
+  const details = [...(payload.carteira_1_curation || [])]
+    .sort((a, b) => number(a.ordem) - number(b.ordem))
+    .map((row) => ({
+      order: Math.round(number(row.ordem)),
+      image: String(row.imagem || "N/D"),
+      rootPhoto: String(row.raiz_cnpj_foto || "N/D"),
+      namePhoto: String(row.nome_foto || "N/D"),
+      identityStatus: String(row.status_identidade || "N/D"),
+      identityRule: String(row.regra_identidade || "N/D"),
+      identityNote: String(row.observacao_identidade || "N/D"),
+      cnpj: String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo)),
+      fund: compactFund(row.denominacao || row.nome_foto || "N/D"),
+      pl: nullableNumber(row.pl_atual_brl),
+      subordinate: nullableNumber(row.pl_subordinado_atual_brl),
+      ratio: nullableNumber(row.subordinacao_atual_pct),
+      range: String(row.faixa_subordinacao_atual || "N/D"),
+      currentStatus: String(row.subordinacao_atual_status || "N/D"),
+      minJuniorPct: nullableNumber(row.subordinacao_minima_junior_pct),
+      minJunior: String(row.subordinacao_minima_junior_display || "N/D"),
+      threshold: String(row.subordinacao_minima_texto || "N/D"),
+      thresholdSource: String(row.subordinacao_minima_fonte || "N/D"),
+      emissionDate: String(row.emissao_data || "N/D"),
+      emissionDisplay: String(row.emissao_data_display || "N/D"),
+      emissionSource: String(row.emissao_fonte || "N/D"),
+      type: String(row.tipo_exibicao || "N/D"),
+      focus: String(row.foco_exibicao || "N/D"),
+      classificationCompetence: String(row.competencia_classificacao || "N/D"),
+      classificationSource: String(row.classificacao_fonte || "N/D"),
+      flagshipFamily: String(row.familia_flagship_referencia || "N/D"),
+      flagshipRule: String(row.familia_flagship_regra || "N/D"),
+      documentId: String(row.documento_id_regulamento || "N/D"),
+      documentDate: String(row.documento_data_regulamento || "N/D"),
+      page: String(row.pagina_clausula || "N/D"),
+      pagesRead: Math.round(number(row.paginas_lidas)),
+      curationStatus: String(row.status_curadoria_documental || "N/D"),
+      documentaryNote: String(row.observacao_documental || "N/D"),
+      fundosnetUrl: String(row.fundosnet_url || ""),
+      gaps: String(row.lacunas || "N/D"),
+    }));
+  return {
+    summary: {
+      competence: String(summary.competencia || payload.latest_complete || "N/D"),
+      cnpjs: Math.round(number(summary.cnpjs)),
+      found: Math.round(number(summary.cnpjs_localizados_base_fidc)),
+      outside: Math.round(number(summary.cnpjs_fora_base_fidc)),
+      current: Math.round(number(summary.cnpjs_com_subordinacao_atual)),
+      minJunior: Math.round(number(summary.cnpjs_com_minimo_junior)),
+      emission: Math.round(number(summary.cnpjs_com_data_emissao)),
+      flagship: Math.round(number(summary.cnpjs_com_familia_flagship)),
+      source: String(summary.fonte || "N/D"),
+    },
+    ranges,
+    details,
+  };
+}
+
+const CARTEIRA1_FIELDS = Object.freeze({
+  range: ["order", "range", "funds", "fundsWithPl", "pl", "types", "typeSummary"],
+  detail: [
+    "order", "image", "rootPhoto", "namePhoto", "identityStatus", "identityRule",
+    "identityNote", "cnpj", "fund", "pl", "subordinate", "ratio", "range",
+    "currentStatus", "minJuniorPct", "minJunior", "threshold", "thresholdSource",
+    "emissionDate", "emissionDisplay", "emissionSource", "type", "focus",
+    "classificationCompetence", "classificationSource", "flagshipFamily",
+    "flagshipRule", "documentId", "documentDate", "page", "pagesRead",
+    "curationStatus", "documentaryNote", "fundosnetUrl", "gaps",
+  ],
+});
+
+function compactCarteira1(data) {
+  return {
+    schemaVersion: "carteira_1_curation_compact_v1",
+    fields: CARTEIRA1_FIELDS,
+    summary: data.summary,
+    ranges: data.ranges.map((row) => CARTEIRA1_FIELDS.range.map((field) => row[field])),
+    details: data.details.map((row) => CARTEIRA1_FIELDS.detail.map((field) => row[field])),
+  };
+}
+
+function expandCompactCarteira1(compact) {
+  if (compact.schemaVersion !== "carteira_1_curation_compact_v1") {
+    throw new Error(`Esquema da Carteira 1 desconhecido: ${compact.schemaVersion}`);
+  }
+  const object = (fields, values) => Object.fromEntries(
+    fields.map((field, index) => [field, values[index]]),
+  );
+  return {
+    summary: compact.summary,
+    ranges: compact.ranges.map((values) => object(compact.fields.range, values)),
+    details: compact.details.map((values) => object(compact.fields.detail, values)),
+  };
+}
+
+function validateCarteira1(data) {
+  if (data.details.length !== 101 || data.summary.cnpjs !== 101) {
+    throw new Error(`Curadoria da Carteira 1 deveria conter 101 CNPJs; contém ${data.details.length}`);
+  }
+  if (new Set(data.details.map((row) => row.cnpj)).size !== 101) {
+    throw new Error("Curadoria da Carteira 1 contém CNPJ duplicado");
+  }
+  if (data.ranges.reduce((total, row) => total + row.funds, 0) !== 101) {
+    throw new Error("Faixas da Carteira 1 não reconciliam 101 CNPJs");
+  }
+  if (data.details.some((row) => row.pl === 0 && row.currentStatus.includes("ausente"))) {
+    throw new Error("Curadoria da Carteira 1 converteu PL ausente em zero");
   }
 }
 
@@ -818,7 +944,9 @@ function flagshipApp(DATA) {
   const caption = root.querySelector("[data-flag-caption]");
   const pager = root.querySelector("[data-flag-pager]");
   let state = { category: "all", query: "", page: 0 };
-  const n = value => Number.isFinite(Number(value)) ? Number(value) : null;
+  const n = value => value == null || value === ""
+    ? null
+    : Number.isFinite(Number(value)) ? Number(value) : null;
   const norm = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
   const money = value => n(value) === null
@@ -848,7 +976,7 @@ function flagshipApp(DATA) {
         <article class="flag-card">
           <strong>${esc(row.family)}</strong>
           <span>${money(row.pl)} · atual ${pct(row.ratio)}</span>
-          <small>mín. jr ${esc(row.minJunior)} · VNU ${esc(row.price)}</small>
+          <small>mín. jr ${esc(row.minJunior)} · emissão ${esc(row.emissionDate)}</small>
           <small>${esc(row.documented + "/" + row.funds + " CNPJs com pacote")}</small>
         </article>`).join("") || `<p class="flag-empty">Sem famílias neste filtro.</p>`}</div></section>`;
     }).join("");
@@ -858,7 +986,7 @@ function flagshipApp(DATA) {
     const links = row.fundosnetUrl
       ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>`
       : "";
-    return `<details><summary>Fontes</summary><div class="flag-sources">${links}<span>${esc(row.packagePath)}</span><span>Subord.: ${esc(row.thresholdSource)}</span><span>VNU: ${esc(row.priceSource)}</span><span>Eventos: ${esc(row.accelerationSource)}</span></div></details>`;
+    return `<details><summary>Fontes</summary><div class="flag-sources">${links}<span>${esc(row.packagePath)}</span><span>Subord.: ${esc(row.thresholdSource)}</span><span>Emissão: ${esc(row.emissionSource)}</span><span>Eventos: ${esc(row.accelerationSource)}</span></div></details>`;
   };
   const renderTable = () => {
     const rows = filteredDetails();
@@ -872,7 +1000,7 @@ function flagshipApp(DATA) {
       <td class="num">${money(row.pl)}</td>
       <td class="num">${pct(row.ratio)}<br><small>${esc(row.range)}</small></td>
       <td>${esc(row.minJunior)}<br><small>${esc(row.threshold)}</small></td>
-      <td>${esc(row.price)}<br><small>${esc(row.priceClass)} · ${esc(row.priceDate)}</small></td>
+      <td>${esc(row.emissionDate)}</td>
       <td>${esc(row.mezzanine)}</td>
       <td>${esc(row.acceleration)}</td>
       <td>${esc(row.packageStatus)}<br><small>${esc(row.gaps)}</small></td>
@@ -884,8 +1012,8 @@ function flagshipApp(DATA) {
   };
   const render = () => { renderGrid(); renderTable(); };
   const downloadCsv = () => {
-    const headers = ["categoria","familia","fundo","cnpj","pl_atual_brl","pl_subordinado_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","preco_vnu","mezanino","vencimento_antecipado","status_pacote","lacunas","fundosnet_url"];
-    const rows = filteredDetails().map(row => [row.category,row.family,row.fund,row.cnpj,row.pl,row.subordinate,row.ratio,row.range,row.minJunior,row.price,row.mezzanine,row.acceleration,row.packageStatus,row.gaps,row.fundosnetUrl]);
+    const headers = ["categoria","familia","fundo","cnpj","pl_atual_brl","pl_subordinado_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","emissao","mezanino","vencimento_antecipado","status_pacote","lacunas","fundosnet_url"];
+    const rows = filteredDetails().map(row => [row.category,row.family,row.fund,row.cnpj,row.pl,row.subordinate,row.ratio,row.range,row.minJunior,row.emissionDate,row.mezzanine,row.acceleration,row.packageStatus,row.gaps,row.fundosnetUrl]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -901,6 +1029,89 @@ function flagshipApp(DATA) {
   render();
 }
 
+function carteira1App(DATA) {
+  const root = document.getElementById("carteira-1-curation-explorer");
+  const range = root.querySelector("[data-c1-range]");
+  const type = root.querySelector("[data-c1-type]");
+  const search = root.querySelector("[data-c1-search]");
+  const rangeGrid = root.querySelector("[data-c1-range-grid]");
+  const tbody = root.querySelector("tbody");
+  const caption = root.querySelector("[data-c1-caption]");
+  const pager = root.querySelector("[data-c1-pager]");
+  let state = { range: "all", type: "all", query: "", page: 0 };
+  const n = value => value == null || value === ""
+    ? null
+    : Number.isFinite(Number(value)) ? Number(value) : null;
+  const norm = value => String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
+  const money = value => n(value) === null
+    ? "N/D"
+    : Math.abs(n(value)) < 1e9
+      ? "R$ " + (n(value) / 1e6).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " mi"
+      : "R$ " + (n(value) / 1e9).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " bi";
+  const pct = value => n(value) === null
+    ? "N/D"
+    : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
+  const ranges = DATA.ranges.map(row => row.range);
+  const types = [...new Set(DATA.details.map(row => row.type))].sort();
+  range.innerHTML = `<option value="all">Todas as faixas</option>` + ranges.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  type.innerHTML = `<option value="all">Todos os tipos</option>` + types.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  rangeGrid.innerHTML = DATA.ranges.map(row => `<article><strong>${esc(row.range)}</strong><span>${row.funds.toLocaleString("pt-BR")} fundos</span><small>${money(row.pl)} · ${esc(row.typeSummary)}</small></article>`).join("");
+  const matches = row => {
+    if (state.range !== "all" && row.range !== state.range) return false;
+    if (state.type !== "all" && row.type !== state.type) return false;
+    if (!state.query) return true;
+    return norm(Object.values(row).join(" ")).includes(norm(state.query));
+  };
+  const filtered = () => DATA.details.filter(matches);
+  const trace = row => `<details><summary>Fontes</summary><div class="flag-sources">
+    ${row.fundosnetUrl ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>` : ""}
+    <span>Regulamento ${esc(row.documentId)} · ${esc(row.documentDate)} · p. ${esc(row.page)}</span>
+    <span>${row.pagesRead.toLocaleString("pt-BR")} páginas lidas</span>
+    <span>Subord.: ${esc(row.thresholdSource)}</span><span>Emissão: ${esc(row.emissionSource)}</span>
+    <span>Classificação: ${esc(row.classificationSource)}</span></div></details>`;
+  const renderTable = () => {
+    const rows = filtered();
+    const pages = Math.max(1, Math.ceil(rows.length / 12));
+    state.page = Math.min(state.page, pages - 1);
+    const current = rows.slice(state.page * 12, state.page * 12 + 12);
+    caption.textContent = `${rows.length} de 101 CNPJs · competência ${DATA.summary.competence}.`;
+    tbody.innerHTML = current.map(row => `<tr>
+      <td class="num">${row.order}</td>
+      <td><strong>${esc(row.fund)}</strong><br><small>foto: ${esc(row.namePhoto)}</small></td>
+      <td>${esc(row.cnpj)}<br><small>raiz ${esc(row.rootPhoto)}</small></td>
+      <td class="num">${money(row.pl)}</td>
+      <td class="num">${pct(row.ratio)}<br><small>${esc(row.range)}</small></td>
+      <td>${esc(row.minJunior)}<br><small>${esc(row.threshold)}</small></td>
+      <td>${esc(row.emissionDisplay)}</td>
+      <td>${esc(row.type)}<br><small>${esc(row.focus)} · ${esc(row.flagshipFamily)}</small></td>
+      <td>${esc(row.curationStatus)}<br><small>${esc(row.gaps)}</small></td>
+      <td>${trace(row)}</td>
+    </tr>`).join("") || `<tr><td colspan="10">Nenhum CNPJ encontrado.</td></tr>`;
+    pager.querySelector("span").textContent = `${rows.length ? state.page + 1 : 0} / ${rows.length ? pages : 0}`;
+    pager.querySelector("[data-c1-prev]").disabled = state.page <= 0;
+    pager.querySelector("[data-c1-next]").disabled = state.page >= pages - 1;
+  };
+  const render = () => renderTable();
+  const downloadCsv = () => {
+    const headers = ["ordem","raiz_cnpj_foto","nome_foto","cnpj","fundo","pl_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","emissao","tipo","foco","familia_flagship_referencia","status_curadoria","lacunas","documento","pagina","paginas_lidas","fundosnet_url"];
+    const rows = filtered().map(row => [row.order,row.rootPhoto,row.namePhoto,row.cnpj,row.fund,row.pl,row.ratio,row.range,row.minJunior,row.emissionDisplay,row.type,row.focus,row.flagshipFamily,row.curationStatus,row.gaps,row.documentId,row.page,row.pagesRead,row.fundosnetUrl]);
+    const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
+    const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
+    const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
+    const url = URL.createObjectURL(blob), anchor = document.createElement("a");
+    anchor.href = url; anchor.download = "carteira_1_curadoria.csv"; document.body.appendChild(anchor); anchor.click(); anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 500);
+  };
+  range.addEventListener("change", () => { state.range = range.value; state.page = 0; render(); });
+  type.addEventListener("change", () => { state.type = type.value; state.page = 0; render(); });
+  search.addEventListener("input", () => { state.query = search.value; state.page = 0; render(); });
+  pager.querySelector("[data-c1-prev]").addEventListener("click", () => { state.page = Math.max(0, state.page - 1); renderTable(); });
+  pager.querySelector("[data-c1-next]").addEventListener("click", () => { state.page += 1; renderTable(); });
+  root.querySelector("[data-c1-csv]").addEventListener("click", downloadCsv);
+  render();
+}
+
 function taxonomyApp(DATA) {
   const root = document.getElementById("taxonomy-level-explorer");
   const level = root.querySelector("[data-tax-level]");
@@ -910,7 +1121,9 @@ function taxonomyApp(DATA) {
   const tbody = root.querySelector("tbody");
   const caption = root.querySelector("[data-tax-caption]");
   const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
-  const n = value => Number.isFinite(Number(value)) ? Number(value) : null;
+  const n = value => value == null || value === ""
+    ? null
+    : Number.isFinite(Number(value)) ? Number(value) : null;
   const money = value => n(value) === null
     ? "N/D"
     : Math.abs(n(value)) < 1e9
@@ -954,7 +1167,7 @@ function taxonomyApp(DATA) {
 function clientRuntime(data) {
   const serialized = JSON.stringify(data).replace(/</g, "\\u003c");
   return `<script type="application/json" id="provider-flow-data">${serialized}<\/script>
-<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${flagshipApp.toString()})(flagships)})();<\/script>`;
+<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);const carteira1=(${expandCompactCarteira1.toString()})(compact.carteira1);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${flagshipApp.toString()})(flagships);(${carteira1App.toString()})(carteira1)})();<\/script>`;
 }
 
 function fragmentHtml(data, standalone = false) {
@@ -999,7 +1212,7 @@ function fragmentHtml(data, standalone = false) {
     #provider-flow-explorer td.num,#provider-flow-explorer th.num{text-align:right;white-space:nowrap}
     #provider-flow-explorer .pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flow-muted)}
     #provider-flow-explorer .flow-tooltip{position:absolute;z-index:2;max-width:320px;padding:8px 10px;background:var(--flow-fg);color:var(--flow-bg);border-radius:4px;pointer-events:none}
-    #taxonomy-level-explorer,#flagship-curation-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
+    #taxonomy-level-explorer,#flagship-curation-explorer,#carteira-1-curation-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
     #taxonomy-level-explorer .tax-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
     #taxonomy-level-explorer .tax-heading p{margin:0;color:var(--flag-muted);font-size:14px}
     #taxonomy-level-explorer .tax-controls{display:flex;gap:12px;align-items:end;margin:18px 0 14px;flex-wrap:wrap}
@@ -1047,9 +1260,34 @@ function fragmentHtml(data, standalone = false) {
     #flagship-curation-explorer .flag-sources{display:grid;gap:4px;margin-top:6px;min-width:220px;color:var(--flag-muted)}
     #flagship-curation-explorer .flag-sources a{color:var(--flag-fg)}
     #flagship-curation-explorer .flag-pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flag-muted)}
+    #carteira-1-curation-explorer .c1-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
+    #carteira-1-curation-explorer .c1-heading p{margin:0;color:var(--flag-muted);font-size:14px}
+    #carteira-1-curation-explorer .c1-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0}
+    #carteira-1-curation-explorer .c1-metric{border:1px solid var(--flag-border);padding:12px 13px}
+    #carteira-1-curation-explorer .c1-metric strong{display:block;font-size:24px;line-height:1}
+    #carteira-1-curation-explorer .c1-metric span{display:block;color:var(--flag-muted);font-size:12px;margin-top:6px}
+    #carteira-1-curation-explorer .c1-controls{display:flex;gap:12px;align-items:end;margin:0 0 14px;flex-wrap:wrap}
+    #carteira-1-curation-explorer label{display:grid;gap:4px;color:var(--flag-muted)}
+    #carteira-1-curation-explorer input,#carteira-1-curation-explorer select,#carteira-1-curation-explorer button{font:inherit;border:1px solid var(--flag-border);background:var(--flag-bg);color:var(--flag-fg);border-radius:4px;padding:7px 9px}
+    #carteira-1-curation-explorer .c1-search{flex:1;min-width:240px}
+    #carteira-1-curation-explorer button{cursor:pointer;margin-left:auto}
+    #carteira-1-curation-explorer .c1-range-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:14px 0 22px}
+    #carteira-1-curation-explorer .c1-range-grid article{border:1px solid var(--flag-border);padding:9px;display:grid;gap:4px;min-width:0}
+    #carteira-1-curation-explorer .c1-range-grid strong{font-size:12px}
+    #carteira-1-curation-explorer .c1-range-grid span{font-size:11px;font-weight:700}
+    #carteira-1-curation-explorer .c1-range-grid small{font-size:10px;line-height:1.25;color:var(--flag-muted)}
+    #carteira-1-curation-explorer .c1-caption{color:var(--flag-muted);font-size:13px}
+    #carteira-1-curation-explorer table{border-collapse:collapse;width:100%;margin-top:8px;font-size:11px}
+    #carteira-1-curation-explorer th,#carteira-1-curation-explorer td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--flag-border);vertical-align:top}
+    #carteira-1-curation-explorer th{color:var(--flag-muted)}
+    #carteira-1-curation-explorer td.num,#carteira-1-curation-explorer th.num{text-align:right;white-space:nowrap}
+    #carteira-1-curation-explorer td small{color:var(--flag-muted)}
+    #carteira-1-curation-explorer details summary{cursor:pointer;color:var(--flag-fg)}
+    #carteira-1-curation-explorer .flag-sources{display:grid;gap:4px;margin-top:6px;min-width:230px;color:var(--flag-muted)}
+    #carteira-1-curation-explorer .c1-pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flag-muted)}
     @media(max-width:720px){#provider-flow-explorer .optional{display:none}#provider-flow-explorer [data-chart]{min-height:260px}#provider-flow-explorer .metric{font-size:22px}#provider-flow-explorer .node-label{font-size:13px}#provider-flow-explorer th,#provider-flow-explorer td{padding:7px 4px}}
-    @media(max-width:980px){#flagship-curation-explorer .flag-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#flagship-curation-explorer .flag-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:620px){#taxonomy-level-explorer .tax-chart{grid-template-columns:1fr}#flagship-curation-explorer .flag-grid{grid-template-columns:1fr}#flagship-curation-explorer .flag-metrics{grid-template-columns:1fr}#flagship-curation-explorer table{font-size:11px}}
+    @media(max-width:980px){#flagship-curation-explorer .flag-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#flagship-curation-explorer .flag-metrics,#carteira-1-curation-explorer .c1-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}#carteira-1-curation-explorer .c1-range-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:620px){#taxonomy-level-explorer .tax-chart{grid-template-columns:1fr}#flagship-curation-explorer .flag-grid,#carteira-1-curation-explorer .c1-range-grid{grid-template-columns:1fr}#flagship-curation-explorer .flag-metrics,#carteira-1-curation-explorer .c1-metrics{grid-template-columns:1fr}#flagship-curation-explorer table,#carteira-1-curation-explorer table{font-size:11px}}
     @media(prefers-reduced-motion:reduce){#provider-flow-explorer .flow-link{transition:none}}
   </style>
   <header class="flow-heading"><h2>Movimentação de prestadores da indústria de FIDCs</h2><p>Selecione um fluxo para abrir os fundos, compare o PL nas duas datas e copie a visão para o Office.</p></header>
@@ -1085,12 +1323,12 @@ function fragmentHtml(data, standalone = false) {
   </table>
 </section>
 <section id="flagship-curation-explorer" aria-labelledby="flagship-curation-title">
-  <header class="flag-heading"><h2 id="flagship-curation-title">Curadoria comparável dos fundos flagship</h2><p>PL e subordinação atual são calculados por CNPJ. Mínimos, VNUs, mezanino e eventos reproduzem somente os documentos curados.</p></header>
+  <header class="flag-heading"><h2 id="flagship-curation-title">Curadoria comparável dos fundos flagship</h2><p>PL e subordinação atual são calculados por CNPJ. Mínimos, datas de emissão, mezanino e eventos reproduzem somente os documentos curados.</p></header>
   <div class="flag-metrics">
     <div class="flag-metric"><strong>${data.flagships.summary.families}</strong><span>famílias flagship</span></div>
     <div class="flag-metric"><strong>${data.flagships.summary.current}/${data.flagships.summary.cnpjs}</strong><span>CNPJs com subordinação atual</span></div>
     <div class="flag-metric"><strong>${data.flagships.summary.minJunior}</strong><span>mínimos júnior localizados</span></div>
-    <div class="flag-metric"><strong>${data.flagships.summary.price}</strong><span>preços/VNUs localizados</span></div>
+    <div class="flag-metric"><strong>${data.flagships.summary.emission}</strong><span>datas de emissão localizadas</span></div>
   </div>
   <div class="flag-controls">
     <label>Categoria<select data-flag-category aria-label="Categoria flagship"></select></label>
@@ -1100,10 +1338,33 @@ function fragmentHtml(data, standalone = false) {
   <div class="flag-grid" data-flag-grid aria-label="Famílias por faixa de subordinação atual"></div>
   <div class="flag-caption" data-flag-caption aria-live="polite"></div>
   <table aria-label="Curadoria documental dos CNPJs flagship">
-    <thead><tr><th>Fundo / família</th><th>CNPJ</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo júnior</th><th>Preço/VNU</th><th>Mezanino</th><th>Vencimento antecipado / avaliação</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <thead><tr><th>Fundo / família</th><th>CNPJ</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo júnior</th><th>Emissão</th><th>Mezanino</th><th>Vencimento antecipado / avaliação</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
     <tbody></tbody>
   </table>
   <div class="flag-pager" data-flag-pager><button type="button" data-flag-prev>Anterior</button><span>0 / 0</span><button type="button" data-flag-next>Próxima</button></div>
+</section>
+<section id="carteira-1-curation-explorer" aria-labelledby="carteira-1-curation-title">
+  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · curadoria documental e comparação</h2><p>Os 101 CNPJs transcritos das três imagens mantêm a identidade fotografada, a correspondência oficial, as métricas atuais e as lacunas documentais.</p></header>
+  <div class="c1-metrics">
+    <div class="c1-metric"><strong>${data.carteira1.summary.cnpjs}</strong><span>CNPJs transcritos e salvos</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.found}</strong><span>com PL em ${data.carteira1.summary.competence}</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.current}</strong><span>com subordinação atual comparável</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.minJunior}</strong><span>com mínimo júnior localizado</span></div>
+  </div>
+  <div class="c1-controls">
+    <label>Faixa<select data-c1-range aria-label="Faixa de subordinação atual"></select></label>
+    <label>Tipo<select data-c1-type aria-label="Tipo do fundo"></select></label>
+    <label class="c1-search">Buscar nome fotografado, fundo, CNPJ ou tipo<input data-c1-search type="search" placeholder="Ex.: Cloudwalk, 42.085.816, Agro"></label>
+    <button type="button" data-c1-csv>Exportar CSV</button>
+  </div>
+  <div class="c1-range-grid" data-c1-range-grid aria-label="Distribuição da Carteira 1 por faixa"></div>
+  <div class="c1-caption" data-c1-caption aria-live="polite"></div>
+  <table aria-label="Curadoria dos CNPJs da Carteira 1">
+    <thead><tr><th class="num">#</th><th>Fundo oficial / nome fotografado</th><th>CNPJ / raiz</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo júnior</th><th>Emissão</th><th>Tipo / referência flagship</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <div class="c1-pager" data-c1-pager><button type="button" data-c1-prev>Anterior</button><span>0 / 0</span><button type="button" data-c1-next>Próxima</button></div>
+  <p class="c1-caption">${data.carteira1.summary.emission}/101 com data de emissão; ${data.carteira1.summary.outside} veículo fora da base mensal FIDC permanece com métricas N/D. Correspondências com famílias flagship são registradas somente quando diretas.</p>
 </section>
 ${clientRuntime(data)}`;
 }
@@ -1127,17 +1388,21 @@ async function main() {
   const data = viewModels(payload);
   const taxonomy = taxonomyModels(payload);
   const flagships = flagshipModels(payload);
+  const carteira1 = carteira1Models(payload);
   validateViews(data);
   validateTaxonomy(taxonomy);
   validateFlagships(flagships);
+  validateCarteira1(carteira1);
   const compact = {
     ...compactViews(data),
     taxonomy: compactTaxonomy(taxonomy),
     flagships: compactFlagships(flagships),
+    carteira1: compactCarteira1(carteira1),
   };
   const expanded = expandCompactViews(compact);
   const expandedTaxonomy = expandCompactTaxonomy(compact.taxonomy);
   const expandedFlagships = expandCompactFlagships(compact.flagships);
+  const expandedCarteira1 = expandCompactCarteira1(compact.carteira1);
   if (!isDeepStrictEqual(expanded, data)) {
     throw new Error("O esquema compacto não preservou integralmente o view-model");
   }
@@ -1147,9 +1412,13 @@ async function main() {
   if (!isDeepStrictEqual(expandedFlagships, flagships)) {
     throw new Error("O esquema compacto não preservou integralmente a curadoria flagship");
   }
+  if (!isDeepStrictEqual(expandedCarteira1, carteira1)) {
+    throw new Error("O esquema compacto não preservou integralmente a curadoria da Carteira 1");
+  }
   validateViews(expanded);
   validateTaxonomy(expandedTaxonomy);
   validateFlagships(expandedFlagships);
+  validateCarteira1(expandedCarteira1);
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
   await fs.writeFile(htmlPath, standaloneHtml(compact), "utf8");
   if (fragmentPath) {
