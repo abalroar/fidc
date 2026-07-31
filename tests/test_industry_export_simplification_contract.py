@@ -62,6 +62,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Reclass. adquirência",
     "Auditoria numérica",
     "Reclass. ANBIMA",
+    "Reclass. CVM",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
@@ -519,3 +520,7 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert 'payloadKey: "anbima_outros_reclassification"' not in renderer_source
     assert 'sheetName: "Reclass. ANBIMA"' not in renderer_source
     assert '["Reclass. ANBIMA", "A1:' not in renderer_source
+    assert "addReclassificationSheet" not in renderer_source
+    assert 'payloadKey: "cvm_outros_reclassification"' not in renderer_source
+    assert 'sheetName: "Reclass. CVM"' not in renderer_source
+    assert '["Reclass. CVM", "A1:' not in renderer_source

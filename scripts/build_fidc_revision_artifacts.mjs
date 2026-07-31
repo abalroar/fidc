@@ -101,6 +101,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Reclass. adquirência",
   "Auditoria numérica",
   "Reclass. ANBIMA",
+  "Reclass. CVM",
 ];
 
 const C = {
@@ -7575,35 +7576,6 @@ async function addOfferTargetPublicSheet(workbook, payload) {
   sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
-async function addReclassificationSheet(workbook, payload, config) {
-  const columns = [
-    ["CNPJ do FIDC", "cnpj_fundo_formatado"],
-    ["Nome do FIDC", "denominacao"],
-    ["PL atual", "pl"],
-    ["Taxonomia atual", "taxonomia_atual"],
-    ["Nova classificação proposta", "nova_classificacao_proposta"],
-    ["Fonte", "fonte"],
-    ["Data de referência", "data_referencia"],
-    ["Limitação", "limitacao"],
-  ];
-  const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload[config.payloadKey] || [], columns);
-  const sheet = resetSheet(workbook, config.sheetName);
-  setHeaderBand(
-    sheet,
-    config.title,
-    config.subtitle,
-    headers,
-    rows.length,
-    { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
-  );
-  await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [125, 390, 125, 200, 210, 360, 170, 520], rows.length);
-  applyFormatsByHeader(sheet, headers, rows.length);
-  sheet.getRange(`C5:C${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:H${rows.length + 4}`).format.rowHeightPx = 62;
-}
-
 async function buildWorkbook(payload, flowAssets) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
   const ficAudit = await readCsv(path.join(DATA_DIR, "industry_fic_detection_audit.csv"));
@@ -7643,12 +7615,6 @@ async function buildWorkbook(payload, flowAssets) {
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
-  await addReclassificationSheet(workbook, payload, {
-    payloadKey: "cvm_outros_reclassification",
-    sheetName: "Reclass. CVM",
-    title: "FIDCs classificados em Financeiro: Outros · taxonomia CVM",
-    subtitle: "Classificação observada na Tabela II em jun/26. Campo de nova classificação permanece em branco para revisão manual.",
-  });
   await addConclusionsSheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
@@ -7732,7 +7698,6 @@ async function exportWorkbook(workbook) {
       ["Top 15 ofertas", "A1:AZ28"],
       ["Validação emissões", "A1:U25"],
       ["Público-alvo ofertas", "A1:J24"],
-      ["Reclass. CVM", "A1:H35"],
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
