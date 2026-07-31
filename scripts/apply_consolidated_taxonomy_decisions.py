@@ -31,6 +31,11 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=Path("data/industry_study"))
     parser.add_argument("--saved-at-utc", default=DEFAULT_SAVED_AT)
+    parser.add_argument(
+        "--manual-only",
+        action="store_true",
+        help="Aplica somente as decisões explícitas do arquivo de overrides.",
+    )
     return parser.parse_args()
 
 
@@ -89,6 +94,18 @@ def build_manual_override_action(
     rationale = str(row.get("justificativa_curta") or "").strip()
     limitation = str(row.get("limitacao_documental") or "").strip()
     notes = " ".join(part for part in (rationale, limitation) if part)
+    document_id = str(row.get("documento_id_override") or "").strip() or "IMG_8592"
+    documentary_source = (
+        str(row.get("fonte_manual") or "").strip()
+        or "Comentário manual do usuário — IMG_8592.jpg"
+    )
+    document_date = (
+        str(row.get("documento_data_override") or "").strip() or "2026-07-29"
+    )
+    page_clause = (
+        str(row.get("pagina_clausula_override") or "").strip()
+        or "Linha do FIDC na imagem"
+    )
     action = {
         "review_id": taxonomy_review_id(cnpj),
         "competencia_referencia": "2026-06",
@@ -109,10 +126,10 @@ def build_manual_override_action(
             row.get("taxonomia_funcional_n2") or ""
         ).strip(),
         "confianca": str(row.get("confianca") or "media").strip(),
-        "documento_id": "IMG_8592",
-        "fonte_documental": "Comentário manual do usuário — IMG_8592.jpg",
-        "documento_data": "2026-07-29",
-        "pagina_clausula": "Linha do FIDC na imagem",
+        "documento_id": document_id,
+        "fonte_documental": documentary_source,
+        "documento_data": document_date,
+        "pagina_clausula": page_clause,
         "evidencia": str(row.get("comentario_usuario") or "").strip(),
         "cedente_originador_expresso": str(
             row.get("cedente_originador_expresso") or ""
@@ -173,14 +190,15 @@ def main() -> None:
     ].copy()
     if definitive["cnpj_fundo"].duplicated().any():
         raise ValueError("conclusões definitivas devem conter um registro por CNPJ")
-    for row in definitive.sort_values("cnpj_fundo").to_dict(orient="records"):
-        commit_taxonomy_review_action(
-            build_action(pd.Series(row), saved_at_utc=args.saved_at_utc),
-            ledger_path,
-            audit_path,
-            saved_at_utc=args.saved_at_utc,
-            source="consolidated_documentary_taxonomy_2026_07_29",
-        )
+    if not args.manual_only:
+        for row in definitive.sort_values("cnpj_fundo").to_dict(orient="records"):
+            commit_taxonomy_review_action(
+                build_action(pd.Series(row), saved_at_utc=args.saved_at_utc),
+                ledger_path,
+                audit_path,
+                saved_at_utc=args.saved_at_utc,
+                source="consolidated_documentary_taxonomy_2026_07_29",
+            )
     manual_actions = load_manual_override_actions(
         manual_override_path, saved_at_utc=args.saved_at_utc
     )
@@ -190,10 +208,10 @@ def main() -> None:
             ledger_path,
             audit_path,
             saved_at_utc=args.saved_at_utc,
-            source="user_comment_IMG_8592_2026_07_29",
+            source="user_comment_taxonomy_overrides",
         )
     print(
-        f"{len(definitive)} decisões documentais e "
+        f"{0 if args.manual_only else len(definitive)} decisões documentais e "
         f"{len(manual_actions)} decisões manuais consolidadas por CNPJ"
     )
 

@@ -15,7 +15,7 @@
     "to_date": "2026-05-31",
     "weight_definition": "PL de mai/26 por CNPJ legal de fundo"
   },
-  "generated_at_utc": "2026-07-30T21:52:13+00:00",
+  "generated_at_utc": "2026-07-31T15:30:00+00:00",
   "outputs": {
     "coverage": {
       "bytes": 4257,
@@ -27,7 +27,7 @@
       "bytes": 376852,
       "path": "prestadores_historico_cvm_transicoes_detalhe.csv.gz",
       "rows": 9918,
-      "sha256": "73d4230cd1de4346f59952c789347b831461e5357f5efafadb83de54c7bbef6f"
+      "sha256": "14fa1da5af5fb910f5b058a75576a8c0844872f763f3c06c127b2bcd7d0ba026"
     },
     "links": {
       "bytes": 24909,
@@ -39,7 +39,7 @@
       "bytes": 763461,
       "path": "prestadores_historico_cvm_snapshot.csv.gz",
       "rows": 19836,
-      "sha256": "bd42711159d51418b3ad70aca85530e790e7b8a51a42c1c2304412a301705336"
+      "sha256": "b4ce904f1c5dc0d311cb527d1aeadc23254b1be7016f93493bf26102f0753f90"
     }
   },
   "schema_version": "provider_history_cvm_v1",

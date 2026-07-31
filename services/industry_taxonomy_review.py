@@ -1058,6 +1058,7 @@ def build_top20_by_anbima_type(
     funds: pd.DataFrame,
     *,
     latest: str,
+    actions: pd.DataFrame | None = None,
     curated_top20: pd.DataFrame | None = None,
     regulation_review: pd.DataFrame | None = None,
     document_inventory: pd.DataFrame | None = None,
@@ -1072,7 +1073,8 @@ def build_top20_by_anbima_type(
     ].copy()
     current["pl"] = pd.to_numeric(current["pl"], errors="coerce")
     current["cnpj_fundo"] = current["cnpj_fundo"].map(normalize_cnpj)
-    current["tipo_exibicao"] = current["anbima_tipo"].map(_display_type)
+    current = apply_taxonomy_review_overlay(current, actions)
+    current["tipo_exibicao"] = current["anbima_tipo_curado"].map(_display_type)
     # O denominador deve reconciliar com o slide 8, que soma o universo ex-FIC
     # completo, inclusive saldos zero ou negativos. Esses saldos não são
     # elegíveis ao ranking, mas permanecem no total auditável do bucket.
@@ -1184,6 +1186,14 @@ def build_top20_by_anbima_type(
         "pl_source",
         "anbima_tipo",
         "anbima_foco",
+        "anbima_tipo_oficial",
+        "anbima_foco_oficial",
+        "anbima_tipo_curado",
+        "anbima_foco_curado",
+        "tabela_ii_curada",
+        "taxonomia_funcional_n1_curada",
+        "taxonomia_funcional_n2_curada",
+        "taxonomy_review_applied",
         "classification_tier",
         "classification_status",
         "classification_source",
@@ -1641,7 +1651,21 @@ def build_historical_top20_taxonomy_review(
     ].copy()
     scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
     scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(normalize_cnpj)
-    scoped["tipo_exibicao"] = scoped["anbima_tipo"].map(_display_type)
+
+    table_profiles: list[pd.DataFrame] = []
+    for period in periods:
+        profile = _table_ii_by_fund(table_ii, period)
+        profile["competencia"] = period
+        table_profiles.append(profile)
+    if table_profiles:
+        scoped = scoped.merge(
+            pd.concat(table_profiles, ignore_index=True),
+            on=["competencia", "cnpj_fundo"],
+            how="left",
+            validate="one_to_one",
+        )
+    scoped = apply_taxonomy_review_overlay(scoped, actions)
+    scoped["tipo_exibicao"] = scoped["anbima_tipo_curado"].map(_display_type)
     scoped = scoped[scoped["pl"].gt(0)].sort_values(
         ["competencia", "tipo_exibicao", "pl", "cnpj_fundo"],
         ascending=[True, True, False, True],
@@ -1656,19 +1680,6 @@ def build_historical_top20_taxonomy_review(
     )
     if not counts.reindex(expected, fill_value=0).eq(20).all() or len(top) != 80 * len(periods):
         raise ValueError("Top 20 histórico deve conter 20 fundos em cada Tipo e competência")
-
-    table_profiles: list[pd.DataFrame] = []
-    for period in periods:
-        profile = _table_ii_by_fund(table_ii, period)
-        profile["competencia"] = period
-        table_profiles.append(profile)
-    if table_profiles:
-        top = top.merge(
-            pd.concat(table_profiles, ignore_index=True),
-            on=["competencia", "cnpj_fundo"],
-            how="left",
-            validate="one_to_one",
-        )
 
     evidence = _originator_evidence(
         curated_top20,
@@ -1805,7 +1816,6 @@ def build_historical_top20_taxonomy_review(
     ] = "classificacao_nao_oficial_ou_indisponivel"
     top["cnpj_fundo_formatado"] = top["cnpj_fundo"].map(format_cnpj)
 
-    top = apply_taxonomy_review_overlay(top, actions)
     exact_actions = _blank_actions() if actions is None else _prepare_taxonomy_review_actions(actions)
     if not exact_actions.empty:
         top = top.merge(
@@ -2016,6 +2026,93 @@ def build_curated_type_mix(
     return mix
 
 
+def build_curated_taxonomy_level_history(
+    funds: pd.DataFrame,
+    actions: pd.DataFrame | None,
+    *,
+    periods: tuple[str, ...],
+    table_ii: pd.DataFrame | None = None,
+) -> pd.DataFrame:
+    """Materialize reconciled analytical drill-downs below displayed Type."""
+
+    if not periods or any(not _valid_month_competence(period) for period in periods):
+        raise ValueError("competências da taxonomia analítica devem seguir AAAA-MM")
+    scoped = funds[
+        funds["competencia"].astype(str).isin(periods)
+        & ~funds["is_fic_fidc"].map(_bool)
+    ].copy()
+    scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce").fillna(0.0)
+    scoped["cnpj_fundo"] = scoped["cnpj_fundo"].map(normalize_cnpj)
+
+    table_profiles: list[pd.DataFrame] = []
+    for period in periods:
+        profile = _table_ii_by_fund(table_ii, period)
+        profile["competencia"] = period
+        table_profiles.append(profile)
+    if table_profiles:
+        scoped = scoped.merge(
+            pd.concat(table_profiles, ignore_index=True),
+            on=["competencia", "cnpj_fundo"],
+            how="left",
+            validate="one_to_one",
+        )
+
+    scoped = apply_taxonomy_review_overlay(scoped, actions)
+    scoped["tipo_exibicao"] = scoped["anbima_tipo_curado"].map(_display_type)
+    level_fields = {
+        "foco_analitico": "anbima_foco_curado",
+        "tabela_ii_analitica": "tabela_ii_curada",
+        "taxonomia_funcional_n1": "taxonomia_funcional_n1_curada",
+        "taxonomia_funcional_n2": "taxonomia_funcional_n2_curada",
+    }
+    total_by_period = scoped.groupby("competencia")["pl"].sum(min_count=1)
+    parent_totals = scoped.groupby(["competencia", "tipo_exibicao"])["pl"].sum(
+        min_count=1
+    )
+    outputs: list[pd.DataFrame] = []
+    for level_name, source_column in level_fields.items():
+        level = scoped[
+            ["competencia", "tipo_exibicao", "cnpj_fundo", "pl", source_column]
+        ].copy()
+        level["categoria"] = (
+            level[source_column].fillna("").map(_text).replace("", "N/D")
+        )
+        grouped = level.groupby(
+            ["competencia", "tipo_exibicao", "categoria"],
+            as_index=False,
+        ).agg(
+            pl_brl=("pl", "sum"),
+            fundos=("cnpj_fundo", "nunique"),
+        )
+        grouped["nivel"] = level_name
+        grouped["pl_tipo_brl"] = grouped.set_index(
+            ["competencia", "tipo_exibicao"]
+        ).index.map(parent_totals)
+        grouped["pl_total_brl"] = grouped["competencia"].map(total_by_period)
+        grouped["share_tipo"] = (
+            grouped["pl_brl"] / grouped["pl_tipo_brl"].replace(0.0, pd.NA)
+        ).fillna(0.0)
+        grouped["share_total"] = (
+            grouped["pl_brl"] / grouped["pl_total_brl"].replace(0.0, pd.NA)
+        ).fillna(0.0)
+        outputs.append(grouped)
+    output = pd.concat(outputs, ignore_index=True)
+    level_order = {name: index for index, name in enumerate(level_fields)}
+    type_order = {name: index for index, name in enumerate(DISPLAY_TYPES)}
+    output["_nivel_ordem"] = output["nivel"].map(level_order)
+    output["_tipo_ordem"] = output["tipo_exibicao"].map(type_order)
+    return output.sort_values(
+        [
+            "_nivel_ordem",
+            "competencia",
+            "_tipo_ordem",
+            "pl_brl",
+            "categoria",
+        ],
+        ascending=[True, True, True, False, True],
+    ).drop(columns=["_nivel_ordem", "_tipo_ordem"]).reset_index(drop=True)
+
+
 __all__ = [
     "ANALYTICAL_ANBIMA_FOCUS_BY_TYPE",
     "ANBIMA_TYPES",
@@ -2028,6 +2125,7 @@ __all__ = [
     "TAXONOMY_REVIEW_STATUSES",
     "apply_taxonomy_review_overlay",
     "assert_taxonomy_review_ledger_matches_audit",
+    "build_curated_taxonomy_level_history",
     "build_curated_type_mix",
     "build_historical_top20_taxonomy_review",
     "build_unique_taxonomy_operational_queue",

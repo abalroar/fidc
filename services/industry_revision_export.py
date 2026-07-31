@@ -39,7 +39,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 64
+EXPECTED_SLIDES = 68
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -412,19 +412,19 @@ def validate_revision_pptx(payload: bytes) -> None:
         canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
         _validate_native_table_slide(
             archive,
-            29,
+            33,
             expected_dimensions=((16, 10), (16, 10)),
             canvas=canvas,
         )
         _validate_native_table_slide(
             archive,
-            30,
+            34,
             expected_dimensions=((16, 9), (16, 9)),
             canvas=canvas,
         )
         _validate_native_table_slide(
             archive,
-            31,
+            35,
             expected_dimensions=((8, 9),),
             canvas=canvas,
         )
