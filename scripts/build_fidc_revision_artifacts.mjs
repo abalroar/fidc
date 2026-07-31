@@ -88,6 +88,7 @@ const RENDERER_VERSION = "industry_revision_artifacts_v25";
 const EXPECTED_SLIDES = 64;
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
+  "Warnings",
 ];
 
 const C = {
