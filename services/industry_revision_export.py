@@ -65,7 +65,6 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Taxonomia adquirência",
     "Adquirência reclass.",
     "Curadoria Cartão",
-    "Reclass. adquirência",
     "Top 20 por Tipo ANBIMA",
     "Auditoria Top 20 Tipo",
     "Curadoria Outros Top 100",

@@ -59,6 +59,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "_Listas",
     "Cross-check taxonomia",
     "Taxonomia por CNPJ",
+    "Reclass. adquirência",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
@@ -507,3 +508,6 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert '["Cross-check taxonomia", "A1:' not in renderer_source
     assert 'sheetName: "Taxonomia por CNPJ"' not in renderer_source
     assert '["Taxonomia por CNPJ", "A1:' not in renderer_source
+    assert "addAcquiringAnbimaReviewSheet" not in renderer_source
+    assert 'resetSheet(workbook, "Reclass. adquirência")' not in renderer_source
+    assert '["Reclass. adquirência", "A1:' not in renderer_source

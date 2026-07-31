@@ -98,6 +98,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "_Listas",
   "Cross-check taxonomia",
   "Taxonomia por CNPJ",
+  "Reclass. adquirência",
 ];
 
 const C = {
@@ -6291,39 +6292,6 @@ async function addCardReceivablesCurationSheet(workbook, payload) {
   sheet.getRange(`A5:V${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
-async function addAcquiringAnbimaReviewSheet(workbook, payload) {
-  const columns = [
-    ["FIDC", "denominacao"],
-    ["CNPJ", "cnpj_fundo_formatado"],
-    ["PL atual", "pl_referencia_brl"],
-    ["Competência PL", "pl_referencia_competencia"],
-    ["Tipo ANBIMA atual", "tipo_anbima_atual"],
-    ["Foco ANBIMA atual", "foco_anbima_atual"],
-    ["Categoria sugerida", "categoria_referencia_sugerida"],
-    ["Fonte da classificação", "classification_source"],
-    ["Status da classificação", "classification_status"],
-    ["Base alterada", "base_alterada"],
-    ["Critério da sugestão", "criterio_sugestao"],
-  ];
-  const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload.acquiring_anbima_review || [], columns);
-  const summary = payload.acquiring_anbima_review_summary || {};
-  const sheet = resetSheet(workbook, "Reclass. adquirência");
-  setHeaderBand(
-    sheet,
-    "FIDCs incluídos em Adquirência · revisão ANBIMA",
-    `${integer(summary.fundos_filtrados)} fundos atendem ao filtro literal ${summary.filtro_aplicado || "solicitado"}. ${summary.limitacao_contagem || ""} A base não foi alterada.`,
-    headers,
-    rows.length,
-    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
-  );
-  await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [310, 120, 120, 100, 170, 180, 210, 250, 155, 90, 520], rows.length);
-  applyFormatsByHeader(sheet, headers, rows.length);
-  sheet.getRange(`C5:C${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:K${rows.length + 4}`).format.rowHeightPx = 46;
-}
-
 async function addTop20ByTypeSheets(workbook, payload) {
   const columns = [
     ["Tipo exibido", "tipo_exibicao"],
@@ -7683,7 +7651,6 @@ async function buildWorkbook(payload, flowAssets) {
   await addAcquiringTaxonomySheet(workbook, payload);
   await addAcquiringReclassificationSheet(workbook, payload);
   await addCardReceivablesCurationSheet(workbook, payload);
-  await addAcquiringAnbimaReviewSheet(workbook, payload);
   await addTop20ByTypeSheets(workbook, payload);
   await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);
@@ -7780,7 +7747,6 @@ async function exportWorkbook(workbook) {
       ["Adquirência reclass.", "A1:G28"],
       ["Taxonomia adquirência", "A1:N32"],
       ["Curadoria Cartão", "A1:V48"],
-      ["Reclass. adquirência", "A1:K32"],
       ["Top 20 por Tipo ANBIMA", "A1:AF28"],
       ["Auditoria Top 20 Tipo", "A1:M10"],
       ["Curadoria Outros Top 100", "A1:AH28"],

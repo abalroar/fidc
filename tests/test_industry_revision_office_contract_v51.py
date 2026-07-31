@@ -170,7 +170,6 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Ranking prestadores",
     "Taxonomia adquirência",
     "Curadoria Cartão",
-    "Reclass. adquirência",
     "Top 20 por Tipo ANBIMA",
     "Auditoria Top 20 Tipo",
     "Curadoria Outros Top 100",

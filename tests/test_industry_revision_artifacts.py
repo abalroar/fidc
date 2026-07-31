@@ -739,7 +739,6 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Taxonomia adquirência",
         "Adquirência reclass.",
         "Curadoria Cartão",
-        "Reclass. adquirência",
         "Top 20 por Tipo ANBIMA",
         "Auditoria Top 20 Tipo",
         "Curadoria Outros Top 100",
