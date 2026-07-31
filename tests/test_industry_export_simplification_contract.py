@@ -50,6 +50,7 @@ OPTIONAL_ABSENT_PPTX_KEYS = frozenset({"reag_admin_migration"})
 EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
     "Warnings",
+    "Ofertas anual",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
 

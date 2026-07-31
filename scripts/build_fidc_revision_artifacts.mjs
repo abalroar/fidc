@@ -89,6 +89,7 @@ const EXPECTED_SLIDES = 64;
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
+  "Ofertas anual",
 ];
 
 const C = {
