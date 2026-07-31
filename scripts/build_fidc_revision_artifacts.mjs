@@ -95,6 +95,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Cedentes",
   "Investidores hist",
   "Tipos investidor",
+  "_Listas",
 ];
 
 const C = {
@@ -5065,6 +5066,7 @@ function resetSheet(workbook, name) {
     renameFirstIfOnlyNewSpreadsheet: true,
   });
   sheet.deleteAllDrawings();
+  sheet.dataValidations.clear();
   const used = sheet.getUsedRange();
   if (used) {
     try {

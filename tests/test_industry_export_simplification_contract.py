@@ -56,8 +56,19 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Cedentes",
     "Investidores hist",
     "Tipos investidor",
+    "_Listas",
 )
-INHERITED_WORKBOOK_SHEETS_TO_REMOVE = EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
+INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
+    "Conflitos Tab IV",
+    "Warnings",
+    "Ofertas anual",
+    "Posição Itaú",
+    "Ranking ofertas",
+    "Cedentes",
+    "Investidores hist",
+    "Tipos investidor",
+    "_Listas",
+)
 
 
 def _published_payload() -> tuple[bytes, dict[str, object]]:
@@ -463,6 +474,8 @@ def test_user_facing_snapshot_sheets_are_preserved_by_the_input_pipeline() -> No
     finally:
         workbook.close()
 
+
+def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     renderer_source = RENDERER_PATH.read_text(encoding="utf-8")
     build_workbook_source = renderer_source.split(
         "async function buildWorkbook",
@@ -483,3 +496,5 @@ def test_user_facing_snapshot_sheets_are_preserved_by_the_input_pipeline() -> No
     assert "removeWorkbookSheets(workbook);" in build_workbook_source
     assert "getItemOrNullObject(sheetName)" in renderer_source
     assert "sheet.delete();" in renderer_source
+    assert "sheet.dataValidations.clear();" in renderer_source
+    assert 'resetSheet(workbook, "Top 20 Outros")' in renderer_source
