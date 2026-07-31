@@ -55,6 +55,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Ranking ofertas",
     "Cedentes",
     "Investidores hist",
+    "Tipos investidor",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = EXPECTED_WORKBOOK_SHEETS_TO_REMOVE
 

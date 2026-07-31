@@ -94,6 +94,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Ranking ofertas",
   "Cedentes",
   "Investidores hist",
+  "Tipos investidor",
 ];
 
 const C = {
