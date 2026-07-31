@@ -20,6 +20,18 @@ import pandas as pd
 
 
 PL_RECONCILIATION_WARNING_PCT = 0.5
+FLAGSHIP_DOCUMENTARY_FIELDS = (
+    "documento_id_regulamento",
+    "documento_data_regulamento",
+    "pagina_clausula",
+    "paginas_lidas",
+    "status_curadoria_documental",
+    "observacao_documental",
+    "subordinacao_minima_junior_pct",
+    "subordinacao_minima_junior_display",
+    "subordinacao_minima_texto",
+    "subordinacao_minima_fonte",
+)
 FUNDOSNET_CNPJ_BASE = (
     "https://fnet.bmfbovespa.com.br/fnet/publico/"
     "abrirGerenciadorDocumentosCVM?cnpjFundo="
@@ -415,6 +427,7 @@ def build_flagship_curation(
     vehicle: pd.DataFrame,
     latest: str,
     deep_dives_dir: Path,
+    documentary_path: Path | None = None,
 ) -> FlagshipCurationResult:
     """Build CNPJ detail and family comparison from published project sources."""
 
@@ -530,6 +543,70 @@ def build_flagship_curation(
         [detail.reset_index(drop=True), pd.DataFrame(document_rows)],
         axis=1,
     )
+    if documentary_path is not None:
+        documentary = pd.read_csv(
+            documentary_path,
+            dtype={"cnpj_fundo": str},
+            keep_default_na=False,
+        )
+        missing = sorted(
+            {"cnpj_fundo", *FLAGSHIP_DOCUMENTARY_FIELDS}.difference(
+                documentary.columns
+            )
+        )
+        if missing:
+            raise ValueError(
+                "curadoria documental flagship sem campos: " + ", ".join(missing)
+            )
+        documentary["cnpj_fundo"] = documentary["cnpj_fundo"].map(_digits)
+        if (
+            documentary["cnpj_fundo"].eq("").any()
+            or documentary["cnpj_fundo"].duplicated().any()
+        ):
+            raise ValueError(
+                "curadoria documental flagship contém CNPJ vazio ou duplicado"
+            )
+        expected_cnpjs = set(detail["cnpj_fundo"])
+        documentary_cnpjs = set(documentary["cnpj_fundo"])
+        if documentary_cnpjs != expected_cnpjs:
+            missing_cnpjs = sorted(expected_cnpjs - documentary_cnpjs)
+            extra_cnpjs = sorted(documentary_cnpjs - expected_cnpjs)
+            raise ValueError(
+                "curadoria documental flagship não fecha o escopo: "
+                f"ausentes={missing_cnpjs}; extras={extra_cnpjs}"
+            )
+        documentary["subordinacao_minima_junior_pct"] = pd.to_numeric(
+            documentary["subordinacao_minima_junior_pct"], errors="coerce"
+        )
+        manual_columns = ["cnpj_fundo", *FLAGSHIP_DOCUMENTARY_FIELDS]
+        detail = detail.merge(
+            documentary[manual_columns],
+            on="cnpj_fundo",
+            how="left",
+            validate="one_to_one",
+            suffixes=("", "_documental"),
+        )
+        # A leitura integral versionada é a autoridade para o mínimo júnior.
+        # Os demais campos dos pacotes (emissão, mezanino e eventos) continuam
+        # preservados e rastreáveis na mesma linha.
+        for column in (
+            "subordinacao_minima_junior_pct",
+            "subordinacao_minima_junior_display",
+            "subordinacao_minima_texto",
+            "subordinacao_minima_fonte",
+        ):
+            detail[column] = detail.pop(f"{column}_documental")
+    else:
+        detail["documento_id_regulamento"] = "N/D"
+        detail["documento_data_regulamento"] = "N/D"
+        detail["pagina_clausula"] = "N/D"
+        detail["paginas_lidas"] = "N/D"
+        detail["status_curadoria_documental"] = (
+            "N/D — leitura integral não versionada"
+        )
+        detail["observacao_documental"] = (
+            "N/D — arquivo de curadoria documental não informado"
+        )
     detail["pacote_documental_path"] = detail["pacote_documental"].map(
         lambda value: (
             f"data/deep_dives/{_text(value)}/manifest.json"
@@ -660,6 +737,12 @@ def build_flagship_curation(
         "cnpjs_com_pacote_documental": int(
             detail["pacote_documental"].map(_text).ne("").sum()
         ),
+        "cnpjs_com_regulamento_lido": int(
+            detail["status_curadoria_documental"]
+            .map(_fold)
+            .str.startswith("REVISTO")
+            .sum()
+        ),
         "cnpjs_com_minimo_junior": int(
             detail["subordinacao_minima_junior_display"].ne("N/D").sum()
         ),
@@ -676,8 +759,9 @@ def build_flagship_curation(
             "classes de cotas reconciliados com tolerância de 0,5%"
         ),
         "fonte_documental": (
-            "pacotes versionados em data/deep_dives; regulamentos, emissões e "
-            "assembleias CVM/Fundos.NET identificados em cada linha"
+            "curadoria integral versionada em "
+            "data/industry_study/industry_flagship_document_curation.csv; "
+            "pacotes em data/deep_dives preservam emissões, séries e eventos"
         ),
         "metodologia": (
             "uma linha por CNPJ da shortlist aprovada; família agrega PL e "

@@ -27,6 +27,8 @@ EXPECTED_PAYLOAD_KEYS = {
     "flagship_curation",
     "flagship_curation_summary",
     "flagship_families",
+    "issuance_taxonomy_reconciliation",
+    "issuance_taxonomy_table",
     "latest_complete",
     "provider_history_cvm_coverage",
     "provider_history_cvm_detail",
@@ -94,9 +96,20 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
     assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v1"
     assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v1"
+    assert compact["issuanceTaxonomy"]["schemaVersion"] == "issuance_taxonomy_table_v1"
+    assert len(compact["issuanceTaxonomy"]["rows"]) == 7
     assert len(compact["taxonomy"]["rows"]) == 358
     assert len(compact["flagships"]["families"]) == 26
     assert len(compact["flagships"]["details"]) == 47
+    flagship_fields = compact["flagships"]["fields"]["detail"]
+    assert {
+        "documentId",
+        "documentDate",
+        "page",
+        "pagesRead",
+        "curationStatus",
+        "documentaryNote",
+    } <= set(flagship_fields)
     assert len(compact["carteira1"]["ranges"]) == 7
     assert len(compact["carteira1"]["details"]) == 101
     carteira_fields = compact["carteira1"]["fields"]["detail"]

@@ -380,6 +380,56 @@ def _closed_offer_placement_regime_fixture() -> list[dict[str, object]]:
     return rows
 
 
+def _issuance_taxonomy_fixture() -> tuple[
+    list[dict[str, object]],
+    list[dict[str, object]],
+    list[dict[str, object]],
+]:
+    periods = (
+        ("2023", "2023"),
+        ("2024", "2024"),
+        ("2025", "2025"),
+        ("jun25", "jan–jun/25"),
+        ("jun26", "jan–jun/26"),
+    )
+    categories = (
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    )
+    long_rows = [
+        {
+            "period_key": key,
+            "period_label": label,
+            "categoria": category,
+            "volume_brl": 0.2,
+            "share": 0.25,
+        }
+        for key, label in periods
+        for category in categories
+    ]
+    wide_rows = [
+        {
+            "Categoria": category,
+            "2023 (R$ bi)": 0.2 / 1e9,
+            "2023 (%)": 0.25,
+        }
+        for category in categories
+    ]
+    reconciliation = [
+        {
+            "period_key": key,
+            "period_label": label,
+            "total_brl": 0.8,
+            "fic_excluded_brl": 0.2,
+            "emitted_volume_brl": 1.0,
+        }
+        for key, label in periods
+    ]
+    return long_rows, wide_rows, reconciliation
+
+
 def _payload() -> dict[str, object]:
     card_rows = _card_taxonomy_rows()
     type_names = (
@@ -462,6 +512,9 @@ def _payload() -> dict[str, object]:
         }
         for rank in range(1, 101)
     ]
+    issuance_taxonomy, issuance_taxonomy_table, issuance_reconciliation = (
+        _issuance_taxonomy_fixture()
+    )
     return {
         "schema_version": PAYLOAD_SCHEMA,
         "latest_complete": "2026-05",
@@ -836,6 +889,9 @@ def _payload() -> dict[str, object]:
         "market_offer_reconciliation": (
             _market_offer_reconciliation_fixture()
         ),
+        "issuance_taxonomy": issuance_taxonomy,
+        "issuance_taxonomy_table": issuance_taxonomy_table,
+        "issuance_taxonomy_reconciliation": issuance_reconciliation,
         "bcb_expanded_credit": [
             {
                 "competencia": "2026-05",
@@ -1035,6 +1091,18 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
 
+
+def test_payload_rejects_issuance_taxonomy_that_does_not_reconcile() -> None:
+    payload = deepcopy(_payload())
+    payload["issuance_taxonomy_reconciliation"][0]["emitted_volume_brl"] += 0.02
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=r"quatro tipos ANBIMA \+ FIC-FIDC",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+    payload = _payload()
     for key in (
         "holder_distribution_history",
         "type_mix_history",
@@ -1266,7 +1334,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 65
+    assert first["checks"]["slides"] == 64
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

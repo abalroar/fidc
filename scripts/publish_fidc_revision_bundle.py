@@ -76,6 +76,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_fixed_income_offer_comparison.csv",
     "industry_anbima_market_offers.csv",
     "industry_market_offer_reconciliation.csv",
+    "industry_issuance_taxonomy_delta.csv",
     "industry_bcb_expanded_credit.csv",
     "industry_offer_document_curation.csv",
     "industry_offer_rating_review.csv",
@@ -96,6 +97,10 @@ REQUIRED_DATA_INPUTS = (
     "card_receivables_curation.csv",
     "atlantico_curadoria.json",
     "acquiring_taxonomy_curation.json",
+    "industry_flagship_scope.csv",
+    "industry_flagship_document_curation.csv",
+    "industry_carteira_1_scope.csv",
+    "industry_carteira_1_document_curation.csv",
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -126,6 +131,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_closed_offer_placement_regime.py",
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
     ROOT / "scripts" / "build_fidc_market_offer_reconciliation.py",
+    ROOT / "scripts" / "build_fidc_issuance_taxonomy_delta.py",
     ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
     ROOT / "scripts" / "build_fidc_offer_document_curation.py",
     ROOT / "scripts" / "build_fidc_offer_rating_review.py",
@@ -147,6 +153,8 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_closed_offer_placement_regime.py",
     ROOT / "services" / "industry_fixed_income_offer_comparison.py",
     ROOT / "services" / "industry_market_offer_reconciliation.py",
+    ROOT / "services" / "industry_issuance_taxonomy.py",
+    ROOT / "services" / "industry_flagship_curation.py",
     ROOT / "services" / "industry_public_offers.py",
     ROOT / "services" / "industry_bcb_expanded_credit.py",
     ROOT / "services" / "industry_offer_document_curation.py",
@@ -1196,6 +1204,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         "top20_outros_regulation_review",
         "fixed_income_offer_comparison",
         "market_offer_reconciliation",
+        "issuance_taxonomy",
+        "issuance_taxonomy_table",
+        "issuance_taxonomy_reconciliation",
         "bcb_expanded_credit",
         "provider_history_cvm_coverage",
         "provider_history_cvm_links",
@@ -1584,6 +1595,20 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "anbima_source_snapshot",
             "limitation",
         },
+        "issuance_taxonomy": {
+            "period_key",
+            "period_label",
+            "categoria",
+            "volume_brl",
+            "share",
+        },
+        "issuance_taxonomy_reconciliation": {
+            "period_key",
+            "period_label",
+            "total_brl",
+            "fic_excluded_brl",
+            "emitted_volume_brl",
+        },
         "bcb_expanded_credit": {
             "competencia",
             "period_label",
@@ -1660,6 +1685,60 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
                     f"payload {key} linha {index} sem colunas obrigatórias: "
                     + ", ".join(missing_columns)
                 )
+    issuance_rows = list(payload.get("issuance_taxonomy") or [])
+    issuance_reconciliation = {
+        str(row.get("period_key") or ""): row
+        for row in list(payload.get("issuance_taxonomy_reconciliation") or [])
+        if isinstance(row, Mapping)
+    }
+    expected_issuance_periods = {"2023", "2024", "2025", "jun25", "jun26"}
+    expected_issuance_categories = {
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    }
+    if set(issuance_reconciliation) != expected_issuance_periods:
+        raise RevisionBundlePublishError(
+            "emissões por taxonomia devem conter cinco períodos reconciliados"
+        )
+    issuance_by_period: dict[str, list[Mapping[str, object]]] = {}
+    for row in issuance_rows:
+        issuance_by_period.setdefault(str(row.get("period_key") or ""), []).append(row)
+    for period_key in expected_issuance_periods:
+        period_rows = issuance_by_period.get(period_key, [])
+        if len(period_rows) != 4:
+            raise RevisionBundlePublishError(
+                f"emissões por taxonomia em {period_key} devem conter quatro tipos"
+            )
+        if {str(row.get("categoria") or "") for row in period_rows} != expected_issuance_categories:
+            raise RevisionBundlePublishError(
+                f"emissões por taxonomia em {period_key} divergem das categorias ANBIMA"
+            )
+        share_total = sum(float(row.get("share") or 0.0) for row in period_rows)
+        if not math.isclose(share_total, 1.0, abs_tol=1e-8):
+            raise RevisionBundlePublishError(
+                f"shares de emissões por taxonomia em {period_key} não fecham 100%"
+            )
+        four_types = sum(float(row.get("volume_brl") or 0.0) for row in period_rows)
+        reconciliation = issuance_reconciliation[period_key]
+        if not math.isclose(
+            four_types,
+            float(reconciliation.get("total_brl") or 0.0),
+            abs_tol=0.01,
+        ):
+            raise RevisionBundlePublishError(
+                f"quatro tipos ANBIMA não reconciliam em {period_key}"
+            )
+        emitted = four_types + float(reconciliation.get("fic_excluded_brl") or 0.0)
+        if not math.isclose(
+            emitted,
+            float(reconciliation.get("emitted_volume_brl") or 0.0),
+            abs_tol=0.01,
+        ):
+            raise RevisionBundlePublishError(
+                f"quatro tipos ANBIMA + FIC-FIDC não reconciliam com o volume emitido em {period_key}"
+            )
     top20_by_type = list(payload.get("top20_by_anbima_type") or [])
     if len(top20_by_type) != 80:
         raise RevisionBundlePublishError(

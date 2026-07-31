@@ -31,12 +31,12 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-PUBLISHED_PAYLOAD_BYTES = 15_584_947
+PUBLISHED_PAYLOAD_BYTES = 15_617_387
 PUBLISHED_PAYLOAD_SHA256 = (
-    "3187107348253d330ba31bc195e4ab8cbb8302faeb4fa9adf4b1fb17e59314cd"
+    "81695855792480a7e1cf7433cafaa37a8bdf1b394a3bdb3ccd8ffc37d50ad1ff"
 )
 PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "742a628355397f626c4266cd5dc55a9def4de8b06855121bcf12e70e31b346af"
+    "371c8068d215e308862e5e038c9967e1f3583b6246c12e73f999ff375b082f68"
 )
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
@@ -271,7 +271,7 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     }
     assert manifest["payload_sha256"] == PUBLISHED_PAYLOAD_SHA256
     assert payload["schema_version"] == "fidc_revision_artifact_payload_v7"
-    assert len(payload) == 124
+    assert len(payload) == 127
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
@@ -279,6 +279,9 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
         "flagship_curation",
         "flagship_curation_summary",
         "flagship_families",
+        "issuance_taxonomy",
+        "issuance_taxonomy_reconciliation",
+        "issuance_taxonomy_table",
         "taxonomy_level_history",
     }.issubset(payload)
 
@@ -288,14 +291,16 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 75
+    assert len(pptx_keys) == 78
     assert len(dashboard_keys) == 91
-    assert len(consumer_keys) == 100
+    assert len(consumer_keys) == 103
     assert {
-        "carteira_1_curation_ranges",
         "carteira_1_curation_summary",
         "flagship_curation_summary",
         "flagship_families",
+        "issuance_taxonomy",
+        "issuance_taxonomy_reconciliation",
+        "issuance_taxonomy_table",
     }.issubset(pptx_keys)
     assert pptx_keys.issubset(payload)
     assert dashboard_keys.issubset(payload)

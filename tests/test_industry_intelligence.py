@@ -184,7 +184,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 65
+    assert len(presentation.slides) == EXPECTED_SLIDES == 64
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []

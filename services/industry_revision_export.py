@@ -39,7 +39,75 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 65
+EXPECTED_SLIDES = 64
+EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
+    ("industria de fidcs",),
+    ("grandes numeros",),
+    ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
+    ("ofertas encerradas", "emissoes por categoria anbima"),
+    ("ofertas encerradas", "serie anbima"),
+    ("base investidora",),
+    ("distribuicao por numero de cotistas",),
+    ("taxonomia analitica",),
+    ("reclassificacao de adquirencia",),
+    ("carteira por tipo de recebivel",),
+    ("observabilidade da inadimplencia",),
+    ("inadimplencia", "base original"),
+    ("inadimplencia", "ex-zeros"),
+    ("coorte atual por recebivel",),
+    ("dispersao entre reportantes",),
+    ("inadimplencia", "sintese executiva"),
+    ("prestadores", "ranking e concentracao"),
+    ("ranking", "top 20 fidcs"),
+    ("top 20 por tipo analitico", "fomento mercantil"),
+    ("top 20 por tipo analitico", "agro, industria e comercio"),
+    ("top 20 por tipo analitico", "financeiro"),
+    ("top 20 por tipo analitico", "outros"),
+    ("curadoria", "fundos flagship"),
+    ("curadoria", "carteira 1"),
+    ("modelo de prestacao",),
+    ("concentracao das monoestruturas",),
+    ("ofertas encerradas", "volume e ticket"),
+    ("distribuicao do ticket",),
+    ("ofertas", "volume e regime"),
+    ("top 15", "ofertas encerradas"),
+    ("top 15", "historico"),
+    ("top 15", "2022 parcial"),
+    ("principais conclusoes",),
+    ("apendice", "escopo e fontes"),
+    ("apendice", "curadoria top 20", "#1"),
+    ("apendice", "curadoria top 20", "#2"),
+    ("apendice", "curadoria top 20", "#3"),
+    ("apendice", "curadoria top 20", "#4"),
+    ("apendice", "curadoria top 20", "#5"),
+    ("apendice", "curadoria top 20", "#6"),
+    ("apendice", "curadoria top 20", "#7"),
+    ("apendice", "curadoria top 20", "#8"),
+    ("apendice", "curadoria top 20", "#9"),
+    ("apendice", "curadoria top 20", "#10"),
+    ("apendice", "curadoria top 20", "#11"),
+    ("apendice", "curadoria top 20", "#12"),
+    ("apendice", "curadoria top 20", "#13"),
+    ("apendice", "curadoria top 20", "#14"),
+    ("apendice", "curadoria top 20", "#15"),
+    ("apendice", "curadoria top 20", "#16"),
+    ("apendice", "curadoria top 20", "#17"),
+    ("apendice", "curadoria top 20", "#18"),
+    ("apendice", "curadoria top 20", "#19"),
+    ("apendice", "curadoria top 20", "#20"),
+    ("prestadores", "evolucao e ranking"),
+    ("fidcs dos cinco bancos",),
+    ("prestadores", "lideranca explicada"),
+    ("market share", "administracao"),
+    ("market share", "gestao"),
+    ("market share", "custodia"),
+    ("apendice", "market share", "administracao"),
+    ("apendice", "market share", "gestao"),
+    ("apendice", "market share", "custodia"),
+    ("apendice", "caso atlantico"),
+)
+if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
+    raise RuntimeError("contrato ordinal do PPTX não fecha 64 slides")
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -79,6 +147,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Originadores 2026",
     "Top 15 ofertas",
     "Validação emissões",
+    "Emissões por categoria",
     "Público-alvo ofertas",
     "Principais conclusões",
     "Curadoria Atlântico",
@@ -392,6 +461,19 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 f"sequência do PPTX deveria conter {EXPECTED_SLIDES} slides; contém {len(ordered_slides)}"
             )
+        for slide_number, (slide_path, expected_tokens) in enumerate(
+            zip(ordered_slides, EXPECTED_SLIDE_SEQUENCE, strict=True),
+            start=1,
+        ):
+            slide_text = _normalized_slide_text(archive.read(slide_path))
+            missing_tokens = [
+                token for token in expected_tokens if token not in slide_text
+            ]
+            if missing_tokens:
+                raise RevisionExportUnavailable(
+                    f"slide {slide_number} viola o contrato ordinal: "
+                    + ", ".join(missing_tokens)
+                )
         if ordered_slides[2] != "ppt/slides/slide3.xml":
             raise RevisionExportUnavailable(
                 "slide 3 perdeu sua posição na sequência da apresentação"
@@ -401,9 +483,13 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide 3 não contém o conteúdo Escala da Indústria"
             )
-        if slide3.count(b"<c:chart") < 3:
+        if slide3.count(b"<c:chart") < 2:
             raise RevisionExportUnavailable(
-                "slide 3 deve conter três gráficos nativos do Office"
+                "slide 3 deve conter dois gráficos nativos do Office"
+            )
+        if "saldo fic" in _normalized_slide_text(slide3):
+            raise RevisionExportUnavailable(
+                "slide 3 voltou a exibir FIC no gráfico de PL"
             )
         slide3_root = ElementTree.fromstring(slide3)
         if str(slide3_root.attrib.get("show", "1")).casefold() in {"0", "false"}:
@@ -413,6 +499,12 @@ def validate_revision_pptx(payload: bytes) -> None:
         if slide_size is None:
             raise RevisionExportUnavailable("PPTX revisado sem dimensão de slide")
         canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
+        _validate_native_table_slide(
+            archive,
+            4,
+            expected_dimensions=((8, 14),),
+            canvas=canvas,
+        )
         _validate_native_table_slide(
             archive,
             30,
@@ -504,13 +596,13 @@ def validate_revision_pptx(payload: bytes) -> None:
         cvm_market_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "SÉRIE CVM"
         )
-        if cvm_market_slide.count(b"<c:chart") < 2:
+        if cvm_market_slide.count(b"<c:chart") != 1:
             raise RevisionExportUnavailable(
-                "slide da série CVM deve conter dois gráficos nativos do Office"
+                "slide da série CVM deve conter um gráfico nativo do Office"
             )
-        if cvm_market_slide.count(b"<a:tbl>") != 0:
+        if cvm_market_slide.count(b"<a:tbl>") != 1:
             raise RevisionExportUnavailable(
-                "slide da série CVM não deve conter tabela nativa"
+                "slide da série CVM deve conter a tabela nativa de emissões por categoria"
             )
         anbima_market_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "SÉRIE ANBIMA"

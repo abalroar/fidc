@@ -239,7 +239,7 @@ def test_deck_order_and_profile_count() -> None:
     with ZipFile(PPTX) as archive:
         slides = _slide_texts(archive)
 
-    assert len(slides) == 65
+    assert len(slides) == 64
     expected_body = [
         "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
@@ -299,13 +299,13 @@ def test_deck_order_and_profile_count() -> None:
     assert "MARKET SHARE · ADMINISTRAÇÃO" in slides[57]
     assert "MARKET SHARE · GESTÃO" in slides[58]
     assert "MARKET SHARE · CUSTÓDIA" in slides[59]
-    assert "PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" in slides[60]
-    assert "Administração por subtipo" in slides[61]
-    assert "Gestão por subtipo" in slides[62]
-    assert "Custódia por subtipo" in slides[63]
-    assert "APÊNDICE · CASO ATLÂNTICO" in slides[64]
-    assert "09.194.841/0001-51" in slides[64]
-    assert "A quebra no bruto coincide" in slides[64]
+    assert all("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" not in text for text in slides)
+    assert "Administração por subtipo" in slides[60]
+    assert "Gestão por subtipo" in slides[61]
+    assert "Custódia por subtipo" in slides[62]
+    assert "APÊNDICE · CASO ATLÂNTICO" in slides[63]
+    assert "09.194.841/0001-51" in slides[63]
+    assert "A quebra no bruto coincide" in slides[63]
     deck_text = "\n".join(slides)
     assert deck_text.count("R$ 16,69 bi") == 0
     assert "Visão ex-360 bloqueada" not in deck_text
@@ -325,8 +325,8 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
     assert re.search(r"2022 FY.*N/D N/D", slides[26])
     assert slides[12].index("Setor público") < slides[12].index("Agronegócio")
     assert "66,0% dos R$ 77,7 bi" in slides[32]
-    assert "PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" in slides[60]
-    assert "100,0% é coerente com a estratégia NPL" in slides[64]
+    assert all("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" not in text for text in slides)
+    assert "100,0% é coerente com a estratégia NPL" in slides[63]
 
     deck_text = "\n".join(slides)
     for stale in (
@@ -363,7 +363,7 @@ def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
                 assert symbol.attrib.get("val") == "none"
 
 
-def test_scale_slide_uses_two_native_office_charts_with_direct_pl_and_fic_balance() -> None:
+def test_scale_slide_uses_two_native_office_charts_with_ex_fic_pl_and_total() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, 3)
@@ -379,7 +379,10 @@ def test_scale_slide_uses_two_native_office_charts_with_direct_pl_and_fic_balanc
         chart for chart in charts if chart.find(f".//{{{CHART}}}barChart") is not None
     ]
     assert len(charts) == 2
-    assert "PL DIRETO + SALDO FIC" in text
+    assert "FIDCs ex-FIC" in text
+    assert "R$ 821,0 bi" in text
+    assert "R$ 13,780 tri" in text
+    assert "SALDO FIC" not in text.upper()
     assert "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA" in text
     assert "excluídos títulos públicos" in text
     assert "demais securitizações (CRIs e CRAs)" in text
@@ -389,10 +392,10 @@ def test_scale_slide_uses_two_native_office_charts_with_direct_pl_and_fic_balanc
     left_bar = charts[0].find(f".//{{{CHART}}}barChart")
     right_bar = charts[1].find(f".//{{{CHART}}}barChart")
     assert left_bar is not None and right_bar is not None
-    assert len(left_bar.findall(f"{{{CHART}}}ser")) == 2
+    assert len(left_bar.findall(f"{{{CHART}}}ser")) == 1
     assert (
         left_bar.find(f"{{{CHART}}}grouping").attrib.get("val")
-        == "stacked"
+        == "clustered"
     )
     assert len(right_bar.findall(f"{{{CHART}}}ser")) == 5
     assert (
@@ -523,7 +526,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         assert expected in html
 
 
-@pytest.mark.parametrize("slide_number", [58, 59, 60, 62, 63, 64])
+@pytest.mark.parametrize("slide_number", [58, 59, 60, 61, 62, 63])
 def test_market_share_slides_use_one_native_percent_stacked_chart(
     slide_number: int,
 ) -> None:
@@ -856,7 +859,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v29";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v30";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

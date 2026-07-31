@@ -526,6 +526,12 @@ function flagshipModels(payload) {
       accelerationSource: String(row.vencimento_antecipado_fonte || "N/D"),
       packageStatus: String(row.pacote_documental_status || "N/D"),
       packagePath: String(row.pacote_documental_path || "N/D"),
+      documentId: String(row.documento_id_regulamento || "N/D"),
+      documentDate: String(row.documento_data_regulamento || "N/D"),
+      page: String(row.pagina_clausula || "N/D"),
+      pagesRead: String(row.paginas_lidas || "N/D"),
+      curationStatus: String(row.status_curadoria_documental || "N/D"),
+      documentaryNote: String(row.observacao_documental || "N/D"),
       fundosnetUrl: String(row.fundosnet_url || ""),
       gaps: String(row.lacunas || "N/D"),
     }));
@@ -536,6 +542,7 @@ function flagshipModels(payload) {
       cnpjs: Math.round(number(summary.cnpjs)),
       current: Math.round(number(summary.cnpjs_com_subordinacao_atual)),
       documented: Math.round(number(summary.cnpjs_com_pacote_documental)),
+      reviewed: Math.round(number(summary.cnpjs_com_regulamento_lido)),
       minJunior: Math.round(number(summary.cnpjs_com_minimo_junior)),
       price: Math.round(number(summary.cnpjs_com_preco_vnu)),
       emission: Math.round(number(summary.cnpjs_com_data_emissao)),
@@ -561,7 +568,8 @@ const FLAGSHIP_FIELDS = Object.freeze({
     "thresholdSource", "price", "priceClass", "priceDate", "priceSource",
     "emissionDate", "emissionSource",
     "mezzanine", "mezzanineSource", "acceleration", "accelerationSource",
-    "packageStatus", "packagePath", "fundosnetUrl", "gaps",
+    "packageStatus", "packagePath", "documentId", "documentDate", "page",
+    "pagesRead", "curationStatus", "documentaryNote", "fundosnetUrl", "gaps",
   ],
 });
 
@@ -664,7 +672,7 @@ function carteira1Models(payload) {
       documentId: String(row.documento_id_regulamento || "N/D"),
       documentDate: String(row.documento_data_regulamento || "N/D"),
       page: String(row.pagina_clausula || "N/D"),
-      pagesRead: Math.round(number(row.paginas_lidas)),
+      pagesRead: String(row.paginas_lidas || "N/D"),
       curationStatus: String(row.status_curadoria_documental || "N/D"),
       documentaryNote: String(row.observacao_documental || "N/D"),
       fundosnetUrl: String(row.fundosnet_url || ""),
@@ -802,6 +810,67 @@ function validateTaxonomy(rows) {
   if (rows.some((row) => row.pl === null || row.typePl === null || row.totalPl === null)) {
     throw new Error("Taxonomia por nível contém PL ausente");
   }
+}
+
+function issuanceTaxonomyModels(payload) {
+  const rows = [...(payload.issuance_taxonomy_table || [])];
+  const reconciliation = [...(payload.issuance_taxonomy_reconciliation || [])];
+  if (rows.length !== 4 || reconciliation.length !== 5) {
+    throw new Error("Explorador de emissões deve receber quatro categorias e cinco períodos");
+  }
+  const headers = Object.keys(rows[0]);
+  const total = { Categoria: "Total (quatro tipos ANBIMA)" };
+  headers.slice(1).forEach((header) => {
+    total[header] = header.endsWith("(%)")
+      ? 1
+      : rows.reduce((sum, row) => sum + number(row[header]), 0);
+  });
+  const byPeriod = Object.fromEntries(reconciliation.map((row) => [row.period_key, row]));
+  const periodKeys = ["2023", "2024", "2025", "jun25", "jun26"];
+  const volumeKeys = [
+    "2023 (R$ bi)", "2024 (R$ bi)", "2025 (R$ bi)",
+    "jan–jun/25 (R$ bi)", "jan–jun/26 (R$ bi)",
+  ];
+  const shareKeys = [
+    "2023 (%)", "2024 (%)", "2025 (%)", "jan–jun/25 (%)", "jan–jun/26 (%)",
+  ];
+  const bridge = (label, field) => {
+    const row = { Categoria: label };
+    periodKeys.forEach((periodKey, index) => {
+      row[volumeKeys[index]] = number(byPeriod[periodKey]?.[field]) / 1e9;
+      row[shareKeys[index]] = null;
+    });
+    row["Delta 2023→2024 (R$ bi)"] = row[volumeKeys[1]] - row[volumeKeys[0]];
+    row["Delta 2024→2025 (R$ bi)"] = row[volumeKeys[2]] - row[volumeKeys[1]];
+    row["Delta jan–jun/25→jan–jun/26 (R$ bi)"] = row[volumeKeys[4]] - row[volumeKeys[3]];
+    return row;
+  };
+  return {
+    schemaVersion: "issuance_taxonomy_table_v1",
+    headers,
+    rows: [
+      ...rows,
+      total,
+      bridge("FIC-FIDC (fora dos quatro tipos)", "fic_excluded_brl"),
+      bridge("Total emitido", "emitted_volume_brl"),
+    ],
+  };
+}
+
+function issuanceTaxonomyApp(DATA) {
+  const root = document.getElementById("issuance-taxonomy-explorer");
+  if (!root) return;
+  const esc = value => String(value ?? "").replace(/[&<>\"]/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[char]));
+  const format = (header, value) => {
+    if (value === null || value === undefined || value === "") return "—";
+    if (header === "Categoria") return esc(value);
+    if (header.endsWith("(%)")) {
+      return (Number(value) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + "%";
+    }
+    return Number(value).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  };
+  root.querySelector("thead tr").innerHTML = DATA.headers.map((header, index) => `<th class="${index ? "num" : ""}">${esc(header)}</th>`).join("");
+  root.querySelector("tbody").innerHTML = DATA.rows.map((row) => `<tr>${DATA.headers.map((header, index) => `<td class="${index ? "num" : ""}">${format(header, row[header])}</td>`).join("")}</tr>`).join("");
 }
 
 function percent(value, digits = 1) {
@@ -986,7 +1055,7 @@ function flagshipApp(DATA) {
     const links = row.fundosnetUrl
       ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>`
       : "";
-    return `<details><summary>Fontes</summary><div class="flag-sources">${links}<span>${esc(row.packagePath)}</span><span>Subord.: ${esc(row.thresholdSource)}</span><span>Emissão: ${esc(row.emissionSource)}</span><span>Eventos: ${esc(row.accelerationSource)}</span></div></details>`;
+    return `<details><summary>Fontes</summary><div class="flag-sources">${links}<span>Regulamento ${esc(row.documentId)} · ${esc(row.documentDate)} · ${esc(row.page)} · leitura ${esc(row.pagesRead)}</span><span>${esc(row.curationStatus)}</span><span>${esc(row.documentaryNote)}</span><span>Subord.: ${esc(row.thresholdSource)}</span><span>Emissão: ${esc(row.emissionSource)}</span><span>Eventos: ${esc(row.accelerationSource)}</span><span>${esc(row.packagePath)}</span></div></details>`;
   };
   const renderTable = () => {
     const rows = filteredDetails();
@@ -1012,8 +1081,8 @@ function flagshipApp(DATA) {
   };
   const render = () => { renderGrid(); renderTable(); };
   const downloadCsv = () => {
-    const headers = ["categoria","familia","fundo","cnpj","pl_atual_brl","pl_subordinado_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","emissao","mezanino","vencimento_antecipado","status_pacote","lacunas","fundosnet_url"];
-    const rows = filteredDetails().map(row => [row.category,row.family,row.fund,row.cnpj,row.pl,row.subordinate,row.ratio,row.range,row.minJunior,row.emissionDate,row.mezzanine,row.acceleration,row.packageStatus,row.gaps,row.fundosnetUrl]);
+    const headers = ["categoria","familia","fundo","cnpj","pl_atual_brl","pl_subordinado_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","emissao","mezanino","vencimento_antecipado","status_pacote","documento_regulamento","data_regulamento","pagina_clausula","extensao_leitura","status_curadoria_documental","observacao_documental","lacunas","fundosnet_url"];
+    const rows = filteredDetails().map(row => [row.category,row.family,row.fund,row.cnpj,row.pl,row.subordinate,row.ratio,row.range,row.minJunior,row.emissionDate,row.mezzanine,row.acceleration,row.packageStatus,row.documentId,row.documentDate,row.page,row.pagesRead,row.curationStatus,row.documentaryNote,row.gaps,row.fundosnetUrl]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -1167,7 +1236,7 @@ function taxonomyApp(DATA) {
 function clientRuntime(data) {
   const serialized = JSON.stringify(data).replace(/</g, "\\u003c");
   return `<script type="application/json" id="provider-flow-data">${serialized}<\/script>
-<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);const carteira1=(${expandCompactCarteira1.toString()})(compact.carteira1);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${flagshipApp.toString()})(flagships);(${carteira1App.toString()})(carteira1)})();<\/script>`;
+<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);const carteira1=(${expandCompactCarteira1.toString()})(compact.carteira1);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${issuanceTaxonomyApp.toString()})(compact.issuanceTaxonomy);(${flagshipApp.toString()})(flagships);(${carteira1App.toString()})(carteira1)})();<\/script>`;
 }
 
 function fragmentHtml(data, standalone = false) {
@@ -1212,7 +1281,7 @@ function fragmentHtml(data, standalone = false) {
     #provider-flow-explorer td.num,#provider-flow-explorer th.num{text-align:right;white-space:nowrap}
     #provider-flow-explorer .pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flow-muted)}
     #provider-flow-explorer .flow-tooltip{position:absolute;z-index:2;max-width:320px;padding:8px 10px;background:var(--flow-fg);color:var(--flow-bg);border-radius:4px;pointer-events:none}
-    #taxonomy-level-explorer,#flagship-curation-explorer,#carteira-1-curation-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
+    #taxonomy-level-explorer,#issuance-taxonomy-explorer,#flagship-curation-explorer,#carteira-1-curation-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
     #taxonomy-level-explorer .tax-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
     #taxonomy-level-explorer .tax-heading p{margin:0;color:var(--flag-muted);font-size:14px}
     #taxonomy-level-explorer .tax-controls{display:flex;gap:12px;align-items:end;margin:18px 0 14px;flex-wrap:wrap}
@@ -1229,6 +1298,14 @@ function fragmentHtml(data, standalone = false) {
     #taxonomy-level-explorer th,#taxonomy-level-explorer td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--flag-border)}
     #taxonomy-level-explorer th{color:var(--flag-muted)}
     #taxonomy-level-explorer td.num,#taxonomy-level-explorer th.num{text-align:right;white-space:nowrap}
+    #issuance-taxonomy-explorer h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
+    #issuance-taxonomy-explorer p{margin:0 0 16px;color:var(--flag-muted);font-size:14px}
+    #issuance-taxonomy-explorer{overflow-x:auto}
+    #issuance-taxonomy-explorer table{border-collapse:collapse;width:100%;min-width:1180px;font-size:11px}
+    #issuance-taxonomy-explorer th,#issuance-taxonomy-explorer td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--flag-border);vertical-align:middle}
+    #issuance-taxonomy-explorer th{color:var(--flag-muted);font-size:10px}
+    #issuance-taxonomy-explorer td.num,#issuance-taxonomy-explorer th.num{text-align:right;white-space:nowrap}
+    #issuance-taxonomy-explorer tbody tr:nth-last-child(-n+3){font-weight:700;background:var(--flag-pale)}
     #flagship-curation-explorer .flag-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
     #flagship-curation-explorer .flag-heading p{margin:0;color:var(--flag-muted);font-size:14px}
     #flagship-curation-explorer .flag-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:18px 0}
@@ -1322,6 +1399,11 @@ function fragmentHtml(data, standalone = false) {
     <tbody></tbody>
   </table>
 </section>
+<section id="issuance-taxonomy-explorer" aria-labelledby="issuance-taxonomy-title">
+  <h2 id="issuance-taxonomy-title">Emissões por Categoria ANBIMA</h2>
+  <p>Mesma tabela do slide anual e do workbook. Quatro tipos analíticos, ponte FIC-FIDC e total emitido; 2023 usa o nível encerrado ANBIMA.</p>
+  <table aria-label="Emissões por Categoria ANBIMA"><thead><tr></tr></thead><tbody></tbody></table>
+</section>
 <section id="flagship-curation-explorer" aria-labelledby="flagship-curation-title">
   <header class="flag-heading"><h2 id="flagship-curation-title">Curadoria comparável dos fundos flagship</h2><p>PL e subordinação atual são calculados por CNPJ. Mínimos, datas de emissão, mezanino e eventos reproduzem somente os documentos curados.</p></header>
   <div class="flag-metrics">
@@ -1389,6 +1471,7 @@ async function main() {
   const taxonomy = taxonomyModels(payload);
   const flagships = flagshipModels(payload);
   const carteira1 = carteira1Models(payload);
+  const issuanceTaxonomy = issuanceTaxonomyModels(payload);
   validateViews(data);
   validateTaxonomy(taxonomy);
   validateFlagships(flagships);
@@ -1396,6 +1479,7 @@ async function main() {
   const compact = {
     ...compactViews(data),
     taxonomy: compactTaxonomy(taxonomy),
+    issuanceTaxonomy,
     flagships: compactFlagships(flagships),
     carteira1: compactCarteira1(carteira1),
   };

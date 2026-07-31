@@ -28,6 +28,7 @@ ET.register_namespace("a", DRAWING)
 ET.register_namespace("c", CHART)
 
 EXPECTED_MARKET_SHARE_SLIDES = 6
+EXPECTED_SCALE_TOTAL_CHARTS = 1
 SHORT_SEGMENT = 0.025
 
 
@@ -163,7 +164,11 @@ def _set_chart_language_ptbr(payload: bytes) -> bytes:
     root = ET.fromstring(payload)
     changed = False
     language = root.find(_c("lang"))
-    if language is not None and language.get("val") != "pt-BR":
+    if language is None:
+        language = ET.Element(_c("lang"), {"val": "pt-BR"})
+        root.insert(0, language)
+        changed = True
+    elif language.get("val") != "pt-BR":
         language.set("val", "pt-BR")
         changed = True
     for node in root.iter():
@@ -179,6 +184,25 @@ def _set_chart_language_ptbr(payload: bytes) -> bytes:
             if clean_code != code:
                 node.text = clean_code
                 changed = True
+    if not changed:
+        return payload
+    return ET.tostring(root, encoding="UTF-8", xml_declaration=True)
+
+
+def _set_drawing_language_ptbr(payload: bytes) -> bytes:
+    """Fix the locale of every text run used by slides and charts."""
+
+    root = ET.fromstring(payload)
+    changed = False
+    language_nodes = {
+        _a("rPr"),
+        _a("defRPr"),
+        _a("endParaRPr"),
+    }
+    for node in root.iter():
+        if node.tag in language_nodes and node.get("lang") != "pt-BR":
+            node.set("lang", "pt-BR")
+            changed = True
     if not changed:
         return payload
     return ET.tostring(root, encoding="UTF-8", xml_declaration=True)
@@ -272,8 +296,21 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     bar_chart = root.find(f".//{_c('barChart')}")
     if plot_area is None or bar_chart is None:
         return payload, False
+    existing_total_series = [
+        series
+        for series in root.findall(f".//{_c('lineChart')}/{_c('ser')}")
+        if "Total" in " ".join(
+            node.text or "" for node in series.findall(f".//{_c('tx')}//{_c('v')}")
+        )
+    ]
+    if len(existing_total_series) == 1:
+        return payload, True
+    if len(existing_total_series) > 1:
+        raise RuntimeError("gráfico de escala contém séries auxiliares Total duplicadas")
     series = bar_chart.findall(_c("ser"))
-    if len(series) not in {1, 2, 5}:
+    if len(series) == 1:
+        return payload, False
+    if len(series) not in {2, 5}:
         return payload, False
     values_by_series = [_series_values(item) for item in series]
     category_count = max(
@@ -368,14 +405,26 @@ def patch_pptx(path: Path) -> None:
                                 appendix=mode == "market_appendix",
                             )
                     if (
-                        info.filename.startswith("ppt/slides/charts/chart")
-                        and info.filename.endswith(".xml")
+                        info.filename.endswith(".xml")
+                        and (
+                            info.filename.startswith("ppt/charts/chart")
+                            or info.filename.startswith("ppt/slides/charts/chart")
+                        )
                     ):
                         data = _set_chart_language_ptbr(data)
+                    if (
+                        info.filename.endswith(".xml")
+                        and (
+                            info.filename.startswith("ppt/slides/slide")
+                            or info.filename.startswith("ppt/charts/chart")
+                            or info.filename.startswith("ppt/slides/charts/chart")
+                        )
+                    ):
+                        data = _set_drawing_language_ptbr(data)
                     output.writestr(info, data)
-            if scale_charts_patched != 2:
+            if scale_charts_patched != EXPECTED_SCALE_TOTAL_CHARTS:
                 raise RuntimeError(
-                    "slide Escala da Indústria deveria ter dois gráficos de barras "
+                    "slide Escala da Indústria deveria ter um gráfico empilhado "
                     f"com série auxiliar; foram ajustados {scale_charts_patched}"
                 )
             os.replace(temporary, path)

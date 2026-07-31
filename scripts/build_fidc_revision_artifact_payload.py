@@ -38,6 +38,11 @@ from services.industry_fixed_income_offer_comparison import (
 from services.industry_market_offer_reconciliation import (
     load_materialized_market_offer_reconciliation,
 )
+from services.industry_issuance_taxonomy import (
+    build_issuance_taxonomy,
+    build_wide_table,
+    load_issuance_taxonomy,
+)
 from services.industry_bcb_expanded_credit import (
     load_materialized_expanded_credit_history,
 )
@@ -2792,6 +2797,9 @@ def build_payload(
     market_offer_reconciliation = (
         load_materialized_market_offer_reconciliation(data_dir)
     )
+    issuance_taxonomy = load_issuance_taxonomy(data_dir)
+    _, issuance_taxonomy_coverage = build_issuance_taxonomy(data_dir)
+    issuance_taxonomy_table = build_wide_table(issuance_taxonomy)
     offer_cohort = pd.read_csv(
         data_dir / "industry_closed_offer_ticket_cohort.csv.gz",
         compression="gzip",
@@ -3063,6 +3071,9 @@ def build_payload(
     )
     flagship_curation = build_flagship_curation(
         scope_path=data_dir / "industry_flagship_scope.csv",
+        documentary_path=(
+            data_dir / "industry_flagship_document_curation.csv"
+        ),
         funds=funds,
         vehicle=vehicle,
         latest=latest,
@@ -3458,6 +3469,15 @@ def build_payload(
         ),
         "market_offer_reconciliation": _records(
             market_offer_reconciliation
+        ),
+        "issuance_taxonomy": _records(issuance_taxonomy),
+        "issuance_taxonomy_table": _records(issuance_taxonomy_table),
+        "issuance_taxonomy_reconciliation": _records(
+            issuance_taxonomy_coverage.frame().assign(
+                emitted_volume_brl=lambda frame: (
+                    frame["total_brl"] + frame["fic_excluded_brl"]
+                )
+            )
         ),
         # Compatibility alias for exports/readers from the prior release.
         "offer_public_validation": _records(
