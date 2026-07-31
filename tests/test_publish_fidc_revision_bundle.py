@@ -553,6 +553,46 @@ def _payload() -> dict[str, object]:
                 )
             )
         ],
+        "carteira_1_taxonomy_history": [
+            {
+                "competencia": competencia,
+                "period_label": period_label,
+                "period_order": period_order,
+                "category_order": category_order,
+                "anbima_tipo": anbima_tipo,
+                "portfolio_pl_brl": 0.25,
+                "portfolio_share": 0.25,
+                "portfolio_funds": 1,
+                "portfolio_total_brl": 1.0,
+                "scope_cnpjs": 4,
+                "observed_cnpjs": 4,
+                "coverage_scope_share": 1.0,
+                "market_pl_brl": 0.25,
+                "market_share": 0.25,
+                "market_total_brl": 1.0,
+                "portfolio_growth_since_start": 0.0,
+                "market_growth_since_start": 0.0,
+                "portfolio_share_delta_pp": 0.0,
+                "market_share_delta_pp": 0.0,
+            }
+            for period_order, (competencia, period_label) in enumerate(
+                (
+                    ("2023-12", "dez/23"),
+                    ("2024-12", "dez/24"),
+                    ("2025-12", "dez/25"),
+                    ("2026-05", "mai/26"),
+                )
+            )
+            for category_order, anbima_tipo in enumerate(type_names)
+        ],
+        "carteira_1_taxonomy_summary": {
+            "portfolio": "Carteira 1",
+            "scope_cnpjs": 4,
+            "latest_observed_cnpjs": 4,
+            "latest_total_brl": 1.0,
+            "source": "fixture",
+            "methodology": "ausente permanece ausente",
+        },
         "receivables_history": [
             {"competencia": "2023-12"},
             {"competencia": "2026-05"},

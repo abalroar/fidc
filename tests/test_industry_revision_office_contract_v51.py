@@ -100,44 +100,45 @@ SLIDE_TOKENS = {
     6: ("BASE INVESTIDORA",),
     7: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
     8: ("TAXONOMIA ANALÍTICA · DECISÕES APROVADAS",),
-    9: ("TAXONOMIA CVM", "ADQUIRÊNCIA"),
-    10: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
-    11: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
-    12: (
+    9: ("OUTROS · ABERTURA ANALÍTICA", "PODER PÚBLICO", "RECUPERAÇÃO", "AÇÕES JUDICIAIS"),
+    10: ("TAXONOMIA CVM", "ADQUIRÊNCIA"),
+    11: ("CARTEIRA POR TIPO DE RECEBÍVEL",),
+    12: ("OBSERVABILIDADE DA INADIMPLÊNCIA",),
+    13: (
         "INADIMPLÊNCIA · BASE ORIGINAL",
         "TIPO NA TABELA II",
         "4,4% DA CARTEIRA",
     ),
-    13: ("INADIMPLÊNCIA · EX-ZEROS", "13,5%", "9,1 P.P."),
-    14: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
-    15: ("INADIMPLÊNCIA · DISPERSÃO ENTRE REPORTANTES",),
-    16: ("INADIMPLÊNCIA · SÍNTESE EXECUTIVA",),
-    17: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
-    18: ("RANKING · TOP 20 FIDCs",),
-    19: ("TOP 20 POR TIPO ANALÍTICO", "FOMENTO MERCANTIL"),
-    20: ("TOP 20 POR TIPO ANALÍTICO", "AGRO, INDÚSTRIA E COMÉRCIO"),
-    21: ("TOP 20 POR TIPO ANALÍTICO", "FINANCEIRO"),
-    22: ("TOP 20 POR TIPO ANALÍTICO", "OUTROS"),
-    23: ("CURADORIA · FUNDOS FLAGSHIP", "FAIXAS DESCRITIVAS"),
-    24: ("CURADORIA · CARTEIRA 1", "CAIXAS INDIVIDUAIS"),
-    25: ("MODELO DE PRESTAÇÃO",),
-    26: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
-    27: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
-    28: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
-    29: (
+    14: ("INADIMPLÊNCIA · EX-ZEROS", "13,5%", "9,1 P.P."),
+    15: ("INADIMPLÊNCIA · COORTE ATUAL POR RECEBÍVEL",),
+    16: ("INADIMPLÊNCIA · DISPERSÃO ENTRE REPORTANTES",),
+    17: ("INADIMPLÊNCIA · SÍNTESE EXECUTIVA",),
+    18: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
+    19: ("RANKING · TOP 20 FIDCs",),
+    20: ("TOP 20 POR TIPO ANALÍTICO", "FOMENTO MERCANTIL"),
+    21: ("TOP 20 POR TIPO ANALÍTICO", "AGRO, INDÚSTRIA E COMÉRCIO"),
+    22: ("TOP 20 POR TIPO ANALÍTICO", "FINANCEIRO"),
+    23: ("TOP 20 POR TIPO ANALÍTICO", "OUTROS"),
+    24: ("CURADORIA · FUNDOS FLAGSHIP", "FAIXAS DESCRITIVAS"),
+    25: ("CURADORIA · CARTEIRA 1", "CAIXAS INDIVIDUAIS"),
+    26: ("CARTEIRA 1 · TAXONOMIA ANALÍTICA", "EVOLUÇÃO DO PL", "PARTICIPAÇÃO NO PL OBSERVADO"),
+    27: ("MODELO DE PRESTAÇÃO",),
+    28: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
+    29: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
+    30: ("OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET", "> R$ 100 MI"),
+    31: (
         "OFERTAS · VOLUME E REGIME",
         "NÚMERO DE OFERTAS",
         "REGIME DE COLOCAÇÃO · VOLUME",
     ),
-    30: (
+    32: (
         "TOP 15 · OFERTAS ENCERRADAS",
         "IBBA PARTICIPOU DE 8 DAS 15 MAIORES",
         "JAN–JUN/26 · TOP 15",
         "2025FY · TOP 15",
     ),
-    31: ("TOP 15 · HISTÓRICO", "2024FY · TOP 15", "2023FY · TOP 15"),
-    32: ("TOP 15 · 2022 PARCIAL", "7 OFERTAS LEGADAS"),
-    33: (
+    33: ("TOP 15 · HISTÓRICO", "2024FY · TOP 15", "2023FY · TOP 15"),
+    34: (
         "PRINCIPAIS CONCLUSÕES",
         "RCVM 175",
         "771 OFERTAS",
@@ -145,7 +146,6 @@ SLIDE_TOKENS = {
         "R$ 32,4 BI",
         "DOIS FIDCS CIELO",
     ),
-    34: ("ESCOPO, FONTES E LIMITAÇÕES",),
     55: ("PRESTADORES · EVOLUÇÃO E RANKING",),
     56: ("FIDCS DOS CINCO BANCOS · COORTE ATUAL",),
     57: ("PRESTADORES · LIDERANÇA EXPLICADA",),
@@ -181,6 +181,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Taxonomia por nível",
     "Curadoria flagship",
     "Carteira 1 curadoria",
+    "Carteira 1 evolução",
     "Curadoria Outros Top 100",
     "Dispersão inadimplência",
     "Atribuição prestadores",
@@ -480,9 +481,9 @@ def test_annual_issuance_slide_contains_the_complete_anbima_taxonomy_table() -> 
 def test_flagship_and_portfolio_slides_keep_individual_filled_cards_and_shared_type_colors() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        flagship_text = _slide_text(archive, 23)
-        portfolio_text = _slide_text(archive, 24)
-        portfolio = ET.fromstring(archive.read("ppt/slides/slide24.xml"))
+        flagship_text = _slide_text(archive, 24)
+        portfolio_text = _slide_text(archive, 25)
+        portfolio = ET.fromstring(archive.read("ppt/slides/slide25.xml"))
 
     assert "12 mínimos júnior localizados em 24 regulamentos revistos" in flagship_text
     assert "101 FUNDOS · CAIXAS INDIVIDUAIS" in portfolio_text
@@ -577,18 +578,18 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
     [
         (4, 1, 1),  # série anual e tabela de emissões por categoria
         (5, 1, 0),  # série ANBIMA por instrumento
-        (12, 1, 1),  # inadimplência por recebível único da Tabela II
-        (13, 1, 1),  # sensibilidade ex-zeros
-        (14, 1, 1),  # histórico da coorte atual por subtipo
-        (15, 0, 1),  # dispersão por subcategoria
-        (16, 0, 1),  # síntese executiva da dispersão
-        (18, 0, 2),  # Top 20 FIDCs em tabelas nativas
-        (19, 0, 1),  # Top 20 Fomento Mercantil
-        (20, 0, 1),  # Top 20 Agro, Indústria e Comércio
-        (21, 0, 1),  # Top 20 Financeiro
-        (22, 0, 1),  # Top 20 Outros
+        (13, 1, 1),  # inadimplência por recebível único da Tabela II
+        (14, 1, 1),  # sensibilidade ex-zeros
+        (15, 1, 1),  # histórico da coorte atual por subtipo
+        (16, 0, 1),  # dispersão por subcategoria
+        (17, 0, 1),  # síntese executiva da dispersão
+        (19, 0, 2),  # Top 20 FIDCs em tabelas nativas
+        (20, 0, 1),  # Top 20 Fomento Mercantil
+        (21, 0, 1),  # Top 20 Agro, Indústria e Comércio
+        (22, 0, 1),  # Top 20 Financeiro
+        (23, 0, 1),  # Top 20 Outros
         (56, 1, 1),  # evolução dos FIDCs dos cinco bancos
-        (27, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
+        (29, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -605,10 +606,10 @@ def test_top20_type_slides_keep_complete_curated_originator_text() -> None:
     _require(PAYLOAD)
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     slides_by_type = {
-        "Fomento Mercantil": 19,
-        "Agro, Indústria e Comércio": 20,
-        "Financeiro": 21,
-        "Outros": 22,
+        "Fomento Mercantil": 20,
+        "Agro, Indústria e Comércio": 21,
+        "Financeiro": 22,
+        "Outros": 23,
     }
     with ZipFile(PPTX) as archive:
         slide_text = {
@@ -628,8 +629,8 @@ def test_top20_type_slides_keep_complete_curated_originator_text() -> None:
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 28)
-        assert _native_table_count(archive, 28) == 0
+        chart_paths = _slide_chart_paths(archive, 30)
+        assert _native_table_count(archive, 30) == 0
         charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
         bar_charts = [
             chart for chart in charts if chart.find(f".//{{{CHART}}}barChart") is not None
@@ -647,8 +648,8 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
 def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 29)
-        assert _native_table_count(archive, 29) == 0
+        chart_paths = _slide_chart_paths(archive, 31)
+        assert _native_table_count(archive, 31) == 0
         charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
         assert sum(
             chart.find(f".//{{{CHART}}}barChart") is not None for chart in charts
@@ -657,7 +658,7 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
 
 @pytest.mark.parametrize(
     ("slide_number", "expected_tables"),
-    [(30, 2), (31, 2), (32, 1)],
+    [(32, 2), (33, 2)],
 )
 def test_top15_offer_slides_use_only_on_canvas_native_tables(
     slide_number: int, expected_tables: int
@@ -696,7 +697,7 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     with ZipFile(PPTX) as archive:
         charts = [
             ET.fromstring(archive.read(path))
-            for path in _slide_chart_paths(archive, 27)
+            for path in _slide_chart_paths(archive, 29)
         ]
     line_charts = [
         chart

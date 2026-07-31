@@ -248,6 +248,7 @@ def test_deck_order_and_profile_count() -> None:
         "BASE INVESTIDORA",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
         "TAXONOMIA ANALÍTICA · DECISÕES APROVADAS",
+        "OUTROS · ABERTURA ANALÍTICA",
         "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
         "CARTEIRA POR TIPO DE RECEBÍVEL",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -264,6 +265,7 @@ def test_deck_order_and_profile_count() -> None:
         "Outros · R$",
         "CURADORIA · FUNDOS FLAGSHIP",
         "CURADORIA · CARTEIRA 1",
+        "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
         "MODELO DE PRESTAÇÃO",
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
@@ -271,7 +273,6 @@ def test_deck_order_and_profile_count() -> None:
         "OFERTAS · VOLUME E REGIME",
         "TOP 15 · OFERTAS ENCERRADAS",
         "TOP 15 · HISTÓRICO",
-        "TOP 15 · 2022 PARCIAL",
         "PRINCIPAIS CONCLUSÕES",
     ]
     assert "INDÚSTRIA DE FIDCs" in slides[0]
@@ -281,18 +282,17 @@ def test_deck_order_and_profile_count() -> None:
         strict=True,
     ):
         assert expected in slide_text
-    assert "Escopo, fontes e limitações" in slides[33]
     profiles = slides[34:54]
     assert len(profiles) == 20
     assert sum("APÊNDICE · CURADORIA TOP 20" in text for text in slides) == 20
     for rank, slide_text in enumerate(profiles, start=1):
         assert "APÊNDICE · CURADORIA TOP 20" in slide_text
         assert f"#{rank} " in slide_text
-    assert "Ex-360 publicável" in slides[10]
-    assert "R$ 6,89 bi" in slides[10]
-    assert "4,4% da carteira" in slides[11]
-    assert "13,5%" in slides[12]
-    assert "9,1 p.p." in slides[12]
+    assert "Ex-360 publicável" in slides[11]
+    assert "R$ 6,89 bi" in slides[11]
+    assert "4,4% da carteira" in slides[12]
+    assert "13,5%" in slides[13]
+    assert "9,1 p.p." in slides[13]
     assert "PRESTADORES · EVOLUÇÃO E RANKING" in slides[54]
     assert "FIDCs DOS CINCO BANCOS · COORTE ATUAL" in slides[55]
     assert "PRESTADORES · LIDERANÇA EXPLICADA" in slides[56]
@@ -317,14 +317,14 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
         slides = _slide_texts(archive)
 
     assert all(token in slides[1] for token in ("58,4%", "59,5%", "R$ 733,1 bi", "PL ≥ R$ 200 mi"))
-    assert "70,1% do aumento líquido" in slides[9]
-    assert "29,9% do bucket" in slides[21]
-    assert "FICs excluídos pelo portão único" in slides[24]
-    assert "Kanastra permanece separada do Itaú" in slides[24]
-    assert "sobre jan–jun/25" in slides[26]
-    assert re.search(r"2022 FY.*N/D N/D", slides[26])
-    assert slides[12].index("Setor público") < slides[12].index("Agronegócio")
-    assert "66,0% dos R$ 77,7 bi" in slides[32]
+    assert "70,1% do aumento líquido" in slides[10]
+    assert "29,9% do bucket" in slides[22]
+    assert "FICs excluídos pelo portão único" in slides[26]
+    assert "Kanastra permanece separada do Itaú" in slides[26]
+    assert "sobre jan–jun/25" in slides[28]
+    assert re.search(r"2022 FY.*N/D N/D", slides[28])
+    assert slides[13].index("Setor público") < slides[13].index("Agronegócio")
+    assert "66,0% dos R$ 77,7 bi" in slides[33]
     assert all("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" not in text for text in slides)
     assert "100,0% é coerente com a estratégia NPL" in slides[63]
 
@@ -434,13 +434,13 @@ def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> N
 def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        ticket_charts = _slide_chart_paths(archive, 28)
+        ticket_charts = _slide_chart_paths(archive, 30)
         ticket_charts = [
             path for path in ticket_charts
             if ET.fromstring(archive.read(path)).find(f".//{{{CHART}}}barChart") is not None
         ]
         assert len(ticket_charts) == 3
-        slide25 = ET.fromstring(archive.read("ppt/slides/slide28.xml"))
+        slide25 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
         assert slide25.findall(f".//{{{DML}}}tbl") == []
         for chart_path in ticket_charts:
             chart = ET.fromstring(archive.read(chart_path))
@@ -451,17 +451,17 @@ def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
             assert grouping.attrib.get("val") == "clustered"
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
-        regime_charts = _slide_chart_paths(archive, 29)
+        regime_charts = _slide_chart_paths(archive, 31)
         regime_charts = [
             path for path in regime_charts
             if ET.fromstring(archive.read(path)).find(f".//{{{CHART}}}barChart") is not None
         ]
         assert len(regime_charts) == 4
-        slide26 = ET.fromstring(archive.read("ppt/slides/slide29.xml"))
+        slide26 = ET.fromstring(archive.read("ppt/slides/slide31.xml"))
         assert slide26.findall(f".//{{{DML}}}tbl") == []
 
-        assert _slide_chart_paths(archive, 30) == []
-        slide30 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        assert _slide_chart_paths(archive, 32) == []
+        slide30 = ET.fromstring(archive.read("ppt/slides/slide32.xml"))
         assert len(slide30.findall(f".//{{{DML}}}tbl")) == 2
         text = " ".join(node.text or "" for node in slide30.iter(f"{{{DML}}}t"))
         for token in (
@@ -476,12 +476,10 @@ def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
         ):
             assert token in text
 
-        slide30 = ET.fromstring(archive.read("ppt/slides/slide30.xml"))
+        slide30 = ET.fromstring(archive.read("ppt/slides/slide32.xml"))
         assert len(slide30.findall(f".//{{{DML}}}tbl")) == 2
-        slide31 = ET.fromstring(archive.read("ppt/slides/slide31.xml"))
+        slide31 = ET.fromstring(archive.read("ppt/slides/slide33.xml"))
         assert len(slide31.findall(f".//{{{DML}}}tbl")) == 2
-        slide32 = ET.fromstring(archive.read("ppt/slides/slide32.xml"))
-        assert len(slide32.findall(f".//{{{DML}}}tbl")) == 1
 
 
 def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() -> None:
@@ -517,9 +515,11 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         "Taxonomia reclassificada por nível",
         "Curadoria comparável dos fundos flagship",
         "Carteira 1 · curadoria documental e comparação",
+        "Carteira 1 · evolução pela taxonomia reclassificada",
         "taxonomy_levels_compact_v1",
         "flagship_curation_compact_v1",
         "carteira_1_curation_compact_v1",
+        "carteira_1_taxonomy_compact_v1",
         "Cloudwalk Bela",
         "N/D",
     ):
@@ -686,9 +686,9 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 @pytest.mark.parametrize(
     ("slide_number", "periods"),
     [
-        (9, {"Dez/23", "Jun/26"}),
         (10, {"Dez/23", "Jun/26"}),
-        (17, {"Dez/25", "Jun/26"}),
+        (11, {"Dez/23", "Jun/26"}),
+        (18, {"Dez/25", "Jun/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -859,7 +859,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v30";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v31";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

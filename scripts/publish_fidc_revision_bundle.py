@@ -1164,9 +1164,44 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         raise RevisionBundlePublishError(
             "participações do mix ANBIMA não fecham 100% por competência"
         )
+    carteira_history = payload.get("carteira_1_taxonomy_history")
+    if not isinstance(carteira_history, list) or len(carteira_history) != 16:
+        raise RevisionBundlePublishError(
+            "carteira_1_taxonomy_history deve conter quatro categorias em quatro competências"
+        )
+    if {
+        str(row.get("competencia") or "") for row in carteira_history
+        if isinstance(row, Mapping)
+    } != expected_periods:
+        raise RevisionBundlePublishError("Carteira 1 sem as quatro competências editoriais")
+    if {
+        str(row.get("anbima_tipo") or "") for row in carteira_history
+        if isinstance(row, Mapping)
+    } != expected_categories:
+        raise RevisionBundlePublishError("Carteira 1 diverge das quatro categorias analíticas")
+    for period in expected_periods:
+        period_rows = [
+            row for row in carteira_history
+            if isinstance(row, Mapping) and str(row.get("competencia") or "") == period
+        ]
+        if not math.isclose(
+            sum(float(row.get("portfolio_share") or 0.0) for row in period_rows),
+            1.0,
+            abs_tol=1e-8,
+        ):
+            raise RevisionBundlePublishError(f"mix da Carteira 1 não fecha 100% em {period}")
+        if not math.isclose(
+            sum(float(row.get("market_share") or 0.0) for row in period_rows),
+            1.0,
+            abs_tol=1e-8,
+        ):
+            raise RevisionBundlePublishError(f"mix de mercado da Carteira 1 não fecha 100% em {period}")
+    if not isinstance(payload.get("carteira_1_taxonomy_summary"), Mapping):
+        raise RevisionBundlePublishError("payload sem carteira_1_taxonomy_summary")
     for key in (
         "holder_distribution_history",
         "type_mix_history",
+        "carteira_1_taxonomy_history",
         "receivables_history",
         "provider_concentration_history",
         "provider_historical_ranking",
@@ -1623,6 +1658,23 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "source_bcb",
             "source_cvm",
             "methodology",
+        },
+        "carteira_1_taxonomy_history": {
+            "competencia",
+            "period_label",
+            "anbima_tipo",
+            "portfolio_pl_brl",
+            "portfolio_share",
+            "portfolio_funds",
+            "portfolio_total_brl",
+            "scope_cnpjs",
+            "observed_cnpjs",
+            "coverage_scope_share",
+            "market_pl_brl",
+            "market_share",
+            "market_total_brl",
+            "portfolio_growth_since_start",
+            "market_growth_since_start",
         },
         "closed_offer_placement_regime": {
             "period_label",

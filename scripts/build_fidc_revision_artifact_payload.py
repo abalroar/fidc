@@ -1688,6 +1688,140 @@ def _type_mix_history(
     )
 
 
+def _portfolio_type_mix_history(
+    funds: pd.DataFrame,
+    actions: pd.DataFrame | None,
+    *,
+    scope: pd.DataFrame,
+    periods: list[str],
+    market_history: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Build the saved-portfolio history on the same analytical Type contract as the market."""
+
+    categories = [
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    ]
+    unique_periods = list(dict.fromkeys(periods))
+    if not unique_periods:
+        raise ValueError("Carteira 1 requer ao menos uma competência")
+    scope_frame = scope.copy()
+    if "cnpj_fundo" not in scope_frame:
+        raise ValueError("Escopo da Carteira 1 sem cnpj_fundo")
+    scope_frame["cnpj_fundo"] = scope_frame["cnpj_fundo"].map(_digits)
+    if scope_frame["cnpj_fundo"].eq("").any():
+        raise ValueError("Escopo da Carteira 1 contém CNPJ vazio")
+    if scope_frame["cnpj_fundo"].duplicated().any():
+        raise ValueError("Escopo da Carteira 1 contém CNPJ duplicado")
+    scope_cnpjs = set(scope_frame["cnpj_fundo"])
+
+    frame = funds[funds["competencia"].astype(str).isin(unique_periods)].copy()
+    frame["cnpj_fundo"] = frame["cnpj_fundo"].map(_digits)
+    frame = frame[frame["cnpj_fundo"].isin(scope_cnpjs)].copy()
+    fic_mask = frame.get("is_fic_fidc", pd.Series(False, index=frame.index)).map(
+        lambda value: str(value).strip().casefold() in {"1", "true", "sim", "yes"}
+    )
+    frame = frame[~fic_mask].copy()
+    frame["pl"] = pd.to_numeric(frame["pl"], errors="coerce")
+    if frame["pl"].lt(0).any():
+        raise ValueError("Carteira 1 contém PL negativo no histórico selecionado")
+    frame = frame[frame["pl"].notna()].copy()
+    frame = apply_taxonomy_review_overlay(frame, actions)
+    frame["anbima_tipo"] = frame["anbima_tipo_curado"].where(
+        frame["anbima_tipo_curado"].isin(categories[:-1]),
+        "Outros",
+    )
+
+    market = market_history.copy()
+    market["competencia"] = market["competencia"].astype(str)
+    rows: list[dict[str, Any]] = []
+    month_labels = (
+        "jan", "fev", "mar", "abr", "mai", "jun",
+        "jul", "ago", "set", "out", "nov", "dez",
+    )
+    for period_order, period in enumerate(unique_periods):
+        period_frame = frame[frame["competencia"].astype(str).eq(period)]
+        grouped = period_frame.groupby("anbima_tipo", as_index=True).agg(
+            portfolio_pl_brl=("pl", "sum"),
+            portfolio_funds=("cnpj_fundo", "nunique"),
+        )
+        portfolio_total = float(grouped["portfolio_pl_brl"].sum()) if not grouped.empty else 0.0
+        observed_cnpjs = int(period_frame["cnpj_fundo"].nunique())
+        market_period = market[market["competencia"].eq(period)].set_index("anbima_tipo")
+        market_total = float(pd.to_numeric(market_period.get("pl"), errors="coerce").sum())
+        parsed = pd.Period(period, freq="M")
+        label = f"{month_labels[parsed.month - 1]}/{str(parsed.year)[-2:]}"
+        for category_order, category in enumerate(categories):
+            portfolio_pl = (
+                float(grouped.at[category, "portfolio_pl_brl"])
+                if category in grouped.index else 0.0
+            )
+            market_pl = (
+                float(market_period.at[category, "pl"])
+                if category in market_period.index else 0.0
+            )
+            rows.append(
+                {
+                    "competencia": period,
+                    "period_label": label,
+                    "period_order": period_order,
+                    "category_order": category_order,
+                    "anbima_tipo": category,
+                    "portfolio_pl_brl": portfolio_pl,
+                    "portfolio_share": portfolio_pl / portfolio_total if portfolio_total else 0.0,
+                    "portfolio_funds": (
+                        int(grouped.at[category, "portfolio_funds"])
+                        if category in grouped.index else 0
+                    ),
+                    "portfolio_total_brl": portfolio_total,
+                    "scope_cnpjs": len(scope_cnpjs),
+                    "observed_cnpjs": observed_cnpjs,
+                    "coverage_scope_share": observed_cnpjs / len(scope_cnpjs),
+                    "market_pl_brl": market_pl,
+                    "market_share": market_pl / market_total if market_total else 0.0,
+                    "market_total_brl": market_total,
+                }
+            )
+    history = pd.DataFrame(rows)
+    start = history[history["competencia"].eq(unique_periods[0])].set_index("anbima_tipo")
+    for index, row in history.iterrows():
+        category = str(row["anbima_tipo"])
+        portfolio_start = float(start.at[category, "portfolio_pl_brl"])
+        market_start = float(start.at[category, "market_pl_brl"])
+        history.at[index, "portfolio_growth_since_start"] = (
+            float(row["portfolio_pl_brl"]) / portfolio_start - 1
+            if portfolio_start else None
+        )
+        history.at[index, "market_growth_since_start"] = (
+            float(row["market_pl_brl"]) / market_start - 1
+            if market_start else None
+        )
+        history.at[index, "portfolio_share_delta_pp"] = (
+            float(row["portfolio_share"]) - float(start.at[category, "portfolio_share"])
+        )
+        history.at[index, "market_share_delta_pp"] = (
+            float(row["market_share"]) - float(start.at[category, "market_share"])
+        )
+    latest_rows = history[history["competencia"].eq(unique_periods[-1])]
+    summary = {
+        "portfolio": "Carteira 1",
+        "periods": unique_periods,
+        "scope_cnpjs": len(scope_cnpjs),
+        "latest_observed_cnpjs": int(latest_rows["observed_cnpjs"].max()),
+        "latest_total_brl": float(latest_rows["portfolio_total_brl"].max()),
+        "source": "CVM, Informe Mensal FIDC; ledger de taxonomia analítica aprovado",
+        "methodology": (
+            "CNPJs salvos da Carteira 1, ex-FIC, com classificação analítica aprovada "
+            "retroaplicada às competências observadas. CNPJ ausente em uma competência "
+            "permanece ausente e não recebe PL imputado. O mercado usa o mesmo Tipo "
+            "ANBIMA reclassificado e o denominador ex-FIC."
+        ),
+    }
+    return history, summary
+
+
 def _receivables(segments: pd.DataFrame, latest: str, portfolio_total: float) -> dict[str, Any]:
     scoped = segments[
         segments["competencia"].astype(str).eq(latest)
@@ -3022,6 +3156,19 @@ def build_payload(
         periods=tuple(type_mix_periods),
         table_ii=vehicle,
     )
+    carteira_1_taxonomy_history, carteira_1_taxonomy_summary = (
+        _portfolio_type_mix_history(
+            funds,
+            taxonomy_review_actions,
+            scope=pd.read_csv(
+                data_dir / "industry_carteira_1_scope.csv",
+                dtype={"cnpj_fundo": str},
+                keep_default_na=False,
+            ),
+            periods=type_mix_periods,
+            market_history=type_mix_history,
+        )
+    )
     receivables_history, receivables_meta_history = _receivables_history(
         segments, monthly, comparison_periods
     )
@@ -3226,6 +3373,11 @@ def build_payload(
         "type_mix_history": _records(type_mix_history),
         "type_mix_history_official": _records(type_mix_history_official),
         "taxonomy_level_history": _records(taxonomy_level_history),
+        "carteira_1_taxonomy_history": _records(carteira_1_taxonomy_history),
+        "carteira_1_taxonomy_summary": {
+            str(key): _json_value(value)
+            for key, value in carteira_1_taxonomy_summary.items()
+        },
         "classification_coverage_history": _records(classification_coverage_history),
         "receivables": receivables,
         "receivables_history": _records(receivables_history),

@@ -49,6 +49,7 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("base investidora",),
     ("distribuicao por numero de cotistas",),
     ("taxonomia analitica",),
+    ("outros", "abertura analitica"),
     ("reclassificacao de adquirencia",),
     ("carteira por tipo de recebivel",),
     ("observabilidade da inadimplencia",),
@@ -65,6 +66,7 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("top 20 por tipo analitico", "outros"),
     ("curadoria", "fundos flagship"),
     ("curadoria", "carteira 1"),
+    ("carteira 1", "taxonomia analitica"),
     ("modelo de prestacao",),
     ("concentracao das monoestruturas",),
     ("ofertas encerradas", "volume e ticket"),
@@ -72,9 +74,7 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("ofertas", "volume e regime"),
     ("top 15", "ofertas encerradas"),
     ("top 15", "historico"),
-    ("top 15", "2022 parcial"),
     ("principais conclusoes",),
-    ("apendice", "escopo e fontes"),
     ("apendice", "curadoria top 20", "#1"),
     ("apendice", "curadoria top 20", "#2"),
     ("apendice", "curadoria top 20", "#3"),
@@ -120,6 +120,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Curadoria Top 20",
     "Curadoria flagship",
     "Carteira 1 curadoria",
+    "Carteira 1 evolução",
     "Taxonomia por nível",
     "Comparativos históricos",
     "Ranking prestadores",
@@ -507,20 +508,14 @@ def validate_revision_pptx(payload: bytes) -> None:
         )
         _validate_native_table_slide(
             archive,
-            30,
+            32,
             expected_dimensions=((16, 10), (16, 10)),
             canvas=canvas,
         )
         _validate_native_table_slide(
             archive,
-            31,
+            33,
             expected_dimensions=((16, 9), (16, 9)),
-            canvas=canvas,
-        )
-        _validate_native_table_slide(
-            archive,
-            32,
-            expected_dimensions=((8, 9),),
             canvas=canvas,
         )
         office_xml_parts = [
@@ -660,6 +655,8 @@ def validate_revision_html(payload: bytes) -> None:
         "Gestão",
         "Custódia",
         "CBSF / REAG",
+        "Carteira 1 · evolução pela taxonomia reclassificada",
+        "carteira_1_taxonomy_compact_v1",
     )
     missing = [
         token
