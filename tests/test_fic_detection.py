@@ -1,19 +1,25 @@
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 
 import pandas as pd
 import pytest
 
+from scripts.build_fidc_industry_study import FIC_FIDC_PATTERN
+from scripts.build_fic_detection_audit import build_fic_detection_audit_frame
 from services.fic_detection import (
-    METHOD_COMBINED,
     METHOD_INFORME,
+    METHOD_LEGACY_NOMINAL,
     METHOD_NAME,
-    METHOD_REGISTRY,
     annotate_fic_detection,
     build_fic_audit,
     exclude_fics_from_fidc_universe,
     name_says_fic,
+)
+from services.fic_perimeter import (
+    apply_fic_perimeter_overrides,
+    load_fic_perimeter_overrides,
 )
 
 
@@ -93,16 +99,19 @@ def _base() -> pd.DataFrame:
     )
 
 
-def test_the_registry_flag_alone_excludes() -> None:
+def test_the_legacy_nominal_signal_alone_excludes() -> None:
     annotated = annotate_fic_detection(_base(), curated_cnpjs=())
 
     beta = annotated[annotated["cnpj_fundo"].eq("22222222000172")].iloc[0]
     assert bool(beta["is_fic"])
-    assert beta["fic_detection_method"] == METHOD_REGISTRY
-    assert beta["fic_exclusion_reason"]
+    assert beta["fic_detection_method"] == METHOD_LEGACY_NOMINAL
+    assert "Sinal nominal legado" in beta["fic_detection_evidence"]
+    assert "CVM" not in beta["fic_detection_evidence"]
+    assert "cadastral" not in beta["fic_detection_evidence"]
+    assert "sinal nominal legado" in beta["fic_exclusion_reason"]
 
 
-def test_the_informe_rule_excludes_a_fund_the_flag_missed() -> None:
+def test_the_informe_rule_excludes_a_fund_the_legacy_signal_missed() -> None:
     annotated = annotate_fic_detection(
         _base(), curated_cnpjs=["33333333000153"], curated_evidence={
             "33333333000153": "cotas de FIDC em 96% das aplicações"
@@ -115,14 +124,19 @@ def test_the_informe_rule_excludes_a_fund_the_flag_missed() -> None:
     assert "96%" in gama["fic_detection_evidence"]
 
 
-def test_both_sources_agreeing_is_recorded_as_a_combination() -> None:
-    annotated = annotate_fic_detection(_base(), curated_cnpjs=["22222222000172"])
+def test_the_quantitative_review_takes_provenance_precedence() -> None:
+    annotated = annotate_fic_detection(
+        _base(),
+        curated_cnpjs=["22222222000172"],
+        curated_evidence={"22222222000172": "confirmação quantitativa curada"},
+    )
 
     beta = annotated[annotated["cnpj_fundo"].eq("22222222000172")].iloc[0]
-    assert beta["fic_detection_method"] == METHOD_COMBINED
+    assert beta["fic_detection_method"] == METHOD_INFORME
+    assert "confirmação quantitativa curada" in beta["fic_detection_evidence"]
 
 
-def test_a_name_alone_never_excludes_but_asks_for_review() -> None:
+def test_the_secondary_nominal_crosscheck_alone_opens_review() -> None:
     """DELTA is named FIC yet buys receivables; excluding it would be the bug."""
 
     annotated = annotate_fic_detection(_base(), curated_cnpjs=())
@@ -131,7 +145,7 @@ def test_a_name_alone_never_excludes_but_asks_for_review() -> None:
     assert not bool(delta["is_fic"])
     assert delta["fic_detection_method"] == METHOD_NAME
     assert bool(delta["revisao_manual_sugerida"])
-    assert "falso negativo" in delta["motivo_revisao"]
+    assert "sem confirmação quantitativa registrada" in delta["motivo_revisao"]
 
 
 def test_a_name_that_merely_contains_fic_raises_nothing() -> None:
@@ -142,11 +156,14 @@ def test_a_name_that_merely_contains_fic_raises_nothing() -> None:
     assert not bool(pacifico["revisao_manual_sugerida"])
 
 
-def test_a_confirming_name_reinforces_the_stronger_evidence() -> None:
-    annotated = annotate_fic_detection(_base(), curated_cnpjs=())
+def test_the_secondary_nominal_detail_is_recorded_with_quantitative_evidence() -> None:
+    annotated = annotate_fic_detection(
+        _base(),
+        curated_cnpjs=["22222222000172"],
+    )
 
     beta = annotated[annotated["cnpj_fundo"].eq("22222222000172")].iloc[0]
-    assert "Reforçado pelo nome" in beta["fic_detection_evidence"]
+    assert "Detalhe nominal" in beta["fic_detection_evidence"]
 
 
 def test_the_gate_removes_every_competence_of_an_excluded_cnpj() -> None:
@@ -178,7 +195,7 @@ def test_an_unannotated_frame_is_refused_rather_than_passed_through() -> None:
         exclude_fics_from_fidc_universe(naked)
 
 
-def test_the_legacy_flag_is_accepted_so_nothing_slips_through_unfiltered() -> None:
+def test_the_legacy_signal_is_accepted_so_nothing_slips_through_unfiltered() -> None:
     legacy = _base()
 
     kept, report = exclude_fics_from_fidc_universe(legacy)
@@ -210,6 +227,123 @@ def test_the_published_audit_is_well_formed() -> None:
     assert excluded["fic_detection_method"].str.len().gt(0).all()
     assert excluded["fic_detection_evidence"].str.len().gt(0).all()
     assert excluded["fic_exclusion_reason"].str.len().gt(0).all()
+    assert set(audit["fic_detection_method"]) == {
+        METHOD_LEGACY_NOMINAL,
+        METHOD_INFORME,
+        METHOD_NAME,
+    }
+    nominal = audit[
+        audit["fic_detection_method"].eq(METHOD_LEGACY_NOMINAL)
+    ]
+    assert nominal["fic_detection_evidence"].str.startswith(
+        "Sinal nominal legado:"
+    ).all()
+    assert not audit["fic_detection_evidence"].str.contains(
+        "flag cadastral",
+        case=False,
+        regex=False,
+    ).any()
+
+
+def test_the_versioned_audit_matches_the_current_provenance_rules() -> None:
+    path = DATA_DIR / "industry_fic_detection_audit.csv"
+    expected = build_fic_detection_audit_frame(DATA_DIR)
+
+    assert path.read_bytes() == expected.to_csv(index=False).encode("utf-8")
+
+
+def test_provenance_relabel_preserves_the_full_fic_mask_and_pl() -> None:
+    vehicle = pd.read_csv(
+        DATA_DIR / "vehicle_monthly.csv.gz",
+        usecols=[
+            "competencia",
+            "cnpj",
+            "denominacao",
+            "is_fic_fidc",
+            "pl",
+        ],
+        dtype={
+            "competencia": str,
+            "cnpj": str,
+            "denominacao": str,
+        },
+        low_memory=False,
+    )
+    reported_signal = (
+        vehicle["is_fic_fidc"]
+        .astype(str)
+        .str.strip()
+        .str.casefold()
+        .isin({"true", "1", "sim", "t", "yes"})
+    )
+    derived_signal = vehicle["denominacao"].fillna("").str.contains(
+        FIC_FIDC_PATTERN,
+        na=False,
+    )
+    assert len(vehicle) == 229_451
+    assert reported_signal.equals(derived_signal)
+
+    overrides = load_fic_perimeter_overrides(DATA_DIR)
+    corrected, _ = apply_fic_perimeter_overrides(vehicle, overrides)
+    annotated = annotate_fic_detection(
+        corrected,
+        curated_cnpjs=overrides["cnpj_fundo"],
+        curated_evidence=dict(
+            zip(overrides["cnpj_fundo"], overrides["evidencia"])
+        ),
+        cnpj_column="cnpj",
+    )
+
+    mask = annotated[["competencia", "cnpj", "is_fic"]].copy()
+    mask["is_fic"] = mask["is_fic"].astype(bool).astype(int)
+    mask = mask.sort_values(["competencia", "cnpj"], kind="mergesort")
+    mask_blob = "".join(
+        f"{row.competencia}|{row.cnpj}|{row.is_fic}\n"
+        for row in mask.itertuples(index=False)
+    ).encode()
+    assert hashlib.sha256(mask_blob).hexdigest() == (
+        "7c8a531b0b2d2daad47a36e8f55087dd3c7b55c9e46e4c5f7102d59ee40b65b5"
+    )
+
+    annotated["pl_cents"] = (
+        pd.to_numeric(annotated["pl"], errors="raise")
+        .mul(100)
+        .round()
+        .astype("int64")
+    )
+    lines = [
+        "competencia,rows,fic_rows,pl_gross_cents,pl_fic_cents,pl_ex_cents"
+    ]
+    for competence, group in annotated.groupby("competencia", sort=True):
+        is_fic = group["is_fic"].astype(bool)
+        gross = int(group["pl_cents"].sum())
+        fic = int(group.loc[is_fic, "pl_cents"].sum())
+        direct = int(group.loc[~is_fic, "pl_cents"].sum())
+        lines.append(
+            f"{competence},{len(group)},{int(is_fic.sum())},"
+            f"{gross},{fic},{direct}"
+        )
+    aggregate_blob = ("\n".join(lines) + "\n").encode()
+    assert hashlib.sha256(aggregate_blob).hexdigest() == (
+        "7276fa1d0be2fe4ba8202a577842f912e97afe3f42da7077b70ac95081096648"
+    )
+
+    current = annotated[annotated["competencia"].eq("2026-06")].copy()
+    current_fics = current[current["is_fic"].astype(bool)]
+    assert len(current) == 4_252
+    assert len(current_fics) == 773
+    assert int(current["pl_cents"].sum()) == 96_148_603_788_865
+    assert int(current_fics["pl_cents"].sum()) == 14_012_447_860_420
+    assert int(
+        current.loc[~current["is_fic"].astype(bool), "pl_cents"].sum()
+    ) == 82_136_155_928_445
+    assert current_fics["fic_detection_method"].value_counts().to_dict() == {
+        METHOD_LEGACY_NOMINAL: 451,
+        METHOD_INFORME: 322,
+    }
+    by_method = current_fics.groupby("fic_detection_method")["pl_cents"].sum()
+    assert int(by_method[METHOD_LEGACY_NOMINAL]) == 8_071_759_150_214
+    assert int(by_method[METHOD_INFORME]) == 5_940_688_710_206
 
 
 def test_a_decision_reaches_every_competence_of_the_cnpj() -> None:

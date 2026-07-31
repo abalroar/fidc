@@ -1290,7 +1290,7 @@ def _apply_detected_fic_history(
     annual_pl: pd.DataFrame,
     fic_detection_audit: pd.DataFrame,
 ) -> pd.DataFrame:
-    """Replace the legacy FIC flag with the auditable single-gate perimeter."""
+    """Replace the legacy nominal signal with the audited FIC perimeter."""
 
     output = annual_pl.copy()
     if fic_detection_audit.empty:
@@ -1335,8 +1335,9 @@ def _apply_detected_fic_history(
     output["pl_fic_componente"] = output["pl_fic_fidc"]
     output["fic_detection_source"] = "industry_fic_detection_audit.csv"
     output["fic_detection_rule"] = (
-        "flag cadastral CVM ou VL_DICRED zerado em toda a série com cotas de FIDC "
-        "representando pelo menos 50% das aplicações"
+        "sinal nominal legado derivado da denominação social ou VL_DICRED zerado "
+        "em toda a série com cotas de FIDC representando pelo menos 50% das "
+        "aplicações"
     )
     return output
 

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Find FIDCs that are, in fact, quota feeders reported outside the FIC bucket.
 
-The CVM monthly report carries an ``is_fic_fidc`` flag, and the whole industry
-mix depends on it: a fund flagged as FIC is presented outside the four ANBIMA
-types and only feeds the FIC net-asset balance, precisely because its assets are
-already counted inside the funds it invests in.
+The industry builder initializes ``is_fic_fidc`` as a legacy nominal signal
+derived locally from the registered corporate name.  This script adds curated
+quantitative confirmations for vehicles that the upstream signal did not
+select.
 
 Some vehicles registered as FIDC never buy a receivable — they hold quotas of
-other FIDCs.  Left unflagged they double count.  This script identifies them
+other FIDCs.  Left in the direct universe they double count.  This script
+identifies them
 from two independent pieces of evidence:
 
 * the fund reports its receivables portfolio and reports it as **zero** in every
@@ -15,9 +16,9 @@ from two independent pieces of evidence:
 * the same monthly report allocates its assets to ``VL_COTA_FIDC`` — quotas of
   other FIDCs — which is downloaded here straight from FundosNet.
 
-The registered corporate name is recorded as context, never as the deciding
-evidence: a fund is a feeder because of what it reports holding, not because of
-how it is called.
+Within this quantitative review, the registered corporate name is recorded as
+context and does not decide the override.  The broader perimeter still retains
+the separate legacy nominal signal.
 """
 
 from __future__ import annotations
@@ -54,7 +55,7 @@ OVERRIDES_FILENAME = "fic_perimeter_overrides.csv"
 #: be a feeder rather than a fund holding cash between acquisitions.
 FEEDER_MIN_SHARE = 0.5
 
-#: Corporate forms that a quota feeder uses.  Context only — never decisive.
+#: Corporate forms used as context in this quantitative review.
 FEEDER_NAME_PATTERN = re.compile(
     r"EM COTAS DE FUND|EM COTAS DE FI|FIC DE FIDC|FIC DE FUNDO|FIC-FIDC|FIC FIDC",
     re.IGNORECASE,
@@ -103,7 +104,7 @@ def _boolean(series: pd.Series) -> pd.Series:
 
 
 def build_candidates(data_dir: Path, periods: tuple[str, ...]) -> pd.DataFrame:
-    """Funds outside the FIC flag that never report a receivables portfolio."""
+    """Funds outside the legacy signal that never report receivables."""
 
     base = pd.read_csv(
         data_dir / "generated_revision" / "base_fundo_cnpj.csv.gz",
@@ -115,7 +116,7 @@ def build_candidates(data_dir: Path, periods: tuple[str, ...]) -> pd.DataFrame:
         base[column] = pd.to_numeric(base[column], errors="coerce").fillna(0.0)
     for column in ("is_fic_fidc", "reports_carteira_dc"):
         base[column] = _boolean(base[column])
-    # O flag de FIC vale para o CNPJ inteiro, não para uma competência isolada.
+    # O sinal de perímetro vale para o CNPJ inteiro, não para uma competência.
     # Um veículo que comprou recebíveis em qualquer mês da série não é um
     # alimentador estrutural, e marcá-lo como FIC apagaria carteira real do mix.
     # A verificação de ausência de direitos creditórios usa, por isso, todo o

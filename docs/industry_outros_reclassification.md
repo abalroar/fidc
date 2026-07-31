@@ -122,12 +122,17 @@ A curadoria documental encontrou veículos registrados como FIDC que nunca
 compram um direito creditório: o ativo deles são cotas de outros FIDCs. Contados
 dentro dos quatro tipos ANBIMA, esses fundos somam o mesmo patrimônio duas vezes
 — uma no fundo investido, com a taxonomia dele, e outra no veículo que só detém
-a cota. O informe mensal traz o campo `is_fic_fidc`, mas parte desses fundos o
-reporta como falso.
+a cota.
 
-A varredura (`scripts/build_fidc_fic_perimeter_review.py`) parte de dois
-critérios objetivos, ambos lidos do Informe Mensal Estruturado, nunca do nome do
-fundo:
+O pipeline inicializa `is_fic_fidc` como **sinal nominal legado**, calculado
+localmente por regex sobre a denominação social em
+`scripts/build_fidc_industry_study.py`. Não foi identificada flag FIC oficial
+dedicada nos layouts CVM inspecionados, nem equivalência oficial ANBIMA para
+esse campo local.
+
+A revisão quantitativa (`scripts/build_fidc_fic_perimeter_review.py`) acrescenta
+overrides com dois critérios objetivos, ambos lidos do Informe Mensal
+Estruturado:
 
 1. **Nunca deteve direitos creditórios.** `VL_DICRED` igual a zero em *toda* a
    série histórica do CNPJ, não apenas nas competências de referência. Um fundo
@@ -141,8 +146,8 @@ de 96% das aplicações em cotas de FIDC. Os 115 restantes ficaram como
 
 A correção é gravada em `data/industry_study/fic_perimeter_overrides.csv` e
 aplicada por `services/fic_perimeter.py` **antes de qualquer agregação**, dentro
-de `scripts/build_fidc_revision_analysis.py`. Ela só liga a flag; um fundo que a
-CVM já reporta como FIC nunca volta a ser FIDC direto por esta camada.
+de `scripts/build_fidc_revision_analysis.py`. Ela só liga o indicador; um fundo
+já selecionado pelo sinal local permanece fora do universo FIDC direto.
 
 | Competência | Fundos movidos | PL movido para o saldo FIC | Saldo FIC | PL direto |
 |---|---:|---:|---:|---:|
@@ -155,8 +160,9 @@ Em jun/26, R$ 46,64 bi dos R$ 59,01 bi movidos estavam classificados como
 `Outros` pela ANBIMA — a correção de perímetro sozinha responde por boa parte da
 queda do bucket. Outros R$ 5,74 bi estavam sem classificação (`N/D`).
 
-O método não é baseado em nome: na medição anterior, 257 dos veículos
-confirmados não traziam qualquer forma de "FIC" na denominação registrada.
+O método quantitativo dos overrides não usa nome. O perímetro completo ainda
+inclui o sinal nominal legado como entrada decisiva, com proveniência registrada
+separadamente na auditoria.
 
 Cada correção também vira uma decisão `rejeitado` no ledger analítico
 (`scripts/apply_fic_perimeter_to_ledger.py`, responsável
@@ -177,24 +183,33 @@ já que contraria uma aprovação humana.
 
 ## Detecção de FIC auditável e o portão único
 
-`services/fic_detection.py` concentra a regra. Três fontes dizem se um fundo é
-FIC, e elas não têm a mesma força:
+`services/fic_detection.py` concentra a regra. O portão combina duas entradas
+decisivas e um cross-check secundário:
 
-1. **Flag cadastral** — `is_fic_fidc` do informe mensal. Resolve o caso.
+1. **Sinal nominal legado** — `is_fic_fidc`, derivado localmente da denominação
+   social. Ele permanece decisivo por compatibilidade com o perímetro histórico.
 2. **Informe Mensal Estruturado** — `VL_DICRED` zerado em toda a série e cotas
-   de FIDC acima de metade das aplicações. É a regra que achou o que a flag
-   perde, e é quantitativa: lê o que o fundo detém, não como se chama.
-3. **O nome** — a mais fraca, e **nunca decisiva sozinha**. Nesta base, 214 dos
-   fundos excluídos (23%) não trazem qualquer sinal de FIC na denominação, então
-   uma regra por nome perderia a maioria; e um nome pode dizer FIC enquanto o
-   fundo compra recebíveis direto. O nome fica como cross-check.
+   de FIDC acima de metade das aplicações. A entrada quantitativa lê o que o
+   fundo detém e tem precedência no rótulo de proveniência quando existe
+   override curado.
+3. **Cross-check nominal secundário** — `name_says_fic()` usa um matcher mais
+   estrito de token e forma legal. Quando as duas entradas decisivas estão
+   ausentes, ele abre revisão e mantém o fundo no universo.
+
+Em jun/26, o portão exclui 773 FICs e R$ 140,1245 bi. Desses, 451 fundos e
+R$ 80,7176 bi saem exclusivamente pelo sinal nominal legado; 322 fundos e
+R$ 59,4069 bi têm confirmação quantitativa curada. Outros nove casos aparecem
+somente no cross-check nominal secundário e permanecem em revisão.
+
+A revisão metodológica dos 451 casos decididos pelo sinal nominal legado exige
+recalcular PL ex-FIC, mix, Top 20 e gráficos. Ela constitui projeto separado e
+não integra esta correção de proveniência.
 
 `FIC_TOKEN_PATTERN` casa "FIC" apenas como token isolado — delimitado por início
 ou fim da string, espaço, hífen, barra, parêntese ou pontuação. `FICÇÃO`,
 `SIFIC`, `FIC123` e `PACIFICO` não disparam, porque o caractere vizinho é
-alfanumérico. Um nome que diz FIC sem confirmação quantitativa **permanece no
-universo** e vai para revisão humana: excluir por nome é justamente o falso
-positivo que esta auditoria existe para impedir.
+alfanumérico. Um caso alcançado somente pelo cross-check nominal secundário
+**permanece no universo** e vai para revisão humana.
 
 Cada linha recebe `is_fic`, `fic_detection_method`, `fic_detection_evidence` e
 `fic_exclusion_reason`, e a auditoria completa fica em
@@ -294,8 +309,9 @@ reescrita ficou registrada na auditoria.
 ## Limitações
 
 A conclusão descreve o mandato permitido pelo documento. A materialidade efetiva
-de cada família depende da carteira observada em cada competência. Nome de fundo
-não é evidência e não determina classificação em nenhuma etapa.
+de cada família depende da carteira observada em cada competência. A denominação
+social não determina a taxonomia analítica de Tipo e Foco. No perímetro FIC, o
+sinal nominal legado continua decisivo e é identificado como tal na auditoria.
 
 ## Fila de taxonomia no Streamlit
 

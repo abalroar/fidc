@@ -170,12 +170,10 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Ranking prestadores",
     "Taxonomia adquirência",
     "Curadoria Cartão",
-    "Reclass. adquirência",
     "Top 20 por Tipo ANBIMA",
     "Auditoria Top 20 Tipo",
     "Curadoria Outros Top 100",
     "Dispersão inadimplência",
-    "Auditoria numérica",
     "Atribuição prestadores",
     "Fluxos prestadores",
     "Migração CBSF",
@@ -193,8 +191,6 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Top 15 ofertas",
     "Validação emissões",
     "Público-alvo ofertas",
-    "Reclass. ANBIMA",
-    "Reclass. CVM",
     "Principais conclusões",
 }
 

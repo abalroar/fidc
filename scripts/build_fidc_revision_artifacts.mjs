@@ -71,10 +71,6 @@ const FLOW_BUILDER_PATH = [
   path.join(path.dirname(__filename), FLOW_BUILDER_NAME),
   path.join(ROOT, "scripts", FLOW_BUILDER_NAME),
 ].find((candidate) => candidate && existsSync(candidate));
-const FLOW_ASSET_DIR = path.resolve(
-  process.env.FIDC_PROVIDER_FLOW_ASSET_DIR ||
-    path.join(OUTPUT_DIR, "provider_flow_assets"),
-);
 const OUTPUT_HTML = path.resolve(
   process.env.FIDC_OUTPUT_HTML ||
     path.join(OUTPUT_DIR, "provider_flows_explorer.html"),
@@ -84,8 +80,26 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v25";
+const RENDERER_VERSION = "industry_revision_artifacts_v26";
 const EXPECTED_SLIDES = 64;
+const WORKBOOK_SHEETS_TO_REMOVE = [
+  "Conflitos Tab IV",
+  "Warnings",
+  "Ofertas anual",
+  "Posição Itaú",
+  "Ranking ofertas",
+  "Cedentes",
+  "Investidores hist",
+  "Tipos investidor",
+  "_Listas",
+  "Cross-check taxonomia",
+  "Taxonomia por CNPJ",
+  "Reclass. adquirência",
+  "Auditoria numérica",
+  "Reclass. ANBIMA",
+  "Reclass. CVM",
+  "Fluxos visuais",
+];
 
 const C = {
   orange: "#EC7000",
@@ -698,11 +712,10 @@ async function writeBlob(filePath, blob) {
   await fs.writeFile(filePath, new Uint8Array(await blob.arrayBuffer()));
 }
 
-async function generateProviderFlowAssets() {
+async function generateProviderFlowHtml() {
   if (!FLOW_BUILDER_PATH) {
     throw new Error(`Gerador dos fluxos não localizado: ${FLOW_BUILDER_NAME}`);
   }
-  await fs.mkdir(FLOW_ASSET_DIR, { recursive: true });
   await fs.mkdir(path.dirname(OUTPUT_HTML), { recursive: true });
   const generated = spawnSync(
     process.execPath,
@@ -710,8 +723,6 @@ async function generateProviderFlowAssets() {
       FLOW_BUILDER_PATH,
       "--payload",
       PAYLOAD_PATH,
-      "--output-dir",
-      FLOW_ASSET_DIR,
       "--html",
       OUTPUT_HTML,
     ],
@@ -726,44 +737,10 @@ async function generateProviderFlowAssets() {
       `Falha ao gerar os fluxos navegáveis: ${generated.error?.message || generated.stderr || generated.stdout}`,
     );
   }
-  const paths = {
-    adminPng: path.join(FLOW_ASSET_DIR, "provider_flow_admin.png"),
-    adminSvg: path.join(FLOW_ASSET_DIR, "provider_flow_admin.svg"),
-    gestorPng: path.join(FLOW_ASSET_DIR, "provider_flow_gestor.png"),
-    gestorSvg: path.join(FLOW_ASSET_DIR, "provider_flow_gestor.svg"),
-    custodiantePng: path.join(FLOW_ASSET_DIR, "provider_flow_custodiante.png"),
-    custodianteSvg: path.join(FLOW_ASSET_DIR, "provider_flow_custodiante.svg"),
-    reagPng: path.join(FLOW_ASSET_DIR, "provider_flow_reag.png"),
-    reagSvg: path.join(FLOW_ASSET_DIR, "provider_flow_reag.svg"),
-    html: OUTPUT_HTML,
-  };
-  const entries = await Promise.all(
-    Object.entries(paths).map(async ([key, filePath]) => {
-      const stat = await fs.stat(filePath);
-      if (!stat.isFile() || stat.size === 0) {
-        throw new Error(`Artefato de fluxo vazio ou inválido: ${filePath}`);
-      }
-      return [key, filePath];
-    }),
-  );
-  const verifiedPaths = Object.fromEntries(entries);
-  const [adminPngBytes, gestorPngBytes, custodiantePngBytes, reagPngBytes] = await Promise.all([
-    fs.readFile(verifiedPaths.adminPng),
-    fs.readFile(verifiedPaths.gestorPng),
-    fs.readFile(verifiedPaths.custodiantePng),
-    fs.readFile(verifiedPaths.reagPng),
-  ]);
-  return {
-    ...verifiedPaths,
-    adminPngBytes: new Uint8Array(adminPngBytes),
-    gestorPngBytes: new Uint8Array(gestorPngBytes),
-    custodiantePngBytes: new Uint8Array(custodiantePngBytes),
-    reagPngBytes: new Uint8Array(reagPngBytes),
-    adminPngDataUrl: `data:image/png;base64,${adminPngBytes.toString("base64")}`,
-    gestorPngDataUrl: `data:image/png;base64,${gestorPngBytes.toString("base64")}`,
-    custodiantePngDataUrl: `data:image/png;base64,${custodiantePngBytes.toString("base64")}`,
-    reagPngDataUrl: `data:image/png;base64,${reagPngBytes.toString("base64")}`,
-  };
+  const stat = await fs.stat(OUTPUT_HTML);
+  if (!stat.isFile() || stat.size === 0) {
+    throw new Error(`Explorador HTML vazio ou inválido: ${OUTPUT_HTML}`);
+  }
 }
 
 async function sha256File(filePath) {
@@ -2655,7 +2632,7 @@ function addDelinquencyDispersionSlides(presentation, payload) {
   }
 }
 
-function buildPresentation(payload, flowAssets) {
+function buildPresentation(payload) {
   automaticPageNumber = 1;
   const presentation = Presentation.create({ slideSize: SLIDE });
   const latestCompetence = String(payload.latest_complete || "");
@@ -4832,7 +4809,7 @@ function buildPresentation(payload, flowAssets) {
         ["Monoestrutura", `${integer(payload.conclusion_metrics?.service_model_universe_funds)} fundos; ${stockShortLower}`, "PL direto; FICs excluídos pelo portão único. Mesmo conglomerado nas três funções; Kanastra permanece separada do Itaú e CBSF da REAG. Afiliação Kanastra→Itaú só no ranking de independentes."],
         ["Comparativo por instrumento", "2023–2025 FY; 2026 jan–mai", "ANBIMA Data, Valor Encerrado por data de encerramento das ofertas públicas. Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente primárias e secundárias."],
         ["Análises granulares de ofertas", "2022 parcial; 2023–2025 FY; 2026 jan–jun", "CVM/SRE, Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis e valor registrado positivo. Automático: requerimento; ordinário/legado: registro + emissor + data + instrumento."],
-        ["Perímetro FIC e cross-check", "30 nomes FIC mantidos; 319 inconsistências (R$ 139,03 bi)", "Nome não determina FIC. O cross-check registrou 243 multicarteira com classificação específica, 70 aprovações sem evidência suficiente, 5 emissor × credenciadora e 1 divergência aprovada × publicada, sem correção automática. EXPERT III (53.073.485/0001-00; R$ 3,52 bi) é o único caso em que a correção de perímetro sobrescreveu aprovação manual."],
+        ["Perímetro FIC e cross-check", "30 nomes FIC mantidos; 319 inconsistências (R$ 139,03 bi)", "O portão FIC usa sinal nominal legado e revisão quantitativa; a auditoria separa a origem registrada de cada decisão. O cross-check registrou 243 multicarteira com classificação específica, 70 aprovações sem evidência suficiente, 5 emissor × credenciadora e 1 divergência aprovada × publicada, sem correção automática. EXPERT III (53.073.485/0001-00; R$ 3,52 bi) é o único caso em que a correção de perímetro sobrescreveu aprovação manual."],
       ],
       columnWidths: [190, 340, 630],
       aligns: ["left", "left", "left"],
@@ -5055,6 +5032,7 @@ function resetSheet(workbook, name) {
     renameFirstIfOnlyNewSpreadsheet: true,
   });
   sheet.deleteAllDrawings();
+  sheet.dataValidations.clear();
   const used = sheet.getUsedRange();
   if (used) {
     try {
@@ -5066,6 +5044,15 @@ function resetSheet(workbook, name) {
   }
   sheet.showGridLines = false;
   return sheet;
+}
+
+function removeWorkbookSheets(workbook) {
+  for (const sheetName of WORKBOOK_SHEETS_TO_REMOVE) {
+    const sheet = workbook.worksheets.getItemOrNullObject(sheetName);
+    if (!sheet.isNullObject) {
+      sheet.delete();
+    }
+  }
 }
 
 function setHeaderBand(sheet, title, subtitle, headers, rowCount, options = {}) {
@@ -5237,29 +5224,9 @@ async function addPerimeterAuditSheets(workbook, payload) {
     filePath: path.join(DATA_DIR, "industry_fic_detection_audit.csv"),
     sheetName: "FICs excluídos",
     title: "FICs excluídos do universo analítico",
-    subtitle: `Fonte industry_fic_detection_audit.csv; atualização ${generatedAt}; uma linha por CNPJ, na última competência observada. Regra: flag cadastral CVM ou VL_DICRED zerado em toda a série com cotas de FIDC ≥ 50% das aplicações; o histórico completo permanece no CSV.`,
+    subtitle: `Fonte industry_fic_detection_audit.csv; atualização ${generatedAt}; uma linha por CNPJ, na última competência observada. Regra: sinal nominal legado derivado da denominação social ou VL_DICRED zerado em toda a série com cotas de FIDC ≥ 50% das aplicações; o histórico completo permanece no CSV.`,
     filter: (row) => String(row.is_fic || "").toLowerCase() === "true",
     uniqueBy: "cnpj_fundo",
-  });
-  await addCsvAuditSheet(workbook, {
-    filePath: path.join(DATA_DIR, "industry_taxonomy_crosscheck.csv"),
-    sheetName: "Cross-check taxonomia",
-    title: "Cross-check da taxonomia analítica",
-    subtitle: `Fonte industry_taxonomy_crosscheck.csv; competência ${payload.latest_complete}; atualização ${generatedAt}. As inconsistências são registradas para revisão e nenhuma classificação é corrigida automaticamente.`,
-  });
-  const taxonomyColumns = [
-    "cnpj_fundo", "denominacao_referencia", "status", "tipo_analitico",
-    "foco_analitico", "tabela_ii_analitica", "taxonomia_funcional_n1",
-    "taxonomia_funcional_n2", "confianca", "competencia_referencia",
-    "competencia_inicio", "fonte_documental", "documento_data",
-    "pagina_clausula", "evidencia", "notas", "responsavel", "updated_at_utc",
-  ];
-  await addCsvAuditSheet(workbook, {
-    filePath: path.join(DATA_DIR, "taxonomy_review_actions.csv"),
-    sheetName: "Taxonomia por CNPJ",
-    title: "Taxonomia analítica vigente por CNPJ",
-    subtitle: `Fonte taxonomy_review_actions.csv; competência de publicação ${payload.latest_complete}; atualização ${generatedAt}. Uma decisão única por CNPJ é aplicada a todas as competências pelo overlay, com os campos oficiais preservados.`,
-    sourceHeaders: taxonomyColumns,
   });
   await addCsvAuditSheet(workbook, {
     filePath: path.join(DATA_DIR, "taxonomy_review_actions.csv"),
@@ -6288,39 +6255,6 @@ async function addCardReceivablesCurationSheet(workbook, payload) {
   sheet.getRange(`A5:V${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
-async function addAcquiringAnbimaReviewSheet(workbook, payload) {
-  const columns = [
-    ["FIDC", "denominacao"],
-    ["CNPJ", "cnpj_fundo_formatado"],
-    ["PL atual", "pl_referencia_brl"],
-    ["Competência PL", "pl_referencia_competencia"],
-    ["Tipo ANBIMA atual", "tipo_anbima_atual"],
-    ["Foco ANBIMA atual", "foco_anbima_atual"],
-    ["Categoria sugerida", "categoria_referencia_sugerida"],
-    ["Fonte da classificação", "classification_source"],
-    ["Status da classificação", "classification_status"],
-    ["Base alterada", "base_alterada"],
-    ["Critério da sugestão", "criterio_sugestao"],
-  ];
-  const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload.acquiring_anbima_review || [], columns);
-  const summary = payload.acquiring_anbima_review_summary || {};
-  const sheet = resetSheet(workbook, "Reclass. adquirência");
-  setHeaderBand(
-    sheet,
-    "FIDCs incluídos em Adquirência · revisão ANBIMA",
-    `${integer(summary.fundos_filtrados)} fundos atendem ao filtro literal ${summary.filtro_aplicado || "solicitado"}. ${summary.limitacao_contagem || ""} A base não foi alterada.`,
-    headers,
-    rows.length,
-    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
-  );
-  await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [310, 120, 120, 100, 170, 180, 210, 250, 155, 90, 520], rows.length);
-  applyFormatsByHeader(sheet, headers, rows.length);
-  sheet.getRange(`C5:C${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:K${rows.length + 4}`).format.rowHeightPx = 46;
-}
-
 async function addTop20ByTypeSheets(workbook, payload) {
   const columns = [
     ["Tipo exibido", "tipo_exibicao"],
@@ -6516,28 +6450,6 @@ async function addDelinquencyDispersionSheet(workbook, payload) {
   });
   sheet.getRange(`M5:O${rows.length + 4}`).format.numberFormat = "0.000";
   sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 48;
-}
-
-async function addNumericLocaleAuditSheet(workbook, payload) {
-  const columns = [
-    ["Artefato", "artefato"],
-    ["Ponto auditado", "ponto"],
-    ["Padrão aplicado", "padrao"],
-  ];
-  const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload.numeric_locale_audit || [], columns);
-  const sheet = resetSheet(workbook, "Auditoria numérica");
-  setHeaderBand(
-    sheet,
-    "Auditoria de separadores numéricos",
-    "Padrão brasileiro na camada visível. Códigos internos de formatação do Office permanecem no padrão técnico OOXML para preservar valores numéricos editáveis.",
-    headers,
-    rows.length,
-    { freezeColumns: 1, wrapText: true, bodyFontSize: 10 },
-  );
-  await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [180, 360, 620], rows.length);
-  sheet.getRange(`A5:C${rows.length + 4}`).format.rowHeightPx = 50;
 }
 
 async function addClosedOffersSheet(workbook, payload) {
@@ -7300,82 +7212,6 @@ async function addReagMigrationSheet(workbook, payload) {
   sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 38;
 }
 
-async function addProviderFlowVisualSheet(workbook, flowAssets) {
-  const sheet = resetSheet(workbook, "Fluxos visuais");
-  const lastColumn = "M";
-  sheet.getRange(`A1:${lastColumn}136`).format = {
-    font: { name: "Arial", size: 10, color: C.charcoal },
-    rowHeightPx: 20,
-  };
-  for (let index = 0; index < 13; index += 1) {
-    const letter = columnLetter(index);
-    sheet.getRange(`${letter}1:${letter}136`).format.columnWidthPx = 100;
-  }
-  sheet.getRange(`A1:${lastColumn}1`).merge();
-  sheet.getRange("A1").values = [["Fluxos de prestadores"]];
-  sheet.getRange(`A1:${lastColumn}1`).format = {
-    fill: C.black,
-    font: { name: "Arial", size: 16, bold: true, color: C.white },
-    rowHeightPx: 34,
-    verticalAlignment: "center",
-  };
-  sheet.getRange(`A2:${lastColumn}2`).merge();
-  sheet.getRange("A2").values = [[
-    "Imagens em alta resolução da mesma base do explorador HTML: administração ampla, amostras históricas de gestão e custódia, e coorte CBSF / REAG.",
-  ]];
-  sheet.getRange(`A2:${lastColumn}2`).format = {
-    fill: C.white,
-    font: { name: "Arial", size: 10, color: C.mid },
-    rowHeightPx: 32,
-    verticalAlignment: "center",
-    wrapText: true,
-  };
-  sheet.images.add({
-    dataUrl: flowAssets.adminPngDataUrl,
-    anchor: {
-      from: { row: 3, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.images.add({
-    dataUrl: flowAssets.gestorPngDataUrl,
-    anchor: {
-      from: { row: 36, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.images.add({
-    dataUrl: flowAssets.custodiantePngDataUrl,
-    anchor: {
-      from: { row: 69, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.images.add({
-    dataUrl: flowAssets.reagPngDataUrl,
-    anchor: {
-      from: { row: 102, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.getRange(`A135:${lastColumn}136`).merge();
-  sheet.getRange("A135").values = [[
-    `Visão navegável e exportável: ${path.basename(flowAssets.html)}. Fontes e critérios permanecem nas abas “Fluxos prestadores” e “Migração CBSF”.`,
-  ]];
-  sheet.getRange(`A135:${lastColumn}136`).format = {
-    fill: C.pale,
-    font: { name: "Arial", size: 10, color: C.mid },
-    rowHeightPx: 24,
-    verticalAlignment: "center",
-    wrapText: true,
-    borders: {
-      top: { style: "thin", color: C.line },
-      bottom: { style: "thin", color: C.line },
-    },
-  };
-  sheet.freezePanes.freezeRows(2);
-}
-
 async function addAcquiringTaxonomySheet(workbook, payload) {
   const columns = [
     ["#", "ordem_materialidade"],
@@ -7624,36 +7460,7 @@ async function addOfferTargetPublicSheet(workbook, payload) {
   sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
-async function addReclassificationSheet(workbook, payload, config) {
-  const columns = [
-    ["CNPJ do FIDC", "cnpj_fundo_formatado"],
-    ["Nome do FIDC", "denominacao"],
-    ["PL atual", "pl"],
-    ["Taxonomia atual", "taxonomia_atual"],
-    ["Nova classificação proposta", "nova_classificacao_proposta"],
-    ["Fonte", "fonte"],
-    ["Data de referência", "data_referencia"],
-    ["Limitação", "limitacao"],
-  ];
-  const headers = columns.map(([header]) => header);
-  const rows = worksheetRowsFromPayload(payload[config.payloadKey] || [], columns);
-  const sheet = resetSheet(workbook, config.sheetName);
-  setHeaderBand(
-    sheet,
-    config.title,
-    config.subtitle,
-    headers,
-    rows.length,
-    { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
-  );
-  await writeRowsInChunks(sheet, 4, headers, rows);
-  applyColumnWidths(sheet, [125, 390, 125, 200, 210, 360, 170, 520], rows.length);
-  applyFormatsByHeader(sheet, headers, rows.length);
-  sheet.getRange(`C5:C${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  sheet.getRange(`A5:H${rows.length + 4}`).format.rowHeightPx = 62;
-}
-
-async function buildWorkbook(payload, flowAssets) {
+async function buildWorkbook(payload) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
   const ficAudit = await readCsv(path.join(DATA_DIR, "industry_fic_detection_audit.csv"));
   patchLegacyPlSheets(workbook, csvRowsAsObjects(ficAudit));
@@ -7674,17 +7481,14 @@ async function buildWorkbook(payload, flowAssets) {
   await addBankFidcSheet(workbook, payload);
   await addBankFidcDetailSheet(workbook, payload);
   await addProviderAttributionSheet(workbook, payload);
-  await addProviderFlowVisualSheet(workbook, flowAssets);
   await addProviderTransitionSheet(workbook, payload);
   await addReagMigrationSheet(workbook, payload);
   await addAcquiringTaxonomySheet(workbook, payload);
   await addAcquiringReclassificationSheet(workbook, payload);
   await addCardReceivablesCurationSheet(workbook, payload);
-  await addAcquiringAnbimaReviewSheet(workbook, payload);
   await addTop20ByTypeSheets(workbook, payload);
   await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);
-  await addNumericLocaleAuditSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
   await addFixedIncomeOfferComparisonSheet(workbook, payload);
   await addOfferValidationSheet(workbook, payload);
@@ -7694,22 +7498,11 @@ async function buildWorkbook(payload, flowAssets) {
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
-  await addReclassificationSheet(workbook, payload, {
-    payloadKey: "anbima_outros_reclassification",
-    sheetName: "Reclass. ANBIMA",
-    title: "FIDCs classificados em Outros · taxonomia ANBIMA",
-    subtitle: "Universo vigente ex-FIC com PL positivo em jun/26. Campo de nova classificação permanece em branco para revisão manual.",
-  });
-  await addReclassificationSheet(workbook, payload, {
-    payloadKey: "cvm_outros_reclassification",
-    sheetName: "Reclass. CVM",
-    title: "FIDCs classificados em Financeiro: Outros · taxonomia CVM",
-    subtitle: "Classificação observada na Tabela II em jun/26. Campo de nova classificação permanece em branco para revisão manual.",
-  });
   await addConclusionsSheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
   await addChecksSheet(workbook, payload);
+  removeWorkbookSheets(workbook);
   return workbook;
 }
 
@@ -7770,18 +7563,15 @@ async function exportWorkbook(workbook) {
       ["FIDCs por banco", "A1:K28"],
       ["Detalhe coorte bancos", "A1:J28"],
       ["Atribuição prestadores", "A1:J22"],
-      ["Fluxos visuais", "A1:M136"],
       ["Fluxos prestadores", "A1:T24"],
       ["Migração CBSF", "A1:Q24"],
       ["Adquirência reclass.", "A1:G28"],
       ["Taxonomia adquirência", "A1:N32"],
       ["Curadoria Cartão", "A1:V48"],
-      ["Reclass. adquirência", "A1:K32"],
       ["Top 20 por Tipo ANBIMA", "A1:AF28"],
       ["Auditoria Top 20 Tipo", "A1:M10"],
       ["Curadoria Outros Top 100", "A1:AH28"],
       ["Dispersão inadimplência", "A1:S24"],
-      ["Auditoria numérica", "A1:C12"],
       ["Ofertas encerradas", "A1:Q58"],
       ["Regime de colocação", "A1:P16"],
       ["Histograma ofertas", "A1:V25"],
@@ -7790,16 +7580,12 @@ async function exportWorkbook(workbook) {
       ["Top 15 ofertas", "A1:AZ28"],
       ["Validação emissões", "A1:U25"],
       ["Público-alvo ofertas", "A1:J24"],
-      ["Reclass. ANBIMA", "A1:H35"],
-      ["Reclass. CVM", "A1:H35"],
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
       ["Checks revisão", "A1:D28"],
       ["Universo elegível", "A1:P25"],
       ["FICs excluídos", "A1:J25"],
-      ["Cross-check taxonomia", "A1:J25"],
-      ["Taxonomia por CNPJ", "A1:R25"],
       ["Decisões do ledger", "A1:U25"],
     ];
     const workbookQa = path.join(QA_DIR, "workbook_revisado");
@@ -7827,16 +7613,16 @@ async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   const payloadRaw = await fs.readFile(PAYLOAD_PATH);
   const payload = JSON.parse(payloadRaw.toString("utf8"));
-  const flowAssets = await generateProviderFlowAssets();
+  await generateProviderFlowHtml();
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
-    const presentation = buildPresentation(payload, flowAssets);
+    const presentation = buildPresentation(payload);
     if (presentation.slides.items.length !== EXPECTED_SLIDES) {
       throw new Error(`Deck deveria ter ${EXPECTED_SLIDES} slides; gerou ${presentation.slides.items.length}.`);
     }
     await exportPresentation(presentation);
   }
   if (process.env.FIDC_SKIP_WORKBOOK !== "1") {
-    const workbook = await buildWorkbook(payload, flowAssets);
+    const workbook = await buildWorkbook(payload);
     await exportWorkbook(workbook);
   }
   if (

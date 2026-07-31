@@ -29,10 +29,42 @@ from scripts.publish_fidc_revision_bundle import (
     validate_artifact_payload,
     validate_bundle_manifest,
     validate_deck_snapshot,
+    validate_fic_detection_audit_provenance,
     validate_renderer_manifest,
     validate_source_presence_coverage,
     validate_user_facing_workbook_snapshot,
 )
+
+
+def test_fic_detection_audit_provenance_rejects_legacy_labels(
+    tmp_path: Path,
+) -> None:
+    audit = tmp_path / "industry_fic_detection_audit.csv"
+    audit.write_text(
+        "cnpj_fundo,fic_detection_method,fic_detection_evidence\n"
+        "12345678000199,flag_cadastral,descrição antiga\n",
+        encoding="utf-8",
+    )
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="rótulos de proveniência legados",
+    ):
+        validate_fic_detection_audit_provenance(tmp_path)
+
+
+def test_fic_detection_audit_provenance_accepts_declared_sources(
+    tmp_path: Path,
+) -> None:
+    audit = tmp_path / "industry_fic_detection_audit.csv"
+    audit.write_text(
+        "cnpj_fundo,fic_detection_method,fic_detection_evidence\n"
+        "12345678000199,sinal_nominal_legado,Sinal nominal legado\n"
+        "98765432000199,informe_mensal,Informe Mensal Estruturado\n",
+        encoding="utf-8",
+    )
+
+    validate_fic_detection_audit_provenance(tmp_path)
 
 
 def test_discover_latest_complete_ignores_newer_preliminary_month(tmp_path: Path) -> None:
@@ -1155,6 +1187,54 @@ def test_payload_rejects_non_closed_offer_in_top15() -> None:
     payload["closed_offer_top15"][0]["status"] = "Em análise"
 
     with pytest.raises(RevisionBundlePublishError, match="oferta não encerrada"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_accepts_anbima_2023_fidc_level() -> None:
+    payload = deepcopy(_payload())
+    corrected_volume = 3.0
+    for row in payload["market_offer_reconciliation"]:
+        if (
+            row["period_label"] == "2023 FY"
+            and row["instrument_label"] == "FIDCs"
+        ):
+            row["anbima_closed_volume_brl"] = corrected_volume
+    for row in payload["fixed_income_offer_comparison"]:
+        if row["period_label"] != "2023 FY":
+            continue
+        if row["series_label"] == "FIDCs":
+            row["registered_volume_brl"] = corrected_volume
+        if row["view"] == "FIDCs vs demais elegíveis":
+            row["universe_registered_volume_brl"] = corrected_volume + 1.0
+
+    validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_2023_fidc_level_divergent_from_anbima() -> None:
+    payload = deepcopy(_payload())
+    for row in payload["fixed_income_offer_comparison"]:
+        if row["period_label"] != "2023 FY":
+            continue
+        if row["series_label"] == "FIDCs":
+            row["registered_volume_brl"] = 3.0
+        if row["view"] == "FIDCs vs demais elegíveis":
+            row["universe_registered_volume_brl"] = 4.0
+
+    with pytest.raises(RevisionBundlePublishError, match="2023 FY"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_still_reconciles_2024_fidc_level_to_cvm() -> None:
+    payload = deepcopy(_payload())
+    for row in payload["fixed_income_offer_comparison"]:
+        if row["period_label"] != "2024 FY":
+            continue
+        if row["series_label"] == "FIDCs":
+            row["registered_volume_brl"] = 3.0
+        if row["view"] == "FIDCs vs demais elegíveis":
+            row["universe_registered_volume_brl"] = 4.0
+
+    with pytest.raises(RevisionBundlePublishError, match="2024 FY"):
         validate_artifact_payload(payload, "2026-05")
 
 

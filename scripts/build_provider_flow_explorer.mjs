@@ -1,54 +1,26 @@
 #!/usr/bin/env node
 
 import fs from "node:fs/promises";
-import { existsSync } from "node:fs";
-import os from "node:os";
 import path from "node:path";
 import process from "node:process";
-import { createRequire } from "node:module";
+import { isDeepStrictEqual } from "node:util";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), "..");
-const localNodeModules = path.join(ROOT, "node_modules");
-const bundledNodeModules = path.join(
-  os.homedir(),
-  ".cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules",
-);
-const NODE_MODULES =
-  process.env.CODEX_NODE_MODULES ||
-  (existsSync(path.join(localNodeModules, "sharp/package.json"))
-    ? localNodeModules
-    : bundledNodeModules);
-const require = createRequire(path.join(NODE_MODULES, "package.json"));
-const sharp = require("sharp");
 
 const DEFAULT_PAYLOAD = path.join(
   ROOT,
   "data/industry_study/generated_revision/artifact_payload.json",
 );
-const DEFAULT_OUTPUT_DIR = path.join(ROOT, "outputs/provider_flow_assets");
-
-const COLORS = {
-  background: "#FFFFFF",
-  foreground: "#151515",
-  muted: "#73787D",
-  faint: "#D7DADD",
-  pale: "#F5F6F7",
-  orange: "#EC7000",
-  selected: "#FF5500",
-  qi: "#2456D6",
-  btg: "#1D4080",
-  oliveira: "#7A1F3D",
-  bb: "#D6A800",
-  green: "#73C6A1",
-  gray1: "#30353A",
-  gray2: "#5B6065",
-  gray3: "#8D9399",
-  gray4: "#BEC2C5",
-};
-
-const GRAYS = [COLORS.gray1, "#454A4F", COLORS.gray2, COLORS.muted, COLORS.gray3, "#A7ACB0", COLORS.gray4];
+const FUNDOSNET_CNPJ_BASE =
+  "https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=";
+const COMPACT_FIELDS = Object.freeze({
+  marketLink: ["source", "target", "funds", "value", "origin", "current", "shareUniverse"],
+  cohortLink: ["source", "target", "funds", "value", "origin", "current"],
+  marketDetail: ["fund", "cnpj", "source", "target", "pl0", "pl1", "flow"],
+  cohortDetail: ["fund", "cnpj", "target", "status", "pl0", "pl1", "flow", "manager", "custodian"],
+});
 
 function argsFrom(argv) {
   const args = {};
@@ -70,6 +42,18 @@ function argsFrom(argv) {
 function number(value, fallback = 0) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function nullableNumber(...values) {
+  const value = values.find(
+    (candidate) => candidate !== null && candidate !== undefined && candidate !== "",
+  );
+  if (value === undefined) return null;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    throw new Error(`Valor numérico inválido no fluxo de prestadores: ${value}`);
+  }
+  return parsed;
 }
 
 function truthy(value) {
@@ -107,20 +91,6 @@ function compactProvider(value) {
     .replace(/\bCORRETORA DE VALORES\b/gi, "")
     .replace(/\s+/g, " ")
     .trim();
-}
-
-function providerColor(value) {
-  const key = normalize(value);
-  if (key.includes("qi tech")) return COLORS.qi;
-  if (key.includes("btg")) return COLORS.btg;
-  if (key.includes("oliveira trust")) return COLORS.oliveira;
-  if (key.includes("banco do brasil")) return COLORS.bb;
-  if (key.includes("itau")) return COLORS.selected;
-  if (key.includes("cbsf") || key.includes("reag")) return COLORS.green;
-  if (key.includes("saida") || key.includes("sem reporte")) return COLORS.gray4;
-  let hash = 0;
-  for (const character of key) hash = (hash * 31 + character.charCodeAt(0)) >>> 0;
-  return GRAYS[hash % GRAYS.length];
 }
 
 function formatCnpj(value) {
@@ -289,7 +259,7 @@ function viewModels(payload) {
       target,
       status: active ? "Continuante" : "Saída / sem reporte",
       pl0: number(row.pl_origem_brl),
-      pl1: number(row.pl_destino_brl || row.pl_destino_observado_brl),
+      pl1: nullableNumber(row.pl_destino_brl, row.pl_destino_observado_brl),
       flow: number(row.pl_origem_brl),
       manager: compactProvider(row.gestor_destino_grupo_observado || row.gestor_destino_nome_observado),
       custodian: compactProvider(row.custodiante_destino_grupo_observado || row.custodiante_destino_nome_observado),
@@ -307,12 +277,14 @@ function viewModels(payload) {
       funds: 0,
       value: 0,
       origin: 0,
-      current: 0,
+      current: null,
     };
     item.funds += 1;
     item.value += row.flow;
     item.origin += row.pl0;
-    item.current += row.pl1;
+    if (row.pl1 !== null) {
+      item.current = number(item.current) + row.pl1;
+    }
     reagLinkMap.set(key, item);
   }
   const reagLinks = [...reagLinkMap.values()].sort((a, b) => b.value - a.value);
@@ -393,27 +365,111 @@ function validateViews(data) {
   if (unique(data.reag.details) !== data.reag.details.length) throw new Error("CNPJ duplicado no detalhe CBSF/REAG");
 }
 
-function escapeXml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&apos;");
+function constantDetailValue(details, key, viewId) {
+  const values = new Set(details.map((row) => String(row[key] ?? "")));
+  if (values.size > 1) {
+    throw new Error(`${viewId}.${key} deixou de ser constante; atualize o esquema compacto`);
+  }
+  return values.values().next().value || "";
 }
 
-function money(value, digits = 1) {
-  const amount = number(value);
-  if (Math.abs(amount) < 1e8) {
-    return `R$ ${(amount / 1e6).toLocaleString("pt-BR", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 1,
-    })} mi`;
+function compactViews(data) {
+  const views = {};
+  for (const [viewId, view] of Object.entries(data)) {
+    const { links, details, ...metadata } = view;
+    const linkFields = COMPACT_FIELDS[`${view.kind}Link`];
+    const detailFields = COMPACT_FIELDS[`${view.kind}Detail`];
+    if (!linkFields || !detailFields) {
+      throw new Error(`Tipo de visão sem esquema compacto: ${view.kind}`);
+    }
+    const fundosnetRows = details.filter((row) => row.fundosnetUrl);
+    if (fundosnetRows.length > 0 && fundosnetRows.length !== details.length) {
+      throw new Error(`${viewId}.fundosnetUrl deixou de ter cobertura uniforme`);
+    }
+    const fundosnetFromCnpj = fundosnetRows.length > 0;
+    if (
+      fundosnetFromCnpj
+      && fundosnetRows.some(
+        (row) => (
+          row.fundosnetUrl
+          !== `${FUNDOSNET_CNPJ_BASE}${String(row.cnpj || "").replace(/\D/g, "")}`
+        ),
+      )
+    ) {
+      throw new Error(`${viewId}.fundosnetUrl deixou de ser derivável do CNPJ`);
+    }
+    const documents = {
+      fundosnetBase: fundosnetFromCnpj ? FUNDOSNET_CNPJ_BASE : "",
+      sourceUrl: constantDetailValue(details, "sourceUrl", viewId),
+      targetUrl: constantDetailValue(details, "targetUrl", viewId),
+      ...(view.kind === "cohort"
+        ? { detailSource: constantDetailValue(details, "source", viewId) }
+        : {}),
+    };
+    views[viewId] = {
+      ...metadata,
+      documents,
+      links: links.map((row) => linkFields.map((field) => row[field])),
+      details: details.map((row) => detailFields.map((field) => row[field])),
+    };
   }
-  return `R$ ${(amount / 1e9).toLocaleString("pt-BR", {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
-  })} bi`;
+  return {
+    schemaVersion: "provider_flow_compact_v1",
+    fields: COMPACT_FIELDS,
+    views,
+  };
+}
+
+function expandCompactViews(compact) {
+  if (compact.schemaVersion !== "provider_flow_compact_v1") {
+    throw new Error(`Esquema compacto desconhecido: ${compact.schemaVersion}`);
+  }
+  const rowObject = (fields, values) => Object.fromEntries(
+    fields.map((field, index) => [field, values[index]]),
+  );
+  const views = {};
+  for (const [viewId, compactView] of Object.entries(compact.views)) {
+    const {
+      documents,
+      links: compactLinks,
+      details: compactDetails,
+      ...metadata
+    } = compactView;
+    const linkFields = compact.fields[`${metadata.kind}Link`];
+    const detailFields = compact.fields[`${metadata.kind}Detail`];
+    const links = compactLinks.map((row) => rowObject(linkFields, row));
+    const details = compactDetails.map((row) => {
+      const detail = rowObject(detailFields, row);
+      const fundosnetUrl = documents.fundosnetBase
+        ? `${documents.fundosnetBase}${String(detail.cnpj || "").replace(/\D/g, "")}`
+        : "";
+      if (metadata.kind === "market") {
+        return {
+          ...detail,
+          fundosnetUrl,
+          sourceUrl: documents.sourceUrl,
+          targetUrl: documents.targetUrl,
+        };
+      }
+      return {
+        fund: detail.fund,
+        cnpj: detail.cnpj,
+        source: documents.detailSource,
+        target: detail.target,
+        status: detail.status,
+        pl0: detail.pl0,
+        pl1: detail.pl1,
+        flow: detail.flow,
+        manager: detail.manager,
+        custodian: detail.custodian,
+        fundosnetUrl,
+        sourceUrl: documents.sourceUrl,
+        targetUrl: documents.targetUrl,
+      };
+    });
+    views[viewId] = { ...metadata, links, details };
+  }
+  return views;
 }
 
 function percent(value, digits = 1) {
@@ -421,220 +477,6 @@ function percent(value, digits = 1) {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   })}%`;
-}
-
-function fundsLabel(value) {
-  const count = Math.round(number(value));
-  return `${count.toLocaleString("pt-BR")} ${count === 1 ? "fundo" : "fundos"}`;
-}
-
-function nodeOrdering(links) {
-  const sourceTotals = new Map();
-  const targetTotals = new Map();
-  for (const link of links) {
-    sourceTotals.set(link.source, (sourceTotals.get(link.source) || 0) + link.value);
-    targetTotals.set(link.target, (targetTotals.get(link.target) || 0) + link.value);
-  }
-  const sources = [...sourceTotals].sort((a, b) => b[1] - a[1]);
-  const sourceRank = new Map(sources.map(([name], index) => [name, index]));
-  const targetWeight = new Map();
-  for (const link of links) {
-    const item = targetWeight.get(link.target) || { weighted: 0, total: 0 };
-    item.weighted += (sourceRank.get(link.source) || 0) * link.value;
-    item.total += link.value;
-    targetWeight.set(link.target, item);
-  }
-  const targets = [...targetTotals].sort((a, b) => {
-    const left = targetWeight.get(a[0]);
-    const right = targetWeight.get(b[0]);
-    const leftRank = left?.total ? left.weighted / left.total : 0;
-    const rightRank = right?.total ? right.weighted / right.total : 0;
-    return leftRank - rightRank || b[1] - a[1];
-  });
-  return { sources, targets };
-}
-
-function layoutColumn(items, x, top, height, padding) {
-  const total = items.reduce((sum, [, value]) => sum + value, 0) || 1;
-  const effectivePadding = items.length > 1 ? Math.min(padding, height / (items.length * 2)) : 0;
-  const usable = Math.max(40, height - effectivePadding * Math.max(items.length - 1, 0));
-  const scale = usable / total;
-  const nodes = new Map();
-  let cursor = top;
-  for (const [name, value] of items) {
-    const nodeHeight = Math.max(1.5, value * scale);
-    nodes.set(name, { name, value, x, y: cursor, height: nodeHeight, scale });
-    cursor += nodeHeight + effectivePadding;
-  }
-  return { nodes, scale };
-}
-
-function layoutSankey(view, topN = 10, width = 1280, height = 620) {
-  const links = view.links.slice(0, topN === "all" ? view.links.length : Number(topN));
-  const { sources, targets } = nodeOrdering(links);
-  const plotTop = 118;
-  const plotHeight = height - 158;
-  const leftX = 248;
-  const rightX = width - 248;
-  const marketView = view.kind === "market";
-  const left = layoutColumn(sources, leftX, plotTop, plotHeight, marketView ? 13 : 18);
-  const right = layoutColumn(targets, rightX, plotTop, plotHeight, marketView ? 10 : 18);
-  const scale = Math.min(left.scale, right.scale);
-  for (const node of left.nodes.values()) node.height = Math.max(1.5, node.value * scale);
-  for (const node of right.nodes.values()) node.height = Math.max(1.5, node.value * scale);
-  const restack = (nodes, order) => {
-    const padding = order.length > 1
-      ? Math.max(4, (plotHeight - order.reduce((sum, [, value]) => sum + Math.max(1.5, value * scale), 0)) / (order.length - 1))
-      : 0;
-    let cursor = plotTop;
-    for (const [name] of order) {
-      const node = nodes.get(name);
-      node.y = cursor;
-      cursor += node.height + padding;
-    }
-  };
-  restack(left.nodes, sources);
-  restack(right.nodes, targets);
-
-  const sourceOffsets = new Map([...left.nodes].map(([name]) => [name, 0]));
-  const targetOffsets = new Map([...right.nodes].map(([name]) => [name, 0]));
-  const targetOrder = new Map(targets.map(([name], index) => [name, index]));
-  const sourceOrder = new Map(sources.map(([name], index) => [name, index]));
-  const sourceSorted = [...links].sort((a, b) =>
-    (sourceOrder.get(a.source) || 0) - (sourceOrder.get(b.source) || 0) ||
-    (targetOrder.get(a.target) || 0) - (targetOrder.get(b.target) || 0) ||
-    b.value - a.value
-  );
-  const targetSorted = [...links].sort((a, b) =>
-    (targetOrder.get(a.target) || 0) - (targetOrder.get(b.target) || 0) ||
-    (sourceOrder.get(a.source) || 0) - (sourceOrder.get(b.source) || 0) ||
-    b.value - a.value
-  );
-  const startByKey = new Map();
-  for (const link of sourceSorted) {
-    const key = `${link.source}|||${link.target}`;
-    const offset = sourceOffsets.get(link.source) || 0;
-    const band = Math.max(1.2, link.value * scale);
-    const node = left.nodes.get(link.source);
-    startByKey.set(key, { y0: node.y + offset, y1: node.y + offset + band, band });
-    sourceOffsets.set(link.source, offset + band);
-  }
-  const endByKey = new Map();
-  for (const link of targetSorted) {
-    const key = `${link.source}|||${link.target}`;
-    const offset = targetOffsets.get(link.target) || 0;
-    const band = Math.max(1.2, link.value * scale);
-    const node = right.nodes.get(link.target);
-    endByKey.set(key, { y0: node.y + offset, y1: node.y + offset + band, band });
-    targetOffsets.set(link.target, offset + band);
-  }
-  const laidLinks = links.map((link, index) => ({
-    ...link,
-    index,
-    key: `${link.source}|||${link.target}`,
-    ...startByKey.get(`${link.source}|||${link.target}`),
-    end: endByKey.get(`${link.source}|||${link.target}`),
-  }));
-  return { links: laidLinks, left: left.nodes, right: right.nodes, leftX, rightX, width, height };
-}
-
-function ribbonPath(layout, link) {
-  const x0 = layout.leftX + 9;
-  const x1 = layout.rightX;
-  const curve = (x1 - x0) * 0.47;
-  return [
-    `M ${x0} ${link.y0}`,
-    `C ${x0 + curve} ${link.y0}, ${x1 - curve} ${link.end.y0}, ${x1} ${link.end.y0}`,
-    `L ${x1} ${link.end.y1}`,
-    `C ${x1 - curve} ${link.end.y1}, ${x0 + curve} ${link.y1}, ${x0} ${link.y1}`,
-    "Z",
-  ].join(" ");
-}
-
-function labelPositions(nodes, minY = 134, maxY = 566, minGap = 37) {
-  const items = [...nodes.values()]
-    .map((node) => ({ name: node.name, anchor: node.y + node.height / 2, y: node.y + node.height / 2 }))
-    .sort((a, b) => a.anchor - b.anchor);
-  for (let index = 0; index < items.length; index += 1) {
-    items[index].y = Math.max(items[index].anchor, index ? items[index - 1].y + minGap : minY);
-  }
-  if (items.length && items.at(-1).y > maxY) {
-    items.at(-1).y = maxY;
-    for (let index = items.length - 2; index >= 0; index -= 1) {
-      items[index].y = Math.min(items[index].y, items[index + 1].y - minGap);
-    }
-  }
-  if (items.length && items[0].y < minY) {
-    const shift = minY - items[0].y;
-    for (const item of items) item.y += shift;
-  }
-  return new Map(items.map((item) => [item.name, item]));
-}
-
-function staticSvg(view, topN, options = {}) {
-  const width = options.width || 1280;
-  const height = options.height || 620;
-  const layout = layoutSankey(view, topN, width, height);
-  const shownValue = layout.links.reduce((sum, link) => sum + link.value, 0);
-  const changedTotal = view.links.reduce((sum, link) => sum + link.value, 0);
-  const marketView = view.kind === "market";
-  const metricValue = marketView ? money(shownValue) : money(view.summary.primary);
-  const metricLabel = marketView
-    ? (topN === "all" ? "nos fluxos observados" : `nos ${topN} maiores fluxos`)
-    : view.summary.primaryLabel;
-  const secondaryValue = marketView
-    ? percent(shownValue / Math.max(changedTotal, 1), 1)
-    : money(view.summary.secondary);
-  const secondaryLabel = marketView ? "do PL que migrou" : view.summary.secondaryLabel;
-  const tertiaryValue = marketView
-    ? `${layout.links.reduce((sum, link) => sum + link.funds, 0).toLocaleString("pt-BR")}`
-    : money(view.summary.tertiary);
-  const tertiaryLabel = marketView ? "fundos nesses fluxos" : view.summary.tertiaryLabel;
-  const leftLabels = labelPositions(layout.left, 136, height - 53, 37);
-  const rightLabels = labelPositions(layout.right, 136, height - 53, 37);
-  const remainingLinks = Math.max(0, view.links.length - layout.links.length);
-  const remainingValue = Math.max(0, changedTotal - shownValue);
-  const parts = [
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(view.eyebrow)}">`,
-    `<rect width="${width}" height="${height}" fill="${COLORS.background}"/>`,
-    `<style>text{font-family:Arial,sans-serif;fill:${COLORS.foreground}}.muted{fill:${COLORS.muted}}.halo{paint-order:stroke;stroke:${COLORS.background};stroke-width:6px;stroke-linejoin:round}</style>`,
-    `<text x="40" y="32" font-size="16" font-weight="700" fill="${COLORS.orange}">${escapeXml(view.eyebrow)}</text>`,
-    `<text x="40" y="63" font-size="27" font-weight="700">${escapeXml(metricValue)}</text>`,
-    `<text x="40" y="85" font-size="13" class="muted">${escapeXml(metricLabel)}</text>`,
-    `<text x="390" y="63" font-size="27" font-weight="700">${escapeXml(secondaryValue)}</text>`,
-    `<text x="390" y="85" font-size="13" class="muted">${escapeXml(secondaryLabel)}</text>`,
-    `<text x="735" y="63" font-size="27" font-weight="700">${escapeXml(tertiaryValue)}</text>`,
-    `<text x="735" y="85" font-size="13" class="muted">${escapeXml(tertiaryLabel)}</text>`,
-    `<text x="40" y="111" font-size="12" font-weight="700" class="muted">${escapeXml(view.leftLabel)}</text>`,
-    `<text x="${width - 40}" y="111" text-anchor="end" font-size="12" font-weight="700" class="muted">${escapeXml(view.rightLabel)}</text>`,
-  ];
-  for (const link of layout.links) {
-    parts.push(`<path d="${ribbonPath(layout, link)}" fill="${providerColor(link.target)}" fill-opacity="0.46"/>`);
-  }
-  for (const [name, node] of layout.left) {
-    const label = leftLabels.get(name);
-    parts.push(`<rect x="${layout.leftX}" y="${node.y}" width="9" height="${node.height}" rx="2" fill="${providerColor(name)}"/>`);
-    if (Math.abs(label.y - label.anchor) > 3) parts.push(`<path d="M ${layout.leftX} ${label.anchor} L ${layout.leftX - 11} ${label.y}" fill="none" stroke="${COLORS.faint}" stroke-width="1"/>`);
-    parts.push(`<text x="${layout.leftX - 15}" y="${label.y - 2}" text-anchor="end" font-size="15" font-weight="700">${escapeXml(compactProvider(name))}</text>`);
-    parts.push(`<text x="${layout.leftX - 15}" y="${label.y + 17}" text-anchor="end" font-size="12" class="muted">${escapeXml(money(node.value))}</text>`);
-  }
-  for (const [name, node] of layout.right) {
-    const label = rightLabels.get(name);
-    parts.push(`<rect x="${layout.rightX}" y="${node.y}" width="9" height="${node.height}" rx="2" fill="${providerColor(name)}"/>`);
-    if (Math.abs(label.y - label.anchor) > 3) parts.push(`<path d="M ${layout.rightX + 9} ${label.anchor} L ${layout.rightX + 11} ${label.y}" fill="none" stroke="${COLORS.faint}" stroke-width="1"/>`);
-    parts.push(`<text x="${layout.rightX + 15}" y="${label.y - 2}" font-size="15" font-weight="700">${escapeXml(compactProvider(name))}</text>`);
-    parts.push(`<text x="${layout.rightX + 15}" y="${label.y + 17}" font-size="12" class="muted">${escapeXml(money(node.value))}</text>`);
-  }
-  for (const link of layout.links.slice(0, 1)) {
-    const y = ((link.y0 + link.y1) / 2 + (link.end.y0 + link.end.y1) / 2) / 2;
-    parts.push(`<text x="${width / 2}" y="${y + 4}" text-anchor="middle" font-size="12" font-weight="700" class="halo">${escapeXml(`${fundsLabel(link.funds)} · ${money(link.value)}`)}</text>`);
-  }
-  const remainder = marketView && remainingLinks
-    ? `${view.note} Demais ${remainingLinks} rotas: ${money(remainingValue)}.`
-    : view.note;
-  parts.push(`<text x="40" y="${height - 14}" font-size="11" class="muted">${escapeXml(remainder)}</text>`);
-  parts.push("</svg>");
-  return parts.join("");
 }
 
 function browserApp(DATA) {
@@ -719,12 +561,12 @@ function browserApp(DATA) {
     state.page=Math.min(state.page,pages-1);
     const selected=v.links.find(l=>l.source+"|||"+l.target===state.selected);
     caption.textContent=selected
-      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL ${v.currentLabel}`:` de origem | ${selected.current?money(selected.current)+" em "+v.currentLabel:"sem PL positivo em "+v.currentLabel}`}`
+      ? `${selected.source} → ${selected.target} · ${funds(selected.funds)} · ${money(selected.value)}${v.kind==="market"?` de PL ${v.currentLabel}`:` de origem | ${selected.current==null?"sem PL reportado em "+v.currentLabel:money(selected.current)+" em "+v.currentLabel}`}`
       : state.query?`${rows.length} fundos encontrados para “${state.query}”`:`${rows.length} fundos na base; selecione um fluxo ou pesquise para filtrar.`;
     const slice=rows.slice(state.page*8,state.page*8+8);
     tbody.innerHTML=slice.map(r=>v.kind==="market"
       ? `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.source)}</td><td>${esc(r.target)}</td><td class="num">${money(r.flow)}</td><td class="num optional">${money(r.pl0)}</td><td class="num optional">${money(r.pl1)}</td><td>${docs(r)}</td></tr>`
-      : `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.target)}</td><td class="num">${money(r.pl0)}</td><td class="num optional">${r.pl1?money(r.pl1):"—"}</td><td class="optional">${esc(r.manager||"N/D")}</td><td class="optional">${esc(r.custodian||"N/D")}</td><td>${docs(r)}</td></tr>`
+      : `<tr><td>${esc(r.fund)}</td><td>${esc(r.cnpj)}</td><td>${esc(r.target)}</td><td class="num">${money(r.pl0)}</td><td class="num optional">${r.pl1==null?"—":money(r.pl1)}</td><td class="optional">${esc(r.manager||"N/D")}</td><td class="optional">${esc(r.custodian||"N/D")}</td><td>${docs(r)}</td></tr>`
     ).join("")||`<tr><td colspan="8">Nenhum fundo encontrado.</td></tr>`;
     root.querySelector("thead").innerHTML=v.kind==="market"
       ? `<tr><th>Fundo</th><th>CNPJ</th><th>Origem</th><th>Destino</th><th>PL ${esc(v.currentLabel)}</th><th class='optional'>PL origem</th><th class='optional'>PL atual</th><th>Fontes</th></tr>`
@@ -737,7 +579,7 @@ function browserApp(DATA) {
       el.addEventListener("click",()=>{state.selected=state.selected===el.dataset.key?null:el.dataset.key;state.page=0;render()});
       el.addEventListener("mousemove",e=>{
         const v=DATA[state.view],l=v.links.find(x=>x.source+"|||"+x.target===el.dataset.key),total=v.summary.primary;
-        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${v.kind==="market"?` de PL ${esc(v.currentLabel)} · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current?money(l.current)+" em "+esc(v.currentLabel):"sem PL positivo em "+esc(v.currentLabel)}`}`:"";
+        tooltip.innerHTML=l?`<strong>${esc(l.source)} → ${esc(l.target)}</strong><br>${funds(l.funds)} · ${money(l.value)}${v.kind==="market"?` de PL ${esc(v.currentLabel)} · ${pct(l.value/Math.max(total,1))} do PL migrado`:` de origem<br>${l.current==null?"sem PL reportado em "+esc(v.currentLabel):money(l.current)+" em "+esc(v.currentLabel)}`}`:"";
         tooltip.hidden=false;const r=root.getBoundingClientRect(),t=tooltip.getBoundingClientRect();tooltip.style.left=Math.min(r.width-t.width-8,Math.max(8,e.clientX-r.left+14))+"px";tooltip.style.top=Math.max(8,e.clientY-r.top-t.height-12)+"px";
       });
       el.addEventListener("mouseleave",()=>tooltip.hidden=true)
@@ -763,7 +605,8 @@ function browserApp(DATA) {
 
 function clientRuntime(data) {
   const serialized = JSON.stringify(data).replace(/</g, "\\u003c");
-  return `<script>(${browserApp.toString()})(${serialized});<\/script>`;
+  return `<script type="application/json" id="provider-flow-data">${serialized}<\/script>
+<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);(${browserApp.toString()})(expanded)})();<\/script>`;
 }
 
 function fragmentHtml(data, standalone = false) {
@@ -843,36 +686,26 @@ function standaloneHtml(data) {
 async function main() {
   const args = argsFrom(process.argv.slice(2));
   const payloadPath = path.resolve(String(args.payload || DEFAULT_PAYLOAD));
-  const outputDir = path.resolve(String(args["output-dir"] || DEFAULT_OUTPUT_DIR));
-  const htmlPath = path.resolve(String(args.html || path.join(outputDir, "provider_flows_explorer.html")));
+  const htmlPath = path.resolve(
+    String(args.html || path.join(ROOT, "outputs/provider_flows_explorer.html")),
+  );
   const fragmentPath = args.fragment ? path.resolve(String(args.fragment)) : "";
   const payload = JSON.parse(await fs.readFile(payloadPath, "utf8"));
   const data = viewModels(payload);
   validateViews(data);
-  await fs.mkdir(outputDir, { recursive: true });
+  const compact = compactViews(data);
+  const expanded = expandCompactViews(compact);
+  if (!isDeepStrictEqual(expanded, data)) {
+    throw new Error("O esquema compacto não preservou integralmente o view-model");
+  }
+  validateViews(expanded);
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
-  const staticViews = [
-    ["admin", data.admin, 10],
-    ["gestor", data.gestor, "all"],
-    ["custodiante", data.custodiante, "all"],
-    ["reag", data.reag, "all"],
-  ];
-  const staticOutputs = staticViews.flatMap(([id, view, topN]) => {
-    const svg = staticSvg(view, topN);
-    return [
-      sharp(Buffer.from(svg)).resize({ width: 2560 }).png().toFile(path.join(outputDir, `provider_flow_${id}.png`)),
-      fs.writeFile(path.join(outputDir, `provider_flow_${id}.svg`), svg, "utf8"),
-    ];
-  });
-  await Promise.all([
-    ...staticOutputs,
-    fs.writeFile(htmlPath, standaloneHtml(data), "utf8"),
-  ]);
+  await fs.writeFile(htmlPath, standaloneHtml(compact), "utf8");
   if (fragmentPath) {
     await fs.mkdir(path.dirname(fragmentPath), { recursive: true });
-    await fs.writeFile(fragmentPath, fragmentHtml(data, false), "utf8");
+    await fs.writeFile(fragmentPath, fragmentHtml(compact, false), "utf8");
   }
-  process.stdout.write(`${htmlPath}\n${staticViews.map(([id]) => path.join(outputDir, `provider_flow_${id}.png`)).join("\n")}\n`);
+  process.stdout.write(`${htmlPath}\n`);
 }
 
 main().catch((error) => {

@@ -180,7 +180,7 @@ def _as_nullable_bool(series: pd.Series) -> pd.Series:
 
 
 def _canonical_fic_mask(frame: pd.DataFrame) -> pd.Series:
-    """Return the single-gate FIC mask while preserving the declared legacy flag."""
+    """Return the FIC mask while preserving the locally derived legacy signal."""
 
     column = "is_fic" if "is_fic" in frame.columns else "is_fic_fidc"
     if column not in frame.columns:

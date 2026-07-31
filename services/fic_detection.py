@@ -6,19 +6,20 @@ it invests in, with that fund's taxonomy, and once in the vehicle that only
 holds the quota.  So it has to leave the analytical universe *before* anything
 is aggregated, classified or reclassified.
 
-Three sources say whether a fund is a FIC, and they are not equally strong:
+The perimeter currently combines two decisive signals:
 
-1. **Flag cadastral.**  The CVM monthly report carries ``is_fic_fidc``.  When
-   it is true the matter is settled.
+1. **Legacy nominal signal.**  ``scripts/build_fidc_industry_study.py`` writes
+   ``is_fic_fidc`` from a regular expression over the registered corporate
+   name.  It remains decisive for backwards compatibility.  No equivalent
+   official CVM or ANBIMA FIC flag was identified in the versioned inputs used
+   by this pipeline.
 2. **Informe Mensal Estruturado.**  ``VL_DICRED`` at zero across the entire
-   history plus FIDC quotas above half of the applications.  This is the rule
-   that found the vehicles the flag misses, and it is quantitative: it reads
-   what the fund holds, not what it is called.
-3. **The name.**  Weakest by far, and *never* decisive on its own here.  In
-   this base 257 confirmed FICs carry no form of "FIC" in the registered name,
-   so a name rule would have missed most of them; and a name can say "FIC"
-   while the fund buys receivables directly.  The name is kept as a
-   cross-check that surfaces candidates for human review.
+   history plus FIDC quotas above half of the applications.  This quantitative
+   rule reads what the fund holds.
+
+``name_says_fic`` is a separate, stricter nominal cross-check.  When the legacy
+signal is false and the quantitative review has not confirmed the fund, this
+cross-check only surfaces a candidate for human review.
 
 When the name matches "FIC" as an isolated token, the detector must not fire on
 ``FICÇÃO``, ``SIFIC``, ``FIC123`` or any sequence where the letters are welded
@@ -52,18 +53,17 @@ FIC_PHRASE_PATTERN = re.compile(
     re.IGNORECASE | re.UNICODE,
 )
 
-#: Detection methods, strongest first.  ``fic_detection_method`` carries one.
-METHOD_REGISTRY = "flag_cadastral"
+#: Detection methods.  ``fic_detection_method`` carries one.
+METHOD_LEGACY_NOMINAL = "sinal_nominal_legado"
 METHOD_INFORME = "informe_mensal"
-METHOD_COMBINED = "combinacao"
 METHOD_NAME = "nome_token_fic"
 METHOD_MANUAL = "revisao_manual"
 METHOD_NONE = ""
 
-#: Methods that are strong enough to remove a fund from the universe.  The name
-#: is not among them, on purpose.
+#: Methods that are strong enough to remove a fund from the universe.  The
+#: stricter cross-check in ``METHOD_NAME`` is not among them.
 DECISIVE_METHODS: frozenset[str] = frozenset(
-    {METHOD_REGISTRY, METHOD_INFORME, METHOD_COMBINED, METHOD_MANUAL}
+    {METHOD_LEGACY_NOMINAL, METHOD_INFORME, METHOD_MANUAL}
 )
 
 AUDIT_COLUMNS: tuple[str, ...] = (
@@ -130,14 +130,17 @@ def annotate_fic_detection(
     name_column: str = "denominacao",
     flag_column: str = "is_fic_fidc",
 ) -> pd.DataFrame:
-    """Add ``is_fic`` and the three audit columns to a monthly base.
+    """Add ``is_fic`` and the audit columns to a monthly base.
 
-    ``curated_cnpjs`` are the vehicles the Informe Mensal review confirmed.  The
-    name is evaluated for every row, but only ever *raises a question*: a fund
-    whose name says FIC while neither the flag nor the informe agrees is left in
-    the universe and flagged for manual review, because the name is the weakest
-    of the three sources and excluding on it would be the false positive this
-    audit exists to prevent.
+    ``flag_column`` carries the legacy nominal signal produced upstream.
+    ``curated_cnpjs`` are the vehicles confirmed by the quantitative Informe
+    Mensal review.  The curated source takes precedence in the method and
+    evidence labels because the perimeter override may already have set the
+    same boolean column to true.
+
+    The stricter :func:`name_says_fic` cross-check is evaluated for every row.
+    When neither decisive input applies, it only raises a question and leaves
+    the fund in the analytical universe.
     """
 
     from services.industry_taxonomy_review import normalize_cnpj
@@ -152,7 +155,7 @@ def annotate_fic_detection(
         normalize_cnpj(cnpj): text for cnpj, text in (curated_evidence or {}).items()
     }
 
-    registry = (
+    legacy_name_signal = (
         _truthy(result[flag_column])
         if flag_column in result.columns
         else pd.Series(False, index=result.index)
@@ -166,14 +169,16 @@ def annotate_fic_detection(
     name_evidence = names.map(name_says_fic)
     from_name = name_evidence.str.len().gt(0)
 
-    is_fic = registry | from_informe
+    is_fic = legacy_name_signal | from_informe
     method = pd.Series(METHOD_NONE, index=result.index, dtype="object")
+    method[legacy_name_signal] = METHOD_LEGACY_NOMINAL
     method[from_informe] = METHOD_INFORME
-    method[registry] = METHOD_REGISTRY
-    method[registry & from_informe] = METHOD_COMBINED
 
     evidence = pd.Series("", index=result.index, dtype="object")
-    evidence[registry] = "Informe mensal CVM: campo is_fic_fidc reportado como verdadeiro."
+    evidence[legacy_name_signal] = (
+        "Sinal nominal legado: is_fic_fidc derivado localmente por regex sobre "
+        "a denominação social."
+    )
     evidence[from_informe] = keys[from_informe].map(
         lambda cnpj: curated_evidence.get(cnpj, "")
         or (
@@ -181,33 +186,32 @@ def annotate_fic_detection(
             "e cotas de FIDC acima de metade das aplicações."
         )
     )
-    combined = registry & from_informe
-    evidence[combined] = (
-        "Flag is_fic_fidc verdadeira e confirmada pelo Informe Mensal Estruturado: "
-        "sem direitos creditórios em toda a série, cotas de FIDC acima de metade "
-        "das aplicações."
-    )
-    # O nome nunca decide, mas quando concorda vira reforço registrado.
-    reinforced = is_fic & from_name
+    # O cross-check nominal reforça apenas a confirmação quantitativa. O sinal
+    # nominal legado já é, ele próprio, derivado da denominação social.
+    reinforced = from_informe & from_name
     evidence[reinforced] = evidence[reinforced].str.cat(
-        name_evidence[reinforced].radd("Reforçado pelo nome: "), sep=" "
+        name_evidence[reinforced].radd("Detalhe nominal: "), sep=" "
     )
 
     reason = pd.Series("", index=result.index, dtype="object")
-    reason[is_fic] = (
+    nominal_only = legacy_name_signal & ~from_informe
+    reason[nominal_only] = (
+        "Excluído pelo sinal nominal legado derivado da denominação social. "
+        "O sinal, isoladamente, não comprova a composição da carteira."
+    )
+    reason[from_informe] = (
         "Detém cotas de outros FIDCs em vez de adquirir direitos creditórios; o "
         "patrimônio alimenta o saldo de FIC e sai dos quatro tipos ANBIMA, "
         "evitando dupla contagem do mesmo patrimônio."
     )
 
-    # Nome diz FIC e nenhuma fonte forte confirma: candidato a falso negativo da
-    # regra quantitativa. Fica no universo e vai para revisão humana.
+    # O cross-check nominal estrito encontra um candidato que nenhum dos dois
+    # sinais decisivos alcançou. Fica no universo e vai para revisão humana.
     ambiguous = from_name & ~is_fic
     review_reason = pd.Series("", index=result.index, dtype="object")
     review_reason[ambiguous] = (
-        "Nome sugere FIC, mas o informe mensal mostra aquisição de direitos "
-        "creditórios ou cotas abaixo do limiar. Possível falso negativo da regra "
-        "quantitativa; permanece no universo até revisão documental."
+        "Cross-check nominal sugere FIC, sem confirmação quantitativa "
+        "registrada; permanece no universo até revisão documental."
     )
     evidence[ambiguous] = name_evidence[ambiguous]
     method[ambiguous] = METHOD_NAME
@@ -236,9 +240,9 @@ def exclude_fics_from_fidc_universe(
     rankings, taxonomy, Excel, bundle, PPTX — must come from what this returns,
     so the rule cannot drift between one screen and the next.
 
-    ``is_fic`` is preferred; ``is_fic_fidc`` is accepted so a frame that never
-    went through :func:`annotate_fic_detection` is still filtered rather than
-    silently passed through unfiltered.
+    ``is_fic`` is preferred; the legacy ``is_fic_fidc`` signal is accepted so a
+    frame that never went through :func:`annotate_fic_detection` is still
+    filtered rather than silently passed through unfiltered.
     """
 
     if frame is None or frame.empty:
@@ -346,9 +350,9 @@ def build_fic_audit(
 ) -> pd.DataFrame:
     """One row per CNPJ and competence for every fund the detector touched.
 
-    Carries both the excluded funds and the ambiguous ones, so a reviewer can
-    see the false negatives the name caught and the false positives the name
-    would have caused had it been allowed to decide.
+    Carries both the excluded funds and the cases raised only by the stricter
+    secondary nominal cross-check, so a reviewer can distinguish the recorded
+    provenance of each decision.
     """
 
     required = {"is_fic", "fic_detection_method"}

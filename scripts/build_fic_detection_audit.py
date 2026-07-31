@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""Materialize the FIC detection audit and cross-check it for both error kinds.
+"""Materialize the FIC audit with the provenance of each perimeter decision.
 
-False negative: a fund the quantitative rule left in the universe while its
-name announces it is a FIC.  False positive: a fund the rule excluded whose
-name says nothing — not an error by itself, since 257 confirmed FICs carry no
-"FIC" in the registered name, but worth counting so the gap between the two
-sources is measured instead of assumed.
+The audit separates the legacy nominal signal, quantitative confirmations from
+the structured monthly report, and cases raised only by the stricter secondary
+nominal cross-check.
 """
 
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 import sys
+import uuid
 
 import pandas as pd
 
@@ -26,6 +26,7 @@ from services.fic_detection import (  # noqa: E402
     annotate_fic_detection,
     build_fic_audit,
     exclude_fics_from_fidc_universe,
+    name_says_fic,
 )
 from services.fic_perimeter import load_fic_perimeter_overrides  # noqa: E402
 
@@ -34,17 +35,34 @@ AUDIT_FILENAME = "industry_fic_detection_audit.csv"
 BASE_RELATIVE = Path("generated_revision") / "base_fundo_cnpj.csv.gz"
 
 
-def parse_args() -> argparse.Namespace:
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=Path("data/industry_study"))
-    return parser.parse_args()
+    parser.add_argument(
+        "--base-path",
+        type=Path,
+        help=(
+            "Base por fundo-CNPJ; por padrão usa "
+            "generated_revision/base_fundo_cnpj.csv.gz dentro de --data-dir."
+        ),
+    )
+    parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Falha se a auditoria materializada divergir da recomposição.",
+    )
+    return parser.parse_args(argv)
 
 
-def main() -> None:
-    args = parse_args()
-    data_dir = args.data_dir
+def _annotated_fic_frame(
+    data_dir: Path,
+    *,
+    base_path: Path | None = None,
+) -> pd.DataFrame:
+    data_dir = Path(data_dir)
+    source = Path(base_path) if base_path is not None else data_dir / BASE_RELATIVE
     base = pd.read_csv(
-        data_dir / BASE_RELATIVE,
+        source,
         dtype=str,
         keep_default_na=False,
         usecols=["competencia", "cnpj_fundo", "denominacao", "is_fic_fidc", "pl"],
@@ -57,22 +75,66 @@ def main() -> None:
         curated_cnpjs=overrides["cnpj_fundo"].tolist(),
         curated_evidence=dict(zip(overrides["cnpj_fundo"], overrides["evidencia"])),
     )
+    return annotated
 
+
+def build_fic_detection_audit_frame(
+    data_dir: Path,
+    *,
+    base_path: Path | None = None,
+) -> pd.DataFrame:
+    """Recompose the audit without changing any materialized file."""
+
+    return build_fic_audit(
+        _annotated_fic_frame(Path(data_dir), base_path=base_path)
+    )
+
+
+def _audit_bytes(audit: pd.DataFrame) -> bytes:
+    return audit.to_csv(index=False).encode("utf-8")
+
+
+def _write_audit_atomically(audit: pd.DataFrame, audit_path: Path) -> None:
+    audit_path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = audit_path.with_name(
+        f".{audit_path.name}.{uuid.uuid4().hex}.tmp"
+    )
+    try:
+        temporary.write_bytes(_audit_bytes(audit))
+        os.replace(temporary, audit_path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def main(argv: list[str] | None = None) -> None:
+    args = parse_args(argv)
+    data_dir = Path(args.data_dir)
+    annotated = _annotated_fic_frame(
+        data_dir,
+        base_path=args.base_path,
+    )
     audit = build_fic_audit(annotated)
     audit_path = data_dir / AUDIT_FILENAME
-    audit.to_csv(audit_path, index=False)
+    expected_bytes = _audit_bytes(audit)
+    if args.check:
+        if not audit_path.is_file() or audit_path.read_bytes() != expected_bytes:
+            raise SystemExit(
+                "auditoria FIC desatualizada; execute "
+                f"{Path(__file__).name} --data-dir {data_dir}"
+            )
+        print(f"auditoria atual em {audit_path} ({len(audit)} linhas)")
+    else:
+        _write_audit_atomically(audit, audit_path)
+        print(f"auditoria gravada em {audit_path} ({len(audit)} linhas)")
 
     _kept, report = exclude_fics_from_fidc_universe(annotated)
 
     by_cnpj = annotated.drop_duplicates("cnpj_fundo")
     excluded = by_cnpj[by_cnpj["is_fic"]]
-    name_says = by_cnpj["denominacao"].map(lambda text: bool(text)) & by_cnpj[
-        "fic_detection_evidence"
-    ].str.contains("denominação", na=False)
-    false_negatives = by_cnpj[by_cnpj["fic_detection_method"].eq(METHOD_NAME)]
+    name_says = by_cnpj["denominacao"].map(lambda text: bool(name_says_fic(text)))
+    nominal_review = by_cnpj[by_cnpj["fic_detection_method"].eq(METHOD_NAME)]
     silent_names = excluded[~excluded["cnpj_fundo"].isin(set(by_cnpj[name_says]["cnpj_fundo"]))]
 
-    print(f"auditoria gravada em {audit_path} ({len(audit)} linhas)")
     print(f"CNPJs excluídos como FIC: {excluded['cnpj_fundo'].nunique()}")
     print(
         "PL excluído na competência mais recente "
@@ -84,18 +146,19 @@ def main() -> None:
     print(excluded["fic_detection_method"].value_counts().to_string())
 
     print(
-        f"\nfalsos negativos candidatos (nome diz FIC, regra quantitativa não "
-        f"confirma): {len(false_negatives)}"
+        "\ncandidatos levantados apenas pelo cross-check nominal secundário: "
+        f"{len(nominal_review)}"
     )
-    if len(false_negatives):
-        top = false_negatives.nlargest(min(15, len(false_negatives)), "pl")
+    if len(nominal_review):
+        top = nominal_review.nlargest(min(15, len(nominal_review)), "pl")
         for _, row in top.iterrows():
             print(f"  R$ {row['pl'] / 1e9:6.2f} bi  {row['denominacao'][:72]}")
 
     print(
-        f"\nexcluídos sem qualquer sinal no nome: {len(silent_names)} "
+        f"\nexcluídos sem correspondência no cross-check nominal secundário: "
+        f"{len(silent_names)} "
         f"({len(silent_names) / max(len(excluded), 1) * 100:.0f}% dos excluídos) — "
-        "a medida de por que a regra não pode ser por nome"
+        "proveniência quantitativa registrada separadamente"
     )
 
     print("\nPL excluído por competência de referência:")
