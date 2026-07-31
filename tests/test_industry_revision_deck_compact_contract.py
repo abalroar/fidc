@@ -80,7 +80,7 @@ def _cell_is_bold(cell: ET.Element) -> bool:
     )
 
 
-def test_compact_pptx_has_36_slides_and_omits_requested_appendices() -> None:
+def test_compact_pptx_has_33_slides_and_omits_requested_appendices() -> None:
     with ZipFile(PPTX) as archive:
         slides = sorted(
             name
@@ -89,8 +89,8 @@ def test_compact_pptx_has_36_slides_and_omits_requested_appendices() -> None:
             and name.endswith(".xml")
             and "/_rels/" not in name
         )
-        assert len(slides) == 36
-        text = "\n".join(_slide_text(archive, number) for number in range(1, 37))
+        assert len(slides) == 33
+        text = "\n".join(_slide_text(archive, number) for number in range(1, 34))
 
     for removed in (
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -106,12 +106,12 @@ def test_compact_pptx_has_36_slides_and_omits_requested_appendices() -> None:
         assert removed not in text
 
 
-def test_slide_4_combines_cvm_and_anbima_instrument_charts() -> None:
+def test_slide_3_combines_cvm_and_anbima_instrument_charts() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 4).upper()
+        text = _slide_text(archive, 3).upper()
         charts = [
             root
-            for root in _chart_roots(archive, 4)
+            for root in _chart_roots(archive, 3)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
 
@@ -120,15 +120,15 @@ def test_slide_4_combines_cvm_and_anbima_instrument_charts() -> None:
     assert "VALOR ENCERRADO POR INSTRUMENTO" in text
 
 
-def test_slide_5_has_two_stacked_sector_charts_and_native_table_without_deltas() -> None:
+def test_slide_4_has_two_stacked_sector_charts_and_native_table_without_deltas() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 5).upper()
+        text = _slide_text(archive, 4).upper()
         charts = [
             root
-            for root in _chart_roots(archive, 5)
+            for root in _chart_roots(archive, 4)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
-        tables = _tables(archive, 5)
+        tables = _tables(archive, 4)
 
     assert len(charts) == 2
     assert {root.find(f".//{{{CHART}}}grouping").attrib["val"] for root in charts} == {
@@ -143,11 +143,11 @@ def test_slide_5_has_two_stacked_sector_charts_and_native_table_without_deltas()
     assert "Δ" not in text
 
 
-def test_slide_5_share_highlights_follow_relative_two_percent_rule() -> None:
+def test_slide_4_share_highlights_follow_relative_two_percent_rule() -> None:
     green = "007A3D"
     wine = "7A1F3D"
     with ZipFile(PPTX) as archive:
-        table = _tables(archive, 5)[0]
+        table = _tables(archive, 4)[0]
         rows = table.findall(f"{{{DML}}}tr")
 
     headers = [_cell_text(cell) for cell in rows[0].findall(f"{{{DML}}}tc")]
@@ -186,12 +186,12 @@ def test_slide_5_share_highlights_follow_relative_two_percent_rule() -> None:
                 assert not ({green, wine} & colors)
 
 
-def test_slide_8_expands_outros_with_the_requested_display_names() -> None:
+def test_analytical_taxonomy_expands_outros_with_the_requested_display_names() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 8).upper()
+        text = _slide_text(archive, 5).upper()
         charts = [
             root
-            for root in _chart_roots(archive, 8)
+            for root in _chart_roots(archive, 5)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
 
@@ -206,7 +206,7 @@ def test_slide_8_expands_outros_with_the_requested_display_names() -> None:
 
 def test_taxonomy_rankings_use_two_period_tables_with_originators() -> None:
     with ZipFile(PPTX) as archive:
-        for slide_number in range(13, 17):
+        for slide_number in range(10, 14):
             text = _slide_text(archive, slide_number).upper()
             assert len(_tables(archive, slide_number)) == 2
             assert "JUN/26 · TOP 15" in text

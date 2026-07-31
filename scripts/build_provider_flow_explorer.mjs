@@ -628,6 +628,7 @@ function validateFlagships(data) {
 
 function carteira1Models(payload) {
   const summary = payload.carteira_1_curation_summary || {};
+  const comparisonSummary = payload.carteira_1_flagship_comparison_summary || {};
   const ranges = [...(payload.carteira_1_curation_ranges || [])]
     .sort((a, b) => number(a.ordem_faixa) - number(b.ordem_faixa))
     .map((row) => ({
@@ -678,6 +679,25 @@ function carteira1Models(payload) {
       fundosnetUrl: String(row.fundosnet_url || ""),
       gaps: String(row.lacunas || "N/D"),
     }));
+  const comparison = [...(payload.carteira_1_flagship_comparison || [])]
+    .sort((a, b) => number(a.ordem) - number(b.ordem))
+    .map((row) => ({
+      order: Math.round(number(row.ordem)),
+      shallowTaxonomy: String(row.taxonomia_rasa || "N/D"),
+      type: String(row.tipo_comparacao || "N/D"),
+      acceptedRisk: String(row.perfil_risco_aceito || "N/D"),
+      acceptedRiskSource: String(row.perfil_risco_fonte || "N/D"),
+      portfolioFunds: Math.round(number(row.carteira_1_cnpjs)),
+      portfolioCovered: Math.round(number(row.carteira_1_cnpjs_com_subordinacao)),
+      portfolioPl: nullableNumber(row.carteira_1_pl_brl),
+      portfolioMedian: nullableNumber(row.carteira_1_subordinacao_mediana_pct),
+      flagshipFunds: Math.round(number(row.flagship_cnpjs)),
+      flagshipCovered: Math.round(number(row.flagship_cnpjs_com_subordinacao)),
+      flagshipPl: nullableNumber(row.flagship_pl_brl),
+      flagshipMedian: nullableNumber(row.flagship_subordinacao_mediana_pct),
+      deltaPp: nullableNumber(row.delta_subordinacao_mediana_pp),
+      structuralRisk: String(row.leitura_risco_estrutural || "N/D"),
+    }));
   return {
     summary: {
       competence: String(summary.competencia || payload.latest_complete || "N/D"),
@@ -690,8 +710,17 @@ function carteira1Models(payload) {
       flagship: Math.round(number(summary.cnpjs_com_familia_flagship)),
       source: String(summary.fonte || "N/D"),
     },
+    comparisonSummary: {
+      groups: Math.round(number(comparisonSummary.grupos)),
+      portfolioFunds: Math.round(number(comparisonSummary.carteira_1_cnpjs)),
+      classified: Math.round(number(comparisonSummary.carteira_1_cnpjs_classificados)),
+      outside: Math.round(number(comparisonSummary.carteira_1_cnpjs_sem_grupo)),
+      flagshipFunds: Math.round(number(comparisonSummary.flagship_cnpjs)),
+      methodology: String(comparisonSummary.metodologia || "N/D"),
+    },
     ranges,
     details,
+    comparison,
   };
 }
 
@@ -713,8 +742,10 @@ function compactCarteira1(data) {
     schemaVersion: "carteira_1_curation_compact_v1",
     fields: CARTEIRA1_FIELDS,
     summary: data.summary,
+    comparisonSummary: data.comparisonSummary,
     ranges: data.ranges.map((row) => CARTEIRA1_FIELDS.range.map((field) => row[field])),
     details: data.details.map((row) => CARTEIRA1_FIELDS.detail.map((field) => row[field])),
+    comparison: data.comparison,
   };
 }
 
@@ -727,8 +758,10 @@ function expandCompactCarteira1(compact) {
   );
   return {
     summary: compact.summary,
+    comparisonSummary: compact.comparisonSummary,
     ranges: compact.ranges.map((values) => object(compact.fields.range, values)),
     details: compact.details.map((values) => object(compact.fields.detail, values)),
+    comparison: compact.comparison,
   };
 }
 
@@ -744,6 +777,13 @@ function validateCarteira1(data) {
   }
   if (data.details.some((row) => row.pl === 0 && row.currentStatus.includes("ausente"))) {
     throw new Error("Curadoria da Carteira 1 converteu PL ausente em zero");
+  }
+  if (
+    data.comparison.length !== 7
+    || data.comparison.reduce((total, row) => total + row.flagshipFunds, 0) !== 47
+    || data.comparisonSummary.flagshipFunds !== 47
+  ) {
+    throw new Error("Comparação da Carteira 1 deve reconciliar sete tipos e 47 CNPJs flagship");
   }
 }
 
@@ -1522,6 +1562,15 @@ function fragmentHtml(data, standalone = false) {
     <tbody></tbody>
   </table>
   <div class="flag-pager" data-flag-pager><button type="button" data-flag-prev>Anterior</button><span>0 / 0</span><button type="button" data-flag-next>Próxima</button></div>
+</section>
+<section id="carteira-1-flagship-comparison" aria-labelledby="carteira-1-flagship-title">
+  <h2 id="carteira-1-flagship-title">Carteira 1 vs. 47 CNPJs flagship</h2>
+  <p>${data.carteira1.comparisonSummary.classified}/${data.carteira1.comparisonSummary.portfolioFunds} CNPJs da Carteira I foram distribuídos em sete tipos. A leitura compara a mediana da subordinação atual e explicita o perfil de risco aceito.</p>
+  <table aria-label="Comparação da Carteira 1 com os 47 CNPJs flagship">
+    <thead><tr><th>Taxonomia rasa</th><th>Tipo</th><th>Perfil de risco aceito</th><th>Fonte do perfil</th><th class="num">Carteira I · CNPJs</th><th class="num">Carteira I · PL</th><th class="num">Carteira I · subord.</th><th class="num">Flagships · CNPJs</th><th class="num">Flagships · PL</th><th class="num">Flagships · subord.</th><th>Leitura estrutural</th></tr></thead>
+    <tbody>${data.carteira1.comparison.map((row) => `<tr><td>${row.shallowTaxonomy}</td><td>${row.type}</td><td>${row.acceptedRisk}</td><td>${row.acceptedRiskSource}</td><td class="num">${row.portfolioCovered}/${row.portfolioFunds}</td><td class="num">${row.portfolioPl == null ? "N/D" : `R$ ${(row.portfolioPl / 1e9).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})} bi`}</td><td class="num">${row.portfolioMedian == null ? "N/D" : `${(row.portfolioMedian * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%`}</td><td class="num">${row.flagshipCovered}/${row.flagshipFunds}</td><td class="num">${row.flagshipPl == null ? "N/D" : `R$ ${(row.flagshipPl / 1e9).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})} bi`}</td><td class="num">${row.flagshipMedian == null ? "N/D" : `${(row.flagshipMedian * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%`}</td><td>${row.structuralRisk}</td></tr>`).join("")}</tbody>
+  </table>
+  <p>${data.carteira1.comparisonSummary.methodology}</p>
 </section>
 <section id="carteira-1-curation-explorer" aria-labelledby="carteira-1-curation-title">
   <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · curadoria documental e comparação</h2><p>Os 101 CNPJs transcritos das três imagens mantêm a identidade fotografada, a correspondência oficial, as métricas atuais e as lacunas documentais.</p></header>

@@ -97,7 +97,7 @@ def test_material_market_share_slides_are_contiguous_in_the_provider_appendix() 
         slides, "RANKING · TOP FUNDOS E ORIGINADORES", "Outros"
     )
     flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
-    carteira_1 = _find_slide_index(slides, "CURADORIA · CARTEIRA 1")
+    carteira_1 = _find_slide_index(slides, "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP")
     full_admin = _find_slide_index(
         slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
     )

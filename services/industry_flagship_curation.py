@@ -52,6 +52,61 @@ class PortfolioCurationResult:
     summary: dict[str, object]
 
 
+@dataclass(frozen=True)
+class PortfolioFlagshipComparisonResult:
+    detail: pd.DataFrame
+    summary: dict[str, object]
+
+
+PORTFOLIO_FLAGSHIP_GROUPS: tuple[tuple[str, str, str, str], ...] = (
+    (
+        "Fomento Mercantil",
+        "Factoring",
+        "Multicedente / multisacado",
+        "Taxonomia analítica e família flagship aprovadas por CNPJ",
+    ),
+    (
+        "Agro, Indústria e Comércio",
+        "Agro / Revenda",
+        "Sacado corporativo / revenda",
+        "Taxonomia analítica e família flagship aprovadas por CNPJ",
+    ),
+    (
+        "Financeiro",
+        "Adquirência",
+        "Banco emissor e adquirente corporativo",
+        "Taxonomia analítica e família flagship aprovadas por CNPJ",
+    ),
+    (
+        "Financeiro",
+        "Consignado INSS",
+        "Crédito consignado INSS",
+        "Taxonomia analítica e família flagship aprovadas por CNPJ",
+    ),
+    (
+        "Financeiro",
+        "Consignado FGTS",
+        "Antecipação de saque FGTS",
+        "Taxonomia analítica e família flagship aprovadas por CNPJ",
+    ),
+    (
+        "Financeiro",
+        "Veículos",
+        "Devedor PF do crédito de veículo (FIDC BV)",
+        (
+            "data/regulatory_knowledge/35868110000154.json; "
+            "regulamento 174945, art. 9.1"
+        ),
+    ),
+    (
+        "Financeiro",
+        "Financeiro",
+        "Demais riscos PF/PJ e multicarteira",
+        "Taxonomia analítica e família flagship aprovadas por CNPJ",
+    ),
+)
+
+
 def _digits(value: object) -> str:
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return ""
@@ -812,6 +867,152 @@ def _flagship_reference(row: pd.Series) -> tuple[str, str]:
     ):
         return "Factoring", "correspondência por classificação analítica aprovada"
     return "N/D — sem família flagship equivalente", "nenhuma correspondência direta aprovada"
+
+
+def _comparison_group_from_flagship(row: pd.Series) -> str:
+    category = _fold(row.get("categoria"))
+    if category.startswith("ADQUIRENCIA"):
+        return "Adquirência"
+    if category == "CONSIGNADO INSS":
+        return "Consignado INSS"
+    if category == "CONSIGNADO FGTS":
+        return "Consignado FGTS"
+    if category == "VEICULOS":
+        return "Veículos"
+    if category == "FACTORING":
+        return "Factoring"
+    return "Financeiro"
+
+
+def _comparison_group_from_portfolio(row: pd.Series) -> str:
+    reference = _fold(row.get("familia_flagship_referencia"))
+    if reference.startswith("ADQUIRENCIA"):
+        return "Adquirência"
+    if reference == "CONSIGNADO INSS":
+        return "Consignado INSS"
+    if reference == "CONSIGNADO FGTS":
+        return "Consignado FGTS"
+    if reference == "VEICULOS":
+        return "Veículos"
+    if reference == "FACTORING":
+        return "Factoring"
+    displayed_type = _fold(row.get("tipo_exibicao"))
+    if displayed_type == "FOMENTO MERCANTIL":
+        return "Factoring"
+    if displayed_type == "AGRO, INDUSTRIA E COMERCIO":
+        return "Agro / Revenda"
+    if displayed_type == "FINANCEIRO":
+        return "Financeiro"
+    return "N/D"
+
+
+def _median_numeric(frame: pd.DataFrame, column: str) -> float | None:
+    values = pd.to_numeric(frame.get(column), errors="coerce").dropna()
+    return float(values.median()) if not values.empty else None
+
+
+def build_portfolio_flagship_comparison(
+    *,
+    portfolio_detail: pd.DataFrame,
+    flagship_detail: pd.DataFrame,
+    latest: str,
+) -> PortfolioFlagshipComparisonResult:
+    """Compare Carteira 1 and the 47 flagships with one auditable rule per type."""
+
+    portfolio = portfolio_detail.copy()
+    flagships = flagship_detail.copy()
+    portfolio["grupo_comparacao"] = portfolio.apply(
+        _comparison_group_from_portfolio, axis=1
+    )
+    flagships["grupo_comparacao"] = flagships.apply(
+        _comparison_group_from_flagship, axis=1
+    )
+    rows: list[dict[str, object]] = []
+    for order, (shallow, group_name, accepted_profile, accepted_profile_source) in enumerate(
+        PORTFOLIO_FLAGSHIP_GROUPS, start=1
+    ):
+        portfolio_group = portfolio[portfolio["grupo_comparacao"].eq(group_name)]
+        flagship_group = flagships[flagships["grupo_comparacao"].eq(group_name)]
+        portfolio_current = _median_numeric(
+            portfolio_group, "subordinacao_atual_pct"
+        )
+        flagship_current = _median_numeric(
+            flagship_group, "subordinacao_atual_pct"
+        )
+        delta = (
+            portfolio_current - flagship_current
+            if portfolio_current is not None and flagship_current is not None
+            else None
+        )
+        if delta is None:
+            risk_read = "N/D — comparação estrutural incompleta"
+        elif delta > 0.02:
+            risk_read = "Menos risco estrutural · maior subordinação"
+        elif delta < -0.02:
+            risk_read = "Mais risco estrutural · menor subordinação"
+        else:
+            risk_read = "Em linha · diferença de até 2 p.p."
+        portfolio_pl = pd.to_numeric(
+            portfolio_group.get("pl_atual_brl"), errors="coerce"
+        ).sum(min_count=1)
+        flagship_pl = pd.to_numeric(
+            flagship_group.get("pl_atual_brl"), errors="coerce"
+        ).sum(min_count=1)
+        rows.append(
+            {
+                "ordem": order,
+                "taxonomia_rasa": shallow,
+                "tipo_comparacao": group_name,
+                "perfil_risco_aceito": accepted_profile,
+                "perfil_risco_fonte": accepted_profile_source,
+                "carteira_1_cnpjs": int(len(portfolio_group)),
+                "carteira_1_cnpjs_com_subordinacao": int(
+                    portfolio_group["subordinacao_atual_pct"].notna().sum()
+                ),
+                "carteira_1_pl_brl": (
+                    float(portfolio_pl) if pd.notna(portfolio_pl) else None
+                ),
+                "carteira_1_subordinacao_mediana_pct": portfolio_current,
+                "carteira_1_minimo_junior_mediano_pct": _median_numeric(
+                    portfolio_group, "subordinacao_minima_junior_pct"
+                ),
+                "flagship_cnpjs": int(len(flagship_group)),
+                "flagship_cnpjs_com_subordinacao": int(
+                    flagship_group["subordinacao_atual_pct"].notna().sum()
+                ),
+                "flagship_pl_brl": (
+                    float(flagship_pl) if pd.notna(flagship_pl) else None
+                ),
+                "flagship_subordinacao_mediana_pct": flagship_current,
+                "flagship_minimo_junior_mediano_pct": _median_numeric(
+                    flagship_group, "subordinacao_minima_junior_pct"
+                ),
+                "delta_subordinacao_mediana_pp": (
+                    delta * 100.0 if delta is not None else None
+                ),
+                "leitura_risco_estrutural": risk_read,
+            }
+        )
+    detail = pd.DataFrame(rows)
+    unresolved = int(portfolio["grupo_comparacao"].eq("N/D").sum())
+    summary = {
+        "carteira": "Carteira 1",
+        "competencia": latest,
+        "grupos": int(len(detail)),
+        "carteira_1_cnpjs": int(len(portfolio)),
+        "carteira_1_cnpjs_classificados": int(
+            len(portfolio) - unresolved
+        ),
+        "carteira_1_cnpjs_sem_grupo": unresolved,
+        "flagship_cnpjs": int(len(flagships)),
+        "metodologia": (
+            "Risco estrutural compara a mediana da subordinação atual por tipo. "
+            "Diferenças acima de 2 p.p. indicam maior ou menor proteção; dentro "
+            "de ±2 p.p. ficam em linha. A leitura não substitui análise de lastro, "
+            "sacado, garantias, liquidez ou gatilhos."
+        ),
+    }
+    return PortfolioFlagshipComparisonResult(detail=detail, summary=summary)
 
 
 def build_portfolio_curation(

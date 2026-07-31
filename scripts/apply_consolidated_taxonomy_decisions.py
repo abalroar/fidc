@@ -24,7 +24,10 @@ from services.industry_taxonomy_review import (
 
 
 DEFAULT_SAVED_AT = "2026-07-29T20:21:37+00:00"
-MANUAL_OVERRIDE_FILENAME = "taxonomy_user_comment_overrides.csv"
+MANUAL_OVERRIDE_FILENAMES = (
+    "taxonomy_user_comment_overrides.csv",
+    "taxonomy_user_risk_overrides_2026_07_31.csv",
+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -177,7 +180,9 @@ def main() -> None:
     source_path = args.data_dir / "industry_top20_taxonomy_document_conclusions.csv"
     ledger_path = args.data_dir / "taxonomy_review_actions.csv"
     audit_path = args.data_dir / "taxonomy_review_audit.csv"
-    manual_override_path = args.data_dir / MANUAL_OVERRIDE_FILENAME
+    manual_override_paths = [
+        args.data_dir / filename for filename in MANUAL_OVERRIDE_FILENAMES
+    ]
     conclusions = pd.read_csv(source_path, dtype=str, keep_default_na=False)
     conclusions["cnpj_fundo"] = conclusions["cnpj_fundo"].map(normalize_cnpj)
     definitive = conclusions[
@@ -199,9 +204,16 @@ def main() -> None:
                 saved_at_utc=args.saved_at_utc,
                 source="consolidated_documentary_taxonomy_2026_07_29",
             )
-    manual_actions = load_manual_override_actions(
-        manual_override_path, saved_at_utc=args.saved_at_utc
-    )
+    manual_actions_by_cnpj: dict[str, dict[str, object]] = {}
+    for manual_override_path in manual_override_paths:
+        for action in load_manual_override_actions(
+            manual_override_path, saved_at_utc=args.saved_at_utc
+        ):
+            manual_actions_by_cnpj[str(action["cnpj_fundo"])] = action
+    manual_actions = [
+        manual_actions_by_cnpj[cnpj]
+        for cnpj in sorted(manual_actions_by_cnpj)
+    ]
     for action in manual_actions:
         commit_taxonomy_review_action(
             action,

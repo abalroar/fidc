@@ -184,7 +184,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 36
+    assert len(presentation.slides) == EXPECTED_SLIDES == 33
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -197,7 +197,6 @@ def test_industry_exports_are_valid_office_files() -> None:
     visible_text = "\n".join(slide_texts)
     for expected in (
         "INDÚSTRIA DE FIDCs",
-        "GRANDES NÚMEROS",
         "ESCALA DA INDÚSTRIA",
         "OFERTAS ENCERRADAS · CVM E ANBIMA",
         "EMISSÕES POR CATEGORIA ANBIMA",
@@ -208,7 +207,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "MARKET SHARE · GESTÃO",
         "MARKET SHARE · CUSTÓDIA",
         "PRESTADORES · EVOLUÇÃO E RANKING",
-        "FIDCs DOS CINCO BANCOS · COORTE ATUAL",
+            "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
         "PRESTADORES · LIDERANÇA EXPLICADA",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",

@@ -31,12 +31,12 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-PUBLISHED_PAYLOAD_BYTES = 15_630_138
+PUBLISHED_PAYLOAD_BYTES = 15_632_525
 PUBLISHED_PAYLOAD_SHA256 = (
-    "ed3519e906d55e77346f58aa9fa934da83e1b0db7c2e44645d1dd7de1641decf"
+    "8cfb074613055fb8cf8974877ada4123adf816f494368203579ce507fbe6dbfa"
 )
 PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "68e22c462e1621512e472306243beaee83f9ea4043d45d4226ec4c0b52338d3d"
+    "f9280b2371061b9304968b6164bcc07ace90fea8cb605fa08d915eb5705b9375"
 )
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
@@ -271,11 +271,13 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     }
     assert manifest["payload_sha256"] == PUBLISHED_PAYLOAD_SHA256
     assert payload["schema_version"] == "fidc_revision_artifact_payload_v7"
-    assert len(payload) == 129
+    assert len(payload) == 131
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
         "carteira_1_curation_summary",
+        "carteira_1_flagship_comparison",
+        "carteira_1_flagship_comparison_summary",
         "carteira_1_taxonomy_history",
         "carteira_1_taxonomy_summary",
         "flagship_curation",
@@ -297,7 +299,8 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     assert len(dashboard_keys) == 91
     assert len(consumer_keys) == 105
     assert {
-        "carteira_1_curation_summary",
+        "carteira_1_flagship_comparison",
+        "carteira_1_flagship_comparison_summary",
         "carteira_1_taxonomy_history",
         "carteira_1_taxonomy_summary",
         "flagship_curation_summary",

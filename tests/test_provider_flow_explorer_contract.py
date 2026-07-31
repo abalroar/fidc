@@ -21,6 +21,8 @@ PAYLOAD_PATH = Path(
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 MAX_COMPACT_HTML_BYTES = 400_000
 EXPECTED_PAYLOAD_KEYS = {
+    "carteira_1_flagship_comparison",
+    "carteira_1_flagship_comparison_summary",
     "carteira_1_curation",
     "carteira_1_curation_ranges",
     "carteira_1_curation_summary",
@@ -102,7 +104,10 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert len(compact["carteira1Taxonomy"]["rows"]) == 16
     assert compact["issuanceTaxonomy"]["schemaVersion"] == "issuance_taxonomy_table_v1"
     assert len(compact["issuanceTaxonomy"]["rows"]) == 7
-    assert len(compact["taxonomy"]["rows"]) == 358
+    source_payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    assert len(compact["taxonomy"]["rows"]) == len(
+        source_payload["taxonomy_level_history"]
+    )
     assert len(compact["flagships"]["families"]) == 26
     assert len(compact["flagships"]["details"]) == 47
     flagship_fields = compact["flagships"]["fields"]["detail"]
@@ -116,6 +121,9 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     } <= set(flagship_fields)
     assert len(compact["carteira1"]["ranges"]) == 7
     assert len(compact["carteira1"]["details"]) == 101
+    assert len(compact["carteira1"]["comparison"]) == 7
+    assert compact["carteira1"]["comparisonSummary"]["flagshipFunds"] == 47
+    assert compact["carteira1"]["comparisonSummary"]["classified"] == 100
     carteira_fields = compact["carteira1"]["fields"]["detail"]
     carteira_cnpj_index = carteira_fields.index("cnpj")
     carteira_pl_index = carteira_fields.index("pl")

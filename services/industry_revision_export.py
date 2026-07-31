@@ -39,15 +39,12 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 36
+EXPECTED_SLIDES = 33
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("industria de fidcs",),
-    ("grandes numeros",),
     ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
     ("ofertas encerradas", "cvm e anbima", "valor encerrado por instrumento"),
     ("emissoes por categoria anbima", "emissoes por setor"),
-    ("base investidora",),
-    ("distribuicao por numero de cotistas",),
     ("taxonomia analitica", "precatorios e/ou acoes judiciais", "multicedente/multisacado"),
     ("reclassificacao de adquirencia",),
     ("carteira por tipo de recebivel",),
@@ -58,9 +55,8 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("top fundos e originadores", "financeiro"),
     ("top fundos e originadores", "outros"),
     ("curadoria", "fundos flagship"),
-    ("curadoria", "carteira 1"),
+    ("carteira 1", "47 cnpjs flagship"),
     ("carteira 1", "taxonomia analitica"),
-    ("modelo de prestacao",),
     ("concentracao das monoestruturas",),
     ("ofertas encerradas", "volume e ticket"),
     ("distribuicao do ticket",),
@@ -69,7 +65,6 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("top 15", "historico"),
     ("principais conclusoes",),
     ("prestadores", "evolucao e ranking"),
-    ("fidcs dos cinco bancos",),
     ("prestadores", "lideranca explicada"),
     ("market share", "administracao"),
     ("market share", "gestao"),
@@ -77,9 +72,11 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("apendice", "market share", "administracao"),
     ("apendice", "market share", "gestao"),
     ("apendice", "market share", "custodia"),
+    ("base investidora",),
+    ("distribuicao por numero de cotistas",),
 )
 if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
-    raise RuntimeError("contrato ordinal do PPTX não fecha 36 slides")
+    raise RuntimeError("contrato ordinal do PPTX não fecha 33 slides")
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -92,6 +89,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Curadoria Top 20",
     "Curadoria flagship",
     "Carteira 1 curadoria",
+    "Carteira 1 vs flagships",
     "Carteira 1 evolução",
     "Taxonomia por nível",
     "Comparativos históricos",
@@ -447,26 +445,18 @@ def validate_revision_pptx(payload: bytes) -> None:
                     f"slide {slide_number} viola o contrato ordinal: "
                     + ", ".join(missing_tokens)
                 )
-        if ordered_slides[2] != "ppt/slides/slide3.xml":
+        scale_slide = _slide_xml_containing(archive, "ESCALA DA INDÚSTRIA")
+        if scale_slide.count(b"<c:chart") < 2:
             raise RevisionExportUnavailable(
-                "slide 3 perdeu sua posição na sequência da apresentação"
+                "slide de escala deve conter dois gráficos nativos do Office"
             )
-        slide3 = archive.read(ordered_slides[2])
-        if "escala da industria" not in _normalized_slide_text(slide3):
+        if "saldo fic" in _normalized_slide_text(scale_slide):
             raise RevisionExportUnavailable(
-                "slide 3 não contém o conteúdo Escala da Indústria"
+                "slide de escala voltou a exibir FIC no gráfico de PL"
             )
-        if slide3.count(b"<c:chart") < 2:
-            raise RevisionExportUnavailable(
-                "slide 3 deve conter dois gráficos nativos do Office"
-            )
-        if "saldo fic" in _normalized_slide_text(slide3):
-            raise RevisionExportUnavailable(
-                "slide 3 voltou a exibir FIC no gráfico de PL"
-            )
-        slide3_root = ElementTree.fromstring(slide3)
-        if str(slide3_root.attrib.get("show", "1")).casefold() in {"0", "false"}:
-            raise RevisionExportUnavailable("slide 3 está oculto")
+        scale_slide_root = ElementTree.fromstring(scale_slide)
+        if str(scale_slide_root.attrib.get("show", "1")).casefold() in {"0", "false"}:
+            raise RevisionExportUnavailable("slide de escala está oculto")
         presentation = ElementTree.fromstring(archive.read("ppt/presentation.xml"))
         slide_size = presentation.find(f"{{{_PML}}}sldSz")
         if slide_size is None:
@@ -474,11 +464,11 @@ def validate_revision_pptx(payload: bytes) -> None:
         canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
         _validate_native_table_slide(
             archive,
-            5,
+            4,
             expected_dimensions=((8, 11),),
             canvas=canvas,
         )
-        for ranking_slide_number in range(13, 17):
+        for ranking_slide_number in range(10, 14):
             _validate_native_table_slide(
                 archive,
                 ranking_slide_number,
@@ -487,13 +477,13 @@ def validate_revision_pptx(payload: bytes) -> None:
             )
         _validate_native_table_slide(
             archive,
-            25,
+            21,
             expected_dimensions=((16, 10), (16, 10)),
             canvas=canvas,
         )
         _validate_native_table_slide(
             archive,
-            26,
+            22,
             expected_dimensions=((16, 9), (16, 9)),
             canvas=canvas,
         )
@@ -526,13 +516,6 @@ def validate_revision_pptx(payload: bytes) -> None:
         if ranking_slide.count(b"<c:chart") < 6:
             raise RevisionExportUnavailable(
                 "slide combinado de prestadores deve conter ao menos seis gráficos nativos do Office"
-            )
-        bank_slide = _slide_xml_containing(
-            archive, "FIDCs DOS CINCO BANCOS", "COORTE ATUAL"
-        )
-        if bank_slide.count(b"<a:tbl>") < 1 or bank_slide.count(b"<c:chart") < 1:
-            raise RevisionExportUnavailable(
-                "slide da coorte bancária deve conter tabela e gráfico nativos do Office"
             )
         offers_slide = _slide_xml_containing(
             archive, "OFERTAS ENCERRADAS", "DISTRIBUIÇÃO DO TICKET"
@@ -614,6 +597,7 @@ def validate_revision_html(payload: bytes) -> None:
         "Custódia",
         "CBSF / REAG",
         "Carteira 1 · evolução pela taxonomia reclassificada",
+        "Carteira 1 vs. 47 CNPJs flagship",
         "carteira_1_taxonomy_compact_v1",
     )
     missing = [
