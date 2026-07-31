@@ -191,7 +191,6 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Top 15 ofertas",
     "Validação emissões",
     "Público-alvo ofertas",
-    "Reclass. ANBIMA",
     "Reclass. CVM",
     "Principais conclusões",
 }

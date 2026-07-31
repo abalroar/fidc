@@ -78,7 +78,6 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Top 15 ofertas",
     "Validação emissões",
     "Público-alvo ofertas",
-    "Reclass. ANBIMA",
     "Reclass. CVM",
     "Principais conclusões",
     "Curadoria Atlântico",

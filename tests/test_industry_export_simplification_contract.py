@@ -61,6 +61,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Taxonomia por CNPJ",
     "Reclass. adquirência",
     "Auditoria numérica",
+    "Reclass. ANBIMA",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
@@ -515,3 +516,6 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert "addNumericLocaleAuditSheet" not in renderer_source
     assert 'resetSheet(workbook, "Auditoria numérica")' not in renderer_source
     assert '["Auditoria numérica", "A1:' not in renderer_source
+    assert 'payloadKey: "anbima_outros_reclassification"' not in renderer_source
+    assert 'sheetName: "Reclass. ANBIMA"' not in renderer_source
+    assert '["Reclass. ANBIMA", "A1:' not in renderer_source

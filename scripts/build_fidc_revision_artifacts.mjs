@@ -100,6 +100,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Taxonomia por CNPJ",
   "Reclass. adquirência",
   "Auditoria numérica",
+  "Reclass. ANBIMA",
 ];
 
 const C = {
@@ -7643,12 +7644,6 @@ async function buildWorkbook(payload, flowAssets) {
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
   await addReclassificationSheet(workbook, payload, {
-    payloadKey: "anbima_outros_reclassification",
-    sheetName: "Reclass. ANBIMA",
-    title: "FIDCs classificados em Outros · taxonomia ANBIMA",
-    subtitle: "Universo vigente ex-FIC com PL positivo em jun/26. Campo de nova classificação permanece em branco para revisão manual.",
-  });
-  await addReclassificationSheet(workbook, payload, {
     payloadKey: "cvm_outros_reclassification",
     sheetName: "Reclass. CVM",
     title: "FIDCs classificados em Financeiro: Outros · taxonomia CVM",
@@ -7737,7 +7732,6 @@ async function exportWorkbook(workbook) {
       ["Top 15 ofertas", "A1:AZ28"],
       ["Validação emissões", "A1:U25"],
       ["Público-alvo ofertas", "A1:J24"],
-      ["Reclass. ANBIMA", "A1:H35"],
       ["Reclass. CVM", "A1:H35"],
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
