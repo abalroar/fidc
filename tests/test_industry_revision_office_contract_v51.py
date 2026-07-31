@@ -1,4 +1,4 @@
-"""Acceptance contract for the 65-slide FIDC industry revision.
+"""Acceptance contract for the 64-slide FIDC industry revision.
 
 This module intentionally lives beside the legacy 47-slide assertions while
 the renderer, validators and generated artifacts are migrated together.  It
@@ -68,7 +68,7 @@ PAYLOAD = (
     / "artifact_payload.json"
 )
 
-TARGET_SLIDES = 65
+TARGET_SLIDES = 64
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
@@ -76,13 +76,15 @@ PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
 SHEET = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
-MARKET_SHARE_SLIDES = (58, 59, 60, 62, 63, 64)
+MARKET_SHARE_SLIDES = (58, 59, 60, 61, 62, 63)
 
 SLIDE_TOKENS = {
     1: ("INDÚSTRIA DE FIDCs",),
     2: ("GRANDES NÚMEROS",),
     3: (
         "ESCALA DA INDÚSTRIA",
+        "R$ 821,0 BI",
+        "R$ 13,780 TRI",
         "CAGR 2015–18",
         "2020/19",
         "2022/21",
@@ -91,7 +93,8 @@ SLIDE_TOKENS = {
     4: (
         "OFERTAS ENCERRADAS · SÉRIE CVM",
         "FIDCS E DEMAIS INSTRUMENTOS ELEGÍVEIS",
-        "INSTRUMENTOS MAIS EMITIDOS EM 2025",
+        "EMISSÕES POR CATEGORIA ANBIMA",
+        "TOTAL EMITIDO",
     ),
     5: ("OFERTAS ENCERRADAS · SÉRIE ANBIMA", "VALOR ENCERRADO POR INSTRUMENTO"),
     6: ("BASE INVESTIDORA",),
@@ -116,7 +119,7 @@ SLIDE_TOKENS = {
     21: ("TOP 20 POR TIPO ANALÍTICO", "FINANCEIRO"),
     22: ("TOP 20 POR TIPO ANALÍTICO", "OUTROS"),
     23: ("CURADORIA · FUNDOS FLAGSHIP", "FAIXAS DESCRITIVAS"),
-    24: ("CURADORIA · CARTEIRA 1", "DISTRIBUIÇÃO POR FAIXA E TIPO"),
+    24: ("CURADORIA · CARTEIRA 1", "CAIXAS INDIVIDUAIS"),
     25: ("MODELO DE PRESTAÇÃO",),
     26: ("CONCENTRAÇÃO DAS MONOESTRUTURAS",),
     27: ("OFERTAS ENCERRADAS · VOLUME E TICKET", "JAN–DEZ", "14,6%"),
@@ -149,11 +152,10 @@ SLIDE_TOKENS = {
     58: ("MARKET SHARE · ADMINISTRAÇÃO",),
     59: ("MARKET SHARE · GESTÃO",),
     60: ("MARKET SHARE · CUSTÓDIA",),
-    61: ("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO", "7,6%", "35,1%"),
-    62: ("ADMINISTRAÇÃO POR SUBTIPO",),
-    63: ("GESTÃO POR SUBTIPO",),
-    64: ("CUSTÓDIA POR SUBTIPO",),
-    65: (
+    61: ("ADMINISTRAÇÃO POR SUBTIPO",),
+    62: ("GESTÃO POR SUBTIPO",),
+    63: ("CUSTÓDIA POR SUBTIPO",),
+    64: (
         "APÊNDICE · CASO ATLÂNTICO",
         "09.194.841/0001-51",
         "A QUEBRA NO BRUTO COINCIDE",
@@ -197,6 +199,7 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Originadores 2026",
     "Top 15 ofertas",
     "Validação emissões",
+    "Emissões por categoria",
     "Público-alvo ofertas",
     "Principais conclusões",
 }
@@ -295,7 +298,7 @@ def _sheet_names(archive: ZipFile) -> set[str]:
     }
 
 
-def test_export_and_renderer_declare_65_slide_contract() -> None:
+def test_export_and_renderer_declare_fixed_64_slide_contract() -> None:
     export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
         encoding="utf-8"
     )
@@ -303,15 +306,15 @@ def test_export_and_renderer_declare_65_slide_contract() -> None:
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
 
-    assert re.search(r"^EXPECTED_SLIDES\s*=\s*65\s*$", export_source, re.MULTILINE)
-    assert re.search(
-        r"^const EXPECTED_SLIDES\s*=\s*65;\s*$", renderer_source, re.MULTILINE
-    )
+    assert re.search(r"^EXPECTED_SLIDES\s*=\s*64\s*$", export_source, re.MULTILINE)
+    assert "const SLIDE_CONTRACT_V1 = Object.freeze([" in renderer_source
+    assert "const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;" in renderer_source
+    assert "if (EXPECTED_SLIDES !== 64)" in renderer_source
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
 
-def test_deck_has_65_slides_in_the_reviewed_narrative_order() -> None:
+def test_deck_has_64_slides_in_the_reviewed_narrative_order() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         slide_members = {
@@ -410,6 +413,7 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
         for chart in bar_charts
     ]
     assert {group.attrib.get("val") for group in groupings if group is not None} == {
+        "clustered",
         "stacked",
     }
 
@@ -421,7 +425,7 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
             )
             if "Total" in name:
                 total_series.append(series)
-    assert len(total_series) == 2
+    assert len(total_series) == 1
     for series in total_series:
         title = series.find(f"{{{CHART}}}tx")
         assert title is not None
@@ -439,6 +443,66 @@ def test_scale_slide_keeps_two_native_bar_charts() -> None:
         number_format = labels.find(f"{{{CHART}}}numFmt")
         assert number_format is not None
         assert number_format.attrib.get("formatCode") == "[>=1000]#\\.##0;0"
+
+
+def test_scale_slide_uses_only_ex_fic_pl_and_explicit_brazilian_labels() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        text = _slide_text(archive, 3)
+
+    assert "FIDCs ex-FIC" in text
+    assert "R$ 821,0 bi" in text
+    assert "TOTAL · R$ 13,780 tri" in text
+    assert "saldo FIC" not in text
+
+
+def test_annual_issuance_slide_contains_the_complete_anbima_taxonomy_table() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        slide = ET.fromstring(archive.read("ppt/slides/slide4.xml"))
+        text = _slide_text(archive, 4)
+    tables = slide.findall(f".//{{{DML}}}tbl")
+    assert len(tables) == 1
+    assert len(tables[0].findall(f"{{{DML}}}tr")) == 8
+    assert len(tables[0].findall(f"{{{DML}}}tblGrid/{{{DML}}}gridCol")) == 14
+    for token in (
+        "EMISSÕES POR CATEGORIA ANBIMA",
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+        "FIC-FIDC · reconciliação",
+        "Total emitido",
+    ):
+        assert token in text
+
+
+def test_flagship_and_portfolio_slides_keep_individual_filled_cards_and_shared_type_colors() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        flagship_text = _slide_text(archive, 23)
+        portfolio_text = _slide_text(archive, 24)
+        portfolio = ET.fromstring(archive.read("ppt/slides/slide24.xml"))
+
+    assert "12 mínimos júnior localizados em 24 regulamentos revistos" in flagship_text
+    assert "101 FUNDOS · CAIXAS INDIVIDUAIS" in portfolio_text
+    for token in ("SELLER", "GAZIN", "CLOUDWALK", "PNEUCASH"):
+        assert token in portfolio_text.upper()
+    filled_shapes = [
+        shape
+        for shape in portfolio.findall(f".//{{{PML}}}sp")
+        if shape.find(f"{{{PML}}}spPr/{{{DML}}}solidFill") is not None
+    ]
+    assert len(filled_shapes) >= 101
+    renderer_source = (
+        ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
+    ).read_text(encoding="utf-8")
+    assert renderer_source.count("const style = flagshipTypeStyle(row);") >= 2
+    carteira_function = renderer_source.split(
+        "function addCarteira1CurationSlide", 1
+    )[1].split("function addDelinquencyDispersionSlides", 1)[0]
+    assert "payload.carteira_1_curation || []" in carteira_function
+    assert "payload.carteira_1_curation_ranges" not in carteira_function
 
 
 def test_native_chart_series_titles_use_schema_supported_forms() -> None:
@@ -464,7 +528,13 @@ def test_native_charts_are_bound_to_ptbr_without_currency_locale_prefix() -> Non
         chart_paths = [
             name
             for name in archive.namelist()
-            if name.startswith("ppt/slides/charts/chart") and name.endswith(".xml")
+            if (
+                name.endswith(".xml")
+                and (
+                    name.startswith("ppt/charts/chart")
+                    or name.startswith("ppt/slides/charts/chart")
+                )
+            )
         ]
         assert chart_paths
         for chart_path in chart_paths:
@@ -484,6 +554,17 @@ def test_native_charts_are_bound_to_ptbr_without_currency_locale_prefix() -> Non
                 assert "[$-416]" not in code
 
 
+def test_visible_slide_text_uses_brazilian_decimal_separators() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        for slide_number in range(1, TARGET_SLIDES + 1):
+            raw = archive.read(f"ppt/slides/slide{slide_number}.xml")
+            text = _slide_text(archive, slide_number)
+            assert b'lang="en-US"' not in raw
+            assert re.search(r"R\$\s*\d+\.\d{1,2}(?:\s|$)", text) is None
+            assert re.search(r"\d+\.\d+%", text) is None
+
+
 def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
@@ -494,7 +575,7 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
 @pytest.mark.parametrize(
     ("slide_number", "minimum_charts", "minimum_tables"),
     [
-        (4, 2, 0),  # série CVM por instrumento
+        (4, 1, 1),  # série anual e tabela de emissões por categoria
         (5, 1, 0),  # série ANBIMA por instrumento
         (12, 1, 1),  # inadimplência por recebível único da Tabela II
         (13, 1, 1),  # sensibilidade ex-zeros
@@ -704,7 +785,9 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert flagship["I4"].value == "Subordinação atual / PL"
     assert flagship["N4"].value == "Mínimo júnior"
     assert flagship["R4"].value == "Preço/VNU numérico"
-    rows = list(flagship.iter_rows(min_row=5, max_col=30, values_only=True))
+    assert flagship["AE4"].value == "Documento do regulamento revisto"
+    assert flagship["AI4"].value == "Status da curadoria documental"
+    rows = list(flagship.iter_rows(min_row=5, max_col=38, values_only=True))
     rows = [row for row in rows if row[4] not in {None, ""}]
     assert len(rows) == 47
     assert len({row[4] for row in rows}) == 47
@@ -714,6 +797,8 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert all(row[17] is None or row[17] > 0 for row in rows)
     assert any(row[13] is None and row[14] == "N/D" for row in rows)
     assert any(row[17] is None and row[18] == "N/D" for row in rows)
+    assert sum(str(row[34]).startswith("revisto") for row in rows) == 24
+    assert sum(row[14] != "N/D" for row in rows) == 12
 
     carteira_1 = workbook["Carteira 1 curadoria"]
     assert carteira_1["C4"].value == "Raiz CNPJ · foto"

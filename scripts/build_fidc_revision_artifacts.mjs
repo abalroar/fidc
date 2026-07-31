@@ -80,8 +80,26 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v29";
-const EXPECTED_SLIDES = 65;
+const RENDERER_VERSION = "industry_revision_artifacts_v30";
+const SLIDE_CONTRACT_V1 = Object.freeze([
+  "cover", "grand_numbers", "industry_scale", "annual_issuance_taxonomy",
+  "anbima_issuance", "investor_base", "holder_distribution", "analytical_taxonomy", "acquiring",
+  "receivables", "delinquency_observability", "delinquency_original",
+  "delinquency_ex_zero", "delinquency_current_cohort", "delinquency_dispersion",
+  "delinquency_summary", "provider_ranking", "top20", "top20_fomento",
+  "top20_agro", "top20_financeiro", "top20_outros", "flagship_curation",
+  "portfolio_1_curation", "service_model", "monostructure", "offers_volume_ticket",
+  "offers_ticket_distribution", "offers_placement_regime", "top15_current",
+  "top15_history", "top15_2022_partial", "conclusions", "scope_sources",
+  ...Array.from({ length: 20 }, (_, index) => `top20_profile_${index + 1}`),
+  "provider_history", "bank_cohort", "provider_attribution", "market_admin",
+  "market_manager", "market_custodian", "market_admin_appendix",
+  "market_manager_appendix", "market_custodian_appendix", "atlantico",
+]);
+const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;
+if (EXPECTED_SLIDES !== 64) {
+  throw new Error(`Contrato ordinal deveria conter 64 slides; contém ${EXPECTED_SLIDES}.`);
+}
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
@@ -154,6 +172,48 @@ function providerColor(value) {
   return PROVIDER_GRAY_SCALE[hash % PROVIDER_GRAY_SCALE.length];
 }
 
+const FLAGSHIP_TYPE_STYLES = Object.freeze({
+  "Adquirência": { order: 1, fill: "#DCEAF7" },
+  "Agro / revenda": { order: 2, fill: "#E3F0DF" },
+  "Consignado INSS": { order: 3, fill: "#DDEEDB" },
+  "Consignado FGTS": { order: 4, fill: "#F8E7BF" },
+  "Consignado CLT": { order: 5, fill: "#E8E2F3" },
+  "Consignado estadual": { order: 6, fill: "#F3E0E8" },
+  "Veículos": { order: 7, fill: "#E1E9EF" },
+  "Cartão consignado": { order: 8, fill: "#ECE2F1" },
+  "Factoring": { order: 9, fill: "#F1E8D9" },
+  "Crédito PJ": { order: 10, fill: "#DDEDEA" },
+  "Financeiro": { order: 11, fill: "#E8ECEF" },
+  "Outros": { order: 12, fill: "#F1F2F3" },
+});
+
+function flagshipVisualType(row) {
+  const text = normalizeProviderName([
+    row.categoria,
+    row.familia_flagship,
+    row.familia_flagship_referencia,
+    row.tipo_exibicao,
+    row.foco_exibicao,
+  ].filter(Boolean).join(" "));
+  if (text.includes("adquirencia")) return "Adquirência";
+  if (text.includes("consignado inss")) return "Consignado INSS";
+  if (text.includes("consignado fgts")) return "Consignado FGTS";
+  if (text.includes("consignado clt")) return "Consignado CLT";
+  if (text.includes("consignado estadual")) return "Consignado estadual";
+  if (text.includes("veiculo") || text.includes("auto loan") || text.includes("creditas auto")) return "Veículos";
+  if (text.includes("cartao consignado")) return "Cartão consignado";
+  if (text.includes("factoring") || text.includes("fomento mercantil")) return "Factoring";
+  if (text.includes("credito pj")) return "Crédito PJ";
+  if (text.includes("agro") || text.includes("recebiveis comerciais") || text.includes("industria e comercio")) return "Agro / revenda";
+  if (text.includes("financeiro")) return "Financeiro";
+  return "Outros";
+}
+
+function flagshipTypeStyle(row) {
+  const label = flagshipVisualType(row);
+  return { label, ...FLAGSHIP_TYPE_STYLES[label] };
+}
+
 const SLIDE = { width: 1280, height: 720 };
 const FRAME = { left: 60, right: 60, top: 132, bottom: 654 };
 const FULL_WIDTH = SLIDE.width - FRAME.left - FRAME.right;
@@ -178,6 +238,20 @@ function bn(value, digits = 1) {
   return `R$ ${(num(value) / 1e9).toLocaleString("pt-BR", {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
+  })} bi`;
+}
+
+function tn(value, digits = 3) {
+  return `R$ ${(num(value) / 1e12).toLocaleString("pt-BR", {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })} tri`;
+}
+
+function bnRoundedLabel(value) {
+  return `R$ ${Math.round(num(value) / 1e9).toLocaleString("pt-BR", {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
   })} bi`;
 }
 
@@ -2550,19 +2624,12 @@ function addFlagshipCurationSlide(presentation, payload) {
   if (families.length !== 26) {
     throw new Error(`Curadoria flagship deveria conter 26 famílias; contém ${families.length}.`);
   }
-  const ranges = [
-    { label: "< 10%", min: 0, max: 0.10, color: "#ECEEEF" },
-    { label: "10%–15%", min: 0.10, max: 0.15, color: "#D7DADD" },
-    { label: "15%–20%", min: 0.15, max: 0.20, color: "#BEC2C5" },
-    { label: "20%–35%", min: 0.20, max: 0.35, color: "#E8BE9D" },
-    { label: "35%–60%", min: 0.35, max: 0.60, color: "#F29A52" },
-    { label: "≥ 60%", min: 0.60, max: 1.000001, color: C.orange },
-  ];
+  const ranges = ["< 10%", "10%–15%", "15%–20%", "20%–35%", "35%–60%", "≥ 60%"];
   const slide = presentation.slides.add();
   addHeader(
     slide,
     "CURADORIA · FUNDOS FLAGSHIP",
-    `${integer(summary.familias)} famílias · ${integer(summary.cnpjs)} CNPJs · PL e subordinação atual em faixas comparáveis`,
+    `${integer(summary.familias)} famílias · ${integer(summary.cnpjs)} CNPJs · ${integer(summary.cnpjs_com_minimo_junior)} mínimos júnior localizados em ${integer(summary.cnpjs_com_regulamento_lido)} regulamentos revistos`,
     `CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}; regulamentos, emissões e assembleias dos pacotes documentais versionados. Lacunas = N/D.`,
     0,
   );
@@ -2573,20 +2640,15 @@ function addFlagshipCurationSlide(presentation, payload) {
   const bandHeight = 29;
   ranges.forEach((range, index) => {
     const x = left + index * (columnWidth + gap);
-    addRect(
-      slide,
-      { left: x, top: bandTop, width: columnWidth, height: bandHeight },
-      range.color,
-      { lineFill: index === ranges.length - 1 ? C.orange : C.line, lineWidth: 0.5 },
-    );
+    addRect(slide, { left: x, top: bandTop, width: columnWidth, height: bandHeight }, C.charcoal);
     addText(
       slide,
-      range.label,
+      range,
       { left: x + 5, top: bandTop + 3, width: columnWidth - 10, height: bandHeight - 6 },
       {
         fontSize: 10.5,
         bold: true,
-        color: index === ranges.length - 1 ? C.white : C.charcoal,
+        color: C.white,
         alignment: "center",
         verticalAlignment: "middle",
         wrap: "none",
@@ -2600,10 +2662,7 @@ function addFlagshipCurationSlide(presentation, payload) {
     { fontSize: 9, bold: true, color: C.mid, alignment: "right", wrap: "none" },
   );
 
-  const groups = ranges.map((range) => families.filter((row) => {
-    const value = Number(row.subordinacao_atual_pct);
-    return Number.isFinite(value) && value >= range.min && value < range.max;
-  }));
+  const groups = ranges.map((range) => families.filter((row) => row.faixa_subordinacao_atual === range));
   if (groups.reduce((sum, rows) => sum + rows.length, 0) !== families.length) {
     throw new Error("Toda família flagship deve pertencer a uma faixa de subordinação atual.");
   }
@@ -2611,41 +2670,34 @@ function addFlagshipCurationSlide(presentation, payload) {
   const cardHeight = 72;
   const cardGap = 6;
   groups.forEach((rows, rangeIndex) => {
-    const range = ranges[rangeIndex];
     const x = left + rangeIndex * (columnWidth + gap);
     rows.forEach((row, rowIndex) => {
       const y = cardTop + rowIndex * (cardHeight + cardGap);
-      addRect(
-        slide,
-        { left: x, top: y, width: columnWidth, height: cardHeight },
-        rowIndex % 2 ? C.pale : C.white,
-        { lineFill: C.line, lineWidth: 0.65 },
-      );
-      addRect(slide, { left: x, top: y, width: 4, height: cardHeight }, range.color);
+      const style = flagshipTypeStyle(row);
+      addRect(slide, { left: x, top: y, width: columnWidth, height: cardHeight }, style.fill);
       addText(
         slide,
         truncateWords(row.familia_flagship, 34),
-        { left: x + 10, top: y + 6, width: columnWidth - 18, height: 20 },
+        { left: x + 8, top: y + 5, width: columnWidth - 16, height: 20 },
         { fontSize: 8.7, bold: true, color: C.black, verticalAlignment: "middle" },
       );
       addText(
         slide,
         `${moneyScale(row.pl_atual_brl)} · atual ${pct(row.subordinacao_atual_pct, 1)}`,
-        { left: x + 10, top: y + 27, width: columnWidth - 18, height: 16 },
+        { left: x + 8, top: y + 27, width: columnWidth - 16, height: 16 },
         { fontSize: 8.1, bold: true, color: C.charcoal, verticalAlignment: "middle", wrap: "none" },
       );
       addText(
         slide,
         `mín. jr ${row.subordinacao_minima_junior_display || "N/D"} · emissão ${row.emissao_data_display || "N/D"}`,
-        { left: x + 10, top: y + 44, width: columnWidth - 18, height: 15 },
+        { left: x + 8, top: y + 44, width: columnWidth - 16, height: 15 },
         { fontSize: 7.2, color: C.mid, verticalAlignment: "middle", wrap: "none" },
       );
-      const trackLeft = x + 10;
-      const trackWidth = columnWidth - 20;
+      const trackLeft = x + 8;
+      const trackWidth = columnWidth - 16;
       addRect(slide, { left: trackLeft, top: y + 63, width: trackWidth, height: 2 }, C.line);
       const value = Number(row.subordinacao_atual_pct);
-      const denominator = Math.max(range.max - range.min, 0.000001);
-      const markerRatio = clamp((value - range.min) / denominator, 0, 1);
+      const markerRatio = clamp(value / 0.75, 0, 1);
       addRect(
         slide,
         {
@@ -2658,36 +2710,35 @@ function addFlagshipCurationSlide(presentation, payload) {
       );
     });
   });
-  addText(
-    slide,
-    `${integer(summary.cnpjs_com_subordinacao_atual)}/${integer(summary.cnpjs)} CNPJs com subordinação atual · ${integer(summary.cnpjs_com_minimo_junior)} com mínimo júnior · ${integer(summary.cnpjs_com_data_emissao)} com data de emissão`,
-    { left: 60, top: 649, width: 1160, height: 14 },
-    { fontSize: 8.6, bold: true, color: C.charcoal, alignment: "right", wrap: "none" },
+  const usedTypes = [...new Set(families.map((row) => flagshipVisualType(row)))].sort(
+    (a, b) => FLAGSHIP_TYPE_STYLES[a].order - FLAGSHIP_TYPE_STYLES[b].order,
   );
+  let legendX = 60;
+  usedTypes.forEach((label) => {
+    const width = Math.max(78, label.length * 5.1 + 24);
+    addRect(slide, { left: legendX, top: 650, width: 10, height: 10 }, FLAGSHIP_TYPE_STYLES[label].fill);
+    addText(slide, label, { left: legendX + 14, top: 647, width: width - 14, height: 16 }, { fontSize: 6.8, color: C.mid, wrap: "none" });
+    legendX += width;
+  });
   addSourceNotes(slide, [
     `CVM, Informe Mensal FIDC, competência ${payload.latest_complete}: https://dados.cvm.gov.br/dataset/fi-doc-inf_mensal`,
     "FundosNet/B3, regulamentos, emissões e assembleias: https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM",
-    "Pacotes documentais versionados em data/deep_dives; fontes e lacunas por CNPJ na aba Curadoria flagship.",
+    "Leitura documental versionada por CNPJ; documento, data, página, status e lacuna constam na aba Curadoria flagship.",
     "Faixas descritivas; não constituem nota de risco. PL e subordinação atual são agregados por família; mínimos e datas de emissão exibem somente valores localizados.",
   ]);
 }
 
 function addCarteira1CurationSlide(presentation, payload) {
-  const rows = [...(payload.carteira_1_curation_ranges || [])]
-    .sort((a, b) => num(a.ordem_faixa) - num(b.ordem_faixa));
+  const rows = [...(payload.carteira_1_curation || [])]
+    .sort((a, b) => {
+      const sa = flagshipTypeStyle(a);
+      const sb = flagshipTypeStyle(b);
+      return sa.order - sb.order || num(b.pl_atual_brl, -1) - num(a.pl_atual_brl, -1) || String(a.denominacao).localeCompare(String(b.denominacao), "pt-BR");
+    });
   const summary = payload.carteira_1_curation_summary || {};
-  if (rows.reduce((sum, row) => sum + num(row.fundos), 0) !== 101) {
+  if (rows.length !== 101 || new Set(rows.map((row) => row.cnpj_fundo)).size !== 101) {
     throw new Error("Curadoria da Carteira 1 deve reconciliar 101 CNPJs.");
   }
-  const rangeColors = {
-    "< 10%": "#ECEEEF",
-    "10%–15%": "#D7DADD",
-    "15%–20%": "#BEC2C5",
-    "20%–35%": "#E8BE9D",
-    "35%–60%": "#F29A52",
-    "≥ 60%": C.orange,
-    "N/D": C.pale,
-  };
   const slide = presentation.slides.add();
   addHeader(
     slide,
@@ -2698,53 +2749,37 @@ function addCarteira1CurationSlide(presentation, payload) {
   );
   addText(
     slide,
-    "SUBORDINAÇÃO ATUAL / PL · DISTRIBUIÇÃO POR FAIXA E TIPO",
+    "101 FUNDOS · CAIXAS INDIVIDUAIS ORDENADAS POR TIPO E PL",
     { left: 60, top: 116, width: 1160, height: 16 },
     { fontSize: 9, bold: true, color: C.mid, alignment: "right", wrap: "none" },
   );
-  const top = 140;
-  const rowHeight = 64;
-  const gap = 7;
+  const legendTypes = [...new Set(rows.map((row) => flagshipVisualType(row)))].sort(
+    (a, b) => FLAGSHIP_TYPE_STYLES[a].order - FLAGSHIP_TYPE_STYLES[b].order,
+  );
+  let legendX = 60;
+  legendTypes.forEach((label) => {
+    const width = Math.max(82, label.length * 5.2 + 24);
+    addRect(slide, { left: legendX, top: 137, width: 10, height: 10 }, FLAGSHIP_TYPE_STYLES[label].fill);
+    addText(slide, label, { left: legendX + 14, top: 134, width: width - 14, height: 16 }, { fontSize: 6.8, color: C.mid, wrap: "none" });
+    legendX += width;
+  });
+  const columns = 8;
+  const top = 158;
+  const gapX = 4;
+  const gapY = 3;
+  const cardWidth = (1160 - gapX * (columns - 1)) / columns;
+  const cardHeight = 35;
   rows.forEach((row, index) => {
-    const y = top + index * (rowHeight + gap);
-    const color = rangeColors[row.faixa_subordinacao_atual] || C.pale;
-    const isOrange = row.faixa_subordinacao_atual === "≥ 60%";
-    addRect(slide, { left: 60, top: y, width: 150, height: rowHeight }, color, { lineFill: C.line, lineWidth: 0.6 });
-    addText(
-      slide,
-      row.faixa_subordinacao_atual,
-      { left: 70, top: y + 7, width: 130, height: 22 },
-      { fontSize: 13, bold: true, color: isOrange ? C.white : C.charcoal, alignment: "center", verticalAlignment: "middle", wrap: "none" },
-    );
-    addText(
-      slide,
-      `${integer(row.fundos)} fundos`,
-      { left: 70, top: y + 34, width: 130, height: 16 },
-      { fontSize: 8.5, bold: true, color: isOrange ? C.white : C.mid, alignment: "center", wrap: "none" },
-    );
-    addRect(slide, { left: 218, top: y, width: 1002, height: rowHeight }, index % 2 ? C.pale : C.white, { lineFill: C.line, lineWidth: 0.6 });
-    addText(
-      slide,
-      row.pl_atual_brl == null ? "PL N/D" : `${moneyScale(row.pl_atual_brl)} de PL conhecido`,
-      { left: 235, top: y + 8, width: 190, height: 18 },
-      { fontSize: 10.2, bold: true, color: C.black, wrap: "none" },
-    );
-    addText(
-      slide,
-      `${integer(row.fundos_com_pl)}/${integer(row.fundos)} com PL em ${competenceShortPt(payload.latest_complete).toLowerCase()}`,
-      { left: 235, top: y + 33, width: 190, height: 16 },
-      { fontSize: 8.2, color: C.mid, wrap: "none" },
-    );
-    addText(
-      slide,
-      truncateWords(row.tipos_resumo || "N/D", 135),
-      { left: 445, top: y + 8, width: 748, height: 40 },
-      { fontSize: 9, color: C.charcoal, verticalAlignment: "middle" },
-    );
+    const x = 60 + (index % columns) * (cardWidth + gapX);
+    const y = top + Math.floor(index / columns) * (cardHeight + gapY);
+    const style = flagshipTypeStyle(row);
+    addRect(slide, { left: x, top: y, width: cardWidth, height: cardHeight }, style.fill);
+    addText(slide, fundEditorialName(row.denominacao || row.nome_foto || "N/D", 28), { left: x + 5, top: y + 3, width: cardWidth - 10, height: 17 }, { fontSize: 5.6, bold: true, color: C.black, verticalAlignment: "middle" });
+    addText(slide, row.pl_atual_brl == null ? "PL N/D" : moneyScale(row.pl_atual_brl), { left: x + 5, top: y + 21, width: cardWidth - 10, height: 11 }, { fontSize: 6.5, bold: true, color: C.charcoal, wrap: "none" });
   });
   addText(
     slide,
-    `${integer(summary.cnpjs_com_minimo_junior)}/101 com mínimo júnior localizado · ${integer(summary.cnpjs_com_data_emissao)}/101 com data de emissão · ${integer(summary.cnpjs_com_familia_flagship)}/101 com correspondência direta às famílias flagship`,
+    `${integer(summary.cnpjs_com_minimo_junior)}/101 com mínimo júnior · ${integer(summary.cnpjs_com_data_emissao)}/101 com data de emissão · ${integer(summary.cnpjs_com_familia_flagship)}/101 com família flagship`,
     { left: 60, top: 647, width: 1160, height: 16 },
     { fontSize: 8.5, bold: true, color: C.charcoal, alignment: "right", wrap: "none" },
   );
@@ -3006,32 +3041,30 @@ function buildPresentation(payload) {
     addHeader(
       slide,
       "ESCALA DA INDÚSTRIA",
-      `FIDCs somam ${bn(latestHistory.pl_ex_fic, 0)} de PL direto; o saldo FIC é ${bn(latestHistory.pl_fic_componente, 0)}`,
+      `FIDCs ex-FIC somam ${bnRoundedLabel(latestHistory.pl_ex_fic)}; o crédito privado ampliado totaliza ${tn(expandedCredit.at(-1)?.private_expanded_credit_total_brl, 3)}`,
       `Fontes: CVM, Informe Mensal de FIDC (${stockShortLower}); BCB, SGS 28183–28192 (último mês comum: ${stockShortLower}).`,
       3,
     );
     const categories = history.map((row) =>
       String(row.competencia) === latestCompetence ? stockShort : String(row.year),
     );
-    const plMax = Math.max(...history.map((row) => (num(row.pl_ex_fic) + num(row.pl_fic_componente)) / 1e9));
+    const plMax = Math.max(...history.map((row) => num(row.pl_ex_fic) / 1e9));
     const plAxisMax = Math.ceil(plMax / 100) * 100 + 100;
-    addSectionLabel(slide, "PL DIRETO + SALDO FIC · R$ BI", { left: 60, top: 133, width: 545, height: 24 });
+    addSectionLabel(slide, "PL DOS FIDCs EX-FIC · R$ BI", { left: 60, top: 133, width: 545, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 55, top: 165, width: 555, height: 330 }),
       categories,
       series: [
         {
-          name: "PL direto",
-          values: history.map((row) => num(row.pl_ex_fic) / 1e9),
+          name: "FIDCs ex-FIC",
+          values: history.map((row) => row.competencia === latestCompetence
+            ? Math.round(num(row.pl_ex_fic) / 1e9)
+            : num(row.pl_ex_fic) / 1e9),
+          valuesFormatCode: "0.0",
           fill: C.orange,
         },
-        {
-          name: "Saldo FIC",
-          values: history.map((row) => num(row.pl_fic_componente) / 1e9),
-          fill: C.charcoal,
-        },
       ],
-      barOptions: { direction: "column", grouping: "stacked", gapWidth: 52, overlap: 100 },
+      barOptions: { direction: "column", grouping: "clustered", gapWidth: 52 },
       hasLegend: false,
       xAxis: {
         visible: true,
@@ -3046,21 +3079,21 @@ function buildPresentation(payload) {
         max: plAxisMax,
         majorUnit: 200,
       },
+      dataLabels: {
+        showValue: false,
+      },
     });
-    addLegend(slide, [
-      { label: "PL direto", color: C.orange },
-      { label: "Saldo FIC", color: C.charcoal },
-    ], { left: 85, top: 500, width: 500, height: 20 }, 2);
+    addRect(slide, { left: 365, top: 176, width: 220, height: 44 }, "#FFF1E6");
     addText(
       slide,
-      `${stockShort}: ${bn(latestHistory.pl_ex_fic, 1)} de PL direto + ${bn(latestHistory.pl_fic_componente, 2)} de saldo FIC = ${bn(num(latestHistory.pl_ex_fic) + num(latestHistory.pl_fic_componente), 1)}.`,
-      { left: 60, top: 523, width: 550, height: 30 },
-      { fontSize: 8.8, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
+      `FIDCs · ${bnRoundedLabel(latestHistory.pl_ex_fic)}`,
+      { left: 377, top: 184, width: 196, height: 25 },
+      { fontSize: 12, bold: true, color: C.orange, alignment: "center", verticalAlignment: "middle", wrap: "none" },
     );
     addText(
       slide,
       growthSummary(cagrPeriods),
-      { left: 60, top: 556, width: 550, height: 30 },
+      { left: 60, top: 532, width: 550, height: 30 },
       { fontSize: 8.2, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
     );
     addSectionLabel(slide, "CARTEIRA DE CRÉDITO PRIVADA AMPLIADA · R$ BI", { left: 645, top: 133, width: 575, height: 24 });
@@ -3114,6 +3147,13 @@ function buildPresentation(payload) {
       },
     });
     const latestCredit = expandedCredit.at(-1) || {};
+    addRect(slide, { left: 978, top: 176, width: 220, height: 44 }, C.pale);
+    addText(
+      slide,
+      `TOTAL · ${tn(latestCredit.private_expanded_credit_total_brl, 3)}`,
+      { left: 988, top: 184, width: 200, height: 25 },
+      { fontSize: 11.5, bold: true, color: C.black, alignment: "center", verticalAlignment: "middle", wrap: "none" },
+    );
     addLegend(slide, [
       { label: "Empréstimos", color: C.charcoal },
       { label: "Tít. privados", color: C.note },
@@ -3129,7 +3169,7 @@ function buildPresentation(payload) {
     );
     addText(
       slide,
-      `${competenceShortPt(latestCredit.competencia)}: total privado ${bn(latestCredit.private_expanded_credit_total_brl, 0)}; securitização ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC ${bn(latestCredit.fidc_receivables_brl, 0)}. O total BCB de ${bn(latestCredit.expanded_credit_total_brl, 0)} inclui ${bn(latestCredit.public_debt_brl, 0)} de títulos públicos e permanece no export para reconciliação.`,
+      `${competenceShortPt(latestCredit.competencia)}: total privado ${tn(latestCredit.private_expanded_credit_total_brl, 3)}; securitização ${bn(latestCredit.securitization_brl, 0)}; carteira FIDC ${bn(latestCredit.fidc_receivables_brl, 0)}. O total BCB de ${tn(latestCredit.expanded_credit_total_brl, 3)} inclui ${bn(latestCredit.public_debt_brl, 0)} de títulos públicos e permanece no export para reconciliação.`,
       { left: 640, top: 582, width: 580, height: 42 },
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
@@ -3157,21 +3197,13 @@ function buildPresentation(payload) {
           )?.registered_volume_brl,
         ) / 1e9,
       );
-    const yoyValue = (label, period) => {
-      const candidates = comparison.filter(
-        (row) =>
-          row.series_label === label &&
-          row.period_label === period,
-      );
-      const row =
-        candidates.find((item) => item.view === "FIDCs vs demais elegíveis") ||
-        candidates[0];
-      if (!row || row.yoy_growth === null || row.yoy_growth === undefined) return "N/D";
-      const value = num(row.yoy_growth);
-      return `${value > 0 ? "+" : ""}${pct(value, 1)}`;
-    };
     const viewA = "FIDCs vs demais elegíveis";
-    const viewB = "FIDCs vs instrumentos materiais de 2025";
+    const taxonomy = payload.issuance_taxonomy_table || [];
+    const taxonomyLong = payload.issuance_taxonomy || [];
+    const reconciliation = payload.issuance_taxonomy_reconciliation || [];
+    if (taxonomy.length !== 4 || taxonomyLong.length !== 20 || reconciliation.length !== 5) {
+      throw new Error("Tabela Emissões por Categoria ANBIMA não fecha 4 categorias × 5 períodos.");
+    }
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · SÉRIE CVM",
@@ -3182,11 +3214,11 @@ function buildPresentation(payload) {
     addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
       left: 60,
       top: 132,
-      width: 555,
+      width: 480,
       height: 24,
     });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 166, width: 555, height: 290 }),
+      ...chartBase({ left: 60, top: 160, width: 480, height: 190 }),
       categories: ["2023FY", "2024FY", "2025FY", "2026 jan–jun"],
       series: [
         {
@@ -3207,92 +3239,144 @@ function buildPresentation(payload) {
       legend: {
         position: "bottom",
         overlay: false,
-        textStyle: { fill: C.mid, fontSize: 10 },
+        textStyle: { fill: C.mid, fontSize: 8.5 },
       },
       xAxis: {
         visible: true,
-        textStyle: { fill: C.mid, fontSize: 10 },
+        textStyle: { fill: C.mid, fontSize: 8.5 },
         line: { style: "solid", fill: C.line, width: 1 },
         majorGridlines: null,
       },
-      yAxis: { ...chartAxis(9.5, "0"), min: 0 },
+      yAxis: { ...chartAxis(8, "0"), min: 0 },
       dataLabels: {
         showValue: true,
         position: "outEnd",
-        textStyle: { fill: C.black, fontSize: 9, bold: true },
+        textStyle: { fill: C.black, fontSize: 7.2, bold: true },
       },
     });
-    addSectionLabel(slide, "INSTRUMENTOS MAIS EMITIDOS EM 2025 · R$ BI", {
-      left: 665,
+    const latestTaxonomy = taxonomyLong
+      .filter((row) => row.period_key === "jun26")
+      .map((row) => {
+        const before = taxonomyLong.find(
+          (candidate) => candidate.period_key === "jun25" && candidate.categoria === row.categoria,
+        );
+        return { ...row, delta_brl: num(row.volume_brl) - num(before?.volume_brl) };
+      })
+      .sort((a, b) => b.delta_brl - a.delta_brl);
+    addSectionLabel(slide, "LEITURA EXECUTIVA DA TAXONOMIA", {
+      left: 585,
       top: 132,
-      width: 555,
+      width: 635,
       height: 24,
     });
-    const materialSeries = [
-      ["FIDCs", C.orange],
-      ["Debêntures", C.black],
-      ["CRI", C.mid],
-      ["Notas comerciais", C.note],
-      ["CRA", C.line],
+    addRect(slide, { left: 585, top: 160, width: 635, height: 190 }, C.pale);
+    addText(
+      slide,
+      `${latestTaxonomy[0].categoria} liderou o 1S26`,
+      { left: 610, top: 181, width: 585, height: 28 },
+      { fontSize: 18, bold: true, color: C.black, verticalAlignment: "middle" },
+    );
+    addText(
+      slide,
+      `${bn(latestTaxonomy[0].volume_brl, 1)} emitidos · ${latestTaxonomy[0].delta_brl >= 0 ? "+" : "−"}${bn(Math.abs(latestTaxonomy[0].delta_brl), 1)} versus jan–jun/25 · ${pct(latestTaxonomy[0].share, 1)} dos quatro tipos`,
+      { left: 610, top: 218, width: 585, height: 42 },
+      { fontSize: 12.5, bold: true, color: C.orange, verticalAlignment: "middle" },
+    );
+    addText(
+      slide,
+      latestTaxonomy.slice(1).map((row) => `${row.categoria}: ${row.delta_brl >= 0 ? "+" : "−"}${bn(Math.abs(row.delta_brl), 1)}`).join("   ·   "),
+      { left: 610, top: 278, width: 585, height: 38 },
+      { fontSize: 10.5, color: C.charcoal, verticalAlignment: "middle" },
+    );
+    addText(
+      slide,
+      "2023 usa o valor encerrado ANBIMA; o volume não observado na CVM recebe a composição do observado. FIC-FIDC aparece na ponte de reconciliação.",
+      { left: 610, top: 318, width: 585, height: 22 },
+      { fontSize: 8.1, color: C.note, verticalAlignment: "middle", wrap: "none" },
+    );
+
+    const tableColumns = [
+      ["Categoria", null, "left"],
+      ["2023\nR$ bi", "2023 (R$ bi)", "right"],
+      ["2023\n%", "2023 (%)", "right"],
+      ["2024\nR$ bi", "2024 (R$ bi)", "right"],
+      ["2024\n%", "2024 (%)", "right"],
+      ["Δ 23→24\nR$ bi", "Delta 2023→2024 (R$ bi)", "right"],
+      ["2025\nR$ bi", "2025 (R$ bi)", "right"],
+      ["2025\n%", "2025 (%)", "right"],
+      ["Δ 24→25\nR$ bi", "Delta 2024→2025 (R$ bi)", "right"],
+      ["jan–jun/25\nR$ bi", "jan–jun/25 (R$ bi)", "right"],
+      ["jan–jun/25\n%", "jan–jun/25 (%)", "right"],
+      ["jan–jun/26\nR$ bi", "jan–jun/26 (R$ bi)", "right"],
+      ["jan–jun/26\n%", "jan–jun/26 (%)", "right"],
+      ["Δ 1S25→1S26\nR$ bi", "Delta jan–jun/25→jan–jun/26 (R$ bi)", "right"],
     ];
-    slide.charts.add("bar", {
-      ...chartBase({ left: 665, top: 166, width: 555, height: 290 }),
-      categories: ["2023FY", "2024FY", "2025FY", "2026 jan–jun"],
-      series: materialSeries.map(([label, color]) => ({
-        name: label,
-        values: seriesValues(viewB, label),
-        valuesFormatCode: "0",
-        fill: color,
-      })),
-      barOptions: { direction: "column", grouping: "clustered", gapWidth: 34 },
-      hasLegend: true,
-      legend: {
-        position: "bottom",
-        overlay: false,
-        textStyle: { fill: C.mid, fontSize: 9.5 },
-      },
-      xAxis: {
-        visible: true,
-        textStyle: { fill: C.mid, fontSize: 10 },
-        line: { style: "solid", fill: C.line, width: 1 },
-        majorGridlines: null,
-      },
-      yAxis: { ...chartAxis(9.5, "0"), min: 0 },
-      dataLabels: {
-        showValue: true,
-        position: "outEnd",
-        textStyle: { fill: C.black, fontSize: 8.5, bold: true },
-      },
+    const biCell = (value) => num(value).toLocaleString("pt-BR", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
     });
-    const methodology = [
-      ["MÉTRICA", "Valor total registrado, informado à CVM. FIDCs em 2023: valor encerrado do Boletim ANBIMA, porque a série CVM só captura o universo integralmente a partir de 2024; o YoY 2024 usa a base ANBIMA."],
-      ["UNIVERSO", "Ofertas públicas primárias encerradas; rito automático da RCVM 160, ordinário e regimes legados disponíveis."],
-      ["CORTE E LIMITAÇÃO", "Data de encerramento no período; volume positivo. O valor registrado pode diferir do valor encerrado e a taxonomia declarada mantém Outros títulos de securitização separado."],
-    ];
-    methodology.forEach(([label, text], index) => {
-      const left = 60 + index * 395;
-      addSectionLabel(slide, label, { left, top: 490, width: 365, height: 20 });
-      addText(slide, text, { left, top: 521, width: 365, height: 92 }, {
-        fontSize: 10.2,
-        color: C.charcoal,
-        verticalAlignment: "top",
+    const formatTaxonomyRow = (row) => tableColumns.map(([_, key]) => {
+      if (!key) return row.Categoria;
+      return key.endsWith("(%)") ? pct(row[key], 1) : biCell(row[key]);
+    });
+    const totals = { Categoria: "Total · quatro tipos" };
+    tableColumns.slice(1).forEach(([_, key]) => {
+      totals[key] = key.endsWith("(%)") ? 1 : taxonomy.reduce((sum, row) => sum + num(row[key]), 0);
+    });
+    const byPeriod = Object.fromEntries(reconciliation.map((row) => [row.period_key, row]));
+    const periodKeys = ["2023", "2024", "2025", "jun25", "jun26"];
+    const volumeKeys = ["2023 (R$ bi)", "2024 (R$ bi)", "2025 (R$ bi)", "jan–jun/25 (R$ bi)", "jan–jun/26 (R$ bi)"];
+    const shareKeys = ["2023 (%)", "2024 (%)", "2025 (%)", "jan–jun/25 (%)", "jan–jun/26 (%)"];
+    const bridgeRow = (label, field) => {
+      const row = { Categoria: label };
+      periodKeys.forEach((periodKey, index) => {
+        row[volumeKeys[index]] = num(byPeriod[periodKey]?.[field]) / 1e9;
+        row[shareKeys[index]] = null;
       });
-      if (index < methodology.length - 1) addRule(slide, left + 380, 488, 1, C.line, 128);
+      row["Delta 2023→2024 (R$ bi)"] = row[volumeKeys[1]] - row[volumeKeys[0]];
+      row["Delta 2024→2025 (R$ bi)"] = row[volumeKeys[2]] - row[volumeKeys[1]];
+      row["Delta jan–jun/25→jan–jun/26 (R$ bi)"] = row[volumeKeys[4]] - row[volumeKeys[3]];
+      return row;
+    };
+    const bridgeDisplay = (row) => tableColumns.map(([_, key]) => {
+      if (!key) return row.Categoria;
+      if (key.endsWith("(%)")) return "—";
+      return biCell(row[key]);
     });
-    addText(slide, "* Perímetro aplicado aos slides granulares de emissões, inclusive público-alvo, tickets, regime de colocação e Top 15.", { left: 60, top: 635, width: 1160, height: 18 }, {
-      fontSize: 8.7,
-      color: C.note,
-      alignment: "right",
+    const tableRows = [
+      ...taxonomy.map(formatTaxonomyRow),
+      formatTaxonomyRow(totals),
+      bridgeDisplay(bridgeRow("FIC-FIDC · reconciliação", "fic_excluded_brl")),
+      bridgeDisplay(bridgeRow("Total emitido", "emitted_volume_brl")),
+    ];
+    addSectionLabel(slide, "EMISSÕES POR CATEGORIA ANBIMA", {
+      left: 60,
+      top: 365,
+      width: 1160,
+      height: 18,
+    });
+    addNativeEditorialTable(slide, {
+      left: 60,
+      top: 389,
+      width: 1160,
+      height: 247,
+      headers: tableColumns.map(([header]) => header),
+      rows: tableRows,
+      columnWidths: [205, 70, 52, 70, 52, 115, 70, 52, 115, 70, 52, 70, 52, 115],
+      aligns: tableColumns.map(([, , alignment]) => alignment),
+      fontSize: 6.4,
+      headerFontSize: 6.1,
+      headerHeight: 32,
+      rowHighlights: new Set([4, 6]),
     });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "Metodologia: ofertas públicas primárias, status Oferta Encerrada, data de encerramento no período e Valor_Total_Registrado positivo; snapshot 24/jul/26.",
-      "FIDCs 2023: valor encerrado ANBIMA (Boletim de Mercado de Capitais, snapshot mai/26, aba 02-02-Vlr); gap por instrumento em industry_market_offer_reconciliation.csv.",
-      "Limitação: volume registrado pode diferir do valor efetivamente encerrado; taxonomia CVM declarada preservada.",
+      "Tabela: mesma taxonomia analítica do painel e do workbook; quatro tipos + FIC-FIDC reconciliam com o volume emitido.",
+      "FIDCs 2023: valor encerrado ANBIMA (Boletim de Mercado de Capitais, snapshot mai/26, aba 02-02-Vlr); composição não observada escalada pela composição CVM.",
     ]);
   }
 
-  // 4B. Ofertas encerradas: série ampla de mercado ANBIMA.
+  // 4B. Série ampla de mercado ANBIMA; preserva a ordem editorial anterior.
   {
     const slide = presentation.slides.add();
     const reconciliation = payload.market_offer_reconciliation || [];
@@ -3323,10 +3407,7 @@ function buildPresentation(payload) {
       5,
     );
     addSectionLabel(slide, "VALOR ENCERRADO POR INSTRUMENTO · R$ BI", {
-      left: 60,
-      top: 136,
-      width: 630,
-      height: 24,
+      left: 60, top: 136, width: 630, height: 24,
     });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 174, width: 630, height: 410 }),
@@ -3339,11 +3420,7 @@ function buildPresentation(payload) {
       })),
       barOptions: { direction: "column", grouping: "clustered", gapWidth: 34 },
       hasLegend: true,
-      legend: {
-        position: "bottom",
-        overlay: false,
-        textStyle: { fill: C.mid, fontSize: 9.2 },
-      },
+      legend: { position: "bottom", overlay: false, textStyle: { fill: C.mid, fontSize: 9.2 } },
       xAxis: {
         visible: true,
         textStyle: { fill: C.mid, fontSize: 9.5 },
@@ -3363,7 +3440,7 @@ function buildPresentation(payload) {
         `2025: CVM ${bn(deb2025.cvm_registered_volume_brl, 1)} + ${bn(deb2025.cvm_harmonization_volume_brl, 1)} em Outros títulos de securitização = ${bn(deb2025.cvm_harmonized_volume_brl, 1)}, ante ${bn(deb2025.anbima_closed_volume_brl, 1)} na ANBIMA. Jan–mai/26: ${bn(deb2026.cvm_harmonized_volume_brl, 1)} ante ${bn(deb2026.anbima_closed_volume_brl, 1)}.`,
       ],
       [
-        "FIDCs · MÉTRICA E COBERTURA",
+        "FIDCS · MÉTRICA E COBERTURA",
         `Em 2025, a CVM registra ${bn(fidc2025.cvm_registered_volume_brl, 1)} e a ANBIMA encerra ${bn(fidc2025.anbima_closed_volume_brl, 1)}. A diferença combina valor registrado versus encerrado, cobertura e presença de ofertas secundárias na ANBIMA; a causa individual exige reconciliação por oferta.`,
       ],
       [
@@ -3378,14 +3455,10 @@ function buildPresentation(payload) {
     findings.forEach(([label, text], index) => {
       const top = 136 + index * 123;
       addText(slide, label, { left: 730, top, width: 490, height: 18 }, {
-        fontSize: 9.5,
-        bold: true,
-        color: index === 0 ? C.orange : C.charcoal,
+        fontSize: 9.5, bold: true, color: index === 0 ? C.orange : C.charcoal,
       });
       addText(slide, text, { left: 730, top: top + 25, width: 490, height: 76 }, {
-        fontSize: 9.3,
-        color: C.charcoal,
-        lineSpacing: 1.02,
+        fontSize: 9.3, color: C.charcoal, lineSpacing: 1.02,
       });
       if (index < findings.length - 1) addRule(slide, 730, top + 110, 490, C.line, 0.8);
     });
@@ -5078,7 +5151,9 @@ function buildPresentation(payload) {
   addMarketShareSlide(presentation, payload, "administrador", materialFocus, 0, false);
   addMarketShareSlide(presentation, payload, "gestor", materialFocus, 0, false);
   addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 0, false);
-  addProviderMigrationEvidenceSlide(presentation, payload, 0);
+  // A evidência detalhada de migração permanece no workbook e no
+  // explorador. O slide isolado era redundante com Liderança explicada e
+  // deixaria a sequência executiva acima do contrato fixo de 64 posições.
 
   // Universo completo dos market shares permanece no apêndice.
   addMarketShareSlide(presentation, payload, "administrador", fullFocus, 47, true);
@@ -6578,6 +6653,12 @@ async function addFlagshipCurationSheet(workbook, payload) {
     ["Fonte vencimento antecipado", "vencimento_antecipado_fonte"],
     ["Status do pacote", "pacote_documental_status"],
     ["Pacote documental", "pacote_documental_path"],
+    ["Documento do regulamento revisto", "documento_id_regulamento"],
+    ["Data do regulamento revisto", "documento_data_regulamento"],
+    ["Página / cláusula", "pagina_clausula"],
+    ["Extensão da leitura", "paginas_lidas"],
+    ["Status da curadoria documental", "status_curadoria_documental"],
+    ["Observação documental", "observacao_documental"],
     ["FundosNet", "fundosnet_url"],
     ["Lacunas", "lacunas"],
   ];
@@ -6596,7 +6677,7 @@ async function addFlagshipCurationSheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [70, 190, 260, 95, 125, 390, 125, 135, 120, 95, 135, 105, 300, 100, 125, 520, 440, 115, 135, 220, 105, 440, 120, 440, 125, 420, 620, 440, 230, 260, 360, 360],
+    [70, 190, 260, 95, 125, 390, 125, 135, 120, 95, 135, 105, 300, 100, 125, 520, 440, 115, 135, 220, 105, 440, 120, 440, 125, 420, 620, 440, 230, 260, 170, 115, 150, 120, 230, 420, 360, 360],
     rows.length,
   );
   applyFormatsByHeader(sheet, headers, rows.length);
@@ -6626,7 +6707,7 @@ async function addFlagshipCurationSheet(workbook, payload) {
       color: row["Faixa atual"] === "≥ 60%" ? C.white : C.charcoal,
     };
   });
-  sheet.getRange(`A5:AF${rows.length + 4}`).format.rowHeightPx = 72;
+  sheet.getRange(`A5:AL${rows.length + 4}`).format.rowHeightPx = 72;
 }
 
 async function addCarteira1CurationSheet(workbook, payload) {
@@ -7740,6 +7821,9 @@ async function addChecksSheet(workbook, payload) {
     ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
     ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, 12, '=IF(B23=C23,"OK","ERRO")'],
     ["Reconciliação CVM x ANBIMA", (payload.market_offer_reconciliation || []).length, 20, '=IF(B24=C24,"OK","ERRO")'],
+    ["Slides no contrato ordinal", EXPECTED_SLIDES, 64, '=IF(B25=C25,"OK","ERRO")'],
+    ["Emissões por categoria: 4 tipos × 5 períodos", (payload.issuance_taxonomy || []).length, 20, '=IF(B26=C26,"OK","ERRO")'],
+    ["Reconciliação da taxonomia de emissões", (payload.issuance_taxonomy_reconciliation || []).every((row) => Math.abs(num(row.total_brl) + num(row.fic_excluded_brl) - num(row.emitted_volume_brl)) <= 0.01) ? 1 : 0, 1, '=IF(B27=C27,"OK","ERRO")'],
   ];
   setHeaderBand(sheet, "Checks revisão", "Controles executados no gerador. A ausência de markers é testada diretamente no OOXML do PPTX.", headers, tests.length, { freezeColumns: 1 });
   sheet.getRange(`A5:D${tests.length + 4}`).values = tests.map((row) => [row[0], null, row[2], null]);
@@ -7801,6 +7885,81 @@ async function addOfferValidationSheet(workbook, payload) {
     sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = "0.0%";
   });
   sheet.getRange(`A5:U${rows.length + 4}`).format.rowHeightPx = 78;
+}
+
+async function addIssuanceTaxonomySheet(workbook, payload) {
+  const table = payload.issuance_taxonomy_table || [];
+  const reconciliation = payload.issuance_taxonomy_reconciliation || [];
+  if (table.length !== 4 || reconciliation.length !== 5) {
+    throw new Error("Emissões por categoria deveria conter quatro categorias e cinco períodos.");
+  }
+  const headers = [
+    "Categoria",
+    "2023 (R$ bi)",
+    "2023 (%)",
+    "2024 (R$ bi)",
+    "2024 (%)",
+    "Delta 2023→2024 (R$ bi)",
+    "2025 (R$ bi)",
+    "2025 (%)",
+    "Delta 2024→2025 (R$ bi)",
+    "jan–jun/25 (R$ bi)",
+    "jan–jun/25 (%)",
+    "jan–jun/26 (R$ bi)",
+    "jan–jun/26 (%)",
+    "Delta jan–jun/25→jan–jun/26 (R$ bi)",
+  ];
+  const total = { Categoria: "Total (quatro tipos ANBIMA)" };
+  headers.slice(1).forEach((header) => {
+    total[header] = header.endsWith("(%)")
+      ? 1
+      : table.reduce((sum, row) => sum + num(row[header]), 0);
+  });
+  const byPeriod = Object.fromEntries(reconciliation.map((row) => [row.period_key, row]));
+  const periodKeys = ["2023", "2024", "2025", "jun25", "jun26"];
+  const volumeKeys = [
+    "2023 (R$ bi)", "2024 (R$ bi)", "2025 (R$ bi)",
+    "jan–jun/25 (R$ bi)", "jan–jun/26 (R$ bi)",
+  ];
+  const shareKeys = [
+    "2023 (%)", "2024 (%)", "2025 (%)", "jan–jun/25 (%)", "jan–jun/26 (%)",
+  ];
+  const bridge = (label, field) => {
+    const row = { Categoria: label };
+    periodKeys.forEach((periodKey, index) => {
+      row[volumeKeys[index]] = num(byPeriod[periodKey]?.[field]) / 1e9;
+      row[shareKeys[index]] = null;
+    });
+    row["Delta 2023→2024 (R$ bi)"] = row[volumeKeys[1]] - row[volumeKeys[0]];
+    row["Delta 2024→2025 (R$ bi)"] = row[volumeKeys[2]] - row[volumeKeys[1]];
+    row["Delta jan–jun/25→jan–jun/26 (R$ bi)"] = row[volumeKeys[4]] - row[volumeKeys[3]];
+    return row;
+  };
+  const materialized = [
+    ...table,
+    total,
+    bridge("FIC-FIDC (fora dos quatro tipos)", "fic_excluded_brl"),
+    bridge("Total emitido", "emitted_volume_brl"),
+  ];
+  const rows = materialized.map((row) => headers.map((header) => row[header] ?? null));
+  const sheet = resetSheet(workbook, "Emissões por categoria");
+  setHeaderBand(
+    sheet,
+    "Emissões por Categoria ANBIMA",
+    "Mesma tabela do slide anual e do explorador. Quatro tipos analíticos; FIC-FIDC fica na ponte e os dois blocos reconciliam com o volume emitido. 2023 usa o nível encerrado ANBIMA e a composição observada na CVM.",
+    headers,
+    rows.length,
+    { freezeColumns: 1, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [230, 105, 90, 105, 90, 140, 105, 90, 140, 115, 100, 115, 100, 180], rows.length);
+  ["B", "D", "F", "G", "I", "J", "L", "N"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = '0.0 "bi"';
+  });
+  ["C", "E", "H", "K", "M"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = "0.0%";
+  });
+  sheet.getRange(`A5:N${rows.length + 4}`).format.rowHeightPx = 28;
 }
 
 async function addOfferTargetPublicSheet(workbook, payload) {
@@ -7871,6 +8030,7 @@ async function buildWorkbook(payload) {
   await addDelinquencyDispersionSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
   await addFixedIncomeOfferComparisonSheet(workbook, payload);
+  await addIssuanceTaxonomySheet(workbook, payload);
   await addOfferValidationSheet(workbook, payload);
   await addOfferTargetPublicSheet(workbook, payload);
   await addBcbExpandedCreditSheet(workbook, payload);
@@ -7951,7 +8111,7 @@ async function exportWorkbook(workbook) {
       ["Top 20 por Tipo ANBIMA", "A1:AF28"],
       ["Auditoria Top 20 Tipo", "A1:M10"],
       ["Taxonomia por nível", "A1:J32"],
-      ["Curadoria flagship", "A1:AD28"],
+      ["Curadoria flagship", "A1:AL28"],
       ["Curadoria Outros Top 100", "A1:AH28"],
       ["Dispersão inadimplência", "A1:S24"],
       ["Ofertas encerradas", "A1:Q58"],
@@ -7961,6 +8121,7 @@ async function exportWorkbook(workbook) {
       ["Originadores 2026", "A1:M24"],
       ["Top 15 ofertas", "A1:AZ28"],
       ["Validação emissões", "A1:U25"],
+      ["Emissões por categoria", "A1:N12"],
       ["Público-alvo ofertas", "A1:J24"],
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],

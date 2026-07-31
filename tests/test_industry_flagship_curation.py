@@ -29,6 +29,7 @@ def flagship():
         ),
         latest=LATEST,
         deep_dives_dir=DEEP_DIVES,
+        documentary_path=DATA / "industry_flagship_document_curation.csv",
     )
 
 
@@ -50,7 +51,8 @@ def test_flagship_scope_is_complete_unique_and_current(flagship) -> None:
 def test_flagship_documentary_coverage_preserves_gaps(flagship) -> None:
     detail = flagship.detail.set_index("cnpj_fundo")
     assert flagship.summary["cnpjs_com_pacote_documental"] == 15
-    assert flagship.summary["cnpjs_com_minimo_junior"] == 6
+    assert flagship.summary["cnpjs_com_minimo_junior"] == 12
+    assert flagship.summary["cnpjs_com_regulamento_lido"] == 24
     assert flagship.summary["cnpjs_com_preco_vnu"] == 13
     assert flagship.summary["cnpjs_com_mezanino_comprovado"] == 8
 
@@ -68,10 +70,11 @@ def test_flagship_known_documentary_fields_are_source_faithful(flagship) -> None
 
     bela = detail.loc["62393679000183"]
     assert pd.isna(bela["subordinacao_minima_junior_pct"])
-    assert bela["subordinacao_minima_junior_display"] == "1% / 2,5%"
+    assert bela["subordinacao_minima_junior_display"] == "1,0% até D+180; 2,5% após D+180"
     assert bela["preco_emissao_brl"] == pytest.approx(1_000.0)
     assert bela["cota_mezanino"] == "Sim"
     assert "1117954" in bela["subordinacao_minima_fonte"]
+    assert bela["status_curadoria_documental"] == "revisto — mínimo júnior localizado"
 
     seller_iii = detail.loc["63572282000111"]
     assert seller_iii["subordinacao_minima_junior_pct"] == pytest.approx(10.0)
@@ -82,6 +85,12 @@ def test_flagship_known_documentary_fields_are_source_faithful(flagship) -> None
     assert mercado_ii["subordinacao_minima_junior_pct"] == pytest.approx(10.0)
     assert mercado_ii["preco_emissao_brl"] == pytest.approx(1_000.0)
     assert "1077334" in mercado_ii["subordinacao_minima_fonte"]
+
+    big_picture_iii = detail.loc["54219179000100"]
+    assert pd.isna(big_picture_iii["subordinacao_minima_junior_pct"])
+    assert big_picture_iii["subordinacao_minima_junior_display"] == "N/D"
+    assert "5% (três por cento)" in big_picture_iii["subordinacao_minima_texto"]
+    assert big_picture_iii["status_curadoria_documental"] == "revisto — conflito interno do documento"
 
 
 def test_flagship_family_ranges_cover_every_family(flagship) -> None:
