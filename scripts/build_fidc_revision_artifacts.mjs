@@ -71,10 +71,6 @@ const FLOW_BUILDER_PATH = [
   path.join(path.dirname(__filename), FLOW_BUILDER_NAME),
   path.join(ROOT, "scripts", FLOW_BUILDER_NAME),
 ].find((candidate) => candidate && existsSync(candidate));
-const FLOW_ASSET_DIR = path.resolve(
-  process.env.FIDC_PROVIDER_FLOW_ASSET_DIR ||
-    path.join(OUTPUT_DIR, "provider_flow_assets"),
-);
 const OUTPUT_HTML = path.resolve(
   process.env.FIDC_OUTPUT_HTML ||
     path.join(OUTPUT_DIR, "provider_flows_explorer.html"),
@@ -102,6 +98,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Auditoria numérica",
   "Reclass. ANBIMA",
   "Reclass. CVM",
+  "Fluxos visuais",
 ];
 
 const C = {
@@ -715,11 +712,10 @@ async function writeBlob(filePath, blob) {
   await fs.writeFile(filePath, new Uint8Array(await blob.arrayBuffer()));
 }
 
-async function generateProviderFlowAssets() {
+async function generateProviderFlowHtml() {
   if (!FLOW_BUILDER_PATH) {
     throw new Error(`Gerador dos fluxos não localizado: ${FLOW_BUILDER_NAME}`);
   }
-  await fs.mkdir(FLOW_ASSET_DIR, { recursive: true });
   await fs.mkdir(path.dirname(OUTPUT_HTML), { recursive: true });
   const generated = spawnSync(
     process.execPath,
@@ -727,8 +723,6 @@ async function generateProviderFlowAssets() {
       FLOW_BUILDER_PATH,
       "--payload",
       PAYLOAD_PATH,
-      "--output-dir",
-      FLOW_ASSET_DIR,
       "--html",
       OUTPUT_HTML,
     ],
@@ -743,44 +737,10 @@ async function generateProviderFlowAssets() {
       `Falha ao gerar os fluxos navegáveis: ${generated.error?.message || generated.stderr || generated.stdout}`,
     );
   }
-  const paths = {
-    adminPng: path.join(FLOW_ASSET_DIR, "provider_flow_admin.png"),
-    adminSvg: path.join(FLOW_ASSET_DIR, "provider_flow_admin.svg"),
-    gestorPng: path.join(FLOW_ASSET_DIR, "provider_flow_gestor.png"),
-    gestorSvg: path.join(FLOW_ASSET_DIR, "provider_flow_gestor.svg"),
-    custodiantePng: path.join(FLOW_ASSET_DIR, "provider_flow_custodiante.png"),
-    custodianteSvg: path.join(FLOW_ASSET_DIR, "provider_flow_custodiante.svg"),
-    reagPng: path.join(FLOW_ASSET_DIR, "provider_flow_reag.png"),
-    reagSvg: path.join(FLOW_ASSET_DIR, "provider_flow_reag.svg"),
-    html: OUTPUT_HTML,
-  };
-  const entries = await Promise.all(
-    Object.entries(paths).map(async ([key, filePath]) => {
-      const stat = await fs.stat(filePath);
-      if (!stat.isFile() || stat.size === 0) {
-        throw new Error(`Artefato de fluxo vazio ou inválido: ${filePath}`);
-      }
-      return [key, filePath];
-    }),
-  );
-  const verifiedPaths = Object.fromEntries(entries);
-  const [adminPngBytes, gestorPngBytes, custodiantePngBytes, reagPngBytes] = await Promise.all([
-    fs.readFile(verifiedPaths.adminPng),
-    fs.readFile(verifiedPaths.gestorPng),
-    fs.readFile(verifiedPaths.custodiantePng),
-    fs.readFile(verifiedPaths.reagPng),
-  ]);
-  return {
-    ...verifiedPaths,
-    adminPngBytes: new Uint8Array(adminPngBytes),
-    gestorPngBytes: new Uint8Array(gestorPngBytes),
-    custodiantePngBytes: new Uint8Array(custodiantePngBytes),
-    reagPngBytes: new Uint8Array(reagPngBytes),
-    adminPngDataUrl: `data:image/png;base64,${adminPngBytes.toString("base64")}`,
-    gestorPngDataUrl: `data:image/png;base64,${gestorPngBytes.toString("base64")}`,
-    custodiantePngDataUrl: `data:image/png;base64,${custodiantePngBytes.toString("base64")}`,
-    reagPngDataUrl: `data:image/png;base64,${reagPngBytes.toString("base64")}`,
-  };
+  const stat = await fs.stat(OUTPUT_HTML);
+  if (!stat.isFile() || stat.size === 0) {
+    throw new Error(`Explorador HTML vazio ou inválido: ${OUTPUT_HTML}`);
+  }
 }
 
 async function sha256File(filePath) {
@@ -2672,7 +2632,7 @@ function addDelinquencyDispersionSlides(presentation, payload) {
   }
 }
 
-function buildPresentation(payload, flowAssets) {
+function buildPresentation(payload) {
   automaticPageNumber = 1;
   const presentation = Presentation.create({ slideSize: SLIDE });
   const latestCompetence = String(payload.latest_complete || "");
@@ -7252,82 +7212,6 @@ async function addReagMigrationSheet(workbook, payload) {
   sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 38;
 }
 
-async function addProviderFlowVisualSheet(workbook, flowAssets) {
-  const sheet = resetSheet(workbook, "Fluxos visuais");
-  const lastColumn = "M";
-  sheet.getRange(`A1:${lastColumn}136`).format = {
-    font: { name: "Arial", size: 10, color: C.charcoal },
-    rowHeightPx: 20,
-  };
-  for (let index = 0; index < 13; index += 1) {
-    const letter = columnLetter(index);
-    sheet.getRange(`${letter}1:${letter}136`).format.columnWidthPx = 100;
-  }
-  sheet.getRange(`A1:${lastColumn}1`).merge();
-  sheet.getRange("A1").values = [["Fluxos de prestadores"]];
-  sheet.getRange(`A1:${lastColumn}1`).format = {
-    fill: C.black,
-    font: { name: "Arial", size: 16, bold: true, color: C.white },
-    rowHeightPx: 34,
-    verticalAlignment: "center",
-  };
-  sheet.getRange(`A2:${lastColumn}2`).merge();
-  sheet.getRange("A2").values = [[
-    "Imagens em alta resolução da mesma base do explorador HTML: administração ampla, amostras históricas de gestão e custódia, e coorte CBSF / REAG.",
-  ]];
-  sheet.getRange(`A2:${lastColumn}2`).format = {
-    fill: C.white,
-    font: { name: "Arial", size: 10, color: C.mid },
-    rowHeightPx: 32,
-    verticalAlignment: "center",
-    wrapText: true,
-  };
-  sheet.images.add({
-    dataUrl: flowAssets.adminPngDataUrl,
-    anchor: {
-      from: { row: 3, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.images.add({
-    dataUrl: flowAssets.gestorPngDataUrl,
-    anchor: {
-      from: { row: 36, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.images.add({
-    dataUrl: flowAssets.custodiantePngDataUrl,
-    anchor: {
-      from: { row: 69, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.images.add({
-    dataUrl: flowAssets.reagPngDataUrl,
-    anchor: {
-      from: { row: 102, col: 0 },
-      extent: { widthPx: 1280, heightPx: 620 },
-    },
-  });
-  sheet.getRange(`A135:${lastColumn}136`).merge();
-  sheet.getRange("A135").values = [[
-    `Visão navegável e exportável: ${path.basename(flowAssets.html)}. Fontes e critérios permanecem nas abas “Fluxos prestadores” e “Migração CBSF”.`,
-  ]];
-  sheet.getRange(`A135:${lastColumn}136`).format = {
-    fill: C.pale,
-    font: { name: "Arial", size: 10, color: C.mid },
-    rowHeightPx: 24,
-    verticalAlignment: "center",
-    wrapText: true,
-    borders: {
-      top: { style: "thin", color: C.line },
-      bottom: { style: "thin", color: C.line },
-    },
-  };
-  sheet.freezePanes.freezeRows(2);
-}
-
 async function addAcquiringTaxonomySheet(workbook, payload) {
   const columns = [
     ["#", "ordem_materialidade"],
@@ -7576,7 +7460,7 @@ async function addOfferTargetPublicSheet(workbook, payload) {
   sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
-async function buildWorkbook(payload, flowAssets) {
+async function buildWorkbook(payload) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
   const ficAudit = await readCsv(path.join(DATA_DIR, "industry_fic_detection_audit.csv"));
   patchLegacyPlSheets(workbook, csvRowsAsObjects(ficAudit));
@@ -7597,7 +7481,6 @@ async function buildWorkbook(payload, flowAssets) {
   await addBankFidcSheet(workbook, payload);
   await addBankFidcDetailSheet(workbook, payload);
   await addProviderAttributionSheet(workbook, payload);
-  await addProviderFlowVisualSheet(workbook, flowAssets);
   await addProviderTransitionSheet(workbook, payload);
   await addReagMigrationSheet(workbook, payload);
   await addAcquiringTaxonomySheet(workbook, payload);
@@ -7680,7 +7563,6 @@ async function exportWorkbook(workbook) {
       ["FIDCs por banco", "A1:K28"],
       ["Detalhe coorte bancos", "A1:J28"],
       ["Atribuição prestadores", "A1:J22"],
-      ["Fluxos visuais", "A1:M136"],
       ["Fluxos prestadores", "A1:T24"],
       ["Migração CBSF", "A1:Q24"],
       ["Adquirência reclass.", "A1:G28"],
@@ -7731,16 +7613,16 @@ async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   const payloadRaw = await fs.readFile(PAYLOAD_PATH);
   const payload = JSON.parse(payloadRaw.toString("utf8"));
-  const flowAssets = await generateProviderFlowAssets();
+  await generateProviderFlowHtml();
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
-    const presentation = buildPresentation(payload, flowAssets);
+    const presentation = buildPresentation(payload);
     if (presentation.slides.items.length !== EXPECTED_SLIDES) {
       throw new Error(`Deck deveria ter ${EXPECTED_SLIDES} slides; gerou ${presentation.slides.items.length}.`);
     }
     await exportPresentation(presentation);
   }
   if (process.env.FIDC_SKIP_WORKBOOK !== "1") {
-    const workbook = await buildWorkbook(payload, flowAssets);
+    const workbook = await buildWorkbook(payload);
     await exportWorkbook(workbook);
   }
   if (

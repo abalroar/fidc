@@ -63,6 +63,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Auditoria numérica",
     "Reclass. ANBIMA",
     "Reclass. CVM",
+    "Fluxos visuais",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
@@ -524,3 +525,18 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert 'payloadKey: "cvm_outros_reclassification"' not in renderer_source
     assert 'sheetName: "Reclass. CVM"' not in renderer_source
     assert '["Reclass. CVM", "A1:' not in renderer_source
+    assert "addProviderFlowVisualSheet" not in renderer_source
+    assert 'resetSheet(workbook, "Fluxos visuais")' not in renderer_source
+    assert '["Fluxos visuais", "A1:' not in renderer_source
+    assert "flowAssets" not in renderer_source
+    assert "PngDataUrl" not in renderer_source
+    assert "FLOW_ASSET_DIR" not in renderer_source
+    assert "generateProviderFlowHtml" in renderer_source
+
+    flow_builder_source = (
+        ROOT / "scripts" / "build_provider_flow_explorer.mjs"
+    ).read_text(encoding="utf-8")
+    assert 'require("sharp")' not in flow_builder_source
+    assert "staticSvg" not in flow_builder_source
+    assert "provider_flow_admin.png" not in flow_builder_source
+    assert '"output-dir"' not in flow_builder_source

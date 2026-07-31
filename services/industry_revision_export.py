@@ -60,7 +60,6 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Detalhe coorte bancos",
     "Atribuição prestadores",
     "Fluxos prestadores",
-    "Fluxos visuais",
     "Migração CBSF",
     "Taxonomia adquirência",
     "Adquirência reclass.",
