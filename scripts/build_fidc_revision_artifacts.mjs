@@ -80,17 +80,18 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v30";
+const RENDERER_VERSION = "industry_revision_artifacts_v31";
 const SLIDE_CONTRACT_V1 = Object.freeze([
   "cover", "grand_numbers", "industry_scale", "annual_issuance_taxonomy",
-  "anbima_issuance", "investor_base", "holder_distribution", "analytical_taxonomy", "acquiring",
+  "anbima_issuance", "investor_base", "holder_distribution", "analytical_taxonomy",
+  "outros_breakdown", "acquiring",
   "receivables", "delinquency_observability", "delinquency_original",
   "delinquency_ex_zero", "delinquency_current_cohort", "delinquency_dispersion",
   "delinquency_summary", "provider_ranking", "top20", "top20_fomento",
   "top20_agro", "top20_financeiro", "top20_outros", "flagship_curation",
-  "portfolio_1_curation", "service_model", "monostructure", "offers_volume_ticket",
+  "portfolio_1_curation", "portfolio_1_taxonomy", "service_model", "monostructure", "offers_volume_ticket",
   "offers_ticket_distribution", "offers_placement_regime", "top15_current",
-  "top15_history", "top15_2022_partial", "conclusions", "scope_sources",
+  "top15_history", "conclusions",
   ...Array.from({ length: 20 }, (_, index) => `top20_profile_${index + 1}`),
   "provider_history", "bank_cohort", "provider_attribution", "market_admin",
   "market_manager", "market_custodian", "market_admin_appendix",
@@ -1721,6 +1722,90 @@ function addBankFidcEvolutionSlide(presentation, payload, page) {
   return slide;
 }
 
+function addOutrosBreakdownSlide(presentation, payload) {
+  const level = "foco_analitico";
+  const history = (payload.taxonomy_level_history || []).filter(
+    (row) => row.nivel === level && row.tipo_exibicao === "Outros",
+  );
+  const periods = (payload.type_mix_meta?.periods || [])
+    .map((row) => ({ competencia: row.competencia, label: row.label }))
+    .filter((row) => row.competencia && row.label);
+  if (!periods.length || !history.length) {
+    throw new Error("Abertura analítica de Outros não está disponível no payload.");
+  }
+  const latestPeriod = periods.at(-1);
+  const latestRows = history
+    .filter((row) => row.competencia === latestPeriod.competencia)
+    .sort((a, b) => num(b.pl_brl) - num(a.pl_brl) || String(a.categoria).localeCompare(String(b.categoria)));
+  const categories = latestRows.map((row) => row.categoria);
+  const palette = [C.orange, C.charcoal, C.mid, C.line, "#A5A9AD", "#527A91"];
+  const colors = Object.fromEntries(categories.map((category, index) => [category, palette[index % palette.length]]));
+  const rowByKey = new Map(history.map((row) => [`${row.competencia}::${row.categoria}`, row]));
+  const valueFor = (period, category, field) => num(rowByKey.get(`${period.competencia}::${category}`)?.[field]);
+  const volumeSeries = categories.map((category) => ({
+    name: category,
+    values: periods.map((period) => valueFor(period, category, "pl_brl") / 1e9),
+    valuesFormatCode: "0.0",
+    fill: colors[category],
+  }));
+  const shareSeries = categories.map((category) => ({
+    name: category,
+    values: periods.map((period) => valueFor(period, category, "share_tipo")),
+    valuesFormatCode: "0.0%",
+    fill: colors[category],
+  }));
+  const maxTotalBn = Math.max(...periods.map((period) => categories.reduce(
+    (sum, category) => sum + valueFor(period, category, "pl_brl") / 1e9,
+    0,
+  )));
+  const latestTotal = latestRows.reduce((sum, row) => sum + num(row.pl_brl), 0);
+  const latestLead = latestRows.slice(0, 3).map((row) => `${row.categoria} ${pct(row.share_tipo, 1)}`).join(" · ");
+  const tableIiLatest = (payload.taxonomy_level_history || [])
+    .filter((row) => row.nivel === "tabela_ii_analitica" && row.tipo_exibicao === "Outros" && row.competencia === latestPeriod.competencia);
+  const tableIi = Object.fromEntries(tableIiLatest.map((row) => [row.categoria, row]));
+  const judicial = tableIi["Ações judiciais"] || tableIi["Acoes judiciais"];
+  const publicSector = tableIi["Setor público"] || tableIi["Setor publico"];
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "OUTROS · ABERTURA ANALÍTICA",
+    latestLead,
+    "Fonte: ANBIMA Data, Informe Mensal CVM e ledger documental aprovado. O foco analítico é exclusivo; a leitura Tabela II permanece separada.",
+    0,
+  );
+  addSectionLabel(slide, "PL DO BUCKET OUTROS · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 60, top: 185, width: 550, height: 350 }),
+    categories: periods.map((row) => row.label),
+    series: volumeSeries,
+    barOptions: { direction: "column", grouping: "stacked", gapWidth: 52, overlap: 100 },
+    hasLegend: false,
+    xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+    yAxis: { ...chartAxis(10.5, "0"), min: 0, max: Math.ceil(maxTotalBn / 25) * 25 },
+    dataLabels: { showValue: categories.length <= 6, position: "center", textStyle: { fill: C.black, fontSize: 8.4, bold: true } },
+  });
+  addSectionLabel(slide, "PARTICIPAÇÃO NO BUCKET OUTROS", { left: 670, top: 145, width: 550, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 670, top: 185, width: 550, height: 350 }),
+    categories: periods.map((row) => row.label),
+    series: shareSeries,
+    barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 52, overlap: 100 },
+    hasLegend: false,
+    xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+    yAxis: { ...chartAxis(10.5, "0%"), min: 0, max: 1, majorUnit: 0.2 },
+    dataLabels: { showValue: categories.length <= 6, position: "center", textStyle: { fill: C.black, fontSize: 8.4, bold: true } },
+  });
+  addLegend(slide, categories.map((category) => ({ label: category, color: colors[category] })), { left: 100, top: 545, width: 1080, height: 42 }, Math.min(4, categories.length));
+  addText(slide, `As categorias somam ${bn(latestTotal, 1)} e fecham 100% do Tipo analítico Outros em ${latestPeriod.label}.`, { left: 90, top: 592, width: 1100, height: 22 }, { fontSize: 10.3, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" });
+  addText(
+    slide,
+    `Leitura complementar da Tabela II no mesmo bucket: Ações judiciais ${judicial ? `${bn(judicial.pl_brl, 1)} · ${pct(judicial.share_tipo, 1)}` : "N/D"}; Setor público ${publicSector ? `${bn(publicSector.pl_brl, 1)} · ${pct(publicSector.share_tipo, 1)}` : "N/D"}. As duas taxonomias se sobrepõem e não devem ser somadas.`,
+    { left: 80, top: 619, width: 1120, height: 35 },
+    { fontSize: 9.1, color: C.note, alignment: "center", verticalAlignment: "middle" },
+  );
+  return slide;
+}
+
 function addAcquiringReclassificationSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
   const rows = payload.acquiring_reclassified_mix || [];
@@ -2789,6 +2874,86 @@ function addCarteira1CurationSlide(presentation, payload) {
   ]);
 }
 
+function addCarteira1TaxonomySlide(presentation, payload) {
+  const history = [...(payload.carteira_1_taxonomy_history || [])].sort(
+    (a, b) => num(a.period_order) - num(b.period_order) || num(a.category_order) - num(b.category_order),
+  );
+  const summary = payload.carteira_1_taxonomy_summary || {};
+  const periods = [...new Map(history.map((row) => [row.competencia, {
+    competencia: row.competencia,
+    label: row.period_label,
+    order: num(row.period_order),
+  }])).values()].sort((a, b) => a.order - b.order);
+  const categories = ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"];
+  if (history.length !== 16 || periods.length !== 4) {
+    throw new Error(`Histórico da Carteira 1 deveria conter 16 linhas e quatro competências; contém ${history.length}.`);
+  }
+  const colors = {
+    "Fomento Mercantil": C.mid,
+    "Agro, Indústria e Comércio": C.note,
+    "Financeiro": C.orange,
+    "Outros": C.line,
+  };
+  const rowByKey = new Map(history.map((row) => [`${row.competencia}::${row.anbima_tipo}`, row]));
+  const valueFor = (period, category, field) => num(rowByKey.get(`${period.competencia}::${category}`)?.[field]);
+  const latestPeriod = periods.at(-1);
+  const latestTotal = valueFor(latestPeriod, categories[0], "portfolio_total_brl");
+  const observedStart = valueFor(periods[0], categories[0], "observed_cnpjs");
+  const observedLatest = valueFor(latestPeriod, categories[0], "observed_cnpjs");
+  const maxTotalBn = Math.max(...periods.map((period) => valueFor(period, categories[0], "portfolio_total_brl") / 1e9));
+  const volumeSeries = categories.map((category) => ({
+    name: category,
+    values: periods.map((period) => valueFor(period, category, "portfolio_pl_brl") / 1e9),
+    valuesFormatCode: "0.0",
+    fill: colors[category],
+  }));
+  const shareSeries = categories.map((category) => ({
+    name: category,
+    values: periods.map((period) => valueFor(period, category, "portfolio_share")),
+    valuesFormatCode: "0.0%",
+    fill: colors[category],
+  }));
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
+    `PL observado chegou a ${bn(latestTotal, 1)}; composição e crescimento usam o mesmo critério reclassificado do mercado`,
+    `Fonte: CVM, Informe Mensal FIDC, e ledger aprovado. ${observedStart} CNPJs observados em ${periods[0].label} e ${observedLatest} em ${latestPeriod.label}; ausências não recebem PL imputado.`,
+    0,
+  );
+  addSectionLabel(slide, "EVOLUÇÃO DO PL · R$ BILHÕES", { left: 60, top: 145, width: 550, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 60, top: 185, width: 550, height: 350 }),
+    categories: periods.map((period) => period.label),
+    series: volumeSeries,
+    barOptions: { direction: "column", grouping: "stacked", gapWidth: 52, overlap: 100 },
+    hasLegend: false,
+    xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+    yAxis: { ...chartAxis(10.5, "0"), min: 0, max: Math.ceil(maxTotalBn / 10) * 10 },
+    dataLabels: { showValue: true, position: "center", textStyle: { fill: C.black, fontSize: 8.4, bold: true } },
+  });
+  addSectionLabel(slide, "PARTICIPAÇÃO NO PL OBSERVADO", { left: 670, top: 145, width: 550, height: 24 });
+  slide.charts.add("bar", {
+    ...chartBase({ left: 670, top: 185, width: 550, height: 350 }),
+    categories: periods.map((period) => period.label),
+    series: shareSeries,
+    barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 52, overlap: 100 },
+    hasLegend: false,
+    xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+    yAxis: { ...chartAxis(10.5, "0%"), min: 0, max: 1, majorUnit: 0.2 },
+    dataLabels: { showValue: true, position: "center", textStyle: { fill: C.black, fontSize: 8.4, bold: true } },
+  });
+  addLegend(slide, categories.map((category) => ({ label: category, color: colors[category] })), { left: 210, top: 544, width: 860, height: 26 }, 4);
+  const growthLabel = (value) => value == null || !Number.isFinite(Number(value)) ? "N/D" : `${num(value) >= 0 ? "+" : ""}${pct(value, 1)}`;
+  const comparison = categories.map((category) => {
+    const row = rowByKey.get(`${latestPeriod.competencia}::${category}`) || {};
+    return `${category.replace("Agro, Indústria e Comércio", "Agro/Ind./Com.")}: carteira ${growthLabel(row.portfolio_growth_since_start)} · mercado ${growthLabel(row.market_growth_since_start)}`;
+  });
+  addText(slide, `CRESCIMENTO ${periods[0].label.toUpperCase()} → ${latestPeriod.label.toUpperCase()} · ${comparison.join("   |   ")}`, { left: 60, top: 581, width: 1160, height: 30 }, { fontSize: 8.4, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" });
+  addText(slide, summary.methodology || "N/D", { left: 70, top: 618, width: 1140, height: 34 }, { fontSize: 8.7, color: C.note, alignment: "center", verticalAlignment: "middle" });
+  return slide;
+}
+
 function addDelinquencyDispersionSlides(presentation, payload) {
   const rows = [...(payload.delinquency_dispersion || [])]
     .sort((a, b) => num(b.inadimplencia_total_subcategoria_brl) - num(a.inadimplencia_total_subcategoria_brl));
@@ -3853,7 +4018,9 @@ function buildPresentation(payload) {
     );
   }
 
-  // 7. Carteira por recebível
+  addOutrosBreakdownSlide(presentation, payload);
+
+  // Adquirência
   addAcquiringReclassificationSlide(presentation, payload, 7);
 
   // 8. Carteira por recebível
@@ -4283,6 +4450,7 @@ function buildPresentation(payload) {
     .forEach((typeName) => addTop20ByAnbimaTypeSlide(presentation, payload, typeName));
   addFlagshipCurationSlide(presentation, payload);
   addCarteira1CurationSlide(presentation, payload);
+  addCarteira1TaxonomySlide(presentation, payload);
 
   // 20. Modelo de prestação
   {
@@ -5016,50 +5184,8 @@ function buildPresentation(payload) {
   }
 
   addHistoricalTop15PairSlide(presentation, payload, "2024 FY", "2023 FY", 30);
-  addPartial2022Top15Slide(presentation, payload, 31);
 
   addConclusionsSlide(presentation, payload, 32);
-
-  // 27. Escopo, fontes e limitações
-  {
-    const slide = presentation.slides.add();
-    const coverage = Object.fromEntries(payload.classification_coverage.map((row) => [row.categoria, row.share]));
-    addHeader(
-      slide,
-      "APÊNDICE · ESCOPO E FONTES",
-      "Escopo, fontes e limitações",
-      `• CVM, ANBIMA Data e FundosNet. ${stockPreliminaryDisclosure} Ofertas consultadas em ${offersSourceShort}.`,
-      20 + providerInsightOffset,
-    );
-    addEditorialTable(slide, {
-      left: 60,
-      top: 145,
-      width: 1160,
-      height: 485,
-      headers: ["Tema", "Universo / data", "Definição e limitação"],
-      rows: [
-        ["PL e base investidora", `${integer(payload.qa_latest.veiculos_total)} veículos; ${integer(payload.qa_latest.fundos_total)} fundos; ${stockLong}`, "PL bruto, ex-FIC e FIC-FIDC reconciliados. Contas se repetem por classe/série e não equivalem a investidores únicos."],
-        ["Tipo e Foco ANBIMA", `${pct(coverage["Oficial ANBIMA"], 2)} oficial; ${pct(coverage["Evidência documental"], 2)} evidência; ${pct(coverage["Proxy CVM"], 2)} proxy; ${pct(coverage["N/D"], 2)} N/D`, "Tipo, Foco, origem e data permanecem separados. Gestor e custodiante históricos usam o cadastro vigente; a base não observa a troca ao longo do tempo."],
-        ["Inadimplência", `${integer(payload.qa_latest.veiculos_total)} veículos; ${stockShortLower}`, `Cap por veículo; vazio = ausência de reporte. Aging reconciliado à Tabela I completa; ex-360 ajustada = ${pct(payload.qa_latest.inadimplencia_ex_360d_ajustada_pct_sobre_cobertura, 1)}.`],
-        ["Market share", `14 focos; 3 funções; ${stockShortLower}`, "Denominador = PL do subtipo; cobertura de classificação Tipo+Foco por PL é reportada em cada slide. Top 10 fixo por função; Outros identificados e prestador não informado separados."],
-        ["Monoestrutura", `${integer(payload.conclusion_metrics?.service_model_universe_funds)} fundos; ${stockShortLower}`, "PL direto; FICs excluídos pelo portão único. Mesmo conglomerado nas três funções; Kanastra permanece separada do Itaú e CBSF da REAG. Afiliação Kanastra→Itaú só no ranking de independentes."],
-        ["Comparativo por instrumento", "2023–2025 FY; 2026 jan–mai", "ANBIMA Data, Valor Encerrado por data de encerramento das ofertas públicas. Debêntures incluem debêntures de securitização. O anexo não segrega sistematicamente primárias e secundárias."],
-        ["Análises granulares de ofertas", "2022 parcial; 2023–2025 FY; 2026 jan–jun", "CVM/SRE, Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis e valor registrado positivo. Automático: requerimento; ordinário/legado: registro + emissor + data + instrumento."],
-        ["Perímetro FIC e cross-check", "30 nomes FIC mantidos; 319 inconsistências (R$ 139,03 bi)", "O portão FIC usa sinal nominal legado e revisão quantitativa; a auditoria separa a origem registrada de cada decisão. O cross-check registrou 243 multicarteira com classificação específica, 70 aprovações sem evidência suficiente, 5 emissor × credenciadora e 1 divergência aprovada × publicada, sem correção automática. EXPERT III (53.073.485/0001-00; R$ 3,52 bi) é o único caso em que a correção de perímetro sobrescreveu aprovação manual."],
-      ],
-      columnWidths: [190, 340, 630],
-      aligns: ["left", "left", "left"],
-      fontSize: 10.8,
-      rowHeight: 54,
-    });
-    addSourceNotes(slide, [
-      "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "ANBIMA Data — Boletim de Mercado de Capitais, snapshot mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
-      "ANBIMA — anexo oficial XLSX: https://data-strapi.prd.anbima.com.br/uploads/Boletim_MK_Anexo_8_33b8963678.xlsx",
-      "FundosNet/B3 — documentos públicos usados na conciliação de ratings.",
-      "Auditoria de perímetro e taxonomia — industry_fic_detection_audit.csv, industry_taxonomy_crosscheck.csv e taxonomy_review_actions.csv; competência 2026-06.",
-    ]);
-  }
 
   // 24–26. Universo completo dos market shares.
   const fullFocus = payload.market_share
@@ -6799,6 +6925,55 @@ async function addCarteira1CurationSheet(workbook, payload) {
   sheet.getRange(`A5:AI${rows.length + 4}`).format.rowHeightPx = 78;
 }
 
+async function addCarteira1TaxonomySheet(workbook, payload) {
+  const columns = [
+    ["Competência", "competencia"],
+    ["Período", "period_label"],
+    ["Ordem período", "period_order"],
+    ["Ordem categoria", "category_order"],
+    ["Tipo ANBIMA reclassificado", "anbima_tipo"],
+    ["PL Carteira 1", "portfolio_pl_brl"],
+    ["% PL Carteira 1", "portfolio_share"],
+    ["Fundos observados na categoria", "portfolio_funds"],
+    ["PL total Carteira 1", "portfolio_total_brl"],
+    ["CNPJs no escopo", "scope_cnpjs"],
+    ["CNPJs observados", "observed_cnpjs"],
+    ["Cobertura do escopo", "coverage_scope_share"],
+    ["PL mercado ex-FIC", "market_pl_brl"],
+    ["% PL mercado ex-FIC", "market_share"],
+    ["PL total mercado ex-FIC", "market_total_brl"],
+    ["Crescimento Carteira 1 desde dez/23", "portfolio_growth_since_start"],
+    ["Crescimento mercado desde dez/23", "market_growth_since_start"],
+    ["Δ participação Carteira 1", "portfolio_share_delta_pp"],
+    ["Δ participação mercado", "market_share_delta_pp"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.carteira_1_taxonomy_history || [], columns);
+  const summary = payload.carteira_1_taxonomy_summary || {};
+  if (rows.length !== 16) {
+    throw new Error(`Carteira 1 evolução deveria conter 16 linhas; contém ${rows.length}.`);
+  }
+  const sheet = resetSheet(workbook, "Carteira 1 evolução");
+  setHeaderBand(
+    sheet,
+    "Carteira 1 · evolução pela taxonomia reclassificada",
+    `${integer(summary.scope_cnpjs)} CNPJs salvos; ${integer(summary.latest_observed_cnpjs)} observados em ${competenceShortPt(payload.latest_complete).toLowerCase()}. Mercado e carteira usam as mesmas quatro categorias; ausência não recebe PL imputado.`,
+    headers,
+    rows.length,
+    { freezeColumns: 5, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(sheet, [95, 75, 75, 85, 215, 125, 105, 115, 130, 90, 100, 105, 130, 105, 135, 130, 130, 120, 120], rows.length);
+  applyFormatsByHeader(sheet, headers, rows.length);
+  ["F", "I", "M", "O"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  });
+  ["G", "L", "N", "P", "Q", "R", "S"].forEach((letter) => {
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = "0.0%";
+  });
+  sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 32;
+}
+
 async function addTop100OutrosSheet(workbook, payload) {
   const columns = [
     ["Competência PL", "competencia_pl"],
@@ -8026,6 +8201,7 @@ async function buildWorkbook(payload) {
   await addTaxonomyLevelSheet(workbook, payload);
   await addFlagshipCurationSheet(workbook, payload);
   await addCarteira1CurationSheet(workbook, payload);
+  await addCarteira1TaxonomySheet(workbook, payload);
   await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);
   await addClosedOffersSheet(workbook, payload);
@@ -8112,6 +8288,8 @@ async function exportWorkbook(workbook) {
       ["Auditoria Top 20 Tipo", "A1:M10"],
       ["Taxonomia por nível", "A1:J32"],
       ["Curadoria flagship", "A1:AL28"],
+      ["Carteira 1 curadoria", "A1:AI28"],
+      ["Carteira 1 evolução", "A1:S20"],
       ["Curadoria Outros Top 100", "A1:AH28"],
       ["Dispersão inadimplência", "A1:S24"],
       ["Ofertas encerradas", "A1:Q58"],

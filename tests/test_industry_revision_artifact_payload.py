@@ -5,6 +5,7 @@ import pytest
 
 from scripts.build_fidc_revision_artifact_payload import (
     _apply_detected_fic_history,
+    _portfolio_type_mix_history,
     _type_mix_history,
 )
 
@@ -91,3 +92,76 @@ def test_type_mix_builds_four_periods_and_incorporates_nd_into_outros() -> None:
         "jun/26",
     ]
     assert set(coverage["categoria"]) == {"Oficial ANBIMA", "N/D"}
+
+
+def test_portfolio_type_mix_history_reconciles_scope_and_market() -> None:
+    periods = ["2023-12", "2024-12", "2025-12", "2026-06"]
+    funds = pd.DataFrame(
+        [
+            {
+                "competencia": period,
+                "cnpj_fundo": cnpj,
+                "is_fic_fidc": False,
+                "anbima_tipo": category,
+                "anbima_foco": "N/D",
+                "pl": pl * (period_index + 1),
+            }
+            for period_index, period in enumerate(periods)
+            for cnpj, category, pl in (
+                ("00000001000100", "Fomento Mercantil", 10.0),
+                ("00000002000100", "Financeiro", 20.0),
+                ("00000003000100", "N/D", 5.0),
+            )
+        ]
+    )
+    scope = pd.DataFrame(
+        [
+            {"cnpj_fundo": "00000001000100"},
+            {"cnpj_fundo": "00000002000100"},
+            {"cnpj_fundo": "00000003000100"},
+            {"cnpj_fundo": "00000004000100"},
+        ]
+    )
+    market = pd.DataFrame(
+        [
+            {
+                "competencia": period,
+                "anbima_tipo": category,
+                "pl": 100.0 * (period_index + 1),
+                "share": 0.25,
+            }
+            for period_index, period in enumerate(periods)
+            for category in (
+                "Fomento Mercantil",
+                "Agro, Indústria e Comércio",
+                "Financeiro",
+                "Outros",
+            )
+        ]
+    )
+
+    history, summary = _portfolio_type_mix_history(
+        funds,
+        actions=pd.DataFrame(),
+        scope=scope,
+        periods=periods,
+        market_history=market,
+    )
+
+    assert len(history) == 16
+    assert history.groupby("competencia")["portfolio_share"].sum().tolist() == pytest.approx([1.0] * 4)
+    assert history.groupby("competencia")["market_share"].sum().tolist() == pytest.approx([1.0] * 4)
+    assert set(history["anbima_tipo"]) == {
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    }
+    assert history.loc[history["anbima_tipo"].eq("Outros"), "portfolio_pl_brl"].tolist() == pytest.approx(
+        [5.0, 10.0, 15.0, 20.0]
+    )
+    assert history.loc[history["anbima_tipo"].eq("Agro, Indústria e Comércio"), "portfolio_pl_brl"].eq(0).all()
+    assert summary["scope_cnpjs"] == 4
+    assert summary["latest_observed_cnpjs"] == 3
+    assert summary["latest_total_brl"] == pytest.approx(140.0)
+    assert "ausente" in summary["methodology"].casefold()

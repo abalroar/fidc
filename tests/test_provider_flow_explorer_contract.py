@@ -24,6 +24,8 @@ EXPECTED_PAYLOAD_KEYS = {
     "carteira_1_curation",
     "carteira_1_curation_ranges",
     "carteira_1_curation_summary",
+    "carteira_1_taxonomy_history",
+    "carteira_1_taxonomy_summary",
     "flagship_curation",
     "flagship_curation_summary",
     "flagship_families",
@@ -96,6 +98,8 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
     assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v1"
     assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v1"
+    assert compact["carteira1Taxonomy"]["schemaVersion"] == "carteira_1_taxonomy_compact_v1"
+    assert len(compact["carteira1Taxonomy"]["rows"]) == 16
     assert compact["issuanceTaxonomy"]["schemaVersion"] == "issuance_taxonomy_table_v1"
     assert len(compact["issuanceTaxonomy"]["rows"]) == 7
     assert len(compact["taxonomy"]["rows"]) == 358

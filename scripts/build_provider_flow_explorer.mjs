@@ -747,6 +747,86 @@ function validateCarteira1(data) {
   }
 }
 
+const CARTEIRA1_TAXONOMY_FIELDS = Object.freeze([
+  "competence", "period", "periodOrder", "categoryOrder", "category",
+  "portfolioPl", "portfolioShare", "portfolioFunds", "portfolioTotal",
+  "scope", "observed", "coverage", "marketPl", "marketShare", "marketTotal",
+  "portfolioGrowth", "marketGrowth", "portfolioShareDelta", "marketShareDelta",
+]);
+
+function carteira1TaxonomyModels(payload) {
+  const rows = [...(payload.carteira_1_taxonomy_history || [])]
+    .map((row) => ({
+      competence: String(row.competencia || "N/D"),
+      period: String(row.period_label || "N/D"),
+      periodOrder: Math.round(number(row.period_order)),
+      categoryOrder: Math.round(number(row.category_order)),
+      category: String(row.anbima_tipo || "N/D"),
+      portfolioPl: nullableNumber(row.portfolio_pl_brl),
+      portfolioShare: nullableNumber(row.portfolio_share),
+      portfolioFunds: Math.round(number(row.portfolio_funds)),
+      portfolioTotal: nullableNumber(row.portfolio_total_brl),
+      scope: Math.round(number(row.scope_cnpjs)),
+      observed: Math.round(number(row.observed_cnpjs)),
+      coverage: nullableNumber(row.coverage_scope_share),
+      marketPl: nullableNumber(row.market_pl_brl),
+      marketShare: nullableNumber(row.market_share),
+      marketTotal: nullableNumber(row.market_total_brl),
+      portfolioGrowth: nullableNumber(row.portfolio_growth_since_start),
+      marketGrowth: nullableNumber(row.market_growth_since_start),
+      portfolioShareDelta: nullableNumber(row.portfolio_share_delta_pp),
+      marketShareDelta: nullableNumber(row.market_share_delta_pp),
+    }))
+    .sort((a, b) => a.periodOrder - b.periodOrder || a.categoryOrder - b.categoryOrder);
+  const summary = payload.carteira_1_taxonomy_summary || {};
+  return {
+    summary: {
+      portfolio: String(summary.portfolio || "Carteira 1"),
+      scope: Math.round(number(summary.scope_cnpjs)),
+      observed: Math.round(number(summary.latest_observed_cnpjs)),
+      latestTotal: nullableNumber(summary.latest_total_brl),
+      source: String(summary.source || "N/D"),
+      methodology: String(summary.methodology || "N/D"),
+    },
+    rows,
+  };
+}
+
+function compactCarteira1Taxonomy(data) {
+  return {
+    schemaVersion: "carteira_1_taxonomy_compact_v1",
+    fields: CARTEIRA1_TAXONOMY_FIELDS,
+    summary: data.summary,
+    rows: data.rows.map((row) => CARTEIRA1_TAXONOMY_FIELDS.map((field) => row[field])),
+  };
+}
+
+function expandCompactCarteira1Taxonomy(compact) {
+  if (compact.schemaVersion !== "carteira_1_taxonomy_compact_v1") {
+    throw new Error(`Esquema da evolução da Carteira 1 desconhecido: ${compact.schemaVersion}`);
+  }
+  return {
+    summary: compact.summary,
+    rows: compact.rows.map((values) => Object.fromEntries(
+      compact.fields.map((field, index) => [field, values[index]]),
+    )),
+  };
+}
+
+function validateCarteira1Taxonomy(data) {
+  if (data.rows.length !== 16) throw new Error("Evolução da Carteira 1 deve conter 16 linhas");
+  const periods = new Set(data.rows.map((row) => row.competence));
+  const categories = new Set(data.rows.map((row) => row.category));
+  if (periods.size !== 4 || categories.size !== 4) {
+    throw new Error("Evolução da Carteira 1 deve conter quatro períodos e quatro categorias");
+  }
+  for (const competence of periods) {
+    const rows = data.rows.filter((row) => row.competence === competence);
+    assertClose(rows.reduce((sum, row) => sum + number(row.portfolioShare), 0), 1, `${competence}: mix Carteira 1`, 1e-9);
+    assertClose(rows.reduce((sum, row) => sum + number(row.marketShare), 0), 1, `${competence}: mix mercado`, 1e-9);
+  }
+}
+
 const TAXONOMY_FIELDS = Object.freeze([
   "competence", "level", "type", "category", "funds", "pl", "typePl", "totalPl",
   "shareType", "shareTotal",
@@ -1233,10 +1313,21 @@ function taxonomyApp(DATA) {
   render();
 }
 
+function carteira1TaxonomyApp(DATA) {
+  const root = document.getElementById("carteira-1-taxonomy-explorer");
+  const tbody = root.querySelector("tbody");
+  const n = value => value == null || value === "" ? null : Number(value);
+  const money = value => n(value) === null ? "N/D" : "R$ " + (n(value) / 1e9).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1}) + " bi";
+  const pct = value => n(value) === null ? "N/D" : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1}) + "%";
+  const pp = value => n(value) === null ? "N/D" : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1}) + " p.p.";
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[character]));
+  tbody.innerHTML = DATA.rows.map(row => `<tr><td>${esc(row.period)}</td><td>${esc(row.category)}</td><td class="num">${money(row.portfolioPl)}</td><td class="num">${pct(row.portfolioShare)}</td><td class="num">${row.portfolioFunds.toLocaleString("pt-BR")}</td><td class="num">${row.observed}/${row.scope}</td><td class="num">${pct(row.portfolioGrowth)}</td><td class="num">${pct(row.marketGrowth)}</td><td class="num">${pp(row.portfolioShareDelta)}</td><td class="num">${pp(row.marketShareDelta)}</td></tr>`).join("");
+}
+
 function clientRuntime(data) {
   const serialized = JSON.stringify(data).replace(/</g, "\\u003c");
   return `<script type="application/json" id="provider-flow-data">${serialized}<\/script>
-<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);const carteira1=(${expandCompactCarteira1.toString()})(compact.carteira1);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${issuanceTaxonomyApp.toString()})(compact.issuanceTaxonomy);(${flagshipApp.toString()})(flagships);(${carteira1App.toString()})(carteira1)})();<\/script>`;
+<script>(()=>{const compact=JSON.parse(document.getElementById("provider-flow-data").textContent);const expanded=(${expandCompactViews.toString()})(compact);const taxonomy=(${expandCompactTaxonomy.toString()})(compact.taxonomy);const flagships=(${expandCompactFlagships.toString()})(compact.flagships);const carteira1=(${expandCompactCarteira1.toString()})(compact.carteira1);const carteira1Taxonomy=(${expandCompactCarteira1Taxonomy.toString()})(compact.carteira1Taxonomy);(${browserApp.toString()})(expanded);(${taxonomyApp.toString()})(taxonomy);(${issuanceTaxonomyApp.toString()})(compact.issuanceTaxonomy);(${flagshipApp.toString()})(flagships);(${carteira1App.toString()})(carteira1);(${carteira1TaxonomyApp.toString()})(carteira1Taxonomy)})();<\/script>`;
 }
 
 function fragmentHtml(data, standalone = false) {
@@ -1281,7 +1372,7 @@ function fragmentHtml(data, standalone = false) {
     #provider-flow-explorer td.num,#provider-flow-explorer th.num{text-align:right;white-space:nowrap}
     #provider-flow-explorer .pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flow-muted)}
     #provider-flow-explorer .flow-tooltip{position:absolute;z-index:2;max-width:320px;padding:8px 10px;background:var(--flow-fg);color:var(--flow-bg);border-radius:4px;pointer-events:none}
-    #taxonomy-level-explorer,#issuance-taxonomy-explorer,#flagship-curation-explorer,#carteira-1-curation-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
+    #taxonomy-level-explorer,#issuance-taxonomy-explorer,#flagship-curation-explorer,#carteira-1-curation-explorer,#carteira-1-taxonomy-explorer{--flag-bg:var(--background,#FFFFFF);--flag-fg:var(--foreground,#151515);--flag-muted:var(--muted-foreground,#73787D);--flag-border:var(--border,#D7DADD);--flag-pale:var(--accent,#F5F6F7);margin-top:54px;padding-top:28px;border-top:2px solid var(--flag-fg);color:var(--flag-fg);font-family:Arial,sans-serif}
     #taxonomy-level-explorer .tax-heading h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
     #taxonomy-level-explorer .tax-heading p{margin:0;color:var(--flag-muted);font-size:14px}
     #taxonomy-level-explorer .tax-controls{display:flex;gap:12px;align-items:end;margin:18px 0 14px;flex-wrap:wrap}
@@ -1362,6 +1453,13 @@ function fragmentHtml(data, standalone = false) {
     #carteira-1-curation-explorer details summary{cursor:pointer;color:var(--flag-fg)}
     #carteira-1-curation-explorer .flag-sources{display:grid;gap:4px;margin-top:6px;min-width:230px;color:var(--flag-muted)}
     #carteira-1-curation-explorer .c1-pager{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:10px;color:var(--flag-muted)}
+    #carteira-1-taxonomy-explorer h2{font-size:22px;line-height:1.15;margin:0 0 5px;letter-spacing:-.02em}
+    #carteira-1-taxonomy-explorer p{margin:0 0 16px;color:var(--flag-muted);font-size:13px}
+    #carteira-1-taxonomy-explorer{overflow-x:auto}
+    #carteira-1-taxonomy-explorer table{border-collapse:collapse;width:100%;min-width:1050px;font-size:11px}
+    #carteira-1-taxonomy-explorer th,#carteira-1-taxonomy-explorer td{text-align:left;padding:8px 7px;border-bottom:1px solid var(--flag-border)}
+    #carteira-1-taxonomy-explorer th{color:var(--flag-muted)}
+    #carteira-1-taxonomy-explorer td.num,#carteira-1-taxonomy-explorer th.num{text-align:right;white-space:nowrap}
     @media(max-width:720px){#provider-flow-explorer .optional{display:none}#provider-flow-explorer [data-chart]{min-height:260px}#provider-flow-explorer .metric{font-size:22px}#provider-flow-explorer .node-label{font-size:13px}#provider-flow-explorer th,#provider-flow-explorer td{padding:7px 4px}}
     @media(max-width:980px){#flagship-curation-explorer .flag-grid{grid-template-columns:repeat(3,minmax(0,1fr))}#flagship-curation-explorer .flag-metrics,#carteira-1-curation-explorer .c1-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}#carteira-1-curation-explorer .c1-range-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
     @media(max-width:620px){#taxonomy-level-explorer .tax-chart{grid-template-columns:1fr}#flagship-curation-explorer .flag-grid,#carteira-1-curation-explorer .c1-range-grid{grid-template-columns:1fr}#flagship-curation-explorer .flag-metrics,#carteira-1-curation-explorer .c1-metrics{grid-template-columns:1fr}#flagship-curation-explorer table,#carteira-1-curation-explorer table{font-size:11px}}
@@ -1448,6 +1546,11 @@ function fragmentHtml(data, standalone = false) {
   <div class="c1-pager" data-c1-pager><button type="button" data-c1-prev>Anterior</button><span>0 / 0</span><button type="button" data-c1-next>Próxima</button></div>
   <p class="c1-caption">${data.carteira1.summary.emission}/101 com data de emissão; ${data.carteira1.summary.outside} veículo fora da base mensal FIDC permanece com métricas N/D. Correspondências com famílias flagship são registradas somente quando diretas.</p>
 </section>
+<section id="carteira-1-taxonomy-explorer" aria-labelledby="carteira-1-taxonomy-title">
+  <h2 id="carteira-1-taxonomy-title">Carteira 1 · evolução pela taxonomia reclassificada</h2>
+  <p>${data.carteira1Taxonomy.summary.observed}/${data.carteira1Taxonomy.summary.scope} CNPJs observados na competência mais recente; PL de ${data.carteira1Taxonomy.summary.latestTotal == null ? "N/D" : `R$ ${(data.carteira1Taxonomy.summary.latestTotal / 1e9).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})} bi`}. A comparação usa o mesmo critério analítico da indústria e preserva ausências.</p>
+  <table aria-label="Evolução da Carteira 1 e comparação com o mercado"><thead><tr><th>Período</th><th>Tipo reclassificado</th><th class="num">PL Carteira 1</th><th class="num">% Carteira 1</th><th class="num">Fundos</th><th class="num">Cobertura</th><th class="num">Cresc. carteira</th><th class="num">Cresc. mercado</th><th class="num">Δ mix carteira</th><th class="num">Δ mix mercado</th></tr></thead><tbody></tbody></table>
+</section>
 ${clientRuntime(data)}`;
 }
 
@@ -1471,22 +1574,26 @@ async function main() {
   const taxonomy = taxonomyModels(payload);
   const flagships = flagshipModels(payload);
   const carteira1 = carteira1Models(payload);
+  const carteira1Taxonomy = carteira1TaxonomyModels(payload);
   const issuanceTaxonomy = issuanceTaxonomyModels(payload);
   validateViews(data);
   validateTaxonomy(taxonomy);
   validateFlagships(flagships);
   validateCarteira1(carteira1);
+  validateCarteira1Taxonomy(carteira1Taxonomy);
   const compact = {
     ...compactViews(data),
     taxonomy: compactTaxonomy(taxonomy),
     issuanceTaxonomy,
     flagships: compactFlagships(flagships),
     carteira1: compactCarteira1(carteira1),
+    carteira1Taxonomy: compactCarteira1Taxonomy(carteira1Taxonomy),
   };
   const expanded = expandCompactViews(compact);
   const expandedTaxonomy = expandCompactTaxonomy(compact.taxonomy);
   const expandedFlagships = expandCompactFlagships(compact.flagships);
   const expandedCarteira1 = expandCompactCarteira1(compact.carteira1);
+  const expandedCarteira1Taxonomy = expandCompactCarteira1Taxonomy(compact.carteira1Taxonomy);
   if (!isDeepStrictEqual(expanded, data)) {
     throw new Error("O esquema compacto não preservou integralmente o view-model");
   }
@@ -1499,10 +1606,14 @@ async function main() {
   if (!isDeepStrictEqual(expandedCarteira1, carteira1)) {
     throw new Error("O esquema compacto não preservou integralmente a curadoria da Carteira 1");
   }
+  if (!isDeepStrictEqual(expandedCarteira1Taxonomy, carteira1Taxonomy)) {
+    throw new Error("O esquema compacto não preservou integralmente a evolução da Carteira 1");
+  }
   validateViews(expanded);
   validateTaxonomy(expandedTaxonomy);
   validateFlagships(expandedFlagships);
   validateCarteira1(expandedCarteira1);
+  validateCarteira1Taxonomy(expandedCarteira1Taxonomy);
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
   await fs.writeFile(htmlPath, standaloneHtml(compact), "utf8");
   if (fragmentPath) {

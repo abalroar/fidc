@@ -202,6 +202,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "OFERTAS ENCERRADAS · SÉRIE CVM",
         "OFERTAS ENCERRADAS · SÉRIE ANBIMA",
         "BASE INVESTIDORA",
+        "OUTROS · ABERTURA ANALÍTICA",
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
         "INADIMPLÊNCIA · BASE ORIGINAL",
         "INADIMPLÊNCIA · EX-ZEROS",
@@ -218,10 +219,10 @@ def test_industry_exports_are_valid_office_files() -> None:
         "OFERTAS · VOLUME E REGIME",
         "TOP 15 · OFERTAS ENCERRADAS",
         "TOP 15 · HISTÓRICO",
-        "TOP 15 · 2022 PARCIAL",
         "PRINCIPAIS CONCLUSÕES",
         "RANKING · TOP 20 FIDCs",
         "CURADORIA · FUNDOS FLAGSHIP",
+        "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
         "APÊNDICE · CURADORIA TOP 20",
     ):
         assert expected in visible_text
