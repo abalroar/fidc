@@ -758,7 +758,6 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Checks revisão",
         "Universo elegível",
         "FICs excluídos",
-        "Taxonomia por CNPJ",
         "Decisões do ledger",
     }
     with ZipFile(XLSX) as archive:

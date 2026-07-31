@@ -290,6 +290,5 @@ def test_industry_exports_are_valid_office_files() -> None:
         "Checks revisão",
         "Universo elegível",
         "FICs excluídos",
-        "Taxonomia por CNPJ",
         "Decisões do ledger",
     }.issubset(sheet_names)

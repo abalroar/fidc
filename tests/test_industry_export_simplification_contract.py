@@ -58,6 +58,7 @@ EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Tipos investidor",
     "_Listas",
     "Cross-check taxonomia",
+    "Taxonomia por CNPJ",
 )
 INHERITED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
@@ -504,3 +505,5 @@ def test_workbook_removal_allowlist_preserves_protected_sheets() -> None:
     assert set(sheets_to_remove).isdisjoint(REQUIRED_WORKBOOK_SHEETS)
     assert 'sheetName: "Cross-check taxonomia"' not in renderer_source
     assert '["Cross-check taxonomia", "A1:' not in renderer_source
+    assert 'sheetName: "Taxonomia por CNPJ"' not in renderer_source
+    assert '["Taxonomia por CNPJ", "A1:' not in renderer_source

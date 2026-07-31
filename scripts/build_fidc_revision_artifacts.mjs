@@ -97,6 +97,7 @@ const WORKBOOK_SHEETS_TO_REMOVE = [
   "Tipos investidor",
   "_Listas",
   "Cross-check taxonomia",
+  "Taxonomia por CNPJ",
 ];
 
 const C = {
@@ -5263,20 +5264,6 @@ async function addPerimeterAuditSheets(workbook, payload) {
     filter: (row) => String(row.is_fic || "").toLowerCase() === "true",
     uniqueBy: "cnpj_fundo",
   });
-  const taxonomyColumns = [
-    "cnpj_fundo", "denominacao_referencia", "status", "tipo_analitico",
-    "foco_analitico", "tabela_ii_analitica", "taxonomia_funcional_n1",
-    "taxonomia_funcional_n2", "confianca", "competencia_referencia",
-    "competencia_inicio", "fonte_documental", "documento_data",
-    "pagina_clausula", "evidencia", "notas", "responsavel", "updated_at_utc",
-  ];
-  await addCsvAuditSheet(workbook, {
-    filePath: path.join(DATA_DIR, "taxonomy_review_actions.csv"),
-    sheetName: "Taxonomia por CNPJ",
-    title: "Taxonomia analítica vigente por CNPJ",
-    subtitle: `Fonte taxonomy_review_actions.csv; competência de publicação ${payload.latest_complete}; atualização ${generatedAt}. Uma decisão única por CNPJ é aplicada a todas as competências pelo overlay, com os campos oficiais preservados.`,
-    sourceHeaders: taxonomyColumns,
-  });
   await addCsvAuditSheet(workbook, {
     filePath: path.join(DATA_DIR, "taxonomy_review_actions.csv"),
     sheetName: "Decisões do ledger",
@@ -7815,7 +7802,6 @@ async function exportWorkbook(workbook) {
       ["Checks revisão", "A1:D28"],
       ["Universo elegível", "A1:P25"],
       ["FICs excluídos", "A1:J25"],
-      ["Taxonomia por CNPJ", "A1:R25"],
       ["Decisões do ledger", "A1:U25"],
     ];
     const workbookQa = path.join(QA_DIR, "workbook_revisado");
