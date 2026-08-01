@@ -41,31 +41,31 @@ BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
 EXPECTED_SLIDES = 26
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    ("industria de fidcs",),
+    ("industria de fidcs", "jun/26"),
     ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
-    ("ofertas encerradas", "cvm e anbima", "valor encerrado por instrumento"),
+    ("fidcs seguem ganhando escala nas emissoes", "valor encerrado anbima"),
     ("emissoes por categoria anbima", "emissoes por setor"),
-    ("taxonomia analitica", "precatorios e/ou acoes judiciais", "multicedente/multisacado"),
-    ("reclassificacao de adquirencia",),
-    ("carteira por tipo de recebivel",),
+    ("abrir", "outros", "revela que 63% do mercado e credito financeiro"),
+    ("adquirencia e r$ 99 bi", "33 cnpjs reclassificados"),
+    ("financeiro explicou 70% do crescimento da carteira",),
     ("prestadores", "ranking e concentracao"),
     ("ranking", "top 20 fidcs"),
-    ("top fundos e originadores", "fomento mercantil"),
-    ("top fundos e originadores", "agro, industria e comercio"),
-    ("top fundos e originadores", "financeiro"),
-    ("top fundos e originadores", "outros"),
+    ("fomento mercantil", "crescimento marginal em seis meses"),
+    ("agro, industria e comercio", "maior salto absoluto"),
+    ("financeiro", "maior bloco", "ainda crescendo"),
+    ("outros", "unico bloco que encolheu"),
     ("curadoria", "fundos flagship"),
     ("carteira 1", "47 cnpjs flagship"),
-    ("carteira 1", "taxonomia analitica"),
-    ("ofertas encerradas", "volume e ticket"),
-    ("distribuicao do ticket",),
+    ("carteira lida com o mesmo criterio do mercado",),
+    ("emissoes crescem 15% no semestre",),
+    ("22 ofertas concentram 42% de todo o volume",),
     ("ofertas", "volume e regime"),
-    ("top 15", "ofertas encerradas"),
+    ("ibba esteve em 8 das 15 maiores ofertas do semestre",),
     ("top 15", "historico"),
-    ("principais conclusoes",),
-    ("prestadores", "evolucao e ranking"),
-    ("prestadores", "lideranca explicada"),
-    ("base investidora",),
+    ("o que muda a leitura do mercado",),
+    ("qi lidera administracao", "btg lidera gestao e custodia"),
+    ("a lideranca some quando se olha o que a sustenta",),
+    ("quase todo o volume vai para o investidor profissional",),
     ("distribuicao por numero de cotistas",),
 )
 if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
@@ -501,7 +501,7 @@ def validate_revision_pptx(payload: bytes) -> None:
             if b'<c:symbol val="none"' not in marker:
                 raise RevisionExportUnavailable("PPTX revisado contém marker ativo")
         ranking_slide = _slide_xml_containing(
-            archive, "PRESTADORES", "EVOLUÇÃO E RANKING"
+            archive, "QI LIDERA ADMINISTRAÇÃO", "BTG LIDERA GESTÃO E CUSTÓDIA"
         )
         if ranking_slide.count(b"<a:tbl>") != 0:
             raise RevisionExportUnavailable(
@@ -512,7 +512,7 @@ def validate_revision_pptx(payload: bytes) -> None:
                 "slide combinado de prestadores deve conter ao menos seis gráficos nativos do Office"
             )
         offers_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "DISTRIBUIÇÃO DO TICKET"
+            archive, "22 OFERTAS CONCENTRAM 42% DE TODO O VOLUME"
         )
         if offers_slide.count(b"<c:chart") < 3:
             raise RevisionExportUnavailable(
@@ -524,7 +524,7 @@ def validate_revision_pptx(payload: bytes) -> None:
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
             )
         combined_market_slide = _slide_xml_containing(
-            archive, "OFERTAS ENCERRADAS", "CVM E ANBIMA"
+            archive, "FIDCS SEGUEM GANHANDO ESCALA NAS EMISSÕES"
         )
         if combined_market_slide.count(b"<c:chart") != 2:
             raise RevisionExportUnavailable(
@@ -546,13 +546,13 @@ def validate_revision_pptx(payload: bytes) -> None:
                 "slide de emissões por categoria deve conter uma tabela nativa"
             )
         top15_offers_slide = _slide_xml_containing(
-            archive, "TOP 15", "IBBA PARTICIPOU", "JAN–JUN/26"
+            archive, "IBBA ESTEVE EM 8 DAS 15 MAIORES OFERTAS DO SEMESTRE"
         )
         if top15_offers_slide.count(b"<a:tbl>") != 2:
             raise RevisionExportUnavailable(
                 "slide de maiores ofertas deve conter duas tabelas nativas do Office"
             )
-        _slide_xml_containing(archive, "PRINCIPAIS CONCLUSÕES")
+        _slide_xml_containing(archive, "O QUE MUDA A LEITURA DO MERCADO")
 
 
 def validate_revision_xlsx(payload: bytes) -> None:
