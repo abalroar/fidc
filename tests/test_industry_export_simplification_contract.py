@@ -31,12 +31,12 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-PUBLISHED_PAYLOAD_BYTES = 15_632_525
+PUBLISHED_PAYLOAD_BYTES = 15_770_582
 PUBLISHED_PAYLOAD_SHA256 = (
-    "8cfb074613055fb8cf8974877ada4123adf816f494368203579ce507fbe6dbfa"
+    "78a9741539b4bd67d84c02ed8bbee51284f609e418c84ad453d24ff3b12e2f74"
 )
 PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "f9280b2371061b9304968b6164bcc07ace90fea8cb605fa08d915eb5705b9375"
+    "3820802fb1213178f1ce2a9a079320c91a79e37f8c9538653937d3e0ffd0d8c5"
 )
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
@@ -271,7 +271,7 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     }
     assert manifest["payload_sha256"] == PUBLISHED_PAYLOAD_SHA256
     assert payload["schema_version"] == "fidc_revision_artifact_payload_v7"
-    assert len(payload) == 131
+    assert len(payload) == 132
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
@@ -283,6 +283,7 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
         "flagship_curation",
         "flagship_curation_summary",
         "flagship_families",
+        "emission_field_audit",
         "issuance_taxonomy",
         "issuance_taxonomy_reconciliation",
         "issuance_taxonomy_table",
@@ -295,9 +296,9 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 75
+    assert len(pptx_keys) == 76
     assert len(dashboard_keys) == 91
-    assert len(consumer_keys) == 105
+    assert len(consumer_keys) == 106
     assert {
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",

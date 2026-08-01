@@ -101,6 +101,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_flagship_document_curation.csv",
     "industry_carteira_1_scope.csv",
     "industry_carteira_1_document_curation.csv",
+    "emission_field_audit.csv",
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -1120,6 +1121,19 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         rows = payload.get(key)
         if not isinstance(rows, list) or len(rows) != 20:
             raise RevisionBundlePublishError(f"payload {key} deve conter 20 linhas")
+    emission_audit = payload.get("emission_field_audit")
+    if not isinstance(emission_audit, list) or len(emission_audit) != 180:
+        raise RevisionBundlePublishError(
+            "emission_field_audit deve conter 180 linhas auditadas"
+        )
+    audit_counts: dict[str, int] = {}
+    for row in emission_audit:
+        if not isinstance(row, Mapping):
+            raise RevisionBundlePublishError("emission_field_audit contém linha inválida")
+        block = str(row.get("bloco") or "")
+        audit_counts[block] = audit_counts.get(block, 0) + 1
+    if audit_counts != {"slides 10–13": 120, "slides 21–22": 60}:
+        raise RevisionBundlePublishError("emission_field_audit não fecha 120 + 60 linhas")
     if not payload.get("offers_as_of"):
         raise RevisionBundlePublishError("payload editorial sem data-base de ofertas")
     type_mix = payload.get("type_mix_history")

@@ -184,7 +184,7 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 33
+    assert len(presentation.slides) == EXPECTED_SLIDES == 26
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -203,11 +203,8 @@ def test_industry_exports_are_valid_office_files() -> None:
         "BASE INVESTIDORA",
         "Precatórios e/ou Ações Judiciais",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
-        "MARKET SHARE · ADMINISTRAÇÃO",
-        "MARKET SHARE · GESTÃO",
-        "MARKET SHARE · CUSTÓDIA",
         "PRESTADORES · EVOLUÇÃO E RANKING",
-            "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
+        "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
         "PRESTADORES · LIDERANÇA EXPLICADA",
         "OFERTAS ENCERRADAS · VOLUME E TICKET",
         "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",

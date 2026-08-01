@@ -522,6 +522,10 @@ def _payload() -> dict[str, object]:
         "top20_fidcs": [{}] * 20,
         "top20_outros": [{}] * 20,
         "profiles": [{}] * 20,
+        "emission_field_audit": [
+            {"bloco": "slides 10–13" if index < 120 else "slides 21–22"}
+            for index in range(180)
+        ],
         "holder_distribution_history": [
             {"competencia": "2023-12"},
             {"competencia": "2026-05"},
@@ -1374,7 +1378,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v2"
-    assert first["checks"]["slides"] == 33
+    assert first["checks"]["slides"] == 26
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

@@ -39,7 +39,7 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
-EXPECTED_SLIDES = 33
+EXPECTED_SLIDES = 26
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("industria de fidcs",),
     ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
@@ -57,7 +57,6 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("curadoria", "fundos flagship"),
     ("carteira 1", "47 cnpjs flagship"),
     ("carteira 1", "taxonomia analitica"),
-    ("concentracao das monoestruturas",),
     ("ofertas encerradas", "volume e ticket"),
     ("distribuicao do ticket",),
     ("ofertas", "volume e regime"),
@@ -66,17 +65,11 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("principais conclusoes",),
     ("prestadores", "evolucao e ranking"),
     ("prestadores", "lideranca explicada"),
-    ("market share", "administracao"),
-    ("market share", "gestao"),
-    ("market share", "custodia"),
-    ("apendice", "market share", "administracao"),
-    ("apendice", "market share", "gestao"),
-    ("apendice", "market share", "custodia"),
     ("base investidora",),
     ("distribuicao por numero de cotistas",),
 )
 if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
-    raise RuntimeError("contrato ordinal do PPTX não fecha 33 slides")
+    raise RuntimeError("contrato ordinal do PPTX não fecha 26 slides")
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -117,6 +110,7 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Crédito Privado Ampliado",
     "Originadores 2026",
     "Top 15 ofertas",
+    "Auditoria emissões",
     "Validação emissões",
     "Emissões por categoria",
     "Público-alvo ofertas",
@@ -472,19 +466,19 @@ def validate_revision_pptx(payload: bytes) -> None:
             _validate_native_table_slide(
                 archive,
                 ranking_slide_number,
-                expected_dimensions=((16, 4), (16, 4)),
+                expected_dimensions=((16, 6), (16, 6)),
                 canvas=canvas,
             )
         _validate_native_table_slide(
             archive,
-            21,
-            expected_dimensions=((16, 10), (16, 10)),
+            20,
+            expected_dimensions=((16, 7), (16, 7)),
             canvas=canvas,
         )
         _validate_native_table_slide(
             archive,
-            22,
-            expected_dimensions=((16, 9), (16, 9)),
+            21,
+            expected_dimensions=((16, 7), (16, 7)),
             canvas=canvas,
         )
         office_xml_parts = [

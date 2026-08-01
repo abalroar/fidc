@@ -80,7 +80,7 @@ def _cell_is_bold(cell: ET.Element) -> bool:
     )
 
 
-def test_compact_pptx_has_33_slides_and_omits_requested_appendices() -> None:
+def test_compact_pptx_has_26_slides_and_omits_requested_sections() -> None:
     with ZipFile(PPTX) as archive:
         slides = sorted(
             name
@@ -89,8 +89,8 @@ def test_compact_pptx_has_33_slides_and_omits_requested_appendices() -> None:
             and name.endswith(".xml")
             and "/_rels/" not in name
         )
-        assert len(slides) == 33
-        text = "\n".join(_slide_text(archive, number) for number in range(1, 34))
+        assert len(slides) == 26
+        text = "\n".join(_slide_text(archive, number) for number in range(1, 27))
 
     for removed in (
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -102,6 +102,13 @@ def test_compact_pptx_has_33_slides_and_omits_requested_appendices() -> None:
         "APÊNDICE · CURADORIA TOP 20",
         "APÊNDICE · CASO ATLÂNTICO",
         "OUTROS · ABERTURA ANALÍTICA",
+        "CONCENTRAÇÃO DAS MONOESTRUTURAS",
+        "MARKET SHARE · ADMINISTRAÇÃO",
+        "MARKET SHARE · GESTÃO",
+        "MARKET SHARE · CUSTÓDIA",
+        "ADMINISTRAÇÃO POR SUBTIPO",
+        "GESTÃO POR SUBTIPO",
+        "CUSTÓDIA POR SUBTIPO",
     ):
         assert removed not in text
 

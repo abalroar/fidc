@@ -80,22 +80,19 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v33";
+const RENDERER_VERSION = "industry_revision_artifacts_v34";
 const SLIDE_CONTRACT_V1 = Object.freeze([
   "cover", "industry_scale", "annual_issuance", "issuance_taxonomy", "analytical_taxonomy",
   "acquiring", "receivables", "provider_ranking", "top20", "top20_fomento",
   "top20_agro", "top20_financeiro", "top20_outros", "flagship_curation",
-  "portfolio_1_curation", "portfolio_1_taxonomy", "monostructure", "offers_volume_ticket",
+  "portfolio_1_curation", "portfolio_1_taxonomy", "offers_volume_ticket",
   "offers_ticket_distribution", "offers_placement_regime", "top15_current",
   "top15_history", "conclusions",
-  "provider_history", "provider_attribution", "market_admin",
-  "market_manager", "market_custodian", "market_admin_appendix",
-  "market_manager_appendix", "market_custodian_appendix", "investor_base",
-  "holder_distribution",
+  "provider_history", "provider_attribution", "investor_base", "holder_distribution",
 ]);
 const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;
-if (EXPECTED_SLIDES !== 33) {
-  throw new Error(`Contrato ordinal deveria conter 33 slides; contém ${EXPECTED_SLIDES}.`);
+if (EXPECTED_SLIDES !== 26) {
+  throw new Error(`Contrato ordinal deveria conter 26 slides; contém ${EXPECTED_SLIDES}.`);
 }
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
@@ -355,6 +352,23 @@ function fundEditorialName(value, maxChars = 34) {
     .replace(/\s+/g, " ")
     .trim();
   return truncateWords(compact || original, maxChars);
+}
+
+function cnpjDigits(value) {
+  return String(value || "").replace(/\D/g, "").padStart(14, "0");
+}
+
+function formatCnpj(value) {
+  const digits = cnpjDigits(value);
+  return /^\d{14}$/.test(digits)
+    ? digits.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5")
+    : "N/D";
+}
+
+function auditField(value, maxChars = 34) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text || /^N\/D(?:\b|\s|—|-)/i.test(text)) return "N/D";
+  return truncateWords(text, maxChars) || "N/D";
 }
 
 function providerShort(value) {
@@ -2536,18 +2550,22 @@ function top15AgencyLabel(value) {
   }[value] || "N/D");
 }
 
-function top15SlideRows(rows) {
-  return rows.map((row) => [
-    integer(row.rank),
-    row.fund_name_short,
-    truncateWords(row.originator_group || "Não identificado", 22),
-    (num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-    top15CoordinatorLabel(row.leader_name),
-    row.firm_commitment_label,
-    top15PublicLabel(row.publico),
-    top15AgencyLabel(row.rating_agency),
-    String(row.rating_assigned || "N/D").split(" | ").join("\n"),
-  ]);
+function top15SlideRows(rows, emissionAudit) {
+  const auditByEmission = new Map(
+    (emissionAudit || []).map((row) => [`${row.tabela}::${row.emissao_id}`, row]),
+  );
+  return rows.map((row) => {
+    const audit = auditByEmission.get(`${row.period_label}::${row.offer_id}`) || {};
+    return [
+      integer(row.rank),
+      `E ${row.offer_id}\n${formatCnpj(audit.cnpj || row.cnpj_emissor)}`,
+      fundEditorialName(row.fund_name_short, 24),
+      `O: ${auditField(audit.originador, 18)}\nC: ${auditField(audit.cedente, 18)}`,
+      `S: ${auditField(audit.subordinacao_minima, 17)}\nP: ${auditField(audit.preco_por_tipo_cota, 17)}`,
+      auditField(audit.sacado, 20),
+      (num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+    ];
+  });
 }
 
 function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPeriod, slideNumber) {
@@ -2560,12 +2578,13 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
   const leftSummary = summaries[leftPeriod] || {};
   const rightSummary = summaries[rightPeriod] || {};
   const display = (period) => period.replace(" FY", "FY").replace("2026 jan-jun", "JAN–JUN/26");
-  const columnWidths = [24, 125, 74, 47, 68, 32, 48, 62, 80];
-  const aligns = ["right", "left", "left", "right", "left", "center", "left", "left", "left"];
+  const emissionAudit = (payload.emission_field_audit || []).filter((row) => row.bloco === "slides 21–22");
+  const columnWidths = [22, 82, 112, 105, 100, 84, 55];
+  const aligns = ["right", "left", "left", "left", "left", "left", "right"];
   addHeader(
     slide,
     "TOP 15 · HISTÓRICO",
-    `${display(leftPeriod)} e ${display(rightPeriod)} com agência e rating em colunas separadas`,
+    `${display(leftPeriod)} e ${display(rightPeriod)} com campos documentais por CNPJ e emissão`,
     "Fonte: CVM/SRE, dois arquivos de ofertas, e FundosNet. Primárias encerradas, todos os ritos; volume registrado.",
     slideNumber,
   );
@@ -2579,12 +2598,12 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord.", "GF", "Público", "Agência", "Rating"],
-      rows: top15SlideRows(rows),
+      headers: ["#", "Emissão / CNPJ", "FIDC", "Originador / cedente", "Sub. mín. / preço por cota", "Sacado", "R$ bi"],
+      rows: top15SlideRows(rows, emissionAudit),
       columnWidths,
       aligns,
-      fontSize: 6.1,
-      headerFontSize: 5.9,
+      fontSize: 5.5,
+      headerFontSize: 5.4,
       headerHeight: 34,
       rowHighlights: new Set(),
     });
@@ -2597,13 +2616,13 @@ function addHistoricalTop15PairSlide(presentation, payload, leftPeriod, rightPer
   });
   addText(
     slide,
-    "GF = garantia firme. Agência e rating são publicados somente quando há documento público verificável conciliado com a emissão; ausência de documento ou vínculo exato = N/D.",
+    "O = originador; C = cedente; S = subordinação mínima; P = preço de emissão por tipo de cota. Cada linha usa CNPJ e emissão como chave; lacuna documental permanece N/D.",
     { left: 60, top: 641, width: 1160, height: 22 },
     { fontSize: 8.1, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
   addSourceNotes(slide, [
     "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-    "FundosNet/B3 — documento público de rating mais recente conciliado com a oferta, emissão, série ou subclasse.",
+    "FundosNet/B3 — mesma curadoria documental flagship; fontes linha a linha na aba Auditoria emissões.",
     "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; snapshot CVM 24/jul/26.",
     "Limitação: rating sem documento público verificável ou sem vínculo exato = N/D.",
   ]);
@@ -2657,6 +2676,12 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
 
 function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
   const reviewRows = payload.top20_taxonomy_review || [];
+  const auditRows = (payload.emission_field_audit || []).filter(
+    (row) => row.bloco === "slides 10–13",
+  );
+  const auditByFund = new Map(
+    auditRows.map((row) => [`${row.tabela}::${cnpjDigits(row.cnpj)}`, row]),
+  );
   const periodSpecs = [
     { competencia: payload.latest_complete, label: "JUN/26 · TOP 15", headerFill: C.orange },
     { competencia: "2025-12", label: "DEZ/25 · TOP 15", headerFill: C.black },
@@ -2699,18 +2724,25 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
       top: 169,
       width: 565,
       height: 428,
-      headers: ["#", "FIDC", "Originador", "R$ bi"],
-      rows: rows.map((row) => [
-        String(integer(row.rank_tipo)),
-        fundEditorialName(row.denominacao || "N/D", 29),
-        originatorName(row.cedente_originador),
-        (num(row.pl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
-      ]),
-      columnWidths: [30, 235, 205, 95],
-      aligns: ["right", "left", "left", "right"],
-      fontSize: 7.1,
-      headerFontSize: 7.3,
-      headerHeight: 27,
+      headers: ["#", "FIDC", "Originador / cedente", "Sub. mín. / preço por cota", "Sacado", "R$ bi"],
+      rows: rows.map((row) => {
+        const audit = auditByFund.get(
+          `${typeName} · ${period.competencia}::${cnpjDigits(row.cnpj_fundo)}`,
+        ) || {};
+        return [
+          String(integer(row.rank_tipo)),
+          fundEditorialName(row.denominacao || "N/D", 23),
+          `O: ${originatorName(audit.originador)}\nC: ${auditField(audit.cedente, 17)}`,
+          `S: ${auditField(audit.subordinacao_minima, 16)}\nP: ${auditField(audit.preco_por_tipo_cota, 16)}`,
+          auditField(audit.sacado, 16),
+          (num(row.pl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
+        ];
+      }),
+      columnWidths: [22, 150, 125, 115, 93, 60],
+      aligns: ["right", "left", "left", "left", "left", "right"],
+      fontSize: 5.35,
+      headerFontSize: 5.25,
+      headerHeight: 33,
       headerFill: period.headerFill,
       rowHighlights: new Set(),
     });
@@ -2723,7 +2755,8 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
   });
   addSourceNotes(slide, [
     "Unidade: CNPJ do fundo, com classes agregadas; os dois painéis usam o Top 15 de cada fotografia.",
-    "Cedente/originador reproduz a curadoria documental existente. Campo ausente ou fragmento sem nome explícito permanece N/D; fonte, evidência e limitações constam no workbook.",
+    "O = originador; C = cedente; S = subordinação mínima; P = preço de emissão por tipo de cota. Mesma curadoria documental flagship; fontes linha a linha na aba Auditoria emissões.",
+    "Campo ausente, fragmento sem nome explícito ou vínculo documental insuficiente permanece N/D.",
   ]);
 }
 
@@ -3157,18 +3190,12 @@ function buildPresentation(payload) {
       color: C.white,
       verticalAlignment: "middle",
     });
-    addText(
-      slide,
-      "Escala, qualidade do dado, prestadores e fundos que explicam a concentração",
-      { left: 60, top: 252, width: 1010, height: 70 },
-      { fontSize: 24, color: C.light, lineSpacing: 1.05 },
-    );
     addRule(slide, 60, 530, 1160, "#4B4F53", 1);
     addText(slide, `Dados de PL: ${stockLong}`, { left: 60, top: 555, width: 500, height: 28 }, {
       fontSize: 16,
       color: C.white,
     });
-    addText(slide, "Ofertas CVM até 30 de junho de 2026; comparativo ANBIMA até 31 de maio", { left: 60, top: 589, width: 720, height: 28 }, {
+    addText(slide, "Ofertas CVM e comparativo ANBIMA até 30 de junho de 2026", { left: 60, top: 589, width: 720, height: 28 }, {
       fontSize: 16,
       color: C.light,
     });
@@ -3179,7 +3206,7 @@ function buildPresentation(payload) {
     });
     addSourceNotes(slide, [
       "CVM/SRE — Ofertas Públicas de Distribuição: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "ANBIMA Data — Boletim de Mercado de Capitais, snapshot mai/26: https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais/mercado-de-capitais-segue-resiliente-com-283-bi-em-ofertas-acumuladas-no-ano",
+      "ANBIMA Data — Boletim de Mercado de Capitais, corte em 30/jun/26: https://data.anbima.com.br/",
     ]);
   }
 
@@ -3655,7 +3682,9 @@ function buildPresentation(payload) {
       },
       yAxis: { ...chartAxis(8.0, "0"), min: 0 },
       dataLabels: {
-        showValue: false,
+        showValue: true,
+        position: "center",
+        textStyle: { fill: C.black, fontSize: 5.8, bold: false },
       },
     });
     const findings = [
@@ -3698,7 +3727,11 @@ function buildPresentation(payload) {
         majorGridlines: null,
       },
       yAxis: { ...chartAxis(8.0, "0%"), min: 0, max: 1, majorUnit: 0.25 },
-      dataLabels: { showValue: false },
+      dataLabels: {
+        showValue: true,
+        position: "center",
+        textStyle: { fill: C.black, fontSize: 5.6, bold: false },
+      },
     });
     const biCell = (value) => num(value).toLocaleString("pt-BR", {
       minimumFractionDigits: 1,
@@ -4359,7 +4392,6 @@ function buildPresentation(payload) {
       bn(row.pl, 1).replace("R$ ", ""),
       pct(row.market_share_ex_fic, 1),
       `${row.anbima_tipo_curado || row.anbima_tipo || "N/D"}\n${row.anbima_foco_curado || row.anbima_foco || "N/D"}`,
-      row.modelo_prestacao || "N/D",
     ]);
     [0, 1].forEach((block) => {
       addNativeEditorialTable(slide, {
@@ -4367,10 +4399,10 @@ function buildPresentation(payload) {
         top: 150,
         width: 570,
         height: 490,
-        headers: ["#", "Fundo", "PL bi", "Share", "Tipo / Foco", "Modelo"],
+        headers: ["#", "Fundo", "PL bi", "Share", "Tipo / Foco"],
         rows: tableRows.slice(block * 10, block * 10 + 10),
-        columnWidths: [30, 175, 58, 55, 130, 122],
-        aligns: ["right", "left", "right", "right", "left", "left"],
+        columnWidths: [30, 235, 70, 65, 170],
+        aligns: ["right", "left", "right", "right", "left"],
         fontSize: 10.7,
         headerFontSize: 10,
         rowHighlights: new Set(block === 0 ? [0, 1] : []),
@@ -4440,7 +4472,7 @@ function buildPresentation(payload) {
   }
 
   // 21. Concentração das monoestruturas
-  {
+  if (SLIDE_CONTRACT_V1.includes("monostructure")) {
     const slide = presentation.slides.add();
     const rows = [...payload.monostructure_concentration].sort((a, b) => num(a.rank_pl_mono) - num(b.rank_pl_mono)).slice(0, 6);
     const bb = rows.find((row) => String(row.grupo_economico).includes("Banco do Brasil"));
@@ -5000,6 +5032,9 @@ function buildPresentation(payload) {
   {
     const slide = presentation.slides.add();
     const top15 = [...(payload.closed_offer_top15 || [])];
+    const emissionAudit = (payload.emission_field_audit || []).filter(
+      (row) => row.bloco === "slides 21–22",
+    );
     const summaries = Object.fromEntries(
       (payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]),
     );
@@ -5011,37 +5046,9 @@ function buildPresentation(payload) {
       .sort((a, b) => num(a.rank) - num(b.rank));
     const summary2026 = summaries["2026 jan-jun"] || {};
     const summary2025 = summaries["2025 FY"] || {};
-    const publicLabel = (value) => ({
-      Profissional: "Prof.",
-      Qualificado: "Qualif.",
-      Geral: "Geral",
-      "Público Geral": "Geral",
-    }[value] || "N/D");
-    const agencyLabel = (value) => ({
-      "S&P Global Ratings": "S&P",
-      "Moody's Local": "Moody's",
-      "Austin Rating": "Austin",
-      "Fitch Ratings": "Fitch",
-      "Liberum Ratings": "Liberum",
-      "SR Rating": "SR",
-    }[value] || "N/D");
-    const tableRows = (rows) => rows.map((row) => [
-      integer(row.rank),
-      row.fund_name_short,
-      truncateWords(row.originator_group || "Não identificado", 22),
-      (num(row.registered_volume_brl) / 1e9).toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }),
-      top15CoordinatorLabel(row.leader_name),
-      row.ibba_participant_label,
-      row.firm_commitment_label,
-      publicLabel(row.publico),
-      agencyLabel(row.rating_agency),
-      String(row.rating_assigned || "N/D").split(" | ").join("\n"),
-    ]);
-    const columnWidths = [22, 105, 60, 42, 60, 30, 26, 45, 74, 96];
-    const aligns = ["right", "left", "left", "right", "left", "center", "center", "left", "left", "left"];
+    const tableRows = (rows) => top15SlideRows(rows, emissionAudit);
+    const columnWidths = [22, 82, 112, 105, 100, 84, 55];
+    const aligns = ["right", "left", "left", "left", "left", "left", "right"];
     addHeader(
       slide,
       "TOP 15 · OFERTAS ENCERRADAS",
@@ -5055,12 +5062,12 @@ function buildPresentation(payload) {
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA", "GF", "Público", "Agência", "Rating"],
+      headers: ["#", "Emissão / CNPJ", "FIDC", "Originador / cedente", "Sub. mín. / preço por cota", "Sacado", "R$ bi"],
       rows: tableRows(table2026),
       columnWidths,
       aligns,
-      fontSize: 5.9,
-      headerFontSize: 5.8,
+      fontSize: 5.5,
+      headerFontSize: 5.4,
       headerHeight: 34,
       rowHighlights: new Set(
         table2026
@@ -5075,12 +5082,12 @@ function buildPresentation(payload) {
       top: 174,
       width: 560,
       height: 440,
-      headers: ["#", "FIDC", "Originador", "R$ bi", "Coord. líder", "IBBA", "GF", "Público", "Agência", "Rating"],
+      headers: ["#", "Emissão / CNPJ", "FIDC", "Originador / cedente", "Sub. mín. / preço por cota", "Sacado", "R$ bi"],
       rows: tableRows(table2025),
       columnWidths,
       aligns,
-      fontSize: 5.9,
-      headerFontSize: 5.8,
+      fontSize: 5.5,
+      headerFontSize: 5.4,
       headerHeight: 34,
       rowHighlights: new Set(
         table2025
@@ -5103,13 +5110,13 @@ function buildPresentation(payload) {
     );
     addText(
       slide,
-      "Coord. líder = coordenador líder informado no requerimento. GF = garantia firme. Agência e Rating referem-se à emissão/série/subclasse conciliada; N/D indica ausência de documento aplicável. O workbook contém todos os períodos e a trilha documental.",
+      "O = originador; C = cedente; S = subordinação mínima; P = preço de emissão por tipo de cota. CNPJ e emissão formam a chave de cada linha; N/D indica lacuna documental.",
       { left: 60, top: 641, width: 1160, height: 22 },
       { fontSize: 7.9, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "FundosNet/B3 — documento público de rating mais recente conciliado com a oferta, emissão, série ou subclasse.",
+      "FundosNet/B3 — mesma curadoria documental flagship; fontes linha a linha na aba Auditoria emissões.",
       "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; snapshot CVM 24/jul/26.",
       "Limitação: rating sem documento público verificável ou sem vínculo exato = N/D; o volume registrado pode diferir do valor encerrado informado à ANBIMA.",
     ]);
@@ -5119,35 +5126,16 @@ function buildPresentation(payload) {
 
   addConclusionsSlide(presentation, payload, 32);
 
-  // 24–26. Universo completo dos market shares.
-  const fullFocus = payload.market_share
-    .filter((row) => row.papel === "administrador")
-    .map((row) => ({
-      tipo_anbima: row.tipo_anbima,
-      foco_anbima: row.foco_anbima,
-      foco_order: num(row.foco_order),
-    }))
-    .filter((row, index, array) =>
-      array.findIndex((item) => item.tipo_anbima === row.tipo_anbima && item.foco_anbima === row.foco_anbima) === index,
-    )
-    .sort((a, b) => a.foco_order - b.foco_order);
-  // Prestadores e market shares permanecem contíguos no apêndice.
+  // Prestadores permanecem contíguos; market shares seguem no workbook e no explorador.
   addCombinedProviderRankingSlide(presentation, payload, 0);
   if (SLIDE_CONTRACT_V1.includes("bank_cohort")) {
     addBankFidcEvolutionSlide(presentation, payload, 0);
   }
   addProviderAttributionSlide(presentation, payload, 0);
-  addMarketShareSlide(presentation, payload, "administrador", materialFocus, 0, false);
-  addMarketShareSlide(presentation, payload, "gestor", materialFocus, 0, false);
-  addMarketShareSlide(presentation, payload, "custodiante", materialFocus, 0, false);
   // A evidência detalhada de migração permanece no workbook e no
   // explorador. O slide isolado era redundante com Liderança explicada e
   // deixaria a sequência executiva acima do contrato ordinal publicado.
 
-  // Universo completo dos market shares permanece no apêndice.
-  addMarketShareSlide(presentation, payload, "administrador", fullFocus, 47, true);
-  addMarketShareSlide(presentation, payload, "gestor", fullFocus, 48, true);
-  addMarketShareSlide(presentation, payload, "custodiante", fullFocus, 49, true);
   addInvestorBaseSlide();
   addHolderDistributionSlide();
 
@@ -7801,7 +7789,7 @@ async function addChecksSheet(workbook, payload) {
     ["Rank mínimo", "=MIN('Top 20 FIDCs'!A5:A24)", 1, '=IF(B6=C6,"OK","ERRO")'],
     ["Rank máximo", "=MAX('Top 20 FIDCs'!A5:A24)", 20, '=IF(B7=C7,"OK","ERRO")'],
     ["Classificação fecha 100%", payload.classification_coverage.reduce((s, r) => s + num(r.share), 0), 1, '=IF(ABS(B8-C8)<0.0000001,"OK","ERRO")'],
-    ["Slides antes do apêndice de prestadores", 27, 27, '=IF(B9=C9,"OK","ERRO")'],
+    ["Slides no contrato ordinal", EXPECTED_SLIDES, 26, '=IF(B9=C9,"OK","ERRO")'],
     ["Perfis Top 20", payload.profiles.length, 20, '=IF(B10=C10,"OK","ERRO")'],
     ["Combinações função×foco", focusRows.length, 42, '=IF(B11=C11,"OK","ERRO")'],
     ["Histograma cotistas dez/23 fecha 100%", payload.holder_distribution_history.filter((r) => r.competencia === "2023-12").reduce((s, r) => s + num(r.share_fundos), 0), 1, '=IF(ABS(B12-C12)<0.0000001,"OK","ERRO")'],
@@ -7813,11 +7801,11 @@ async function addChecksSheet(workbook, payload) {
     ["Prestadores independentes materializados", (payload.provider_independent_ranking || []).length > 0 ? 1 : 0, 1, '=IF(B18=C18,"OK","ERRO")'],
     ["Coorte bancária: quatro períodos × seis linhas", (payload.bank_fidc_evolution || []).length, 24, '=IF(B19=C19,"OK","ERRO")'],
     ["Ofertas anuais 2022–2026", (payload.closed_offers_annual || []).length, 5, '=IF(B20=C20,"OK","ERRO")'],
-    ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 19, '=IF(B21=C21,"OK","ERRO")'],
+    ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 17, '=IF(B21=C21,"OK","ERRO")'],
     ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
     ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, 12, '=IF(B23=C23,"OK","ERRO")'],
     ["Reconciliação CVM x ANBIMA", (payload.market_offer_reconciliation || []).length, 20, '=IF(B24=C24,"OK","ERRO")'],
-    ["Slides no contrato ordinal", EXPECTED_SLIDES, 33, '=IF(B25=C25,"OK","ERRO")'],
+    ["Auditoria de emissões", (payload.emission_field_audit || []).length, 180, '=IF(B25=C25,"OK","ERRO")'],
     ["Emissões por categoria: 4 tipos × 5 períodos", (payload.issuance_taxonomy || []).length, 20, '=IF(B26=C26,"OK","ERRO")'],
     ["Reconciliação da taxonomia de emissões", (payload.issuance_taxonomy_reconciliation || []).every((row) => Math.abs(num(row.total_brl) + num(row.fic_excluded_brl) - num(row.emitted_volume_brl)) <= 0.01) ? 1 : 0, 1, '=IF(B27=C27,"OK","ERRO")'],
   ];
@@ -7992,6 +7980,47 @@ async function addOfferTargetPublicSheet(workbook, payload) {
   sheet.getRange(`A5:J${rows.length + 4}`).format.rowHeightPx = 58;
 }
 
+async function addEmissionFieldAuditSheet(workbook, payload) {
+  const columns = [
+    ["Bloco do deck", "bloco"],
+    ["Tabela / período", "tabela"],
+    ["CNPJ", "cnpj", (value) => formatCnpj(value)],
+    ["ID da emissão", "emissao_id", (value) => String(value).startsWith("N/D") ? value : `E ${value}`],
+    ["Fundo", "fundo"],
+    ["Originador", "originador"],
+    ["Subordinação mínima", "subordinacao_minima"],
+    ["Preço por tipo de cota", "preco_por_tipo_cota"],
+    ["Cedente", "cedente"],
+    ["Sacado", "sacado"],
+    ["Fonte originador / cedente", "fonte_originador_cedente"],
+    ["Fonte subordinação", "fonte_subordinacao"],
+    ["Fonte preço", "fonte_preco"],
+    ["Fonte sacado", "fonte_sacado"],
+    ["Status", "status"],
+  ];
+  const headers = columns.map(([header]) => header);
+  const rows = worksheetRowsFromPayload(payload.emission_field_audit || [], columns);
+  if (rows.length !== 180) {
+    throw new Error(`Auditoria emissões deveria conter 180 linhas; contém ${rows.length}.`);
+  }
+  const sheet = resetSheet(workbook, "Auditoria emissões");
+  setHeaderBand(
+    sheet,
+    "Auditoria dos campos documentais exibidos nos slides 10–13 e 21–22",
+    "Uma linha por fundo/período nos slides 10–13 e por emissão nos slides 21–22. Todo campo exibido conserva a fonte; ausência de evidência suficiente permanece N/D.",
+    headers,
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 7.5 },
+  );
+  await writeRowsInChunks(sheet, 4, headers, rows);
+  applyColumnWidths(
+    sheet,
+    [110, 180, 105, 95, 300, 180, 150, 155, 210, 180, 360, 360, 420, 300, 260],
+    rows.length,
+  );
+  sheet.getRange(`A5:O${rows.length + 4}`).format.rowHeightPx = 52;
+}
+
 async function buildWorkbook(payload) {
   const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
   const ficAudit = await readCsv(path.join(DATA_DIR, "industry_fic_detection_audit.csv"));
@@ -8036,6 +8065,7 @@ async function buildWorkbook(payload) {
   await addOfferTicketDistributionSheet(workbook, payload);
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
+  await addEmissionFieldAuditSheet(workbook, payload);
   await addConclusionsSheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
@@ -8079,7 +8109,7 @@ async function exportPresentation(presentation) {
     encoding: "utf8",
   });
   if (patched.status !== 0) {
-    throw new Error(`Falha ao ajustar os gráficos nativos de market share: ${patched.stderr || patched.stdout}`);
+    throw new Error(`Falha ao ajustar os gráficos nativos: ${patched.stderr || patched.stdout}`);
   }
 }
 
@@ -8121,6 +8151,7 @@ async function exportWorkbook(workbook) {
       ["Crédito Privado Ampliado", "A1:T16"],
       ["Originadores 2026", "A1:M24"],
       ["Top 15 ofertas", "A1:AZ28"],
+      ["Auditoria emissões", "A1:O28"],
       ["Validação emissões", "A1:U25"],
       ["Emissões por categoria", "A1:N12"],
       ["Público-alvo ofertas", "A1:J24"],
