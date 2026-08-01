@@ -474,6 +474,23 @@ function expandCompactViews(compact) {
 
 function flagshipModels(payload) {
   const summary = payload.flagship_curation_summary || {};
+  const text = (value, fallback = "N/D") => {
+    const candidate = String(value ?? "").trim();
+    return candidate && normalize(candidate) !== "nan" ? candidate : fallback;
+  };
+  const availableText = value => {
+    const candidate = normalize(value);
+    return Boolean(candidate) && !["n/d", "nd", "nao localizado", "nan"].includes(candidate);
+  };
+  const hasOwn = (row, field) => Object.prototype.hasOwnProperty.call(row, field);
+  const cnpjFrom = row => formatCnpj(
+    row?.cnpj_formatado
+    || row?.cnpj_fundo_formatado
+    || row?.cnpj
+    || row?.cnpj_fundo,
+  );
+  const legacyRows = [...(payload.flagship_curation || [])];
+  const legacyByCnpj = new Map(legacyRows.map((row) => [cnpjFrom(row), row]));
   const families = [...(payload.flagship_families || [])]
     .sort((a, b) => number(a.ordem_familia) - number(b.ordem_familia))
     .map((row) => ({
@@ -493,48 +510,124 @@ function flagshipModels(payload) {
       documented: Math.round(number(row.cnpjs_com_pacote_documental)),
       status: String(row.status_curadoria || "N/D"),
     }));
-  const details = [...(payload.flagship_curation || [])]
-    .sort(
-      (a, b) =>
-        number(a.ordem_familia) - number(b.ordem_familia)
-        || number(b.representante_familia) - number(a.representante_familia)
-        || number(b.pl_atual_brl) - number(a.pl_atual_brl),
-    )
-    .map((row) => ({
-      order: Math.round(number(row.ordem_familia)),
-      category: String(row.categoria || "N/D"),
-      family: String(row.familia_flagship || "N/D"),
-      representative: truthy(row.representante_familia),
-      fund: compactFund(row.denominacao || "N/D"),
-      cnpj: String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo)),
-      pl: nullableNumber(row.pl_atual_brl),
-      subordinate: nullableNumber(row.pl_subordinado_atual_brl),
-      ratio: nullableNumber(row.subordinacao_atual_pct),
-      range: String(row.faixa_subordinacao_atual || "N/D"),
-      minJunior: String(row.subordinacao_minima_junior_display || "N/D"),
-      threshold: String(row.subordinacao_minima_texto || "N/D"),
-      thresholdSource: String(row.subordinacao_minima_fonte || "N/D"),
-      price: String(row.preco_emissao_display || "N/D"),
-      priceClass: String(row.preco_emissao_classe || "N/D"),
-      priceDate: String(row.preco_emissao_data || "N/D"),
-      priceSource: String(row.preco_emissao_fonte || "N/D"),
-      emissionDate: String(row.emissao_data_display || "N/D"),
-      emissionSource: String(row.emissao_fonte || "N/D"),
-      mezzanine: String(row.cota_mezanino || "N/D"),
-      mezzanineSource: String(row.cota_mezanino_fonte || "N/D"),
-      acceleration: String(row.vencimento_antecipado || "N/D"),
-      accelerationSource: String(row.vencimento_antecipado_fonte || "N/D"),
-      packageStatus: String(row.pacote_documental_status || "N/D"),
-      packagePath: String(row.pacote_documental_path || "N/D"),
-      documentId: String(row.documento_id_regulamento || "N/D"),
-      documentDate: String(row.documento_data_regulamento || "N/D"),
-      page: String(row.pagina_clausula || "N/D"),
-      pagesRead: String(row.paginas_lidas || "N/D"),
-      curationStatus: String(row.status_curadoria_documental || "N/D"),
-      documentaryNote: String(row.observacao_documental || "N/D"),
-      fundosnetUrl: String(row.fundosnet_url || ""),
-      gaps: String(row.lacunas || "N/D"),
-    }));
+  const canonicalRows = [...(payload.portfolio_export_flagships || [])];
+  const canonicalCnpjs = canonicalRows.map(cnpjFrom);
+  const legacyCnpjs = legacyRows.map(cnpjFrom);
+  const sameSet = (left, right) => (
+    left.size === right.size && [...left].every(value => right.has(value))
+  );
+  if (
+    canonicalRows.length !== 47
+    || new Set(canonicalCnpjs).size !== canonicalRows.length
+  ) {
+    throw new Error(
+      `portfolio_export_flagships deveria conter 47 CNPJs únicos; contém ${canonicalRows.length} linhas e ${new Set(canonicalCnpjs).size} CNPJs`,
+    );
+  }
+  if (
+    legacyRows.length !== 47
+    || new Set(legacyCnpjs).size !== legacyRows.length
+    || !sameSet(new Set(canonicalCnpjs), new Set(legacyCnpjs))
+  ) {
+    throw new Error("portfolio_export_flagships e flagship_curation divergem no conjunto de CNPJs");
+  }
+  const rangeFromRatio = value => {
+    if (value === null) return "N/D";
+    if (value < 0.10) return "< 10%";
+    if (value < 0.15) return "10%–15%";
+    if (value < 0.20) return "15%–20%";
+    if (value < 0.35) return "20%–35%";
+    if (value < 0.60) return "35%–60%";
+    return "≥ 60%";
+  };
+  const details = canonicalRows.map((row) => {
+    const cnpj = cnpjFrom(row);
+    const legacy = legacyByCnpj.get(cnpj) || {};
+    const canonicalText = (field, legacyField, fallback = "N/D") => (
+      hasOwn(row, field)
+        ? text(row[field], fallback)
+        : text(legacy[legacyField], fallback)
+    );
+    const canonicalNumber = (field, legacyField) => (
+      hasOwn(row, field)
+        ? nullableNumber(row[field])
+        : nullableNumber(legacy[legacyField])
+    );
+    const canonicalBoolean = (field, legacyField) => (
+      hasOwn(row, field) ? truthy(row[field]) : truthy(legacy[legacyField])
+    );
+    const ratio = canonicalNumber("sub_pl_atual", "subordinacao_atual_pct");
+    const priceDisplay = canonicalText("preco_cota_display", "preco_emissao_display");
+    const priceAvailable = canonicalNumber("preco_cota_brl", "preco_emissao_brl") !== null
+      || availableText(priceDisplay);
+    return {
+      order: Math.round(canonicalNumber("ordem", "ordem_familia") || 0),
+      category: canonicalText("taxonomia_estrutural", "categoria"),
+      family: canonicalText("nome_referencia", "familia_flagship"),
+      representative: truthy(legacy.representante_familia),
+      fund: compactFund(canonicalText("nome_oficial_cvm", "denominacao")),
+      cnpj,
+      dataRef: canonicalText("data_ref", "", String(summary.competencia || payload.latest_complete || "N/D")),
+      pl: canonicalNumber("pl_atual_brl", "pl_atual_brl"),
+      subordinate: canonicalNumber("pl_subordinado_atual_brl", "pl_subordinado_atual_brl"),
+      ratio,
+      currentStatus: canonicalText("status_sub_pl_atual", "subordinacao_atual_status"),
+      range: rangeFromRatio(ratio),
+      minJuniorLiteral: canonicalNumber("minimo_junior_literal", "subordinacao_minima_junior_pct"),
+      minJuniorCalculated: canonicalNumber("minimo_junior_calculado", ""),
+      minJuniorAdjusted: canonicalNumber("minimo_junior_ajustado", ""),
+      supportTotal: canonicalNumber("suporte_total", ""),
+      supportCombined: canonicalNumber("suporte_combinado_junior_mezanino", ""),
+      structuralMinimum: canonicalNumber("minimo_estrutural_usado", "subordinacao_minima_junior_pct"),
+      structuralDisplay: canonicalText("minimo_estrutural_display", "subordinacao_minima_junior_display"),
+      structuralNature: canonicalText("minimo_estrutural_natureza", ""),
+      structuralFormula: canonicalText("minimo_estrutural_formula", ""),
+      structuralComparable: canonicalBoolean("comparavel_flag", "comparabilidade_tranche_flag"),
+      structuralComparableReason: canonicalText("comparabilidade_motivo", ""),
+      exceptionAsterisk: canonicalBoolean("excecao_asterisco_flag", ""),
+      structuralHeadroom: canonicalNumber("folga_pp", ""),
+      lossAbsorption: canonicalNumber("capacidade_ate_gatilho", ""),
+      regulatoryStatus: canonicalText("situacao_regulatoria", ""),
+      originator: canonicalText("originador", "originador"),
+      cedente: canonicalText("cedente", "cedente"),
+      cedenteOriginator: canonicalText("cedente_originador_literal", "cedente_originador_literal"),
+      partyRole: canonicalText("papel_literal", "papel_literal"),
+      debtor: canonicalText("sacado_devedor", "sacado_devedor"),
+      receivable: canonicalText("tipo_recebivel_literal", "tipo_recebivel_literal"),
+      partiesSource: canonicalText("fonte_partes_recebivel", ""),
+      manualStatus: canonicalText("status_complemento_manual", ""),
+      manualNote: canonicalText("observacao_complemento_manual", ""),
+      priceBrl: canonicalNumber("preco_cota_brl", "preco_emissao_brl"),
+      priceDisplay,
+      priceNature: hasOwn(row, "preco_cota_natureza")
+        ? text(row.preco_cota_natureza)
+        : priceAvailable ? "preço/VNU conforme fonte" : "N/D",
+      priceClassSeries: canonicalText("preco_cota_classe_serie", "preco_emissao_classe"),
+      priceDocumentDate: canonicalText("preco_cota_documento_data", "preco_emissao_data"),
+      priceDocumentId: canonicalText("preco_cota_documento_id", ""),
+      priceSource: canonicalText("preco_cota_fonte", "preco_emissao_fonte"),
+      priceStatus: hasOwn(row, "preco_cota_status")
+        ? text(row.preco_cota_status)
+        : priceAvailable ? "localizado documentalmente" : "não localizado",
+      priceExceptionAsterisk: hasOwn(row, "preco_cota_excecao_asterisco_flag")
+        ? truthy(row.preco_cota_excecao_asterisco_flag)
+        : priceAvailable,
+      identityStatus: canonicalText("status_identidade", ""),
+      completionStatus: canonicalText("status_preenchimento", ""),
+      gaps: canonicalText("campos_nao_preenchidos", "lacunas"),
+      documentId: canonicalText("documento_id", "documento_id_regulamento"),
+      documentDate: canonicalText("documento_data", "documento_data_regulamento"),
+      page: canonicalText("pagina_clausula", "pagina_clausula"),
+      curationStatus: canonicalText("status_curadoria_documental", "status_curadoria_documental"),
+      documentarySource: canonicalText("fonte_documental", "subordinacao_minima_fonte"),
+      minimumText: canonicalText("texto_minimo", "subordinacao_minima_texto"),
+      fundosnetUrl: `${FUNDOSNET_CNPJ_BASE}${cnpj.replace(/\D/g, "")}`,
+    };
+  }).sort(
+    (a, b) => a.order - b.order
+      || number(b.representative) - number(a.representative)
+      || number(b.pl) - number(a.pl),
+  );
   return {
     summary: {
       competence: String(summary.competencia || payload.latest_complete || "N/D"),
@@ -564,18 +657,24 @@ const FLAGSHIP_FIELDS = Object.freeze({
   ],
   detail: [
     "order", "category", "family", "representative", "fund", "cnpj", "pl",
-    "subordinate", "ratio", "range", "minJunior", "threshold",
-    "thresholdSource", "price", "priceClass", "priceDate", "priceSource",
-    "emissionDate", "emissionSource",
-    "mezzanine", "mezzanineSource", "acceleration", "accelerationSource",
-    "packageStatus", "packagePath", "documentId", "documentDate", "page",
-    "pagesRead", "curationStatus", "documentaryNote", "fundosnetUrl", "gaps",
+    "dataRef", "subordinate", "ratio", "currentStatus", "range",
+    "minJuniorLiteral", "minJuniorCalculated", "minJuniorAdjusted",
+    "supportTotal", "supportCombined", "structuralMinimum", "structuralDisplay",
+    "structuralNature", "structuralFormula", "structuralComparable",
+    "structuralComparableReason", "exceptionAsterisk", "structuralHeadroom",
+    "lossAbsorption", "regulatoryStatus", "originator", "cedente",
+    "cedenteOriginator", "partyRole", "debtor", "receivable", "partiesSource",
+    "manualStatus", "manualNote", "priceBrl", "priceDisplay", "priceNature",
+    "priceClassSeries", "priceDocumentDate", "priceDocumentId", "priceSource",
+    "priceStatus", "priceExceptionAsterisk", "identityStatus", "completionStatus",
+    "gaps", "documentId", "documentDate", "page", "curationStatus",
+    "documentarySource", "minimumText", "fundosnetUrl",
   ],
 });
 
 function compactFlagships(data) {
   return {
-    schemaVersion: "flagship_curation_compact_v1",
+    schemaVersion: "flagship_curation_compact_v2",
     fields: FLAGSHIP_FIELDS,
     summary: data.summary,
     families: data.families.map(
@@ -588,7 +687,7 @@ function compactFlagships(data) {
 }
 
 function expandCompactFlagships(compact) {
-  if (compact.schemaVersion !== "flagship_curation_compact_v1") {
+  if (compact.schemaVersion !== "flagship_curation_compact_v2") {
     throw new Error(`Esquema de flagship desconhecido: ${compact.schemaVersion}`);
   }
   const object = (fields, values) => Object.fromEntries(
@@ -611,6 +710,27 @@ function validateFlagships(data) {
   if (new Set(data.details.map((row) => row.cnpj)).size !== data.details.length) {
     throw new Error("Curadoria flagship contém CNPJ duplicado");
   }
+  const familyMembers = data.families.flatMap((row) => (
+    String(row.cnpjs || "")
+      .split(";")
+      .map(value => formatCnpj(value))
+      .filter(Boolean)
+  ));
+  if (data.families.some((row) => (
+    String(row.cnpjs || "").split(";").map(value => formatCnpj(value)).filter(Boolean).length
+    !== row.funds
+  ))) {
+    throw new Error("Resumo flagship diverge entre a contagem e os CNPJs de uma família");
+  }
+  const detailSet = new Set(data.details.map((row) => row.cnpj));
+  const familySet = new Set(familyMembers);
+  if (
+    familyMembers.length !== data.details.length
+    || familySet.size !== detailSet.size
+    || [...detailSet].some(cnpj => !familySet.has(cnpj))
+  ) {
+    throw new Error("Resumo das famílias flagship diverge do conjunto canônico de CNPJs");
+  }
   if (data.details.some((row) => row.pl === null || row.ratio === null)) {
     throw new Error("Curadoria flagship contém PL ou subordinação atual ausente");
   }
@@ -627,12 +747,13 @@ function validateFlagships(data) {
 }
 
 function carteira1Models(payload) {
-  const summary = payload.carteira_1_curation_summary || {};
+  const legacySummary = payload.carteira_1_curation_summary || {};
   const structuralSummary = payload.carteira_1_structural_summary || {};
   const comparisonSummary = payload.carteira_1_flagship_comparison_summary || {};
-  const structuralByCnpj = new Map(
-    (payload.carteira_1_structural_assets || []).map((row) => [
-      String(row.cnpj_formatado || formatCnpj(row.cnpj)), row,
+  const rangeByCnpj = new Map(
+    (payload.carteira_1_curation || []).map((row) => [
+      String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo)),
+      String(row.faixa_subordinacao_atual || "N/D"),
     ]),
   );
   const ranges = [...(payload.carteira_1_curation_ranges || [])]
@@ -646,59 +767,86 @@ function carteira1Models(payload) {
       types: Math.round(number(row.tipos)),
       typeSummary: String(row.tipos_resumo || "N/D"),
     }));
-  const details = [...(payload.carteira_1_curation || [])]
+  const text = (value, fallback = "N/D") => {
+    const candidate = String(value ?? "").trim();
+    return candidate && normalize(candidate) !== "nan" ? candidate : fallback;
+  };
+  const availableText = value => {
+    const candidate = normalize(value);
+    return Boolean(candidate) && !["n/d", "nd", "nao localizado", "nan"].includes(candidate);
+  };
+  const nullableBoolean = value => (
+    value === null || value === undefined || value === "" || normalize(value) === "n/d"
+      ? null
+      : truthy(value)
+  );
+  const details = [...(payload.portfolio_export_carteira_101 || [])]
     .sort((a, b) => number(a.ordem) - number(b.ordem))
     .map((row) => {
-      const cnpj = String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo));
-      const structural = structuralByCnpj.get(cnpj) || {};
+      const cnpj = String(row.cnpj_formatado || formatCnpj(row.cnpj));
+      const official = text(row.nome_oficial_cvm);
+      const reference = text(row.nome_referencia);
       return ({
       order: Math.round(number(row.ordem)),
-      image: String(row.imagem || "N/D"),
-      rootPhoto: String(row.raiz_cnpj_foto || "N/D"),
-      namePhoto: String(row.nome_foto || "N/D"),
-      identityStatus: String(row.status_identidade || "N/D"),
-      identityRule: String(row.regra_identidade || "N/D"),
-      identityNote: String(row.observacao_identidade || "N/D"),
       cnpj,
-      fund: compactFund(row.denominacao || row.nome_foto || "N/D"),
+      fund: availableText(official) ? official : reference,
+      referenceName: reference,
+      identityStatus: text(row.status_identidade),
+      dataRef: text(row.data_ref),
       pl: nullableNumber(row.pl_atual_brl),
       subordinate: nullableNumber(row.pl_subordinado_atual_brl),
-      ratio: nullableNumber(row.subordinacao_atual_pct),
-      range: String(row.faixa_subordinacao_atual || "N/D"),
-      currentStatus: String(row.subordinacao_atual_status || "N/D"),
-      minJuniorPct: nullableNumber(row.subordinacao_minima_junior_pct),
-      minJunior: String(row.subordinacao_minima_junior_display || "N/D"),
-      threshold: String(row.subordinacao_minima_texto || "N/D"),
-      thresholdSource: String(row.subordinacao_minima_fonte || "N/D"),
-      emissionDate: String(row.emissao_data || "N/D"),
-      emissionDisplay: String(row.emissao_data_display || "N/D"),
-      emissionSource: String(row.emissao_fonte || "N/D"),
-      type: String(row.tipo_exibicao || "N/D"),
-      focus: String(row.foco_exibicao || "N/D"),
-      classificationCompetence: String(row.competencia_classificacao || "N/D"),
-      classificationSource: String(row.classificacao_fonte || "N/D"),
-      flagshipFamily: String(row.familia_flagship_referencia || "N/D"),
-      flagshipRule: String(row.familia_flagship_regra || "N/D"),
-      documentId: String(row.documento_id_regulamento || "N/D"),
-      documentDate: String(row.documento_data_regulamento || "N/D"),
-      page: String(row.pagina_clausula || "N/D"),
-      pagesRead: String(row.paginas_lidas || "N/D"),
-      curationStatus: String(row.status_curadoria_documental || "N/D"),
-      documentaryNote: String(row.observacao_documental || "N/D"),
-      fundosnetUrl: String(row.fundosnet_url || ""),
-      gaps: String(row.lacunas || "N/D"),
-      structuralMinimum: String(structural.minimo_estrutural_display || "N/D"),
-      structuralNature: String(structural.minimo_estrutural_natureza || "N/D"),
-      structuralText: String(structural.minimo_estrutural_texto || "N/D"),
-      structuralFormula: String(structural.minimo_estrutural_formula || "N/D"),
-      structuralComparable: Boolean(structural.comparacao_estrutural_completa_flag),
-      structuralComparableReason: String(structural.comparacao_estrutural_motivo || "N/D"),
-      structuralHeadroom: nullableNumber(structural.folga_pp),
-      lossAbsorption: nullableNumber(structural.perda_ate_gatilho),
-      regulatoryStatus: String(structural.situacao_regulatoria || "não medido"),
-      marketPosition: String(structural.posicao_mercado || "sem benchmark confiável"),
-      structuralTaxonomy: String(structural.categoria || "N/D"),
-      exceptionAsterisk: Boolean(structural.excecao_asterisco_flag),
+      ratio: nullableNumber(row.sub_pl_atual),
+      range: rangeByCnpj.get(cnpj) || "N/D",
+      currentStatus: text(row.status_sub_pl_atual),
+      minJuniorLiteral: nullableNumber(row.minimo_junior_literal),
+      minJuniorCalculated: nullableNumber(row.minimo_junior_calculado),
+      minJuniorAdjusted: nullableNumber(row.minimo_junior_ajustado),
+      supportTotal: nullableNumber(row.suporte_total),
+      supportCombined: nullableNumber(row.suporte_combinado_junior_mezanino),
+      structuralMinimum: nullableNumber(row.minimo_estrutural_usado),
+      structuralDisplay: text(row.minimo_estrutural_display),
+      structuralNature: text(row.minimo_estrutural_natureza),
+      structuralFormula: text(row.minimo_estrutural_formula),
+      structuralComparable: Boolean(row.comparavel_flag),
+      structuralComparableReason: text(row.comparabilidade_motivo),
+      structuralHeadroom: nullableNumber(row.folga_pp),
+      lossAbsorption: nullableNumber(row.capacidade_ate_gatilho),
+      regulatoryStatus: text(row.situacao_regulatoria, "não medido"),
+      marketPosition: text(row.posicao_mercado, "sem benchmark confiável"),
+      marketExcess: nullableNumber(row.excesso_vs_mercado),
+      benchmarkReliable: nullableBoolean(row.benchmark_confiavel),
+      marketPeers: nullableNumber(row.n_comparaveis_categoria),
+      type: text(row.tipo_exibicao),
+      focus: text(row.foco_exibicao),
+      structuralTaxonomy: text(row.taxonomia_estrutural),
+      comparisonGroup: text(row.grupo_comparacao),
+      originator: text(row.originador),
+      cedente: text(row.cedente),
+      cedenteOriginator: text(row.cedente_originador_literal),
+      partyRole: text(row.papel_literal),
+      debtor: text(row.sacado_devedor),
+      receivable: text(row.tipo_recebivel_literal),
+      partiesSource: text(row.fonte_partes_recebivel),
+      manualStatus: text(row.status_complemento_manual),
+      manualNote: text(row.observacao_complemento_manual),
+      priceBrl: nullableNumber(row.preco_cota_brl),
+      priceDisplay: text(row.preco_cota_display),
+      priceNature: text(row.preco_cota_natureza),
+      priceClassSeries: text(row.preco_cota_classe_serie),
+      priceDocumentDate: text(row.preco_cota_documento_data),
+      priceDocumentId: text(row.preco_cota_documento_id),
+      priceSource: text(row.preco_cota_fonte),
+      priceStatus: text(row.preco_cota_status),
+      priceExceptionAsterisk: Boolean(row.preco_cota_excecao_asterisco_flag),
+      documentId: text(row.documento_id),
+      documentDate: text(row.documento_data),
+      page: text(row.pagina_clausula),
+      curationStatus: text(row.status_curadoria_documental),
+      documentarySource: text(row.fonte_documental),
+      minimumText: text(row.texto_minimo),
+      gaps: text(row.campos_nao_preenchidos),
+      completionStatus: text(row.status_preenchimento),
+      exceptionAsterisk: Boolean(row.excecao_asterisco_flag),
       });
     });
   const comparison = [...(payload.carteira_1_flagship_comparison || [])]
@@ -720,23 +868,39 @@ function carteira1Models(payload) {
       deltaPp: nullableNumber(row.delta_subordinacao_mediana_pp),
       structuralRisk: String(row.leitura_risco_estrutural || "N/D"),
     }));
+  const hasNumber = value => value !== null && Number.isFinite(Number(value));
+  const hasJunior = row => [
+    row.minJuniorLiteral,
+    row.minJuniorCalculated,
+    row.minJuniorAdjusted,
+  ].some(hasNumber);
+  const outside = details.filter((row) => normalize(row.identityStatus).includes("fora")).length;
+  const found = details.length - outside;
+  const minJunior = details.filter(hasJunior).length;
+  const minStructural = details.filter((row) => hasNumber(row.structuralMinimum)).length;
   return {
     summary: {
-      competence: String(summary.competencia || payload.latest_complete || "N/D"),
-      cnpjs: Math.round(number(summary.cnpjs)),
-      found: Math.round(number(summary.cnpjs_localizados_base_fidc)),
-      outside: Math.round(number(summary.cnpjs_fora_base_fidc)),
-      current: Math.round(number(summary.cnpjs_com_subordinacao_atual)),
-      minJunior: Math.round(number(summary.cnpjs_com_minimo_junior)),
-      minStructural: Math.round(number(structuralSummary.cnpjs_com_minimo_estrutural)),
-      comparableStructural: Math.round(number(structuralSummary.cnpjs_com_folga_comparavel)),
-      juniorCoverage: nullableNumber(structuralSummary.cobertura_minimo_junior_pct),
-      structuralCoverage: nullableNumber(structuralSummary.cobertura_minimo_estrutural_pct),
+      competence: text(details[0]?.dataRef, payload.latest_complete || "N/D"),
+      cnpjs: details.length,
+      found,
+      outside,
+      current: details.filter((row) => hasNumber(row.ratio)).length,
+      minJunior,
+      minStructural,
+      comparableStructural: details.filter((row) => row.structuralComparable).length,
+      juniorCoverage: details.length ? minJunior / details.length : null,
+      structuralCoverage: details.length ? minStructural / details.length : null,
+      partyCoverage: details.filter((row) => (
+        availableText(row.originator)
+        || availableText(row.cedente)
+        || availableText(row.cedenteOriginator)
+      )).length,
+      priceCoverage: details.filter((row) => (
+        hasNumber(row.priceBrl) || availableText(row.priceDisplay)
+      )).length,
       asterisk: String(structuralSummary.asterisco || ""),
       plNote: String(structuralSummary.nota_pl || ""),
-      emission: Math.round(number(summary.cnpjs_com_data_emissao)),
-      flagship: Math.round(number(summary.cnpjs_com_familia_flagship)),
-      source: String(summary.fonte || "N/D"),
+      source: String(legacySummary.fonte || "N/D"),
     },
     comparisonSummary: {
       groups: Math.round(number(comparisonSummary.grupos)),
@@ -755,23 +919,27 @@ function carteira1Models(payload) {
 const CARTEIRA1_FIELDS = Object.freeze({
   range: ["order", "range", "funds", "fundsWithPl", "pl", "types", "typeSummary"],
   detail: [
-    "order", "image", "rootPhoto", "namePhoto", "identityStatus", "identityRule",
-    "identityNote", "cnpj", "fund", "pl", "subordinate", "ratio", "range",
-    "currentStatus", "minJuniorPct", "minJunior", "threshold", "thresholdSource",
-    "emissionDate", "emissionDisplay", "emissionSource", "type", "focus",
-    "classificationCompetence", "classificationSource", "flagshipFamily",
-    "flagshipRule", "documentId", "documentDate", "page", "pagesRead",
-    "curationStatus", "documentaryNote", "fundosnetUrl", "gaps",
-    "structuralMinimum", "structuralNature", "structuralText", "structuralFormula",
+    "order", "cnpj", "fund", "referenceName", "identityStatus", "dataRef",
+    "pl", "subordinate", "ratio", "range", "currentStatus",
+    "minJuniorLiteral", "minJuniorCalculated", "minJuniorAdjusted",
+    "supportTotal", "supportCombined", "structuralMinimum", "structuralDisplay",
+    "structuralNature", "structuralFormula",
     "structuralComparable", "structuralComparableReason", "structuralHeadroom",
-    "lossAbsorption", "regulatoryStatus", "marketPosition", "structuralTaxonomy",
-    "exceptionAsterisk",
+    "lossAbsorption", "regulatoryStatus", "marketPosition", "marketExcess",
+    "benchmarkReliable", "marketPeers", "type", "focus", "structuralTaxonomy",
+    "comparisonGroup", "originator", "cedente", "cedenteOriginator", "partyRole",
+    "debtor", "receivable", "partiesSource", "manualStatus", "manualNote",
+    "priceBrl", "priceDisplay", "priceNature", "priceClassSeries",
+    "priceDocumentDate", "priceDocumentId", "priceSource", "priceStatus",
+    "priceExceptionAsterisk", "documentId", "documentDate", "page",
+    "curationStatus", "documentarySource", "minimumText", "gaps",
+    "completionStatus", "exceptionAsterisk",
   ],
 });
 
 function compactCarteira1(data) {
   return {
-    schemaVersion: "carteira_1_curation_compact_v2",
+    schemaVersion: "carteira_1_curation_compact_v3",
     fields: CARTEIRA1_FIELDS,
     summary: data.summary,
     comparisonSummary: data.comparisonSummary,
@@ -782,7 +950,7 @@ function compactCarteira1(data) {
 }
 
 function expandCompactCarteira1(compact) {
-  if (compact.schemaVersion !== "carteira_1_curation_compact_v2") {
+  if (compact.schemaVersion !== "carteira_1_curation_compact_v3") {
     throw new Error(`Esquema da Carteira 1 desconhecido: ${compact.schemaVersion}`);
   }
   const object = (fields, values) => Object.fromEntries(
@@ -1183,6 +1351,13 @@ function flagshipApp(DATA) {
   const pct = value => n(value) === null
     ? "N/D"
     : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
+  const pp = value => n(value) === null
+    ? "N/D"
+    : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " p.p.";
+  const unitPrice = value => n(value) === null
+    ? "N/D"
+    : n(value).toLocaleString("pt-BR", {style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 6});
+  const missing = value => ["", "n/d", "nd", "nan", "nao localizado"].includes(norm(value).trim());
   const ranges = [
     ["< 10%", "#ECEEEF"], ["10%–15%", "#D7DADD"], ["15%–20%", "#BEC2C5"],
     ["20%–35%", "#E8BE9D"], ["35%–60%", "#F29A52"], ["≥ 60%", "#EC7000"],
@@ -1202,34 +1377,74 @@ function flagshipApp(DATA) {
         <article class="flag-card">
           <strong>${esc(row.family)}</strong>
           <span>${money(row.pl)} · atual ${pct(row.ratio)}</span>
-          <small>mín. jr ${esc(row.minJunior)} · emissão ${esc(row.emissionDate)}</small>
+          <small>mín. jr ${esc(row.minJunior)} · preço ${esc(row.price)}</small>
           <small>${esc(row.documented + "/" + row.funds + " CNPJs com pacote")}</small>
         </article>`).join("") || `<p class="flag-empty">Sem famílias neste filtro.</p>`}</div></section>`;
     }).join("");
   };
   const filteredDetails = () => DATA.details.filter(matches);
+  const sourceLine = (label, value) => missing(value) ? "" : `<span>${esc(label)}: ${esc(value)}</span>`;
+  const sourceLink = (label, value) => /^https?:\/\//i.test(String(value || ""))
+    ? `<a href="${esc(value)}" target="_blank" rel="noreferrer">${esc(label)}</a>`
+    : sourceLine(label, value);
   const sourceDetails = row => {
     const links = row.fundosnetUrl
       ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>`
       : "";
-    return `<details><summary>Fontes</summary><div class="flag-sources">${links}<span>Regulamento ${esc(row.documentId)} · ${esc(row.documentDate)} · ${esc(row.page)} · leitura ${esc(row.pagesRead)}</span><span>${esc(row.curationStatus)}</span><span>${esc(row.documentaryNote)}</span><span>Subord.: ${esc(row.thresholdSource)}</span><span>Emissão: ${esc(row.emissionSource)}</span><span>Eventos: ${esc(row.accelerationSource)}</span><span>${esc(row.packagePath)}</span></div></details>`;
+    const document = [row.documentId, row.documentDate, row.page]
+      .filter(value => !missing(value))
+      .join(" · ");
+    const priceDocument = [row.priceDocumentId, row.priceDocumentDate]
+      .filter(value => !missing(value))
+      .join(" · ");
+    return `<details><summary>Fontes</summary><div class="flag-sources">${links}
+      ${sourceLine("Documento", document)}
+      ${sourceLink("Mínimo estrutural", row.documentarySource)}
+      ${sourceLine("Texto do mínimo", row.minimumText)}
+      ${sourceLink("Partes/recebível", row.partiesSource)}
+      ${sourceLine("Complemento manual", row.manualNote)}
+      ${sourceLine("Documento do preço", priceDocument)}
+      ${sourceLink("Fonte do preço", row.priceSource)}
+    </div></details>`;
+  };
+  const minima = row => {
+    const components = [
+      ["Jr literal", row.minJuniorLiteral],
+      ["Jr calculado", row.minJuniorCalculated],
+      ["Jr ajustado", row.minJuniorAdjusted],
+      ["Suporte total", row.supportTotal],
+      ["Jr + mezanino", row.supportCombined],
+    ].filter(([, value]) => n(value) !== null)
+      .map(([label, value]) => `${esc(label)} ${pct(value)}`)
+      .join(" · ");
+    const value = !missing(row.structuralDisplay)
+      ? row.structuralDisplay
+      : pct(row.structuralMinimum);
+    return `<strong>${esc(value)}${row.exceptionAsterisk ? "*" : ""}</strong><br><small>${components || "Mínimo N/D"}<br>${esc(row.structuralNature)} · ${esc(row.structuralFormula)}</small>`;
+  };
+  const parties = row => `<strong>Orig. ${esc(row.originator)}</strong><br><small>Ced. ${esc(row.cedente)}<br>${esc(row.cedenteOriginator)} · ${esc(row.partyRole)}</small>`;
+  const debtorReceivable = row => `<strong>${esc(row.debtor)}</strong><br><small>${esc(row.receivable)}</small>`;
+  const headroom = row => `<strong>${pp(row.structuralHeadroom)}</strong><br><small>${esc(row.regulatoryStatus)} · absorção ${pct(row.lossAbsorption)}</small>`;
+  const price = row => {
+    const value = !missing(row.priceDisplay) ? row.priceDisplay : unitPrice(row.priceBrl);
+    return `<strong>${esc(value)}${row.priceExceptionAsterisk ? "*" : ""}</strong><br><small>${esc(row.priceClassSeries)}<br>${esc(row.priceDocumentDate)} · ${esc(row.priceNature)}<br>${esc(row.priceStatus)}</small>`;
   };
   const renderTable = () => {
     const rows = filteredDetails();
     const pages = Math.max(1, Math.ceil(rows.length / 10));
     state.page = Math.min(state.page, pages - 1);
     const current = rows.slice(state.page * 10, state.page * 10 + 10);
-    caption.textContent = `${rows.length} CNPJs no filtro · competência ${DATA.summary.competence}.`;
+    caption.textContent = `${rows.length} CNPJs canônicos no filtro · competência ${DATA.summary.competence}.`;
     tbody.innerHTML = current.map(row => `<tr>
-      <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.family)}</small></td>
-      <td>${esc(row.cnpj)}</td>
-      <td class="num">${money(row.pl)}</td>
-      <td class="num">${pct(row.ratio)}<br><small>${esc(row.range)}</small></td>
-      <td>${esc(row.minJunior)}<br><small>${esc(row.threshold)}</small></td>
-      <td>${esc(row.emissionDate)}</td>
-      <td>${esc(row.mezzanine)}</td>
-      <td>${esc(row.acceleration)}</td>
-      <td>${esc(row.packageStatus)}<br><small>${esc(row.gaps)}</small></td>
+      <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.cnpj)} · ${esc(row.family)}</small></td>
+      <td>${esc(row.category)}</td>
+      <td>${parties(row)}</td>
+      <td>${debtorReceivable(row)}</td>
+      <td class="num">${money(row.pl)}<br><small>Sub. ${pct(row.ratio)} · ${esc(row.range)}</small></td>
+      <td>${minima(row)}</td>
+      <td class="num">${headroom(row)}</td>
+      <td>${price(row)}</td>
+      <td>${esc(row.completionStatus)}<br><small>${esc(row.curationStatus)} · ${esc(row.gaps)}</small></td>
       <td>${sourceDetails(row)}</td>
     </tr>`).join("") || `<tr><td colspan="10">Nenhum CNPJ encontrado.</td></tr>`;
     pager.querySelector("span").textContent = `${rows.length ? state.page + 1 : 0} / ${rows.length ? pages : 0}`;
@@ -1238,13 +1453,13 @@ function flagshipApp(DATA) {
   };
   const render = () => { renderGrid(); renderTable(); };
   const downloadCsv = () => {
-    const headers = ["categoria","familia","fundo","cnpj","pl_atual_brl","pl_subordinado_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","emissao","mezanino","vencimento_antecipado","status_pacote","documento_regulamento","data_regulamento","pagina_clausula","extensao_leitura","status_curadoria_documental","observacao_documental","lacunas","fundosnet_url"];
-    const rows = filteredDetails().map(row => [row.category,row.family,row.fund,row.cnpj,row.pl,row.subordinate,row.ratio,row.range,row.minJunior,row.emissionDate,row.mezzanine,row.acceleration,row.packageStatus,row.documentId,row.documentDate,row.page,row.pagesRead,row.curationStatus,row.documentaryNote,row.gaps,row.fundosnetUrl]);
+    const headers = ["ordem","categoria","familia_flagship","cnpj","fundo_oficial_cvm","data_ref","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","status_sub_pl_atual","faixa_subordinacao_atual","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","minimo_estrutural_natureza","minimo_estrutural_formula","comparavel_flag","comparabilidade_motivo","excecao_asterisco_flag","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco_flag","status_identidade","status_complemento_manual","observacao_complemento_manual","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
+    const rows = filteredDetails().map(row => [row.order,row.category,row.family,row.cnpj,row.fund,row.dataRef,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.pl,row.subordinate,row.ratio,row.currentStatus,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.structuralComparable,row.structuralComparableReason,row.exceptionAsterisk,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.identityStatus,row.manualStatus,row.manualNote,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,row.fundosnetUrl]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
     const url = URL.createObjectURL(blob), anchor = document.createElement("a");
-    anchor.href = url; anchor.download = "curadoria_flagship.csv"; document.body.appendChild(anchor); anchor.click(); anchor.remove();
+    anchor.href = url; anchor.download = "flagships_por_cnpj.csv"; document.body.appendChild(anchor); anchor.click(); anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 500);
   };
   category.addEventListener("change", () => { state.category = category.value; state.page = 0; render(); });
@@ -1278,25 +1493,60 @@ function carteira1App(DATA) {
   const pct = value => n(value) === null
     ? "N/D"
     : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + "%";
+  const pp = value => n(value) === null
+    ? "N/D"
+    : (n(value) * 100).toLocaleString("pt-BR", {minimumFractionDigits: 1, maximumFractionDigits: 1}) + " p.p.";
+  const unitPrice = value => n(value) === null
+    ? "N/D"
+    : n(value).toLocaleString("pt-BR", {style: "currency", currency: "BRL", minimumFractionDigits: 2, maximumFractionDigits: 6});
+  const missing = value => ["", "n/d", "nd", "nan", "nao localizado"].includes(norm(value).trim());
   const ranges = DATA.ranges.map(row => row.range);
-  const types = [...new Set(DATA.details.map(row => row.type))].sort();
+  const types = [...new Set(DATA.details.map(row => row.comparisonGroup))].sort();
   range.innerHTML = `<option value="all">Todas as faixas</option>` + ranges.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
-  type.innerHTML = `<option value="all">Todos os tipos</option>` + types.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  type.innerHTML = `<option value="all">Todos os grupos</option>` + types.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
   rangeGrid.innerHTML = DATA.ranges.map(row => `<article><strong>${esc(row.range)}</strong><span>${row.funds.toLocaleString("pt-BR")} fundos</span><small>${money(row.pl)} · ${esc(row.typeSummary)}</small></article>`).join("");
   const matches = row => {
     if (state.range !== "all" && row.range !== state.range) return false;
-    if (state.type !== "all" && row.type !== state.type) return false;
+    if (state.type !== "all" && row.comparisonGroup !== state.type) return false;
     if (!state.query) return true;
     return norm(Object.values(row).join(" ")).includes(norm(state.query));
   };
   const filtered = () => DATA.details.filter(matches);
+  const sourceLine = (label, value) => missing(value) ? "" : `<span>${esc(label)}: ${esc(value)}</span>`;
+  const sourceLink = (label, value) => /^https?:\/\//i.test(String(value || ""))
+    ? `<a href="${esc(value)}" target="_blank" rel="noreferrer">${esc(label)}</a>`
+    : sourceLine(label, value);
   const trace = row => `<details><summary>Fontes</summary><div class="flag-sources">
-    ${row.fundosnetUrl ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>` : ""}
+    <a href="https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}" target="_blank" rel="noreferrer">FundosNet</a>
     <span>Regulamento ${esc(row.documentId)} · ${esc(row.documentDate)} · p. ${esc(row.page)}</span>
-    <span>${row.pagesRead.toLocaleString("pt-BR")} páginas lidas</span>
-    <span>Subord.: ${esc(row.thresholdSource)}</span><span>Fórmula: ${esc(row.structuralFormula)}</span>
-    <span>Comparabilidade: ${esc(row.structuralComparableReason)}</span><span>Emissão: ${esc(row.emissionSource)}</span>
-    <span>Classificação: ${esc(row.classificationSource)}</span></div></details>`;
+    ${sourceLink("Subordinação", row.documentarySource)}
+    ${sourceLine("Texto do mínimo", row.minimumText)}
+    ${sourceLine("Fórmula", row.structuralFormula)}
+    ${sourceLine("Comparabilidade", row.structuralComparableReason)}
+    ${sourceLink("Partes/recebível", row.partiesSource)}
+    ${sourceLine("Complemento manual", row.manualNote)}
+    ${sourceLine("Documento do preço", `${row.priceDocumentId} · ${row.priceDocumentDate}`)}
+    ${sourceLink("Fonte do preço", row.priceSource)}</div></details>`;
+  const minima = row => {
+    const junior = [
+      ["Jr literal", row.minJuniorLiteral],
+      ["Jr calculado", row.minJuniorCalculated],
+      ["Jr ajustado", row.minJuniorAdjusted],
+      ["Suporte total", row.supportTotal],
+      ["Jr + mezanino", row.supportCombined],
+    ].filter(([, value]) => n(value) !== null)
+      .map(([label, value]) => `${esc(label)} ${pct(value)}`)
+      .join(" · ");
+    const asterisk = row.exceptionAsterisk ? "*" : "";
+    return `<strong>${esc(row.structuralDisplay)}${asterisk}</strong><br><small>${junior || "Mínimo N/D"}<br>${esc(row.structuralNature)}</small>`;
+  };
+  const parties = row => `<strong>Orig. ${esc(row.originator)}</strong><br><small>Ced. ${esc(row.cedente)} · Sac. ${esc(row.debtor)}<br>${esc(row.cedenteOriginator)} · ${esc(row.partyRole)}<br>${esc(row.receivable)}</small>`;
+  const market = row => `<strong>${esc(row.marketPosition)}</strong><br><small>Excesso ${pp(row.marketExcess)} · ${row.marketPeers == null ? "N/D" : Number(row.marketPeers).toLocaleString("pt-BR")} pares · benchmark ${row.benchmarkReliable == null ? "N/D" : row.benchmarkReliable ? "confiável" : "insuficiente"}</small>`;
+  const price = row => {
+    const asterisk = row.priceExceptionAsterisk ? "*" : "";
+    const value = !missing(row.priceDisplay) ? row.priceDisplay : unitPrice(row.priceBrl);
+    return `<strong>${esc(value)}${asterisk}</strong><br><small>${esc(row.priceClassSeries)} · ${esc(row.priceNature)}<br>${esc(row.priceStatus)} · ${esc(row.priceDocumentDate)}</small>`;
+  };
   const renderTable = () => {
     const rows = filtered();
     const pages = Math.max(1, Math.ceil(rows.length / 12));
@@ -1305,15 +1555,15 @@ function carteira1App(DATA) {
     caption.textContent = `${rows.length} de 101 CNPJs · competência ${DATA.summary.competence}.`;
     tbody.innerHTML = current.map(row => `<tr>
       <td class="num">${row.order}</td>
-      <td><strong>${esc(row.fund)}</strong><br><small>foto: ${esc(row.namePhoto)}</small></td>
-      <td>${esc(row.cnpj)}<br><small>raiz ${esc(row.rootPhoto)}</small></td>
-      <td class="num">${money(row.pl)}</td>
-      <td class="num">${pct(row.ratio)}<br><small>${esc(row.range)}</small></td>
-      <td>${esc(row.structuralMinimum)}<br><small>${esc(row.structuralNature)} · ${esc(row.structuralText)}</small></td>
-      <td class="num">${pct(row.structuralHeadroom)}<br><small>absorção ${pct(row.lossAbsorption)} · ${esc(row.regulatoryStatus)}</small></td>
-      <td>${esc(row.emissionDisplay)}</td>
-      <td>${esc(row.structuralTaxonomy)}<br><small>${esc(row.type)} · ${esc(row.focus)}</small></td>
-      <td>${esc(row.curationStatus)}<br><small>${esc(row.gaps)}</small></td>
+      <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.cnpj)} · ${esc(row.referenceName)}</small></td>
+      <td>${esc(row.comparisonGroup)}<br><small>${esc(row.structuralTaxonomy)} · ${esc(row.type)} · ${esc(row.focus)}</small></td>
+      <td>${parties(row)}</td>
+      <td class="num">${money(row.pl)}<br><small>Sub. ${pct(row.ratio)} · ${esc(row.range)}</small></td>
+      <td>${minima(row)}</td>
+      <td class="num">${pp(row.structuralHeadroom)}<br><small>absorção ${pct(row.lossAbsorption)} · ${esc(row.regulatoryStatus)}</small></td>
+      <td>${market(row)}</td>
+      <td>${price(row)}</td>
+      <td>${esc(row.completionStatus)}<br><small>${esc(row.curationStatus)} · ${esc(row.gaps)}</small></td>
       <td>${trace(row)}</td>
     </tr>`).join("") || `<tr><td colspan="11">Nenhum CNPJ encontrado.</td></tr>`;
     pager.querySelector("span").textContent = `${rows.length ? state.page + 1 : 0} / ${rows.length ? pages : 0}`;
@@ -1322,8 +1572,8 @@ function carteira1App(DATA) {
   };
   const render = () => renderTable();
   const downloadCsv = () => {
-    const headers = ["ordem","raiz_cnpj_foto","nome_foto","cnpj","fundo","pl_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","minimo_estrutural","natureza_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga","capacidade_absorcao","situacao_regulatoria","posicao_mercado","emissao","tipo","foco","taxonomia_estrutural","familia_flagship_referencia","status_curadoria","lacunas","documento","pagina","paginas_lidas","fundosnet_url"];
-    const rows = filtered().map(row => [row.order,row.rootPhoto,row.namePhoto,row.cnpj,row.fund,row.pl,row.ratio,row.range,row.minJunior,row.structuralMinimum,row.structuralNature,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.emissionDisplay,row.type,row.focus,row.structuralTaxonomy,row.flagshipFamily,row.curationStatus,row.gaps,row.documentId,row.page,row.pagesRead,row.fundosnetUrl]);
+    const headers = ["ordem","cnpj","fundo_oficial","nome_referencia","data_ref","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","faixa","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","natureza_metrica","formula_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","posicao_mercado","excesso_vs_mercado","benchmark_confiavel","n_comparaveis_categoria","tipo","foco","taxonomia_estrutural","grupo_comparacao","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","status_complemento_manual","observacao_complemento_manual","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
+    const rows = filtered().map(row => [row.order,row.cnpj,row.fund,row.referenceName,row.dataRef,row.pl,row.subordinate,row.ratio,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.marketExcess,row.benchmarkReliable,row.marketPeers,row.type,row.focus,row.structuralTaxonomy,row.comparisonGroup,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.manualStatus,row.manualNote,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,`https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}`]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -1582,25 +1832,26 @@ function fragmentHtml(data, standalone = false) {
   <table aria-label="Emissões por Categoria ANBIMA"><thead><tr></tr></thead><tbody></tbody></table>
 </section>
 <section id="flagship-curation-explorer" aria-labelledby="flagship-curation-title">
-  <header class="flag-heading"><h2 id="flagship-curation-title">Curadoria comparável dos fundos flagship</h2><p>PL e subordinação atual são calculados por CNPJ. Mínimos, datas de emissão, mezanino e eventos reproduzem somente os documentos curados.</p></header>
+  <header class="flag-heading"><h2 id="flagship-curation-title">Curadoria comparável dos fundos flagship</h2><p>As 26 famílias preservam o resumo curado. O detalhe usa os 47 CNPJs da base canônica compartilhada, com partes, recebíveis, mínimos estruturais, folga, situação e preço unitário por cota.</p></header>
   <div class="flag-metrics">
     <div class="flag-metric"><strong>${data.flagships.summary.families}</strong><span>famílias flagship</span></div>
     <div class="flag-metric"><strong>${data.flagships.summary.current}/${data.flagships.summary.cnpjs}</strong><span>CNPJs com subordinação atual</span></div>
     <div class="flag-metric"><strong>${data.flagships.summary.minJunior}</strong><span>mínimos júnior localizados</span></div>
-    <div class="flag-metric"><strong>${data.flagships.summary.emission}</strong><span>datas de emissão localizadas</span></div>
+    <div class="flag-metric"><strong>${data.flagships.summary.price}</strong><span>preços unitários localizados</span></div>
   </div>
   <div class="flag-controls">
     <label>Categoria<select data-flag-category aria-label="Categoria flagship"></select></label>
-    <label class="flag-search">Buscar fundo, família ou CNPJ<input data-flag-search type="search" placeholder="Ex.: Cloudwalk Bela, Veículos, 62.393.679/0001-83"></label>
+    <label class="flag-search">Buscar fundo, família, CNPJ, parte ou recebível<input data-flag-search type="search" placeholder="Ex.: Cloudwalk Bela, 62.393.679/0001-83, FGTS"></label>
     <button type="button" data-flag-csv>Exportar CSV</button>
   </div>
   <div class="flag-grid" data-flag-grid aria-label="Famílias por faixa de subordinação atual"></div>
   <div class="flag-caption" data-flag-caption aria-live="polite"></div>
-  <table aria-label="Curadoria documental dos CNPJs flagship">
-    <thead><tr><th>Fundo / família</th><th>CNPJ</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo júnior</th><th>Emissão</th><th>Mezanino</th><th>Vencimento antecipado / avaliação</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+  <table aria-label="Base canônica dos CNPJs flagship">
+    <thead><tr><th>FIDC / CNPJ / família</th><th>Categoria</th><th>Originador / cedente</th><th>Sacado / recebível</th><th class="num">PL / Sub atual</th><th>Mínimos Jr / estrutural</th><th class="num">Folga / situação</th><th>Preço unitário por cota</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
     <tbody></tbody>
   </table>
   <div class="flag-pager" data-flag-pager><button type="button" data-flag-prev>Anterior</button><span>0 / 0</span><button type="button" data-flag-next>Próxima</button></div>
+  <p class="flag-caption">* marca mínimo de natureza distinta da júnior literal ou preço com múltiplas classes, valores ou leitura documental ambígua; classe/série, data, status e fonte permanecem na linha.</p>
 </section>
 <section id="carteira-1-flagship-comparison" aria-labelledby="carteira-1-flagship-title">
   <h2 id="carteira-1-flagship-title">Carteira 1 vs. 47 CNPJs flagship</h2>
@@ -1612,27 +1863,29 @@ function fragmentHtml(data, standalone = false) {
   <p>${data.carteira1.comparisonSummary.methodology}</p>
 </section>
 <section id="carteira-1-curation-explorer" aria-labelledby="carteira-1-curation-title">
-  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Os 101 CNPJs preservam subordinação atual, mínimo documental, natureza da métrica, comparabilidade e lacunas.</p></header>
+  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Base normalizada comum ao deck e ao workbook, com partes, lastro, mínimos por natureza, preço unitário por cota, situação regulatória, comparação de mercado e fontes.</p></header>
   <div class="c1-metrics">
     <div class="c1-metric"><strong>${data.carteira1.summary.cnpjs}</strong><span>CNPJs transcritos e salvos</span></div>
     <div class="c1-metric"><strong>${data.carteira1.summary.minJunior}</strong><span>mínimos júnior · ${(data.carteira1.summary.juniorCoverage * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%</span></div>
     <div class="c1-metric"><strong>${data.carteira1.summary.minStructural}</strong><span>mínimos estruturais · ${(data.carteira1.summary.structuralCoverage * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%</span></div>
     <div class="c1-metric"><strong>${data.carteira1.summary.comparableStructural}</strong><span>com folga calculável</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.partyCoverage}</strong><span>com originador, cedente ou papel literal</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.priceCoverage}</strong><span>com preço unitário localizado</span></div>
   </div>
   <div class="c1-controls">
     <label>Faixa<select data-c1-range aria-label="Faixa de subordinação atual"></select></label>
-    <label>Tipo<select data-c1-type aria-label="Tipo do fundo"></select></label>
-    <label class="c1-search">Buscar nome fotografado, fundo, CNPJ ou tipo<input data-c1-search type="search" placeholder="Ex.: Cloudwalk, 42.085.816, Agro"></label>
+    <label>Grupo de comparação<select data-c1-type aria-label="Grupo de comparação estrutural"></select></label>
+    <label class="c1-search">Buscar fundo, CNPJ, parte, recebível ou taxonomia<input data-c1-search type="search" placeholder="Ex.: Cloudwalk, 42.085.816, FGTS"></label>
     <button type="button" data-c1-csv>Exportar CSV</button>
   </div>
   <div class="c1-range-grid" data-c1-range-grid aria-label="Distribuição da Carteira 1 por faixa"></div>
   <div class="c1-caption" data-c1-caption aria-live="polite"></div>
   <table aria-label="Curadoria dos CNPJs da Carteira 1">
-    <thead><tr><th class="num">#</th><th>Fundo oficial / nome fotografado</th><th>CNPJ / raiz</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo estrutural</th><th class="num">Folga / absorção</th><th>Emissão</th><th>Taxonomia / tipo</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <thead><tr><th class="num">#</th><th>FIDC / CNPJ</th><th>Taxonomia</th><th>Originador / cedente / sacado / recebível</th><th class="num">PL / Sub atual</th><th>Mínimos Jr / estrutural</th><th class="num">Folga / absorção</th><th>Posição de mercado</th><th>Preço unitário por cota</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
     <tbody></tbody>
   </table>
   <div class="c1-pager" data-c1-pager><button type="button" data-c1-prev>Anterior</button><span>0 / 0</span><button type="button" data-c1-next>Próxima</button></div>
-  <p class="c1-caption">${data.carteira1.summary.asterisk} ${data.carteira1.summary.plNote} ${data.carteira1.summary.outside} veículo fora da base mensal FIDC permanece com métricas N/D.</p>
+  <p class="c1-caption">* indica mínimo de natureza distinta da júnior literal, suporte combinado/ajustado ou preço com múltiplas classes/leituras; a natureza e a fonte aparecem na linha. ${data.carteira1.summary.plNote} ${data.carteira1.summary.outside} veículo fora da base mensal FIDC permanece com métricas N/D.</p>
 </section>
 <section id="carteira-1-taxonomy-explorer" aria-labelledby="carteira-1-taxonomy-title">
   <h2 id="carteira-1-taxonomy-title">Carteira 1 · evolução pela taxonomia reclassificada</h2>

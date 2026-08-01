@@ -40,9 +40,124 @@ MATERIALIZED_PORTFOLIO_XLSX_NAME = "carteira_101_flagships.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v3"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v8"
-EXPECTED_SLIDES = 26
+ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ((6, 8),)
+STRUCTURAL_DETAIL_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
+    ("risco estrutural", "factoring", "1/1"),
+    ("risco estrutural", "agro / revenda", "1/8"),
+    ("risco estrutural", "agro / revenda", "2/8"),
+    ("risco estrutural", "agro / revenda", "3/8"),
+    ("risco estrutural", "agro / revenda", "4/8"),
+    ("risco estrutural", "agro / revenda", "5/8"),
+    ("risco estrutural", "agro / revenda", "6/8"),
+    ("risco estrutural", "agro / revenda", "7/8"),
+    ("risco estrutural", "agro / revenda", "8/8"),
+    ("risco estrutural", "adquirencia", "1/3"),
+    ("risco estrutural", "adquirencia", "2/3"),
+    ("risco estrutural", "adquirencia", "3/3"),
+    ("risco estrutural", "consignado inss", "1/2"),
+    ("risco estrutural", "consignado inss", "2/2"),
+    ("risco estrutural", "consignado fgts", "1/2"),
+    ("risco estrutural", "consignado fgts", "2/2"),
+    ("risco estrutural", "veiculos", "1/2"),
+    ("risco estrutural", "veiculos", "2/2"),
+    ("risco estrutural", "financeiro", "1/5"),
+    ("risco estrutural", "financeiro", "2/5"),
+    ("risco estrutural", "financeiro", "3/5"),
+    ("risco estrutural", "financeiro", "4/5"),
+    ("risco estrutural", "financeiro", "5/5"),
+    ("risco estrutural", "n/d", "1/1"),
+)
+STRUCTURAL_DETAIL_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = (
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (6, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (4, 10),
+    (8, 10),
+    (5, 10),
+    (8, 10),
+    (3, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (8, 10),
+    (2, 10),
+)
+TYPE_RANKING_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
+    ("fomento mercantil", "crescimento marginal em seis meses", "jun/26", "top 15"),
+    ("fomento mercantil", "crescimento marginal em seis meses", "dez/25", "top 15"),
+    ("agro, industria e comercio", "maior salto absoluto", "jun/26", "top 15"),
+    ("agro, industria e comercio", "maior salto absoluto", "dez/25", "top 15"),
+    ("financeiro", "maior bloco", "ainda crescendo", "jun/26", "top 15"),
+    ("financeiro", "maior bloco", "ainda crescendo", "dez/25", "top 15"),
+    ("outros", "unico bloco que encolheu", "jun/26", "top 15"),
+    ("outros", "unico bloco que encolheu", "dez/25", "top 15"),
+)
+CURRENT_TOP15_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
+    (
+        "top 15",
+        "ibba esteve em 8 das 15 maiores ofertas do semestre",
+        "liderou 5 delas",
+        "jan–jun/26",
+    ),
+    (
+        "top 15",
+        "as 15 maiores ofertas de 2025 mantem a base anual de comparacao",
+        "2025fy",
+    ),
+)
+HISTORICAL_TOP15_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
+    (
+        "top 15",
+        "historico",
+        "maiores ofertas de 2024",
+        "1/2",
+        "agencia",
+        "rating",
+    ),
+    (
+        "top 15",
+        "historico",
+        "maiores ofertas de 2024",
+        "2/2",
+        "agencia",
+        "rating",
+    ),
+    (
+        "top 15",
+        "historico",
+        "maiores ofertas de 2023",
+        "1/2",
+        "agencia",
+        "rating",
+    ),
+    (
+        "top 15",
+        "historico",
+        "maiores ofertas de 2023",
+        "2/2",
+        "agencia",
+        "rating",
+    ),
+)
+HISTORICAL_TOP15_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = (
+    (9, 12),
+    (8, 12),
+    (9, 12),
+    (8, 12),
+)
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    ("industria de fidcs", "jun/26"),
+    ("industria de fidcs", "ago-26", "dados de referencia: jun-26"),
     ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
     ("emissoes", "fidcs seguem ganhando escala nas emissoes", "1s26 ytd yoy"),
     ("saldo e tipos de fidcs", "financeiros dominam saldo e novas emissoes"),
@@ -51,26 +166,52 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("adquirencia e r$ 99 bi", "33 cnpjs reclassificados"),
     ("financeiro explicou 70% do crescimento da carteira",),
     ("ranking", "top 20 fidcs"),
-    ("fomento mercantil", "crescimento marginal em seis meses"),
-    ("agro, industria e comercio", "maior salto absoluto"),
-    ("financeiro", "maior bloco", "ainda crescendo"),
-    ("outros", "unico bloco que encolheu"),
+    *TYPE_RANKING_SLIDE_SEQUENCE,
     ("risco estrutural", "cobertura por taxonomia"),
-    ("risco estrutural", "carteira vs. pares"),
+    *STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
     ("risco estrutural", "ativos"),
     ("emissoes crescem 15% no semestre",),
     ("22 ofertas concentram 42% de todo o volume",),
     ("garantia firme", "yoy ytd", "melhores esforcos repr."),
-    ("ibba esteve em 8 das 15 maiores ofertas do semestre",),
-    ("top 15", "historico"),
+    *CURRENT_TOP15_SLIDE_SEQUENCE,
+    *HISTORICAL_TOP15_SLIDE_SEQUENCE,
     ("o que muda a leitura do mercado",),
     ("qi lidera administracao", "btg lidera gestao e custodia"),
     ("prestadores", "ranking e concentracao"),
     ("quase todo o volume vai para o investidor profissional",),
     ("distribuicao por numero de cotistas",),
 )
-if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
-    raise RuntimeError("contrato ordinal do PPTX não fecha 26 slides")
+EXPECTED_SLIDES = len(EXPECTED_SLIDE_SEQUENCE)
+
+
+def _contract_slide_numbers(
+    sequence: tuple[tuple[str, ...], ...],
+) -> tuple[int, ...]:
+    """Resolve ordinal positions from the shared editorial contract."""
+
+    return tuple(EXPECTED_SLIDE_SEQUENCE.index(tokens) + 1 for tokens in sequence)
+
+
+CURRENT_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
+    CURRENT_TOP15_SLIDE_SEQUENCE
+)
+HISTORICAL_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
+    HISTORICAL_TOP15_SLIDE_SEQUENCE
+)
+if len(STRUCTURAL_DETAIL_TABLE_DIMENSIONS) != len(
+    STRUCTURAL_DETAIL_SLIDE_SEQUENCE
+) or sum(rows - 1 for rows, _ in STRUCTURAL_DETAIL_TABLE_DIMENSIONS) != 148:
+    raise RuntimeError("contrato das 148 linhas estruturais está inconsistente")
+if len(HISTORICAL_TOP15_TABLE_DIMENSIONS) != len(
+    HISTORICAL_TOP15_SLIDE_SEQUENCE
+) or any(
+    sum(rows - 1 for rows, _ in year_dimensions) != 15
+    for year_dimensions in (
+        HISTORICAL_TOP15_TABLE_DIMENSIONS[:2],
+        HISTORICAL_TOP15_TABLE_DIMENSIONS[2:],
+    )
+):
+    raise RuntimeError("contrato das tabelas históricas Top 15 está inconsistente")
 BLOCKED_PPTX_AUDIENCE_COPY: tuple[str, ...] = (
     "clique para inserir",
     "click to add",
@@ -139,6 +280,37 @@ REQUIRED_PORTFOLIO_WORKBOOK_SHEETS = {
     "Cobertura e lacunas",
     "Dicionário",
     "Fontes manuais",
+    "Preços por cota",
+    "Auditoria documental",
+    "Evidências documentais",
+    "Cobertura varredura",
+    "Dicionário de campos",
+}
+PORTFOLIO_WORKBOOK_MINIMUM_HEADERS = frozenset(
+    {
+        "CNPJ",
+        "Nome completo do fundo (CVM)",
+        "PL atual",
+        "Sub / PL atual",
+        "Mínimo Jr literal",
+        "Mínimo Jr calculado*",
+        "Mínimo Jr ajustado*",
+        "Suporte total*",
+        "Suporte Jr + Mezanino*",
+        "Índice estrutural usado",
+        "Folga / falta",
+        "Preço por cota · leitura",
+        "Originador*",
+        "Cedente*",
+        "Sacado / devedor*",
+        "Tipo de recebível*",
+        "Fonte documental",
+        "Status do preenchimento",
+    }
+)
+PORTFOLIO_WORKBOOK_EXPECTED_ROWS = {
+    "Carteira 101": 101,
+    "Flagships": 47,
 }
 
 
@@ -424,6 +596,31 @@ def _validate_native_table_slide(
         )
 
 
+def _native_table_text_rows(
+    archive: zipfile.ZipFile,
+    slide_number: int,
+) -> tuple[tuple[str, ...], ...]:
+    """Return the first native Office table as normalized cell text rows."""
+
+    root = ElementTree.fromstring(
+        archive.read(f"ppt/slides/slide{slide_number}.xml")
+    )
+    table = root.find(f".//{{{_DML}}}tbl")
+    if table is None:
+        return ()
+    rows: list[tuple[str, ...]] = []
+    for row in table.findall(f"{{{_DML}}}tr"):
+        cells: list[str] = []
+        for cell in row.findall(f"{{{_DML}}}tc"):
+            text = " ".join(
+                part.text or ""
+                for part in cell.findall(f".//{{{_DML}}}t")
+            )
+            cells.append(" ".join(text.split()))
+        rows.append(tuple(cells))
+    return tuple(rows)
+
+
 def _contains_blocked_rgb_color(
     xml_parts: Iterable[bytes],
     blocked_color: str,
@@ -508,28 +705,55 @@ def validate_revision_pptx(payload: bytes) -> None:
         _validate_native_table_slide(
             archive,
             5,
-            expected_dimensions=((8, 11),),
+            expected_dimensions=ISSUANCE_TAXONOMY_TABLE_DIMENSIONS,
             canvas=canvas,
         )
-        for ranking_slide_number in range(10, 14):
+        for ranking_slide_number in range(10, 18):
             _validate_native_table_slide(
                 archive,
                 ranking_slide_number,
-                expected_dimensions=((16, 6), (16, 6)),
+                expected_dimensions=((16, 9),),
                 canvas=canvas,
             )
-        _validate_native_table_slide(
-            archive,
-            20,
-            expected_dimensions=((16, 7), (16, 7)),
-            canvas=canvas,
-        )
-        _validate_native_table_slide(
-            archive,
-            21,
-            expected_dimensions=((16, 7), (16, 7)),
-            canvas=canvas,
-        )
+        for offset, dimensions in enumerate(
+            STRUCTURAL_DETAIL_TABLE_DIMENSIONS,
+            start=19,
+        ):
+            _validate_native_table_slide(
+                archive,
+                offset,
+                expected_dimensions=(dimensions,),
+                canvas=canvas,
+            )
+            for row_number, row in enumerate(
+                _native_table_text_rows(archive, offset)[1:],
+                start=2,
+            ):
+                price = row[8] if len(row) > 8 else ""
+                if price and _normalize_office_text(price) not in {"n/d", "nd"} and not re.search(
+                    r"\d", price
+                ):
+                    raise RevisionExportUnavailable(
+                        f"slide {offset}, linha {row_number}: preço por cota perdeu o valor numérico"
+                    )
+        for slide_number in CURRENT_TOP15_SLIDE_NUMBERS:
+            _validate_native_table_slide(
+                archive,
+                slide_number,
+                expected_dimensions=((16, 10),),
+                canvas=canvas,
+            )
+        for slide_number, dimensions in zip(
+            HISTORICAL_TOP15_SLIDE_NUMBERS,
+            HISTORICAL_TOP15_TABLE_DIMENSIONS,
+            strict=True,
+        ):
+            _validate_native_table_slide(
+                archive,
+                slide_number,
+                expected_dimensions=(dimensions,),
+                canvas=canvas,
+            )
         office_xml_parts = [
             archive.read(name)
             for name in archive.namelist()
@@ -611,13 +835,12 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de emissões por categoria deve conter uma tabela nativa"
             )
-        top15_offers_slide = _slide_xml_containing(
-            archive, "IBBA ESTEVE EM 8 DAS 15 MAIORES OFERTAS DO SEMESTRE"
-        )
-        if top15_offers_slide.count(b"<a:tbl>") != 2:
-            raise RevisionExportUnavailable(
-                "slide de maiores ofertas deve conter duas tabelas nativas do Office"
-            )
+        for slide_number in CURRENT_TOP15_SLIDE_NUMBERS:
+            top15_offers_slide = archive.read(ordered_slides[slide_number - 1])
+            if top15_offers_slide.count(b"<a:tbl>") != 1:
+                raise RevisionExportUnavailable(
+                    f"slide {slide_number} de maiores ofertas deve conter uma tabela nativa do Office"
+                )
         provider_concentration_slide = _slide_xml_containing(
             archive,
             "PRESTADORES",
@@ -647,6 +870,41 @@ def validate_revision_xlsx(payload: bytes) -> None:
         )
 
 
+def _validated_numeric_cnpj(value: object) -> str | None:
+    """Return a checksum-valid 14-digit CNPJ stored as an Excel number."""
+
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        digits = str(value)
+    elif isinstance(value, float) and value.is_integer():
+        digits = str(int(value))
+    else:
+        return None
+    if not digits or len(digits) > 14:
+        return None
+    digits = digits.zfill(14)
+    if len(set(digits)) == 1:
+        return None
+
+    def check_digit(base: str, weights: tuple[int, ...]) -> str:
+        remainder = sum(
+            int(character) * weight
+            for character, weight in zip(base, weights, strict=True)
+        ) % 11
+        return "0" if remainder < 2 else str(11 - remainder)
+
+    first = check_digit(
+        digits[:12],
+        (5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2),
+    )
+    second = check_digit(
+        digits[:12] + first,
+        (6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2),
+    )
+    return digits if digits[-2:] == first + second else None
+
+
 def validate_revision_portfolio_xlsx(payload: bytes) -> None:
     """Validate the standalone Carteira 101 and flagship workbook."""
 
@@ -672,6 +930,78 @@ def validate_revision_portfolio_xlsx(payload: bytes) -> None:
             "XLSX de Carteira 101 e Flagships sem abas obrigatórias: "
             + ", ".join(missing)
         )
+
+    try:
+        from openpyxl import load_workbook
+
+        workbook = load_workbook(
+            BytesIO(payload),
+            read_only=True,
+            data_only=True,
+        )
+    except Exception as exc:
+        raise RevisionExportUnavailable(
+            "XLSX de Carteira 101 e Flagships não pôde ser lido"
+        ) from exc
+
+    try:
+        for sheet_name, expected_rows in PORTFOLIO_WORKBOOK_EXPECTED_ROWS.items():
+            sheet = workbook[sheet_name]
+            header_cells = next(
+                sheet.iter_rows(min_row=4, max_row=4),
+                (),
+            )
+            headers = tuple(
+                str(cell.value or "").strip() for cell in header_cells
+            )
+            missing_headers = sorted(
+                PORTFOLIO_WORKBOOK_MINIMUM_HEADERS - set(headers)
+            )
+            if missing_headers:
+                raise RevisionExportUnavailable(
+                    f"aba {sheet_name} sem cabeçalhos obrigatórios: "
+                    + ", ".join(missing_headers)
+                )
+
+            cnpj_column = headers.index("CNPJ")
+            data_rows = [
+                row
+                for row in sheet.iter_rows(
+                    min_row=5,
+                    max_col=len(headers),
+                )
+                if any(cell.value not in (None, "") for cell in row)
+            ]
+            if len(data_rows) != expected_rows:
+                raise RevisionExportUnavailable(
+                    f"aba {sheet_name} deveria conter {expected_rows} linhas; "
+                    f"contém {len(data_rows)}"
+                )
+
+            cnpjs: list[str] = []
+            for row_number, row in enumerate(data_rows, start=5):
+                cell = row[cnpj_column]
+                cnpj = _validated_numeric_cnpj(cell.value)
+                if cnpj is None:
+                    raise RevisionExportUnavailable(
+                        f"aba {sheet_name} contém CNPJ numérico inválido "
+                        f"na linha {row_number}"
+                    )
+                cnpjs.append(cnpj)
+            duplicated = sorted(
+                {
+                    cnpj
+                    for cnpj in cnpjs
+                    if cnpjs.count(cnpj) > 1
+                }
+            )
+            if duplicated:
+                raise RevisionExportUnavailable(
+                    f"aba {sheet_name} contém CNPJ duplicado: "
+                    + ", ".join(duplicated)
+                )
+    finally:
+        workbook.close()
 
 
 def validate_revision_html(payload: bytes) -> None:
@@ -699,6 +1029,8 @@ def validate_revision_html(payload: bytes) -> None:
         "CBSF / REAG",
         "Carteira 1 · evolução pela taxonomia reclassificada",
         "Carteira 1 vs. 47 CNPJs flagship",
+        "flagship_curation_compact_v2",
+        "carteira_1_curation_compact_v3",
         "carteira_1_taxonomy_compact_v1",
     )
     missing = [
@@ -1086,9 +1418,18 @@ def build_revision_html_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
 
 __all__ = [
     "BUNDLE_SCHEMA",
+    "CURRENT_TOP15_SLIDE_SEQUENCE",
+    "EXPECTED_SLIDE_SEQUENCE",
+    "EXPECTED_SLIDES",
+    "HISTORICAL_TOP15_SLIDE_SEQUENCE",
+    "HISTORICAL_TOP15_TABLE_DIMENSIONS",
+    "ISSUANCE_TAXONOMY_TABLE_DIMENSIONS",
     "MATERIALIZED_HTML_NAME",
     "MATERIALIZED_PORTFOLIO_XLSX_NAME",
     "REQUIRED_PORTFOLIO_WORKBOOK_SHEETS",
+    "STRUCTURAL_DETAIL_SLIDE_SEQUENCE",
+    "STRUCTURAL_DETAIL_TABLE_DIMENSIONS",
+    "TYPE_RANKING_SLIDE_SEQUENCE",
     "RevisionExportStatus",
     "RevisionExportUnavailable",
     "artifact_runtime_available",

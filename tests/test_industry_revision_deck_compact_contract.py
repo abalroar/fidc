@@ -5,8 +5,16 @@ from __future__ import annotations
 import posixpath
 import os
 from pathlib import Path
+import unicodedata
 from xml.etree import ElementTree as ET
 from zipfile import ZipFile
+
+from services.industry_revision_export import (
+    EXPECTED_SLIDE_SEQUENCE,
+    EXPECTED_SLIDES,
+    ISSUANCE_TAXONOMY_TABLE_DIMENSIONS,
+    TYPE_RANKING_SLIDE_SEQUENCE,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,6 +32,43 @@ PPTX = Path(
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
+
+
+def _fold(value: object) -> str:
+    normalized = unicodedata.normalize("NFKD", str(value or ""))
+    return " ".join(
+        "".join(char for char in normalized if not unicodedata.combining(char))
+        .lower()
+        .split()
+    )
+
+
+def _contract_slide_numbers(*needles: str) -> tuple[int, ...]:
+    folded_needles = tuple(_fold(needle) for needle in needles)
+    return tuple(
+        index
+        for index, tokens in enumerate(EXPECTED_SLIDE_SEQUENCE, start=1)
+        if all(
+            any(needle in _fold(token) for token in tokens)
+            for needle in folded_needles
+        )
+    )
+
+
+def _contract_slide_number(*needles: str) -> int:
+    matches = _contract_slide_numbers(*needles)
+    assert len(matches) == 1, (needles, matches)
+    return matches[0]
+
+
+SLIDE_INSTRUMENTS = _contract_slide_number("fidcs seguem ganhando escala")
+SLIDE_STOCK_AND_TYPES = _contract_slide_number("saldo e tipos")
+SLIDE_ISSUANCE_TAXONOMY = _contract_slide_number("emissoes por categoria anbima")
+SLIDE_ANALYTICAL_TAXONOMY = _contract_slide_number("revela que 63%")
+SLIDES_TOP_TYPE = tuple(
+    EXPECTED_SLIDE_SEQUENCE.index(tokens) + 1
+    for tokens in TYPE_RANKING_SLIDE_SEQUENCE
+)
 
 
 def _slide_text(archive: ZipFile, slide_number: int) -> str:
@@ -80,7 +125,7 @@ def _cell_is_bold(cell: ET.Element) -> bool:
     )
 
 
-def test_compact_pptx_has_26_slides_and_omits_requested_sections() -> None:
+def test_compact_pptx_matches_dynamic_contract_and_omits_requested_sections() -> None:
     with ZipFile(PPTX) as archive:
         slides = sorted(
             name
@@ -89,8 +134,11 @@ def test_compact_pptx_has_26_slides_and_omits_requested_sections() -> None:
             and name.endswith(".xml")
             and "/_rels/" not in name
         )
-        assert len(slides) == 26
-        text = "\n".join(_slide_text(archive, number) for number in range(1, 27))
+        assert len(slides) == EXPECTED_SLIDES
+        text = "\n".join(
+            _slide_text(archive, number)
+            for number in range(1, EXPECTED_SLIDES + 1)
+        )
 
     for removed in (
         "OBSERVABILIDADE DA INADIMPLÊNCIA",
@@ -115,18 +163,28 @@ def test_compact_pptx_has_26_slides_and_omits_requested_sections() -> None:
 
 def test_slide_3_combines_cvm_and_anbima_instrument_charts() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 3).upper()
+        raw_text = _slide_text(archive, SLIDE_INSTRUMENTS)
+        text = raw_text.upper()
         charts = [
             root
-            for root in _chart_roots(archive, 3)
+            for root in _chart_roots(archive, SLIDE_INSTRUMENTS)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
-        tables = _tables(archive, 3)
+        tables = _tables(archive, SLIDE_INSTRUMENTS)
 
     assert len(charts) == 2
     assert len(tables) == 1
     assert "FIDCS E DEMAIS INSTRUMENTOS ELEGÍVEIS" in text
     assert "VALOR ENCERRADO POR INSTRUMENTO" in text
+    assert "FIDCs e demais instrumentos elegíveis · R$ bi" in raw_text
+    assert "Valor encerrado por instrumento · R$ bi" in raw_text
+    assert "jan–jun/26" in raw_text
+    assert any(
+        "2026 jan–jun"
+        in " ".join(node.text or "" for node in chart.iter())
+        for chart in charts
+    )
+    assert "snapshot jun/26" in raw_text
     rows = tables[0].findall(f"{{{DML}}}tr")
     assert [_cell_text(cell) for cell in rows[0].findall(f"{{{DML}}}tc")] == [
         "Emissões por instrumento",
@@ -151,13 +209,14 @@ def test_slide_3_combines_cvm_and_anbima_instrument_charts() -> None:
 
 def test_slide_4_combines_opened_stock_and_sector_issuance_without_table() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 4).upper()
+        raw_text = _slide_text(archive, SLIDE_STOCK_AND_TYPES)
+        text = raw_text.upper()
         charts = [
             root
-            for root in _chart_roots(archive, 4)
+            for root in _chart_roots(archive, SLIDE_STOCK_AND_TYPES)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
-        tables = _tables(archive, 4)
+        tables = _tables(archive, SLIDE_STOCK_AND_TYPES)
 
     assert len(charts) == 4
     assert [
@@ -173,17 +232,25 @@ def test_slide_4_combines_opened_stock_and_sector_issuance_without_table() -> No
     assert "PARTICIPAÇÃO NO SALDO" in text
     assert "NOVAS EMISSÕES POR SETOR · R$ BI" in text
     assert "NOVAS EMISSÕES POR SETOR · %" in text
+    for title in (
+        "Saldo ex-FIC · R$ bi",
+        "Participação no saldo",
+        "Novas emissões por setor · R$ bi",
+        "Novas emissões por setor · %",
+    ):
+        assert title in raw_text
 
 
 def test_slide_5_has_two_stacked_sector_charts_and_native_table_without_deltas() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 5).upper()
+        raw_text = _slide_text(archive, SLIDE_ISSUANCE_TAXONOMY)
+        text = raw_text.upper()
         charts = [
             root
-            for root in _chart_roots(archive, 5)
+            for root in _chart_roots(archive, SLIDE_ISSUANCE_TAXONOMY)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
-        tables = _tables(archive, 5)
+        tables = _tables(archive, SLIDE_ISSUANCE_TAXONOMY)
 
     assert len(charts) == 2
     assert {root.find(f".//{{{CHART}}}grouping").attrib["val"] for root in charts} == {
@@ -194,30 +261,33 @@ def test_slide_5_has_two_stacked_sector_charts_and_native_table_without_deltas()
     assert "EMISSÕES POR SETOR · R$ BI" in text
     assert "EMISSÕES POR SETOR · % DO TOTAL" in text
     assert "EMISSÕES POR CATEGORIA ANBIMA" in text
+    assert "Emissões por setor · R$ bi" in raw_text
+    assert "Emissões por setor · % do total" in raw_text
     assert "DELTA" not in text
     assert "Δ" not in text
 
 
-def test_slide_5_share_highlights_follow_relative_two_percent_rule() -> None:
+def test_slide_5_yoy_highlights_follow_growth_direction() -> None:
     green = "007A3D"
     wine = "7A1F3D"
     with ZipFile(PPTX) as archive:
-        table = _tables(archive, 5)[0]
+        table = _tables(archive, SLIDE_ISSUANCE_TAXONOMY)[0]
         rows = table.findall(f"{{{DML}}}tr")
 
+    assert (
+        len(rows),
+        len(table.findall(f"{{{DML}}}tblGrid/{{{DML}}}gridCol")),
+    ) == ISSUANCE_TAXONOMY_TABLE_DIMENSIONS[0]
     headers = [_cell_text(cell) for cell in rows[0].findall(f"{{{DML}}}tc")]
     assert headers == [
         "Categoria",
         "2023R$ bi",
-        "2023%",
         "2024R$ bi",
-        "2024%",
         "2025R$ bi",
-        "2025%",
-        "jan–jun/25R$ bi",
-        "jan–jun/25%",
-        "jan–jun/26R$ bi",
-        "jan–jun/26%",
+        "1S25R$ bi",
+        "1S26R$ bi",
+        "1S26%",
+        "1S26 YoY",
     ]
     body = {
         _cell_text(cells[0]): cells
@@ -225,28 +295,24 @@ def test_slide_5_share_highlights_follow_relative_two_percent_rule() -> None:
         if (cells := row.findall(f"{{{DML}}}tc"))
     }
     expected = {
-        "Fomento Mercantil": {4: green, 6: wine, 10: green},
-        "Agro, Indústria e Comércio": {4: wine, 6: green, 10: wine},
-        "Financeiro": {4: green, 6: wine, 10: green},
-        "Outros": {4: wine, 6: green, 10: wine},
+        "Fomento Mercantil": green,
+        "Agro, Indústria e Comércio": wine,
+        "Financeiro": green,
+        "Outros": wine,
     }
     for category, cells in body.items():
-        for column in (2, 4, 6, 8, 10):
-            colors = _cell_rgb(cells[column])
-            highlight = expected[category].get(column)
-            if highlight:
-                assert highlight in colors
-                assert _cell_is_bold(cells[column])
-            else:
-                assert not ({green, wine} & colors)
+        for column in range(1, 7):
+            assert not ({green, wine} & _cell_rgb(cells[column]))
+        assert expected[category] in _cell_rgb(cells[7])
+        assert _cell_is_bold(cells[7])
 
 
 def test_analytical_taxonomy_expands_outros_with_the_requested_display_names() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 6).upper()
+        text = _slide_text(archive, SLIDE_ANALYTICAL_TAXONOMY).upper()
         charts = [
             root
-            for root in _chart_roots(archive, 6)
+            for root in _chart_roots(archive, SLIDE_ANALYTICAL_TAXONOMY)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
 
@@ -259,11 +325,11 @@ def test_analytical_taxonomy_expands_outros_with_the_requested_display_names() -
         assert label in text
 
 
-def test_taxonomy_rankings_use_two_period_tables_with_originators() -> None:
+def test_taxonomy_rankings_use_one_legible_table_per_type_and_period() -> None:
     with ZipFile(PPTX) as archive:
-        for slide_number in range(10, 14):
-            text = _slide_text(archive, slide_number).upper()
-            assert len(_tables(archive, slide_number)) == 2
-            assert "JUN/26 · TOP 15" in text
-            assert "DEZ/25 · TOP 15" in text
-            assert "ORIGINADOR" in text
+        for slide_number in SLIDES_TOP_TYPE:
+            text = _slide_text(archive, slide_number)
+            assert len(_tables(archive, slide_number)) == 1
+            assert "Top 15" in text
+            assert any(period in text for period in ("jun/26", "dez/25"))
+            assert "Originador" in text

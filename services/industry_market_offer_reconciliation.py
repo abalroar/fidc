@@ -25,6 +25,14 @@ ANBIMA_SOURCE_URL = (
 ANBIMA_WORKBOOK_SHA256 = (
     "1236172468f5aa3ddde24382bfa9c5f6372f9b35cd03993ef2482d358845b524"
 )
+ANBIMA_JUNE_SOURCE_URL = (
+    "https://www.anbima.com.br/data/files/8E/86/DB/07/"
+    "325AF91098D078F9692BA2A8/"
+    "Apresentacao%20_%20coletiva%20Mercado%20de%20Capitais%20_%201S26.pdf"
+)
+ANBIMA_JUNE_SOURCE_SHA256 = (
+    "2d61cc13256c48e1427166c4b8a400d873c9be50a402ebba3c53b1616e9096a2"
+)
 CVM_SOURCE_AS_OF_DATE = "2026-07-24"
 CVM_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
@@ -54,9 +62,9 @@ PERIODS: tuple[dict[str, Any], ...] = (
     },
     {
         "period_order": 4,
-        "period_label": "2026 jan-mai",
+        "period_label": "2026 jan-jun",
         "period_start": "2026-01-01",
-        "period_end": "2026-05-31",
+        "period_end": "2026-06-30",
         "is_full_year": False,
     },
 )
@@ -229,10 +237,24 @@ def validate_anbima_market_offers(frame: pd.DataFrame) -> pd.DataFrame:
         raise MarketOfferReconciliationError(
             "Snapshot ANBIMA não cobre todos os períodos e instrumentos."
         )
-    if set(result["source_workbook_sha256"]) != {ANBIMA_WORKBOOK_SHA256}:
-        raise MarketOfferReconciliationError("SHA-256 do workbook ANBIMA diverge.")
-    if set(result["source_url"]) != {ANBIMA_SOURCE_URL}:
-        raise MarketOfferReconciliationError("URL do workbook ANBIMA diverge.")
+    historical = result[~result["period_label"].eq("2026 jan-jun")]
+    current = result[result["period_label"].eq("2026 jan-jun")]
+    if set(historical["source_workbook_sha256"]) != {ANBIMA_WORKBOOK_SHA256}:
+        raise MarketOfferReconciliationError(
+            "SHA-256 do workbook histórico ANBIMA diverge."
+        )
+    if set(historical["source_url"]) != {ANBIMA_SOURCE_URL}:
+        raise MarketOfferReconciliationError(
+            "URL do workbook histórico ANBIMA diverge."
+        )
+    if set(current["source_workbook_sha256"]) != {ANBIMA_JUNE_SOURCE_SHA256}:
+        raise MarketOfferReconciliationError(
+            "SHA-256 da apresentação ANBIMA de jun/26 diverge."
+        )
+    if set(current["source_url"]) != {ANBIMA_JUNE_SOURCE_URL}:
+        raise MarketOfferReconciliationError(
+            "URL da apresentação ANBIMA de jun/26 diverge."
+        )
     return result.sort_values(
         ["period_order", "instrument_order"], kind="stable"
     ).reset_index(drop=True)
@@ -419,6 +441,8 @@ def write_market_offer_reconciliation(
 
 __all__ = [
     "ANBIMA_FILENAME",
+    "ANBIMA_JUNE_SOURCE_SHA256",
+    "ANBIMA_JUNE_SOURCE_URL",
     "ANBIMA_SOURCE_URL",
     "ANBIMA_WORKBOOK_SHA256",
     "CVM_ARCHIVE_SHA256",

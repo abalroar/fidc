@@ -53,6 +53,9 @@ from services.industry_flagship_curation import (
 )
 from services.industry_structural_risk import build_portfolio_structural_risk
 from services.industry_portfolio_export import build_industry_portfolio_export
+from services.carteira_101_document_audit import (
+    load_document_audit_materialization,
+)
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -2953,6 +2956,9 @@ def build_payload(
     manual_cnpj_enrichment = _load_manual_cnpj_enrichment(
         data_dir / "industry_cnpj_manual_enrichment.csv"
     )
+    carteira_101_document_audit = load_document_audit_materialization(
+        data_dir / "carteira_101_document_audit"
+    )
     historical_top20_document_review = _read_optional(
         data_dir / "industry_top20_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
@@ -3461,6 +3467,8 @@ def build_payload(
         carteira_structural=carteira_1_structural_risk.assets,
         flagship_detail=flagship_curation.detail,
         manual_enrichment=manual_cnpj_enrichment,
+        carteira_document_audit=carteira_101_document_audit.audit,
+        carteira_price_evidence=carteira_101_document_audit.prices,
         data_ref=latest,
     )
     top20_outros_review = _build_top20_outros_review(
@@ -3866,6 +3874,24 @@ def build_payload(
         "portfolio_export_coverage": _records(portfolio_export.coverage),
         "portfolio_export_gaps": _records(portfolio_export.gaps),
         "portfolio_export_manual_audit": _records(portfolio_export.manual),
+        "portfolio_export_dictionary": _records(portfolio_export.dictionary),
+        "portfolio_export_price_evidence": _records(portfolio_export.prices),
+        "carteira_101_document_audit": _records(
+            carteira_101_document_audit.audit
+        ),
+        "carteira_101_document_coverage": _records(
+            carteira_101_document_audit.coverage
+        ),
+        "carteira_101_document_evidence": _records(
+            carteira_101_document_audit.evidence
+        ),
+        "carteira_101_document_prices": _records(
+            carteira_101_document_audit.prices
+        ),
+        "carteira_101_document_checkpoint": _records(
+            carteira_101_document_audit.checkpoint
+        ),
+        "carteira_101_document_manifest": carteira_101_document_audit.manifest,
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,
         "executive_conclusions": executive_conclusions,
