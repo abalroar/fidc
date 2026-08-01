@@ -87,8 +87,8 @@ def test_removed_market_share_sections_remain_available_in_the_payload() -> None
     top20_other = _find_slide_index(
         slides, "Outros: o único bloco que encolheu"
     )
-    flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
-    carteira_1 = _find_slide_index(slides, "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP")
+    flagship = _find_slide_index(slides, "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA")
+    carteira_1 = _find_slide_index(slides, "RISCO ESTRUTURAL · CARTEIRA VS. PARES")
     investor_base = _find_slide_index(slides, "Quase todo o volume vai para o investidor profissional")
     assert top20 < top20_other < flagship < carteira_1 < provider
     assert provider < investor_base

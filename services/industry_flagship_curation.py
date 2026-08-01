@@ -947,9 +947,9 @@ def build_portfolio_flagship_comparison(
         if delta is None:
             risk_read = "N/D — comparação estrutural incompleta"
         elif delta > 0.02:
-            risk_read = "Menos risco estrutural · maior subordinação"
+            risk_read = "Subordinação acima da mediana dos pares"
         elif delta < -0.02:
-            risk_read = "Mais risco estrutural · menor subordinação"
+            risk_read = "Subordinação abaixo da mediana dos pares"
         else:
             risk_read = "Em linha · diferença de até 2 p.p."
         portfolio_pl = pd.to_numeric(
@@ -1057,6 +1057,13 @@ def build_portfolio_curation(
         "subordinacao_minima_junior_display",
         "subordinacao_minima_texto",
         "subordinacao_minima_fonte",
+        "subordinacao_minima_natureza",
+        "suporte_estrutural_minimo_pct",
+        "suporte_estrutural_minimo_display",
+        "suporte_estrutural_minimo_texto",
+        "subordinacao_minima_formula",
+        "comparabilidade_tranche_flag",
+        "comparabilidade_tranche_motivo",
         "emissao_data",
         "emissao_data_display",
         "emissao_fonte",
@@ -1181,6 +1188,9 @@ def build_portfolio_curation(
     detail["subordinacao_minima_junior_pct"] = pd.to_numeric(
         detail["subordinacao_minima_junior_pct"], errors="coerce"
     )
+    detail["suporte_estrutural_minimo_pct"] = pd.to_numeric(
+        detail["suporte_estrutural_minimo_pct"], errors="coerce"
+    )
     detail["faixa_subordinacao_atual"] = detail["subordinacao_atual_pct"].map(
         lambda value: _range_label(float(value)) if pd.notna(value) else "N/D"
     )
@@ -1260,6 +1270,12 @@ def build_portfolio_curation(
         "cnpjs_fora_base_fidc": int(scope["status_identidade"].eq("fora_base_fidc").sum()),
         "cnpjs_com_subordinacao_atual": int(detail["subordinacao_atual_pct"].notna().sum()),
         "cnpjs_com_minimo_junior": int(detail["subordinacao_minima_junior_pct"].notna().sum()),
+        "cnpjs_com_minimo_estrutural": int(
+            detail[["subordinacao_minima_junior_pct", "suporte_estrutural_minimo_pct"]]
+            .notna()
+            .any(axis=1)
+            .sum()
+        ),
         "cnpjs_com_data_emissao": int(detail["emissao_data_display"].ne("N/D").sum()),
         "cnpjs_com_familia_flagship": int(
             detail["familia_flagship_referencia"].ne("N/D — sem família flagship equivalente").sum()

@@ -80,7 +80,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v35";
+const RENDERER_VERSION = "industry_revision_artifacts_v36";
 const SLIDE_CONTRACT_V1 = Object.freeze([
   "cover", "industry_scale", "annual_issuance", "issuance_taxonomy", "analytical_taxonomy",
   "acquiring", "receivables", "provider_ranking", "top20", "top20_fomento",
@@ -2883,7 +2883,7 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
   ]);
 }
 
-function addFlagshipCurationSlide(presentation, payload) {
+function legacyAddFlagshipCurationSlide(presentation, payload) {
   const families = [...(payload.flagship_families || [])]
     .sort((a, b) => num(a.ordem_familia) - num(b.ordem_familia));
   const summary = payload.flagship_curation_summary || {};
@@ -2994,7 +2994,7 @@ function addFlagshipCurationSlide(presentation, payload) {
   ]);
 }
 
-function addCarteira1CurationSlide(presentation, payload) {
+function legacyAddCarteira1CurationSlide(presentation, payload) {
   const rows = [...(payload.carteira_1_flagship_comparison || [])]
     .sort((a, b) => num(a.ordem) - num(b.ordem));
   const summary = payload.carteira_1_flagship_comparison_summary || {};
@@ -3085,7 +3085,7 @@ function addCarteira1CurationSlide(presentation, payload) {
   ]);
 }
 
-function addCarteira1TaxonomySlide(presentation, payload) {
+function legacyAddCarteira1TaxonomySlide(presentation, payload) {
   const history = [...(payload.carteira_1_taxonomy_history || [])].sort(
     (a, b) => num(a.period_order) - num(b.period_order) || num(a.category_order) - num(b.category_order),
   );
@@ -3163,6 +3163,182 @@ function addCarteira1TaxonomySlide(presentation, payload) {
   addText(slide, `CRESCIMENTO ${periods[0].label.toUpperCase()} → ${latestPeriod.label.toUpperCase()} · ${comparison.join("   |   ")}`, { left: 60, top: 581, width: 1160, height: 30 }, { fontSize: 8.4, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" });
   addText(slide, summary.methodology || "N/D", { left: 70, top: 618, width: 1140, height: 34 }, { fontSize: 8.7, color: C.note, alignment: "center", verticalAlignment: "middle" });
   return slide;
+}
+
+function structuralTaxonomyStyle(label) {
+  const key = label === "Agro / Revenda" ? "Agro / revenda" : label;
+  return FLAGSHIP_TYPE_STYLES[key] || FLAGSHIP_TYPE_STYLES.Financeiro;
+}
+
+function addStructuralRowStrips(slide, rows, { left, top, height, headerHeight = 25 }) {
+  const rowHeight = (height - headerHeight) / Math.max(rows.length, 1);
+  rows.forEach((row, index) => {
+    addRect(
+      slide,
+      { left, top: top + headerHeight + index * rowHeight, width: 5, height: rowHeight },
+      structuralTaxonomyStyle(row.taxonomia || row.categoria).fill,
+    );
+  });
+}
+
+function structuralNatureLabel(value) {
+  const labels = {
+    junior_pl: "Jr",
+    junior_pl_calculado: "Jr calc.*",
+    junior_pl_ajustado: "Jr ajust.*",
+    suporte_total_pl: "Total*",
+    suporte_combinado_pl: "Combinado*",
+  };
+  return labels[String(value || "")] || "N/D";
+}
+
+function addFlagshipCurationSlide(presentation, payload) {
+  const rows = [...(payload.carteira_1_structural_taxonomy || [])]
+    .sort((a, b) => num(a.ordem) - num(b.ordem));
+  const summary = payload.carteira_1_structural_summary || {};
+  if (rows.length !== 7 || num(summary.cnpjs) !== 101) {
+    throw new Error("Risco estrutural deveria reconciliar sete taxonomias e 101 CNPJs.");
+  }
+  const vehicle = rows.find((row) => row.taxonomia === "Veículos") || {};
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA",
+    `Veículos tem ${integer(vehicle.flagship_cnpjs_com_subordinacao)} pares com subordinação e permanece sem PL mensurável na Carteira I`,
+    `CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}; regulamentos FundosNet/B3 lidos por CNPJ. Lacunas permanecem N/D.`,
+    0,
+  );
+  const metrics = [
+    ["MÍNIMO JÚNIOR", `${integer(summary.cnpjs_com_minimo_junior)}/101 · ${pct(summary.cobertura_minimo_junior_pct, 1)}`],
+    ["MÍNIMO ESTRUTURAL", `${integer(summary.cnpjs_com_minimo_estrutural)}/101 · ${pct(summary.cobertura_minimo_estrutural_pct, 1)}`],
+    ["FOLGA COMPARÁVEL", `${integer(summary.cnpjs_com_folga_comparavel)}/101 CNPJs`],
+  ];
+  metrics.forEach(([label, value], index) => {
+    const left = 60 + index * 390;
+    addRect(slide, { left, top: 132, width: 370, height: 54 }, index === 1 ? "#FFF1E6" : C.pale);
+    addText(slide, label, { left: left + 12, top: 139, width: 150, height: 14 }, { fontSize: 7.8, bold: true, color: C.mid, wrap: "none" });
+    addText(slide, value, { left: left + 160, top: 137, width: 195, height: 28 }, { fontSize: 15, bold: true, color: index === 1 ? C.orange : C.charcoal, alignment: "right", verticalAlignment: "middle", wrap: "none" });
+  });
+  const tableTop = 204;
+  const tableHeight = 390;
+  addNativeEditorialTable(slide, {
+    left: 65,
+    top: tableTop,
+    width: 1155,
+    height: tableHeight,
+    headers: ["Taxonomia", "Carteira · CNPJs", "PL dos veículos", "47 flagships · CNPJs", "Presença", "Mín. Jr localizado", "Mín. estrutural"],
+    rows: rows.map((row) => [
+      row.taxonomia,
+      `${integer(row.carteira_cnpjs_com_pl)}/${integer(row.carteira_cnpjs)}`,
+      row.carteira_pl_brl == null ? "N/D" : moneyScale(row.carteira_pl_brl),
+      `${integer(row.flagship_cnpjs_com_subordinacao)}/${integer(row.flagship_cnpjs)}`,
+      row.presenca_carteira,
+      `${integer(row.carteira_minimo_junior_cnpjs)}/${integer(row.carteira_cnpjs)}`,
+      `${integer(row.carteira_minimo_estrutural_cnpjs)}/${integer(row.carteira_cnpjs)}`,
+    ]),
+    columnWidths: [175, 125, 145, 145, 220, 165, 180],
+    aligns: ["left", "right", "right", "right", "left", "right", "right"],
+    fontSize: 9.4,
+    headerFontSize: 8.2,
+    headerHeight: 27,
+  });
+  addStructuralRowStrips(slide, rows, { left: 60, top: tableTop, height: tableHeight, headerHeight: 27 });
+  addText(slide, `${summary.asterisco} ${summary.nota_pl}`, { left: 60, top: 607, width: 1160, height: 38 }, { fontSize: 8.2, color: C.note, verticalAlignment: "middle" });
+  addSourceNotes(slide, [
+    "Unidade: CNPJ. A presença compara os sete tipos já usados na curadoria flagship; N/D não é convertido em zero.",
+    "Mínimo estrutural inclui mínimo júnior e, com asterisco, suporte total/combinado documentado.",
+    "Documento, página, fórmula, natureza e motivo de comparabilidade constam na aba Risco estrutural ativos.",
+  ]);
+}
+
+function addCarteira1CurationSlide(presentation, payload) {
+  const rows = [...(payload.carteira_1_structural_taxonomy || [])]
+    .sort((a, b) => num(a.ordem) - num(b.ordem));
+  if (rows.length !== 7) throw new Error("Comparação estrutural deve conter sete taxonomias.");
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "RISCO ESTRUTURAL · CARTEIRA VS. PARES",
+    "Subordinação atual da Carteira I por tipo, com referência aos 47 CNPJs flagship",
+    `CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}; medianas usam somente CNPJs com subordinação atual calculável.`,
+    0,
+  );
+  addText(slide, "A seta mostra a distância para a mediana dos pares. A cor lateral identifica a taxonomia; situação regulatória é tratada no slide seguinte.", { left: 60, top: 128, width: 1160, height: 30 }, { fontSize: 9.3, color: C.charcoal, verticalAlignment: "middle" });
+  const tableTop = 170;
+  const tableHeight = 430;
+  addNativeEditorialTable(slide, {
+    left: 65,
+    top: tableTop,
+    width: 1155,
+    height: tableHeight,
+    headers: ["Taxonomia", "Carteira · mediana", "Carteira · pond. PL", "Flagships · mediana", "Diferença", "Pares com dado", "Leitura"],
+    rows: rows.map((row) => [
+      row.taxonomia,
+      row.carteira_sub_atual_mediana == null ? "N/D" : pct(row.carteira_sub_atual_mediana, 1),
+      row.carteira_sub_atual_ponderada == null ? "N/D" : pct(row.carteira_sub_atual_ponderada, 1),
+      row.flagship_sub_atual_mediana == null ? "N/D" : pct(row.flagship_sub_atual_mediana, 1),
+      row.delta_sub_atual_vs_flagship == null ? "N/D" : `${num(row.delta_sub_atual_vs_flagship) >= 0 ? "+" : ""}${(num(row.delta_sub_atual_vs_flagship) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} p.p.`,
+      `${integer(row.flagship_cnpjs_com_subordinacao)}/${integer(row.flagship_cnpjs)}`,
+      row.posicao_vs_mercado,
+    ]),
+    columnWidths: [190, 150, 155, 160, 125, 135, 240],
+    aligns: ["left", "right", "right", "right", "right", "right", "left"],
+    fontSize: 10.1,
+    headerFontSize: 8.7,
+    headerHeight: 29,
+  });
+  addStructuralRowStrips(slide, rows, { left: 60, top: tableTop, height: tableHeight, headerHeight: 29 });
+  addText(slide, "Mediana descreve o ativo típico; média ponderada pelo PL descreve onde está o patrimônio dos veículos. Grupos com menos de cinco pares ficam sem benchmark confiável.", { left: 60, top: 612, width: 1160, height: 34 }, { fontSize: 8.4, color: C.note, verticalAlignment: "middle" });
+  addSourceNotes(slide, [
+    "Carteira I e flagships usam subordinação total atual sobre PL reconciliado por CNPJ; a comparação não mistura mínimo júnior com suporte total.",
+    "Tolerância de leitura: ±2 p.p.; grupos com menos de cinco pares ficam sem posição relativa.",
+    "PL pondera o tamanho do veículo. Valor encarteirado por ativo não está disponível na base.",
+  ]);
+}
+
+function addCarteira1TaxonomySlide(presentation, payload) {
+  const rows = [...(payload.carteira_1_structural_watchlist || [])];
+  const summary = payload.carteira_1_structural_summary || {};
+  const slide = presentation.slides.add();
+  addHeader(
+    slide,
+    "RISCO ESTRUTURAL · ATIVOS",
+    `${integer(summary.cnpjs_com_folga_comparavel)} CNPJs têm folga calculável; a tabela prioriza menor capacidade de absorção e maior PL do veículo`,
+    `CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}; regulamentos FundosNet/B3. Folga e absorção ficam N/D quando a tranche ou o denominador não são comparáveis.`,
+    0,
+  );
+  const highlights = new Set(rows.map((row, index) => ["abaixo do mínimo", "folga estreita"].includes(String(row.situacao_regulatoria)) ? index : null).filter((index) => index != null));
+  addNativeEditorialTable(slide, {
+    left: 60,
+    top: 138,
+    width: 1160,
+    height: 472,
+    headers: ["Ativo", "Taxonomia", "PL veículo", "Sub. atual", "Mínimo", "Métrica", "Folga", "Absorção", "Situação"],
+    rows: rows.map((row) => [
+      truncateWords(row.ativo, 34),
+      row.categoria,
+      row.pl_atual == null ? "N/D" : moneyScale(row.pl_atual),
+      row.sub_pl_atual == null ? "N/D" : pct(row.sub_pl_atual, 1),
+      row.minimo_estrutural_display || "N/D",
+      structuralNatureLabel(row.minimo_estrutural_natureza),
+      row.folga_pp == null ? "N/D" : `${num(row.folga_pp) >= 0 ? "+" : ""}${(num(row.folga_pp) * 100).toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} p.p.`,
+      row.perda_ate_gatilho == null ? "N/D" : pct(row.perda_ate_gatilho, 1),
+      row.situacao_regulatoria,
+    ]),
+    columnWidths: [250, 125, 110, 105, 110, 100, 100, 105, 155],
+    aligns: ["left", "left", "right", "right", "right", "left", "right", "right", "left"],
+    fontSize: 7.9,
+    headerFontSize: 7.6,
+    headerHeight: 27,
+    rowHighlights: highlights,
+    emphasizeHighlightedRows: true,
+  });
+  addText(slide, `${summary.asterisco} ${summary.nota_pl}`, { left: 60, top: 618, width: 1160, height: 32 }, { fontSize: 8.1, color: C.note, verticalAlignment: "middle" });
+  addSourceNotes(slide, [
+    "Capacidade de absorção até o gatilho = (subordinação atual − mínimo) / (1 − mínimo).",
+    "Realce laranja identifica situação regulatória abaixo do mínimo ou em folga estreita. A posição relativa ao mercado usa setas no slide anterior.",
+    "A lista mostra até 12 casos mensuráveis; a aba Risco estrutural ativos preserva os 101 CNPJs e todas as lacunas.",
+  ]);
 }
 
 function addDelinquencyDispersionSlides(presentation, payload) {
@@ -6906,6 +7082,90 @@ async function addCarteira1FlagshipComparisonSheet(workbook, payload) {
   sheet.getRange(`A5:Q${rows.length + 4}`).format.rowHeightPx = 46;
 }
 
+async function addStructuralRiskSheets(workbook, payload) {
+  const summary = payload.carteira_1_structural_summary || {};
+  const assetColumns = [
+    ["#", "ordem"],
+    ["CNPJ", "cnpj_formatado"],
+    ["Ativo", "ativo"],
+    ["Taxonomia", "categoria"],
+    ["Tipo", "tipo_exibicao"],
+    ["Foco", "foco_exibicao"],
+    ["PL do veículo", "pl_atual"],
+    ["Subordinação atual", "sub_pl_atual"],
+    ["Mínimo júnior documental", "sub_jr_min_documental"],
+    ["Suporte total/combinado", "suporte_total_min_documental"],
+    ["Mínimo estrutural · leitura", "minimo_estrutural_display"],
+    ["Natureza", "minimo_estrutural_natureza"],
+    ["Cláusula / leitura", "minimo_estrutural_texto"],
+    ["Fórmula", "minimo_estrutural_formula"],
+    ["Exceção *", "excecao_asterisco_flag", (value) => value ? "Sim" : "Não"],
+    ["Comparável", "comparacao_estrutural_completa_flag", (value) => value ? "Sim" : "Não"],
+    ["Motivo comparabilidade", "comparacao_estrutural_motivo"],
+    ["Folga", "folga_pp"],
+    ["Capacidade até gatilho", "perda_ate_gatilho"],
+    ["Situação regulatória", "situacao_regulatoria"],
+    ["Mediana pares", "mercado_categoria_mediana_sub"],
+    ["Pares com dado", "n_comparaveis_categoria"],
+    ["Excesso vs. pares", "excesso_vs_mercado"],
+    ["Posição vs. mercado", "posicao_mercado"],
+    ["Documento", "documento_id_regulamento"],
+    ["Página / cláusula", "pagina_clausula"],
+    ["Fonte documental", "fonte_documental"],
+    ["Status curadoria", "status_curadoria_documental"],
+  ];
+  const assetHeaders = assetColumns.map(([header]) => header);
+  const assetRows = worksheetRowsFromPayload(payload.carteira_1_structural_assets || [], assetColumns);
+  if (assetRows.length !== 101) {
+    throw new Error(`Risco estrutural ativos deveria conter 101 linhas; contém ${assetRows.length}.`);
+  }
+  const assetSheet = resetSheet(workbook, "Risco estrutural ativos");
+  setHeaderBand(
+    assetSheet,
+    "Carteira 1 · risco estrutural por CNPJ",
+    `${integer(summary.cnpjs_com_minimo_junior)}/101 com mínimo júnior; ${integer(summary.cnpjs_com_minimo_estrutural)}/101 com mínimo estrutural. ${summary.asterisco || ""} ${summary.nota_pl || ""}`,
+    assetHeaders,
+    assetRows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.2 },
+  );
+  await writeRowsInChunks(assetSheet, 4, assetHeaders, assetRows);
+  applyColumnWidths(assetSheet, [45, 125, 390, 150, 160, 190, 125, 115, 125, 135, 145, 135, 500, 240, 80, 90, 420, 95, 115, 135, 110, 90, 105, 160, 100, 145, 420, 220], assetRows.length);
+  applyFormatsByHeader(assetSheet, assetHeaders, assetRows.length);
+  assetSheet.getRange(`G5:G${assetRows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  ["H", "I", "J", "R", "S", "U", "W"].forEach((letter) => {
+    assetSheet.getRange(`${letter}5:${letter}${assetRows.length + 4}`).format.numberFormat = "0.0%";
+  });
+  assetSheet.getRange(`A5:AB${assetRows.length + 4}`).format.rowHeightPx = 62;
+
+  const taxonomyColumns = [
+    ["Ordem", "ordem"], ["Taxonomia", "taxonomia"], ["Presença", "presenca_carteira"],
+    ["Carteira · CNPJs", "carteira_cnpjs"], ["Carteira · CNPJs com PL", "carteira_cnpjs_com_pl"],
+    ["Carteira · PL", "carteira_pl_brl"], ["Carteira · sub mediana", "carteira_sub_atual_mediana"],
+    ["Carteira · sub ponderada", "carteira_sub_atual_ponderada"], ["Mínimo júnior · CNPJs", "carteira_minimo_junior_cnpjs"],
+    ["Mínimo estrutural · CNPJs", "carteira_minimo_estrutural_cnpjs"], ["Folga comparável · CNPJs", "carteira_folga_comparavel_cnpjs"],
+    ["Flagships · CNPJs", "flagship_cnpjs"], ["Flagships · CNPJs com sub", "flagship_cnpjs_com_subordinacao"],
+    ["Flagships · PL", "flagship_pl_brl"], ["Flagships · sub mediana", "flagship_sub_atual_mediana"],
+    ["Delta vs. flagships", "delta_sub_atual_vs_flagship"], ["Posição", "posicao_vs_mercado"],
+  ];
+  const taxonomyHeaders = taxonomyColumns.map(([header]) => header);
+  const taxonomyRows = worksheetRowsFromPayload(payload.carteira_1_structural_taxonomy || [], taxonomyColumns);
+  const taxonomySheet = resetSheet(workbook, "Risco estrutural taxonomia");
+  setHeaderBand(
+    taxonomySheet,
+    "Carteira 1 · risco estrutural por taxonomia",
+    "As sete taxonomias alimentam os slides 14–16. Mediana e ponderada por PL permanecem lado a lado; grupos com poucos pares mantêm a lacuna.",
+    taxonomyHeaders,
+    taxonomyRows.length,
+    { freezeColumns: 3, wrapText: true, bodyFontSize: 9 },
+  );
+  await writeRowsInChunks(taxonomySheet, 4, taxonomyHeaders, taxonomyRows);
+  applyColumnWidths(taxonomySheet, [60, 180, 180, 105, 130, 125, 135, 145, 140, 155, 155, 115, 155, 125, 145, 125, 190], taxonomyRows.length);
+  applyFormatsByHeader(taxonomySheet, taxonomyHeaders, taxonomyRows.length);
+  ["F", "N"].forEach((letter) => taxonomySheet.getRange(`${letter}5:${letter}${taxonomyRows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"');
+  ["G", "H", "O", "P"].forEach((letter) => taxonomySheet.getRange(`${letter}5:${letter}${taxonomyRows.length + 4}`).format.numberFormat = "0.0%");
+  taxonomySheet.getRange(`A5:Q${taxonomyRows.length + 4}`).format.rowHeightPx = 42;
+}
+
 async function addTop100OutrosSheet(workbook, payload) {
   const columns = [
     ["Competência PL", "competencia_pl"],
@@ -8175,6 +8435,7 @@ async function buildWorkbook(payload) {
   await addFlagshipCurationSheet(workbook, payload);
   await addCarteira1CurationSheet(workbook, payload);
   await addCarteira1FlagshipComparisonSheet(workbook, payload);
+  await addStructuralRiskSheets(workbook, payload);
   await addCarteira1TaxonomySheet(workbook, payload);
   await addTop100OutrosSheet(workbook, payload);
   await addDelinquencyDispersionSheet(workbook, payload);

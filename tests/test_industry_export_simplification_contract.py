@@ -31,12 +31,12 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-PUBLISHED_PAYLOAD_BYTES = 15_770_582
+PUBLISHED_PAYLOAD_BYTES = 16_055_629
 PUBLISHED_PAYLOAD_SHA256 = (
-    "151df3cb77c218d15e5e9d0f85456cdab6522c310849e45cb014973a19d77e8f"
+    "deaa31499bb6640b890f6179ec4605d1ab3533049a7dce41dcb89a7861cbe21e"
 )
 PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "3820802fb1213178f1ce2a9a079320c91a79e37f8c9538653937d3e0ffd0d8c5"
+    "8e84b66ba337cddbdda86b555e1e55be96410597c310c66839b8f14dd57d23dd"
 )
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
@@ -271,13 +271,17 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     }
     assert manifest["payload_sha256"] == PUBLISHED_PAYLOAD_SHA256
     assert payload["schema_version"] == "fidc_revision_artifact_payload_v7"
-    assert len(payload) == 132
+    assert len(payload) == 136
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
         "carteira_1_curation_summary",
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",
+        "carteira_1_structural_assets",
+        "carteira_1_structural_summary",
+        "carteira_1_structural_taxonomy",
+        "carteira_1_structural_watchlist",
         "carteira_1_taxonomy_history",
         "carteira_1_taxonomy_summary",
         "flagship_curation",
@@ -296,12 +300,15 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 76
+    assert len(pptx_keys) == 79
     assert len(dashboard_keys) == 91
-    assert len(consumer_keys) == 106
+    assert len(consumer_keys) == 109
     assert {
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",
+        "carteira_1_structural_summary",
+        "carteira_1_structural_taxonomy",
+        "carteira_1_structural_watchlist",
         "carteira_1_taxonomy_history",
         "carteira_1_taxonomy_summary",
         "flagship_curation_summary",

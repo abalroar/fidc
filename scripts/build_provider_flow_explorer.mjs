@@ -628,7 +628,13 @@ function validateFlagships(data) {
 
 function carteira1Models(payload) {
   const summary = payload.carteira_1_curation_summary || {};
+  const structuralSummary = payload.carteira_1_structural_summary || {};
   const comparisonSummary = payload.carteira_1_flagship_comparison_summary || {};
+  const structuralByCnpj = new Map(
+    (payload.carteira_1_structural_assets || []).map((row) => [
+      String(row.cnpj_formatado || formatCnpj(row.cnpj)), row,
+    ]),
+  );
   const ranges = [...(payload.carteira_1_curation_ranges || [])]
     .sort((a, b) => number(a.ordem_faixa) - number(b.ordem_faixa))
     .map((row) => ({
@@ -642,7 +648,10 @@ function carteira1Models(payload) {
     }));
   const details = [...(payload.carteira_1_curation || [])]
     .sort((a, b) => number(a.ordem) - number(b.ordem))
-    .map((row) => ({
+    .map((row) => {
+      const cnpj = String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo));
+      const structural = structuralByCnpj.get(cnpj) || {};
+      return ({
       order: Math.round(number(row.ordem)),
       image: String(row.imagem || "N/D"),
       rootPhoto: String(row.raiz_cnpj_foto || "N/D"),
@@ -650,7 +659,7 @@ function carteira1Models(payload) {
       identityStatus: String(row.status_identidade || "N/D"),
       identityRule: String(row.regra_identidade || "N/D"),
       identityNote: String(row.observacao_identidade || "N/D"),
-      cnpj: String(row.cnpj_fundo_formatado || formatCnpj(row.cnpj_fundo)),
+      cnpj,
       fund: compactFund(row.denominacao || row.nome_foto || "N/D"),
       pl: nullableNumber(row.pl_atual_brl),
       subordinate: nullableNumber(row.pl_subordinado_atual_brl),
@@ -678,7 +687,20 @@ function carteira1Models(payload) {
       documentaryNote: String(row.observacao_documental || "N/D"),
       fundosnetUrl: String(row.fundosnet_url || ""),
       gaps: String(row.lacunas || "N/D"),
-    }));
+      structuralMinimum: String(structural.minimo_estrutural_display || "N/D"),
+      structuralNature: String(structural.minimo_estrutural_natureza || "N/D"),
+      structuralText: String(structural.minimo_estrutural_texto || "N/D"),
+      structuralFormula: String(structural.minimo_estrutural_formula || "N/D"),
+      structuralComparable: Boolean(structural.comparacao_estrutural_completa_flag),
+      structuralComparableReason: String(structural.comparacao_estrutural_motivo || "N/D"),
+      structuralHeadroom: nullableNumber(structural.folga_pp),
+      lossAbsorption: nullableNumber(structural.perda_ate_gatilho),
+      regulatoryStatus: String(structural.situacao_regulatoria || "não medido"),
+      marketPosition: String(structural.posicao_mercado || "sem benchmark confiável"),
+      structuralTaxonomy: String(structural.categoria || "N/D"),
+      exceptionAsterisk: Boolean(structural.excecao_asterisco_flag),
+      });
+    });
   const comparison = [...(payload.carteira_1_flagship_comparison || [])]
     .sort((a, b) => number(a.ordem) - number(b.ordem))
     .map((row) => ({
@@ -706,6 +728,12 @@ function carteira1Models(payload) {
       outside: Math.round(number(summary.cnpjs_fora_base_fidc)),
       current: Math.round(number(summary.cnpjs_com_subordinacao_atual)),
       minJunior: Math.round(number(summary.cnpjs_com_minimo_junior)),
+      minStructural: Math.round(number(structuralSummary.cnpjs_com_minimo_estrutural)),
+      comparableStructural: Math.round(number(structuralSummary.cnpjs_com_folga_comparavel)),
+      juniorCoverage: nullableNumber(structuralSummary.cobertura_minimo_junior_pct),
+      structuralCoverage: nullableNumber(structuralSummary.cobertura_minimo_estrutural_pct),
+      asterisk: String(structuralSummary.asterisco || ""),
+      plNote: String(structuralSummary.nota_pl || ""),
       emission: Math.round(number(summary.cnpjs_com_data_emissao)),
       flagship: Math.round(number(summary.cnpjs_com_familia_flagship)),
       source: String(summary.fonte || "N/D"),
@@ -734,12 +762,16 @@ const CARTEIRA1_FIELDS = Object.freeze({
     "classificationCompetence", "classificationSource", "flagshipFamily",
     "flagshipRule", "documentId", "documentDate", "page", "pagesRead",
     "curationStatus", "documentaryNote", "fundosnetUrl", "gaps",
+    "structuralMinimum", "structuralNature", "structuralText", "structuralFormula",
+    "structuralComparable", "structuralComparableReason", "structuralHeadroom",
+    "lossAbsorption", "regulatoryStatus", "marketPosition", "structuralTaxonomy",
+    "exceptionAsterisk",
   ],
 });
 
 function compactCarteira1(data) {
   return {
-    schemaVersion: "carteira_1_curation_compact_v1",
+    schemaVersion: "carteira_1_curation_compact_v2",
     fields: CARTEIRA1_FIELDS,
     summary: data.summary,
     comparisonSummary: data.comparisonSummary,
@@ -750,7 +782,7 @@ function compactCarteira1(data) {
 }
 
 function expandCompactCarteira1(compact) {
-  if (compact.schemaVersion !== "carteira_1_curation_compact_v1") {
+  if (compact.schemaVersion !== "carteira_1_curation_compact_v2") {
     throw new Error(`Esquema da Carteira 1 desconhecido: ${compact.schemaVersion}`);
   }
   const object = (fields, values) => Object.fromEntries(
@@ -777,6 +809,11 @@ function validateCarteira1(data) {
   }
   if (data.details.some((row) => row.pl === 0 && row.currentStatus.includes("ausente"))) {
     throw new Error("Curadoria da Carteira 1 converteu PL ausente em zero");
+  }
+  if (data.summary.minJunior !== 83 || data.summary.minStructural !== 99) {
+    throw new Error(
+      `Cobertura estrutural deveria reconciliar 83 mínimos júnior e 99 métricas estruturais; contém ${data.summary.minJunior} e ${data.summary.minStructural}`,
+    );
   }
   if (
     data.comparison.length !== 7
@@ -1257,7 +1294,8 @@ function carteira1App(DATA) {
     ${row.fundosnetUrl ? `<a href="${esc(row.fundosnetUrl)}" target="_blank" rel="noreferrer">FundosNet</a>` : ""}
     <span>Regulamento ${esc(row.documentId)} · ${esc(row.documentDate)} · p. ${esc(row.page)}</span>
     <span>${row.pagesRead.toLocaleString("pt-BR")} páginas lidas</span>
-    <span>Subord.: ${esc(row.thresholdSource)}</span><span>Emissão: ${esc(row.emissionSource)}</span>
+    <span>Subord.: ${esc(row.thresholdSource)}</span><span>Fórmula: ${esc(row.structuralFormula)}</span>
+    <span>Comparabilidade: ${esc(row.structuralComparableReason)}</span><span>Emissão: ${esc(row.emissionSource)}</span>
     <span>Classificação: ${esc(row.classificationSource)}</span></div></details>`;
   const renderTable = () => {
     const rows = filtered();
@@ -1271,20 +1309,21 @@ function carteira1App(DATA) {
       <td>${esc(row.cnpj)}<br><small>raiz ${esc(row.rootPhoto)}</small></td>
       <td class="num">${money(row.pl)}</td>
       <td class="num">${pct(row.ratio)}<br><small>${esc(row.range)}</small></td>
-      <td>${esc(row.minJunior)}<br><small>${esc(row.threshold)}</small></td>
+      <td>${esc(row.structuralMinimum)}<br><small>${esc(row.structuralNature)} · ${esc(row.structuralText)}</small></td>
+      <td class="num">${pct(row.structuralHeadroom)}<br><small>absorção ${pct(row.lossAbsorption)} · ${esc(row.regulatoryStatus)}</small></td>
       <td>${esc(row.emissionDisplay)}</td>
-      <td>${esc(row.type)}<br><small>${esc(row.focus)} · ${esc(row.flagshipFamily)}</small></td>
+      <td>${esc(row.structuralTaxonomy)}<br><small>${esc(row.type)} · ${esc(row.focus)}</small></td>
       <td>${esc(row.curationStatus)}<br><small>${esc(row.gaps)}</small></td>
       <td>${trace(row)}</td>
-    </tr>`).join("") || `<tr><td colspan="10">Nenhum CNPJ encontrado.</td></tr>`;
+    </tr>`).join("") || `<tr><td colspan="11">Nenhum CNPJ encontrado.</td></tr>`;
     pager.querySelector("span").textContent = `${rows.length ? state.page + 1 : 0} / ${rows.length ? pages : 0}`;
     pager.querySelector("[data-c1-prev]").disabled = state.page <= 0;
     pager.querySelector("[data-c1-next]").disabled = state.page >= pages - 1;
   };
   const render = () => renderTable();
   const downloadCsv = () => {
-    const headers = ["ordem","raiz_cnpj_foto","nome_foto","cnpj","fundo","pl_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","emissao","tipo","foco","familia_flagship_referencia","status_curadoria","lacunas","documento","pagina","paginas_lidas","fundosnet_url"];
-    const rows = filtered().map(row => [row.order,row.rootPhoto,row.namePhoto,row.cnpj,row.fund,row.pl,row.ratio,row.range,row.minJunior,row.emissionDisplay,row.type,row.focus,row.flagshipFamily,row.curationStatus,row.gaps,row.documentId,row.page,row.pagesRead,row.fundosnetUrl]);
+    const headers = ["ordem","raiz_cnpj_foto","nome_foto","cnpj","fundo","pl_atual_brl","subordinacao_atual_pct","faixa","minimo_junior","minimo_estrutural","natureza_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga","capacidade_absorcao","situacao_regulatoria","posicao_mercado","emissao","tipo","foco","taxonomia_estrutural","familia_flagship_referencia","status_curadoria","lacunas","documento","pagina","paginas_lidas","fundosnet_url"];
+    const rows = filtered().map(row => [row.order,row.rootPhoto,row.namePhoto,row.cnpj,row.fund,row.pl,row.ratio,row.range,row.minJunior,row.structuralMinimum,row.structuralNature,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.emissionDisplay,row.type,row.focus,row.structuralTaxonomy,row.flagshipFamily,row.curationStatus,row.gaps,row.documentId,row.page,row.pagesRead,row.fundosnetUrl]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -1573,12 +1612,12 @@ function fragmentHtml(data, standalone = false) {
   <p>${data.carteira1.comparisonSummary.methodology}</p>
 </section>
 <section id="carteira-1-curation-explorer" aria-labelledby="carteira-1-curation-title">
-  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · curadoria documental e comparação</h2><p>Os 101 CNPJs transcritos das três imagens mantêm a identidade fotografada, a correspondência oficial, as métricas atuais e as lacunas documentais.</p></header>
+  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Os 101 CNPJs preservam subordinação atual, mínimo documental, natureza da métrica, comparabilidade e lacunas.</p></header>
   <div class="c1-metrics">
     <div class="c1-metric"><strong>${data.carteira1.summary.cnpjs}</strong><span>CNPJs transcritos e salvos</span></div>
-    <div class="c1-metric"><strong>${data.carteira1.summary.found}</strong><span>com PL em ${data.carteira1.summary.competence}</span></div>
-    <div class="c1-metric"><strong>${data.carteira1.summary.current}</strong><span>com subordinação atual comparável</span></div>
-    <div class="c1-metric"><strong>${data.carteira1.summary.minJunior}</strong><span>com mínimo júnior localizado</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.minJunior}</strong><span>mínimos júnior · ${(data.carteira1.summary.juniorCoverage * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.minStructural}</strong><span>mínimos estruturais · ${(data.carteira1.summary.structuralCoverage * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%</span></div>
+    <div class="c1-metric"><strong>${data.carteira1.summary.comparableStructural}</strong><span>com folga calculável</span></div>
   </div>
   <div class="c1-controls">
     <label>Faixa<select data-c1-range aria-label="Faixa de subordinação atual"></select></label>
@@ -1589,11 +1628,11 @@ function fragmentHtml(data, standalone = false) {
   <div class="c1-range-grid" data-c1-range-grid aria-label="Distribuição da Carteira 1 por faixa"></div>
   <div class="c1-caption" data-c1-caption aria-live="polite"></div>
   <table aria-label="Curadoria dos CNPJs da Carteira 1">
-    <thead><tr><th class="num">#</th><th>Fundo oficial / nome fotografado</th><th>CNPJ / raiz</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo júnior</th><th>Emissão</th><th>Tipo / referência flagship</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <thead><tr><th class="num">#</th><th>Fundo oficial / nome fotografado</th><th>CNPJ / raiz</th><th class="num">PL atual</th><th class="num">Subord. atual</th><th>Mínimo estrutural</th><th class="num">Folga / absorção</th><th>Emissão</th><th>Taxonomia / tipo</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
     <tbody></tbody>
   </table>
   <div class="c1-pager" data-c1-pager><button type="button" data-c1-prev>Anterior</button><span>0 / 0</span><button type="button" data-c1-next>Próxima</button></div>
-  <p class="c1-caption">${data.carteira1.summary.emission}/101 com data de emissão; ${data.carteira1.summary.outside} veículo fora da base mensal FIDC permanece com métricas N/D. Correspondências com famílias flagship são registradas somente quando diretas.</p>
+  <p class="c1-caption">${data.carteira1.summary.asterisk} ${data.carteira1.summary.plNote} ${data.carteira1.summary.outside} veículo fora da base mensal FIDC permanece com métricas N/D.</p>
 </section>
 <section id="carteira-1-taxonomy-explorer" aria-labelledby="carteira-1-taxonomy-title">
   <h2 id="carteira-1-taxonomy-title">Carteira 1 · evolução pela taxonomia reclassificada</h2>

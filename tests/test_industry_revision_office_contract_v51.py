@@ -103,9 +103,9 @@ SLIDE_TOKENS = {
     11: ("Agro, Indústria e Comércio: o maior salto absoluto",),
     12: ("Financeiro: o maior bloco, e ainda crescendo",),
     13: ("Outros: o único bloco que encolheu",),
-    14: ("CURADORIA · FUNDOS FLAGSHIP", "FAIXAS DESCRITIVAS"),
-    15: ("CARTEIRA 1 VS. 47 CNPJS FLAGSHIP", "RISCO ACEITO"),
-    16: ("A carteira lida com o mesmo critério do mercado", "EVOLUÇÃO DO PL", "PARTICIPAÇÃO NO PL OBSERVADO"),
+    14: ("RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA", "MÍNIMO JÚNIOR", "MÍN. ESTRUTURAL"),
+    15: ("RISCO ESTRUTURAL · CARTEIRA VS. PARES", "Carteira · mediana", "Flagships · mediana"),
+    16: ("RISCO ESTRUTURAL · ATIVOS", "Folga", "Absorção", "Situação"),
     17: ("Emissões crescem 15% no semestre", "JAN–DEZ", "R$ 65,5 bi em 771 ofertas no jan–jun/26"),
     18: ("22 ofertas concentram 42% de todo o volume", "> R$ 100 MI"),
     19: (
@@ -154,6 +154,8 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Curadoria flagship",
     "Carteira 1 curadoria",
     "Carteira 1 vs flagships",
+    "Risco estrutural ativos",
+    "Risco estrutural taxonomia",
     "Carteira 1 evolução",
     "Curadoria Outros Top 100",
     "Dispersão inadimplência",
@@ -516,10 +518,10 @@ def test_flagship_and_portfolio_slides_keep_traceable_comparison_tables() -> Non
     with ZipFile(PPTX) as archive:
         flagship_text = _slide_text(archive, 14)
         portfolio_text = _slide_text(archive, 15)
-        portfolio = ET.fromstring(archive.read("ppt/slides/slide15.xml"))
         portfolio_table_count = _native_table_count(archive, 15)
 
-    assert "12 mínimos júnior localizados em 24 regulamentos revistos" in flagship_text
+    assert "83/101" in flagship_text
+    assert "99/101" in flagship_text
     assert "47 CNPJS FLAGSHIP" in portfolio_text.upper()
     for token in (
         "ADQUIRÊNCIA",
@@ -529,25 +531,19 @@ def test_flagship_and_portfolio_slides_keep_traceable_comparison_tables() -> Non
         "VEÍCULOS",
         "FACTORING",
         "FINANCEIRO",
-        "RISCO ACEITO",
+        "CARTEIRA · MEDIANA",
+        "FLAGSHIPS · MEDIANA",
     ):
         assert token in portfolio_text.upper()
-    assert portfolio_table_count == 7
-    filled_shapes = [
-        shape
-        for shape in portfolio.findall(f".//{{{PML}}}sp")
-        if shape.find(f"{{{PML}}}spPr/{{{DML}}}solidFill") is not None
-    ]
-    assert len(filled_shapes) >= 7
+    assert portfolio_table_count == 1
     renderer_source = (
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
     carteira_function = renderer_source.split(
         "function addCarteira1CurationSlide", 1
     )[1].split("function addDelinquencyDispersionSlides", 1)[0]
-    assert "payload.carteira_1_flagship_comparison || []" in carteira_function
+    assert "payload.carteira_1_structural_taxonomy || []" in carteira_function
     assert "rows.length !== 7" in carteira_function
-    assert "num(summary.flagship_cnpjs) !== 47" in carteira_function
 
 
 def test_native_chart_series_titles_use_schema_supported_forms() -> None:
@@ -627,7 +623,7 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
         (11, 0, 2),  # Agro: jun/26 e dez/25
         (12, 0, 2),  # Financeiro: jun/26 e dez/25
         (13, 0, 2),  # Outros: jun/26 e dez/25
-        (15, 0, 7),  # Carteira 1 versus os sete tipos flagship
+        (15, 0, 1),  # Carteira 1 versus os sete tipos flagship em tabela única
         (17, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ],
 )
@@ -895,11 +891,19 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert len({row[7] for row in carteira_rows}) == 101
     assert sum(row[9] is not None for row in carteira_rows) == 78
     assert sum(row[11] is not None for row in carteira_rows) == 68
-    assert sum(row[14] is not None for row in carteira_rows) == 50
+    assert sum(row[14] is not None for row in carteira_rows) == 83
     assert sum(row[19] != "N/D" for row in carteira_rows) == 97
     assert sum(str(row[31]).startswith("fora do perímetro FIDC") for row in carteira_rows) == 1
     assert all(row[9] is None or row[9] > 0 for row in carteira_rows)
     assert all(row[14] is None or row[14] > 0 for row in carteira_rows)
+
+    structural = workbook["Risco estrutural ativos"]
+    structural_rows = list(structural.iter_rows(min_row=5, max_col=28, values_only=True))
+    structural_rows = [row for row in structural_rows if row[0] not in {None, ""}]
+    assert len(structural_rows) == 101
+    assert sum(row[8] is not None for row in structural_rows) == 83
+    assert sum(row[8] is not None or row[9] is not None for row in structural_rows) == 99
+    assert sum(row[17] is not None for row in structural_rows) == 23
 
 
 def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:

@@ -51,6 +51,7 @@ from services.industry_flagship_curation import (
     build_portfolio_curation,
     build_portfolio_flagship_comparison,
 )
+from services.industry_structural_risk import build_portfolio_structural_risk
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -3336,6 +3337,10 @@ def build_payload(
         flagship_detail=flagship_curation.detail,
         latest=latest,
     )
+    carteira_1_structural_risk = build_portfolio_structural_risk(
+        portfolio=carteira_1_curation,
+        comparison=carteira_1_flagship_comparison,
+    )
     top20_outros_review = _build_top20_outros_review(
         top20_outros, documentary, top20_outros_regulations
     )
@@ -3712,6 +3717,19 @@ def build_payload(
         "carteira_1_flagship_comparison_summary": {
             str(key): _json_value(value)
             for key, value in carteira_1_flagship_comparison.summary.items()
+        },
+        "carteira_1_structural_assets": _records(
+            carteira_1_structural_risk.assets
+        ),
+        "carteira_1_structural_taxonomy": _records(
+            carteira_1_structural_risk.taxonomy
+        ),
+        "carteira_1_structural_watchlist": _records(
+            carteira_1_structural_risk.watchlist
+        ),
+        "carteira_1_structural_summary": {
+            str(key): _json_value(value)
+            for key, value in carteira_1_structural_risk.summary.items()
         },
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,

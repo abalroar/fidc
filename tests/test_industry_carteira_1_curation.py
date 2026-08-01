@@ -92,8 +92,9 @@ def test_carteira_1_documentary_contract_is_complete_and_traceable() -> None:
     result = _curation()
     detail = result.detail
     located = detail["subordinacao_minima_junior_pct"].notna()
-    assert located.sum() == 50
-    assert result.summary["cnpjs_com_minimo_junior"] == 50
+    assert located.sum() == 83
+    assert result.summary["cnpjs_com_minimo_junior"] == 83
+    assert result.summary["cnpjs_com_minimo_estrutural"] == 99
     assert result.summary["cnpjs_com_data_emissao"] == 97
     assert detail.loc[located, "subordinacao_minima_junior_pct"].gt(0).all()
     assert detail.loc[located, "subordinacao_minima_fonte"].ne("N/D").all()

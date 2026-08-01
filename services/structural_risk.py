@@ -74,6 +74,19 @@ THIN_LOSS_ABSORPTION = 0.03
 #: Arithmetic headroom below this is a watchlist item regardless of category.
 THIN_HEADROOM_PP = 0.02
 
+#: Market comparison is deliberately encoded separately from regulatory status.
+MARKET_IN_LINE_PP = 0.02
+
+
+@dataclass(frozen=True)
+class StructuralRiskConfig:
+    """Configurable thresholds used by the structural-risk chapter."""
+
+    min_comparables: int = MIN_COMPARABLES
+    thin_loss_absorption: float = THIN_LOSS_ABSORPTION
+    thin_headroom_pp: float = THIN_HEADROOM_PP
+    market_in_line_pp: float = MARKET_IN_LINE_PP
+
 #: Positions relative to the floor and to the peer distribution.
 BAND_BREACH = "abaixo do mínimo"
 BAND_THIN = "folga estreita"
@@ -81,6 +94,7 @@ BAND_BELOW_MARKET = "abaixo do mercado"
 BAND_IN_LINE = "em linha com o mercado"
 BAND_ABOVE_MARKET = "acima do mercado"
 BAND_HIGH_CUSHION = "colchão alto"
+BAND_ABOVE_FLOOR = "acima do mínimo"
 BAND_NO_BENCHMARK = "sem benchmark confiável"
 BAND_UNMEASURED = "não medido"
 
@@ -173,8 +187,13 @@ def percentile_from_quartiles(
     return result.clip(0.0, 1.0)
 
 
-def enrich_assets(frame: pd.DataFrame) -> pd.DataFrame:
+def enrich_assets(
+    frame: pd.DataFrame,
+    config: StructuralRiskConfig | None = None,
+) -> pd.DataFrame:
     """Add every derived metric, leaving gaps as gaps."""
+
+    config = config or StructuralRiskConfig()
 
     missing = [column for column in REQUIRED_COLUMNS if column not in frame.columns]
     if missing:
@@ -183,20 +202,42 @@ def enrich_assets(frame: pd.DataFrame) -> pd.DataFrame:
     out = frame.copy()
     sub = _numeric(out, "sub_pl_atual")
     floor = _numeric(out, "sub_jr_min_regulamento")
-    pl = _numeric(out, "pl_atual").fillna(0.0)
+    pl = _numeric(out, "pl_atual")
     median = _numeric(out, "mercado_categoria_mediana_sub")
     weighted = _numeric(out, "mercado_categoria_media_ponderada_pl_sub")
     q25 = _numeric(out, "mercado_categoria_q25_sub")
     q75 = _numeric(out, "mercado_categoria_q75_sub")
     peers = _numeric(out, "n_comparaveis_categoria")
 
-    out["folga_pp"] = sub - floor
-    out["folga_relativa"] = (sub - floor) / floor.replace(0, np.nan)
-    out["perda_ate_gatilho"] = loss_until_trigger(sub, floor)
+    comparable = out.get(
+        "comparacao_estrutural_completa_flag",
+        pd.Series(True, index=out.index),
+    )
+    comparable = comparable.map(
+        lambda value: value
+        if isinstance(value, (bool, np.bool_))
+        else str(value).strip().lower() in {"1", "true", "sim", "yes"}
+    ).fillna(False)
+    out["comparacao_estrutural_completa_flag"] = comparable
+    market_comparable = out.get(
+        "comparacao_mercado_flag",
+        pd.Series(True, index=out.index),
+    )
+    market_comparable = market_comparable.map(
+        lambda value: value
+        if isinstance(value, (bool, np.bool_))
+        else str(value).strip().lower() in {"1", "true", "sim", "yes"}
+    ).fillna(False)
+    out["comparacao_mercado_flag"] = market_comparable
+    out["folga_pp"] = (sub - floor).where(comparable)
+    out["folga_relativa"] = ((sub - floor) / floor.replace(0, np.nan)).where(
+        comparable
+    )
+    out["perda_ate_gatilho"] = loss_until_trigger(sub, floor).where(comparable)
 
     # O benchmark só vale quando há pares suficientes. Sem isso a mediana é
     # anedota, e publicá-la como referência é o erro que esta coluna evita.
-    benchmark_ok = peers.ge(MIN_COMPARABLES).fillna(False)
+    benchmark_ok = peers.ge(config.min_comparables).fillna(False) & market_comparable
     out["benchmark_confiavel"] = benchmark_ok
     out["excesso_vs_mercado"] = (sub - median).where(benchmark_ok)
     out["excesso_vs_mercado_ponderado"] = (sub - weighted).where(benchmark_ok)
@@ -208,9 +249,49 @@ def enrich_assets(frame: pd.DataFrame) -> pd.DataFrame:
     out["peso_pl"] = pl / total_pl if total_pl else np.nan
     out["peso_pl_categoria"] = pl / pl.groupby(out["categoria"]).transform("sum")
 
-    out["banda"] = _classify(out, sub, floor, q25, q75, benchmark_ok)
-    out["watchlist"] = _watchlist(out)
+    out["situacao_regulatoria"] = _regulatory_status(out, sub, floor, comparable, config)
+    out["posicao_mercado"] = _market_position(out, benchmark_ok, config)
+    # Backwards-compatible column used by existing charts/tests. It now carries
+    # only the regulatory situation; market position has its own channel.
+    out["banda"] = out["situacao_regulatoria"]
+    out["watchlist"] = _watchlist(out, config)
     return out
+
+
+def _regulatory_status(
+    frame: pd.DataFrame,
+    sub: pd.Series,
+    floor: pd.Series,
+    comparable: pd.Series,
+    config: StructuralRiskConfig,
+) -> pd.Series:
+    """Regulatory status, which is the only metric encoded by color."""
+
+    status = pd.Series(BAND_UNMEASURED, index=frame.index, dtype="object")
+    measured = sub.notna() & floor.notna() & comparable
+    status[measured] = BAND_ABOVE_FLOOR
+    thin = measured & (
+        frame["perda_ate_gatilho"].lt(config.thin_loss_absorption)
+        | frame["folga_pp"].lt(config.thin_headroom_pp)
+    )
+    status[thin] = BAND_THIN
+    status[measured & frame["folga_pp"].lt(0)] = BAND_BREACH
+    return status
+
+
+def _market_position(
+    frame: pd.DataFrame,
+    benchmark_ok: pd.Series,
+    config: StructuralRiskConfig,
+) -> pd.Series:
+    """Relative position as text/arrows, never as the regulatory color."""
+
+    delta = frame["excesso_vs_mercado"]
+    result = pd.Series(BAND_NO_BENCHMARK, index=frame.index, dtype="object")
+    result[benchmark_ok & delta.lt(-config.market_in_line_pp)] = BAND_BELOW_MARKET
+    result[benchmark_ok & delta.between(-config.market_in_line_pp, config.market_in_line_pp)] = BAND_IN_LINE
+    result[benchmark_ok & delta.gt(config.market_in_line_pp)] = BAND_ABOVE_MARKET
+    return result
 
 
 def _classify(
@@ -255,7 +336,7 @@ def _classify(
     return band
 
 
-def _watchlist(frame: pd.DataFrame) -> pd.Series:
+def _watchlist(frame: pd.DataFrame, config: StructuralRiskConfig) -> pd.Series:
     """Flag the assets a committee has to look at, with the reason attached."""
 
     reasons: list[str] = []
@@ -268,7 +349,7 @@ def _watchlist(frame: pd.DataFrame) -> pd.Series:
             why.append("folga estreita")
         grande = pd.notna(row["peso_pl"]) and row["peso_pl"] > max(peso_mediano, 0) * 2
         if grande and pd.notna(row["perda_ate_gatilho"]):
-            if row["perda_ate_gatilho"] < THIN_LOSS_ABSORPTION * 2:
+            if row["perda_ate_gatilho"] < config.thin_loss_absorption * 2:
                 why.append("posição grande com baixa capacidade de absorção")
         if pd.isna(row.get("sub_jr_min_regulamento")):
             why.append("mínimo regulamentar não localizado")

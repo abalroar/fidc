@@ -19,13 +19,15 @@ PAYLOAD_PATH = Path(
     )
 )
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
-MAX_COMPACT_HTML_BYTES = 400_000
+MAX_COMPACT_HTML_BYTES = 450_000
 EXPECTED_PAYLOAD_KEYS = {
     "carteira_1_flagship_comparison",
     "carteira_1_flagship_comparison_summary",
     "carteira_1_curation",
     "carteira_1_curation_ranges",
     "carteira_1_curation_summary",
+    "carteira_1_structural_assets",
+    "carteira_1_structural_summary",
     "carteira_1_taxonomy_history",
     "carteira_1_taxonomy_summary",
     "flagship_curation",
@@ -99,7 +101,7 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert compact["schemaVersion"] == "provider_flow_compact_v1"
     assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
     assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v1"
-    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v1"
+    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v2"
     assert compact["carteira1Taxonomy"]["schemaVersion"] == "carteira_1_taxonomy_compact_v1"
     assert len(compact["carteira1Taxonomy"]["rows"]) == 16
     assert compact["issuanceTaxonomy"]["schemaVersion"] == "issuance_taxonomy_table_v1"
@@ -121,6 +123,8 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     } <= set(flagship_fields)
     assert len(compact["carteira1"]["ranges"]) == 7
     assert len(compact["carteira1"]["details"]) == 101
+    assert compact["carteira1"]["summary"]["minJunior"] == 83
+    assert compact["carteira1"]["summary"]["minStructural"] == 99
     assert len(compact["carteira1"]["comparison"]) == 7
     assert compact["carteira1"]["comparisonSummary"]["flagshipFunds"] == 47
     assert compact["carteira1"]["comparisonSummary"]["classified"] == 100
