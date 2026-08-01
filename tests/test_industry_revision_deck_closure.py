@@ -82,14 +82,14 @@ def test_deck_has_no_truncated_fragments_or_visible_technical_slugs() -> None:
 
 def test_removed_market_share_sections_remain_available_in_the_payload() -> None:
     slides = [_slide_text(slide) for slide in _presentation().slides]
-    provider = _find_slide_index(slides, "PRESTADORES · LIDERANÇA EXPLICADA")
+    provider = _find_slide_index(slides, "A liderança some quando se olha o que a sustenta")
     top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
     top20_other = _find_slide_index(
-        slides, "RANKING · TOP FUNDOS E ORIGINADORES", "Outros"
+        slides, "Outros: o único bloco que encolheu"
     )
     flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
     carteira_1 = _find_slide_index(slides, "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP")
-    investor_base = _find_slide_index(slides, "BASE INVESTIDORA")
+    investor_base = _find_slide_index(slides, "Quase todo o volume vai para o investidor profissional")
     assert top20 < top20_other < flagship < carteira_1 < provider
     assert provider < investor_base
     visible = "\n".join(slides)

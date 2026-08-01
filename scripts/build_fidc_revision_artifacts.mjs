@@ -80,7 +80,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v34";
+const RENDERER_VERSION = "industry_revision_artifacts_v35";
 const SLIDE_CONTRACT_V1 = Object.freeze([
   "cover", "industry_scale", "annual_issuance", "issuance_taxonomy", "analytical_taxonomy",
   "acquiring", "receivables", "provider_ranking", "top20", "top20_fomento",
@@ -94,6 +94,93 @@ const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;
 if (EXPECTED_SLIDES !== 26) {
   throw new Error(`Contrato ordinal deveria conter 26 slides; contém ${EXPECTED_SLIDES}.`);
 }
+const COVER_TITLE = "Indústria de FIDCs — jun/26";
+const EDITORIAL_HEADER_COPY = Object.freeze([
+  {
+    eyebrow: "OFERTAS ENCERRADAS · CVM E ANBIMA",
+    title: "FIDCs seguem ganhando escala nas emissões",
+    subtitle: "Abertura por instrumento usa o valor encerrado ANBIMA; 2023 corrigido",
+  },
+  {
+    eyebrow: "TAXONOMIA ANALÍTICA · OUTROS ABERTO",
+    title: 'Abrir "Outros" revela que 63% do mercado é crédito financeiro',
+    subtitle: "Financeiro somado aos componentes de Outros, jun/26",
+  },
+  {
+    eyebrow: "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
+    title: "Adquirência é R$ 99 bi que a taxonomia oficial não mostra",
+    subtitle: "33 CNPJs reclassificados, 12,1% do PL",
+  },
+  {
+    eyebrow: "CARTEIRA POR TIPO DE RECEBÍVEL",
+    title: "Financeiro explicou 70% do crescimento da carteira",
+    subtitle: "Ganho de 17,5 p.p. de participação no período",
+  },
+  {
+    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
+    titleStartsWith: "Fomento Mercantil",
+    title: "Fomento Mercantil: crescimento marginal em seis meses",
+    subtitle: "Top 15 vai de R$ 30,4 bi a R$ 31,9 bi",
+  },
+  {
+    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
+    titleStartsWith: "Agro, Indústria e Comércio",
+    title: "Agro, Indústria e Comércio: o maior salto absoluto",
+    subtitle: "Top 15 sobe R$ 18,2 bi, para R$ 112,2 bi",
+  },
+  {
+    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
+    titleStartsWith: "Financeiro",
+    title: "Financeiro: o maior bloco, e ainda crescendo",
+    subtitle: "Top 15 vai a R$ 121,1 bi",
+  },
+  {
+    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
+    titleStartsWith: "Outros",
+    title: "Outros: o único bloco que encolheu",
+    subtitle: "Top 15 recua de R$ 60,9 bi para R$ 55,1 bi",
+  },
+  {
+    eyebrow: "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
+    title: "A carteira lida com o mesmo critério do mercado",
+    subtitle: "R$ 55,3 bi de PL observado, composição reclassificada",
+  },
+  {
+    eyebrow: "OFERTAS ENCERRADAS · VOLUME E TICKET",
+    title: "Emissões crescem 15% no semestre",
+    subtitle: "R$ 65,5 bi em 771 ofertas no jan–jun/26",
+  },
+  {
+    eyebrow: "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
+    title: "22 ofertas concentram 42% de todo o volume",
+    subtitle: "Tickets acima de R$ 500 mi, jan–jun/26",
+  },
+  {
+    eyebrow: "TOP 15 · OFERTAS ENCERRADAS",
+    title: "IBBA esteve em 8 das 15 maiores ofertas do semestre",
+    subtitle: "Liderou 5 delas",
+  },
+  {
+    eyebrow: "PRINCIPAIS CONCLUSÕES",
+    title: "O que muda a leitura do mercado",
+    subtitle: "Distribuição, prestadores, migração e ofertas",
+  },
+  {
+    eyebrow: "PRESTADORES · EVOLUÇÃO E RANKING",
+    title: "QI lidera administração; BTG lidera gestão e custódia",
+    subtitle: "Ranking geral de jun/26",
+  },
+  {
+    eyebrow: "PRESTADORES · LIDERANÇA EXPLICADA",
+    title: "A liderança some quando se olha o que a sustenta",
+    subtitle: "Singulare explica a escala da QI; sem a coorte bancária, BTG cai para #3 em gestão",
+  },
+  {
+    eyebrow: "BASE INVESTIDORA",
+    title: "Quase todo o volume vai para o investidor profissional",
+    subtitle: "Entre 93% e 97% ao ano; a classificação mede elegibilidade, não alocação efetiva",
+  },
+]);
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
@@ -466,22 +553,58 @@ function addRule(slide, left, top, width, color = C.line, thickness = 1) {
 
 let automaticPageNumber = 1;
 
+function editorialHeaderCopy(eyebrow, currentTitle) {
+  return EDITORIAL_HEADER_COPY.find(
+    (entry) =>
+      entry.eyebrow === eyebrow &&
+      (!entry.titleStartsWith || currentTitle.startsWith(entry.titleStartsWith)),
+  );
+}
+
 function addHeader(slide, eyebrow, title, source, _page) {
   automaticPageNumber += 1;
   slide.background.fill = C.white;
-  addText(
-    slide,
-    eyebrow.toUpperCase().replace(/\bFIDCS\b/g, "FIDCs"),
-    { left: 60, top: 27, width: 1160, height: 20 },
-    { fontSize: 12, bold: true, color: C.orange, wrap: "none" },
-  );
-  const titleFont = title.length > 105 ? 24 : title.length > 85 ? 26 : 28;
-  addText(
-    slide,
-    title,
-    { left: 60, top: 53, width: 1160, height: 49 },
-    { fontSize: titleFont, bold: true, color: C.black, verticalAlignment: "middle", wrap: "none" },
-  );
+  const editorialCopy = editorialHeaderCopy(eyebrow, title);
+  if (editorialCopy) {
+    const editorialTitleFont = editorialCopy.title.length > 72 ? 25 : 28;
+    addText(
+      slide,
+      editorialCopy.title,
+      { left: 60, top: 27, width: 1160, height: 43 },
+      {
+        fontSize: editorialTitleFont,
+        bold: true,
+        color: C.black,
+        verticalAlignment: "middle",
+        wrap: "none",
+      },
+    );
+    addText(
+      slide,
+      editorialCopy.subtitle,
+      { left: 60, top: 76, width: 1160, height: 25 },
+      {
+        fontSize: 14,
+        color: C.mid,
+        verticalAlignment: "middle",
+        wrap: "none",
+      },
+    );
+  } else {
+    addText(
+      slide,
+      eyebrow.toUpperCase().replace(/\bFIDCS\b/g, "FIDCs"),
+      { left: 60, top: 27, width: 1160, height: 20 },
+      { fontSize: 12, bold: true, color: C.orange, wrap: "none" },
+    );
+    const titleFont = title.length > 105 ? 24 : title.length > 85 ? 26 : 28;
+    addText(
+      slide,
+      title,
+      { left: 60, top: 53, width: 1160, height: 49 },
+      { fontSize: titleFont, bold: true, color: C.black, verticalAlignment: "middle", wrap: "none" },
+    );
+  }
   addRule(slide, 60, 110, 1160, C.line, 1);
   addRule(slide, 60, 667, 1160, C.line, 1);
   addText(
@@ -3184,7 +3307,7 @@ function buildPresentation(payload) {
     const slide = presentation.slides.add();
     slide.background.fill = C.black;
     addRect(slide, { left: 60, top: 105, width: 88, height: 5 }, C.orange);
-    addText(slide, "INDÚSTRIA DE FIDCs", { left: 60, top: 148, width: 900, height: 86 }, {
+    addText(slide, COVER_TITLE, { left: 60, top: 148, width: 900, height: 86 }, {
       fontSize: 48,
       bold: true,
       color: C.white,

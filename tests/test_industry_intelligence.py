@@ -196,25 +196,25 @@ def test_industry_exports_are_valid_office_files() -> None:
         slide_texts.append("\n".join(visible_parts))
     visible_text = "\n".join(slide_texts)
     for expected in (
-        "INDÚSTRIA DE FIDCs",
+        "Indústria de FIDCs — jun/26",
         "ESCALA DA INDÚSTRIA",
-        "OFERTAS ENCERRADAS · CVM E ANBIMA",
+        "FIDCs seguem ganhando escala nas emissões",
         "EMISSÕES POR CATEGORIA ANBIMA",
-        "BASE INVESTIDORA",
+        "Quase todo o volume vai para o investidor profissional",
         "Precatórios e/ou Ações Judiciais",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
-        "PRESTADORES · EVOLUÇÃO E RANKING",
+        "QI lidera administração; BTG lidera gestão e custódia",
         "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
-        "PRESTADORES · LIDERANÇA EXPLICADA",
-        "OFERTAS ENCERRADAS · VOLUME E TICKET",
-        "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
+        "A liderança some quando se olha o que a sustenta",
+        "Emissões crescem 15% no semestre",
+        "22 ofertas concentram 42% de todo o volume",
         "OFERTAS · VOLUME E REGIME",
-        "TOP 15 · OFERTAS ENCERRADAS",
+        "IBBA esteve em 8 das 15 maiores ofertas do semestre",
         "TOP 15 · HISTÓRICO",
-        "PRINCIPAIS CONCLUSÕES",
+        "O que muda a leitura do mercado",
         "RANKING · TOP 20 FIDCs",
         "CURADORIA · FUNDOS FLAGSHIP",
-        "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
+        "A carteira lida com o mesmo critério do mercado",
     ):
         assert expected in visible_text
     assert "APÊNDICE · CURADORIA TOP 20" not in visible_text

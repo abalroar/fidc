@@ -242,32 +242,32 @@ def test_deck_order_and_compact_appendix_contract() -> None:
     assert len(slides) == 26
     expected_body = [
         "ESCALA DA INDÚSTRIA",
-        "OFERTAS ENCERRADAS · CVM E ANBIMA",
+        "FIDCs seguem ganhando escala nas emissões",
         "EMISSÕES POR CATEGORIA ANBIMA",
-        "TAXONOMIA ANALÍTICA · OUTROS ABERTO",
-        "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
-        "CARTEIRA POR TIPO DE RECEBÍVEL",
+        'Abrir "Outros" revela que 63% do mercado é crédito financeiro',
+        "Adquirência é R$ 99 bi que a taxonomia oficial não mostra",
+        "Financeiro explicou 70% do crescimento da carteira",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "RANKING · TOP 20 FIDCs",
-        "Fomento Mercantil · Top 15",
-        "Agro, Indústria e Comércio · Top 15",
-        "Financeiro · Top 15",
-        "Outros · Top 15",
+        "Fomento Mercantil: crescimento marginal em seis meses",
+        "Agro, Indústria e Comércio: o maior salto absoluto",
+        "Financeiro: o maior bloco, e ainda crescendo",
+        "Outros: o único bloco que encolheu",
         "CURADORIA · FUNDOS FLAGSHIP",
         "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
-        "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
-        "OFERTAS ENCERRADAS · VOLUME E TICKET",
-        "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
+        "A carteira lida com o mesmo critério do mercado",
+        "Emissões crescem 15% no semestre",
+        "22 ofertas concentram 42% de todo o volume",
         "OFERTAS · VOLUME E REGIME",
-        "TOP 15 · OFERTAS ENCERRADAS",
+        "IBBA esteve em 8 das 15 maiores ofertas do semestre",
         "TOP 15 · HISTÓRICO",
-        "PRINCIPAIS CONCLUSÕES",
-        "PRESTADORES · EVOLUÇÃO E RANKING",
-        "PRESTADORES · LIDERANÇA EXPLICADA",
-        "BASE INVESTIDORA",
+        "O que muda a leitura do mercado",
+        "QI lidera administração; BTG lidera gestão e custódia",
+        "A liderança some quando se olha o que a sustenta",
+        "Quase todo o volume vai para o investidor profissional",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
     ]
-    assert "INDÚSTRIA DE FIDCs" in slides[0]
+    assert "Indústria de FIDCs — jun/26" in slides[0]
     for slide_text, expected in zip(
         slides[1 : 1 + len(expected_body)],
         expected_body,
@@ -276,10 +276,10 @@ def test_deck_order_and_compact_appendix_contract() -> None:
         assert expected in slide_text
     assert all("APÊNDICE · CURADORIA TOP 20" not in text for text in slides)
     assert all("INADIMPLÊNCIA ·" not in text for text in slides)
-    assert "PRESTADORES · EVOLUÇÃO E RANKING" in slides[22]
-    assert "PRESTADORES · LIDERANÇA EXPLICADA" in slides[23]
+    assert "QI lidera administração; BTG lidera gestão e custódia" in slides[22]
+    assert "A liderança some quando se olha o que a sustenta" in slides[23]
     assert all("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" not in text for text in slides)
-    assert "BASE INVESTIDORA" in slides[24]
+    assert "Quase todo o volume vai para o investidor profissional" in slides[24]
     assert "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS" in slides[25]
     for removed_title in (
         "CONCENTRAÇÃO DAS MONOESTRUTURAS",
@@ -305,8 +305,8 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
     assert "58,4%" in slides[21]
     assert "59,5%" in slides[15]
     assert "PL ≥ R$ 200 mi" in slides[25]
-    assert "70,1% do aumento líquido" in slides[6]
-    assert "sobre jan–jun/25" in slides[16]
+    assert "Financeiro explicou 70% do crescimento da carteira" in slides[6]
+    assert "Emissões crescem 15% no semestre" in slides[16]
     assert re.search(r"2022 FY.*N/D N/D", slides[16])
     assert "66,0% dos R$ 77,7 bi" in slides[21]
     assert all("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" not in text for text in slides)
@@ -457,7 +457,7 @@ def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
         assert len(slide30.findall(f".//{{{DML}}}tbl")) == 2
         text = " ".join(node.text or "" for node in slide30.iter(f"{{{DML}}}t"))
         for token in (
-            "TOP 15 · OFERTAS ENCERRADAS",
+            "IBBA esteve em 8 das 15 maiores ofertas do semestre",
             "JAN–JUN/26 · TOP 15",
             "2025FY · TOP 15",
             "IBBA",
@@ -763,7 +763,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v34";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v35";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 
