@@ -27,7 +27,7 @@ PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 ET.register_namespace("a", DRAWING)
 ET.register_namespace("c", CHART)
 
-EXPECTED_MARKET_SHARE_SLIDES = 6
+EXPECTED_MARKET_SHARE_SLIDES = 0
 EXPECTED_SCALE_TOTAL_CHARTS = 1
 SHORT_SEGMENT = 0.025
 
@@ -94,7 +94,7 @@ def _chart_targets(archive: ZipFile) -> dict[str, str]:
     market_count = sum(mode.startswith("market_") for mode in targets.values())
     if market_count != EXPECTED_MARKET_SHARE_SLIDES:
         raise RuntimeError(
-            "deveriam existir seis slides de market share nativo; "
+            "não deveriam existir slides de market share no contrato de 26 slides; "
             f"foram encontrados {market_count}"
         )
     return targets

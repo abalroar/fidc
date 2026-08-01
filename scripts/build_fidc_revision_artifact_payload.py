@@ -756,6 +756,97 @@ def _records(frame: pd.DataFrame) -> list[dict[str, Any]]:
     ]
 
 
+EMISSION_FIELD_AUDIT_COLUMNS = (
+    "bloco",
+    "tabela",
+    "cnpj",
+    "emissao_id",
+    "fundo",
+    "originador",
+    "subordinacao_minima",
+    "preco_por_tipo_cota",
+    "cedente",
+    "sacado",
+    "fonte_originador_cedente",
+    "fonte_subordinacao",
+    "fonte_preco",
+    "fonte_sacado",
+    "status",
+)
+
+
+def _identifier_text(value: object) -> str:
+    text = _text(value)
+    return re.sub(r"\.0+$", "", text) if re.fullmatch(r"\d+\.0+", text) else text
+
+
+def _load_emission_field_audit(
+    path: Path,
+    *,
+    latest: str,
+    top20_taxonomy_review: pd.DataFrame,
+    closed_offer_top15: pd.DataFrame,
+) -> pd.DataFrame:
+    if not path.exists():
+        raise FileNotFoundError(f"auditoria de campos das emissões ausente: {path}")
+    audit = pd.read_csv(path, dtype=str, keep_default_na=False)
+    missing = set(EMISSION_FIELD_AUDIT_COLUMNS).difference(audit.columns)
+    if missing:
+        raise ValueError(f"auditoria de emissões sem colunas obrigatórias: {sorted(missing)}")
+    audit = audit.loc[:, EMISSION_FIELD_AUDIT_COLUMNS].copy()
+    for column in EMISSION_FIELD_AUDIT_COLUMNS:
+        audit[column] = audit[column].map(_text)
+    audit["cnpj"] = audit["cnpj"].map(_digits).str.zfill(14)
+    audit["emissao_id"] = audit["emissao_id"].map(_identifier_text)
+    if len(audit) != 180:
+        raise ValueError(f"auditoria de emissões deveria conter 180 linhas; contém {len(audit)}")
+    expected_block_counts = {"slides 10–13": 120, "slides 21–22": 60}
+    if audit.groupby("bloco").size().to_dict() != expected_block_counts:
+        raise ValueError("auditoria de emissões não fecha os blocos 120 + 60")
+    if not audit["cnpj"].str.fullmatch(r"\d{14}").all():
+        raise ValueError("auditoria de emissões contém CNPJ inválido")
+    if audit.loc[:, EMISSION_FIELD_AUDIT_COLUMNS].eq("").any().any():
+        raise ValueError("auditoria de emissões contém campo vazio; use N/D para lacunas")
+
+    top_audit = audit[audit["bloco"].eq("slides 10–13")]
+    if top_audit.duplicated(["tabela", "cnpj"]).any():
+        raise ValueError("auditoria dos slides 10–13 contém chave tabela/CNPJ duplicada")
+    ranked = top20_taxonomy_review[
+        top20_taxonomy_review["competencia"].astype(str).isin((latest, "2025-12"))
+        & pd.to_numeric(top20_taxonomy_review["rank_tipo"], errors="coerce").le(15)
+    ].copy()
+    expected_top_keys = {
+        (f"{_text(row.tipo_exibicao)} · {_text(row.competencia)}", _digits(row.cnpj_fundo).zfill(14))
+        for row in ranked.itertuples(index=False)
+    }
+    observed_top_keys = set(zip(top_audit["tabela"], top_audit["cnpj"], strict=True))
+    if observed_top_keys != expected_top_keys:
+        raise ValueError("auditoria dos slides 10–13 diverge dos rankings materializados")
+
+    offer_audit = audit[audit["bloco"].eq("slides 21–22")]
+    if offer_audit.duplicated(["tabela", "emissao_id"]).any():
+        raise ValueError("auditoria dos slides 21–22 contém emissão duplicada")
+    period_labels = {"2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"}
+    offers = closed_offer_top15[
+        closed_offer_top15["period_label"].astype(str).isin(period_labels)
+        & pd.to_numeric(closed_offer_top15["rank"], errors="coerce").le(15)
+    ]
+    expected_offer_keys = {
+        (
+            _text(row.period_label),
+            _identifier_text(row.offer_id),
+            _digits(row.cnpj_emissor).zfill(14),
+        )
+        for row in offers.itertuples(index=False)
+    }
+    observed_offer_keys = set(
+        zip(offer_audit["tabela"], offer_audit["emissao_id"], offer_audit["cnpj"], strict=True)
+    )
+    if observed_offer_keys != expected_offer_keys:
+        raise ValueError("auditoria dos slides 21–22 diverge das emissões materializadas")
+    return audit
+
+
 def _pt_number(value: object, decimals: int = 1) -> str:
     parsed = pd.to_numeric(value, errors="coerce")
     if pd.isna(parsed):
@@ -3298,6 +3389,12 @@ def build_payload(
         card_curation=card_receivables_curation,
         document_review=taxonomy_document_review,
     )
+    emission_field_audit = _load_emission_field_audit(
+        data_dir / "emission_field_audit.csv",
+        latest=latest,
+        top20_taxonomy_review=top20_taxonomy_review,
+        closed_offer_top15=closed_offer_top15,
+    )
     top100_outros_review = build_taxonomy_review_queue(
         funds,
         taxonomy_review_actions,
@@ -3535,6 +3632,7 @@ def build_payload(
             top20_by_anbima_type_coverage
         ),
         "top20_taxonomy_review": _records(top20_taxonomy_review),
+        "emission_field_audit": _records(emission_field_audit),
         "top100_outros_review": _records(top100_outros_review),
         "top100_outros_summary": {
             str(key): _json_value(value)

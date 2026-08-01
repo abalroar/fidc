@@ -80,29 +80,31 @@ def test_deck_has_no_truncated_fragments_or_visible_technical_slugs() -> None:
     )
 
 
-def test_material_market_share_slides_are_contiguous_in_the_provider_appendix() -> None:
+def test_removed_market_share_sections_remain_available_in_the_payload() -> None:
     slides = [_slide_text(slide) for slide in _presentation().slides]
     provider = _find_slide_index(slides, "PRESTADORES · LIDERANÇA EXPLICADA")
-    admin = _find_slide_index(
-        slides, "MARKET SHARE · ADMINISTRAÇÃO", "Recebíveis Comerciais"
-    )
-    manager = _find_slide_index(
-        slides, "MARKET SHARE · GESTÃO", "Crédito Pessoal"
-    )
-    custodian = _find_slide_index(
-        slides, "MARKET SHARE · CUSTÓDIA", "Crédito Pessoal"
-    )
     top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
     top20_other = _find_slide_index(
         slides, "RANKING · TOP FUNDOS E ORIGINADORES", "Outros"
     )
     flagship = _find_slide_index(slides, "CURADORIA · FUNDOS FLAGSHIP")
     carteira_1 = _find_slide_index(slides, "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP")
-    full_admin = _find_slide_index(
-        slides, "APÊNDICE · MARKET SHARE", "universo completo dos 14 focos"
-    )
+    investor_base = _find_slide_index(slides, "BASE INVESTIDORA")
     assert top20 < top20_other < flagship < carteira_1 < provider
-    assert provider < admin < manager < custodian < full_admin
+    assert provider < investor_base
+    visible = "\n".join(slides)
+    for removed in (
+        "MARKET SHARE · ADMINISTRAÇÃO",
+        "MARKET SHARE · GESTÃO",
+        "MARKET SHARE · CUSTÓDIA",
+        "ADMINISTRAÇÃO POR SUBTIPO",
+        "GESTÃO POR SUBTIPO",
+        "CUSTÓDIA POR SUBTIPO",
+    ):
+        assert removed not in visible
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    assert payload["market_share"]
+    assert payload["market_share_top10_fixed"]
 
 
 def test_top20_rankings_remain_in_payload_and_profiles_are_omitted_from_deck() -> None:
@@ -131,12 +133,8 @@ def test_hhi_uses_antitrust_points_scale() -> None:
     hhi = pd.to_numeric(frame["hhi_fundos"], errors="raise")
     assert hhi.between(0, 10_000).all()
     assert hhi.max() == 10_000
-    slide = next(
-        slide
-        for slide in _presentation().slides
-        if "CONCENTRAÇÃO DAS MONOESTRUTURAS" in _slide_text(slide)
-    )
-    assert "HHI em pontos de 0 a 10.000" in _slide_text(slide)
+    visible = "\n".join(_slide_text(slide) for slide in _presentation().slides)
+    assert "CONCENTRAÇÃO DAS MONOESTRUTURAS" not in visible
 
 
 def test_aging_reconciles_to_full_table_i_and_ex360_is_published() -> None:
