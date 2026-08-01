@@ -204,7 +204,7 @@ def test_industry_exports_are_valid_office_files() -> None:
         "Precatórios e/ou Ações Judiciais",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "QI lidera administração; BTG lidera gestão e custódia",
-        "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
+        "RISCO ESTRUTURAL · CARTEIRA VS. PARES",
         "A liderança some quando se olha o que a sustenta",
         "Emissões crescem 15% no semestre",
         "22 ofertas concentram 42% de todo o volume",
@@ -213,8 +213,8 @@ def test_industry_exports_are_valid_office_files() -> None:
         "TOP 15 · HISTÓRICO",
         "O que muda a leitura do mercado",
         "RANKING · TOP 20 FIDCs",
-        "CURADORIA · FUNDOS FLAGSHIP",
-        "A carteira lida com o mesmo critério do mercado",
+        "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA",
+        "RISCO ESTRUTURAL · ATIVOS",
     ):
         assert expected in visible_text
     assert "APÊNDICE · CURADORIA TOP 20" not in visible_text

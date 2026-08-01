@@ -253,9 +253,9 @@ def test_deck_order_and_compact_appendix_contract() -> None:
         "Agro, Indústria e Comércio: o maior salto absoluto",
         "Financeiro: o maior bloco, e ainda crescendo",
         "Outros: o único bloco que encolheu",
-        "CURADORIA · FUNDOS FLAGSHIP",
-        "CARTEIRA 1 VS. 47 CNPJS FLAGSHIP",
-        "A carteira lida com o mesmo critério do mercado",
+        "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA",
+        "RISCO ESTRUTURAL · CARTEIRA VS. PARES",
+        "RISCO ESTRUTURAL · ATIVOS",
         "Emissões crescem 15% no semestre",
         "22 ofertas concentram 42% de todo o volume",
         "OFERTAS · VOLUME E REGIME",
@@ -303,7 +303,9 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
         slides = _slide_texts(archive)
 
     assert "58,4%" in slides[21]
-    assert "59,5%" in slides[15]
+    assert "82,2%" in slides[13]
+    assert "98,0%" in slides[13]
+    assert "23 CNPJs têm folga calculável" in slides[15]
     assert "PL ≥ R$ 200 mi" in slides[25]
     assert "Financeiro explicou 70% do crescimento da carteira" in slides[6]
     assert "Emissões crescem 15% no semestre" in slides[16]
@@ -505,11 +507,11 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         '"fileStem":"fluxos_cbsf_reag_dez25_jun26"',
         "Taxonomia reclassificada por nível",
         "Curadoria comparável dos fundos flagship",
-        "Carteira 1 · curadoria documental e comparação",
+        "Carteira 1 · risco estrutural por CNPJ",
         "Carteira 1 · evolução pela taxonomia reclassificada",
         "taxonomy_levels_compact_v1",
         "flagship_curation_compact_v1",
-        "carteira_1_curation_compact_v1",
+        "carteira_1_curation_compact_v2",
         "carteira_1_taxonomy_compact_v1",
         "Cloudwalk Bela",
         "N/D",
@@ -763,7 +765,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v35";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v36";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

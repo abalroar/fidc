@@ -91,7 +91,25 @@ def test_a_thin_category_gets_no_benchmark_rather_than_a_fake_one() -> None:
 
     assert not bool(assets.loc[2, "benchmark_confiavel"])
     assert pd.isna(assets.loc[2, "excesso_vs_mercado"])
-    assert assets.loc[2, "banda"] == BAND_NO_BENCHMARK
+    assert assets.loc[2, "posicao_mercado"] == BAND_NO_BENCHMARK
+
+
+def test_non_comparable_tranches_do_not_produce_headroom() -> None:
+    book = _book(comparacao_estrutural_completa_flag=[True, False, True])
+
+    assets = enrich_assets(book)
+
+    assert pd.isna(assets.loc[1, "folga_pp"])
+    assert pd.isna(assets.loc[1, "perda_ate_gatilho"])
+    assert assets.loc[1, "situacao_regulatoria"] == "não medido"
+
+
+def test_missing_pl_remains_missing_in_weights() -> None:
+    book = _book(pl_atual=[1_000e6, np.nan, 200e6])
+
+    assets = enrich_assets(book)
+
+    assert pd.isna(assets.loc[1, "peso_pl"])
 
 
 def test_a_breach_outranks_every_other_band() -> None:
@@ -167,8 +185,9 @@ def test_the_demo_book_exercises_every_failure_mode() -> None:
 
     assets = enrich_assets(build_demo(seed=7))
     bands = set(assets["banda"])
+    market_positions = set(assets["posicao_mercado"])
 
     assert len(assets) == 101
     assert BAND_BREACH in bands
-    assert BAND_NO_BENCHMARK in bands
+    assert BAND_NO_BENCHMARK in market_positions
     assert assets["sub_jr_min_regulamento"].isna().any()
