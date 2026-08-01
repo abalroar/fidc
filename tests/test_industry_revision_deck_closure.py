@@ -82,7 +82,14 @@ def test_deck_has_no_truncated_fragments_or_visible_technical_slugs() -> None:
 
 def test_removed_market_share_sections_remain_available_in_the_payload() -> None:
     slides = [_slide_text(slide) for slide in _presentation().slides]
-    provider = _find_slide_index(slides, "A liderança some quando se olha o que a sustenta")
+    provider_ranking = _find_slide_index(
+        slides,
+        "QI lidera administração; BTG lidera gestão e custódia",
+    )
+    provider_concentration = _find_slide_index(
+        slides,
+        "PRESTADORES · RANKING E CONCENTRAÇÃO",
+    )
     top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
     top20_other = _find_slide_index(
         slides, "Outros: o único bloco que encolheu"
@@ -90,8 +97,8 @@ def test_removed_market_share_sections_remain_available_in_the_payload() -> None
     flagship = _find_slide_index(slides, "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA")
     carteira_1 = _find_slide_index(slides, "RISCO ESTRUTURAL · CARTEIRA VS. PARES")
     investor_base = _find_slide_index(slides, "Quase todo o volume vai para o investidor profissional")
-    assert top20 < top20_other < flagship < carteira_1 < provider
-    assert provider < investor_base
+    assert top20 < top20_other < flagship < carteira_1 < provider_ranking
+    assert provider_ranking < provider_concentration < investor_base
     visible = "\n".join(slides)
     for removed in (
         "MARKET SHARE · ADMINISTRAÇÃO",

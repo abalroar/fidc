@@ -121,13 +121,35 @@ def test_slide_3_combines_cvm_and_anbima_instrument_charts() -> None:
             for root in _chart_roots(archive, 3)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
+        tables = _tables(archive, 3)
 
     assert len(charts) == 2
+    assert len(tables) == 1
     assert "FIDCS E DEMAIS INSTRUMENTOS ELEGÍVEIS" in text
     assert "VALOR ENCERRADO POR INSTRUMENTO" in text
+    rows = tables[0].findall(f"{{{DML}}}tr")
+    assert [_cell_text(cell) for cell in rows[0].findall(f"{{{DML}}}tc")] == [
+        "Emissões por instrumento",
+        "2025 YoY %",
+        "1S26 YTD YoY",
+    ]
+    body = [row.findall(f"{{{DML}}}tc") for row in rows[1:]]
+    assert [_cell_text(cells[0]) for cells in body] == [
+        "FIDC",
+        "Demais Instr.",
+        "Debêntures",
+        "CRI",
+        "Notas comerciais",
+        "CRA",
+    ]
+    assert "007A3D" in _cell_rgb(body[0][1])
+    assert "007A3D" in _cell_rgb(body[0][2])
+    assert "7A1F3D" in _cell_rgb(body[1][2])
+    assert "7A1F3D" in _cell_rgb(body[5][2])
+    assert all(_cell_is_bold(cell) for cell in (body[0][1], body[0][2], body[1][2], body[5][2]))
 
 
-def test_slide_4_has_two_stacked_sector_charts_and_native_table_without_deltas() -> None:
+def test_slide_4_combines_opened_stock_and_sector_issuance_without_table() -> None:
     with ZipFile(PPTX) as archive:
         text = _slide_text(archive, 4).upper()
         charts = [
@@ -136,6 +158,32 @@ def test_slide_4_has_two_stacked_sector_charts_and_native_table_without_deltas()
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
         tables = _tables(archive, 4)
+
+    assert len(charts) == 4
+    assert [
+        root.find(f".//{{{CHART}}}grouping").attrib["val"] for root in charts
+    ].count("stacked") == 2
+    assert [
+        root.find(f".//{{{CHART}}}grouping").attrib["val"] for root in charts
+    ].count("percentStacked") == 2
+    assert tables == []
+    assert "SALDO E TIPOS DE FIDCS" in text
+    assert "FINANCEIROS DOMINAM SALDO E NOVAS EMISSÕES" in text
+    assert "SALDO EX-FIC · R$ BI" in text
+    assert "PARTICIPAÇÃO NO SALDO" in text
+    assert "NOVAS EMISSÕES POR SETOR · R$ BI" in text
+    assert "NOVAS EMISSÕES POR SETOR · %" in text
+
+
+def test_slide_5_has_two_stacked_sector_charts_and_native_table_without_deltas() -> None:
+    with ZipFile(PPTX) as archive:
+        text = _slide_text(archive, 5).upper()
+        charts = [
+            root
+            for root in _chart_roots(archive, 5)
+            if root.find(f".//{{{CHART}}}barChart") is not None
+        ]
+        tables = _tables(archive, 5)
 
     assert len(charts) == 2
     assert {root.find(f".//{{{CHART}}}grouping").attrib["val"] for root in charts} == {
@@ -150,11 +198,11 @@ def test_slide_4_has_two_stacked_sector_charts_and_native_table_without_deltas()
     assert "Δ" not in text
 
 
-def test_slide_4_share_highlights_follow_relative_two_percent_rule() -> None:
+def test_slide_5_share_highlights_follow_relative_two_percent_rule() -> None:
     green = "007A3D"
     wine = "7A1F3D"
     with ZipFile(PPTX) as archive:
-        table = _tables(archive, 4)[0]
+        table = _tables(archive, 5)[0]
         rows = table.findall(f"{{{DML}}}tr")
 
     headers = [_cell_text(cell) for cell in rows[0].findall(f"{{{DML}}}tc")]
@@ -195,10 +243,10 @@ def test_slide_4_share_highlights_follow_relative_two_percent_rule() -> None:
 
 def test_analytical_taxonomy_expands_outros_with_the_requested_display_names() -> None:
     with ZipFile(PPTX) as archive:
-        text = _slide_text(archive, 5).upper()
+        text = _slide_text(archive, 6).upper()
         charts = [
             root
-            for root in _chart_roots(archive, 5)
+            for root in _chart_roots(archive, 6)
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
 

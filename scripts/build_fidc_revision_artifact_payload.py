@@ -52,6 +52,7 @@ from services.industry_flagship_curation import (
     build_portfolio_flagship_comparison,
 )
 from services.industry_structural_risk import build_portfolio_structural_risk
+from services.industry_portfolio_export import build_industry_portfolio_export
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -846,6 +847,117 @@ def _load_emission_field_audit(
     if observed_offer_keys != expected_offer_keys:
         raise ValueError("auditoria dos slides 21–22 diverge das emissões materializadas")
     return audit
+
+
+def _load_manual_cnpj_enrichment(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        return pd.DataFrame()
+    manual = pd.read_csv(path, dtype=str, keep_default_na=False)
+    required = {
+        "raiz_cnpj_foto",
+        "cedente_originador_literal",
+        "papel_literal",
+        "originador",
+        "cedente",
+        "sacado_devedor",
+        "tipo_recebivel_literal",
+        "fonte_imagem",
+        "localizacao_imagem",
+        "status_transcricao",
+    }
+    missing = required.difference(manual.columns)
+    if missing:
+        raise ValueError(
+            f"enriquecimento manual por foto sem colunas: {sorted(missing)}"
+        )
+    manual["raiz_cnpj_foto"] = manual["raiz_cnpj_foto"].map(
+        lambda value: re.sub(r"\D", "", str(value)).zfill(8)
+    )
+    if manual["raiz_cnpj_foto"].duplicated().any():
+        raise ValueError("enriquecimento manual contém raiz de CNPJ duplicada")
+    manual["status_confirmado"] = manual["status_transcricao"].map(
+        lambda value: _fold_text(value).replace("_", " ") == "CONFIRMADO LEGIVEL"
+    )
+    return manual
+
+
+def _manual_source_label(row: pd.Series) -> str:
+    image = _text(row.get("fonte_imagem")) or "imagem fornecida pelo usuário"
+    location = _text(row.get("localizacao_imagem"))
+    return f"Comentário manual do usuário — {image}" + (
+        f"; {location}" if location else ""
+    )
+
+
+def _apply_manual_enrichment_to_rankings(
+    top20_taxonomy_review: pd.DataFrame,
+    emission_field_audit: pd.DataFrame,
+    manual: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    if manual.empty:
+        return top20_taxonomy_review, emission_field_audit
+    confirmed = manual[manual["status_confirmado"]].copy()
+    by_root = {
+        row.raiz_cnpj_foto: row
+        for row in confirmed.itertuples(index=False)
+    }
+
+    ranking = top20_taxonomy_review.copy()
+    ranking["manual_enrichment_applied"] = False
+    for index, current in ranking.iterrows():
+        root = _digits(current.get("cnpj_fundo"))[:8]
+        if root not in by_root:
+            continue
+        row = pd.Series(by_root[root]._asdict())
+        literal = _text(row.get("cedente_originador_literal"))
+        existing = _text(current.get("cedente_originador"))
+        if not literal or (existing and not existing.upper().startswith("N/D")):
+            continue
+        ranking.at[index, "cedente_originador"] = f"{literal}*"
+        ranking.at[index, "cedente_status"] = "comentario_manual_usuario"
+        ranking.at[index, "evidencia_cedente"] = _manual_source_label(row)
+        ranking.at[index, "limitacao_cedente"] = (
+            "* Informação manual transcrita da planilha fotografada; não substitui evidência documental."
+        )
+        ranking.at[index, "manual_enrichment_applied"] = True
+
+    audit = emission_field_audit.copy()
+    audit["cedente_originador_literal"] = "N/D"
+    audit["tipo_recebivel_literal"] = "N/D"
+    audit["fonte_enriquecimento_manual"] = "N/D"
+    for index, current in audit.iterrows():
+        root = _digits(current.get("cnpj"))[:8]
+        if root not in by_root:
+            continue
+        row = pd.Series(by_root[root]._asdict())
+        source = _manual_source_label(row)
+        literal = _text(row.get("cedente_originador_literal"))
+        audit.at[index, "cedente_originador_literal"] = (
+            f"{literal}*" if literal else "N/D"
+        )
+        audit.at[index, "tipo_recebivel_literal"] = (
+            _text(row.get("tipo_recebivel_literal")) or "N/D"
+        )
+        audit.at[index, "fonte_enriquecimento_manual"] = source
+        applied: list[str] = []
+        for source_field, target_field in (
+            ("originador", "originador"),
+            ("cedente", "cedente"),
+            ("sacado_devedor", "sacado"),
+        ):
+            value = _text(row.get(source_field))
+            existing = _text(current.get(target_field))
+            if value and (not existing or existing.upper().startswith("N/D")):
+                audit.at[index, target_field] = f"{value}*"
+                applied.append(target_field)
+        if applied:
+            audit.at[index, "fonte_originador_cedente"] = source
+            if "sacado" in applied:
+                audit.at[index, "fonte_sacado"] = source
+            audit.at[index, "status"] = (
+                "Complemento manual marcado com *; lacunas documentais restantes preservadas como N/D"
+            )
+    return ranking, audit
 
 
 def _pt_number(value: object, decimals: int = 1) -> str:
@@ -2838,6 +2950,9 @@ def build_payload(
         data_dir / "industry_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
     )
+    manual_cnpj_enrichment = _load_manual_cnpj_enrichment(
+        data_dir / "industry_cnpj_manual_enrichment.csv"
+    )
     historical_top20_document_review = _read_optional(
         data_dir / "industry_top20_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
@@ -3341,6 +3456,13 @@ def build_payload(
         portfolio=carteira_1_curation,
         comparison=carteira_1_flagship_comparison,
     )
+    portfolio_export = build_industry_portfolio_export(
+        carteira_detail=carteira_1_curation.detail,
+        carteira_structural=carteira_1_structural_risk.assets,
+        flagship_detail=flagship_curation.detail,
+        manual_enrichment=manual_cnpj_enrichment,
+        data_ref=latest,
+    )
     top20_outros_review = _build_top20_outros_review(
         top20_outros, documentary, top20_outros_regulations
     )
@@ -3400,6 +3522,13 @@ def build_payload(
         top20_taxonomy_review=top20_taxonomy_review,
         closed_offer_top15=closed_offer_top15,
     )
+    top20_taxonomy_review, emission_field_audit = (
+        _apply_manual_enrichment_to_rankings(
+            top20_taxonomy_review,
+            emission_field_audit,
+            manual_cnpj_enrichment,
+        )
+    )
     top100_outros_review = build_taxonomy_review_queue(
         funds,
         taxonomy_review_actions,
@@ -3456,7 +3585,7 @@ def build_payload(
     )
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v7",
+        "schema_version": "fidc_revision_artifact_payload_v8",
         "latest_complete": latest,
         "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,
@@ -3638,6 +3767,7 @@ def build_payload(
         ),
         "top20_taxonomy_review": _records(top20_taxonomy_review),
         "emission_field_audit": _records(emission_field_audit),
+        "manual_cnpj_enrichment": _records(manual_cnpj_enrichment),
         "top100_outros_review": _records(top100_outros_review),
         "top100_outros_summary": {
             str(key): _json_value(value)
@@ -3731,6 +3861,11 @@ def build_payload(
             str(key): _json_value(value)
             for key, value in carteira_1_structural_risk.summary.items()
         },
+        "portfolio_export_carteira_101": _records(portfolio_export.carteira),
+        "portfolio_export_flagships": _records(portfolio_export.flagships),
+        "portfolio_export_coverage": _records(portfolio_export.coverage),
+        "portfolio_export_gaps": _records(portfolio_export.gaps),
+        "portfolio_export_manual_audit": _records(portfolio_export.manual),
         "service_model": _records(_service_model(mono, latest)),
         "conclusion_metrics": conclusion_metrics,
         "executive_conclusions": executive_conclusions,

@@ -242,12 +242,12 @@ def test_deck_order_and_compact_appendix_contract() -> None:
     assert len(slides) == 26
     expected_body = [
         "ESCALA DA INDÚSTRIA",
-        "FIDCs seguem ganhando escala nas emissões",
+        "Emissões | FIDCs seguem ganhando escala nas emissões",
+        "Saldo e Tipos de FIDCs | Financeiros dominam saldo e novas emissões",
         "EMISSÕES POR CATEGORIA ANBIMA",
         'Abrir "Outros" revela que 63% do mercado é crédito financeiro',
         "Adquirência é R$ 99 bi que a taxonomia oficial não mostra",
         "Financeiro explicou 70% do crescimento da carteira",
-        "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "RANKING · TOP 20 FIDCs",
         "Fomento Mercantil: crescimento marginal em seis meses",
         "Agro, Indústria e Comércio: o maior salto absoluto",
@@ -263,7 +263,7 @@ def test_deck_order_and_compact_appendix_contract() -> None:
         "TOP 15 · HISTÓRICO",
         "O que muda a leitura do mercado",
         "QI lidera administração; BTG lidera gestão e custódia",
-        "A liderança some quando se olha o que a sustenta",
+        "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "Quase todo o volume vai para o investidor profissional",
         "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",
     ]
@@ -277,7 +277,7 @@ def test_deck_order_and_compact_appendix_contract() -> None:
     assert all("APÊNDICE · CURADORIA TOP 20" not in text for text in slides)
     assert all("INADIMPLÊNCIA ·" not in text for text in slides)
     assert "QI lidera administração; BTG lidera gestão e custódia" in slides[22]
-    assert "A liderança some quando se olha o que a sustenta" in slides[23]
+    assert "PRESTADORES · RANKING E CONCENTRAÇÃO" in slides[23]
     assert all("PRESTADORES · EVIDÊNCIAS DE MIGRAÇÃO" not in text for text in slides)
     assert "Quase todo o volume vai para o investidor profissional" in slides[24]
     assert "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS" in slides[25]
@@ -307,7 +307,7 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
     assert "98,0%" in slides[13]
     assert "23 CNPJs têm folga calculável" in slides[15]
     assert "PL ≥ R$ 200 mi" in slides[25]
-    assert "Financeiro explicou 70% do crescimento da carteira" in slides[6]
+    assert "Financeiro explicou 70% do crescimento da carteira" in slides[7]
     assert "Emissões crescem 15% no semestre" in slides[16]
     assert re.search(r"2022 FY.*N/D N/D", slides[16])
     assert "66,0% dos R$ 77,7 bi" in slides[21]
@@ -395,7 +395,7 @@ def test_scale_slide_uses_two_native_office_charts_with_ex_fic_pl_and_total() ->
 def test_taxonomy_slide_has_two_native_office_charts_for_anbima_evolution() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        chart_paths = _slide_chart_paths(archive, 5)
+        chart_paths = _slide_chart_paths(archive, 6)
         chart_xml = [
             archive.read(name)
             for name in chart_paths
@@ -591,9 +591,9 @@ def test_holder_distribution_slide_has_four_charts_and_normalized_histograms() -
 @pytest.mark.parametrize(
     ("slide_number", "periods"),
     [
-        (6, {"Dez/23", "Jun/26"}),
         (7, {"Dez/23", "Jun/26"}),
-        (8, {"Dez/25", "Jun/26"}),
+        (8, {"Dez/23", "Jun/26"}),
+        (24, {"Dez/25", "Jun/26"}),
     ],
 )
 def test_before_after_slides_have_two_clustered_charts(
@@ -681,6 +681,7 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
         "Originadores 2026",
         "Top 15 ofertas",
         "Auditoria emissões",
+        "Emissões por categoria",
         "Principais conclusões",
         "Atribuição prestadores",
         "Fluxos prestadores",
@@ -729,6 +730,22 @@ def test_workbook_has_required_tabs_and_exact_top20_counts() -> None:
             list(range(1, 8))
             + list(range(1, 16)) * 4
         )
+        assert _column_values(
+            archive,
+            sheets["Emissões por categoria"],
+            "A",
+            5,
+            11,
+            shared,
+        ) == [
+            "Fomento Mercantil",
+            "Agro, Indústria e Comércio",
+            "Financeiro",
+            "Outros",
+            "Total (quatro tipos ANBIMA)",
+            "FIC-FIDC (fora dos quatro tipos)",
+            "Total emitido",
+        ]
         for column, header in {
             "K": "IBBA Coord-Líder?",
             "L": "IBBA Coord?",
@@ -765,7 +782,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v36";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v38";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

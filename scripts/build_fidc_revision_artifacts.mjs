@@ -36,6 +36,7 @@ const {
   Presentation,
   PresentationFile,
   SpreadsheetFile,
+  Workbook,
 } = require("@oai/artifact-tool");
 
 const INPUT_WORKBOOK =
@@ -65,6 +66,10 @@ const OUTPUT_XLSX = path.resolve(
   process.env.FIDC_OUTPUT_XLSX ||
     path.join(OUTPUT_DIR, "Industria_FIDC_Dados_202607_revisado.xlsx"),
 );
+const OUTPUT_PORTFOLIO_XLSX = path.resolve(
+  process.env.FIDC_OUTPUT_PORTFOLIO_XLSX ||
+    path.join(OUTPUT_DIR, "carteira_101_flagships.xlsx"),
+);
 const FLOW_BUILDER_NAME = "build_provider_flow_explorer.mjs";
 const FLOW_BUILDER_PATH = [
   process.env.FIDC_PROVIDER_FLOW_BUILDER,
@@ -80,15 +85,16 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v36";
+const RENDERER_VERSION = "industry_revision_artifacts_v38";
 const SLIDE_CONTRACT_V1 = Object.freeze([
-  "cover", "industry_scale", "annual_issuance", "issuance_taxonomy", "analytical_taxonomy",
-  "acquiring", "receivables", "provider_ranking", "top20", "top20_fomento",
+  "cover", "industry_scale", "annual_issuance", "issuance_taxonomy_summary",
+  "issuance_taxonomy_detail", "analytical_taxonomy", "acquiring", "receivables",
+  "top20", "top20_fomento",
   "top20_agro", "top20_financeiro", "top20_outros", "flagship_curation",
   "portfolio_1_curation", "portfolio_1_taxonomy", "offers_volume_ticket",
   "offers_ticket_distribution", "offers_placement_regime", "top15_current",
   "top15_history", "conclusions",
-  "provider_history", "provider_attribution", "investor_base", "holder_distribution",
+  "provider_history", "provider_ranking", "investor_base", "holder_distribution",
 ]);
 const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;
 if (EXPECTED_SLIDES !== 26) {
@@ -98,8 +104,8 @@ const COVER_TITLE = "Indústria de FIDCs — jun/26";
 const EDITORIAL_HEADER_COPY = Object.freeze([
   {
     eyebrow: "OFERTAS ENCERRADAS · CVM E ANBIMA",
-    title: "FIDCs seguem ganhando escala nas emissões",
-    subtitle: "Abertura por instrumento usa o valor encerrado ANBIMA; 2023 corrigido",
+    title: "Emissões | FIDCs seguem ganhando escala nas emissões",
+    subtitle: "No 1S26, FIDCs +14,6%; demais instrumentos −7,8%",
   },
   {
     eyebrow: "TAXONOMIA ANALÍTICA · OUTROS ABERTO",
@@ -876,6 +882,45 @@ function addLegend(slide, entries, position, columns = 4) {
   return chart;
 }
 
+function addShapeLegend(slide, entries, position, columns = 4, options = {}) {
+  const columnWidth = position.width / columns;
+  const rows = Math.max(1, Math.ceil(entries.length / columns));
+  const rowHeight = position.height / rows;
+  entries.forEach((entry, index) => {
+    const column = index % columns;
+    const row = Math.floor(index / columns);
+    const left = position.left + column * columnWidth;
+    const top = position.top + row * rowHeight;
+    const swatchSize = Math.min(options.swatchSize ?? 8, rowHeight - 2);
+    addRect(
+      slide,
+      {
+        left,
+        top: top + (rowHeight - swatchSize) / 2,
+        width: swatchSize,
+        height: swatchSize,
+      },
+      entry.color,
+    );
+    addText(
+      slide,
+      truncateWords(entry.label, options.maxLabelLength ?? 42),
+      {
+        left: left + swatchSize + 5,
+        top,
+        width: columnWidth - swatchSize - 8,
+        height: rowHeight,
+      },
+      {
+        fontSize: options.fontSize ?? 7,
+        color: C.mid,
+        verticalAlignment: "middle",
+        autoFit: "shrinkText",
+      },
+    );
+  });
+}
+
 function chartBase(position) {
   return {
     position,
@@ -963,16 +1008,27 @@ async function sha256File(filePath) {
 async function writeExportBundleManifest(payload, payloadRaw) {
   const payloadSha256 = createHash("sha256").update(payloadRaw).digest("hex");
   const rendererSha256 = await sha256File(__filename);
-  const [pptxSha256, xlsxSha256, htmlSha256, pptxStat, xlsxStat, htmlStat] = await Promise.all([
+  const [
+    pptxSha256,
+    xlsxSha256,
+    portfolioXlsxSha256,
+    htmlSha256,
+    pptxStat,
+    xlsxStat,
+    portfolioXlsxStat,
+    htmlStat,
+  ] = await Promise.all([
     sha256File(OUTPUT_PPTX),
     sha256File(OUTPUT_XLSX),
+    sha256File(OUTPUT_PORTFOLIO_XLSX),
     sha256File(OUTPUT_HTML),
     fs.stat(OUTPUT_PPTX),
     fs.stat(OUTPUT_XLSX),
+    fs.stat(OUTPUT_PORTFOLIO_XLSX),
     fs.stat(OUTPUT_HTML),
   ]);
   const manifest = {
-    schema_version: "fidc_revision_export_bundle_v2",
+    schema_version: "fidc_revision_export_bundle_v3",
     bundle_id: `${String(payload.latest_complete || "unknown").replace(/-/g, "")}_${payloadSha256.slice(0, 16)}`,
     payload_schema: payload.schema_version,
     latest_complete: payload.latest_complete,
@@ -993,6 +1049,11 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       sha256: xlsxSha256,
       bytes: xlsxStat.size,
     },
+    portfolio_xlsx: {
+      filename: path.basename(OUTPUT_PORTFOLIO_XLSX),
+      sha256: portfolioXlsxSha256,
+      bytes: portfolioXlsxStat.size,
+    },
     html: {
       name: path.basename(OUTPUT_HTML),
       sha256: htmlSha256,
@@ -1006,6 +1067,10 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       top20_by_anbima_type: payload.top20_by_anbima_type.length,
       top20_taxonomy_review: payload.top20_taxonomy_review.length,
       top100_outros_review: payload.top100_outros_review.length,
+      portfolio_export_carteira_101: (payload.portfolio_export_carteira_101 || []).length,
+      portfolio_export_flagships: (payload.portfolio_export_flagships || []).length,
+      portfolio_export_coverage: (payload.portfolio_export_coverage || []).length,
+      portfolio_export_gaps: (payload.portfolio_export_gaps || []).length,
       market_share_combinations: new Set(
         payload.market_share.map(
           (row) => `${row.papel}|${row.tipo_anbima}|${row.foco_anbima}`,
@@ -2831,11 +2896,17 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
   const slide = presentation.slides.add();
   const currentPl = currentRows.reduce((sum, row) => sum + num(row.pl), 0);
   const priorPl = priorRows.reduce((sum, row) => sum + num(row.pl), 0);
+  const executiveTitle = {
+    "Fomento Mercantil": "Fomento Mercantil: crescimento marginal em seis meses",
+    "Agro, Indústria e Comércio": "Agro, Indústria e Comércio: o maior salto absoluto",
+    Financeiro: "Financeiro: o maior bloco, e ainda crescendo",
+    Outros: "Outros: o único bloco que encolheu",
+  }[typeName] || typeName;
   addHeader(
     slide,
     "RANKING · TOP FUNDOS E ORIGINADORES",
-    `${typeName} · Top 15: ${bn(currentPl, 1)} em jun/26 e ${bn(priorPl, 1)} em dez/25`,
-    "Fonte: CVM, Informe Mensal e ledger documental aprovado. Agrupamento pela taxonomia analítica reclassificada; campos oficiais permanecem no workbook.",
+    executiveTitle,
+    `Top 15: ${bn(priorPl, 1)} em dez/25 e ${bn(currentPl, 1)} em jun/26. Fonte: CVM, Informe Mensal e ledger documental aprovado; campos oficiais permanecem no workbook.`,
     0,
   );
   periodSpecs.forEach((period, index) => {
@@ -2863,8 +2934,8 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
       }),
       columnWidths: [22, 150, 125, 115, 93, 60],
       aligns: ["right", "left", "left", "left", "left", "right"],
-      fontSize: 5.35,
-      headerFontSize: 5.25,
+      fontSize: 5.6,
+      headerFontSize: 5.5,
       headerHeight: 33,
       headerFill: period.headerFill,
       rowHighlights: new Set(),
@@ -2879,7 +2950,7 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName) {
   addSourceNotes(slide, [
     "Unidade: CNPJ do fundo, com classes agregadas; os dois painéis usam o Top 15 de cada fotografia.",
     "O = originador; C = cedente; S = subordinação mínima; P = preço de emissão por tipo de cota. Mesma curadoria documental flagship; fontes linha a linha na aba Auditoria emissões.",
-    "Campo ausente, fragmento sem nome explícito ou vínculo documental insuficiente permanece N/D.",
+    "Campo ausente, fragmento sem nome explícito ou vínculo documental insuficiente permanece N/D. * = complemento manual transcrito das fotos fornecidas pelo usuário.",
   ]);
 }
 
@@ -3760,8 +3831,8 @@ function buildPresentation(payload) {
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · CVM E ANBIMA",
-      "FIDCs mantêm ganho de escala; a abertura por instrumento usa o valor encerrado da ANBIMA",
-      "Fontes: CVM/SRE, snapshot 24/jul/26; ANBIMA Data, Boletim de Mercado de Capitais, snapshot mai/26.",
+      "Emissões | FIDCs seguem ganhando escala nas emissões",
+      "No 1S26, FIDCs cresceram 14,6%; demais instrumentos recuaram 7,8%. Fontes: CVM/SRE, snapshot 24/jul/26; ANBIMA Data, snapshot mai/26.",
       4,
     );
     addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
@@ -3771,7 +3842,7 @@ function buildPresentation(payload) {
       height: 24,
     });
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 175, width: 550, height: 405 }),
+      ...chartBase({ left: 60, top: 160, width: 550, height: 245 }),
       categories: ["2023FY", "2024FY", "2025FY", "2026 jan–jun"],
       series: [
         {
@@ -3823,7 +3894,7 @@ function buildPresentation(payload) {
       height: 24,
     });
     slide.charts.add("bar", {
-      ...chartBase({ left: 670, top: 175, width: 550, height: 405 }),
+      ...chartBase({ left: 670, top: 160, width: 550, height: 245 }),
       categories: ["2023FY", "2024FY", "2025FY", "2026 jan–mai"],
       series: instruments.map(([instrument, color]) => ({
         name: instrument,
@@ -3846,6 +3917,55 @@ function buildPresentation(payload) {
         position: "outEnd",
         textStyle: { fill: C.black, fontSize: 7.0, bold: true },
       },
+    });
+
+    const growthRow = (label, sourceLabel, view) => {
+      const row2025 = comparison.find(
+        (row) => row.view === view && row.series_label === sourceLabel && row.period_label === "2025 FY",
+      ) || {};
+      const row2026 = comparison.find(
+        (row) => row.view === view && row.series_label === sourceLabel && row.period_label === "2026 jan-jun",
+      ) || {};
+      const growthLabel = (value) => {
+        const parsed = num(value);
+        const rendered = pct(parsed, 1);
+        return parsed > 0 ? `+${rendered}` : rendered;
+      };
+      return [label, growthLabel(row2025.yoy_growth), growthLabel(row2026.yoy_growth)];
+    };
+    const growthRows = [
+      growthRow("FIDC", "FIDCs", viewA),
+      growthRow("Demais Instr.", "Demais elegíveis", viewA),
+      growthRow("Debêntures", "Debêntures", "FIDCs vs instrumentos materiais de 2025"),
+      growthRow("CRI", "CRI", "FIDCs vs instrumentos materiais de 2025"),
+      growthRow("Notas comerciais", "Notas comerciais", "FIDCs vs instrumentos materiais de 2025"),
+      growthRow("CRA", "CRA", "FIDCs vs instrumentos materiais de 2025"),
+    ];
+    addSectionLabel(slide, "CRESCIMENTO POR INSTRUMENTO", {
+      left: 300, top: 425, width: 680, height: 20,
+    });
+    const growthTable = addNativeEditorialTable(slide, {
+      left: 300,
+      top: 450,
+      width: 680,
+      height: 183,
+      headers: ["Emissões por instrumento", "2025 YoY %", "1S26 YTD YoY"],
+      rows: growthRows,
+      columnWidths: [360, 160, 160],
+      aligns: ["left", "right", "right"],
+      fontSize: 10.2,
+      headerFontSize: 10.0,
+      headerHeight: 28,
+      rowHighlights: new Set([0, 1]),
+    });
+    [[1, 1, "#007A3D"], [1, 2, "#007A3D"], [2, 2, "#7A1F3D"], [6, 2, "#7A1F3D"]]
+      .forEach(([row, column, color]) => {
+        const cell = growthTable.cells.block({ row, column, rowCount: 1, columnCount: 1 });
+        cell.textStyle.bold = true;
+        cell.textStyle.color = color;
+      });
+    [1, 2].forEach((row) => {
+      growthTable.cells.block({ row, column: 0, rowCount: 1, columnCount: 1 }).textStyle.bold = true;
     });
 
     const tableColumns = [
@@ -3911,7 +4031,6 @@ function buildPresentation(payload) {
 
   // 4B. Série ampla de mercado ANBIMA; preserva a ordem editorial anterior.
   {
-    const slide = presentation.slides.add();
     const reconciliation = payload.market_offer_reconciliation || [];
     const taxonomy = payload.issuance_taxonomy || [];
     const taxonomyReconciliation = payload.issuance_taxonomy_reconciliation || [];
@@ -3929,9 +4048,17 @@ function buildPresentation(payload) {
       "Financeiro": C.orange,
       "Outros": C.line,
     };
-    const taxonomyRow = (periodKey, category) => taxonomy.find(
-      (row) => row.period_key === periodKey && row.categoria === category,
-    ) || {};
+    const taxonomyByKey = new Map(
+      taxonomy.map((row) => [`${row.period_key}::${row.categoria}`, row]),
+    );
+    taxonomyPeriods.forEach(([periodKey]) => {
+      taxonomyCategories.forEach((category) => {
+        if (!taxonomyByKey.has(`${periodKey}::${category}`)) {
+          throw new Error(`Taxonomia de emissões sem ${periodKey} × ${category}; zero não é imputado.`);
+        }
+      });
+    });
+    const taxonomyRow = (periodKey, category) => taxonomyByKey.get(`${periodKey}::${category}`);
     const periodOrder = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-mai"];
     const instruments = [
       ["Debêntures", C.black],
@@ -3951,10 +4078,153 @@ function buildPresentation(payload) {
     const cri2026 = rowFor("2026 jan-mai", "CRI");
     const note2026 = rowFor("2026 jan-mai", "Notas comerciais");
     const cra2023 = rowFor("2023 FY", "CRA");
+
+    // 4. Síntese de estoque e emissões, com Outros aberto no estoque e
+    // preservado como categoria positiva no fluxo de novas emissões.
+    {
+      const summarySlide = presentation.slides.add();
+      const stockHistory = [...(payload.type_mix_history || [])].sort(
+        (a, b) => num(a.period_order) - num(b.period_order) || num(a.category_order) - num(b.category_order),
+      );
+      const stockMeta = payload.type_mix_meta || {};
+      const stockPeriods = (stockMeta.periods || [])
+        .map((row) => ({ competencia: row.competencia, label: row.label }))
+        .filter((row) => row.competencia && row.label);
+      const stockBroad = ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro"];
+      const outrosParts = ["Poder Público", "Multicarteira Outros", "Recuperação", "N/D"];
+      const stockCategories = [...stockBroad, ...outrosParts];
+      const display = {
+        "Poder Público": "Precatórios / ações",
+        "Multicarteira Outros": "Multicedente / multisacado",
+        "Recuperação": "Recuperação / NP",
+      };
+      const colors = {
+        "Fomento Mercantil": C.mid,
+        "Agro, Indústria e Comércio": C.charcoal,
+        "Financeiro": C.orange,
+        "Poder Público": C.black,
+        "Multicarteira Outros": C.note,
+        "Recuperação": C.light,
+        "N/D": C.line,
+      };
+      const stockByKey = new Map(stockHistory.map((row) => [`${row.competencia}::${row.anbima_tipo}`, row]));
+      const outrosByKey = new Map(
+        (payload.taxonomy_level_history || [])
+          .filter((row) => row.nivel === "foco_analitico" && row.tipo_exibicao === "Outros")
+          .map((row) => [`${row.competencia}::${row.categoria}`, row]),
+      );
+      const stockValue = (period, category, field) => {
+        if (stockBroad.includes(category)) return num(stockByKey.get(`${period.competencia}::${category}`)?.[field]);
+        const row = outrosByKey.get(`${period.competencia}::${category}`) || {};
+        return num(row[field === "pl" ? "pl_brl" : "share_total"]);
+      };
+      stockPeriods.forEach((period) => {
+        const broadOutros = num(stockByKey.get(`${period.competencia}::Outros`)?.pl);
+        const openedOutros = outrosParts.reduce(
+          (sum, category) => sum + stockValue(period, category, "pl"),
+          0,
+        );
+        if (Math.abs(broadOutros - openedOutros) > 0.01) {
+          throw new Error(`Abertura de Outros não reconcilia em ${period.competencia}; zero não é imputado.`);
+        }
+      });
+      const stockSeries = (field, percent = false) => stockCategories.map((category, seriesIndex) => ({
+        name: display[category] || category,
+        values: stockPeriods.map((period) => percent
+          ? stockValue(period, category, field)
+          : stockValue(period, category, field) / 1e9),
+        valuesFormatCode: percent ? "0.0%" : "0.0",
+        fill: colors[category],
+        dataLabelOverrides: stockPeriods.map((_, idx) => ({
+          idx,
+          showValue: true,
+          position: "center",
+          textStyle: { fill: seriesIndex <= 4 ? C.white : C.black, fontSize: 4.9, bold: true },
+        })),
+      }));
+      const latestIssuanceOutros = taxonomyRow("jun26", "Outros");
+      addHeader(
+        summarySlide,
+        "SALDO E TIPOS DE FIDCS",
+        "Saldo e Tipos de FIDCs | Financeiros dominam saldo e novas emissões",
+        `Fontes: CVM, Informe Mensal (${stockShortLower}) e CVM/SRE, ofertas encerradas jan–jun/26. Outros emitidos: ${bn(latestIssuanceOutros.volume_brl, 1)} (${pct(latestIssuanceOutros.share, 1)}).`,
+        4,
+      );
+      addSectionLabel(summarySlide, "SALDO EX-FIC · R$ BI", { left: 60, top: 132, width: 550, height: 20 });
+      summarySlide.charts.add("bar", {
+        ...chartBase({ left: 60, top: 157, width: 550, height: 205 }),
+        categories: stockPeriods.map((row) => row.label),
+        series: stockSeries("pl"),
+        barOptions: { direction: "column", grouping: "stacked", gapWidth: 48, overlap: 100 },
+        hasLegend: false,
+        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 8 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+        yAxis: { ...chartAxis(7.5, "0"), min: 0 },
+        dataLabels: { showValue: true, position: "center" },
+      });
+      addSectionLabel(summarySlide, "PARTICIPAÇÃO NO SALDO", { left: 670, top: 132, width: 550, height: 20 });
+      summarySlide.charts.add("bar", {
+        ...chartBase({ left: 670, top: 157, width: 550, height: 205 }),
+        categories: stockPeriods.map((row) => row.label),
+        series: stockSeries("share", true),
+        barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 48, overlap: 100 },
+        hasLegend: false,
+        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 8 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+        yAxis: { ...chartAxis(7.5, "0%"), min: 0, max: 1, majorUnit: 0.25 },
+        dataLabels: { showValue: true, position: "center" },
+      });
+      addShapeLegend(
+        summarySlide,
+        stockCategories.map((category) => ({ label: display[category] || category, color: colors[category] })),
+        { left: 80, top: 365, width: 1120, height: 28 },
+        4,
+        { fontSize: 6.7, swatchSize: 7 },
+      );
+      addSectionLabel(summarySlide, "NOVAS EMISSÕES POR SETOR · R$ BI", { left: 60, top: 402, width: 550, height: 20 });
+      summarySlide.charts.add("bar", {
+        ...chartBase({ left: 60, top: 427, width: 550, height: 190 }),
+        categories: taxonomyPeriods.map(([, label]) => label),
+        series: taxonomyCategories.map((category) => ({
+          name: category,
+          values: taxonomyPeriods.map(([periodKey]) => num(taxonomyRow(periodKey, category).volume_brl) / 1e9),
+          valuesFormatCode: "0.0",
+          fill: taxonomyColors[category],
+        })),
+        barOptions: { direction: "column", grouping: "stacked", gapWidth: 45, overlap: 100 },
+        hasLegend: true,
+        legend: { position: "bottom", overlay: false, textStyle: { fill: C.mid, fontSize: 7 } },
+        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 7.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+        yAxis: { ...chartAxis(7.2, "0"), min: 0 },
+        dataLabels: { showValue: true, position: "center", textStyle: { fill: C.black, fontSize: 5.2 } },
+      });
+      addSectionLabel(summarySlide, "NOVAS EMISSÕES POR SETOR · %", { left: 670, top: 402, width: 550, height: 20 });
+      summarySlide.charts.add("bar", {
+        ...chartBase({ left: 670, top: 427, width: 550, height: 190 }),
+        categories: taxonomyPeriods.map(([, label]) => label),
+        series: taxonomyCategories.map((category) => ({
+          name: category,
+          values: taxonomyPeriods.map(([periodKey]) => num(taxonomyRow(periodKey, category).share)),
+          valuesFormatCode: "0.0%",
+          fill: taxonomyColors[category],
+        })),
+        barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 45, overlap: 100 },
+        hasLegend: true,
+        legend: { position: "bottom", overlay: false, textStyle: { fill: C.mid, fontSize: 7 } },
+        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 7.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+        yAxis: { ...chartAxis(7.2, "0%"), min: 0, max: 1, majorUnit: 0.25 },
+        dataLabels: { showValue: true, position: "center", textStyle: { fill: C.black, fontSize: 5.0 } },
+      });
+      addSourceNotes(summarySlide, [
+        "Saldo: classificação analítica por CNPJ; Outros é aberto em Precatórios/Ações, Multicedente/Multisacado, Recuperação/NP e N/D.",
+        "Emissões: quatro tipos ANBIMA reconciliados com FIC-FIDC e total emitido; ausência permanece N/D e não vira zero.",
+      ]);
+    }
+
+    // 5. Detalhamento das emissões por setor.
+    const slide = presentation.slides.add();
     addHeader(
       slide,
       "EMISSÕES POR CATEGORIA ANBIMA",
-      "Financeiro lidera o 1S26; a composição mostra quais categorias explicam o aumento dos FIDCs",
+      `Emissões por setor | Financeiro respondeu por ${pct(taxonomyRow("jun26", "Financeiro").share, 1)} do volume no 1S26`,
       "Fonte: CVM/SRE; FIDCs 2023 corrigidos pelo valor encerrado ANBIMA. Quatro tipos + FIC-FIDC reconciliam com o volume emitido.",
       5,
     );
@@ -4084,7 +4354,7 @@ function buildPresentation(payload) {
       left: 60,
       top: 400,
       width: 1160,
-      height: 235,
+      height: 214,
       headers: tableHeaders,
       rows: tableRows,
       columnWidths: [210, 85, 52, 85, 52, 85, 52, 100, 62, 100, 62],
@@ -4110,6 +4380,19 @@ function buildPresentation(payload) {
         cell.textStyle.color = relativeChange > 0.02 ? "#007A3D" : "#7A1F3D";
       });
     });
+    const officialPortfolioOutros = (payload.carteira_1_curation || []).filter(
+      (row) => row.anbima_tipo === "Outros" && num(row.pl_atual_brl) > 0,
+    );
+    const analyticalPortfolioOutros = (payload.carteira_1_taxonomy_history || []).find(
+      (row) => row.competencia === payload.latest_complete && row.anbima_tipo === "Outros",
+    ) || {};
+    addRect(slide, { left: 60, top: 620, width: 1160, height: 36 }, C.pale);
+    addText(
+      slide,
+      `CARTEIRA 101 · Outros oficial: ${integer(officialPortfolioOutros.length)} CNPJs e ${bn(officialPortfolioOutros.reduce((sum, row) => sum + num(row.pl_atual_brl), 0), 1)}. Outros analítico: ${integer(analyticalPortfolioOutros.portfolio_funds)} CNPJs e ${bn(analyticalPortfolioOutros.portfolio_pl_brl, 1)} após decisões aprovadas no ledger (5 Agro; 1 Financeiro).`,
+      { left: 74, top: 626, width: 1132, height: 24 },
+      { fontSize: 9.1, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle", wrap: "none" },
+    );
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "FIDCs 2023: valor encerrado ANBIMA (snapshot mai/26, aba 02-02-Vlr); composição não observada escalada pela composição CVM.",
@@ -4607,8 +4890,9 @@ function buildPresentation(payload) {
     ], { left: 970, top: 128, width: 250, height: 22 }, 2);
   }
 
-  // 10. Prestadores e concentração
-  {
+  // Prestadores e concentração: materializado perto dos demais slides de
+  // administração, gestão e custódia no fim do capítulo executivo.
+  const addProviderConcentrationSlide = () => {
     const slide = presentation.slides.add();
     const providers = payload.provider_concentration_history;
     const roleOrder = ["administrador", "gestor", "custodiante"];
@@ -4660,11 +4944,11 @@ function buildPresentation(payload) {
       { left: 60, top: 570, width: 1160, height: 42 },
       { fontSize: 12, color: C.mid, alignment: "center", verticalAlignment: "middle" },
     );
-    addLegend(slide, [
+    addShapeLegend(slide, [
       { label: "Dez/25", color: C.mid },
       { label: stockShort, color: C.orange },
-    ], { left: 970, top: 128, width: 250, height: 22 }, 2);
-  }
+    ], { left: 970, top: 128, width: 250, height: 22 }, 2, { fontSize: 8.5 });
+  };
 
   // Market shares detalhados passam ao apêndice.
   const materialFocus = payload.material_focus_top6;
@@ -5155,12 +5439,21 @@ function buildPresentation(payload) {
       "2026 jan-jun",
       "Melhores esforços",
     );
+    const currentGuarantee = rowFor("2026 jan-jun", "Garantia firme");
+    const guaranteeGrowth = num(currentGuarantee.registered_volume_yoy_ytd);
+    const guaranteeDirection = guaranteeGrowth >= 0 ? "cresceu" : "caiu";
     addHeader(
       slide,
       "OFERTAS · VOLUME E REGIME",
-      `Melhores esforços concentram ${pct(currentBestEfforts.closed_offers_share, 0)} das ofertas e ${pct(currentBestEfforts.registered_volume_share, 0)} do volume em jan–jun/26`,
+      `Emissões | Garantia firme ${guaranteeDirection} ${pct(Math.abs(guaranteeGrowth), 0)} YoY YTD, de ${bn(currentGuarantee.comparison_registered_volume_brl, 1)} para ${bn(currentGuarantee.registered_volume_brl, 1)}`,
       "Fonte: CVM/SRE, dois arquivos de ofertas, snapshot 24/jul/26. Regime declarado; campo ausente = Não informado.",
       30,
+    );
+    addText(
+      slide,
+      "Melhores esforços repr. 70% do volume em 2026",
+      { left: 60, top: 113, width: 1160, height: 20 },
+      { fontSize: 11.5, color: C.mid, verticalAlignment: "middle" },
     );
 
     const addTotalChart = ({
@@ -5291,10 +5584,10 @@ function buildPresentation(payload) {
           majorGridlines: null,
         },
         yAxis: {
-          ...chartAxis(1, xAxisFormat),
-          visible: false,
-          textStyle: { fill: C.white, fontSize: 1 },
-          line: { style: "solid", fill: C.white, width: 0.1 },
+          ...chartAxis(8, xAxisFormat),
+          visible: true,
+          textStyle: { fill: C.mid, fontSize: 7.6 },
+          line: { style: "solid", fill: C.line, width: 0.6 },
           min: 0,
           majorGridlines: null,
         },
@@ -5323,6 +5616,7 @@ function buildPresentation(payload) {
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; 2026 = jan–jun.",
       "Métrica: regime de colocação conforme declarado na oferta; campo ausente nos arquivos consultados = Não informado.",
+      `Comparação YTD: garantia firme ${bn(currentGuarantee.comparison_registered_volume_brl, 1)} em jan–jun/25 e ${bn(currentGuarantee.registered_volume_brl, 1)} em jan–jun/26; variação ${pct(guaranteeGrowth, 1)}. Melhores esforços representam ${pct(currentBestEfforts.registered_volume_share, 1)} do volume atual.`,
       "Limitação: volume registrado pode diferir do valor encerrado informado à ANBIMA.",
     ]);
   }
@@ -5430,7 +5724,7 @@ function buildPresentation(payload) {
   if (SLIDE_CONTRACT_V1.includes("bank_cohort")) {
     addBankFidcEvolutionSlide(presentation, payload, 0);
   }
-  addProviderAttributionSlide(presentation, payload, 0);
+  addProviderConcentrationSlide();
   // A evidência detalhada de migração permanece no workbook e no
   // explorador. O slide isolado era redundante com Liderança explicada e
   // deixaria a sequência executiva acima do contrato ordinal publicado.
@@ -8308,7 +8602,7 @@ async function addIssuanceTaxonomySheet(workbook, payload) {
     bridge("FIC-FIDC (fora dos quatro tipos)", "fic_excluded_brl"),
     bridge("Total emitido", "emitted_volume_brl"),
   ];
-  const rows = materialized.map((row) => headers.map((header) => row[header] ?? null));
+  const rows = materialized;
   const sheet = resetSheet(workbook, "Emissões por categoria");
   setHeaderBand(
     sheet,
@@ -8375,6 +8669,9 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
     ["Preço por tipo de cota", "preco_por_tipo_cota"],
     ["Cedente", "cedente"],
     ["Sacado", "sacado"],
+    ["Cedente / Originador literal*", "cedente_originador_literal"],
+    ["Tipo de recebível literal*", "tipo_recebivel_literal"],
+    ["Fonte enriquecimento manual", "fonte_enriquecimento_manual"],
     ["Fonte originador / cedente", "fonte_originador_cedente"],
     ["Fonte subordinação", "fonte_subordinacao"],
     ["Fonte preço", "fonte_preco"],
@@ -8390,7 +8687,7 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Auditoria dos campos documentais exibidos nos slides 10–13 e 21–22",
-    "Uma linha por fundo/período nos slides 10–13 e por emissão nos slides 21–22. Todo campo exibido conserva a fonte; ausência de evidência suficiente permanece N/D.",
+    "Uma linha por fundo/período nos slides 10–13 e por emissão nos slides 21–22. Todo campo exibido conserva a fonte; ausência de evidência suficiente permanece N/D. * = transcrição de foto fornecida pelo usuário, preservada separadamente da evidência documental.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 7.5 },
@@ -8398,10 +8695,490 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [110, 180, 105, 95, 300, 180, 150, 155, 210, 180, 360, 360, 420, 300, 260],
+    [110, 180, 105, 95, 300, 180, 150, 155, 210, 180, 220, 260, 330, 360, 360, 420, 300, 260],
     rows.length,
   );
-  sheet.getRange(`A5:O${rows.length + 4}`).format.rowHeightPx = 52;
+  sheet.getRange(`A5:R${rows.length + 4}`).format.rowHeightPx = 58;
+}
+
+const PORTFOLIO_EXPORT_COLUMNS = Object.freeze([
+  { header: "Ordem", key: "ordem", width: 65 },
+  { header: "CNPJ", key: "cnpj_numerico", width: 125, format: "00000000000000" },
+  { header: "CNPJ formatado", key: "cnpj_formatado", width: 135 },
+  { header: "Nome completo do fundo (CVM)", key: "nome_oficial_cvm", width: 360 },
+  { header: "Nome de referência", key: "nome_referencia", width: 260 },
+  { header: "Coorte", key: "coorte", width: 105 },
+  { header: "Data de referência", key: "data_ref", width: 105 },
+  { header: "Status da identidade", key: "status_identidade", width: 155 },
+  { header: "PL atual", key: "pl_atual_brl", width: 130, format: 'R$ #,##0.00' },
+  { header: "PL das classes reportadas", key: "pl_classes_reportadas_brl", width: 145, format: 'R$ #,##0.00' },
+  { header: "PL subordinado atual", key: "pl_subordinado_atual_brl", width: 145, format: 'R$ #,##0.00' },
+  { header: "Sub / PL atual", key: "sub_pl_atual", width: 105, format: "0.00%" },
+  { header: "Status do Sub / PL", key: "status_sub_pl_atual", width: 260 },
+  { header: "Mínimo Jr literal", key: "minimo_junior_literal", width: 110, format: "0.00%" },
+  { header: "Mínimo Jr calculado*", key: "minimo_junior_calculado", width: 125, format: "0.00%" },
+  { header: "Mínimo Jr ajustado*", key: "minimo_junior_ajustado", width: 120, format: "0.00%" },
+  { header: "Suporte total*", key: "suporte_total", width: 105, format: "0.00%" },
+  { header: "Suporte Jr + Mezanino*", key: "suporte_combinado_junior_mezanino", width: 140, format: "0.00%" },
+  { header: "Índice estrutural usado", key: "minimo_estrutural_usado", width: 135, format: "0.00%" },
+  { header: "Índice estrutural exibido", key: "minimo_estrutural_display", width: 155 },
+  { header: "Natureza do índice", key: "minimo_estrutural_natureza", width: 170 },
+  { header: "Fórmula / regra", key: "minimo_estrutural_formula", width: 210 },
+  { header: "Comparável?", key: "comparavel_flag", width: 90 },
+  { header: "Motivo da comparabilidade", key: "comparabilidade_motivo", width: 420 },
+  { header: "Exceção*", key: "excecao_asterisco_flag", width: 82 },
+  { header: "Folga / falta", key: "folga_pp", width: 105, format: "0.00%" },
+  { header: "Capacidade até o gatilho", key: "capacidade_ate_gatilho", width: 135, format: "0.00%" },
+  { header: "Situação regulatória", key: "situacao_regulatoria", width: 145 },
+  { header: "Tipo", key: "tipo_exibicao", width: 150 },
+  { header: "Foco", key: "foco_exibicao", width: 190 },
+  { header: "Taxonomia estrutural", key: "taxonomia_estrutural", width: 180 },
+  { header: "Cedente / Originador literal*", key: "cedente_originador_literal", width: 250 },
+  { header: "Papel literal*", key: "papel_literal", width: 150 },
+  { header: "Originador*", key: "originador", width: 210 },
+  { header: "Cedente*", key: "cedente", width: 210 },
+  { header: "Sacado / devedor*", key: "sacado_devedor", width: 220 },
+  { header: "Tipo de recebível*", key: "tipo_recebivel_literal", width: 330 },
+  { header: "Fonte das partes / recebível", key: "fonte_partes_recebivel", width: 300 },
+  { header: "Status do complemento manual", key: "status_complemento_manual", width: 175 },
+  { header: "Observação do complemento manual", key: "observacao_complemento_manual", width: 360 },
+  { header: "Documento", key: "documento_id", width: 130 },
+  { header: "Data do documento", key: "documento_data", width: 115 },
+  { header: "Página / cláusula", key: "pagina_clausula", width: 140 },
+  { header: "Status da curadoria", key: "status_curadoria_documental", width: 235 },
+  { header: "Fonte documental", key: "fonte_documental", width: 420 },
+  { header: "Texto do mínimo", key: "texto_minimo", width: 460 },
+  { header: "Campos não preenchidos", key: "campos_nao_preenchidos", width: 320 },
+  { header: "Status do preenchimento", key: "status_preenchimento", width: 190 },
+]);
+
+const PORTFOLIO_EXPORT_GROUPS = Object.freeze([
+  { label: "IDENTIFICAÇÃO", start: 0, end: 7, fill: C.black },
+  { label: "PORTE E SUBORDINAÇÃO ATUAL", start: 8, end: 12, fill: C.charcoal },
+  { label: "ÍNDICES DOCUMENTAIS", start: 13, end: 21, fill: C.orange },
+  { label: "COMPARABILIDADE E FOLGA", start: 22, end: 27, fill: "#7A1F3D" },
+  { label: "TAXONOMIA", start: 28, end: 30, fill: "#2456D6" },
+  { label: "PARTES E RECEBÍVEL", start: 31, end: 39, fill: "#A65A00" },
+  { label: "RASTREABILIDADE", start: 40, end: 45, fill: C.mid },
+  { label: "LACUNAS", start: 46, end: 47, fill: C.black },
+]);
+
+function portfolioExportCell(value, column) {
+  if (value === null || value === undefined || value === "") return "N/D";
+  if (column.key === "cnpj_numerico") {
+    const digits = String(value).replace(/\D/g, "").padStart(14, "0");
+    return /^\d{14}$/.test(digits) ? Number(digits) : "N/D";
+  }
+  if (typeof value === "boolean") return value;
+  if (column.format && column.format !== "00000000000000") {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : "N/D";
+  }
+  return value;
+}
+
+function portfolioExportRows(payloadRows, columns = PORTFOLIO_EXPORT_COLUMNS) {
+  return (payloadRows || []).map((row) => Object.fromEntries(
+    columns.map((column) => [
+      column.header,
+      portfolioExportCell(row[column.key], column),
+    ]),
+  ));
+}
+
+async function writePortfolioRows(sheet, startRowZeroBased, columns, sourceRows, chunkSize = 500) {
+  for (let offset = 0; offset < sourceRows.length; offset += chunkSize) {
+    const chunk = sourceRows.slice(offset, offset + chunkSize).map((row) =>
+      columns.map((column) => portfolioExportCell(row[column.key], column)),
+    );
+    sheet.getRangeByIndexes(
+      startRowZeroBased + offset,
+      0,
+      chunk.length,
+      columns.length,
+    ).values = chunk;
+  }
+}
+
+function addPortfolioGroupBands(sheet) {
+  for (const group of PORTFOLIO_EXPORT_GROUPS) {
+    const start = columnLetter(group.start);
+    const end = columnLetter(group.end);
+    const range = sheet.getRange(`${start}3:${end}3`);
+    range.merge();
+    range.values = [[group.label]];
+    range.format.fill = group.fill;
+    range.format.font = { name: "Arial", size: 8, bold: true, color: C.white };
+    range.format.horizontalAlignment = "center";
+    range.format.verticalAlignment = "center";
+    range.format.rowHeightPx = 22;
+  }
+}
+
+function addPortfolioConditionalFormatting(sheet, rowCount) {
+  if (!rowCount) return;
+  const bodyEnd = rowCount + 4;
+  const columnIndex = Object.fromEntries(
+    PORTFOLIO_EXPORT_COLUMNS.map((column, index) => [column.key, index]),
+  );
+  const situation = columnLetter(columnIndex.situacao_regulatoria);
+  const situationRange = sheet.getRange(`${situation}5:${situation}${bodyEnd}`);
+  situationRange.conditionalFormats.add("containsText", {
+    text: "abaixo do mínimo",
+    format: { fill: "#F8D7DA", font: { bold: true, color: "#7A1F3D" } },
+  });
+  situationRange.conditionalFormats.add("containsText", {
+    text: "folga estreita",
+    format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+  });
+  situationRange.conditionalFormats.add("containsText", {
+    text: "acima do mínimo",
+    format: { fill: "#DCEFE2", font: { bold: true, color: "#006B3C" } },
+  });
+  situationRange.conditionalFormats.add("containsText", {
+    text: "não medido",
+    format: { fill: C.pale, font: { color: C.mid } },
+  });
+
+  const taxonomy = columnLetter(columnIndex.taxonomia_estrutural);
+  const taxonomyRange = sheet.getRange(`${taxonomy}5:${taxonomy}${bodyEnd}`);
+  Object.entries(FLAGSHIP_TYPE_STYLES).forEach(([label, style]) => {
+    taxonomyRange.conditionalFormats.add("containsText", {
+      text: label,
+      format: { fill: style.fill, font: { bold: true, color: C.charcoal } },
+    });
+  });
+  const manualStatus = columnLetter(columnIndex.status_complemento_manual);
+  sheet.getRange(`${manualStatus}5:${manualStatus}${bodyEnd}`).conditionalFormats.add(
+    "containsText",
+    {
+      text: "manual_aplicado",
+      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+    },
+  );
+}
+
+async function addPortfolioDataSheet(workbook, name, sourceRows, subtitle) {
+  const columns = PORTFOLIO_EXPORT_COLUMNS;
+  const headers = columns.map((column) => column.header);
+  const sheet = workbook.worksheets.add(name);
+  setHeaderBand(
+    sheet,
+    `${name} · base manipulável de risco estrutural`,
+    subtitle,
+    headers,
+    sourceRows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8 },
+  );
+  addPortfolioGroupBands(sheet);
+  await writePortfolioRows(sheet, 4, columns, sourceRows);
+  applyColumnWidths(sheet, columns.map((column) => column.width), sourceRows.length);
+  columns.forEach((column, index) => {
+    if (!column.format || !sourceRows.length) return;
+    const letter = columnLetter(index);
+    sheet.getRange(`${letter}5:${letter}${sourceRows.length + 4}`).format.numberFormat = column.format;
+    sheet.getRange(`${letter}5:${letter}${sourceRows.length + 4}`).format.horizontalAlignment = "right";
+  });
+  if (sourceRows.length) {
+    sheet.getRange(`A5:${columnLetter(columns.length - 1)}${sourceRows.length + 4}`).format.rowHeightPx = 42;
+  }
+  addPortfolioConditionalFormatting(sheet, sourceRows.length);
+  return sheet;
+}
+
+function coverageLookup(payload, cohort, field) {
+  return (payload.portfolio_export_coverage || []).find(
+    (row) => row.coorte === cohort && row.campo === field,
+  ) || {};
+}
+
+function addPortfolioReadmeSheet(workbook, payload) {
+  const sheet = workbook.worksheets.add("Leia-me");
+  sheet.showGridLines = false;
+  sheet.getRange("A1:H1").merge();
+  sheet.getRange("A1").values = [["Carteira 101 + Flagships · base analítica manipulável"]];
+  sheet.getRange("A1:H1").format.fill = C.black;
+  sheet.getRange("A1:H1").format.font = { name: "Arial", size: 18, bold: true, color: C.white };
+  sheet.getRange("A1:H1").format.rowHeightPx = 40;
+  sheet.getRange("A2:H2").merge();
+  sheet.getRange("A2").values = [[
+    `Competência ${payload.latest_complete || "N/D"}. Uma linha por CNPJ, com PL e Sub/PL do Informe Mensal, índices da curadoria documental e métricas do dataframe estrutural compartilhado.`,
+  ]];
+  sheet.getRange("A2:H2").format.font = { name: "Arial", size: 10, color: C.mid };
+  sheet.getRange("A2:H2").format.wrapText = true;
+  sheet.getRange("A2:H2").format.rowHeightPx = 38;
+
+  const portfolioCount = (payload.portfolio_export_carteira_101 || []).length;
+  const flagshipCount = (payload.portfolio_export_flagships || []).length;
+  const junior = coverageLookup(payload, "Carteira 101", "indice_minimo_junior");
+  const headroom = coverageLookup(payload, "Carteira 101", "folga_pp");
+  const cards = [
+    ["Carteira 101", portfolioCount],
+    ["Flagships", flagshipCount],
+    ["Mínimo júnior identificado", `${junior.linhas_com_dado || 0}/${junior.linhas_total || portfolioCount}`],
+    ["Folga comparável", `${headroom.linhas_com_dado || 0}/${headroom.linhas_total || portfolioCount}`],
+  ];
+  cards.forEach(([label, value], index) => {
+    const start = columnLetter(index * 2);
+    const end = columnLetter(index * 2 + 1);
+    sheet.getRange(`${start}4:${end}4`).merge();
+    sheet.getRange(`${start}4`).values = [[label]];
+    sheet.getRange(`${start}5:${end}6`).merge();
+    sheet.getRange(`${start}5`).values = [[value]];
+    sheet.getRange(`${start}4:${end}4`).format.fill = index === 2 ? C.orange : C.charcoal;
+    sheet.getRange(`${start}4:${end}4`).format.font = { name: "Arial", size: 9, bold: true, color: C.white };
+    sheet.getRange(`${start}5:${end}6`).format.fill = C.pale;
+    sheet.getRange(`${start}5:${end}6`).format.font = { name: "Arial", size: 18, bold: true, color: C.black };
+    sheet.getRange(`${start}4:${end}6`).format.horizontalAlignment = "center";
+    sheet.getRange(`${start}4:${end}6`).format.verticalAlignment = "center";
+  });
+
+  const guidance = [
+    ["Como usar", "Filtre Carteira 101 ou Flagships por taxonomia, porte, situação regulatória, folga e campos manuais. Todos os percentuais são valores numéricos formatados como %."],
+    ["CNPJ", "A coluna CNPJ é numérica e usa o formato 00000000000000. A coluna seguinte preserva a apresentação pontuada."],
+    ["Folga / falta", "Sub/PL atual menos o índice estrutural usado. O campo permanece N/D quando a equivalência de tranche não está comprovada."],
+    ["Capacidade até o gatilho", "Fração de perda absorvível antes do piso: (Sub/PL atual − mínimo) / (1 − mínimo). Calculada somente em estruturas comparáveis."],
+    ["Asterisco (*)", "Indica mínimo calculado ou ajustado, suporte total/combinado, exceção de comparabilidade ou transcrição das fotos fornecidas pelo usuário. A natureza e a fonte permanecem na mesma linha."],
+    ["Lacunas", "N/D identifica informação não localizada ou não comparável. N/D não representa zero, média ou estimativa."],
+    ["Precedência", "Documento primário preservado; o complemento manual ocupa somente lacunas e aparece em colunas próprias."],
+    ["Escopo econômico", "PL representa o patrimônio do veículo. O valor efetivamente encarteirado por posição não está disponível nesta base."],
+  ];
+  sheet.getRange("A9:B9").values = [["Tema", "Orientação"]];
+  sheet.getRange("A9:B9").format.fill = C.black;
+  sheet.getRange("A9:B9").format.font = { name: "Arial", size: 10, bold: true, color: C.white };
+  sheet.getRange(`A10:B${9 + guidance.length}`).values = guidance;
+  sheet.getRange(`A10:B${9 + guidance.length}`).format.font = { name: "Arial", size: 10, color: C.charcoal };
+  sheet.getRange(`A10:B${9 + guidance.length}`).format.wrapText = true;
+  sheet.getRange(`A10:B${9 + guidance.length}`).format.rowHeightPx = 48;
+  sheet.getRange(`A10:A${9 + guidance.length}`).format.font = { name: "Arial", size: 10, bold: true, color: C.charcoal };
+  sheet.getRange(`A10:A${9 + guidance.length}`).format.fill = C.pale;
+  sheet.getRange(`A9:B${9 + guidance.length}`).format.borders = {
+    insideHorizontal: { style: "thin", color: C.line },
+    bottom: { style: "thin", color: C.line },
+  };
+  sheet.getRange("A1:A20").format.columnWidthPx = 190;
+  sheet.getRange("B1:B20").format.columnWidthPx = 760;
+  ["C", "D", "E", "F", "G", "H"].forEach((letter) => {
+    sheet.getRange(`${letter}1:${letter}20`).format.columnWidthPx = 130;
+  });
+  sheet.freezePanes.freezeRows(2);
+}
+
+async function addPortfolioCoverageAndGapsSheet(workbook, payload) {
+  const coverageColumns = [
+    { header: "Coorte", key: "coorte", width: 120 },
+    { header: "Campo", key: "campo", width: 210 },
+    { header: "Linhas com dado", key: "linhas_com_dado", width: 105 },
+    { header: "Linhas totais", key: "linhas_total", width: 95 },
+    { header: "Cobertura por quantidade", key: "cobertura_contagem_pct", width: 145, format: "0.00%" },
+    { header: "PL com dado", key: "pl_com_dado_brl", width: 135, format: 'R$ #,##0.00' },
+    { header: "PL total", key: "pl_total_brl", width: 135, format: 'R$ #,##0.00' },
+    { header: "Cobertura por PL", key: "cobertura_pl_pct", width: 125, format: "0.00%" },
+  ];
+  const coverage = payload.portfolio_export_coverage || [];
+  const sheet = workbook.worksheets.add("Cobertura e lacunas");
+  setHeaderBand(
+    sheet,
+    "Cobertura e lacunas · Carteira 101 + Flagships",
+    "Cobertura por quantidade e PL. O denominador de cada percentual permanece explícito.",
+    coverageColumns.map((column) => column.header),
+    coverage.length,
+    { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
+  );
+  await writePortfolioRows(sheet, 4, coverageColumns, coverage);
+  applyColumnWidths(sheet, coverageColumns.map((column) => column.width), coverage.length);
+  coverageColumns.forEach((column, index) => {
+    if (!column.format || !coverage.length) return;
+    const letter = columnLetter(index);
+    sheet.getRange(`${letter}5:${letter}${coverage.length + 4}`).format.numberFormat = column.format;
+  });
+
+  const gaps = payload.portfolio_export_gaps || [];
+  const gapColumns = [
+    { header: "Coorte", key: "coorte", width: 120 },
+    { header: "CNPJ", key: "cnpj", width: 125 },
+    { header: "Nome de referência", key: "nome_referencia", width: 300 },
+    { header: "Status do preenchimento", key: "status_preenchimento", width: 190 },
+    { header: "Campos não preenchidos", key: "campos_nao_preenchidos", width: 360 },
+    { header: "Motivo da comparabilidade", key: "comparabilidade_motivo", width: 460 },
+    { header: "Status da curadoria", key: "status_curadoria_documental", width: 280 },
+  ];
+  const sectionRow = coverage.length + 7;
+  const gapHeaderRow = sectionRow + 1;
+  sheet.getRange(`A${sectionRow}:G${sectionRow}`).merge();
+  sheet.getRange(`A${sectionRow}`).values = [["LACUNAS POR CNPJ"]];
+  sheet.getRange(`A${sectionRow}:G${sectionRow}`).format.fill = C.orange;
+  sheet.getRange(`A${sectionRow}:G${sectionRow}`).format.font = { name: "Arial", size: 11, bold: true, color: C.white };
+  sheet.getRange(`A${gapHeaderRow}:G${gapHeaderRow}`).values = [gapColumns.map((column) => column.header)];
+  sheet.getRange(`A${gapHeaderRow}:G${gapHeaderRow}`).format.fill = C.black;
+  sheet.getRange(`A${gapHeaderRow}:G${gapHeaderRow}`).format.font = { name: "Arial", size: 9, bold: true, color: C.white };
+  await writePortfolioRows(sheet, gapHeaderRow, gapColumns, gaps);
+  if (gaps.length) {
+    const bodyStart = gapHeaderRow + 1;
+    const bodyEnd = gapHeaderRow + gaps.length;
+    sheet.getRange(`A${bodyStart}:G${bodyEnd}`).format.font = { name: "Arial", size: 8, color: C.charcoal };
+    sheet.getRange(`A${bodyStart}:G${bodyEnd}`).format.wrapText = true;
+    sheet.getRange(`A${bodyStart}:G${bodyEnd}`).format.rowHeightPx = 46;
+    sheet.getRange(`B${bodyStart}:B${bodyEnd}`).format.numberFormat = "@";
+  }
+}
+
+const PORTFOLIO_FIELD_DEFINITIONS = Object.freeze({
+  cnpj_numerico: "CNPJ com 14 dígitos, gravado como número e exibido sem separadores.",
+  nome_oficial_cvm: "Denominação completa observada no cadastro/base CVM.",
+  pl_atual_brl: "Patrimônio líquido do veículo na competência de referência.",
+  pl_classes_reportadas_brl: "Soma das classes de cotas reportadas no Informe Mensal.",
+  pl_subordinado_atual_brl: "Soma das classes subordinadas reportadas.",
+  sub_pl_atual: "PL subordinado atual dividido pelo PL oficial reconciliado.",
+  minimo_junior_literal: "Mínimo júnior lido diretamente no documento, sobre PL.",
+  minimo_junior_calculado: "Mínimo júnior convertido de razão/fator documental; linha marcada com *.",
+  minimo_junior_ajustado: "Mínimo júnior sobre denominador ajustado; linha marcada com *.",
+  suporte_total: "Piso de suporte subordinado total; métrica distinta do júnior isolado.",
+  suporte_combinado_junior_mezanino: "Piso combinado de cotas júnior e mezanino.",
+  minimo_estrutural_usado: "Piso usado no cálculo somente quando comparável ao Sub/PL atual.",
+  comparavel_flag: "Confirma equivalência suficiente entre numerador, denominador e tranche.",
+  folga_pp: "Sub/PL atual menos o piso estrutural comparável.",
+  capacidade_ate_gatilho: "(Sub/PL atual − piso) / (1 − piso), somente em linhas comparáveis.",
+  situacao_regulatoria: "Banda de situação frente ao piso documental.",
+  cedente_originador_literal: "Transcrição literal da coluna combinada Cedente/Originador.",
+  papel_literal: "Papel indicado literalmente na fonte manual.",
+  fonte_partes_recebivel: "Documento ou foto que sustenta partes e tipo de recebível.",
+  fonte_documental: "Referência do regulamento, assembleia ou documento primário.",
+  campos_nao_preenchidos: "Lista didática dos campos que permanecem ausentes.",
+});
+
+function portfolioFieldType(column) {
+  if (column.key === "cnpj_numerico") return "Identificador numérico";
+  if (column.format === "0.00%") return "Percentual";
+  if (column.format?.startsWith("R$")) return "Moeda (R$)";
+  if (/flag$/.test(column.key)) return "Booleano";
+  if (column.key === "ordem") return "Inteiro";
+  return "Texto";
+}
+
+function portfolioFieldOrigin(column) {
+  if (/^(cnpj|nome_|status_identidade|pl_|sub_pl_atual|status_sub_pl)/.test(column.key)) return "CVM / Informe Mensal";
+  if (/^(minimo_|suporte_|documento_|pagina_|status_curadoria|fonte_documental|texto_minimo)/.test(column.key)) return "Curadoria documental";
+  if (/^(comparavel|comparabilidade|excecao|folga|capacidade|situacao)/.test(column.key)) return "Pacote estrutural existente";
+  if (/^(tipo_|foco_|taxonomia_)/.test(column.key)) return "Taxonomia analítica / oficial preservada";
+  if (/^(cedente|papel|originador|sacado|fonte_partes|status_complemento|observacao_complemento)/.test(column.key)) return "Documento ou overlay manual auditado";
+  return "Normalização do export";
+}
+
+async function addPortfolioDictionarySheet(workbook) {
+  const columns = [
+    { header: "Campo no Excel", key: "header", width: 235 },
+    { header: "Campo no payload", key: "key", width: 245 },
+    { header: "Tipo", key: "type", width: 145 },
+    { header: "Origem", key: "origin", width: 260 },
+    { header: "Definição", key: "definition", width: 620 },
+    { header: "Regra de lacuna", key: "missing", width: 260 },
+  ];
+  const rows = PORTFOLIO_EXPORT_COLUMNS.map((column) => ({
+    header: column.header,
+    key: column.key,
+    type: portfolioFieldType(column),
+    origin: portfolioFieldOrigin(column),
+    definition: PORTFOLIO_FIELD_DEFINITIONS[column.key]
+      || `Campo ${column.header.toLowerCase()} preservado na granularidade de um CNPJ.`,
+    missing: "N/D identifica ausência; nenhum valor é imputado como zero.",
+  }));
+  const sheet = workbook.worksheets.add("Dicionário");
+  setHeaderBand(
+    sheet,
+    "Dicionário da base Carteira 101 + Flagships",
+    "Definições, tipos, origem e tratamento de lacunas das colunas manipuláveis.",
+    columns.map((column) => column.header),
+    rows.length,
+    { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writePortfolioRows(sheet, 4, columns, rows);
+  applyColumnWidths(sheet, columns.map((column) => column.width), rows.length);
+  sheet.getRange(`A5:F${rows.length + 4}`).format.rowHeightPx = 44;
+}
+
+async function addPortfolioManualSourcesSheet(workbook, payload) {
+  const auditRows = payload.portfolio_export_manual_audit || [];
+  const rows = auditRows.length ? auditRows : (payload.manual_cnpj_enrichment || []);
+  const columns = [
+    { header: "Raiz do CNPJ na foto", key: "raiz_cnpj_foto", width: 110 },
+    { header: "CNPJ resolvido", key: "cnpj", width: 125, format: "00000000000000" },
+    { header: "Status da resolução", key: "status_resolucao_cnpj", width: 165 },
+    { header: "Denominação de referência", key: "denominacao_referencia", width: 330 },
+    { header: "Cedente / Originador literal*", key: "cedente_originador_literal", width: 260 },
+    { header: "Papel literal*", key: "papel_literal", width: 150 },
+    { header: "Originador*", key: "originador", width: 210 },
+    { header: "Cedente*", key: "cedente", width: 210 },
+    { header: "Sacado / devedor*", key: "sacado_devedor", width: 220 },
+    { header: "Tipo de recebível*", key: "tipo_recebivel_literal", width: 330 },
+    { header: "Imagem", key: "fonte_manual", width: 145 },
+    { header: "Localização na imagem", key: "localizacao_imagem", width: 300 },
+    { header: "Status da transcrição", key: "status_transcricao", width: 150 },
+    { header: "Confiança", key: "confianca", width: 95 },
+    { header: "Observação", key: "observacao", width: 520 },
+    { header: "Coortes encontradas", key: "coortes_encontradas", width: 170 },
+    { header: "Campos aplicados", key: "campos_aplicados", width: 320 },
+    { header: "Aplicado?", key: "aplicado_flag", width: 85 },
+    { header: "Motivo da aplicação", key: "motivo_aplicacao", width: 320 },
+  ];
+  const sheet = workbook.worksheets.add("Fontes manuais");
+  setHeaderBand(
+    sheet,
+    "Fontes manuais · transcrição das fotos fornecidas pelo usuário",
+    "* = informação manual separada da evidência documental. Somente status confirmado_legivel é elegível; o overlay preenche lacunas e preserva o valor documental existente.",
+    columns.map((column) => column.header),
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8 },
+  );
+  await writePortfolioRows(sheet, 4, columns, rows);
+  applyColumnWidths(sheet, columns.map((column) => column.width), rows.length);
+  if (rows.length) {
+    sheet.getRange(`A5:S${rows.length + 4}`).format.rowHeightPx = 48;
+    sheet.getRange(`A5:A${rows.length + 4}`).format.numberFormat = "00000000";
+    sheet.getRange(`B5:B${rows.length + 4}`).format.numberFormat = "00000000000000";
+    sheet.getRange(`M5:M${rows.length + 4}`).conditionalFormats.add("containsText", {
+      text: "confirmado_legivel",
+      format: { fill: "#DCEFE2", font: { bold: true, color: "#006B3C" } },
+    });
+    sheet.getRange(`M5:M${rows.length + 4}`).conditionalFormats.add("containsText", {
+      text: "revisao",
+      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+    });
+  }
+}
+
+async function buildPortfolioWorkbook(payload) {
+  const carteira = payload.portfolio_export_carteira_101 || [];
+  const flagships = payload.portfolio_export_flagships || [];
+  const coverage = payload.portfolio_export_coverage || [];
+  const gaps = payload.portfolio_export_gaps || [];
+  if (carteira.length !== 101) {
+    throw new Error(`Export Carteira 101 deveria conter 101 linhas; contém ${carteira.length}.`);
+  }
+  if (flagships.length !== 47) {
+    throw new Error(`Export Flagships deveria conter 47 linhas; contém ${flagships.length}.`);
+  }
+  if (!coverage.length || !gaps.length) {
+    throw new Error("Export Carteira 101 + Flagships sem cobertura ou tabela de lacunas.");
+  }
+  const workbook = Workbook.create();
+  addPortfolioReadmeSheet(workbook, payload);
+  await addPortfolioDataSheet(
+    workbook,
+    "Carteira 101",
+    carteira,
+    "101 CNPJs na ordem da base fornecida. Campos estruturais usam a curadoria documental e o dataframe compartilhado; exceções levam * e descrição por linha.",
+  );
+  await addPortfolioDataSheet(
+    workbook,
+    "Flagships",
+    flagships,
+    "47 CNPJs flagship. Folga e capacidade aparecem somente quando a ausência de mezanino ou equivalência de tranche está comprovada.",
+  );
+  await addPortfolioCoverageAndGapsSheet(workbook, payload);
+  await addPortfolioDictionarySheet(workbook);
+  await addPortfolioManualSourcesSheet(workbook, payload);
+  return workbook;
 }
 
 async function buildWorkbook(payload) {
@@ -8535,7 +9312,7 @@ async function exportWorkbook(workbook) {
       ["Crédito Privado Ampliado", "A1:T16"],
       ["Originadores 2026", "A1:M24"],
       ["Top 15 ofertas", "A1:AZ28"],
-      ["Auditoria emissões", "A1:O28"],
+      ["Auditoria emissões", "A1:R28"],
       ["Validação emissões", "A1:U25"],
       ["Emissões por categoria", "A1:N12"],
       ["Público-alvo ofertas", "A1:J24"],
@@ -8568,6 +9345,37 @@ async function exportWorkbook(workbook) {
   await xlsx.save(OUTPUT_XLSX);
 }
 
+async function exportPortfolioWorkbook(workbook) {
+  if (!SKIP_QA) {
+    const previewSheets = [
+      ["Leia-me", "A1:H18"],
+      ["Carteira 101", "A1:AV18"],
+      ["Flagships", "A1:AV18"],
+      ["Cobertura e lacunas", "A1:H34"],
+      ["Dicionário", "A1:F24"],
+      ["Fontes manuais", "A1:S20"],
+    ];
+    const workbookQa = path.join(QA_DIR, "carteira_101_flagships");
+    await fs.mkdir(workbookQa, { recursive: true });
+    for (const [sheetName, range] of previewSheets) {
+      const preview = await workbook.render({
+        sheetName,
+        range,
+        autoCrop: "all",
+        scale: 1,
+        format: "png",
+      });
+      await writeBlob(
+        path.join(workbookQa, `${sheetName.replace(/[^a-z0-9]+/gi, "_")}.png`),
+        preview,
+      );
+    }
+  }
+  await fs.mkdir(path.dirname(OUTPUT_PORTFOLIO_XLSX), { recursive: true });
+  const xlsx = await SpreadsheetFile.exportXlsx(workbook);
+  await xlsx.save(OUTPUT_PORTFOLIO_XLSX);
+}
+
 async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   const payloadRaw = await fs.readFile(PAYLOAD_PATH);
@@ -8583,6 +9391,8 @@ async function main() {
   if (process.env.FIDC_SKIP_WORKBOOK !== "1") {
     const workbook = await buildWorkbook(payload);
     await exportWorkbook(workbook);
+    const portfolioWorkbook = await buildPortfolioWorkbook(payload);
+    await exportPortfolioWorkbook(portfolioWorkbook);
   }
   if (
     process.env.FIDC_WRITE_MANIFEST === "1" ||
@@ -8591,7 +9401,7 @@ async function main() {
   ) {
     await writeExportBundleManifest(payload, payloadRaw);
   }
-  process.stdout.write(`${OUTPUT_PPTX}\n${OUTPUT_XLSX}\n${OUTPUT_HTML}\n`);
+  process.stdout.write(`${OUTPUT_PPTX}\n${OUTPUT_XLSX}\n${OUTPUT_PORTFOLIO_XLSX}\n${OUTPUT_HTML}\n`);
 }
 
 main().catch((error) => {

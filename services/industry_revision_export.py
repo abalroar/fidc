@@ -36,19 +36,20 @@ PAYLOAD_NAME = "artifact_payload.json"
 BUNDLE_MANIFEST_NAME = "industry_export_bundle.json"
 MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
+MATERIALIZED_PORTFOLIO_XLSX_NAME = "carteira_101_flagships.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
-BUNDLE_SCHEMA = "fidc_revision_export_bundle_v2"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
+BUNDLE_SCHEMA = "fidc_revision_export_bundle_v3"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v8"
 EXPECTED_SLIDES = 26
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("industria de fidcs", "jun/26"),
     ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
-    ("fidcs seguem ganhando escala nas emissoes", "valor encerrado anbima"),
-    ("emissoes por categoria anbima", "emissoes por setor"),
+    ("emissoes", "fidcs seguem ganhando escala nas emissoes", "1s26 ytd yoy"),
+    ("saldo e tipos de fidcs", "financeiros dominam saldo e novas emissoes"),
+    ("emissoes por categoria anbima", "emissoes por setor", "total emitido"),
     ("abrir", "outros", "revela que 63% do mercado e credito financeiro"),
     ("adquirencia e r$ 99 bi", "33 cnpjs reclassificados"),
     ("financeiro explicou 70% do crescimento da carteira",),
-    ("prestadores", "ranking e concentracao"),
     ("ranking", "top 20 fidcs"),
     ("fomento mercantil", "crescimento marginal em seis meses"),
     ("agro, industria e comercio", "maior salto absoluto"),
@@ -59,17 +60,25 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("risco estrutural", "ativos"),
     ("emissoes crescem 15% no semestre",),
     ("22 ofertas concentram 42% de todo o volume",),
-    ("ofertas", "volume e regime"),
+    ("garantia firme", "yoy ytd", "melhores esforcos repr."),
     ("ibba esteve em 8 das 15 maiores ofertas do semestre",),
     ("top 15", "historico"),
     ("o que muda a leitura do mercado",),
     ("qi lidera administracao", "btg lidera gestao e custodia"),
-    ("a lideranca some quando se olha o que a sustenta",),
+    ("prestadores", "ranking e concentracao"),
     ("quase todo o volume vai para o investidor profissional",),
     ("distribuicao por numero de cotistas",),
 )
 if len(EXPECTED_SLIDE_SEQUENCE) != EXPECTED_SLIDES:  # pragma: no cover
     raise RuntimeError("contrato ordinal do PPTX não fecha 26 slides")
+BLOCKED_PPTX_AUDIENCE_COPY: tuple[str, ...] = (
+    "clique para inserir",
+    "click to add",
+    "atualizar para",
+    "copilot",
+    "claude code",
+    "prompt antigo",
+)
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
     "Base por fundo-CNPJ",
@@ -123,6 +132,14 @@ REQUIRED_WORKBOOK_SHEETS = {
     "FICs excluídos",
     "Decisões do ledger",
 }
+REQUIRED_PORTFOLIO_WORKBOOK_SHEETS = {
+    "Leia-me",
+    "Carteira 101",
+    "Flagships",
+    "Cobertura e lacunas",
+    "Dicionário",
+    "Fontes manuais",
+}
 
 
 class RevisionExportUnavailable(RuntimeError):
@@ -144,6 +161,8 @@ class RevisionExportStatus:
     pptx_exists: bool
     xlsx_path: str
     xlsx_exists: bool
+    portfolio_xlsx_path: str
+    portfolio_xlsx_exists: bool
     html_path: str
     html_exists: bool
     artifact_runtime_available: bool
@@ -159,6 +178,8 @@ class _ValidatedBundle:
     pptx_bytes: bytes
     xlsx_path: Path
     xlsx_bytes: bytes
+    portfolio_xlsx_path: Path
+    portfolio_xlsx_bytes: bytes
     html_path: Path
     html_bytes: bytes
 
@@ -198,8 +219,21 @@ def _chart_members(archive: zipfile.ZipFile) -> list[str]:
     ]
 
 
+def _normalize_office_text(value: str) -> str:
+    """Return case- and accent-insensitive Office text with compact spacing."""
+
+    normalized = unicodedata.normalize("NFKD", value.casefold())
+    return " ".join(
+        "".join(
+            character
+            for character in normalized
+            if not unicodedata.combining(character)
+        ).split()
+    )
+
+
 def _normalized_slide_text(payload: bytes) -> str:
-    """Return accent-insensitive visible text from one slide XML part."""
+    """Return normalized text from one slide or notes XML part."""
 
     try:
         root = ElementTree.fromstring(payload)
@@ -210,28 +244,14 @@ def _normalized_slide_text(payload: bytes) -> str:
         for node in root.iter()
         if node.tag.endswith("}t")
     )
-    normalized = unicodedata.normalize("NFKD", visible.casefold())
-    return " ".join(
-        "".join(
-            character
-            for character in normalized
-            if not unicodedata.combining(character)
-        ).split()
-    )
+    return _normalize_office_text(visible)
 
 
 def _slide_xml_containing(
     archive: zipfile.ZipFile,
     *tokens: str,
 ) -> bytes:
-    expected = [
-        "".join(
-            character
-            for character in unicodedata.normalize("NFKD", token.casefold())
-            if not unicodedata.combining(character)
-        )
-        for token in tokens
-    ]
+    expected = [_normalize_office_text(token) for token in tokens]
     for name in sorted(
         (
             item
@@ -249,6 +269,26 @@ def _slide_xml_containing(
     raise RevisionExportUnavailable(
         "PPTX revisado sem slide esperado: " + " / ".join(tokens)
     )
+
+
+def _validate_no_blocked_audience_copy(archive: zipfile.ZipFile) -> None:
+    """Reject production placeholders and stale instructions in slides or notes."""
+
+    blocked = tuple(_normalize_office_text(value) for value in BLOCKED_PPTX_AUDIENCE_COPY)
+    audience_parts = sorted(
+        name
+        for name in archive.namelist()
+        if re.fullmatch(r"ppt/slides/slide\d+\.xml", name)
+        or re.fullmatch(r"ppt/notesSlides/notesSlide\d+\.xml", name)
+    )
+    for name in audience_parts:
+        text = _normalized_slide_text(archive.read(name))
+        for phrase in blocked:
+            if phrase in text:
+                raise RevisionExportUnavailable(
+                    "PPTX revisado contém placeholder ou instrução antiga "
+                    f"em {name}: {phrase}"
+                )
 
 
 _PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
@@ -428,6 +468,7 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 f"sequência do PPTX deveria conter {EXPECTED_SLIDES} slides; contém {len(ordered_slides)}"
             )
+        _validate_no_blocked_audience_copy(archive)
         for slide_number, (slide_path, expected_tokens) in enumerate(
             zip(ordered_slides, EXPECTED_SLIDE_SEQUENCE, strict=True),
             start=1,
@@ -460,7 +501,13 @@ def validate_revision_pptx(payload: bytes) -> None:
         canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
         _validate_native_table_slide(
             archive,
-            4,
+            3,
+            expected_dimensions=((7, 3),),
+            canvas=canvas,
+        )
+        _validate_native_table_slide(
+            archive,
+            5,
             expected_dimensions=((8, 11),),
             canvas=canvas,
         )
@@ -520,7 +567,11 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
             )
-        placement_slide = _slide_xml_containing(archive, "OFERTAS", "VOLUME E REGIME")
+        placement_slide = _slide_xml_containing(
+            archive,
+            "GARANTIA FIRME",
+            "MELHORES ESFORÇOS REPR.",
+        )
         if placement_slide.count(b"<c:chart") < 4:
             raise RevisionExportUnavailable(
                 "slide de volume e regime deve conter quatro gráficos nativos do Office"
@@ -532,9 +583,22 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide conjunto CVM e ANBIMA deve conter dois gráficos nativos do Office"
             )
-        if combined_market_slide.count(b"<a:tbl>") != 0:
+        if combined_market_slide.count(b"<a:tbl>") != 1:
             raise RevisionExportUnavailable(
-                "slide conjunto CVM e ANBIMA não deve conter tabela nativa"
+                "slide conjunto CVM e ANBIMA deve conter uma tabela nativa"
+            )
+        stock_and_types_slide = _slide_xml_containing(
+            archive,
+            "SALDO E TIPOS DE FIDCS",
+            "FINANCEIROS DOMINAM SALDO E NOVAS EMISSÕES",
+        )
+        if stock_and_types_slide.count(b"<c:chart") != 4:
+            raise RevisionExportUnavailable(
+                "slide de saldo e tipos deve conter quatro gráficos nativos do Office"
+            )
+        if stock_and_types_slide.count(b"<a:tbl>") != 0:
+            raise RevisionExportUnavailable(
+                "slide de saldo e tipos não deve conter tabela nativa"
             )
         taxonomy_market_slide = _slide_xml_containing(
             archive, "EMISSÕES POR CATEGORIA ANBIMA"
@@ -554,6 +618,20 @@ def validate_revision_pptx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "slide de maiores ofertas deve conter duas tabelas nativas do Office"
             )
+        provider_concentration_slide = _slide_xml_containing(
+            archive,
+            "PRESTADORES",
+            "RANKING E CONCENTRAÇÃO",
+        )
+        if provider_concentration_slide.count(b"<c:chart") != 2:
+            raise RevisionExportUnavailable(
+                "slide de concentração de prestadores deve conter "
+                "dois gráficos nativos do Office"
+            )
+        if provider_concentration_slide.count(b"<a:tbl>") != 0:
+            raise RevisionExportUnavailable(
+                "slide de concentração de prestadores não deve conter tabela nativa"
+            )
         _slide_xml_containing(archive, "O QUE MUDA A LEITURA DO MERCADO")
 
 
@@ -566,6 +644,33 @@ def validate_revision_xlsx(payload: bytes) -> None:
     if missing:
         raise RevisionExportUnavailable(
             "XLSX revisado sem abas obrigatórias: " + ", ".join(missing)
+        )
+
+
+def validate_revision_portfolio_xlsx(payload: bytes) -> None:
+    """Validate the standalone Carteira 101 and flagship workbook."""
+
+    if not _valid_zip(payload, "xl/workbook.xml"):
+        raise RevisionExportUnavailable(
+            "XLSX de Carteira 101 e Flagships inválido ou corrompido"
+        )
+    try:
+        with zipfile.ZipFile(BytesIO(payload)) as archive:
+            workbook_root = ElementTree.fromstring(archive.read("xl/workbook.xml"))
+    except (KeyError, OSError, zipfile.BadZipFile, ElementTree.ParseError) as exc:
+        raise RevisionExportUnavailable(
+            "XLSX de Carteira 101 e Flagships inválido ou corrompido"
+        ) from exc
+    sheet_names = {
+        str(node.attrib.get("name") or "")
+        for node in workbook_root.iter()
+        if node.tag.endswith("}sheet")
+    }
+    missing = sorted(REQUIRED_PORTFOLIO_WORKBOOK_SHEETS - sheet_names)
+    if missing:
+        raise RevisionExportUnavailable(
+            "XLSX de Carteira 101 e Flagships sem abas obrigatórias: "
+            + ", ".join(missing)
         )
 
 
@@ -643,6 +748,17 @@ def revision_xlsx_candidates(data_dir: Path = DEFAULT_DATA_DIR) -> tuple[Path, .
         materialized_name=MATERIALIZED_XLSX_NAME,
         output_name="Industria_FIDC_Dados_202607_revisado.xlsx",
         env_name="FIDC_REVISION_XLSX",
+    )
+
+
+def revision_portfolio_xlsx_candidates(
+    data_dir: Path = DEFAULT_DATA_DIR,
+) -> tuple[Path, ...]:
+    return _candidate_paths(
+        Path(data_dir),
+        materialized_name=MATERIALIZED_PORTFOLIO_XLSX_NAME,
+        output_name=MATERIALIZED_PORTFOLIO_XLSX_NAME,
+        env_name="FIDC_REVISION_PORTFOLIO_XLSX",
     )
 
 
@@ -854,6 +970,11 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         dict(manifest.get("xlsx") or {}),
         validate_revision_xlsx,
     )
+    portfolio_xlsx_path, portfolio_xlsx_bytes = _matching_candidate(
+        revision_portfolio_xlsx_candidates(data_dir),
+        dict(manifest.get("portfolio_xlsx") or {}),
+        validate_revision_portfolio_xlsx,
+    )
     html_path, html_bytes = _matching_candidate(
         revision_html_candidates(data_dir),
         dict(manifest.get("html") or {}),
@@ -865,6 +986,8 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         pptx_bytes=pptx_bytes,
         xlsx_path=xlsx_path,
         xlsx_bytes=xlsx_bytes,
+        portfolio_xlsx_path=portfolio_xlsx_path,
+        portfolio_xlsx_bytes=portfolio_xlsx_bytes,
         html_path=html_path,
         html_bytes=html_bytes,
     )
@@ -901,6 +1024,7 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
     bundle_id = ""
     pptx_path = revision_pptx_candidates(data_dir)[0]
     xlsx_path = revision_xlsx_candidates(data_dir)[0]
+    portfolio_xlsx_path = revision_portfolio_xlsx_candidates(data_dir)[0]
     html_path = revision_html_candidates(data_dir)[0]
     error = ""
     valid = False
@@ -909,6 +1033,7 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
         bundle_id = str(bundle.manifest.get("bundle_id") or "")
         pptx_path = bundle.pptx_path
         xlsx_path = bundle.xlsx_path
+        portfolio_xlsx_path = bundle.portfolio_xlsx_path
         html_path = bundle.html_path
         valid = True
     except RevisionExportUnavailable as exc:
@@ -933,6 +1058,8 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
         pptx_exists=pptx_path.exists(),
         xlsx_path=str(xlsx_path),
         xlsx_exists=xlsx_path.exists(),
+        portfolio_xlsx_path=str(portfolio_xlsx_path),
+        portfolio_xlsx_exists=portfolio_xlsx_path.exists(),
         html_path=str(html_path),
         html_exists=html_path.exists(),
         artifact_runtime_available=artifact_runtime_available(),
@@ -947,6 +1074,12 @@ def build_revision_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return _load_validated_bundle(data_dir).xlsx_bytes
 
 
+def build_revision_portfolio_xlsx_bytes(
+    data_dir: Path = DEFAULT_DATA_DIR,
+) -> bytes:
+    return _load_validated_bundle(data_dir).portfolio_xlsx_bytes
+
+
 def build_revision_html_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return _load_validated_bundle(data_dir).html_bytes
 
@@ -954,10 +1087,13 @@ def build_revision_html_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
 __all__ = [
     "BUNDLE_SCHEMA",
     "MATERIALIZED_HTML_NAME",
+    "MATERIALIZED_PORTFOLIO_XLSX_NAME",
+    "REQUIRED_PORTFOLIO_WORKBOOK_SHEETS",
     "RevisionExportStatus",
     "RevisionExportUnavailable",
     "artifact_runtime_available",
     "build_revision_pptx_bytes",
+    "build_revision_portfolio_xlsx_bytes",
     "build_revision_xlsx_bytes",
     "build_revision_html_bytes",
     "get_revision_export_status",
@@ -965,7 +1101,9 @@ __all__ = [
     "revision_export_signature",
     "revision_payload_path",
     "revision_html_candidates",
+    "revision_portfolio_xlsx_candidates",
     "validate_revision_html",
+    "validate_revision_portfolio_xlsx",
     "validate_revision_pptx",
     "validate_revision_xlsx",
 ]

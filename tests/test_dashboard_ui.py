@@ -679,12 +679,14 @@ def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) ->
         "industry_investor_distribution.csv",
         "industry_investor_types.csv",
         "industry_large_fund_documents.csv.gz",
+        "industry_cnpj_manual_enrichment.csv",
         "industry_intelligence_manifest.json",
         "generated_revision/artifact_payload.json",
         "generated_revision/revision_manifest.json",
         "generated_revision/industry_export_bundle.json",
         "generated_revision/industry_executive_revised.pptx",
         "generated_revision/industry_data_revised.xlsx",
+        "generated_revision/carteira_101_flagships.xlsx",
         "generated_revision/provider_flows_explorer.html",
     }.issubset(_INDUSTRY_EXPORT_INPUTS)
 

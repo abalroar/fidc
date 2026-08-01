@@ -47,6 +47,12 @@ OUTPUT_COLUMNS = (
     "closed_offers_share",
     "registered_volume_brl",
     "registered_volume_share",
+    "comparison_period_label",
+    "comparison_period_start",
+    "comparison_period_end",
+    "comparison_closed_offers",
+    "comparison_registered_volume_brl",
+    "registered_volume_yoy_ytd",
     "period_closed_offers",
     "period_registered_volume_brl",
     "source_dataset",
@@ -124,6 +130,7 @@ def build_closed_offer_placement_regime(
         "period_label",
         "period_start",
         "period_end",
+        "data_encerramento",
         "is_full_year",
         "registered_volume_brl",
     }
@@ -193,6 +200,18 @@ def build_closed_offer_placement_regime(
     joined["placement_regime"] = joined["source_distribution_regime"].map(
         _regime_bucket
     )
+    joined["data_encerramento"] = pd.to_datetime(
+        joined["data_encerramento"], errors="coerce"
+    )
+    if joined["data_encerramento"].isna().any():
+        raise ClosedOfferPlacementRegimeError(
+            "Coorte contém data de encerramento inválida."
+        )
+    comparable_ytd = joined[
+        joined["data_encerramento"].between(
+            pd.Timestamp("2025-01-01"), pd.Timestamp("2025-06-30")
+        )
+    ].copy()
 
     scope = (
         "Cotas de FIDC | oferta pública primária encerrada | todos os ritos CVM | "
@@ -214,6 +233,14 @@ def build_closed_offer_placement_regime(
             group = period[period["placement_regime"].eq(regime)]
             offers = int(group["offer_id"].nunique())
             volume = float(group["registered_volume_brl"].sum())
+            comparable_group = comparable_ytd[
+                comparable_ytd["placement_regime"].eq(regime)
+            ]
+            comparison_offers = int(comparable_group["offer_id"].nunique())
+            comparison_volume = float(
+                comparable_group["registered_volume_brl"].sum()
+            )
+            has_ytd_comparison = period_label == "2026 jan-jun"
             rows.append(
                 {
                     "period_order": int(template["period_order"]),
@@ -231,6 +258,26 @@ def build_closed_offer_placement_regime(
                     "registered_volume_brl": volume,
                     "registered_volume_share": (
                         volume / period_volume if period_volume else 0.0
+                    ),
+                    "comparison_period_label": (
+                        "2025 jan-jun" if has_ytd_comparison else "N/D"
+                    ),
+                    "comparison_period_start": (
+                        "2025-01-01" if has_ytd_comparison else "N/D"
+                    ),
+                    "comparison_period_end": (
+                        "2025-06-30" if has_ytd_comparison else "N/D"
+                    ),
+                    "comparison_closed_offers": (
+                        comparison_offers if has_ytd_comparison else np.nan
+                    ),
+                    "comparison_registered_volume_brl": (
+                        comparison_volume if has_ytd_comparison else np.nan
+                    ),
+                    "registered_volume_yoy_ytd": (
+                        volume / comparison_volume - 1.0
+                        if has_ytd_comparison and comparison_volume > 0
+                        else np.nan
                     ),
                     "period_closed_offers": period_offers,
                     "period_registered_volume_brl": period_volume,
@@ -302,6 +349,28 @@ def validate_closed_offer_placement_regime(
             raise ClosedOfferPlacementRegimeError(
                 f"Tabela de regime contém valor negativo em {column}."
             )
+    current = result["period_label"].eq("2026 jan-jun")
+    for column in (
+        "comparison_closed_offers",
+        "comparison_registered_volume_brl",
+    ):
+        result[column] = pd.to_numeric(result[column], errors="coerce")
+        if result.loc[current, column].isna().any():
+            raise ClosedOfferPlacementRegimeError(
+                f"Comparável YTD ausente em {column}."
+            )
+    result["registered_volume_yoy_ytd"] = pd.to_numeric(
+        result["registered_volume_yoy_ytd"], errors="coerce"
+    )
+    comparable_positive = current & result["comparison_registered_volume_brl"].gt(0)
+    if result.loc[comparable_positive, "registered_volume_yoy_ytd"].isna().any():
+        raise ClosedOfferPlacementRegimeError(
+            "Crescimento YTD ausente onde o comparável tem volume positivo."
+        )
+    if not result.loc[~current, "comparison_period_label"].eq("N/D").all():
+        raise ClosedOfferPlacementRegimeError(
+            "Comparável YTD deve ficar restrito ao período jan–jun/26."
+        )
     for period_label, period in result.groupby("period_label", sort=False):
         if int(period["closed_offers"].sum()) != int(
             period["period_closed_offers"].iloc[0]
@@ -338,14 +407,75 @@ def validate_closed_offer_placement_regime(
     ).reset_index(drop=True)
 
 
+def _enrich_materialized_ytd_comparison(
+    frame: pd.DataFrame,
+    cohort: pd.DataFrame,
+) -> pd.DataFrame:
+    """Add the Jan-Jun/25 comparison to a pre-extension materialized table."""
+
+    result = frame.copy()
+    cohort = cohort.copy()
+    cohort["data_encerramento"] = pd.to_datetime(
+        cohort["data_encerramento"], errors="coerce"
+    )
+    cohort["registered_volume_brl"] = pd.to_numeric(
+        cohort["registered_volume_brl"], errors="coerce"
+    )
+    comparison = cohort[
+        cohort["data_encerramento"].between(
+            pd.Timestamp("2025-01-01"), pd.Timestamp("2025-06-30")
+        )
+    ].copy()
+    comparison["placement_regime"] = comparison["distribution_regime"].map(
+        _regime_bucket
+    )
+    current = result["period_label"].eq("2026 jan-jun")
+    result["comparison_period_label"] = np.where(
+        current, "2025 jan-jun", "N/D"
+    )
+    result["comparison_period_start"] = np.where(
+        current, "2025-01-01", "N/D"
+    )
+    result["comparison_period_end"] = np.where(
+        current, "2025-06-30", "N/D"
+    )
+    result["comparison_closed_offers"] = np.nan
+    result["comparison_registered_volume_brl"] = np.nan
+    result["registered_volume_yoy_ytd"] = np.nan
+    for index in result.index[current]:
+        regime = result.at[index, "placement_regime"]
+        group = comparison[comparison["placement_regime"].eq(regime)]
+        offers = int(group["numero_requerimento"].astype(str).nunique())
+        volume = float(group["registered_volume_brl"].sum())
+        current_volume = float(result.at[index, "registered_volume_brl"])
+        result.at[index, "comparison_closed_offers"] = offers
+        result.at[index, "comparison_registered_volume_brl"] = volume
+        result.at[index, "registered_volume_yoy_ytd"] = (
+            current_volume / volume - 1.0 if volume > 0 else np.nan
+        )
+    return result
+
+
 def load_materialized_closed_offer_placement_regime(
     data_dir: str | Path,
 ) -> pd.DataFrame:
-    path = Path(data_dir) / OUTPUT_FILENAME
+    root = Path(data_dir)
+    path = root / OUTPUT_FILENAME
     if not path.is_file():
         raise FileNotFoundError(f"Tabela de regime ausente: {path}")
+    frame = pd.read_csv(path, low_memory=False)
+    if set(OUTPUT_COLUMNS).difference(frame.columns):
+        cohort_path = root / COHORT_FILENAME
+        if not cohort_path.is_file():
+            raise FileNotFoundError(
+                f"Coorte necessária ao comparável YTD ausente: {cohort_path}"
+            )
+        frame = _enrich_materialized_ytd_comparison(
+            frame,
+            pd.read_csv(cohort_path, low_memory=False),
+        )
     return validate_closed_offer_placement_regime(
-        pd.read_csv(path, low_memory=False)
+        frame
     )
 
 

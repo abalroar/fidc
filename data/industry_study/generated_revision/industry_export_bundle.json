@@ -2,10 +2,14 @@
   "analysis_manifest": {
     "bytes": 8064,
     "name": "revision_manifest.json",
-    "sha256": "7ffe77a57bced1937f5274524b00e97a893e2952abb2ab944b79489dfaa7feba"
+    "sha256": "f86e5029f87afe65901aa0f6b62e9acc20341f6cc5a2181850d4ab89d4cff28b"
   },
-  "bundle_id": "202606_deaa31499bb6640b",
+  "bundle_id": "202606_9d2de752ed5eadc7",
   "checks": {
+    "portfolio_export_carteira_101": 101,
+    "portfolio_export_coverage": 24,
+    "portfolio_export_flagships": 47,
+    "portfolio_export_gaps": 148,
     "profiles": 20,
     "slides": 26,
     "top100_outros_review": 100,
@@ -14,13 +18,13 @@
     "top20_outros": 20,
     "top20_taxonomy_review": 320
   },
-  "generated_at_utc": "2026-08-01T15:01:59+00:00",
+  "generated_at_utc": "2026-08-01T18:09:02+00:00",
   "html": {
     "bytes": 421209,
     "name": "provider_flows_explorer.html",
     "sha256": "cfa29979975f7b292e10c3d21c32473b6ab0833e5172d6c693604128321f2e63"
   },
-  "input_signature": "464ca55979fca21e34ba116bdec363218a339f953a2dbb95ca74aa5708deb9e5",
+  "input_signature": "06d446f7ed815107f5545de6711744f5205390e22fa3becba1d55cb66df206af",
   "inputs": {
     "analysis/adquirencia_mix_reclassificado.csv": "6f14d16d94c27ca39a6434eafb6d85160fc04f48f091998e89d9966633b90b3f",
     "analysis/bancos_fidcs_detalhe.csv": "73c9976b0062cbe0594b7c3393e372d7f64f193bddfb48c3b0fc17244c822c4d",
@@ -49,7 +53,7 @@
     "analysis/monoestrutura_concentracao.csv": "82fe0a2cb1c0d4bf088d7a78ba3cadbda863a7fedc42ba192dee3393f81ca35a",
     "analysis/monoestrutura_por_fundo.csv": "87e0c2df9d987ca182b9758eef130ffa5d52f98fbcd463d1f8f829b489e0b703",
     "analysis/prestadores_historico_cvm_cobertura.csv": "d4dba1221ae4a065415e803d034070d044fce305e85c6dfc4817b5456a78f215",
-    "analysis/prestadores_historico_cvm_manifest.json": "b399d5aa6bab680e16a4cc79041bfc8f41f47a9311a01ce4aa44cc4047fd4442",
+    "analysis/prestadores_historico_cvm_manifest.json": "da9f7a6ede2233a2e46cd57b6b3ff4be79ee6c53b0d854037159f5d5a1bf45e6",
     "analysis/prestadores_historico_cvm_snapshot.csv.gz": "5f037ff43f25ff0b8d35ba3cd8053b42cb8d95d779007def01b4f04b3660856b",
     "analysis/prestadores_historico_cvm_transicoes_detalhe.csv.gz": "2831ee0e04b57f676f45a37189b31a28d275953b4616cb0211f9eb5da3edd8a6",
     "analysis/prestadores_historico_cvm_transicoes_links.csv": "58fec9d216c9a7d3a9eba2218590f25351c26ece3d1f7720a27102f36e1a53e3",
@@ -84,13 +88,13 @@
     "builder/build_fidc_offer_ticket_distribution.py": "89cbda2b4d4375f1eb629ed121635f3e30c5842f134a2f796078ecec3915056a",
     "builder/build_fidc_provider_history.py": "e29401789b75ea644fb5320b970d56d780f1e4755c697f40cd99f0d80750d163",
     "builder/build_fidc_revision_analysis.py": "130036560f69a01f36cee20adf8e44eb0f9133851a69b986ca6fe3d2e85c9cd0",
-    "builder/build_fidc_revision_artifact_payload.py": "a789fa4f153b63d1fc20b0b025156db402f2683941fb64cbeb88f930ceb342cf",
-    "builder/build_fidc_revision_artifacts.mjs": "9b39404f26bbc27b18b3b80a8193d5898db8c5c8f7bae935123cf62c3d9b83ae",
+    "builder/build_fidc_revision_artifact_payload.py": "6dc0c2ade092ca2d4f36b22d44e112b4627f4be38d052e02dd445b44943df82b",
+    "builder/build_fidc_revision_artifacts.mjs": "7339da8f0ce3bfdd92286877cf4902c1241ade7e76b00a3ea49fed5ab25f3ef1",
     "builder/build_fidc_top20_outros_regulations.py": "6970815a74b16a4d7df1c94082315349afb355687fb9f380d642870e197e52ac",
     "builder/build_fidc_top20_taxonomy_document_conclusions.py": "36e46429714124b1650ff57cdf77e639a81efdd2b68ce13214dd3af46632fbae",
     "builder/build_provider_flow_explorer.mjs": "71a6c638e7ac7902ff936b67ba1fd8f12ef8d42b9e1dc666852288104709f6ac",
     "builder/industry_bcb_expanded_credit.py": "d82cd4a1baed9da44d5f97e3dde6d643ad4315c3dfe9eda2d8a99c80f9a487a9",
-    "builder/industry_closed_offer_placement_regime.py": "cb0a56e878697f2fab64d73954248160e75f670ee05d525fdba68fc9d20b5489",
+    "builder/industry_closed_offer_placement_regime.py": "72e499d0576c156432e6144438d33128a76fa70653beb25dcb0a5e1528a8acfe",
     "builder/industry_closed_offer_rankings.py": "1f737447803d90dc6b4d2e110d8610057b26cd3ee087d7e07ac2c1ca6fec90c3",
     "builder/industry_closed_offers.py": "1490abed6a7e70c2e8a6476d66937119739c922af9bc46eed51615620a4a0645",
     "builder/industry_closed_offers_source.py": "72cbc9dc276542ed1858094503fb4a6d93946b2ca388555faba2a40c4af83da4",
@@ -101,12 +105,13 @@
     "builder/industry_market_offer_reconciliation.py": "46ce5ce7f895e105a36b4e2a5c096f18d7d99d68d26a85d5b0ffce48581e9b8b",
     "builder/industry_offer_document_curation.py": "3bb4a1350fd0f1061cbfd2ab3d72294ae3af921ed16837361a6931c92ba6a31c",
     "builder/industry_offer_ticket_distribution.py": "7c3d367f5a5469415a3326e989f184ca944bd272a074d0ef5b463ce5364fd7f9",
+    "builder/industry_portfolio_export.py": "0b8684f6c7dd10c53c28866cb5f435ae9494c92744761f52b317ab5b42147cdd",
     "builder/industry_ppt_export.py": "a88e65091a2be14ece8e00f1679bd2ceb3a90e8a17665fa7c317ceb868202824",
     "builder/industry_provider_history.py": "bad296a59fdf51ccfcd22021bae8343374d930f4f177da088d9714d15b838308",
     "builder/industry_public_offers.py": "63d052eda4053d34608934c9ef1be26c06167d994f6ef9d62d43a2173fea0814",
     "builder/industry_revision_additions.py": "b3ba3704d8f1771c6fcf152d831053ab8588b3e2484bdb498358faef72a000da",
     "builder/industry_revision_analysis.py": "5838e6f0223f88978c6d9b866dd935c292e0ed0d5483db10dcae592ca8264ef7",
-    "builder/industry_revision_export.py": "a774b961c018e4ac9241173fa910954664c46c60fc818f4041b3e7cb290ffe05",
+    "builder/industry_revision_export.py": "7a3333a76853d1ddf95b19c7c0499e286816678d8273097ff0f8bd71fdfc45e1",
     "builder/industry_taxonomy_review.py": "10d919a9f25d484cd1f702a962f3f43bc76017521f25040fad791c0b882c030b",
     "builder/industry_top20_outros_regulations.py": "b92982bdc0632ec5b8b77a4753fd39febf94223c8f1778822dc61d7a8c39de1a",
     "builder/patch_pptx_native_market_charts.py": "d72e2377f0b4b02a2127ce4a6d4901063a656785f304a00400192531cc756b0e",
@@ -132,6 +137,7 @@
     "data/industry_closed_offer_ticket_distribution.csv": "bdb06709723208a44a90fea28c1ca9facdc68fdf4646b6f219004fb3d940f3dc",
     "data/industry_closed_offers_annual.csv": "859e7d7f94a26a2dada2d94116344cf1975d98223fb5103f3d64568701ac7f6c",
     "data/industry_closed_offers_monthly.csv": "9d1e6d00acbba54b8a9b403bc7216ef8c673d3a584a6012985db05c0a6430767",
+    "data/industry_cnpj_manual_enrichment.csv": "b67a442b4efff6618ee5e76fee9e608a23eb9756a27dc6fb760f2cc57fbac6b0",
     "data/industry_competence_status.csv": "f8472404154f768fcd0a583ec18ba3d84195f14c12ba0534a81c3fcaa7169f4b",
     "data/industry_fic_detection_audit.csv": "9c64d08794e3eb2180a22736c521625d73993c5515a098598d7d7baa65d0a427",
     "data/industry_fixed_income_offer_comparison.csv": "c0c9717cc63bd67f55360fc00e3bf79d16ac6192a1678561090ffa987b89155b",
@@ -163,36 +169,41 @@
     "data/top20_profile_curation_overrides.csv": "cfb57b454e8aabd28f4b26dfaaa7d181d2bf720ad11e75f3364e35e3e75d7ca0",
     "data/vehicle_monthly.csv.gz": "8ef7b6b4502d49ec02eed1f97d721fbfc4521a1897dd596e72a7fc88a2bcb879",
     "source/cad_fi_hist.zip": "c84dd1b37cb3f23554a271b0cd4053d7dfda70dbcc5c84a331709abbfb54fb5a",
-    "workbook/generated_current.xlsx": "eabf957c4517729bdb74f7b4bf5ea1113a8369bfed3b995a7f2f49f7fd6dc89b",
-    "workbook/input.xlsx": "e2994b3e114d518d0a6d449b61f4468f36be58fa620a210aaedaf19552463d2f"
+    "workbook/generated_current.xlsx": "ab6f2b9b7f63bf4d592f617d7b6c7825c381d43feb3881ca475a85510892c9b2",
+    "workbook/input.xlsx": "f7d8546f8ece902b325c6082ccae605ea71bbe03d487b2576042fa941a5eb1c0"
   },
   "latest_complete": "2026-06",
   "offers_as_of": "2026-06-30",
   "payload": {
-    "bytes": 16055629,
+    "bytes": 16696960,
     "name": "artifact_payload.json",
-    "sha256": "deaa31499bb6640b890f6179ec4605d1ab3533049a7dce41dcb89a7861cbe21e"
+    "sha256": "9d2de752ed5eadc77e5a5cce043885443dbbe9f2b4e84b91bab651c5899d2fa7"
   },
-  "payload_schema": "fidc_revision_artifact_payload_v7",
-  "payload_sha256": "deaa31499bb6640b890f6179ec4605d1ab3533049a7dce41dcb89a7861cbe21e",
+  "payload_schema": "fidc_revision_artifact_payload_v8",
+  "payload_sha256": "9d2de752ed5eadc77e5a5cce043885443dbbe9f2b4e84b91bab651c5899d2fa7",
+  "portfolio_xlsx": {
+    "bytes": 93597,
+    "name": "carteira_101_flagships.xlsx",
+    "sha256": "3471164e0db44e00e12b77822937f92138319c1ad5b396fd4fea9edf186968eb"
+  },
   "pptx": {
-    "bytes": 188524,
+    "bytes": 194282,
     "name": "industry_executive_revised.pptx",
-    "sha256": "d476d7ecabf451028197d24d4d30b0e480373410c6cbf125af57ac6e143dcc62"
+    "sha256": "0c796609a07aa12b50fa6e4d021428806db4167a3da368ed86251514987f8816"
   },
   "renderer": {
     "artifact_tool_version": "2.8.36",
-    "node_version": "v25.9.0",
-    "renderer_sha256": "9b39404f26bbc27b18b3b80a8193d5898db8c5c8f7bae935123cf62c3d9b83ae",
-    "renderer_version": "industry_revision_artifacts_v36"
+    "node_version": "v24.14.0",
+    "renderer_sha256": "7339da8f0ce3bfdd92286877cf4902c1241ade7e76b00a3ea49fed5ab25f3ef1",
+    "renderer_version": "industry_revision_artifacts_v38"
   },
-  "renderer_sha256": "9b39404f26bbc27b18b3b80a8193d5898db8c5c8f7bae935123cf62c3d9b83ae",
-  "renderer_version": "industry_revision_artifacts_v36",
-  "schema_version": "fidc_revision_export_bundle_v2",
-  "source_signature": "deaa31499bb6640b890f6179ec4605d1ab3533049a7dce41dcb89a7861cbe21e",
+  "renderer_sha256": "7339da8f0ce3bfdd92286877cf4902c1241ade7e76b00a3ea49fed5ab25f3ef1",
+  "renderer_version": "industry_revision_artifacts_v38",
+  "schema_version": "fidc_revision_export_bundle_v3",
+  "source_signature": "9d2de752ed5eadc77e5a5cce043885443dbbe9f2b4e84b91bab651c5899d2fa7",
   "xlsx": {
-    "bytes": 6341888,
+    "bytes": 6345376,
     "name": "industry_data_revised.xlsx",
-    "sha256": "f7d8546f8ece902b325c6082ccae605ea71bbe03d487b2576042fa941a5eb1c0"
+    "sha256": "5e3621c0e352bca34c488b70dae42ed56ce2bc4477cb1254f2b5c797d035b4e8"
   }
 }
