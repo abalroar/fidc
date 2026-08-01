@@ -4,10 +4,131 @@ import pandas as pd
 import pytest
 
 from scripts.build_fidc_revision_artifact_payload import (
+    _apply_manual_enrichment_to_rankings,
     _apply_detected_fic_history,
+    _load_manual_cnpj_enrichment,
     _portfolio_type_mix_history,
     _type_mix_history,
 )
+
+
+def test_manual_photo_loader_accepts_confirmed_status_with_underscore(tmp_path) -> None:
+    path = tmp_path / "manual.csv"
+    pd.DataFrame(
+        [
+            {
+                "raiz_cnpj_foto": "12345678",
+                "cedente_originador_literal": "Grupo",
+                "papel_literal": "cedente",
+                "originador": "",
+                "cedente": "Grupo",
+                "sacado_devedor": "",
+                "tipo_recebivel_literal": "Recebível",
+                "fonte_imagem": "IMG.JPG",
+                "localizacao_imagem": "linha 1",
+                "status_transcricao": "confirmado_legivel",
+            },
+            {
+                "raiz_cnpj_foto": "87654321",
+                "cedente_originador_literal": "Revisar",
+                "papel_literal": "N/D",
+                "originador": "",
+                "cedente": "",
+                "sacado_devedor": "",
+                "tipo_recebivel_literal": "",
+                "fonte_imagem": "IMG2.JPG",
+                "localizacao_imagem": "linha 2",
+                "status_transcricao": "revisao",
+            },
+        ]
+    ).to_csv(path, index=False)
+
+    loaded = _load_manual_cnpj_enrichment(path)
+
+    assert loaded["status_confirmado"].tolist() == [True, False]
+
+
+def test_manual_photo_enrichment_only_fills_gaps_and_marks_asterisk() -> None:
+    ranking = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "12345678000190",
+                "cedente_originador": "N/D",
+                "cedente_status": "N/D",
+                "evidencia_cedente": "N/D",
+                "limitacao_cedente": "N/D",
+            },
+            {
+                "cnpj_fundo": "87654321000109",
+                "cedente_originador": "Documental",
+                "cedente_status": "documental",
+                "evidencia_cedente": "regulamento",
+                "limitacao_cedente": "N/D",
+            },
+        ]
+    )
+    audit = pd.DataFrame(
+        [
+            {
+                "cnpj": "12345678000190",
+                "originador": "N/D",
+                "cedente": "N/D",
+                "sacado": "N/D",
+                "fonte_originador_cedente": "N/D",
+                "fonte_sacado": "N/D",
+                "status": "N/D",
+            },
+            {
+                "cnpj": "87654321000109",
+                "originador": "Originador documental",
+                "cedente": "Cedente documental",
+                "sacado": "Sacado documental",
+                "fonte_originador_cedente": "regulamento",
+                "fonte_sacado": "regulamento",
+                "status": "documental",
+            },
+        ]
+    )
+    manual = pd.DataFrame(
+        [
+            {
+                "raiz_cnpj_foto": "12345678",
+                "cedente_originador_literal": "Grupo manual",
+                "originador": "Originador manual",
+                "cedente": "Cedente manual",
+                "sacado_devedor": "Sacado manual",
+                "tipo_recebivel_literal": "Recebível manual",
+                "fonte_imagem": "IMG_0001.JPG",
+                "localizacao_imagem": "linha 1",
+                "status_confirmado": True,
+            },
+            {
+                "raiz_cnpj_foto": "87654321",
+                "cedente_originador_literal": "Não deve substituir",
+                "originador": "Não deve substituir",
+                "cedente": "Não deve substituir",
+                "sacado_devedor": "Não deve substituir",
+                "tipo_recebivel_literal": "Recebível manual",
+                "fonte_imagem": "IMG_0002.JPG",
+                "localizacao_imagem": "linha 2",
+                "status_confirmado": True,
+            },
+        ]
+    )
+
+    enriched_ranking, enriched_audit = _apply_manual_enrichment_to_rankings(
+        ranking, audit, manual
+    )
+
+    assert enriched_ranking.loc[0, "cedente_originador"] == "Grupo manual*"
+    assert enriched_ranking.loc[1, "cedente_originador"] == "Documental"
+    assert enriched_audit.loc[0, "originador"] == "Originador manual*"
+    assert enriched_audit.loc[0, "cedente"] == "Cedente manual*"
+    assert enriched_audit.loc[0, "sacado"] == "Sacado manual*"
+    assert enriched_audit.loc[1, "originador"] == "Originador documental"
+    assert enriched_audit.loc[1, "cedente"] == "Cedente documental"
+    assert enriched_audit.loc[1, "sacado"] == "Sacado documental"
+    assert "IMG_0001.JPG" in enriched_audit.loc[0, "fonte_enriquecimento_manual"]
 
 
 def test_detected_fic_history_replaces_the_legacy_component() -> None:

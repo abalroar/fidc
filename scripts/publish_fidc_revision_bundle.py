@@ -40,9 +40,11 @@ from services.industry_revision_export import (
     BUNDLE_SCHEMA,
     EXPECTED_SLIDES,
     MATERIALIZED_HTML_NAME,
+    MATERIALIZED_PORTFOLIO_XLSX_NAME,
     MATERIALIZED_PPTX_NAME,
     MATERIALIZED_XLSX_NAME,
     validate_revision_html,
+    validate_revision_portfolio_xlsx,
     validate_revision_pptx,
     validate_revision_xlsx,
 )
@@ -54,7 +56,7 @@ NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v7"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v8"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -101,6 +103,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_flagship_document_curation.csv",
     "industry_carteira_1_scope.csv",
     "industry_carteira_1_document_curation.csv",
+    "industry_cnpj_manual_enrichment.csv",
     "emission_field_audit.csv",
 )
 OPTIONAL_DATA_INPUTS = (
@@ -147,6 +150,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_executive_pack.py",
     ROOT / "services" / "industry_ppt_export.py",
     ROOT / "services" / "industry_revision_export.py",
+    ROOT / "services" / "industry_portfolio_export.py",
     ROOT / "services" / "industry_taxonomy_review.py",
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
@@ -222,6 +226,7 @@ class PublishedRevisionBundle:
     payload_path: Path
     pptx_path: Path
     xlsx_path: Path
+    portfolio_xlsx_path: Path
     html_path: Path
     manifest_path: Path
 
@@ -1112,11 +1117,101 @@ def _validate_market_offer_reconciliation(
                 raise RevisionBundlePublishError(
                     f"harmonização CVM não reconcilia em {period_label}"
                 )
+def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
+    cohorts = (
+        ("portfolio_export_carteira_101", 101, "Carteira 101"),
+        ("portfolio_export_flagships", 47, "Flagships"),
+    )
+    for key, expected_count, label in cohorts:
+        rows = payload.get(key)
+        if not isinstance(rows, list) or len(rows) != expected_count:
+            raise RevisionBundlePublishError(
+                f"{key} deve conter {expected_count} linhas"
+            )
+        cnpjs: list[str] = []
+        for row in rows:
+            if not isinstance(row, Mapping):
+                raise RevisionBundlePublishError(f"{key} contém linha inválida")
+            cnpj = str(row.get("cnpj") or "").strip()
+            if not re.fullmatch(r"\d{14}", cnpj):
+                raise RevisionBundlePublishError(
+                    f"{label} contém CNPJ que não tem 14 dígitos"
+                )
+            cnpjs.append(cnpj)
+        if len(set(cnpjs)) != expected_count:
+            raise RevisionBundlePublishError(
+                f"{label} deve conter {expected_count} CNPJs únicos"
+            )
+
+    for key in ("portfolio_export_coverage", "portfolio_export_gaps"):
+        rows = payload.get(key)
+        if not isinstance(rows, list) or not rows:
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
+
+    manual = payload.get("portfolio_export_manual_audit")
+    if not isinstance(manual, list) or not manual:
+        raise RevisionBundlePublishError(
+            "payload editorial sem portfolio_export_manual_audit"
+        )
+    roots: list[str] = []
+    resolved_cnpjs: list[str] = []
+    allowed_resolution = {
+        "correspondencia_unica",
+        "sem_correspondencia",
+        "cnpj_informado",
+    }
+    for row in manual:
+        if not isinstance(row, Mapping):
+            raise RevisionBundlePublishError(
+                "portfolio_export_manual_audit contém linha inválida"
+            )
+        root = re.sub(
+            r"\D",
+            "",
+            str(row.get("raiz_cnpj_foto") or row.get("cnpj") or ""),
+        )
+        if not root:
+            raise RevisionBundlePublishError(
+                "auditoria manual contém raiz/CNPJ vazio"
+            )
+        roots.append(root)
+        status = str(row.get("status_resolucao_cnpj") or "").strip()
+        if status not in allowed_resolution:
+            raise RevisionBundlePublishError(
+                "auditoria manual contém resolução de CNPJ ambígua ou desconhecida"
+            )
+        candidate_count = int(row.get("quantidade_candidatos_cnpj") or 0)
+        if candidate_count > 1:
+            raise RevisionBundlePublishError(
+                "auditoria manual contém raiz de CNPJ ambígua"
+            )
+        resolved = str(row.get("cnpj") or "").strip()
+        if resolved:
+            if not re.fullmatch(r"\d{14}", resolved):
+                raise RevisionBundlePublishError(
+                    "auditoria manual contém CNPJ resolvido inválido"
+                )
+            resolved_cnpjs.append(resolved)
+        elif status != "sem_correspondencia":
+            raise RevisionBundlePublishError(
+                "auditoria manual perdeu o CNPJ de uma correspondência resolvida"
+            )
+    if len(set(roots)) != len(roots):
+        raise RevisionBundlePublishError(
+            "auditoria manual contém raízes/CNPJs duplicados"
+        )
+    if len(set(resolved_cnpjs)) != len(resolved_cnpjs):
+        raise RevisionBundlePublishError(
+            "auditoria manual contém CNPJs resolvidos duplicados"
+        )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
     if payload.get("latest_complete") != latest_complete:
         raise RevisionBundlePublishError("competência do payload editorial diverge")
+    _validate_portfolio_export_payload(payload)
     for key in ("top20_fidcs", "top20_outros", "profiles"):
         rows = payload.get(key)
         if not isinstance(rows, list) or len(rows) != 20:
@@ -2153,12 +2248,14 @@ def build_bundle_manifest(
     renderer: Mapping[str, str],
     generated_at_utc: str,
     html_bytes: bytes = b"",
+    portfolio_xlsx_bytes: bytes = b"",
 ) -> dict[str, object]:
     """Build the content-addressed manifest consumed by the application."""
 
     payload_hash = _sha256_bytes(payload_bytes)
     pptx_hash = _sha256_bytes(pptx_bytes)
     xlsx_hash = _sha256_bytes(xlsx_bytes)
+    portfolio_xlsx_hash = _sha256_bytes(portfolio_xlsx_bytes)
     html_hash = _sha256_bytes(html_bytes)
     input_signature = _sha256_bytes(_canonical_json_bytes(dict(input_hashes)))
     bundle_id = (
@@ -2201,6 +2298,11 @@ def build_bundle_manifest(
             "sha256": xlsx_hash,
             "bytes": len(xlsx_bytes),
         },
+        "portfolio_xlsx": {
+            "name": MATERIALIZED_PORTFOLIO_XLSX_NAME,
+            "sha256": portfolio_xlsx_hash,
+            "bytes": len(portfolio_xlsx_bytes),
+        },
         "html": {
             "name": MATERIALIZED_HTML_NAME,
             "sha256": html_hash,
@@ -2220,6 +2322,18 @@ def build_bundle_manifest(
             "top100_outros_review": len(
                 list(payload.get("top100_outros_review") or [])
             ),
+            "portfolio_export_carteira_101": len(
+                list(payload.get("portfolio_export_carteira_101") or [])
+            ),
+            "portfolio_export_flagships": len(
+                list(payload.get("portfolio_export_flagships") or [])
+            ),
+            "portfolio_export_coverage": len(
+                list(payload.get("portfolio_export_coverage") or [])
+            ),
+            "portfolio_export_gaps": len(
+                list(payload.get("portfolio_export_gaps") or [])
+            ),
         },
     }
 
@@ -2233,6 +2347,7 @@ def validate_bundle_manifest(
     pptx_bytes: bytes,
     xlsx_bytes: bytes,
     html_bytes: bytes = b"",
+    portfolio_xlsx_bytes: bytes = b"",
 ) -> None:
     if manifest.get("schema_version") != BUNDLE_SCHEMA:
         raise RevisionBundlePublishError("schema do manifest de publicação incompatível")
@@ -2252,6 +2367,7 @@ def validate_bundle_manifest(
         ("analysis_manifest", analysis_manifest_bytes),
         ("pptx", pptx_bytes),
         ("xlsx", xlsx_bytes),
+        ("portfolio_xlsx", portfolio_xlsx_bytes),
         ("html", html_bytes),
     )
     for key, content in files:
@@ -2273,6 +2389,7 @@ def validate_renderer_manifest(
     xlsx_bytes: bytes,
     renderer_sha256: str,
     html_bytes: bytes = b"",
+    portfolio_xlsx_bytes: bytes = b"",
 ) -> None:
     """Validate the renderer's own manifest before creating the publish manifest."""
 
@@ -2290,6 +2407,7 @@ def validate_renderer_manifest(
     for key, content in (
         ("pptx", pptx_bytes),
         ("xlsx", xlsx_bytes),
+        ("portfolio_xlsx", portfolio_xlsx_bytes),
         ("html", html_bytes),
     ):
         entry = dict(manifest.get(key) or {})
@@ -2312,6 +2430,19 @@ def validate_renderer_manifest(
         )
     if int(checks.get("top100_outros_review") or 0) != 100:
         raise RevisionBundlePublishError("manifest do renderer falhou na fila Top 100 Outros")
+    if portfolio_xlsx_bytes:
+        if int(checks.get("portfolio_export_carteira_101") or 0) != 101:
+            raise RevisionBundlePublishError(
+                "manifest do renderer falhou no export Carteira 101"
+            )
+        if int(checks.get("portfolio_export_flagships") or 0) != 47:
+            raise RevisionBundlePublishError(
+                "manifest do renderer falhou no export Flagships"
+            )
+        if int(checks.get("portfolio_export_coverage") or 0) <= 0:
+            raise RevisionBundlePublishError(
+                "manifest do renderer não registrou a cobertura do export estrutural"
+            )
 
 
 def publish_staged_bundle(
@@ -2322,6 +2453,7 @@ def publish_staged_bundle(
     staged_bundle_manifest: Path,
     publish_dir: Path,
     staged_html: Path | None = None,
+    staged_portfolio_xlsx: Path | None = None,
     replace: Callable[[str | bytes | os.PathLike[str] | os.PathLike[bytes], str | bytes | os.PathLike[str] | os.PathLike[bytes]], None] = os.replace,
 ) -> tuple[Path, Path, Path]:
     """Move staged outputs into place, replacing the bundle manifest last."""
@@ -2336,6 +2468,11 @@ def publish_staged_bundle(
     target_manifest = publish_dir / BUNDLE_MANIFEST_NAME
     replace(staged_pptx, target_pptx)
     replace(staged_xlsx, target_xlsx)
+    if staged_portfolio_xlsx is not None:
+        replace(
+            staged_portfolio_xlsx,
+            publish_dir / MATERIALIZED_PORTFOLIO_XLSX_NAME,
+        )
     if staged_html is not None:
         replace(staged_html, publish_dir / MATERIALIZED_HTML_NAME)
     # This commit marker is deliberately last.
@@ -2356,6 +2493,7 @@ def _run_artifact_builder(
     output_dir: Path,
     pptx_path: Path,
     xlsx_path: Path,
+    portfolio_xlsx_path: Path,
     html_path: Path,
     renderer_manifest_path: Path,
     timeout_seconds: int,
@@ -2372,6 +2510,7 @@ def _run_artifact_builder(
             "FIDC_QA_DIR": str(output_dir / "qa"),
             "FIDC_OUTPUT_PPTX": str(pptx_path),
             "FIDC_OUTPUT_XLSX": str(xlsx_path),
+            "FIDC_OUTPUT_PORTFOLIO_XLSX": str(portfolio_xlsx_path),
             "FIDC_OUTPUT_HTML": str(html_path),
             "FIDC_PROVIDER_FLOW_BUILDER": str(provider_flow_builder),
             "FIDC_EXPORT_MANIFEST": str(renderer_manifest_path),
@@ -2410,10 +2549,13 @@ def _run_artifact_builder(
     if (
         not pptx_path.exists()
         or not xlsx_path.exists()
+        or not portfolio_xlsx_path.exists()
         or not html_path.exists()
         or not renderer_manifest_path.exists()
     ):
-        raise RevisionBundlePublishError("renderer não produziu PPTX/XLSX/HTML/manifest")
+        raise RevisionBundlePublishError(
+            "renderer não produziu PPTX/XLSX Carteira 101/HTML/manifest"
+        )
 
 
 def _validate_input_workbook(path: Path) -> None:
@@ -2764,6 +2906,7 @@ def publish_revision_bundle(
 
         staged_pptx = stage_exports / MATERIALIZED_PPTX_NAME
         staged_xlsx = stage_exports / MATERIALIZED_XLSX_NAME
+        staged_portfolio_xlsx = stage_exports / MATERIALIZED_PORTFOLIO_XLSX_NAME
         staged_html = stage_exports / MATERIALIZED_HTML_NAME
         renderer_manifest_path = stage / "renderer_export_bundle.json"
         _run_artifact_builder(
@@ -2778,12 +2921,14 @@ def publish_revision_bundle(
             output_dir=stage_exports,
             pptx_path=staged_pptx,
             xlsx_path=staged_xlsx,
+            portfolio_xlsx_path=staged_portfolio_xlsx,
             html_path=staged_html,
             renderer_manifest_path=renderer_manifest_path,
             timeout_seconds=timeout_seconds,
         )
         pptx_bytes = staged_pptx.read_bytes()
         xlsx_bytes = staged_xlsx.read_bytes()
+        portfolio_xlsx_bytes = staged_portfolio_xlsx.read_bytes()
         html_bytes = staged_html.read_bytes()
         renderer_manifest = json.loads(renderer_manifest_path.read_text(encoding="utf-8"))
         validate_renderer_manifest(
@@ -2792,6 +2937,7 @@ def publish_revision_bundle(
             payload=payload,
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
+            portfolio_xlsx_bytes=portfolio_xlsx_bytes,
             html_bytes=html_bytes,
             renderer_sha256=str(renderer["renderer_sha256"]),
         )
@@ -2801,6 +2947,7 @@ def publish_revision_bundle(
         }
         validate_revision_pptx(pptx_bytes)
         validate_revision_xlsx(xlsx_bytes)
+        validate_revision_portfolio_xlsx(portfolio_xlsx_bytes)
         validate_user_facing_workbook_snapshot(xlsx_bytes, latest_complete)
         validate_revision_html(html_bytes)
         validate_deck_snapshot(pptx_bytes, latest_complete)
@@ -2811,6 +2958,7 @@ def publish_revision_bundle(
             analysis_manifest_bytes=analysis_manifest_bytes,
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
+            portfolio_xlsx_bytes=portfolio_xlsx_bytes,
             html_bytes=html_bytes,
             input_hashes=input_hashes,
             renderer=renderer,
@@ -2823,6 +2971,7 @@ def publish_revision_bundle(
             analysis_manifest_bytes=analysis_manifest_bytes,
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
+            portfolio_xlsx_bytes=portfolio_xlsx_bytes,
             html_bytes=html_bytes,
         )
         staged_manifest = stage / BUNDLE_MANIFEST_NAME
@@ -2835,6 +2984,7 @@ def publish_revision_bundle(
             staged_revision_dir=stage_revision,
             staged_pptx=staged_pptx,
             staged_xlsx=staged_xlsx,
+            staged_portfolio_xlsx=staged_portfolio_xlsx,
             staged_html=staged_html,
             staged_bundle_manifest=staged_manifest,
             publish_dir=publish_dir,
@@ -2842,6 +2992,7 @@ def publish_revision_bundle(
 
     # Re-read the committed files; the manifest is now the publication marker.
     committed_payload = publish_dir / PAYLOAD_NAME
+    target_portfolio_xlsx = publish_dir / MATERIALIZED_PORTFOLIO_XLSX_NAME
     validate_bundle_manifest(
         json.loads(target_manifest.read_text(encoding="utf-8")),
         payload_bytes=committed_payload.read_bytes(),
@@ -2849,10 +3000,12 @@ def publish_revision_bundle(
         analysis_manifest_bytes=(publish_dir / ANALYSIS_MANIFEST_NAME).read_bytes(),
         pptx_bytes=target_pptx.read_bytes(),
         xlsx_bytes=target_xlsx.read_bytes(),
+        portfolio_xlsx_bytes=target_portfolio_xlsx.read_bytes(),
         html_bytes=(publish_dir / MATERIALIZED_HTML_NAME).read_bytes(),
     )
     validate_revision_pptx(target_pptx.read_bytes())
     validate_revision_xlsx(target_xlsx.read_bytes())
+    validate_revision_portfolio_xlsx(target_portfolio_xlsx.read_bytes())
     validate_revision_html((publish_dir / MATERIALIZED_HTML_NAME).read_bytes())
     return PublishedRevisionBundle(
         bundle_id=str(manifest["bundle_id"]),
@@ -2860,6 +3013,7 @@ def publish_revision_bundle(
         payload_path=committed_payload,
         pptx_path=target_pptx,
         xlsx_path=target_xlsx,
+        portfolio_xlsx_path=target_portfolio_xlsx,
         html_path=publish_dir / MATERIALIZED_HTML_NAME,
         manifest_path=target_manifest,
     )

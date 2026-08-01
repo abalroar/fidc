@@ -771,7 +771,7 @@ def _write_current_bundle_metadata(
             index=False,
         )
     payload = {
-        "schema_version": SCHEMA_V7,
+        "schema_version": SCHEMA_V8,
         "latest_complete": "2026-06",
         "taxonomy_review_meta": {
             "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
@@ -787,7 +787,7 @@ def _write_current_bundle_metadata(
         json.dumps(
             {
                 "schema_version": BUNDLE_SCHEMA,
-                "payload_schema": SCHEMA_V7,
+                "payload_schema": SCHEMA_V8,
                 "payload_sha256": payload_hash,
                 "source_signature": payload_hash,
                 "latest_complete": "2026-06",

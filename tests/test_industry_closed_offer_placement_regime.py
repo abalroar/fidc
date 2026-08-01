@@ -54,6 +54,23 @@ def test_materialized_placement_regime_preserves_official_breakdown() -> None:
     assert count.loc["2026 jan-jun", "Misto"] == 12
 
 
+def test_placement_regime_exposes_true_prior_ytd_comparison() -> None:
+    frame = load_materialized_closed_offer_placement_regime(DATA_DIR)
+    guarantee = frame[
+        frame["period_label"].eq("2026 jan-jun")
+        & frame["placement_regime"].eq("Garantia firme")
+    ].iloc[0]
+    assert guarantee["comparison_period_label"] == "2025 jan-jun"
+    assert guarantee["comparison_closed_offers"] == 22
+    assert guarantee["comparison_registered_volume_brl"] == pytest.approx(
+        10_416_592_653.59
+    )
+    assert guarantee["registered_volume_brl"] == pytest.approx(14_299_992_000.0)
+    assert guarantee["registered_volume_yoy_ytd"] == pytest.approx(
+        0.37280911528245175
+    )
+
+
 def test_placement_regime_validation_rejects_broken_share() -> None:
     frame = load_materialized_closed_offer_placement_regime(DATA_DIR)
     broken = frame.copy()

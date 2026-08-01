@@ -23,6 +23,7 @@ from openpyxl import load_workbook
 from services.industry_revision_export import (
     RevisionExportUnavailable,
     _contains_blocked_rgb_color,
+    _validate_no_blocked_audience_copy,
     validate_revision_pptx,
 )
 
@@ -88,16 +89,34 @@ SLIDE_TOKENS = {
         "2026 YTD",
     ),
     3: (
-        "FIDCs seguem ganhando escala nas emissões",
-        "Abertura por instrumento usa o valor encerrado ANBIMA; 2023 corrigido",
+        "Emissões | FIDCs seguem ganhando escala nas emissões",
+        "No 1S26, FIDCs cresceram 14,6%; demais instrumentos recuaram 7,8%",
         "FIDCS E DEMAIS INSTRUMENTOS ELEGÍVEIS",
         "VALOR ENCERRADO POR INSTRUMENTO",
+        "Emissões por instrumento",
+        "2025 YoY %",
+        "1S26 YTD YoY",
     ),
-    4: ("EMISSÕES POR CATEGORIA ANBIMA", "EMISSÕES POR SETOR", "TOTAL EMITIDO"),
-    5: ('Abrir "Outros" revela que 63% do mercado é crédito financeiro', "PRECATÓRIOS E/OU AÇÕES JUDICIAIS", "MULTICEDENTE/MULTISACADO", "RECUPERAÇÃO / FIDCS NP"),
-    6: ("Adquirência é R$ 99 bi que a taxonomia oficial não mostra", "33 CNPJs reclassificados, 12,1% do PL"),
-    7: ("Financeiro explicou 70% do crescimento da carteira",),
-    8: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
+    4: (
+        "SALDO E TIPOS DE FIDCS",
+        "Financeiros dominam saldo e novas emissões",
+        "SALDO EX-FIC · R$ BI",
+        "PARTICIPAÇÃO NO SALDO",
+        "NOVAS EMISSÕES POR SETOR · R$ BI",
+        "NOVAS EMISSÕES POR SETOR · %",
+    ),
+    5: ("EMISSÕES POR CATEGORIA ANBIMA", "EMISSÕES POR SETOR", "TOTAL EMITIDO"),
+    6: (
+        'Abrir "Outros" revela que 63% do mercado é crédito financeiro',
+        "PRECATÓRIOS E/OU AÇÕES JUDICIAIS",
+        "MULTICEDENTE/MULTISACADO",
+        "RECUPERAÇÃO / FIDCS NP",
+    ),
+    7: (
+        "Adquirência é R$ 99 bi que a taxonomia oficial não mostra",
+        "33 CNPJs reclassificados, 12,1% do PL",
+    ),
+    8: ("Financeiro explicou 70% do crescimento da carteira",),
     9: ("RANKING · TOP 20 FIDCs",),
     10: ("Fomento Mercantil: crescimento marginal em seis meses",),
     11: ("Agro, Indústria e Comércio: o maior salto absoluto",),
@@ -110,6 +129,9 @@ SLIDE_TOKENS = {
     18: ("22 ofertas concentram 42% de todo o volume", "> R$ 100 MI"),
     19: (
         "OFERTAS · VOLUME E REGIME",
+        "Emissões | Garantia firme",
+        "YoY YTD",
+        "Melhores esforços repr. 70% do volume em 2026",
         "NÚMERO DE OFERTAS",
         "REGIME DE COLOCAÇÃO · VOLUME",
     ),
@@ -129,7 +151,7 @@ SLIDE_TOKENS = {
         "DOIS FIDCS CIELO",
     ),
     23: ("QI lidera administração; BTG lidera gestão e custódia",),
-    24: ("A liderança some quando se olha o que a sustenta",),
+    24: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
     25: ("Quase todo o volume vai para o investidor profissional",),
     26: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
 }
@@ -334,6 +356,74 @@ def test_validator_rejects_a_hidden_slide_outside_slide_three() -> None:
         validate_revision_pptx(mutated.getvalue())
 
 
+@pytest.mark.parametrize(
+    ("part_prefix", "blocked_text"),
+    [
+        ("ppt/slides/", "Clique para inserir o subtítulo"),
+        ("ppt/slides/", "Click to add title"),
+        ("ppt/notesSlides/", "Atualizar para junho"),
+        ("ppt/notesSlides/", "Copilot"),
+        ("ppt/notesSlides/", "Claude Code"),
+        ("ppt/notesSlides/", "Prompt antigo"),
+    ],
+)
+def test_validator_rejects_placeholders_and_old_instructions_in_slides_or_notes(
+    part_prefix: str,
+    blocked_text: str,
+) -> None:
+    _require(PPTX)
+    mutated = BytesIO()
+    with ZipFile(PPTX) as source, ZipFile(mutated, "w", ZIP_DEFLATED) as target:
+        candidates = sorted(
+            member.filename
+            for member in source.infolist()
+            if member.filename.startswith(part_prefix)
+            and member.filename.endswith(".xml")
+            and "/_rels/" not in member.filename
+        )
+        target_part = next(
+            name
+            for name in candidates
+            if next(
+                ET.fromstring(source.read(name)).iter(f"{{{DML}}}t"),
+                None,
+            )
+            is not None
+        )
+        for member in source.infolist():
+            content = source.read(member.filename)
+            if member.filename == target_part:
+                root = ET.fromstring(content)
+                text_node = next(root.iter(f"{{{DML}}}t"))
+                text_node.text = f"{text_node.text or ''} {blocked_text}"
+                content = ET.tostring(root, encoding="utf-8", xml_declaration=True)
+            target.writestr(member, content)
+
+    with pytest.raises(
+        RevisionExportUnavailable,
+        match="placeholder ou instrução antiga",
+    ):
+        validate_revision_pptx(mutated.getvalue())
+
+
+def test_validator_allows_legitimate_methodological_use_of_prompt() -> None:
+    package = BytesIO()
+    with ZipFile(package, "w", ZIP_DEFLATED) as archive:
+        archive.writestr(
+            "ppt/notesSlides/notesSlide1.xml",
+            (
+                '<p:notes xmlns:p="http://schemas.openxmlformats.org/'
+                'presentationml/2006/main" '
+                'xmlns:a="http://schemas.openxmlformats.org/'
+                'drawingml/2006/main">'
+                "<a:t>Prompt usado para atualizar este artefato</a:t>"
+                "</p:notes>"
+            ),
+        )
+    with ZipFile(BytesIO(package.getvalue())) as archive:
+        _validate_no_blocked_audience_copy(archive)
+
+
 def test_standard_deck_omits_transition_slides_and_local_file_references() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
@@ -464,7 +554,7 @@ def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> No
     }
     with ZipFile(PPTX) as archive:
         charts = []
-        for path in _slide_chart_paths(archive, 5):
+        for path in _slide_chart_paths(archive, 6):
             root = ET.fromstring(archive.read(path))
             bar = root.find(f".//{{{CHART}}}barChart")
             if bar is not None:
@@ -495,8 +585,8 @@ def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> No
 def test_annual_issuance_slide_contains_the_complete_anbima_taxonomy_table() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide4.xml"))
-        text = _slide_text(archive, 4)
+        slide = ET.fromstring(archive.read("ppt/slides/slide5.xml"))
+        text = _slide_text(archive, 5)
     tables = slide.findall(f".//{{{DML}}}tbl")
     assert len(tables) == 1
     assert len(tables[0].findall(f"{{{DML}}}tr")) == 8
@@ -616,8 +706,9 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
 @pytest.mark.parametrize(
     ("slide_number", "minimum_charts", "minimum_tables"),
     [
-        (3, 2, 0),  # séries CVM e ANBIMA no mesmo slide
-        (4, 2, 1),  # taxonomia em R$ bi, % e tabela
+        (3, 2, 1),  # séries CVM e ANBIMA e tabela de crescimento
+        (4, 4, 0),  # saldos, participações e emissões em R$ bi e %
+        (5, 2, 1),  # taxonomia em R$ bi, % e tabela
         (9, 0, 2),  # Top 20 FIDCs em tabelas nativas
         (10, 0, 2),  # Fomento: jun/26 e dez/25
         (11, 0, 2),  # Agro: jun/26 e dez/25
@@ -685,6 +776,13 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
         assert sum(
             chart.find(f".//{{{CHART}}}barChart") is not None for chart in charts
         ) == 4
+
+
+def test_provider_concentration_moved_to_slide_24_with_two_native_charts() -> None:
+    _require(PPTX)
+    with ZipFile(PPTX) as archive:
+        assert len(_slide_chart_paths(archive, 24)) == 2
+        assert _native_table_count(archive, 24) == 0
 
 
 @pytest.mark.parametrize(
@@ -797,7 +895,7 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
     _require(XLSX)
     workbook = load_workbook(XLSX, read_only=True, data_only=False)
     sheet = workbook["Auditoria emissões"]
-    headers = [sheet.cell(4, column).value for column in range(1, 16)]
+    headers = [sheet.cell(4, column).value for column in range(1, 19)]
     assert headers == [
         "Bloco do deck",
         "Tabela / período",
@@ -809,6 +907,9 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         "Preço por tipo de cota",
         "Cedente",
         "Sacado",
+        "Cedente / Originador literal*",
+        "Tipo de recebível literal*",
+        "Fonte enriquecimento manual",
         "Fonte originador / cedente",
         "Fonte subordinação",
         "Fonte preço",
@@ -816,7 +917,7 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         "Status",
     ]
     rows = list(
-        sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=15, values_only=True)
+        sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=18, values_only=True)
     )
     assert len(rows) == 180
     assert sum(row[0] == "slides 10–13" for row in rows) == 120
@@ -827,12 +928,15 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         for row in rows
     )
     assert all(str(row[3]).startswith(("E ", "N/D")) for row in rows)
-    assert [sum(row[column] != "N/D" for row in rows) for column in range(5, 10)] == [
+    assert [sum(row[column] != "N/D" for row in rows) for column in range(5, 13)] == [
         41,
         15,
         14,
-        5,
-        0,
+        26,
+        3,
+        21,
+        19,
+        21,
     ]
 
 

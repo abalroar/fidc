@@ -15,6 +15,7 @@ from scripts.build_fidc_revision_analysis import parse_args as parse_revision_ar
 from scripts.publish_fidc_revision_bundle import (
     ANALYSIS_MANIFEST_NAME,
     BUNDLE_MANIFEST_NAME,
+    MATERIALIZED_PORTFOLIO_XLSX_NAME,
     MATERIALIZED_PPTX_NAME,
     MATERIALIZED_XLSX_NAME,
     PAYLOAD_SCHEMA,
@@ -525,6 +526,26 @@ def _payload() -> dict[str, object]:
         "emission_field_audit": [
             {"bloco": "slides 10–13" if index < 120 else "slides 21–22"}
             for index in range(180)
+        ],
+        "portfolio_export_carteira_101": [
+            {"cnpj": f"10{index:012d}"} for index in range(1, 102)
+        ],
+        "portfolio_export_flagships": [
+            {"cnpj": f"20{index:012d}"} for index in range(1, 48)
+        ],
+        "portfolio_export_coverage": [
+            {"coorte": "Carteira 101", "campo": "sub_pl_atual"}
+        ],
+        "portfolio_export_gaps": [
+            {"coorte": "Carteira 101", "cnpj": "10000000000001"}
+        ],
+        "portfolio_export_manual_audit": [
+            {
+                "raiz_cnpj_foto": "10000000",
+                "cnpj": "10000000000001",
+                "status_resolucao_cnpj": "correspondencia_unica",
+                "quantidade_candidatos_cnpj": 1,
+            }
         ],
         "holder_distribution_history": [
             {"competencia": "2023-12"},
@@ -1131,8 +1152,52 @@ def _payload() -> dict[str, object]:
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v7"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v8"
     payload = _payload()
+    validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_incomplete_portfolio_export_cohorts() -> None:
+    payload = deepcopy(_payload())
+    payload["portfolio_export_carteira_101"].pop()
+
+    with pytest.raises(RevisionBundlePublishError, match="101 linhas"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_duplicate_portfolio_export_cnpj() -> None:
+    payload = deepcopy(_payload())
+    payload["portfolio_export_flagships"][1]["cnpj"] = payload[
+        "portfolio_export_flagships"
+    ][0]["cnpj"]
+
+    with pytest.raises(RevisionBundlePublishError, match="47 CNPJs únicos"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_ambiguous_manual_cnpj_resolution() -> None:
+    payload = deepcopy(_payload())
+    payload["portfolio_export_manual_audit"][0][
+        "status_resolucao_cnpj"
+    ] = "ambigua"
+    payload["portfolio_export_manual_audit"][0][
+        "quantidade_candidatos_cnpj"
+    ] = 2
+
+    with pytest.raises(RevisionBundlePublishError, match="ambígua"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_accepts_manual_root_without_cohort_match_when_audited() -> None:
+    payload = deepcopy(_payload())
+    payload["portfolio_export_manual_audit"][0].update(
+        {
+            "cnpj": "",
+            "status_resolucao_cnpj": "sem_correspondencia",
+            "quantidade_candidatos_cnpj": 0,
+        }
+    )
+
     validate_artifact_payload(payload, "2026-05")
 
 
@@ -1359,6 +1424,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         "analysis_manifest_bytes": b"analysis",
         "pptx_bytes": b"pptx",
         "xlsx_bytes": b"xlsx",
+        "portfolio_xlsx_bytes": b"portfolio",
         "html_bytes": b"html",
         "input_hashes": {"data/a.csv": "a" * 64},
         "renderer": {
@@ -1377,7 +1443,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     )
 
     assert first["bundle_id"] == second["bundle_id"]
-    assert first["schema_version"] == "fidc_revision_export_bundle_v2"
+    assert first["schema_version"] == "fidc_revision_export_bundle_v3"
     assert first["checks"]["slides"] == 26
     validate_bundle_manifest(
         first,
@@ -1386,6 +1452,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         analysis_manifest_bytes=b"analysis",
         pptx_bytes=b"pptx",
         xlsx_bytes=b"xlsx",
+        portfolio_xlsx_bytes=b"portfolio",
         html_bytes=b"html",
     )
     validate_renderer_manifest(
@@ -1394,6 +1461,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         payload=payload,
         pptx_bytes=b"pptx",
         xlsx_bytes=b"xlsx",
+        portfolio_xlsx_bytes=b"portfolio",
         html_bytes=b"html",
         renderer_sha256="f" * 64,
     )
@@ -1405,6 +1473,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             payload=payload,
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
+            portfolio_xlsx_bytes=b"portfolio",
             html_bytes=b"html",
             renderer_sha256="0" * 64,
         )
@@ -1419,6 +1488,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             analysis_manifest_bytes=b"analysis",
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
+            portfolio_xlsx_bytes=b"portfolio",
             html_bytes=b"html",
         )
 
@@ -1432,6 +1502,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             analysis_manifest_bytes=b"analysis",
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
+            portfolio_xlsx_bytes=b"portfolio",
             html_bytes=b"html",
         )
 
@@ -1461,9 +1532,11 @@ def test_publish_staged_bundle_replaces_commit_manifest_last(tmp_path: Path) -> 
     )
     staged_pptx = tmp_path / "stage" / "deck.pptx"
     staged_xlsx = tmp_path / "stage" / "book.xlsx"
+    staged_portfolio_xlsx = tmp_path / "stage" / "portfolio.xlsx"
     staged_manifest = tmp_path / "stage" / "bundle.json"
     staged_pptx.write_bytes(b"pptx")
     staged_xlsx.write_bytes(b"xlsx")
+    staged_portfolio_xlsx.write_bytes(b"portfolio")
     staged_manifest.write_text("manifest", encoding="utf-8")
     publish_dir = tmp_path / "published"
     destinations: list[Path] = []
@@ -1476,6 +1549,7 @@ def test_publish_staged_bundle_replaces_commit_manifest_last(tmp_path: Path) -> 
         staged_revision_dir=stage_revision,
         staged_pptx=staged_pptx,
         staged_xlsx=staged_xlsx,
+        staged_portfolio_xlsx=staged_portfolio_xlsx,
         staged_bundle_manifest=staged_manifest,
         publish_dir=publish_dir,
         replace=recording_replace,
@@ -1483,10 +1557,12 @@ def test_publish_staged_bundle_replaces_commit_manifest_last(tmp_path: Path) -> 
 
     assert destinations[-1] == publish_dir / BUNDLE_MANIFEST_NAME
     assert destinations.count(publish_dir / BUNDLE_MANIFEST_NAME) == 1
-    assert destinations[-3:-1] == [
+    assert destinations[-4:-1] == [
         publish_dir / MATERIALIZED_PPTX_NAME,
         publish_dir / MATERIALIZED_XLSX_NAME,
+        publish_dir / MATERIALIZED_PORTFOLIO_XLSX_NAME,
     ]
+    assert (publish_dir / MATERIALIZED_PORTFOLIO_XLSX_NAME).read_bytes() == b"portfolio"
     assert (publish_dir / BUNDLE_MANIFEST_NAME).read_text() == "manifest"
 
 

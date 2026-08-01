@@ -183,12 +183,14 @@ _INDUSTRY_EXPORT_INPUTS = (
     "bank_fidc_curation.csv",
     "acquiring_reclassification_curation.csv",
     "card_receivables_curation.csv",
+    "industry_cnpj_manual_enrichment.csv",
     "industry_intelligence_manifest.json",
     "generated_revision/artifact_payload.json",
     "generated_revision/revision_manifest.json",
     "generated_revision/industry_export_bundle.json",
     "generated_revision/industry_executive_revised.pptx",
     "generated_revision/industry_data_revised.xlsx",
+    "generated_revision/carteira_101_flagships.xlsx",
     "generated_revision/provider_flows_explorer.html",
 )
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
@@ -9766,14 +9768,18 @@ def _industry_export_signature() -> str:
 
 
 @st.cache_data(show_spinner=False)
-def _industry_export_payloads(signature: str) -> tuple[bytes, bytes, bytes]:
+def _industry_export_payloads(signature: str) -> tuple[bytes, bytes, bytes, bytes]:
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
-    from services.industry_revision_export import build_revision_html_bytes
+    from services.industry_revision_export import (
+        build_revision_html_bytes,
+        build_revision_portfolio_xlsx_bytes,
+    )
 
     del signature  # the value participates in Streamlit's cache key
     return (
         build_industry_pptx_bytes(_DATA_DIR),
         build_industry_xlsx_bytes(_DATA_DIR),
+        build_revision_portfolio_xlsx_bytes(_DATA_DIR),
         build_revision_html_bytes(_DATA_DIR),
     )
 
@@ -9928,14 +9934,14 @@ def _industry_holder_histogram_frames(
 
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
     try:
-        pptx_bytes, xlsx_bytes, html_bytes = _industry_export_payloads(
+        pptx_bytes, xlsx_bytes, portfolio_xlsx_bytes, html_bytes = _industry_export_payloads(
             _industry_export_signature()
         )
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Exportação executiva indisponível: {exc}")
         return
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    left, middle, right, _spacer = st.columns([1, 1, 1, 2])
+    left, middle, portfolio, right, _spacer = st.columns([1, 1, 1, 1, 1])
     with left:
         st.download_button(
             "PPTX",
@@ -9957,6 +9963,17 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
             help="Baixar bases e tabelas da apresentação",
             width="stretch",
             key=f"industry-xlsx-{suffix}",
+        )
+    with portfolio:
+        st.download_button(
+            "Carteira 101",
+            data=portfolio_xlsx_bytes,
+            file_name=f"Carteira_101_Flagships_{file_period}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            icon=":material/table_view:",
+            help="Baixar base manipulável da Carteira 101 e dos Flagships",
+            width="stretch",
+            key=f"industry-portfolio-xlsx-{suffix}",
         )
     with right:
         st.download_button(
@@ -13103,6 +13120,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         "fidc_revision_artifact_payload_v5",
         "fidc_revision_artifact_payload_v6",
         "fidc_revision_artifact_payload_v7",
+        "fidc_revision_artifact_payload_v8",
     }
     ranking_tab, flows_tab, market_share_tab, model_tab = st.tabs(
         ["Ranking", "Bancos e fluxos", "Market share", "Modelo de prestação"]
@@ -15826,7 +15844,8 @@ def _render_revision_data_exports(
     if export_status.bundle_valid and ledger_synced:
         st.success(
             f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
-            "PPTX, XLSX e HTML reconciliados pelo mesmo payload e por hashes."
+            "PPTX, XLSX principal, XLSX da Carteira 101/Flagships e HTML "
+            "reconciliados pelo mesmo payload e por hashes."
         )
         # O bundle é coerente consigo mesmo, mas foi publicado antes da correção
         # de 2023: os arquivos Office trazem o volume registrado na CVM, que
@@ -15845,7 +15864,7 @@ def _render_revision_data_exports(
         _render_industry_exports(suffix="revision", as_of_date=str(payload.get("offers_as_of") or ""))
     elif not ledger_synced:
         st.error(
-            "Exportação revisada bloqueada: o ledger de taxonomia foi alterado após a publicação do bundle. Republique PPTX, XLSX e HTML para sincronizar a decisão."
+            "Exportação revisada bloqueada: o ledger de taxonomia foi alterado após a publicação do bundle. Republique PPTX, os dois workbooks e HTML para sincronizar a decisão."
         )
     else:
         st.error(
@@ -15913,6 +15932,7 @@ def _render_revision_data_exports(
             )
         files = {
             "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
+            "Excel — Carteira 101 e Flagships": "carteira_101_flagships.xlsx",
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
             "Histórico de inadimplência da coorte atual": "inadimplencia_coorte_atual_historico.csv",
             "Dispersão da inadimplência por subcategoria": "inadimplencia_dispersao_subcategoria.csv",
@@ -15964,8 +15984,9 @@ def _render_revision_data_exports(
         st.caption(
             "O primeiro comando baixa o ZIP oficial da CVM, reconcilia os ritos "
             "automático, ordinário e legado, atualiza ofertas, tickets, regimes, "
-            "participantes/documentos e séries BCB. O segundo publica PPTX, XLSX e "
-            "HTML apenas depois das validações do bundle."
+            "participantes/documentos e séries BCB. O segundo publica PPTX, workbook "
+            "geral, workbook específico da Carteira 101/Flagships e HTML depois "
+            "das validações do bundle."
         )
 
 
