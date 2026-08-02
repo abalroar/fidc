@@ -1,0 +1,154 @@
+{
+  "schema_version": "carteira-101-document-audit/v2",
+  "generated_at_utc": "2026-08-01T20:30:09Z",
+  "started_at_utc": "2026-08-01T20:30:00Z",
+  "portfolio_cnpjs": 101,
+  "checkpoint_cnpjs": 101,
+  "completed_cnpjs": 101,
+  "online_requested": true,
+  "materialization_mode": "cache_only_reextract",
+  "online_scan_parameters": {
+    "max_documents_per_source_kind": 2,
+    "max_pages_per_document": 180,
+    "timeout_seconds": 120,
+    "party_label_parser_version": 2,
+    "price_parser_version": 2
+  },
+  "online_consulted_cnpjs": 101,
+  "online_error_cnpjs": 0,
+  "online_retry_error_cnpjs": 2,
+  "source_order": [
+    "rating_report",
+    "regulamento/suplemento/emissao",
+    "assembleia",
+    "informe_mensal"
+  ],
+  "rules": {
+    "missing_is_zero": false,
+    "fund_name_inference": false,
+    "candidate_extraction_improves_coverage": false,
+    "price_definition": "VNU/preço unitário por classe ou série; remuneração e quantidade excluídas"
+  },
+  "audited_fields": [
+    "originador",
+    "cedente",
+    "sacado_devedor",
+    "tipo_recebivel",
+    "minimo_junior",
+    "minimo_estrutural_total",
+    "natureza_indice"
+  ],
+  "coverage": [
+    {
+      "campo": "originador",
+      "linhas_total": 101,
+      "antes_com_dado": 1,
+      "antes_cobertura_pct": 0.009900990099009901,
+      "depois_com_dado": 12,
+      "depois_cobertura_pct": 0.1188118811881188,
+      "ganho_linhas": 11
+    },
+    {
+      "campo": "cedente",
+      "linhas_total": 101,
+      "antes_com_dado": 85,
+      "antes_cobertura_pct": 0.8415841584158416,
+      "depois_com_dado": 93,
+      "depois_cobertura_pct": 0.9207920792079208,
+      "ganho_linhas": 8
+    },
+    {
+      "campo": "sacado_devedor",
+      "linhas_total": 101,
+      "antes_com_dado": 2,
+      "antes_cobertura_pct": 0.019801980198019802,
+      "depois_com_dado": 37,
+      "depois_cobertura_pct": 0.36633663366336633,
+      "ganho_linhas": 35
+    },
+    {
+      "campo": "tipo_recebivel",
+      "linhas_total": 101,
+      "antes_com_dado": 52,
+      "antes_cobertura_pct": 0.5148514851485149,
+      "depois_com_dado": 67,
+      "depois_cobertura_pct": 0.6633663366336634,
+      "ganho_linhas": 15
+    },
+    {
+      "campo": "minimo_junior",
+      "linhas_total": 101,
+      "antes_com_dado": 83,
+      "antes_cobertura_pct": 0.8217821782178217,
+      "depois_com_dado": 83,
+      "depois_cobertura_pct": 0.8217821782178217,
+      "ganho_linhas": 0
+    },
+    {
+      "campo": "minimo_estrutural_total",
+      "linhas_total": 101,
+      "antes_com_dado": 45,
+      "antes_cobertura_pct": 0.44554455445544555,
+      "depois_com_dado": 52,
+      "depois_cobertura_pct": 0.5148514851485149,
+      "ganho_linhas": 7
+    },
+    {
+      "campo": "natureza_indice",
+      "linhas_total": 101,
+      "antes_com_dado": 101,
+      "antes_cobertura_pct": 1.0,
+      "depois_com_dado": 101,
+      "depois_cobertura_pct": 1.0,
+      "ganho_linhas": 0
+    }
+  ],
+  "prices": {
+    "rows": 218,
+    "cnpjs": 85,
+    "fields": [
+      "cnpj",
+      "class_series",
+      "price_display",
+      "price_nature",
+      "document_date",
+      "source_id",
+      "source_url",
+      "exception_flag",
+      "exception_reason"
+    ]
+  },
+  "inputs": {
+    "data/industry_study/generated_revision/artifact_payload.json": {
+      "bytes": 16696960,
+      "sha256": "9d2de752ed5eadc77e5a5cce043885443dbbe9f2b4e84b91bab651c5899d2fa7"
+    },
+    "data/industry_study/document_inventory.csv.gz": {
+      "bytes": 338622,
+      "sha256": "88c2c79a10d2bbfbcdb91b0cb3cd56ee8425f199823dc20e74508b06b3be7f20"
+    },
+    "data/industry_study/cedentes_structured.csv.gz": {
+      "bytes": 313444,
+      "sha256": "ad17b1f22273d4be48973b167f6fd13d66673012e90b0dcbb6d8b4543a03105e"
+    }
+  },
+  "outputs": {
+    "carteira_101_document_audit.csv": {
+      "bytes": 108873,
+      "sha256": "1b2e54a78a9ec01b475294a65aed2c9101839e3d0bc04dc250cf07e492c62226"
+    },
+    "carteira_101_document_coverage.csv": {
+      "bytes": 536,
+      "sha256": "ba234368515f9d2c64ceb62e10bb6f7ea83ab5235ae45b28c50d55c0d3345165"
+    },
+    "carteira_101_document_evidence.csv.gz": {
+      "bytes": 47709,
+      "sha256": "187690f4b97aca3bffa8fdc4943032103469ac0749138d004f225c8fa1a104a7"
+    },
+    "carteira_101_document_prices.csv.gz": {
+      "bytes": 26068,
+      "sha256": "685d255e9e666f9519c1e7455238988ab867992fafa17fd5b4f26283f05551da"
+    }
+  },
+  "checkpoint": "data/industry_study/carteira_101_document_audit/carteira_101_document_checkpoint.jsonl"
+}

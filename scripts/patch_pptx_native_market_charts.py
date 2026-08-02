@@ -2,7 +2,7 @@
 """Ajusta data labels sem converter os gráficos nativos em shapes.
 
 O renderer cria gráficos OOXML nativos e data labels editáveis. Este pós-processo
-mantém o chart intacto, fixa Arial 10 pt e distribui somente os rótulos de
+mantém o chart intacto, fixa Arial 12 pt e distribui somente os rótulos de
 segmentos curtos em três faixas internas do próprio gráfico. No slide de escala,
 inclui uma série de linha invisível com totais em uma sequência válida de
 ``CT_LineSer`` e uma posição de rótulo aceita pelo PowerPoint.
@@ -94,7 +94,7 @@ def _chart_targets(archive: ZipFile) -> dict[str, str]:
     market_count = sum(mode.startswith("market_") for mode in targets.values())
     if market_count != EXPECTED_MARKET_SHARE_SLIDES:
         raise RuntimeError(
-            "não deveriam existir slides de market share no contrato de 26 slides; "
+            "não deveriam existir slides de market share no contrato executivo vigente; "
             f"foram encontrados {market_count}"
         )
     return targets
@@ -146,10 +146,10 @@ def _label_for_index(series: ET.Element, category_index: int) -> ET.Element:
     raise RuntimeError(f"data label ausente para categoria {category_index}")
 
 
-def _set_arial_10(root: ET.Element) -> None:
+def _set_arial_12(root: ET.Element) -> None:
     for label_scope in root.findall(f".//{_c('dLbls')}"):
         for default_run in label_scope.findall(f".//{_a('defRPr')}"):
-            default_run.set("sz", "1000")
+            default_run.set("sz", "1200")
             default_run.set("b", "0")
             for tag in ("latin", "ea", "cs"):
                 font = default_run.find(_a(tag))
@@ -267,11 +267,11 @@ def _patch_chart(payload: bytes, *, appendix: bool) -> bytes:
                 )
                 label.insert(1, layout)
 
-    _set_arial_10(root)
+    _set_arial_12(root)
     return ET.tostring(root, encoding="UTF-8", xml_declaration=True)
 
 
-def _text_properties(font_size: int = 850, *, bold: bool = True) -> ET.Element:
+def _text_properties(font_size: int = 1200, *, bold: bool = True) -> ET.Element:
     tx_pr = ET.Element(_c("txPr"))
     ET.SubElement(tx_pr, _a("bodyPr"))
     ET.SubElement(tx_pr, _a("lstStyle"))

@@ -23,7 +23,12 @@ from services.industry_ppt_export import (
     build_industry_xlsx_bytes,
 )
 from services.industry_revision_export import (
+    CURRENT_TOP15_SLIDE_SEQUENCE,
+    EXPECTED_SLIDE_SEQUENCE,
     EXPECTED_SLIDES,
+    HISTORICAL_TOP15_SLIDE_SEQUENCE,
+    STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
+    TYPE_RANKING_SLIDE_SEQUENCE,
     _contains_blocked_rgb_color,
     get_revision_export_status,
     validate_revision_pptx,
@@ -184,7 +189,13 @@ def test_industry_exports_are_valid_office_files() -> None:
     validate_revision_xlsx(xlsx)
 
     presentation = Presentation(BytesIO(pptx))
-    assert len(presentation.slides) == EXPECTED_SLIDES == 26
+    assert len(presentation.slides) == EXPECTED_SLIDES == len(
+        EXPECTED_SLIDE_SEQUENCE
+    )
+    assert len(TYPE_RANKING_SLIDE_SEQUENCE) == 8
+    assert len(STRUCTURAL_DETAIL_SLIDE_SEQUENCE) == 24
+    assert len(CURRENT_TOP15_SLIDE_SEQUENCE) == 2
+    assert len(HISTORICAL_TOP15_SLIDE_SEQUENCE) == 4
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -196,7 +207,8 @@ def test_industry_exports_are_valid_office_files() -> None:
         slide_texts.append("\n".join(visible_parts))
     visible_text = "\n".join(slide_texts)
     for expected in (
-        "Indústria de FIDCs — jun/26",
+        "Indústria de FIDCs — ago-26",
+        "Dados de referência: jun-26",
         "ESCALA DA INDÚSTRIA",
         "Emissões | FIDCs seguem ganhando escala nas emissões",
         "Saldo e Tipos de FIDCs | Financeiros dominam saldo e novas emissões",
@@ -205,11 +217,14 @@ def test_industry_exports_are_valid_office_files() -> None:
         "Precatórios e/ou Ações Judiciais",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "QI lidera administração; BTG lidera gestão e custódia",
-        "RISCO ESTRUTURAL · CARTEIRA VS. PARES",
+        "RISCO ESTRUTURAL · FACTORING",
+        "Originador / cedente",
+        "Preço unitário*",
         "Emissões crescem 15% no semestre",
         "22 ofertas concentram 42% de todo o volume",
         "OFERTAS · VOLUME E REGIME",
         "IBBA esteve em 8 das 15 maiores ofertas do semestre",
+        "As 15 maiores ofertas de 2025 mantêm a base anual de comparação",
         "TOP 15 · HISTÓRICO",
         "O que muda a leitura do mercado",
         "RANKING · TOP 20 FIDCs",

@@ -495,3 +495,303 @@ def test_payload_wrapper_builds_count_and_pl_coverage_without_zero_imputation() 
     assert result.carteira.loc[1, "pl_atual_brl"] is np.nan or pd.isna(
         result.carteira.loc[1, "pl_atual_brl"]
     )
+
+
+def test_price_evidence_keeps_classes_and_uses_latest_best_source() -> None:
+    cnpj = _cnpj(1)
+    prices = pd.DataFrame(
+        [
+            {
+                "cnpj": cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 90.000,00",
+                "source_kind": "regulamento",
+                "source_id": "DOC-OLD",
+                "document_class": "regulamento",
+                "document_date": "2025-06-01",
+                "source_url": "https://example.test/old",
+                "status": "encontrado_explicito",
+            },
+            {
+                "cnpj": cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 100.000,00",
+                "source_kind": "regulamento",
+                "source_id": "DOC-NEW",
+                "document_class": "regulamento",
+                "document_date": "2026-04-09",
+                "source_url": "https://example.test/new",
+                "status": "encontrado_explicito",
+                "excerpt": "O valor unitário de emissão será R$ 100.000,00.",
+            },
+            {
+                "cnpj": cnpj,
+                "class_series": "Cota subordinada júnior",
+                "price_display": "R$ 5.000,00",
+                "source_kind": "regulamento",
+                "source_id": "DOC-NEW",
+                "document_class": "regulamento",
+                "document_date": "2026-04-09",
+                "source_url": "https://example.test/new",
+                "status": "encontrado_explicito",
+                "excerpt": "O valor unitário de emissão será R$ 5.000,00.",
+            },
+            {
+                "cnpj": cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 1.000,00",
+                "source_kind": "payload_documental",
+                "source_id": "LOWER-PRIORITY",
+                "document_class": "emissao",
+                "document_date": "2026-05-01",
+                "source_url": "https://example.test/lower-priority",
+                "status": "aceito_payload",
+            },
+        ]
+    )
+
+    result = build_industry_portfolio_export(
+        carteira_detail=_portfolio_detail([{"cnpj_fundo": cnpj}]),
+        carteira_structural=_structural([{"cnpj": cnpj}]),
+        flagship_detail=_flagships([]),
+        carteira_price_evidence=prices,
+    )
+    row = result.carteira.iloc[0]
+
+    assert pd.isna(row["preco_cota_brl"])
+    assert row["preco_cota_display"] == (
+        "Cota sênior: R$ 100.000,00 | "
+        "Cota subordinada júnior: R$ 5.000,00"
+    )
+    assert row["preco_cota_classe_serie"] == (
+        "Cota sênior | Cota subordinada júnior"
+    )
+    assert row["preco_cota_natureza"] == "preço/valor unitário de emissão"
+    assert bool(row["preco_cota_excecao_asterisco_flag"])
+    assert row["preco_cota_documento_data"] == "2026-04-09"
+    assert row["preco_cota_documento_id"] == "DOC-NEW"
+    assert row["preco_cota_fonte"] == "https://example.test/new"
+    assert row["preco_cota_status"].endswith("múltiplos valores/classes")
+    assert len(result.prices) == 4
+    assert result.prices["price_brl"].map(
+        lambda value: isinstance(value, (float, np.floating))
+    ).all()
+    assert result.prices["aprovado_para_export_flag"].all()
+    latest = result.prices[result.prices["source_id"].eq("DOC-NEW")]
+    assert latest["price_nature"].eq(
+        "preço/valor unitário de emissão"
+    ).all()
+
+
+def test_price_evidence_marks_missing_class_as_asterisk_exception() -> None:
+    cnpj = _cnpj(1)
+    prices = pd.DataFrame(
+        [
+            {
+                "cnpj": cnpj,
+                "class_series": "N/D",
+                "price_display": "R$ 1.000,00",
+                "source_kind": "emissao",
+                "source_id": "DOC-MISSING-CLASS",
+                "document_date": "2026-06-30",
+                "status": "encontrado_explicito",
+                "exception_flag": "*",
+                "excerpt": "Valor unitário de emissão: R$ 1.000,00.",
+            }
+        ]
+    )
+
+    result = build_industry_portfolio_export(
+        carteira_detail=_portfolio_detail([{"cnpj_fundo": cnpj}]),
+        carteira_structural=_structural([{"cnpj": cnpj}]),
+        flagship_detail=_flagships([]),
+        carteira_price_evidence=prices,
+    )
+
+    assert bool(result.prices.iloc[0]["excecao_asterisco_flag"])
+    assert bool(result.carteira.iloc[0]["preco_cota_excecao_asterisco_flag"])
+
+
+def test_price_evidence_parses_brazilian_dates_before_selecting_latest() -> None:
+    cnpj = _cnpj(1)
+    prices = pd.DataFrame(
+        [
+            {
+                "cnpj": cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 90.000,00",
+                "source_kind": "regulamento",
+                "source_id": "DOC-ISO",
+                "document_date": "2025-03-31",
+                "source_url": "https://example.test/iso",
+                "status": "encontrado_explicito",
+                "excerpt": "Valor unitário de emissão de R$ 90.000,00.",
+            },
+            {
+                "cnpj": cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 100.000,00",
+                "source_kind": "regulamento",
+                "source_id": "DOC-BR",
+                "document_date": "03/04/2025",
+                "source_url": "https://example.test/br",
+                "status": "encontrado_explicito",
+                "excerpt": "Valor unitário de emissão de R$ 100.000,00.",
+            },
+        ]
+    )
+
+    result = build_industry_portfolio_export(
+        carteira_detail=_portfolio_detail([{"cnpj_fundo": cnpj}]),
+        carteira_structural=_structural([{"cnpj": cnpj}]),
+        flagship_detail=_flagships([]),
+        carteira_price_evidence=prices,
+    )
+
+    row = result.carteira.iloc[0]
+    assert row["preco_cota_documento_id"] == "DOC-BR"
+    assert row["preco_cota_documento_data"] == "03/04/2025"
+    assert row["preco_cota_display"] == "Cota sênior: R$ 100.000,00"
+
+
+def test_price_scalar_is_numeric_only_when_unique_and_missing_stays_missing() -> None:
+    first_cnpj = _cnpj(1)
+    second_cnpj = _cnpj(2)
+    third_cnpj = _cnpj(3)
+    detail = _portfolio_detail(
+        [
+            {
+                "ordem": 1,
+                "cnpj_fundo": first_cnpj,
+                "preco_cota_brl": 1_000,
+                "preco_cota_display": "R$ 1.000,00",
+                "preco_cota_classe_serie": "Cota sênior",
+                "preco_cota_documento_data": "2026-06-30",
+                "preco_cota_documento_id": "DOC-WIDE",
+                "preco_cota_fonte": "regulamento",
+            },
+            {"ordem": 2, "cnpj_fundo": second_cnpj},
+            {"ordem": 3, "cnpj_fundo": third_cnpj},
+        ]
+    )
+    prices = pd.DataFrame(
+        [
+            {
+                "cnpj": first_cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 999,00",
+                "source_kind": "regulamento",
+                "source_id": "SHOULD-NOT-REPLACE",
+                "document_date": "2026-07-01",
+                "status": "encontrado_explicito",
+            },
+            {
+                "cnpj": second_cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 1.000,00",
+                "source_kind": "emissao",
+                "source_id": "DOC-LONG",
+                "document_date": "2026-06-30",
+                "status": "aceito_payload",
+            },
+            {
+                "cnpj": third_cnpj,
+                "class_series": "Cota sênior",
+                "price_display": "R$ 500,00",
+                "source_kind": "candidate_extraction",
+                "source_id": "PENDING",
+                "document_date": "2026-06-30",
+                "status": "candidato",
+            },
+        ]
+    )
+    result = build_industry_portfolio_export(
+        carteira_detail=detail,
+        carteira_structural=_structural(
+            [
+                {"cnpj": first_cnpj},
+                {"cnpj": second_cnpj},
+                {"cnpj": third_cnpj},
+            ]
+        ),
+        flagship_detail=_flagships([]),
+        carteira_price_evidence=prices,
+    )
+    rows = result.carteira.set_index("cnpj")
+
+    assert isinstance(rows.loc[first_cnpj, "preco_cota_brl"], np.float64)
+    assert rows.loc[first_cnpj, "preco_cota_brl"] == pytest.approx(1_000.0)
+    assert rows.loc[first_cnpj, "preco_cota_documento_id"] == "DOC-WIDE"
+    assert rows.loc[second_cnpj, "preco_cota_brl"] == pytest.approx(1_000.0)
+    assert pd.isna(rows.loc[third_cnpj, "preco_cota_brl"])
+    assert rows.loc[third_cnpj, "preco_cota_display"] == "N/D"
+    assert rows.loc[third_cnpj, "preco_cota_status"] == (
+        "pendente de revisão documental"
+    )
+    third_gap = result.gaps[result.gaps["cnpj"].eq(third_cnpj)].iloc[0]
+    assert "preço unitário da cota" in third_gap["campos_nao_preenchidos"]
+    dictionary = result.dictionary.set_index("campo")
+    assert dictionary.loc["preco_cota_brl", "tipo_dado"] == "numérico"
+    assert "quantidade" in dictionary.loc[
+        "preco_cota_display", "origem_regra"
+    ]
+
+
+def test_group_market_fields_and_document_scan_are_propagated_without_recalc() -> None:
+    cnpj = _cnpj(1)
+    detail = _portfolio_detail(
+        [
+            {
+                "cnpj_fundo": cnpj,
+                "tipo_exibicao": "Agro, Indústria e Comércio",
+                "originador": "Originador já curado",
+            }
+        ]
+    )
+    structural = _structural(
+        [
+            {
+                "cnpj": cnpj,
+                "posicao_mercado": "acima do mercado",
+                "excesso_vs_mercado": 0.032,
+                "benchmark_confiavel": False,
+                "n_comparaveis_categoria": 4,
+            }
+        ]
+    )
+    audit = pd.DataFrame(
+        [
+            {
+                "cnpj": cnpj,
+                "originador": "Não deve substituir",
+                "originador_status": "encontrado_explicito",
+                "cedente": "Cedente do documento",
+                "cedente_status": "encontrado_explicito",
+                "cedente_link": "https://example.test/cedente",
+                "sacado_devedor": "Candidato não aprovado",
+                "sacado_devedor_status": "candidato",
+            }
+        ]
+    )
+
+    result = build_industry_portfolio_export(
+        carteira_detail=detail,
+        carteira_structural=structural,
+        flagship_detail=_flagships([]),
+        carteira_document_audit=audit,
+    )
+    row = result.carteira.iloc[0]
+
+    assert row["grupo_comparacao"] == "Agro / Revenda"
+    assert row["posicao_mercado"] == "acima do mercado"
+    assert row["excesso_vs_mercado"] == pytest.approx(0.032)
+    assert row["benchmark_confiavel"] is False or not bool(
+        row["benchmark_confiavel"]
+    )
+    assert row["n_comparaveis_categoria"] == 4
+    assert row["originador"] == "Originador já curado"
+    assert row["cedente"] == "Cedente do documento"
+    assert row["sacado_devedor"] == "N/D"
+    assert row["fonte_partes_recebivel"] == (
+        "cedente: https://example.test/cedente"
+    )

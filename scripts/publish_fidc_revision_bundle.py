@@ -27,6 +27,7 @@ import subprocess
 import sys
 import tempfile
 from typing import Callable, Iterable, Mapping
+import unicodedata
 import zipfile
 
 if __package__ in {None, ""}:
@@ -105,6 +106,12 @@ REQUIRED_DATA_INPUTS = (
     "industry_carteira_1_document_curation.csv",
     "industry_cnpj_manual_enrichment.csv",
     "emission_field_audit.csv",
+    "carteira_101_document_audit/carteira_101_document_audit.csv",
+    "carteira_101_document_audit/carteira_101_document_coverage.csv",
+    "carteira_101_document_audit/carteira_101_document_evidence.csv.gz",
+    "carteira_101_document_audit/carteira_101_document_prices.csv.gz",
+    "carteira_101_document_audit/carteira_101_document_checkpoint.jsonl",
+    "carteira_101_document_audit/carteira_101_document_manifest.json",
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -127,6 +134,7 @@ WORKBOOK_AUDIT_DATA_INPUTS = (
 BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
+    ROOT / "scripts" / "scan_carteira_101_documents.py",
     ROOT / "scripts" / "build_fidc_top20_taxonomy_document_conclusions.py",
     ROOT / "scripts" / "apply_consolidated_taxonomy_decisions.py",
     ROOT / "scripts" / "build_fidc_revision_artifacts.mjs",
@@ -151,6 +159,9 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_ppt_export.py",
     ROOT / "services" / "industry_revision_export.py",
     ROOT / "services" / "industry_portfolio_export.py",
+    ROOT / "services" / "carteira_101_document_audit.py",
+    ROOT / "services" / "industry_structural_risk.py",
+    ROOT / "services" / "structural_risk.py",
     ROOT / "services" / "industry_taxonomy_review.py",
     ROOT / "services" / "industry_provider_history.py",
     ROOT / "services" / "industry_offer_ticket_distribution.py",
@@ -262,6 +273,16 @@ def _canonical_json_bytes(value: object) -> bytes:
         sort_keys=True,
         separators=(",", ":"),
     ).encode("utf-8")
+
+
+def _fold_validation_text(value: object) -> str:
+    """Normalize documentary labels for fail-closed semantic checks."""
+
+    return "".join(
+        character
+        for character in unicodedata.normalize("NFKD", str(value or "").casefold())
+        if not unicodedata.combining(character)
+    )
 
 
 def discover_latest_complete(data_dir: Path) -> str:
@@ -1079,7 +1100,7 @@ def _validate_market_offer_reconciliation(
         "2023 FY",
         "2024 FY",
         "2025 FY",
-        "2026 jan-mai",
+        "2026 jan-jun",
     )
     expected_instruments = (
         "Debêntures",
@@ -1117,11 +1138,82 @@ def _validate_market_offer_reconciliation(
                 raise RevisionBundlePublishError(
                     f"harmonização CVM não reconcilia em {period_label}"
                 )
+
+
+_UNIT_PRICE_DISPLAY_RE = re.compile(
+    r"R\$\s*(?:\d{1,3}(?:[.\s]\d{3})+|\d+)(?:,\d{1,6})?",
+    flags=re.IGNORECASE,
+)
+_FORBIDDEN_UNIT_PRICE_TOKENS = (
+    "quantidade",
+    "spread",
+    "remunera",
+    "taxa",
+)
+
+
+def _validate_unit_price_row(
+    row: Mapping[str, object],
+    *,
+    audit_cnpjs: set[str],
+) -> None:
+    cnpj = str(row.get("cnpj") or "").strip()
+    if not re.fullmatch(r"\d{14}", cnpj):
+        raise RevisionBundlePublishError("preço por cota contém CNPJ inválido")
+    if cnpj not in audit_cnpjs:
+        raise RevisionBundlePublishError(
+            "preço por cota contém CNPJ fora da Carteira 101"
+        )
+
+    class_series = str(row.get("class_series") or "").strip()
+    if not class_series:
+        raise RevisionBundlePublishError("preço por cota sem classe/série")
+    if class_series.upper() in {"N/D", "ND", "N.A.", "NA"}:
+        exception = str(
+            row.get("exception_flag")
+            or row.get("excecao_asterisco_flag")
+            or ""
+        ).strip().lower()
+        if exception not in {"*", "1", "true", "sim", "yes"}:
+            raise RevisionBundlePublishError(
+                "preço por cota sem classe/série deve trazer asterisco de exceção"
+            )
+
+    display = str(row.get("price_display") or "").strip()
+    nature = str(row.get("price_nature") or "").strip()
+    folded_display = _fold_validation_text(display)
+    folded_nature = _fold_validation_text(nature)
+    if any(
+        token in field
+        for token in _FORBIDDEN_UNIT_PRICE_TOKENS
+        for field in (folded_display, folded_nature)
+    ):
+        raise RevisionBundlePublishError(
+            "evidência de preço inclui spread, remuneração ou quantidade/taxa"
+        )
+    if not _UNIT_PRICE_DISPLAY_RE.search(display):
+        raise RevisionBundlePublishError(
+            "preço por cota sem valor monetário unitário em price_display"
+        )
+    if not (
+        "unitario" in folded_nature
+        or "vnu" in folded_nature
+        or (
+            "cota" in folded_nature
+            and ("preco" in folded_nature or "valor" in folded_nature)
+        )
+    ):
+        raise RevisionBundlePublishError(
+            "preço por cota com price_nature sem natureza unitária"
+        )
+
+
 def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
     cohorts = (
         ("portfolio_export_carteira_101", 101, "Carteira 101"),
         ("portfolio_export_flagships", 47, "Flagships"),
     )
+    cohort_cnpjs: dict[str, set[str]] = {}
     for key, expected_count, label in cohorts:
         rows = payload.get(key)
         if not isinstance(rows, list) or len(rows) != expected_count:
@@ -1142,6 +1234,7 @@ def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
             raise RevisionBundlePublishError(
                 f"{label} deve conter {expected_count} CNPJs únicos"
             )
+        cohort_cnpjs[key] = set(cnpjs)
 
     for key in ("portfolio_export_coverage", "portfolio_export_gaps"):
         rows = payload.get(key)
@@ -1203,6 +1296,100 @@ def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
     if len(set(resolved_cnpjs)) != len(resolved_cnpjs):
         raise RevisionBundlePublishError(
             "auditoria manual contém CNPJs resolvidos duplicados"
+        )
+
+    for key in (
+        "portfolio_export_dictionary",
+        "portfolio_export_price_evidence",
+        "carteira_101_document_audit",
+        "carteira_101_document_coverage",
+        "carteira_101_document_evidence",
+        "carteira_101_document_prices",
+        "carteira_101_document_checkpoint",
+    ):
+        rows = payload.get(key)
+        if not isinstance(rows, list) or not rows:
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
+
+    document_audit = payload.get("carteira_101_document_audit")
+    if not isinstance(document_audit, list) or len(document_audit) != 101:
+        raise RevisionBundlePublishError(
+            "carteira_101_document_audit deve conter 101 CNPJs"
+        )
+    audit_cnpjs = {
+        str(row.get("cnpj") or "").strip()
+        for row in document_audit
+        if isinstance(row, Mapping)
+    }
+    if len(audit_cnpjs) != 101 or any(
+        not re.fullmatch(r"\d{14}", cnpj) for cnpj in audit_cnpjs
+    ):
+        raise RevisionBundlePublishError(
+            "auditoria documental não preserva 101 CNPJs únicos"
+        )
+    if audit_cnpjs != cohort_cnpjs["portfolio_export_carteira_101"]:
+        raise RevisionBundlePublishError(
+            "auditoria documental diverge dos CNPJs da Carteira 101"
+        )
+
+    for key in (
+        "carteira_101_document_prices",
+        "portfolio_export_price_evidence",
+    ):
+        prices = payload.get(key)
+        if not isinstance(prices, list):
+            raise RevisionBundlePublishError(f"{key} deve ser uma lista")
+        for row in prices:
+            if not isinstance(row, Mapping):
+                raise RevisionBundlePublishError(f"{key} contém linha inválida")
+            _validate_unit_price_row(row, audit_cnpjs=audit_cnpjs)
+
+    checkpoint = payload.get("carteira_101_document_checkpoint")
+    if not isinstance(checkpoint, list) or len(checkpoint) != 101:
+        raise RevisionBundlePublishError(
+            "checkpoint documental deve conter 101 CNPJs"
+        )
+    checkpoint_cnpjs = [
+        str(row.get("cnpj") or "").strip()
+        for row in checkpoint
+        if isinstance(row, Mapping)
+    ]
+    if (
+        len(checkpoint_cnpjs) != 101
+        or len(set(checkpoint_cnpjs)) != 101
+        or any(not re.fullmatch(r"\d{14}", cnpj) for cnpj in checkpoint_cnpjs)
+    ):
+        raise RevisionBundlePublishError(
+            "checkpoint documental não preserva 101 CNPJs únicos"
+        )
+    if set(checkpoint_cnpjs) != audit_cnpjs:
+        raise RevisionBundlePublishError(
+            "checkpoint documental diverge dos CNPJs auditados"
+        )
+    if any(
+        not isinstance(row, Mapping)
+        or str(row.get("online_status") or "").strip() in {"", "não solicitado"}
+        for row in checkpoint
+    ):
+        raise RevisionBundlePublishError(
+            "varredura online não foi tentada para todos os 101 CNPJs"
+        )
+
+    manifest = payload.get("carteira_101_document_manifest")
+    if not isinstance(manifest, Mapping):
+        raise RevisionBundlePublishError(
+            "payload editorial sem manifesto da auditoria documental"
+        )
+    if not bool(manifest.get("online_requested")):
+        raise RevisionBundlePublishError(
+            "manifesto documental não registra a rodada online"
+        )
+    attempted = int(manifest.get("online_consulted_cnpjs") or 0) + int(
+        manifest.get("online_error_cnpjs") or 0
+    )
+    if attempted != 101:
+        raise RevisionBundlePublishError(
+            f"varredura online tentou {attempted}/101 CNPJs"
         )
 
 
@@ -2215,6 +2402,49 @@ def collect_input_hashes(
     return {label: _sha256_semantic_file(path) for label, path in sorted(paths)}
 
 
+def validate_live_input_hashes_unchanged(
+    expected_hashes: Mapping[str, str],
+    *,
+    data_dir: Path,
+    curation_path: Path,
+    input_workbook: Path,
+    artifact_script: Path = ARTIFACT_SCRIPT,
+) -> None:
+    """Fail if any initially captured live input changed during the build."""
+
+    try:
+        current_hashes = collect_input_hashes(
+            data_dir=data_dir,
+            curation_path=curation_path,
+            input_workbook=input_workbook,
+            artifact_script=artifact_script,
+        )
+    except (OSError, EOFError, RevisionBundlePublishError) as exc:
+        raise RevisionBundlePublishError(
+            "inputs vivos não puderam ser revalidados antes do commit marker"
+        ) from exc
+
+    changed: list[str] = []
+    for label in sorted(set(expected_hashes).union(current_hashes)):
+        expected = expected_hashes.get(label)
+        current = current_hashes.get(label)
+        if expected == current:
+            continue
+        if expected is None:
+            status = "adicionado"
+        elif current is None:
+            status = "removido"
+        else:
+            status = "alterado"
+        changed.append(f"{label} ({status})")
+    if changed:
+        raise RevisionBundlePublishError(
+            "inputs mudaram durante a publicação; execute novamente para preservar "
+            "atomicidade: "
+            + ", ".join(changed)
+        )
+
+
 def _artifact_runtime_metadata(
     node: Path,
     node_modules: Path,
@@ -2355,6 +2585,14 @@ def validate_bundle_manifest(
         raise RevisionBundlePublishError("schema do payload diverge do bundle")
     if manifest.get("latest_complete") != payload.get("latest_complete"):
         raise RevisionBundlePublishError("competência do payload diverge do bundle")
+    inputs = manifest.get("inputs")
+    if not isinstance(inputs, Mapping) or not inputs:
+        raise RevisionBundlePublishError("manifest sem hashes dos inputs publicados")
+    expected_input_signature = _sha256_bytes(
+        _canonical_json_bytes(dict(inputs))
+    )
+    if manifest.get("input_signature") != expected_input_signature:
+        raise RevisionBundlePublishError("input_signature inválido no manifest")
     expected = {
         "payload_sha256": _sha256_bytes(payload_bytes),
         "source_signature": _sha256_bytes(payload_bytes),
@@ -2702,9 +2940,13 @@ def publish_revision_bundle(
     input_hashes[f"builder/{ARTIFACT_SCRIPT.name}"] = _sha256_bytes(
         artifact_script_bytes
     )
+    input_hashes[f"builder/{NATIVE_CHART_PATCHER.name}"] = _sha256_bytes(
+        native_chart_patcher_bytes
+    )
     input_hashes[f"builder/{PROVIDER_FLOW_BUILDER.name}"] = _sha256_bytes(
         provider_flow_builder_bytes
     )
+    captured_live_input_hashes = dict(input_hashes)
     node_text = shutil.which("node")
     if not node_text:
         raise RevisionBundlePublishError("Node.js não localizado para o build offline")
@@ -2978,6 +3220,13 @@ def publish_revision_bundle(
         staged_manifest.write_text(
             json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True),
             encoding="utf-8",
+        )
+
+        validate_live_input_hashes_unchanged(
+            captured_live_input_hashes,
+            data_dir=data_dir,
+            curation_path=curation_path,
+            input_workbook=input_workbook,
         )
 
         target_pptx, target_xlsx, target_manifest = publish_staged_bundle(

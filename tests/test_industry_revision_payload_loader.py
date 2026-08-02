@@ -485,7 +485,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         ]
         payload["market_offer_reconciliation"] = [
             {
-                "period_label": "2026 jan-mai",
+                "period_label": "2026 jan-jun",
                 "instrument_label": "Debêntures",
                 "cvm_registered_volume_brl": 1.0,
                 "cvm_harmonization_volume_brl": 0.5,
@@ -496,7 +496,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "primary_explanation": "Ponte taxonômica.",
                 "cvm_source_url": "https://dados.cvm.gov.br/",
                 "anbima_source_url": "https://data.anbima.com.br/",
-                "anbima_source_snapshot": "mai/26",
+                "anbima_source_snapshot": "jun/26",
                 "limitation": "Série sujeita a retificações.",
             }
         ]

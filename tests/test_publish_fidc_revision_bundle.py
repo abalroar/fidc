@@ -10,6 +10,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pytest
 from openpyxl import Workbook
 
+import scripts.publish_fidc_revision_bundle as revision_publisher
 from scripts.build_fidc_industry_study import parse_args as parse_study_args
 from scripts.build_fidc_revision_analysis import parse_args as parse_revision_args
 from scripts.publish_fidc_revision_bundle import (
@@ -18,6 +19,7 @@ from scripts.publish_fidc_revision_bundle import (
     MATERIALIZED_PORTFOLIO_XLSX_NAME,
     MATERIALIZED_PPTX_NAME,
     MATERIALIZED_XLSX_NAME,
+    EXPECTED_SLIDES,
     PAYLOAD_SCHEMA,
     REQUIRED_ANALYSIS_FILES,
     REQUIRED_DATA_INPUTS,
@@ -308,7 +310,7 @@ def _fixed_income_offer_comparison_fixture() -> list[dict[str, object]]:
 def _market_offer_reconciliation_fixture() -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for period_order, period in enumerate(
-        ("2023 FY", "2024 FY", "2025 FY", "2026 jan-mai"),
+        ("2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"),
         start=1,
     ):
         for instrument_order, instrument in enumerate(
@@ -335,7 +337,7 @@ def _market_offer_reconciliation_fixture() -> list[dict[str, object]]:
                     "cvm_metric": "Valor registrado",
                     "cvm_scope": "Ofertas públicas primárias encerradas.",
                     "anbima_source_url": "https://data.anbima.com.br/",
-                    "anbima_source_snapshot": "mai/26",
+                    "anbima_source_snapshot": "jun/26",
                     "anbima_source_sheet": "02-02-Vlr",
                     "anbima_metric": "Valor Encerrado",
                     "anbima_scope": "Ofertas públicas encerradas.",
@@ -547,6 +549,65 @@ def _payload() -> dict[str, object]:
                 "quantidade_candidatos_cnpj": 1,
             }
         ],
+        "portfolio_export_dictionary": [
+            {
+                "campo": "preco_cota_display",
+                "descricao": "Preço unitário da cota por classe ou série",
+            }
+        ],
+        "portfolio_export_price_evidence": [
+            {
+                "cnpj": "10000000000001",
+                "class_series": "Cota Sênior",
+                "price_display": "R$ 1.000,00",
+                "price_nature": "valor unitário de emissão",
+            }
+        ],
+        "carteira_101_document_audit": [
+            {
+                "cnpj": f"10{index:012d}",
+                "status": "concluído",
+            }
+            for index in range(1, 102)
+        ],
+        "carteira_101_document_coverage": [
+            {"campo": "minimo_junior", "depois_com_dado": 83}
+        ],
+        "carteira_101_document_evidence": [
+            {
+                "cnpj": "10000000000001",
+                "field": "minimo_junior",
+                "status": "encontrado",
+            }
+        ],
+        "carteira_101_document_prices": [
+            {
+                "cnpj": "10000000000001",
+                "class_series": "Cota Sênior",
+                "price_display": "R$ 1.000,00",
+                "price_nature": "valor unitário de emissão",
+            }
+        ],
+        "carteira_101_document_checkpoint": [
+            {
+                "cnpj": f"10{index:012d}",
+                "status": "concluído",
+                "online_status": "consultado",
+            }
+            for index in range(1, 102)
+        ],
+        "carteira_101_document_manifest": {
+            "schema_version": "carteira-101-document-audit/v2",
+            "online_requested": True,
+            "online_consulted_cnpjs": 101,
+            "online_error_cnpjs": 0,
+            "rules": {
+                "price_definition": (
+                    "VNU/preço unitário por classe ou série; "
+                    "remuneração e quantidade excluídas"
+                )
+            },
+        },
         "holder_distribution_history": [
             {"competencia": "2023-12"},
             {"competencia": "2026-05"},
@@ -1175,6 +1236,30 @@ def test_payload_rejects_duplicate_portfolio_export_cnpj() -> None:
         validate_artifact_payload(payload, "2026-05")
 
 
+def test_payload_rejects_document_audit_cnpj_set_divergence() -> None:
+    payload = deepcopy(_payload())
+    payload["carteira_101_document_audit"][0]["cnpj"] = "99000000000000"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="diverge dos CNPJs da Carteira 101",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_duplicate_document_checkpoint_cnpj() -> None:
+    payload = deepcopy(_payload())
+    payload["carteira_101_document_checkpoint"][1]["cnpj"] = payload[
+        "carteira_101_document_checkpoint"
+    ][0]["cnpj"]
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="checkpoint documental não preserva 101 CNPJs únicos",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
 def test_payload_rejects_ambiguous_manual_cnpj_resolution() -> None:
     payload = deepcopy(_payload())
     payload["portfolio_export_manual_audit"][0][
@@ -1185,6 +1270,117 @@ def test_payload_rejects_ambiguous_manual_cnpj_resolution() -> None:
     ] = 2
 
     with pytest.raises(RevisionBundlePublishError, match="ambígua"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_spread_or_quantity_as_quota_price() -> None:
+    payload = _payload()
+    payload["carteira_101_document_prices"][0]["price_nature"] = (
+        "spread de remuneração"
+    )
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="spread, remuneração ou quantidade",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+@pytest.mark.parametrize(
+    "price_display",
+    (
+        "Quantidade de cotas: 1.000 · R$ 1.000,00",
+        "Spread DI + 2,0% · R$ 1.000,00",
+        "Remuneração da cota · R$ 1.000,00",
+        "Taxa da série · R$ 1.000,00",
+    ),
+)
+@pytest.mark.parametrize(
+    "collection_key",
+    ("carteira_101_document_prices", "portfolio_export_price_evidence"),
+)
+def test_payload_rejects_forbidden_terms_in_quota_price_display(
+    price_display: str,
+    collection_key: str,
+) -> None:
+    payload = _payload()
+    payload[collection_key][0]["price_display"] = price_display
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="spread, remuneração ou quantidade/taxa",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_requires_monetary_value_in_quota_price_display() -> None:
+    payload = _payload()
+    payload["carteira_101_document_prices"][0]["price_display"] = "1.000 cotas"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="valor monetário unitário em price_display",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_requires_unitary_quota_price_nature() -> None:
+    payload = _payload()
+    payload["carteira_101_document_prices"][0]["price_nature"] = (
+        "montante total da oferta"
+    )
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="price_nature sem natureza unitária",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_allows_unknown_quota_class_only_with_asterisk() -> None:
+    payload = _payload()
+    row = payload["carteira_101_document_prices"][0]
+    row["class_series"] = "N/D"
+    row["exception_flag"] = "*"
+    evidence = payload["portfolio_export_price_evidence"][0]
+    evidence["class_series"] = "N/D"
+    evidence["excecao_asterisco_flag"] = True
+
+    validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_unknown_quota_class_without_asterisk() -> None:
+    payload = _payload()
+    payload["carteira_101_document_prices"][0]["class_series"] = "N/D"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="deve trazer asterisco de exceção",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_quota_price_from_outside_carteira_101() -> None:
+    payload = deepcopy(_payload())
+    payload["carteira_101_document_prices"][0]["cnpj"] = "99000000000000"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="CNPJ fora da Carteira 101",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_requires_online_attempt_for_all_101_cnpjs() -> None:
+    payload = _payload()
+    payload["carteira_101_document_checkpoint"][0]["online_status"] = (
+        "não solicitado"
+    )
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="não foi tentada para todos",
+    ):
         validate_artifact_payload(payload, "2026-05")
 
 
@@ -1415,6 +1611,99 @@ def test_payload_still_reconciles_2024_fidc_level_to_cvm() -> None:
         validate_artifact_payload(payload, "2026-05")
 
 
+def _minimal_live_input_snapshot(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> tuple[dict[str, str], dict[str, Path]]:
+    data_dir = tmp_path / "data"
+    data_dir.mkdir()
+    required = data_dir / "required.csv"
+    required.write_text("value\ninitial\n", encoding="utf-8")
+    optional = data_dir / "optional.csv"
+    curation = tmp_path / "curation.csv"
+    curation.write_text("value\ninitial\n", encoding="utf-8")
+    workbook = tmp_path / "input.xlsx"
+    workbook.write_bytes(b"initial workbook")
+    builder = tmp_path / "builder.py"
+    builder.write_text("VALUE = 'initial'\n", encoding="utf-8")
+
+    monkeypatch.setattr(revision_publisher, "REQUIRED_DATA_INPUTS", ("required.csv",))
+    monkeypatch.setattr(revision_publisher, "OPTIONAL_DATA_INPUTS", ("optional.csv",))
+    monkeypatch.setattr(revision_publisher, "BUILDER_SOURCES", (builder,))
+    captured = revision_publisher.collect_input_hashes(
+        data_dir=data_dir,
+        curation_path=curation,
+        input_workbook=workbook,
+        artifact_script=builder,
+    )
+    return captured, {
+        "data_dir": data_dir,
+        "required": required,
+        "optional": optional,
+        "curation": curation,
+        "workbook": workbook,
+        "builder": builder,
+    }
+
+
+@pytest.mark.parametrize(
+    ("target", "expected_label"),
+    (
+        ("required", "data/required.csv"),
+        ("curation", "curation/top20.csv"),
+        ("workbook", "workbook/input.xlsx"),
+        ("builder", "builder/builder.py"),
+    ),
+)
+def test_live_input_revalidation_rejects_mutation_before_commit_marker(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    target: str,
+    expected_label: str,
+) -> None:
+    captured, paths = _minimal_live_input_snapshot(tmp_path, monkeypatch)
+    revision_publisher.validate_live_input_hashes_unchanged(
+        captured,
+        data_dir=paths["data_dir"],
+        curation_path=paths["curation"],
+        input_workbook=paths["workbook"],
+        artifact_script=paths["builder"],
+    )
+    paths[target].write_text("changed\n", encoding="utf-8")
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=expected_label,
+    ):
+        revision_publisher.validate_live_input_hashes_unchanged(
+            captured,
+            data_dir=paths["data_dir"],
+            curation_path=paths["curation"],
+            input_workbook=paths["workbook"],
+            artifact_script=paths["builder"],
+        )
+
+
+def test_live_input_revalidation_rejects_new_optional_input(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured, paths = _minimal_live_input_snapshot(tmp_path, monkeypatch)
+    paths["optional"].write_text("value\nlate\n", encoding="utf-8")
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=r"data/optional\.csv \(adicionado\)",
+    ):
+        revision_publisher.validate_live_input_hashes_unchanged(
+            captured,
+            data_dir=paths["data_dir"],
+            curation_path=paths["curation"],
+            input_workbook=paths["workbook"],
+            artifact_script=paths["builder"],
+        )
+
+
 def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     payload = _payload()
     payload_bytes = json.dumps(payload, sort_keys=True).encode()
@@ -1444,7 +1733,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
 
     assert first["bundle_id"] == second["bundle_id"]
     assert first["schema_version"] == "fidc_revision_export_bundle_v3"
-    assert first["checks"]["slides"] == 26
+    assert first["checks"]["slides"] == EXPECTED_SLIDES
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,
@@ -1497,6 +1786,20 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     with pytest.raises(RevisionBundlePublishError, match="html"):
         validate_bundle_manifest(
             broken_html,
+            payload_bytes=payload_bytes,
+            payload=payload,
+            analysis_manifest_bytes=b"analysis",
+            pptx_bytes=b"pptx",
+            xlsx_bytes=b"xlsx",
+            portfolio_xlsx_bytes=b"portfolio",
+            html_bytes=b"html",
+        )
+
+    broken_inputs = deepcopy(first)
+    broken_inputs["inputs"]["data/a.csv"] = "0" * 64
+    with pytest.raises(RevisionBundlePublishError, match="input_signature"):
+        validate_bundle_manifest(
+            broken_inputs,
             payload_bytes=payload_bytes,
             payload=payload,
             analysis_manifest_bytes=b"analysis",
@@ -1624,6 +1927,14 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
     assert "industry_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS
     assert "industry_top20_taxonomy_document_review.csv" in REQUIRED_DATA_INPUTS
     assert "industry_top20_taxonomy_document_conclusions.csv" in REQUIRED_DATA_INPUTS
+    assert (
+        "carteira_101_document_audit/carteira_101_document_manifest.json"
+        in REQUIRED_DATA_INPUTS
+    )
+    assert (
+        "carteira_101_document_audit/carteira_101_document_prices.csv.gz"
+        in REQUIRED_DATA_INPUTS
+    )
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:

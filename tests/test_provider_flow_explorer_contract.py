@@ -26,7 +26,6 @@ EXPECTED_PAYLOAD_KEYS = {
     "carteira_1_curation",
     "carteira_1_curation_ranges",
     "carteira_1_curation_summary",
-    "carteira_1_structural_assets",
     "carteira_1_structural_summary",
     "carteira_1_taxonomy_history",
     "carteira_1_taxonomy_summary",
@@ -36,6 +35,8 @@ EXPECTED_PAYLOAD_KEYS = {
     "issuance_taxonomy_reconciliation",
     "issuance_taxonomy_table",
     "latest_complete",
+    "portfolio_export_carteira_101",
+    "portfolio_export_flagships",
     "provider_history_cvm_coverage",
     "provider_history_cvm_detail",
     "provider_history_cvm_links",
@@ -100,8 +101,8 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     compact = _embedded_data(document)
     assert compact["schemaVersion"] == "provider_flow_compact_v1"
     assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
-    assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v1"
-    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v2"
+    assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v2"
+    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v3"
     assert compact["carteira1Taxonomy"]["schemaVersion"] == "carteira_1_taxonomy_compact_v1"
     assert len(compact["carteira1Taxonomy"]["rows"]) == 16
     assert compact["issuanceTaxonomy"]["schemaVersion"] == "issuance_taxonomy_table_v1"
@@ -114,13 +115,81 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert len(compact["flagships"]["details"]) == 47
     flagship_fields = compact["flagships"]["fields"]["detail"]
     assert {
+        "originator",
+        "cedente",
+        "cedenteOriginator",
+        "partyRole",
+        "debtor",
+        "receivable",
+        "partiesSource",
+        "minJuniorLiteral",
+        "minJuniorCalculated",
+        "minJuniorAdjusted",
+        "supportTotal",
+        "supportCombined",
+        "structuralMinimum",
+        "structuralDisplay",
+        "structuralNature",
+        "structuralFormula",
+        "structuralComparable",
+        "structuralComparableReason",
+        "exceptionAsterisk",
+        "structuralHeadroom",
+        "lossAbsorption",
+        "regulatoryStatus",
+        "priceBrl",
+        "priceDisplay",
+        "priceNature",
+        "priceClassSeries",
+        "priceDocumentDate",
+        "priceDocumentId",
+        "priceSource",
+        "priceStatus",
+        "priceExceptionAsterisk",
+        "completionStatus",
+        "gaps",
         "documentId",
         "documentDate",
         "page",
-        "pagesRead",
         "curationStatus",
-        "documentaryNote",
+        "documentarySource",
+        "minimumText",
     } <= set(flagship_fields)
+    assert {
+        "quantidade_cotas",
+        "quantidade",
+        "spread",
+        "remuneracao",
+    }.isdisjoint(flagship_fields)
+    flagship_cnpj_index = flagship_fields.index("cnpj")
+    flagship_pl_index = flagship_fields.index("pl")
+    flagship_ratio_index = flagship_fields.index("ratio")
+    flagship_originator_index = flagship_fields.index("originator")
+    compact_flagship_rows = {
+        row[flagship_cnpj_index]: row for row in compact["flagships"]["details"]
+    }
+    canonical_flagship_rows = {
+        row["cnpj_formatado"]: row
+        for row in source_payload["portfolio_export_flagships"]
+    }
+    legacy_flagship_cnpjs = {
+        row["cnpj_fundo_formatado"]
+        for row in source_payload["flagship_curation"]
+    }
+    family_flagship_cnpjs = {
+        cnpj.strip()
+        for row in source_payload["flagship_families"]
+        for cnpj in row["cnpjs"].split(";")
+    }
+    assert len(canonical_flagship_rows) == 47
+    assert set(compact_flagship_rows) == set(canonical_flagship_rows)
+    assert set(compact_flagship_rows) == legacy_flagship_cnpjs
+    assert set(compact_flagship_rows) == family_flagship_cnpjs
+    for cnpj, source_row in canonical_flagship_rows.items():
+        compact_row = compact_flagship_rows[cnpj]
+        assert compact_row[flagship_pl_index] == source_row["pl_atual_brl"]
+        assert compact_row[flagship_ratio_index] == source_row["sub_pl_atual"]
+        assert compact_row[flagship_originator_index] == source_row["originador"]
     assert len(compact["carteira1"]["ranges"]) == 7
     assert len(compact["carteira1"]["details"]) == 101
     assert compact["carteira1"]["summary"]["minJunior"] == 83
@@ -129,6 +198,44 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert compact["carteira1"]["comparisonSummary"]["flagshipFunds"] == 47
     assert compact["carteira1"]["comparisonSummary"]["classified"] == 100
     carteira_fields = compact["carteira1"]["fields"]["detail"]
+    assert {
+        "originator",
+        "cedente",
+        "cedenteOriginator",
+        "debtor",
+        "receivable",
+        "partiesSource",
+        "minJuniorLiteral",
+        "minJuniorCalculated",
+        "minJuniorAdjusted",
+        "supportTotal",
+        "supportCombined",
+        "structuralMinimum",
+        "structuralNature",
+        "structuralHeadroom",
+        "lossAbsorption",
+        "marketPosition",
+        "marketExcess",
+        "benchmarkReliable",
+        "marketPeers",
+        "priceBrl",
+        "priceDisplay",
+        "priceNature",
+        "priceClassSeries",
+        "priceDocumentDate",
+        "priceDocumentId",
+        "priceSource",
+        "priceStatus",
+        "priceExceptionAsterisk",
+        "completionStatus",
+        "gaps",
+    } <= set(carteira_fields)
+    assert {
+        "quantidade_cotas",
+        "quantidade",
+        "spread",
+        "remuneracao",
+    }.isdisjoint(carteira_fields)
     carteira_cnpj_index = carteira_fields.index("cnpj")
     carteira_pl_index = carteira_fields.index("pl")
     carteira_ratio_index = carteira_fields.index("ratio")
@@ -182,3 +289,93 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert 'value == null || value === ""' in document
     assert '${money(row.pl)}' in document
     assert '${pct(row.ratio)}' in document
+    assert "Preço unitário por cota" in document
+    assert "Originador / cedente / sacado / recebível" in document
+    assert "preco_cota_display" in document
+    assert "preco_cota_classe_serie" in document
+    assert "preco_cota_excecao_asterisco" in document
+    assert "quantidade_cotas" not in document
+
+
+def test_flagship_detail_prefers_the_canonical_export_by_cnpj(
+    tmp_path: Path,
+) -> None:
+    source_payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    canonical = source_payload["portfolio_export_flagships"][0]
+    cnpj = canonical["cnpj_formatado"]
+    canonical.update(
+        {
+            "originador": "Originador canônico",
+            "cedente": "Cedente canônico",
+            "sacado_devedor": "Sacado canônico",
+            "tipo_recebivel_literal": "Recebível canônico",
+            "minimo_junior_literal": 0.1234,
+            "minimo_estrutural_usado": 0.1234,
+            "minimo_estrutural_display": "12,34% do PL",
+            "folga_pp": 0.0456,
+            "situacao_regulatoria": "acima do mínimo",
+            "preco_cota_brl": 1_234.56,
+            "preco_cota_display": "R$ 1.234,56",
+            "preco_cota_natureza": "valor unitário de emissão",
+            "preco_cota_classe_serie": "2ª série sênior",
+            "preco_cota_documento_data": "2026-06-30",
+            "preco_cota_documento_id": "DOC-CANONICO",
+            "preco_cota_fonte": "https://example.test/preco-canonico",
+            "preco_cota_status": "localizado documentalmente",
+            "preco_cota_excecao_asterisco_flag": True,
+        }
+    )
+    legacy = next(
+        row
+        for row in source_payload["flagship_curation"]
+        if row["cnpj_fundo_formatado"] == cnpj
+    )
+    legacy["preco_emissao_display"] = "VALOR LEGADO"
+    legacy["preco_emissao_classe"] = "CLASSE LEGADA"
+    payload_path = tmp_path / "artifact_payload.json"
+    output_path = tmp_path / "provider_flows_explorer.html"
+    payload_path.write_text(
+        json.dumps(source_payload, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            "node",
+            str(BUILDER_PATH),
+            "--payload",
+            str(payload_path),
+            "--html",
+            str(output_path),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr or completed.stdout
+
+    compact = _embedded_data(output_path.read_text(encoding="utf-8"))["flagships"]
+    fields = compact["fields"]["detail"]
+    detail = next(
+        dict(zip(fields, row, strict=True))
+        for row in compact["details"]
+        if row[fields.index("cnpj")] == cnpj
+    )
+    assert detail["originator"] == "Originador canônico"
+    assert detail["cedente"] == "Cedente canônico"
+    assert detail["debtor"] == "Sacado canônico"
+    assert detail["receivable"] == "Recebível canônico"
+    assert detail["minJuniorLiteral"] == 0.1234
+    assert detail["structuralMinimum"] == 0.1234
+    assert detail["structuralHeadroom"] == 0.0456
+    assert detail["regulatoryStatus"] == "acima do mínimo"
+    assert detail["priceBrl"] == 1_234.56
+    assert detail["priceDisplay"] == "R$ 1.234,56"
+    assert detail["priceNature"] == "valor unitário de emissão"
+    assert detail["priceClassSeries"] == "2ª série sênior"
+    assert detail["priceDocumentDate"] == "2026-06-30"
+    assert detail["priceDocumentId"] == "DOC-CANONICO"
+    assert detail["priceSource"] == "https://example.test/preco-canonico"
+    assert detail["priceExceptionAsterisk"] is True
+    assert "VALOR LEGADO" not in detail.values()
+    assert "CLASSE LEGADA" not in detail.values()
