@@ -9,6 +9,7 @@ nenhum percentual do deck é recalculado na camada de PowerPoint.
 from __future__ import annotations
 
 import argparse
+from decimal import Decimal, InvalidOperation
 import json
 from pathlib import Path
 import re
@@ -89,13 +90,30 @@ ANNUAL_GROWTH_PERIODS = (
     (2025, 2026, "2026 YTD", "ytd"),
 )
 EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL = 500_000_000.0
+TOP100_PLUS2_ADDITIONAL_CNPJS = (
+    "44302112000172",  # Citi-Bayer Farmtech
+    "61669748000176",  # Lavoro Farmtech
+)
 
 def _digits(value: object) -> str:
     if value is None or (isinstance(value, float) and pd.isna(value)):
         return ""
     raw = str(value).strip()
-    if re.fullmatch(r"\d{1,14}(?:\.0+)?", raw):
-        raw = raw.split(".", 1)[0]
+    numeric_raw = raw.replace(",", ".") if "e" in raw.casefold() else raw
+    if re.fullmatch(
+        r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?",
+        numeric_raw,
+    ):
+        try:
+            parsed = Decimal(numeric_raw)
+        except InvalidOperation:
+            parsed = None
+        if (
+            parsed is not None
+            and parsed.is_finite()
+            and parsed == parsed.to_integral_value()
+        ):
+            raw = str(int(parsed))
     digits = re.sub(r"\D", "", raw)
     return digits.zfill(14) if digits else ""
 
@@ -740,6 +758,10 @@ def _acquiring_curation_detail(
 
 
 def _json_value(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {str(key): _json_value(item) for key, item in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_value(item) for item in value]
     if isinstance(value, (np.integer,)):
         return int(value)
     if isinstance(value, (float, np.floating)):
@@ -750,6 +772,16 @@ def _json_value(value: Any) -> Any:
         return bool(value)
     if value is pd.NA or (isinstance(value, float) and pd.isna(value)):
         return None
+    if isinstance(value, str):
+        if "√" in value or re.search(r"(?:Ã|Â)[\u0080-\u00bf]", value):
+            raise ValueError(f"texto publicado contém mojibake: {value[:120]}")
+        if "\ufffd" in value:
+            value = re.sub(
+                r"\ufffd+",
+                " [trecho ilegível na extração] ",
+                value,
+            )
+            value = re.sub(r"\s+", " ", value).strip()
     return value
 
 
@@ -1003,6 +1035,72 @@ def _first_clean_top100_field(*values: object) -> str:
     return "N/D"
 
 
+def _load_top100_plus2_curation(path: Path) -> pd.DataFrame:
+    """Load the two documentary 2026 additions to the global Top 100 export."""
+
+    if not path.exists():
+        raise ValueError(f"curadoria Top 100 + 2 ausente: {path}")
+    frame = pd.read_csv(
+        path,
+        dtype={
+            "cnpj": "string",
+            "oferta_id": "string",
+            "processo_cvm": "string",
+            "documento_regulamento_id": "string",
+            "documento_emissao_id": "string",
+        },
+        low_memory=False,
+    )
+    frame["cnpj"] = frame.get("cnpj", pd.Series(dtype="object")).map(_digits)
+    expected = set(TOP100_PLUS2_ADDITIONAL_CNPJS)
+    actual = set(frame["cnpj"].dropna().astype(str))
+    if len(frame) != 2 or actual != expected or frame["cnpj"].nunique() != 2:
+        raise ValueError(
+            "curadoria Top 100 + 2 deve conter somente Citi-Bayer e Lavoro, "
+            f"um registro por CNPJ; encontrados {sorted(actual)}"
+        )
+    required = {
+        "inclusao_criterio",
+        "oferta_id",
+        "processo_cvm",
+        "data_encerramento",
+        "preco_cota_emissao_brl",
+        "cedente_originador",
+        "sacado_devedor",
+        "tipo_recebivel",
+        "taxonomia_funcional_n1",
+        "taxonomia_funcional_n2",
+        "minimo_subordinacao_estrutural",
+        "natureza_minimo",
+        "documento_regulamento_id",
+        "documento_emissao_id",
+        "pagina_clausula",
+        "evidencia",
+        "fonte_regulamento",
+        "fonte_emissao",
+        "status_cobertura",
+    }
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(
+            "curadoria Top 100 + 2 sem colunas obrigatórias: "
+            + ", ".join(sorted(missing))
+        )
+    for column in required.difference({"minimo_subordinacao_estrutural"}):
+        gaps = frame[column].fillna("").astype(str).str.strip().eq("")
+        if gaps.any():
+            cnpjs = ", ".join(frame.loc[gaps, "cnpj"].astype(str))
+            raise ValueError(
+                f"curadoria Top 100 + 2 contém lacuna indevida em {column}: {cnpjs}"
+            )
+    frame["minimo_subordinacao_estrutural"] = pd.to_numeric(
+        frame["minimo_subordinacao_estrutural"], errors="coerce"
+    )
+    if frame["minimo_subordinacao_estrutural"].isna().any():
+        raise ValueError("curadoria Top 100 + 2 sem mínimo estrutural documental")
+    return frame
+
+
 def _build_top100_fidcs_middle_market(
     *,
     funds: pd.DataFrame,
@@ -1011,8 +1109,10 @@ def _build_top100_fidcs_middle_market(
     top20_taxonomy_review: pd.DataFrame,
     profiles: pd.DataFrame,
     manual_enrichment: pd.DataFrame,
+    additional_2026: pd.DataFrame,
+    vehicle: pd.DataFrame,
 ) -> tuple[pd.DataFrame, dict[str, object]]:
-    """Rank the global Top 100 and expose only documentary Middle Market signals."""
+    """Rank the global Top 100 and append two documented 2026 issuances."""
 
     current = funds[funds["competencia"].astype(str).eq(latest)].copy()
     current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
@@ -1027,13 +1127,60 @@ def _build_top100_fidcs_middle_market(
     current["pl"] = pd.to_numeric(current.get("pl"), errors="coerce")
     current = apply_taxonomy_review_overlay(current, actions)
     denominator = current["pl"].sum(min_count=1)
-    top = current.sort_values(
+    ranked = current.sort_values(
         ["pl", "cnpj_fundo"], ascending=[False, True], kind="stable"
-    ).head(100).copy()
-    if len(top) != 100 or top["cnpj_fundo"].nunique() != 100:
+    ).reset_index(drop=True)
+    ranked["rank_geral"] = range(1, len(ranked) + 1)
+    ranked["share_pl_ex_fic"] = ranked["pl"].div(denominator)
+    top100 = ranked.head(100).copy()
+    if len(top100) != 100 or top100["cnpj_fundo"].nunique() != 100:
         raise ValueError("Top 100 geral deve conter 100 CNPJs únicos")
-    top["rank_geral"] = range(1, 101)
-    top["share_pl_ex_fic"] = top["pl"].div(denominator)
+    additions = ranked[
+        ranked["cnpj_fundo"].isin(TOP100_PLUS2_ADDITIONAL_CNPJS)
+    ].copy()
+    if len(additions) != 2 or additions["cnpj_fundo"].nunique() != 2:
+        raise ValueError("Citi-Bayer e Lavoro devem existir na competência publicada")
+    overlap = set(top100["cnpj_fundo"]).intersection(additions["cnpj_fundo"])
+    if overlap:
+        raise ValueError(
+            "inclusões adicionais já pertencem ao Top 100 e duplicariam o export: "
+            + ", ".join(sorted(overlap))
+        )
+    top100["inclusao_criterio"] = "Top 100 por PL ex-FIC"
+    additional_curated = additional_2026.rename(
+        columns={
+            column: f"{column}_curadoria"
+            for column in additional_2026.columns
+            if column not in {"cnpj", "inclusao_criterio"}
+        }
+    )
+    additions = additions.merge(
+        additional_curated,
+        left_on="cnpj_fundo",
+        right_on="cnpj",
+        how="left",
+        validate="one_to_one",
+        suffixes=("", "_curadoria"),
+    ).drop(columns=["cnpj"], errors="ignore")
+    top = pd.concat([top100, additions], ignore_index=True, sort=False)
+    top["ordem_exportacao"] = range(1, 103)
+
+    current_vehicle = vehicle[
+        vehicle["competencia"].astype(str).eq(latest)
+    ].copy()
+    current_vehicle["cnpj_fundo"] = current_vehicle.get(
+        "cnpj_fundo", current_vehicle.get("cnpj", pd.Series(dtype="object"))
+    ).map(_digits)
+    current_vehicle["subordinacao_atual_pl"] = pd.to_numeric(
+        current_vehicle.get("subordinacao_pct"), errors="coerce"
+    )
+    current_vehicle = current_vehicle.drop_duplicates("cnpj_fundo", keep="last")
+    top = top.merge(
+        current_vehicle[["cnpj_fundo", "subordinacao_atual_pl"]],
+        on="cnpj_fundo",
+        how="left",
+        validate="one_to_one",
+    )
 
     latest_review = top20_taxonomy_review[
         top20_taxonomy_review.get(
@@ -1141,16 +1288,22 @@ def _build_top100_fidcs_middle_market(
         action_cedente = (
             action.get("cedente_originador_expresso") if action_is_manual else None
         )
+        curated_addition = cnpj in TOP100_PLUS2_ADDITIONAL_CNPJS
         cedente = _first_clean_top100_field(
+            row.get("cedente_originador_curadoria")
+            if curated_addition
+            else None,
             row.get("cedente_originador_profile"),
             manual_values.get("cedente_originador_literal"),
             action_cedente,
         )
         sacado = _first_clean_top100_field(
+            row.get("sacado_devedor_curadoria") if curated_addition else None,
             row.get("sacado_devedor"),
             manual_values.get("sacado_devedor"),
         )
         documentary_receivable = _first_clean_top100_field(
+            row.get("tipo_recebivel_curadoria") if curated_addition else None,
             row.get("natureza_recebiveis"),
             manual_values.get("tipo_recebivel_literal"),
         )
@@ -1160,20 +1313,29 @@ def _build_top100_fidcs_middle_market(
             action.get("taxonomia_funcional_n2"),
         )
         functional_n1 = _first_documented(
+            row.get("taxonomia_funcional_n1_curadoria")
+            if curated_addition
+            else None,
             row.get("taxonomia_funcional_n1_curada"),
             action.get("taxonomia_funcional_n1"),
         )
         functional_n2 = _first_documented(
+            row.get("taxonomia_funcional_n2_curadoria")
+            if curated_addition
+            else None,
             row.get("taxonomia_funcional_n2_curada"),
             action.get("taxonomia_funcional_n2"),
         )
         evidence = _first_documented(
+            row.get("evidencia_curadoria") if curated_addition else None,
             row.get("evidencia_profile"),
             row.get("evidencia_cedente"),
             action.get("evidencia"),
             manual_values.get("observacao"),
         )
         source = _first_documented(
+            row.get("fonte_regulamento_curadoria") if curated_addition else None,
+            row.get("fonte_emissao_curadoria") if curated_addition else None,
             row.get("fonte_profile"),
             action.get("fonte_documental"),
             row.get("regulamento_url"),
@@ -1232,12 +1394,51 @@ def _build_top100_fidcs_middle_market(
             mm_reason = "A evidência disponível aponta outro tipo de risco ou não traz crédito corporativo."
         output_rows.append(
             {
+                "ordem_exportacao": int(row["ordem_exportacao"]),
                 "rank_geral": int(row["rank_geral"]),
+                "inclusao_criterio": _first_documented(
+                    row.get("inclusao_criterio")
+                ),
                 "cnpj": cnpj,
                 "cnpj_formatado": _format_cnpj(cnpj),
                 "nome_fundo": _text(row.get("denominacao")) or "N/D",
                 "pl_brl": row.get("pl"),
                 "share_pl_ex_fic": row.get("share_pl_ex_fic"),
+                "subordinacao_atual_pl": row.get("subordinacao_atual_pl"),
+                "minimo_subordinacao_junior": row.get(
+                    "minimo_subordinacao_junior_curadoria"
+                ),
+                "minimo_subordinacao_estrutural": row.get(
+                    "minimo_subordinacao_estrutural_curadoria"
+                ),
+                "natureza_minimo": _first_documented(
+                    row.get("natureza_minimo_curadoria")
+                ),
+                "preco_cota_emissao_brl": row.get(
+                    "preco_cota_emissao_brl_curadoria"
+                ),
+                "oferta_id": _first_documented(row.get("oferta_id_curadoria")),
+                "processo_cvm": _first_documented(
+                    row.get("processo_cvm_curadoria")
+                ),
+                "data_registro": _first_documented(
+                    row.get("data_registro_curadoria")
+                ),
+                "data_encerramento": _first_documented(
+                    row.get("data_encerramento_curadoria")
+                ),
+                "volume_registrado_brl": row.get(
+                    "volume_registrado_brl_curadoria"
+                ),
+                "quantidade_registrada": row.get(
+                    "quantidade_registrada_curadoria"
+                ),
+                "quantidade_colocada": row.get(
+                    "quantidade_colocada_curadoria"
+                ),
+                "montante_encerrado_brl": row.get(
+                    "montante_encerrado_brl_curadoria"
+                ),
                 "cedente_originador": cedente,
                 "sacado_devedor": sacado,
                 "tipo_recebivel": receivable,
@@ -1253,14 +1454,32 @@ def _build_top100_fidcs_middle_market(
                 "evidencia": evidence,
                 "fonte": source,
                 "documento_id": _first_documented(
+                    row.get("documento_regulamento_id_curadoria")
+                    if curated_addition
+                    else None,
                     row.get("documentos_primarios_ids"),
                     action.get("documento_id"),
                     row.get("regulamento_id"),
                 ),
+                "documento_emissao_id": _first_documented(
+                    row.get("documento_emissao_id_curadoria")
+                ),
                 "pagina_clausula": _first_documented(
+                    row.get("pagina_clausula_curadoria")
+                    if curated_addition
+                    else None,
                     action.get("pagina_clausula"), row.get("pagina_clausula")
                 ),
-                "status_cobertura": (
+                "fonte_regulamento": _first_documented(
+                    row.get("fonte_regulamento_curadoria")
+                ),
+                "fonte_emissao": _first_documented(
+                    row.get("fonte_emissao_curadoria")
+                ),
+                "status_cobertura": _first_documented(
+                    row.get("status_cobertura_curadoria")
+                    if curated_addition
+                    else None,
                     "documentado — parte ou lastro identificado"
                     if source != "N/D"
                     and any(
@@ -1275,7 +1494,7 @@ def _build_top100_fidcs_middle_market(
                 ),
             }
         )
-    output = pd.DataFrame(output_rows).sort_values("rank_geral").reset_index(drop=True)
+    output = pd.DataFrame(output_rows).sort_values("ordem_exportacao").reset_index(drop=True)
     direct_mask = output["middle_market_status"].str.startswith(
         "Rótulo documental", na=False
     )
@@ -1283,12 +1502,28 @@ def _build_top100_fidcs_middle_market(
         "Indício de crédito corporativo; porte N/D"
     )
     summary = {
-        "fundos": 100,
+        "fundos": 102,
+        "top100_fundos": 100,
+        "adicionais_2026_fundos": 2,
         "competencia": latest,
         "top100_pl_brl": float(
-            pd.to_numeric(output["pl_brl"], errors="coerce").sum()
+            pd.to_numeric(
+                output.loc[output["ordem_exportacao"].le(100), "pl_brl"],
+                errors="coerce",
+            ).sum()
         ),
         "top100_share_pl_ex_fic": float(
+            pd.to_numeric(
+                output.loc[
+                    output["ordem_exportacao"].le(100), "share_pl_ex_fic"
+                ],
+                errors="coerce",
+            ).sum()
+        ),
+        "top100_plus2_pl_brl": float(
+            pd.to_numeric(output["pl_brl"], errors="coerce").sum()
+        ),
+        "top100_plus2_share_pl_ex_fic": float(
             pd.to_numeric(output["share_pl_ex_fic"], errors="coerce").sum()
         ),
         "middle_market_rotulo_documental_fundos": int(direct_mask.sum()),
@@ -1834,7 +2069,7 @@ def _provider_leadership_payload(
         output["btg"]["reconciliation"] = _records(btg_detail)
     if "qi" in output and not qi_detail.empty:
         output["qi"]["legacy_entities"] = _records(qi_detail)
-    return output
+    return _json_value(output)
 
 
 def _last_observation_by_year(monthly: pd.DataFrame, latest: str) -> pd.DataFrame:
@@ -3300,6 +3535,9 @@ def build_payload(
     manual_cnpj_enrichment = _load_manual_cnpj_enrichment(
         data_dir / "industry_cnpj_manual_enrichment.csv"
     )
+    top100_plus2_2026_curation = _load_top100_plus2_curation(
+        data_dir / "top100_plus2_2026_curation.csv"
+    )
     carteira_101_document_audit = load_document_audit_materialization(
         data_dir / "carteira_101_document_audit"
     )
@@ -3889,6 +4127,8 @@ def build_payload(
             top20_taxonomy_review=top20_taxonomy_review,
             profiles=profiles,
             manual_enrichment=manual_cnpj_enrichment,
+            additional_2026=top100_plus2_2026_curation,
+            vehicle=vehicle,
         )
     )
     top100_outros_review = build_taxonomy_review_queue(
@@ -3947,7 +4187,7 @@ def build_payload(
     )
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v9",
+        "schema_version": "fidc_revision_artifact_payload_v10",
         "latest_complete": latest,
         "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,
@@ -4397,7 +4637,7 @@ def build_payload(
         )
     if not qi_legacy_attribution.empty:
         output["qi_legacy_attribution"] = _records(qi_legacy_attribution)
-    return output
+    return _json_value(output)
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

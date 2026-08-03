@@ -130,11 +130,38 @@ def test_top100_workbook_validator_accepts_global_ranking_contract() -> None:
 
 
 @pytest.mark.parametrize(
+    "corrupt_text",
+    [
+        "Cr√©dito",
+        "M√°quinas",
+        "Adquir√™ncia",
+        "CrÃ©dito",
+        "Crédito � corporativo",
+    ],
+)
+def test_top100_workbook_validator_rejects_mojibake_and_replacement_character(
+    corrupt_text: str,
+) -> None:
+    with pytest.raises(RevisionExportUnavailable, match="texto corrompido"):
+        validate_revision_top100_xlsx(
+            _top100_workbook_bytes(corrupt_text=corrupt_text)
+        )
+
+
+@pytest.mark.parametrize(
     ("kwargs", "message"),
     [
-        ({"row_count": 99}, "deveria conter 100 linhas"),
-        ({"duplicate_cnpj": True}, "100 CNPJs numéricos válidos e únicos"),
-        ({"invalid_cnpj": True}, "100 CNPJs numéricos válidos e únicos"),
+        ({"row_count": 101}, "deveria conter 102 linhas"),
+        ({"duplicate_cnpj": True}, "102 CNPJs numéricos válidos e únicos"),
+        ({"invalid_cnpj": True}, "102 CNPJs numéricos válidos e únicos"),
+        (
+            {"missing_additional_cnpj": True},
+            "não contém Citi-Bayer e Lavoro",
+        ),
+        (
+            {"invalid_cnpj_format": True},
+            "deve exibir CNPJ com máscara de 14 dígitos",
+        ),
         (
             {"missing_header": "Middle Market · status"},
             "sem cabeçalhos obrigatórios",
@@ -250,19 +277,28 @@ def _portfolio_workbook_bytes(
 
 def _top100_workbook_bytes(
     *,
-    row_count: int = 100,
+    row_count: int = 102,
     missing_header: str | None = None,
     duplicate_cnpj: bool = False,
     invalid_cnpj: bool = False,
+    missing_additional_cnpj: bool = False,
+    invalid_cnpj_format: bool = False,
+    corrupt_text: str | None = None,
 ) -> bytes:
     workbook = Workbook()
     workbook.active.title = "Leia-me"
     sheet = workbook.create_sheet("Top 100 FIDCs")
     headers = [
-        "Posição",
+        "Ordem do export",
+        "Rank geral por PL",
+        "Critério de inclusão",
         "CNPJ",
         "Nome completo do fundo (CVM)",
         "PL",
+        "Sub / PL atual",
+        "Mínimo de Sub Jr",
+        "Mínimo estrutural",
+        "Preço inicial por cota",
         "Cedente / originador",
         "Sacado / devedor",
         "Tipo de recebível",
@@ -277,7 +313,12 @@ def _top100_workbook_bytes(
         sheet.cell(row=4, column=column, value=header)
     cnpj_column = headers.index("CNPJ") + 1
     for offset in range(row_count):
-        digits = _test_cnpj(20_000 + offset)
+        if offset == 100:
+            digits = "44302112000172"
+        elif offset == 101 and not missing_additional_cnpj:
+            digits = "61669748000176"
+        else:
+            digits = _test_cnpj(20_000 + offset)
         value: object = int(digits)
         if duplicate_cnpj and offset == 1:
             value = int(_test_cnpj(20_000))
@@ -285,9 +326,35 @@ def _top100_workbook_bytes(
             value = 123
         for column in range(1, len(headers) + 1):
             sheet.cell(row=5 + offset, column=column, value="N/D")
-        sheet.cell(row=5 + offset, column=headers.index("Posição") + 1, value=offset + 1)
+        sheet.cell(
+            row=5 + offset,
+            column=headers.index("Ordem do export") + 1,
+            value=offset + 1,
+        )
+        sheet.cell(
+            row=5 + offset,
+            column=headers.index("Rank geral por PL") + 1,
+            value=offset + 1,
+        )
+        sheet.cell(
+            row=5 + offset,
+            column=headers.index("Critério de inclusão") + 1,
+            value=(
+                "Top 100 por PL ex-FIC"
+                if offset < 100
+                else "Inclusão 2026 documentada"
+            ),
+        )
         cnpj_cell = sheet.cell(row=5 + offset, column=cnpj_column, value=value)
-        cnpj_cell.number_format = "00000000000000"
+        cnpj_cell.number_format = (
+            "General" if invalid_cnpj_format and offset == 0 else "00000000000000"
+        )
+        if corrupt_text is not None and offset == 0:
+            sheet.cell(
+                row=5 + offset,
+                column=headers.index("Tipo de recebível") + 1,
+                value=corrupt_text,
+            )
 
     payload = BytesIO()
     workbook.save(payload)

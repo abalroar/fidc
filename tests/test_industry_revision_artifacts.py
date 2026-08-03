@@ -875,7 +875,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v42";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v43";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 
