@@ -33,6 +33,7 @@ SCHEMA_V6 = "fidc_revision_artifact_payload_v6"
 SCHEMA_V7 = "fidc_revision_artifact_payload_v7"
 SCHEMA_V8 = "fidc_revision_artifact_payload_v8"
 SCHEMA_V9 = "fidc_revision_artifact_payload_v9"
+SCHEMA_V10 = "fidc_revision_artifact_payload_v10"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -162,6 +163,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V7,
         SCHEMA_V8,
         SCHEMA_V9,
+        SCHEMA_V10,
     }:
         payload.update(
             {
@@ -226,6 +228,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V7,
         SCHEMA_V8,
         SCHEMA_V9,
+        SCHEMA_V10,
     }:
         payload.update(
             {
@@ -259,6 +262,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V7,
         SCHEMA_V8,
         SCHEMA_V9,
+        SCHEMA_V10,
     }:
         payload.update(
             {
@@ -351,7 +355,14 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9}:
+    if schema in {
+        SCHEMA_V5,
+        SCHEMA_V6,
+        SCHEMA_V7,
+        SCHEMA_V8,
+        SCHEMA_V9,
+        SCHEMA_V10,
+    }:
         payload.update(
             {
                 "delinquency_frozen_cohort_history": [
@@ -441,7 +452,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "conclusion_metrics": {"competencia": "2026-05"},
             }
         )
-    if schema in {SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9}:
+    if schema in {SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10}:
         statuses = (
             ["Incluído em Adquirência"] * 26
             + ["Fora de Adquirência"] * 17
@@ -484,7 +495,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V7, SCHEMA_V8, SCHEMA_V9}:
+    if schema in {SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10}:
         payload["bcb_expanded_credit"] = [
             {
                 "competencia": "2026-05",
@@ -518,20 +529,75 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "limitation": "Série sujeita a retificações.",
             }
         ]
-    if schema == SCHEMA_V9:
+    if schema in {SCHEMA_V9, SCHEMA_V10}:
         portfolio_rows = [
             {"cnpj": f"10{index:012d}", "nome_fundo": f"Carteira {index}"}
             for index in range(1, 102)
         ]
         top100_rows = [
-            {"cnpj": f"20{index:012d}", "nome_fundo": f"Top 100 {index}"}
+            {
+                "ordem_exportacao": index,
+                "rank_geral": index,
+                "inclusao_criterio": "Top 100 por PL ex-FIC",
+                "cnpj": f"20{index:012d}",
+                "nome_fundo": f"Top 100 {index}",
+            }
             for index in range(1, 101)
         ]
+        if schema == SCHEMA_V10:
+            top100_rows.extend(
+                [
+                    {
+                        "ordem_exportacao": 101,
+                        "rank_geral": 101,
+                        "inclusao_criterio": "Inclusão 2026 documentada",
+                        "cnpj": "44302112000172",
+                        "nome_fundo": "Citi-Bayer",
+                        "subordinacao_atual_pl": 0.20,
+                        "minimo_subordinacao_junior": 0.10,
+                        "minimo_subordinacao_estrutural": 0.15,
+                        "preco_cota_emissao_brl": 1_000.0,
+                        "cedente_originador": "Bayer",
+                        "sacado_devedor": "Produtores rurais",
+                        "tipo_recebivel": "Crédito corporativo agrícola",
+                        "documento_id": "REG-CITI-BAYER",
+                        "documento_emissao_id": "EMIS-CITI-BAYER",
+                        "fonte_regulamento": "FundosNet/B3",
+                        "fonte_emissao": "CVM Ofertas",
+                    },
+                    {
+                        "ordem_exportacao": 102,
+                        "rank_geral": 102,
+                        "inclusao_criterio": "Inclusão 2026 documentada",
+                        "cnpj": "61669748000176",
+                        "nome_fundo": "Lavoro",
+                        "subordinacao_atual_pl": 0.20,
+                        "minimo_subordinacao_junior": 0.10,
+                        "minimo_subordinacao_estrutural": 0.15,
+                        "preco_cota_emissao_brl": 1_000.0,
+                        "cedente_originador": "Lavoro",
+                        "sacado_devedor": "Produtores rurais",
+                        "tipo_recebivel": "Crédito corporativo agrícola",
+                        "documento_id": "REG-LAVORO",
+                        "documento_emissao_id": "EMIS-LAVORO",
+                        "fonte_regulamento": "FundosNet/B3",
+                        "fonte_emissao": "CVM Ofertas",
+                    },
+                ]
+            )
+        summary = {"fundos": len(top100_rows)}
+        if schema == SCHEMA_V10:
+            summary.update(
+                {
+                    "top100_fundos": 100,
+                    "adicionais_2026_fundos": 2,
+                }
+            )
         payload.update(
             {
                 "portfolio_export_carteira_101": portfolio_rows,
                 "top100_fidcs_middle_market": top100_rows,
-                "top100_fidcs_middle_market_summary": {"fundos": 100},
+                "top100_fidcs_middle_market_summary": summary,
             }
         )
     return payload
@@ -565,6 +631,7 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
         SCHEMA_V7,
         SCHEMA_V8,
         SCHEMA_V9,
+        SCHEMA_V10,
     ],
 )
 def test_revision_payload_loader_accepts_each_published_schema(
@@ -580,6 +647,18 @@ def test_revision_payload_loader_accepts_each_published_schema(
     assert loaded == payload
     if schema == SCHEMA_V2:
         assert "market_share_scope_summary" not in loaded
+    if schema == SCHEMA_V10:
+        top100_plus2 = loaded["top100_fidcs_middle_market"]
+        assert len(top100_plus2) == 102
+        assert {row["cnpj"] for row in top100_plus2[-2:]} == {
+            "44302112000172",
+            "61669748000176",
+        }
+        assert loaded["top100_fidcs_middle_market_summary"] == {
+            "fundos": 102,
+            "top100_fundos": 100,
+            "adicionais_2026_fundos": 2,
+        }
 
 
 @pytest.mark.parametrize("schema", [SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7])
@@ -609,6 +688,21 @@ def test_revision_payload_loader_requires_a_comparable_offers_block(
     with pytest.raises(
         ValueError,
         match=r"payload revisado incompleto:.*closed_offers_jan_june",
+    ):
+        _load_payload(tmp_path, monkeypatch)
+
+
+def test_revision_payload_loader_requires_102_top100_plus2_rows_in_v10(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _payload_for_schema(SCHEMA_V10)
+    payload["top100_fidcs_middle_market"].pop()
+    _write_payload(tmp_path, payload)
+
+    with pytest.raises(
+        ValueError,
+        match=r"Top 100 \+ 2 FIDCs deve conter exatamente 102 fundos",
     ):
         _load_payload(tmp_path, monkeypatch)
 
@@ -817,7 +911,7 @@ def _write_current_bundle_metadata(
             index=False,
         )
     payload = {
-        "schema_version": SCHEMA_V9,
+        "schema_version": SCHEMA_V10,
         "latest_complete": "2026-06",
         "taxonomy_review_meta": {
             "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
@@ -833,7 +927,7 @@ def _write_current_bundle_metadata(
         json.dumps(
             {
                 "schema_version": BUNDLE_SCHEMA,
-                "payload_schema": SCHEMA_V9,
+                "payload_schema": SCHEMA_V10,
                 "payload_sha256": payload_hash,
                 "source_signature": payload_hash,
                 "latest_complete": "2026-06",

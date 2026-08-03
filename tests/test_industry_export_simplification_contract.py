@@ -297,7 +297,33 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     }.issubset(payload)
     assert len(payload["portfolio_export_carteira_101"]) == 101
     assert len(payload["portfolio_export_cases_99"]) == 99
-    assert len(payload["top100_fidcs_middle_market"]) == 100
+    top100_plus2 = payload["top100_fidcs_middle_market"]
+    assert len(top100_plus2) == 102
+    additions = {
+        str(row.get("cnpj") or ""): row
+        for row in top100_plus2
+        if int(row.get("ordem_exportacao") or 0) > 100
+    }
+    assert set(additions) == {"44302112000172", "61669748000176"}
+    required_addition_fields = {
+        "subordinacao_atual_pl",
+        "minimo_subordinacao_estrutural",
+        "preco_cota_emissao_brl",
+        "cedente_originador",
+        "sacado_devedor",
+        "tipo_recebivel",
+        "documento_id",
+        "documento_emissao_id",
+        "fonte_regulamento",
+        "fonte_emissao",
+    }
+    assert all(
+        all(
+            row.get(field) not in (None, "", "N/D")
+            for field in required_addition_fields
+        )
+        for row in additions.values()
+    )
 
     renderer_source = RENDERER_PATH.read_text(encoding="utf-8")
     dashboard_source = DASHBOARD_PATH.read_text(encoding="utf-8")

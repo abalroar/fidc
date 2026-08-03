@@ -544,17 +544,73 @@ def _payload() -> dict[str, object]:
             {"cnpj": f"20{index:012d}"} for index in range(1, 48)
         ],
         "top100_fidcs_middle_market": [
+            *[
+                {
+                    "ordem_exportacao": index,
+                    "rank_geral": index,
+                    "inclusao_criterio": "Top 100 por PL ex-FIC",
+                    "cnpj": f"30{index:012d}",
+                    "nome_fundo": f"FIDC Top 100 {index}",
+                    "pl_brl": float(101 - index),
+                    "middle_market_status": "dados_insuficientes",
+                }
+                for index in range(1, 101)
+            ],
             {
-                "rank_global": index,
-                "cnpj_fundo": f"30{index:012d}",
-                "denominacao": f"FIDC Top 100 {index}",
-                "pl_brl": float(101 - index),
-                "middle_market_status": "dados_insuficientes",
-            }
-            for index in range(1, 101)
+                "ordem_exportacao": 101,
+                "rank_geral": 101,
+                "inclusao_criterio": "Inclusão 2026 documentada",
+                "cnpj": "44302112000172",
+                "nome_fundo": "Citi-Bayer",
+                "pl_brl": 1.0,
+                "subordinacao_atual_pl": 0.20,
+                "minimo_subordinacao_junior": 0.10,
+                "minimo_subordinacao_estrutural": 0.15,
+                "natureza_minimo": "Suporte combinado júnior + mezanino",
+                "preco_cota_emissao_brl": 1_000.0,
+                "oferta_id": "CVM-OFERTA-CITI-BAYER",
+                "processo_cvm": "SRE/2026/CITI-BAYER",
+                "data_registro": "2026-06-01",
+                "data_encerramento": "2026-06-30",
+                "cedente_originador": "Bayer",
+                "sacado_devedor": "Produtores rurais",
+                "tipo_recebivel": "Crédito corporativo agrícola",
+                "middle_market_status": "Indício de crédito corporativo; porte N/D",
+                "documento_id": "REG-CITI-BAYER",
+                "documento_emissao_id": "EMIS-CITI-BAYER",
+                "fonte_regulamento": "FundosNet/B3",
+                "fonte_emissao": "CVM Ofertas",
+            },
+            {
+                "ordem_exportacao": 102,
+                "rank_geral": 102,
+                "inclusao_criterio": "Inclusão 2026 documentada",
+                "cnpj": "61669748000176",
+                "nome_fundo": "Lavoro",
+                "pl_brl": 1.0,
+                "subordinacao_atual_pl": 0.20,
+                "minimo_subordinacao_junior": 0.10,
+                "minimo_subordinacao_estrutural": 0.15,
+                "natureza_minimo": "Suporte combinado júnior + mezanino",
+                "preco_cota_emissao_brl": 1_000.0,
+                "oferta_id": "CVM-OFERTA-LAVORO",
+                "processo_cvm": "SRE/2026/LAVORO",
+                "data_registro": "2026-06-01",
+                "data_encerramento": "2026-06-30",
+                "cedente_originador": "Lavoro",
+                "sacado_devedor": "Produtores rurais",
+                "tipo_recebivel": "Crédito corporativo agrícola",
+                "middle_market_status": "Indício de crédito corporativo; porte N/D",
+                "documento_id": "REG-LAVORO",
+                "documento_emissao_id": "EMIS-LAVORO",
+                "fonte_regulamento": "FundosNet/B3",
+                "fonte_emissao": "CVM Ofertas",
+            },
         ],
         "top100_fidcs_middle_market_summary": {
-            "fundos": 100,
+            "fundos": 102,
+            "top100_fundos": 100,
+            "adicionais_2026_fundos": 2,
             "top100_pl_brl": 5050.0,
             "top100_share_pl_ex_fic": 0.5,
         },
@@ -1236,11 +1292,60 @@ def _payload() -> dict[str, object]:
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v9"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v10"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
     assert len(payload["portfolio_export_cases_99"]) == 99
-    assert len(payload["top100_fidcs_middle_market"]) == 100
+    top100_plus2 = payload["top100_fidcs_middle_market"]
+    assert len(top100_plus2) == 102
+    assert {row["cnpj"] for row in top100_plus2[-2:]} == {
+        "44302112000172",
+        "61669748000176",
+    }
+
+
+@pytest.mark.parametrize(
+    "field",
+    (
+        "subordinacao_atual_pl",
+        "minimo_subordinacao_estrutural",
+        "preco_cota_emissao_brl",
+        "cedente_originador",
+        "sacado_devedor",
+        "tipo_recebivel",
+        "documento_id",
+        "documento_emissao_id",
+        "fonte_regulamento",
+        "fonte_emissao",
+    ),
+)
+def test_payload_rejects_top100_plus2_addition_without_documentary_field(
+    field: str,
+) -> None:
+    payload = deepcopy(_payload())
+    citi_bayer = next(
+        row
+        for row in payload["top100_fidcs_middle_market"]
+        if row["cnpj"] == "44302112000172"
+    )
+    citi_bayer[field] = "N/D"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=rf"inclusão 2026 44302112000172 sem campos documentais: {field}",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_unapproved_top100_plus2_addition() -> None:
+    payload = deepcopy(_payload())
+    payload["top100_fidcs_middle_market"][-1]["cnpj"] = "99999999000199"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="deve acrescentar somente Citi-Bayer e Lavoro",
+    ):
+        validate_artifact_payload(payload, "2026-05")
 
 
 def test_payload_rejects_incomplete_portfolio_export_cohorts() -> None:
@@ -1758,11 +1863,11 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     )
 
     assert first["bundle_id"] == second["bundle_id"]
-    assert first["schema_version"] == "fidc_revision_export_bundle_v4"
+    assert first["schema_version"] == "fidc_revision_export_bundle_v5"
     assert first["checks"]["slides"] == EXPECTED_SLIDES
     assert first["top100_xlsx"]["name"] == "top100_fidcs_middle_market.xlsx"
     assert first["checks"]["portfolio_export_cases_99"] == 99
-    assert first["checks"]["top100_fidcs_middle_market"] == 100
+    assert first["checks"]["top100_fidcs_middle_market"] == 102
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,

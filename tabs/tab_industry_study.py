@@ -19,6 +19,7 @@ import json
 import re
 import sqlite3
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 import altair as alt
@@ -481,10 +482,65 @@ def _fmt_number_ptbr(value: object, digits: int = 1, *, signed: bool = False) ->
     return pattern.format(float(number)).replace(",", "@").replace(".", ",").replace("@", ".")
 
 
-def _ptbr_csv_bytes(frame: pd.DataFrame) -> bytes:
-    """Serialize a user-facing CSV with semicolon and decimal comma."""
+_CNPJ_COLUMN_EXCLUSIONS = ("count", "contagem", "quantidade", "qtd", "raiz", "root")
+_BARE_CNPJ_PATTERN = re.compile(r"(?<!\d)(\d{14})(?!\d)")
+_NUMERIC_IDENTIFIER_PATTERN = re.compile(
+    r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
+)
 
-    return frame.to_csv(index=False, sep=";", decimal=",").encode("utf-8-sig")
+
+def _is_cnpj_identifier_column(column: object) -> bool:
+    name = str(column).strip().casefold()
+    return "cnpj" in name and not any(token in name for token in _CNPJ_COLUMN_EXCLUSIONS)
+
+
+def _format_excel_safe_cnpj(value: object) -> object:
+    """Render CNPJ identifiers as punctuated text so Excel does not infer numbers."""
+
+    try:
+        if pd.isna(value):
+            return value
+    except (TypeError, ValueError):
+        pass
+    raw = str(value).strip()
+    if not raw:
+        return value
+
+    digits = ""
+    if _NUMERIC_IDENTIFIER_PATTERN.fullmatch(raw):
+        try:
+            number = Decimal(raw)
+        except InvalidOperation:
+            number = None
+        if number is not None and number.is_finite() and number == number.to_integral_value():
+            digits = str(int(number))
+    else:
+        compact = re.sub(r"\D", "", raw)
+        if compact and len(compact) <= 14:
+            digits = compact
+
+    if digits and len(digits) <= 14:
+        digits = digits.zfill(14)
+        return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+
+    def replace_bare(match: re.Match[str]) -> str:
+        candidate = match.group(1)
+        return (
+            f"{candidate[:2]}.{candidate[2:5]}.{candidate[5:8]}/"
+            f"{candidate[8:12]}-{candidate[12:]}"
+        )
+
+    return _BARE_CNPJ_PATTERN.sub(replace_bare, raw)
+
+
+def _ptbr_csv_bytes(frame: pd.DataFrame) -> bytes:
+    """Serialize an Excel-safe, user-facing CSV without mutating the source frame."""
+
+    export = frame.copy()
+    for column in export.columns:
+        if _is_cnpj_identifier_column(column):
+            export[column] = export[column].map(_format_excel_safe_cnpj)
+    return export.to_csv(index=False, sep=";", decimal=",").encode("utf-8-sig")
 
 
 def _pct_label(value: float | None, digits: int = 1) -> str:
@@ -2366,7 +2422,7 @@ def _render_fund_snapshot_universe() -> None:
                 )
             st.download_button(
                 "Baixar fila de lacunas",
-                data=gap_view.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(gap_view),
                 file_name="industry_snapshot_gap_queue.csv",
                 mime="text/csv",
                 key="industry_snapshot_gap_download",
@@ -4693,7 +4749,7 @@ def _render_generic_heatmaps(vehicle: pd.DataFrame | None, comp: str) -> None:
                 st.dataframe(_format_heatmap_cell_drilldown(table_drill), hide_index=True, width="stretch")
                 st.download_button(
                     "Baixar evidências da célula",
-                    data=drilldown.to_csv(index=False).encode("utf-8"),
+                    data=_ptbr_csv_bytes(drilldown),
                     file_name="industry_heatmap_cell_evidence.csv",
                     mime="text/csv",
                     key="industry_heatmap_cell_download",
@@ -5324,7 +5380,7 @@ def _render_document_inventory() -> None:
                     )
                 st.download_button(
                     "Baixar plano de chunks",
-                    data=chunk_view.to_csv(index=False).encode("utf-8"),
+                    data=_ptbr_csv_bytes(chunk_view),
                     file_name="industry_document_chunk_plan.csv",
                     mime="text/csv",
                     key="industry_document_chunk_plan_download",
@@ -6257,7 +6313,9 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
             st.dataframe(_format_dimension_value_atlas(atlas_view.head(80)), hide_index=True, width="stretch")
             st.download_button(
                 "Baixar atlas da dimensão",
-                data=atlas_view.drop(columns=["rank_score_num"], errors="ignore").to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(
+                    atlas_view.drop(columns=["rank_score_num"], errors="ignore")
+                ),
                 file_name=f"industry_deep_dive_{dim_col}_atlas.csv",
                 mime="text/csv",
                 key=f"industry_deep_atlas_download_{dim_col}",
@@ -6312,7 +6370,9 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
             st.dataframe(_format_dimension_radar(radar.head(80)), hide_index=True, width="stretch")
             st.download_button(
                 "Baixar radar da dimensão",
-                data=radar.drop(columns=["rank_score"], errors="ignore").to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(
+                    radar.drop(columns=["rank_score"], errors="ignore")
+                ),
                 file_name=f"industry_deep_dive_{dim_col}_radar.csv",
                 mime="text/csv",
                 key=f"industry_deep_radar_download_{dim_col}",
@@ -6387,7 +6447,7 @@ def _render_industry_deep_dive(vehicle: pd.DataFrame | None, comp: str) -> None:
             st.dataframe(_format_dimension_value_snapshot(value_snapshot.head(120)), hide_index=True, width="stretch")
             st.download_button(
                 "Baixar curadoria do valor",
-                data=value_snapshot.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(value_snapshot),
                 file_name=f"industry_deep_dive_{dim_col}_curadoria.csv",
                 mime="text/csv",
                 key=f"industry_deep_value_snapshot_download_{dim_col}",
@@ -7244,7 +7304,7 @@ def _render_pipeline_manifest() -> None:
             st.dataframe(_format_public_claim_audit(public_view), hide_index=True, width="stretch", height=440)
             st.download_button(
                 "Baixar auditoria pública",
-                data=public_claim_audit.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(public_claim_audit),
                 file_name="industry_public_claim_audit.csv",
                 mime="text/csv",
                 key="industry_public_claim_download",
@@ -7326,7 +7386,7 @@ def _render_pipeline_manifest() -> None:
             st.dataframe(_format_manual_review_ledger(ledger_view), hide_index=True, width="stretch", height=420)
             st.download_button(
                 "Baixar ledger de revisões",
-                data=ledger.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(ledger),
                 file_name="industry_manual_review_ledger.csv",
                 mime="text/csv",
                 key="industry_manual_review_ledger_download",
@@ -7663,7 +7723,7 @@ def _render_pipeline_manifest() -> None:
                 )
             st.download_button(
                 "Baixar fila filtrada",
-                data=queue_view.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(queue_view),
                 file_name="industry_curation_queue_filtered.csv",
                 mime="text/csv",
                 key="industry_curation_queue_download",
@@ -7864,7 +7924,7 @@ def _render_pipeline_manifest() -> None:
             st.dataframe(_format_dimension_dossiers(dossier_view), hide_index=True, width="stretch", height=460)
             st.download_button(
                 "Baixar dossiês dimensionais",
-                data=dimension_dossiers.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(dimension_dossiers),
                 file_name="industry_dimension_dossiers.csv",
                 mime="text/csv",
                 key="industry_dimension_dossier_download",
@@ -8032,7 +8092,7 @@ def _render_pipeline_manifest() -> None:
                     )
                 st.download_button(
                     "Baixar lacunas do catálogo",
-                    data=gap_view.to_csv(index=False).encode("utf-8"),
+                    data=_ptbr_csv_bytes(gap_view),
                     file_name="industry_dimension_catalog_traceability_gaps.csv",
                     mime="text/csv",
                     key="industry_catalog_gap_download",
@@ -8309,7 +8369,7 @@ def _render_pipeline_manifest() -> None:
             st.dataframe(_format_monthly_update_plan(plan_view), hide_index=True, width="stretch", height=460)
             st.download_button(
                 "Baixar plano mensal",
-                data=plan_frame.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(plan_frame),
                 file_name="industry_monthly_update_plan.csv",
                 mime="text/csv",
                 key="industry_monthly_update_plan_download",
@@ -8368,7 +8428,7 @@ def _render_pipeline_manifest() -> None:
             st.dataframe(_format_monthly_readiness(readiness_view), hide_index=True, width="stretch")
             st.download_button(
                 "Baixar prontidão mensal",
-                data=readiness.to_csv(index=False).encode("utf-8"),
+                data=_ptbr_csv_bytes(readiness),
                 file_name="industry_monthly_readiness.csv",
                 mime="text/csv",
                 key="industry_monthly_readiness_download",
@@ -9396,8 +9456,10 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             raise ValueError("payload v3 sem curadoria estruturada de adquirência")
     if len(payload["top20_fidcs"]) != 20 or len(payload["top20_outros"]) != 20:
         raise ValueError("rankings revisados devem conter exatamente 20 fundos")
-    if schema_version >= 9 and len(payload["top100_fidcs_middle_market"]) != 100:
+    if schema_version == 9 and len(payload["top100_fidcs_middle_market"]) != 100:
         raise ValueError("Top 100 FIDCs / Middle Market deve conter exatamente 100 fundos")
+    if schema_version >= 10 and len(payload["top100_fidcs_middle_market"]) != 102:
+        raise ValueError("Top 100 + 2 FIDCs deve conter exatamente 102 fundos")
     required_columns = {
         "pl_history": {"competencia", "year", "pl_total", "pl_ex_fic", "pl_fic_componente"},
         "investor_base_history": {"competencia", "year", "cotistas_total", "n_veiculos"},
@@ -10000,12 +10062,12 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
         )
     with top100:
         st.download_button(
-            "Top 100 FIDCs",
+            "Top 100 + 2 FIDCs",
             data=top100_xlsx_bytes,
-            file_name=f"Top100_FIDCs_Middle_Market_{file_period}.xlsx",
+            file_name=f"Top100_Plus2_FIDCs_Middle_Market_{file_period}.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             icon=":material/table_view:",
-            help="Baixar Top 100 FIDCs com sinais documentais de crédito corporativo e Middle Market",
+            help="Baixar Top 100 por PL e as inclusões documentais Citi-Bayer e Lavoro, com sinais de crédito corporativo e Middle Market",
             width="stretch",
             key=f"industry-top100-xlsx-{suffix}",
         )
@@ -10850,7 +10912,7 @@ def _render_large_funds(large_funds: pd.DataFrame, large_docs: pd.DataFrame, lat
         with left:
             st.download_button(
                 "Baixar classificação",
-                large_funds.to_csv(index=False).encode("utf-8"),
+                _ptbr_csv_bytes(large_funds),
                 file_name="fidcs_acima_5bi_classificacao.csv",
                 mime="text/csv",
                 icon=":material/download:",
@@ -10859,7 +10921,7 @@ def _render_large_funds(large_funds: pd.DataFrame, large_docs: pd.DataFrame, lat
         with right:
             st.download_button(
                 "Baixar ledger documental",
-                large_docs.to_csv(index=False).encode("utf-8") if not large_docs.empty else b"",
+                _ptbr_csv_bytes(large_docs) if not large_docs.empty else b"",
                 file_name="fidcs_acima_5bi_documentos.csv",
                 mime="text/csv",
                 icon=":material/download:",
@@ -13156,6 +13218,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         "fidc_revision_artifact_payload_v7",
         "fidc_revision_artifact_payload_v8",
         "fidc_revision_artifact_payload_v9",
+        "fidc_revision_artifact_payload_v10",
     }
     ranking_tab, flows_tab, market_share_tab, model_tab = st.tabs(
         ["Ranking", "Bancos e fluxos", "Market share", "Modelo de prestação"]
@@ -15879,7 +15942,7 @@ def _render_revision_data_exports(
     if export_status.bundle_valid and ledger_synced:
         st.success(
             f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
-            "PPTX, XLSX principal, XLSX da Carteira 101/Flagships, XLSX Top 100 e HTML "
+            "PPTX, XLSX principal, XLSX da Carteira 101/Flagships, XLSX Top 100 + 2 e HTML "
             "reconciliados pelo mesmo payload e por hashes."
         )
         # O bundle é coerente consigo mesmo, mas foi publicado antes da correção
@@ -15968,7 +16031,7 @@ def _render_revision_data_exports(
         files = {
             "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
             "Excel — Carteira 101 e Flagships": "carteira_101_flagships.xlsx",
-            "Excel — Top 100 FIDCs e Middle Market": "top100_fidcs_middle_market.xlsx",
+            "Excel — Top 100 + 2 FIDCs e Middle Market": "top100_fidcs_middle_market.xlsx",
             "Auditoria — risco Financeiro e Agro/Revenda": "../carteira_101_financeiro_agro_risk_review.csv",
             "Overrides — slides estruturais da Carteira 101": "../structural_mvp_slide_overrides.csv",
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
@@ -16084,7 +16147,7 @@ def _render_industry_data_audit(
         st.dataframe(frame.head(500), hide_index=True, width="stretch", height=420)
         st.download_button(
             "Baixar CSV",
-            data=frame.to_csv(index=False).encode("utf-8"),
+            data=_ptbr_csv_bytes(frame),
             file_name=dataset_names[selected_name].replace(".gz", ""),
             mime="text/csv",
             icon=":material/download:",

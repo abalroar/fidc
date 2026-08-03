@@ -39,8 +39,9 @@ MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_PORTFOLIO_XLSX_NAME = "carteira_101_flagships.xlsx"
 MATERIALIZED_TOP100_XLSX_NAME = "top100_fidcs_middle_market.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
-BUNDLE_SCHEMA = "fidc_revision_export_bundle_v4"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v9"
+BUNDLE_SCHEMA = "fidc_revision_export_bundle_v5"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v10"
+TOP100_PLUS2_ADDITIONAL_CNPJS = {"44302112000172", "61669748000176"}
 ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ((6, 8),)
 STRUCTURAL_MVP_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("risco estrutural", "financeiro", "carteira i"),
@@ -172,6 +173,10 @@ BLOCKED_PPTX_AUDIENCE_COPY: tuple[str, ...] = (
     "copilot",
     "claude code",
     "prompt antigo",
+)
+BLOCKED_PUBLISHED_TEXT_MARKERS: tuple[str, ...] = (
+    "√",
+    "\ufffd",
 )
 REQUIRED_WORKBOOK_SHEETS = {
     "QA Inadimplência",
@@ -353,6 +358,61 @@ def _chart_members(archive: zipfile.ZipFile) -> list[str]:
         for name in archive.namelist()
         if "/charts/chart" in name and name.endswith(".xml")
     ]
+
+
+def _validate_no_mojibake_text(value: str, artifact_label: str) -> None:
+    marker = next(
+        (
+            candidate
+            for candidate in BLOCKED_PUBLISHED_TEXT_MARKERS
+            if candidate in value
+        ),
+        None,
+    )
+    if marker is None:
+        match = re.search(r"(?:Ã|Â)[\u0080-\u00bf]", value)
+        marker = match.group(0) if match is not None else None
+    if marker is not None:
+        raise RevisionExportUnavailable(
+            f"{artifact_label} contém texto corrompido ou ilegível: {marker}"
+        )
+
+
+def _validate_no_mojibake_office_archive(
+    archive: zipfile.ZipFile,
+    artifact_label: str,
+) -> None:
+    for name in archive.namelist():
+        if not name.endswith((".xml", ".rels")):
+            continue
+        raw = archive.read(name)
+        try:
+            raw.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise RevisionExportUnavailable(
+                f"{artifact_label} contém parte OOXML fora de UTF-8: {name}"
+            ) from exc
+        try:
+            root = ElementTree.fromstring(raw)
+        except ElementTree.ParseError as exc:
+            raise RevisionExportUnavailable(
+                f"{artifact_label} contém parte OOXML inválida: {name}"
+            ) from exc
+        values: list[str] = []
+        for element in root.iter():
+            values.extend(
+                value
+                for value in (
+                    element.text,
+                    element.tail,
+                    *element.attrib.values(),
+                )
+                if value
+            )
+        try:
+            _validate_no_mojibake_text(" ".join(values), artifact_label)
+        except RevisionExportUnavailable as exc:
+            raise RevisionExportUnavailable(f"{exc} em {name}") from exc
 
 
 def _normalize_office_text(value: str) -> str:
@@ -613,6 +673,7 @@ def validate_revision_pptx(payload: bytes) -> None:
     if not _valid_zip(payload, "ppt/presentation.xml"):
         raise RevisionExportUnavailable("PPTX revisado inválido ou corrompido")
     with zipfile.ZipFile(BytesIO(payload)) as archive:
+        _validate_no_mojibake_office_archive(archive, "PPTX revisado")
         slides = [
             name
             for name in archive.namelist()
@@ -805,6 +866,7 @@ def validate_revision_xlsx(payload: bytes) -> None:
     if not _valid_zip(payload, "xl/workbook.xml"):
         raise RevisionExportUnavailable("XLSX revisado inválido ou corrompido")
     with zipfile.ZipFile(BytesIO(payload)) as archive:
+        _validate_no_mojibake_office_archive(archive, "XLSX revisado")
         workbook_xml = archive.read("xl/workbook.xml").decode("utf-8", errors="ignore")
     missing = sorted(sheet for sheet in REQUIRED_WORKBOOK_SHEETS if sheet not in workbook_xml)
     if missing:
@@ -857,6 +919,10 @@ def validate_revision_portfolio_xlsx(payload: bytes) -> None:
         )
     try:
         with zipfile.ZipFile(BytesIO(payload)) as archive:
+            _validate_no_mojibake_office_archive(
+                archive,
+                "XLSX de Carteira 101 e Flagships",
+            )
             workbook_root = ElementTree.fromstring(archive.read("xl/workbook.xml"))
     except (KeyError, OSError, zipfile.BadZipFile, ElementTree.ParseError) as exc:
         raise RevisionExportUnavailable(
@@ -967,14 +1033,18 @@ def validate_revision_portfolio_xlsx(payload: bytes) -> None:
 
 
 def validate_revision_top100_xlsx(payload: bytes) -> None:
-    """Validate the standalone global Top 100 workbook."""
+    """Validate the standalone global Top 100 plus two 2026 issuances."""
 
     if not _valid_zip(payload, "xl/workbook.xml"):
         raise RevisionExportUnavailable("XLSX Top 100 inválido ou corrompido")
     try:
+        with zipfile.ZipFile(BytesIO(payload)) as archive:
+            _validate_no_mojibake_office_archive(archive, "XLSX Top 100 + 2")
         from openpyxl import load_workbook
 
         workbook = load_workbook(BytesIO(payload), read_only=True, data_only=True)
+    except RevisionExportUnavailable:
+        raise
     except Exception as exc:
         raise RevisionExportUnavailable("XLSX Top 100 não pôde ser lido") from exc
     try:
@@ -990,10 +1060,16 @@ def validate_revision_top100_xlsx(payload: bytes) -> None:
             for cell in next(sheet.iter_rows(min_row=4, max_row=4), ())
         )
         required_headers = {
-            "Posição",
+            "Ordem do export",
+            "Rank geral por PL",
+            "Critério de inclusão",
             "CNPJ",
             "Nome completo do fundo (CVM)",
             "PL",
+            "Sub / PL atual",
+            "Mínimo de Sub Jr",
+            "Mínimo estrutural",
+            "Preço inicial por cota",
             "Cedente / originador",
             "Sacado / devedor",
             "Tipo de recebível",
@@ -1013,15 +1089,26 @@ def validate_revision_top100_xlsx(payload: bytes) -> None:
             for row in sheet.iter_rows(min_row=5, max_col=len(headers))
             if any(cell.value not in (None, "") for cell in row)
         ]
-        if len(rows) != 100:
+        if len(rows) != 102:
             raise RevisionExportUnavailable(
-                f"XLSX Top 100 deveria conter 100 linhas; contém {len(rows)}"
+                f"XLSX Top 100 + 2 deveria conter 102 linhas; contém {len(rows)}"
             )
         cnpj_column = headers.index("CNPJ")
         cnpjs = [_validated_numeric_cnpj(row[cnpj_column].value) for row in rows]
-        if any(value is None for value in cnpjs) or len(set(cnpjs)) != 100:
+        if any(value is None for value in cnpjs) or len(set(cnpjs)) != 102:
             raise RevisionExportUnavailable(
-                "XLSX Top 100 deve conter 100 CNPJs numéricos válidos e únicos"
+                "XLSX Top 100 + 2 deve conter 102 CNPJs numéricos válidos e únicos"
+            )
+        if not TOP100_PLUS2_ADDITIONAL_CNPJS.issubset(set(cnpjs)):
+            raise RevisionExportUnavailable(
+                "XLSX Top 100 + 2 não contém Citi-Bayer e Lavoro"
+            )
+        cnpj_formats = {
+            str(row[cnpj_column].number_format or "") for row in rows
+        }
+        if cnpj_formats != {"00000000000000"}:
+            raise RevisionExportUnavailable(
+                "XLSX Top 100 + 2 deve exibir CNPJ com máscara de 14 dígitos"
             )
     finally:
         workbook.close()
@@ -1040,6 +1127,7 @@ def validate_revision_html(payload: bytes) -> None:
         raise RevisionExportUnavailable(
             "HTML interativo de fluxos não está em UTF-8"
         ) from exc
+    _validate_no_mojibake_text(document, "HTML interativo de fluxos")
     required_tokens = (
         "<!doctype html",
         'id="provider-flow-explorer"',

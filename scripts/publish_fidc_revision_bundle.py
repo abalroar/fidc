@@ -60,7 +60,7 @@ PORTFOLIO_CHART_PATCHER = ROOT / "scripts" / "patch_portfolio_workbook_charts.py
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v9"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v10"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -109,6 +109,7 @@ REQUIRED_DATA_INPUTS = (
     "industry_carteira_1_document_curation.csv",
     "structural_mvp_slide_overrides.csv",
     "carteira_101_financeiro_agro_risk_review.csv",
+    "top100_plus2_2026_curation.csv",
     "industry_cnpj_manual_enrichment.csv",
     "emission_field_audit.csv",
     "carteira_101_document_audit/carteira_101_document_audit.csv",
@@ -2207,6 +2208,71 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         raise RevisionBundlePublishError(
             "top100_outros_review contém fundo fora do bucket exibido no slide 8"
         )
+
+    top100_plus2 = list(payload.get("top100_fidcs_middle_market") or [])
+    if len(top100_plus2) != 102:
+        raise RevisionBundlePublishError(
+            "top100_fidcs_middle_market deve conter 100 fundos por PL e duas inclusões 2026"
+        )
+    if [int(row.get("ordem_exportacao") or 0) for row in top100_plus2] != list(
+        range(1, 103)
+    ):
+        raise RevisionBundlePublishError(
+            "Top 100 + 2 deve usar ordem de exportação sequencial de 1 a 102"
+        )
+    top100_plus2_cnpjs = {
+        str(row.get("cnpj") or "") for row in top100_plus2
+    }
+    if len(top100_plus2_cnpjs) != 102 or any(
+        not re.fullmatch(r"[0-9]{14}", cnpj) for cnpj in top100_plus2_cnpjs
+    ):
+        raise RevisionBundlePublishError(
+            "Top 100 + 2 deve conter 102 CNPJs válidos e únicos"
+        )
+    additions = {
+        str(row.get("cnpj") or ""): row
+        for row in top100_plus2
+        if int(row.get("ordem_exportacao") or 0) > 100
+    }
+    expected_additions = {"44302112000172", "61669748000176"}
+    if set(additions) != expected_additions:
+        raise RevisionBundlePublishError(
+            "Top 100 + 2 deve acrescentar somente Citi-Bayer e Lavoro"
+        )
+    required_addition_fields = {
+        "subordinacao_atual_pl",
+        "minimo_subordinacao_estrutural",
+        "preco_cota_emissao_brl",
+        "cedente_originador",
+        "sacado_devedor",
+        "tipo_recebivel",
+        "documento_id",
+        "documento_emissao_id",
+        "fonte_regulamento",
+        "fonte_emissao",
+    }
+    for cnpj, row in additions.items():
+        gaps = sorted(
+            field
+            for field in required_addition_fields
+            if row.get(field) in (None, "", "N/D")
+        )
+        if gaps:
+            raise RevisionBundlePublishError(
+                f"inclusão 2026 {cnpj} sem campos documentais: " + ", ".join(gaps)
+            )
+    summary_top100_plus2 = payload.get("top100_fidcs_middle_market_summary")
+    if not isinstance(summary_top100_plus2, Mapping) or any(
+        int(summary_top100_plus2.get(key) or 0) != expected
+        for key, expected in (
+            ("fundos", 102),
+            ("top100_fundos", 100),
+            ("adicionais_2026_fundos", 2),
+        )
+    ):
+        raise RevisionBundlePublishError(
+            "resumo do Top 100 + 2 não reconcilia 100 + 2 fundos"
+        )
     summary_outros = payload.get("top100_outros_summary")
     if not isinstance(summary_outros, Mapping):
         raise RevisionBundlePublishError("payload sem top100_outros_summary")
@@ -2727,9 +2793,9 @@ def validate_renderer_manifest(
             raise RevisionBundlePublishError(
                 "manifest do renderer falhou no universo de 99 casos"
             )
-        if int(checks.get("top100_fidcs_middle_market") or 0) != 100:
+        if int(checks.get("top100_fidcs_middle_market") or 0) != 102:
             raise RevisionBundlePublishError(
-                "manifest do renderer falhou no Top 100 geral"
+                "manifest do renderer falhou no Top 100 + 2"
             )
         if int(checks.get("portfolio_export_coverage") or 0) <= 0:
             raise RevisionBundlePublishError(

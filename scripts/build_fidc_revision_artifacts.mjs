@@ -89,7 +89,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v42";
+const RENDERER_VERSION = "industry_revision_artifacts_v43";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
@@ -526,13 +526,18 @@ function fundEditorialName(value, maxChars = 34) {
 }
 
 function cnpjDigits(value) {
-  const digits = String(value ?? "").replace(/\D/g, "");
+  const raw = String(value ?? "").trim();
+  const numericRaw = /e/i.test(raw) ? raw.replace(",", ".") : raw;
+  let digits = raw.replace(/\D/g, "");
+  if (/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(numericRaw)) {
+    const parsed = Number(numericRaw);
+    if (Number.isSafeInteger(parsed) && parsed >= 0) digits = String(parsed);
+  }
   return !digits || digits.length > 14 ? "" : digits.padStart(14, "0");
 }
 
 function numericCnpjText(value) {
-  const digits = String(value || "").replace(/\D/g, "");
-  return digits && digits.length <= 14 ? digits.padStart(14, "0") : "N/D";
+  return cnpjDigits(value) || "N/D";
 }
 
 function formatCnpj(value) {
@@ -1263,7 +1268,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
     fs.stat(OUTPUT_HTML),
   ]);
   const manifest = {
-    schema_version: "fidc_revision_export_bundle_v4",
+    schema_version: "fidc_revision_export_bundle_v5",
     bundle_id: `${String(payload.latest_complete || "unknown").replace(/-/g, "")}_${payloadSha256.slice(0, 16)}`,
     payload_schema: payload.schema_version,
     latest_complete: payload.latest_complete,
@@ -1363,10 +1368,25 @@ function parseCsv(text) {
   return rows;
 }
 
+function sanitizePublishedText(value, sourceLabel = "artefato") {
+  const text = String(value ?? "");
+  const marker = text.includes("√")
+    ? "√"
+    : text.match(/Ã[\u0080-\u00BF]|Â[\u0080-\u00BF]/u)?.[0];
+  if (marker != null) {
+    throw new Error(`${sourceLabel} contém mojibake bloqueado: ${marker}`);
+  }
+  return text
+    .replace(/^\uFEFF/, "")
+    .replace(/\uFFFD+/g, " [trecho ilegível na extração] ")
+    .replace(/[ \t]+\n/g, "\n");
+}
+
 async function readCsv(filePath) {
   const raw = await fs.readFile(filePath);
   const bytes = filePath.endsWith(".gz") ? zlib.gunzipSync(raw) : raw;
-  const matrix = parseCsv(bytes.toString("utf8"));
+  const decoded = sanitizePublishedText(bytes.toString("utf8"), filePath);
+  const matrix = parseCsv(decoded);
   const headers = matrix.shift() || [];
   return { headers, rows: matrix };
 }
@@ -9728,9 +9748,8 @@ function portfolioExportCell(value, column) {
   if (Array.isArray(value)) return value.length ? value.join("; ") : "N/D";
   if (typeof value === "object") return JSON.stringify(value);
   if (column.key === "cnpj_numerico" || column.format === "00000000000000") {
-    const rawDigits = String(value).replace(/\D/g, "");
-    if (!rawDigits || rawDigits.length > 14) return "N/D";
-    const digits = rawDigits.padStart(14, "0");
+    const digits = cnpjDigits(value);
+    if (!digits) return "N/D";
     return Number(digits);
   }
   if (typeof value === "boolean") return value;
@@ -10430,12 +10449,27 @@ async function addPortfolioEditableNamesSheet(workbook, cases) {
 }
 
 const TOP100_EXPORT_COLUMNS = Object.freeze([
-  { header: "Posição", key: "rank_geral", width: 75 },
+  { header: "Ordem do export", key: "ordem_exportacao", width: 90, format: "#,##0" },
+  { header: "Rank geral por PL", key: "rank_geral", width: 95, format: "#,##0" },
+  { header: "Critério de inclusão", key: "inclusao_criterio", width: 210 },
   { header: "CNPJ", key: "cnpj", width: 125, format: "00000000000000" },
   { header: "CNPJ formatado", key: "cnpj_formatado", width: 135 },
   { header: "Nome completo do fundo (CVM)", key: "nome_fundo", width: 390 },
   { header: "PL", key: "pl_brl", width: 135, format: 'R$ #,##0.00' },
   { header: "% do PL ex-FIC", key: "share_pl_ex_fic", width: 110, format: "0.00%" },
+  { header: "Sub / PL atual", key: "subordinacao_atual_pl", width: 120, format: "0.00%" },
+  { header: "Mínimo de Sub Jr", key: "minimo_subordinacao_junior", width: 125, format: "0.00%" },
+  { header: "Mínimo estrutural", key: "minimo_subordinacao_estrutural", width: 125, format: "0.00%" },
+  { header: "Natureza do mínimo", key: "natureza_minimo", width: 310 },
+  { header: "Preço inicial por cota", key: "preco_cota_emissao_brl", width: 145, format: 'R$ #,##0.00' },
+  { header: "Oferta CVM", key: "oferta_id", width: 100 },
+  { header: "Processo CVM", key: "processo_cvm", width: 135 },
+  { header: "Data de registro", key: "data_registro", width: 120 },
+  { header: "Data de encerramento", key: "data_encerramento", width: 135 },
+  { header: "Volume registrado", key: "volume_registrado_brl", width: 145, format: 'R$ #,##0.00' },
+  { header: "Cotas registradas", key: "quantidade_registrada", width: 120, format: "#,##0" },
+  { header: "Cotas colocadas", key: "quantidade_colocada", width: 115, format: "#,##0" },
+  { header: "Montante encerrado", key: "montante_encerrado_brl", width: 145, format: 'R$ #,##0.00' },
   { header: "Cedente / originador", key: "cedente_originador", width: 260 },
   { header: "Sacado / devedor", key: "sacado_devedor", width: 250 },
   { header: "Tipo de recebível", key: "tipo_recebivel", width: 320 },
@@ -10451,50 +10485,55 @@ const TOP100_EXPORT_COLUMNS = Object.freeze([
   { header: "Evidência", key: "evidencia", width: 500 },
   { header: "Fonte", key: "fonte", width: 440 },
   { header: "Documento", key: "documento_id", width: 170 },
+  { header: "Documento da emissão", key: "documento_emissao_id", width: 170 },
   { header: "Página / cláusula", key: "pagina_clausula", width: 150 },
+  { header: "Fonte do regulamento", key: "fonte_regulamento", width: 430 },
+  { header: "Fonte da emissão", key: "fonte_emissao", width: 430 },
   { header: "Status da cobertura", key: "status_cobertura", width: 230 },
 ]);
 
 async function buildTop100Workbook(payload) {
   const rows = payload.top100_fidcs_middle_market || [];
-  if (rows.length !== 100) {
-    throw new Error(`Top 100 geral deveria conter 100 linhas; contém ${rows.length}.`);
+  if (rows.length !== 102) {
+    throw new Error(`Top 100 + 2 deveria conter 102 linhas; contém ${rows.length}.`);
   }
   const workbook = Workbook.create();
   const readme = workbook.worksheets.add("Leia-me");
   readme.showGridLines = false;
   readme.getRange("A1:H1").merge();
-  readme.getRange("A1").values = [["Top 100 FIDCs · crédito corporativo e Middle Market"]];
+  readme.getRange("A1").values = [["Top 100 + 2 FIDCs · crédito corporativo e Middle Market"]];
   readme.getRange("A1:H1").format.fill = C.black;
   readme.getRange("A1:H1").format.font = { name: "Arial", size: 18, bold: true, color: C.white };
   readme.getRange("A2:H2").merge();
   readme.getRange("A2").values = [[
-    `Competência ${payload.latest_complete || "N/D"}. Ranking global por PL ex-FIC, uma linha por CNPJ. Cedente, sacado e lastro são publicados somente quando há fonte documental ou complemento manual confirmado.`,
+    `Competência ${payload.latest_complete || "N/D"}. Ranking global por PL ex-FIC, uma linha por CNPJ. O Top 100 recebe duas inclusões documentais de ofertas encerradas em 2026: Citi-Bayer Farmtech e Lavoro Farmtech.`,
   ]];
   readme.getRange("A2:H2").format.font = { name: "Arial", size: 10, color: C.mid };
   readme.getRange("A2:H2").format.wrapText = true;
   readme.getRange("A2:H2").format.rowHeightPx = 42;
   const summary = payload.top100_fidcs_middle_market_summary || {};
   const notes = [
-    ["Universo", "100 maiores FIDCs ex-FIC por PL; desempate por CNPJ."],
+    ["Universo", "100 maiores FIDCs ex-FIC por PL, mais Citi-Bayer Farmtech e Lavoro Farmtech por critério explícito de emissão encerrada em 2026."],
     ["PL do Top 100", moneyScale(summary.top100_pl_brl)],
     ["Participação no PL ex-FIC", pct(summary.top100_share_pl_ex_fic, 1)],
+    ["PL do Top 100 + 2", moneyScale(summary.top100_plus2_pl_brl)],
+    ["Participação do Top 100 + 2", pct(summary.top100_plus2_share_pl_ex_fic, 1)],
     ["Middle Market", "O status confirmado exige porte documentado. Menção PME/Middle Market aparece como rótulo documental com porte N/D."],
     ["Indício corporativo", "CCB, capital de giro, nota comercial, recebível comercial, risco sacado ou fornecedor; porte do tomador permanece N/D."],
     ["Hipótese de substituição bancária", "A base mostra diversificação de canais. A substituição de crédito bancário exige série casada por devedor e não é concluída neste arquivo."],
   ];
-  readme.getRange("A4:B9").values = notes;
-  readme.getRange("A4:A9").format.font = { name: "Arial", size: 10, bold: true, color: C.charcoal };
-  readme.getRange("B4:B9").format.font = { name: "Arial", size: 10, color: C.charcoal };
-  readme.getRange("A4:B9").format.wrapText = true;
-  readme.getRange("A4:B9").format.rowHeightPx = 48;
+  readme.getRange("A4:B11").values = notes;
+  readme.getRange("A4:A11").format.font = { name: "Arial", size: 10, bold: true, color: C.charcoal };
+  readme.getRange("B4:B11").format.font = { name: "Arial", size: 10, color: C.charcoal };
+  readme.getRange("A4:B11").format.wrapText = true;
+  readme.getRange("A4:B11").format.rowHeightPx = 48;
   applyColumnWidths(readme, [180, 720, 80, 80, 80, 80, 80, 80], 9);
 
   const sheet = workbook.worksheets.add("Top 100 FIDCs");
   setHeaderBand(
     sheet,
-    "100 maiores FIDCs · partes, lastro e taxonomias",
-    "Ranking por PL ex-FIC em jun/26. Lacunas permanecem N/D. Indícios de crédito corporativo não comprovam porte Middle Market nem substituição de crédito bancário.",
+    "Top 100 + 2 FIDCs · partes, lastro, estrutura e taxonomias",
+    "Ranking por PL ex-FIC em jun/26, com duas inclusões 2026 explicitamente identificadas. Lacunas permanecem N/D; perfis de devedor não são convertidos em nomes de sacados.",
     TOP100_EXPORT_COLUMNS.map((column) => column.header),
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -10507,7 +10546,7 @@ async function buildTop100Workbook(payload) {
     sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = column.format;
     sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.horizontalAlignment = "right";
   });
-  sheet.getRange(`A5:${columnLetter(TOP100_EXPORT_COLUMNS.length - 1)}104`).format.rowHeightPx = 48;
+  sheet.getRange(`A5:${columnLetter(TOP100_EXPORT_COLUMNS.length - 1)}${rows.length + 4}`).format.rowHeightPx = 48;
   return workbook;
 }
 
