@@ -27,7 +27,7 @@ from services.industry_revision_export import (
     EXPECTED_SLIDE_SEQUENCE,
     EXPECTED_SLIDES,
     HISTORICAL_TOP15_SLIDE_SEQUENCE,
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
+    STRUCTURAL_MVP_SLIDE_SEQUENCE,
     TYPE_RANKING_SLIDE_SEQUENCE,
     _contains_blocked_rgb_color,
     get_revision_export_status,
@@ -192,8 +192,9 @@ def test_industry_exports_are_valid_office_files() -> None:
     assert len(presentation.slides) == EXPECTED_SLIDES == len(
         EXPECTED_SLIDE_SEQUENCE
     )
+    assert EXPECTED_SLIDES == 36
     assert len(TYPE_RANKING_SLIDE_SEQUENCE) == 8
-    assert len(STRUCTURAL_DETAIL_SLIDE_SEQUENCE) == 24
+    assert len(STRUCTURAL_MVP_SLIDE_SEQUENCE) == 5
     assert len(CURRENT_TOP15_SLIDE_SEQUENCE) == 2
     assert len(HISTORICAL_TOP15_SLIDE_SEQUENCE) == 4
     slide_texts: list[str] = []
@@ -217,9 +218,6 @@ def test_industry_exports_are_valid_office_files() -> None:
         "Precatórios e/ou Ações Judiciais",
         "PRESTADORES · RANKING E CONCENTRAÇÃO",
         "QI lidera administração; BTG lidera gestão e custódia",
-        "RISCO ESTRUTURAL · FACTORING",
-        "Originador / cedente",
-        "Preço unitário*",
         "Emissões crescem 15% no semestre",
         "22 ofertas concentram 42% de todo o volume",
         "OFERTAS · VOLUME E REGIME",
@@ -228,8 +226,6 @@ def test_industry_exports_are_valid_office_files() -> None:
         "TOP 15 · HISTÓRICO",
         "O que muda a leitura do mercado",
         "RANKING · TOP 20 FIDCs",
-        "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA",
-        "RISCO ESTRUTURAL · ATIVOS",
     ):
         assert expected in visible_text
     assert "APÊNDICE · CURADORIA TOP 20" not in visible_text

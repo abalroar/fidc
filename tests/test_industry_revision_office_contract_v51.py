@@ -30,8 +30,7 @@ from services.industry_revision_export import (
     ISSUANCE_TAXONOMY_TABLE_DIMENSIONS,
     PORTFOLIO_WORKBOOK_MINIMUM_HEADERS,
     REQUIRED_PORTFOLIO_WORKBOOK_SHEETS,
-    STRUCTURAL_DETAIL_TABLE_DIMENSIONS,
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
+    STRUCTURAL_MVP_SLIDE_SEQUENCE,
     TYPE_RANKING_SLIDE_SEQUENCE,
     RevisionExportUnavailable,
     _contains_blocked_rgb_color,
@@ -244,17 +243,7 @@ def _sequence_slide_numbers(
     )
 
 
-STRUCTURAL_DETAIL_START = EXPECTED_SLIDE_SEQUENCE.index(
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE[0]
-) + 1
-STRUCTURAL_DETAIL_SLIDES = tuple(
-    range(
-        STRUCTURAL_DETAIL_START,
-        STRUCTURAL_DETAIL_START + len(STRUCTURAL_DETAIL_SLIDE_SEQUENCE),
-    )
-)
-SLIDE_STRUCTURAL_COVERAGE = _contract_slide_number("cobertura por taxonomia")
-SLIDE_STRUCTURAL_ASSETS = _contract_slide_number("risco estrutural", "ativos")
+STRUCTURAL_MVP_SLIDES = _sequence_slide_numbers(STRUCTURAL_MVP_SLIDE_SEQUENCE)
 SLIDE_OFFERS_VOLUME = _contract_slide_number("emissoes crescem 15%")
 SLIDE_OFFER_TICKETS = _contract_slide_number("22 ofertas concentram")
 SLIDE_OFFER_REGIME = _contract_slide_number("garantia firme", "yoy ytd")
@@ -308,12 +297,6 @@ SLIDE_TOKENS = {
     ),
     8: ("Financeiro explicou 70% do crescimento da carteira",),
     9: ("RANKING · TOP 20 FIDCs",),
-    SLIDE_STRUCTURAL_COVERAGE: (
-        "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA",
-        "MÍNIMO JÚNIOR",
-        "MÍN. ESTRUTURAL",
-    ),
-    SLIDE_STRUCTURAL_ASSETS: ("RISCO ESTRUTURAL · ATIVOS", "Folga", "Absorção", "Situação"),
     SLIDE_OFFERS_VOLUME: ("Emissões crescem 15% no semestre", "jan–dez", "R$ 65,5 bi em 771 ofertas no jan–jun/26"),
     SLIDE_OFFER_TICKETS: ("22 ofertas concentram 42% de todo o volume", "> R$ 100 mi"),
     SLIDE_OFFER_REGIME: (
@@ -343,21 +326,6 @@ for slide_number, contract_tokens in enumerate(
     start=1,
 ):
     SLIDE_TOKENS.setdefault(slide_number, contract_tokens)
-
-for slide_number, contract_tokens in zip(
-    STRUCTURAL_DETAIL_SLIDES,
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
-    strict=True,
-):
-    SLIDE_TOKENS[slide_number] = (
-        "RISCO ESTRUTURAL",
-        contract_tokens[1],
-        contract_tokens[2],
-        "Base",
-        "CNPJ",
-        "FIDC",
-        "Preço unitário*",
-    )
 
 REQUIRED_WORKBOOK_SHEETS_V51 = {
     "QA Inadimplência",
@@ -513,45 +481,18 @@ def test_export_and_renderer_declare_dynamic_slide_contract() -> None:
     ).read_text(encoding="utf-8")
 
     assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE)
+    assert EXPECTED_SLIDES == 36
     assert len(TYPE_RANKING_SLIDE_SEQUENCE) == 8
-    assert len(STRUCTURAL_DETAIL_SLIDE_SEQUENCE) == len(STRUCTURAL_DETAIL_SLIDES)
-    assert len(STRUCTURAL_DETAIL_SLIDE_SEQUENCE) == 24
+    assert STRUCTURAL_MVP_SLIDE_SEQUENCE == (
+        ("risco estrutural", "financeiro", "carteira i"),
+        ("risco estrutural", "adquirencia", "carteira i"),
+        ("risco estrutural", "agro / revenda", "carteira i"),
+        ("risco estrutural", "consignado inss e fgts", "carteira i"),
+        ("risco estrutural", "factoring", "carteira i"),
+    )
+    assert len(STRUCTURAL_MVP_SLIDE_SEQUENCE) == len(STRUCTURAL_MVP_SLIDES) == 5
     assert len(CURRENT_TOP15_SLIDE_SEQUENCE) == 2
     assert len(HISTORICAL_TOP15_SLIDE_SEQUENCE) == 4
-    assert sum(rows - 1 for rows, _ in STRUCTURAL_DETAIL_TABLE_DIMENSIONS) == 148
-    assert all(columns == 10 for _, columns in STRUCTURAL_DETAIL_TABLE_DIMENSIONS)
-    structural_pages: dict[str, list[tuple[str, int]]] = {}
-    for tokens, (rows, _) in zip(
-        STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
-        STRUCTURAL_DETAIL_TABLE_DIMENSIONS,
-        strict=True,
-    ):
-        structural_pages.setdefault(tokens[1], []).append((tokens[2], rows - 1))
-    assert structural_pages == {
-        "factoring": [("1/1", 7)],
-        "agro / revenda": [
-            ("1/8", 7),
-            ("2/8", 7),
-            ("3/8", 7),
-            ("4/8", 7),
-            ("5/8", 7),
-            ("6/8", 7),
-            ("7/8", 7),
-            ("8/8", 5),
-        ],
-        "adquirencia": [("1/3", 7), ("2/3", 7), ("3/3", 7)],
-        "consignado inss": [("1/2", 7), ("2/2", 3)],
-        "consignado fgts": [("1/2", 7), ("2/2", 4)],
-        "veiculos": [("1/2", 7), ("2/2", 2)],
-        "financeiro": [
-            ("1/5", 7),
-            ("2/5", 7),
-            ("3/5", 7),
-            ("4/5", 7),
-            ("5/5", 7),
-        ],
-        "n/d": [("1/1", 1)],
-    }
     assert HISTORICAL_TOP15_SLIDE_SEQUENCE == (
         (
             "top 15",
@@ -596,8 +537,8 @@ def test_export_and_renderer_declare_dynamic_slide_contract() -> None:
     assert sum(rows - 1 for rows, _ in HISTORICAL_TOP15_TABLE_DIMENSIONS[2:]) == 15
     assert "EXPECTED_SLIDES = len(EXPECTED_SLIDE_SEQUENCE)" in export_source
     assert "const SLIDE_CONTRACT_V1 = Object.freeze([" in renderer_source
-    assert "const STRUCTURAL_DETAIL_SLIDE_SEQUENCE = Object.freeze([" in renderer_source
-    assert "...STRUCTURAL_DETAIL_SLIDE_SEQUENCE.map((entry) => entry.id)" in renderer_source
+    assert "const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([" in renderer_source
+    assert "...STRUCTURAL_MVP_SLIDE_SEQUENCE.map((entry) => entry.id)" in renderer_source
     assert "const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;" in renderer_source
     assert re.search(r"EXPECTED_SLIDES\s*!==\s*\d+", renderer_source) is None
     for slide_id in (
@@ -916,51 +857,25 @@ def test_annual_issuance_slide_contains_the_consolidated_anbima_taxonomy_table()
         assert token in text
 
 
-def test_structural_chapter_keeps_traceable_paginated_asset_tables() -> None:
+def test_structural_chapter_uses_five_mvp_slides_and_keeps_workbook_audit() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        flagship_text = _slide_text(archive, SLIDE_STRUCTURAL_COVERAGE)
-        data_rows = 0
         for slide_number, contract_tokens in zip(
-            STRUCTURAL_DETAIL_SLIDES,
-            STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
+            STRUCTURAL_MVP_SLIDES,
+            STRUCTURAL_MVP_SLIDE_SEQUENCE,
             strict=True,
         ):
-            slide = ET.fromstring(
-                archive.read(f"ppt/slides/slide{slide_number}.xml")
-            )
-            tables = slide.findall(f".//{{{DML}}}tbl")
-            assert len(tables) == 1
-            rows = tables[0].findall(f"{{{DML}}}tr")
-            headers = [
-                _cell_text(cell)
-                for cell in rows[0].findall(f"{{{DML}}}tc")
-            ]
-            assert headers == [
-                "Base",
-                "CNPJ",
-                "FIDC",
-                "Originador / cedente",
-                "PL",
-                "Sub atual",
-                "Mín. Jr / estrut.",
-                "Folga",
-                "Preço unitário*",
-                "Situação",
-            ]
-            data_rows += len(rows) - 1
             text = _slide_text(archive, slide_number)
-            page, pages = (int(value) for value in contract_tokens[2].split("/"))
-            if page == pages:
-                assert "REFERÊNCIA DA TAXONOMIA" in text.upper()
+            folded_text = _fold(text)
+            assert all(_fold(token) in folded_text for token in contract_tokens)
 
-    assert "83/101" in flagship_text
-    assert "99/101" in flagship_text
-    assert data_rows == 101 + 47
+    assert {"Risco estrutural ativos", "Risco estrutural taxonomia"}.issubset(
+        REQUIRED_WORKBOOK_SHEETS_V51
+    )
     renderer_source = (
         ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
     ).read_text(encoding="utf-8")
-    assert "STRUCTURAL_DETAIL_SLIDE_SEQUENCE" in renderer_source
+    assert "STRUCTURAL_MVP_SLIDE_SEQUENCE" in renderer_source
     assert "payload.portfolio_export_carteira_101 || []" in renderer_source
     assert "payload.portfolio_export_flagships || []" in renderer_source
 
@@ -1043,7 +958,7 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
     ]
     + [
         (slide_number, 0, 1)
-        for slide_number in (*SLIDES_TYPE_RANKING, *STRUCTURAL_DETAIL_SLIDES)
+        for slide_number in SLIDES_TYPE_RANKING
     ],
 )
 def test_new_analytical_slides_use_native_office_structures(
@@ -1345,12 +1260,27 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert all(row[14] is None or row[14] > 0 for row in carteira_rows)
 
     structural = workbook["Risco estrutural ativos"]
-    structural_rows = list(structural.iter_rows(min_row=5, max_col=28, values_only=True))
+    structural_headers = [
+        value
+        for value in next(
+            structural.iter_rows(min_row=4, max_row=4, values_only=True)
+        )
+    ]
+    structural_column = {
+        header: index for index, header in enumerate(structural_headers)
+    }
+    structural_rows = list(structural.iter_rows(min_row=5, values_only=True))
     structural_rows = [row for row in structural_rows if row[0] not in {None, ""}]
     assert len(structural_rows) == 101
-    assert sum(row[8] is not None for row in structural_rows) == 83
-    assert sum(row[8] is not None or row[9] is not None for row in structural_rows) == 99
-    assert sum(row[17] is not None for row in structural_rows) == 23
+    junior = structural_column["Mínimo júnior documental"]
+    total_support = structural_column["Suporte total/combinado"]
+    headroom = structural_column["Folga"]
+    assert sum(row[junior] is not None for row in structural_rows) == 83
+    assert sum(
+        row[junior] is not None or row[total_support] is not None
+        for row in structural_rows
+    ) == 99
+    assert sum(row[headroom] is not None for row in structural_rows) == 23
 
 
 def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:

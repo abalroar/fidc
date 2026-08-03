@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -18,6 +19,23 @@ from services.structural_risk import (
     BAND_THIN,
     StructuralRiskConfig,
     enrich_assets,
+)
+
+
+MVP_SLIDE_OVERRIDE_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "industry_study"
+    / "structural_mvp_slide_overrides.csv"
+)
+MVP_SLIDE_CATEGORIES = frozenset(
+    {
+        "Financeiro",
+        "Adquirência",
+        "Agro / Revenda",
+        "Consignado INSS e FGTS",
+        "Factoring",
+    }
 )
 
 
@@ -38,6 +56,38 @@ def _weighted(values: pd.Series, weights: pd.Series) -> float | None:
     if not mask.any():
         return None
     return float(np.average(values[mask], weights=weights[mask]))
+
+
+def _load_mvp_slide_overrides(
+    path: Path = MVP_SLIDE_OVERRIDE_PATH,
+) -> pd.DataFrame:
+    """Load the auditable, slide-only taxonomy overlay.
+
+    The analytical and official taxonomies remain unchanged.  This overlay only
+    selects which of the five MVP slides receives a Carteira I vehicle.
+    """
+
+    columns = ["cnpj", "categoria_mvp", "fonte", "motivo"]
+    if not path.exists():
+        return pd.DataFrame(columns=columns)
+    overrides = pd.read_csv(path, dtype=str, keep_default_na=False)
+    missing = set(columns).difference(overrides.columns)
+    if missing:
+        raise ValueError(
+            "overlay MVP sem colunas obrigatórias: " + ", ".join(sorted(missing))
+        )
+    overrides = overrides.loc[:, columns].copy()
+    overrides["cnpj"] = overrides["cnpj"].str.replace(r"\D", "", regex=True)
+    if not overrides["cnpj"].str.fullmatch(r"\d{14}").all():
+        raise ValueError("overlay MVP contém CNPJ inválido")
+    if overrides["cnpj"].duplicated().any():
+        raise ValueError("overlay MVP contém CNPJ duplicado")
+    invalid = sorted(set(overrides["categoria_mvp"]).difference(MVP_SLIDE_CATEGORIES))
+    if invalid:
+        raise ValueError("overlay MVP contém categoria inválida: " + ", ".join(invalid))
+    if overrides[["fonte", "motivo"]].apply(lambda column: column.str.strip().eq("")).any().any():
+        raise ValueError("overlay MVP exige fonte e motivo para toda decisão")
+    return overrides
 
 
 def build_portfolio_structural_risk(
@@ -82,13 +132,13 @@ def build_portfolio_structural_risk(
             "minimo_estrutural_display": np.where(
                 support.notna(),
                 detail.get("suporte_estrutural_minimo_display", "N/D"),
-                detail.get("subordinacao_minima_junior_display", "N/D"),
+                "N/D",
             ),
             "minimo_estrutural_natureza": nature,
             "minimo_estrutural_texto": np.where(
                 support.notna(),
                 detail.get("suporte_estrutural_minimo_texto", "N/D"),
-                detail.get("subordinacao_minima_texto", "N/D"),
+                "N/D",
             ),
             "minimo_estrutural_formula": detail.get(
                 "subordinacao_minima_formula", "N/D"
@@ -123,13 +173,64 @@ def build_portfolio_structural_risk(
     assets["comparacao_mercado_flag"] = assets["categoria"].ne("N/D")
     assets = enrich_assets(assets, config=config)
 
+    mvp_category = assets["categoria"].replace(
+        {
+            "Consignado INSS": "Consignado INSS e FGTS",
+            "Consignado FGTS": "Consignado INSS e FGTS",
+        }
+    )
+    assets["mvp_slide_categoria"] = mvp_category.where(
+        mvp_category.isin(MVP_SLIDE_CATEGORIES), "N/D"
+    )
+    assets["mvp_slide_categoria_original"] = assets["mvp_slide_categoria"]
+    assets["mvp_slide_categoria_override_flag"] = False
+    assets["mvp_slide_categoria_fonte"] = "N/D"
+    assets["mvp_slide_categoria_motivo"] = "N/D"
+    overrides = _load_mvp_slide_overrides().set_index("cnpj")
+    override_category = assets["cnpj"].map(overrides["categoria_mvp"])
+    override_mask = override_category.notna()
+    assets.loc[override_mask, "mvp_slide_categoria"] = override_category[override_mask]
+    assets.loc[override_mask, "mvp_slide_categoria_override_flag"] = True
+    assets.loc[override_mask, "mvp_slide_categoria_fonte"] = assets.loc[
+        override_mask, "cnpj"
+    ].map(overrides["fonte"])
+    assets.loc[override_mask, "mvp_slide_categoria_motivo"] = assets.loc[
+        override_mask, "cnpj"
+    ].map(overrides["motivo"])
+    current_for_band = _numeric(assets, "sub_pl_atual")
+    assets["mvp_faixa_sub_atual"] = pd.cut(
+        current_for_band,
+        bins=[-np.inf, 0.10, 0.15, 0.20, 0.35, 0.60, np.inf],
+        labels=["< 10%", "10%–15%", "15%–20%", "20%–35%", "35%–60%", "≥ 60%"],
+        right=False,
+    ).astype("object")
+    assets["mvp_elegivel_flag"] = (
+        assets["mvp_slide_categoria"].ne("N/D")
+        & current_for_band.notna()
+        & _numeric(assets, "sub_jr_min_regulamento").notna()
+        & _numeric(assets, "pl_atual").gt(0)
+    )
+    mvp_floor = _numeric(assets, "sub_jr_min_regulamento")
+    mvp_distance = current_for_band - mvp_floor
+    mvp_comparable = assets["comparacao_estrutural_completa_flag"].fillna(False).astype(bool)
+    assets["mvp_situacao_piso"] = np.select(
+        [
+            current_for_band.isna() | mvp_floor.isna(),
+            ~mvp_comparable,
+            mvp_distance.lt(0),
+            mvp_distance.lt(config.thin_headroom_pp),
+        ],
+        ["N/D", "incomparável", "abaixo do piso", "até 2 p.p. acima"],
+        default="acima do piso",
+    )
+
     taxonomy_rows: list[dict[str, object]] = []
     for order, (_, group_name, _, _) in enumerate(PORTFOLIO_FLAGSHIP_GROUPS, start=1):
         group = assets[assets["categoria"].eq(group_name)]
         peer = benchmark.loc[group_name]
         pl = _numeric(group, "pl_atual")
         current = _numeric(group, "sub_pl_atual")
-        group_structural = _numeric(group, "sub_jr_min_regulamento")
+        group_structural = _numeric(group, "suporte_total_min_documental")
         junior_group = _numeric(group, "sub_jr_min_documental")
         market_median = pd.to_numeric(
             pd.Series([peer.get("flagship_subordinacao_mediana_pct")]),
@@ -193,7 +294,7 @@ def build_portfolio_structural_risk(
     ).head(12).drop(columns=["ordem_risco"])
 
     junior_count = int(junior.notna().sum())
-    structural_count = int(structural_floor.notna().sum())
+    structural_count = int(support.notna().sum())
     comparable_count = int(assets["folga_pp"].notna().sum())
     summary = {
         "carteira": "Carteira 1",
@@ -208,6 +309,12 @@ def build_portfolio_structural_risk(
         "cnpjs_fora_perimetro": int(nature.eq("fora_perimetro").sum()),
         "asterisco": "* suporte total, combinado, calculado ou ajustado; a natureza está indicada por linha.",
         "nota_pl": "PL é o patrimônio do veículo; o valor encarteirado por ativo não está disponível nesta base.",
+        "mvp_cnpjs_elegiveis": int(assets["mvp_elegivel_flag"].sum()),
+        "mvp_cnpjs_com_override_editorial": int(
+            assets["mvp_slide_categoria_override_flag"].sum()
+        ),
+        "mvp_categorias": 5,
+        "mvp_nota": "O MVP exibe somente CNPJs com Sub/PL atual, piso documental e PL do veículo; pisos não júnior aparecem com asterisco e estruturas não equivalentes recebem sinal neutro.",
         "fonte": portfolio.summary.get("fonte"),
     }
     return PortfolioStructuralRiskResult(

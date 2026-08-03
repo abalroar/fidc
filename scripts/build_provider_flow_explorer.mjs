@@ -820,6 +820,10 @@ function carteira1Models(payload) {
       focus: text(row.foco_exibicao),
       structuralTaxonomy: text(row.taxonomia_estrutural),
       comparisonGroup: text(row.grupo_comparacao),
+      mvpCategory: text(row.mvp_slide_categoria),
+      mvpRange: text(row.mvp_faixa_sub_atual),
+      mvpEligible: nullableBoolean(row.mvp_elegivel_flag) === true,
+      mvpFloorStatus: text(row.mvp_situacao_piso),
       originator: text(row.originador),
       cedente: text(row.cedente),
       cedenteOriginator: text(row.cedente_originador_literal),
@@ -927,7 +931,8 @@ const CARTEIRA1_FIELDS = Object.freeze({
     "structuralComparable", "structuralComparableReason", "structuralHeadroom",
     "lossAbsorption", "regulatoryStatus", "marketPosition", "marketExcess",
     "benchmarkReliable", "marketPeers", "type", "focus", "structuralTaxonomy",
-    "comparisonGroup", "originator", "cedente", "cedenteOriginator", "partyRole",
+    "comparisonGroup", "mvpCategory", "mvpRange", "mvpEligible", "mvpFloorStatus",
+    "originator", "cedente", "cedenteOriginator", "partyRole",
     "debtor", "receivable", "partiesSource", "manualStatus", "manualNote",
     "priceBrl", "priceDisplay", "priceNature", "priceClassSeries",
     "priceDocumentDate", "priceDocumentId", "priceSource", "priceStatus",
@@ -1474,12 +1479,21 @@ function carteira1App(DATA) {
   const root = document.getElementById("carteira-1-curation-explorer");
   const range = root.querySelector("[data-c1-range]");
   const type = root.querySelector("[data-c1-type]");
+  const mvpCategory = root.querySelector("[data-c1-mvp-category]");
+  const eligibility = root.querySelector("[data-c1-eligibility]");
   const search = root.querySelector("[data-c1-search]");
   const rangeGrid = root.querySelector("[data-c1-range-grid]");
   const tbody = root.querySelector("tbody");
   const caption = root.querySelector("[data-c1-caption]");
   const pager = root.querySelector("[data-c1-pager]");
-  let state = { range: "all", type: "all", query: "", page: 0 };
+  let state = {
+    range: "all",
+    type: "all",
+    mvpCategory: "all",
+    eligibility: "all",
+    query: "",
+    page: 0,
+  };
   const n = value => value == null || value === ""
     ? null
     : Number.isFinite(Number(value)) ? Number(value) : null;
@@ -1502,12 +1516,18 @@ function carteira1App(DATA) {
   const missing = value => ["", "n/d", "nd", "nan", "nao localizado"].includes(norm(value).trim());
   const ranges = DATA.ranges.map(row => row.range);
   const types = [...new Set(DATA.details.map(row => row.comparisonGroup))].sort();
+  const mvpCategories = [...new Set(DATA.details.map(row => row.mvpCategory).filter(value => !missing(value)))]
+    .sort((a, b) => a.localeCompare(b, "pt-BR"));
   range.innerHTML = `<option value="all">Todas as faixas</option>` + ranges.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
   type.innerHTML = `<option value="all">Todos os grupos</option>` + types.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  mvpCategory.innerHTML = `<option value="all">Todas as categorias MVP</option>` + mvpCategories.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
+  eligibility.innerHTML = `<option value="all">Todos</option><option value="eligible">Elegíveis</option>`;
   rangeGrid.innerHTML = DATA.ranges.map(row => `<article><strong>${esc(row.range)}</strong><span>${row.funds.toLocaleString("pt-BR")} fundos</span><small>${money(row.pl)} · ${esc(row.typeSummary)}</small></article>`).join("");
   const matches = row => {
     if (state.range !== "all" && row.range !== state.range) return false;
     if (state.type !== "all" && row.comparisonGroup !== state.type) return false;
+    if (state.mvpCategory !== "all" && row.mvpCategory !== state.mvpCategory) return false;
+    if (state.eligibility === "eligible" && !row.mvpEligible) return false;
     if (!state.query) return true;
     return norm(Object.values(row).join(" ")).includes(norm(state.query));
   };
@@ -1556,11 +1576,11 @@ function carteira1App(DATA) {
     tbody.innerHTML = current.map(row => `<tr>
       <td class="num">${row.order}</td>
       <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.cnpj)} · ${esc(row.referenceName)}</small></td>
-      <td>${esc(row.comparisonGroup)}<br><small>${esc(row.structuralTaxonomy)} · ${esc(row.type)} · ${esc(row.focus)}</small></td>
+      <td><strong>${esc(row.mvpCategory)}</strong><br><small>${esc(row.mvpRange)} · elegível: ${row.mvpEligible ? "sim" : "não"} · ${esc(row.mvpFloorStatus)}<br>${esc(row.comparisonGroup)} · ${esc(row.structuralTaxonomy)} · ${esc(row.type)} · ${esc(row.focus)}</small></td>
       <td>${parties(row)}</td>
       <td class="num">${money(row.pl)}<br><small>Sub. ${pct(row.ratio)} · ${esc(row.range)}</small></td>
       <td>${minima(row)}</td>
-      <td class="num">${pp(row.structuralHeadroom)}<br><small>absorção ${pct(row.lossAbsorption)} · ${esc(row.regulatoryStatus)}</small></td>
+      <td><strong>${esc(row.mvpFloorStatus)}</strong><br><small>Sub atual vs. mínimo estrutural</small></td>
       <td>${market(row)}</td>
       <td>${price(row)}</td>
       <td>${esc(row.completionStatus)}<br><small>${esc(row.curationStatus)} · ${esc(row.gaps)}</small></td>
@@ -1572,8 +1592,8 @@ function carteira1App(DATA) {
   };
   const render = () => renderTable();
   const downloadCsv = () => {
-    const headers = ["ordem","cnpj","fundo_oficial","nome_referencia","data_ref","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","faixa","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","natureza_metrica","formula_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","posicao_mercado","excesso_vs_mercado","benchmark_confiavel","n_comparaveis_categoria","tipo","foco","taxonomia_estrutural","grupo_comparacao","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","status_complemento_manual","observacao_complemento_manual","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
-    const rows = filtered().map(row => [row.order,row.cnpj,row.fund,row.referenceName,row.dataRef,row.pl,row.subordinate,row.ratio,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.marketExcess,row.benchmarkReliable,row.marketPeers,row.type,row.focus,row.structuralTaxonomy,row.comparisonGroup,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.manualStatus,row.manualNote,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,`https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}`]);
+    const headers = ["ordem","cnpj","fundo_oficial","nome_referencia","data_ref","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","faixa","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","natureza_metrica","formula_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","posicao_mercado","excesso_vs_mercado","benchmark_confiavel","n_comparaveis_categoria","tipo","foco","taxonomia_estrutural","grupo_comparacao","mvp_slide_categoria","mvp_faixa_sub_atual","mvp_elegivel_flag","mvp_situacao_piso","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","status_complemento_manual","observacao_complemento_manual","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
+    const rows = filtered().map(row => [row.order,row.cnpj,row.fund,row.referenceName,row.dataRef,row.pl,row.subordinate,row.ratio,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.marketExcess,row.benchmarkReliable,row.marketPeers,row.type,row.focus,row.structuralTaxonomy,row.comparisonGroup,row.mvpCategory,row.mvpRange,row.mvpEligible,row.mvpFloorStatus,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.manualStatus,row.manualNote,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,`https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}`]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -1583,6 +1603,8 @@ function carteira1App(DATA) {
   };
   range.addEventListener("change", () => { state.range = range.value; state.page = 0; render(); });
   type.addEventListener("change", () => { state.type = type.value; state.page = 0; render(); });
+  mvpCategory.addEventListener("change", () => { state.mvpCategory = mvpCategory.value; state.page = 0; render(); });
+  eligibility.addEventListener("change", () => { state.eligibility = eligibility.value; state.page = 0; render(); });
   search.addEventListener("input", () => { state.query = search.value; state.page = 0; render(); });
   pager.querySelector("[data-c1-prev]").addEventListener("click", () => { state.page = Math.max(0, state.page - 1); renderTable(); });
   pager.querySelector("[data-c1-next]").addEventListener("click", () => { state.page += 1; renderTable(); });
@@ -1863,7 +1885,7 @@ function fragmentHtml(data, standalone = false) {
   <p>${data.carteira1.comparisonSummary.methodology}</p>
 </section>
 <section id="carteira-1-curation-explorer" aria-labelledby="carteira-1-curation-title">
-  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Base normalizada comum ao deck e ao workbook, com partes, lastro, mínimos por natureza, preço unitário por cota, situação regulatória, comparação de mercado e fontes.</p></header>
+  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Base normalizada comum ao deck e ao workbook, com recorte MVP, partes, lastro, mínimos por natureza, preço unitário por cota, situação regulatória e fontes.</p></header>
   <div class="c1-metrics">
     <div class="c1-metric"><strong>${data.carteira1.summary.cnpjs}</strong><span>CNPJs transcritos e salvos</span></div>
     <div class="c1-metric"><strong>${data.carteira1.summary.minJunior}</strong><span>mínimos júnior · ${(data.carteira1.summary.juniorCoverage * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%</span></div>
@@ -1875,13 +1897,15 @@ function fragmentHtml(data, standalone = false) {
   <div class="c1-controls">
     <label>Faixa<select data-c1-range aria-label="Faixa de subordinação atual"></select></label>
     <label>Grupo de comparação<select data-c1-type aria-label="Grupo de comparação estrutural"></select></label>
+    <label>Categoria MVP<select data-c1-mvp-category aria-label="Categoria do recorte MVP"></select></label>
+    <label>Elegibilidade<select data-c1-eligibility aria-label="Elegibilidade no recorte MVP"></select></label>
     <label class="c1-search">Buscar fundo, CNPJ, parte, recebível ou taxonomia<input data-c1-search type="search" placeholder="Ex.: Cloudwalk, 42.085.816, FGTS"></label>
     <button type="button" data-c1-csv>Exportar CSV</button>
   </div>
   <div class="c1-range-grid" data-c1-range-grid aria-label="Distribuição da Carteira 1 por faixa"></div>
   <div class="c1-caption" data-c1-caption aria-live="polite"></div>
   <table aria-label="Curadoria dos CNPJs da Carteira 1">
-    <thead><tr><th class="num">#</th><th>FIDC / CNPJ</th><th>Taxonomia</th><th>Originador / cedente / sacado / recebível</th><th class="num">PL / Sub atual</th><th>Mínimos Jr / estrutural</th><th class="num">Folga / absorção</th><th>Posição de mercado</th><th>Preço unitário por cota</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <thead><tr><th class="num">#</th><th>FIDC / CNPJ</th><th>Taxonomia / MVP</th><th>Originador / cedente / sacado / recebível</th><th class="num">PL / Sub atual</th><th>Mínimos Jr / estrutural</th><th>Situação vs. mínimo</th><th>Posição de mercado</th><th>Preço unitário por cota</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
     <tbody></tbody>
   </table>
   <div class="c1-pager" data-c1-pager><button type="button" data-c1-prev>Anterior</button><span>0 / 0</span><button type="button" data-c1-next>Próxima</button></div>

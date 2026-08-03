@@ -61,6 +61,10 @@ def _structural(rows: list[dict[str, object]]) -> pd.DataFrame:
         "folga_pp": np.nan,
         "perda_ate_gatilho": np.nan,
         "situacao_regulatoria": "não medido",
+        "mvp_slide_categoria": "N/D",
+        "mvp_faixa_sub_atual": "N/D",
+        "mvp_elegivel_flag": False,
+        "mvp_situacao_piso": "N/D",
         "categoria": "Financeiro",
         "data_ref": "2026-06",
     }
@@ -158,6 +162,10 @@ def test_portfolio_keeps_minimum_natures_separate_and_uses_existing_metrics() ->
                 "comparacao_estrutural_completa_flag": False,
                 "folga_pp": 999.0,
                 "perda_ate_gatilho": 999.0,
+                "mvp_slide_categoria": "Financeiro",
+                "mvp_faixa_sub_atual": "20%–35%",
+                "mvp_elegivel_flag": True,
+                "mvp_situacao_piso": "acima do piso",
             },
             {
                 "cnpj": _cnpj(4),
@@ -193,6 +201,8 @@ def test_portfolio_keeps_minimum_natures_separate_and_uses_existing_metrics() ->
     assert rows.loc[_cnpj(5), "suporte_total"] == 0.10
     assert math.isnan(rows.loc[_cnpj(3), "folga_pp"])
     assert math.isnan(rows.loc[_cnpj(3), "capacidade_ate_gatilho"])
+    assert rows.loc[_cnpj(3), "mvp_elegivel_flag"]
+    assert rows.loc[_cnpj(3), "mvp_situacao_piso"] == "acima do piso"
     assert rows.loc[_cnpj(1), "folga_pp"] == 0.13
     assert rows.loc[_cnpj(1), "cnpj_numerico"] == 1
     assert rows.loc[_cnpj(1), "cnpj_formatado"] == "00.000.000/0000-01"

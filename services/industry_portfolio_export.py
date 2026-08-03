@@ -99,6 +99,14 @@ NORMALIZED_COLUMNS: tuple[str, ...] = (
     "folga_pp",
     "capacidade_ate_gatilho",
     "situacao_regulatoria",
+    "mvp_slide_categoria",
+    "mvp_slide_categoria_original",
+    "mvp_slide_categoria_override_flag",
+    "mvp_slide_categoria_fonte",
+    "mvp_slide_categoria_motivo",
+    "mvp_faixa_sub_atual",
+    "mvp_elegivel_flag",
+    "mvp_situacao_piso",
     "posicao_mercado",
     "excesso_vs_mercado",
     "benchmark_confiavel",
@@ -856,6 +864,14 @@ def _portfolio_rows(
         "folga_pp",
         "perda_ate_gatilho",
         "situacao_regulatoria",
+        "mvp_slide_categoria",
+        "mvp_slide_categoria_original",
+        "mvp_slide_categoria_override_flag",
+        "mvp_slide_categoria_fonte",
+        "mvp_slide_categoria_motivo",
+        "mvp_faixa_sub_atual",
+        "mvp_elegivel_flag",
+        "mvp_situacao_piso",
         "posicao_mercado",
         "excesso_vs_mercado",
         "benchmark_confiavel",
@@ -877,6 +893,14 @@ def _portfolio_rows(
             "folga_pp": "_folga_pp",
             "perda_ate_gatilho": "_capacidade_ate_gatilho",
             "situacao_regulatoria": "_situacao_regulatoria",
+            "mvp_slide_categoria": "_mvp_slide_categoria",
+            "mvp_slide_categoria_original": "_mvp_slide_categoria_original",
+            "mvp_slide_categoria_override_flag": "_mvp_slide_categoria_override_flag",
+            "mvp_slide_categoria_fonte": "_mvp_slide_categoria_fonte",
+            "mvp_slide_categoria_motivo": "_mvp_slide_categoria_motivo",
+            "mvp_faixa_sub_atual": "_mvp_faixa_sub_atual",
+            "mvp_elegivel_flag": "_mvp_elegivel_flag",
+            "mvp_situacao_piso": "_mvp_situacao_piso",
             "posicao_mercado": "_posicao_mercado",
             "excesso_vs_mercado": "_excesso_vs_mercado",
             "benchmark_confiavel": "_benchmark_confiavel",
@@ -959,6 +983,30 @@ def _portfolio_rows(
     ).where(comparable)
     rows["situacao_regulatoria"] = _series(
         source, "_situacao_regulatoria"
+    ).map(_text)
+    rows["mvp_slide_categoria"] = _series(
+        source, "_mvp_slide_categoria"
+    ).map(_text)
+    rows["mvp_slide_categoria_original"] = _series(
+        source, "_mvp_slide_categoria_original"
+    ).map(_text)
+    rows["mvp_slide_categoria_override_flag"] = _bool_series(
+        source, "_mvp_slide_categoria_override_flag"
+    )
+    rows["mvp_slide_categoria_fonte"] = _series(
+        source, "_mvp_slide_categoria_fonte"
+    ).map(_text)
+    rows["mvp_slide_categoria_motivo"] = _series(
+        source, "_mvp_slide_categoria_motivo"
+    ).map(_text)
+    rows["mvp_faixa_sub_atual"] = _series(
+        source, "_mvp_faixa_sub_atual"
+    ).map(_text)
+    rows["mvp_elegivel_flag"] = _bool_series(
+        source, "_mvp_elegivel_flag"
+    )
+    rows["mvp_situacao_piso"] = _series(
+        source, "_mvp_situacao_piso"
     ).map(_text)
     rows["posicao_mercado"] = _series(source, "_posicao_mercado").map(_text)
     rows["excesso_vs_mercado"] = _numeric(source, "_excesso_vs_mercado")
@@ -1088,6 +1136,10 @@ def _flagship_rows(
         "não medido",
         np.where(headroom.lt(0), "abaixo do mínimo", "acima do mínimo"),
     )
+    rows["mvp_slide_categoria"] = TEXT_ND
+    rows["mvp_faixa_sub_atual"] = TEXT_ND
+    rows["mvp_elegivel_flag"] = False
+    rows["mvp_situacao_piso"] = TEXT_ND
     rows["posicao_mercado"] = TEXT_ND
     rows["excesso_vs_mercado"] = np.nan
     rows["benchmark_confiavel"] = pd.NA
@@ -1586,6 +1638,8 @@ def _dictionary() -> pd.DataFrame:
         "comparavel_flag",
         "excecao_asterisco_flag",
         "benchmark_confiavel",
+        "mvp_elegivel_flag",
+        "mvp_slide_categoria_override_flag",
         "preco_cota_excecao_asterisco_flag",
     }
     rows: list[dict[str, str]] = []
