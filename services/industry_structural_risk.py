@@ -28,14 +28,58 @@ MVP_SLIDE_OVERRIDE_PATH = (
     / "industry_study"
     / "structural_mvp_slide_overrides.csv"
 )
+FINANCEIRO_AGRO_RISK_REVIEW_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "industry_study"
+    / "carteira_101_financeiro_agro_risk_review.csv"
+)
 MVP_SLIDE_CATEGORIES = frozenset(
     {
         "Financeiro",
         "Adquirência",
         "Agro / Revenda",
+        "Risco Corporativo",
         "Consignado INSS e FGTS",
         "Factoring",
     }
+)
+FINANCEIRO_AGRO_RISK_REVIEW_COLUMNS = (
+    "cnpj",
+    "categoria_atual",
+    "categoria_proposta",
+    "categoria_candidata",
+    "subtipo_risco",
+    "status",
+    "applied_flag",
+    "middle_market_status",
+    "racional",
+    "evidencia",
+)
+FINANCEIRO_AGRO_RISK_REVIEW_CURRENT_CATEGORIES = frozenset(
+    {"Financeiro", "Agro / Revenda"}
+)
+FINANCEIRO_AGRO_RISK_REVIEW_STATUSES = frozenset(
+    {
+        "MANTER_ALTA",
+        "MANTER_ASTERISCO",
+        "APLICAR_ALTA",
+        "PENDENTE_FONTE_PRIMARIA",
+        "PENDENTE_DOCUMENTAL",
+        "PENDENTE_TIPO_LASTRO",
+    }
+)
+FINANCEIRO_AGRO_RISK_OUTPUT_COLUMNS = (
+    "categoria_risco_atual",
+    "categoria_risco_proposta",
+    "subtipo_risco_diagnosticado",
+    "reclassificacao_proposta_flag",
+    "status_avaliacao_reclassificacao",
+    "fundamento_avaliacao_reclassificacao",
+    "fonte_avaliacao_reclassificacao",
+    "middle_market_status",
+    "middle_market_evidencia",
+    "middle_market_porte_documentado_flag",
 )
 
 
@@ -64,7 +108,7 @@ def _load_mvp_slide_overrides(
     """Load the auditable, slide-only taxonomy overlay.
 
     The analytical and official taxonomies remain unchanged.  This overlay only
-    selects which of the five MVP slides receives a Carteira I vehicle.
+    selects which of the six MVP slides receives a Carteira I vehicle.
     """
 
     columns = ["cnpj", "categoria_mvp", "fonte", "motivo"]
@@ -90,11 +134,225 @@ def _load_mvp_slide_overrides(
     return overrides
 
 
+def _validate_financeiro_agro_risk_review(
+    review: pd.DataFrame,
+    *,
+    expected_rows: int | None = None,
+) -> pd.DataFrame:
+    """Validate the explicit per-CNPJ review without deriving missing facts.
+
+    ``categoria_candidata`` is deliberately informational.  A candidate never
+    changes the proposed category unless ``applied_flag`` is ``SIM``.
+    """
+
+    missing = set(FINANCEIRO_AGRO_RISK_REVIEW_COLUMNS).difference(review.columns)
+    if missing:
+        raise ValueError(
+            "ledger Financeiro/Agro sem colunas obrigatórias: "
+            + ", ".join(sorted(missing))
+        )
+    validated = review.loc[:, FINANCEIRO_AGRO_RISK_REVIEW_COLUMNS].copy()
+    for column in FINANCEIRO_AGRO_RISK_REVIEW_COLUMNS:
+        validated[column] = validated[column].fillna("").astype(str).str.strip()
+    validated["cnpj"] = validated["cnpj"].str.replace(r"\D", "", regex=True)
+    if not validated["cnpj"].str.fullmatch(r"\d{14}").all():
+        raise ValueError("ledger Financeiro/Agro contém CNPJ inválido")
+    if validated["cnpj"].duplicated().any():
+        raise ValueError("ledger Financeiro/Agro contém CNPJ duplicado")
+    if expected_rows is not None and len(validated) != expected_rows:
+        raise ValueError(
+            "ledger Financeiro/Agro deve conter "
+            f"{expected_rows} CNPJs; contém {len(validated)}"
+        )
+
+    invalid_current = sorted(
+        set(validated["categoria_atual"]).difference(
+            FINANCEIRO_AGRO_RISK_REVIEW_CURRENT_CATEGORIES
+        )
+    )
+    if invalid_current:
+        raise ValueError(
+            "ledger Financeiro/Agro contém categoria atual inválida: "
+            + ", ".join(invalid_current)
+        )
+    invalid_proposed = sorted(
+        set(validated["categoria_proposta"]).difference(MVP_SLIDE_CATEGORIES)
+    )
+    if invalid_proposed:
+        raise ValueError(
+            "ledger Financeiro/Agro contém categoria proposta inválida: "
+            + ", ".join(invalid_proposed)
+        )
+    invalid_status = sorted(
+        set(validated["status"]).difference(
+            FINANCEIRO_AGRO_RISK_REVIEW_STATUSES
+        )
+    )
+    if invalid_status:
+        raise ValueError(
+            "ledger Financeiro/Agro contém status inválido: "
+            + ", ".join(invalid_status)
+        )
+    invalid_applied = sorted(
+        set(validated["applied_flag"]).difference({"SIM", "NAO"})
+    )
+    if invalid_applied:
+        raise ValueError(
+            "ledger Financeiro/Agro contém applied_flag inválido: "
+            + ", ".join(invalid_applied)
+        )
+    invalid_middle_market = sorted(
+        set(validated["middle_market_status"]).difference(
+            {"Não", "Candidato", "Pendente"}
+        )
+    )
+    if invalid_middle_market:
+        raise ValueError(
+            "ledger Financeiro/Agro contém middle_market_status inválido: "
+            + ", ".join(invalid_middle_market)
+        )
+
+    required_text = (
+        "categoria_atual",
+        "categoria_proposta",
+        "subtipo_risco",
+        "status",
+        "applied_flag",
+        "middle_market_status",
+        "racional",
+        "evidencia",
+    )
+    blank_required = [
+        column
+        for column in required_text
+        if validated[column].eq("").any()
+    ]
+    if blank_required:
+        raise ValueError(
+            "ledger Financeiro/Agro contém campos obrigatórios vazios: "
+            + ", ".join(blank_required)
+        )
+
+    applied = validated["applied_flag"].eq("SIM")
+    if not validated.loc[applied, "status"].eq("APLICAR_ALTA").all():
+        raise ValueError(
+            "ledger Financeiro/Agro exige status APLICAR_ALTA quando "
+            "applied_flag=SIM"
+        )
+    if validated.loc[applied, "categoria_atual"].eq(
+        validated.loc[applied, "categoria_proposta"]
+    ).any():
+        raise ValueError(
+            "ledger Financeiro/Agro exige mudança de categoria quando "
+            "applied_flag=SIM"
+        )
+    pending_or_maintained = ~applied
+    if not validated.loc[pending_or_maintained, "categoria_atual"].eq(
+        validated.loc[pending_or_maintained, "categoria_proposta"]
+    ).all():
+        raise ValueError(
+            "ledger Financeiro/Agro mantém categoria atual quando "
+            "applied_flag=NAO"
+        )
+    return validated.reset_index(drop=True)
+
+
+def _load_financeiro_agro_risk_review(
+    path: Path = FINANCEIRO_AGRO_RISK_REVIEW_PATH,
+) -> pd.DataFrame:
+    """Load the 72-case, semicolon-delimited documentary review ledger."""
+
+    if not path.exists():
+        raise FileNotFoundError(f"ledger Financeiro/Agro não localizado: {path}")
+    review = pd.read_csv(path, sep=";", dtype=str, keep_default_na=False)
+    return _validate_financeiro_agro_risk_review(review, expected_rows=72)
+
+
+def _apply_financeiro_agro_risk_review(
+    rows: pd.DataFrame,
+    review: pd.DataFrame,
+) -> pd.DataFrame:
+    """Attach reviewed fields and apply only explicitly approved categories."""
+
+    output = rows.copy()
+    if output.empty:
+        for column in FINANCEIRO_AGRO_RISK_OUTPUT_COLUMNS:
+            if column not in output.columns:
+                output[column] = pd.Series(dtype="object")
+        return output
+    if "cnpj" not in output.columns:
+        raise KeyError("base estrutural sem coluna cnpj")
+    if output["cnpj"].astype(str).duplicated().any():
+        raise ValueError("base estrutural contém CNPJ duplicado")
+
+    validated = _validate_financeiro_agro_risk_review(review)
+    current_category = output.get(
+        "mvp_slide_categoria", pd.Series("N/D", index=output.index)
+    ).fillna("N/D").astype(str)
+    output["categoria_risco_atual"] = current_category
+    output["categoria_risco_proposta"] = current_category
+    output["subtipo_risco_diagnosticado"] = "N/D"
+    output["reclassificacao_proposta_flag"] = False
+    output["status_avaliacao_reclassificacao"] = "fora da revisão Financeiro/Agro"
+    output["fundamento_avaliacao_reclassificacao"] = "N/D"
+    output["fonte_avaliacao_reclassificacao"] = "N/D"
+    output["middle_market_status"] = "N/D"
+    output["middle_market_evidencia"] = "N/D"
+    output["middle_market_porte_documentado_flag"] = pd.NA
+
+    indexed_review = validated.set_index("cnpj")
+    normalized_cnpj = output["cnpj"].astype(str).str.replace(r"\D", "", regex=True)
+    matched = normalized_cnpj.isin(indexed_review.index)
+    for row_index in output.index[matched]:
+        decision = indexed_review.loc[normalized_cnpj.loc[row_index]]
+        applied = decision["applied_flag"] == "SIM"
+        output.at[row_index, "categoria_risco_atual"] = decision["categoria_atual"]
+        output.at[row_index, "categoria_risco_proposta"] = decision[
+            "categoria_proposta"
+        ]
+        output.at[row_index, "subtipo_risco_diagnosticado"] = decision[
+            "subtipo_risco"
+        ]
+        output.at[row_index, "reclassificacao_proposta_flag"] = applied
+        output.at[row_index, "status_avaliacao_reclassificacao"] = decision[
+            "status"
+        ]
+        output.at[row_index, "fundamento_avaliacao_reclassificacao"] = decision[
+            "racional"
+        ]
+        output.at[row_index, "fonte_avaliacao_reclassificacao"] = decision[
+            "evidencia"
+        ]
+        output.at[row_index, "middle_market_status"] = decision[
+            "middle_market_status"
+        ]
+        output.at[row_index, "middle_market_evidencia"] = decision["evidencia"]
+        output.at[row_index, "middle_market_porte_documentado_flag"] = (
+            False if decision["middle_market_status"] == "Não" else pd.NA
+        )
+        output.at[row_index, "mvp_slide_categoria_original"] = decision[
+            "categoria_atual"
+        ]
+        output.at[row_index, "mvp_slide_categoria"] = decision[
+            "categoria_proposta" if applied else "categoria_atual"
+        ]
+        if applied:
+            output.at[row_index, "mvp_slide_categoria_override_flag"] = True
+            output.at[row_index, "mvp_slide_categoria_fonte"] = decision[
+                "evidencia"
+            ]
+            output.at[row_index, "mvp_slide_categoria_motivo"] = decision[
+                "racional"
+            ]
+    return output
+
+
 def build_portfolio_structural_risk(
     *,
     portfolio: PortfolioCurationResult,
     comparison: PortfolioFlagshipComparisonResult,
     config: StructuralRiskConfig | None = None,
+    risk_review: pd.DataFrame | None = None,
 ) -> PortfolioStructuralRiskResult:
     """Materialize one auditable structural dataset for every output channel."""
 
@@ -197,6 +455,9 @@ def build_portfolio_structural_risk(
     assets.loc[override_mask, "mvp_slide_categoria_motivo"] = assets.loc[
         override_mask, "cnpj"
     ].map(overrides["motivo"])
+    if risk_review is None:
+        risk_review = _load_financeiro_agro_risk_review()
+    assets = _apply_financeiro_agro_risk_review(assets, risk_review)
     current_for_band = _numeric(assets, "sub_pl_atual")
     assets["mvp_faixa_sub_atual"] = pd.cut(
         current_for_band,
@@ -313,7 +574,15 @@ def build_portfolio_structural_risk(
         "mvp_cnpjs_com_override_editorial": int(
             assets["mvp_slide_categoria_override_flag"].sum()
         ),
-        "mvp_categorias": 5,
+        "mvp_categorias": len(MVP_SLIDE_CATEGORIES),
+        "risk_review_cnpjs": int(
+            assets["status_avaliacao_reclassificacao"].ne(
+                "fora da revisão Financeiro/Agro"
+            ).sum()
+        ),
+        "risk_review_reclassificacoes_aplicadas": int(
+            assets["reclassificacao_proposta_flag"].sum()
+        ),
         "mvp_nota": "O MVP exibe somente CNPJs com Sub/PL atual, piso documental e PL do veículo; pisos não júnior aparecem com asterisco e estruturas não equivalentes recebem sinal neutro.",
         "fonte": portfolio.summary.get("fonte"),
     }

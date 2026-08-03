@@ -42,10 +42,12 @@ from services.industry_revision_export import (
     EXPECTED_SLIDES,
     MATERIALIZED_HTML_NAME,
     MATERIALIZED_PORTFOLIO_XLSX_NAME,
+    MATERIALIZED_TOP100_XLSX_NAME,
     MATERIALIZED_PPTX_NAME,
     MATERIALIZED_XLSX_NAME,
     validate_revision_html,
     validate_revision_portfolio_xlsx,
+    validate_revision_top100_xlsx,
     validate_revision_pptx,
     validate_revision_xlsx,
 )
@@ -54,10 +56,11 @@ from services.industry_revision_export import (
 ROOT = Path(__file__).resolve().parents[1]
 ARTIFACT_SCRIPT = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 NATIVE_CHART_PATCHER = ROOT / "scripts" / "patch_pptx_native_market_charts.py"
+PORTFOLIO_CHART_PATCHER = ROOT / "scripts" / "patch_portfolio_workbook_charts.py"
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v8"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v9"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
 
@@ -104,6 +107,8 @@ REQUIRED_DATA_INPUTS = (
     "industry_flagship_document_curation.csv",
     "industry_carteira_1_scope.csv",
     "industry_carteira_1_document_curation.csv",
+    "structural_mvp_slide_overrides.csv",
+    "carteira_101_financeiro_agro_risk_review.csv",
     "industry_cnpj_manual_enrichment.csv",
     "emission_field_audit.csv",
     "carteira_101_document_audit/carteira_101_document_audit.csv",
@@ -151,6 +156,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_provider_flow_explorer.mjs",
     ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
+    ROOT / "scripts" / "patch_portfolio_workbook_charts.py",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_additions.py",
     ROOT / "services" / "industry_closed_offers.py",
@@ -243,6 +249,7 @@ class PublishedRevisionBundle:
     pptx_path: Path
     xlsx_path: Path
     portfolio_xlsx_path: Path
+    top100_xlsx_path: Path
     html_path: Path
     manifest_path: Path
 
@@ -2501,6 +2508,7 @@ def build_bundle_manifest(
     generated_at_utc: str,
     html_bytes: bytes = b"",
     portfolio_xlsx_bytes: bytes = b"",
+    top100_xlsx_bytes: bytes = b"",
 ) -> dict[str, object]:
     """Build the content-addressed manifest consumed by the application."""
 
@@ -2508,6 +2516,7 @@ def build_bundle_manifest(
     pptx_hash = _sha256_bytes(pptx_bytes)
     xlsx_hash = _sha256_bytes(xlsx_bytes)
     portfolio_xlsx_hash = _sha256_bytes(portfolio_xlsx_bytes)
+    top100_xlsx_hash = _sha256_bytes(top100_xlsx_bytes)
     html_hash = _sha256_bytes(html_bytes)
     input_signature = _sha256_bytes(_canonical_json_bytes(dict(input_hashes)))
     bundle_id = (
@@ -2555,6 +2564,11 @@ def build_bundle_manifest(
             "sha256": portfolio_xlsx_hash,
             "bytes": len(portfolio_xlsx_bytes),
         },
+        "top100_xlsx": {
+            "name": MATERIALIZED_TOP100_XLSX_NAME,
+            "sha256": top100_xlsx_hash,
+            "bytes": len(top100_xlsx_bytes),
+        },
         "html": {
             "name": MATERIALIZED_HTML_NAME,
             "sha256": html_hash,
@@ -2577,6 +2591,9 @@ def build_bundle_manifest(
             "portfolio_export_carteira_101": len(
                 list(payload.get("portfolio_export_carteira_101") or [])
             ),
+            "portfolio_export_cases_99": len(
+                list(payload.get("portfolio_export_cases_99") or [])
+            ),
             "portfolio_export_flagships": len(
                 list(payload.get("portfolio_export_flagships") or [])
             ),
@@ -2585,6 +2602,9 @@ def build_bundle_manifest(
             ),
             "portfolio_export_gaps": len(
                 list(payload.get("portfolio_export_gaps") or [])
+            ),
+            "top100_fidcs_middle_market": len(
+                list(payload.get("top100_fidcs_middle_market") or [])
             ),
         },
     }
@@ -2600,6 +2620,7 @@ def validate_bundle_manifest(
     xlsx_bytes: bytes,
     html_bytes: bytes = b"",
     portfolio_xlsx_bytes: bytes = b"",
+    top100_xlsx_bytes: bytes = b"",
 ) -> None:
     if manifest.get("schema_version") != BUNDLE_SCHEMA:
         raise RevisionBundlePublishError("schema do manifest de publicação incompatível")
@@ -2628,6 +2649,7 @@ def validate_bundle_manifest(
         ("pptx", pptx_bytes),
         ("xlsx", xlsx_bytes),
         ("portfolio_xlsx", portfolio_xlsx_bytes),
+        ("top100_xlsx", top100_xlsx_bytes),
         ("html", html_bytes),
     )
     for key, content in files:
@@ -2650,6 +2672,7 @@ def validate_renderer_manifest(
     renderer_sha256: str,
     html_bytes: bytes = b"",
     portfolio_xlsx_bytes: bytes = b"",
+    top100_xlsx_bytes: bytes = b"",
 ) -> None:
     """Validate the renderer's own manifest before creating the publish manifest."""
 
@@ -2668,6 +2691,7 @@ def validate_renderer_manifest(
         ("pptx", pptx_bytes),
         ("xlsx", xlsx_bytes),
         ("portfolio_xlsx", portfolio_xlsx_bytes),
+        ("top100_xlsx", top100_xlsx_bytes),
         ("html", html_bytes),
     ):
         entry = dict(manifest.get(key) or {})
@@ -2699,6 +2723,14 @@ def validate_renderer_manifest(
             raise RevisionBundlePublishError(
                 "manifest do renderer falhou no export Flagships"
             )
+        if int(checks.get("portfolio_export_cases_99") or 0) != 99:
+            raise RevisionBundlePublishError(
+                "manifest do renderer falhou no universo de 99 casos"
+            )
+        if int(checks.get("top100_fidcs_middle_market") or 0) != 100:
+            raise RevisionBundlePublishError(
+                "manifest do renderer falhou no Top 100 geral"
+            )
         if int(checks.get("portfolio_export_coverage") or 0) <= 0:
             raise RevisionBundlePublishError(
                 "manifest do renderer não registrou a cobertura do export estrutural"
@@ -2714,6 +2746,7 @@ def publish_staged_bundle(
     publish_dir: Path,
     staged_html: Path | None = None,
     staged_portfolio_xlsx: Path | None = None,
+    staged_top100_xlsx: Path | None = None,
     replace: Callable[[str | bytes | os.PathLike[str] | os.PathLike[bytes], str | bytes | os.PathLike[str] | os.PathLike[bytes]], None] = os.replace,
 ) -> tuple[Path, Path, Path]:
     """Move staged outputs into place, replacing the bundle manifest last."""
@@ -2732,6 +2765,11 @@ def publish_staged_bundle(
         replace(
             staged_portfolio_xlsx,
             publish_dir / MATERIALIZED_PORTFOLIO_XLSX_NAME,
+        )
+    if staged_top100_xlsx is not None:
+        replace(
+            staged_top100_xlsx,
+            publish_dir / MATERIALIZED_TOP100_XLSX_NAME,
         )
     if staged_html is not None:
         replace(staged_html, publish_dir / MATERIALIZED_HTML_NAME)
@@ -2754,6 +2792,7 @@ def _run_artifact_builder(
     pptx_path: Path,
     xlsx_path: Path,
     portfolio_xlsx_path: Path,
+    top100_xlsx_path: Path,
     html_path: Path,
     renderer_manifest_path: Path,
     timeout_seconds: int,
@@ -2771,7 +2810,9 @@ def _run_artifact_builder(
             "FIDC_OUTPUT_PPTX": str(pptx_path),
             "FIDC_OUTPUT_XLSX": str(xlsx_path),
             "FIDC_OUTPUT_PORTFOLIO_XLSX": str(portfolio_xlsx_path),
+            "FIDC_OUTPUT_TOP100_XLSX": str(top100_xlsx_path),
             "FIDC_OUTPUT_HTML": str(html_path),
+            "FIDC_PYTHON": sys.executable,
             "FIDC_PROVIDER_FLOW_BUILDER": str(provider_flow_builder),
             "FIDC_EXPORT_MANIFEST": str(renderer_manifest_path),
             "FIDC_SKIP_QA": "1",
@@ -2810,11 +2851,12 @@ def _run_artifact_builder(
         not pptx_path.exists()
         or not xlsx_path.exists()
         or not portfolio_xlsx_path.exists()
+        or not top100_xlsx_path.exists()
         or not html_path.exists()
         or not renderer_manifest_path.exists()
     ):
         raise RevisionBundlePublishError(
-            "renderer não produziu PPTX/XLSX Carteira 101/HTML/manifest"
+            "renderer não produziu PPTX/XLSX Carteira 101/Top 100/HTML/manifest"
         )
 
 
@@ -2953,6 +2995,7 @@ def publish_revision_bundle(
     # edited concurrently.
     artifact_script_bytes = ARTIFACT_SCRIPT.read_bytes()
     native_chart_patcher_bytes = NATIVE_CHART_PATCHER.read_bytes()
+    portfolio_chart_patcher_bytes = PORTFOLIO_CHART_PATCHER.read_bytes()
     provider_flow_builder_bytes = PROVIDER_FLOW_BUILDER.read_bytes()
     input_hashes = collect_input_hashes(
         data_dir=data_dir,
@@ -2964,6 +3007,9 @@ def publish_revision_bundle(
     )
     input_hashes[f"builder/{NATIVE_CHART_PATCHER.name}"] = _sha256_bytes(
         native_chart_patcher_bytes
+    )
+    input_hashes[f"builder/{PORTFOLIO_CHART_PATCHER.name}"] = _sha256_bytes(
+        portfolio_chart_patcher_bytes
     )
     input_hashes[f"builder/{PROVIDER_FLOW_BUILDER.name}"] = _sha256_bytes(
         provider_flow_builder_bytes
@@ -3005,6 +3051,8 @@ def publish_revision_bundle(
         staged_renderer.write_bytes(artifact_script_bytes)
         staged_native_chart_patcher = stage / NATIVE_CHART_PATCHER.name
         staged_native_chart_patcher.write_bytes(native_chart_patcher_bytes)
+        staged_portfolio_chart_patcher = stage / PORTFOLIO_CHART_PATCHER.name
+        staged_portfolio_chart_patcher.write_bytes(portfolio_chart_patcher_bytes)
         staged_provider_flow_builder = stage / PROVIDER_FLOW_BUILDER.name
         staged_provider_flow_builder.write_bytes(provider_flow_builder_bytes)
         renderer = _artifact_runtime_metadata(
@@ -3171,6 +3219,7 @@ def publish_revision_bundle(
         staged_pptx = stage_exports / MATERIALIZED_PPTX_NAME
         staged_xlsx = stage_exports / MATERIALIZED_XLSX_NAME
         staged_portfolio_xlsx = stage_exports / MATERIALIZED_PORTFOLIO_XLSX_NAME
+        staged_top100_xlsx = stage_exports / MATERIALIZED_TOP100_XLSX_NAME
         staged_html = stage_exports / MATERIALIZED_HTML_NAME
         renderer_manifest_path = stage / "renderer_export_bundle.json"
         _run_artifact_builder(
@@ -3186,6 +3235,7 @@ def publish_revision_bundle(
             pptx_path=staged_pptx,
             xlsx_path=staged_xlsx,
             portfolio_xlsx_path=staged_portfolio_xlsx,
+            top100_xlsx_path=staged_top100_xlsx,
             html_path=staged_html,
             renderer_manifest_path=renderer_manifest_path,
             timeout_seconds=timeout_seconds,
@@ -3193,6 +3243,7 @@ def publish_revision_bundle(
         pptx_bytes = staged_pptx.read_bytes()
         xlsx_bytes = staged_xlsx.read_bytes()
         portfolio_xlsx_bytes = staged_portfolio_xlsx.read_bytes()
+        top100_xlsx_bytes = staged_top100_xlsx.read_bytes()
         html_bytes = staged_html.read_bytes()
         renderer_manifest = json.loads(renderer_manifest_path.read_text(encoding="utf-8"))
         validate_renderer_manifest(
@@ -3202,6 +3253,7 @@ def publish_revision_bundle(
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
             portfolio_xlsx_bytes=portfolio_xlsx_bytes,
+            top100_xlsx_bytes=top100_xlsx_bytes,
             html_bytes=html_bytes,
             renderer_sha256=str(renderer["renderer_sha256"]),
         )
@@ -3212,6 +3264,7 @@ def publish_revision_bundle(
         validate_revision_pptx(pptx_bytes)
         validate_revision_xlsx(xlsx_bytes)
         validate_revision_portfolio_xlsx(portfolio_xlsx_bytes)
+        validate_revision_top100_xlsx(top100_xlsx_bytes)
         validate_user_facing_workbook_snapshot(xlsx_bytes, latest_complete)
         validate_revision_html(html_bytes)
         validate_deck_snapshot(pptx_bytes, latest_complete)
@@ -3223,6 +3276,7 @@ def publish_revision_bundle(
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
             portfolio_xlsx_bytes=portfolio_xlsx_bytes,
+            top100_xlsx_bytes=top100_xlsx_bytes,
             html_bytes=html_bytes,
             input_hashes=input_hashes,
             renderer=renderer,
@@ -3236,6 +3290,7 @@ def publish_revision_bundle(
             pptx_bytes=pptx_bytes,
             xlsx_bytes=xlsx_bytes,
             portfolio_xlsx_bytes=portfolio_xlsx_bytes,
+            top100_xlsx_bytes=top100_xlsx_bytes,
             html_bytes=html_bytes,
         )
         staged_manifest = stage / BUNDLE_MANIFEST_NAME
@@ -3256,6 +3311,7 @@ def publish_revision_bundle(
             staged_pptx=staged_pptx,
             staged_xlsx=staged_xlsx,
             staged_portfolio_xlsx=staged_portfolio_xlsx,
+            staged_top100_xlsx=staged_top100_xlsx,
             staged_html=staged_html,
             staged_bundle_manifest=staged_manifest,
             publish_dir=publish_dir,
@@ -3264,6 +3320,7 @@ def publish_revision_bundle(
     # Re-read the committed files; the manifest is now the publication marker.
     committed_payload = publish_dir / PAYLOAD_NAME
     target_portfolio_xlsx = publish_dir / MATERIALIZED_PORTFOLIO_XLSX_NAME
+    target_top100_xlsx = publish_dir / MATERIALIZED_TOP100_XLSX_NAME
     validate_bundle_manifest(
         json.loads(target_manifest.read_text(encoding="utf-8")),
         payload_bytes=committed_payload.read_bytes(),
@@ -3272,11 +3329,13 @@ def publish_revision_bundle(
         pptx_bytes=target_pptx.read_bytes(),
         xlsx_bytes=target_xlsx.read_bytes(),
         portfolio_xlsx_bytes=target_portfolio_xlsx.read_bytes(),
+        top100_xlsx_bytes=target_top100_xlsx.read_bytes(),
         html_bytes=(publish_dir / MATERIALIZED_HTML_NAME).read_bytes(),
     )
     validate_revision_pptx(target_pptx.read_bytes())
     validate_revision_xlsx(target_xlsx.read_bytes())
     validate_revision_portfolio_xlsx(target_portfolio_xlsx.read_bytes())
+    validate_revision_top100_xlsx(target_top100_xlsx.read_bytes())
     validate_revision_html((publish_dir / MATERIALIZED_HTML_NAME).read_bytes())
     return PublishedRevisionBundle(
         bundle_id=str(manifest["bundle_id"]),
@@ -3285,6 +3344,7 @@ def publish_revision_bundle(
         pptx_path=target_pptx,
         xlsx_path=target_xlsx,
         portfolio_xlsx_path=target_portfolio_xlsx,
+        top100_xlsx_path=target_top100_xlsx,
         html_path=publish_dir / MATERIALIZED_HTML_NAME,
         manifest_path=target_manifest,
     )

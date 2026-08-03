@@ -19,7 +19,7 @@ PAYLOAD_PATH = Path(
     )
 )
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
-MAX_COMPACT_HTML_BYTES = 455_000
+MAX_COMPACT_HTML_BYTES = 480_000
 EXPECTED_PAYLOAD_KEYS = {
     "carteira_1_flagship_comparison",
     "carteira_1_flagship_comparison_summary",
@@ -102,7 +102,7 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert compact["schemaVersion"] == "provider_flow_compact_v1"
     assert compact["taxonomy"]["schemaVersion"] == "taxonomy_levels_compact_v1"
     assert compact["flagships"]["schemaVersion"] == "flagship_curation_compact_v2"
-    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v3"
+    assert compact["carteira1"]["schemaVersion"] == "carteira_1_curation_compact_v4"
     assert compact["carteira1Taxonomy"]["schemaVersion"] == "carteira_1_taxonomy_compact_v1"
     assert len(compact["carteira1Taxonomy"]["rows"]) == 16
     assert compact["issuanceTaxonomy"]["schemaVersion"] == "issuance_taxonomy_table_v1"

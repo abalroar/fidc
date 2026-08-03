@@ -963,6 +963,350 @@ def _apply_manual_enrichment_to_rankings(
     return ranking, audit
 
 
+def _first_documented(*values: object) -> str:
+    for value in values:
+        text = _text(value)
+        if text and not text.upper().startswith("N/D"):
+            return text
+    return "N/D"
+
+
+def _clean_top100_field(value: object) -> str:
+    """Return a publishable entity/lastro value, excluding raw regex excerpts."""
+
+    text = _text(value)
+    if not text or text.upper().startswith("N/D"):
+        return "N/D"
+    folded = _fold_text(text)
+    gap_tokens = (
+        "NAO LOCALIZADO",
+        "NAO LOCALIZADA",
+        "AUSENCIA DE",
+        "SEM TRECHO CITAVEL",
+        "NENHUM DOCUMENTO PRIMARIO",
+    )
+    if any(token in folded for token in gap_tokens):
+        return "N/D"
+    # Historical regex-context rows can begin with a page marker and contain a
+    # document fragment rather than a resolved entity. They remain available in
+    # the evidence/source columns, but never become a party or lastro field.
+    if re.match(r"^p\.\s*\d+\s*:", text, flags=re.IGNORECASE):
+        return "N/D"
+    return text
+
+
+def _first_clean_top100_field(*values: object) -> str:
+    for value in values:
+        cleaned = _clean_top100_field(value)
+        if cleaned != "N/D":
+            return cleaned
+    return "N/D"
+
+
+def _build_top100_fidcs_middle_market(
+    *,
+    funds: pd.DataFrame,
+    latest: str,
+    actions: pd.DataFrame,
+    top20_taxonomy_review: pd.DataFrame,
+    profiles: pd.DataFrame,
+    manual_enrichment: pd.DataFrame,
+) -> tuple[pd.DataFrame, dict[str, object]]:
+    """Rank the global Top 100 and expose only documentary Middle Market signals."""
+
+    current = funds[funds["competencia"].astype(str).eq(latest)].copy()
+    current["cnpj_fundo"] = current["cnpj_fundo"].map(_digits)
+    fic_column = "is_fic" if "is_fic" in current.columns else "is_fic_fidc"
+    fic = current.get(fic_column, pd.Series(False, index=current.index))
+    fic = fic.map(
+        lambda value: value
+        if isinstance(value, (bool, np.bool_))
+        else str(value).strip().lower() in {"1", "true", "sim", "yes"}
+    )
+    current = current[~fic.fillna(False)].copy()
+    current["pl"] = pd.to_numeric(current.get("pl"), errors="coerce")
+    current = apply_taxonomy_review_overlay(current, actions)
+    denominator = current["pl"].sum(min_count=1)
+    top = current.sort_values(
+        ["pl", "cnpj_fundo"], ascending=[False, True], kind="stable"
+    ).head(100).copy()
+    if len(top) != 100 or top["cnpj_fundo"].nunique() != 100:
+        raise ValueError("Top 100 geral deve conter 100 CNPJs únicos")
+    top["rank_geral"] = range(1, 101)
+    top["share_pl_ex_fic"] = top["pl"].div(denominator)
+
+    latest_review = top20_taxonomy_review[
+        top20_taxonomy_review.get(
+            "competencia", pd.Series("", index=top20_taxonomy_review.index)
+        ).astype(str).eq(latest)
+    ].copy()
+    latest_review["cnpj_fundo"] = latest_review.get(
+        "cnpj_fundo", pd.Series(dtype="object")
+    ).map(_digits)
+    latest_review = latest_review.drop_duplicates("cnpj_fundo", keep="last")
+    review_fields = [
+        "cnpj_fundo",
+        "cedente_originador",
+        "cedente_status",
+        "evidencia_cedente",
+        "limitacao_cedente",
+        "regulamento_id",
+        "regulamento_url",
+        "pagina_clausula",
+        "taxonomia_funcional_n1_curada",
+        "taxonomia_funcional_n2_curada",
+    ]
+    top = top.merge(
+        latest_review[
+            [column for column in review_fields if column in latest_review.columns]
+        ],
+        on="cnpj_fundo",
+        how="left",
+        validate="one_to_one",
+        suffixes=("", "_review"),
+    )
+
+    profile = profiles.copy()
+    if not profile.empty:
+        profile["cnpj_fundo"] = profile["cnpj_fundo"].map(_digits)
+        profile = profile.drop_duplicates("cnpj_fundo", keep="last")
+        top = top.merge(
+            profile[
+                [
+                    column
+                    for column in (
+                        "cnpj_fundo",
+                        "cedente_originador",
+                        "sacado_devedor",
+                        "natureza_recebiveis",
+                        "fonte",
+                        "evidencia",
+                        "documentos_primarios_ids",
+                        "status_curadoria",
+                    )
+                    if column in profile.columns
+                ]
+            ].rename(
+                columns={
+                    "cedente_originador": "cedente_originador_profile",
+                    "fonte": "fonte_profile",
+                    "evidencia": "evidencia_profile",
+                }
+            ),
+            on="cnpj_fundo",
+            how="left",
+            validate="one_to_one",
+        )
+
+    confirmed_manual = manual_enrichment[
+        manual_enrichment.get(
+            "status_confirmado", pd.Series(False, index=manual_enrichment.index)
+        ).fillna(False).astype(bool)
+    ].copy()
+    manual_by_root = {
+        str(row.raiz_cnpj_foto): row
+        for row in confirmed_manual.itertuples(index=False)
+    }
+
+    effective_actions = actions[
+        actions.get("status", pd.Series("", index=actions.index))
+        .astype(str)
+        .str.strip()
+        .eq("aprovado")
+    ].copy()
+    effective_actions["cnpj_fundo"] = effective_actions.get(
+        "cnpj_fundo", pd.Series(dtype="object")
+    ).map(_digits)
+    effective_actions["_updated"] = pd.to_datetime(
+        effective_actions.get("updated_at_utc"), errors="coerce", utc=True
+    )
+    effective_actions = (
+        effective_actions.sort_values(["_updated", "competencia_referencia"])
+        .drop_duplicates("cnpj_fundo", keep="last")
+        .set_index("cnpj_fundo")
+    )
+
+    output_rows: list[dict[str, object]] = []
+    for row in top.to_dict(orient="records"):
+        cnpj = _digits(row.get("cnpj_fundo"))
+        action = (
+            effective_actions.loc[cnpj].to_dict()
+            if cnpj in effective_actions.index
+            else {}
+        )
+        manual = manual_by_root.get(cnpj[:8])
+        manual_values = manual._asdict() if manual is not None else {}
+        action_source = _text(action.get("fonte_documental"))
+        action_is_manual = "COMENTARIO" in _fold_text(action_source)
+        action_cedente = (
+            action.get("cedente_originador_expresso") if action_is_manual else None
+        )
+        cedente = _first_clean_top100_field(
+            row.get("cedente_originador_profile"),
+            manual_values.get("cedente_originador_literal"),
+            action_cedente,
+        )
+        sacado = _first_clean_top100_field(
+            row.get("sacado_devedor"),
+            manual_values.get("sacado_devedor"),
+        )
+        documentary_receivable = _first_clean_top100_field(
+            row.get("natureza_recebiveis"),
+            manual_values.get("tipo_recebivel_literal"),
+        )
+        receivable = _first_clean_top100_field(
+            documentary_receivable,
+            row.get("taxonomia_funcional_n2_curada"),
+            action.get("taxonomia_funcional_n2"),
+        )
+        functional_n1 = _first_documented(
+            row.get("taxonomia_funcional_n1_curada"),
+            action.get("taxonomia_funcional_n1"),
+        )
+        functional_n2 = _first_documented(
+            row.get("taxonomia_funcional_n2_curada"),
+            action.get("taxonomia_funcional_n2"),
+        )
+        evidence = _first_documented(
+            row.get("evidencia_profile"),
+            row.get("evidencia_cedente"),
+            action.get("evidencia"),
+            manual_values.get("observacao"),
+        )
+        source = _first_documented(
+            row.get("fonte_profile"),
+            action.get("fonte_documental"),
+            row.get("regulamento_url"),
+            manual_values.get("fonte_imagem"),
+            row.get("classification_source"),
+        )
+        combined = _fold_text(
+            " | ".join(
+                value
+                for value in (
+                    cedente,
+                    sacado,
+                    receivable,
+                    functional_n1,
+                    functional_n2,
+                    evidence,
+                )
+                if value != "N/D"
+            )
+        )
+        direct = any(
+            token in combined for token in ("MIDDLE MARKET", "CREDITO PME", " PME")
+        )
+        corporate = functional_n1 == "Crédito PJ" or any(
+            token in combined
+            for token in (
+                "CREDITO PJ",
+                "CAPITAL DE GIRO",
+                "CCB",
+                "NOTA COMERCIAL",
+                "DEBENTURE",
+                "RECEBIVEIS COMERCIAIS",
+                "RISCO SACADO",
+                "FORNECEDOR",
+            )
+        )
+        if direct:
+            mm_status = "Rótulo documental PME / Middle Market; porte N/D"
+            mm_flag: object = None
+            mm_reason = (
+                "A fonte usa PME ou Middle Market, mas a base não documenta receita, ativo ou outro critério de porte do tomador."
+            )
+        elif corporate:
+            mm_status = "Indício de crédito corporativo; porte N/D"
+            mm_flag = None
+            mm_reason = (
+                "O lastro é compatível com crédito corporativo tradicional, mas a base não documenta o porte do tomador."
+            )
+        elif all(value == "N/D" for value in (cedente, sacado, receivable, functional_n1, functional_n2)):
+            mm_status = "N/D — dados insuficientes"
+            mm_flag = None
+            mm_reason = "Cedente, sacado e tipo de recebível não foram localizados."
+        else:
+            mm_status = "Sem indício documental de Middle Market"
+            mm_flag = False
+            mm_reason = "A evidência disponível aponta outro tipo de risco ou não traz crédito corporativo."
+        output_rows.append(
+            {
+                "rank_geral": int(row["rank_geral"]),
+                "cnpj": cnpj,
+                "cnpj_formatado": _format_cnpj(cnpj),
+                "nome_fundo": _text(row.get("denominacao")) or "N/D",
+                "pl_brl": row.get("pl"),
+                "share_pl_ex_fic": row.get("share_pl_ex_fic"),
+                "cedente_originador": cedente,
+                "sacado_devedor": sacado,
+                "tipo_recebivel": receivable,
+                "tipo_anbima_oficial": _first_documented(row.get("anbima_tipo_oficial"), row.get("anbima_tipo")),
+                "foco_anbima_oficial": _first_documented(row.get("anbima_foco_oficial"), row.get("anbima_foco")),
+                "tipo_analitico": _first_documented(row.get("anbima_tipo_curado")),
+                "foco_analitico": _first_documented(row.get("anbima_foco_curado")),
+                "taxonomia_funcional_n1": functional_n1,
+                "taxonomia_funcional_n2": functional_n2,
+                "middle_market_flag": mm_flag,
+                "middle_market_status": mm_status,
+                "middle_market_justificativa": mm_reason,
+                "evidencia": evidence,
+                "fonte": source,
+                "documento_id": _first_documented(
+                    row.get("documentos_primarios_ids"),
+                    action.get("documento_id"),
+                    row.get("regulamento_id"),
+                ),
+                "pagina_clausula": _first_documented(
+                    action.get("pagina_clausula"), row.get("pagina_clausula")
+                ),
+                "status_cobertura": (
+                    "documentado — parte ou lastro identificado"
+                    if source != "N/D"
+                    and any(
+                        value != "N/D"
+                        for value in (cedente, sacado, documentary_receivable)
+                    )
+                    else (
+                        "taxonomia disponível — partes e lastro documental N/D"
+                        if any(value != "N/D" for value in (functional_n1, functional_n2))
+                        else "N/D — partes, lastro e taxonomia não localizados"
+                    )
+                ),
+            }
+        )
+    output = pd.DataFrame(output_rows).sort_values("rank_geral").reset_index(drop=True)
+    direct_mask = output["middle_market_status"].str.startswith(
+        "Rótulo documental", na=False
+    )
+    corporate_mask = output["middle_market_status"].eq(
+        "Indício de crédito corporativo; porte N/D"
+    )
+    summary = {
+        "fundos": 100,
+        "competencia": latest,
+        "top100_pl_brl": float(
+            pd.to_numeric(output["pl_brl"], errors="coerce").sum()
+        ),
+        "top100_share_pl_ex_fic": float(
+            pd.to_numeric(output["share_pl_ex_fic"], errors="coerce").sum()
+        ),
+        "middle_market_rotulo_documental_fundos": int(direct_mask.sum()),
+        "middle_market_rotulo_documental_pl_brl": float(
+            pd.to_numeric(output.loc[direct_mask, "pl_brl"], errors="coerce").sum()
+        ),
+        "credito_corporativo_indicio_fundos": int(corporate_mask.sum()),
+        "credito_corporativo_indicio_pl_brl": float(
+            pd.to_numeric(output.loc[corporate_mask, "pl_brl"], errors="coerce").sum()
+        ),
+        "metodologia": (
+            "A menção PME ou Middle Market é publicada como rótulo documental com porte N/D. "
+            "CCB, nota comercial, recebíveis comerciais, risco sacado e fornecedores geram apenas indício de crédito corporativo; porte permanece N/D."
+        ),
+    }
+    return output, summary
+
+
 def _pt_number(value: object, decimals: int = 1) -> str:
     parsed = pd.to_numeric(value, errors="coerce")
     if pd.isna(parsed):
@@ -3537,6 +3881,16 @@ def build_payload(
             manual_cnpj_enrichment,
         )
     )
+    top100_fidcs_middle_market, top100_fidcs_middle_market_summary = (
+        _build_top100_fidcs_middle_market(
+            funds=funds,
+            latest=latest,
+            actions=taxonomy_review_actions,
+            top20_taxonomy_review=top20_taxonomy_review,
+            profiles=profiles,
+            manual_enrichment=manual_cnpj_enrichment,
+        )
+    )
     top100_outros_review = build_taxonomy_review_queue(
         funds,
         taxonomy_review_actions,
@@ -3593,7 +3947,7 @@ def build_payload(
     )
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v8",
+        "schema_version": "fidc_revision_artifact_payload_v9",
         "latest_complete": latest,
         "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,
@@ -3777,6 +4131,11 @@ def build_payload(
         "emission_field_audit": _records(emission_field_audit),
         "manual_cnpj_enrichment": _records(manual_cnpj_enrichment),
         "top100_outros_review": _records(top100_outros_review),
+        "top100_fidcs_middle_market": _records(top100_fidcs_middle_market),
+        "top100_fidcs_middle_market_summary": {
+            str(key): _json_value(value)
+            for key, value in top100_fidcs_middle_market_summary.items()
+        },
         "top100_outros_summary": {
             str(key): _json_value(value)
             for key, value in top100_outros_summary.items()
@@ -3870,6 +4229,20 @@ def build_payload(
             for key, value in carteira_1_structural_risk.summary.items()
         },
         "portfolio_export_carteira_101": _records(portfolio_export.carteira),
+        "portfolio_export_cases_99": _records(
+            portfolio_export.carteira[
+                portfolio_export.carteira["categoria_risco_proposta"].isin(
+                    {
+                        "Financeiro",
+                        "Adquirência",
+                        "Agro / Revenda",
+                        "Risco Corporativo",
+                        "Consignado INSS e FGTS",
+                        "Factoring",
+                    }
+                )
+            ]
+        ),
         "portfolio_export_flagships": _records(portfolio_export.flagships),
         "portfolio_export_coverage": _records(portfolio_export.coverage),
         "portfolio_export_gaps": _records(portfolio_export.gaps),

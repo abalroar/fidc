@@ -537,9 +537,27 @@ def _payload() -> dict[str, object]:
         "portfolio_export_carteira_101": [
             {"cnpj": f"10{index:012d}"} for index in range(1, 102)
         ],
+        "portfolio_export_cases_99": [
+            {"cnpj": f"10{index:012d}"} for index in range(1, 100)
+        ],
         "portfolio_export_flagships": [
             {"cnpj": f"20{index:012d}"} for index in range(1, 48)
         ],
+        "top100_fidcs_middle_market": [
+            {
+                "rank_global": index,
+                "cnpj_fundo": f"30{index:012d}",
+                "denominacao": f"FIDC Top 100 {index}",
+                "pl_brl": float(101 - index),
+                "middle_market_status": "dados_insuficientes",
+            }
+            for index in range(1, 101)
+        ],
+        "top100_fidcs_middle_market_summary": {
+            "fundos": 100,
+            "top100_pl_brl": 5050.0,
+            "top100_share_pl_ex_fic": 0.5,
+        },
         "portfolio_export_coverage": [
             {"coorte": "Carteira 101", "campo": "sub_pl_atual"}
         ],
@@ -1218,9 +1236,11 @@ def _payload() -> dict[str, object]:
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v8"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v9"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
+    assert len(payload["portfolio_export_cases_99"]) == 99
+    assert len(payload["top100_fidcs_middle_market"]) == 100
 
 
 def test_payload_rejects_incomplete_portfolio_export_cohorts() -> None:
@@ -1719,6 +1739,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         "pptx_bytes": b"pptx",
         "xlsx_bytes": b"xlsx",
         "portfolio_xlsx_bytes": b"portfolio",
+        "top100_xlsx_bytes": b"top100",
         "html_bytes": b"html",
         "input_hashes": {"data/a.csv": "a" * 64},
         "renderer": {
@@ -1737,8 +1758,11 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
     )
 
     assert first["bundle_id"] == second["bundle_id"]
-    assert first["schema_version"] == "fidc_revision_export_bundle_v3"
+    assert first["schema_version"] == "fidc_revision_export_bundle_v4"
     assert first["checks"]["slides"] == EXPECTED_SLIDES
+    assert first["top100_xlsx"]["name"] == "top100_fidcs_middle_market.xlsx"
+    assert first["checks"]["portfolio_export_cases_99"] == 99
+    assert first["checks"]["top100_fidcs_middle_market"] == 100
     validate_bundle_manifest(
         first,
         payload_bytes=payload_bytes,
@@ -1747,6 +1771,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         pptx_bytes=b"pptx",
         xlsx_bytes=b"xlsx",
         portfolio_xlsx_bytes=b"portfolio",
+        top100_xlsx_bytes=b"top100",
         html_bytes=b"html",
     )
     validate_renderer_manifest(
@@ -1756,6 +1781,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
         pptx_bytes=b"pptx",
         xlsx_bytes=b"xlsx",
         portfolio_xlsx_bytes=b"portfolio",
+        top100_xlsx_bytes=b"top100",
         html_bytes=b"html",
         renderer_sha256="f" * 64,
     )
@@ -1768,6 +1794,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
             portfolio_xlsx_bytes=b"portfolio",
+            top100_xlsx_bytes=b"top100",
             html_bytes=b"html",
             renderer_sha256="0" * 64,
         )
@@ -1783,6 +1810,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
             portfolio_xlsx_bytes=b"portfolio",
+            top100_xlsx_bytes=b"top100",
             html_bytes=b"html",
         )
 
@@ -1797,6 +1825,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
             portfolio_xlsx_bytes=b"portfolio",
+            top100_xlsx_bytes=b"top100",
             html_bytes=b"html",
         )
 
@@ -1811,6 +1840,7 @@ def test_bundle_manifest_is_content_addressed_and_validated() -> None:
             pptx_bytes=b"pptx",
             xlsx_bytes=b"xlsx",
             portfolio_xlsx_bytes=b"portfolio",
+            top100_xlsx_bytes=b"top100",
             html_bytes=b"html",
         )
 

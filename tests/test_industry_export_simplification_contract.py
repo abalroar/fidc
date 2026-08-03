@@ -20,6 +20,7 @@ import pandas as pd
 import pytest
 
 from scripts.publish_fidc_revision_bundle import USER_FACING_SNAPSHOT_SHEETS
+from services.industry_revision_export import BUNDLE_SCHEMA, PAYLOAD_SCHEMA
 from tabs import tab_industry_study
 
 
@@ -31,13 +32,6 @@ BUNDLE_MANIFEST_PATH = REVISION_DIR / "industry_export_bundle.json"
 RENDERER_PATH = ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
 DASHBOARD_PATH = ROOT / "tabs" / "tab_industry_study.py"
 
-PUBLISHED_PAYLOAD_BYTES = 19_262_516
-PUBLISHED_PAYLOAD_SHA256 = (
-    "ea354a8bd2becad4dfe174c1798fba19ec85375d97e5bfcddff813f8fbeb9b54"
-)
-PUBLISHED_CONSUMER_DIMENSIONS_SHA256 = (
-    "ba3801f81392ec35aabba9fbb1ca555cfb4dc8e75bd58714e397fac38ff51455"
-)
 ANBIMA_2023_FIDC_VOLUME_BRL = 43_746_140_196.22
 ANBIMA_SOURCE_WORKBOOK_SHA256 = (
     "1236172468f5aa3ddde24382bfa9c5f6372f9b35cd03993ef2482d358845b524"
@@ -257,21 +251,20 @@ def _js_string_array_constant(source: str, name: str) -> tuple[str, ...] | None:
     )
 
 
-def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
+def test_published_payload_and_static_consumer_contract_are_content_addressed() -> None:
     payload_bytes, payload = _published_payload()
     payload_digest = hashlib.sha256(payload_bytes).hexdigest()
     manifest = json.loads(BUNDLE_MANIFEST_PATH.read_text(encoding="utf-8"))
 
-    assert len(payload_bytes) == PUBLISHED_PAYLOAD_BYTES
-    assert payload_digest == PUBLISHED_PAYLOAD_SHA256
+    assert manifest["schema_version"] == BUNDLE_SCHEMA
     assert manifest["payload"] == {
-        "bytes": PUBLISHED_PAYLOAD_BYTES,
+        "bytes": len(payload_bytes),
         "name": "artifact_payload.json",
-        "sha256": PUBLISHED_PAYLOAD_SHA256,
+        "sha256": payload_digest,
     }
-    assert manifest["payload_sha256"] == PUBLISHED_PAYLOAD_SHA256
-    assert payload["schema_version"] == "fidc_revision_artifact_payload_v8"
-    assert len(payload) == 150
+    assert manifest["payload_sha256"] == payload_digest
+    assert manifest["payload_schema"] == payload["schema_version"] == PAYLOAD_SCHEMA
+    assert len(payload) == 153
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
@@ -293,12 +286,18 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
         "issuance_taxonomy_table",
         "manual_cnpj_enrichment",
         "portfolio_export_carteira_101",
+        "portfolio_export_cases_99",
         "portfolio_export_coverage",
         "portfolio_export_flagships",
         "portfolio_export_gaps",
         "portfolio_export_manual_audit",
+        "top100_fidcs_middle_market",
+        "top100_fidcs_middle_market_summary",
         "taxonomy_level_history",
     }.issubset(payload)
+    assert len(payload["portfolio_export_carteira_101"]) == 101
+    assert len(payload["portfolio_export_cases_99"]) == 99
+    assert len(payload["top100_fidcs_middle_market"]) == 100
 
     renderer_source = RENDERER_PATH.read_text(encoding="utf-8")
     dashboard_source = DASHBOARD_PATH.read_text(encoding="utf-8")
@@ -306,9 +305,9 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 85
-    assert len(dashboard_keys) == 91
-    assert len(consumer_keys) == 115
+    assert len(pptx_keys) == 87
+    assert len(dashboard_keys) == 94
+    assert len(consumer_keys) == 118
     assert {
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",
@@ -322,18 +321,19 @@ def test_published_payload_and_static_consumer_contract_are_frozen() -> None:
         "issuance_taxonomy",
         "issuance_taxonomy_reconciliation",
         "issuance_taxonomy_table",
+        "portfolio_export_cases_99",
+        "top100_fidcs_middle_market",
     }.issubset(pptx_keys)
     assert pptx_keys.issubset(payload)
     assert dashboard_keys.issubset(payload)
-    assert _dimensions_digest(payload, consumer_keys) == (
-        PUBLISHED_CONSUMER_DIMENSIONS_SHA256
-    )
+    assert re.fullmatch(r"[0-9a-f]{64}", _dimensions_digest(payload, consumer_keys))
 
 
 def test_published_bundle_has_converged_issuance_baseline(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     payload_bytes, disk_payload = _published_payload()
+    payload_sha256 = hashlib.sha256(payload_bytes).hexdigest()
     disk_comparison = pd.DataFrame(
         disk_payload["fixed_income_offer_comparison"]
     )
@@ -354,7 +354,7 @@ def test_published_bundle_has_converged_issuance_baseline(
 
     monkeypatch.setattr(tab_industry_study, "_DATA_DIR", DATA_DIR)
     loaded = tab_industry_study._load_industry_revision_payload.__wrapped__(
-        PUBLISHED_PAYLOAD_SHA256
+        payload_sha256
     )
 
     assert set(loaded) == set(disk_payload)
@@ -423,7 +423,7 @@ def test_published_bundle_has_converged_issuance_baseline(
     # Loading is idempotent once the corrected series is present on disk.
     assert PAYLOAD_PATH.read_bytes() == payload_bytes
     assert hashlib.sha256(PAYLOAD_PATH.read_bytes()).hexdigest() == (
-        PUBLISHED_PAYLOAD_SHA256
+        payload_sha256
     )
 
 

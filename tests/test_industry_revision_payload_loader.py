@@ -32,6 +32,7 @@ SCHEMA_V5 = "fidc_revision_artifact_payload_v5"
 SCHEMA_V6 = "fidc_revision_artifact_payload_v6"
 SCHEMA_V7 = "fidc_revision_artifact_payload_v7"
 SCHEMA_V8 = "fidc_revision_artifact_payload_v8"
+SCHEMA_V9 = "fidc_revision_artifact_payload_v9"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -159,6 +160,8 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V5,
         SCHEMA_V6,
         SCHEMA_V7,
+        SCHEMA_V8,
+        SCHEMA_V9,
     }:
         payload.update(
             {
@@ -215,7 +218,15 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7}:
+    if schema in {
+        SCHEMA_V3,
+        SCHEMA_V4,
+        SCHEMA_V5,
+        SCHEMA_V6,
+        SCHEMA_V7,
+        SCHEMA_V8,
+        SCHEMA_V9,
+    }:
         payload.update(
             {
                 "provider_historical_ranking": [
@@ -241,7 +252,14 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "acquiring_taxonomy": {"classification": "Tabela II.g - Cartão"},
             }
         )
-    if schema in {SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7}:
+    if schema in {
+        SCHEMA_V4,
+        SCHEMA_V5,
+        SCHEMA_V6,
+        SCHEMA_V7,
+        SCHEMA_V8,
+        SCHEMA_V9,
+    }:
         payload.update(
             {
                 "delinquency_single_receivable": [
@@ -333,7 +351,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V5, SCHEMA_V6, SCHEMA_V7}:
+    if schema in {SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9}:
         payload.update(
             {
                 "delinquency_frozen_cohort_history": [
@@ -423,7 +441,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "conclusion_metrics": {"competencia": "2026-05"},
             }
         )
-    if schema in {SCHEMA_V6, SCHEMA_V7}:
+    if schema in {SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9}:
         statuses = (
             ["Incluído em Adquirência"] * 26
             + ["Fora de Adquirência"] * 17
@@ -466,7 +484,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema == SCHEMA_V7:
+    if schema in {SCHEMA_V7, SCHEMA_V8, SCHEMA_V9}:
         payload["bcb_expanded_credit"] = [
             {
                 "competencia": "2026-05",
@@ -500,6 +518,22 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "limitation": "Série sujeita a retificações.",
             }
         ]
+    if schema == SCHEMA_V9:
+        portfolio_rows = [
+            {"cnpj": f"10{index:012d}", "nome_fundo": f"Carteira {index}"}
+            for index in range(1, 102)
+        ]
+        top100_rows = [
+            {"cnpj": f"20{index:012d}", "nome_fundo": f"Top 100 {index}"}
+            for index in range(1, 101)
+        ]
+        payload.update(
+            {
+                "portfolio_export_carteira_101": portfolio_rows,
+                "top100_fidcs_middle_market": top100_rows,
+                "top100_fidcs_middle_market_summary": {"fundos": 100},
+            }
+        )
     return payload
 
 
@@ -522,7 +556,16 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
 
 @pytest.mark.parametrize(
     "schema",
-    [SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7],
+    [
+        SCHEMA_V2,
+        SCHEMA_V3,
+        SCHEMA_V4,
+        SCHEMA_V5,
+        SCHEMA_V6,
+        SCHEMA_V7,
+        SCHEMA_V8,
+        SCHEMA_V9,
+    ],
 )
 def test_revision_payload_loader_accepts_each_published_schema(
     tmp_path: Path,
@@ -642,6 +685,9 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V6, "fixed_income_offer_comparison"),
         (SCHEMA_V7, "bcb_expanded_credit"),
         (SCHEMA_V7, "market_offer_reconciliation"),
+        (SCHEMA_V9, "portfolio_export_carteira_101"),
+        (SCHEMA_V9, "top100_fidcs_middle_market"),
+        (SCHEMA_V9, "top100_fidcs_middle_market_summary"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
@@ -771,7 +817,7 @@ def _write_current_bundle_metadata(
             index=False,
         )
     payload = {
-        "schema_version": SCHEMA_V8,
+        "schema_version": SCHEMA_V9,
         "latest_complete": "2026-06",
         "taxonomy_review_meta": {
             "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
@@ -787,7 +833,7 @@ def _write_current_bundle_metadata(
         json.dumps(
             {
                 "schema_version": BUNDLE_SCHEMA,
-                "payload_schema": SCHEMA_V8,
+                "payload_schema": SCHEMA_V9,
                 "payload_sha256": payload_hash,
                 "source_signature": payload_hash,
                 "latest_complete": "2026-06",

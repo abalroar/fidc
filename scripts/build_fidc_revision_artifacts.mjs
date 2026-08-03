@@ -70,6 +70,10 @@ const OUTPUT_PORTFOLIO_XLSX = path.resolve(
   process.env.FIDC_OUTPUT_PORTFOLIO_XLSX ||
     path.join(OUTPUT_DIR, "carteira_101_flagships.xlsx"),
 );
+const OUTPUT_TOP100_XLSX = path.resolve(
+  process.env.FIDC_OUTPUT_TOP100_XLSX ||
+    path.join(OUTPUT_DIR, "top100_fidcs_middle_market.xlsx"),
+);
 const FLOW_BUILDER_NAME = "build_provider_flow_explorer.mjs";
 const FLOW_BUILDER_PATH = [
   process.env.FIDC_PROVIDER_FLOW_BUILDER,
@@ -85,11 +89,12 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v41";
+const RENDERER_VERSION = "industry_revision_artifacts_v42";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
   { id: "structural_mvp_agro_revenda", group: "Agro / Revenda", sourceGroups: ["Agro / Revenda"] },
+  { id: "structural_mvp_risco_corporativo", group: "Risco Corporativo", sourceGroups: [] },
   {
     id: "structural_mvp_consignado",
     group: "Consignado INSS e FGTS",
@@ -1238,23 +1243,27 @@ async function writeExportBundleManifest(payload, payloadRaw) {
     pptxSha256,
     xlsxSha256,
     portfolioXlsxSha256,
+    top100XlsxSha256,
     htmlSha256,
     pptxStat,
     xlsxStat,
     portfolioXlsxStat,
+    top100XlsxStat,
     htmlStat,
   ] = await Promise.all([
     sha256File(OUTPUT_PPTX),
     sha256File(OUTPUT_XLSX),
     sha256File(OUTPUT_PORTFOLIO_XLSX),
+    sha256File(OUTPUT_TOP100_XLSX),
     sha256File(OUTPUT_HTML),
     fs.stat(OUTPUT_PPTX),
     fs.stat(OUTPUT_XLSX),
     fs.stat(OUTPUT_PORTFOLIO_XLSX),
+    fs.stat(OUTPUT_TOP100_XLSX),
     fs.stat(OUTPUT_HTML),
   ]);
   const manifest = {
-    schema_version: "fidc_revision_export_bundle_v3",
+    schema_version: "fidc_revision_export_bundle_v4",
     bundle_id: `${String(payload.latest_complete || "unknown").replace(/-/g, "")}_${payloadSha256.slice(0, 16)}`,
     payload_schema: payload.schema_version,
     latest_complete: payload.latest_complete,
@@ -1280,6 +1289,11 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       sha256: portfolioXlsxSha256,
       bytes: portfolioXlsxStat.size,
     },
+    top100_xlsx: {
+      filename: path.basename(OUTPUT_TOP100_XLSX),
+      sha256: top100XlsxSha256,
+      bytes: top100XlsxStat.size,
+    },
     html: {
       name: path.basename(OUTPUT_HTML),
       sha256: htmlSha256,
@@ -1294,7 +1308,9 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       top20_taxonomy_review: payload.top20_taxonomy_review.length,
       top100_outros_review: payload.top100_outros_review.length,
       portfolio_export_carteira_101: (payload.portfolio_export_carteira_101 || []).length,
+      portfolio_export_cases_99: (payload.portfolio_export_cases_99 || []).length,
       portfolio_export_flagships: (payload.portfolio_export_flagships || []).length,
+      top100_fidcs_middle_market: (payload.top100_fidcs_middle_market || []).length,
       portfolio_export_coverage: (payload.portfolio_export_coverage || []).length,
       portfolio_export_gaps: (payload.portfolio_export_gaps || []).length,
       market_share_combinations: new Set(
@@ -9643,13 +9659,23 @@ const PORTFOLIO_EXPORT_COLUMNS = Object.freeze([
   { header: "Foco", key: "foco_exibicao", width: 190 },
   { header: "Taxonomia estrutural", key: "taxonomia_estrutural", width: 180 },
   { header: "Grupo de comparação", key: "grupo_comparacao", width: 180 },
+  { header: "Categoria de risco atual", key: "categoria_risco_atual", width: 185 },
+  { header: "Categoria de risco proposta", key: "categoria_risco_proposta", width: 190 },
+  { header: "Subtipo de risco diagnosticado", key: "subtipo_risco_diagnosticado", width: 230 },
+  { header: "Reclassificação proposta?", key: "reclassificacao_proposta_flag", width: 125 },
+  { header: "Status da avaliação", key: "status_avaliacao_reclassificacao", width: 260 },
+  { header: "Fundamento da avaliação", key: "fundamento_avaliacao_reclassificacao", width: 430 },
+  { header: "Fonte da avaliação", key: "fonte_avaliacao_reclassificacao", width: 390 },
+  { header: "Middle Market · status", key: "middle_market_status", width: 260 },
+  { header: "Middle Market · evidência", key: "middle_market_evidencia", width: 380 },
+  { header: "Porte documentado?", key: "middle_market_porte_documentado_flag", width: 120 },
   { header: "Categoria MVP", key: "mvp_slide_categoria", width: 185 },
   { header: "Categoria MVP original", key: "mvp_slide_categoria_original", width: 185 },
   { header: "Override editorial?", key: "mvp_slide_categoria_override_flag", width: 105 },
   { header: "Fonte do override MVP", key: "mvp_slide_categoria_fonte", width: 390 },
   { header: "Motivo do override MVP", key: "mvp_slide_categoria_motivo", width: 420 },
   { header: "Faixa de Sub atual · MVP", key: "mvp_faixa_sub_atual", width: 125 },
-  { header: "Elegível nos 5 slides?", key: "mvp_elegivel_flag", width: 115 },
+  { header: "Elegível nos 6 slides?", key: "mvp_elegivel_flag", width: 115 },
   { header: "Sinal vs. mínimo estrutural", key: "mvp_situacao_piso", width: 175 },
   { header: "Posição vs. mercado", key: "posicao_mercado", width: 190 },
   { header: "Excesso vs. mediana", key: "excesso_vs_mercado", width: 120, format: "0.00%" },
@@ -9688,8 +9714,8 @@ const PORTFOLIO_EXPORT_GROUPS = Object.freeze([
   { label: "PORTE E SUBORDINAÇÃO ATUAL", startKey: "pl_atual_brl", endKey: "status_sub_pl_atual", fill: C.charcoal },
   { label: "ÍNDICES DOCUMENTAIS", startKey: "minimo_junior_literal", endKey: "minimo_estrutural_formula", fill: C.orange },
   { label: "COMPARABILIDADE E FOLGA", startKey: "comparavel_flag", endKey: "situacao_regulatoria", fill: "#7A1F3D" },
-  { label: "TAXONOMIA", startKey: "tipo_exibicao", endKey: "grupo_comparacao", fill: "#2456D6" },
-  { label: "MVP · 5 SLIDES", startKey: "mvp_slide_categoria", endKey: "mvp_situacao_piso", fill: "#002B5C" },
+  { label: "TAXONOMIA E REVISÃO DE RISCO", startKey: "tipo_exibicao", endKey: "middle_market_porte_documentado_flag", fill: "#2456D6" },
+  { label: "MVP · 6 SLIDES", startKey: "mvp_slide_categoria", endKey: "mvp_situacao_piso", fill: "#002B5C" },
   { label: "BENCHMARK DE MERCADO", startKey: "posicao_mercado", endKey: "n_comparaveis_categoria", fill: C.charcoal },
   { label: "PREÇO UNITÁRIO POR COTA", startKey: "preco_cota_brl", endKey: "preco_cota_excecao_asterisco_flag", fill: "#006B3C" },
   { label: "PARTES E RECEBÍVEL", startKey: "cedente_originador_literal", endKey: "observacao_complemento_manual", fill: "#A65A00" },
@@ -10376,8 +10402,118 @@ async function addPortfolioPayloadDictionarySheet(workbook, payload) {
   });
 }
 
+async function addPortfolioEditableNamesSheet(workbook, cases) {
+  const columns = [
+    { header: "Ordem", key: "ordem", width: 70 },
+    { header: "CNPJ", key: "cnpj_numerico", width: 125, format: "00000000000000" },
+    { header: "Nome completo CVM", key: "nome_oficial_cvm", width: 430 },
+    { header: "Nome editável para gráfico", key: "nome_editavel", width: 260 },
+    { header: "Categoria proposta", key: "categoria_risco_proposta", width: 185 },
+    { header: "Subtipo", key: "subtipo_risco_diagnosticado", width: 240 },
+  ];
+  const rows = cases.map((row) => ({
+    ...row,
+    nome_editavel: row.nome_referencia && row.nome_referencia !== "N/D"
+      ? row.nome_referencia
+      : row.nome_oficial_cvm,
+  }));
+  return addPortfolioAuxiliarySheet(workbook, {
+    name: "Nomes editáveis",
+    title: "Nomes editáveis · rótulos dos gráficos nativos",
+    subtitle: "Edite somente a coluna Nome editável para gráfico. As séries dos gráficos apontam para estas células; CNPJ, nome CVM, categoria e subtipo permanecem como referência.",
+    columns,
+    rows,
+    freezeColumns: 3,
+    bodyFontSize: 9,
+    rowHeight: 34,
+  });
+}
+
+const TOP100_EXPORT_COLUMNS = Object.freeze([
+  { header: "Posição", key: "rank_geral", width: 75 },
+  { header: "CNPJ", key: "cnpj", width: 125, format: "00000000000000" },
+  { header: "CNPJ formatado", key: "cnpj_formatado", width: 135 },
+  { header: "Nome completo do fundo (CVM)", key: "nome_fundo", width: 390 },
+  { header: "PL", key: "pl_brl", width: 135, format: 'R$ #,##0.00' },
+  { header: "% do PL ex-FIC", key: "share_pl_ex_fic", width: 110, format: "0.00%" },
+  { header: "Cedente / originador", key: "cedente_originador", width: 260 },
+  { header: "Sacado / devedor", key: "sacado_devedor", width: 250 },
+  { header: "Tipo de recebível", key: "tipo_recebivel", width: 320 },
+  { header: "Tipo ANBIMA oficial", key: "tipo_anbima_oficial", width: 180 },
+  { header: "Foco ANBIMA oficial", key: "foco_anbima_oficial", width: 200 },
+  { header: "Tipo analítico", key: "tipo_analitico", width: 180 },
+  { header: "Foco analítico", key: "foco_analitico", width: 210 },
+  { header: "Taxonomia funcional N1", key: "taxonomia_funcional_n1", width: 210 },
+  { header: "Taxonomia funcional N2", key: "taxonomia_funcional_n2", width: 240 },
+  { header: "Middle Market?", key: "middle_market_flag", width: 110 },
+  { header: "Middle Market · status", key: "middle_market_status", width: 280 },
+  { header: "Middle Market · justificativa", key: "middle_market_justificativa", width: 430 },
+  { header: "Evidência", key: "evidencia", width: 500 },
+  { header: "Fonte", key: "fonte", width: 440 },
+  { header: "Documento", key: "documento_id", width: 170 },
+  { header: "Página / cláusula", key: "pagina_clausula", width: 150 },
+  { header: "Status da cobertura", key: "status_cobertura", width: 230 },
+]);
+
+async function buildTop100Workbook(payload) {
+  const rows = payload.top100_fidcs_middle_market || [];
+  if (rows.length !== 100) {
+    throw new Error(`Top 100 geral deveria conter 100 linhas; contém ${rows.length}.`);
+  }
+  const workbook = Workbook.create();
+  const readme = workbook.worksheets.add("Leia-me");
+  readme.showGridLines = false;
+  readme.getRange("A1:H1").merge();
+  readme.getRange("A1").values = [["Top 100 FIDCs · crédito corporativo e Middle Market"]];
+  readme.getRange("A1:H1").format.fill = C.black;
+  readme.getRange("A1:H1").format.font = { name: "Arial", size: 18, bold: true, color: C.white };
+  readme.getRange("A2:H2").merge();
+  readme.getRange("A2").values = [[
+    `Competência ${payload.latest_complete || "N/D"}. Ranking global por PL ex-FIC, uma linha por CNPJ. Cedente, sacado e lastro são publicados somente quando há fonte documental ou complemento manual confirmado.`,
+  ]];
+  readme.getRange("A2:H2").format.font = { name: "Arial", size: 10, color: C.mid };
+  readme.getRange("A2:H2").format.wrapText = true;
+  readme.getRange("A2:H2").format.rowHeightPx = 42;
+  const summary = payload.top100_fidcs_middle_market_summary || {};
+  const notes = [
+    ["Universo", "100 maiores FIDCs ex-FIC por PL; desempate por CNPJ."],
+    ["PL do Top 100", moneyScale(summary.top100_pl_brl)],
+    ["Participação no PL ex-FIC", pct(summary.top100_share_pl_ex_fic, 1)],
+    ["Middle Market", "O status confirmado exige porte documentado. Menção PME/Middle Market aparece como rótulo documental com porte N/D."],
+    ["Indício corporativo", "CCB, capital de giro, nota comercial, recebível comercial, risco sacado ou fornecedor; porte do tomador permanece N/D."],
+    ["Hipótese de substituição bancária", "A base mostra diversificação de canais. A substituição de crédito bancário exige série casada por devedor e não é concluída neste arquivo."],
+  ];
+  readme.getRange("A4:B9").values = notes;
+  readme.getRange("A4:A9").format.font = { name: "Arial", size: 10, bold: true, color: C.charcoal };
+  readme.getRange("B4:B9").format.font = { name: "Arial", size: 10, color: C.charcoal };
+  readme.getRange("A4:B9").format.wrapText = true;
+  readme.getRange("A4:B9").format.rowHeightPx = 48;
+  applyColumnWidths(readme, [180, 720, 80, 80, 80, 80, 80, 80], 9);
+
+  const sheet = workbook.worksheets.add("Top 100 FIDCs");
+  setHeaderBand(
+    sheet,
+    "100 maiores FIDCs · partes, lastro e taxonomias",
+    "Ranking por PL ex-FIC em jun/26. Lacunas permanecem N/D. Indícios de crédito corporativo não comprovam porte Middle Market nem substituição de crédito bancário.",
+    TOP100_EXPORT_COLUMNS.map((column) => column.header),
+    rows.length,
+    { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
+  );
+  await writePortfolioRows(sheet, 4, TOP100_EXPORT_COLUMNS, rows);
+  applyColumnWidths(sheet, TOP100_EXPORT_COLUMNS.map((column) => column.width), rows.length);
+  TOP100_EXPORT_COLUMNS.forEach((column, index) => {
+    if (!column.format) return;
+    const letter = columnLetter(index);
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.numberFormat = column.format;
+    sheet.getRange(`${letter}5:${letter}${rows.length + 4}`).format.horizontalAlignment = "right";
+  });
+  sheet.getRange(`A5:${columnLetter(TOP100_EXPORT_COLUMNS.length - 1)}104`).format.rowHeightPx = 48;
+  return workbook;
+}
+
 async function buildPortfolioWorkbook(payload) {
   const carteira = payload.portfolio_export_carteira_101 || [];
+  const cases = payload.portfolio_export_cases_99 || [];
   const flagships = payload.portfolio_export_flagships || [];
   const coverage = payload.portfolio_export_coverage || [];
   const gaps = payload.portfolio_export_gaps || [];
@@ -10389,6 +10525,9 @@ async function buildPortfolioWorkbook(payload) {
   const payloadDictionary = payload.portfolio_export_dictionary || [];
   if (carteira.length !== 101) {
     throw new Error(`Export Carteira 101 deveria conter 101 linhas; contém ${carteira.length}.`);
+  }
+  if (cases.length !== 99) {
+    throw new Error(`Export dos casos deveria conter 99 linhas; contém ${cases.length}.`);
   }
   if (flagships.length !== 47) {
     throw new Error(`Export Flagships deveria conter 47 linhas; contém ${flagships.length}.`);
@@ -10415,6 +10554,13 @@ async function buildPortfolioWorkbook(payload) {
     carteira,
     "101 CNPJs na ordem da base fornecida. Campos estruturais usam a curadoria documental e o dataframe compartilhado; exceções levam * e descrição por linha.",
   );
+  await addPortfolioDataSheet(
+    workbook,
+    "Casos 99",
+    cases,
+    "99 CNPJs no universo operacional validável. Os dois CNPJs fora desta visão permanecem na aba Carteira 101, com identidade/perímetro N/D documentados.",
+  );
+  await addPortfolioEditableNamesSheet(workbook, cases);
   await addPortfolioDataSheet(
     workbook,
     "Flagships",
@@ -10625,6 +10771,27 @@ async function exportPortfolioWorkbook(workbook) {
   await fs.mkdir(path.dirname(OUTPUT_PORTFOLIO_XLSX), { recursive: true });
   const xlsx = await SpreadsheetFile.exportXlsx(workbook);
   await xlsx.save(OUTPUT_PORTFOLIO_XLSX);
+  const patcherName = "patch_portfolio_workbook_charts.py";
+  const patcher = [
+    process.env.FIDC_PORTFOLIO_CHART_PATCHER,
+    path.join(path.dirname(__filename), patcherName),
+    path.join(ROOT, "scripts", patcherName),
+  ].find((candidate) => candidate && existsSync(candidate));
+  if (!patcher) {
+    throw new Error(`Patcher dos gráficos da Carteira 101 não localizado: ${patcherName}`);
+  }
+  const patched = spawnSync(process.env.FIDC_PYTHON || "python3", [patcher, OUTPUT_PORTFOLIO_XLSX], {
+    encoding: "utf8",
+  });
+  if (patched.status !== 0) {
+    throw new Error(`Falha ao criar gráficos nativos da Carteira 101: ${patched.stderr || patched.stdout}`);
+  }
+}
+
+async function exportTop100Workbook(workbook) {
+  await fs.mkdir(path.dirname(OUTPUT_TOP100_XLSX), { recursive: true });
+  const xlsx = await SpreadsheetFile.exportXlsx(workbook);
+  await xlsx.save(OUTPUT_TOP100_XLSX);
 }
 
 async function main() {
@@ -10644,6 +10811,8 @@ async function main() {
     await exportWorkbook(workbook);
     const portfolioWorkbook = await buildPortfolioWorkbook(payload);
     await exportPortfolioWorkbook(portfolioWorkbook);
+    const top100Workbook = await buildTop100Workbook(payload);
+    await exportTop100Workbook(top100Workbook);
   }
   if (
     process.env.FIDC_WRITE_MANIFEST === "1" ||
@@ -10652,7 +10821,7 @@ async function main() {
   ) {
     await writeExportBundleManifest(payload, payloadRaw);
   }
-  process.stdout.write(`${OUTPUT_PPTX}\n${OUTPUT_XLSX}\n${OUTPUT_PORTFOLIO_XLSX}\n${OUTPUT_HTML}\n`);
+  process.stdout.write(`${OUTPUT_PPTX}\n${OUTPUT_XLSX}\n${OUTPUT_PORTFOLIO_XLSX}\n${OUTPUT_TOP100_XLSX}\n${OUTPUT_HTML}\n`);
 }
 
 main().catch((error) => {

@@ -375,17 +375,18 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
-def test_structural_mvp_contract_has_five_contiguous_taxonomy_slides() -> None:
-    assert EXPECTED_SLIDES == 36
+def test_structural_mvp_contract_has_six_contiguous_taxonomy_slides() -> None:
+    assert EXPECTED_SLIDES == 37
     assert STRUCTURAL_MVP_SLIDE_SEQUENCE == (
         ("risco estrutural", "financeiro", "carteira i"),
         ("risco estrutural", "adquirencia", "carteira i"),
         ("risco estrutural", "agro / revenda", "carteira i"),
+        ("risco estrutural", "risco corporativo", "carteira i"),
         ("risco estrutural", "consignado inss e fgts", "carteira i"),
         ("risco estrutural", "factoring", "carteira i"),
     )
     assert STRUCTURAL_MVP_SLIDES == tuple(
-        range(STRUCTURAL_MVP_SLIDES[0], STRUCTURAL_MVP_SLIDES[0] + 5)
+        range(STRUCTURAL_MVP_SLIDES[0], STRUCTURAL_MVP_SLIDES[0] + 6)
     )
     assert ("risco estrutural", "cobertura por taxonomia") not in (
         EXPECTED_SLIDE_SEQUENCE
@@ -597,7 +598,7 @@ def test_provider_flow_explorer_is_self_contained_specific_and_office_ready() ->
         "Carteira 1 · evolução pela taxonomia reclassificada",
         "taxonomy_levels_compact_v1",
         "flagship_curation_compact_v2",
-        "carteira_1_curation_compact_v3",
+        "carteira_1_curation_compact_v4",
         "carteira_1_taxonomy_compact_v1",
         "Cloudwalk Bela",
         "N/D",
@@ -874,7 +875,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v41";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v42";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

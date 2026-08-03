@@ -37,14 +37,16 @@ BUNDLE_MANIFEST_NAME = "industry_export_bundle.json"
 MATERIALIZED_PPTX_NAME = "industry_executive_revised.pptx"
 MATERIALIZED_XLSX_NAME = "industry_data_revised.xlsx"
 MATERIALIZED_PORTFOLIO_XLSX_NAME = "carteira_101_flagships.xlsx"
+MATERIALIZED_TOP100_XLSX_NAME = "top100_fidcs_middle_market.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
-BUNDLE_SCHEMA = "fidc_revision_export_bundle_v3"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v8"
+BUNDLE_SCHEMA = "fidc_revision_export_bundle_v4"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v9"
 ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ((6, 8),)
 STRUCTURAL_MVP_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("risco estrutural", "financeiro", "carteira i"),
     ("risco estrutural", "adquirencia", "carteira i"),
     ("risco estrutural", "agro / revenda", "carteira i"),
+    ("risco estrutural", "risco corporativo", "carteira i"),
     ("risco estrutural", "consignado inss e fgts", "carteira i"),
     ("risco estrutural", "factoring", "carteira i"),
 )
@@ -151,8 +153,8 @@ CURRENT_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
 HISTORICAL_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
     HISTORICAL_TOP15_SLIDE_SEQUENCE
 )
-if len(STRUCTURAL_MVP_SLIDE_SEQUENCE) != 5:
-    raise RuntimeError("capítulo MVP de risco estrutural deve conter cinco slides")
+if len(STRUCTURAL_MVP_SLIDE_SEQUENCE) != 6:
+    raise RuntimeError("capítulo MVP de risco estrutural deve conter seis slides")
 if len(HISTORICAL_TOP15_TABLE_DIMENSIONS) != len(
     HISTORICAL_TOP15_SLIDE_SEQUENCE
 ) or any(
@@ -227,6 +229,8 @@ REQUIRED_WORKBOOK_SHEETS = {
 REQUIRED_PORTFOLIO_WORKBOOK_SHEETS = {
     "Leia-me",
     "Carteira 101",
+    "Casos 99",
+    "Nomes editáveis",
     "Flagships",
     "Cobertura e lacunas",
     "Dicionário",
@@ -255,12 +259,17 @@ PORTFOLIO_WORKBOOK_MINIMUM_HEADERS = frozenset(
         "Cedente*",
         "Sacado / devedor*",
         "Tipo de recebível*",
+        "Categoria de risco atual",
+        "Categoria de risco proposta",
+        "Subtipo de risco diagnosticado",
+        "Middle Market · status",
         "Fonte documental",
         "Status do preenchimento",
     }
 )
 PORTFOLIO_WORKBOOK_EXPECTED_ROWS = {
     "Carteira 101": 101,
+    "Casos 99": 99,
     "Flagships": 47,
 }
 
@@ -286,6 +295,8 @@ class RevisionExportStatus:
     xlsx_exists: bool
     portfolio_xlsx_path: str
     portfolio_xlsx_exists: bool
+    top100_xlsx_path: str
+    top100_xlsx_exists: bool
     html_path: str
     html_exists: bool
     artifact_runtime_available: bool
@@ -303,6 +314,8 @@ class _ValidatedBundle:
     xlsx_bytes: bytes
     portfolio_xlsx_path: Path
     portfolio_xlsx_bytes: bytes
+    top100_xlsx_path: Path
+    top100_xlsx_bytes: bytes
     html_path: Path
     html_bytes: bytes
 
@@ -860,6 +873,25 @@ def validate_revision_portfolio_xlsx(payload: bytes) -> None:
             "XLSX de Carteira 101 e Flagships sem abas obrigatórias: "
             + ", ".join(missing)
         )
+    try:
+        with zipfile.ZipFile(BytesIO(payload)) as archive:
+            chart_parts = _chart_members(archive)
+            if not chart_parts:
+                raise RevisionExportUnavailable(
+                    "XLSX de Carteira 101 sem gráficos nativos do Office"
+                )
+            chart_xml = "\n".join(
+                archive.read(name).decode("utf-8", errors="ignore")
+                for name in chart_parts
+            )
+            if "Nomes editáveis" not in chart_xml:
+                raise RevisionExportUnavailable(
+                    "rótulos dos gráficos não referenciam a aba Nomes editáveis"
+                )
+    except (OSError, zipfile.BadZipFile, KeyError) as exc:
+        raise RevisionExportUnavailable(
+            "gráficos do XLSX de Carteira 101 não puderam ser validados"
+        ) from exc
 
     try:
         from openpyxl import load_workbook
@@ -934,6 +966,67 @@ def validate_revision_portfolio_xlsx(payload: bytes) -> None:
         workbook.close()
 
 
+def validate_revision_top100_xlsx(payload: bytes) -> None:
+    """Validate the standalone global Top 100 workbook."""
+
+    if not _valid_zip(payload, "xl/workbook.xml"):
+        raise RevisionExportUnavailable("XLSX Top 100 inválido ou corrompido")
+    try:
+        from openpyxl import load_workbook
+
+        workbook = load_workbook(BytesIO(payload), read_only=True, data_only=True)
+    except Exception as exc:
+        raise RevisionExportUnavailable("XLSX Top 100 não pôde ser lido") from exc
+    try:
+        required = {"Leia-me", "Top 100 FIDCs"}
+        missing = required.difference(workbook.sheetnames)
+        if missing:
+            raise RevisionExportUnavailable(
+                "XLSX Top 100 sem abas obrigatórias: " + ", ".join(sorted(missing))
+            )
+        sheet = workbook["Top 100 FIDCs"]
+        headers = tuple(
+            str(cell.value or "").strip()
+            for cell in next(sheet.iter_rows(min_row=4, max_row=4), ())
+        )
+        required_headers = {
+            "Posição",
+            "CNPJ",
+            "Nome completo do fundo (CVM)",
+            "PL",
+            "Cedente / originador",
+            "Sacado / devedor",
+            "Tipo de recebível",
+            "Tipo ANBIMA oficial",
+            "Taxonomia funcional N1",
+            "Middle Market · status",
+            "Fonte",
+        }
+        missing_headers = required_headers.difference(headers)
+        if missing_headers:
+            raise RevisionExportUnavailable(
+                "XLSX Top 100 sem cabeçalhos obrigatórios: "
+                + ", ".join(sorted(missing_headers))
+            )
+        rows = [
+            row
+            for row in sheet.iter_rows(min_row=5, max_col=len(headers))
+            if any(cell.value not in (None, "") for cell in row)
+        ]
+        if len(rows) != 100:
+            raise RevisionExportUnavailable(
+                f"XLSX Top 100 deveria conter 100 linhas; contém {len(rows)}"
+            )
+        cnpj_column = headers.index("CNPJ")
+        cnpjs = [_validated_numeric_cnpj(row[cnpj_column].value) for row in rows]
+        if any(value is None for value in cnpjs) or len(set(cnpjs)) != 100:
+            raise RevisionExportUnavailable(
+                "XLSX Top 100 deve conter 100 CNPJs numéricos válidos e únicos"
+            )
+    finally:
+        workbook.close()
+
+
 def validate_revision_html(payload: bytes) -> None:
     """Validate the self-contained provider-flow explorer served by the app."""
 
@@ -960,7 +1053,7 @@ def validate_revision_html(payload: bytes) -> None:
         "Carteira 1 · evolução pela taxonomia reclassificada",
         "Carteira 1 vs. 47 CNPJs flagship",
         "flagship_curation_compact_v2",
-        "carteira_1_curation_compact_v3",
+        "carteira_1_curation_compact_v4",
         "carteira_1_taxonomy_compact_v1",
     )
     missing = [
@@ -1021,6 +1114,17 @@ def revision_portfolio_xlsx_candidates(
         materialized_name=MATERIALIZED_PORTFOLIO_XLSX_NAME,
         output_name=MATERIALIZED_PORTFOLIO_XLSX_NAME,
         env_name="FIDC_REVISION_PORTFOLIO_XLSX",
+    )
+
+
+def revision_top100_xlsx_candidates(
+    data_dir: Path = DEFAULT_DATA_DIR,
+) -> tuple[Path, ...]:
+    return _candidate_paths(
+        Path(data_dir),
+        materialized_name=MATERIALIZED_TOP100_XLSX_NAME,
+        output_name=MATERIALIZED_TOP100_XLSX_NAME,
+        env_name="FIDC_REVISION_TOP100_XLSX",
     )
 
 
@@ -1237,6 +1341,11 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         dict(manifest.get("portfolio_xlsx") or {}),
         validate_revision_portfolio_xlsx,
     )
+    top100_xlsx_path, top100_xlsx_bytes = _matching_candidate(
+        revision_top100_xlsx_candidates(data_dir),
+        dict(manifest.get("top100_xlsx") or {}),
+        validate_revision_top100_xlsx,
+    )
     html_path, html_bytes = _matching_candidate(
         revision_html_candidates(data_dir),
         dict(manifest.get("html") or {}),
@@ -1250,6 +1359,8 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         xlsx_bytes=xlsx_bytes,
         portfolio_xlsx_path=portfolio_xlsx_path,
         portfolio_xlsx_bytes=portfolio_xlsx_bytes,
+        top100_xlsx_path=top100_xlsx_path,
+        top100_xlsx_bytes=top100_xlsx_bytes,
         html_path=html_path,
         html_bytes=html_bytes,
     )
@@ -1287,6 +1398,7 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
     pptx_path = revision_pptx_candidates(data_dir)[0]
     xlsx_path = revision_xlsx_candidates(data_dir)[0]
     portfolio_xlsx_path = revision_portfolio_xlsx_candidates(data_dir)[0]
+    top100_xlsx_path = revision_top100_xlsx_candidates(data_dir)[0]
     html_path = revision_html_candidates(data_dir)[0]
     error = ""
     valid = False
@@ -1296,6 +1408,7 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
         pptx_path = bundle.pptx_path
         xlsx_path = bundle.xlsx_path
         portfolio_xlsx_path = bundle.portfolio_xlsx_path
+        top100_xlsx_path = bundle.top100_xlsx_path
         html_path = bundle.html_path
         valid = True
     except RevisionExportUnavailable as exc:
@@ -1322,6 +1435,8 @@ def get_revision_export_status(data_dir: Path = DEFAULT_DATA_DIR) -> RevisionExp
         xlsx_exists=xlsx_path.exists(),
         portfolio_xlsx_path=str(portfolio_xlsx_path),
         portfolio_xlsx_exists=portfolio_xlsx_path.exists(),
+        top100_xlsx_path=str(top100_xlsx_path),
+        top100_xlsx_exists=top100_xlsx_path.exists(),
         html_path=str(html_path),
         html_exists=html_path.exists(),
         artifact_runtime_available=artifact_runtime_available(),
@@ -1342,6 +1457,12 @@ def build_revision_portfolio_xlsx_bytes(
     return _load_validated_bundle(data_dir).portfolio_xlsx_bytes
 
 
+def build_revision_top100_xlsx_bytes(
+    data_dir: Path = DEFAULT_DATA_DIR,
+) -> bytes:
+    return _load_validated_bundle(data_dir).top100_xlsx_bytes
+
+
 def build_revision_html_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return _load_validated_bundle(data_dir).html_bytes
 
@@ -1356,6 +1477,7 @@ __all__ = [
     "ISSUANCE_TAXONOMY_TABLE_DIMENSIONS",
     "MATERIALIZED_HTML_NAME",
     "MATERIALIZED_PORTFOLIO_XLSX_NAME",
+    "MATERIALIZED_TOP100_XLSX_NAME",
     "REQUIRED_PORTFOLIO_WORKBOOK_SHEETS",
     "STRUCTURAL_MVP_SLIDE_SEQUENCE",
     "TYPE_RANKING_SLIDE_SEQUENCE",
@@ -1364,6 +1486,7 @@ __all__ = [
     "artifact_runtime_available",
     "build_revision_pptx_bytes",
     "build_revision_portfolio_xlsx_bytes",
+    "build_revision_top100_xlsx_bytes",
     "build_revision_xlsx_bytes",
     "build_revision_html_bytes",
     "get_revision_export_status",
@@ -1372,8 +1495,10 @@ __all__ = [
     "revision_payload_path",
     "revision_html_candidates",
     "revision_portfolio_xlsx_candidates",
+    "revision_top100_xlsx_candidates",
     "validate_revision_html",
     "validate_revision_portfolio_xlsx",
+    "validate_revision_top100_xlsx",
     "validate_revision_pptx",
     "validate_revision_xlsx",
 ]

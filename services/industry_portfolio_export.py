@@ -24,6 +24,10 @@ from typing import Mapping
 import numpy as np
 import pandas as pd
 
+from services.industry_structural_risk import (
+    _apply_financeiro_agro_risk_review,
+    _load_financeiro_agro_risk_review,
+)
 from services.structural_risk import loss_until_trigger
 
 
@@ -115,6 +119,16 @@ NORMALIZED_COLUMNS: tuple[str, ...] = (
     "foco_exibicao",
     "taxonomia_estrutural",
     "grupo_comparacao",
+    "categoria_risco_atual",
+    "categoria_risco_proposta",
+    "subtipo_risco_diagnosticado",
+    "reclassificacao_proposta_flag",
+    "status_avaliacao_reclassificacao",
+    "fundamento_avaliacao_reclassificacao",
+    "fonte_avaliacao_reclassificacao",
+    "middle_market_status",
+    "middle_market_evidencia",
+    "middle_market_porte_documentado_flag",
     "preco_cota_brl",
     "preco_cota_display",
     "preco_cota_natureza",
@@ -1406,8 +1420,14 @@ def _finalize(rows: pd.DataFrame) -> pd.DataFrame:
                     "excesso_vs_mercado",
                     "n_comparaveis_categoria",
                 }
+                else False
+                if column == "reclassificacao_proposta_flag"
                 else pd.NA
-                if column == "benchmark_confiavel"
+                if column
+                in {
+                    "benchmark_confiavel",
+                    "middle_market_porte_documentado_flag",
+                }
                 else TEXT_ND
             )
     return rows.loc[:, NORMALIZED_COLUMNS].reset_index(drop=True)
@@ -1614,6 +1634,46 @@ def _dictionary() -> pd.DataFrame:
             "Número de pares comparáveis na categoria.",
             "Propagado de carteira_structural, sem recálculo.",
         ),
+        "categoria_risco_atual": (
+            "Categoria vigente antes da revisão documental Financeiro/Agro.",
+            "Ledger versionado por CNPJ; demais casos preservam a categoria estrutural vigente.",
+        ),
+        "categoria_risco_proposta": (
+            "Categoria após decisões explicitamente aplicadas.",
+            "Ledger versionado por CNPJ; applied_flag=NAO mantém a categoria atual.",
+        ),
+        "subtipo_risco_diagnosticado": (
+            "Tipo de risco descrito na revisão documental por CNPJ.",
+            "Ledger versionado; N/D fora do universo auditado, sem inferência pelo nome.",
+        ),
+        "reclassificacao_proposta_flag": (
+            "Indica decisão de reclassificação efetivamente aplicada.",
+            "Verdadeiro somente quando applied_flag=SIM no ledger.",
+        ),
+        "status_avaliacao_reclassificacao": (
+            "Status da decisão ou pendência documental.",
+            "Ledger versionado por CNPJ.",
+        ),
+        "fundamento_avaliacao_reclassificacao": (
+            "Racional registrado para a decisão.",
+            "Ledger versionado por CNPJ.",
+        ),
+        "fonte_avaliacao_reclassificacao": (
+            "Fonte ou evidência registrada para a decisão.",
+            "Ledger versionado por CNPJ.",
+        ),
+        "middle_market_status": (
+            "Triagem documental da hipótese Middle Market.",
+            "Ledger versionado; Candidato e Pendente não comprovam porte.",
+        ),
+        "middle_market_evidencia": (
+            "Evidência associada à triagem Middle Market.",
+            "Ledger versionado por CNPJ.",
+        ),
+        "middle_market_porte_documentado_flag": (
+            "Indica se o porte Middle Market foi documentado.",
+            "N/D para candidatos e pendências sem evidência de porte.",
+        ),
     }
     numeric_columns = {
         "ordem",
@@ -1641,6 +1701,8 @@ def _dictionary() -> pd.DataFrame:
         "mvp_elegivel_flag",
         "mvp_slide_categoria_override_flag",
         "preco_cota_excecao_asterisco_flag",
+        "reclassificacao_proposta_flag",
+        "middle_market_porte_documentado_flag",
     }
     rows: list[dict[str, str]] = []
     for column in NORMALIZED_COLUMNS:
@@ -1677,6 +1739,7 @@ def build_industry_portfolio_export(
     manual_enrichment: pd.DataFrame | None = None,
     carteira_document_audit: pd.DataFrame | None = None,
     carteira_price_evidence: pd.DataFrame | None = None,
+    risk_review: pd.DataFrame | None = None,
     data_ref: str | None = None,
 ) -> IndustryPortfolioExportResult:
     """Build normalized portfolio, flagship, coverage and gap tables."""
@@ -1690,7 +1753,13 @@ def build_industry_portfolio_export(
     cohorts, manual_audit = _apply_manual_overlay(
         [carteira, flagships], manual_enrichment
     )
-    carteira, flagships = (_finalize(frame) for frame in cohorts)
+    carteira, flagships = cohorts
+    if risk_review is None:
+        risk_review = _load_financeiro_agro_risk_review()
+    carteira = _finalize(
+        _apply_financeiro_agro_risk_review(carteira, risk_review)
+    )
+    flagships = _finalize(flagships)
     combined = pd.concat([carteira, flagships], ignore_index=True)
     return IndustryPortfolioExportResult(
         carteira=carteira,
@@ -1709,6 +1778,7 @@ def build_industry_portfolio_export_from_payload(
     manual_enrichment: pd.DataFrame | None = None,
     carteira_document_audit: pd.DataFrame | None = None,
     carteira_price_evidence: pd.DataFrame | None = None,
+    risk_review: pd.DataFrame | None = None,
     data_ref: str | None = None,
 ) -> IndustryPortfolioExportResult:
     """Convenience wrapper for the existing revision artifact payload."""
@@ -1735,5 +1805,6 @@ def build_industry_portfolio_export_from_payload(
         manual_enrichment=manual_enrichment,
         carteira_document_audit=carteira_document_audit,
         carteira_price_evidence=carteira_price_evidence,
+        risk_review=risk_review,
         data_ref=data_ref,
     )

@@ -103,13 +103,14 @@ def test_removed_market_share_sections_remain_available_in_the_payload() -> None
             "FINANCEIRO",
             "ADQUIRÊNCIA",
             "AGRO / REVENDA",
+            "RISCO CORPORATIVO",
             "CONSIGNADO INSS E FGTS",
             "FACTORING",
         )
     ]
     investor_base = _find_slide_index(slides, "Quase todo o volume vai para o investidor profissional")
     assert structural_chapter == list(
-        range(structural_chapter[0], structural_chapter[0] + 5)
+        range(structural_chapter[0], structural_chapter[0] + 6)
     )
     assert top20 < top20_other < structural_chapter[0]
     assert structural_chapter[-1] < provider_ranking
