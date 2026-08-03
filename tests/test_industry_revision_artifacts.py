@@ -16,7 +16,7 @@ from services.industry_revision_export import (
     EXPECTED_SLIDE_SEQUENCE,
     EXPECTED_SLIDES,
     HISTORICAL_TOP15_SLIDE_SEQUENCE,
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
+    STRUCTURAL_MVP_SLIDE_SEQUENCE,
     _contains_blocked_rgb_color,
 )
 
@@ -106,17 +106,7 @@ def _sequence_slide_numbers(
     )
 
 
-STRUCTURAL_DETAIL_START = EXPECTED_SLIDE_SEQUENCE.index(
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE[0]
-) + 1
-STRUCTURAL_DETAIL_SLIDES = tuple(
-    range(
-        STRUCTURAL_DETAIL_START,
-        STRUCTURAL_DETAIL_START + len(STRUCTURAL_DETAIL_SLIDE_SEQUENCE),
-    )
-)
-SLIDE_STRUCTURAL_COVERAGE = _contract_slide_number("cobertura por taxonomia")
-SLIDE_STRUCTURAL_ASSETS = _contract_slide_number("risco estrutural", "ativos")
+STRUCTURAL_MVP_SLIDES = _sequence_slide_numbers(STRUCTURAL_MVP_SLIDE_SEQUENCE)
 SLIDE_OFFERS_VOLUME = _contract_slide_number("emissoes crescem 15%")
 SLIDE_OFFER_TICKETS = _contract_slide_number("22 ofertas concentram")
 SLIDE_OFFER_REGIME = _contract_slide_number("garantia firme", "yoy ytd")
@@ -253,16 +243,6 @@ def _cell_text(cell: ET.Element) -> str:
     return "".join(node.text or "" for node in cell.iter(f"{{{DML}}}t")).strip()
 
 
-def _cnpj_digits(value: object) -> str:
-    return "".join(char for char in str(value or "") if char.isdigit())
-
-
-def _cnpj_from_structural_cell(value: object) -> str:
-    digits = _cnpj_digits(value)
-    assert len(digits) == 14, value
-    return digits
-
-
 def _shared_strings(archive: ZipFile) -> list[str]:
     root = ET.fromstring(archive.read("xl/sharedStrings.xml"))
     return [
@@ -369,9 +349,6 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
         slides = _slide_texts(archive)
 
     assert "58,4%" in slides[SLIDE_CONCLUSIONS - 1]
-    assert "82,2%" in slides[SLIDE_STRUCTURAL_COVERAGE - 1]
-    assert "98,0%" in slides[SLIDE_STRUCTURAL_COVERAGE - 1]
-    assert "23 CNPJs têm folga calculável" in slides[SLIDE_STRUCTURAL_ASSETS - 1]
     assert "PL ≥ R$ 200 mi" in slides[SLIDE_HOLDER_DISTRIBUTION - 1]
     assert "Financeiro explicou 70% do crescimento da carteira" in slides[7]
     assert "Emissões crescem 15% no semestre" in slides[SLIDE_OFFERS_VOLUME - 1]
@@ -398,65 +375,22 @@ def test_structural_audit_corrections_are_materialized_in_the_deck() -> None:
     assert all(len(slide_text.strip()) > 80 for slide_text in slides)
 
 
-def test_structural_detail_pages_cover_every_portfolio_and_flagship_cnpj_once() -> None:
-    _require(PPTX)
-    _require(PAYLOAD)
-    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
-    expected: set[tuple[str, str]] = set()
-    for payload_key, cohort in (
-        ("portfolio_export_carteira_101", "Carteira 101"),
-        ("portfolio_export_flagships", "Flagships"),
-    ):
-        rows = payload[payload_key]
-        assert len(rows) == (101 if cohort == "Carteira 101" else 47)
-        cnpjs = [_cnpj_digits(row["cnpj"]) for row in rows]
-        assert all(len(cnpj) == 14 for cnpj in cnpjs)
-        assert len(cnpjs) == len(set(cnpjs))
-        expected.update((cohort, cnpj) for cnpj in cnpjs)
-
-    observed: list[tuple[str, str]] = []
-    with ZipFile(PPTX) as archive:
-        for slide_number in STRUCTURAL_DETAIL_SLIDES:
-            slide = ET.fromstring(
-                archive.read(f"ppt/slides/slide{slide_number}.xml")
-            )
-            tables = slide.findall(f".//{{{DML}}}tbl")
-            assert len(tables) == 1
-            rows = tables[0].findall(f"{{{DML}}}tr")
-            headers = [
-                _cell_text(cell)
-                for cell in rows[0].findall(f"{{{DML}}}tc")
-            ]
-            assert headers == [
-                "Base",
-                "CNPJ",
-                "FIDC",
-                "Originador / cedente",
-                "PL",
-                "Sub atual",
-                "Mín. Jr / estrut.",
-                "Folga",
-                "Preço unitário*",
-                "Situação",
-            ]
-            for row in rows[1:]:
-                cells = row.findall(f"{{{DML}}}tc")
-                source = _fold(_cell_text(cells[0]))
-                cohort = (
-                    "Carteira 101"
-                    if "carteira" in source
-                    else "Flagships"
-                    if "flagship" in source
-                    else ""
-                )
-                assert cohort, f"base estrutural inesperada no slide {slide_number}: {source!r}"
-                cnpj = _cnpj_from_structural_cell(_cell_text(cells[1]))
-                assert len(cnpj) == 14
-                observed.append((cohort, cnpj))
-
-    assert len(observed) == len(expected)
-    assert len(observed) == len(set(observed))
-    assert set(observed) == expected
+def test_structural_mvp_contract_has_five_contiguous_taxonomy_slides() -> None:
+    assert EXPECTED_SLIDES == 36
+    assert STRUCTURAL_MVP_SLIDE_SEQUENCE == (
+        ("risco estrutural", "financeiro", "carteira i"),
+        ("risco estrutural", "adquirencia", "carteira i"),
+        ("risco estrutural", "agro / revenda", "carteira i"),
+        ("risco estrutural", "consignado inss e fgts", "carteira i"),
+        ("risco estrutural", "factoring", "carteira i"),
+    )
+    assert STRUCTURAL_MVP_SLIDES == tuple(
+        range(STRUCTURAL_MVP_SLIDES[0], STRUCTURAL_MVP_SLIDES[0] + 5)
+    )
+    assert ("risco estrutural", "cobertura por taxonomia") not in (
+        EXPECTED_SLIDE_SEQUENCE
+    )
+    assert ("risco estrutural", "ativos") not in EXPECTED_SLIDE_SEQUENCE
 
 
 def test_ppt_charts_have_no_active_markers_or_smoothing() -> None:
@@ -940,7 +874,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v40";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v41";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

@@ -217,6 +217,11 @@ REQUIRED_ANALYSIS_FILES = {
     "btg_fidcs_controlados_reconciliacao.csv",
     "qi_atribuicao_cnpjs_legados.csv",
 }
+REQUIRED_NONEMPTY_ANALYSIS_FILES = {
+    "inadimplencia_coorte_revisao_resumo.csv",
+    "inadimplencia_coorte_revisao_transicoes.csv",
+    "inadimplencia_coorte_revisao_sensibilidade.csv",
+}
 REQUIRED_PROVIDER_HISTORY_FILES = {
     "prestadores_historico_cvm_cobertura.csv",
     "prestadores_historico_cvm_manifest.json",
@@ -383,6 +388,23 @@ def validate_analysis_manifest(
     if missing_files:
         raise RevisionBundlePublishError(
             "staging analítico incompleto: " + ", ".join(missing_files)
+        )
+    empty_files = sorted(
+        name
+        for name in REQUIRED_NONEMPTY_ANALYSIS_FILES
+        if int(dict(files.get(name) or {}).get("rows") or 0) <= 0
+    )
+    if empty_files:
+        year, month = (int(part) for part in latest_complete.split("-", maxsplit=1))
+        previous_complete = (
+            f"{year - 1}-12" if month == 1 else f"{year}-{month - 1:02d}"
+        )
+        raise RevisionBundlePublishError(
+            "staging analítico sem linhas nas tabelas de revisão da coorte: "
+            + ", ".join(empty_files)
+            + "; confirme o bruto CVM da competência anterior "
+            + previous_complete
+            + " no --raw-dir"
         )
     checks = dict(manifest.get("checks") or {})
     if int(checks.get("top20_fidcs_rows") or 0) != 20:

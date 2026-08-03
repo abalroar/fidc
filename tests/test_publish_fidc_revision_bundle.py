@@ -8,11 +8,15 @@ from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile
 
 import pytest
+import pandas as pd
 from openpyxl import Workbook
 
 import scripts.publish_fidc_revision_bundle as revision_publisher
 from scripts.build_fidc_industry_study import parse_args as parse_study_args
-from scripts.build_fidc_revision_analysis import parse_args as parse_revision_args
+from scripts.build_fidc_revision_analysis import (
+    parse_args as parse_revision_args,
+    require_previous_table_ii,
+)
 from scripts.publish_fidc_revision_bundle import (
     ANALYSIS_MANIFEST_NAME,
     BUNDLE_MANIFEST_NAME,
@@ -22,6 +26,7 @@ from scripts.publish_fidc_revision_bundle import (
     EXPECTED_SLIDES,
     PAYLOAD_SCHEMA,
     REQUIRED_ANALYSIS_FILES,
+    REQUIRED_NONEMPTY_ANALYSIS_FILES,
     REQUIRED_DATA_INPUTS,
     RevisionBundlePublishError,
     build_bundle_manifest,
@@ -1893,7 +1898,10 @@ def test_analysis_manifest_requires_materialized_tables(tmp_path: Path) -> None:
         (tmp_path / filename).write_bytes(b"")
     manifest = {
         "latest_complete": "2026-05",
-        "files": {name: {} for name in REQUIRED_ANALYSIS_FILES},
+        "files": {
+            name: {"rows": 1 if name in REQUIRED_NONEMPTY_ANALYSIS_FILES else 0}
+            for name in REQUIRED_ANALYSIS_FILES
+        },
         "checks": {
             "top20_fidcs_rows": 20,
             "top20_outros_rows": 20,
@@ -1905,6 +1913,55 @@ def test_analysis_manifest_requires_materialized_tables(tmp_path: Path) -> None:
         manifest,
         revision_dir=tmp_path,
         latest_complete="2026-05",
+    )
+
+
+def test_analysis_manifest_rejects_empty_cohort_revision_tables(tmp_path: Path) -> None:
+    from scripts.publish_fidc_revision_bundle import validate_analysis_manifest
+
+    for filename in REQUIRED_ANALYSIS_FILES:
+        (tmp_path / filename).write_bytes(b"")
+    manifest = {
+        "latest_complete": "2026-06",
+        "files": {name: {"rows": 1} for name in REQUIRED_ANALYSIS_FILES},
+        "checks": {
+            "top20_fidcs_rows": 20,
+            "top20_outros_rows": 20,
+            "latest_funds": 4222,
+        },
+    }
+    manifest["files"]["inadimplencia_coorte_revisao_transicoes.csv"]["rows"] = 0
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=r"competência anterior 2026-05 no --raw-dir",
+    ):
+        validate_analysis_manifest(
+            manifest,
+            revision_dir=tmp_path,
+            latest_complete="2026-06",
+        )
+
+
+def test_previous_table_ii_is_required_for_cohort_revision() -> None:
+    current = pd.DataFrame(
+        {"competencia": ["2026-06"], "cnpj": ["12345678000190"]}
+    )
+
+    with pytest.raises(SystemExit, match=r"inf_mensal_fidc_202605\.zip"):
+        require_previous_table_ii(
+            [current],
+            previous_competence="2026-05",
+            raw_dir=Path("missing-cache"),
+        )
+
+    previous = pd.DataFrame(
+        {"competencia": ["2026-05"], "cnpj": ["12345678000190"]}
+    )
+    require_previous_table_ii(
+        [current, previous],
+        previous_competence="2026-05",
+        raw_dir=Path("available-cache"),
     )
 
 

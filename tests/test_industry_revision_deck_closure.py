@@ -94,10 +94,25 @@ def test_removed_market_share_sections_remain_available_in_the_payload() -> None
     top20_other = _find_slide_index(
         slides, "Outros: o único bloco que encolheu"
     )
-    flagship = _find_slide_index(slides, "RISCO ESTRUTURAL · COBERTURA POR TAXONOMIA")
-    carteira_1 = _find_slide_index(slides, "RISCO ESTRUTURAL · ATIVOS")
+    structural_chapter = [
+        _find_slide_index(
+            slides,
+            f"RISCO ESTRUTURAL · CARTEIRA I · {category}",
+        )
+        for category in (
+            "FINANCEIRO",
+            "ADQUIRÊNCIA",
+            "AGRO / REVENDA",
+            "CONSIGNADO INSS E FGTS",
+            "FACTORING",
+        )
+    ]
     investor_base = _find_slide_index(slides, "Quase todo o volume vai para o investidor profissional")
-    assert top20 < top20_other < flagship < carteira_1 < provider_ranking
+    assert structural_chapter == list(
+        range(structural_chapter[0], structural_chapter[0] + 5)
+    )
+    assert top20 < top20_other < structural_chapter[0]
+    assert structural_chapter[-1] < provider_ranking
     assert provider_ranking < provider_concentration < investor_base
     visible = "\n".join(slides)
     for removed in (

@@ -69,6 +69,37 @@ def _read_optional(path: Path) -> pd.DataFrame | None:
     return pd.read_csv(path, low_memory=False) if path.exists() else None
 
 
+def require_previous_table_ii(
+    frames: list[pd.DataFrame],
+    *,
+    previous_competence: str,
+    raw_dir: Path,
+) -> None:
+    """Fail closed when the cohort bridge lacks the previous CVM snapshot.
+
+    The current competence is sourced from ``vehicle_monthly`` while the
+    immediately preceding competence is intentionally read from the raw CVM
+    archive.  Without that second snapshot the analysis can still materialize
+    CSV headers, but the cohort-transition payload is empty and cannot satisfy
+    the editorial bundle contract.
+    """
+
+    rows = 0
+    for frame in frames:
+        if frame.empty or "competencia" not in frame:
+            continue
+        rows += int(
+            frame["competencia"].astype(str).str[:7].eq(previous_competence).sum()
+        )
+    if rows <= 0:
+        raise SystemExit(
+            "Tabela II da competencia anterior ausente no bruto CVM: "
+            f"{previous_competence}; informe --raw-dir com o arquivo "
+            f"inf_mensal_fidc_{previous_competence.replace('-', '')}.zip "
+            f"(diretorio atual: {raw_dir})"
+        )
+
+
 #: Produtos analíticos que jamais podem conter um FIC.  ``base_vehicle`` fica
 #: de fora de propósito: é a base bruta que carrega os dois lados, e é dela que
 #: o saldo de FIC é calculado.
@@ -252,6 +283,11 @@ def main(argv: list[str] | None = None) -> None:
             raw_table_ii_frames.append(frame.copy())
         if args.refresh_source_presence and competence in requested_months:
             raw_frames.append(frame)
+    require_previous_table_ii(
+        raw_table_ii_frames,
+        previous_competence=previous_complete,
+        raw_dir=Path(args.raw_dir),
+    )
     if args.refresh_source_presence:
         audit_parts = [
             frame

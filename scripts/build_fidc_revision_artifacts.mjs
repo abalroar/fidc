@@ -85,7 +85,18 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v40";
+const RENDERER_VERSION = "industry_revision_artifacts_v41";
+const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
+  { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
+  { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
+  { id: "structural_mvp_agro_revenda", group: "Agro / Revenda", sourceGroups: ["Agro / Revenda"] },
+  {
+    id: "structural_mvp_consignado",
+    group: "Consignado INSS e FGTS",
+    sourceGroups: ["Consignado INSS", "Consignado FGTS"],
+  },
+  { id: "structural_mvp_factoring", group: "Factoring", sourceGroups: ["Factoring"] },
+]);
 const STRUCTURAL_DETAIL_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_detail_factoring_1_1", group: "Factoring", page: 1, pages: 1 },
   { id: "structural_detail_agro_revenda_1_8", group: "Agro / Revenda", page: 1, pages: 8 },
@@ -130,9 +141,8 @@ const SLIDE_CONTRACT_V1 = Object.freeze([
   "top20_agro_2026", "top20_agro_2025",
   "top20_financeiro_2026", "top20_financeiro_2025",
   "top20_outros_2026", "top20_outros_2025",
-  "flagship_curation",
-  ...STRUCTURAL_DETAIL_SLIDE_SEQUENCE.map((entry) => entry.id),
-  "portfolio_1_taxonomy", "offers_volume_ticket",
+  ...STRUCTURAL_MVP_SLIDE_SEQUENCE.map((entry) => entry.id),
+  "offers_volume_ticket",
   "offers_ticket_distribution", "offers_placement_regime",
   "top15_current_2026", "top15_current_2025",
   "top15_history_2024_1_2", "top15_history_2024_2_2",
@@ -642,8 +652,12 @@ function addText(slide, text, position, options = {}) {
       width: position.width,
       height: position.height,
     },
-    fill: "none",
-    line: { style: "solid", fill: "none", width: 0 },
+    fill: options.fill ?? "none",
+    line: {
+      style: "solid",
+      fill: options.lineFill ?? "none",
+      width: options.lineWidth ?? 0,
+    },
   });
   shape.text = String(text ?? "");
   shape.text.style = {
@@ -3587,7 +3601,16 @@ function structuralFundName(row, maxChars = 18) {
   const name = !isMissingStructuralText(row.nome_oficial_cvm)
     ? row.nome_oficial_cvm
     : row.nome_referencia;
-  return isMissingStructuralText(name) ? "N/D" : fundEditorialName(name, maxChars);
+  if (isMissingStructuralText(name)) return "N/D";
+  const editorialOverride = structuralBoolean(row.mvp_slide_categoria_override_flag);
+  if (
+    editorialOverride
+    && normalizeProviderName(row.mvp_slide_categoria_motivo).includes("risco corporativo")
+  ) {
+    return "MÉDICI · BRF/MARFRIG*";
+  }
+  const label = fundEditorialName(name, editorialOverride ? maxChars - 1 : maxChars);
+  return editorialOverride ? `${label}*` : label;
 }
 
 function structuralPartyLabel(row, maxChars = 31) {
@@ -3793,6 +3816,279 @@ function top20PartyLookup(payload) {
     const manual = manualByRoot.get(cnpj.slice(0, 8));
     return manual ? `${manual}*` : "N/D";
   };
+}
+
+const STRUCTURAL_MVP_BANDS = Object.freeze([
+  "< 10%", "10%–15%", "15%–20%", "20%–35%", "35%–60%", "≥ 60%",
+]);
+
+function structuralMvpMinima(row) {
+  const literal = structuralNumeric(row.minimo_junior_literal);
+  const calculated = structuralNumeric(row.minimo_junior_calculado);
+  const adjusted = structuralNumeric(row.minimo_junior_ajustado);
+  const junior = literal ?? calculated ?? adjusted;
+  const juniorMarker = literal === null && junior !== null ? "*" : "";
+  const total = structuralNumeric(row.suporte_total);
+  const combined = structuralNumeric(row.suporte_combinado_junior_mezanino);
+  const structural = total ?? combined;
+  const structuralMarker = (
+    combined !== null
+    || structuralBoolean(row.excecao_asterisco_flag)
+    || !structuralBoolean(row.comparavel_flag)
+  ) ? "*" : "";
+  return `Jr ${junior === null ? "N/D" : `${pct(junior, 1)}${juniorMarker}`} · Estr. ${structural === null ? "N/D" : pct(structural, 1)}${structuralMarker}`;
+}
+
+function structuralMvpCardStyle(status) {
+  const key = normalizeProviderName(status);
+  if (key.includes("incomparavel") || key === "n/d") {
+    return { fill: "#F5F6F7", color: "#5E646A", line: "#B8BDC2" };
+  }
+  if (key.includes("abaixo do piso")) {
+    return { fill: "#7A1F3D", color: C.white, line: "#7A1F3D" };
+  }
+  if (key.includes("ate 2 p.p. acima")) {
+    return { fill: "#FFF0D6", color: "#7A1F3D", line: "#EC7000" };
+  }
+  return { fill: "#EAF0F7", color: "#002B5C", line: "#AFC5DD" };
+}
+
+function structuralMvpMedian(rows, field) {
+  const values = rows
+    .map((row) => structuralNumeric(row[field]))
+    .filter((value) => value !== null)
+    .sort((a, b) => a - b);
+  if (!values.length) return null;
+  const middle = Math.floor(values.length / 2);
+  return values.length % 2 ? values[middle] : (values[middle - 1] + values[middle]) / 2;
+}
+
+function structuralMvpTaxonomyRows(payload, sourceGroups) {
+  return (payload.carteira_1_structural_taxonomy || []).filter((row) =>
+    sourceGroups.includes(normalizedStructuralGroup(row.taxonomia))
+  );
+}
+
+function structuralMvpMarketReading(entry, taxonomyRows, slideRows) {
+  if (entry.group === "Consignado INSS e FGTS") {
+    const inss = taxonomyRows.find((row) => normalizedStructuralGroup(row.taxonomia) === "Consignado INSS") || {};
+    const fgts = taxonomyRows.find((row) => normalizedStructuralGroup(row.taxonomia) === "Consignado FGTS") || {};
+    const inssRows = slideRows.filter((row) => normalizedStructuralGroup(row.grupo_comparacao) === "Consignado INSS");
+    const fgtsRows = slideRows.filter((row) => normalizedStructuralGroup(row.grupo_comparacao) === "Consignado FGTS");
+    return {
+      reference: `INSS carteira ${pct(structuralMvpMedian(inssRows, "sub_pl_atual"), 1)} vs. pares ${pct(inss.flagship_sub_atual_mediana, 1)} | FGTS carteira ${pct(structuralMvpMedian(fgtsRows, "sub_pl_atual"), 1)} vs. pares ${pct(fgts.flagship_sub_atual_mediana, 1)}`,
+      conclusion: "≈ Em linha nos dois grupos",
+      caveat: "Comparação da Sub/PL atual; mínimos júnior e estrutural permanecem identificados separadamente.",
+    };
+  }
+  const row = taxonomyRows[0] || {};
+  const peers = integer(row.flagship_cnpjs_com_subordinacao);
+  const portfolioMedian = structuralMvpMedian(slideRows, "sub_pl_atual");
+  const marketMedian = structuralNumeric(row.flagship_sub_atual_mediana);
+  if (entry.group === "Financeiro") {
+    return {
+      reference: `Referência ampla · ${peers} pares · med. carteira ${pct(portfolioMedian, 1)} vs. mercado ${pct(marketMedian, 1)}`,
+      conclusion: "≈ Em linha na referência ampla*",
+      caveat: "O grupo Financeiro reúne estruturas distintas; a leitura relativa é direcional.",
+    };
+  }
+  if (entry.group === "Adquirência") {
+    return {
+      reference: `${peers} pares · med. agregada carteira ${pct(portfolioMedian, 1)} vs. mercado ${pct(marketMedian, 1)}`,
+      conclusion: "N/D · mistura risco emissor e adquirente*",
+      caveat: "A mediana agregada muda com o subtipo; o slide preserva a ressalva.",
+    };
+  }
+  if (peers < 5) {
+    return {
+      reference: peers ? `${peers} pares com Sub/PL atual` : "Sem pares documentais",
+      conclusion: "N/D · benchmark insuficiente",
+      caveat: "Amostra abaixo do mínimo configurável de cinco pares.",
+    };
+  }
+  return {
+    reference: `${peers} pares · med. carteira ${pct(portfolioMedian, 1)} vs. mercado ${pct(marketMedian, 1)}`,
+    conclusion: row.posicao_vs_mercado || "N/D",
+    caveat: "Comparação da Sub/PL atual por taxonomia.",
+  };
+}
+
+function structuralMvpTitle(entry, rows) {
+  const breaches = rows.filter((row) => normalizeProviderName(row.mvp_situacao_piso).includes("abaixo do piso"));
+  const thin = rows.filter((row) => normalizeProviderName(row.mvp_situacao_piso).includes("ate 2 p.p. acima"));
+  const incomparable = rows.filter((row) => normalizeProviderName(row.mvp_situacao_piso).includes("incomparavel"));
+  if (breaches.length) {
+    return `${entry.group} | ${breaches.length} ${breaches.length === 1 ? "veículo comparável está" : "veículos comparáveis estão"} abaixo do mínimo estrutural`;
+  }
+  if (thin.length) {
+    return `${entry.group} | ${thin.length} ${thin.length === 1 ? "veículo comparável está" : "veículos comparáveis estão"} até 2 p.p. acima do mínimo estrutural`;
+  }
+  if (incomparable.length) {
+    return `${entry.group} | Sub atual e mínimos documentais por veículo; ${incomparable.length} ${incomparable.length === 1 ? "estrutura exige" : "estruturas exigem"} leitura separada`;
+  }
+  return `${entry.group} | Sub atual e mínimos documentais por veículo`;
+}
+
+function addStructuralMvpSlides(presentation, payload) {
+  const allRows = [...(payload.portfolio_export_carteira_101 || [])];
+  if (allRows.length !== 101) {
+    throw new Error(`MVP estrutural exige os 101 CNPJs da Carteira I; recebeu ${allRows.length}.`);
+  }
+  const eligible = allRows.filter((row) => structuralBoolean(row.mvp_elegivel_flag));
+  const expectedEligible = Math.round(num(payload.carteira_1_structural_summary?.mvp_cnpjs_elegiveis));
+  if (expectedEligible <= 0 || eligible.length !== expectedEligible) {
+    throw new Error(`MVP estrutural deveria conter ${expectedEligible || "N/D"} CNPJs elegíveis; recebeu ${eligible.length}.`);
+  }
+  const eligibleCnpjs = new Set();
+  eligible.forEach((row) => {
+    const cnpj = cnpjDigits(row.cnpj || row.cnpj_numerico);
+    if (!cnpj) throw new Error("MVP estrutural contém CNPJ elegível inválido.");
+    if (eligibleCnpjs.has(cnpj)) throw new Error(`MVP estrutural contém CNPJ duplicado: ${cnpj}.`);
+    eligibleCnpjs.add(cnpj);
+  });
+  const shown = new Set();
+  STRUCTURAL_MVP_SLIDE_SEQUENCE.forEach((entry) => {
+    const rows = eligible
+      .filter((row) => row.mvp_slide_categoria === entry.group)
+      .sort((a, b) => {
+        const severity = (row) => {
+          const key = normalizeProviderName(row.mvp_situacao_piso);
+          return key.includes("abaixo do piso") ? 0 : key.includes("ate 2 p.p. acima") ? 1 : 2;
+        };
+        return severity(a) - severity(b)
+          || num(b.pl_atual_brl) - num(a.pl_atual_brl)
+          || num(a.ordem) - num(b.ordem);
+      });
+    rows.forEach((row) => shown.add(String(row.cnpj)));
+    const taxonomyRows = structuralMvpTaxonomyRows(payload, entry.sourceGroups);
+    const market = structuralMvpMarketReading(entry, taxonomyRows, rows);
+    const totalRows = allRows.filter((row) => row.mvp_slide_categoria === entry.group);
+    const totalPl = totalRows.reduce((sum, row) => sum + num(row.pl_atual_brl), 0);
+    const eligiblePl = rows.reduce((sum, row) => sum + num(row.pl_atual_brl), 0);
+    const slide = presentation.slides.add();
+    addHeader(
+      slide,
+      `RISCO ESTRUTURAL · CARTEIRA I · ${entry.group}`,
+      structuralMvpTitle(entry, rows),
+      `CVM, Informe Mensal, ${competenceShortPt(payload.latest_complete).toLowerCase()}; pisos em regulamentos FundosNet/B3. Lacunas ficam fora do slide e permanecem no workbook/explorador.`,
+      0,
+    );
+
+    const summaryCards = [
+      {
+        label: "COBERTURA DO SLIDE",
+        value: `${integer(rows.length)}/${integer(totalRows.length)} CNPJs · ${moneyScale(eligiblePl)} de ${moneyScale(totalPl)}`,
+        fill: "#EAF0F7",
+        color: "#002B5C",
+      },
+      {
+        label: "REFERÊNCIA DE MERCADO · SUB/PL ATUAL",
+        value: market.reference,
+        fill: C.white,
+        color: C.charcoal,
+      },
+      {
+        label: "LEITURA RELATIVA",
+        value: market.conclusion,
+        fill: "#FFF1E6",
+        color: "#7A1F3D",
+      },
+    ];
+    const cardWidths = [330, 505, 305];
+    let cardLeft = 60;
+    summaryCards.forEach((card, index) => {
+      addText(
+        slide,
+        `${card.label}\n${card.value}`,
+        { left: cardLeft, top: 121, width: cardWidths[index], height: 64 },
+        {
+          name: `mvp-summary-${entry.id}-${index + 1}`,
+          fontSize: 13.333333,
+          bold: true,
+          color: card.color,
+          fill: card.fill,
+          lineFill: index === 1 ? "#AFC5DD" : card.fill,
+          lineWidth: index === 1 ? 1 : 0,
+          verticalAlignment: "middle",
+          insets: { top: 7, right: 10, bottom: 7, left: 10 },
+        },
+      );
+      cardLeft += cardWidths[index] + 10;
+    });
+
+    const columnGap = 8;
+    const columnWidth = (1160 - columnGap * 5) / 6;
+    STRUCTURAL_MVP_BANDS.forEach((band, bandIndex) => {
+      const left = 60 + bandIndex * (columnWidth + columnGap);
+      addText(
+        slide,
+        band,
+        { left, top: 198, width: columnWidth, height: 24 },
+        {
+          name: `mvp-band-${entry.id}-${bandIndex + 1}`,
+          fontSize: 14,
+          bold: true,
+          color: "#002B5C",
+          alignment: "center",
+          verticalAlignment: "middle",
+          wrap: "none",
+        },
+      );
+      addRule(slide, left, 222, columnWidth, "#002B5C", 2);
+      const bandRows = rows.filter((row) => row.mvp_faixa_sub_atual === band);
+      if (bandRows.length > 12) {
+        throw new Error(`${entry.group} tem ${bandRows.length} cartões na faixa ${band}; revise a paginação do capítulo.`);
+      }
+      const rowGap = 2;
+      const cardHeight = bandRows.length
+        ? Math.min(46, Math.max(29, Math.floor((392 - rowGap * (bandRows.length - 1)) / bandRows.length)))
+        : 46;
+      const cardFontSize = bandRows.length <= 8 ? 13.333333 : bandRows.length <= 10 ? 11.5 : 10;
+      bandRows.forEach((row, rowIndex) => {
+        const style = structuralMvpCardStyle(row.mvp_situacao_piso);
+        const cnpj = String(row.cnpj || row.cnpj_numerico || "nd").replace(/\D/g, "");
+        addText(
+          slide,
+          `${structuralFundName(row, 21)}\n${moneyScale(row.pl_atual_brl)} · Sub atual ${pct(row.sub_pl_atual, 1)}\n${structuralMvpMinima(row)}`,
+          {
+            left,
+            top: 229 + rowIndex * (cardHeight + rowGap),
+            width: columnWidth,
+            height: cardHeight,
+          },
+          {
+            name: `mvp-card-${entry.id}-${cnpj}`,
+            fontSize: cardFontSize,
+            bold: true,
+            color: style.color,
+            fill: style.fill,
+            lineFill: style.line,
+            lineWidth: 1,
+            verticalAlignment: "middle",
+            wrap: "none",
+            lineSpacing: 0.95,
+            insets: { top: 3, right: 5, bottom: 3, left: 5 },
+          },
+        );
+      });
+    });
+    addText(
+      slide,
+      `Vinho = abaixo do mínimo estrutural · âmbar = até 2 p.p. acima · azul = mais de 2 p.p. acima · cinza = estrutura incomparável. * Categoria editorial ou piso total, combinado, calculado, ajustado ou sem equivalência direta.`,
+      { left: 60, top: 628, width: 1160, height: 31 },
+      { fontSize: 13.333333, color: C.note, alignment: "right", verticalAlignment: "middle", wrap: "none" },
+    );
+    addSourceNotes(slide, [
+      "Unidade: um cartão por CNPJ elegível da Carteira I; cada cartão é uma única caixa de texto nomeada pelo CNPJ para reorganização manual.",
+      "Elegibilidade do MVP: Sub/PL atual, piso documental e PL do veículo disponíveis. Casos excluídos permanecem integralmente no workbook e no explorador.",
+      "O sinal vinho, âmbar ou azul compara Sub/PL atual ao mínimo estrutural somente quando numerador, denominador e tranche são equivalentes; cinza preserva o índice documental sem concluir folga.",
+      "O asterisco marca categoria editorial, piso total, combinado, calculado, ajustado ou sem equivalência direta; natureza, fórmula, documento e cláusula permanecem por CNPJ no workbook.",
+      `Benchmark: ${market.caveat}`,
+    ]);
+  });
+  if (shown.size !== eligible.length) {
+    throw new Error(`Slides MVP exibiram ${shown.size}/${eligible.length} CNPJs elegíveis.`);
+  }
 }
 
 function addFlagshipCurationSlide(presentation, payload) {
@@ -5678,9 +5974,7 @@ function buildPresentation(payload) {
         addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia);
       });
     });
-  addFlagshipCurationSlide(presentation, payload);
-  addCarteira1CurationSlide(presentation, payload);
-  addCarteira1TaxonomySlide(presentation, payload);
+  addStructuralMvpSlides(presentation, payload);
 
   // 20. Modelo de prestação
   if (SLIDE_CONTRACT_V1.includes("service_model")) {
@@ -7982,6 +8276,10 @@ async function addStructuralRiskSheets(workbook, payload) {
     ["CNPJ", "cnpj_formatado"],
     ["Ativo", "ativo"],
     ["Taxonomia", "categoria"],
+    ["Categoria MVP", "mvp_slide_categoria"],
+    ["Faixa de Sub atual", "mvp_faixa_sub_atual"],
+    ["Elegível no MVP", "mvp_elegivel_flag", (value) => value ? "Sim" : "Não"],
+    ["Sinal vs. mínimo estrutural", "mvp_situacao_piso"],
     ["Tipo", "tipo_exibicao"],
     ["Foco", "foco_exibicao"],
     ["PL do veículo", "pl_atual"],
@@ -8022,13 +8320,13 @@ async function addStructuralRiskSheets(workbook, payload) {
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.2 },
   );
   await writeRowsInChunks(assetSheet, 4, assetHeaders, assetRows);
-  applyColumnWidths(assetSheet, [45, 125, 390, 150, 160, 190, 125, 115, 125, 135, 145, 135, 500, 240, 80, 90, 420, 95, 115, 135, 110, 90, 105, 160, 100, 145, 420, 220], assetRows.length);
+  applyColumnWidths(assetSheet, [45, 125, 390, 150, 180, 120, 105, 180, 160, 190, 125, 115, 125, 135, 145, 135, 500, 240, 80, 90, 420, 95, 115, 135, 110, 90, 105, 160, 100, 145, 420, 220], assetRows.length);
   applyFormatsByHeader(assetSheet, assetHeaders, assetRows.length);
-  assetSheet.getRange(`G5:G${assetRows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
-  ["H", "I", "J", "R", "S", "U", "W"].forEach((letter) => {
+  assetSheet.getRange(`K5:K${assetRows.length + 4}`).format.numberFormat = 'R$ #,##0.0,,, "bi"';
+  ["L", "M", "N", "V", "W", "Y", "AA"].forEach((letter) => {
     assetSheet.getRange(`${letter}5:${letter}${assetRows.length + 4}`).format.numberFormat = "0.0%";
   });
-  assetSheet.getRange(`A5:AB${assetRows.length + 4}`).format.rowHeightPx = 62;
+  assetSheet.getRange(`A5:AF${assetRows.length + 4}`).format.rowHeightPx = 62;
 
   const taxonomyColumns = [
     ["Ordem", "ordem"], ["Taxonomia", "taxonomia"], ["Presença", "presenca_carteira"],
@@ -8046,7 +8344,7 @@ async function addStructuralRiskSheets(workbook, payload) {
   setHeaderBand(
     taxonomySheet,
     "Carteira 1 · risco estrutural por taxonomia",
-    "As sete taxonomias alimentam os slides 14–16. Mediana e ponderada por PL permanecem lado a lado; grupos com poucos pares mantêm a lacuna.",
+    "As sete taxonomias alimentam o capítulo estrutural; cinco aparecem no MVP executivo. Mediana e ponderada por PL permanecem lado a lado; grupos com poucos pares mantêm a lacuna.",
     taxonomyHeaders,
     taxonomyRows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 9 },
@@ -9345,6 +9643,14 @@ const PORTFOLIO_EXPORT_COLUMNS = Object.freeze([
   { header: "Foco", key: "foco_exibicao", width: 190 },
   { header: "Taxonomia estrutural", key: "taxonomia_estrutural", width: 180 },
   { header: "Grupo de comparação", key: "grupo_comparacao", width: 180 },
+  { header: "Categoria MVP", key: "mvp_slide_categoria", width: 185 },
+  { header: "Categoria MVP original", key: "mvp_slide_categoria_original", width: 185 },
+  { header: "Override editorial?", key: "mvp_slide_categoria_override_flag", width: 105 },
+  { header: "Fonte do override MVP", key: "mvp_slide_categoria_fonte", width: 390 },
+  { header: "Motivo do override MVP", key: "mvp_slide_categoria_motivo", width: 420 },
+  { header: "Faixa de Sub atual · MVP", key: "mvp_faixa_sub_atual", width: 125 },
+  { header: "Elegível nos 5 slides?", key: "mvp_elegivel_flag", width: 115 },
+  { header: "Sinal vs. mínimo estrutural", key: "mvp_situacao_piso", width: 175 },
   { header: "Posição vs. mercado", key: "posicao_mercado", width: 190 },
   { header: "Excesso vs. mediana", key: "excesso_vs_mercado", width: 120, format: "0.00%" },
   { header: "Benchmark confiável?", key: "benchmark_confiavel", width: 115 },
@@ -9383,6 +9689,7 @@ const PORTFOLIO_EXPORT_GROUPS = Object.freeze([
   { label: "ÍNDICES DOCUMENTAIS", startKey: "minimo_junior_literal", endKey: "minimo_estrutural_formula", fill: C.orange },
   { label: "COMPARABILIDADE E FOLGA", startKey: "comparavel_flag", endKey: "situacao_regulatoria", fill: "#7A1F3D" },
   { label: "TAXONOMIA", startKey: "tipo_exibicao", endKey: "grupo_comparacao", fill: "#2456D6" },
+  { label: "MVP · 5 SLIDES", startKey: "mvp_slide_categoria", endKey: "mvp_situacao_piso", fill: "#002B5C" },
   { label: "BENCHMARK DE MERCADO", startKey: "posicao_mercado", endKey: "n_comparaveis_categoria", fill: C.charcoal },
   { label: "PREÇO UNITÁRIO POR COTA", startKey: "preco_cota_brl", endKey: "preco_cota_excecao_asterisco_flag", fill: "#006B3C" },
   { label: "PARTES E RECEBÍVEL", startKey: "cedente_originador_literal", endKey: "observacao_complemento_manual", fill: "#A65A00" },

@@ -41,57 +41,12 @@ MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v3"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v8"
 ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ((6, 8),)
-STRUCTURAL_DETAIL_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    ("risco estrutural", "factoring", "1/1"),
-    ("risco estrutural", "agro / revenda", "1/8"),
-    ("risco estrutural", "agro / revenda", "2/8"),
-    ("risco estrutural", "agro / revenda", "3/8"),
-    ("risco estrutural", "agro / revenda", "4/8"),
-    ("risco estrutural", "agro / revenda", "5/8"),
-    ("risco estrutural", "agro / revenda", "6/8"),
-    ("risco estrutural", "agro / revenda", "7/8"),
-    ("risco estrutural", "agro / revenda", "8/8"),
-    ("risco estrutural", "adquirencia", "1/3"),
-    ("risco estrutural", "adquirencia", "2/3"),
-    ("risco estrutural", "adquirencia", "3/3"),
-    ("risco estrutural", "consignado inss", "1/2"),
-    ("risco estrutural", "consignado inss", "2/2"),
-    ("risco estrutural", "consignado fgts", "1/2"),
-    ("risco estrutural", "consignado fgts", "2/2"),
-    ("risco estrutural", "veiculos", "1/2"),
-    ("risco estrutural", "veiculos", "2/2"),
-    ("risco estrutural", "financeiro", "1/5"),
-    ("risco estrutural", "financeiro", "2/5"),
-    ("risco estrutural", "financeiro", "3/5"),
-    ("risco estrutural", "financeiro", "4/5"),
-    ("risco estrutural", "financeiro", "5/5"),
-    ("risco estrutural", "n/d", "1/1"),
-)
-STRUCTURAL_DETAIL_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = (
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (6, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (4, 10),
-    (8, 10),
-    (5, 10),
-    (8, 10),
-    (3, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (8, 10),
-    (2, 10),
+STRUCTURAL_MVP_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
+    ("risco estrutural", "financeiro", "carteira i"),
+    ("risco estrutural", "adquirencia", "carteira i"),
+    ("risco estrutural", "agro / revenda", "carteira i"),
+    ("risco estrutural", "consignado inss e fgts", "carteira i"),
+    ("risco estrutural", "factoring", "carteira i"),
 )
 TYPE_RANKING_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("fomento mercantil", "crescimento marginal em seis meses", "jun/26", "top 15"),
@@ -167,9 +122,7 @@ EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
     ("financeiro explicou 70% do crescimento da carteira",),
     ("ranking", "top 20 fidcs"),
     *TYPE_RANKING_SLIDE_SEQUENCE,
-    ("risco estrutural", "cobertura por taxonomia"),
-    *STRUCTURAL_DETAIL_SLIDE_SEQUENCE,
-    ("risco estrutural", "ativos"),
+    *STRUCTURAL_MVP_SLIDE_SEQUENCE,
     ("emissoes crescem 15% no semestre",),
     ("22 ofertas concentram 42% de todo o volume",),
     ("garantia firme", "yoy ytd", "melhores esforcos repr."),
@@ -198,10 +151,8 @@ CURRENT_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
 HISTORICAL_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
     HISTORICAL_TOP15_SLIDE_SEQUENCE
 )
-if len(STRUCTURAL_DETAIL_TABLE_DIMENSIONS) != len(
-    STRUCTURAL_DETAIL_SLIDE_SEQUENCE
-) or sum(rows - 1 for rows, _ in STRUCTURAL_DETAIL_TABLE_DIMENSIONS) != 148:
-    raise RuntimeError("contrato das 148 linhas estruturais está inconsistente")
+if len(STRUCTURAL_MVP_SLIDE_SEQUENCE) != 5:
+    raise RuntimeError("capítulo MVP de risco estrutural deve conter cinco slides")
 if len(HISTORICAL_TOP15_TABLE_DIMENSIONS) != len(
     HISTORICAL_TOP15_SLIDE_SEQUENCE
 ) or any(
@@ -715,27 +666,6 @@ def validate_revision_pptx(payload: bytes) -> None:
                 expected_dimensions=((16, 9),),
                 canvas=canvas,
             )
-        for offset, dimensions in enumerate(
-            STRUCTURAL_DETAIL_TABLE_DIMENSIONS,
-            start=19,
-        ):
-            _validate_native_table_slide(
-                archive,
-                offset,
-                expected_dimensions=(dimensions,),
-                canvas=canvas,
-            )
-            for row_number, row in enumerate(
-                _native_table_text_rows(archive, offset)[1:],
-                start=2,
-            ):
-                price = row[8] if len(row) > 8 else ""
-                if price and _normalize_office_text(price) not in {"n/d", "nd"} and not re.search(
-                    r"\d", price
-                ):
-                    raise RevisionExportUnavailable(
-                        f"slide {offset}, linha {row_number}: preço por cota perdeu o valor numérico"
-                    )
         for slide_number in CURRENT_TOP15_SLIDE_NUMBERS:
             _validate_native_table_slide(
                 archive,
@@ -1427,8 +1357,7 @@ __all__ = [
     "MATERIALIZED_HTML_NAME",
     "MATERIALIZED_PORTFOLIO_XLSX_NAME",
     "REQUIRED_PORTFOLIO_WORKBOOK_SHEETS",
-    "STRUCTURAL_DETAIL_SLIDE_SEQUENCE",
-    "STRUCTURAL_DETAIL_TABLE_DIMENSIONS",
+    "STRUCTURAL_MVP_SLIDE_SEQUENCE",
     "TYPE_RANKING_SLIDE_SEQUENCE",
     "RevisionExportStatus",
     "RevisionExportUnavailable",

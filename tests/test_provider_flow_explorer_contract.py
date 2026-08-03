@@ -19,7 +19,7 @@ PAYLOAD_PATH = Path(
     )
 )
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
-MAX_COMPACT_HTML_BYTES = 450_000
+MAX_COMPACT_HTML_BYTES = 455_000
 EXPECTED_PAYLOAD_KEYS = {
     "carteira_1_flagship_comparison",
     "carteira_1_flagship_comparison_summary",
@@ -218,6 +218,10 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
         "marketExcess",
         "benchmarkReliable",
         "marketPeers",
+        "mvpCategory",
+        "mvpRange",
+        "mvpEligible",
+        "mvpFloorStatus",
         "priceBrl",
         "priceDisplay",
         "priceNature",
@@ -294,6 +298,12 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert "preco_cota_display" in document
     assert "preco_cota_classe_serie" in document
     assert "preco_cota_excecao_asterisco" in document
+    assert "mvp_slide_categoria" in document
+    assert "mvp_faixa_sub_atual" in document
+    assert "mvp_elegivel_flag" in document
+    assert "mvp_situacao_piso" in document
+    assert "data-c1-mvp-category" in document
+    assert "data-c1-eligibility" in document
     assert "quantidade_cotas" not in document
 
 
@@ -379,3 +389,54 @@ def test_flagship_detail_prefers_the_canonical_export_by_cnpj(
     assert detail["priceExceptionAsterisk"] is True
     assert "VALOR LEGADO" not in detail.values()
     assert "CLASSE LEGADA" not in detail.values()
+
+
+def test_carteira1_mvp_fields_flow_to_model_filters_and_csv(
+    tmp_path: Path,
+) -> None:
+    source_payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    canonical = source_payload["portfolio_export_carteira_101"][0]
+    cnpj = canonical["cnpj_formatado"]
+    canonical.update(
+        {
+            "mvp_slide_categoria": "Financeiro",
+            "mvp_faixa_sub_atual": "20%–35%",
+            "mvp_elegivel_flag": True,
+            "mvp_situacao_piso": "acima do piso",
+        }
+    )
+    payload_path = tmp_path / "artifact_payload.json"
+    output_path = tmp_path / "provider_flows_explorer.html"
+    payload_path.write_text(
+        json.dumps(source_payload, ensure_ascii=False),
+        encoding="utf-8",
+    )
+
+    completed = subprocess.run(
+        [
+            "node",
+            str(BUILDER_PATH),
+            "--payload",
+            str(payload_path),
+            "--html",
+            str(output_path),
+        ],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr or completed.stdout
+
+    document = output_path.read_text(encoding="utf-8")
+    compact = _embedded_data(document)["carteira1"]
+    fields = compact["fields"]["detail"]
+    details = [dict(zip(fields, row, strict=True)) for row in compact["details"]]
+    detail = next(row for row in details if row["cnpj"] == cnpj)
+    assert len(details) == 101
+    assert detail["mvpCategory"] == "Financeiro"
+    assert detail["mvpRange"] == "20%–35%"
+    assert detail["mvpEligible"] is True
+    assert detail["mvpFloorStatus"] == "acima do piso"
+    assert 'state.eligibility === "eligible" && !row.mvpEligible' in document
+    assert 'row.mvpCategory !== state.mvpCategory' in document
+    assert "Taxonomia / MVP" in document
