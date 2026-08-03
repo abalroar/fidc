@@ -824,6 +824,16 @@ function carteira1Models(payload) {
       mvpRange: text(row.mvp_faixa_sub_atual),
       mvpEligible: nullableBoolean(row.mvp_elegivel_flag) === true,
       mvpFloorStatus: text(row.mvp_situacao_piso),
+      riskCategoryCurrent: text(row.categoria_risco_atual),
+      riskCategoryProposed: text(row.categoria_risco_proposta),
+      riskSubtype: text(row.subtipo_risco_diagnosticado),
+      reclassificationProposed: nullableBoolean(row.reclassificacao_proposta_flag),
+      reclassificationStatus: text(row.status_avaliacao_reclassificacao),
+      reclassificationRationale: text(row.fundamento_avaliacao_reclassificacao),
+      reclassificationSource: text(row.fonte_avaliacao_reclassificacao),
+      middleMarketStatus: text(row.middle_market_status),
+      middleMarketEvidence: text(row.middle_market_evidencia),
+      middleMarketSizeDocumented: nullableBoolean(row.middle_market_porte_documentado_flag),
       originator: text(row.originador),
       cedente: text(row.cedente),
       cedenteOriginator: text(row.cedente_originador_literal),
@@ -932,6 +942,10 @@ const CARTEIRA1_FIELDS = Object.freeze({
     "lossAbsorption", "regulatoryStatus", "marketPosition", "marketExcess",
     "benchmarkReliable", "marketPeers", "type", "focus", "structuralTaxonomy",
     "comparisonGroup", "mvpCategory", "mvpRange", "mvpEligible", "mvpFloorStatus",
+    "riskCategoryCurrent", "riskCategoryProposed", "riskSubtype",
+    "reclassificationProposed", "reclassificationStatus",
+    "reclassificationRationale", "reclassificationSource",
+    "middleMarketStatus", "middleMarketEvidence", "middleMarketSizeDocumented",
     "originator", "cedente", "cedenteOriginator", "partyRole",
     "debtor", "receivable", "partiesSource", "manualStatus", "manualNote",
     "priceBrl", "priceDisplay", "priceNature", "priceClassSeries",
@@ -944,7 +958,7 @@ const CARTEIRA1_FIELDS = Object.freeze({
 
 function compactCarteira1(data) {
   return {
-    schemaVersion: "carteira_1_curation_compact_v3",
+    schemaVersion: "carteira_1_curation_compact_v4",
     fields: CARTEIRA1_FIELDS,
     summary: data.summary,
     comparisonSummary: data.comparisonSummary,
@@ -955,7 +969,7 @@ function compactCarteira1(data) {
 }
 
 function expandCompactCarteira1(compact) {
-  if (compact.schemaVersion !== "carteira_1_curation_compact_v3") {
+  if (compact.schemaVersion !== "carteira_1_curation_compact_v4") {
     throw new Error(`Esquema da Carteira 1 desconhecido: ${compact.schemaVersion}`);
   }
   const object = (fields, values) => Object.fromEntries(
@@ -1536,6 +1550,7 @@ function carteira1App(DATA) {
   const sourceLink = (label, value) => /^https?:\/\//i.test(String(value || ""))
     ? `<a href="${esc(value)}" target="_blank" rel="noreferrer">${esc(label)}</a>`
     : sourceLine(label, value);
+  const booleanLabel = value => value == null ? "N/D" : value ? "sim" : "não";
   const trace = row => `<details><summary>Fontes</summary><div class="flag-sources">
     <a href="https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}" target="_blank" rel="noreferrer">FundosNet</a>
     <span>Regulamento ${esc(row.documentId)} · ${esc(row.documentDate)} · p. ${esc(row.page)}</span>
@@ -1545,6 +1560,8 @@ function carteira1App(DATA) {
     ${sourceLine("Comparabilidade", row.structuralComparableReason)}
     ${sourceLink("Partes/recebível", row.partiesSource)}
     ${sourceLine("Complemento manual", row.manualNote)}
+    ${sourceLink("Avaliação de reclassificação", row.reclassificationSource)}
+    ${sourceLine("Evidência Middle Market", row.middleMarketEvidence)}
     ${sourceLine("Documento do preço", `${row.priceDocumentId} · ${row.priceDocumentDate}`)}
     ${sourceLink("Fonte do preço", row.priceSource)}</div></details>`;
   const minima = row => {
@@ -1561,6 +1578,8 @@ function carteira1App(DATA) {
     return `<strong>${esc(row.structuralDisplay)}${asterisk}</strong><br><small>${junior || "Mínimo N/D"}<br>${esc(row.structuralNature)}</small>`;
   };
   const parties = row => `<strong>Orig. ${esc(row.originator)}</strong><br><small>Ced. ${esc(row.cedente)} · Sac. ${esc(row.debtor)}<br>${esc(row.cedenteOriginator)} · ${esc(row.partyRole)}<br>${esc(row.receivable)}</small>`;
+  const riskReview = row => `<strong>Atual: ${esc(row.riskCategoryCurrent)}</strong><br><strong>Proposta: ${esc(row.riskCategoryProposed)}</strong><br><small>${esc(row.riskSubtype)}<br>Reclassificação: ${booleanLabel(row.reclassificationProposed)} · ${esc(row.reclassificationStatus)}<br>${esc(row.reclassificationRationale)}</small>`;
+  const middleMarket = row => `<strong>${esc(row.middleMarketStatus)}</strong><br><small>${esc(row.middleMarketEvidence)}<br>Porte documentado: ${booleanLabel(row.middleMarketSizeDocumented)}</small>`;
   const market = row => `<strong>${esc(row.marketPosition)}</strong><br><small>Excesso ${pp(row.marketExcess)} · ${row.marketPeers == null ? "N/D" : Number(row.marketPeers).toLocaleString("pt-BR")} pares · benchmark ${row.benchmarkReliable == null ? "N/D" : row.benchmarkReliable ? "confiável" : "insuficiente"}</small>`;
   const price = row => {
     const asterisk = row.priceExceptionAsterisk ? "*" : "";
@@ -1577,23 +1596,25 @@ function carteira1App(DATA) {
       <td class="num">${row.order}</td>
       <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.cnpj)} · ${esc(row.referenceName)}</small></td>
       <td><strong>${esc(row.mvpCategory)}</strong><br><small>${esc(row.mvpRange)} · elegível: ${row.mvpEligible ? "sim" : "não"} · ${esc(row.mvpFloorStatus)}<br>${esc(row.comparisonGroup)} · ${esc(row.structuralTaxonomy)} · ${esc(row.type)} · ${esc(row.focus)}</small></td>
+      <td>${riskReview(row)}</td>
       <td>${parties(row)}</td>
       <td class="num">${money(row.pl)}<br><small>Sub. ${pct(row.ratio)} · ${esc(row.range)}</small></td>
       <td>${minima(row)}</td>
       <td><strong>${esc(row.mvpFloorStatus)}</strong><br><small>Sub atual vs. mínimo estrutural</small></td>
       <td>${market(row)}</td>
+      <td>${middleMarket(row)}</td>
       <td>${price(row)}</td>
       <td>${esc(row.completionStatus)}<br><small>${esc(row.curationStatus)} · ${esc(row.gaps)}</small></td>
       <td>${trace(row)}</td>
-    </tr>`).join("") || `<tr><td colspan="11">Nenhum CNPJ encontrado.</td></tr>`;
+    </tr>`).join("") || `<tr><td colspan="13">Nenhum CNPJ encontrado.</td></tr>`;
     pager.querySelector("span").textContent = `${rows.length ? state.page + 1 : 0} / ${rows.length ? pages : 0}`;
     pager.querySelector("[data-c1-prev]").disabled = state.page <= 0;
     pager.querySelector("[data-c1-next]").disabled = state.page >= pages - 1;
   };
   const render = () => renderTable();
   const downloadCsv = () => {
-    const headers = ["ordem","cnpj","fundo_oficial","nome_referencia","data_ref","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","faixa","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","natureza_metrica","formula_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","posicao_mercado","excesso_vs_mercado","benchmark_confiavel","n_comparaveis_categoria","tipo","foco","taxonomia_estrutural","grupo_comparacao","mvp_slide_categoria","mvp_faixa_sub_atual","mvp_elegivel_flag","mvp_situacao_piso","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","status_complemento_manual","observacao_complemento_manual","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
-    const rows = filtered().map(row => [row.order,row.cnpj,row.fund,row.referenceName,row.dataRef,row.pl,row.subordinate,row.ratio,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.marketExcess,row.benchmarkReliable,row.marketPeers,row.type,row.focus,row.structuralTaxonomy,row.comparisonGroup,row.mvpCategory,row.mvpRange,row.mvpEligible,row.mvpFloorStatus,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.manualStatus,row.manualNote,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,`https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}`]);
+    const headers = ["ordem","cnpj","fundo_oficial","nome_referencia","data_ref","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","faixa","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","natureza_metrica","formula_metrica","excecao_asterisco","comparavel","motivo_comparabilidade","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","posicao_mercado","excesso_vs_mercado","benchmark_confiavel","n_comparaveis_categoria","tipo","foco","taxonomia_estrutural","grupo_comparacao","mvp_slide_categoria","mvp_faixa_sub_atual","mvp_elegivel_flag","mvp_situacao_piso","categoria_risco_atual","categoria_risco_proposta","subtipo_risco_diagnosticado","reclassificacao_proposta_flag","status_avaliacao_reclassificacao","fundamento_avaliacao_reclassificacao","fonte_avaliacao_reclassificacao","middle_market_status","middle_market_evidencia","middle_market_porte_documentado_flag","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","status_complemento_manual","observacao_complemento_manual","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
+    const rows = filtered().map(row => [row.order,row.cnpj,row.fund,row.referenceName,row.dataRef,row.pl,row.subordinate,row.ratio,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.exceptionAsterisk,row.structuralComparable,row.structuralComparableReason,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.marketPosition,row.marketExcess,row.benchmarkReliable,row.marketPeers,row.type,row.focus,row.structuralTaxonomy,row.comparisonGroup,row.mvpCategory,row.mvpRange,row.mvpEligible,row.mvpFloorStatus,row.riskCategoryCurrent,row.riskCategoryProposed,row.riskSubtype,row.reclassificationProposed,row.reclassificationStatus,row.reclassificationRationale,row.reclassificationSource,row.middleMarketStatus,row.middleMarketEvidence,row.middleMarketSizeDocumented,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.manualStatus,row.manualNote,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,`https://fnet.bmfbovespa.com.br/fnet/publico/abrirGerenciadorDocumentosCVM?cnpjFundo=${String(row.cnpj || "").replace(/\D/g, "")}`]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -1885,7 +1906,7 @@ function fragmentHtml(data, standalone = false) {
   <p>${data.carteira1.comparisonSummary.methodology}</p>
 </section>
 <section id="carteira-1-curation-explorer" aria-labelledby="carteira-1-curation-title">
-  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Base normalizada comum ao deck e ao workbook, com recorte MVP, partes, lastro, mínimos por natureza, preço unitário por cota, situação regulatória e fontes.</p></header>
+  <header class="c1-heading"><h2 id="carteira-1-curation-title">Carteira 1 · risco estrutural por CNPJ</h2><p>Base normalizada comum ao deck e ao workbook, com categoria atual e proposta, subtipo diagnosticado, avaliação de reclassificação, evidência de Middle Market, partes, lastro, mínimos por natureza, preço unitário por cota, situação regulatória e fontes.</p></header>
   <div class="c1-metrics">
     <div class="c1-metric"><strong>${data.carteira1.summary.cnpjs}</strong><span>CNPJs transcritos e salvos</span></div>
     <div class="c1-metric"><strong>${data.carteira1.summary.minJunior}</strong><span>mínimos júnior · ${(data.carteira1.summary.juniorCoverage * 100).toLocaleString("pt-BR", {minimumFractionDigits:1,maximumFractionDigits:1})}%</span></div>
@@ -1899,13 +1920,13 @@ function fragmentHtml(data, standalone = false) {
     <label>Grupo de comparação<select data-c1-type aria-label="Grupo de comparação estrutural"></select></label>
     <label>Categoria MVP<select data-c1-mvp-category aria-label="Categoria do recorte MVP"></select></label>
     <label>Elegibilidade<select data-c1-eligibility aria-label="Elegibilidade no recorte MVP"></select></label>
-    <label class="c1-search">Buscar fundo, CNPJ, parte, recebível ou taxonomia<input data-c1-search type="search" placeholder="Ex.: Cloudwalk, 42.085.816, FGTS"></label>
+    <label class="c1-search">Buscar fundo, CNPJ, parte, recebível, taxonomia ou Middle Market<input data-c1-search type="search" placeholder="Ex.: Cloudwalk, 42.085.816, FGTS"></label>
     <button type="button" data-c1-csv>Exportar CSV</button>
   </div>
   <div class="c1-range-grid" data-c1-range-grid aria-label="Distribuição da Carteira 1 por faixa"></div>
   <div class="c1-caption" data-c1-caption aria-live="polite"></div>
   <table aria-label="Curadoria dos CNPJs da Carteira 1">
-    <thead><tr><th class="num">#</th><th>FIDC / CNPJ</th><th>Taxonomia / MVP</th><th>Originador / cedente / sacado / recebível</th><th class="num">PL / Sub atual</th><th>Mínimos Jr / estrutural</th><th>Situação vs. mínimo</th><th>Posição de mercado</th><th>Preço unitário por cota</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
+    <thead><tr><th class="num">#</th><th>FIDC / CNPJ</th><th>Taxonomia / MVP</th><th>Diagnóstico / reclassificação</th><th>Originador / cedente / sacado / recebível</th><th class="num">PL / Sub atual</th><th>Mínimos Jr / estrutural</th><th>Situação vs. mínimo</th><th>Posição de mercado</th><th>Middle Market</th><th>Preço unitário por cota</th><th>Status e lacunas</th><th>Rastreabilidade</th></tr></thead>
     <tbody></tbody>
   </table>
   <div class="c1-pager" data-c1-pager><button type="button" data-c1-prev>Anterior</button><span>0 / 0</span><button type="button" data-c1-next>Próxima</button></div>

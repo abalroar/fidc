@@ -805,3 +805,116 @@ def test_group_market_fields_and_document_scan_are_propagated_without_recalc() -
     assert row["fonte_partes_recebivel"] == (
         "cedente: https://example.test/cedente"
     )
+
+
+def test_risk_review_uses_only_explicit_ledger_fields_and_applied_flag() -> None:
+    applied_cnpj = _cnpj(1)
+    pending_cnpj = _cnpj(2)
+    outside_review_cnpj = _cnpj(3)
+    detail = _portfolio_detail(
+        [
+            {
+                "ordem": 1,
+                "cnpj_fundo": applied_cnpj,
+                "denominacao": "FUNDO AGRO — NOME NÃO DEFINE O LASTRO",
+            },
+            {
+                "ordem": 2,
+                "cnpj_fundo": pending_cnpj,
+                "denominacao": "FUNDO PME CCB — NOME NÃO DEFINE PORTE",
+            },
+            {
+                "ordem": 3,
+                "cnpj_fundo": outside_review_cnpj,
+                "denominacao": "RISCO CORPORATIVO MIDDLE MARKET CCB",
+            },
+        ]
+    )
+    structural = _structural(
+        [
+            {
+                "cnpj": applied_cnpj,
+                "mvp_slide_categoria": "Financeiro",
+                "mvp_slide_categoria_original": "Financeiro",
+            },
+            {
+                "cnpj": pending_cnpj,
+                "mvp_slide_categoria": "Agro / Revenda",
+                "mvp_slide_categoria_original": "Agro / Revenda",
+            },
+            {
+                "cnpj": outside_review_cnpj,
+                "mvp_slide_categoria": "Financeiro",
+                "mvp_slide_categoria_original": "Financeiro",
+            },
+        ]
+    )
+    review = pd.DataFrame(
+        [
+            {
+                "cnpj": applied_cnpj,
+                "categoria_atual": "Financeiro",
+                "categoria_proposta": "Risco Corporativo",
+                "categoria_candidata": "",
+                "subtipo_risco": "Recebíveis corporativos comprovados",
+                "status": "APLICAR_ALTA",
+                "applied_flag": "SIM",
+                "middle_market_status": "Candidato",
+                "racional": "Documento identifica devedores corporativos.",
+                "evidencia": "regulamento TESTE-1",
+            },
+            {
+                "cnpj": pending_cnpj,
+                "categoria_atual": "Agro / Revenda",
+                "categoria_proposta": "Agro / Revenda",
+                "categoria_candidata": "Risco Corporativo",
+                "subtipo_risco": "Lastro específico pendente",
+                "status": "PENDENTE_TIPO_LASTRO",
+                "applied_flag": "NAO",
+                "middle_market_status": "Pendente",
+                "racional": "Instrumento e devedor ainda não isolados.",
+                "evidencia": "regulamento TESTE-2",
+            },
+        ]
+    )
+
+    result = build_industry_portfolio_export(
+        carteira_detail=detail,
+        carteira_structural=structural,
+        flagship_detail=_flagships([]),
+        risk_review=review,
+    )
+    rows = result.carteira.set_index("cnpj")
+
+    applied = rows.loc[applied_cnpj]
+    assert applied["categoria_risco_atual"] == "Financeiro"
+    assert applied["categoria_risco_proposta"] == "Risco Corporativo"
+    assert applied["mvp_slide_categoria"] == "Risco Corporativo"
+    assert bool(applied["reclassificacao_proposta_flag"])
+    assert applied["subtipo_risco_diagnosticado"] == (
+        "Recebíveis corporativos comprovados"
+    )
+    assert applied["fonte_avaliacao_reclassificacao"] == (
+        "regulamento TESTE-1"
+    )
+    assert pd.isna(applied["middle_market_porte_documentado_flag"])
+
+    pending = rows.loc[pending_cnpj]
+    assert pending["categoria_risco_atual"] == "Agro / Revenda"
+    assert pending["categoria_risco_proposta"] == "Agro / Revenda"
+    assert pending["mvp_slide_categoria"] == "Agro / Revenda"
+    assert not bool(pending["reclassificacao_proposta_flag"])
+    assert pending["status_avaliacao_reclassificacao"] == (
+        "PENDENTE_TIPO_LASTRO"
+    )
+    assert pending["subtipo_risco_diagnosticado"] == (
+        "Lastro específico pendente"
+    )
+    assert pd.isna(pending["middle_market_porte_documentado_flag"])
+
+    outside = rows.loc[outside_review_cnpj]
+    assert outside["categoria_risco_proposta"] == "Financeiro"
+    assert outside["subtipo_risco_diagnosticado"] == "N/D"
+    assert outside["fonte_avaliacao_reclassificacao"] == "N/D"
+    assert outside["middle_market_status"] == "N/D"
+    assert not bool(outside["reclassificacao_proposta_flag"])

@@ -687,8 +687,37 @@ def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) ->
         "generated_revision/industry_executive_revised.pptx",
         "generated_revision/industry_data_revised.xlsx",
         "generated_revision/carteira_101_flagships.xlsx",
+        "generated_revision/top100_fidcs_middle_market.xlsx",
         "generated_revision/provider_flows_explorer.html",
     }.issubset(_INDUSTRY_EXPORT_INPUTS)
+
+
+def test_industry_exports_expose_the_top100_workbook_download() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    payload_source = source[
+        source.index("def _industry_export_payloads") : source.index(
+            "def _industry_provider_flow_html"
+        )
+    ]
+    download_source = source[
+        source.index("def _render_industry_exports") : source.index(
+            "def _stock_delta_display"
+        )
+    ]
+    data_export_source = source[
+        source.index("def _render_revision_data_exports") : source.index(
+            "def _render_industry_data_audit"
+        )
+    ]
+
+    assert "tuple[bytes, bytes, bytes, bytes, bytes]" in payload_source
+    assert "build_revision_top100_xlsx_bytes" in payload_source
+    assert "Top 100 FIDCs" in download_source
+    assert "data=top100_xlsx_bytes" in download_source
+    assert "Top100_FIDCs_Middle_Market_" in download_source
+    assert "industry-top100-xlsx-" in download_source
+    assert "Excel — Top 100 FIDCs e Middle Market" in data_export_source
+    assert "top100_fidcs_middle_market.xlsx" in data_export_source
 
 
 def test_industry_csv_cache_reloads_when_the_source_changes(

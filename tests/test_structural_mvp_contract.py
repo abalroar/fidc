@@ -5,14 +5,21 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from services.industry_flagship_curation import (
     PORTFOLIO_FLAGSHIP_GROUPS,
     PortfolioCurationResult,
     PortfolioFlagshipComparisonResult,
 )
-from services.industry_structural_risk import build_portfolio_structural_risk
-from services.industry_structural_risk import _load_mvp_slide_overrides
+from services.industry_structural_risk import (
+    MVP_SLIDE_CATEGORIES,
+    _apply_financeiro_agro_risk_review,
+    _load_financeiro_agro_risk_review,
+    _load_mvp_slide_overrides,
+    _validate_financeiro_agro_risk_review,
+    build_portfolio_structural_risk,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -157,10 +164,99 @@ def test_structural_mvp_card_metric_whitelist_is_basic() -> None:
         assert forbidden not in card.lower()
 
 
-def test_slide_only_taxonomy_overlay_preserves_the_seven_audited_decisions() -> None:
-    overrides = _load_mvp_slide_overrides().set_index("cnpj")
+def test_financeiro_agro_review_contract_is_complete_and_fail_closed() -> None:
+    review = _load_financeiro_agro_risk_review()
 
-    assert len(overrides) == 7
+    assert len(review) == 72
+    assert review["cnpj"].nunique() == 72
+    assert review["categoria_atual"].value_counts().to_dict() == {
+        "Agro / Revenda": 49,
+        "Financeiro": 23,
+    }
+    assert review["subtipo_risco"].str.strip().ne("").all()
+    assert review["status"].str.strip().ne("").all()
+    assert review["evidencia"].str.strip().ne("").all()
+    applied = review["applied_flag"].eq("SIM")
+    assert int(applied.sum()) == 20
+    assert review.loc[applied, "categoria_atual"].ne(
+        review.loc[applied, "categoria_proposta"]
+    ).all()
+    assert review.loc[~applied, "categoria_atual"].eq(
+        review.loc[~applied, "categoria_proposta"]
+    ).all()
+    assert "Risco Corporativo" in MVP_SLIDE_CATEGORIES
+    assert "Risco Corporativo" in set(review["categoria_proposta"])
+
+    scope = pd.read_csv(
+        ROOT / "data" / "industry_study" / "industry_carteira_1_scope.csv",
+        dtype=str,
+        keep_default_na=False,
+    )
+    assert set(review["cnpj"]).issubset(set(scope["cnpj_fundo"]))
+
+    invalid = review.iloc[[0]].copy()
+    invalid.loc[:, "applied_flag"] = "NAO"
+    invalid.loc[:, "categoria_proposta"] = "Risco Corporativo"
+    with pytest.raises(ValueError, match="mantém categoria atual"):
+        _validate_financeiro_agro_risk_review(invalid)
+
+
+def test_review_application_reconciles_99_cases_and_two_exclusions() -> None:
+    review = _load_financeiro_agro_risk_review()
+    reviewed_rows = review[["cnpj", "categoria_atual"]].rename(
+        columns={"categoria_atual": "mvp_slide_categoria"}
+    )
+    reviewed_rows["mvp_slide_categoria_original"] = reviewed_rows[
+        "mvp_slide_categoria"
+    ]
+    additional_rows = pd.DataFrame(
+        {
+            "cnpj": [f"{90_000_000_000_000 + index:014d}" for index in range(29)],
+            "mvp_slide_categoria": ["Factoring"] * 27 + ["Veículos", "N/D"],
+            "mvp_slide_categoria_original": ["Factoring"] * 27
+            + ["Veículos", "N/D"],
+        }
+    )
+    rows = pd.concat([reviewed_rows, additional_rows], ignore_index=True)
+
+    applied_rows = _apply_financeiro_agro_risk_review(rows, review)
+    included = applied_rows[
+        applied_rows["categoria_risco_proposta"].isin(MVP_SLIDE_CATEGORIES)
+    ]
+    changed = applied_rows["categoria_risco_atual"].ne(
+        applied_rows["categoria_risco_proposta"]
+    )
+
+    assert len(applied_rows) == 101
+    assert len(included) == 99
+    excluded = applied_rows.loc[
+        ~applied_rows.index.isin(included.index), "categoria_risco_proposta"
+    ]
+    assert set(excluded) == {"Veículos", "N/D"}
+    assert int(changed.sum()) == 20
+    assert changed.equals(
+        applied_rows["reclassificacao_proposta_flag"].astype(bool)
+    )
+
+
+def test_slide_only_taxonomy_overlay_preserves_all_audited_decisions() -> None:
+    overrides = _load_mvp_slide_overrides().set_index("cnpj")
+    review = _load_financeiro_agro_risk_review().set_index("cnpj")
+    applied = review[review["applied_flag"].eq("SIM")]
+
+    assert len(overrides) == 26
+    assert overrides["categoria_mvp"].value_counts().to_dict() == {
+        "Risco Corporativo": 13,
+        "Adquirência": 11,
+        "Agro / Revenda": 1,
+        "Consignado INSS e FGTS": 1,
+    }
+    assert overrides["fonte"].astype(str).str.strip().ne("").all()
+    assert overrides["motivo"].astype(str).str.strip().ne("").all()
+    assert set(applied.index).issubset(set(overrides.index))
+    assert overrides.loc[applied.index, "categoria_mvp"].to_dict() == (
+        applied["categoria_proposta"].to_dict()
+    )
     for cnpj in (
         "45598747000121",  # SumUp Solo
         "62626887000185",  # SumUp Smart IV
@@ -173,7 +269,17 @@ def test_slide_only_taxonomy_overlay_preserves_the_seven_audited_decisions() -> 
         assert overrides.loc[cnpj, "fonte"]
         assert overrides.loc[cnpj, "motivo"]
 
-    medici = overrides.loc["62393829000159"]
-    assert medici["categoria_mvp"] == "Agro / Revenda"
-    assert "BRF" in medici["motivo"]
-    assert "Marfrig" in medici["motivo"]
+    assert overrides.loc["52968533000165", "categoria_mvp"] == "Agro / Revenda"
+    for cnpj in (
+        "52100879000147",
+        "38658727000133",
+        "63622842000103",
+        "65873297000145",
+    ):
+        assert overrides.loc[cnpj, "categoria_mvp"] == "Risco Corporativo"
+
+    assert overrides.loc["62393829000159", "categoria_mvp"] == "Risco Corporativo"
+    medici = review.loc["62393829000159"]
+    assert medici["categoria_proposta"] == "Risco Corporativo"
+    assert medici["categoria_atual"] == "Agro / Revenda"
+    assert medici["applied_flag"] == "SIM"

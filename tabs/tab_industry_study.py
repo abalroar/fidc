@@ -184,6 +184,8 @@ _INDUSTRY_EXPORT_INPUTS = (
     "acquiring_reclassification_curation.csv",
     "card_receivables_curation.csv",
     "industry_cnpj_manual_enrichment.csv",
+    "carteira_101_financeiro_agro_risk_review.csv",
+    "structural_mvp_slide_overrides.csv",
     "industry_intelligence_manifest.json",
     "generated_revision/artifact_payload.json",
     "generated_revision/revision_manifest.json",
@@ -191,6 +193,7 @@ _INDUSTRY_EXPORT_INPUTS = (
     "generated_revision/industry_executive_revised.pptx",
     "generated_revision/industry_data_revised.xlsx",
     "generated_revision/carteira_101_flagships.xlsx",
+    "generated_revision/top100_fidcs_middle_market.xlsx",
     "generated_revision/provider_flows_explorer.html",
 )
 _ALL_FIDCS_CRITERIA = Path(__file__).resolve().parents[1] / "data" / "regulatory_profiles" / "all_fidcs_criteria_monitoraveis_ime.csv"
@@ -9352,6 +9355,14 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
         )
     if schema_version >= 7:
         required.update({"bcb_expanded_credit", "market_offer_reconciliation"})
+    if schema_version >= 9:
+        required.update(
+            {
+                "portfolio_export_carteira_101",
+                "top100_fidcs_middle_market",
+                "top100_fidcs_middle_market_summary",
+            }
+        )
     missing = sorted(required.difference(payload))
     comparable_offer_key = next(
         (
@@ -9385,6 +9396,8 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
             raise ValueError("payload v3 sem curadoria estruturada de adquirência")
     if len(payload["top20_fidcs"]) != 20 or len(payload["top20_outros"]) != 20:
         raise ValueError("rankings revisados devem conter exatamente 20 fundos")
+    if schema_version >= 9 and len(payload["top100_fidcs_middle_market"]) != 100:
+        raise ValueError("Top 100 FIDCs / Middle Market deve conter exatamente 100 fundos")
     required_columns = {
         "pl_history": {"competencia", "year", "pl_total", "pl_ex_fic", "pl_fic_componente"},
         "investor_base_history": {"competencia", "year", "cotistas_total", "n_veiculos"},
@@ -9764,15 +9777,20 @@ def _bundle_predates_issuance_correction() -> bool:
 def _industry_export_signature() -> str:
     from services.industry_revision_export import revision_export_signature
 
-    return revision_export_signature(_DATA_DIR)
+    bundle_signature = revision_export_signature(_DATA_DIR)
+    input_signature = _industry_files_signature(_INDUSTRY_EXPORT_INPUTS)
+    return f"{bundle_signature}:{input_signature}"
 
 
 @st.cache_data(show_spinner=False)
-def _industry_export_payloads(signature: str) -> tuple[bytes, bytes, bytes, bytes]:
+def _industry_export_payloads(
+    signature: str,
+) -> tuple[bytes, bytes, bytes, bytes, bytes]:
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
     from services.industry_revision_export import (
         build_revision_html_bytes,
         build_revision_portfolio_xlsx_bytes,
+        build_revision_top100_xlsx_bytes,
     )
 
     del signature  # the value participates in Streamlit's cache key
@@ -9780,6 +9798,7 @@ def _industry_export_payloads(signature: str) -> tuple[bytes, bytes, bytes, byte
         build_industry_pptx_bytes(_DATA_DIR),
         build_industry_xlsx_bytes(_DATA_DIR),
         build_revision_portfolio_xlsx_bytes(_DATA_DIR),
+        build_revision_top100_xlsx_bytes(_DATA_DIR),
         build_revision_html_bytes(_DATA_DIR),
     )
 
@@ -9934,14 +9953,18 @@ def _industry_holder_histogram_frames(
 
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
     try:
-        pptx_bytes, xlsx_bytes, portfolio_xlsx_bytes, html_bytes = _industry_export_payloads(
-            _industry_export_signature()
-        )
+        (
+            pptx_bytes,
+            xlsx_bytes,
+            portfolio_xlsx_bytes,
+            top100_xlsx_bytes,
+            html_bytes,
+        ) = _industry_export_payloads(_industry_export_signature())
     except Exception as exc:  # noqa: BLE001
         st.warning(f"Exportação executiva indisponível: {exc}")
         return
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    left, middle, portfolio, right, _spacer = st.columns([1, 1, 1, 1, 1])
+    left, middle, portfolio, top100, right = st.columns([1, 1, 1, 1, 1])
     with left:
         st.download_button(
             "PPTX",
@@ -9974,6 +9997,17 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
             help="Baixar base manipulável da Carteira 101 e dos Flagships",
             width="stretch",
             key=f"industry-portfolio-xlsx-{suffix}",
+        )
+    with top100:
+        st.download_button(
+            "Top 100 FIDCs",
+            data=top100_xlsx_bytes,
+            file_name=f"Top100_FIDCs_Middle_Market_{file_period}.xlsx",
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            icon=":material/table_view:",
+            help="Baixar Top 100 FIDCs com sinais documentais de crédito corporativo e Middle Market",
+            width="stretch",
+            key=f"industry-top100-xlsx-{suffix}",
         )
     with right:
         st.download_button(
@@ -13121,6 +13155,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         "fidc_revision_artifact_payload_v6",
         "fidc_revision_artifact_payload_v7",
         "fidc_revision_artifact_payload_v8",
+        "fidc_revision_artifact_payload_v9",
     }
     ranking_tab, flows_tab, market_share_tab, model_tab = st.tabs(
         ["Ranking", "Bancos e fluxos", "Market share", "Modelo de prestação"]
@@ -15844,7 +15879,7 @@ def _render_revision_data_exports(
     if export_status.bundle_valid and ledger_synced:
         st.success(
             f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
-            "PPTX, XLSX principal, XLSX da Carteira 101/Flagships e HTML "
+            "PPTX, XLSX principal, XLSX da Carteira 101/Flagships, XLSX Top 100 e HTML "
             "reconciliados pelo mesmo payload e por hashes."
         )
         # O bundle é coerente consigo mesmo, mas foi publicado antes da correção
@@ -15864,7 +15899,7 @@ def _render_revision_data_exports(
         _render_industry_exports(suffix="revision", as_of_date=str(payload.get("offers_as_of") or ""))
     elif not ledger_synced:
         st.error(
-            "Exportação revisada bloqueada: o ledger de taxonomia foi alterado após a publicação do bundle. Republique PPTX, os dois workbooks e HTML para sincronizar a decisão."
+            "Exportação revisada bloqueada: o ledger de taxonomia foi alterado após a publicação do bundle. Republique PPTX, os três workbooks e HTML para sincronizar a decisão."
         )
     else:
         st.error(
@@ -15933,6 +15968,9 @@ def _render_revision_data_exports(
         files = {
             "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
             "Excel — Carteira 101 e Flagships": "carteira_101_flagships.xlsx",
+            "Excel — Top 100 FIDCs e Middle Market": "top100_fidcs_middle_market.xlsx",
+            "Auditoria — risco Financeiro e Agro/Revenda": "../carteira_101_financeiro_agro_risk_review.csv",
+            "Overrides — slides estruturais da Carteira 101": "../structural_mvp_slide_overrides.csv",
             "QA inadimplência": "qa_inadimplencia_competencia.csv",
             "Histórico de inadimplência da coorte atual": "inadimplencia_coorte_atual_historico.csv",
             "Dispersão da inadimplência por subcategoria": "inadimplencia_dispersao_subcategoria.csv",
@@ -15964,7 +16002,8 @@ def _render_revision_data_exports(
                 data = path.read_bytes()
                 download_name = path.name
                 if path.suffix == ".csv":
-                    data = _ptbr_csv_bytes(pd.read_csv(path, low_memory=False))
+                    separator = ";" if path.name == "carteira_101_financeiro_agro_risk_review.csv" else ","
+                    data = _ptbr_csv_bytes(pd.read_csv(path, sep=separator, low_memory=False))
                 st.download_button(
                     label,
                     data,

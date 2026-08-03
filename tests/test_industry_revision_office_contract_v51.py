@@ -20,6 +20,7 @@ from zipfile import ZIP_DEFLATED, ZipFile
 
 import pytest
 from openpyxl import Workbook, load_workbook
+from openpyxl.chart import BarChart, Reference
 
 from services.industry_revision_export import (
     CURRENT_TOP15_SLIDE_SEQUENCE,
@@ -37,6 +38,7 @@ from services.industry_revision_export import (
     _validate_no_blocked_audience_copy,
     validate_revision_portfolio_xlsx,
     validate_revision_pptx,
+    validate_revision_top100_xlsx,
 )
 
 
@@ -123,6 +125,30 @@ def test_portfolio_workbook_validator_rejects_incomplete_or_invalid_data(
         validate_revision_portfolio_xlsx(_portfolio_workbook_bytes(**kwargs))
 
 
+def test_top100_workbook_validator_accepts_global_ranking_contract() -> None:
+    validate_revision_top100_xlsx(_top100_workbook_bytes())
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "message"),
+    [
+        ({"row_count": 99}, "deveria conter 100 linhas"),
+        ({"duplicate_cnpj": True}, "100 CNPJs numéricos válidos e únicos"),
+        ({"invalid_cnpj": True}, "100 CNPJs numéricos válidos e únicos"),
+        (
+            {"missing_header": "Middle Market · status"},
+            "sem cabeçalhos obrigatórios",
+        ),
+    ],
+)
+def test_top100_workbook_validator_rejects_incomplete_or_invalid_data(
+    kwargs: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(RevisionExportUnavailable, match=message):
+        validate_revision_top100_xlsx(_top100_workbook_bytes(**kwargs))
+
+
 PAYLOAD = (
     ROOT
     / "data"
@@ -178,6 +204,7 @@ def _portfolio_workbook_bytes(
     next_cnpj = 1
     for sheet_name, row_count in (
         ("Carteira 101", carteira_rows),
+        ("Casos 99", 99),
         ("Flagships", flagship_rows),
     ):
         sheet = workbook[sheet_name]
@@ -201,6 +228,66 @@ def _portfolio_workbook_bytes(
                 sheet.cell(row=5 + offset, column=column, value="N/D")
             cnpj_cell = sheet.cell(row=5 + offset, column=cnpj_column, value=value)
             cnpj_cell.number_format = "00000000000000"
+
+    editable_names = workbook["Nomes editáveis"]
+    editable_names.append(["Nome editável", "PL"])
+    editable_names.append(["FIDC de teste", 1.0])
+    chart = BarChart()
+    chart.add_data(
+        Reference(editable_names, min_col=2, min_row=1, max_row=2),
+        titles_from_data=True,
+    )
+    chart.set_categories(
+        Reference(editable_names, min_col=1, min_row=2, max_row=2)
+    )
+    workbook["Leia-me"].add_chart(chart, "A3")
+
+    payload = BytesIO()
+    workbook.save(payload)
+    workbook.close()
+    return payload.getvalue()
+
+
+def _top100_workbook_bytes(
+    *,
+    row_count: int = 100,
+    missing_header: str | None = None,
+    duplicate_cnpj: bool = False,
+    invalid_cnpj: bool = False,
+) -> bytes:
+    workbook = Workbook()
+    workbook.active.title = "Leia-me"
+    sheet = workbook.create_sheet("Top 100 FIDCs")
+    headers = [
+        "Posição",
+        "CNPJ",
+        "Nome completo do fundo (CVM)",
+        "PL",
+        "Cedente / originador",
+        "Sacado / devedor",
+        "Tipo de recebível",
+        "Tipo ANBIMA oficial",
+        "Taxonomia funcional N1",
+        "Middle Market · status",
+        "Fonte",
+    ]
+    if missing_header is not None:
+        headers.remove(missing_header)
+    for column, header in enumerate(headers, start=1):
+        sheet.cell(row=4, column=column, value=header)
+    cnpj_column = headers.index("CNPJ") + 1
+    for offset in range(row_count):
+        digits = _test_cnpj(20_000 + offset)
+        value: object = int(digits)
+        if duplicate_cnpj and offset == 1:
+            value = int(_test_cnpj(20_000))
+        if invalid_cnpj and offset == 0:
+            value = 123
+        for column in range(1, len(headers) + 1):
+            sheet.cell(row=5 + offset, column=column, value="N/D")
+        sheet.cell(row=5 + offset, column=headers.index("Posição") + 1, value=offset + 1)
+        cnpj_cell = sheet.cell(row=5 + offset, column=cnpj_column, value=value)
+        cnpj_cell.number_format = "00000000000000"
 
     payload = BytesIO()
     workbook.save(payload)
@@ -481,16 +568,17 @@ def test_export_and_renderer_declare_dynamic_slide_contract() -> None:
     ).read_text(encoding="utf-8")
 
     assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE)
-    assert EXPECTED_SLIDES == 36
+    assert EXPECTED_SLIDES == 37
     assert len(TYPE_RANKING_SLIDE_SEQUENCE) == 8
     assert STRUCTURAL_MVP_SLIDE_SEQUENCE == (
         ("risco estrutural", "financeiro", "carteira i"),
         ("risco estrutural", "adquirencia", "carteira i"),
         ("risco estrutural", "agro / revenda", "carteira i"),
+        ("risco estrutural", "risco corporativo", "carteira i"),
         ("risco estrutural", "consignado inss e fgts", "carteira i"),
         ("risco estrutural", "factoring", "carteira i"),
     )
-    assert len(STRUCTURAL_MVP_SLIDE_SEQUENCE) == len(STRUCTURAL_MVP_SLIDES) == 5
+    assert len(STRUCTURAL_MVP_SLIDE_SEQUENCE) == len(STRUCTURAL_MVP_SLIDES) == 6
     assert len(CURRENT_TOP15_SLIDE_SEQUENCE) == 2
     assert len(HISTORICAL_TOP15_SLIDE_SEQUENCE) == 4
     assert HISTORICAL_TOP15_SLIDE_SEQUENCE == (
@@ -857,7 +945,7 @@ def test_annual_issuance_slide_contains_the_consolidated_anbima_taxonomy_table()
         assert token in text
 
 
-def test_structural_chapter_uses_five_mvp_slides_and_keeps_workbook_audit() -> None:
+def test_structural_chapter_uses_six_mvp_slides_and_keeps_workbook_audit() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         for slide_number, contract_tokens in zip(
