@@ -755,7 +755,7 @@ def validate_revision_pptx(payload: bytes) -> None:
             _validate_native_table_slide(
                 archive,
                 ranking_slide_number,
-                expected_dimensions=((16, 9),),
+                expected_dimensions=((16, 8),),
                 canvas=canvas,
             )
             ranking_text = _normalized_slide_text(

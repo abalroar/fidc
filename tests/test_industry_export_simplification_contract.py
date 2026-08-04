@@ -264,7 +264,7 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     }
     assert manifest["payload_sha256"] == payload_digest
     assert manifest["payload_schema"] == payload["schema_version"] == PAYLOAD_SCHEMA
-    assert len(payload) == 174
+    assert len(payload) == 178
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
@@ -281,6 +281,10 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
         "flagship_curation_summary",
         "flagship_families",
         "emission_field_audit",
+        "emission_remuneration_matched_pairs",
+        "emission_remuneration_matched_summary",
+        "emission_remuneration_tier_pairs",
+        "emission_remuneration_tier_summary",
         "issuance_taxonomy",
         "issuance_taxonomy_reconciliation",
         "issuance_taxonomy_table",
@@ -340,9 +344,9 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 87
+    assert len(pptx_keys) == 90
     assert len(dashboard_keys) == 95
-    assert len(consumer_keys) == 119
+    assert len(consumer_keys) == 122
     assert {
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",

@@ -1228,7 +1228,7 @@ def test_new_analytical_slides_use_native_office_structures(
         assert _native_table_count(archive, slide_number) >= minimum_tables
 
 
-def test_top_type_slides_split_each_type_and_period_with_originator_column() -> None:
+def test_top_type_slides_split_each_type_and_period_with_readable_documentary_fields() -> None:
     _require(PPTX)
     _require(PAYLOAD)
     with ZipFile(PPTX) as archive:
@@ -1244,9 +1244,10 @@ def test_top_type_slides_split_each_type_and_period_with_originator_column() -> 
     for text in slide_texts:
         assert "Top 15" in text
         assert any(period in text for period in ("jun/26", "dez/25"))
-        assert "Originador" in text
+        assert "Cedente / originador" in text
         assert "Remuneração-alvo" in text
         assert "Preço por cota" not in text
+        assert "* = complemento manual" in text
     for type_name in (
         "Fomento Mercantil",
         "Agro, Indústria e Comércio",
@@ -1261,6 +1262,55 @@ def test_top_type_slides_split_each_type_and_period_with_originator_column() -> 
     ):
         assert "jun/26 · Top 15" in current_slide
         assert "dez/25 · Top 15" in comparison_slide
+
+    all_text = "\n".join(slide_texts)
+    assert sum("Prêmio de remuneração Mz.–Sr." in text for text in slide_texts) == 1
+    assert sum("N=20 fundo-corte" in text for text in slide_texts) == 1
+    assert sum("Movimento semestral" in text for text in slide_texts) == 1
+    assert sum("N=22 fundo-classe" in text for text in slide_texts) == 1
+    assert re.search(r"\+\d+\*", all_text) is None
+    assert "BRF S .A." not in all_text
+    for fragment in (
+        "1 sacado 2 sacado 3",
+        "os devedores dos",
+        "pessoas físicas e/ou",
+        "as Cooperativas, os",
+        "(i) o Itaú Unibanco",
+        "Emissores e",
+        "Pessoas físicas,",
+        "Pessoas jurídicas às",
+        "Contrapartes compradoras nos",
+        "sociedades que compõem",
+        "Stone, Pagar.me e",
+        "Cielo, como",
+        "PagSeguro, como",
+        "PicPay, responsável",
+        "o MERCADO PAGO",
+        "Pessoas físicas ou",
+        "União, estados,",
+        "Entes públicos e",
+        "Clientes/sacados das",
+    ):
+        assert fragment not in all_text
+
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    tier = payload["emission_remuneration_tier_summary"]
+    assert tier["pairs"] == 20
+    assert tier["median_bps"] == 100.0
+    assert tier["min_bps"] == 50.0
+    assert tier["max_bps"] == 300.0
+    matched = payload["emission_remuneration_matched_summary"]
+    assert matched["pairs"] == 22
+    assert matched["changed_pairs"] == 1
+    changed = [
+        row
+        for row in payload["emission_remuneration_matched_pairs"]
+        if row["changed"]
+    ]
+    assert len(changed) == 1
+    assert changed[0]["cnpj"] == "08678936000188"
+    assert changed[0]["tranche_family"] == "Sênior"
+    assert changed[0]["delta_bps"] == -50.0
 
 
 def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
@@ -1413,7 +1463,7 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
     _require(XLSX)
     workbook = load_workbook(XLSX, read_only=True, data_only=False)
     sheet = workbook["Auditoria emissões"]
-    headers = [sheet.cell(4, column).value for column in range(1, 25)]
+    headers = [sheet.cell(4, column).value for column in range(1, 28)]
     assert headers == [
         "Bloco do deck",
         "Tabela / período",
@@ -1426,6 +1476,9 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         "Remuneração-alvo por tipo de cota",
         "Cedente",
         "Sacado",
+        "Cedente / originador · exibição",
+        "Sacado · exibição",
+        "Regra exibição sacado",
         "Cedente / Originador literal*",
         "Tipo de recebível literal*",
         "Fonte enriquecimento manual",
@@ -1441,7 +1494,7 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         "Status",
     ]
     rows = list(
-        sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=24, values_only=True)
+        sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=27, values_only=True)
     )
     assert len(rows) == 180
     assert sum(row[0] == "slides 10–17" for row in rows) == 120
@@ -1465,6 +1518,44 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
     )
     assert all("R$" not in str(row[remuneration_index]) for row in remuneration_rows)
     assert all(row[remuneration_source_index] != "N/D" for row in remuneration_rows)
+
+    top15_rows = [row for row in rows if row[0] == "slides 10–17"]
+    assert {
+        "Originador": sum(row[header_index["Originador"]] != "N/D" for row in top15_rows),
+        "Cedente": sum(row[header_index["Cedente"]] != "N/D" for row in top15_rows),
+        "Subordinação mínima": sum(
+            row[header_index["Subordinação mínima"]] != "N/D" for row in top15_rows
+        ),
+        "Remuneração-alvo": sum(
+            row[header_index["Remuneração-alvo por tipo de cota"]] != "N/D"
+            for row in top15_rows
+        ),
+        "Sacado": sum(row[header_index["Sacado"]] != "N/D" for row in top15_rows),
+    } == {
+        "Originador": 34,
+        "Cedente": 66,
+        "Subordinação mínima": 19,
+        "Remuneração-alvo": 32,
+        "Sacado": 44,
+    }
+
+    combined_index = header_index["Cedente / originador · exibição"]
+    sacado_display_index = header_index["Sacado · exibição"]
+    sacado_rule_index = header_index["Regra exibição sacado"]
+    assert sum(row[sacado_display_index] != "N/D" for row in top15_rows) == 42
+    multiplica_rows = [row for row in top15_rows if "MULTIPLICA" in str(row[4]).upper()]
+    assert len(multiplica_rows) == 2
+    assert all(row[sacado_display_index] == "N/D" for row in multiplica_rows)
+    assert all("legenda" in str(row[sacado_rule_index]).lower() for row in multiplica_rows)
+
+    rows_with_both_parties = [
+        row
+        for row in top15_rows
+        if row[header_index["Originador"]] != "N/D"
+        and row[header_index["Cedente"]] != "N/D"
+    ]
+    assert len(rows_with_both_parties) == 30
+    assert sum("· O:" not in str(row[combined_index]) for row in rows_with_both_parties) == 15
 
     coverage = workbook["Cobertura emissões"]
     coverage_headers = [coverage.cell(4, column).value for column in range(1, 17)]
