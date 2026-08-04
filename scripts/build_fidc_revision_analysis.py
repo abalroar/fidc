@@ -25,6 +25,7 @@ from services.industry_revision_analysis import (
     build_revision_outputs,
     write_revision_outputs,
 )
+from services.industry_taxonomy_review import load_taxonomy_review_actions
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -209,6 +210,9 @@ def main(argv: list[str] | None = None) -> None:
     acquiring_reclassification = _read_optional(
         data_dir / "acquiring_reclassification_curation.csv"
     )
+    taxonomy_review_actions = load_taxonomy_review_actions(
+        data_dir / "taxonomy_review_actions.csv"
+    )
     from scripts.build_fidc_industry_study import RawStore, aggregate_month, load_tab4
 
     store = RawStore(Path(args.raw_dir), allow_download=not args.skip_download)
@@ -326,6 +330,7 @@ def main(argv: list[str] | None = None) -> None:
         provider_ownership_curation=provider_ownership,
         bank_fidc_curation=bank_fidcs,
         acquiring_reclassification_curation=acquiring_reclassification,
+        taxonomy_review_actions=taxonomy_review_actions,
         latest_complete=latest_complete,
     )
     manifest = write_revision_outputs(outputs, Path(args.output_dir))

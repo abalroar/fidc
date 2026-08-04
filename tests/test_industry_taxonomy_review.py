@@ -487,6 +487,32 @@ def test_approved_overlay_preserves_official_fields_and_changes_analytical_mix()
     assert summary["outros_curado_brl"] == pytest.approx(50.0)
 
 
+def test_second_overlay_pass_keeps_the_first_official_type_and_focus() -> None:
+    funds = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "65473848000183",
+                "anbima_tipo": "Agro, Indústria e Comércio",
+                "anbima_foco": "Recebíveis Comerciais",
+            }
+        ]
+    )
+    action = _action(
+        cnpj_fundo="65473848000183",
+        tipo_analitico="Outros",
+        foco_analitico="Multicedente/Multissacado",
+    )
+    first = apply_taxonomy_review_overlay(funds, action)
+    first["anbima_tipo"] = first["anbima_tipo_curado"]
+    first["anbima_foco"] = first["anbima_foco_curado"]
+    second = apply_taxonomy_review_overlay(first, action)
+
+    assert second.loc[0, "anbima_tipo_oficial"] == "Agro, Indústria e Comércio"
+    assert second.loc[0, "anbima_foco_oficial"] == "Recebíveis Comerciais"
+    assert second.loc[0, "anbima_tipo_curado"] == "Outros"
+    assert second.loc[0, "anbima_foco_curado"] == "Multicedente/Multissacado"
+
+
 def test_approved_overlay_is_independent_of_starting_competence() -> None:
     funds = pd.DataFrame(
         [

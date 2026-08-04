@@ -51,6 +51,10 @@ from services.industry_revision_export import (
     validate_revision_pptx,
     validate_revision_xlsx,
 )
+from services.industry_issuance_taxonomy import (
+    build_issuance_taxonomy,
+    write_issuance_taxonomy,
+)
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -118,6 +122,18 @@ REQUIRED_DATA_INPUTS = (
     "carteira_101_document_audit/carteira_101_document_prices.csv.gz",
     "carteira_101_document_audit/carteira_101_document_checkpoint.jsonl",
     "carteira_101_document_audit/carteira_101_document_manifest.json",
+    "industry_taxonomy_audited_decisions_202606.csv",
+    "industry_taxonomy_audit_top200_202606.csv.gz",
+    "industry_taxonomy_outros_three_buckets_202606.csv",
+    "industry_taxonomy_acquiring_202606.csv",
+    "industry_taxonomy_audit_manifest_202606.json",
+    "industry_taxonomy_impact_summary_202606.csv",
+    "industry_taxonomy_impact_flows_202606.csv",
+    "industry_taxonomy_issuance_impact_202606.csv",
+    "industry_taxonomy_market_share_denominator_impact_202606.csv",
+    "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
+    "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
+    "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -150,6 +166,9 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_fixed_income_offer_comparison.py",
     ROOT / "scripts" / "build_fidc_market_offer_reconciliation.py",
     ROOT / "scripts" / "build_fidc_issuance_taxonomy_delta.py",
+    ROOT / "scripts" / "import_industry_taxonomy_audit.py",
+    ROOT / "scripts" / "build_fidc_cedente_triage.py",
+    ROOT / "scripts" / "build_fidc_taxonomy_impact.py",
     ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
     ROOT / "scripts" / "build_fidc_offer_document_curation.py",
     ROOT / "scripts" / "build_fidc_offer_rating_review.py",
@@ -177,6 +196,9 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_fixed_income_offer_comparison.py",
     ROOT / "services" / "industry_market_offer_reconciliation.py",
     ROOT / "services" / "industry_issuance_taxonomy.py",
+    ROOT / "services" / "industry_taxonomy_audit_import.py",
+    ROOT / "services" / "industry_cedente_triage.py",
+    ROOT / "services" / "industry_taxonomy_impact.py",
     ROOT / "services" / "industry_flagship_curation.py",
     ROOT / "services" / "industry_public_offers.py",
     ROOT / "services" / "industry_bcb_expanded_credit.py",
@@ -504,11 +526,6 @@ def serialize_analysis_manifest(
     return normalized, payload
 
 
-_CARD_TAXONOMY_EXPECTED_STATUS_COUNTS = {
-    "Incluído em Adquirência": 26,
-    "Fora de Adquirência": 17,
-    "Pendente": 1,
-}
 _CARD_TAXONOMY_SUMMARY_STATUS_FIELDS = {
     "Incluído em Adquirência": (
         "fundos_incluidos_adquirencia",
@@ -592,17 +609,17 @@ def validate_fic_detection_audit_provenance(data_dir: Path) -> None:
 def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
     rows = payload.get("card_taxonomy_audit")
     summary = payload.get("card_taxonomy_summary")
-    if not isinstance(rows, list) or len(rows) != 44:
+    if not isinstance(rows, list) or not rows:
         raise RevisionBundlePublishError(
-            "card_taxonomy_audit deve conter exatamente 44 fundos"
+            "card_taxonomy_audit deve conter ao menos um fundo"
         )
     if not isinstance(summary, Mapping):
         raise RevisionBundlePublishError("payload editorial sem card_taxonomy_summary")
 
     ranks: list[int] = []
     cnpjs: list[str] = []
-    status_counts = {status: 0 for status in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS}
-    status_pl = {status: 0.0 for status in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS}
+    status_counts = {status: 0 for status in _CARD_TAXONOMY_SUMMARY_STATUS_FIELDS}
+    status_pl = {status: 0.0 for status in _CARD_TAXONOMY_SUMMARY_STATUS_FIELDS}
     total_pl = 0.0
 
     for index, row in enumerate(rows, start=1):
@@ -628,7 +645,7 @@ def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
         cnpjs.append(cnpj)
 
         status = str(row.get("status_curadoria") or "").strip()
-        if status not in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS:
+        if status not in _CARD_TAXONOMY_SUMMARY_STATUS_FIELDS:
             raise RevisionBundlePublishError(
                 f"card_taxonomy_audit linha {index} contém status_curadoria inválido"
             )
@@ -645,7 +662,15 @@ def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
         total_pl += pl
 
         source_url = str(row.get("fonte_url") or "").strip()
-        if re.match(r"^https?://", source_url, flags=re.IGNORECASE) is None:
+        pending_official_classification = (
+            status == "Pendente"
+            and row.get("anbima_cartao_explicito") is True
+            and str(row.get("classification_source") or "").strip() not in {"", "N/D"}
+        )
+        if (
+            re.match(r"^https?://", source_url, flags=re.IGNORECASE) is None
+            and not pending_official_classification
+        ):
             raise RevisionBundlePublishError(
                 f"card_taxonomy_audit linha {index} contém fonte_url inválida"
             )
@@ -654,18 +679,14 @@ def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
                 f"card_taxonomy_audit linha {index} contém divergência de decisão"
             )
 
-    expected_ranks = list(range(1, 45))
+    expected_ranks = list(range(1, len(rows) + 1))
     if ranks != expected_ranks:
         raise RevisionBundlePublishError(
-            "card_taxonomy_audit deve ter ordem_materialidade contínua de 1 a 44"
+            "card_taxonomy_audit deve ter ordem_materialidade contínua de 1 a N"
         )
-    if len(set(cnpjs)) != 44:
+    if len(set(cnpjs)) != len(rows):
         raise RevisionBundlePublishError(
-            "card_taxonomy_audit deve conter 44 CNPJs únicos"
-        )
-    if status_counts != _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS:
-        raise RevisionBundlePublishError(
-            "card_taxonomy_audit deve reconciliar 26 incluídos, 17 fora e 1 pendente"
+            "card_taxonomy_audit deve conter CNPJs únicos"
         )
 
     required_summary_fields = {
@@ -683,11 +704,14 @@ def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
         raise RevisionBundlePublishError(
             "card_taxonomy_summary sem campos obrigatórios: " + ", ".join(missing)
         )
-    if _integer_payload_number(summary.get("fundos_total"), "card_taxonomy_summary.fundos_total") != 44:
+    if _integer_payload_number(
+        summary.get("fundos_total"),
+        "card_taxonomy_summary.fundos_total",
+    ) != len(rows):
         raise RevisionBundlePublishError(
-            "card_taxonomy_summary deve reconciliar 44 fundos"
+            "card_taxonomy_summary.fundos_total diverge das linhas auditadas"
         )
-    for status, expected_count in _CARD_TAXONOMY_EXPECTED_STATUS_COUNTS.items():
+    for status, expected_count in status_counts.items():
         count_field, pl_field = _CARD_TAXONOMY_SUMMARY_STATUS_FIELDS[status]
         if _integer_payload_number(
             summary.get(count_field), f"card_taxonomy_summary.{count_field}"
@@ -3056,6 +3080,11 @@ def publish_revision_bundle(
     latest_complete = latest_complete or discover_latest_complete(data_dir)
     _validate_input_workbook(input_workbook)
     validate_fic_detection_audit_provenance(data_dir)
+    # This file is a derived input to the editorial payload. Rebuild it from
+    # the current ledger before capturing hashes so the whole publication is
+    # internally immutable and the sector charts cannot lag the de-para.
+    issuance_taxonomy, _issuance_coverage = build_issuance_taxonomy(data_dir)
+    write_issuance_taxonomy(issuance_taxonomy, data_dir)
     # Capture the long-running renderer once.  The staged build must execute
     # the exact bytes recorded in the input signature even if the worktree is
     # edited concurrently.

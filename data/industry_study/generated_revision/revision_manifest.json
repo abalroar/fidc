@@ -3,7 +3,7 @@
     "acquiring_reclassified_rows": 24,
     "bank_fidc_detail_rows": 260,
     "bank_fidc_evolution_rows": 24,
-    "blocked_market_share_combinations": 0,
+    "blocked_market_share_combinations": 6,
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
     "frozen_single_receivable_funds": 2066,
@@ -12,7 +12,7 @@
     "latest_funds": 4247,
     "latest_presence_exact": true,
     "latest_vehicles": 4252,
-    "market_share_foci": 14,
+    "market_share_foci": 18,
     "market_share_roles": 3,
     "provider_transition_changed_funds": 348,
     "provider_transition_continuing_funds": 2170,
@@ -59,7 +59,7 @@
       "rows": 229451
     },
     "base_fundo_cnpj.csv.gz": {
-      "columns": 60,
+      "columns": 70,
       "rows": 229420
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14068
+      "rows": 14320
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
@@ -132,7 +132,7 @@
     },
     "market_share_por_subtipo.csv": {
       "columns": 21,
-      "rows": 504
+      "rows": 756
     },
     "market_share_top10_fixo.csv": {
       "columns": 6,
@@ -143,7 +143,7 @@
       "rows": 17
     },
     "monoestrutura_por_fundo.csv": {
-      "columns": 73,
+      "columns": 83,
       "rows": 3474
     },
     "prestadores_independentes_ranking.csv": {
@@ -215,15 +215,15 @@
       "rows": 229475
     },
     "top20_fidcs.csv": {
-      "columns": 75,
+      "columns": 85,
       "rows": 20
     },
     "top20_outros.csv": {
-      "columns": 76,
+      "columns": 86,
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-08-03T17:09:13+00:00",
+  "generated_at_utc": "2026-08-04T05:53:34+00:00",
   "latest_complete": "2026-06",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

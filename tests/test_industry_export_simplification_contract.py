@@ -264,7 +264,7 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     }
     assert manifest["payload_sha256"] == payload_digest
     assert manifest["payload_schema"] == payload["schema_version"] == PAYLOAD_SCHEMA
-    assert len(payload) == 153
+    assert len(payload) == 162
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
@@ -294,6 +294,15 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
         "top100_fidcs_middle_market",
         "top100_fidcs_middle_market_summary",
         "taxonomy_level_history",
+        "cedente_middle_market_top437",
+        "cedente_middle_market_coverage_curve",
+        "cedente_middle_market_manifest",
+        "taxonomy_audit_decisions",
+        "taxonomy_audit_outros_three_buckets",
+        "taxonomy_audit_impact_summary",
+        "taxonomy_audit_issuance_impact",
+        "taxonomy_audit_market_share_impact",
+        "taxonomy_audit_manifest",
     }.issubset(payload)
     assert len(payload["portfolio_export_carteira_101"]) == 101
     assert len(payload["portfolio_export_cases_99"]) == 99
@@ -332,8 +341,8 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     consumer_keys = pptx_keys | dashboard_keys
 
     assert len(pptx_keys) == 87
-    assert len(dashboard_keys) == 94
-    assert len(consumer_keys) == 118
+    assert len(dashboard_keys) == 95
+    assert len(consumer_keys) == 119
     assert {
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",

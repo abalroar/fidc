@@ -42,7 +42,7 @@ from services.industry_market_offer_reconciliation import (
 from services.industry_issuance_taxonomy import (
     build_issuance_taxonomy,
     build_wide_table,
-    load_issuance_taxonomy,
+    write_issuance_taxonomy,
 )
 from services.industry_bcb_expanded_credit import (
     load_materialized_expanded_credit_history,
@@ -2000,6 +2000,211 @@ def _read_optional(
     return frame
 
 
+def _read_required_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        raise FileNotFoundError(f"arquivo normalizado obrigatório ausente: {path}")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"manifesto normalizado deve ser objeto JSON: {path}")
+    return payload
+
+
+def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
+    """Load normalized cedent/taxonomy audit outputs without reinterpreting them.
+
+    These blocks are materialized upstream from the two source-of-truth
+    workbooks.  The payload layer validates cardinalities and carries the
+    source/limitations forward; it does not repair declared percentages,
+    infer debtors, or infer revenue from cadastral attributes.
+    """
+
+    cedente_dir = data_dir / "cedente_triage" / "202606"
+    cedente_manifest_path = (
+        cedente_dir / "fidc_cedentes_triagem_manifest_202606.json"
+    )
+    cedente_manifest = _read_required_json(cedente_manifest_path)
+    cedente_top = _read_optional(
+        cedente_dir / "fidc_cedentes_top437_202606.csv.gz",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    cedente_curve = _read_optional(
+        cedente_dir / "fidc_cedentes_curva_cobertura_202606.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    if cedente_top.empty or cedente_curve.empty:
+        raise ValueError("triagem de cedentes normalizada está vazia")
+
+    top_queue = cedente_manifest.get("cutoff", {}).get("top_queue", {})
+    expected_top_rows = int(top_queue.get("linhas") or 0)
+    expected_curve_rows = int(
+        cedente_manifest.get("coverage", {}).get("fundos_total") or 0
+    )
+    if expected_top_rows <= 0 or len(cedente_top) != expected_top_rows:
+        raise ValueError(
+            "triagem Top N diverge do manifesto: "
+            f"{len(cedente_top)} linhas vs. {expected_top_rows}"
+        )
+    if expected_curve_rows <= 0 or len(cedente_curve) != expected_curve_rows:
+        raise ValueError(
+            "curva de cobertura diverge do manifesto: "
+            f"{len(cedente_curve)} fundos vs. {expected_curve_rows}"
+        )
+    if cedente_top["cnpj_fundo"].eq("").any() or cedente_curve[
+        "cnpj_fundo"
+    ].eq("").any():
+        raise ValueError("triagem de cedentes contém CNPJ de fundo vazio")
+
+    taxonomy_manifest_path = (
+        data_dir / "industry_taxonomy_audit_manifest_202606.json"
+    )
+    taxonomy_manifest = _read_required_json(taxonomy_manifest_path)
+    taxonomy_decisions = _read_optional(
+        data_dir / "industry_taxonomy_audited_decisions_202606.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    taxonomy_outros = _read_optional(
+        data_dir / "industry_taxonomy_outros_three_buckets_202606.csv",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    taxonomy_impact = _read_optional(
+        data_dir / "industry_taxonomy_impact_summary_202606.csv"
+    )
+    taxonomy_issuance_impact = _read_optional(
+        data_dir / "industry_taxonomy_issuance_impact_202606.csv"
+    )
+    taxonomy_market_share_impact = _read_optional(
+        data_dir
+        / "industry_taxonomy_market_share_denominator_impact_202606.csv"
+    )
+    expected_decisions = int(
+        taxonomy_manifest.get("sheets", {}).get(
+            "De-para reclassificação", 0
+        )
+    )
+    expected_outros = int(
+        taxonomy_manifest.get("sheets", {}).get("Outros · 3 baldes", 0)
+    )
+    if len(taxonomy_decisions) != expected_decisions:
+        raise ValueError(
+            "de-para de taxonomia diverge do manifesto: "
+            f"{len(taxonomy_decisions)} decisões vs. {expected_decisions}"
+        )
+    if len(taxonomy_outros) != expected_outros:
+        raise ValueError(
+            "abertura de Outros diverge do manifesto: "
+            f"{len(taxonomy_outros)} linhas vs. {expected_outros}"
+        )
+    for label, frame in (
+        ("de-para", taxonomy_decisions),
+        ("Outros · 3 baldes", taxonomy_outros),
+    ):
+        if frame["cnpj_fundo"].eq("").any():
+            raise ValueError(f"{label} contém CNPJ vazio")
+        if frame["cnpj_fundo"].duplicated().any():
+            raise ValueError(f"{label} contém CNPJ duplicado")
+
+    impact_requirements = (
+        (
+            "impacto consolidado da taxonomia",
+            taxonomy_impact,
+            {
+                "view",
+                "competence",
+                "universe",
+                "dimension",
+                "category",
+                "delta_brl",
+                "denominator_brl",
+                "delta_pp",
+                "source",
+                "note",
+            },
+        ),
+        (
+            "impacto da taxonomia nas emissões",
+            taxonomy_issuance_impact,
+            {
+                "period_key",
+                "period_label",
+                "categoria",
+                "before_volume_brl",
+                "after_volume_brl",
+                "delta_brl",
+                "delta_pp",
+                "source_before",
+                "source_after",
+                "note",
+            },
+        ),
+        (
+            "impacto da taxonomia nos denominadores de market share",
+            taxonomy_market_share_impact,
+            {
+                "competence",
+                "tipo_anbima",
+                "foco_anbima",
+                "before_denominator_brl",
+                "after_denominator_brl",
+                "delta_denominator_brl",
+                "delta_pp",
+                "source",
+                "note",
+            },
+        ),
+    )
+    for label, frame, required_columns in impact_requirements:
+        if frame.empty:
+            raise ValueError(f"{label} está vazio")
+        missing_columns = sorted(required_columns.difference(frame.columns))
+        if missing_columns:
+            raise ValueError(
+                f"{label} sem colunas obrigatórias: {missing_columns}"
+            )
+
+    issues_by_cnpj = {
+        _digits(issue.get("cnpj_fundo")): issue
+        for issue in taxonomy_manifest.get("issues", [])
+        if isinstance(issue, dict) and _digits(issue.get("cnpj_fundo"))
+    }
+    source = taxonomy_manifest.get("source", {})
+    source_file = str(source.get("filename") or "N/D")
+    source_sha256 = str(source.get("sha256") or "N/D")
+    reference_competence = "2026-06"
+
+    def add_taxonomy_trace(frame: pd.DataFrame) -> pd.DataFrame:
+        traced = frame.copy()
+        traced["fonte_arquivo"] = source_file
+        traced["fonte_sha256"] = source_sha256
+        traced["competencia_referencia"] = reference_competence
+        traced["status_nota_manifest"] = traced["cnpj_fundo"].map(
+            lambda cnpj: str(issues_by_cnpj.get(cnpj, {}).get("status") or "")
+        )
+        traced["nota_manifest"] = traced["cnpj_fundo"].map(
+            lambda cnpj: str(issues_by_cnpj.get(cnpj, {}).get("detail") or "")
+        )
+        return traced
+
+    return {
+        "cedente_middle_market_top437": _records(cedente_top),
+        "cedente_middle_market_coverage_curve": _records(cedente_curve),
+        "cedente_middle_market_manifest": _json_value(cedente_manifest),
+        "taxonomy_audit_decisions": _records(
+            add_taxonomy_trace(taxonomy_decisions)
+        ),
+        "taxonomy_audit_outros_three_buckets": _records(
+            add_taxonomy_trace(taxonomy_outros)
+        ),
+        "taxonomy_audit_impact_summary": _records(taxonomy_impact),
+        "taxonomy_audit_issuance_impact": _records(
+            taxonomy_issuance_impact
+        ),
+        "taxonomy_audit_market_share_impact": _records(
+            taxonomy_market_share_impact
+        ),
+        "taxonomy_audit_manifest": _json_value(taxonomy_manifest),
+    }
+
+
 def _merge_documentary_review_layers(
     *layers: pd.DataFrame,
 ) -> pd.DataFrame:
@@ -3727,8 +3932,9 @@ def build_payload(
     market_offer_reconciliation = (
         load_materialized_market_offer_reconciliation(data_dir)
     )
-    issuance_taxonomy = load_issuance_taxonomy(data_dir)
-    _, issuance_taxonomy_coverage = build_issuance_taxonomy(data_dir)
+    issuance_taxonomy, issuance_taxonomy_coverage = build_issuance_taxonomy(data_dir)
+    # Standalone payload builds must not consume a stale pre-ledger CSV.
+    write_issuance_taxonomy(issuance_taxonomy, data_dir)
     issuance_taxonomy_table = build_wide_table(issuance_taxonomy)
     offer_cohort = pd.read_csv(
         data_dir / "industry_closed_offer_ticket_cohort.csv.gz",
@@ -4358,7 +4564,10 @@ def build_payload(
             "fundos_total_breakdown_cartao": int(card_taxonomy_summary.get("fundos_total") or 0),
             "filtro_aplicado": 'Decisão = "Incluído em Adquirência"',
             "limitacao_contagem": (
-                "a base vigente contém 44 fundos revisados em Cartão; 26 atendem ao filtro literal solicitado"
+                f"a base vigente contém {int(card_taxonomy_summary.get('fundos_total') or 0)} "
+                "fundos revisados em Cartão; "
+                f"{int(card_taxonomy_summary.get('fundos_incluidos_adquirencia') or 0)} "
+                "atendem ao filtro literal solicitado"
             ),
             "base_alterada": False,
         },
@@ -4585,6 +4794,7 @@ def build_payload(
             "cvm_writeoff": "https://conteudo.cvm.gov.br/export/sites/cvm/legislacao/oficios-circulares/sin-snc/anexos/oc-sin-snc-0113.pdf",
         },
     }
+    output.update(_load_bundle_audit_supplements(data_dir))
     # Optional v3 blocks: older published revision directories do not contain
     # these CSVs, so their absence must not invalidate a compatible payload.
     if not provider_transition_summary.empty:

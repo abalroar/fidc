@@ -526,6 +526,12 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Emissões por categoria",
     "Público-alvo ofertas",
     "Principais conclusões",
+    "Cedentes · Leia-me",
+    "Cedentes · Top 437",
+    "Cedentes · Cobertura",
+    "Taxonomia · de-para",
+    "Taxonomia · Outros",
+    "Taxonomia · impacto",
 }
 
 
@@ -990,6 +996,30 @@ def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> No
             assert len(item_labels.findall(f"{{{CHART}}}dLbl")) == len(values) == 4
 
 
+def test_all_native_chart_data_labels_respect_ten_point_floor() -> None:
+    _require(PPTX)
+    violations: list[tuple[str, int]] = []
+    with ZipFile(PPTX) as archive:
+        chart_paths = [
+            name
+            for name in archive.namelist()
+            if name.endswith(".xml")
+            and (
+                name.startswith("ppt/charts/chart")
+                or name.startswith("ppt/slides/charts/chart")
+            )
+        ]
+        for path in chart_paths:
+            root = ET.fromstring(archive.read(path))
+            for labels in root.findall(f".//{{{CHART}}}dLbls"):
+                for properties in labels.findall(f".//{{{DML}}}defRPr"):
+                    size = properties.attrib.get("sz")
+                    if size is not None and int(size) < 1000:
+                        violations.append((path, int(size)))
+
+    assert not violations, violations
+
+
 def test_annual_issuance_slide_contains_the_consolidated_anbima_taxonomy_table() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
@@ -1345,11 +1375,11 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         67,
         15,
         14,
-        26,
+        27,
         3,
-        47,
-        19,
-        47,
+        48,
+        20,
+        48,
     ]
 
 

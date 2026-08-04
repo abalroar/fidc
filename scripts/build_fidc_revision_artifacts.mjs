@@ -4733,8 +4733,8 @@ function buildPresentation(payload) {
       { label: "Empréstimos", color: C.charcoal },
       { label: "Tít. privados", color: C.note },
       { label: "FIDCs", color: C.orange },
-      { label: "Outras securitizações", color: C.line },
-      { label: "Dívida externa", color: C.light },
+      { label: "Outras securit.", color: C.line },
+      { label: "Dív. externa", color: C.light },
     ], { left: 640, top: 516, width: 580, height: 20 }, 3);
     addText(
       slide,
@@ -5088,11 +5088,17 @@ function buildPresentation(payload) {
         .map((row) => ({ competencia: row.competencia, label: row.label }))
         .filter((row) => row.competencia && row.label);
       const stockBroad = ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro"];
-      const outrosParts = ["Poder Público", "Multicarteira Outros", "Recuperação", "N/D"];
+      const outrosParts = ["Poder Público", "Multicedente/Multissacado", "Recuperação", "N/D"];
+      const outrosSources = {
+        "Poder Público": ["Poder Público"],
+        "Multicedente/Multissacado": ["Multicarteira Outros", "Multicedente/Multissacado"],
+        "Recuperação": ["Recuperação"],
+        "N/D": ["N/D"],
+      };
       const stockCategories = [...stockBroad, ...outrosParts];
       const display = {
         "Poder Público": "Precatórios / ações",
-        "Multicarteira Outros": "Multicedente / multisacado",
+        "Multicedente/Multissacado": "Multicedente / multisacado",
         "Recuperação": "Recuperação / NP",
       };
       const colors = {
@@ -5100,7 +5106,7 @@ function buildPresentation(payload) {
         "Agro, Indústria e Comércio": C.charcoal,
         "Financeiro": C.orange,
         "Poder Público": C.black,
-        "Multicarteira Outros": C.note,
+        "Multicedente/Multissacado": C.note,
         "Recuperação": C.light,
         "N/D": C.line,
       };
@@ -5112,8 +5118,10 @@ function buildPresentation(payload) {
       );
       const stockValue = (period, category, field) => {
         if (stockBroad.includes(category)) return num(stockByKey.get(`${period.competencia}::${category}`)?.[field]);
-        const row = outrosByKey.get(`${period.competencia}::${category}`) || {};
-        return num(row[field === "pl" ? "pl_brl" : "share_total"]);
+        return (outrosSources[category] || [category]).reduce((sum, sourceCategory) => {
+          const row = outrosByKey.get(`${period.competencia}::${sourceCategory}`) || {};
+          return sum + num(row[field === "pl" ? "pl_brl" : "share_total"]);
+        }, 0);
       };
       stockPeriods.forEach((period) => {
         const broadOutros = num(stockByKey.get(`${period.competencia}::Outros`)?.pl);
@@ -5661,18 +5669,24 @@ function buildPresentation(payload) {
     ]).filter((category) => category !== "Outros");
     const outrosDisplay = {
       "Poder Público": "Precatórios e/ou Ações Judiciais",
-      "Multicarteira Outros": "Multicedente/Multisacado",
+      "Multicedente/Multissacado": "Multicedente/Multisacado",
       "Recuperação": "Recuperação / FIDCs NP",
       "N/D": "N/D",
     };
-    const outrosCategories = ["Poder Público", "Multicarteira Outros", "Recuperação", "N/D"];
+    const outrosSources = {
+      "Poder Público": ["Poder Público"],
+      "Multicedente/Multissacado": ["Multicarteira Outros", "Multicedente/Multissacado"],
+      "Recuperação": ["Recuperação"],
+      "N/D": ["N/D"],
+    };
+    const outrosCategories = ["Poder Público", "Multicedente/Multissacado", "Recuperação", "N/D"];
     const categories = [...broadCategories, ...outrosCategories];
     const colors = {
       "Fomento Mercantil": C.mid,
       "Agro, Indústria e Comércio": C.charcoal,
       "Financeiro": C.orange,
       "Poder Público": C.black,
-      "Multicarteira Outros": C.note,
+      "Multicedente/Multissacado": C.note,
       "Recuperação": C.light,
       "N/D": C.line,
     };
@@ -5689,8 +5703,10 @@ function buildPresentation(payload) {
       if (broadCategories.includes(category)) {
         return num(rowByKey.get(`${period.competencia}::${category}`)?.[field]);
       }
-      const outrosRow = outrosByKey.get(`${period.competencia}::${category}`);
-      return num(outrosRow?.[field === "pl" ? "pl_brl" : "share_total"]);
+      return (outrosSources[category] || [category]).reduce((sum, sourceCategory) => {
+        const outrosRow = outrosByKey.get(`${period.competencia}::${sourceCategory}`);
+        return sum + num(outrosRow?.[field === "pl" ? "pl_brl" : "share_total"]);
+      }, 0);
     };
     const volumeSeries = categories.map((category, seriesIndex) => ({
       name: outrosDisplay[category] || category,
@@ -5703,7 +5719,7 @@ function buildPresentation(payload) {
         position: "center",
         textStyle: {
           fill: [0, 1, 2, 3, 4].includes(seriesIndex) ? C.white : C.black,
-          fontSize: 6.4,
+          fontSize: TYPOGRAPHY.dataLabel,
           bold: true,
         },
       })),
@@ -5719,7 +5735,7 @@ function buildPresentation(payload) {
         position: "center",
         textStyle: {
           fill: [0, 1, 2, 3, 4].includes(seriesIndex) ? C.white : C.black,
-          fontSize: 6.4,
+          fontSize: TYPOGRAPHY.dataLabel,
           bold: true,
         },
       })),
@@ -5807,7 +5823,7 @@ function buildPresentation(payload) {
     );
     addText(
       slide,
-      `Rótulos de exibição: Poder Público → Precatórios e/ou Ações Judiciais; Multicarteira Outros → Multicedente/Multisacado; Recuperação → Recuperação / FIDCs NP. Recuperação e N/D ficam detalhados no workbook para evitar sobreposição.`,
+      `Rótulos de exibição: Poder Público → Precatórios e/ou Ações Judiciais; Multicarteira Outros e Multicedente/Multissacado → Multicedente/Multisacado; Recuperação → Recuperação / FIDCs NP. Recuperação e N/D ficam detalhados no workbook para evitar sobreposição.`,
       { left: 70, top: 620, width: 1140, height: 34 },
       { fontSize: 8.7, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
@@ -10184,6 +10200,7 @@ async function addPortfolioAuxiliarySheet(workbook, {
     sourceRows.length,
     { freezeColumns, wrapText: true, bodyFontSize },
   );
+  sheet.getRange(`A2:${columnLetter(columns.length - 1)}2`).format.rowHeightPx = 44;
   await writePortfolioRows(sheet, 4, columns, sourceRows);
   applyColumnWidths(sheet, columns.map((column) => column.width), sourceRows.length);
   columns.forEach((column, index) => {
@@ -10196,6 +10213,520 @@ async function addPortfolioAuxiliarySheet(workbook, {
   if (sourceRows.length) {
     sheet.getRange(`A5:${columnLetter(columns.length - 1)}${sourceRows.length + 4}`).format.rowHeightPx = rowHeight;
   }
+  return sheet;
+}
+
+function ptYesNo(value) {
+  if (value === true || String(value).toLowerCase() === "true") return "Sim";
+  if (value === false || String(value).toLowerCase() === "false") return "Não";
+  return "N/D";
+}
+
+function explicitCedenteValue(value, row) {
+  if (value !== null && value !== undefined && String(value).trim() !== "") return value;
+  return row.cedente_declarado_flag
+    ? "N/D — não localizado na consolidação"
+    : "N/D — Tabela I sem cedente";
+}
+
+function auditPayloadRows(rows, columns) {
+  return (rows || []).map((row) => Object.fromEntries(
+    columns.map((column) => {
+      const sourceKey = column.sourceKey || column.key;
+      const value = row[sourceKey];
+      return [
+        column.key,
+        column.transform ? column.transform(value, row) : value,
+      ];
+    }),
+  ));
+}
+
+async function addAuditablePayloadSheet(workbook, {
+  name,
+  title,
+  subtitle,
+  columns,
+  rows,
+  freezeColumns = 3,
+  bodyFontSize = 8.5,
+  rowHeight = 42,
+}) {
+  const sourceRows = auditPayloadRows(rows, columns);
+  const sheet = resetSheet(workbook, name);
+  setHeaderBand(
+    sheet,
+    title,
+    subtitle,
+    columns.map((column) => column.header),
+    sourceRows.length,
+    { freezeColumns, wrapText: true, bodyFontSize },
+  );
+  await writePortfolioRows(sheet, 4, columns, sourceRows);
+  applyColumnWidths(sheet, columns.map((column) => column.width), sourceRows.length);
+  columns.forEach((column, index) => {
+    if (!column.format || !sourceRows.length) return;
+    const letter = columnLetter(index);
+    const range = sheet.getRange(`${letter}5:${letter}${sourceRows.length + 4}`);
+    range.format.numberFormat = column.format;
+    if (column.format !== "@") range.format.horizontalAlignment = "right";
+  });
+  if (sourceRows.length) {
+    sheet
+      .getRange(`A5:${columnLetter(columns.length - 1)}${sourceRows.length + 4}`)
+      .format.rowHeightPx = rowHeight;
+  }
+  return sheet;
+}
+
+const CEDENTE_TOP437_COLUMNS = Object.freeze([
+  { header: "Rank por PL", key: "rank_pl_fundo", width: 90, format: "#,##0" },
+  { header: "CNPJ do fundo", key: "cnpj_fundo", width: 125, format: "00000000000000" },
+  { header: "CNPJ do fundo · fonte", key: "cnpj_fundo_raw", width: 145 },
+  { header: "FIDC", key: "fundo", width: 370 },
+  { header: "PL do fundo · R$", key: "pl_fundo_reais", width: 145, format: "R$ #,##0.00" },
+  { header: "% PL da indústria", key: "pl_fundo_pct_industria_origem", width: 115, format: "0.00%" },
+  { header: "% PL acumulado", key: "pl_acumulado_pct_origem", width: 115, format: "0.00%" },
+  { header: "PL negativo?", key: "pl_negativo_flag", width: 95, transform: ptYesNo },
+  { header: "Administrador", key: "administrador", width: 290 },
+  { header: "Cedentes declarados no fundo", key: "cedentes_declarados_fundo", width: 125, format: "#,##0" },
+  { header: "Cedente declarado?", key: "cedente_declarado_flag", width: 110, transform: ptYesNo },
+  { header: "Documento do cedente · coluna H", key: "cedente_doc_raw", width: 165, transform: explicitCedenteValue },
+  { header: "Chave normalizada do documento", key: "cedente_doc_key", width: 190, transform: explicitCedenteValue },
+  { header: "Tipo de documento", key: "cedente_tipo", width: 105, transform: explicitCedenteValue },
+  { header: "Status do documento", key: "cedente_documento_status", width: 170 },
+  { header: "Razão social · coluna K", key: "cedente_razao_social_coluna_k", width: 300, transform: explicitCedenteValue },
+  { header: "Razões sociais · coluna K · JSON", key: "cedente_razoes_coluna_k_json", width: 360 },
+  { header: "Razão social consolidada", key: "cedente_razao_social_consolidada", width: 300, transform: explicitCedenteValue },
+  { header: "Razão social reconciliada?", key: "razao_social_match_flag", width: 125, transform: ptYesNo },
+  { header: "CNAE principal", key: "cedente_cnae_principal", width: 190, transform: explicitCedenteValue },
+  { header: "Porte da Receita", key: "cedente_porte_receita", width: 125, transform: explicitCedenteValue },
+  { header: "Capital social · R$", key: "cedente_capital_social_reais", width: 145, format: "R$ #,##0.00" },
+  { header: "Optante Simples", key: "cedente_optante_simples", width: 105, transform: ptYesNo },
+  { header: "MEI", key: "cedente_mei", width: 80, transform: ptYesNo },
+  { header: "UF", key: "cedente_uf", width: 70, transform: explicitCedenteValue },
+  { header: "Fundos em que aparece", key: "fundos_em_que_aparece", width: 115, format: "#,##0" },
+  { header: "PL alcançado · R$*", key: "pl_alcancado_reais", width: 145, format: "R$ #,##0.00" },
+  { header: "Maior % em um fundo", key: "maior_pct_em_um_fundo", width: 120, format: "0.00%" },
+  { header: "Fundos em que aparece · lista", key: "fundos_lista", width: 410 },
+  { header: "Linhas na fonte", key: "linhas_declaracao_origem", width: 100, format: "#,##0" },
+  { header: "Blocos declarados", key: "blocos_declarados", width: 220 },
+  { header: "Ordens declaradas · JSON", key: "ordens_declaradas_json", width: 180 },
+  { header: "Percentuais declarados · JSON", key: "percentuais_declarados_json", width: 220 },
+  { header: "Declarações preservadas · JSON", key: "declaracoes_json", width: 520 },
+  { header: "Duplicidade fundo-cedente?", key: "duplicidade_fundo_cedente_flag", width: 125, transform: ptYesNo },
+  { header: "Duplicidade cruza blocos?", key: "duplicidade_cruza_blocos_flag", width: 125, transform: ptYesNo },
+  { header: "Duplicidade no mesmo bloco?", key: "duplicidade_mesmo_bloco_flag", width: 135, transform: ptYesNo },
+  { header: "Percentual ausente?", key: "percentual_ausente_flag", width: 115, transform: ptYesNo },
+  { header: "Percentual não positivo?", key: "percentual_nao_positivo_flag", width: 125, transform: ptYesNo },
+  { header: "Percentual acima de 100%?", key: "percentual_acima_100_flag", width: 135, transform: ptYesNo },
+  { header: "Percentual inválido?", key: "percentual_invalido_flag", width: 115, transform: ptYesNo },
+  { header: "Soma dos percentuais declarados", key: "soma_percentuais_declarados", width: 135, format: "0.00%" },
+  { header: "Exclusão ME/EPP/Simples?", key: "filtro_exclusao_me_epp_simples_flag", width: 135, transform: ptYesNo },
+  { header: "Triagem Middle Market · status", key: "middle_market_triage_status", width: 210 },
+  { header: "Triagem Middle Market · limitação", key: "middle_market_limitation", width: 430 },
+]);
+
+const CEDENTE_COVERAGE_COLUMNS = Object.freeze([
+  { header: "Rank por PL", key: "rank_pl_fundo", width: 90, format: "#,##0" },
+  { header: "CNPJ do fundo", key: "cnpj_fundo", width: 125, format: "00000000000000" },
+  { header: "CNPJ do fundo · fonte", key: "cnpj_fundo_raw", width: 145 },
+  { header: "FIDC", key: "fundo", width: 370 },
+  { header: "PL do fundo · R$", key: "pl_fundo_reais", width: 145, format: "R$ #,##0.00" },
+  { header: "% PL da indústria", key: "pl_fundo_pct_industria_origem", width: 115, format: "0.00%" },
+  { header: "% PL acumulado · fonte", key: "pl_acumulado_pct_origem", width: 125, format: "0.00%" },
+  { header: "Cedentes declarados", key: "cedentes_declarados_fundo", width: 110, format: "#,##0" },
+  { header: "Administrador", key: "administrador", width: 290 },
+  { header: "PL negativo?", key: "pl_negativo_flag", width: 95, transform: ptYesNo },
+  { header: "Cedente declarado?", key: "cedente_declarado_flag", width: 110, transform: ptYesNo },
+  { header: "PL com cedente · R$", key: "pl_com_cedente_reais", width: 140, format: "R$ #,##0.00" },
+  { header: "PL sem cedente · R$", key: "pl_sem_cedente_reais", width: 140, format: "R$ #,##0.00" },
+  { header: "PL acumulado · R$", key: "pl_total_acumulado_reais", width: 145, format: "R$ #,##0.00" },
+  { header: "% PL acumulado", key: "pl_total_acumulado_pct", width: 115, format: "0.00%" },
+  { header: "Fundos com cedente · acum.", key: "fundos_com_cedente_acumulado", width: 125, format: "#,##0" },
+  { header: "Fundos sem cedente · acum.", key: "fundos_sem_cedente_acumulado", width: 125, format: "#,##0" },
+  { header: "PL com cedente · acum. R$", key: "pl_com_cedente_acumulado_reais", width: 150, format: "R$ #,##0.00" },
+  { header: "PL sem cedente · acum. R$", key: "pl_sem_cedente_acumulado_reais", width: 150, format: "R$ #,##0.00" },
+  { header: "% indústria · com cedente", key: "pl_com_cedente_acumulado_pct_industria", width: 125, format: "0.00%" },
+  { header: "% indústria · sem cedente", key: "pl_sem_cedente_acumulado_pct_industria", width: 125, format: "0.00%" },
+  { header: "% com cedente dentro do corte", key: "pl_com_cedente_pct_dentro_corte", width: 140, format: "0.00%" },
+  { header: "Dentro do corte recomendado?", key: "dentro_corte_recomendado_flag", width: 145, transform: ptYesNo },
+  { header: "Linha do corte recomendado?", key: "corte_recomendado_flag", width: 145, transform: ptYesNo },
+  { header: "Marco de cobertura", key: "marco_cobertura", width: 135 },
+]);
+
+const TAXONOMY_DEPARA_COLUMNS = Object.freeze([
+  { header: "CNPJ", key: "cnpj_fundo", width: 125, format: "00000000000000" },
+  { header: "FIDC", key: "denominacao_referencia", width: 390 },
+  { header: "PL · R$", key: "pl_brl", width: 145, format: "R$ #,##0.00" },
+  { header: "Tipo anterior", key: "tipo_atual", width: 185 },
+  { header: "Foco anterior", key: "foco_atual", width: 210 },
+  { header: "Tipo final", key: "tipo_proposto", width: 185 },
+  { header: "Foco final", key: "foco_proposto", width: 210 },
+  { header: "Efeito", key: "efeito", width: 120 },
+  { header: "Competência de referência", key: "competencia_referencia", width: 135 },
+  { header: "Arquivo-fonte", key: "fonte_arquivo", width: 240 },
+  { header: "SHA-256 da fonte", key: "fonte_sha256", width: 420 },
+  { header: "Status da nota do manifest", key: "status_nota_manifest", width: 180 },
+  { header: "Nota do manifest", key: "nota_manifest", width: 520 },
+]);
+
+const TAXONOMY_OUTROS_COLUMNS = Object.freeze([
+  { header: "Rank por PL", key: "Rank PL", width: 90, format: "#,##0" },
+  { header: "CNPJ", key: "cnpj_fundo", width: 125, format: "00000000000000" },
+  { header: "CNPJ · fonte", key: "CNPJ", width: 145 },
+  { header: "FIDC", key: "FIDC", width: 390 },
+  { header: "PL · R$", key: "PL (R$)", width: 145, format: "R$ #,##0.00" },
+  { header: "Foco publicado", key: "Foco publicado hoje", width: 210 },
+  { header: "Balde proposto", key: "Balde proposto", width: 210 },
+  { header: "Base da alocação", key: "Base da alocação", width: 520 },
+  { header: "Sacado / cedente relevante · fonte", key: "Sacado / cedente relevante (Tabela I + Receita)", width: 330 },
+  { header: "Informe jun/26?", key: "Tem informe jun/26?", width: 105 },
+  { header: "Observação", key: "Observação", width: 520 },
+  { header: "Competência de referência", key: "competencia_referencia", width: 135 },
+  { header: "Arquivo-fonte", key: "fonte_arquivo", width: 240 },
+  { header: "SHA-256 da fonte", key: "fonte_sha256", width: 420 },
+  { header: "Status da nota do manifest", key: "status_nota_manifest", width: 180 },
+  { header: "Nota do manifest", key: "nota_manifest", width: 520 },
+]);
+
+const TAXONOMY_IMPACT_SUMMARY_COLUMNS = Object.freeze([
+  { header: "Visão", key: "view", width: 190 },
+  { header: "Competência", key: "competence", width: 105 },
+  { header: "Universo / perímetro", key: "universe", width: 360 },
+  { header: "Dimensão", key: "dimension", width: 180 },
+  { header: "Categoria", key: "category", width: 210 },
+  { header: "Decisões", key: "decision_count", width: 85, format: "#,##0" },
+  { header: "PL impactado · R$ bi", key: "impacted_pl_brl", width: 145, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Antes · R$ bi", key: "before_brl", width: 135, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Depois · R$ bi", key: "after_brl", width: 135, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Variação · R$ bi", key: "delta_brl", width: 145, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Denominador · R$ bi", key: "denominator_brl", width: 155, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Antes · %", key: "before_share", width: 95, format: "0.00%" },
+  { header: "Depois · %", key: "after_share", width: 95, format: "0.00%" },
+  { header: "Variação · p.p.", key: "delta_pp", width: 110, format: '0.000 "p.p."' },
+  { header: "Fonte", key: "source", width: 480 },
+  { header: "Nota de perímetro", key: "note", width: 540 },
+]);
+
+const TAXONOMY_ISSUANCE_IMPACT_COLUMNS = Object.freeze([
+  { header: "Chave do período", key: "period_key", width: 110 },
+  { header: "Período", key: "period_label", width: 115 },
+  { header: "Categoria", key: "categoria", width: 210 },
+  { header: "Antes · R$ bi", key: "before_volume_brl", width: 135, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Depois · R$ bi", key: "after_volume_brl", width: 135, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Variação · R$ bi", key: "delta_brl", width: 145, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Antes · %", key: "before_share", width: 95, format: "0.00%" },
+  { header: "Depois · %", key: "after_share", width: 95, format: "0.00%" },
+  { header: "Variação · p.p.", key: "delta_pp", width: 110, format: '0.000 "p.p."' },
+  { header: "Total antes · R$ bi", key: "period_total_before_brl", width: 150, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Total depois · R$ bi", key: "period_total_after_brl", width: 155, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Fonte anterior", key: "source_before", width: 440 },
+  { header: "Fonte atual", key: "source_after", width: 440 },
+  { header: "Nota de reconciliação", key: "note", width: 540 },
+]);
+
+const TAXONOMY_MARKET_SHARE_IMPACT_COLUMNS = Object.freeze([
+  { header: "Competência", key: "competence", width: 105 },
+  { header: "Tipo ANBIMA", key: "tipo_anbima", width: 210 },
+  { header: "Foco ANBIMA", key: "foco_anbima", width: 220 },
+  { header: "Denominador antes · R$ bi", key: "before_denominator_brl", width: 170, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Denominador depois · R$ bi", key: "after_denominator_brl", width: 175, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Variação do denominador · R$ bi", key: "delta_denominator_brl", width: 190, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Positivo antes · R$ bi", key: "before_positive_denominator_brl", width: 160, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Positivo depois · R$ bi", key: "after_positive_denominator_brl", width: 165, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Fundos antes", key: "before_funds", width: 105, format: "#,##0" },
+  { header: "Fundos depois", key: "after_funds", width: 110, format: "#,##0" },
+  { header: "Escopo antes · R$ bi", key: "scope_total_before_brl", width: 155, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Escopo depois · R$ bi", key: "scope_total_after_brl", width: 160, format: 'R$ #,##0.0,,, "bi"' },
+  { header: "Share antes", key: "before_share_scope", width: 100, format: "0.00%" },
+  { header: "Share depois", key: "after_share_scope", width: 105, format: "0.00%" },
+  { header: "Variação · p.p.", key: "delta_pp", width: 110, format: '0.000 "p.p."' },
+  { header: "Papéis reconciliados", key: "roles_reconciled", width: 125, format: "#,##0" },
+  { header: "Fonte", key: "source", width: 520 },
+  { header: "Nota de perímetro", key: "note", width: 560 },
+]);
+
+function addCedenteReadmeSheet(workbook, payload) {
+  const manifest = payload.cedente_middle_market_manifest || {};
+  const coverage = manifest.coverage || {};
+  const cutoff = manifest.cutoff || {};
+  const queue = cutoff.top_queue || {};
+  const recommended = (cutoff.snapshots || []).find(
+    (row) => Number(row.rank) === Number(cutoff.recommended_rank),
+  ) || {};
+  const source = manifest.source || {};
+  const sheet = resetSheet(workbook, "Cedentes · Leia-me");
+  sheet.getRange("A1:H1").merge();
+  sheet.getRange("A1").values = [["Triagem de cedentes · Middle Market"]];
+  sheet.getRange("A1:H1").format.fill = C.black;
+  sheet.getRange("A1:H1").format.font = { name: "Arial", size: 16, bold: true, color: C.white };
+  sheet.getRange("A1:H1").format.rowHeightPx = 34;
+  sheet.getRange("A2:H2").merge();
+  sheet.getRange("A2").values = [[
+    `Competência jun/26. Fonte ${source.file || "N/D"}; SHA-256 ${source.sha256 || "N/D"}. Fila recomendada: Top ${cutoff.recommended_rank || "N/D"} por PL.`,
+  ]];
+  sheet.getRange("A2:H2").format.font = { name: "Arial", size: 10, color: C.mid };
+  sheet.getRange("A2:H2").format.wrapText = true;
+  sheet.getRange("A2:H2").format.rowHeightPx = 34;
+
+  const summaryRows = [
+    ["Universo", coverage.fundos_total, coverage.pl_total_reais, 1, "4.311 fundos da fonte CVM/Tabela I"],
+    ["Com cedente declarado", coverage.fundos_com_cedente, coverage.pl_com_cedente_reais, coverage.pl_com_cedente_pct, "Cedente declarado na Tabela I"],
+    ["Sem cedente declarado", coverage.fundos_sem_cedente, coverage.pl_sem_cedente_reais, coverage.pl_sem_cedente_pct, "Requer leitura documental"],
+    [`Top ${cutoff.recommended_rank || "N/D"}`, queue.fundos, recommended.pl_acumulado_reais, recommended.pl_acumulado_pct, "Corte recomendado para revisão em duas ondas"],
+    ["No corte · com cedente", recommended.fundos_com_cedente, recommended.pl_com_cedente_reais, recommended.pl_com_cedente_pct_industria, `${queue.pares_fundo_cedente || 0} pares fundo-cedente`],
+    ["No corte · sem cedente", recommended.fundos_sem_cedente, recommended.pl_sem_cedente_reais, num(recommended.pl_sem_cedente_reais) / num(coverage.pl_total_reais), "PL sem cedente identificado permanece explícito"],
+  ];
+  sheet.getRange("A4:E4").values = [["Métrica", "Fundos", "PL · R$", "% PL da indústria", "Leitura"]];
+  sheet.getRange("A4:E4").format.fill = C.black;
+  sheet.getRange("A4:E4").format.font = { name: "Arial", size: 10, bold: true, color: C.white };
+  sheet.getRange("A5:E10").values = summaryRows;
+  sheet.getRange("A5:E10").format.font = { name: "Arial", size: 10, color: C.charcoal };
+  sheet.getRange("A5:E10").format.borders = { insideHorizontal: { style: "thin", color: C.line } };
+  sheet.getRange("A5:E10").format.rowHeightPx = 30;
+  sheet.getRange("B5:B10").format.numberFormat = "#,##0";
+  sheet.getRange("C5:C10").format.numberFormat = "R$ #,##0.00";
+  sheet.getRange("D5:D10").format.numberFormat = "0.00%";
+  sheet.getRange("B5:D10").format.horizontalAlignment = "right";
+  sheet.getRange("E5:E10").format.wrapText = true;
+
+  sheet.getRange("A12:H12").merge();
+  sheet.getRange("A12").values = [["Limitações e regras de uso"]];
+  sheet.getRange("A12:H12").format.fill = C.orange;
+  sheet.getRange("A12:H12").format.font = { name: "Arial", size: 11, bold: true, color: C.white };
+  const limitations = manifest.limitations || [];
+  const requiredLimitations = [
+    "Fundo x Cedente: a coluna H fornece o documento do cedente e a coluna K fornece a razão social declarada.",
+    "Cedentes consolidados: a chave da coluna A reconcilia razão social e atributos cadastrais das colunas E/F e adjacentes.",
+    "A Tabela I identifica cedente; não identifica sacado ou devedor nomeado.",
+    "Porte da Receita e capital social não confirmam faturamento entre R$ 30 mi e R$ 500 mi.",
+    "Percentuais inválidos permanecem como declarados e recebem flags; não são corrigidos automaticamente.",
+  ];
+  const notes = [...requiredLimitations, ...limitations]
+    .filter((value, index, values) => values.indexOf(value) === index);
+  notes.forEach((note, index) => {
+    const row = 13 + index;
+    sheet.getRange(`A${row}:H${row}`).merge();
+    sheet.getRange(`A${row}`).values = [[`• ${note}`]];
+    sheet.getRange(`A${row}:H${row}`).format.font = { name: "Arial", size: 10, color: C.charcoal };
+    sheet.getRange(`A${row}:H${row}`).format.wrapText = true;
+    sheet.getRange(`A${row}:H${row}`).format.rowHeightPx = 30;
+  });
+  applyColumnWidths(sheet, [220, 105, 150, 125, 470, 80, 80, 80], 12 + notes.length);
+  sheet.freezePanes.freezeRows(4);
+  return sheet;
+}
+
+async function addCedenteAuditSheets(workbook, payload) {
+  addCedenteReadmeSheet(workbook, payload);
+  const topSheet = await addAuditablePayloadSheet(workbook, {
+    name: "Cedentes · Top 437",
+    title: "Cedentes · fila priorizada Top 437",
+    subtitle: "510 linhas: 214 pares fundo-cedente e 296 fundos sem cedente na Tabela I. PL alcançado soma o PL integral dos fundos citantes e não mede exposição econômica. Percentuais inválidos permanecem declarados e sinalizados.",
+    columns: CEDENTE_TOP437_COLUMNS,
+    rows: payload.cedente_middle_market_top437 || [],
+    freezeColumns: 4,
+    bodyFontSize: 8.5,
+    rowHeight: 46,
+  });
+  if ((payload.cedente_middle_market_top437 || []).length) {
+    const statusColumn = columnLetter(CEDENTE_TOP437_COLUMNS.findIndex((column) => column.key === "middle_market_triage_status"));
+    const invalidColumn = columnLetter(CEDENTE_TOP437_COLUMNS.findIndex((column) => column.key === "percentual_invalido_flag"));
+    topSheet.getRange(`${statusColumn}5:${statusColumn}${(payload.cedente_middle_market_top437 || []).length + 4}`).conditionalFormats.add("containsText", {
+      text: "sem_cedente_tabela_i",
+      format: { fill: C.pale, font: { color: C.mid } },
+    });
+    topSheet.getRange(`${invalidColumn}5:${invalidColumn}${(payload.cedente_middle_market_top437 || []).length + 4}`).conditionalFormats.add("containsText", {
+      text: "Sim",
+      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+    });
+  }
+
+  const curveSheet = await addAuditablePayloadSheet(workbook, {
+    name: "Cedentes · Cobertura",
+    title: "Cedentes · curva acumulada de cobertura",
+    subtitle: "4.311 fundos do maior para o menor PL. A aba separa PL com e sem cedente declarado na Tabela I; vazio na fonte permanece ausência, sem imputação.",
+    columns: CEDENTE_COVERAGE_COLUMNS,
+    rows: payload.cedente_middle_market_coverage_curve || [],
+    freezeColumns: 4,
+    bodyFontSize: 8.5,
+    rowHeight: 34,
+  });
+  if ((payload.cedente_middle_market_coverage_curve || []).length) {
+    const cutoffColumn = columnLetter(CEDENTE_COVERAGE_COLUMNS.findIndex((column) => column.key === "corte_recomendado_flag"));
+    curveSheet.getRange(`${cutoffColumn}5:${cutoffColumn}${(payload.cedente_middle_market_coverage_curve || []).length + 4}`).conditionalFormats.add("containsText", {
+      text: "Sim",
+      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+    });
+  }
+}
+
+async function addTaxonomyAuditSheets(workbook, payload) {
+  const manifest = payload.taxonomy_audit_manifest || {};
+  const source = manifest.source || {};
+  const rules = manifest.rules || [];
+  const sourceLabel = `${source.filename || "N/D"}; SHA-256 ${source.sha256 || "N/D"}`;
+  const rulesLabel = rules.slice(0, 2).join(" · ");
+  const decisions = payload.taxonomy_audit_decisions || [];
+  const deparaSheet = await addAuditablePayloadSheet(workbook, {
+    name: "Taxonomia · de-para",
+    title: "Taxonomia auditada · de-para por CNPJ",
+    subtitle: `${decisions.length} decisões; ${rulesLabel}. Fonte ${sourceLabel}. Campos oficiais ANBIMA/CVM permanecem preservados.`,
+    columns: TAXONOMY_DEPARA_COLUMNS,
+    rows: decisions,
+    freezeColumns: 3,
+    bodyFontSize: 9,
+    rowHeight: 48,
+  });
+  if (decisions.length) {
+    const effectColumn = columnLetter(TAXONOMY_DEPARA_COLUMNS.findIndex((column) => column.key === "efeito"));
+    deparaSheet.getRange(`${effectColumn}5:${effectColumn}${decisions.length + 4}`).conditionalFormats.add("containsText", {
+      text: "Migra de Tipo",
+      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+    });
+  }
+
+  const outros = payload.taxonomy_audit_outros_three_buckets || [];
+  const outrosSheet = await addAuditablePayloadSheet(workbook, {
+    name: "Taxonomia · Outros",
+    title: "Taxonomia auditada · abertura de Outros em três baldes",
+    subtitle: `${outros.length} linhas. Fundos sem informe em jun/26 permanecem no denominador; o residual F8 não determina classificação analítica. Fonte ${sourceLabel}.`,
+    columns: TAXONOMY_OUTROS_COLUMNS,
+    rows: outros,
+    freezeColumns: 4,
+    bodyFontSize: 8.5,
+    rowHeight: 58,
+  });
+  if (outros.length) {
+    const bucketColumn = columnLetter(TAXONOMY_OUTROS_COLUMNS.findIndex((column) => column.key === "Balde proposto"));
+    outrosSheet.getRange(`${bucketColumn}5:${bucketColumn}${outros.length + 4}`).conditionalFormats.add("containsText", {
+      text: "Sai do balde Outros",
+      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+    });
+  }
+}
+
+async function addTaxonomyImpactBlock(sheet, titleRow, title, columns, sourceRows) {
+  const rows = auditPayloadRows(sourceRows, columns);
+  const lastColumn = columnLetter(columns.length - 1);
+  const headerRow = titleRow + 1;
+  const dataStartRow = titleRow + 2;
+  const dataEndRow = dataStartRow + rows.length - 1;
+
+  sheet.getRange(`A${titleRow}:${lastColumn}${titleRow}`).merge();
+  sheet.getRange(`A${titleRow}`).values = [[title]];
+  sheet.getRange(`A${titleRow}:${lastColumn}${titleRow}`).format.fill = C.orange;
+  sheet.getRange(`A${titleRow}:${lastColumn}${titleRow}`).format.font = {
+    name: "Arial",
+    size: 11,
+    bold: true,
+    color: C.white,
+  };
+  sheet.getRange(`A${titleRow}:${lastColumn}${titleRow}`).format.rowHeightPx = 28;
+
+  sheet.getRange(`A${headerRow}:${lastColumn}${headerRow}`).values = [
+    columns.map((column) => column.header),
+  ];
+  sheet.getRange(`A${headerRow}:${lastColumn}${headerRow}`).format.fill = C.black;
+  sheet.getRange(`A${headerRow}:${lastColumn}${headerRow}`).format.font = {
+    name: "Arial",
+    size: 10,
+    bold: true,
+    color: C.white,
+  };
+  sheet.getRange(`A${headerRow}:${lastColumn}${headerRow}`).format.wrapText = true;
+  sheet.getRange(`A${headerRow}:${lastColumn}${headerRow}`).format.rowHeightPx = 42;
+
+  if (rows.length) {
+    await writePortfolioRows(sheet, dataStartRow - 1, columns, rows);
+    const body = sheet.getRange(`A${dataStartRow}:${lastColumn}${dataEndRow}`);
+    body.format.font = { name: "Arial", size: 9, color: C.charcoal };
+    body.format.verticalAlignment = "center";
+    body.format.wrapText = true;
+    body.format.rowHeightPx = 46;
+    body.format.borders = {
+      insideHorizontal: { style: "thin", color: C.line },
+      bottom: { style: "thin", color: C.line },
+    };
+    rows.forEach((_, index) => {
+      if (index % 2 === 1) {
+        sheet
+          .getRange(`A${dataStartRow + index}:${lastColumn}${dataStartRow + index}`)
+          .format.fill = C.pale;
+      }
+    });
+    columns.forEach((column, index) => {
+      if (!column.format) return;
+      const letter = columnLetter(index);
+      const range = sheet.getRange(`${letter}${dataStartRow}:${letter}${dataEndRow}`);
+      range.format.numberFormat = column.format;
+      range.format.horizontalAlignment = "right";
+    });
+  }
+  return dataEndRow + 2;
+}
+
+async function addTaxonomyImpactSheet(workbook, payload) {
+  const sheet = resetSheet(workbook, "Taxonomia · impacto");
+  const blocks = [
+    {
+      title: "Estoque · fonte bruta e efeito incremental na base corrente",
+      columns: TAXONOMY_IMPACT_SUMMARY_COLUMNS,
+      rows: payload.taxonomy_audit_impact_summary || [],
+    },
+    {
+      title: "Emissões · impacto por período e Tipo ANBIMA",
+      columns: TAXONOMY_ISSUANCE_IMPACT_COLUMNS,
+      rows: payload.taxonomy_audit_issuance_impact || [],
+    },
+    {
+      title: "Market share · impacto nos denominadores por subtipo",
+      columns: TAXONOMY_MARKET_SHARE_IMPACT_COLUMNS,
+      rows: payload.taxonomy_audit_market_share_impact || [],
+    },
+  ];
+  const maxColumns = Math.max(...blocks.map((block) => block.columns.length));
+  const lastColumn = columnLetter(maxColumns - 1);
+  sheet.getRange(`A1:${lastColumn}1`).merge();
+  sheet.getRange("A1").values = [["Taxonomia auditada · impacto reconciliado"]];
+  sheet.getRange(`A1:${lastColumn}1`).format.fill = C.black;
+  sheet.getRange(`A1:${lastColumn}1`).format.font = {
+    name: "Arial",
+    size: 16,
+    bold: true,
+    color: C.white,
+  };
+  sheet.getRange(`A1:${lastColumn}1`).format.rowHeightPx = 34;
+  sheet.getRange(`A2:${lastColumn}2`).merge();
+  sheet.getRange("A2").values = [[
+    "As tabelas preservam três perímetros: estoque bruto do workbook auditado, efeito incremental na base corrente e emissões/denominadores materializados. Variações em R$ bi e p.p. não são somadas entre perímetros.",
+  ]];
+  sheet.getRange(`A2:${lastColumn}2`).format.font = {
+    name: "Arial",
+    size: 10,
+    color: C.mid,
+  };
+  sheet.getRange(`A2:${lastColumn}2`).format.wrapText = true;
+  sheet.getRange(`A2:${lastColumn}2`).format.rowHeightPx = 44;
+
+  let nextTitleRow = 4;
+  for (const block of blocks) {
+    nextTitleRow = await addTaxonomyImpactBlock(
+      sheet,
+      nextTitleRow,
+      block.title,
+      block.columns,
+      block.rows,
+    );
+  }
+
+  const widths = Array.from({ length: maxColumns }, (_, index) =>
+    Math.max(...blocks.map((block) => block.columns[index]?.width || 80)),
+  );
+  applyColumnWidths(sheet, widths, nextTitleRow);
+  sheet.freezePanes.freezeRows(5);
+  sheet.freezePanes.freezeColumns(3);
   return sheet;
 }
 
@@ -10666,6 +11197,9 @@ async function buildWorkbook(payload) {
   await addConclusionsSheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
+  await addCedenteAuditSheets(workbook, payload);
+  await addTaxonomyAuditSheets(workbook, payload);
+  await addTaxonomyImpactSheet(workbook, payload);
   await addChecksSheet(workbook, payload);
   removeWorkbookSheets(workbook);
   return workbook;
@@ -10755,6 +11289,12 @@ async function exportWorkbook(workbook) {
       ["Principais conclusões", "A1:E30"],
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
+      ["Cedentes · Leia-me", "A1:H20"],
+      ["Cedentes · Top 437", "A1:AS20"],
+      ["Cedentes · Cobertura", "A1:Y20"],
+      ["Taxonomia · de-para", "A1:M20"],
+      ["Taxonomia · Outros", "A1:P20"],
+      ["Taxonomia · impacto", "A1:R64"],
       ["Checks revisão", "A1:D28"],
       ["Universo elegível", "A1:P25"],
       ["FICs excluídos", "A1:J25"],

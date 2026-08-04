@@ -1,0 +1,61 @@
+{
+  "schema_version": "industry_taxonomy_audit_202606_v1",
+  "source": {
+    "filename": "Industria_FIDC_202606_auditada.xlsx",
+    "sha256": "c7d7a3b4e0825f7b7e288e8c34f87eb1772ee4085c67a3161f87590d8e05cad0"
+  },
+  "sheets": {
+    "De-para reclassificação": 37,
+    "Auditoria classificação Top200": 200,
+    "Outros · 3 baldes": 76,
+    "Taxonomia adquirência": 33,
+    "Sumário da auditoria": 38
+  },
+  "checks": {
+    "type_migration_count": 19,
+    "type_migration_pl_brl": 66794750779.89,
+    "focus_only_count": 18,
+    "focus_only_pl_brl": 55694538021.58,
+    "decision_top200_join_count": 37,
+    "decision_current_pl_matches": true,
+    "decision_current_type_matches": true,
+    "decision_current_focus_matches": true,
+    "decision_documentation_complete": true,
+    "summary_validated": true,
+    "top200_pl_brl": 499021524432.75995,
+    "top200_outros_count": 75,
+    "top200_outros_pl_brl": 152520172701.63,
+    "f8_count": 68,
+    "f8_pl_brl": 113372908354.69
+  },
+  "issues": [
+    {
+      "code": "seller3_recommendation_text_inconsistent",
+      "cnpj_fundo": "63572282000111",
+      "status": "source_workbook_note",
+      "detail": "A recomendação textual do Top200 menciona Financeiro/Crédito Pessoal como estado atual; o de-para e as colunas atuais registram Agro, Indústria e Comércio/Recebíveis Comerciais. A decisão importada segue o de-para e a evidência documental.",
+      "source_recommendation": "Manter o Tipo \"Financeiro\" e revisar o Foco de \"Crédito Pessoal\" para adquirência/meios de pagamento. A Tabela II reporta 100% em D (Serviços), campo incompatível com U.R. de cartão. Mesma correção vale para o Seller II. R$ 3,66 bi mais R$ 2,88 bi."
+    },
+    {
+      "code": "aetos_table_ii_misreport_focus_exception",
+      "cnpj_fundo": "52610624000124",
+      "status": "explicit_exception",
+      "detail": "AETOS tem veredito Tabela II mal reportada e permanece no Tipo Agro, Indústria e Comércio; o de-para altera apenas o Foco para Infraestrutura com base no regulamento.",
+      "source_verdict": "Tabela II mal reportada"
+    },
+    {
+      "code": "f8_exact_value_differs_from_rounded_brief",
+      "status": "numeric_reconciliation",
+      "detail": "O workbook auditado registra 68 fundos e R$ 113,372908 bi com dominância F8; R$ 109 bi é uma aproximação anterior e não o valor numérico do arquivo-fonte.",
+      "fund_count": 68,
+      "pl_brl": 113372908354.69
+    }
+  ],
+  "rules": [
+    "uma decisão estática por CNPJ aplicada retroativamente a todas as competências; 2026-06 é a competência de referência da auditoria",
+    "campos oficiais ANBIMA/CVM permanecem preservados",
+    "fundos sem informe em jun/26 permanecem no denominador",
+    "F8 residual não determina classificação analítica",
+    "Tabela II mal reportada é erro do informe, não mudança de classificação"
+  ]
+}
