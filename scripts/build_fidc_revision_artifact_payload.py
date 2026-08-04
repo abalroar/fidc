@@ -57,6 +57,16 @@ from services.industry_portfolio_export import build_industry_portfolio_export
 from services.carteira_101_document_audit import (
     load_document_audit_materialization,
 )
+from services.emission_field_enrichment import (
+    build_deep_dive_remuneration_evidence,
+    build_emission_field_coverage,
+    build_profile_curation_evidence,
+    build_taxonomy_party_evidence,
+    classify_party_value,
+    enrich_emission_field_audit,
+    load_curated_remuneration_evidence,
+    validate_emission_field_coverage,
+)
 from services.industry_revision_analysis import (
     BTG_CONTROLLED_FIDCS,
     MARKET_SHARE_EXCLUDED_FUNDS,
@@ -802,11 +812,13 @@ EMISSION_FIELD_AUDIT_COLUMNS = (
     "originador",
     "subordinacao_minima",
     "preco_por_tipo_cota",
+    "remuneracao_por_tipo_cota",
     "cedente",
     "sacado",
     "fonte_originador_cedente",
     "fonte_subordinacao",
     "fonte_preco",
+    "fonte_remuneracao",
     "fonte_sacado",
     "status",
 )
@@ -827,6 +839,12 @@ def _load_emission_field_audit(
     if not path.exists():
         raise FileNotFoundError(f"auditoria de campos das emissões ausente: {path}")
     audit = pd.read_csv(path, dtype=str, keep_default_na=False)
+    for optional_column in (
+        "remuneracao_por_tipo_cota",
+        "fonte_remuneracao",
+    ):
+        if optional_column not in audit.columns:
+            audit[optional_column] = "N/D"
     missing = set(EMISSION_FIELD_AUDIT_COLUMNS).difference(audit.columns)
     if missing:
         raise ValueError(f"auditoria de emissões sem colunas obrigatórias: {sorted(missing)}")
@@ -837,17 +855,32 @@ def _load_emission_field_audit(
     audit["emissao_id"] = audit["emissao_id"].map(_identifier_text)
     if len(audit) != 180:
         raise ValueError(f"auditoria de emissões deveria conter 180 linhas; contém {len(audit)}")
-    expected_block_counts = {"slides 10–13": 120, "slides 21–22": 60}
+    expected_block_counts = {"slides 10–17": 120, "slides 21–22": 60}
     if audit.groupby("bloco").size().to_dict() != expected_block_counts:
         raise ValueError("auditoria de emissões não fecha os blocos 120 + 60")
     if not audit["cnpj"].str.fullmatch(r"\d{14}").all():
         raise ValueError("auditoria de emissões contém CNPJ inválido")
     if audit.loc[:, EMISSION_FIELD_AUDIT_COLUMNS].eq("").any().any():
         raise ValueError("auditoria de emissões contém campo vazio; use N/D para lacunas")
+    source_columns = (
+        "fonte_originador_cedente",
+        "fonte_subordinacao",
+        "fonte_preco",
+        "fonte_remuneracao",
+        "fonte_sacado",
+    )
+    generic_manager_url = r"fnet\.bmfbovespa\.com\.br/fnet/publico/abrirGerenciador"
+    if audit.loc[:, source_columns].apply(
+        lambda column: column.str.contains(generic_manager_url, regex=True, na=False)
+    ).any(axis=None):
+        raise ValueError(
+            "auditoria de emissões usa URL genérica do gerenciador como fonte; "
+            "registre o documento ou N/D — sem documento identificado"
+        )
 
-    top_audit = audit[audit["bloco"].eq("slides 10–13")]
+    top_audit = audit[audit["bloco"].eq("slides 10–17")]
     if top_audit.duplicated(["tabela", "cnpj"]).any():
-        raise ValueError("auditoria dos slides 10–13 contém chave tabela/CNPJ duplicada")
+        raise ValueError("auditoria dos slides 10–17 contém chave tabela/CNPJ duplicada")
     ranked = top20_taxonomy_review[
         top20_taxonomy_review["competencia"].astype(str).isin((latest, "2025-12"))
         & pd.to_numeric(top20_taxonomy_review["rank_tipo"], errors="coerce").le(15)
@@ -858,7 +891,7 @@ def _load_emission_field_audit(
     }
     observed_top_keys = set(zip(top_audit["tabela"], top_audit["cnpj"], strict=True))
     if observed_top_keys != expected_top_keys:
-        raise ValueError("auditoria dos slides 10–13 diverge dos rankings materializados")
+        raise ValueError("auditoria dos slides 10–17 diverge dos rankings materializados")
 
     offer_audit = audit[audit["bloco"].eq("slides 21–22")]
     if offer_audit.duplicated(["tabela", "emissao_id"]).any():
@@ -889,6 +922,7 @@ def _load_manual_cnpj_enrichment(path: Path) -> pd.DataFrame:
         return pd.DataFrame()
     manual = pd.read_csv(path, dtype=str, keep_default_na=False)
     required = {
+        "cnpj",
         "raiz_cnpj_foto",
         "cedente_originador_literal",
         "papel_literal",
@@ -905,11 +939,20 @@ def _load_manual_cnpj_enrichment(path: Path) -> pd.DataFrame:
         raise ValueError(
             f"enriquecimento manual por foto sem colunas: {sorted(missing)}"
         )
+    manual["cnpj"] = manual["cnpj"].map(
+        lambda value: re.sub(r"\D", "", str(value))
+    )
+    if not manual["cnpj"].str.fullmatch(r"\d{14}").all():
+        raise ValueError("enriquecimento manual contém CNPJ inválido")
+    if manual["cnpj"].duplicated().any():
+        raise ValueError("enriquecimento manual contém CNPJ exato duplicado")
     manual["raiz_cnpj_foto"] = manual["raiz_cnpj_foto"].map(
         lambda value: re.sub(r"\D", "", str(value)).zfill(8)
     )
-    if manual["raiz_cnpj_foto"].duplicated().any():
-        raise ValueError("enriquecimento manual contém raiz de CNPJ duplicada")
+    if not manual["cnpj"].str[:8].eq(manual["raiz_cnpj_foto"]).all():
+        raise ValueError(
+            "enriquecimento manual contém CNPJ exato divergente da raiz transcrita"
+        )
     manual["status_confirmado"] = manual["status_transcricao"].map(
         lambda value: _fold_text(value).replace("_", " ") == "CONFIRMADO LEGIVEL"
     )
@@ -928,25 +971,35 @@ def _apply_manual_enrichment_to_rankings(
     top20_taxonomy_review: pd.DataFrame,
     emission_field_audit: pd.DataFrame,
     manual: pd.DataFrame,
+    *,
+    require_named_parties: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     if manual.empty:
         return top20_taxonomy_review, emission_field_audit
     confirmed = manual[manual["status_confirmado"]].copy()
-    by_root = {
-        row.raiz_cnpj_foto: row
+    by_cnpj = {
+        row.cnpj: row
         for row in confirmed.itertuples(index=False)
     }
 
     ranking = top20_taxonomy_review.copy()
     ranking["manual_enrichment_applied"] = False
     for index, current in ranking.iterrows():
-        root = _digits(current.get("cnpj_fundo"))[:8]
-        if root not in by_root:
+        cnpj = _digits(current.get("cnpj_fundo"))
+        if cnpj not in by_cnpj:
             continue
-        row = pd.Series(by_root[root]._asdict())
+        row = pd.Series(by_cnpj[cnpj]._asdict())
         literal = _text(row.get("cedente_originador_literal"))
         existing = _text(current.get("cedente_originador"))
-        if not literal or (existing and not existing.upper().startswith("N/D")):
+        if (
+            not literal
+            or (existing and not existing.upper().startswith("N/D"))
+            or (
+                require_named_parties
+                and classify_party_value(literal)
+                != "entidade_ou_ecossistema_nomeado"
+            )
+        ):
             continue
         ranking.at[index, "cedente_originador"] = f"{literal}*"
         ranking.at[index, "cedente_status"] = "comentario_manual_usuario"
@@ -961,10 +1014,10 @@ def _apply_manual_enrichment_to_rankings(
     audit["tipo_recebivel_literal"] = "N/D"
     audit["fonte_enriquecimento_manual"] = "N/D"
     for index, current in audit.iterrows():
-        root = _digits(current.get("cnpj"))[:8]
-        if root not in by_root:
+        cnpj = _digits(current.get("cnpj"))
+        if cnpj not in by_cnpj:
             continue
-        row = pd.Series(by_root[root]._asdict())
+        row = pd.Series(by_cnpj[cnpj]._asdict())
         source = _manual_source_label(row)
         literal = _text(row.get("cedente_originador_literal"))
         audit.at[index, "cedente_originador_literal"] = (
@@ -982,11 +1035,37 @@ def _apply_manual_enrichment_to_rankings(
         ):
             value = _text(row.get(source_field))
             existing = _text(current.get(target_field))
+            if (
+                require_named_parties
+                and target_field in {"originador", "cedente"}
+                and classify_party_value(value)
+                != "entidade_ou_ecossistema_nomeado"
+            ):
+                continue
             if value and (not existing or existing.upper().startswith("N/D")):
                 audit.at[index, target_field] = f"{value}*"
                 applied.append(target_field)
+                source_column = {
+                    "originador": "fonte_originador",
+                    "cedente": "fonte_cedente",
+                    "sacado": "fonte_sacado",
+                }.get(target_field)
+                if source_column and source_column in audit.columns:
+                    audit.at[index, source_column] = source
         if applied:
-            audit.at[index, "fonte_originador_cedente"] = source
+            existing_party_source = _text(
+                audit.at[index, "fonte_originador_cedente"]
+            )
+            source_parts = (
+                []
+                if not existing_party_source
+                or existing_party_source.upper().startswith("N/D")
+                else [existing_party_source]
+            )
+            source_parts.append(source)
+            audit.at[index, "fonte_originador_cedente"] = " | ".join(
+                dict.fromkeys(source_parts)
+            )
             if "sacado" in applied:
                 audit.at[index, "fonte_sacado"] = source
             audit.at[index, "status"] = (
@@ -3737,6 +3816,7 @@ def build_payload(
         data_dir / "industry_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
     )
+    taxonomy_party_review = taxonomy_document_review.copy()
     manual_cnpj_enrichment = _load_manual_cnpj_enrichment(
         data_dir / "industry_cnpj_manual_enrichment.csv"
     )
@@ -3746,6 +3826,19 @@ def build_payload(
     carteira_101_document_audit = load_document_audit_materialization(
         data_dir / "carteira_101_document_audit"
     )
+    emission_field_document_audit = load_document_audit_materialization(
+        data_dir / "emission_field_document_audit",
+        prefix="emission_field_document",
+    )
+    cedente_triage = _read_optional(
+        data_dir
+        / "cedente_triage"
+        / "202606"
+        / "fidc_cedentes_top437_202606.csv.gz",
+        cnpj_columns=("cnpj_fundo",),
+    )
+    if cedente_triage.empty:
+        raise ValueError("triagem de cedentes Top 437 está vazia")
     historical_top20_document_review = _read_optional(
         data_dir / "industry_top20_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
@@ -4206,6 +4299,17 @@ def build_payload(
     ].copy()
     atlantico_profile, atlantico_history = _atlantico_payload(funds, data_dir, latest)
 
+    profile_curation_source = pd.read_csv(
+        curation_path,
+        dtype=str,
+        keep_default_na=False,
+    )
+    profile_curation_evidence, profile_curation_field_audit = (
+        build_profile_curation_evidence(profile_curation_source)
+    )
+    taxonomy_party_evidence = build_taxonomy_party_evidence(
+        taxonomy_party_review
+    )
     curation = _load_curation(curation_path)
     profile_overrides = _read_optional(
         data_dir / "top20_profile_curation_overrides.csv",
@@ -4312,19 +4416,56 @@ def build_payload(
         card_curation=card_receivables_curation,
         document_review=taxonomy_document_review,
     )
-    emission_field_audit = _load_emission_field_audit(
+    emission_field_audit_base = _load_emission_field_audit(
         data_dir / "emission_field_audit.csv",
         latest=latest,
         top20_taxonomy_review=top20_taxonomy_review,
         closed_offer_top15=closed_offer_top15,
     )
+    _, emission_field_audit_before = _apply_manual_enrichment_to_rankings(
+        top20_taxonomy_review,
+        emission_field_audit_base,
+        manual_cnpj_enrichment,
+    )
+    deep_dive_remuneration_evidence = build_deep_dive_remuneration_evidence(
+        sorted((ROOT / "data" / "deep_dives").glob("*/tables/emissions.csv"))
+    )
+    curated_remuneration_evidence = load_curated_remuneration_evidence(
+        data_dir / "emission_target_remuneration_accepted.csv"
+    )
+    emission_field_audit_documented = enrich_emission_field_audit(
+        emission_field_audit_base,
+        cedent_triage=cedente_triage,
+        documentary_evidence=(
+            profile_curation_evidence,
+            taxonomy_party_evidence,
+            carteira_101_document_audit.evidence,
+            emission_field_document_audit.evidence,
+            curated_remuneration_evidence,
+        ),
+        scan_checkpoint=emission_field_document_audit.checkpoint,
+    )
     top20_taxonomy_review, emission_field_audit = (
         _apply_manual_enrichment_to_rankings(
             top20_taxonomy_review,
-            emission_field_audit,
+            emission_field_audit_documented,
             manual_cnpj_enrichment,
+            require_named_parties=True,
         )
     )
+    emission_field_coverage = build_emission_field_coverage(
+        emission_field_audit_before,
+        emission_field_audit,
+        top20_taxonomy_review,
+    )
+    emission_field_coverage_violations = validate_emission_field_coverage(
+        emission_field_coverage.to_dict(orient="records")
+    )
+    if emission_field_coverage_violations:
+        raise ValueError(
+            "cobertura dos campos dos slides 10–17 abaixo do contrato:\n- "
+            + "\n- ".join(emission_field_coverage_violations)
+        )
     top100_fidcs_middle_market, top100_fidcs_middle_market_summary = (
         _build_top100_fidcs_middle_market(
             funds=funds,
@@ -4578,6 +4719,44 @@ def build_payload(
         ),
         "top20_taxonomy_review": _records(top20_taxonomy_review),
         "emission_field_audit": _records(emission_field_audit),
+        "emission_field_coverage": _records(emission_field_coverage),
+        "emission_field_profile_mapping": _records(
+            profile_curation_field_audit
+        ),
+        "emission_field_taxonomy_party_evidence": _records(
+            taxonomy_party_evidence
+        ),
+        "emission_field_document_audit": _records(
+            emission_field_document_audit.audit
+        ),
+        "emission_field_document_coverage": _records(
+            emission_field_document_audit.coverage
+        ),
+        "emission_field_document_evidence": _records(
+            emission_field_document_audit.evidence
+        ),
+        "emission_field_document_prices": _records(
+            emission_field_document_audit.prices
+        ),
+        "emission_field_remuneration_evidence": _records(
+            curated_remuneration_evidence
+        ),
+        "emission_field_remuneration_raw_evidence": _records(
+            emission_field_document_audit.evidence[
+                emission_field_document_audit.evidence["field"]
+                .astype(str)
+                .eq("remuneracao_alvo")
+            ]
+        ),
+        "emission_field_remuneration_deep_dive_candidates": _records(
+            deep_dive_remuneration_evidence
+        ),
+        "emission_field_document_checkpoint": _records(
+            emission_field_document_audit.checkpoint
+        ),
+        "emission_field_document_manifest": (
+            emission_field_document_audit.manifest
+        ),
         "manual_cnpj_enrichment": _records(manual_cnpj_enrichment),
         "top100_outros_review": _records(top100_outros_review),
         "top100_fidcs_middle_market": _records(top100_fidcs_middle_market),

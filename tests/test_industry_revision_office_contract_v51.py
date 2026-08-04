@@ -30,7 +30,10 @@ from services.industry_revision_export import (
     HISTORICAL_TOP15_TABLE_DIMENSIONS,
     ISSUANCE_TAXONOMY_TABLE_DIMENSIONS,
     PORTFOLIO_WORKBOOK_MINIMUM_HEADERS,
+    REQUIRED_WORKBOOK_SHEETS,
     REQUIRED_PORTFOLIO_WORKBOOK_SHEETS,
+    REVISION_EMISSION_AUDIT_REQUIRED_HEADERS,
+    REVISION_EMISSION_COVERAGE_TARGET_LABEL,
     STRUCTURAL_MVP_SLIDE_SEQUENCE,
     TYPE_RANKING_SLIDE_SEQUENCE,
     RevisionExportUnavailable,
@@ -39,6 +42,7 @@ from services.industry_revision_export import (
     validate_revision_portfolio_xlsx,
     validate_revision_pptx,
     validate_revision_top100_xlsx,
+    validate_revision_xlsx,
 )
 
 
@@ -102,6 +106,35 @@ def test_current_top15_contract_and_renderer_distinguish_1s26_from_2025() -> Non
 
 def test_portfolio_workbook_validator_accepts_the_full_101_and_47_contract() -> None:
     validate_revision_portfolio_xlsx(_portfolio_workbook_bytes())
+
+
+def test_revision_workbook_validator_separates_vnu_from_target_remuneration() -> None:
+    validate_revision_xlsx(_revision_workbook_bytes())
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "message"),
+    [
+        (
+            {"missing_audit_header": "Fonte remuneração"},
+            "não separa VNU de remuneração-alvo",
+        ),
+        (
+            {"coverage_target_count": 7},
+            "deveria conter oito linhas de Remuneração-alvo",
+        ),
+        (
+            {"stale_price_coverage": True},
+            "ainda trata VNU como rentabilidade-alvo",
+        ),
+    ],
+)
+def test_revision_workbook_validator_rejects_conflated_remuneration_contract(
+    kwargs: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(RevisionExportUnavailable, match=message):
+        validate_revision_xlsx(_revision_workbook_bytes(**kwargs))
 
 
 @pytest.mark.parametrize(
@@ -268,6 +301,44 @@ def _portfolio_workbook_bytes(
         Reference(editable_names, min_col=1, min_row=2, max_row=2)
     )
     workbook["Leia-me"].add_chart(chart, "A3")
+
+    payload = BytesIO()
+    workbook.save(payload)
+    workbook.close()
+    return payload.getvalue()
+
+
+def _revision_workbook_bytes(
+    *,
+    missing_audit_header: str = "",
+    coverage_target_count: int = 8,
+    stale_price_coverage: bool = False,
+) -> bytes:
+    workbook = Workbook()
+    workbook.remove(workbook.active)
+    for sheet_name in sorted(REQUIRED_WORKBOOK_SHEETS):
+        workbook.create_sheet(sheet_name)
+
+    audit = workbook["Auditoria emissões"]
+    headers = sorted(REVISION_EMISSION_AUDIT_REQUIRED_HEADERS)
+    if missing_audit_header:
+        headers.remove(missing_audit_header)
+    for column, header in enumerate(headers, start=1):
+        audit.cell(row=4, column=column, value=header)
+
+    coverage = workbook["Cobertura emissões"]
+    for offset in range(coverage_target_count):
+        coverage.cell(
+            row=5 + offset,
+            column=4,
+            value=REVISION_EMISSION_COVERAGE_TARGET_LABEL,
+        )
+    if stale_price_coverage:
+        coverage.cell(
+            row=5 + coverage_target_count,
+            column=4,
+            value="Preço por cota",
+        )
 
     payload = BytesIO()
     workbook.save(payload)
@@ -522,6 +593,8 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Originadores 2026",
     "Top 15 ofertas",
     "Auditoria emissões",
+    "Cobertura emissões",
+    "Curadoria perfis",
     "Validação emissões",
     "Emissões por categoria",
     "Público-alvo ofertas",
@@ -1172,6 +1245,8 @@ def test_top_type_slides_split_each_type_and_period_with_originator_column() -> 
         assert "Top 15" in text
         assert any(period in text for period in ("jun/26", "dez/25"))
         assert "Originador" in text
+        assert "Remuneração-alvo" in text
+        assert "Preço por cota" not in text
     for type_name in (
         "Fomento Mercantil",
         "Agro, Indústria e Comércio",
@@ -1338,7 +1413,7 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
     _require(XLSX)
     workbook = load_workbook(XLSX, read_only=True, data_only=False)
     sheet = workbook["Auditoria emissões"]
-    headers = [sheet.cell(4, column).value for column in range(1, 19)]
+    headers = [sheet.cell(4, column).value for column in range(1, 25)]
     assert headers == [
         "Bloco do deck",
         "Tabela / período",
@@ -1348,22 +1423,28 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         "Originador",
         "Subordinação mínima",
         "Preço unitário por tipo de cota",
+        "Remuneração-alvo por tipo de cota",
         "Cedente",
         "Sacado",
         "Cedente / Originador literal*",
         "Tipo de recebível literal*",
         "Fonte enriquecimento manual",
+        "Fonte originador",
+        "Fonte cedente",
         "Fonte originador / cedente",
+        "Natureza do mínimo",
         "Fonte subordinação",
         "Fonte preço",
+        "Fonte remuneração",
         "Fonte sacado",
+        "Motivo N/D",
         "Status",
     ]
     rows = list(
-        sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=18, values_only=True)
+        sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=24, values_only=True)
     )
     assert len(rows) == 180
-    assert sum(row[0] == "slides 10–13" for row in rows) == 120
+    assert sum(row[0] == "slides 10–17" for row in rows) == 120
     assert sum(row[0] == "slides 21–22" for row in rows) == 60
     assert all(value not in {None, ""} for row in rows for value in row)
     assert all(
@@ -1371,16 +1452,56 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         for row in rows
     )
     assert all(str(row[3]).startswith(("E ", "N/D")) for row in rows)
-    assert [sum(row[column] != "N/D" for row in rows) for column in range(5, 13)] == [
-        67,
-        15,
-        14,
-        27,
-        3,
-        48,
-        20,
-        48,
+    header_index = {header: index for index, header in enumerate(headers)}
+    remuneration_index = header_index["Remuneração-alvo por tipo de cota"]
+    remuneration_source_index = header_index["Fonte remuneração"]
+    remuneration_rows = [
+        row for row in rows if row[remuneration_index] != "N/D"
     ]
+    assert remuneration_rows
+    assert all(
+        re.search(r"(?:CDI|DI|IPCA|SELIC|IGP-M).+%|%.+(?:CDI|DI|IPCA|SELIC|IGP-M)", str(row[remuneration_index]))
+        for row in remuneration_rows
+    )
+    assert all("R$" not in str(row[remuneration_index]) for row in remuneration_rows)
+    assert all(row[remuneration_source_index] != "N/D" for row in remuneration_rows)
+
+    coverage = workbook["Cobertura emissões"]
+    coverage_headers = [coverage.cell(4, column).value for column in range(1, 17)]
+    assert coverage_headers == [
+        "Tabela / período",
+        "Tipo ANBIMA",
+        "Competência",
+        "Campo",
+        "Linhas",
+        "Antes · com dado",
+        "Antes · cobertura",
+        "Antes · PL coberto",
+        "Antes · cobertura PL",
+        "Depois · com dado",
+        "Depois · cobertura",
+        "Depois · PL coberto",
+        "Depois · cobertura PL",
+        "N/D depois",
+        "Piso de publicação",
+        "Piso atendido?",
+    ]
+    coverage_rows = list(
+        coverage.iter_rows(min_row=5, max_row=44, min_col=1, max_col=16, values_only=True)
+    )
+    assert len(coverage_rows) == 40
+    assert all(row[4] == 15 for row in coverage_rows)
+    assert sum(row[3] == "Remuneração-alvo" for row in coverage_rows) == 8
+    assert all(row[3] != "Preço por cota" for row in coverage_rows)
+
+    profiles = workbook["Curadoria perfis"]
+    assert profiles["A4"].value == "CNPJ"
+    assert profiles["D4"].value == "Classificação do texto"
+    assert profiles["E4"].value == "Aplicação como Cedente"
+    assert profiles["F4"].value == "Valor aplicado como Cedente"
+    assert profiles["G4"].value == "Aplicação como Originador"
+    assert profiles["H4"].value == "Valor aplicado como Originador"
+    assert profiles["M4"].value == "Data da consulta"
 
 
 def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> None:

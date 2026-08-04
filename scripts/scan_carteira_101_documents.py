@@ -66,6 +66,7 @@ DEFAULT_STRUCTURED_PARTIES = Path("data/industry_study/cedentes_structured.csv.g
 DEFAULT_DB = Path("data/fidc_credit_strategy/fidc_credit_strategy.sqlite")
 PARTY_LABEL_PARSER_VERSION = 2
 PRICE_PARSER_VERSION = 2
+REMUNERATION_PARSER_VERSION = 1
 ONLINE_SUCCESS_STATUSES = {"consultado", "sem_documentos"}
 
 
@@ -77,6 +78,38 @@ def parse_args() -> argparse.Namespace:
         )
     )
     parser.add_argument("--payload", type=Path, default=DEFAULT_PAYLOAD)
+    parser.add_argument(
+        "--top15-ranking-scope",
+        action="store_true",
+        help=(
+            "Deriva a coorte diretamente de top20_taxonomy_review no payload: "
+            "Top 15 por Tipo nos fechamentos 2025-12 e mais recente."
+        ),
+    )
+    parser.add_argument(
+        "--scope-csv",
+        type=Path,
+        help=(
+            "CSV alternativo para uma varredura por CNPJ. Quando informado, "
+            "substitui a coorte Carteira 101 do payload."
+        ),
+    )
+    parser.add_argument("--scope-cnpj-column", default="cnpj")
+    parser.add_argument("--scope-name-column", default="fundo")
+    parser.add_argument(
+        "--scope-filter-column",
+        help="Coluna opcional usada para restringir as linhas do CSV alternativo.",
+    )
+    parser.add_argument(
+        "--scope-filter-value",
+        help="Valor exato exigido na coluna informada por --scope-filter-column.",
+    )
+    parser.add_argument("--scope-name", default="Carteira 101")
+    parser.add_argument(
+        "--output-prefix",
+        default="carteira_101_document",
+        help="Prefixo dos seis arquivos materializados no diretório de saída.",
+    )
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--text-cache", type=Path, default=DEFAULT_TEXT_CACHE)
     parser.add_argument("--director-cache", type=Path, default=DEFAULT_DIRECTOR_CACHE)
@@ -93,7 +126,84 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_portfolio(payload_path: Path) -> pd.DataFrame:
+def load_portfolio(
+    payload_path: Path,
+    *,
+    scope_csv: Path | None = None,
+    scope_cnpj_column: str = "cnpj",
+    scope_name_column: str = "fundo",
+    scope_filter_column: str | None = None,
+    scope_filter_value: str | None = None,
+    top15_ranking_scope: bool = False,
+) -> pd.DataFrame:
+    if top15_ranking_scope:
+        payload = json.loads(payload_path.read_text(encoding="utf-8"))
+        source = pd.DataFrame(payload.get("top20_taxonomy_review") or [])
+        required = {"cnpj_fundo", "denominacao", "competencia", "rank_tipo"}
+        missing = required.difference(source.columns)
+        if missing:
+            raise ValueError(
+                f"ranking documental sem colunas obrigatórias: {sorted(missing)}"
+            )
+        competences = sorted(source["competencia"].astype(str).unique())
+        if not competences:
+            raise ValueError("ranking documental sem competências")
+        reference_periods = {"2025-12", competences[-1]}
+        source = source[
+            source["competencia"].astype(str).isin(reference_periods)
+            & pd.to_numeric(source["rank_tipo"], errors="coerce").le(15)
+        ].copy()
+        rows = pd.DataFrame(
+            {
+                "cnpj": source["cnpj_fundo"].map(normalize_cnpj),
+                "nome_oficial_cvm": source["denominacao"],
+            }
+        )
+        rows = rows[rows["cnpj"].ne("")].drop_duplicates("cnpj", keep="first")
+        rows = rows.reset_index(drop=True)
+        rows.insert(0, "ordem", range(1, len(rows) + 1))
+        rows["nome_referencia"] = rows["nome_oficial_cvm"]
+        if len(rows) != 72:
+            raise ValueError(
+                "coorte Top 15 por tipo deveria conter 72 CNPJs distintos; "
+                f"contém {len(rows)}"
+            )
+        return rows
+
+    if scope_csv is not None:
+        source = pd.read_csv(scope_csv, dtype=str, keep_default_na=False)
+        if scope_filter_column:
+            if scope_filter_column not in source.columns:
+                raise ValueError(
+                    f"escopo documental sem coluna de filtro: {scope_filter_column}"
+                )
+            source = source[
+                source[scope_filter_column].astype(str).eq(str(scope_filter_value or ""))
+            ].copy()
+        if scope_cnpj_column not in source.columns:
+            raise ValueError(
+                f"escopo documental sem coluna CNPJ: {scope_cnpj_column}"
+            )
+        rows = pd.DataFrame(
+            {
+                "cnpj": source[scope_cnpj_column].map(normalize_cnpj),
+                "nome_oficial_cvm": (
+                    source[scope_name_column]
+                    if scope_name_column in source.columns
+                    else "N/D"
+                ),
+            }
+        )
+        rows = rows[rows["cnpj"].ne("")].drop_duplicates("cnpj", keep="first")
+        rows = rows.reset_index(drop=True)
+        rows.insert(0, "ordem", range(1, len(rows) + 1))
+        rows["nome_referencia"] = rows["nome_oficial_cvm"]
+        if rows.empty:
+            raise ValueError("escopo documental alternativo não contém CNPJ válido")
+        if rows["cnpj"].duplicated().any():
+            raise ValueError("escopo documental alternativo contém CNPJ duplicado")
+        return rows
+
     payload = json.loads(payload_path.read_text(encoding="utf-8"))
     rows = pd.DataFrame(payload.get("portfolio_export_carteira_101") or [])
     if len(rows) != 101:
@@ -651,10 +761,13 @@ def write_outputs(
     evidence = evidence_frame(after)
     price_table = price_frame(prices)
 
-    audit_path = args.output_dir / "carteira_101_document_audit.csv"
-    coverage_path = args.output_dir / "carteira_101_document_coverage.csv"
-    evidence_path = args.output_dir / "carteira_101_document_evidence.csv.gz"
-    prices_path = args.output_dir / "carteira_101_document_prices.csv.gz"
+    prefix = str(args.output_prefix).strip()
+    if not re.fullmatch(r"[a-z0-9_]+", prefix):
+        raise ValueError(f"prefixo de saída inválido: {prefix!r}")
+    audit_path = args.output_dir / f"{prefix}_audit.csv"
+    coverage_path = args.output_dir / f"{prefix}_coverage.csv"
+    evidence_path = args.output_dir / f"{prefix}_evidence.csv.gz"
+    prices_path = args.output_dir / f"{prefix}_prices.csv.gz"
     audit.to_csv(audit_path, index=False)
     coverage.to_csv(coverage_path, index=False)
     evidence.to_csv(evidence_path, index=False, compression="gzip")
@@ -667,6 +780,7 @@ def write_outputs(
     )
     manifest = {
         "schema_version": SCHEMA_VERSION,
+        "scope_name": args.scope_name,
         "generated_at_utc": utc_now_iso(),
         "started_at_utc": started_at,
         "portfolio_cnpjs": len(cnpjs),
@@ -680,6 +794,7 @@ def write_outputs(
             "timeout_seconds": args.timeout_seconds,
             "party_label_parser_version": PARTY_LABEL_PARSER_VERSION,
             "price_parser_version": PRICE_PARSER_VERSION,
+            "remuneration_parser_version": REMUNERATION_PARSER_VERSION,
         },
         "online_consulted_cnpjs": sum(
             row.get("online_status") in {"consultado", "sem_documentos"}
@@ -708,6 +823,10 @@ def write_outputs(
             "fund_name_inference": False,
             "candidate_extraction_improves_coverage": False,
             "price_definition": "VNU/preço unitário por classe ou série; remuneração e quantidade excluídas",
+            "remuneration_definition": (
+                "rentabilidade-alvo/benchmark da cota ou série; CDI/DI, % CDI, "
+                "IPCA e demais indexadores preservados sem conversão"
+            ),
         },
         "audited_fields": list(AUDITED_FIELDS),
         "coverage": coverage.to_dict(orient="records"),
@@ -731,7 +850,11 @@ def write_outputs(
                 "bytes": path.stat().st_size,
                 "sha256": file_sha256(path),
             }
-            for path in (args.payload, args.inventory, args.structured_parties)
+            for path in (
+                args.scope_csv or args.payload,
+                args.inventory,
+                args.structured_parties,
+            )
             if path.exists()
         },
         "outputs": {
@@ -741,9 +864,9 @@ def write_outputs(
             }
             for path in (audit_path, coverage_path, evidence_path, prices_path)
         },
-        "checkpoint": str(args.output_dir / "carteira_101_document_checkpoint.jsonl"),
+        "checkpoint": str(args.output_dir / f"{prefix}_checkpoint.jsonl"),
     }
-    manifest_path = args.output_dir / "carteira_101_document_manifest.json"
+    manifest_path = args.output_dir / f"{prefix}_manifest.json"
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
@@ -758,7 +881,15 @@ def write_outputs(
 def main() -> None:
     args = parse_args()
     started_at = utc_now_iso()
-    portfolio = load_portfolio(args.payload)
+    portfolio = load_portfolio(
+        args.payload,
+        scope_csv=args.scope_csv,
+        scope_cnpj_column=args.scope_cnpj_column,
+        scope_name_column=args.scope_name_column,
+        scope_filter_column=args.scope_filter_column,
+        scope_filter_value=args.scope_filter_value,
+        top15_ranking_scope=args.top15_ranking_scope,
+    )
     if args.max_cnpjs > 0:
         portfolio = portfolio.head(args.max_cnpjs).copy()
     cnpjs = set(portfolio["cnpj"])
@@ -783,8 +914,13 @@ def main() -> None:
         max_docs_per_kind=args.max_docs_per_kind,
     )
 
-    checkpoint_path = args.output_dir / "carteira_101_document_checkpoint.jsonl"
+    checkpoint_path = (
+        args.output_dir / f"{args.output_prefix}_checkpoint.jsonl"
+    )
     checkpoint = {} if args.force else read_checkpoint(checkpoint_path)
+    checkpoint = {
+        cnpj: row for cnpj, row in checkpoint.items() if cnpj in cnpjs
+    }
     for index, row in portfolio.iterrows():
         cnpj = row["cnpj"]
         previous = checkpoint.get(cnpj)
@@ -827,11 +963,16 @@ def main() -> None:
             int((previous or {}).get("price_parser_version") or 0)
             >= PRICE_PARSER_VERSION
         )
+        previous_remuneration_parser_ok = (
+            int((previous or {}).get("remuneration_parser_version") or 0)
+            >= REMUNERATION_PARSER_VERSION
+        )
         if previous and previous.get("status") == "concluído" and (
             (
                 not args.online
                 and previous_parser_ok
                 and previous_price_parser_ok
+                and previous_remuneration_parser_ok
             )
             or (
                 args.online
@@ -839,6 +980,7 @@ def main() -> None:
                 and previous_depth_ok
                 and previous_parser_ok
                 and previous_price_parser_ok
+                and previous_remuneration_parser_ok
             )
         ):
             print(f"[{index + 1}/{len(portfolio)}] {cnpj} · checkpoint")
@@ -931,6 +1073,15 @@ def main() -> None:
             ]
             if int(previous.get("price_parser_version") or 0) < PRICE_PARSER_VERSION:
                 previous_prices = []
+            if (
+                int(previous.get("remuneration_parser_version") or 0)
+                < REMUNERATION_PARSER_VERSION
+            ):
+                previous_evidence = [
+                    item
+                    for item in previous_evidence
+                    if item.field != "remuneracao_alvo"
+                ]
         found: list[Evidence] = list(previous_evidence)
         found_prices: list[PriceEvidence] = list(previous_prices)
         for source in sorted(
@@ -968,6 +1119,7 @@ def main() -> None:
             "max_pages_per_document": args.max_pages,
             "party_label_parser_version": PARTY_LABEL_PARSER_VERSION,
             "price_parser_version": PRICE_PARSER_VERSION,
+            "remuneration_parser_version": REMUNERATION_PARSER_VERSION,
             "errors": _unique_strings(errors),
             "evidence": serialize_evidence(found),
             "prices": serialize_prices(found_prices),

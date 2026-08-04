@@ -123,16 +123,18 @@ class Carteira101DocumentAuditMaterialization:
 
 def load_document_audit_materialization(
     base_dir: Path,
+    *,
+    prefix: str = "carteira_101_document",
 ) -> Carteira101DocumentAuditMaterialization:
     """Load accepted scan outputs without consulting documents or the network."""
 
     paths = {
-        "audit": base_dir / "carteira_101_document_audit.csv",
-        "coverage": base_dir / "carteira_101_document_coverage.csv",
-        "evidence": base_dir / "carteira_101_document_evidence.csv.gz",
-        "prices": base_dir / "carteira_101_document_prices.csv.gz",
-        "checkpoint": base_dir / "carteira_101_document_checkpoint.jsonl",
-        "manifest": base_dir / "carteira_101_document_manifest.json",
+        "audit": base_dir / f"{prefix}_audit.csv",
+        "coverage": base_dir / f"{prefix}_coverage.csv",
+        "evidence": base_dir / f"{prefix}_evidence.csv.gz",
+        "prices": base_dir / f"{prefix}_prices.csv.gz",
+        "checkpoint": base_dir / f"{prefix}_checkpoint.jsonl",
+        "manifest": base_dir / f"{prefix}_manifest.json",
     }
     missing = [str(path) for path in paths.values() if not path.exists()]
     if missing:
@@ -700,6 +702,223 @@ def _price_matches(source: DocumentSource) -> list[PriceEvidence]:
     return results
 
 
+_REMUNERATION_ANCHOR = re.compile(
+    r"(?:meta\s+de\s+remunera[cç][aã]o|remunera[cç][aã]o\s+alvo|"
+    r"remunera[cç][aã]o\s*\(\s*taxa\s*\)|"
+    r"rentabilidade[-\s]+alvo|retorno\s+alvo|benchmark\s+alvo|"
+    r"meta\s+de\s+rentabilidade(?:\s+priorit[aá]ria)?|"
+    r"taxas?\s+de\s+remunera[cç][aã]o|benchmark\s+(?:das?\s+)?(?:cotas?|quotas?))",
+    re.IGNORECASE,
+)
+
+_REMUNERATION_PLUS = re.compile(
+    r"(?:(?:varia[cç][aã]o\s+da\s+)?taxa\s+)?"
+    r"(?P<index>CDI|DI|IPCA|SELIC|IGP[-\s]?M)"
+    r"\s*(?:,\s*)?(?:\+|acrescid[ao]\s+de(?:\s+um\s+spread\s+de)?)\s*"
+    r"(?P<rate>\d{1,3}(?:[.,]\d{1,4})?)\s*(?P<pct>%?)",
+    re.IGNORECASE,
+)
+
+_REMUNERATION_PERCENT_INDEX = re.compile(
+    r"(?P<rate>\d{1,3}(?:[.,]\d{1,4})?)\s*%\s*(?:do|da)?\s*"
+    r"(?P<index>CDI|DI|IPCA|SELIC|IGP[-\s]?M)",
+    re.IGNORECASE,
+)
+
+_REMUNERATION_CLASS_PATTERNS = (
+    re.compile(
+        r"(?:(?P<series>\d{1,2}[ªa]\s+s[eé]rie)\s+(?:de\s+)?)?"
+        r"(?:cotas?|quotas?)\s+"
+        r"(?P<class>(?:subordinadas?\s+)?(?:seniores?|mezanino(?:\s+(?:\d{1,2}M|[A-Z]\b))?|j[uú]nior(?:es)?))"
+        r"(?:\s+da\s+(?P<series_after>\d{1,2}[ªa]\s+s[eé]rie))?",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"FIDC\s*[-–—]\s*(?P<class>senior|s[eê]nior|mezanino|j[uú]nior)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"(?:nome\s+da\s+cota\s+)?(?P<class>mezanino\s+\d{1,2}M)"
+        r"(?:\s+\d{1,2}\s+mes(?:es)?)?\s+(?:(?:taxa\s+)?(?:CDI|DI)|remunera[cç][aã]o)",
+        re.IGNORECASE,
+    ),
+)
+
+
+def _canonical_rate_index(value: str) -> str:
+    folded = fold_text(value).replace(" ", "")
+    if folded in {"di", "cdi"}:
+        return "CDI"
+    if folded == "igpm":
+        return "IGP-M"
+    return str(value or "").upper().replace(" ", "")
+
+
+def _canonical_rate_number(value: str) -> str:
+    raw = str(value or "").strip().replace(".", ",")
+    return raw
+
+
+def _remuneration_class_series(text: str, rate_start: int, rate_end: int) -> str:
+    start = max(0, rate_start - 700)
+    end = min(len(text), rate_end + 180)
+    window = text[start:end]
+    relative_rate_start = rate_start - start
+    candidates: list[tuple[int, re.Match[str]]] = []
+    for pattern in _REMUNERATION_CLASS_PATTERNS:
+        for match in pattern.finditer(window):
+            # Prefer the closest class label before the benchmark.  A label just
+            # after the benchmark is accepted for compact rating-report tables.
+            if match.end() <= relative_rate_start:
+                distance = relative_rate_start - match.end()
+            else:
+                distance = 1000 + match.start() - relative_rate_start
+            candidates.append((distance, match))
+    if not candidates:
+        return TEXT_ND
+    _, match = min(candidates, key=lambda item: item[0])
+    literal = compact_text(match.group("class"), limit=80)
+    folded = fold_text(literal)
+    if "mezanino" in folded:
+        suffix_match = re.search(
+            r"\bmezanino\s+(\d{1,2}M|[A-Z])\b",
+            literal,
+            re.I,
+        )
+        class_label = f"Mezanino {suffix_match.group(1)}" if suffix_match else "Mezanino"
+    elif "junior" in folded:
+        class_label = "Júnior"
+    else:
+        class_label = "Sênior"
+    series = ""
+    if "series" in match.re.groupindex:
+        series = compact_text(match.groupdict().get("series") or "", limit=40)
+    if "series_after" in match.re.groupindex and not series:
+        series = compact_text(match.groupdict().get("series_after") or "", limit=40)
+    return f"{class_label} · {series}" if series else class_label
+
+
+def _remuneration_matches(source: DocumentSource) -> list[Evidence]:
+    """Locate explicit target remuneration for a quota class or series.
+
+    A benchmark expression is accepted only when a nearby clause identifies it
+    as the quota's target remuneration/return.  This deliberately excludes
+    excess spread of the receivables, assignment rates and service-provider
+    remuneration even when those passages also contain CDI/IPCA references.
+    """
+
+    text = source.text
+    results: list[Evidence] = []
+    seen: set[tuple[str, str, str, str]] = set()
+    for pattern, percent_of_index in (
+        (_REMUNERATION_PLUS, False),
+        (_REMUNERATION_PERCENT_INDEX, True),
+    ):
+        for match in pattern.finditer(text):
+            context_start = max(0, match.start() - 520)
+            context_end = min(len(text), match.end() + 180)
+            context = text[context_start:context_end]
+            anchors = list(_REMUNERATION_ANCHOR.finditer(context))
+            class_series = _remuneration_class_series(
+                text, match.start(), match.end()
+            )
+            if anchors:
+                nearest_anchor = min(
+                    anchors,
+                    key=lambda item: abs(
+                        (context_start + item.start()) - match.start()
+                    ),
+                )
+                anchor_distance = abs(
+                    (context_start + nearest_anchor.start()) - match.start()
+                )
+            elif re.search(r"\bbenchmark\b", context, re.IGNORECASE) and class_series != TEXT_ND:
+                anchor_distance = 100
+            else:
+                continue
+            # Missing percent signs occur in rating-report tables (for example
+            # ``CDI + 3,10 a.a.``).  They are accepted only when the target label
+            # is in the same compact row.
+            if (
+                not percent_of_index
+                and not match.groupdict().get("pct")
+                and anchor_distance > 140
+            ):
+                continue
+            folded_context = fold_text(context)
+            if any(
+                marker in folded_context
+                for marker in (
+                    "no maximo",
+                    "taxa maxima de remuneracao",
+                    "a ser definido em procedimento de bookbuilding",
+                    "a ser definida em procedimento de bookbuilding",
+                )
+            ):
+                continue
+            if (
+                "remuneracao da administradora" in folded_context
+                or "taxa de administracao" in folded_context
+            ) and class_series == TEXT_ND:
+                continue
+            index = _canonical_rate_index(match.group("index"))
+            rate = _canonical_rate_number(match.group("rate"))
+            try:
+                number = float(rate.replace(",", "."))
+            except ValueError:
+                continue
+            if number <= 0 or number > (300 if percent_of_index else 100):
+                continue
+            benchmark = (
+                f"{rate}% do {index}"
+                if percent_of_index
+                else f"{index} + {rate}% a.a."
+            )
+            value = (
+                f"{class_series}: {benchmark}"
+                if class_series != TEXT_ND
+                else benchmark
+            )
+            key = (
+                fold_text(class_series),
+                fold_text(benchmark),
+                source.source_id,
+                _page_for_offset(source, match.start()),
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+            results.append(
+                Evidence(
+                    cnpj=source.cnpj,
+                    field="remuneracao_alvo",
+                    value=value,
+                    source_kind=source.source_kind,
+                    source_id=source.source_id,
+                    document_class=source.document_class,
+                    document_date=source.document_date,
+                    source_path=source.source_path,
+                    source_url=source.source_url,
+                    page=_page_for_offset(source, match.start()),
+                    status="encontrado_explicito",
+                    confidence=0.97 if class_series != TEXT_ND else 0.90,
+                    excerpt=compact_text(
+                        text[
+                            max(0, match.start() - 260) : min(
+                                len(text), match.end() + 260
+                            )
+                        ]
+                    ),
+                    nature=(
+                        f"rentabilidade-alvo documentada · {class_series}"
+                        if class_series != TEXT_ND
+                        else "rentabilidade-alvo documentada · classe/série N/D*"
+                    ),
+                )
+            )
+    return results
+
+
 def extract_document_evidence(
     source: DocumentSource,
 ) -> tuple[list[Evidence], list[PriceEvidence]]:
@@ -742,6 +961,7 @@ def extract_document_evidence(
     )
     evidence.extend(_receivable_matches(source))
     evidence.extend(_minimum_matches(source))
+    evidence.extend(_remuneration_matches(source))
     return deduplicate_evidence(evidence), _price_matches(source)
 
 

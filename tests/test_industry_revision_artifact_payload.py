@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 import pytest
 
@@ -12,12 +14,55 @@ from scripts.build_fidc_revision_artifact_payload import (
 )
 
 
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_emission_field_audit_uses_current_slide_range_and_document_sources() -> None:
+    audit = pd.read_csv(
+        ROOT / "data/industry_study/emission_field_audit.csv",
+        dtype=str,
+        keep_default_na=False,
+    )
+
+    assert audit["bloco"].value_counts().to_dict() == {
+        "slides 10–17": 120,
+        "slides 21–22": 60,
+    }
+    source_columns = [
+        "fonte_originador_cedente",
+        "fonte_subordinacao",
+        "fonte_preco",
+        "fonte_sacado",
+    ]
+    assert not audit[source_columns].apply(
+        lambda column: column.str.contains("abrirGerenciador", regex=False)
+    ).any(axis=None)
+
+
+def test_exact_cnpj_manual_join_loses_no_legacy_correspondence() -> None:
+    audit = pd.read_csv(
+        ROOT / "data/industry_study/emission_field_audit.csv",
+        dtype=str,
+        keep_default_na=False,
+    )
+    manual = _load_manual_cnpj_enrichment(
+        ROOT / "data/industry_study/industry_cnpj_manual_enrichment.csv"
+    )
+    confirmed = manual[manual["status_confirmado"]]
+    legacy_match = audit["cnpj"].str[:8].isin(confirmed["raiz_cnpj_foto"])
+    exact_match = audit["cnpj"].isin(confirmed["cnpj"])
+    lost = audit.loc[legacy_match & ~exact_match, ["cnpj", "fundo"]]
+
+    assert lost.empty, lost.to_dict(orient="records")
+
+
 def test_manual_photo_loader_accepts_confirmed_status_with_underscore(tmp_path) -> None:
     path = tmp_path / "manual.csv"
     pd.DataFrame(
         [
             {
                 "raiz_cnpj_foto": "12345678",
+                "cnpj": "12.345.678/0001-90",
                 "cedente_originador_literal": "Grupo",
                 "papel_literal": "cedente",
                 "originador": "",
@@ -30,6 +75,7 @@ def test_manual_photo_loader_accepts_confirmed_status_with_underscore(tmp_path) 
             },
             {
                 "raiz_cnpj_foto": "87654321",
+                "cnpj": "87.654.321/0001-09",
                 "cedente_originador_literal": "Revisar",
                 "papel_literal": "N/D",
                 "originador": "",
@@ -93,6 +139,7 @@ def test_manual_photo_enrichment_only_fills_gaps_and_marks_asterisk() -> None:
         [
             {
                 "raiz_cnpj_foto": "12345678",
+                "cnpj": "12345678000190",
                 "cedente_originador_literal": "Grupo manual",
                 "originador": "Originador manual",
                 "cedente": "Cedente manual",
@@ -104,6 +151,7 @@ def test_manual_photo_enrichment_only_fills_gaps_and_marks_asterisk() -> None:
             },
             {
                 "raiz_cnpj_foto": "87654321",
+                "cnpj": "87654321000109",
                 "cedente_originador_literal": "Não deve substituir",
                 "originador": "Não deve substituir",
                 "cedente": "Não deve substituir",
@@ -129,6 +177,151 @@ def test_manual_photo_enrichment_only_fills_gaps_and_marks_asterisk() -> None:
     assert enriched_audit.loc[1, "cedente"] == "Cedente documental"
     assert enriched_audit.loc[1, "sacado"] == "Sacado documental"
     assert "IMG_0001.JPG" in enriched_audit.loc[0, "fonte_enriquecimento_manual"]
+
+
+def test_manual_photo_enrichment_does_not_cross_exact_cnpj_siblings() -> None:
+    ranking = pd.DataFrame(
+        [
+            {
+                "cnpj_fundo": "12345678000190",
+                "cedente_originador": "N/D",
+                "cedente_status": "N/D",
+                "evidencia_cedente": "N/D",
+                "limitacao_cedente": "N/D",
+            },
+            {
+                "cnpj_fundo": "12345678000270",
+                "cedente_originador": "N/D",
+                "cedente_status": "N/D",
+                "evidencia_cedente": "N/D",
+                "limitacao_cedente": "N/D",
+            },
+        ]
+    )
+    audit = pd.DataFrame(
+        [
+            {
+                "cnpj": "12345678000190",
+                "originador": "N/D",
+                "cedente": "N/D",
+                "sacado": "N/D",
+                "fonte_originador_cedente": "N/D",
+                "fonte_sacado": "N/D",
+                "status": "N/D",
+            },
+            {
+                "cnpj": "12345678000270",
+                "originador": "N/D",
+                "cedente": "N/D",
+                "sacado": "N/D",
+                "fonte_originador_cedente": "N/D",
+                "fonte_sacado": "N/D",
+                "status": "N/D",
+            },
+        ]
+    )
+    manual = pd.DataFrame(
+        [
+            {
+                "raiz_cnpj_foto": "12345678",
+                "cnpj": "12345678000190",
+                "cedente_originador_literal": "Grupo manual",
+                "originador": "Originador manual",
+                "cedente": "Cedente manual",
+                "sacado_devedor": "Sacado manual",
+                "tipo_recebivel_literal": "Recebível manual",
+                "fonte_imagem": "IMG_0001.JPG",
+                "localizacao_imagem": "linha 1",
+                "status_confirmado": True,
+            }
+        ]
+    )
+
+    enriched_ranking, enriched_audit = _apply_manual_enrichment_to_rankings(
+        ranking, audit, manual
+    )
+
+    assert enriched_ranking["cedente_originador"].tolist() == [
+        "Grupo manual*",
+        "N/D",
+    ]
+    assert enriched_audit["originador"].tolist() == [
+        "Originador manual*",
+        "N/D",
+    ]
+
+
+def test_manual_photo_loader_rejects_invalid_exact_cnpj(tmp_path) -> None:
+    path = tmp_path / "manual.csv"
+    pd.DataFrame(
+        [
+            {
+                "raiz_cnpj_foto": "12345678",
+                "cnpj": "12345678",
+                "cedente_originador_literal": "Grupo",
+                "papel_literal": "cedente",
+                "originador": "",
+                "cedente": "Grupo",
+                "sacado_devedor": "",
+                "tipo_recebivel_literal": "Recebível",
+                "fonte_imagem": "IMG.JPG",
+                "localizacao_imagem": "linha 1",
+                "status_transcricao": "confirmado_legivel",
+            }
+        ]
+    ).to_csv(path, index=False)
+
+    with pytest.raises(ValueError, match="CNPJ inválido"):
+        _load_manual_cnpj_enrichment(path)
+
+
+def test_manual_photo_loader_rejects_exact_cnpj_from_another_root(tmp_path) -> None:
+    path = tmp_path / "manual.csv"
+    pd.DataFrame(
+        [
+            {
+                "raiz_cnpj_foto": "12345678",
+                "cnpj": "87654321000109",
+                "cedente_originador_literal": "Grupo",
+                "papel_literal": "cedente",
+                "originador": "",
+                "cedente": "Grupo",
+                "sacado_devedor": "",
+                "tipo_recebivel_literal": "Recebível",
+                "fonte_imagem": "IMG.JPG",
+                "localizacao_imagem": "linha 1",
+                "status_transcricao": "confirmado_legivel",
+            }
+        ]
+    ).to_csv(path, index=False)
+
+    with pytest.raises(ValueError, match="divergente da raiz"):
+        _load_manual_cnpj_enrichment(path)
+
+
+def test_manual_photo_loader_accepts_siblings_from_the_same_root(tmp_path) -> None:
+    path = tmp_path / "manual.csv"
+    base = {
+        "raiz_cnpj_foto": "12345678",
+        "cedente_originador_literal": "Grupo",
+        "papel_literal": "cedente",
+        "originador": "",
+        "cedente": "Grupo",
+        "sacado_devedor": "",
+        "tipo_recebivel_literal": "Recebível",
+        "fonte_imagem": "IMG.JPG",
+        "status_transcricao": "confirmado_legivel",
+    }
+    pd.DataFrame(
+        [
+            {**base, "cnpj": "12345678000190", "localizacao_imagem": "linha 1"},
+            {**base, "cnpj": "12345678000270", "localizacao_imagem": "linha 2"},
+        ]
+    ).to_csv(path, index=False)
+
+    loaded = _load_manual_cnpj_enrichment(path)
+
+    assert loaded["cnpj"].tolist() == ["12345678000190", "12345678000270"]
 
 
 def test_detected_fic_history_replaces_the_legacy_component() -> None:

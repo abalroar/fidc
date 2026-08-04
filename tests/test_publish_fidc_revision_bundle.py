@@ -438,6 +438,118 @@ def _issuance_taxonomy_fixture() -> tuple[
     return long_rows, wide_rows, reconciliation
 
 
+def _emission_field_coverage_fixture() -> list[dict[str, object]]:
+    floors = {
+        "originador": 0.01,
+        "cedente": 0.15,
+        "subordinacao_minima": 0.01,
+        "remuneracao_por_tipo_cota": 0.0,
+        "sacado": 0.01,
+    }
+    rows: list[dict[str, object]] = []
+    for type_name in (
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    ):
+        for period in ("2025-12", "2026-05"):
+            table = f"{type_name} · {period}"
+            for field, floor in floors.items():
+                filled = 3 if field == "cedente" else 1
+                rows.append(
+                    {
+                        "tabela": table,
+                        "tipo": type_name,
+                        "competencia": period,
+                        "campo": field,
+                        "linhas_total": 15,
+                        "depois_com_dado": filled,
+                        "depois_cobertura_pct": filled / 15,
+                        "nd_depois": 15 - filled,
+                        "piso_publicacao_pct": floor,
+                        "piso_atendido": True,
+                    }
+                )
+    return rows
+
+
+def _emission_field_audit_fixture() -> list[dict[str, object]]:
+    rows: list[dict[str, object]] = []
+    serial = 1
+    for type_name in (
+        "Fomento Mercantil",
+        "Agro, Indústria e Comércio",
+        "Financeiro",
+        "Outros",
+    ):
+        for period in ("2025-12", "2026-05"):
+            for rank in range(1, 16):
+                cnpj = f"41{serial:012d}"
+                serial += 1
+                rows.append(
+                    {
+                        "bloco": "slides 10–17",
+                        "tabela": f"{type_name} · {period}",
+                        "cnpj": cnpj,
+                        "originador": (
+                            "Originador documentado" if rank == 1 else "N/D"
+                        ),
+                        "cedente": (
+                            "Cedente legal declarado" if rank <= 3 else "N/D"
+                        ),
+                        "subordinacao_minima": (
+                            "Jr. 10,0%" if rank == 1 else "N/D"
+                        ),
+                        "preco_por_tipo_cota": (
+                            "Cota sênior: R$ 1.000,00" if rank == 1 else "N/D"
+                        ),
+                        "remuneracao_por_tipo_cota": (
+                            "Cota sênior: CDI + 1,00% a.a."
+                            if rank == 1
+                            else "N/D"
+                        ),
+                        "sacado": "Sacado documentado" if rank == 1 else "N/D",
+                        "fonte_remuneracao": (
+                            f"regulamento DOC-{cnpj} · p. 10"
+                            if rank == 1
+                            else "N/D"
+                        ),
+                    }
+                )
+    rows.extend(
+        {
+            "bloco": "slides 21–22",
+            "tabela": "Ofertas",
+            "cnpj": f"42{index:012d}",
+            "remuneracao_por_tipo_cota": "N/D",
+            "fonte_remuneracao": "N/D",
+        }
+        for index in range(1, 61)
+    )
+    return rows
+
+
+def _emission_field_remuneration_evidence_fixture() -> list[dict[str, object]]:
+    return [
+        {
+            "cnpj": row["cnpj"],
+            "field": "remuneracao_alvo",
+            "value": row["remuneracao_por_tipo_cota"],
+            "source_kind": "regulamento",
+            "source_id": f"DOC-{row['cnpj']}",
+            "document_class": "regulamento",
+            "document_date": "2025-12-01",
+            "page": "10",
+            "status": "encontrado_explicito",
+            "nature": "rentabilidade-alvo documentada · Cota sênior",
+        }
+        for row in _emission_field_audit_fixture()
+        if row.get("bloco") == "slides 10–17"
+        and row.get("remuneracao_por_tipo_cota") != "N/D"
+    ]
+
+
 def _payload() -> dict[str, object]:
     card_rows = _card_taxonomy_rows()
     type_names = (
@@ -530,10 +642,11 @@ def _payload() -> dict[str, object]:
         "top20_fidcs": [{}] * 20,
         "top20_outros": [{}] * 20,
         "profiles": [{}] * 20,
-        "emission_field_audit": [
-            {"bloco": "slides 10–13" if index < 120 else "slides 21–22"}
-            for index in range(180)
-        ],
+        "emission_field_audit": _emission_field_audit_fixture(),
+        "emission_field_coverage": _emission_field_coverage_fixture(),
+        "emission_field_remuneration_evidence": (
+            _emission_field_remuneration_evidence_fixture()
+        ),
         "portfolio_export_carteira_101": [
             {"cnpj": f"10{index:012d}"} for index in range(1, 102)
         ],
@@ -1304,6 +1417,250 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
     }
 
 
+def test_payload_rejects_incomplete_emission_field_coverage_matrix() -> None:
+    payload = deepcopy(_payload())
+    payload["emission_field_coverage"].pop()
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match=r"40 linhas \(8 tabelas x 5 campos\); recebeu 39",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_duplicate_emission_field_coverage_key() -> None:
+    payload = deepcopy(_payload())
+    payload["emission_field_coverage"][1] = deepcopy(
+        payload["emission_field_coverage"][0]
+    )
+
+    with pytest.raises(RevisionBundlePublishError, match="duplica"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_all_nd_emission_field_column_even_with_waiver_text() -> None:
+    payload = deepcopy(_payload())
+    row = payload["emission_field_coverage"][0]
+    for audit_row in payload["emission_field_audit"]:
+        if audit_row.get("tabela") == row["tabela"]:
+            audit_row[row["campo"]] = "N/D"
+    row.update(
+        {
+            "depois_com_dado": 0,
+            "depois_cobertura_pct": 0.0,
+            "nd_depois": 15,
+            "piso_publicacao_pct": 0.01,
+            "piso_atendido": False,
+            "waiver": "texto sem configuração de waiver aprovada",
+        }
+    )
+
+    with pytest.raises(RevisionBundlePublishError, match="coluna toda N/D"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def _payload_with_approved_outros_originator_exceptions() -> dict[str, object]:
+    payload = deepcopy(_payload())
+    for audit_row in payload["emission_field_audit"]:
+        if audit_row.get("tabela") == "Outros · 2026-05":
+            audit_row["tabela"] = "Outros · 2026-06"
+        if audit_row.get("tabela") in {"Outros · 2025-12", "Outros · 2026-06"}:
+            audit_row["originador"] = "N/D"
+    reason = (
+        "documentos identificados não individualizam originador econômico; "
+        "cedentes legais permanecem em coluna separada"
+    )
+    for row in payload["emission_field_coverage"]:
+        if row.get("tabela") == "Outros · 2026-05":
+            row["tabela"] = "Outros · 2026-06"
+            row["competencia"] = "2026-06"
+        if row.get("tabela") in {"Outros · 2025-12", "Outros · 2026-06"} and row.get(
+            "campo"
+        ) == "originador":
+            row.update(
+                {
+                    "depois_com_dado": 0,
+                    "depois_cobertura_pct": 0.0,
+                    "nd_depois": 15,
+                    "piso_publicacao_pct": 0.0,
+                    "piso_atendido": True,
+                    "excecao_publicacao": reason,
+                }
+            )
+    return payload
+
+
+def test_payload_accepts_only_the_two_documented_outros_originator_exceptions() -> None:
+    payload = _payload_with_approved_outros_originator_exceptions()
+
+    validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_outros_originator_exception_with_different_reason() -> None:
+    payload = _payload_with_approved_outros_originator_exceptions()
+    row = next(
+        item
+        for item in payload["emission_field_coverage"]
+        if item["tabela"] == "Outros · 2025-12" and item["campo"] == "originador"
+    )
+    row["excecao_publicacao"] = "waiver genérico"
+
+    with pytest.raises(RevisionBundlePublishError, match="piso inválido"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_emission_field_coverage_below_declared_floor() -> None:
+    payload = deepcopy(_payload())
+    row = next(
+        item
+        for item in payload["emission_field_coverage"]
+        if item["campo"] == "cedente"
+    )
+    row.update(
+        {
+            "depois_com_dado": 2,
+            "depois_cobertura_pct": 2 / 15,
+            "nd_depois": 13,
+            "piso_atendido": False,
+        }
+    )
+    changed = False
+    for audit_row in payload["emission_field_audit"]:
+        if (
+            audit_row.get("tabela") == row["tabela"]
+            and audit_row.get("cedente") != "N/D"
+            and not changed
+        ):
+            audit_row["cedente"] = "N/D"
+            changed = True
+
+    with pytest.raises(RevisionBundlePublishError, match="abaixo do piso"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_keeps_nominal_unit_price_separate_from_target_remuneration() -> None:
+    payload = deepcopy(_payload())
+
+    validate_artifact_payload(payload, "2026-05")
+
+    first = next(
+        row
+        for row in payload["emission_field_audit"]
+        if row.get("bloco") == "slides 10–17"
+        and row.get("remuneracao_por_tipo_cota") != "N/D"
+    )
+    assert first["preco_por_tipo_cota"] == "Cota sênior: R$ 1.000,00"
+    assert first["remuneracao_por_tipo_cota"] == "Cota sênior: CDI + 1,00% a.a."
+
+
+def test_payload_allows_a_target_remuneration_page_with_documented_zero_coverage() -> None:
+    payload = deepcopy(_payload())
+    table = "Fomento Mercantil · 2025-12"
+    coverage = next(
+        row
+        for row in payload["emission_field_coverage"]
+        if row["tabela"] == table
+        and row["campo"] == "remuneracao_por_tipo_cota"
+    )
+    coverage.update(
+        {
+            "depois_com_dado": 0,
+            "depois_cobertura_pct": 0.0,
+            "nd_depois": 15,
+            "piso_publicacao_pct": 0.0,
+            "piso_atendido": True,
+        }
+    )
+    for audit_row in payload["emission_field_audit"]:
+        if audit_row.get("tabela") == table:
+            audit_row["remuneracao_por_tipo_cota"] = "N/D"
+            audit_row["fonte_remuneracao"] = "N/D"
+
+    validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_target_remuneration_column_entirely_nd() -> None:
+    payload = deepcopy(_payload())
+    for coverage in payload["emission_field_coverage"]:
+        if coverage.get("campo") == "remuneracao_por_tipo_cota":
+            coverage.update(
+                {
+                    "depois_com_dado": 0,
+                    "depois_cobertura_pct": 0.0,
+                    "nd_depois": 15,
+                    "piso_publicacao_pct": 0.0,
+                    "piso_atendido": True,
+                }
+            )
+    for audit_row in payload["emission_field_audit"]:
+        if audit_row.get("bloco") == "slides 10–17":
+            audit_row["remuneracao_por_tipo_cota"] = "N/D"
+            audit_row["fonte_remuneracao"] = "N/D"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="coluna inteira de remuneração-alvo",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+@pytest.mark.parametrize(
+    "invalid_value",
+    (
+        "Cota sênior: R$ 1.000,00",
+        "Cota sênior · VNU: CDI + 1,00%",
+        "Taxa média da carteira: CDI + 7,00%",
+    ),
+)
+def test_payload_rejects_nominal_or_portfolio_values_as_target_remuneration(
+    invalid_value: str,
+) -> None:
+    payload = deepcopy(_payload())
+    row = next(
+        item
+        for item in payload["emission_field_audit"]
+        if item.get("bloco") == "slides 10–17"
+        and item.get("remuneracao_por_tipo_cota") != "N/D"
+    )
+    row["remuneracao_por_tipo_cota"] = invalid_value
+
+    with pytest.raises(RevisionBundlePublishError, match="mistura remuneração-alvo"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+@pytest.mark.parametrize(
+    "invalid_source",
+    (
+        "N/D — sem documento identificado",
+        "FundosNet/B3",
+    ),
+)
+def test_payload_rejects_target_remuneration_without_identified_document(
+    invalid_source: str,
+) -> None:
+    payload = deepcopy(_payload())
+    row = next(
+        item
+        for item in payload["emission_field_audit"]
+        if item.get("bloco") == "slides 10–17"
+        and item.get("remuneracao_por_tipo_cota") != "N/D"
+    )
+    row["fonte_remuneracao"] = invalid_source
+
+    with pytest.raises(RevisionBundlePublishError, match="documento identificado"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_candidate_target_remuneration_evidence() -> None:
+    payload = deepcopy(_payload())
+    evidence = payload["emission_field_remuneration_evidence"][0]
+    evidence["status"] = "candidate_extraction"
+    evidence["source_kind"] = "candidate_extraction"
+
+    with pytest.raises(RevisionBundlePublishError, match="extração não aprovada"):
+        validate_artifact_payload(payload, "2026-05")
+
+
 @pytest.mark.parametrize(
     "field",
     (
@@ -1793,6 +2150,15 @@ def _minimal_live_input_snapshot(
     }
 
 
+def test_input_hashes_include_top20_curation(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured, _ = _minimal_live_input_snapshot(tmp_path, monkeypatch)
+
+    assert "curation/top20.csv" in captured
+
+
 @pytest.mark.parametrize(
     ("target", "expected_label"),
     (
@@ -2157,6 +2523,12 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
         "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
         "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
         "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+        "emission_field_document_audit/emission_field_document_audit.csv",
+        "emission_field_document_audit/emission_field_document_coverage.csv",
+        "emission_field_document_audit/emission_field_document_evidence.csv.gz",
+        "emission_field_document_audit/emission_field_document_prices.csv.gz",
+        "emission_field_document_audit/emission_field_document_checkpoint.jsonl",
+        "emission_field_document_audit/emission_field_document_manifest.json",
     }.issubset(REQUIRED_DATA_INPUTS)
 
 

@@ -221,6 +221,9 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Originadores 2026",
     "Top 15 ofertas",
     "Auditoria emissões",
+    "Remuneração-alvo",
+    "Cobertura emissões",
+    "Curadoria perfis",
     "Validação emissões",
     "Emissões por categoria",
     "Público-alvo ofertas",
@@ -237,6 +240,15 @@ REQUIRED_WORKBOOK_SHEETS = {
     "FICs excluídos",
     "Decisões do ledger",
 }
+REVISION_EMISSION_AUDIT_REQUIRED_HEADERS = frozenset(
+    {
+        "Preço unitário por tipo de cota",
+        "Fonte preço",
+        "Remuneração-alvo por tipo de cota",
+        "Fonte remuneração",
+    }
+)
+REVISION_EMISSION_COVERAGE_TARGET_LABEL = "Remuneração-alvo"
 REQUIRED_PORTFOLIO_WORKBOOK_SHEETS = {
     "Leia-me",
     "Carteira 101",
@@ -746,6 +758,18 @@ def validate_revision_pptx(payload: bytes) -> None:
                 expected_dimensions=((16, 9),),
                 canvas=canvas,
             )
+            ranking_text = _normalized_slide_text(
+                archive.read(ordered_slides[ranking_slide_number - 1])
+            )
+            if "remuneracao-alvo" not in ranking_text:
+                raise RevisionExportUnavailable(
+                    f"slide {ranking_slide_number} deve exibir Remuneração-alvo"
+                )
+            if "preco por cota" in ranking_text:
+                raise RevisionExportUnavailable(
+                    f"slide {ranking_slide_number} ainda usa Preço por cota "
+                    "como rótulo da rentabilidade-alvo"
+                )
         for slide_number in CURRENT_TOP15_SLIDE_NUMBERS:
             _validate_native_table_slide(
                 archive,
@@ -871,14 +895,61 @@ def validate_revision_pptx(payload: bytes) -> None:
 def validate_revision_xlsx(payload: bytes) -> None:
     if not _valid_zip(payload, "xl/workbook.xml"):
         raise RevisionExportUnavailable("XLSX revisado inválido ou corrompido")
-    with zipfile.ZipFile(BytesIO(payload)) as archive:
-        _validate_no_mojibake_office_archive(archive, "XLSX revisado")
-        workbook_xml = archive.read("xl/workbook.xml").decode("utf-8", errors="ignore")
-    missing = sorted(sheet for sheet in REQUIRED_WORKBOOK_SHEETS if sheet not in workbook_xml)
-    if missing:
-        raise RevisionExportUnavailable(
-            "XLSX revisado sem abas obrigatórias: " + ", ".join(missing)
+    try:
+        with zipfile.ZipFile(BytesIO(payload)) as archive:
+            _validate_no_mojibake_office_archive(archive, "XLSX revisado")
+        from openpyxl import load_workbook
+
+        workbook = load_workbook(BytesIO(payload), read_only=True, data_only=False)
+    except RevisionExportUnavailable:
+        raise
+    except Exception as exc:
+        raise RevisionExportUnavailable("XLSX revisado não pôde ser lido") from exc
+    try:
+        missing = sorted(REQUIRED_WORKBOOK_SHEETS.difference(workbook.sheetnames))
+        if missing:
+            raise RevisionExportUnavailable(
+                "XLSX revisado sem abas obrigatórias: " + ", ".join(missing)
+            )
+
+        audit_sheet = workbook["Auditoria emissões"]
+        audit_headers = {
+            str(cell.value or "").strip()
+            for cell in next(audit_sheet.iter_rows(min_row=4, max_row=4), ())
+        }
+        missing_headers = sorted(
+            REVISION_EMISSION_AUDIT_REQUIRED_HEADERS.difference(audit_headers)
         )
+        if missing_headers:
+            raise RevisionExportUnavailable(
+                "Auditoria emissões não separa VNU de remuneração-alvo; faltam: "
+                + ", ".join(missing_headers)
+            )
+
+        coverage_sheet = workbook["Cobertura emissões"]
+        coverage_labels = [
+            str(row[0].value or "").strip()
+            for row in coverage_sheet.iter_rows(
+                min_row=5,
+                min_col=4,
+                max_col=4,
+            )
+            if str(row[0].value or "").strip()
+        ]
+        target_count = coverage_labels.count(
+            REVISION_EMISSION_COVERAGE_TARGET_LABEL
+        )
+        if target_count != 8:
+            raise RevisionExportUnavailable(
+                "Cobertura emissões deveria conter oito linhas de "
+                f"{REVISION_EMISSION_COVERAGE_TARGET_LABEL}; contém {target_count}"
+            )
+        if "Preço por cota" in coverage_labels:
+            raise RevisionExportUnavailable(
+                "Cobertura emissões ainda trata VNU como rentabilidade-alvo"
+            )
+    finally:
+        workbook.close()
 
 
 def _validated_numeric_cnpj(value: object) -> str | None:
@@ -1572,7 +1643,10 @@ __all__ = [
     "MATERIALIZED_HTML_NAME",
     "MATERIALIZED_PORTFOLIO_XLSX_NAME",
     "MATERIALIZED_TOP100_XLSX_NAME",
+    "REQUIRED_WORKBOOK_SHEETS",
     "REQUIRED_PORTFOLIO_WORKBOOK_SHEETS",
+    "REVISION_EMISSION_AUDIT_REQUIRED_HEADERS",
+    "REVISION_EMISSION_COVERAGE_TARGET_LABEL",
     "STRUCTURAL_MVP_SLIDE_SEQUENCE",
     "TYPE_RANKING_SLIDE_SEQUENCE",
     "RevisionExportStatus",

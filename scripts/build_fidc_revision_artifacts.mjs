@@ -89,7 +89,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v43";
+const RENDERER_VERSION = "industry_revision_artifacts_v45";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
@@ -507,7 +507,13 @@ function truncateWords(value, maxChars) {
   if (text.length <= maxChars) return text;
   const sliced = text.slice(0, maxChars + 1);
   const cut = sliced.lastIndexOf(" ");
-  if (cut <= 0) return text;
+  if (cut <= 0) {
+    const nextSpace = text.indexOf(" ", maxChars);
+    if (nextSpace > 0 && nextSpace <= maxChars + 6) {
+      return text.slice(0, nextSpace).trim();
+    }
+    return text.slice(0, maxChars).trim();
+  }
   return sliced.slice(0, cut).trim();
 }
 
@@ -553,6 +559,32 @@ function auditField(value, maxChars = 34) {
   return truncateWords(text, maxChars) || "N/D";
 }
 
+function auditPartyField(value, maxChars = 34) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text || /^N\/D(?:\b|\s|—|-)/i.test(text)) return "N/D";
+  if (/\bestabelecimentos comerciais\b/i.test(text) && /\bmercado cr[eé]dito\b/i.test(text)) {
+    return "Estab./M.Cred.";
+  }
+  const compact = auditField(text, maxChars);
+  if (!/^(?:o|a|os|as|e|de|da|do|das|dos)$/i.test(compact)) return compact;
+  const withoutLeadingArticle = text.replace(/^(?:o|a|os|as)\s+/i, "");
+  return auditField(withoutLeadingArticle, maxChars);
+}
+
+function brlUnitPriceNumber(value) {
+  const normalized = String(value || "").replace(/\s+/g, "").replace(/^R\$/i, "");
+  const parsed = Number(normalized.replace(/\./g, "").replace(",", "."));
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function compactBrlUnitPrice(value) {
+  const parsed = brlUnitPriceNumber(value);
+  if (parsed === null) return String(value || "").trim();
+  if (parsed >= 1_000_000 && parsed % 1_000_000 === 0) return `R$${parsed / 1_000_000}mi`;
+  if (parsed >= 1_000 && parsed % 1_000 === 0) return `R$${parsed / 1_000}mil`;
+  return `R$${parsed.toLocaleString("pt-BR", { maximumFractionDigits: 2 })}`;
+}
+
 function auditUnitPrice(value, maxChars = 34) {
   const text = String(value || "").replace(/\s+/g, " ").trim();
   if (!text || /^N\/D(?:\b|\s|—|-)/i.test(text)) return "N/D";
@@ -561,8 +593,96 @@ function auditUnitPrice(value, maxChars = 34) {
     return "N/D";
   }
   const multipleOrException = /[;|]/.test(text) || /\b(?:senior|mezanino|junior)\b.*\b(?:senior|mezanino|junior)\b/i.test(normalized);
+  const prices = [...text.matchAll(/R\$\s*[0-9.]+(?:,[0-9]+)?/gi)].map((match) => match[0]);
+  const uniquePrices = [...new Map(prices.map((price) => [
+    brlUnitPriceNumber(price) ?? price.replace(/\s+/g, "").toUpperCase(),
+    price.replace(/^R\$\s*/i, "R$ "),
+  ])).values()];
+  if (uniquePrices.length > 0) {
+    const marker = multipleOrException || /\*$/.test(text) ? "*" : "";
+    const exact = uniquePrices.join(" / ");
+    if (`${exact}${marker}`.length <= maxChars) return `${exact}${marker}`;
+    const compact = uniquePrices.map(compactBrlUnitPrice).join("/");
+    return `${compact}${marker}`;
+  }
   const compact = auditField(text.replace(/\*+$/g, ""), Math.max(1, maxChars - (multipleOrException ? 1 : 0)));
   return compact === "N/D" ? compact : `${compact}${multipleOrException || /\*$/.test(text) ? "*" : ""}`;
+}
+
+function targetRemunerationRates(value) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text || /^N\/D(?:\b|\s|—|-)/i.test(text)) return [];
+  const rates = [];
+  const seen = new Set();
+  const append = (rate) => {
+    const compact = String(rate || "")
+      .replace(/IGP[\s-]*M/gi, "IGP-M")
+      .replace(/\bDI\b/gi, "DI")
+      .replace(/\bCDI\b/gi, "CDI")
+      .replace(/\bIPCA\b/gi, "IPCA")
+      .replace(/\bSELIC\b/gi, "SELIC")
+      .replace(/\s*\+\s*/g, "+")
+      .replace(/(\d)\.(\d)/g, "$1,$2")
+      .replace(/\s*%/g, "%")
+      .replace(/\s+a\.?a\.?$/i, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const key = normalizeProviderName(compact);
+    if (!compact || seen.has(key)) return;
+    seen.add(key);
+    rates.push(compact);
+  };
+  for (const match of text.matchAll(
+    /\b(CDI|DI|IPCA|SELIC|IGP[\s-]*M)\s*(?:\+|acrescid[ao]\s+de)\s*(\d{1,3}(?:[.,]\d+)?)\s*%(?:\s*a\.?a\.?)?/gi,
+  )) {
+    append(`${match[1]}+${match[2]}%`);
+  }
+  for (const match of text.matchAll(
+    /\b(\d{1,3}(?:[.,]\d+)?)\s*%\s*(?:do|da)\s*(CDI|DI|IPCA|SELIC|IGP[\s-]*M)\b/gi,
+  )) {
+    append(`${match[1]}% do ${match[2]}`);
+  }
+  for (const match of text.matchAll(
+    /\b(?:benchmark\s+)?prefixad[ao]\s*:?[\s]*(\d{1,3}(?:[.,]\d+)?)\s*%\s*a\.?a\.?/gi,
+  )) {
+    append(`Prefix. ${match[1]}% a.a.`);
+  }
+  return rates;
+}
+
+function targetRemunerationIsValid(value) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!text || /^N\/D(?:\b|\s|—|-)/i.test(text)) return false;
+  const normalized = normalizeProviderName(text);
+  if (
+    /R\$/i.test(text)
+    || ["quantidade", "preco unitario", "valor unitario", "vnu"]
+      .some((token) => normalized.includes(token))
+  ) {
+    return false;
+  }
+  return targetRemunerationRates(text).length > 0;
+}
+
+function auditTargetRemuneration(value, maxChars = 34) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (!targetRemunerationIsValid(text)) return "N/D";
+  const rates = targetRemunerationRates(text);
+  const exception = /[;|]/.test(text) || /\*\s*$/.test(text) || rates.length > 1;
+  // Contrato editorial do slide: o primeiro token visível é sempre a taxa/índice.
+  // Cota e série permanecem no valor literal da aba Auditoria emissões.
+  const exact = rates.join(" / ");
+  if (`${exact}${exception ? "*" : ""}`.length <= maxChars) {
+    return `${exact}${exception ? "*" : ""}`;
+  }
+  return `${rates[0]} +${rates.length - 1}*`;
+}
+
+function remunerationClassSeries(value) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  const separator = text.indexOf(":");
+  if (separator <= 0) return "N/D";
+  return text.slice(0, separator).trim() || "N/D";
 }
 
 function providerShort(value) {
@@ -3200,7 +3320,7 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
 function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia) {
   const reviewRows = payload.top20_taxonomy_review || [];
   const auditRows = (payload.emission_field_audit || []).filter(
-    (row) => row.bloco === "slides 10–13",
+    (row) => row.bloco === "slides 10–17",
   );
   const auditByFund = new Map(
     auditRows.map((row) => [`${row.tabela}::${cnpjDigits(row.cnpj)}`, row]),
@@ -3253,7 +3373,7 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
     top: 151,
     width: 1160,
     height: 494,
-    headers: ["#", "FIDC", "CNPJ", "Originador", "Cedente", "Sub. mín.", "Preço por cota", "Sacado", "R$ bi"],
+    headers: ["#", "FIDC", "CNPJ", "Originador", "Cedente", "Sub. mín.", "Remuneração-alvo", "Sacado", "R$ bi"],
     rows: rows.map((row) => {
       const audit = auditByFund.get(
         `${typeName} · ${period.competencia}::${cnpjDigits(row.cnpj_fundo)}`,
@@ -3263,14 +3383,14 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
         fundEditorialName(row.denominacao || "N/D", 22),
         numericCnpjText(row.cnpj_fundo),
         originatorName(audit.originador),
-        auditField(audit.cedente, 15),
+        auditPartyField(audit.cedente, 15),
         auditField(audit.subordinacao_minima, 12),
-        auditUnitPrice(audit.preco_por_tipo_cota, 17),
+        auditTargetRemuneration(audit.remuneracao_por_tipo_cota, 17),
         auditField(audit.sacado, 20),
         (num(row.pl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       ];
     }),
-    columnWidths: [32, 210, 145, 135, 130, 106, 145, 182, 75],
+    columnWidths: [32, 200, 145, 135, 130, 106, 180, 157, 75],
     aligns: ["right", "left", "left", "left", "left", "left", "left", "left", "right"],
     fontSize: TYPOGRAPHY.tableBody,
     headerFontSize: TYPOGRAPHY.tableHeader,
@@ -3280,14 +3400,17 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
   });
   addText(
     slide,
-    "Campos longos aparecem em forma editorial compacta; valores e fontes integrais permanecem na aba Auditoria emissões. * = exceção/múltiplas classes ou complemento manual; N/D = lacuna.",
+    "Campos longos aparecem em forma editorial compacta; valores e fontes integrais permanecem na aba Auditoria emissões. * = complemento manual, múltiplas cotas/séries ou mínimo estrutural/total; N/D = lacuna.",
     { left: 60, top: 648, width: 1160, height: 16 },
     { fontSize: TYPOGRAPHY.axis, color: C.note, alignment: "right", verticalAlignment: "middle", wrap: "none" },
   );
   addSourceNotes(slide, [
     `Unidade: CNPJ do fundo, com classes agregadas; página ${period.label}.`,
-    "Originador, cedente, subordinação mínima, preço por cota e sacado usam a mesma curadoria documental flagship; fontes linha a linha na aba Auditoria emissões.",
-    "Campo ausente, fragmento sem nome explícito ou vínculo documental insuficiente permanece N/D. * = complemento manual transcrito das fotos fornecidas pelo usuário.",
+    "Cedente: CVM, Informe Mensal, Tabela I, quando declarado; a informação identifica o cedente legal e não é tratada como originador econômico.",
+    "Originador, sacado, subordinação mínima e remuneração-alvo: documentos identificados ou curadoria documental por CNPJ; fontes linha a linha na aba Auditoria emissões.",
+    "Remuneração-alvo preserva o benchmark e o spread da cota/série (por exemplo, CDI + x% a.a.); VNU, quantidade, taxa da carteira e preço unitário ficam fora desta coluna.",
+    "O Informe Mensal da CVM não identifica sacado/devedor nomeado. Campo ausente, fragmento sem papel explícito ou vínculo documental insuficiente permanece N/D.",
+    "* = complemento manual, múltiplas cotas/séries na remuneração-alvo ou mínimo estrutural/total usado no lugar do mínimo júnior; a natureza aplicável consta na aba Auditoria emissões.",
   ]);
 }
 
@@ -9616,15 +9739,29 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
     ["Originador", "originador"],
     ["Subordinação mínima", "subordinacao_minima"],
     ["Preço unitário por tipo de cota", "preco_por_tipo_cota"],
+    [
+      "Remuneração-alvo por tipo de cota",
+      "remuneracao_por_tipo_cota",
+      (value) => String(value || "").trim() || "N/D",
+    ],
     ["Cedente", "cedente"],
     ["Sacado", "sacado"],
     ["Cedente / Originador literal*", "cedente_originador_literal"],
     ["Tipo de recebível literal*", "tipo_recebivel_literal"],
     ["Fonte enriquecimento manual", "fonte_enriquecimento_manual"],
+    ["Fonte originador", "fonte_originador"],
+    ["Fonte cedente", "fonte_cedente"],
     ["Fonte originador / cedente", "fonte_originador_cedente"],
+    ["Natureza do mínimo", "tipo_subordinacao_minima"],
     ["Fonte subordinação", "fonte_subordinacao"],
     ["Fonte preço", "fonte_preco"],
+    [
+      "Fonte remuneração",
+      "fonte_remuneracao",
+      (value) => String(value || "").trim() || "N/D",
+    ],
     ["Fonte sacado", "fonte_sacado"],
+    ["Motivo N/D", "motivo_nd"],
     ["Status", "status"],
   ];
   const headers = columns.map(([header]) => header);
@@ -9640,6 +9777,30 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
       `Auditoria emissões contém ${invalidPrices.length} preços incompatíveis com o contrato unitário por cota.`,
     );
   }
+  const top15AuditRows = (payload.emission_field_audit || []).filter(
+    (row) => row.bloco === "slides 10–17",
+  );
+  const invalidRemunerations = top15AuditRows.filter((row) => {
+    const raw = String(row.remuneracao_por_tipo_cota || "").trim();
+    if (!raw || /^N\/D(?:\b|\s|—|-)/i.test(raw)) return false;
+    return !targetRemunerationIsValid(raw);
+  });
+  if (invalidRemunerations.length) {
+    throw new Error(
+      `Auditoria emissões contém ${invalidRemunerations.length} remunerações-alvo sem benchmark e taxa numérica válidos.`,
+    );
+  }
+  const remunerationsWithoutSource = top15AuditRows.filter((row) => {
+    const raw = String(row.remuneracao_por_tipo_cota || "").trim();
+    if (!raw || /^N\/D(?:\b|\s|—|-)/i.test(raw)) return false;
+    const source = String(row.fonte_remuneracao || "").trim();
+    return !source || /^N\/D(?:\b|\s|—|-)/i.test(source);
+  });
+  if (remunerationsWithoutSource.length) {
+    throw new Error(
+      `Auditoria emissões contém ${remunerationsWithoutSource.length} remunerações-alvo sem fonte documental identificada.`,
+    );
+  }
   const rows = worksheetRowsFromPayload(payload.emission_field_audit || [], columns);
   if (rows.length !== 180) {
     throw new Error(`Auditoria emissões deveria conter 180 linhas; contém ${rows.length}.`);
@@ -9647,8 +9808,8 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   const sheet = resetSheet(workbook, "Auditoria emissões");
   setHeaderBand(
     sheet,
-    "Auditoria dos campos documentais exibidos nos slides 10–13 e 21–22",
-    "Uma linha por fundo/período nos slides 10–13 e por emissão nos slides 21–22. Todo campo exibido conserva a fonte; ausência de evidência suficiente permanece N/D. * = transcrição de foto fornecida pelo usuário, preservada separadamente da evidência documental.",
+    "Auditoria dos campos documentais exibidos nos slides 10–17 e 21–22",
+    "Uma linha por fundo/período nos slides 10–17 e por emissão nos slides 21–22. Remuneração-alvo registra benchmark + spread da cota/série; preço unitário/VNU permanece em coluna própria para o contrato legado. Cedente usa a Tabela I da CVM quando declarado. O Informe Mensal não identifica sacado. * = manual, múltiplas classes/séries ou mínimo estrutural/total.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 7.5 },
@@ -9656,10 +9817,151 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [110, 180, 105, 95, 300, 180, 150, 155, 210, 180, 220, 260, 330, 360, 360, 420, 300, 260],
+    [110, 180, 105, 95, 300, 180, 150, 190, 160, 210, 180, 220, 260, 330, 330, 330, 360, 150, 360, 420, 420, 300, 430, 330],
     rows.length,
   );
-  sheet.getRange(`A5:R${rows.length + 4}`).format.rowHeightPx = 58;
+  sheet.getRange(`A5:X${rows.length + 4}`).format.rowHeightPx = 66;
+}
+
+const EMISSION_FIELD_COVERAGE_COLUMNS = Object.freeze([
+  { header: "Tabela / período", key: "tabela", width: 220 },
+  { header: "Tipo ANBIMA", key: "tipo", width: 190 },
+  { header: "Competência", key: "competencia", width: 105 },
+  {
+    header: "Campo",
+    key: "campo",
+    width: 155,
+    transform: (value) => ({
+      originador: "Originador",
+      cedente: "Cedente",
+      subordinacao_minima: "Subordinação mínima",
+      remuneracao_por_tipo_cota: "Remuneração-alvo",
+      preco_por_tipo_cota: "Preço unitário / VNU",
+      sacado: "Sacado",
+    }[String(value || "")] || value),
+  },
+  { header: "Linhas", key: "linhas_total", width: 75, format: "#,##0" },
+  { header: "Antes · com dado", key: "antes_com_dado", width: 105, format: "#,##0" },
+  { header: "Antes · cobertura", key: "antes_cobertura_pct", width: 110, format: "0.0%" },
+  { header: "Antes · PL coberto", key: "antes_pl_coberto_brl", width: 135, format: "R$ #,##0.00" },
+  { header: "Antes · cobertura PL", key: "antes_cobertura_pl_pct", width: 125, format: "0.0%" },
+  { header: "Depois · com dado", key: "depois_com_dado", width: 110, format: "#,##0" },
+  { header: "Depois · cobertura", key: "depois_cobertura_pct", width: 115, format: "0.0%" },
+  { header: "Depois · PL coberto", key: "depois_pl_coberto_brl", width: 140, format: "R$ #,##0.00" },
+  { header: "Depois · cobertura PL", key: "depois_cobertura_pl_pct", width: 130, format: "0.0%" },
+  { header: "N/D depois", key: "nd_depois", width: 90, format: "#,##0" },
+  { header: "Piso de publicação", key: "piso_publicacao_pct", width: 120, format: "0.0%" },
+  { header: "Piso atendido?", key: "piso_atendido", width: 105, transform: ptYesNo },
+]);
+
+const EMISSION_FIELD_PROFILE_COLUMNS = Object.freeze([
+  { header: "CNPJ", key: "cnpj", width: 125, format: "00000000000000" },
+  { header: "Fundo", key: "fundo", width: 340 },
+  { header: "Texto cedente / originador", key: "cedente_originador_texto", width: 390 },
+  { header: "Classificação do texto", key: "classificacao_cedente_originador", width: 220 },
+  { header: "Aplicação como Cedente", key: "aplicacao_como_cedente", width: 190 },
+  { header: "Valor aplicado como Cedente", key: "valor_aplicado_como_cedente", width: 220 },
+  { header: "Aplicação como Originador", key: "aplicacao_como_originador", width: 190 },
+  { header: "Valor aplicado como Originador", key: "valor_aplicado_como_originador", width: 220 },
+  { header: "Texto sacado / devedor", key: "sacado_devedor_texto", width: 390 },
+  { header: "Classificação do sacado", key: "classificacao_sacado_devedor", width: 210 },
+  { header: "Natureza dos recebíveis", key: "natureza_recebiveis", width: 440 },
+  { header: "Documentos primários · IDs", key: "documentos_primarios_ids", width: 300 },
+  { header: "Data da consulta", key: "data_consulta", width: 105 },
+]);
+
+const EMISSION_REMUNERATION_EVIDENCE_COLUMNS = Object.freeze([
+  {
+    header: "CNPJ",
+    key: "cnpj",
+    width: 125,
+    format: "00000000000000",
+    transform: (value) => numericCnpjText(value),
+  },
+  {
+    header: "CNPJ formatado",
+    key: "cnpj_formatado",
+    sourceKey: "cnpj",
+    width: 145,
+    transform: (value) => formatCnpj(value),
+  },
+  {
+    header: "Classe / série",
+    key: "classe_serie",
+    sourceKey: "value",
+    width: 185,
+    transform: remunerationClassSeries,
+  },
+  { header: "Remuneração-alvo literal", key: "value", width: 310 },
+  {
+    header: "Benchmark compacto",
+    key: "benchmark_compacto",
+    sourceKey: "value",
+    width: 170,
+    transform: (value) => auditTargetRemuneration(value, 42),
+  },
+  { header: "Natureza", key: "nature", width: 250 },
+  { header: "Data do documento", key: "document_date", width: 120 },
+  { header: "Tipo de fonte", key: "source_kind", width: 165 },
+  { header: "Classe documental", key: "document_class", width: 190 },
+  { header: "Documento / ID", key: "source_id", width: 230 },
+  { header: "Página", key: "page", width: 80 },
+  { header: "Status da evidência", key: "status", width: 170 },
+  { header: "Confiança", key: "confidence", width: 95, format: "0.00%" },
+  { header: "Caminho da fonte", key: "source_path", width: 390 },
+  { header: "Link da fonte", key: "source_url", width: 390 },
+  { header: "Trecho documental", key: "excerpt", width: 640 },
+]);
+
+async function addEmissionRemunerationEvidenceSheet(workbook, payload) {
+  const evidence = (payload.emission_field_remuneration_evidence || []).filter(
+    (row) => String(row.field || "") === "remuneracao_alvo",
+  );
+  await addAuditablePayloadSheet(workbook, {
+    name: "Remuneração-alvo",
+    title: "Remuneração-alvo por CNPJ, cota / série e documento",
+    subtitle: "Trilha normalizada das evidências de benchmark + spread. O status documental e a data de corte governam a seleção do valor exibido nos slides 10–17; VNU, quantidade, taxa da carteira e preço unitário permanecem fora desta aba.",
+    columns: EMISSION_REMUNERATION_EVIDENCE_COLUMNS,
+    rows: evidence,
+    freezeColumns: 5,
+    bodyFontSize: 8,
+    rowHeight: 58,
+  });
+}
+
+async function addEmissionFieldCoverageSheets(workbook, payload) {
+  const coverage = payload.emission_field_coverage || [];
+  const profiles = payload.emission_field_profile_mapping || [];
+  const coverageSheet = await addAuditablePayloadSheet(workbook, {
+    name: "Cobertura emissões",
+    title: "Cobertura dos campos dos slides 10–17",
+    subtitle: "Cobertura por página e campo, antes e depois do encadeamento documental. Os percentuais de PL usam o PL das 15 linhas de cada página; o piso é o bloqueio mínimo de publicação, não uma meta de completude.",
+    columns: EMISSION_FIELD_COVERAGE_COLUMNS,
+    rows: coverage,
+    freezeColumns: 4,
+    bodyFontSize: 8,
+    rowHeight: 30,
+  });
+  if (coverage.length) {
+    coverageSheet.getRange(`P5:P${coverage.length + 4}`).conditionalFormats.add("containsText", {
+      text: "Não",
+      format: { fill: "#F8D7DA", font: { bold: true, color: "#7A1F3D" } },
+    });
+    coverageSheet.getRange(`P5:P${coverage.length + 4}`).conditionalFormats.add("containsText", {
+      text: "Sim",
+      format: { fill: "#DCEFE2", font: { bold: true, color: "#006B3C" } },
+    });
+  }
+  await addAuditablePayloadSheet(workbook, {
+    name: "Curadoria perfis",
+    title: "Classificação funcional da curadoria Top 20",
+    subtitle: "A frase é classificada pelo papel que sustenta. Entidade ou ecossistema nomeado pode preencher a parte correspondente; descrição genérica permanece como natureza do recebível; ausência documental permanece N/D. A Tabela I da CVM prevalece para o cedente legal.",
+    columns: EMISSION_FIELD_PROFILE_COLUMNS,
+    rows: profiles,
+    freezeColumns: 2,
+    bodyFontSize: 8,
+    rowHeight: 58,
+  });
 }
 
 const PORTFOLIO_EXPORT_COLUMNS = Object.freeze([
@@ -11194,6 +11496,8 @@ async function buildWorkbook(payload) {
   await addOriginators2026Sheet(workbook, payload);
   await addClosedOfferTop15Sheet(workbook, payload);
   await addEmissionFieldAuditSheet(workbook, payload);
+  await addEmissionRemunerationEvidenceSheet(workbook, payload);
+  await addEmissionFieldCoverageSheets(workbook, payload);
   await addConclusionsSheet(workbook, payload);
   await addAtlanticoSheet(workbook, payload);
   await addAtlanticoHistorySheet(workbook, payload);
@@ -11282,7 +11586,10 @@ async function exportWorkbook(workbook) {
       ["Crédito Privado Ampliado", "A1:T16"],
       ["Originadores 2026", "A1:M24"],
       ["Top 15 ofertas", "A1:AZ28"],
-      ["Auditoria emissões", "A1:R28"],
+      ["Auditoria emissões", "A1:X28"],
+      ["Remuneração-alvo", "A1:P28"],
+      ["Cobertura emissões", "A1:P44"],
+      ["Curadoria perfis", "A1:M24"],
       ["Validação emissões", "A1:U25"],
       ["Emissões por categoria", "A1:N12"],
       ["Público-alvo ofertas", "A1:J24"],

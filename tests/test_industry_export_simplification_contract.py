@@ -264,7 +264,7 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     }
     assert manifest["payload_sha256"] == payload_digest
     assert manifest["payload_schema"] == payload["schema_version"] == PAYLOAD_SCHEMA
-    assert len(payload) == 162
+    assert len(payload) == 174
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",

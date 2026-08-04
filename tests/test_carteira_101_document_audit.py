@@ -89,6 +89,79 @@ def test_document_extraction_requires_explicit_definitions_and_keeps_prices_long
     assert prices[0].exception_flag == ""
 
 
+def test_document_extraction_keeps_target_remuneration_separate_from_vnu() -> None:
+    text = """
+    As Cotas Seniores da 3ª Série terão Valor Nominal Unitário de R$ 1.000,00.
+    Para as Cotas Seniores da 3ª Série, a Meta de Remuneração corresponde à
+    variação do CDI acrescida de um spread de 1,50% a.a.
+    As Cotas Subordinadas Mezanino terão como Retorno Alvo 120% do CDI.
+    """
+    source = DocumentSource(
+        cnpj="01234567000189",
+        source_kind="emissao",
+        source_id="9003",
+        document_class="Instrumento de emissão",
+        document_date="2026-06-30",
+        source_path="emissao.pdf",
+        source_url="https://example.test/9003",
+        text=text,
+        pages=((1, text),),
+    )
+
+    evidence, prices = extract_document_evidence(source)
+    remuneration = [row for row in evidence if row.field == "remuneracao_alvo"]
+
+    assert {row.value for row in remuneration} == {
+        "Sênior · 3ª Série: CDI + 1,50% a.a.",
+        "Mezanino: 120% do CDI",
+    }
+    assert {row.price_display for row in prices} == {"R$ 1.000,00"}
+
+
+def test_target_remuneration_rejects_portfolio_yield_and_provider_fee() -> None:
+    text = """
+    A carteira possui taxa média ponderada CDI + 7,00% a.a.
+    A remuneração da Administradora será CDI + 2,00% a.a.
+    """
+    source = DocumentSource(
+        cnpj="01234567000189",
+        source_kind="regulamento",
+        source_id="9004",
+        document_class="Regulamento",
+        document_date="2026-06-30",
+        source_path="regulamento.pdf",
+        source_url="https://example.test/9004",
+        text=text,
+        pages=((1, text),),
+    )
+
+    evidence, _ = extract_document_evidence(source)
+
+    assert not [row for row in evidence if row.field == "remuneracao_alvo"]
+
+
+def test_target_remuneration_rejects_bookbuilding_cap() -> None:
+    text = """
+    Para as Cotas Seniores, o Benchmark corresponde à Taxa DI acrescida de,
+    no máximo, 0,85% a.a., a ser definido em procedimento de bookbuilding.
+    """
+    source = DocumentSource(
+        cnpj="01234567000189",
+        source_kind="regulamento",
+        source_id="9005",
+        document_class="Regulamento",
+        document_date="2026-06-30",
+        source_path="regulamento.pdf",
+        source_url="https://example.test/9005",
+        text=text,
+        pages=((1, text),),
+    )
+
+    evidence, _ = extract_document_evidence(source)
+
+    assert not [row for row in evidence if row.field == "remuneracao_alvo"]
+
+
 def test_rating_participant_table_is_explicit_party_evidence() -> None:
     text = """
     Participantes da Operação

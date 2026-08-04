@@ -66,12 +66,20 @@ def test_renderer_materializes_all_audit_sheets_and_limitations() -> None:
         "Taxonomia · de-para",
         "Taxonomia · Outros",
         "Taxonomia · impacto",
+        "Cobertura emissões",
+        "Curadoria perfis",
     ):
         assert sheet_name in source
 
     assert "await addCedenteAuditSheets(workbook, payload);" in source
     assert "await addTaxonomyAuditSheets(workbook, payload);" in source
     assert "await addTaxonomyImpactSheet(workbook, payload);" in source
+    assert "await addEmissionFieldCoverageSheets(workbook, payload);" in source
+    assert "Fonte originador" in source
+    assert "Fonte cedente" in source
+    assert "Natureza do mínimo" in source
+    assert "Motivo N/D" in source
+    assert "O Informe Mensal da CVM não identifica sacado/devedor nomeado." in source
     assert "Documento do cedente · coluna H" in source
     assert "Razão social · coluna K" in source
     assert "Razão social consolidada" in source
