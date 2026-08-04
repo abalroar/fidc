@@ -116,12 +116,20 @@ REQUIRED_DATA_INPUTS = (
     "top100_plus2_2026_curation.csv",
     "industry_cnpj_manual_enrichment.csv",
     "emission_field_audit.csv",
+    "emission_target_remuneration_accepted.csv",
+    "emission_target_remuneration_rejected.csv",
     "carteira_101_document_audit/carteira_101_document_audit.csv",
     "carteira_101_document_audit/carteira_101_document_coverage.csv",
     "carteira_101_document_audit/carteira_101_document_evidence.csv.gz",
     "carteira_101_document_audit/carteira_101_document_prices.csv.gz",
     "carteira_101_document_audit/carteira_101_document_checkpoint.jsonl",
     "carteira_101_document_audit/carteira_101_document_manifest.json",
+    "emission_field_document_audit/emission_field_document_audit.csv",
+    "emission_field_document_audit/emission_field_document_coverage.csv",
+    "emission_field_document_audit/emission_field_document_evidence.csv.gz",
+    "emission_field_document_audit/emission_field_document_prices.csv.gz",
+    "emission_field_document_audit/emission_field_document_checkpoint.jsonl",
+    "emission_field_document_audit/emission_field_document_manifest.json",
     "industry_taxonomy_audited_decisions_202606.csv",
     "industry_taxonomy_audit_top200_202606.csv.gz",
     "industry_taxonomy_outros_three_buckets_202606.csv",
@@ -186,6 +194,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_revision_export.py",
     ROOT / "services" / "industry_portfolio_export.py",
     ROOT / "services" / "carteira_101_document_audit.py",
+    ROOT / "services" / "emission_field_enrichment.py",
     ROOT / "services" / "industry_structural_risk.py",
     ROOT / "services" / "structural_risk.py",
     ROOT / "services" / "industry_taxonomy_review.py",
@@ -1205,6 +1214,97 @@ _FORBIDDEN_UNIT_PRICE_TOKENS = (
     "taxa",
 )
 
+_TARGET_REMUNERATION_RATE_RE = re.compile(
+    r"(?:"
+    r"\b(?:cdi|di|selic|ipca|igp[\s-]?m)\b\s*"
+    r"(?:\+|acrescid[ao]\s+de)\s*"
+    r"\d{1,3}(?:[.,]\d{1,4})?\s*%"
+    r"|"
+    r"\b\d{1,3}(?:[.,]\d{1,4})?\s*%\s*(?:do|da)?\s*"
+    r"(?:cdi|di|selic|ipca|igp[\s-]?m)\b"
+    r")",
+    flags=re.IGNORECASE,
+)
+_TARGET_REMUNERATION_CLASS_RE = re.compile(
+    r"\b(?:cota|serie|senior|mezanino|junior)\b",
+    flags=re.IGNORECASE,
+)
+_FORBIDDEN_TARGET_REMUNERATION_TOKENS = (
+    "vnu",
+    "preco unitario",
+    "preco de emissao",
+    "valor nominal",
+    "quantidade",
+    "taxa media da carteira",
+    "rentabilidade da carteira",
+    "remuneracao da administradora",
+    "taxa de administracao",
+    "taxa de cessao",
+)
+_GENERIC_DOCUMENT_SOURCE_TOKENS = (
+    "fnet.bmfbovespa.com.br/fnet/publico/abrirgerenciador",
+)
+_GENERIC_DOCUMENT_SOURCE_LABELS = {
+    "b3",
+    "cvm",
+    "cvm ofertas",
+    "documento",
+    "emissao",
+    "fundosnet",
+    "fundosnet/b3",
+    "regulamento",
+}
+
+
+def _payload_value_is_missing(value: object) -> bool:
+    text = str(value or "").strip()
+    if not text:
+        return True
+    folded = _fold_validation_text(text).strip()
+    return folded in {"nd", "n.d.", "na", "n.a."} or folded.startswith("n/d")
+
+
+def _validate_target_remuneration_value(
+    value: object,
+    *,
+    source: object,
+    context: str,
+    require_class_or_exception: bool,
+) -> None:
+    """Reject VNU, portfolio spread and unidentified target-yield evidence."""
+
+    display = str(value or "").strip()
+    source_text = str(source or "").strip()
+    folded_display = _fold_validation_text(display)
+    folded_source = _fold_validation_text(source_text)
+    if "r$" in folded_display or any(
+        token in folded_display for token in _FORBIDDEN_TARGET_REMUNERATION_TOKENS
+    ):
+        raise RevisionBundlePublishError(
+            f"{context} mistura remuneração-alvo com preço nominal, quantidade "
+            "ou taxa que não pertence à cota/série"
+        )
+    if not _TARGET_REMUNERATION_RATE_RE.search(folded_display):
+        raise RevisionBundlePublishError(
+            f"{context} não contém benchmark e percentual de rentabilidade-alvo"
+        )
+    if (
+        require_class_or_exception
+        and not _TARGET_REMUNERATION_CLASS_RE.search(folded_display)
+        and not display.rstrip().endswith("*")
+    ):
+        raise RevisionBundlePublishError(
+            f"{context} não identifica cota/série nem marca a exceção com asterisco"
+        )
+    if (
+        _payload_value_is_missing(source_text)
+        or folded_source.strip() in _GENERIC_DOCUMENT_SOURCE_LABELS
+        or any(token in folded_source for token in _GENERIC_DOCUMENT_SOURCE_TOKENS)
+    ):
+        raise RevisionBundlePublishError(
+            f"{context} não tem documento identificado como fonte"
+        )
+
 
 def _validate_unit_price_row(
     row: Mapping[str, object],
@@ -1447,6 +1547,222 @@ def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
         )
 
 
+def _validate_emission_field_coverage(payload: Mapping[str, object]) -> None:
+    """Block publication when a Top 15 page regresses below its declared floor."""
+
+    originator_exception_reason = (
+        "documentos identificados não individualizam originador econômico; "
+        "cedentes legais permanecem em coluna separada"
+    )
+    originator_exception_tables = {
+        "Outros · 2025-12",
+        "Outros · 2026-06",
+    }
+    expected_fields = {
+        "originador",
+        "cedente",
+        "subordinacao_minima",
+        "remuneracao_por_tipo_cota",
+        "sacado",
+    }
+    rows = payload.get("emission_field_coverage")
+    if not isinstance(rows, list) or len(rows) != 40:
+        received = len(rows) if isinstance(rows, list) else 0
+        raise RevisionBundlePublishError(
+            "emission_field_coverage deve conter 40 linhas "
+            f"(8 tabelas x 5 campos); recebeu {received}"
+        )
+
+    audit = payload.get("emission_field_audit")
+    audit_tables: dict[str, int] = {}
+    audit_filled: dict[tuple[str, str], int] = {}
+    remuneration_cnpjs: set[str] = set()
+    if isinstance(audit, list):
+        for audit_row in audit:
+            if not isinstance(audit_row, Mapping):
+                continue
+            if str(audit_row.get("bloco") or "") != "slides 10–17":
+                continue
+            table = str(audit_row.get("tabela") or "").strip()
+            audit_tables[table] = audit_tables.get(table, 0) + 1
+            for field in expected_fields:
+                if not _payload_value_is_missing(audit_row.get(field)):
+                    key = (table, field)
+                    audit_filled[key] = audit_filled.get(key, 0) + 1
+            remuneration = audit_row.get("remuneracao_por_tipo_cota")
+            if not _payload_value_is_missing(remuneration):
+                source = audit_row.get("fonte_remuneracao")
+                _validate_target_remuneration_value(
+                    remuneration,
+                    source=source,
+                    context=f"{table} · remuneração-alvo",
+                    require_class_or_exception=True,
+                )
+                cnpj = str(audit_row.get("cnpj") or "").strip()
+                if not re.fullmatch(r"\d{14}", cnpj):
+                    raise RevisionBundlePublishError(
+                        f"{table} · remuneração-alvo contém CNPJ inválido"
+                    )
+                remuneration_cnpjs.add(cnpj)
+    if len(audit_tables) != 8 or any(
+        not table or count != 15 for table, count in audit_tables.items()
+    ):
+        raise RevisionBundlePublishError(
+            "emission_field_audit deve fechar 8 tabelas de 15 linhas nos slides 10–17"
+        )
+
+    keys: set[tuple[str, str]] = set()
+    tables: dict[str, set[str]] = {}
+    for row in rows:
+        if not isinstance(row, Mapping):
+            raise RevisionBundlePublishError(
+                "emission_field_coverage contém linha inválida"
+            )
+        table = str(row.get("tabela") or "").strip()
+        field = str(row.get("campo") or "").strip()
+        key = (table, field)
+        if not table or field not in expected_fields:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage contém chave inválida: {key!r}"
+            )
+        if key in keys:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage duplica {table} · {field}"
+            )
+        keys.add(key)
+        tables.setdefault(table, set()).add(field)
+
+        try:
+            total = int(row.get("linhas_total") or 0)
+            filled = int(row.get("depois_com_dado") or 0)
+            share = float(row.get("depois_cobertura_pct") or 0.0)
+            floor = float(row.get("piso_publicacao_pct") or 0.0)
+            nd_after = int(row.get("nd_depois") or 0)
+        except (TypeError, ValueError) as exc:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage tem métrica inválida em {table} · {field}"
+            ) from exc
+        if total != 15 or not 0 <= filled <= total:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage deve fechar 15 linhas em {table} · {field}"
+            )
+        if nd_after != total - filled:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage diverge no N/D em {table} · {field}"
+            )
+        observed_filled = audit_filled.get(key, 0)
+        if filled != observed_filled:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage diverge do audit em {table} · {field}: "
+                f"declara {filled}, observa {observed_filled}"
+            )
+        if not math.isfinite(share) or not math.isfinite(floor):
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage tem percentual inválido em {table} · {field}"
+            )
+        expected_share = filled / total
+        if not math.isclose(share, expected_share, abs_tol=1e-9):
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage diverge da contagem em {table} · {field}"
+            )
+        allowed_originator_exception = (
+            table in originator_exception_tables
+            and field == "originador"
+            and filled == 0
+            and share == 0.0
+            and floor == 0.0
+            and str(row.get("excecao_publicacao") or "").strip()
+            == originator_exception_reason
+        )
+        target_remuneration = field == "remuneracao_por_tipo_cota"
+        if target_remuneration:
+            if not 0.0 <= floor <= 1.0:
+                raise RevisionBundlePublishError(
+                    f"emission_field_coverage tem piso inválido em {table} · {field}"
+                )
+        elif not allowed_originator_exception and not 0.0 < floor <= 1.0:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage tem piso inválido em {table} · {field}"
+            )
+        if filled == 0 and not allowed_originator_exception and not target_remuneration:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage bloqueia coluna toda N/D em {table} · {field}"
+            )
+        if share + 1e-12 < floor:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage abaixo do piso em {table} · {field}: "
+                f"{filled}/15 ({share:.1%}) < {floor:.1%}"
+            )
+        if row.get("piso_atendido") is not True:
+            raise RevisionBundlePublishError(
+                f"emission_field_coverage não confirma o piso em {table} · {field}"
+            )
+
+    if (
+        set(tables) != set(audit_tables)
+        or any(fields != expected_fields for fields in tables.values())
+    ):
+        raise RevisionBundlePublishError(
+            "emission_field_coverage deve fechar as 8 tabelas do audit x 5 campos sem lacunas"
+        )
+
+    remuneration_filled = sum(
+        filled
+        for (table, field), filled in audit_filled.items()
+        if table in audit_tables and field == "remuneracao_por_tipo_cota"
+    )
+    if remuneration_filled <= 0:
+        raise RevisionBundlePublishError(
+            "emission_field_coverage bloqueia a coluna inteira de remuneração-alvo "
+            "em N/D nos slides 10–17"
+        )
+
+    evidence = payload.get("emission_field_remuneration_evidence")
+    if not isinstance(evidence, list) or not evidence:
+        raise RevisionBundlePublishError(
+            "payload editorial sem evidências documentais de remuneração-alvo"
+        )
+    evidence_cnpjs: set[str] = set()
+    for index, evidence_row in enumerate(evidence, start=1):
+        if not isinstance(evidence_row, Mapping):
+            raise RevisionBundlePublishError(
+                "emission_field_remuneration_evidence contém linha inválida"
+            )
+        if str(evidence_row.get("field") or "").strip() != "remuneracao_alvo":
+            raise RevisionBundlePublishError(
+                "emission_field_remuneration_evidence mistura outro campo documental"
+            )
+        if str(evidence_row.get("status") or "").strip() not in {
+            "aceito_payload",
+            "encontrado_explicito",
+        }:
+            raise RevisionBundlePublishError(
+                "emission_field_remuneration_evidence contém extração não aprovada"
+            )
+        if str(evidence_row.get("source_kind") or "").strip() == "candidate_extraction":
+            raise RevisionBundlePublishError(
+                "emission_field_remuneration_evidence contém candidate_extraction"
+            )
+        cnpj = str(evidence_row.get("cnpj") or "").strip()
+        if not re.fullmatch(r"\d{14}", cnpj):
+            raise RevisionBundlePublishError(
+                "emission_field_remuneration_evidence contém CNPJ inválido"
+            )
+        _validate_target_remuneration_value(
+            evidence_row.get("value"),
+            source=evidence_row.get("source_id"),
+            context=f"emission_field_remuneration_evidence linha {index}",
+            require_class_or_exception=False,
+        )
+        evidence_cnpjs.add(cnpj)
+    missing_evidence = sorted(remuneration_cnpjs.difference(evidence_cnpjs))
+    if missing_evidence:
+        raise RevisionBundlePublishError(
+            "remuneração-alvo exibida sem evidência documental no payload: "
+            + ", ".join(missing_evidence)
+        )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
@@ -1468,8 +1784,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             raise RevisionBundlePublishError("emission_field_audit contém linha inválida")
         block = str(row.get("bloco") or "")
         audit_counts[block] = audit_counts.get(block, 0) + 1
-    if audit_counts != {"slides 10–13": 120, "slides 21–22": 60}:
+    if audit_counts != {"slides 10–17": 120, "slides 21–22": 60}:
         raise RevisionBundlePublishError("emission_field_audit não fecha 120 + 60 linhas")
+    _validate_emission_field_coverage(payload)
     if not payload.get("offers_as_of"):
         raise RevisionBundlePublishError("payload editorial sem data-base de ofertas")
     type_mix = payload.get("type_mix_history")
