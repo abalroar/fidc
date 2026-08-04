@@ -528,9 +528,10 @@ SLIDE_TOKENS = {
         "OFERTAS · VOLUME E REGIME",
         "Emissões | Garantia firme",
         "YoY YTD",
-        "Melhores esforços repr. 70% do volume em 2026",
+        "Melhores esforços repr. 69,2% do volume em 2026",
         "Número de ofertas",
-        "Regime de colocação · volume",
+        "Regime de colocação · participação no volume",
+        "% do total",
     ),
     _contract_slide_number("o que muda"): (
         "O que muda a leitura do mercado",
@@ -1037,6 +1038,8 @@ def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> No
         "D7DADD",
         "E7E9EB",
         "EC7000",
+        "0A3B00",
+        "7030A0",
         "FFFFFF",
     }
     with ZipFile(PPTX) as archive:
@@ -1332,7 +1335,7 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
 
-def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
+def test_offer_placement_slide_uses_three_native_bar_charts() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, SLIDE_OFFER_REGIME)
@@ -1340,7 +1343,7 @@ def test_offer_placement_slide_uses_four_native_bar_charts() -> None:
         charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
         assert sum(
             chart.find(f".//{{{CHART}}}barChart") is not None for chart in charts
-        ) == 4
+        ) == 3
 
 
 def test_provider_concentration_has_two_native_charts() -> None:

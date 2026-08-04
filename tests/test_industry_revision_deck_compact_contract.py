@@ -31,6 +31,7 @@ PPTX = Path(
 
 DML = "http://schemas.openxmlformats.org/drawingml/2006/main"
 CHART = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+PML = "http://schemas.openxmlformats.org/presentationml/2006/main"
 PACKAGE_REL = "http://schemas.openxmlformats.org/package/2006/relationships"
 
 
@@ -65,6 +66,7 @@ SLIDE_INSTRUMENTS = _contract_slide_number("fidcs seguem ganhando escala")
 SLIDE_STOCK_AND_TYPES = _contract_slide_number("saldo e tipos")
 SLIDE_ISSUANCE_TAXONOMY = _contract_slide_number("emissoes por categoria anbima")
 SLIDE_ANALYTICAL_TAXONOMY = _contract_slide_number("revela que 63%")
+SLIDE_OFFER_REGIME = _contract_slide_number("garantia firme", "melhores esforcos")
 SLIDES_TOP_TYPE = tuple(
     EXPECTED_SLIDE_SEQUENCE.index(tokens) + 1
     for tokens in TYPE_RANKING_SLIDE_SEQUENCE
@@ -123,6 +125,69 @@ def _cell_is_bold(cell: ET.Element) -> bool:
         for tag in ("rPr", "defRPr", "endParaRPr")
         for node in cell.iter(f"{{{DML}}}{tag}")
     )
+
+
+def _series_name(series: ET.Element) -> str:
+    return "".join(
+        node.text or ""
+        for node in series.findall(f".//{{{CHART}}}tx//{{{CHART}}}v")
+    )
+
+
+def _series_color(series: ET.Element) -> str | None:
+    for path in (
+        f"{{{CHART}}}spPr/{{{DML}}}solidFill/{{{DML}}}srgbClr",
+        f"{{{CHART}}}spPr/{{{DML}}}ln/{{{DML}}}solidFill/{{{DML}}}srgbClr",
+    ):
+        node = series.find(path)
+        if node is not None and node.attrib.get("val"):
+            return node.attrib["val"].upper()
+    return None
+
+
+def _series_values(series: ET.Element) -> list[float]:
+    points = series.findall(
+        f".//{{{CHART}}}val/{{{CHART}}}numLit/{{{CHART}}}pt"
+    )
+    if not points:
+        points = series.findall(
+            f".//{{{CHART}}}val/{{{CHART}}}numRef/"
+            f"{{{CHART}}}numCache/{{{CHART}}}pt"
+        )
+    return [
+        float(value.text)
+        for point in points
+        if (value := point.find(f"{{{CHART}}}v")) is not None
+        and value.text not in {None, ""}
+    ]
+
+
+def _chart_categories(series: ET.Element) -> list[str]:
+    points = series.findall(
+        f".//{{{CHART}}}cat/{{{CHART}}}strLit/{{{CHART}}}pt"
+    )
+    if not points:
+        points = series.findall(
+            f".//{{{CHART}}}cat/{{{CHART}}}strRef/"
+            f"{{{CHART}}}strCache/{{{CHART}}}pt"
+        )
+    return [
+        value.text or ""
+        for point in points
+        if (value := point.find(f"{{{CHART}}}v")) is not None
+    ]
+
+
+def _slide_shape_fill_colors(archive: ZipFile, slide_number: int) -> set[str]:
+    root = ET.fromstring(archive.read(f"ppt/slides/slide{slide_number}.xml"))
+    return {
+        node.attrib["val"].upper()
+        for shape in root.findall(f".//{{{PML}}}sp")
+        for node in shape.findall(
+            f"{{{PML}}}spPr/{{{DML}}}solidFill/{{{DML}}}srgbClr"
+        )
+        if node.attrib.get("val")
+    }
 
 
 def test_compact_pptx_matches_dynamic_contract_and_omits_requested_sections() -> None:
@@ -323,6 +388,96 @@ def test_analytical_taxonomy_expands_outros_with_the_requested_display_names() -
         "RECUPERAÇÃO / FIDCS NP",
     ):
         assert label in text
+
+
+def test_slides_4_to_6_use_exact_taxonomy_colors_without_changing_other_series() -> None:
+    expected_colors = {
+        "Fomento Mercantil": "73787D",
+        "Agro, Indústria e Comércio": "0A3B00",
+        "Financeiro": "EC7000",
+        "Precatórios / ações": "151515",
+        "Precatórios e/ou Ações Judiciais": "151515",
+        "Multicedente / multisacado": "7030A0",
+        "Multicedente/Multisacado": "7030A0",
+        "Recuperação / NP": "E7E9EB",
+        "Recuperação / FIDCs NP": "E7E9EB",
+        "N/D": "D7DADD",
+        "Outros": "D7DADD",
+    }
+    with ZipFile(PPTX) as archive:
+        for slide_number in (
+            SLIDE_STOCK_AND_TYPES,
+            SLIDE_ISSUANCE_TAXONOMY,
+            SLIDE_ANALYTICAL_TAXONOMY,
+        ):
+            seen: set[str] = set()
+            for root in _chart_roots(archive, slide_number):
+                for series in root.findall(f".//{{{CHART}}}ser"):
+                    name = _series_name(series)
+                    if name not in expected_colors:
+                        continue
+                    seen.add(name)
+                    assert _series_color(series) == expected_colors[name]
+            assert "Agro, Indústria e Comércio" in seen
+
+        slide_4_fills = _slide_shape_fill_colors(archive, SLIDE_STOCK_AND_TYPES)
+        assert {"0A3B00", "7030A0"} <= slide_4_fills
+
+        slide_6_roots = _chart_roots(archive, SLIDE_ANALYTICAL_TAXONOMY)
+        legend_series = [
+            series
+            for root in slide_6_roots
+            if root.find(f".//{{{CHART}}}lineChart") is not None
+            for series in root.findall(f".//{{{CHART}}}ser")
+        ]
+        legend_colors = {
+            _series_name(series): _series_color(series)
+            for series in legend_series
+        }
+        assert legend_colors["Agro, Indústria e Comércio"] == "0A3B00"
+        assert legend_colors["Multicedente/Multisacado"] == "7030A0"
+
+
+def test_offer_regime_uses_full_width_volume_shares_that_close_to_one() -> None:
+    with ZipFile(PPTX) as archive:
+        raw_text = _slide_text(archive, SLIDE_OFFER_REGIME)
+        roots = _chart_roots(archive, SLIDE_OFFER_REGIME)
+        bar_roots = [
+            root
+            for root in roots
+            if root.find(f".//{{{CHART}}}barChart") is not None
+        ]
+
+    assert len(bar_roots) == 3
+    assert "Regime de colocação · número de ofertas" not in raw_text
+    assert "Regime de colocação · participação no volume · % do total" in raw_text
+    assert "Melhores esforços repr. 69,2% do volume em 2026" in raw_text
+
+    regime_chart = next(
+        root
+        for root in bar_roots
+        if len(root.findall(f".//{{{CHART}}}barChart/{{{CHART}}}ser")) == 3
+    )
+    series = regime_chart.findall(f".//{{{CHART}}}barChart/{{{CHART}}}ser")
+    assert _chart_categories(series[0]) == [
+        "Não informado",
+        "Misto",
+        "Garantia firme",
+        "Melhores esforços",
+    ]
+    for item in series:
+        values = _series_values(item)
+        assert len(values) == 4
+        assert abs(sum(values) - 1.0) < 1e-9
+
+    assert any(
+        node.text == "0.0%"
+        for node in regime_chart.iter(f"{{{CHART}}}formatCode")
+    )
+    assert any(
+        node.attrib.get("formatCode") == "0%"
+        for node in regime_chart.iter(f"{{{CHART}}}numFmt")
+    )
 
 
 def test_taxonomy_rankings_use_one_legible_table_per_type_and_period() -> None:
