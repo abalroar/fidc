@@ -89,7 +89,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v46";
+const RENDERER_VERSION = "industry_revision_artifacts_v47";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
@@ -279,6 +279,13 @@ const C = {
   pale: "#F5F6F7",
   white: "#FFFFFF",
 };
+
+// Paleta editorial exclusiva do bloco de taxonomia (slides 4–6). Manter
+// separada das cores globais evita alterar qualquer outro slide.
+const SLIDES_4_TO_6_CATEGORY_COLORS = Object.freeze({
+  "Agro, Indústria e Comércio": "#0A3B00",
+  "Multicedente/Multissacado": "#7030A0",
+});
 
 // @oai/artifact-tool recebe tamanhos em px e o PowerPoint materializa 0,75 pt
 // por unidade. Estes pisos resultam em 12 pt para corpo/data label, 13 pt para
@@ -5363,7 +5370,7 @@ function buildPresentation(payload) {
     ];
     const taxonomyColors = {
       "Fomento Mercantil": C.mid,
-      "Agro, Indústria e Comércio": C.note,
+      "Agro, Indústria e Comércio": SLIDES_4_TO_6_CATEGORY_COLORS["Agro, Indústria e Comércio"],
       "Financeiro": C.orange,
       "Outros": C.line,
     };
@@ -5433,10 +5440,10 @@ function buildPresentation(payload) {
       };
       const colors = {
         "Fomento Mercantil": C.mid,
-        "Agro, Indústria e Comércio": C.charcoal,
+        "Agro, Indústria e Comércio": SLIDES_4_TO_6_CATEGORY_COLORS["Agro, Indústria e Comércio"],
         "Financeiro": C.orange,
         "Poder Público": C.black,
-        "Multicedente/Multissacado": C.note,
+        "Multicedente/Multissacado": SLIDES_4_TO_6_CATEGORY_COLORS["Multicedente/Multissacado"],
         "Recuperação": C.light,
         "N/D": C.line,
       };
@@ -6013,10 +6020,10 @@ function buildPresentation(payload) {
     const categories = [...broadCategories, ...outrosCategories];
     const colors = {
       "Fomento Mercantil": C.mid,
-      "Agro, Indústria e Comércio": C.charcoal,
+      "Agro, Indústria e Comércio": SLIDES_4_TO_6_CATEGORY_COLORS["Agro, Indústria e Comércio"],
       "Financeiro": C.orange,
       "Poder Público": C.black,
-      "Multicedente/Multissacado": C.note,
+      "Multicedente/Multissacado": SLIDES_4_TO_6_CATEGORY_COLORS["Multicedente/Multissacado"],
       "Recuperação": C.light,
       "N/D": C.line,
     };
@@ -6787,7 +6794,6 @@ function buildPresentation(payload) {
       "2026 jan-jun": "2026 jan–jun",
     };
     const regimeLabels = regimeRows
-      .filter((row) => row.placement_regime !== "Não informado")
       .sort((a, b) => num(a.regime_order) - num(b.regime_order))
       .map((row) => row.placement_regime)
       .filter((value, index, values) => values.indexOf(value) === index);
@@ -6815,7 +6821,7 @@ function buildPresentation(payload) {
     );
     addText(
       slide,
-      "Melhores esforços repr. 70% do volume em 2026",
+      `Melhores esforços repr. ${pct(currentBestEfforts.registered_volume_share, 1)} do volume em 2026`,
       { left: 60, top: 113, width: 1160, height: 20 },
       { fontSize: 11.5, color: C.mid, verticalAlignment: "middle" },
     );
@@ -6895,91 +6901,61 @@ function buildPresentation(payload) {
       { left: 455, top: 373, width: 370, height: 22 },
       3,
     );
-    addText(
+    addSectionLabel(
       slide,
-      `% do período (Melhores esforços / Garantia firme / Misto) · ${periodLabels
-        .map((period) => {
-          const label = periodDisplay[period] || period;
-          const shares = regimeLabels.map((regime) =>
-            pct(rowFor(period, regime).closed_offers_share, 0).replace("%", ""),
-          );
-          return `${label}: ${shares.join(" / ")}%`;
-        })
-        .join("   ·   ")}`,
-      { left: 60, top: 391, width: 555, height: 14 },
-      { fontSize: 7.2, color: C.note },
+      "REGIME DE COLOCAÇÃO · PARTICIPAÇÃO NO VOLUME · % DO TOTAL",
+      { left: 60, top: 406, width: 1160, height: 24 },
     );
-
-    const addRegimeChart = ({
-      left,
-      title,
-      valueKey,
-      formatCode,
-      xAxisFormat,
-    }) => {
-      addSectionLabel(
-        slide,
-        title,
-        { left, top: 406, width: 555, height: 24 },
-      );
-      slide.charts.add("bar", {
-        ...chartBase({ left, top: 438, width: 555, height: 195 }),
-        categories: [...regimeLabels].reverse(),
-        series: [...periodLabels].reverse().map((period) => {
-          const periodIndex = periodLabels.indexOf(period);
-          const chartRegimes = [...regimeLabels].reverse();
-          return {
-            name: periodDisplay[period] || period,
-            values: chartRegimes.map((regime) => num(rowFor(period, regime)[valueKey])),
-            valuesFormatCode: formatCode,
-            fill: periodColors[periodIndex],
-          };
-        }),
-        barOptions: {
-          direction: "bar",
-          grouping: "clustered",
-          gapWidth: 42,
-        },
-        hasLegend: false,
-        xAxis: {
-          visible: true,
-          textStyle: { fill: C.mid, fontSize: 7.5 },
-          line: { style: "solid", fill: C.line, width: 1 },
-          majorGridlines: null,
-        },
-        yAxis: {
-          ...chartAxis(8, xAxisFormat),
-          visible: true,
-          textStyle: { fill: C.mid, fontSize: 7.6 },
-          line: { style: "solid", fill: C.line, width: 0.6 },
-          min: 0,
-          majorGridlines: null,
-        },
-        dataLabels: {
-          showValue: true,
-          position: "outEnd",
-          textStyle: { fill: C.black, fontSize: 7.5, bold: false },
-        },
-      });
-    };
-    addRegimeChart({
-      left: 60,
-      title: "REGIME DE COLOCAÇÃO · NÚMERO DE OFERTAS",
-      valueKey: "closed_offers",
-      formatCode: "0",
-      xAxisFormat: "0",
-    });
-    addRegimeChart({
-      left: 665,
-      title: "REGIME DE COLOCAÇÃO · VOLUME · R$ BI",
-      valueKey: "registered_volume_brl",
-      formatCode: "0.0,,,",
-      xAxisFormat: "0.0,,,",
+    const chartRegimes = [...regimeLabels].reverse();
+    slide.charts.add("bar", {
+      ...chartBase({ left: 60, top: 438, width: 1160, height: 195 }),
+      categories: chartRegimes,
+      series: [...periodLabels].reverse().map((period) => {
+        const periodIndex = periodLabels.indexOf(period);
+        const values = chartRegimes.map((regime) => num(rowFor(period, regime).registered_volume_share));
+        return {
+          name: periodDisplay[period] || period,
+          values,
+          valuesFormatCode: "0.0%",
+          fill: periodColors[periodIndex],
+          dataLabelOverrides: values.map((value, idx) => ({
+            idx,
+            showValue: value > 0,
+          })),
+        };
+      }),
+      barOptions: {
+        direction: "bar",
+        grouping: "clustered",
+        gapWidth: 42,
+      },
+      hasLegend: false,
+      xAxis: {
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 10 },
+        line: { style: "solid", fill: C.line, width: 1 },
+        majorGridlines: null,
+      },
+      yAxis: {
+        ...chartAxis(10, "0%"),
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 10 },
+        line: { style: "solid", fill: C.line, width: 0.6 },
+        min: 0,
+        max: 1,
+        majorUnit: 0.2,
+        majorGridlines: null,
+      },
+      dataLabels: {
+        showValue: true,
+        position: "outEnd",
+        textStyle: { fill: C.black, fontSize: 10, bold: false },
+      },
     });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; 2026 = jan–jun.",
-      "Métrica: regime de colocação conforme declarado na oferta; campo ausente nos arquivos consultados = Não informado.",
+      "Métrica: participação no volume = volume registrado da categoria / volume registrado total do período; inclui Não informado e fecha 100%, salvo arredondamento.",
       `Comparação YTD: garantia firme ${bn(currentGuarantee.comparison_registered_volume_brl, 1)} em jan–jun/25 e ${bn(currentGuarantee.registered_volume_brl, 1)} em jan–jun/26; variação ${pct(guaranteeGrowth, 1)}. Melhores esforços representam ${pct(currentBestEfforts.registered_volume_share, 1)} do volume atual.`,
       "Limitação: volume registrado pode diferir do valor encerrado informado à ANBIMA.",
     ]);

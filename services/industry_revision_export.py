@@ -832,7 +832,7 @@ def validate_revision_pptx(payload: bytes) -> None:
         )
         if placement_slide.count(b"<c:chart") < 4:
             raise RevisionExportUnavailable(
-                "slide de volume e regime deve conter quatro gráficos nativos do Office"
+                "slide de volume e regime deve conter dois totais, uma legenda e a participação do volume em gráficos nativos do Office"
             )
         combined_market_slide = _slide_xml_containing(
             archive, "FIDCS SEGUEM GANHANDO ESCALA NAS EMISSÕES"

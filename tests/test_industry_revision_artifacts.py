@@ -514,7 +514,7 @@ def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
             path for path in regime_charts
             if ET.fromstring(archive.read(path)).find(f".//{{{CHART}}}barChart") is not None
         ]
-        assert len(regime_charts) == 4
+        assert len(regime_charts) == 3
         regime_slide = ET.fromstring(
             archive.read(f"ppt/slides/slide{SLIDE_OFFER_REGIME}.xml")
         )
@@ -875,7 +875,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v46";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v47";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 
