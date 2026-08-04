@@ -720,6 +720,30 @@ def test_industry_exports_expose_the_top100_plus2_workbook_download() -> None:
     assert "top100_fidcs_middle_market.xlsx" in data_export_source
 
 
+def test_industry_exports_expose_taxonomy_audit_and_cedente_triage() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    data_export_source = source[
+        source.index("def _render_revision_data_exports") : source.index(
+            "def _render_industry_data_audit"
+        )
+    ]
+
+    assert "Excel — estudo, taxonomia e triagem de cedentes" in data_export_source
+    assert "industry_taxonomy_audited_decisions_202606.csv" in data_export_source
+    assert "industry_taxonomy_impact_summary_202606.csv" in data_export_source
+    assert "fidc_cedentes_top437_202606.csv.gz" in data_export_source
+    assert "fidc_cedentes_curva_cobertura_202606.csv" in data_export_source
+    assert '".gz": "application/gzip"' in data_export_source
+    assert "CVM — Informe Mensal FIDC, Tabela I" in data_export_source
+    assert "o campo não identifica sacado" in data_export_source
+    assert {
+        "industry_taxonomy_audited_decisions_202606.csv",
+        "industry_taxonomy_impact_summary_202606.csv",
+        "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
+        "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+    }.issubset(_INDUSTRY_EXPORT_INPUTS)
+
+
 def test_industry_csv_cache_reloads_when_the_source_changes(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,

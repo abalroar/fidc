@@ -304,7 +304,8 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
         )
     ]
     if len(existing_total_series) == 1:
-        return payload, True
+        _set_arial_12(root)
+        return ET.tostring(root, encoding="UTF-8", xml_declaration=True), True
     if len(existing_total_series) > 1:
         raise RuntimeError("gráfico de escala contém séries auxiliares Total duplicadas")
     series = bar_chart.findall(_c("ser"))
@@ -378,6 +379,7 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
         line_chart.append(deepcopy(axis_id))
     insert_at = list(plot_area).index(bar_chart) + 1
     plot_area.insert(insert_at, line_chart)
+    _set_arial_12(root)
     return ET.tostring(root, encoding="UTF-8", xml_declaration=True), True
 
 

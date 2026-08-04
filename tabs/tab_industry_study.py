@@ -187,6 +187,16 @@ _INDUSTRY_EXPORT_INPUTS = (
     "industry_cnpj_manual_enrichment.csv",
     "carteira_101_financeiro_agro_risk_review.csv",
     "structural_mvp_slide_overrides.csv",
+    "industry_taxonomy_audited_decisions_202606.csv",
+    "industry_taxonomy_outros_three_buckets_202606.csv",
+    "industry_taxonomy_acquiring_202606.csv",
+    "industry_taxonomy_impact_summary_202606.csv",
+    "industry_taxonomy_impact_flows_202606.csv",
+    "industry_taxonomy_issuance_impact_202606.csv",
+    "industry_taxonomy_market_share_denominator_impact_202606.csv",
+    "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
+    "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
+    "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
     "industry_intelligence_manifest.json",
     "generated_revision/artifact_payload.json",
     "generated_revision/revision_manifest.json",
@@ -15974,6 +15984,8 @@ def _render_revision_data_exports(
     qa = dict(payload.get("qa_latest") or {})
     coverage = _revision_frame(payload, "classification_coverage")
     sources = dict(payload.get("sources") or {})
+    cedente_manifest = dict(payload.get("cedente_middle_market_manifest") or {})
+    cedente_coverage = dict(cedente_manifest.get("coverage") or {})
     profiles = _revision_frame(payload, "profiles")
     curation_date = (
         str(profiles["data_consulta"].dropna().max())
@@ -15991,6 +16003,16 @@ def _render_revision_data_exports(
             ["Reclassificação CVM", "CVM — Informe Mensal, Tabela II", "jun/26", "Financeiro: Outros; ex-FIC, PL positivo; fundos multitipo exigem revisão"],
             ["Crédito Privado Ampliado", "BCB — SGS 28183–28192, excluídos títulos públicos", "mai/26", "Securitizações abertas entre FIDCs e CRIs/CRAs"],
             ["Curadoria Top 20", "CVM, FundosNet e documentos de emissão", curation_date, "lacunas marcadas como não identificado"],
+            [
+                "Cedentes por fundo",
+                "CVM — Informe Mensal FIDC, Tabela I",
+                "jun/26",
+                (
+                    f"{_fmt_int(cedente_coverage.get('fundos_com_cedente', 0))} de "
+                    f"{_fmt_int(cedente_coverage.get('fundos_total', 0))} fundos declaram cedente; "
+                    "o campo não identifica sacado"
+                ),
+            ],
         ],
         columns=["Dimensão", "Fonte", "Data-base", "Cobertura/regra"],
     )
@@ -15999,6 +16021,7 @@ def _render_revision_data_exports(
         "Gestor e custodiante de 2024/2025 são reconstruções com cadastro vigente; não formam série histórica comparável.",
         "Market share usa Top 10 geral fixo por função e separa Outros identificados de prestador não informado.",
         "Monoestrutura usa conglomerado econômico normalizado e PL bruto dos fundos; não permite inferir preço ou contrato.",
+        "Tabela I identifica cedente, sem campo de sacado. Porte da Receita e capital social não comprovam faturamento entre R$ 30 mi e R$ 500 mi.",
     ]
     if str(qa.get("aging_publication_status") or "").startswith("bloqueado"):
         limitations.insert(
@@ -16029,7 +16052,7 @@ def _render_revision_data_exports(
                 width="stretch",
             )
         files = {
-            "Excel — ratings Top 15 e listas de reclassificação ANBIMA/CVM": "industry_data_revised.xlsx",
+            "Excel — estudo, taxonomia e triagem de cedentes": "industry_data_revised.xlsx",
             "Excel — Carteira 101 e Flagships": "carteira_101_flagships.xlsx",
             "Excel — Top 100 + 2 FIDCs e Middle Market": "top100_fidcs_middle_market.xlsx",
             "Auditoria — risco Financeiro e Agro/Revenda": "../carteira_101_financeiro_agro_risk_review.csv",
@@ -16042,6 +16065,16 @@ def _render_revision_data_exports(
             "Top 20 Outros": "top20_outros.csv",
             "Top 20 Outros · regulamentos": "../industry_top20_outros_regulation_review.csv",
             "Ledger de decisões de taxonomia": "../taxonomy_review_actions.csv",
+            "Auditoria de taxonomia jun/26 · de-para": "../industry_taxonomy_audited_decisions_202606.csv",
+            "Auditoria de taxonomia jun/26 · Outros em 3 baldes": "../industry_taxonomy_outros_three_buckets_202606.csv",
+            "Auditoria de taxonomia jun/26 · adquirência": "../industry_taxonomy_acquiring_202606.csv",
+            "Impacto da taxonomia · resumo por Tipo": "../industry_taxonomy_impact_summary_202606.csv",
+            "Impacto da taxonomia · fluxos por CNPJ": "../industry_taxonomy_impact_flows_202606.csv",
+            "Impacto da taxonomia · emissões": "../industry_taxonomy_issuance_impact_202606.csv",
+            "Impacto da taxonomia · denominadores de market share": "../industry_taxonomy_market_share_denominator_impact_202606.csv",
+            "Triagem de cedentes · Top 437 fundos (CSV.GZ)": "../cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
+            "Triagem de cedentes · curva de cobertura": "../cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
+            "Triagem de cedentes · manifesto e limitações": "../cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
             "Market share por subtipo": "market_share_por_subtipo.csv",
             "Concentração de monoestruturas": "monoestrutura_concentracao.csv",
             "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",
@@ -16061,6 +16094,7 @@ def _render_revision_data_exports(
                 mime = {
                     ".json": "application/json",
                     ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    ".gz": "application/gzip",
                 }.get(path.suffix, "text/csv")
                 data = path.read_bytes()
                 download_name = path.name

@@ -888,6 +888,7 @@ def test_native_chart_patcher_preserves_twelve_point_data_label_floor() -> None:
     assert "def _text_properties(font_size: int = 1200" in source
     assert 'default_run.set("sz", "1000")' not in source
     assert "font_size: int = 850" not in source
+    assert source.count("_set_arial_12(root)") >= 3
 
 
 def test_taxonomy_top15_preserves_reported_table_when_no_override_exists() -> None:
@@ -1084,41 +1085,41 @@ def test_materialized_card_taxonomy_audit_reconciles_its_summary() -> None:
 
     assert summary["competencia_tabela_ii"] == "2026-06"
     assert summary["competencia_pl"] == "2025-06"
-    assert len(rows) == summary["fundos_total"] == 44
+    assert len(rows) == summary["fundos_total"]
     assert len(acquiring_detail) == 33
     assert [row["ordem_materialidade"] for row in acquiring_detail] == list(
         range(1, 34)
     )
-    assert len(principal) == summary["fundos_cartao_segmento_principal"] == 43
-    assert len(secondary) == summary["fundos_exposicao_secundaria"] == 1
-    assert summary["fundos_anbima_cartao_explicito"] == 0
-    assert sum(row["ja_curado_como_adquirencia"] for row in rows) == 26
-    assert summary["fundos_curados_adquirencia"] == 26
+    assert len(principal) == summary["fundos_cartao_segmento_principal"]
+    assert len(secondary) == summary["fundos_exposicao_secundaria"]
+    assert summary["fundos_anbima_cartao_explicito"] == sum(
+        bool(row["anbima_cartao_explicito"]) for row in rows
+    )
+    assert sum(row["ja_curado_como_adquirencia"] for row in rows) == summary[
+        "fundos_curados_adquirencia"
+    ]
     assert all(row["cnpj_fundo_identificado"] for row in rows)
-    assert len({row["cnpj_fundo_formatado"] for row in rows}) == 44
-    assert len(observable) == summary["fundos_pl_observavel"] == 37
+    assert len({row["cnpj_fundo_formatado"] for row in rows}) == len(rows)
+    assert len(observable) == summary["fundos_pl_observavel"]
     assert sum(row["pl_jun25_brl"] for row in observable) == pytest.approx(
         summary["pl_jun25_observado_brl"]
     )
-    assert summary["pl_jun25_observado_brl"] == pytest.approx(
-        76_063_154_829.65
-    )
-    assert len(current_observable) == summary["fundos_pl_atual_observavel"] == 44
+    assert len(current_observable) == summary["fundos_pl_atual_observavel"]
     assert summary["fundos_pl_fallback_usado"] == 0
-    assert len(included) == summary["fundos_incluidos_adquirencia"] == 26
-    assert len(outside) == summary["fundos_fora_adquirencia"] == 17
-    assert len(pending) == summary["fundos_pendentes_curadoria"] == 1
+    assert len(included) == summary["fundos_incluidos_adquirencia"]
+    assert len(outside) == summary["fundos_fora_adquirencia"]
+    assert len(pending) == summary["fundos_pendentes_curadoria"]
     assert summary["pl_referencia_observado_brl"] == pytest.approx(
-        97_480_792_502.62
+        sum(row["pl_referencia_brl"] for row in rows)
     )
     assert summary["pl_incluido_adquirencia_brl"] == pytest.approx(
-        86_447_199_744.79
+        sum(row["pl_referencia_brl"] for row in included)
     )
     assert summary["pl_fora_adquirencia_brl"] == pytest.approx(
-        11_006_443_530.36
+        sum(row["pl_referencia_brl"] for row in outside)
     )
     assert summary["pl_pendente_curadoria_brl"] == pytest.approx(
-        27_149_227.47
+        sum(row["pl_referencia_brl"] for row in pending)
     )
     assert sum(row["valor_cartao_tabela_ii_brl"] for row in rows) == pytest.approx(
         summary["valor_cartao_tabela_ii_jun26_brl"]

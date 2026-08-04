@@ -1596,11 +1596,11 @@ def test_payload_rejects_issuance_taxonomy_that_does_not_reconcile() -> None:
             validate_artifact_payload(broken, "2026-05")
 
 
-def test_payload_rejects_card_taxonomy_with_fewer_than_44_funds() -> None:
+def test_payload_rejects_card_taxonomy_count_divergent_from_summary() -> None:
     payload = deepcopy(_payload())
     payload["card_taxonomy_audit"].pop()
 
-    with pytest.raises(RevisionBundlePublishError, match="exatamente 44 fundos"):
+    with pytest.raises(RevisionBundlePublishError, match="fundos_total diverge"):
         validate_artifact_payload(payload, "2026-05")
 
 
@@ -1609,7 +1609,7 @@ def test_payload_rejects_duplicate_card_taxonomy_cnpj() -> None:
     rows = payload["card_taxonomy_audit"]
     rows[1]["cnpj_fundo_formatado"] = rows[0]["cnpj_fundo_formatado"]
 
-    with pytest.raises(RevisionBundlePublishError, match="44 CNPJs únicos"):
+    with pytest.raises(RevisionBundlePublishError, match="CNPJs únicos"):
         validate_artifact_payload(payload, "2026-05")
 
 
@@ -1617,7 +1617,7 @@ def test_payload_rejects_non_continuous_card_taxonomy_rank() -> None:
     payload = deepcopy(_payload())
     payload["card_taxonomy_audit"][1]["ordem_materialidade"] = 1
 
-    with pytest.raises(RevisionBundlePublishError, match="contínua de 1 a 44"):
+    with pytest.raises(RevisionBundlePublishError, match="contínua de 1 a N"):
         validate_artifact_payload(payload, "2026-05")
 
 
@@ -1625,7 +1625,10 @@ def test_payload_rejects_card_taxonomy_enum_count_drift() -> None:
     payload = deepcopy(_payload())
     payload["card_taxonomy_audit"][0]["status_curadoria"] = "Fora de Adquirência"
 
-    with pytest.raises(RevisionBundlePublishError, match="26 incluídos, 17 fora e 1"):
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="fundos_incluidos_adquirencia não reconcilia",
+    ):
         validate_artifact_payload(payload, "2026-05")
 
 
@@ -1657,6 +1660,20 @@ def test_payload_rejects_card_taxonomy_without_document_url() -> None:
 
     with pytest.raises(RevisionBundlePublishError, match="fonte_url inválida"):
         validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_accepts_pending_card_taxonomy_from_official_classification() -> None:
+    payload = deepcopy(_payload())
+    pending = next(
+        row
+        for row in payload["card_taxonomy_audit"]
+        if row["status_curadoria"] == "Pendente"
+    )
+    pending["fonte_url"] = "N/D"
+    pending["anbima_cartao_explicito"] = True
+    pending["classification_source"] = "ANBIMA Data — Fundos 175"
+
+    validate_artifact_payload(payload, "2026-05")
 
 
 def test_payload_rejects_card_taxonomy_decision_divergence() -> None:
@@ -2127,6 +2144,20 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
         "carteira_101_document_audit/carteira_101_document_prices.csv.gz"
         in REQUIRED_DATA_INPUTS
     )
+    assert {
+        "industry_taxonomy_audited_decisions_202606.csv",
+        "industry_taxonomy_audit_top200_202606.csv.gz",
+        "industry_taxonomy_outros_three_buckets_202606.csv",
+        "industry_taxonomy_acquiring_202606.csv",
+        "industry_taxonomy_audit_manifest_202606.json",
+        "industry_taxonomy_impact_summary_202606.csv",
+        "industry_taxonomy_impact_flows_202606.csv",
+        "industry_taxonomy_issuance_impact_202606.csv",
+        "industry_taxonomy_market_share_denominator_impact_202606.csv",
+        "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
+        "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
+        "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+    }.issubset(REQUIRED_DATA_INPUTS)
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:

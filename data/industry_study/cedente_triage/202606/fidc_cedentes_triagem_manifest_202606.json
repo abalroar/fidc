@@ -1,0 +1,160 @@
+{
+  "competence": "202606",
+  "contract": {
+    "attributes": "Cedentes consolidados colunas E:F e adjacentes",
+    "duplicate_policy": "Uma linha por fundo/documento; blocos, ordens, percentuais e linhas de origem preservados em JSON.",
+    "join": "Fundo x Cedente.Doc do cedente -> Cedentes consolidados.Doc do cedente",
+    "reason_name": "Fundo x Cedente coluna K: Razão social do cedente"
+  },
+  "coverage": {
+    "fundos_com_cedente": 1908,
+    "fundos_sem_cedente": 2403,
+    "fundos_total": 4311,
+    "pl_com_cedente_pct": 0.38708309684060616,
+    "pl_com_cedente_reais": 386783587339.23004,
+    "pl_sem_cedente_pct": 0.6129169031593938,
+    "pl_sem_cedente_reais": 612442652442.8201,
+    "pl_total_reais": 999226239782.05
+  },
+  "cutoff": {
+    "recommended_rank": 437,
+    "snapshots": [
+      {
+        "fundos_com_cedente": 53,
+        "fundos_sem_cedente": 96,
+        "pl_acumulado_pct": 0.5004190022760574,
+        "pl_acumulado_reais": 500031797959.79,
+        "pl_com_cedente_pct_dentro_corte": 0.3917344504596719,
+        "pl_com_cedente_pct_industria": 0.19603136285618863,
+        "pl_com_cedente_reais": 195879681586.14,
+        "pl_sem_cedente_reais": 304152116373.6501,
+        "rank": 149
+      },
+      {
+        "fundos_com_cedente": 102,
+        "fundos_sem_cedente": 198,
+        "pl_acumulado_pct": 0.6288355950882901,
+        "pl_acumulado_reais": 628349027121.1799,
+        "pl_com_cedente_pct_dentro_corte": 0.3781947253004187,
+        "pl_com_cedente_pct_industria": 0.2378223051435412,
+        "pl_com_cedente_reais": 237638287704.87997,
+        "pl_sem_cedente_reais": 390710739416.2999,
+        "rank": 300
+      },
+      {
+        "fundos_com_cedente": 141,
+        "fundos_sem_cedente": 296,
+        "pl_acumulado_pct": 0.7003442665901768,
+        "pl_acumulado_reais": 699802368057.82,
+        "pl_com_cedente_pct_dentro_corte": 0.3682783709370447,
+        "pl_com_cedente_pct_industria": 0.25792164559492964,
+        "pl_com_cedente_reais": 257722076086.2201,
+        "pl_sem_cedente_reais": 442080291971.6003,
+        "rank": 437
+      },
+      {
+        "fundos_com_cedente": 264,
+        "fundos_sem_cedente": 479,
+        "pl_acumulado_pct": 0.8001552640236342,
+        "pl_acumulado_reais": 799536135712.1495,
+        "pl_com_cedente_pct_dentro_corte": 0.3729546481736945,
+        "pl_com_cedente_pct_industria": 0.29842162497826413,
+        "pl_com_cedente_reais": 298190718196.68,
+        "pl_sem_cedente_reais": 501345417515.47046,
+        "rank": 743
+      },
+      {
+        "fundos_com_cedente": 511,
+        "fundos_sem_cedente": 818,
+        "pl_acumulado_pct": 0.9000554391496345,
+        "pl_acumulado_reais": 899359012056.871,
+        "pl_com_cedente_pct_dentro_corte": 0.3776275670860834,
+        "pl_com_cedente_pct_industria": 0.33988574572867286,
+        "pl_com_cedente_reais": 339622755659.97974,
+        "pl_sem_cedente_reais": 559736256396.8909,
+        "rank": 1329
+      }
+    ],
+    "threshold_ranks": {
+      "50pct_pl": 149,
+      "70pct_pl": 437,
+      "80pct_pl": 743,
+      "90pct_pl": 1329
+    },
+    "top_queue": {
+      "fundos": 437,
+      "fundos_com_cedente": 141,
+      "fundos_sem_cedente": 296,
+      "linhas": 510,
+      "pares_fundo_cedente": 214
+    }
+  },
+  "limitations": [
+    "A Tabela I identifica cedente; sacado ou devedor nomeado exige leitura documental.",
+    "Porte na Receita separa ME, EPP e Demais; Demais não confirma faturamento entre R$ 30 mi e R$ 500 mi.",
+    "Capital social é apenas sinal cadastral de porte e não equivale a receita.",
+    "PL alcançado soma o PL integral dos fundos que mencionam o cedente e não mede exposição ao cedente.",
+    "Percentuais ausentes, não positivos ou acima de 100% permanecem como declarados e recebem flag de qualidade.",
+    "CPF e documentos com formato ou dígito verificador irregular permanecem na fila sem correção ou preenchimento inferido."
+  ],
+  "outputs": {
+    "fidc_cedentes_curva_cobertura_202606.csv": {
+      "bytes": 1571200,
+      "sha256": "007484ffb6b3f5bc909db191abd79b94dd6dbe40ea61669329f7628df6f046e0"
+    },
+    "fidc_cedentes_top437_202606.csv.gz": {
+      "bytes": 49196,
+      "sha256": "9c9a626c29b61120b8f952d1cca2becbfbfbd3e4500e30343b10d0cc66d34cbb"
+    }
+  },
+  "quality": {
+    "cedentes_cnpj_dv_invalido": 4,
+    "cedentes_cpf_dv_invalido": 1,
+    "cedentes_documento_irregular": 33,
+    "cedentes_unicos": 2566,
+    "fundos_fundo_x_cedente": 1908,
+    "fundos_pl_negativo": 37,
+    "grupos_duplicados_cruzando_blocos": 110,
+    "grupos_duplicados_fundo_cedente": 116,
+    "grupos_duplicados_no_mesmo_bloco": 6,
+    "linhas_adicionais_em_duplicidades": 117,
+    "linhas_fundo_x_cedente": 3513,
+    "linhas_join_sem_correspondencia": 0,
+    "linhas_percentual_acima_100": 323,
+    "linhas_percentual_ausente": 139,
+    "linhas_percentual_nao_positivo": 0,
+    "pares_fundo_cedente_consolidados": 3396,
+    "pl_negativo_reais": -78200458.72
+  },
+  "schema_version": "fidc-cedente-triage/v1",
+  "source": {
+    "file": "FIDC_Cedentes_202606.xlsx",
+    "readme_contract": {
+      "required_labels": [
+        "O que a CVM entrega",
+        "O que a CVM NÃO entrega",
+        "Cobertura",
+        "Sobre o campo Porte da Receita",
+        "Regra de preenchimento"
+      ],
+      "required_phrases": [
+        "Tabela I",
+        "não existe campo de sacado",
+        "4.311 fundos",
+        "1.908 declaram",
+        "38,7% do PL",
+        "R$ 30 a 500 mi",
+        "Célula vazia significa ausência na fonte"
+      ],
+      "status": "validado",
+      "title": "Mapa de cedentes dos FIDCs · competência jun/26"
+    },
+    "sha256": "5216b4168992383268cd680162a39af7e2ce2dbe5fa7ceed53abe8017c6ba3d8",
+    "sheets": [
+      "Leia-me",
+      "Priorização por PL",
+      "Fundo x Cedente",
+      "Cedentes consolidados"
+    ]
+  }
+}

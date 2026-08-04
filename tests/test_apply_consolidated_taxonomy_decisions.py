@@ -191,7 +191,7 @@ def test_additional_user_decisions_use_existing_taxonomy_labels() -> None:
         ) == ("Outros", "Multicarteira Outros")
 
 
-def test_published_vehicle_overlay_propagates_by_cnpj_and_keeps_pan_unapplied() -> None:
+def test_published_vehicle_overlay_propagates_by_cnpj_and_preserves_official_fields() -> None:
     data = ROOT / "data" / "industry_study"
     actions = load_taxonomy_review_actions(data / "taxonomy_review_actions.csv")
     funds = pd.read_csv(
@@ -224,7 +224,10 @@ def test_published_vehicle_overlay_propagates_by_cnpj_and_keeps_pan_unapplied() 
     assert concessionary_risk["anbima_foco_curado"].eq(
         "Crédito Corporativo"
     ).all()
-    assert concessionary_risk["anbima_foco"].eq("Recebíveis Comerciais").all()
+    assert concessionary_risk["anbima_foco"].eq("Crédito Corporativo").all()
+    assert concessionary_risk["anbima_foco_oficial"].eq(
+        "Recebíveis Comerciais"
+    ).all()
 
     consumer_vehicle = overlaid[
         overlaid["cnpj_fundo"].eq("35868110000154")
@@ -234,8 +237,13 @@ def test_published_vehicle_overlay_propagates_by_cnpj_and_keeps_pan_unapplied() 
     assert consumer_vehicle["anbima_foco_curado"].eq(
         "Financiamento de Veículos"
     ).all()
+    assert consumer_vehicle["anbima_foco_oficial"].eq("N/D").all()
 
     pan = overlaid[overlaid["cnpj_fundo"].eq("65473848000183")]
-    assert not pan["taxonomy_review_applied"].any()
-    assert pan["anbima_tipo_curado"].eq(pan["anbima_tipo"]).all()
-    assert pan["anbima_foco_curado"].eq(pan["anbima_foco"]).all()
+    assert pan["taxonomy_review_applied"].all()
+    assert pan["anbima_tipo_curado"].eq("Outros").all()
+    assert pan["anbima_foco_curado"].eq("Multicedente/Multissacado").all()
+    assert pan["anbima_tipo_oficial"].eq(
+        "Agro, Indústria e Comércio"
+    ).all()
+    assert pan["anbima_foco_oficial"].eq("Recebíveis Comerciais").all()

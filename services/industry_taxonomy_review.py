@@ -78,6 +78,10 @@ ANALYTICAL_ANBIMA_FOCUS_BY_TYPE: Mapping[str, tuple[str, ...]] = {
         "Crédito PF",
         "Cartão de crédito",
     ),
+    "Outros": (
+        *ANBIMA_FOCUS_BY_TYPE["Outros"],
+        "Multicedente/Multissacado",
+    ),
 }
 TAXONOMY_REVIEW_AUDIT_COLUMNS: tuple[str, ...] = (
     "event_id",
@@ -135,6 +139,7 @@ def normalize_analytical_anbima_focus(value: object) -> str:
         "adquirencia": "Adquirência",
         "credito pf": "Crédito PF",
         "cartao de credito": "Cartão de crédito",
+        "multicedente/multissacado": "Multicedente/Multissacado",
     }
     if normalized.casefold() in analytical:
         return analytical[normalized.casefold()]
@@ -857,11 +862,16 @@ def apply_taxonomy_review_overlay(
         return pd.DataFrame() if funds is None else funds.copy()
     frame = funds.copy()
     frame["cnpj_fundo"] = frame["cnpj_fundo"].map(normalize_cnpj)
+    # The payload/export path may apply this overlay more than once. Preserve
+    # the original official fields rather than promoting a curated display
+    # value to official status on a later pass.
     frame["anbima_tipo_oficial"] = frame.get(
-        "anbima_tipo", pd.Series("", index=frame.index)
+        "anbima_tipo_oficial",
+        frame.get("anbima_tipo", pd.Series("", index=frame.index)),
     ).map(_text)
     frame["anbima_foco_oficial"] = frame.get(
-        "anbima_foco", pd.Series("", index=frame.index)
+        "anbima_foco_oficial",
+        frame.get("anbima_foco", pd.Series("", index=frame.index)),
     ).map(_text)
     frame["anbima_tipo_curado"] = frame["anbima_tipo_oficial"]
     frame["anbima_foco_curado"] = frame["anbima_foco_oficial"]
@@ -873,39 +883,55 @@ def apply_taxonomy_review_overlay(
     frame["taxonomy_review_status"] = "pendente"
     frame["taxonomy_review_applied"] = False
     action_frame = _effective_actions(actions)
-    action_frame = (
-        action_frame.set_index("cnpj_fundo") if not action_frame.empty else action_frame
-    )
-    for index, row in frame.iterrows():
-        cnpj = row["cnpj_fundo"]
-        if action_frame.empty:
-            continue
-        if cnpj not in action_frame.index:
-            continue
-        action = action_frame.loc[cnpj]
-        frame.at[index, "taxonomy_review_status"] = _text(action.get("status")) or "pendente"
-        if _text(action.get("status")) != "aprovado":
-            continue
-        action_for_validation = action.to_dict()
-        action_for_validation["cnpj_fundo"] = cnpj
-        try:
-            validate_taxonomy_review_action(action_for_validation)
-        except ValueError:
-            continue
-        if not valid_analytical_type_focus_pair(
-            action.get("tipo_analitico"), action.get("foco_analitico")
-        ):
-            continue
-        frame.at[index, "anbima_tipo_curado"] = normalize_anbima_type(action.get("tipo_analitico"))
-        frame.at[index, "anbima_foco_curado"] = normalize_analytical_anbima_focus(
-            action.get("foco_analitico")
+    if not action_frame.empty:
+        # Validate once per decision, then map by CNPJ. The historical fund
+        # base has hundreds of thousands of rows; assigning Arrow-backed
+        # strings one cell at a time is both quadratic and memory intensive.
+        valid_rows: list[dict[str, object]] = []
+        for action in action_frame.to_dict(orient="records"):
+            try:
+                validate_taxonomy_review_action(action)
+            except ValueError:
+                continue
+            valid_rows.append(action)
+        action_frame = pd.DataFrame(valid_rows)
+    if not action_frame.empty:
+        action_frame = action_frame.drop_duplicates("cnpj_fundo", keep="last").set_index(
+            "cnpj_fundo"
         )
-        table_ii = _text(action.get("tabela_ii_analitica"))
-        if table_ii in CVM_TABLE_II_CATEGORIES:
-            frame.at[index, "tabela_ii_curada"] = table_ii
-        frame.at[index, "taxonomia_funcional_n1_curada"] = _text(action.get("taxonomia_funcional_n1"))
-        frame.at[index, "taxonomia_funcional_n2_curada"] = _text(action.get("taxonomia_funcional_n2"))
-        frame.at[index, "taxonomy_review_applied"] = True
+        keys = frame["cnpj_fundo"]
+        applied = keys.isin(action_frame.index)
+
+        def mapped(column: str) -> pd.Series:
+            return keys.map(action_frame[column].to_dict())
+
+        mapped_type = mapped("tipo_analitico").map(normalize_anbima_type)
+        mapped_focus = mapped("foco_analitico").map(
+            normalize_analytical_anbima_focus
+        )
+        mapped_table_ii = mapped("tabela_ii_analitica").map(_text)
+        mapped_n1 = mapped("taxonomia_funcional_n1").map(_text)
+        mapped_n2 = mapped("taxonomia_funcional_n2").map(_text)
+        frame["anbima_tipo_curado"] = frame["anbima_tipo_curado"].where(
+            ~applied, mapped_type
+        )
+        frame["anbima_foco_curado"] = frame["anbima_foco_curado"].where(
+            ~applied, mapped_focus
+        )
+        valid_table_ii = applied & mapped_table_ii.isin(CVM_TABLE_II_CATEGORIES)
+        frame["tabela_ii_curada"] = frame["tabela_ii_curada"].where(
+            ~valid_table_ii, mapped_table_ii
+        )
+        frame["taxonomia_funcional_n1_curada"] = frame[
+            "taxonomia_funcional_n1_curada"
+        ].where(~applied, mapped_n1)
+        frame["taxonomia_funcional_n2_curada"] = frame[
+            "taxonomia_funcional_n2_curada"
+        ].where(~applied, mapped_n2)
+        frame["taxonomy_review_status"] = frame["taxonomy_review_status"].where(
+            ~applied, "aprovado"
+        )
+        frame["taxonomy_review_applied"] = applied
     frame["manual_override_applied"] = frame["taxonomy_review_applied"]
     return frame
 

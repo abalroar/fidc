@@ -2111,6 +2111,23 @@ def build_market_share_by_subtype(
         for anbima_type, focuses in ANBIMA_FOCUS_BY_TYPE.items()
         for focus in focuses
     ]
+    # The analytical ledger may introduce an explicitly audited focus beyond
+    # the official ANBIMA vocabulary (currently Outros / Multicedente-
+    # Multissacado). Keep official ordering, then append observed analytical
+    # pairs so their denominators do not disappear from market share.
+    configured_pairs = set(focus_pairs)
+    observed_pairs = (
+        latest[["anbima_tipo", "anbima_foco"]]
+        .dropna()
+        .drop_duplicates()
+        .sort_values(["anbima_tipo", "anbima_foco"])
+        .itertuples(index=False, name=None)
+    )
+    focus_pairs.extend(
+        pair
+        for pair in observed_pairs
+        if pair[0] in ANBIMA_FOCUS_BY_TYPE and pair not in configured_pairs
+    )
     rows: list[dict[str, object]] = []
     top_rows: list[dict[str, object]] = []
     for role, (name_column, _) in ROLE_COLUMNS.items():
@@ -3360,6 +3377,7 @@ def build_revision_outputs(
     provider_ownership_curation: pd.DataFrame | None = None,
     bank_fidc_curation: pd.DataFrame | None = None,
     acquiring_reclassification_curation: pd.DataFrame | None = None,
+    taxonomy_review_actions: pd.DataFrame | None = None,
     latest_complete: str = LATEST_COMPLETE,
 ) -> RevisionOutputs:
     base = build_base_by_vehicle(vehicle_monthly)
@@ -3381,6 +3399,19 @@ def build_revision_outputs(
         published_classifications=published_classifications,
         latest_complete=latest_complete,
     )
+    if taxonomy_review_actions is not None:
+        # Local import avoids an import-time cycle: the review module reuses
+        # the Table II vocabulary declared in this analytical module.
+        from services.industry_taxonomy_review import apply_taxonomy_review_overlay
+
+        fund_base = apply_taxonomy_review_overlay(
+            fund_base,
+            taxonomy_review_actions,
+        )
+        # Downstream rankings and market-share tables consume the effective
+        # display fields; immutable ANBIMA values remain in *_oficial.
+        fund_base["anbima_tipo"] = fund_base["anbima_tipo_curado"]
+        fund_base["anbima_foco"] = fund_base["anbima_foco_curado"]
     delinquency_single_receivable, delinquency_single_receivable_summary = (
         build_single_receivable_delinquency(
             base,
