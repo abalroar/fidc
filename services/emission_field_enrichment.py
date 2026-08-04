@@ -711,6 +711,8 @@ def load_curated_remuneration_evidence(path: Path) -> pd.DataFrame:
     output = pd.DataFrame(
         {
             "cnpj": frame["cnpj"],
+            "fundo": frame["fundo"].str.strip(),
+            "classe_serie": frame["classe_serie"].str.strip(),
             "field": "remuneracao_alvo",
             "value": frame["classe_serie"].str.strip()
             + ": "
@@ -751,6 +753,259 @@ def load_curated_remuneration_evidence(path: Path) -> pd.DataFrame:
     ).any():
         raise ValueError("curadoria de remuneração-alvo contém linha duplicada")
     return output
+
+
+def load_sacado_display_curation(path: Path) -> pd.DataFrame:
+    """Load the editorial debtor summaries used only by slides 10–17.
+
+    The full documentary wording remains in ``sacado``.  This small curation
+    prevents a native Office table from publishing arbitrary character cuts as
+    if they were complete descriptions.  A row may deliberately resolve to
+    ``N/D`` when the underlying extraction is not a debtor observation.
+    """
+
+    required = {"cnpj", "sacado_exibicao", "decisao", "racional"}
+    frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    missing = required.difference(frame.columns)
+    if missing:
+        raise ValueError(
+            "curadoria de exibição de sacado sem colunas: "
+            + ", ".join(sorted(missing))
+        )
+    frame = frame[list(required)].copy()
+    frame["cnpj"] = frame["cnpj"].map(_digits)
+    if not frame["cnpj"].str.fullmatch(r"\d{14}").all():
+        raise ValueError("curadoria de exibição de sacado contém CNPJ inválido")
+    if frame["cnpj"].duplicated().any():
+        raise ValueError("curadoria de exibição de sacado contém CNPJ duplicado")
+    if frame["sacado_exibicao"].map(lambda value: not str(value).strip()).any():
+        raise ValueError("curadoria de exibição de sacado contém resumo vazio")
+    allowed = {"RESUMO_SEMANTICO", "MANTER_LITERAL", "REJEITAR_ARTEFATO"}
+    invalid_decisions = sorted(set(frame["decisao"]) - allowed)
+    if invalid_decisions:
+        raise ValueError(
+            "curadoria de exibição de sacado contém decisão inválida: "
+            + ", ".join(invalid_decisions)
+        )
+    return frame.sort_values("cnpj", kind="stable").reset_index(drop=True)
+
+
+def apply_sacado_display_curation(
+    audit: pd.DataFrame,
+    curation: pd.DataFrame,
+) -> pd.DataFrame:
+    """Attach display-only debtor summaries without changing raw audit values."""
+
+    output = audit.copy()
+    output["sacado_exibicao"] = TEXT_ND
+    output["regra_exibicao_sacado"] = TEXT_ND
+    curated = {
+        row["cnpj"]: row
+        for row in curation.to_dict(orient="records")
+    }
+    top_mask = output["bloco"].eq(TOP15_BLOCK)
+    raw_cnpjs = {
+        _digits(row.get("cnpj"))
+        for row in output[top_mask].to_dict(orient="records")
+        if not is_missing(row.get("sacado"))
+    }
+    missing_curation = sorted(raw_cnpjs.difference(curated))
+    if missing_curation:
+        raise ValueError(
+            "sacados preenchidos sem resumo editorial por CNPJ: "
+            + ", ".join(missing_curation)
+        )
+    unused_curation = sorted(set(curated).difference(raw_cnpjs))
+    if unused_curation:
+        raise ValueError(
+            "curadoria de sacado sem texto integral no payload: "
+            + ", ".join(unused_curation)
+        )
+
+    for index, row in output[top_mask].iterrows():
+        cnpj = _digits(row.get("cnpj"))
+        if is_missing(row.get("sacado")):
+            output.at[index, "regra_exibicao_sacado"] = (
+                "N/D — campo documental ausente"
+            )
+            continue
+        decision = curated[cnpj]
+        output.at[index, "sacado_exibicao"] = (
+            str(decision["sacado_exibicao"]).strip() or TEXT_ND
+        )
+        output.at[index, "regra_exibicao_sacado"] = (
+            f"{decision['decisao']} — {decision['racional']}"
+        )
+    return output
+
+
+def _remuneration_tranche_family(value: object) -> str:
+    folded = _fold(value)
+    if "senior" in folded:
+        return "Sênior"
+    if "mezanino" in folded:
+        return "Mezanino"
+    return ""
+
+
+def _remuneration_signature(value: object) -> tuple[str, float] | None:
+    text = str(value or "")
+    spread = re.search(
+        r"\b(?:CDI|DI)\s*\+\s*(\d{1,3}(?:[.,]\d+)?)\s*%",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if spread:
+        return "interbank_spread", float(spread.group(1).replace(",", "."))
+    percent = re.search(
+        r"\b(\d{1,3}(?:[.,]\d+)?)\s*%\s*(?:do|da)\s*(?:CDI|DI)\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if percent:
+        return "percent_interbank", float(percent.group(1).replace(",", "."))
+    return None
+
+
+def build_remuneration_comparison_analysis(
+    evidence: pd.DataFrame,
+) -> dict[str, object]:
+    """Build the two matched-sample readings used below slides 10–17.
+
+    ``tier_pairs`` compares, within the same fund and cutoff, the lowest
+    documented interbank spread in the Sênior level with the lowest documented
+    spread in the Mezanino level.  ``matched_pairs`` compares the set of target
+    rates for the same CNPJ and broad tranche family in both ranking cutoffs.
+    DI and CDI keep their literal wording in the evidence table; for the
+    semester movement they share the interbank-spread signature, so a change in
+    benchmark spelling without a change in numerical spread is not counted as
+    a rate movement.
+    """
+
+    required = {
+        "cnpj",
+        "fundo",
+        "classe_serie",
+        "value",
+        "selection_cutoff",
+        "ranking_table",
+    }
+    missing = required.difference(evidence.columns)
+    if missing:
+        raise ValueError(
+            "evidência de remuneração sem colunas para comparação: "
+            + ", ".join(sorted(missing))
+        )
+    frame = evidence.copy()
+    frame["tranche_family"] = frame["classe_serie"].map(
+        _remuneration_tranche_family
+    )
+    frame["signature"] = frame["value"].map(_remuneration_signature)
+    frame = frame[
+        frame["tranche_family"].ne("") & frame["signature"].notna()
+    ].copy()
+    frame["rate_kind"] = frame["signature"].map(lambda item: item[0])
+    frame["rate_value"] = frame["signature"].map(lambda item: item[1])
+
+    tier_pairs: list[dict[str, object]] = []
+    interbank = frame[frame["rate_kind"].eq("interbank_spread")]
+    for (cutoff, cnpj), group in interbank.groupby(
+        ["selection_cutoff", "cnpj"], sort=True
+    ):
+        senior = group[group["tranche_family"].eq("Sênior")]["rate_value"]
+        mezzanine = group[group["tranche_family"].eq("Mezanino")]["rate_value"]
+        if senior.empty or mezzanine.empty:
+            continue
+        senior_min = float(senior.min())
+        mezzanine_min = float(mezzanine.min())
+        tier_pairs.append(
+            {
+                "cutoff": str(cutoff),
+                "ranking_table": next(
+                    (
+                        str(value)
+                        for value in group["ranking_table"]
+                        if str(value).strip()
+                    ),
+                    "",
+                ),
+                "cnpj": str(cnpj),
+                "fundo": str(group.iloc[0]["fundo"]),
+                "senior_min_spread_pct": senior_min,
+                "mezzanine_min_spread_pct": mezzanine_min,
+                "premium_bps": int(round((mezzanine_min - senior_min) * 100)),
+                "metodo": "menor spread CDI/DI+ documentado por nível",
+            }
+        )
+    premiums = [int(row["premium_bps"]) for row in tier_pairs]
+    tier_summary = {
+        "pairs": len(tier_pairs),
+        "median_bps": int(round(float(np.median(premiums)))) if premiums else 0,
+        "min_bps": min(premiums) if premiums else 0,
+        "max_bps": max(premiums) if premiums else 0,
+        "unit": "fundo-corte",
+        "method": "menor spread CDI/DI+ documentado em Sênior e Mezanino no mesmo fundo e corte",
+    }
+
+    ranked = frame[frame["ranking_table"].astype(str).str.strip().ne("")]
+    signatures: dict[tuple[str, str, str], tuple[tuple[str, float], ...]] = {}
+    names: dict[str, str] = {}
+    for (cutoff, cnpj, family), group in ranked.groupby(
+        ["selection_cutoff", "cnpj", "tranche_family"], sort=True
+    ):
+        signatures[(str(cutoff), str(cnpj), str(family))] = tuple(
+            sorted(set(group["signature"]))
+        )
+        names[str(cnpj)] = str(group.iloc[0]["fundo"])
+    prior_cutoff = "2025-12-31"
+    current_cutoff = "2026-06-30"
+    prior_keys = {
+        (cnpj, family)
+        for cutoff, cnpj, family in signatures
+        if cutoff == prior_cutoff
+    }
+    current_keys = {
+        (cnpj, family)
+        for cutoff, cnpj, family in signatures
+        if cutoff == current_cutoff
+    }
+    matched_pairs: list[dict[str, object]] = []
+    for cnpj, family in sorted(prior_keys.intersection(current_keys)):
+        prior = signatures[(prior_cutoff, cnpj, family)]
+        current = signatures[(current_cutoff, cnpj, family)]
+        changed = prior != current
+        delta_bps: int | None = None
+        if (
+            len(prior) == 1
+            and len(current) == 1
+            and prior[0][0] == current[0][0] == "interbank_spread"
+        ):
+            delta_bps = int(round((current[0][1] - prior[0][1]) * 100))
+        matched_pairs.append(
+            {
+                "cnpj": cnpj,
+                "fundo": names.get(cnpj, ""),
+                "tranche_family": family,
+                "prior_signatures": list(prior),
+                "current_signatures": list(current),
+                "changed": changed,
+                "delta_bps": delta_bps,
+            }
+        )
+    changed_pairs = [row for row in matched_pairs if row["changed"]]
+    matched_summary = {
+        "pairs": len(matched_pairs),
+        "changed_pairs": len(changed_pairs),
+        "unchanged_pairs": len(matched_pairs) - len(changed_pairs),
+        "unit": "fundo-classe",
+        "method": "mesmo CNPJ e família de tranche nos rankings de dez/25 e jun/26",
+    }
+    return {
+        "tier_pairs": tier_pairs,
+        "tier_summary": tier_summary,
+        "matched_pairs": matched_pairs,
+        "matched_summary": matched_summary,
+    }
 
 
 def _select_remunerations(

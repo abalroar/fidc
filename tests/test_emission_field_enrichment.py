@@ -7,12 +7,15 @@ import pytest
 
 from services.emission_field_enrichment import (
     TOP15_BLOCK,
+    apply_sacado_display_curation,
     build_emission_field_coverage,
     build_profile_curation_evidence,
+    build_remuneration_comparison_analysis,
     build_taxonomy_party_evidence,
     classify_party_value,
     enrich_emission_field_audit,
     load_curated_remuneration_evidence,
+    load_sacado_display_curation,
     validate_emission_field_coverage,
 )
 
@@ -109,6 +112,70 @@ def test_curated_remuneration_uses_exact_ranking_cutoff(tmp_path: Path) -> None:
     ]
     assert "1001" in result.iloc[0]["fonte_remuneracao"]
     assert "2002" in result.iloc[1]["fonte_remuneracao"]
+
+
+def test_accepted_remuneration_builds_only_matched_comparisons() -> None:
+    evidence = load_curated_remuneration_evidence(
+        Path("data/industry_study/emission_target_remuneration_accepted.csv")
+    )
+
+    analysis = build_remuneration_comparison_analysis(evidence)
+
+    assert analysis["tier_summary"] == {
+        "pairs": 20,
+        "median_bps": 100,
+        "min_bps": 50,
+        "max_bps": 300,
+        "unit": "fundo-corte",
+        "method": (
+            "menor spread CDI/DI+ documentado em Sênior e Mezanino "
+            "no mesmo fundo e corte"
+        ),
+    }
+    assert analysis["matched_summary"]["pairs"] == 22
+    assert analysis["matched_summary"]["changed_pairs"] == 1
+    changed = [row for row in analysis["matched_pairs"] if row["changed"]]
+    assert len(changed) == 1
+    assert changed[0]["cnpj"] == "08678936000188"
+    assert changed[0]["tranche_family"] == "Sênior"
+    assert changed[0]["delta_bps"] == -50
+
+
+def test_sacado_display_curation_preserves_raw_text_and_rejects_chart_legend() -> None:
+    curation = load_sacado_display_curation(
+        Path("data/industry_study/emission_sacado_display_curated.csv")
+    )
+    curation = curation[
+        curation["cnpj"].isin({"23216398000101", "63465818000108"})
+    ]
+    audit = pd.DataFrame(
+        [
+            _audit_row(
+                "23216398000101",
+                sacado="1 sacado 2 sacado 3 sacado 4",
+            ),
+            _audit_row(
+                "63465818000108",
+                sacado=(
+                    "os devedores dos Direitos Creditórios cedidos ou "
+                    "endossador ao Fundo"
+                ),
+            ),
+        ]
+    )
+
+    result = apply_sacado_display_curation(audit, curation).set_index("cnpj")
+
+    assert result.loc["23216398000101", "sacado"] == (
+        "1 sacado 2 sacado 3 sacado 4"
+    )
+    assert result.loc["23216398000101", "sacado_exibicao"] == "N/D"
+    assert "legenda de gráfico" in result.loc[
+        "23216398000101", "regra_exibicao_sacado"
+    ]
+    assert result.loc["63465818000108", "sacado_exibicao"] == (
+        "Devedor/endossador"
+    )
 
 
 def test_exact_cnpj14_join_keeps_legal_cedent_separate_from_originator() -> None:

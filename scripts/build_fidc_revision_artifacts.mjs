@@ -89,7 +89,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v45";
+const RENDERER_VERSION = "industry_revision_artifacts_v46";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
@@ -531,6 +531,33 @@ function fundEditorialName(value, maxChars = 34) {
   return truncateWords(compact || original, maxChars);
 }
 
+function topTypeFundName(value, maxChars = 20) {
+  const original = fundEditorialName(value, 120);
+  const replacements = [
+    [/\bFIDC DO SISTEMA PETROBRAS\b/i, "Sistema Petrobras"],
+    [/.*\bACR BEM\b.*/i, "ACR Bem"],
+    [/\bBTG PACTUAL CONSIGNADOS II\b/i, "BTG Consignados II"],
+    [/\bBTG PACTUAL CONSIGNADOS\b/i, "BTG Consignados"],
+    [/\bCLASSE CONSIGNADO PRIVADO DO MT\b/i, "MT Consignado Privado"],
+    [/\bSELLER FIDC SEGMENTO(?: MEIOS DE PAGAMENTO)?\b/i, "Seller"],
+    [/\bCLOUDWALK PI SEGMENTO(?: MEIOS DE PAGAMENTO)?\b/i, "CloudWalk PI"],
+    [/^HAVAN\b.*/i, "Havan"],
+    [/^ALTERNATIVE ASSETS III$/i, "Alt. Assets III"],
+    [/^ALTERNATIVE ASSETS I$/i, "Alt. Assets I"],
+    [/^RIO VERMELHO\b.*/i, "Rio Vermelho"],
+    [/^ACONC[AÁ]GUA\b.*/i, "Aconcágua"],
+    [/^ITAL\b.*/i, "Ital"],
+    [/\bFIDC GM\s*-?\s*VENDA DE VE[IÍ]CULOS\b/i, "FIDC GM"],
+    [/^CATERPILLAR\b.*/i, "Caterpillar"],
+    [/\bMAROB[AÁ].*$/i, "Marobá"],
+  ];
+  const compact = replacements.reduce(
+    (text, [pattern, replacement]) => text.replace(pattern, replacement),
+    original,
+  );
+  return truncateWords(compact, maxChars);
+}
+
 function cnpjDigits(value) {
   const raw = String(value ?? "").trim();
   const numericRaw = /e/i.test(raw) ? raw.replace(",", ".") : raw;
@@ -569,6 +596,122 @@ function auditPartyField(value, maxChars = 34) {
   if (!/^(?:o|a|os|as|e|de|da|do|das|dos)$/i.test(compact)) return compact;
   const withoutLeadingArticle = text.replace(/^(?:o|a|os|as)\s+/i, "");
   return auditField(withoutLeadingArticle, maxChars);
+}
+
+function isMissingAuditValue(value) {
+  const text = String(value || "").trim();
+  return !text || /^N\/D(?:\b|\s|—|-)/i.test(text);
+}
+
+function entityDisplayKey(value) {
+  return String(value || "")
+    .replace(/\*+/g, "")
+    .replace(/—\s*CNPJ\s*[0-9./-]+\.?/gi, "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\bs\s*\.?\s*a\.?\b|\bltda\.?\b/g, " ")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function entityDisplayShort(value, maxChars = 24) {
+  const raw = String(value || "").replace(/\s+/g, " ").trim();
+  if (isMissingAuditValue(raw)) return "N/D";
+  if (/\bestabelecimentos comerciais\b/i.test(raw) && /\bmercado cr[eé]dito\b/i.test(raw)) {
+    return "Estab./M.Cred.";
+  }
+  const manual = /\*/.test(raw);
+  const entities = raw
+    .replace(/\*+/g, "")
+    .split(/\s*\|\s*/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+  let first = entities[0] || raw;
+  first = first
+    .replace(/—\s*CNPJ\s*[0-9./-]+\.?/gi, "")
+    .replace(/\bBRF\s+S\s*\.\s*A\s*\./gi, "BRF S.A.")
+    .replace(/\bNissan,\s*Renault\s+e\s+Geely\s*\(RCI\)/i, "RCI")
+    .replace(/\bPETROLEO BRASILEIRO S\.?\s*A\.?\s+PETROBRAS\b/i, "Petrobras")
+    .replace(/\bGAZIN INDUSTRIA E COMERCIO DE MOVEIS E ELETRODOMESTICOS S\.?\s*A\.?\b/i, "Gazin")
+    .replace(/\bHYUNDAI MOTOR BRASIL MONTADORA DE AUTOMOVEIS LTDA\.?\b/i, "Hyundai")
+    .replace(/\bHONDA AUTOMOVEIS DO BRASIL LTDA\.?\b/i, "Honda Brasil")
+    .replace(/\bBMP SOCIEDADE DE CREDITO DIRETO S\.?\s*A\.?\b/i, "BMP SCD")
+    .replace(/\bASA SOCIEDADE DE CREDITO FINANCIAMENTO E INVESTIMENTO S\.?\s*A\.?\b/i, "ASA SCD")
+    .replace(/\bCOMEXPORT TRADING COMERCIO EXTERIOR LTDA\.?\b/i, "Comexport")
+    .replace(/\bSANTANDER SOCIEDADE DE CREDITO,? FINANCIAMENTO E INVESTIMENTO S\.?\s*A\.?\b/i, "Santander SCFI")
+    .replace(/\bMULTIPLIKE FINANCEIRA S\.?\s*A\.? SOCIEDADE DE CREDITO,? FINANCIAMENTO E INVESTIMENTO\b/i, "Multiplike")
+    .replace(/\bARC LOG[IÍ]STICA E ALIMENTOS\b/i, "ARC Logística")
+    .replace(/HAVAN S\.?\s*A\.?/i, "Havan")
+    .replace(/[ÂA]MBAR ENERGIA S\.?\s*A\.?/i, "Âmbar")
+    .replace(/\bCLOUDWALK INSTITUI[CÇ][AÃ]O DE PAGAMENTO E SERVI[CÇ]OS LTDA\.?/i, "CloudWalk")
+    .replace(/\bFACTA FINANCEIRA S\.?A\.? CR[EÉ]DITO FINANCIAMENTO E INVESTIMENTO\b/i, "Facta")
+    .replace(/\bSTONE INSTITUI[CÇ][AÃ]O DE PAGAMENTO S\.?A\.?/i, "Stone IP")
+    .replace(/\bPICPAY INSTITUI[CÇ][AÃ]O DE PAGAMENTO S\/?A\b/i, "PicPay IP")
+    .replace(/\bPARATI CR[EÉ]DITO FINANCIAMENTO E INVESTIMENTO S\.?A\.?/i, "Parati Crédito")
+    .replace(/\bRENAULT DO BRASIL S\.?A\.?/i, "Renault")
+    .replace(/\bQI SOCIEDADE DE CREDITO DIRETO S\.?A\.?/i, "QI SCD")
+    .replace(/\bPETROLEO BRASILEIRO S\.?A\.?/i, "Petrobras")
+    .replace(/\bBRF ENERGIA S\.?A\.?/i, "BRF Energia")
+    .replace(/\bTRANSPORTES FRAMENTO\b/i, "Framento")
+    .replace(/\bGENERAL MOTORS DO BRASIL\b/i, "GM Brasil")
+    .replace(/\bGAZIN INDUSTRIA E COMERCIO\b/i, "Gazin")
+    .replace(/\bSTELLANTIS AUTOMOVEIS BRASIL\b/i, "Stellantis")
+    .replace(/\b[ÂA]MBAR ENERGIA S\.?A\.?/i, "Âmbar")
+    .replace(/\bSYNGENTA PROTECAO DE CULTIVOS\b/i, "Syngenta")
+    .replace(/\bHYUNDAI MOTOR BRASIL\b/i, "Hyundai")
+    .replace(/\bGRUPO CASAS BAHIA\b/i, "Casas Bahia")
+    .replace(/\bCATERPILLAR BRASIL\b/i, "Caterpillar")
+    .replace(/\bMULTIPLIKE FINANCEIRA S\.?A\.?/i, "Multiplike")
+    .replace(/\bCOMEXPORT TRADING\b/i, "Comexport")
+    .replace(/\bBMP SOCIEDADE DE CREDITO\b/i, "BMP SCD")
+    .replace(/\bASA SOCIEDADE DE CREDITO\b/i, "ASA SCD")
+    .replace(/\bSTM PARTICIPACOES\b/i, "STM")
+    .replace(/\bA\.?\s*R\.?\s*C\.?\s*LOGISTICA\b/i, "ARC Logística")
+    .replace(/\s+/g, " ")
+    .trim();
+  first = providerShort(first) || first;
+  const suffix = entities.length > 1 ? ` +${entities.length - 1} ent.` : "";
+  const marker = manual ? "*" : "";
+  const budget = Math.max(4, maxChars - suffix.length - marker.length);
+  return `${truncateWords(first, budget)}${suffix}${marker}`;
+}
+
+function combinedPartyField(row, maxChars = 31) {
+  const originator = row?.originador;
+  const cedent = row?.cedente;
+  const hasOriginator = !isMissingAuditValue(originator);
+  const hasCedent = !isMissingAuditValue(cedent);
+  if (!hasOriginator && !hasCedent) return "N/D";
+  if (hasOriginator && hasCedent && entityDisplayKey(originator) === entityDisplayKey(cedent)) {
+    return `C: ${entityDisplayShort(cedent, maxChars - 3)}`;
+  }
+  if (hasOriginator && hasCedent) {
+    const perRoleBudget = Math.max(8, Math.floor((maxChars - 9) / 2) + 3);
+    const cedentShort = entityDisplayShort(cedent, perRoleBudget);
+    const originatorShort = entityDisplayShort(originator, perRoleBudget);
+    return `C: ${cedentShort} · O: ${originatorShort}`;
+  }
+  if (hasCedent) return `C: ${entityDisplayShort(cedent, maxChars - 3)}`;
+  return `O: ${entityDisplayShort(originator, maxChars - 3)}`;
+}
+
+function auditMinimumField(row, maxChars = 16) {
+  const raw = String(row?.subordinacao_minima || "").replace(/\s+/g, " ").trim();
+  if (isMissingAuditValue(raw)) return "N/D";
+  const percentages = [...raw.matchAll(/\d{1,3}(?:[.,]\d+)?\s*%/g)].map((match) => match[0]);
+  if (/at[eé]\s+D\+180/i.test(raw) && /ap[oó]s\s+D\+180/i.test(raw) && percentages.length >= 2) {
+    return `${percentages[0].replace(/\s+/g, "")}→${percentages[1].replace(/\s+/g, "")}`;
+  }
+  const minimumType = normalizeProviderName(row?.tipo_subordinacao_minima || "");
+  const percentage = percentages[0]?.replace(/\s+/g, "") || "";
+  if (minimumType.includes("suporte combinado") && percentage) return `${percentage} comb.`;
+  if (minimumType.includes("suporte total") && percentage) return `${percentage} total`;
+  const manualSource = /coment[aá]rio manual|\bIMG_/i.test(String(row?.fonte_subordinacao || ""));
+  const compact = raw.replace(/\*+/g, "");
+  const marker = manualSource ? "*" : "";
+  return `${auditField(compact, Math.max(1, maxChars - marker.length))}${marker}`;
 }
 
 function brlUnitPriceNumber(value) {
@@ -668,14 +811,22 @@ function auditTargetRemuneration(value, maxChars = 34) {
   const text = String(value || "").replace(/\s+/g, " ").trim();
   if (!targetRemunerationIsValid(text)) return "N/D";
   const rates = targetRemunerationRates(text);
-  const exception = /[;|]/.test(text) || /\*\s*$/.test(text) || rates.length > 1;
-  // Contrato editorial do slide: o primeiro token visível é sempre a taxa/índice.
-  // Cota e série permanecem no valor literal da aba Auditoria emissões.
-  const exact = rates.join(" / ");
-  if (`${exact}${exception ? "*" : ""}`.length <= maxChars) {
-    return `${exact}${exception ? "*" : ""}`;
+  const observations = text
+    .replace(/\*+\s*$/g, "")
+    .split(/\s*[;|]\s*/)
+    .filter((item) => targetRemunerationIsValid(item));
+  const seriesCount = Math.max(observations.length, rates.length, 1);
+  // Contrato editorial do slide: taxa primeiro; multiplicidade aparece como
+  // quantidade autoexplicativa, sem reutilizar o asterisco de dado manual.
+  const primary = String(rates[0] || "")
+    .replace(/%\s+do\s+/i, "% ")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (seriesCount > 1) {
+    return truncateWords(`${primary} · ${seriesCount} séries`, maxChars);
   }
-  return `${rates[0]} +${rates.length - 1}*`;
+  const exact = rates.join(" / ");
+  return truncateWords(exact, maxChars);
 }
 
 function remunerationClassSeries(value) {
@@ -1015,13 +1166,15 @@ function addNativeEditorialTable(slide, options) {
     aligns = [],
     fontSize: requestedFontSize = TYPOGRAPHY.tableBody,
     headerFontSize: requestedHeaderFontSize = TYPOGRAPHY.tableHeader,
+    minimumFontSize = TYPOGRAPHY.tableBody,
+    minimumHeaderFontSize = TYPOGRAPHY.tableHeader,
     headerHeight = 22,
     headerFill = C.black,
     rowHighlights = new Set(),
     emphasizeHighlightedRows = false,
   } = options;
-  const fontSize = fontAtLeast(requestedFontSize, TYPOGRAPHY.tableBody);
-  const headerFontSize = fontAtLeast(requestedHeaderFontSize, TYPOGRAPHY.tableHeader);
+  const fontSize = fontAtLeast(requestedFontSize, minimumFontSize);
+  const headerFontSize = fontAtLeast(requestedHeaderFontSize, minimumHeaderFontSize);
   const table = slide.tables.add({
     rows: rows.length + 1,
     columns: headers.length,
@@ -3317,6 +3470,64 @@ function addPartial2022Top15Slide(presentation, payload, slideNumber) {
   ]);
 }
 
+function addRemunerationComparisonStrip(slide, payload, mode) {
+  const tier = payload.emission_remuneration_tier_summary || {};
+  const matched = payload.emission_remuneration_matched_summary || {};
+  const changed = (payload.emission_remuneration_matched_pairs || []).filter(
+    (row) => row.changed === true || String(row.changed).toLowerCase() === "true",
+  );
+  if (num(tier.pairs) <= 0 || num(matched.pairs) <= 0 || changed.length !== num(matched.changed_pairs)) {
+    throw new Error("Resumo de remuneração comparável ausente ou inconsistente.");
+  }
+  const change = changed[0] || {};
+  const changeName = fundEditorialName(change.fundo || "N/D", 16).toUpperCase();
+  const delta = Number(change.delta_bps);
+  const deltaText = Number.isFinite(delta)
+    ? `${delta < 0 ? "−" : "+"}${Math.abs(delta).toLocaleString("pt-BR")} bps`
+    : "N/D";
+  const cardsByMode = {
+    tier: [
+      {
+        left: 60,
+        width: 1160,
+        title: "Prêmio de remuneração Mz.–Sr. · mesmo fundo e corte · base dos slides 10–17",
+        value: `N=${integer(tier.pairs)} fundo-corte · mediana +${integer(tier.median_bps)} bps · faixa +${integer(tier.min_bps)}–${integer(tier.max_bps)} bps`,
+      },
+    ],
+    matched: [
+      {
+        left: 60,
+        width: 1160,
+        title: "Movimento semestral · mesma classe e CNPJ · amostra casada",
+        value: `N=${integer(matched.pairs)} fundo-classe · ${integer(matched.changed_pairs)} mudança · ${changeName} ${change.tranche_family || ""} ${deltaText}`,
+      },
+    ],
+  };
+  const cards = cardsByMode[mode] || [];
+  if (!cards.length) throw new Error(`Modo de quadro de remuneração inválido: ${mode}.`);
+  cards.forEach((card) => {
+    addRect(
+      slide,
+      { left: card.left, top: 607, width: card.width, height: 36 },
+      C.pale,
+      { lineFill: C.line, lineWidth: 0.6 },
+    );
+    addText(slide, card.title, { left: card.left + 8, top: 610, width: card.width - 16, height: 12 }, {
+      fontSize: 10.5,
+      bold: true,
+      color: C.charcoal,
+      verticalAlignment: "middle",
+      wrap: "none",
+    });
+    addText(slide, card.value, { left: card.left + 8, top: 624, width: card.width - 16, height: 14 }, {
+      fontSize: 10.5,
+      color: C.mid,
+      verticalAlignment: "middle",
+      wrap: "none",
+    });
+  });
+}
+
 function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia) {
   const reviewRows = payload.top20_taxonomy_review || [];
   const auditRows = (payload.emission_field_audit || []).filter(
@@ -3337,16 +3548,6 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
     .filter((row) => row.tipo_exibicao === typeName && row.competencia === competencia)
     .sort((a, b) => num(a.rank_tipo) - num(b.rank_tipo))
     .slice(0, 15);
-  const originatorName = (value) => {
-    const text = String(value || "").trim();
-    if (
-      !text
-      || /^(?:N\/D|AUSÊNCIA|P\.\s*\d+|CEDENTE(?:\(S\))?\b|CNPJ\b)/i.test(text)
-    ) {
-      return "N/D";
-    }
-    return truncateWords(text, 15);
-  };
   const rows = rowsFor(competencia);
   if (rows.length !== 15) {
     throw new Error(`Ranking ${typeName} deveria conter 15 linhas em ${competencia}; contém ${rows.length}.`);
@@ -3368,39 +3569,44 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
     0,
   );
   addSectionLabel(slide, period.label, { left: 60, top: 120, width: 1160, height: 22 });
+  const comparisonMode = typeName === "Fomento Mercantil"
+    ? competencia === payload.latest_complete ? "tier" : "matched"
+    : null;
   addNativeEditorialTable(slide, {
     left: 60,
     top: 151,
     width: 1160,
-    height: 494,
-    headers: ["#", "FIDC", "CNPJ", "Originador", "Cedente", "Sub. mín.", "Remuneração-alvo", "Sacado", "R$ bi"],
+    height: comparisonMode ? 450 : 494,
+    headers: ["#", "FIDC", "CNPJ", "Cedente / originador", "Sub. mín.", "Remuneração-alvo", "Sacado", "R$ bi"],
     rows: rows.map((row) => {
       const audit = auditByFund.get(
         `${typeName} · ${period.competencia}::${cnpjDigits(row.cnpj_fundo)}`,
       ) || {};
       return [
         String(integer(row.rank_tipo)),
-        fundEditorialName(row.denominacao || "N/D", 22),
+        topTypeFundName(row.denominacao || "N/D", 20),
         numericCnpjText(row.cnpj_fundo),
-        originatorName(audit.originador),
-        auditPartyField(audit.cedente, 15),
-        auditField(audit.subordinacao_minima, 12),
-        auditTargetRemuneration(audit.remuneracao_por_tipo_cota, 17),
-        auditField(audit.sacado, 20),
+        combinedPartyField(audit, 36),
+        auditMinimumField(audit, 16),
+        auditTargetRemuneration(audit.remuneracao_por_tipo_cota, 27),
+        auditField(audit.sacado_exibicao, 25),
         (num(row.pl) / 1e9).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }),
       ];
     }),
-    columnWidths: [32, 200, 145, 135, 130, 106, 180, 157, 75],
-    aligns: ["right", "left", "left", "left", "left", "left", "left", "left", "right"],
-    fontSize: TYPOGRAPHY.tableBody,
-    headerFontSize: TYPOGRAPHY.tableHeader,
+    columnWidths: [30, 195, 135, 220, 100, 215, 185, 80],
+    aligns: ["right", "left", "left", "left", "left", "left", "left", "right"],
+    fontSize: 13,
+    headerFontSize: 14,
+    minimumFontSize: 13,
+    minimumHeaderFontSize: 14,
     headerHeight: 31,
     headerFill: period.headerFill,
     rowHighlights: new Set(),
   });
+  if (comparisonMode) addRemunerationComparisonStrip(slide, payload, comparisonMode);
   addText(
     slide,
-    "Campos longos aparecem em forma editorial compacta; valores e fontes integrais permanecem na aba Auditoria emissões. * = complemento manual, múltiplas cotas/séries ou mínimo estrutural/total; N/D = lacuna.",
+    "C/O = cedente/originador; +N ent./séries = itens adicionais; comb./total = natureza do mínimo; * = complemento manual; N/D = lacuna. Texto integral: Auditoria emissões.",
     { left: 60, top: 648, width: 1160, height: 16 },
     { fontSize: TYPOGRAPHY.axis, color: C.note, alignment: "right", verticalAlignment: "middle", wrap: "none" },
   );
@@ -3410,7 +3616,8 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
     "Originador, sacado, subordinação mínima e remuneração-alvo: documentos identificados ou curadoria documental por CNPJ; fontes linha a linha na aba Auditoria emissões.",
     "Remuneração-alvo preserva o benchmark e o spread da cota/série (por exemplo, CDI + x% a.a.); VNU, quantidade, taxa da carteira e preço unitário ficam fora desta coluna.",
     "O Informe Mensal da CVM não identifica sacado/devedor nomeado. Campo ausente, fragmento sem papel explícito ou vínculo documental insuficiente permanece N/D.",
-    "* = complemento manual, múltiplas cotas/séries na remuneração-alvo ou mínimo estrutural/total usado no lugar do mínimo júnior; a natureza aplicável consta na aba Auditoria emissões.",
+    "Prêmio Mz.–Sr.: menor spread CDI/DI+ documentado por nível no mesmo fundo e corte; N = fundo-corte. Movimento semestral: mesmo CNPJ e família de tranche nos dois rankings; N = fundo-classe.",
+    "Amostras entre fundos só são comparáveis quando subordinação, prazo e lastro também coincidem. * = complemento manual; classes/séries e natureza do mínimo aparecem na própria célula e na auditoria.",
   ]);
 }
 
@@ -9746,6 +9953,21 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
     ],
     ["Cedente", "cedente"],
     ["Sacado", "sacado"],
+    [
+      "Cedente / originador · exibição",
+      "cedente",
+      (_value, row) => combinedPartyField(row, 80),
+    ],
+    [
+      "Sacado · exibição",
+      "sacado_exibicao",
+      (value) => String(value || "").trim() || "N/D",
+    ],
+    [
+      "Regra exibição sacado",
+      "regra_exibicao_sacado",
+      (value) => String(value || "").trim() || "N/D",
+    ],
     ["Cedente / Originador literal*", "cedente_originador_literal"],
     ["Tipo de recebível literal*", "tipo_recebivel_literal"],
     ["Fonte enriquecimento manual", "fonte_enriquecimento_manual"],
@@ -9809,7 +10031,7 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Auditoria dos campos documentais exibidos nos slides 10–17 e 21–22",
-    "Uma linha por fundo/período nos slides 10–17 e por emissão nos slides 21–22. Remuneração-alvo registra benchmark + spread da cota/série; preço unitário/VNU permanece em coluna própria para o contrato legado. Cedente usa a Tabela I da CVM quando declarado. O Informe Mensal não identifica sacado. * = manual, múltiplas classes/séries ou mínimo estrutural/total.",
+    "Uma linha por fundo/período nos slides 10–17 e por emissão nos slides 21–22. Remuneração-alvo registra benchmark + spread da cota/série; preço unitário/VNU permanece em coluna própria para o contrato legado. Originador, cedente e sacado brutos permanecem separados. As colunas de exibição registram a compactação usada no deck, sem substituir o dado integral. Cedente usa a Tabela I da CVM quando declarado; o Informe Mensal não identifica sacado. * = complemento manual. Múltiplas séries e a natureza do mínimo são descritas na própria célula.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 7.5 },
@@ -9817,10 +10039,10 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   await writeRowsInChunks(sheet, 4, headers, rows);
   applyColumnWidths(
     sheet,
-    [110, 180, 105, 95, 300, 180, 150, 190, 160, 210, 180, 220, 260, 330, 330, 330, 360, 150, 360, 420, 420, 300, 430, 330],
+    [110, 180, 105, 95, 300, 180, 150, 190, 160, 210, 180, 240, 180, 300, 220, 260, 330, 330, 330, 360, 150, 360, 420, 420, 300, 430, 330],
     rows.length,
   );
-  sheet.getRange(`A5:X${rows.length + 4}`).format.rowHeightPx = 66;
+  sheet.getRange(`A5:AA${rows.length + 4}`).format.rowHeightPx = 66;
 }
 
 const EMISSION_FIELD_COVERAGE_COLUMNS = Object.freeze([
@@ -11586,7 +11808,7 @@ async function exportWorkbook(workbook) {
       ["Crédito Privado Ampliado", "A1:T16"],
       ["Originadores 2026", "A1:M24"],
       ["Top 15 ofertas", "A1:AZ28"],
-      ["Auditoria emissões", "A1:X28"],
+      ["Auditoria emissões", "A1:AA28"],
       ["Remuneração-alvo", "A1:P28"],
       ["Cobertura emissões", "A1:P44"],
       ["Curadoria perfis", "A1:M24"],

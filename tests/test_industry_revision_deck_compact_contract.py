@@ -332,4 +332,4 @@ def test_taxonomy_rankings_use_one_legible_table_per_type_and_period() -> None:
             assert len(_tables(archive, slide_number)) == 1
             assert "Top 15" in text
             assert any(period in text for period in ("jun/26", "dez/25"))
-            assert "Originador" in text
+            assert "Cedente / originador" in text

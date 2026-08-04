@@ -58,13 +58,16 @@ from services.carteira_101_document_audit import (
     load_document_audit_materialization,
 )
 from services.emission_field_enrichment import (
+    apply_sacado_display_curation,
     build_deep_dive_remuneration_evidence,
     build_emission_field_coverage,
     build_profile_curation_evidence,
+    build_remuneration_comparison_analysis,
     build_taxonomy_party_evidence,
     classify_party_value,
     enrich_emission_field_audit,
     load_curated_remuneration_evidence,
+    load_sacado_display_curation,
     validate_emission_field_coverage,
 )
 from services.industry_revision_analysis import (
@@ -4433,6 +4436,12 @@ def build_payload(
     curated_remuneration_evidence = load_curated_remuneration_evidence(
         data_dir / "emission_target_remuneration_accepted.csv"
     )
+    remuneration_comparison_analysis = build_remuneration_comparison_analysis(
+        curated_remuneration_evidence
+    )
+    sacado_display_curation = load_sacado_display_curation(
+        data_dir / "emission_sacado_display_curated.csv"
+    )
     emission_field_audit_documented = enrich_emission_field_audit(
         emission_field_audit_base,
         cedent_triage=cedente_triage,
@@ -4452,6 +4461,10 @@ def build_payload(
             manual_cnpj_enrichment,
             require_named_parties=True,
         )
+    )
+    emission_field_audit = apply_sacado_display_curation(
+        emission_field_audit,
+        sacado_display_curation,
     )
     emission_field_coverage = build_emission_field_coverage(
         emission_field_audit_before,
@@ -4741,6 +4754,18 @@ def build_payload(
         "emission_field_remuneration_evidence": _records(
             curated_remuneration_evidence
         ),
+        "emission_remuneration_tier_pairs": remuneration_comparison_analysis[
+            "tier_pairs"
+        ],
+        "emission_remuneration_tier_summary": remuneration_comparison_analysis[
+            "tier_summary"
+        ],
+        "emission_remuneration_matched_pairs": remuneration_comparison_analysis[
+            "matched_pairs"
+        ],
+        "emission_remuneration_matched_summary": remuneration_comparison_analysis[
+            "matched_summary"
+        ],
         "emission_field_remuneration_raw_evidence": _records(
             emission_field_document_audit.evidence[
                 emission_field_document_audit.evidence["field"]
