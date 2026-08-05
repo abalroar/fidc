@@ -1,0 +1,74 @@
+{
+  "schema_version": "anbima-rf-ranking-manifest/v1",
+  "generated_at_utc": "2026-08-05T18:42:20.712011+00:00",
+  "period": {
+    "start": "2026-01-01",
+    "end": "2026-06-30"
+  },
+  "sources": {
+    "publication_page": "https://data.anbima.com.br/publicacoes/ranking-de-renda-fixa-e-hibridos",
+    "publication_api": "https://data-strapi.prd.anbima.com.br/api/publicacao-ranking-de-renda-fixa-e-hibridos",
+    "methodology_url": "https://data-strapi.prd.anbima.com.br/uploads/Metodologia_RF_Hib_2026_2_b892ba3858.pdf",
+    "ranking_workbook": {
+      "path": "data/industry_study/sources/Ranking de Renda Fixa e Híbridos - Junho 2026.xlsx",
+      "sha256": "5e6173ca8f6d99e9a3ecd812bb6835bec130a21b0a7547e8a763ae9cc6ecf268"
+    },
+    "annex_workbook": {
+      "path": "data/industry_study/sources/Anexo ao Ranking - Encerramento de Renda Fixa e Híbridos - Junho 2026.xlsx",
+      "sha256": "9adb22cac2af437bdcb6e17a10f2fc0b4c4335da2fdb296efbecf2c251aa60c8"
+    },
+    "cvm_archive": {
+      "url": "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip",
+      "path": "/tmp/cvm_offers.zip",
+      "sha256": "bdb9cd07fd8f65f3a614947fa59635476e78fa8764cb778871ff6e0fd431cf69"
+    }
+  },
+  "documents": [
+    {
+      "group": "publication_document",
+      "title": "Ranking de Renda Fixa e Híbridos - Junho/2026",
+      "display_date": "2026-07-27T16:30:00.000Z",
+      "file_name": "Ranking de Renda Fixa e Híbridos - Junho 2026.xlsx",
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Ranking_de_Renda_Fixa_e_Hibridos_Junho_2026_fc97bb47f3.xlsx"
+    },
+    {
+      "group": "publication_document",
+      "title": "Anexo ao Ranking Encerramento de Renda Fixa e Híbridos - Junho/2026",
+      "display_date": "2026-07-27T16:30:00.000Z",
+      "file_name": "Anexo ao Ranking - Encerramento de Renda Fixa e Híbridos - Junho 2026.xlsx",
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Anexo_ao_Ranking_Encerramento_de_Renda_Fixa_e_Hibridos_Junho_2026_fc7e753d3e.xlsx"
+    },
+    {
+      "group": "connected_documents",
+      "title": "Formulários de Operações de Renda Fixa e Híbridos",
+      "display_date": "2026-07-01T03:00:00.000Z",
+      "file_name": "Form_RF_Hibridas_RCVM 160_2026-2.0.xls",
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Form_RF_Hibridas_RCVM_160_2026_2_0_332bdeac56.xls"
+    },
+    {
+      "group": "connected_documents",
+      "title": "Metodologia - Ranking de Renda Fixa e Híbridos",
+      "display_date": "2026-02-02T03:00:00.000Z",
+      "file_name": "Metodologia_RF_Hib-2026-2.pdf",
+      "url": "https://data-strapi.prd.anbima.com.br/uploads/Metodologia_RF_Hib_2026_2_b892ba3858.pdf"
+    }
+  ],
+  "outputs": {
+    "official": "data/industry_study/anbima_rf_ranking_official.csv",
+    "annex": "data/industry_study/anbima_rf_ranking_annex.csv.gz",
+    "share": "data/industry_study/anbima_rf_ranking_participant_share.csv",
+    "reconciliation": "data/industry_study/anbima_rf_ranking_reconciliation.csv",
+    "syndication": "data/industry_study/anbima_rf_ranking_syndication.csv"
+  },
+  "row_counts": {
+    "official": 2196,
+    "annex": 1979,
+    "share": 241,
+    "reconciliation": 13
+  },
+  "notes": [
+    "Valores das planilhas ANBIMA vêm em R$ mil e são convertidos para BRL.",
+    "A soma do anexo reproduz o ranking publicado ao centavo por participante.",
+    "A contagem de operações do bloco consolidado tem resíduo de até 3 operações por participante: o anexo não expõe o identificador interno de operação da ANBIMA e o agrupamento usa emissor + data de encerramento. No recorte FIDC a contagem bate exatamente."
+  ]
+}
