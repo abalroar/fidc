@@ -18,6 +18,7 @@ import html
 import json
 import re
 import sqlite3
+import unicodedata
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
@@ -153,6 +154,13 @@ INDUSTRY_STRUCTURE_CHARTS = (
     "industry-holder-histogram-pl",
 )
 INDUSTRY_HOLDER_PL_CUTS_MM = (0, 100, 300, 1000)
+_CEDENTE_COMPETENCES = ("202312", "202412", "202512", "202606")
+_CEDENTE_COMPETENCE_LABELS = {
+    "202312": "dez/23",
+    "202412": "dez/24",
+    "202512": "dez/25",
+    "202606": "jun/26",
+}
 _INDUSTRY_EXECUTIVE_PACK_INPUTS = (
     "vehicle_monthly.csv.gz",
     "industry_competence_status.csv",
@@ -194,9 +202,18 @@ _INDUSTRY_EXPORT_INPUTS = (
     "industry_taxonomy_impact_flows_202606.csv",
     "industry_taxonomy_issuance_impact_202606.csv",
     "industry_taxonomy_market_share_denominator_impact_202606.csv",
-    "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
-    "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
-    "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+    "cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_por_competencia_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_evolucao_segmento_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_cobertura_top500_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_pl_segmento_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_cadastro_master.csv.gz",
+    "cedente_triage/fidc_cedentes_exclusoes_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_receita_targets.csv",
+    "cedente_triage/fidc_cedentes_reparos_fonte_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_triagem_index.json",
     "industry_intelligence_manifest.json",
     "generated_revision/artifact_payload.json",
     "generated_revision/revision_manifest.json",
@@ -9433,6 +9450,22 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
                 "top100_fidcs_middle_market_summary",
             }
         )
+    if schema_version >= 11:
+        required.update(
+            {
+                "cedente_top500_detail",
+                "cedente_registry_by_competence",
+                "cedente_funds_without_cedent",
+                "cedente_evolution_by_segment",
+                "cedente_presence_history",
+                "cedente_top500_coverage_history",
+                "cedente_segment_mix_history",
+                "cedente_registry_master",
+                "cedente_exclusions",
+                "cedente_source_repairs",
+                "cedente_triage_manifest",
+            }
+        )
     missing = sorted(required.difference(payload))
     comparable_offer_key = next(
         (
@@ -10944,6 +10977,454 @@ def _revision_frame(payload: dict[str, object], key: str) -> pd.DataFrame:
     return pd.DataFrame(rows if isinstance(rows, list) else [])
 
 
+def _normalized_field_name(value: object) -> str:
+    ascii_name = unicodedata.normalize("NFKD", str(value)).encode(
+        "ascii", "ignore"
+    ).decode("ascii")
+    return re.sub(r"[^a-z0-9]+", "", ascii_name.casefold())
+
+
+def _frame_column(frame: pd.DataFrame, *candidates: str) -> str | None:
+    """Resolve payload fields across the native CSV and human workbook labels."""
+
+    for candidate in candidates:
+        if candidate in frame.columns:
+            return candidate
+    normalized = {
+        _normalized_field_name(column): str(column) for column in frame.columns
+    }
+    for candidate in candidates:
+        match = normalized.get(_normalized_field_name(candidate))
+        if match is not None:
+            return match
+    return None
+
+
+def _cedente_competence_key(value: object) -> str:
+    digits = re.sub(r"\D", "", str(value))
+    return digits[:6] if len(digits) >= 6 else str(value)
+
+
+def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
+    """Render the four-period Top 500 cedent view from the published payload."""
+
+    detail = _revision_frame(payload, "cedente_top500_detail")
+    mix = _revision_frame(payload, "cedente_segment_mix_history")
+    coverage = _revision_frame(payload, "cedente_top500_coverage_history")
+    registry = _revision_frame(payload, "cedente_registry_by_competence")
+    if registry.empty:
+        registry = detail.copy()
+    if detail.empty and mix.empty and coverage.empty and registry.empty:
+        return
+
+    st.markdown(
+        "<h2>Cedentes do Top 500 · segmento e cobertura</h2>",
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        "Quatro competências comparáveis: dez/23, dez/24, dez/25 e jun/26. "
+        "O mix usa o cedente dominante de cada fundo, sem ratear o PL pelos "
+        "percentuais declarados na Tabela I."
+    )
+
+    if not mix.empty:
+        competence_col = _frame_column(mix, "competencia", "Competência")
+        segment_col = _frame_column(mix, "segmento", "Segmento")
+        pl_col = _frame_column(
+            mix,
+            "pl_dominante_brl",
+            "pl_dominante",
+            "pl_dominante_reais",
+            "PL dominante (R$)",
+        )
+        share_col = _frame_column(
+            mix,
+            "share_pl_identificado",
+            "share_identified_pl",
+            "pl_sobre_identificado_pct",
+            "% do PL identificado",
+        )
+        if competence_col and segment_col and pl_col:
+            mix_view = mix.copy()
+            mix_view["competencia_key"] = mix_view[competence_col].map(
+                _cedente_competence_key
+            )
+            mix_view = mix_view[
+                mix_view["competencia_key"].isin(_CEDENTE_COMPETENCES)
+            ].copy()
+            mix_view["Período"] = mix_view["competencia_key"].map(
+                _CEDENTE_COMPETENCE_LABELS
+            )
+            mix_view["Segmento"] = mix_view[segment_col].astype(str)
+            mix_view["PL dominante (R$ bi)"] = pd.to_numeric(
+                mix_view[pl_col], errors="coerce"
+            ) / 1e9
+            if share_col:
+                mix_view["Participação"] = pd.to_numeric(
+                    mix_view[share_col], errors="coerce"
+                )
+                if mix_view["Participação"].dropna().max() > 1.01:
+                    mix_view["Participação"] /= 100
+            else:
+                identified = ~mix_view["Segmento"].isin(
+                    {"Fundo sem cedente declarado", "Não informado"}
+                )
+                denominators = mix_view.loc[identified].groupby(
+                    "competencia_key"
+                )["PL dominante (R$ bi)"].transform("sum")
+                mix_view["Participação"] = pd.NA
+                mix_view.loc[identified, "Participação"] = (
+                    mix_view.loc[identified, "PL dominante (R$ bi)"]
+                    / denominators
+                )
+            mix_view = mix_view.dropna(
+                subset=["Período", "Segmento", "Participação"]
+            )
+            segment_order = [
+                segment
+                for segment in (
+                    "IFs",
+                    "Infra e Energia",
+                    "Large",
+                    "Agro",
+                    "Potencial Middle",
+                    "Não classificado",
+                )
+                if segment in set(mix_view["Segmento"])
+            ]
+            extra_segments = [
+                segment
+                for segment in mix_view["Segmento"].drop_duplicates()
+                if segment not in segment_order
+            ]
+            segment_order.extend(extra_segments)
+            mix_view["segment_order"] = mix_view["Segmento"].map(
+                {segment: index for index, segment in enumerate(segment_order)}
+            )
+            color_range = [
+                _ORANGE,
+                _BLACK,
+                "#73787D",
+                "#0A3B00",
+                "#7030A0",
+                "#B7B9BC",
+            ]
+            if len(segment_order) > len(color_range):
+                color_range.extend(
+                    [_GRAY_LIGHT] * (len(segment_order) - len(color_range))
+                )
+            period_order = [
+                _CEDENTE_COMPETENCE_LABELS[item]
+                for item in _CEDENTE_COMPETENCES
+                if item in set(mix_view["competencia_key"])
+            ]
+            chart = (
+                alt.Chart(mix_view)
+                .mark_bar()
+                .encode(
+                    x=alt.X(
+                        "Período:N",
+                        title=None,
+                        sort=period_order,
+                        axis=alt.Axis(labelAngle=0, grid=False),
+                    ),
+                    y=alt.Y(
+                        "Participação:Q",
+                        title="% do PL identificado",
+                        stack="normalize",
+                        axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                    ),
+                    color=alt.Color(
+                        "Segmento:N",
+                        title=None,
+                        sort=segment_order,
+                        scale=alt.Scale(
+                            domain=segment_order,
+                            range=color_range[: len(segment_order)],
+                        ),
+                        legend=alt.Legend(orient="bottom", columns=3),
+                    ),
+                    order=alt.Order("segment_order:Q", sort="ascending"),
+                    tooltip=[
+                        alt.Tooltip("Período:N", title="Competência"),
+                        alt.Tooltip("Segmento:N"),
+                        alt.Tooltip(
+                            "PL dominante (R$ bi):Q", title="PL (R$ bi)", format=",.1f"
+                        ),
+                        alt.Tooltip(
+                            "Participação:Q", title="% do PL identificado", format=".1%"
+                        ),
+                    ],
+                )
+                .properties(height=350, title="Mix de PL por segmento do cedente dominante")
+            )
+            st.altair_chart(
+                chart,
+                width="stretch",
+                key="industry-revision-cedente-segment-mix",
+            )
+            st.caption(
+                "Denominador: PL dos fundos do Top 500 com cedente dominante "
+                "identificado e segmento classificável em cada competência. A "
+                "atribuição dominante fecha 100%; o PL alcançado por todos os "
+                "cedentes de um fundo não é usado neste gráfico."
+            )
+
+    if not coverage.empty:
+        competence_col = _frame_column(coverage, "competencia", "Competência")
+        share_col = _frame_column(
+            coverage,
+            "share_industry_pl",
+            "share_pl_total",
+            "percentual_pl_total",
+            "pl_top500_sobre_industria_pct",
+            "% do PL total",
+        )
+        top500_pl_col = _frame_column(
+            coverage,
+            "pl_top500_brl",
+            "pl_top500_reais",
+            "PL do Top 500 (R$)",
+        )
+        industry_pl_col = _frame_column(
+            coverage,
+            "industry_pl_brl",
+            "pl_total_industria_brl",
+            "pl_industria_reais",
+            "PL total da indústria (R$)",
+        )
+        if competence_col and share_col:
+            coverage_view = coverage.copy()
+            coverage_view["competencia_key"] = coverage_view[competence_col].map(
+                _cedente_competence_key
+            )
+            coverage_view = coverage_view[
+                coverage_view["competencia_key"].isin(_CEDENTE_COMPETENCES)
+            ].copy()
+            coverage_view["Período"] = coverage_view["competencia_key"].map(
+                _CEDENTE_COMPETENCE_LABELS
+            )
+            coverage_view["Cobertura"] = pd.to_numeric(
+                coverage_view[share_col], errors="coerce"
+            )
+            if coverage_view["Cobertura"].dropna().max() > 1.01:
+                coverage_view["Cobertura"] /= 100
+            if top500_pl_col:
+                coverage_view["PL Top 500 (R$ bi)"] = pd.to_numeric(
+                    coverage_view[top500_pl_col], errors="coerce"
+                ) / 1e9
+            if industry_pl_col:
+                coverage_view["PL indústria (R$ bi)"] = pd.to_numeric(
+                    coverage_view[industry_pl_col], errors="coerce"
+                ) / 1e9
+            period_order = [
+                _CEDENTE_COMPETENCE_LABELS[item]
+                for item in _CEDENTE_COMPETENCES
+                if item in set(coverage_view["competencia_key"])
+            ]
+            tooltip: list[alt.Tooltip] = [
+                alt.Tooltip("Período:N", title="Competência"),
+                alt.Tooltip("Cobertura:Q", title="Top 500 / indústria", format=".1%"),
+            ]
+            if "PL Top 500 (R$ bi)" in coverage_view:
+                tooltip.append(
+                    alt.Tooltip("PL Top 500 (R$ bi):Q", format=",.1f")
+                )
+            if "PL indústria (R$ bi)" in coverage_view:
+                tooltip.append(
+                    alt.Tooltip("PL indústria (R$ bi):Q", format=",.1f")
+                )
+            line = (
+                alt.Chart(coverage_view)
+                .mark_line(point=alt.OverlayMarkDef(filled=True, size=85), strokeWidth=3)
+                .encode(
+                    x=alt.X(
+                        "Período:N",
+                        title=None,
+                        sort=period_order,
+                        axis=alt.Axis(labelAngle=0, grid=False),
+                    ),
+                    y=alt.Y(
+                        "Cobertura:Q",
+                        title="% do PL total da indústria",
+                        scale=alt.Scale(zero=False),
+                        axis=alt.Axis(format=".0%", gridColor=_GRAY_LIGHT),
+                    ),
+                    color=alt.value(_ORANGE),
+                    tooltip=tooltip,
+                )
+            )
+            labels = (
+                alt.Chart(coverage_view)
+                .mark_text(dy=-13, color=_BLACK, fontSize=11, fontWeight=700)
+                .encode(
+                    x=alt.X("Período:N", sort=period_order),
+                    y=alt.Y("Cobertura:Q"),
+                    text=alt.Text("Cobertura:Q", format=".1%"),
+                )
+            )
+            st.altair_chart(
+                (line + labels).properties(
+                    height=300,
+                    title="Cobertura do Top 500 sobre o PL da indústria",
+                ),
+                width="stretch",
+                key="industry-revision-cedente-top500-coverage",
+            )
+            st.caption(
+                "Denominador: PL total da indústria em cada competência. Numerador: "
+                "PL dos 500 maiores fundos, inclusive fundos sem cedente declarado."
+            )
+
+    st.info(
+        "**Potencial Middle** é uma classificação residual para priorização manual. "
+        "Dados cadastrais, porte da Receita e capital social não comprovam "
+        "faturamento entre R$ 30 milhões e R$ 500 milhões."
+    )
+
+    if registry.empty:
+        return
+    competence_col = _frame_column(registry, "competencia", "Competência")
+    segment_col = _frame_column(registry, "segmento", "Segmento")
+    nature_col = _frame_column(
+        registry, "natureza_cedente", "Natureza do cedente"
+    )
+    uf_col = _frame_column(registry, "uf", "UF")
+    cnae_section_col = _frame_column(
+        registry, "secao_cnae", "Seção CNAE"
+    )
+    registry_view = registry.copy()
+    if competence_col:
+        registry_view["Competência"] = registry_view[competence_col].map(
+            _cedente_competence_key
+        )
+    filters = st.columns(5)
+
+    def _filter_options(column: str | None) -> list[str]:
+        if not column or column not in registry_view:
+            return []
+        return sorted(
+            {
+                str(value).strip()
+                for value in registry_view[column].dropna()
+                if str(value).strip()
+            }
+        )
+
+    with filters[0]:
+        selected_competences = st.multiselect(
+            "Competência",
+            options=list(_CEDENTE_COMPETENCES),
+            default=[],
+            format_func=lambda value: _CEDENTE_COMPETENCE_LABELS.get(value, value),
+            key="industry-revision-cedente-filter-competence",
+        )
+    with filters[1]:
+        selected_segments = st.multiselect(
+            "Segmento",
+            options=_filter_options(segment_col),
+            default=[],
+            key="industry-revision-cedente-filter-segment",
+        )
+    with filters[2]:
+        selected_natures = st.multiselect(
+            "Natureza do cedente",
+            options=_filter_options(nature_col),
+            default=[],
+            key="industry-revision-cedente-filter-nature",
+        )
+    with filters[3]:
+        selected_ufs = st.multiselect(
+            "UF",
+            options=_filter_options(uf_col),
+            default=[],
+            key="industry-revision-cedente-filter-uf",
+        )
+    with filters[4]:
+        selected_cnae_sections = st.multiselect(
+            "Seção CNAE",
+            options=_filter_options(cnae_section_col),
+            default=[],
+            key="industry-revision-cedente-filter-cnae-section",
+        )
+
+    filter_specs = (
+        ("Competência", selected_competences),
+        (segment_col, selected_segments),
+        (nature_col, selected_natures),
+        (uf_col, selected_ufs),
+        (cnae_section_col, selected_cnae_sections),
+    )
+    for column, selected in filter_specs:
+        if column and selected:
+            registry_view = registry_view[
+                registry_view[column].astype(str).isin(selected)
+            ]
+    if "Competência" in registry_view:
+        registry_view["Competência"] = registry_view["Competência"].map(
+            lambda value: _CEDENTE_COMPETENCE_LABELS.get(str(value), str(value))
+        )
+
+    visible_specs = (
+        (("Competência",), "Competência"),
+        (
+            (
+                "documento_formatado",
+                "cedente_doc_formatado",
+                "cedente_doc_key",
+                "Formatado",
+                "CNPJ/CPF formatado",
+            ),
+            "CNPJ/CPF",
+        ),
+        (("razao_social", "Razão social"), "Razão social"),
+        (("segmento", "Segmento"), "Segmento"),
+        (("criterio_segmento", "Critério do segmento"), "Critério"),
+        (("natureza_cedente", "Natureza do cedente"), "Natureza"),
+        (("cnae_codigo", "CNAE (cód.)"), "CNAE"),
+        (("cnae_principal", "CNAE principal"), "Atividade principal"),
+        (("secao_cnae", "Seção CNAE"), "Seção CNAE"),
+        (("porte_receita", "Porte Receita"), "Porte Receita"),
+        (
+            ("capital_social_brl", "capital_social_reais", "Capital social (R$)"),
+            "Capital social (R$)",
+        ),
+        (("simples", "Simples"), "Simples"),
+        (("uf", "UF"), "UF"),
+        (("municipio", "Município"), "Município"),
+        (("fundos", "Fundos"), "Fundos"),
+        (
+            ("pl_alcancado_brl", "pl_alcancado_reais", "PL alcançado (R$)"),
+            "PL alcançado (R$)",
+        ),
+    )
+    visible_columns: list[str] = []
+    rename_columns: dict[str, str] = {}
+    for candidates, label in visible_specs:
+        column = _frame_column(registry_view, *candidates)
+        if column and column not in visible_columns:
+            visible_columns.append(column)
+            rename_columns[column] = label
+    display = (
+        registry_view[visible_columns].rename(columns=rename_columns)
+        if visible_columns
+        else registry_view
+    )
+    st.dataframe(display, hide_index=True, width="stretch", height=520)
+    st.caption(
+        f"{_fmt_int(len(display))} registros após os filtros. PL alcançado serve "
+        "para priorização e não representa exposição ao cedente."
+    )
+    st.download_button(
+        "Baixar tabela filtrada de cedentes",
+        data=_ptbr_csv_bytes(display),
+        file_name="fidc_cedentes_top500_filtro.csv",
+        mime="text/csv",
+        key="industry-revision-cedente-filtered-download",
+        width="stretch",
+    )
+
+
 def _revision_offer_comparable_frame(payload: dict[str, object]) -> pd.DataFrame:
     """Return the current Jan–Jun comparison, with the prior key as fallback."""
 
@@ -12068,6 +12549,8 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             "Fonte: CVM, Informe Mensal e documentos primários. Reclassificação documental em "
             "21/jul/26; categoria original e denominador PL ex-FIC preservados."
         )
+
+    _render_revision_cedente_segments(payload)
 
     with st.expander("Origem da classificação", expanded=False):
         coverage = _revision_frame(payload, "classification_coverage")
@@ -13229,6 +13712,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
         "fidc_revision_artifact_payload_v8",
         "fidc_revision_artifact_payload_v9",
         "fidc_revision_artifact_payload_v10",
+        "fidc_revision_artifact_payload_v11",
     }
     ranking_tab, flows_tab, market_share_tab, model_tab = st.tabs(
         ["Ranking", "Bancos e fluxos", "Market share", "Modelo de prestação"]
@@ -15984,8 +16468,44 @@ def _render_revision_data_exports(
     qa = dict(payload.get("qa_latest") or {})
     coverage = _revision_frame(payload, "classification_coverage")
     sources = dict(payload.get("sources") or {})
-    cedente_manifest = dict(payload.get("cedente_middle_market_manifest") or {})
-    cedente_coverage = dict(cedente_manifest.get("coverage") or {})
+    cedente_manifest = dict(payload.get("cedente_triage_manifest") or {})
+    cedente_coverage_history = _revision_frame(
+        payload, "cedente_top500_coverage_history"
+    )
+    cedente_coverage_text = "Top 500 em quatro competências; o campo não identifica sacado"
+    manifest_coverage = dict(
+        cedente_manifest.get("latest_coverage")
+        or cedente_manifest.get("coverage")
+        or {}
+    )
+    manifest_identified = manifest_coverage.get("fundos_com_cedente")
+    if manifest_identified is not None:
+        cedente_coverage_text = (
+            f"{_fmt_int(manifest_identified)} de 500 fundos identificam cedente em "
+            "jun/26; o campo não identifica sacado"
+        )
+    if not cedente_coverage_history.empty:
+        competence_col = _frame_column(
+            cedente_coverage_history, "competencia", "Competência"
+        )
+        identified_col = _frame_column(
+            cedente_coverage_history,
+            "fundos_com_cedente",
+            "fundos_com_cedente_real",
+            "fundos_que_identificam_cedente",
+            "Fundos que identificam cedente",
+        )
+        if competence_col and identified_col:
+            latest_cedente = cedente_coverage_history.copy()
+            latest_cedente["competencia_key"] = latest_cedente[competence_col].map(
+                _cedente_competence_key
+            )
+            latest_cedente = latest_cedente.sort_values("competencia_key").tail(1)
+            if not latest_cedente.empty:
+                cedente_coverage_text = (
+                    f"{_fmt_int(latest_cedente.iloc[0][identified_col])} de 500 fundos "
+                    "identificam cedente em jun/26; o campo não identifica sacado"
+                )
     profiles = _revision_frame(payload, "profiles")
     curation_date = (
         str(profiles["data_consulta"].dropna().max())
@@ -16006,12 +16526,8 @@ def _render_revision_data_exports(
             [
                 "Cedentes por fundo",
                 "CVM — Informe Mensal FIDC, Tabela I",
-                "jun/26",
-                (
-                    f"{_fmt_int(cedente_coverage.get('fundos_com_cedente', 0))} de "
-                    f"{_fmt_int(cedente_coverage.get('fundos_total', 0))} fundos declaram cedente; "
-                    "o campo não identifica sacado"
-                ),
+                "dez/23 a jun/26",
+                cedente_coverage_text,
             ],
         ],
         columns=["Dimensão", "Fonte", "Data-base", "Cobertura/regra"],
@@ -16072,9 +16588,18 @@ def _render_revision_data_exports(
             "Impacto da taxonomia · fluxos por CNPJ": "../industry_taxonomy_impact_flows_202606.csv",
             "Impacto da taxonomia · emissões": "../industry_taxonomy_issuance_impact_202606.csv",
             "Impacto da taxonomia · denominadores de market share": "../industry_taxonomy_market_share_denominator_impact_202606.csv",
-            "Triagem de cedentes · Top 437 fundos (CSV.GZ)": "../cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
-            "Triagem de cedentes · curva de cobertura": "../cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
-            "Triagem de cedentes · manifesto e limitações": "../cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+            "Cedentes · Top 500 · quatro competências (CSV.GZ)": "../cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
+            "Cedentes · cadastro por competência (CSV.GZ)": "../cedente_triage/fidc_cedentes_por_competencia_2023_2026.csv.gz",
+            "Cedentes · fundos sem cedente (CSV.GZ)": "../cedente_triage/fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+            "Cedentes · evolução por segmento": "../cedente_triage/fidc_cedentes_evolucao_segmento_2023_2026.csv",
+            "Cedentes · presença no tempo (CSV.GZ)": "../cedente_triage/fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+            "Cedentes · cobertura do Top 500": "../cedente_triage/fidc_cedentes_cobertura_top500_2023_2026.csv",
+            "Cedentes · PL por segmento": "../cedente_triage/fidc_cedentes_pl_segmento_2023_2026.csv",
+            "Cedentes · cadastro mestre (CSV.GZ)": "../cedente_triage/fidc_cedentes_cadastro_master.csv.gz",
+            "Cedentes · exclusões e reparos (CSV.GZ)": "../cedente_triage/fidc_cedentes_exclusoes_2023_2026.csv.gz",
+            "Cedentes · fila para cadastro da Receita": "../cedente_triage/fidc_cedentes_receita_targets.csv",
+            "Cedentes · reparos estruturais da fonte": "../cedente_triage/fidc_cedentes_reparos_fonte_2023_2026.csv",
+            "Cedentes · manifesto multi-competência": "../cedente_triage/fidc_cedentes_triagem_index.json",
             "Market share por subtipo": "market_share_por_subtipo.csv",
             "Concentração de monoestruturas": "monoestrutura_concentracao.csv",
             "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",

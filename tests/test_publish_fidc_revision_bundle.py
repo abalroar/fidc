@@ -550,6 +550,194 @@ def _emission_field_remuneration_evidence_fixture() -> list[dict[str, object]]:
     ]
 
 
+def _cedente_top500_payload_fixture() -> dict[str, object]:
+    competences = ("202312", "202412", "202512", "202606")
+    output_names = {
+        "fidc_cedentes_top500_2023_2026.csv.gz",
+        "fidc_cedentes_por_competencia_2023_2026.csv.gz",
+        "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+        "fidc_cedentes_evolucao_segmento_2023_2026.csv",
+        "fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+        "fidc_cedentes_cobertura_top500_2023_2026.csv",
+        "fidc_cedentes_pl_segmento_2023_2026.csv",
+        "fidc_cedentes_cadastro_master.csv.gz",
+        "fidc_cedentes_receita_targets.csv",
+        "fidc_cedentes_exclusoes_2023_2026.csv.gz",
+        "fidc_cedentes_reparos_fonte_2023_2026.csv",
+    }
+    detail = [
+        {
+            "Competência": competence,
+            "Rank PL": 1,
+            "CNPJ do fundo": f"10{index:012d}",
+            "CNPJ/CPF do cedente": f"20{index:012d}",
+            "Cedente dominante?": "Sim",
+            "Natureza do cedente": "Operacional",
+            "Segmento": "Potencial Middle",
+            "Critério do segmento": "resíduo cadastral",
+        }
+        for index, competence in enumerate(competences, start=1)
+    ]
+    registry_by_competence = [
+        {
+            "Competência": competence,
+            "CNPJ/CPF": f"20{index:012d}",
+            "Razão social": f"Cedente {index}",
+            "Natureza do cedente": "Operacional",
+            "Segmento": "Potencial Middle",
+            "Critério do segmento": "resíduo cadastral",
+        }
+        for index, competence in enumerate(competences, start=1)
+    ]
+    gaps = [
+        {
+            "Competência": competence,
+            "Rank PL": 2,
+            "CNPJ do fundo": f"30{index:012d}",
+            "Motivo": "sem_cedente_tabela_i",
+        }
+        for index, competence in enumerate(competences, start=1)
+    ]
+    coverage_checkpoints = {
+        "202312": (181, 2404, 0.8395464326020662),
+        "202412": (148, 3140, 0.7946176676596972),
+        "202512": (205, 4008, 0.7349500587764943),
+        "202606": (172, 4311, 0.7255622598775591),
+    }
+    coverage = [
+        {
+            "Competência": competence,
+            "Fundos que identificam cedente": coverage_checkpoints[competence][0],
+            "Fundos sem cedente": 500 - coverage_checkpoints[competence][0],
+            "Fundos na indústria": coverage_checkpoints[competence][1],
+            "PL do Top 500 (R$)": 500.0,
+            "PL total da indústria (R$)": 500.0 / coverage_checkpoints[competence][2],
+            "PL sem cedente (R$)": float(500 - coverage_checkpoints[competence][0]),
+            "% do PL total": coverage_checkpoints[competence][2],
+        }
+        for competence in competences
+    ]
+    segment_mix = [
+        {
+            "Competência": competence,
+            "Segmento": "Potencial Middle",
+            "PL dominante (R$)": 1.0,
+            "PL identificado · denominador (R$)": 1.0,
+            "PL Top 500 · denominador (R$)": 500.0,
+        }
+        for competence in competences
+    ]
+    return {
+        "cedente_top500_detail": detail,
+        "cedente_registry_by_competence": registry_by_competence,
+        "cedente_funds_without_cedent": gaps,
+        "cedente_evolution_by_segment": [
+            {
+                "Competência": competence,
+                "Segmento": "Potencial Middle",
+                "PL alcançado (R$)": 1.0,
+            }
+            for competence in competences
+        ],
+        "cedente_presence_history": [
+            {
+                "CNPJ/CPF": "20000000000001",
+                "Competências": 4,
+                "Natureza do cedente": "Operacional",
+                "Segmento": "Potencial Middle",
+            }
+        ],
+        "cedente_top500_coverage_history": coverage,
+        "cedente_segment_mix_history": segment_mix,
+        "cedente_registry_master": [
+            {
+                "CNPJ/CPF": "20000000000001",
+                "Razão social": "Cedente 1",
+                "Natureza do cedente": "Operacional",
+                "Segmento": "Potencial Middle",
+                "Critério do segmento": "resíduo cadastral",
+            }
+        ],
+        "cedente_exclusions": [
+            {
+                "competencia": "202312",
+                "cnpj_fundo": "30000000000001",
+                "motivo_exclusao": "documento_ficticio_0_9",
+            }
+        ],
+        "cedente_source_repairs": [
+            {
+                "competencia": competence,
+                "tabela": "Tabela IV",
+                "fonte": f"{competence[:4]}.zip!Tabela_IV.csv",
+                "linha_fisica": index + 1,
+                "acao": "remove_unpaired_quote",
+                "documento_fundo": f"40{index:012d}",
+                "denominacao_reparada": f"FIDC reparado {index}",
+                "data_referencia": f"{competence[:4]}-12-31",
+            }
+            for index, competence in enumerate(
+                ["202312"] * 6 + ["202412"] * 4,
+                start=1,
+            )
+        ],
+        "cedente_triage_manifest": {
+            "schema_version": "fidc-cedente-top500/v2",
+            "cutoff_rank": 500,
+            "competences": list(competences),
+            "metrics": {competence: {} for competence in competences},
+            "outputs": {
+                name: {
+                    "rows": (
+                        10
+                        if name == "fidc_cedentes_reparos_fonte_2023_2026.csv"
+                        else 1
+                    ),
+                    "sha256": "0" * 64,
+                }
+                for name in output_names
+            },
+            "source_repairs_summary": {
+                "202312": 6,
+                "202412": 4,
+                "202512": 0,
+                "202606": 0,
+            },
+            "competence_manifests": {
+                competence: {
+                    "name": f"fidc_cedentes_manifest_{competence}.json",
+                    "bytes": 1,
+                    "sha256": "0" * 64,
+                }
+                for competence in competences
+            },
+            "rules": {
+                "fake_documents": "zeros e noves",
+                "leading_zero": "zfill(14)",
+                "pl_assignment": "cedente dominante",
+                "potential_middle": "resíduo",
+                "table_i": "Tabela I",
+                "table_iv": "Tabela IV",
+            },
+            "limitations": [
+                "Tabela I não identifica sacado.",
+                "Porte Receita não confirma faturamento.",
+                "Cadastro atual aplicado ao histórico.",
+            ],
+            "sources": {
+                "cvm": [
+                    {"competence": competence, "name": f"CVM-{competence}.zip"}
+                    for competence in competences
+                ],
+                "registry": {
+                    "name": "cadastro_receita.csv",
+                    "mode": "receita_bulk_local",
+                },
+            },
+        },
+    }
+
+
 def _payload() -> dict[str, object]:
     card_rows = _card_taxonomy_rows()
     type_names = (
@@ -642,6 +830,7 @@ def _payload() -> dict[str, object]:
         "top20_fidcs": [{}] * 20,
         "top20_outros": [{}] * 20,
         "profiles": [{}] * 20,
+        **_cedente_top500_payload_fixture(),
         "emission_field_audit": _emission_field_audit_fixture(),
         "emission_field_coverage": _emission_field_coverage_fixture(),
         "emission_field_remuneration_evidence": (
@@ -1405,7 +1594,7 @@ def _payload() -> dict[str, object]:
 
 
 def test_payload_schema_and_required_historical_comparisons_are_versioned() -> None:
-    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v10"
+    assert PAYLOAD_SCHEMA == "fidc_revision_artifact_payload_v11"
     payload = _payload()
     validate_artifact_payload(payload, "2026-05")
     assert len(payload["portfolio_export_cases_99"]) == 99
@@ -1415,6 +1604,55 @@ def test_payload_schema_and_required_historical_comparisons_are_versioned() -> N
         "44302112000172",
         "61669748000176",
     }
+
+
+def test_payload_rejects_incomplete_cedent_top500_competence_set() -> None:
+    payload = deepcopy(_payload())
+    payload["cedente_top500_coverage_history"].pop()
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="quatro competências do Top 500",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_cedent_manifest_with_local_absolute_path() -> None:
+    payload = deepcopy(_payload())
+    payload["cedente_triage_manifest"]["sources"]["registry"]["path"] = (
+        "/Users/example/cadastro.xlsx"
+    )
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="expõe caminho local absoluto",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_brasilapi_as_cedent_registry_source() -> None:
+    payload = deepcopy(_payload())
+    payload["cedente_triage_manifest"]["sources"]["registry"] = {
+        "mode": "brasilapi",
+        "official_url": "https://brasilapi.com.br/api/cnpj/v1/123",
+    }
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="processamento em massa da Receita",
+    ):
+        validate_artifact_payload(payload, "2026-05")
+
+
+def test_payload_rejects_cedent_source_repairs_outside_audited_distribution() -> None:
+    payload = deepcopy(_payload())
+    payload["cedente_source_repairs"][0]["competencia"] = "202512"
+
+    with pytest.raises(
+        RevisionBundlePublishError,
+        match="10 reparos auditados",
+    ):
+        validate_artifact_payload(payload, "2026-05")
 
 
 def test_payload_rejects_incomplete_emission_field_coverage_matrix() -> None:
@@ -2520,9 +2758,18 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
         "industry_taxonomy_impact_flows_202606.csv",
         "industry_taxonomy_issuance_impact_202606.csv",
         "industry_taxonomy_market_share_denominator_impact_202606.csv",
-        "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
-        "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
-        "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+        "cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_por_competencia_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_evolucao_segmento_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_cobertura_top500_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_pl_segmento_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_cadastro_master.csv.gz",
+        "cedente_triage/fidc_cedentes_receita_targets.csv",
+        "cedente_triage/fidc_cedentes_exclusoes_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_reparos_fonte_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_triagem_index.json",
         "emission_field_document_audit/emission_field_document_audit.csv",
         "emission_field_document_audit/emission_field_document_coverage.csv",
         "emission_field_document_audit/emission_field_document_evidence.csv.gz",
@@ -2530,6 +2777,17 @@ def test_revision_bundle_requires_new_market_share_and_taxonomy_inputs() -> None
         "emission_field_document_audit/emission_field_document_checkpoint.jsonl",
         "emission_field_document_audit/emission_field_document_manifest.json",
     }.issubset(REQUIRED_DATA_INPUTS)
+    for competence in ("202312", "202412", "202512", "202606"):
+        assert {
+            f"cedente_triage/{competence}/fidc_cedentes_top500_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_vinculos_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_fundos_sem_cedente_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_cobertura_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_pl_por_segmento_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_exclusoes_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_reparos_fonte_{competence}.csv.gz",
+            f"cedente_triage/{competence}/fidc_cedentes_manifest_{competence}.json",
+        }.issubset(REQUIRED_DATA_INPUTS)
 
 
 def test_main_pipeline_exposes_explicit_offline_publish_switch() -> None:

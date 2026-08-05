@@ -28,6 +28,7 @@ from tabs.tab_industry_study import (
     INDUSTRY_HOLDER_PL_CUTS_MM,
     INDUSTRY_STRUCTURE_CHARTS,
     INDUSTRY_VIEW_TABS,
+    _CEDENTE_COMPETENCES,
     _INDUSTRY_EXECUTIVE_PACK_INPUTS,
     _INDUSTRY_EXPORT_INPUTS,
     _industry_anbima_coverage_note,
@@ -731,17 +732,80 @@ def test_industry_exports_expose_taxonomy_audit_and_cedente_triage() -> None:
     assert "Excel — estudo, taxonomia e triagem de cedentes" in data_export_source
     assert "industry_taxonomy_audited_decisions_202606.csv" in data_export_source
     assert "industry_taxonomy_impact_summary_202606.csv" in data_export_source
-    assert "fidc_cedentes_top437_202606.csv.gz" in data_export_source
-    assert "fidc_cedentes_curva_cobertura_202606.csv" in data_export_source
+    assert "fidc_cedentes_top500_2023_2026.csv.gz" in data_export_source
+    assert "fidc_cedentes_cobertura_top500_2023_2026.csv" in data_export_source
+    assert "fidc_cedentes_pl_segmento_2023_2026.csv" in data_export_source
+    assert "fidc_cedentes_exclusoes_2023_2026.csv.gz" in data_export_source
+    assert "fidc_cedentes_receita_targets.csv" in data_export_source
+    assert "fidc_cedentes_reparos_fonte_2023_2026.csv" in data_export_source
+    assert "top437" not in data_export_source.casefold()
     assert '".gz": "application/gzip"' in data_export_source
     assert "CVM — Informe Mensal FIDC, Tabela I" in data_export_source
     assert "o campo não identifica sacado" in data_export_source
     assert {
         "industry_taxonomy_audited_decisions_202606.csv",
         "industry_taxonomy_impact_summary_202606.csv",
-        "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
-        "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+        "cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_por_competencia_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_evolucao_segmento_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_cobertura_top500_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_pl_segmento_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_cadastro_master.csv.gz",
+        "cedente_triage/fidc_cedentes_exclusoes_2023_2026.csv.gz",
+        "cedente_triage/fidc_cedentes_receita_targets.csv",
+        "cedente_triage/fidc_cedentes_reparos_fonte_2023_2026.csv",
+        "cedente_triage/fidc_cedentes_triagem_index.json",
     }.issubset(_INDUSTRY_EXPORT_INPUTS)
+
+
+def test_industry_overview_exposes_top500_cedente_segment_block() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    block_source = source[
+        source.index("def _render_revision_cedente_segments") : source.index(
+            "def _revision_offer_comparable_frame"
+        )
+    ]
+    overview_source = source[
+        source.index("def _render_revision_overview") : source.index(
+            "def _render_revision_card_breakdown"
+        )
+    ]
+
+    assert _CEDENTE_COMPETENCES == ("202312", "202412", "202512", "202606")
+    for payload_key in (
+        "cedente_top500_detail",
+        "cedente_segment_mix_history",
+        "cedente_top500_coverage_history",
+        "cedente_registry_by_competence",
+        "cedente_triage_manifest",
+    ):
+        assert payload_key in source
+    for label in (
+        "Cedentes do Top 500 · segmento e cobertura",
+        "Mix de PL por segmento do cedente dominante",
+        "Cobertura do Top 500 sobre o PL da indústria",
+        "Denominador: PL dos fundos do Top 500",
+        "Denominador: PL total da indústria",
+        "Potencial Middle",
+        "classificação residual",
+        "não comprovam",
+        "faturamento entre R$ 30 milhões e R$ 500 milhões",
+        "Natureza do cedente",
+        "Seção CNAE",
+    ):
+        assert label in block_source
+    for filter_key in (
+        "industry-revision-cedente-filter-competence",
+        "industry-revision-cedente-filter-segment",
+        "industry-revision-cedente-filter-nature",
+        "industry-revision-cedente-filter-uf",
+        "industry-revision-cedente-filter-cnae-section",
+    ):
+        assert filter_key in block_source
+    assert block_source.count("st.multiselect(") == 5
+    assert "_render_revision_cedente_segments(payload)" in overview_source
 
 
 def test_industry_csv_cache_reloads_when_the_source_changes(

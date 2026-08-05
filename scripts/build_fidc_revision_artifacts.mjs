@@ -89,7 +89,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v47";
+const RENDERER_VERSION = "industry_revision_artifacts_v48";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
@@ -651,6 +651,7 @@ function entityDisplayShort(value, maxChars = 24) {
     .replace(/\bMULTIPLIKE FINANCEIRA S\.?\s*A\.? SOCIEDADE DE CREDITO,? FINANCIAMENTO E INVESTIMENTO\b/i, "Multiplike")
     .replace(/\bARC LOG[IÍ]STICA E ALIMENTOS\b/i, "ARC Logística")
     .replace(/HAVAN S\.?\s*A\.?/i, "Havan")
+    .replace(/\bCIELO S\.?\s*A\.?\s*[-–—]?\s*INSTITUI[CÇ][AÃ]O DE PAGAMENTO\b/i, "Cielo")
     .replace(/[ÂA]MBAR ENERGIA S\.?\s*A\.?/i, "Âmbar")
     .replace(/\bCLOUDWALK INSTITUI[CÇ][AÃ]O DE PAGAMENTO E SERVI[CÇ]OS LTDA\.?/i, "CloudWalk")
     .replace(/\bFACTA FINANCEIRA S\.?A\.? CR[EÉ]DITO FINANCIAMENTO E INVESTIMENTO\b/i, "Facta")
@@ -691,7 +692,13 @@ function combinedPartyField(row, maxChars = 31) {
   const hasOriginator = !isMissingAuditValue(originator);
   const hasCedent = !isMissingAuditValue(cedent);
   if (!hasOriginator && !hasCedent) return "N/D";
-  if (hasOriginator && hasCedent && entityDisplayKey(originator) === entityDisplayKey(cedent)) {
+  const sameEntity =
+    hasOriginator &&
+    hasCedent &&
+    (entityDisplayKey(originator) === entityDisplayKey(cedent) ||
+      entityDisplayKey(entityDisplayShort(originator, 120)) ===
+        entityDisplayKey(entityDisplayShort(cedent, 120)));
+  if (sameEntity) {
     return `C: ${entityDisplayShort(cedent, maxChars - 3)}`;
   }
   if (hasOriginator && hasCedent) {
@@ -6877,14 +6884,15 @@ function buildPresentation(payload) {
         },
       });
     };
-    addTotalChart({
+    const includeAbsoluteRegimeCharts = false;
+    if (includeAbsoluteRegimeCharts) addTotalChart({
       left: 60,
       title: "NÚMERO DE OFERTAS",
       valueKey: "period_closed_offers",
       formatCode: "0",
       yAxisFormat: "0",
     });
-    addTotalChart({
+    if (includeAbsoluteRegimeCharts) addTotalChart({
       left: 665,
       title: "VOLUME REGISTRADO · R$ BI",
       valueKey: "period_registered_volume_brl",
@@ -6892,23 +6900,24 @@ function buildPresentation(payload) {
       yAxisFormat: "0.0,,,",
     });
 
-    addLegend(
+    addShapeLegend(
       slide,
       periodLabels.map((period, index) => ({
         label: periodDisplay[period] || period,
         color: periodColors[index],
       })),
-      { left: 455, top: 373, width: 370, height: 22 },
+      { left: 455, top: 174, width: 370, height: 22 },
       3,
+      { fontSize: 10.5, swatchSize: 8, maxLabelLength: 24 },
     );
     addSectionLabel(
       slide,
       "REGIME DE COLOCAÇÃO · PARTICIPAÇÃO NO VOLUME · % DO TOTAL",
-      { left: 60, top: 406, width: 1160, height: 24 },
+      { left: 60, top: 145, width: 1160, height: 24 },
     );
     const chartRegimes = [...regimeLabels].reverse();
     slide.charts.add("bar", {
-      ...chartBase({ left: 60, top: 438, width: 1160, height: 195 }),
+      ...chartBase({ left: 60, top: 205, width: 1160, height: 425 }),
       categories: chartRegimes,
       series: [...periodLabels].reverse().map((period) => {
         const periodIndex = periodLabels.indexOf(period);
@@ -6949,7 +6958,7 @@ function buildPresentation(payload) {
       dataLabels: {
         showValue: true,
         position: "outEnd",
-        textStyle: { fill: C.black, fontSize: 10, bold: false },
+        textStyle: { fill: C.black, fontSize: 11, bold: false },
       },
     });
     addSourceNotes(slide, [
@@ -10261,6 +10270,11 @@ const PORTFOLIO_EXPORT_GROUPS = Object.freeze([
 
 function portfolioExportCell(value, column) {
   if (value === null || value === undefined || value === "") return "N/D";
+  if (column.format === "@") {
+    if (Array.isArray(value)) return value.length ? value.map(String).join("; ") : "N/D";
+    if (typeof value === "object") return JSON.stringify(value);
+    return String(value);
+  }
   if (Array.isArray(value)) return value.length ? value.join("; ") : "N/D";
   if (typeof value === "object") return JSON.stringify(value);
   if (column.key === "cnpj_numerico" || column.format === "00000000000000") {
@@ -10779,54 +10793,6 @@ async function addAuditablePayloadSheet(workbook, {
   return sheet;
 }
 
-const CEDENTE_TOP437_COLUMNS = Object.freeze([
-  { header: "Rank por PL", key: "rank_pl_fundo", width: 90, format: "#,##0" },
-  { header: "CNPJ do fundo", key: "cnpj_fundo", width: 125, format: "00000000000000" },
-  { header: "CNPJ do fundo · fonte", key: "cnpj_fundo_raw", width: 145 },
-  { header: "FIDC", key: "fundo", width: 370 },
-  { header: "PL do fundo · R$", key: "pl_fundo_reais", width: 145, format: "R$ #,##0.00" },
-  { header: "% PL da indústria", key: "pl_fundo_pct_industria_origem", width: 115, format: "0.00%" },
-  { header: "% PL acumulado", key: "pl_acumulado_pct_origem", width: 115, format: "0.00%" },
-  { header: "PL negativo?", key: "pl_negativo_flag", width: 95, transform: ptYesNo },
-  { header: "Administrador", key: "administrador", width: 290 },
-  { header: "Cedentes declarados no fundo", key: "cedentes_declarados_fundo", width: 125, format: "#,##0" },
-  { header: "Cedente declarado?", key: "cedente_declarado_flag", width: 110, transform: ptYesNo },
-  { header: "Documento do cedente · coluna H", key: "cedente_doc_raw", width: 165, transform: explicitCedenteValue },
-  { header: "Chave normalizada do documento", key: "cedente_doc_key", width: 190, transform: explicitCedenteValue },
-  { header: "Tipo de documento", key: "cedente_tipo", width: 105, transform: explicitCedenteValue },
-  { header: "Status do documento", key: "cedente_documento_status", width: 170 },
-  { header: "Razão social · coluna K", key: "cedente_razao_social_coluna_k", width: 300, transform: explicitCedenteValue },
-  { header: "Razões sociais · coluna K · JSON", key: "cedente_razoes_coluna_k_json", width: 360 },
-  { header: "Razão social consolidada", key: "cedente_razao_social_consolidada", width: 300, transform: explicitCedenteValue },
-  { header: "Razão social reconciliada?", key: "razao_social_match_flag", width: 125, transform: ptYesNo },
-  { header: "CNAE principal", key: "cedente_cnae_principal", width: 190, transform: explicitCedenteValue },
-  { header: "Porte da Receita", key: "cedente_porte_receita", width: 125, transform: explicitCedenteValue },
-  { header: "Capital social · R$", key: "cedente_capital_social_reais", width: 145, format: "R$ #,##0.00" },
-  { header: "Optante Simples", key: "cedente_optante_simples", width: 105, transform: ptYesNo },
-  { header: "MEI", key: "cedente_mei", width: 80, transform: ptYesNo },
-  { header: "UF", key: "cedente_uf", width: 70, transform: explicitCedenteValue },
-  { header: "Fundos em que aparece", key: "fundos_em_que_aparece", width: 115, format: "#,##0" },
-  { header: "PL alcançado · R$*", key: "pl_alcancado_reais", width: 145, format: "R$ #,##0.00" },
-  { header: "Maior % em um fundo", key: "maior_pct_em_um_fundo", width: 120, format: "0.00%" },
-  { header: "Fundos em que aparece · lista", key: "fundos_lista", width: 410 },
-  { header: "Linhas na fonte", key: "linhas_declaracao_origem", width: 100, format: "#,##0" },
-  { header: "Blocos declarados", key: "blocos_declarados", width: 220 },
-  { header: "Ordens declaradas · JSON", key: "ordens_declaradas_json", width: 180 },
-  { header: "Percentuais declarados · JSON", key: "percentuais_declarados_json", width: 220 },
-  { header: "Declarações preservadas · JSON", key: "declaracoes_json", width: 520 },
-  { header: "Duplicidade fundo-cedente?", key: "duplicidade_fundo_cedente_flag", width: 125, transform: ptYesNo },
-  { header: "Duplicidade cruza blocos?", key: "duplicidade_cruza_blocos_flag", width: 125, transform: ptYesNo },
-  { header: "Duplicidade no mesmo bloco?", key: "duplicidade_mesmo_bloco_flag", width: 135, transform: ptYesNo },
-  { header: "Percentual ausente?", key: "percentual_ausente_flag", width: 115, transform: ptYesNo },
-  { header: "Percentual não positivo?", key: "percentual_nao_positivo_flag", width: 125, transform: ptYesNo },
-  { header: "Percentual acima de 100%?", key: "percentual_acima_100_flag", width: 135, transform: ptYesNo },
-  { header: "Percentual inválido?", key: "percentual_invalido_flag", width: 115, transform: ptYesNo },
-  { header: "Soma dos percentuais declarados", key: "soma_percentuais_declarados", width: 135, format: "0.00%" },
-  { header: "Exclusão ME/EPP/Simples?", key: "filtro_exclusao_me_epp_simples_flag", width: 135, transform: ptYesNo },
-  { header: "Triagem Middle Market · status", key: "middle_market_triage_status", width: 210 },
-  { header: "Triagem Middle Market · limitação", key: "middle_market_limitation", width: 430 },
-]);
-
 const CEDENTE_COVERAGE_COLUMNS = Object.freeze([
   { header: "Rank por PL", key: "rank_pl_fundo", width: 90, format: "#,##0" },
   { header: "CNPJ do fundo", key: "cnpj_fundo", width: 125, format: "00000000000000" },
@@ -10947,49 +10913,270 @@ const TAXONOMY_MARKET_SHARE_IMPACT_COLUMNS = Object.freeze([
   { header: "Nota de perímetro", key: "note", width: 560 },
 ]);
 
+function cedenteColumn(key, width, format) {
+  return Object.freeze({ header: key, key, width, ...(format ? { format } : {}) });
+}
+
+const CEDENTE_TOP500_DETAIL_COLUMNS = Object.freeze([
+  cedenteColumn("Competência", 95, "@"),
+  cedenteColumn("Data", 85),
+  cedenteColumn("Rank PL", 75, "#,##0"),
+  cedenteColumn("% PL acum.", 105, "0.00%"),
+  cedenteColumn("CNPJ do fundo", 140, "@"),
+  cedenteColumn("FIDC", 380),
+  cedenteColumn("PL do fundo (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("Bloco", 120),
+  cedenteColumn("Ordem", 70, "#,##0"),
+  cedenteColumn("Tipo", 80),
+  cedenteColumn("CNPJ/CPF do cedente", 150, "@"),
+  cedenteColumn("Cedente formatado", 155, "@"),
+  cedenteColumn("Razão social do cedente", 340),
+  cedenteColumn("Cedente dominante?", 110),
+  cedenteColumn("% na carteira", 105, "0.00%"),
+  cedenteColumn("Status do documento", 175),
+  cedenteColumn("Documento fictício?", 115),
+  cedenteColumn("Zero à esquerda recuperado?", 135),
+  cedenteColumn("CNAE (cód.)", 95, "@"),
+  cedenteColumn("CNAE principal", 300),
+  cedenteColumn("Seção CNAE", 220),
+  cedenteColumn("Natureza do cedente", 180),
+  cedenteColumn("Segmento", 165),
+  cedenteColumn("Critério do segmento", 330),
+  cedenteColumn("Matriz/filial", 105),
+  cedenteColumn("Situação cadastral", 135),
+  cedenteColumn("Capital social (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("Porte Receita", 115),
+  cedenteColumn("Simples", 75),
+  cedenteColumn("MEI", 70),
+  cedenteColumn("UF", 65),
+  cedenteColumn("Município", 190),
+]);
+
+const CEDENTE_REGISTRY_BY_COMPETENCE_COLUMNS = Object.freeze([
+  cedenteColumn("Competência", 95, "@"),
+  cedenteColumn("Data", 85),
+  cedenteColumn("CNPJ/CPF", 150, "@"),
+  cedenteColumn("Formatado", 155, "@"),
+  cedenteColumn("Razão social", 340),
+  cedenteColumn("Tipo", 80),
+  cedenteColumn("Fundos", 80, "#,##0"),
+  cedenteColumn("PL alcançado (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("Maior % em um fundo", 120, "0.00%"),
+  cedenteColumn("Natureza do cedente", 180),
+  cedenteColumn("Segmento", 165),
+  cedenteColumn("Critério do segmento", 330),
+  cedenteColumn("CNAE (cód.)", 95, "@"),
+  cedenteColumn("CNAE principal", 300),
+  cedenteColumn("Seção CNAE", 220),
+  cedenteColumn("Capital social (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("Porte Receita", 115),
+  cedenteColumn("Matriz/filial", 105),
+  cedenteColumn("Situação cadastral", 135),
+  cedenteColumn("Simples", 75),
+  cedenteColumn("MEI", 70),
+  cedenteColumn("UF", 65),
+  cedenteColumn("Município", 190),
+]);
+
+const CEDENTE_FUNDS_WITHOUT_CEDENT_COLUMNS = Object.freeze([
+  cedenteColumn("Competência", 95, "@"),
+  cedenteColumn("Data", 85),
+  cedenteColumn("Rank PL", 75, "#,##0"),
+  cedenteColumn("% PL acum.", 105, "0.00%"),
+  cedenteColumn("CNPJ do fundo", 140, "@"),
+  cedenteColumn("FIDC", 380),
+  cedenteColumn("PL do fundo (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("Motivo", 320),
+]);
+
+const CEDENTE_EVOLUTION_BY_SEGMENT_COLUMNS = Object.freeze([
+  cedenteColumn("Competência", 95, "@"),
+  cedenteColumn("Data", 85),
+  cedenteColumn("Segmento", 165),
+  cedenteColumn("Cedentes únicos", 100, "#,##0"),
+  cedenteColumn("Vínculos", 85, "#,##0"),
+  cedenteColumn("PL alcançado (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("% do PL do Top 500", 120, "0.00%"),
+  cedenteColumn("Capital social mediano (R$)", 170, "R$ #,##0.00"),
+]);
+
+const CEDENTE_PRESENCE_HISTORY_COLUMNS = Object.freeze([
+  cedenteColumn("CNPJ/CPF", 150, "@"),
+  cedenteColumn("Formatado", 155, "@"),
+  cedenteColumn("Razão social", 340),
+  cedenteColumn("Natureza do cedente", 180),
+  cedenteColumn("Segmento", 165),
+  cedenteColumn("CNAE principal", 300),
+  cedenteColumn("UF", 65),
+  cedenteColumn("Competências", 95, "#,##0"),
+  cedenteColumn("Presente em", 190),
+  cedenteColumn("Situação", 150),
+  cedenteColumn("PL dez/23 (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("PL dez/24 (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("PL dez/25 (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("PL jun/26 (R$)", 145, "R$ #,##0.00"),
+]);
+
+const CEDENTE_TOP500_COVERAGE_HISTORY_COLUMNS = Object.freeze([
+  cedenteColumn("Competência", 95, "@"),
+  cedenteColumn("Data", 85),
+  cedenteColumn("Fundos na indústria", 105, "#,##0"),
+  cedenteColumn("PL total da indústria (R$)", 165, "R$ #,##0.00"),
+  cedenteColumn("PL do Top 500 (R$)", 150, "R$ #,##0.00"),
+  cedenteColumn("% do PL total", 105, "0.00%"),
+  cedenteColumn("PL do 500º fundo (R$)", 155, "R$ #,##0.00"),
+  cedenteColumn("Fundos que identificam cedente", 155, "#,##0"),
+  cedenteColumn("Fundos sem cedente", 115, "#,##0"),
+  cedenteColumn("% dos 500", 95, "0.00%"),
+  cedenteColumn("PL desses fundos (R$)", 150, "R$ #,##0.00"),
+  cedenteColumn("PL sem cedente (R$)", 150, "R$ #,##0.00"),
+  cedenteColumn("% do PL do Top 500", 120, "0.00%"),
+  cedenteColumn("Cedentes reais distintos", 125, "#,##0"),
+  cedenteColumn("Vínculos fictícios", 105, "#,##0"),
+  cedenteColumn("CNPJs com zero recuperado", 135, "#,##0"),
+]);
+
+const CEDENTE_SEGMENT_MIX_HISTORY_COLUMNS = Object.freeze([
+  cedenteColumn("Competência", 95, "@"),
+  cedenteColumn("Data", 85),
+  cedenteColumn("Segmento", 165),
+  cedenteColumn("Fundos (dominante)", 115, "#,##0"),
+  cedenteColumn("Cedentes únicos", 100, "#,##0"),
+  cedenteColumn("PL dominante (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("PL identificado · denominador (R$)", 190, "R$ #,##0.00"),
+  cedenteColumn("PL Top 500 · denominador (R$)", 185, "R$ #,##0.00"),
+  cedenteColumn("% do PL identificado", 120, "0.00%"),
+  cedenteColumn("% do Top 500", 105, "0.00%"),
+]);
+
+const CEDENTE_REGISTRY_MASTER_COLUMNS = Object.freeze([
+  cedenteColumn("CNPJ/CPF", 150, "@"),
+  cedenteColumn("Formatado", 155, "@"),
+  cedenteColumn("Razão social", 340),
+  cedenteColumn("Tipo", 80),
+  cedenteColumn("Natureza do cedente", 180),
+  cedenteColumn("Segmento", 165),
+  cedenteColumn("Critério do segmento", 330),
+  cedenteColumn("CNAE (cód.)", 95, "@"),
+  cedenteColumn("CNAE principal", 300),
+  cedenteColumn("Seção CNAE", 220),
+  cedenteColumn("Capital social (R$)", 145, "R$ #,##0.00"),
+  cedenteColumn("Porte Receita", 115),
+  cedenteColumn("Matriz/filial", 105),
+  cedenteColumn("Situação cadastral", 135),
+  cedenteColumn("Simples", 75),
+  cedenteColumn("MEI", 70),
+  cedenteColumn("UF", 65),
+  cedenteColumn("Município", 190),
+]);
+
+const CEDENTE_EXCLUSIONS_COLUMNS = Object.freeze([
+  cedenteColumn("competencia", 95, "@"),
+  cedenteColumn("data", 95),
+  cedenteColumn("rank_pl", 75, "#,##0"),
+  cedenteColumn("cnpj_fundo", 140, "@"),
+  cedenteColumn("fundo", 380),
+  cedenteColumn("fundo_tabela_i", 380),
+  cedenteColumn("pl_fundo_reais", 145, "R$ #,##0.00"),
+  cedenteColumn("bloco", 120),
+  cedenteColumn("bloco_ordem", 85, "#,##0"),
+  cedenteColumn("ordem", 70, "#,##0"),
+  cedenteColumn("tp_registro_tabela_i", 130),
+  cedenteColumn("cedente_tipo", 90),
+  cedenteColumn("cedente_documento_raw", 160, "@"),
+  cedenteColumn("cedente_documento", 150, "@"),
+  cedenteColumn("cedente_documento_digitos_raw", 180, "@"),
+  cedenteColumn("cedente_doc_key", 180, "@"),
+  cedenteColumn("cedente_documento_status", 180),
+  cedenteColumn("cedente_real_flag", 105),
+  cedenteColumn("cedente_documento_ficticio_flag", 150),
+  cedenteColumn("cedente_dominante_flag", 130),
+  cedenteColumn("percentual_reportado_flag", 140),
+  cedenteColumn("percentual_cedente", 115, "0.00%"),
+  cedenteColumn("percentual_cedente_pontos", 145, "0.00"),
+  cedenteColumn("percentual_cedente_raw", 135),
+  cedenteColumn("percentual_acima_100_flag", 140),
+  cedenteColumn("dominante_todos_percentuais_ausentes_flag", 205),
+  cedenteColumn("linhas_duplicadas_chave", 140, "#,##0"),
+  cedenteColumn("source_row", 90, "#,##0"),
+  cedenteColumn("cedente_cnpj_zfill_13_flag", 145),
+  cedenteColumn("cedente_cnpj_zfill_flag", 135),
+  cedenteColumn("cadastro_resolvido_flag", 135),
+  cedenteColumn("razao_social", 340),
+  cedenteColumn("cnae_codigo", 95, "@"),
+  cedenteColumn("cnae_principal", 300),
+  cedenteColumn("secao_cnae", 220),
+  cedenteColumn("capital_social_reais", 145, "R$ #,##0.00"),
+  cedenteColumn("porte_receita", 115),
+  cedenteColumn("natureza_cedente", 180),
+  cedenteColumn("criterio_natureza", 330),
+  cedenteColumn("segmento", 165),
+  cedenteColumn("criterio_segmento", 330),
+  cedenteColumn("matriz_filial", 105),
+  cedenteColumn("situacao_cadastral", 135),
+  cedenteColumn("simples", 75),
+  cedenteColumn("mei", 70),
+  cedenteColumn("uf", 65),
+  cedenteColumn("municipio", 190),
+  cedenteColumn("motivo_exclusao", 320),
+]);
+
+const CEDENTE_SOURCE_REPAIRS_COLUMNS = Object.freeze([
+  cedenteColumn("competencia", 95, "@"),
+  cedenteColumn("tabela", 110),
+  cedenteColumn("fonte", 420),
+  cedenteColumn("linha_fisica", 95, "#,##0"),
+  cedenteColumn("acao", 260),
+  cedenteColumn("documento_fundo", 150, "@"),
+  cedenteColumn("denominacao_reparada", 420),
+  cedenteColumn("data_referencia", 110, "@"),
+]);
+
 function addCedenteReadmeSheet(workbook, payload) {
-  const manifest = payload.cedente_middle_market_manifest || {};
-  const coverage = manifest.coverage || {};
-  const cutoff = manifest.cutoff || {};
-  const queue = cutoff.top_queue || {};
-  const recommended = (cutoff.snapshots || []).find(
-    (row) => Number(row.rank) === Number(cutoff.recommended_rank),
-  ) || {};
-  const source = manifest.source || {};
+  const manifest = payload.cedente_triage_manifest || {};
+  const metrics = manifest.metrics || {};
+  const source = manifest.sources || {};
   const sheet = resetSheet(workbook, "Cedentes · Leia-me");
   sheet.getRange("A1:H1").merge();
-  sheet.getRange("A1").values = [["Triagem de cedentes · Middle Market"]];
+  sheet.getRange("A1").values = [["Cedentes do Top 500 · quatro competências"]];
   sheet.getRange("A1:H1").format.fill = C.black;
   sheet.getRange("A1:H1").format.font = { name: "Arial", size: 16, bold: true, color: C.white };
   sheet.getRange("A1:H1").format.rowHeightPx = 34;
   sheet.getRange("A2:H2").merge();
   sheet.getRange("A2").values = [[
-    `Competência jun/26. Fonte ${source.file || "N/D"}; SHA-256 ${source.sha256 || "N/D"}. Fila recomendada: Top ${cutoff.recommended_rank || "N/D"} por PL.`,
+    `Top ${manifest.cutoff_rank || 500} recalculado em dez/23, dez/24, dez/25 e jun/26. Cadastro: ${(source.registry || {}).role || "snapshot auditado"}.`,
   ]];
   sheet.getRange("A2:H2").format.font = { name: "Arial", size: 10, color: C.mid };
   sheet.getRange("A2:H2").format.wrapText = true;
   sheet.getRange("A2:H2").format.rowHeightPx = 34;
 
-  const summaryRows = [
-    ["Universo", coverage.fundos_total, coverage.pl_total_reais, 1, "4.311 fundos da fonte CVM/Tabela I"],
-    ["Com cedente declarado", coverage.fundos_com_cedente, coverage.pl_com_cedente_reais, coverage.pl_com_cedente_pct, "Cedente declarado na Tabela I"],
-    ["Sem cedente declarado", coverage.fundos_sem_cedente, coverage.pl_sem_cedente_reais, coverage.pl_sem_cedente_pct, "Requer leitura documental"],
-    [`Top ${cutoff.recommended_rank || "N/D"}`, queue.fundos, recommended.pl_acumulado_reais, recommended.pl_acumulado_pct, "Corte recomendado para revisão em duas ondas"],
-    ["No corte · com cedente", recommended.fundos_com_cedente, recommended.pl_com_cedente_reais, recommended.pl_com_cedente_pct_industria, `${queue.pares_fundo_cedente || 0} pares fundo-cedente`],
-    ["No corte · sem cedente", recommended.fundos_sem_cedente, recommended.pl_sem_cedente_reais, num(recommended.pl_sem_cedente_reais) / num(coverage.pl_total_reais), "PL sem cedente identificado permanece explícito"],
-  ];
-  sheet.getRange("A4:E4").values = [["Métrica", "Fundos", "PL · R$", "% PL da indústria", "Leitura"]];
-  sheet.getRange("A4:E4").format.fill = C.black;
-  sheet.getRange("A4:E4").format.font = { name: "Arial", size: 10, bold: true, color: C.white };
-  sheet.getRange("A5:E10").values = summaryRows;
-  sheet.getRange("A5:E10").format.font = { name: "Arial", size: 10, color: C.charcoal };
-  sheet.getRange("A5:E10").format.borders = { insideHorizontal: { style: "thin", color: C.line } };
-  sheet.getRange("A5:E10").format.rowHeightPx = 30;
-  sheet.getRange("B5:B10").format.numberFormat = "#,##0";
-  sheet.getRange("C5:C10").format.numberFormat = "R$ #,##0.00";
-  sheet.getRange("D5:D10").format.numberFormat = "0.00%";
-  sheet.getRange("B5:D10").format.horizontalAlignment = "right";
-  sheet.getRange("E5:E10").format.wrapText = true;
+  const labels = { 202312: "dez/23", 202412: "dez/24", 202512: "dez/25", 202606: "jun/26" };
+  const summaryRows = Object.entries(metrics).map(([competence, row]) => [
+    labels[competence] || competence,
+    row.fundos_industria,
+    row.pl_industria_reais,
+    row.pl_top500_reais,
+    row.pl_top500_sobre_industria_pct,
+    row.fundos_com_cedente_real,
+    row.pl_sem_cedente_real_reais,
+    "Fundos fictícios 0/9 ficam fora da cobertura real",
+  ]);
+  sheet.getRange("A4:H4").values = [["Competência", "Fundos na indústria", "PL indústria · R$", "PL Top 500 · R$", "% PL coberto", "Fundos com cedente real", "PL sem cedente · R$", "Regra"]];
+  sheet.getRange("A4:H4").format.fill = C.black;
+  sheet.getRange("A4:H4").format.font = { name: "Arial", size: 10, bold: true, color: C.white };
+  if (summaryRows.length) {
+    sheet.getRange(`A5:H${summaryRows.length + 4}`).values = summaryRows;
+    sheet.getRange(`A5:H${summaryRows.length + 4}`).format.font = { name: "Arial", size: 10, color: C.charcoal };
+    sheet.getRange(`A5:H${summaryRows.length + 4}`).format.borders = { insideHorizontal: { style: "thin", color: C.line } };
+    sheet.getRange(`A5:H${summaryRows.length + 4}`).format.rowHeightPx = 30;
+    sheet.getRange(`B5:B${summaryRows.length + 4}`).format.numberFormat = "#,##0";
+    sheet.getRange(`C5:D${summaryRows.length + 4}`).format.numberFormat = "R$ #,##0.00";
+    sheet.getRange(`E5:E${summaryRows.length + 4}`).format.numberFormat = "0.00%";
+    sheet.getRange(`F5:F${summaryRows.length + 4}`).format.numberFormat = "#,##0";
+    sheet.getRange(`G5:G${summaryRows.length + 4}`).format.numberFormat = "R$ #,##0.00";
+    sheet.getRange(`B5:G${summaryRows.length + 4}`).format.horizontalAlignment = "right";
+    sheet.getRange(`H5:H${summaryRows.length + 4}`).format.wrapText = true;
+  }
 
   sheet.getRange("A12:H12").merge();
   sheet.getRange("A12").values = [["Limitações e regras de uso"]];
@@ -10997,11 +11184,10 @@ function addCedenteReadmeSheet(workbook, payload) {
   sheet.getRange("A12:H12").format.font = { name: "Arial", size: 11, bold: true, color: C.white };
   const limitations = manifest.limitations || [];
   const requiredLimitations = [
-    "Fundo x Cedente: a coluna H fornece o documento do cedente e a coluna K fornece a razão social declarada.",
-    "Cedentes consolidados: a chave da coluna A reconcilia razão social e atributos cadastrais das colunas E/F e adjacentes.",
     "A Tabela I identifica cedente; não identifica sacado ou devedor nomeado.",
-    "Porte da Receita e capital social não confirmam faturamento entre R$ 30 mi e R$ 500 mi.",
-    "Percentuais inválidos permanecem como declarados e recebem flags; não são corrigidos automaticamente.",
+    "Potencial Middle é resíduo de triagem; porte e capital social não confirmam faturamento entre R$ 30 mi e R$ 500 mi.",
+    "PR_CEDENTE seleciona o cedente dominante e não rateia o PL.",
+    "CNPJ com todos os dígitos 0 ou 9 permanece no log e não conta como cedente identificado.",
   ];
   const notes = [...requiredLimitations, ...limitations]
     .filter((value, index, values) => values.indexOf(value) === index);
@@ -11013,51 +11199,40 @@ function addCedenteReadmeSheet(workbook, payload) {
     sheet.getRange(`A${row}:H${row}`).format.wrapText = true;
     sheet.getRange(`A${row}:H${row}`).format.rowHeightPx = 30;
   });
-  applyColumnWidths(sheet, [220, 105, 150, 125, 470, 80, 80, 80], 12 + notes.length);
+  applyColumnWidths(sheet, [105, 125, 155, 155, 105, 145, 155, 420], 12 + notes.length);
   sheet.freezePanes.freezeRows(4);
   return sheet;
 }
 
 async function addCedenteAuditSheets(workbook, payload) {
-  addCedenteReadmeSheet(workbook, payload);
-  const topSheet = await addAuditablePayloadSheet(workbook, {
-    name: "Cedentes · Top 437",
-    title: "Cedentes · fila priorizada Top 437",
-    subtitle: "510 linhas: 214 pares fundo-cedente e 296 fundos sem cedente na Tabela I. PL alcançado soma o PL integral dos fundos citantes e não mede exposição econômica. Percentuais inválidos permanecem declarados e sinalizados.",
-    columns: CEDENTE_TOP437_COLUMNS,
-    rows: payload.cedente_middle_market_top437 || [],
-    freezeColumns: 4,
-    bodyFontSize: 8.5,
-    rowHeight: 46,
-  });
-  if ((payload.cedente_middle_market_top437 || []).length) {
-    const statusColumn = columnLetter(CEDENTE_TOP437_COLUMNS.findIndex((column) => column.key === "middle_market_triage_status"));
-    const invalidColumn = columnLetter(CEDENTE_TOP437_COLUMNS.findIndex((column) => column.key === "percentual_invalido_flag"));
-    topSheet.getRange(`${statusColumn}5:${statusColumn}${(payload.cedente_middle_market_top437 || []).length + 4}`).conditionalFormats.add("containsText", {
-      text: "sem_cedente_tabela_i",
-      format: { fill: C.pale, font: { color: C.mid } },
-    });
-    topSheet.getRange(`${invalidColumn}5:${invalidColumn}${(payload.cedente_middle_market_top437 || []).length + 4}`).conditionalFormats.add("containsText", {
-      text: "Sim",
-      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
-    });
+  const specs = [
+    ["Cedentes · Top 500", "Cedentes · Top 500 por fundo", "Tabela I nas quatro competências; documentos fictícios e reparos de zero ficam visíveis.", "cedente_top500_detail", CEDENTE_TOP500_DETAIL_COLUMNS, 4, 46],
+    ["Cedentes · competência", "Cedentes · cadastro por competência", "Uma linha por cedente e competência, com PL alcançado para priorização.", "cedente_registry_by_competence", CEDENTE_REGISTRY_BY_COMPETENCE_COLUMNS, 3, 38],
+    ["Cedentes · sem cedente", "Fundos do Top 500 sem cedente real", "Inclui campos vazios, documentos fictícios e documentos irregulares com o motivo explícito.", "cedente_funds_without_cedent", CEDENTE_FUNDS_WITHOUT_CEDENT_COLUMNS, 3, 38],
+    ["Cedentes · evolução", "Cedentes · evolução por segmento", "PL alcançado identifica fundos citantes e não mede exposição econômica ao cedente.", "cedente_evolution_by_segment", CEDENTE_EVOLUTION_BY_SEGMENT_COLUMNS, 3, 34],
+    ["Cedentes · presença", "Cedentes · presença no tempo", "Presença do cedente nos Top 500 recalculados em cada competência.", "cedente_presence_history", CEDENTE_PRESENCE_HISTORY_COLUMNS, 3, 34],
+    ["Cedentes · cobertura", "Cobertura do Top 500", "O denominador é o PL total da indústria; fundos sem cedente permanecem no Top 500.", "cedente_top500_coverage_history", CEDENTE_TOP500_COVERAGE_HISTORY_COLUMNS, 2, 34],
+    ["Cedentes · PL segmento", "PL por segmento do cedente dominante", "PL integral do fundo atribuído ao cedente dominante; percentuais declarados não rateiam PL.", "cedente_segment_mix_history", CEDENTE_SEGMENT_MIX_HISTORY_COLUMNS, 3, 34],
+    ["Cedentes · cadastro", "Cadastro mestre dos cedentes", "CNAE, natureza, porte, capital, Simples/MEI e classificação analítica auditável.", "cedente_registry_master", CEDENTE_REGISTRY_MASTER_COLUMNS, 3, 36],
+    ["Cedentes · exclusões", "Cedentes · exclusões e reparos", "Log de documentos fictícios, irregulares e zeros à esquerda recuperados.", "cedente_exclusions", CEDENTE_EXCLUSIONS_COLUMNS, 4, 42],
+    ["Cedentes · reparos fonte", "Cedentes · reparos estruturais da fonte", "Gate estrutural aplicado antes do ranking: cada reparo preserva competência, tabela, arquivo-fonte, linha física e ação executada.", "cedente_source_repairs", CEDENTE_SOURCE_REPAIRS_COLUMNS, 4, 42],
+  ];
+  for (const sheetName of ["Cedentes · Leia-me", ...specs.map(([name]) => name)]) {
+    const existing = workbook.worksheets.getItemOrNullObject(sheetName);
+    if (!existing.isNullObject) existing.delete();
   }
-
-  const curveSheet = await addAuditablePayloadSheet(workbook, {
-    name: "Cedentes · Cobertura",
-    title: "Cedentes · curva acumulada de cobertura",
-    subtitle: "4.311 fundos do maior para o menor PL. A aba separa PL com e sem cedente declarado na Tabela I; vazio na fonte permanece ausência, sem imputação.",
-    columns: CEDENTE_COVERAGE_COLUMNS,
-    rows: payload.cedente_middle_market_coverage_curve || [],
-    freezeColumns: 4,
-    bodyFontSize: 8.5,
-    rowHeight: 34,
-  });
-  if ((payload.cedente_middle_market_coverage_curve || []).length) {
-    const cutoffColumn = columnLetter(CEDENTE_COVERAGE_COLUMNS.findIndex((column) => column.key === "corte_recomendado_flag"));
-    curveSheet.getRange(`${cutoffColumn}5:${cutoffColumn}${(payload.cedente_middle_market_coverage_curve || []).length + 4}`).conditionalFormats.add("containsText", {
-      text: "Sim",
-      format: { fill: "#FFF0D6", font: { bold: true, color: "#A65A00" } },
+  addCedenteReadmeSheet(workbook, payload);
+  for (const [name, title, subtitle, key, columns, freezeColumns, rowHeight] of specs) {
+    const rows = payload[key] || [];
+    await addAuditablePayloadSheet(workbook, {
+      name,
+      title,
+      subtitle,
+      columns,
+      rows,
+      freezeColumns,
+      bodyFontSize: rows.length > 1000 ? 8 : 9,
+      rowHeight,
     });
   }
 }
@@ -11795,8 +11970,16 @@ async function exportWorkbook(workbook) {
       ["Curadoria Atlântico", "A1:D36"],
       ["Série Atlântico", "A1:M12"],
       ["Cedentes · Leia-me", "A1:H20"],
-      ["Cedentes · Top 437", "A1:AS20"],
-      ["Cedentes · Cobertura", "A1:Y20"],
+      ["Cedentes · Top 500", "A1:AG20"],
+      ["Cedentes · competência", "A1:W20"],
+      ["Cedentes · sem cedente", "A1:I20"],
+      ["Cedentes · evolução", "A1:H20"],
+      ["Cedentes · presença", "A1:N20"],
+      ["Cedentes · cobertura", "A1:P20"],
+      ["Cedentes · PL segmento", "A1:J20"],
+      ["Cedentes · cadastro", "A1:R20"],
+      ["Cedentes · exclusões", "A1:V20"],
+      ["Cedentes · reparos fonte", "A1:H20"],
       ["Taxonomia · de-para", "A1:M20"],
       ["Taxonomia · Outros", "A1:P20"],
       ["Taxonomia · impacto", "A1:R64"],

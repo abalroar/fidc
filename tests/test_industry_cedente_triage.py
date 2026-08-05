@@ -171,7 +171,7 @@ def _normalized_frames() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     return priority, fund_cedent, consolidated
 
 
-def test_document_key_is_conservative_about_missing_leading_zero() -> None:
+def test_document_key_recovers_unambiguous_missing_leading_zero() -> None:
     assert normalize_cedente_document("33.000.167/0001-01", "CNPJ") == (
         "33.000.167/0001-01",
         "CNPJ|33000167000101",
@@ -184,8 +184,8 @@ def test_document_key_is_conservative_about_missing_leading_zero() -> None:
     )
     raw, key, status = normalize_cedente_document(1027058000191, "irregular")
     assert raw == "1027058000191"
-    assert key == "IRREGULAR|1027058000191"
-    assert status == "irregular"
+    assert key == "CNPJ|01027058000191"
+    assert status == "cnpj_zero_esquerda_recuperado"
 
 
 def test_consolidation_keeps_both_blocks_and_flags_bad_percentages() -> None:

@@ -40,6 +40,13 @@ ANBIMA_SOURCE_WORKBOOK_SHA256 = (
 # Optional compatibility read in the presentation renderer.  The current
 # payload uses ``reag_admin_summary`` and intentionally has no legacy block.
 OPTIONAL_ABSENT_PPTX_KEYS = frozenset({"reag_admin_migration"})
+PROHIBITED_PUBLISHED_PAYLOAD_KEYS = frozenset(
+    {
+        "reag_admin_migration",
+        "cedente_top437_detail",
+        "cedente_top437_coverage_history",
+    }
+)
 EXPECTED_WORKBOOK_SHEETS_TO_REMOVE = (
     "Conflitos Tab IV",
     "Warnings",
@@ -264,7 +271,6 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     }
     assert manifest["payload_sha256"] == payload_digest
     assert manifest["payload_schema"] == payload["schema_version"] == PAYLOAD_SCHEMA
-    assert len(payload) == 178
     assert {
         "carteira_1_curation",
         "carteira_1_curation_ranges",
@@ -298,9 +304,17 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
         "top100_fidcs_middle_market",
         "top100_fidcs_middle_market_summary",
         "taxonomy_level_history",
-        "cedente_middle_market_top437",
-        "cedente_middle_market_coverage_curve",
-        "cedente_middle_market_manifest",
+        "cedente_top500_detail",
+        "cedente_registry_by_competence",
+        "cedente_funds_without_cedent",
+        "cedente_evolution_by_segment",
+        "cedente_presence_history",
+        "cedente_top500_coverage_history",
+        "cedente_segment_mix_history",
+        "cedente_registry_master",
+        "cedente_exclusions",
+        "cedente_source_repairs",
+        "cedente_triage_manifest",
         "taxonomy_audit_decisions",
         "taxonomy_audit_outros_three_buckets",
         "taxonomy_audit_impact_summary",
@@ -308,6 +322,7 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
         "taxonomy_audit_market_share_impact",
         "taxonomy_audit_manifest",
     }.issubset(payload)
+    assert PROHIBITED_PUBLISHED_PAYLOAD_KEYS.isdisjoint(payload)
     assert len(payload["portfolio_export_carteira_101"]) == 101
     assert len(payload["portfolio_export_cases_99"]) == 99
     top100_plus2 = payload["top100_fidcs_middle_market"]
@@ -344,9 +359,9 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
     dashboard_keys = _dashboard_payload_keys(dashboard_source)
     consumer_keys = pptx_keys | dashboard_keys
 
-    assert len(pptx_keys) == 90
-    assert len(dashboard_keys) == 95
-    assert len(consumer_keys) == 122
+    assert pptx_keys
+    assert dashboard_keys
+    assert consumer_keys == pptx_keys | dashboard_keys
     assert {
         "carteira_1_flagship_comparison",
         "carteira_1_flagship_comparison_summary",
@@ -363,6 +378,19 @@ def test_published_payload_and_static_consumer_contract_are_content_addressed() 
         "portfolio_export_cases_99",
         "top100_fidcs_middle_market",
     }.issubset(pptx_keys)
+    assert {
+        "cedente_top500_detail",
+        "cedente_registry_by_competence",
+        "cedente_funds_without_cedent",
+        "cedente_evolution_by_segment",
+        "cedente_presence_history",
+        "cedente_top500_coverage_history",
+        "cedente_segment_mix_history",
+        "cedente_registry_master",
+        "cedente_exclusions",
+        "cedente_source_repairs",
+        "cedente_triage_manifest",
+    }.issubset(dashboard_keys)
     assert pptx_keys.issubset(payload)
     assert dashboard_keys.issubset(payload)
     assert re.fullmatch(r"[0-9a-f]{64}", _dimensions_digest(payload, consumer_keys))

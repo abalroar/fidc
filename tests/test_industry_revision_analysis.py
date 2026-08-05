@@ -1235,6 +1235,23 @@ def test_optional_payload_reader_preserves_leading_zero_cnpj(tmp_path) -> None:
     assert records.iloc[0]["admin_destino_cnpj"] == "00806535000154"
 
 
+def test_optional_payload_reader_preserves_leading_zero_string_field(tmp_path) -> None:
+    path = tmp_path / "cedentes.csv"
+    path.write_text(
+        "CNPJ/CPF,CNAE (cód.)\n01027058000191,0600001\n",
+        encoding="utf-8",
+    )
+
+    records = _read_optional(
+        path,
+        cnpj_columns=("CNPJ/CPF",),
+        string_columns=("CNAE (cód.)",),
+    )
+
+    assert records.iloc[0]["CNPJ/CPF"] == "01027058000191"
+    assert records.iloc[0]["CNAE (cód.)"] == "0600001"
+
+
 def test_delinquency_dispersion_uses_only_positive_reporters() -> None:
     members = pd.DataFrame(
         [

@@ -64,9 +64,25 @@ PORTFOLIO_CHART_PATCHER = ROOT / "scripts" / "patch_portfolio_workbook_charts.py
 PROVIDER_FLOW_BUILDER = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
 PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v10"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v11"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
 DEFAULT_TIMEOUT_SECONDS = 30 * 60
+CEDENTE_TOP500_COMPETENCES = ("202312", "202412", "202512", "202606")
+CEDENTE_TOP500_COMBINED_OUTPUTS = frozenset(
+    {
+        "fidc_cedentes_top500_2023_2026.csv.gz",
+        "fidc_cedentes_por_competencia_2023_2026.csv.gz",
+        "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+        "fidc_cedentes_evolucao_segmento_2023_2026.csv",
+        "fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+        "fidc_cedentes_cobertura_top500_2023_2026.csv",
+        "fidc_cedentes_pl_segmento_2023_2026.csv",
+        "fidc_cedentes_cadastro_master.csv.gz",
+        "fidc_cedentes_receita_targets.csv",
+        "fidc_cedentes_exclusoes_2023_2026.csv.gz",
+        "fidc_cedentes_reparos_fonte_2023_2026.csv",
+    }
+)
 
 REQUIRED_DATA_INPUTS = (
     "vehicle_monthly.csv.gz",
@@ -139,9 +155,32 @@ REQUIRED_DATA_INPUTS = (
     "industry_taxonomy_impact_flows_202606.csv",
     "industry_taxonomy_issuance_impact_202606.csv",
     "industry_taxonomy_market_share_denominator_impact_202606.csv",
-    "cedente_triage/202606/fidc_cedentes_top437_202606.csv.gz",
-    "cedente_triage/202606/fidc_cedentes_curva_cobertura_202606.csv",
-    "cedente_triage/202606/fidc_cedentes_triagem_manifest_202606.json",
+    "cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_por_competencia_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_evolucao_segmento_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_cobertura_top500_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_pl_segmento_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_cadastro_master.csv.gz",
+    "cedente_triage/fidc_cedentes_receita_targets.csv",
+    "cedente_triage/fidc_cedentes_exclusoes_2023_2026.csv.gz",
+    "cedente_triage/fidc_cedentes_reparos_fonte_2023_2026.csv",
+    "cedente_triage/fidc_cedentes_triagem_index.json",
+    *(
+        f"cedente_triage/{competence}/{filename}"
+        for competence in CEDENTE_TOP500_COMPETENCES
+        for filename in (
+            f"fidc_cedentes_top500_{competence}.csv.gz",
+            f"fidc_cedentes_vinculos_{competence}.csv.gz",
+            f"fidc_cedentes_fundos_sem_cedente_{competence}.csv.gz",
+            f"fidc_cedentes_cobertura_{competence}.csv.gz",
+            f"fidc_cedentes_pl_por_segmento_{competence}.csv.gz",
+            f"fidc_cedentes_exclusoes_{competence}.csv.gz",
+            f"fidc_cedentes_reparos_fonte_{competence}.csv.gz",
+            f"fidc_cedentes_manifest_{competence}.json",
+        )
+    ),
 )
 OPTIONAL_DATA_INPUTS = (
     "industry_anbima_classification.csv.gz",
@@ -176,6 +215,8 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_issuance_taxonomy_delta.py",
     ROOT / "scripts" / "import_industry_taxonomy_audit.py",
     ROOT / "scripts" / "build_fidc_cedente_triage.py",
+    ROOT / "scripts" / "build_fidc_cedente_top500.py",
+    ROOT / "scripts" / "extract_receita_cnpj_registry.py",
     ROOT / "scripts" / "build_fidc_taxonomy_impact.py",
     ROOT / "scripts" / "build_fidc_bcb_expanded_credit.py",
     ROOT / "scripts" / "build_fidc_offer_document_curation.py",
@@ -207,6 +248,8 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_issuance_taxonomy.py",
     ROOT / "services" / "industry_taxonomy_audit_import.py",
     ROOT / "services" / "industry_cedente_triage.py",
+    ROOT / "services" / "industry_cedente_top500.py",
+    ROOT / "services" / "receita_cnpj_bulk.py",
     ROOT / "services" / "industry_taxonomy_impact.py",
     ROOT / "services" / "industry_flagship_curation.py",
     ROOT / "services" / "industry_public_offers.py",
@@ -1763,12 +1806,347 @@ def _validate_emission_field_coverage(payload: Mapping[str, object]) -> None:
         )
 
 
+def _cedente_competence(value: object) -> str:
+    return re.sub(r"\D", "", str(value or ""))
+
+
+def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
+    expected_competences = set(CEDENTE_TOP500_COMPETENCES)
+    required_columns: dict[str, set[str]] = {
+        "cedente_top500_detail": {
+            "Competência",
+            "Rank PL",
+            "CNPJ do fundo",
+            "CNPJ/CPF do cedente",
+            "Cedente dominante?",
+            "Natureza do cedente",
+            "Segmento",
+            "Critério do segmento",
+        },
+        "cedente_registry_by_competence": {
+            "Competência",
+            "CNPJ/CPF",
+            "Razão social",
+            "Natureza do cedente",
+            "Segmento",
+            "Critério do segmento",
+        },
+        "cedente_funds_without_cedent": {
+            "Competência",
+            "Rank PL",
+            "CNPJ do fundo",
+            "Motivo",
+        },
+        "cedente_evolution_by_segment": {
+            "Competência",
+            "Segmento",
+            "PL alcançado (R$)",
+        },
+        "cedente_presence_history": {
+            "CNPJ/CPF",
+            "Competências",
+            "Natureza do cedente",
+            "Segmento",
+        },
+        "cedente_top500_coverage_history": {
+            "Competência",
+            "Fundos que identificam cedente",
+            "Fundos sem cedente",
+            "Fundos na indústria",
+            "PL do Top 500 (R$)",
+            "PL total da indústria (R$)",
+            "PL sem cedente (R$)",
+            "% do PL total",
+        },
+        "cedente_segment_mix_history": {
+            "Competência",
+            "Segmento",
+            "PL dominante (R$)",
+            "PL identificado · denominador (R$)",
+            "PL Top 500 · denominador (R$)",
+        },
+        "cedente_registry_master": {
+            "CNPJ/CPF",
+            "Razão social",
+            "Natureza do cedente",
+            "Segmento",
+            "Critério do segmento",
+        },
+        "cedente_exclusions": {
+            "competencia",
+            "cnpj_fundo",
+            "motivo_exclusao",
+        },
+        "cedente_source_repairs": {
+            "competencia",
+            "tabela",
+            "fonte",
+            "linha_fisica",
+            "acao",
+            "documento_fundo",
+            "denominacao_reparada",
+            "data_referencia",
+        },
+    }
+    rows_by_key: dict[str, list[Mapping[str, object]]] = {}
+    for key, columns in required_columns.items():
+        raw_rows = payload.get(key)
+        if not isinstance(raw_rows, list) or not raw_rows:
+            raise RevisionBundlePublishError(f"payload editorial sem {key}")
+        rows: list[Mapping[str, object]] = []
+        for index, row in enumerate(raw_rows, start=1):
+            if not isinstance(row, Mapping):
+                raise RevisionBundlePublishError(
+                    f"payload {key} contém linha {index} inválida"
+                )
+            missing = sorted(columns.difference(row))
+            if missing:
+                raise RevisionBundlePublishError(
+                    f"payload {key} linha {index} sem colunas obrigatórias: "
+                    + ", ".join(missing)
+                )
+            rows.append(row)
+        rows_by_key[key] = rows
+
+    competence_columns = {
+        "cedente_top500_detail": "Competência",
+        "cedente_registry_by_competence": "Competência",
+        "cedente_funds_without_cedent": "Competência",
+        "cedente_evolution_by_segment": "Competência",
+        "cedente_top500_coverage_history": "Competência",
+        "cedente_segment_mix_history": "Competência",
+    }
+    for key, competence_column in competence_columns.items():
+        observed = {
+            _cedente_competence(row.get(competence_column))
+            for row in rows_by_key[key]
+        }
+        if observed != expected_competences:
+            raise RevisionBundlePublishError(
+                f"{key} deve conter as quatro competências do Top 500; "
+                f"contém {sorted(observed)}"
+            )
+
+    coverage_rows = rows_by_key["cedente_top500_coverage_history"]
+    if len(coverage_rows) != 4:
+        raise RevisionBundlePublishError(
+            "cedente_top500_coverage_history deve conter quatro linhas"
+        )
+    coverage_checkpoints = {
+        "202312": (181, 2404, 0.8395464326020662),
+        "202412": (148, 3140, 0.7946176676596972),
+        "202512": (205, 4008, 0.7349500587764943),
+        "202606": (172, 4311, 0.7255622598775591),
+    }
+    for row in coverage_rows:
+        competence = _cedente_competence(row.get("Competência"))
+        identified = int(row.get("Fundos que identificam cedente") or 0)
+        unidentified = int(row.get("Fundos sem cedente") or 0)
+        if identified + unidentified != 500:
+            raise RevisionBundlePublishError(
+                "cobertura de cedentes deve fechar os 500 fundos em "
+                + competence
+            )
+        if float(row.get("PL do Top 500 (R$)") or 0.0) <= 0.0:
+            raise RevisionBundlePublishError(
+                "cobertura de cedentes contém PL do Top 500 ausente"
+            )
+        expected_identified, expected_industry, expected_coverage = (
+            coverage_checkpoints[competence]
+        )
+        if (
+            identified != expected_identified
+            or int(row.get("Fundos na indústria") or 0) != expected_industry
+            or not math.isclose(
+                float(row.get("% do PL total") or 0.0),
+                expected_coverage,
+                abs_tol=1e-12,
+            )
+        ):
+            raise RevisionBundlePublishError(
+                f"checkpoint Top 500 diverge em {competence}"
+            )
+
+    source_repairs = rows_by_key["cedente_source_repairs"]
+    repairs_by_competence = {
+        competence: sum(
+            _cedente_competence(row.get("competencia")) == competence
+            for row in source_repairs
+        )
+        for competence in CEDENTE_TOP500_COMPETENCES
+    }
+    expected_repairs = {"202312": 6, "202412": 4, "202512": 0, "202606": 0}
+    if len(source_repairs) != 10 or repairs_by_competence != expected_repairs:
+        raise RevisionBundlePublishError(
+            "cedente_source_repairs deve conter os 10 reparos auditados "
+            "(6 em 202312 e 4 em 202412)"
+        )
+
+    for key, column in (
+        ("cedente_top500_detail", "CNPJ do fundo"),
+        ("cedente_funds_without_cedent", "CNPJ do fundo"),
+    ):
+        invalid = [
+            str(row.get(column) or "")
+            for row in rows_by_key[key]
+            if not re.fullmatch(r"\d{14}", str(row.get(column) or ""))
+        ]
+        if invalid:
+            raise RevisionBundlePublishError(
+                f"{key} contém CNPJ de fundo inválido: {invalid[0]}"
+            )
+    if any(
+        not 1 <= int(row.get("Rank PL") or 0) <= 500
+        for row in rows_by_key["cedente_top500_detail"]
+    ):
+        raise RevisionBundlePublishError(
+            "cedente_top500_detail contém rank fora do Top 500"
+        )
+
+    manifest = payload.get("cedente_triage_manifest")
+    if not isinstance(manifest, Mapping):
+        raise RevisionBundlePublishError("payload sem cedente_triage_manifest")
+    if str(manifest.get("schema_version") or "") != "fidc-cedente-top500/v2":
+        raise RevisionBundlePublishError("schema do manifesto Top 500 incompatível")
+    if int(manifest.get("cutoff_rank") or 0) != 500:
+        raise RevisionBundlePublishError("manifesto de cedentes não usa corte Top 500")
+    manifest_competences = {
+        _cedente_competence(value) for value in list(manifest.get("competences") or [])
+    }
+    if manifest_competences != expected_competences:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não contém as quatro competências"
+        )
+    metrics = manifest.get("metrics")
+    if not isinstance(metrics, Mapping) or {
+        _cedente_competence(value) for value in metrics
+    } != expected_competences:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não traz métricas para as quatro competências"
+        )
+    outputs = manifest.get("outputs")
+    if not isinstance(outputs, Mapping) or not CEDENTE_TOP500_COMBINED_OUTPUTS.issubset(
+        outputs
+    ):
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não referencia todos os artefatos combinados"
+        )
+    for name in CEDENTE_TOP500_COMBINED_OUTPUTS:
+        metadata = outputs.get(name)
+        if not isinstance(metadata, Mapping):
+            raise RevisionBundlePublishError(
+                f"manifesto de cedentes sem metadados de {name}"
+            )
+        if int(metadata.get("rows") or 0) <= 0 or not re.fullmatch(
+            r"[0-9a-f]{64}", str(metadata.get("sha256") or "")
+        ):
+            raise RevisionBundlePublishError(
+                f"manifesto de cedentes contém metadados inválidos de {name}"
+            )
+    repair_output = outputs["fidc_cedentes_reparos_fonte_2023_2026.csv"]
+    if int(repair_output.get("rows") or 0) != 10:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes deve registrar os 10 reparos estruturais da fonte"
+        )
+    repairs_summary = manifest.get("source_repairs_summary")
+    if not isinstance(repairs_summary, Mapping) or {
+        _cedente_competence(key): int(value or 0)
+        for key, value in repairs_summary.items()
+    } != expected_repairs:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes deve reconciliar os 10 reparos por competência"
+        )
+    competence_manifests = manifest.get("competence_manifests")
+    if not isinstance(competence_manifests, Mapping) or {
+        _cedente_competence(value) for value in competence_manifests
+    } != expected_competences:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não referencia os quatro manifests por competência"
+        )
+    for competence, metadata in competence_manifests.items():
+        if (
+            not isinstance(metadata, Mapping)
+            or int(metadata.get("bytes") or 0) <= 0
+            or not re.fullmatch(r"[0-9a-f]{64}", str(metadata.get("sha256") or ""))
+        ):
+            raise RevisionBundlePublishError(
+                "manifesto de cedentes contém descriptor inválido para "
+                + str(competence)
+            )
+    rules = manifest.get("rules")
+    if not isinstance(rules, Mapping) or not {
+        "fake_documents",
+        "leading_zero",
+        "pl_assignment",
+        "potential_middle",
+        "table_i",
+        "table_iv",
+    }.issubset(rules):
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não documenta as regras de tratamento"
+        )
+    limitations = manifest.get("limitations")
+    if not isinstance(limitations, list) or len(limitations) < 3:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não documenta as limitações da triagem"
+        )
+    sources = manifest.get("sources")
+    if not isinstance(sources, Mapping) or not {"cvm", "registry"}.issubset(sources):
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não identifica as fontes CVM e cadastral"
+        )
+    registry_source = sources.get("registry")
+    if not isinstance(registry_source, Mapping) or str(
+        registry_source.get("mode") or ""
+    ) not in {"receita_bulk_local", "bootstrap_reference_workbook"}:
+        raise RevisionBundlePublishError(
+            "cadastro de cedentes deve vir do processamento em massa da Receita "
+            "ou do gabarito local auditado"
+        )
+
+    def contains_brasilapi_endpoint(value: object) -> bool:
+        if isinstance(value, Mapping):
+            return any(contains_brasilapi_endpoint(item) for item in value.values())
+        if isinstance(value, list):
+            return any(contains_brasilapi_endpoint(item) for item in value)
+        return isinstance(value, str) and "brasilapi.com" in value.lower()
+
+    if contains_brasilapi_endpoint(sources):
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes não pode depender de endpoint BrasilAPI"
+        )
+
+    def absolute_source_path(value: object) -> str | None:
+        if isinstance(value, Mapping):
+            for nested in value.values():
+                found = absolute_source_path(nested)
+                if found:
+                    return found
+        elif isinstance(value, list):
+            for nested in value:
+                found = absolute_source_path(nested)
+                if found:
+                    return found
+        elif isinstance(value, str) and (
+            value.startswith("/") or re.match(r"^[A-Za-z]:[\\/]", value)
+        ):
+            return value
+        return None
+
+    leaked_path = absolute_source_path(sources)
+    if leaked_path:
+        raise RevisionBundlePublishError(
+            "manifesto de cedentes expõe caminho local absoluto: " + leaked_path
+        )
+
+
 def validate_artifact_payload(payload: Mapping[str, object], latest_complete: str) -> None:
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionBundlePublishError("schema do payload editorial incompatível")
     if payload.get("latest_complete") != latest_complete:
         raise RevisionBundlePublishError("competência do payload editorial diverge")
     _validate_portfolio_export_payload(payload)
+    _validate_cedente_top500_payload(payload)
     for key in ("top20_fidcs", "top20_outros", "profiles"):
         rows = payload.get(key)
         if not isinstance(rows, list) or len(rows) != 20:

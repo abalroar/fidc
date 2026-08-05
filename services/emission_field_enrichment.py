@@ -1267,7 +1267,7 @@ def enrich_emission_field_audit(
             reasons.append(
                 "cedente: Tabela I sem declaração"
                 if cnpj in triage_scope
-                else "cedente: CNPJ fora do corte Top 437"
+                else "cedente: CNPJ fora do corte Top 500"
             )
         if is_missing(output.at[index, "subordinacao_minima"]):
             reasons.append("sub. mín.: cláusula explícita não localizada")

@@ -1,0 +1,103 @@
+{
+  "competence": "202412",
+  "cutoff_rank": 500,
+  "generated_at": "2026-08-05T00:03:32.629977+00:00",
+  "metrics": {
+    "fundos_com_cedente_real": 148,
+    "fundos_industria": 3140,
+    "fundos_sem_cedente_real": 352,
+    "pl_industria_reais": 731837114451.08,
+    "pl_sem_cedente_real_reais": 360177011515.29004,
+    "pl_top500_reais": 581530700991.92,
+    "pl_top500_sobre_industria_pct": 0.7946176676596972,
+    "pl_ultimo_fundo_top_reais": 269540518.54
+  },
+  "outputs": {
+    "fidc_cedentes_cobertura_202412.csv.gz": {
+      "bytes": 308,
+      "name": "fidc_cedentes_cobertura_202412.csv.gz",
+      "sha256": "85d6d69e6dfe09885c9fd487c0e97931122ffff30696c5a6b28afedc75971d44"
+    },
+    "fidc_cedentes_exclusoes_202412.csv.gz": {
+      "bytes": 8828,
+      "name": "fidc_cedentes_exclusoes_202412.csv.gz",
+      "sha256": "fdc743285612ca1dc4a9f817b1a5274b799b84cc5c6243d8914341de2519757d"
+    },
+    "fidc_cedentes_fundos_sem_cedente_202412.csv.gz": {
+      "bytes": 24003,
+      "name": "fidc_cedentes_fundos_sem_cedente_202412.csv.gz",
+      "sha256": "383995b24f0dcb26b274e753376fbbc1d4b340e5d183c0ad4b39637ee5b00f7a"
+    },
+    "fidc_cedentes_pl_por_segmento_202412.csv.gz": {
+      "bytes": 492,
+      "name": "fidc_cedentes_pl_por_segmento_202412.csv.gz",
+      "sha256": "1362d3c722dc4d77f7993daf5c4187dcd44a8a7c99edba6eaf924bb4e39bead8"
+    },
+    "fidc_cedentes_reparos_fonte_202412.csv.gz": {
+      "bytes": 329,
+      "name": "fidc_cedentes_reparos_fonte_202412.csv.gz",
+      "sha256": "f5c29b3806a942fb82a32a19fc23b3d76de6599c613e44bcc518ce42eeff97c0"
+    },
+    "fidc_cedentes_top500_202412.csv.gz": {
+      "bytes": 39762,
+      "name": "fidc_cedentes_top500_202412.csv.gz",
+      "sha256": "c8bdbf11528141edeaab99979ba8fa33c7977255d9611ea7044edafa975e58d1"
+    },
+    "fidc_cedentes_vinculos_202412.csv.gz": {
+      "bytes": 31599,
+      "name": "fidc_cedentes_vinculos_202412.csv.gz",
+      "sha256": "3de96ff618d7b68637a2845c4f7113023258570cde58345cded531485c36d113"
+    }
+  },
+  "parent_manifest": "../fidc_cedentes_triagem_index.json",
+  "schema_version": "fidc-cedente-top500/v2",
+  "source": {
+    "bytes": 23770758,
+    "name": "2024.zip",
+    "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2024.zip",
+    "role": "Informe Mensal FIDC da CVM",
+    "sha256": "45e3b85a8f4ff34e0186766d4b33c9d906bc7b3f96a2972efd2e4f90b4f628cc"
+  },
+  "source_repairs": [
+    {
+      "acao": "remove_unpaired_quote",
+      "competencia": "202412",
+      "data_referencia": "2024-12-31",
+      "denominacao_reparada": "VERSATILE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "41609394000167",
+      "fonte": "2024.zip!inf_mensal_fidc_tab_IV_202412.csv",
+      "linha_fisica": 1207,
+      "tabela": "Tabela IV"
+    },
+    {
+      "acao": "remove_unpaired_quote_and_adjacent_comma",
+      "competencia": "202412",
+      "data_referencia": "2024-12-31",
+      "denominacao_reparada": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGRO CITI-SYNGENTA RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "46073195000109",
+      "fonte": "2024.zip!inf_mensal_fidc_tab_IV_202412.csv",
+      "linha_fisica": 1515,
+      "tabela": "Tabela IV"
+    },
+    {
+      "acao": "remove_unpaired_quote",
+      "competencia": "202412",
+      "data_referencia": "2024-12-31",
+      "denominacao_reparada": "VERSATILE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "41609394000167",
+      "fonte": "2024.zip!inf_mensal_fidc_tab_I_202412.csv",
+      "linha_fisica": 1207,
+      "tabela": "Tabela I"
+    },
+    {
+      "acao": "remove_unpaired_quote_and_adjacent_comma",
+      "competencia": "202412",
+      "data_referencia": "2024-12-31",
+      "denominacao_reparada": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGRO CITI-SYNGENTA RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "46073195000109",
+      "fonte": "2024.zip!inf_mensal_fidc_tab_I_202412.csv",
+      "linha_fisica": 1515,
+      "tabela": "Tabela I"
+    }
+  ]
+}

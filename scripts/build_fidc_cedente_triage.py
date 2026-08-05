@@ -45,7 +45,7 @@ def parse_args() -> argparse.Namespace:
         "--cutoff-rank",
         type=int,
         default=DEFAULT_CUTOFF_RANK,
-        help="Rank máximo da fila priorizada (padrão: 437)",
+        help="Rank máximo da fila priorizada (padrão: 500)",
     )
     parser.add_argument(
         "--output-dir",

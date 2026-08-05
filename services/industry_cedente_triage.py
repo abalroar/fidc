@@ -28,7 +28,7 @@ import pandas as pd
 
 SCHEMA_VERSION = "fidc-cedente-triage/v1"
 DEFAULT_COMPETENCE = "202606"
-DEFAULT_CUTOFF_RANK = 437
+DEFAULT_CUTOFF_RANK = 500
 TARGET_COVERAGE_SHARES = (0.50, 0.70, 0.80, 0.90)
 
 SHEET_README = "Leia-me"
@@ -204,11 +204,24 @@ def _valid_cpf_digits(digits: str) -> bool:
 
 
 def normalize_cedente_document(value: object, declared_type: object) -> tuple[str, str, str]:
-    """Return ``(raw, key, status)`` without inventing a missing leading zero."""
+    """Return ``(raw, key, status)`` and recover a lost leading CNPJ zero.
+
+    The CVM historical files contain CNPJs exported with 13 digits after the
+    leading zero was consumed.  A 13-digit document cannot be a CPF, so the
+    recovery is deterministic and remains visible in the status field.
+    """
 
     raw = _clean_text(value)
     kind = _fold_text(declared_type)
     digits = _digits(raw)
+    if len(digits) == 13:
+        recovered = digits.zfill(14)
+        status = (
+            "cnpj_zero_esquerda_recuperado"
+            if _valid_cnpj_digits(recovered)
+            else "cnpj_zero_esquerda_recuperado_dv_invalido"
+        )
+        return raw, f"CNPJ|{recovered}", status
     if kind == "cnpj" and len(digits) == 14:
         status = "cnpj_valido" if _valid_cnpj_digits(digits) else "cnpj_dv_invalido"
         return raw, f"CNPJ|{digits}", status
