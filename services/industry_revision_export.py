@@ -40,7 +40,7 @@ MATERIALIZED_PORTFOLIO_XLSX_NAME = "carteira_101_flagships.xlsx"
 MATERIALIZED_TOP100_XLSX_NAME = "top100_fidcs_middle_market.xlsx"
 MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v5"
-PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v10"
+PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v11"
 TOP100_PLUS2_ADDITIONAL_CNPJS = {"44302112000172", "61669748000176"}
 ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ((6, 8),)
 STRUCTURAL_MVP_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
@@ -231,8 +231,16 @@ REQUIRED_WORKBOOK_SHEETS = {
     "Curadoria Atlântico",
     "Série Atlântico",
     "Cedentes · Leia-me",
-    "Cedentes · Top 437",
-    "Cedentes · Cobertura",
+    "Cedentes · Top 500",
+    "Cedentes · competência",
+    "Cedentes · sem cedente",
+    "Cedentes · evolução",
+    "Cedentes · presença",
+    "Cedentes · cobertura",
+    "Cedentes · PL segmento",
+    "Cedentes · cadastro",
+    "Cedentes · exclusões",
+    "Cedentes · reparos fonte",
     "Taxonomia · de-para",
     "Taxonomia · Outros",
     "Taxonomia · impacto",
@@ -249,6 +257,122 @@ REVISION_EMISSION_AUDIT_REQUIRED_HEADERS = frozenset(
     }
 )
 REVISION_EMISSION_COVERAGE_TARGET_LABEL = "Remuneração-alvo"
+CEDENTE_TOP500_COMPETENCES = frozenset({"202312", "202412", "202512", "202606"})
+CEDENTE_TOP500_WORKBOOK_SHEETS = {
+    "Cedentes · Top 500": {
+        "required_headers": {
+            "CNPJ do fundo",
+            "CNPJ/CPF do cedente",
+            "Competência",
+            "Rank PL",
+            "Cedente dominante?",
+        },
+        "identifier_headers": {
+            "CNPJ do fundo": r"\d{14}",
+            "CNPJ/CPF do cedente": r"\d{1,14}",
+        },
+        "competence_header": "Competência",
+    },
+    "Cedentes · competência": {
+        "required_headers": {
+            "CNPJ/CPF",
+            "Competência",
+            "Natureza do cedente",
+            "Segmento",
+            "Critério do segmento",
+        },
+        "identifier_headers": {"CNPJ/CPF": r"\d{1,14}"},
+        "competence_header": "Competência",
+    },
+    "Cedentes · sem cedente": {
+        "required_headers": {
+            "CNPJ do fundo",
+            "Competência",
+            "Rank PL",
+            "Motivo",
+        },
+        "identifier_headers": {"CNPJ do fundo": r"\d{14}"},
+        "competence_header": "Competência",
+    },
+    "Cedentes · evolução": {
+        "required_headers": {
+            "Competência",
+            "Segmento",
+            "PL alcançado (R$)",
+        },
+        "identifier_headers": {},
+        "competence_header": "Competência",
+    },
+    "Cedentes · presença": {
+        "required_headers": {
+            "CNPJ/CPF",
+            "Competências",
+            "Natureza do cedente",
+            "Segmento",
+        },
+        "identifier_headers": {"CNPJ/CPF": r"\d{1,14}"},
+        "competence_header": None,
+    },
+    "Cedentes · cobertura": {
+        "required_headers": {
+            "Competência",
+            "Fundos que identificam cedente",
+            "Fundos sem cedente",
+            "PL do Top 500 (R$)",
+        },
+        "identifier_headers": {},
+        "competence_header": "Competência",
+        "expected_rows": 4,
+    },
+    "Cedentes · PL segmento": {
+        "required_headers": {
+            "Competência",
+            "Segmento",
+            "PL dominante (R$)",
+            "PL identificado · denominador (R$)",
+        },
+        "identifier_headers": {},
+        "competence_header": "Competência",
+    },
+    "Cedentes · cadastro": {
+        "required_headers": {
+            "CNPJ/CPF",
+            "Natureza do cedente",
+            "Segmento",
+            "Critério do segmento",
+        },
+        "identifier_headers": {"CNPJ/CPF": r"\d{1,14}"},
+        "competence_header": None,
+    },
+    "Cedentes · exclusões": {
+        "required_headers": {
+            "competencia",
+            "cnpj_fundo",
+            "motivo_exclusao",
+        },
+        "identifier_headers": {"cnpj_fundo": r"\d{14}"},
+        "competence_header": "competencia",
+        # 202606 não tem documento fictício/irregular no Top 500; a ausência
+        # de linhas é um resultado válido, não uma competência perdida.
+        "expected_competences": frozenset({"202312", "202412", "202512"}),
+    },
+    "Cedentes · reparos fonte": {
+        "required_headers": {
+            "competencia",
+            "tabela",
+            "fonte",
+            "linha_fisica",
+            "acao",
+            "documento_fundo",
+            "denominacao_reparada",
+            "data_referencia",
+        },
+        "identifier_headers": {"documento_fundo": r"\d{14}"},
+        "competence_header": "competencia",
+        "expected_competences": frozenset({"202312", "202412"}),
+        "expected_rows": 10,
+    },
+}
 REQUIRED_PORTFOLIO_WORKBOOK_SHEETS = {
     "Leia-me",
     "Carteira 101",
@@ -830,9 +954,9 @@ def validate_revision_pptx(payload: bytes) -> None:
             "GARANTIA FIRME",
             "MELHORES ESFORÇOS REPR.",
         )
-        if placement_slide.count(b"<c:chart") < 4:
+        if placement_slide.count(b"<c:chart") != 1:
             raise RevisionExportUnavailable(
-                "slide de volume e regime deve conter dois totais, uma legenda e a participação do volume em gráficos nativos do Office"
+                "slide de regime deve conter somente o gráfico de participação do volume"
             )
         combined_market_slide = _slide_xml_containing(
             archive, "FIDCS SEGUEM GANHANDO ESCALA NAS EMISSÕES"
@@ -948,6 +1072,77 @@ def validate_revision_xlsx(payload: bytes) -> None:
             raise RevisionExportUnavailable(
                 "Cobertura emissões ainda trata VNU como rentabilidade-alvo"
             )
+
+        for sheet_name, contract in CEDENTE_TOP500_WORKBOOK_SHEETS.items():
+            sheet = workbook[sheet_name]
+            header_cells = tuple(
+                next(sheet.iter_rows(min_row=4, max_row=4), ())
+            )
+            headers = [str(cell.value or "").strip() for cell in header_cells]
+            header_index = {
+                header: index for index, header in enumerate(headers) if header
+            }
+            missing_cedent_headers = sorted(
+                contract["required_headers"].difference(header_index)
+            )
+            if missing_cedent_headers:
+                raise RevisionExportUnavailable(
+                    f"{sheet_name} sem cabeçalhos obrigatórios: "
+                    + ", ".join(missing_cedent_headers)
+                )
+
+            rows = [
+                row
+                for row in sheet.iter_rows(min_row=5, max_col=len(headers))
+                if any(cell.value not in (None, "") for cell in row)
+            ]
+            if not rows:
+                raise RevisionExportUnavailable(f"{sheet_name} está vazia")
+
+            competence_header = contract["competence_header"]
+            if competence_header:
+                competence_column = header_index[competence_header]
+                competences = {
+                    re.sub(r"\D", "", str(row[competence_column].value or ""))
+                    for row in rows
+                }
+                expected_competences = contract.get(
+                    "expected_competences", CEDENTE_TOP500_COMPETENCES
+                )
+                if competences != expected_competences:
+                    raise RevisionExportUnavailable(
+                        f"{sheet_name} contém competências divergentes do contrato; "
+                        f"contém {sorted(competences)}"
+                    )
+
+            expected_rows = contract.get("expected_rows")
+            if expected_rows is not None and len(rows) != expected_rows:
+                raise RevisionExportUnavailable(
+                    f"{sheet_name} deveria conter {expected_rows} linhas; contém "
+                    f"{len(rows)}"
+                )
+
+            for identifier_header, identifier_pattern in contract[
+                "identifier_headers"
+            ].items():
+                identifier_column = header_index[identifier_header]
+                invalid_identifiers: list[str] = []
+                for row in rows:
+                    cell = row[identifier_column]
+                    value = cell.value
+                    if not isinstance(value, str) or not re.fullmatch(
+                        identifier_pattern, value.strip()
+                    ):
+                        invalid_identifiers.append(str(value or ""))
+                        if len(invalid_identifiers) >= 3:
+                            break
+                if invalid_identifiers:
+                    raise RevisionExportUnavailable(
+                        f"{sheet_name} deve preservar {identifier_header} como texto "
+                        "de 14 dígitos; exemplos inválidos: "
+                        + ", ".join(invalid_identifiers)
+                    )
+
     finally:
         workbook.close()
 

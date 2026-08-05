@@ -34,6 +34,7 @@ SCHEMA_V7 = "fidc_revision_artifact_payload_v7"
 SCHEMA_V8 = "fidc_revision_artifact_payload_v8"
 SCHEMA_V9 = "fidc_revision_artifact_payload_v9"
 SCHEMA_V10 = "fidc_revision_artifact_payload_v10"
+SCHEMA_V11 = "fidc_revision_artifact_payload_v11"
 
 
 def _ranking_rows(kind: str) -> list[dict[str, object]]:
@@ -164,6 +165,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V8,
         SCHEMA_V9,
         SCHEMA_V10,
+        SCHEMA_V11,
     }:
         payload.update(
             {
@@ -229,6 +231,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V8,
         SCHEMA_V9,
         SCHEMA_V10,
+        SCHEMA_V11,
     }:
         payload.update(
             {
@@ -263,6 +266,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V8,
         SCHEMA_V9,
         SCHEMA_V10,
+        SCHEMA_V11,
     }:
         payload.update(
             {
@@ -362,6 +366,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
         SCHEMA_V8,
         SCHEMA_V9,
         SCHEMA_V10,
+        SCHEMA_V11,
     }:
         payload.update(
             {
@@ -452,7 +457,14 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "conclusion_metrics": {"competencia": "2026-05"},
             }
         )
-    if schema in {SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10}:
+    if schema in {
+        SCHEMA_V6,
+        SCHEMA_V7,
+        SCHEMA_V8,
+        SCHEMA_V9,
+        SCHEMA_V10,
+        SCHEMA_V11,
+    }:
         statuses = (
             ["Incluído em Adquirência"] * 26
             + ["Fora de Adquirência"] * 17
@@ -495,7 +507,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ],
             }
         )
-    if schema in {SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10}:
+    if schema in {SCHEMA_V7, SCHEMA_V8, SCHEMA_V9, SCHEMA_V10, SCHEMA_V11}:
         payload["bcb_expanded_credit"] = [
             {
                 "competencia": "2026-05",
@@ -529,7 +541,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "limitation": "Série sujeita a retificações.",
             }
         ]
-    if schema in {SCHEMA_V9, SCHEMA_V10}:
+    if schema in {SCHEMA_V9, SCHEMA_V10, SCHEMA_V11}:
         portfolio_rows = [
             {"cnpj": f"10{index:012d}", "nome_fundo": f"Carteira {index}"}
             for index in range(1, 102)
@@ -544,7 +556,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
             }
             for index in range(1, 101)
         ]
-        if schema == SCHEMA_V10:
+        if schema in {SCHEMA_V10, SCHEMA_V11}:
             top100_rows.extend(
                 [
                     {
@@ -586,7 +598,7 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 ]
             )
         summary = {"fundos": len(top100_rows)}
-        if schema == SCHEMA_V10:
+        if schema in {SCHEMA_V10, SCHEMA_V11}:
             summary.update(
                 {
                     "top100_fundos": 100,
@@ -598,6 +610,48 @@ def _payload_for_schema(schema: str) -> dict[str, object]:
                 "portfolio_export_carteira_101": portfolio_rows,
                 "top100_fidcs_middle_market": top100_rows,
                 "top100_fidcs_middle_market_summary": summary,
+            }
+        )
+    if schema == SCHEMA_V11:
+        competences = ("202312", "202412", "202512", "202606")
+        payload.update(
+            {
+                "cedente_top500_detail": [
+                    {"Competência": competence} for competence in competences
+                ],
+                "cedente_registry_by_competence": [
+                    {"Competência": competence} for competence in competences
+                ],
+                "cedente_funds_without_cedent": [
+                    {"Competência": competence} for competence in competences
+                ],
+                "cedente_evolution_by_segment": [
+                    {"Competência": competence} for competence in competences
+                ],
+                "cedente_presence_history": [{"CNPJ/CPF": "20000000000001"}],
+                "cedente_top500_coverage_history": [
+                    {"Competência": competence} for competence in competences
+                ],
+                "cedente_segment_mix_history": [
+                    {"Competência": competence} for competence in competences
+                ],
+                "cedente_registry_master": [{"CNPJ/CPF": "20000000000001"}],
+                "cedente_exclusions": [{"competencia": "202312"}],
+                "cedente_source_repairs": [
+                    {
+                        "competencia": competence,
+                        "documento_fundo": f"40{index:012d}",
+                    }
+                    for index, competence in enumerate(
+                        ["202312"] * 6 + ["202412"] * 4,
+                        start=1,
+                    )
+                ],
+                "cedente_triage_manifest": {
+                    "schema_version": "fidc-cedente-top500/v2",
+                    "cutoff_rank": 500,
+                    "competences": list(competences),
+                },
             }
         )
     return payload
@@ -632,6 +686,7 @@ def _load_payload(data_dir: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, 
         SCHEMA_V8,
         SCHEMA_V9,
         SCHEMA_V10,
+        SCHEMA_V11,
     ],
 )
 def test_revision_payload_loader_accepts_each_published_schema(
@@ -647,7 +702,7 @@ def test_revision_payload_loader_accepts_each_published_schema(
     assert loaded == payload
     if schema == SCHEMA_V2:
         assert "market_share_scope_summary" not in loaded
-    if schema == SCHEMA_V10:
+    if schema in {SCHEMA_V10, SCHEMA_V11}:
         top100_plus2 = loaded["top100_fidcs_middle_market"]
         assert len(top100_plus2) == 102
         assert {row["cnpj"] for row in top100_plus2[-2:]} == {
@@ -782,6 +837,9 @@ def test_revision_payload_loader_requires_both_v3_market_share_exclusions(
         (SCHEMA_V9, "portfolio_export_carteira_101"),
         (SCHEMA_V9, "top100_fidcs_middle_market"),
         (SCHEMA_V9, "top100_fidcs_middle_market_summary"),
+        (SCHEMA_V11, "cedente_top500_detail"),
+        (SCHEMA_V11, "cedente_source_repairs"),
+        (SCHEMA_V11, "cedente_triage_manifest"),
     ],
 )
 def test_revision_payload_loader_enforces_blocks_introduced_by_each_schema(
@@ -911,7 +969,7 @@ def _write_current_bundle_metadata(
             index=False,
         )
     payload = {
-        "schema_version": SCHEMA_V10,
+        "schema_version": SCHEMA_V11,
         "latest_complete": "2026-06",
         "taxonomy_review_meta": {
             "ledger_path": "data/industry_study/taxonomy_review_actions.csv",
@@ -927,7 +985,7 @@ def _write_current_bundle_metadata(
         json.dumps(
             {
                 "schema_version": BUNDLE_SCHEMA,
-                "payload_schema": SCHEMA_V10,
+                "payload_schema": SCHEMA_V11,
                 "payload_sha256": payload_hash,
                 "source_signature": payload_hash,
                 "latest_complete": "2026-06",

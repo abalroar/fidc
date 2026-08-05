@@ -2065,6 +2065,7 @@ def _read_optional(
     path: Path,
     *,
     cnpj_columns: tuple[str, ...] = (),
+    string_columns: tuple[str, ...] = (),
 ) -> pd.DataFrame:
     if not path.exists():
         return pd.DataFrame()
@@ -2072,7 +2073,10 @@ def _read_optional(
         frame = pd.read_csv(
             path,
             low_memory=False,
-            dtype={column: str for column in cnpj_columns},
+            dtype={
+                column: str
+                for column in (*cnpj_columns, *string_columns)
+            },
         )
     except pd.errors.EmptyDataError:
         return pd.DataFrame()
@@ -2091,6 +2095,63 @@ def _read_required_json(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _load_cedente_top500_emission_adapter(data_dir: Path) -> pd.DataFrame:
+    """Expose the jun/26 Top-500 legal cedents to the emission audit.
+
+    The emission enrichment service predates the multi-competence product and
+    consumes a narrow normalized contract.  This adapter keeps that contract
+    local while the published payload and workbook retain the richer tables.
+    """
+
+    cedente_dir = data_dir / "cedente_triage"
+    links = _read_optional(
+        cedente_dir / "fidc_cedentes_top500_2023_2026.csv.gz"
+    )
+    gaps = _read_optional(
+        cedente_dir / "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz"
+    )
+    if links.empty or gaps.empty:
+        raise ValueError("triagem Top 500 multi-competência está vazia")
+    links = links.loc[links["Competência"].astype(str).eq("202606")].copy()
+    gaps = gaps.loc[gaps["Competência"].astype(str).eq("202606")].copy()
+    real = ~links["Status do documento"].astype(str).isin(
+        {"documento_ficticio", "documento_irregular", "ausente"}
+    )
+    adapter = pd.DataFrame(
+        {
+            "cnpj_fundo": links["CNPJ do fundo"].map(_digits),
+            "cedente_declarado_flag": real.map({True: "Sim", False: "Não"}),
+            "cedente_razao_social_consolidada": links[
+                "Razão social do cedente"
+            ].fillna(""),
+            "cedente_razao_social_coluna_k": links[
+                "Razão social do cedente"
+            ].fillna(""),
+            "cedente_documento": links["CNPJ/CPF do cedente"].map(_digits),
+            "fonte_cedente": "CVM · Informe Mensal · Tabela I; Receita Federal · cadastro CNPJ",
+        }
+    )
+    gap_rows = pd.DataFrame(
+        {
+            "cnpj_fundo": gaps["CNPJ do fundo"].map(_digits),
+            "cedente_declarado_flag": "Não",
+            "cedente_razao_social_consolidada": "",
+            "cedente_razao_social_coluna_k": "",
+            "cedente_documento": "",
+            "fonte_cedente": "CVM · Informe Mensal · Tabela I sem cedente real identificado",
+        }
+    )
+    output = pd.concat([adapter, gap_rows], ignore_index=True)
+    if output["cnpj_fundo"].eq("").any():
+        raise ValueError("adaptador Top 500 contém CNPJ de fundo vazio")
+    if output["cnpj_fundo"].nunique() != 500:
+        raise ValueError(
+            "adaptador Top 500 de jun/26 não fecha 500 fundos: "
+            f"{output['cnpj_fundo'].nunique()}"
+        )
+    return output
+
+
 def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
     """Load normalized cedent/taxonomy audit outputs without reinterpreting them.
 
@@ -2100,41 +2161,109 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
     infer debtors, or infer revenue from cadastral attributes.
     """
 
-    cedente_dir = data_dir / "cedente_triage" / "202606"
-    cedente_manifest_path = (
-        cedente_dir / "fidc_cedentes_triagem_manifest_202606.json"
-    )
+    cedente_dir = data_dir / "cedente_triage"
+    cedente_manifest_path = cedente_dir / "fidc_cedentes_triagem_index.json"
     cedente_manifest = _read_required_json(cedente_manifest_path)
     cedente_top = _read_optional(
-        cedente_dir / "fidc_cedentes_top437_202606.csv.gz",
+        cedente_dir / "fidc_cedentes_top500_2023_2026.csv.gz",
+        cnpj_columns=("CNPJ do fundo", "CNPJ/CPF do cedente"),
+        string_columns=("CNAE (cód.)",),
+    )
+    cedente_registry = _read_optional(
+        cedente_dir / "fidc_cedentes_por_competencia_2023_2026.csv.gz",
+        cnpj_columns=("CNPJ/CPF",),
+        string_columns=("CNAE (cód.)",),
+    )
+    cedente_gaps = _read_optional(
+        cedente_dir / "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
+        cnpj_columns=("CNPJ do fundo",),
+    )
+    cedente_evolution = _read_optional(
+        cedente_dir / "fidc_cedentes_evolucao_segmento_2023_2026.csv"
+    )
+    cedente_presence = _read_optional(
+        cedente_dir / "fidc_cedentes_presenca_tempo_2023_2026.csv.gz",
+        cnpj_columns=("CNPJ/CPF",),
+    )
+    cedente_coverage = _read_optional(
+        cedente_dir / "fidc_cedentes_cobertura_top500_2023_2026.csv"
+    )
+    cedente_segment_pl = _read_optional(
+        cedente_dir / "fidc_cedentes_pl_segmento_2023_2026.csv"
+    )
+    cedente_cadastro = _read_optional(
+        cedente_dir / "fidc_cedentes_cadastro_master.csv.gz",
+        cnpj_columns=("CNPJ/CPF",),
+        string_columns=("CNAE (cód.)",),
+    )
+    cedente_exclusions = _read_optional(
+        cedente_dir / "fidc_cedentes_exclusoes_2023_2026.csv.gz",
         cnpj_columns=("cnpj_fundo",),
     )
-    cedente_curve = _read_optional(
-        cedente_dir / "fidc_cedentes_curva_cobertura_202606.csv",
-        cnpj_columns=("cnpj_fundo",),
+    cedente_source_repairs = _read_optional(
+        cedente_dir / "fidc_cedentes_reparos_fonte_2023_2026.csv",
+        cnpj_columns=("documento_fundo",),
     )
-    if cedente_top.empty or cedente_curve.empty:
-        raise ValueError("triagem de cedentes normalizada está vazia")
-
-    top_queue = cedente_manifest.get("cutoff", {}).get("top_queue", {})
-    expected_top_rows = int(top_queue.get("linhas") or 0)
-    expected_curve_rows = int(
-        cedente_manifest.get("coverage", {}).get("fundos_total") or 0
+    required_cedente_frames = (
+        ("Top 500 por fundo e cedente", cedente_top),
+        ("cadastro por competência", cedente_registry),
+        ("fundos sem cedente", cedente_gaps),
+        ("evolução por segmento", cedente_evolution),
+        ("presença no tempo", cedente_presence),
+        ("cobertura Top 500", cedente_coverage),
+        ("PL por segmento", cedente_segment_pl),
+        ("cadastro mestre", cedente_cadastro),
+        ("reparos estruturais da fonte", cedente_source_repairs),
     )
-    if expected_top_rows <= 0 or len(cedente_top) != expected_top_rows:
-        raise ValueError(
-            "triagem Top N diverge do manifesto: "
-            f"{len(cedente_top)} linhas vs. {expected_top_rows}"
+    for label, frame in required_cedente_frames:
+        if frame.empty:
+            raise ValueError(f"triagem de cedentes · {label} está vazia")
+    if set(cedente_coverage["Competência"].astype(str)) != {
+        "202312",
+        "202412",
+        "202512",
+        "202606",
+    }:
+        raise ValueError("cobertura Top 500 não contém as quatro competências")
+    if not cedente_coverage["Fundos que identificam cedente"].astype(int).tolist() == [
+        181,
+        148,
+        205,
+        172,
+    ]:
+        raise ValueError("cobertura real de cedentes diverge dos checkpoints auditados")
+    if int(cedente_manifest.get("cutoff_rank") or 0) != 500:
+        raise ValueError("manifesto de cedentes não declara corte Top 500")
+    repair_counts = {
+        competence: int(
+            cedente_source_repairs["competencia"]
+            .astype(str)
+            .str.replace(r"\D", "", regex=True)
+            .eq(competence)
+            .sum()
         )
-    if expected_curve_rows <= 0 or len(cedente_curve) != expected_curve_rows:
+        for competence in ("202312", "202412", "202512", "202606")
+    }
+    expected_repair_counts = {
+        "202312": 6,
+        "202412": 4,
+        "202512": 0,
+        "202606": 0,
+    }
+    if len(cedente_source_repairs) != 10 or repair_counts != expected_repair_counts:
         raise ValueError(
-            "curva de cobertura diverge do manifesto: "
-            f"{len(cedente_curve)} fundos vs. {expected_curve_rows}"
+            "log de reparos da fonte deve conter 10 linhas: 6 em 202312 e 4 em 202412"
         )
-    if cedente_top["cnpj_fundo"].eq("").any() or cedente_curve[
-        "cnpj_fundo"
-    ].eq("").any():
-        raise ValueError("triagem de cedentes contém CNPJ de fundo vazio")
+    manifest_repair_counts = {
+        str(key): int(value or 0)
+        for key, value in dict(
+            cedente_manifest.get("source_repairs_summary") or {}
+        ).items()
+    }
+    if manifest_repair_counts != expected_repair_counts:
+        raise ValueError(
+            "manifesto de cedentes não reconcilia os reparos estruturais da fonte"
+        )
 
     taxonomy_manifest_path = (
         data_dir / "industry_taxonomy_audit_manifest_202606.json"
@@ -2267,9 +2396,17 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
         return traced
 
     return {
-        "cedente_middle_market_top437": _records(cedente_top),
-        "cedente_middle_market_coverage_curve": _records(cedente_curve),
-        "cedente_middle_market_manifest": _json_value(cedente_manifest),
+        "cedente_top500_detail": _records(cedente_top),
+        "cedente_registry_by_competence": _records(cedente_registry),
+        "cedente_funds_without_cedent": _records(cedente_gaps),
+        "cedente_evolution_by_segment": _records(cedente_evolution),
+        "cedente_presence_history": _records(cedente_presence),
+        "cedente_top500_coverage_history": _records(cedente_coverage),
+        "cedente_segment_mix_history": _records(cedente_segment_pl),
+        "cedente_registry_master": _records(cedente_cadastro),
+        "cedente_exclusions": _records(cedente_exclusions),
+        "cedente_source_repairs": _records(cedente_source_repairs),
+        "cedente_triage_manifest": _json_value(cedente_manifest),
         "taxonomy_audit_decisions": _records(
             add_taxonomy_trace(taxonomy_decisions)
         ),
@@ -3833,15 +3970,7 @@ def build_payload(
         data_dir / "emission_field_document_audit",
         prefix="emission_field_document",
     )
-    cedente_triage = _read_optional(
-        data_dir
-        / "cedente_triage"
-        / "202606"
-        / "fidc_cedentes_top437_202606.csv.gz",
-        cnpj_columns=("cnpj_fundo",),
-    )
-    if cedente_triage.empty:
-        raise ValueError("triagem de cedentes Top 437 está vazia")
+    cedente_triage = _load_cedente_top500_emission_adapter(data_dir)
     historical_top20_document_review = _read_optional(
         data_dir / "industry_top20_taxonomy_document_review.csv",
         cnpj_columns=("cnpj_fundo",),
@@ -4547,7 +4676,7 @@ def build_payload(
     )
 
     output = {
-        "schema_version": "fidc_revision_artifact_payload_v10",
+        "schema_version": "fidc_revision_artifact_payload_v11",
         "latest_complete": latest,
         "stock_preliminary_status": stock_preliminary_status,
         "offers_as_of": offers_as_of,

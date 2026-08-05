@@ -294,6 +294,42 @@ def _column_values(
     return [by_ref.get(f"{column}{row}", "") for row in range(first_row, last_row + 1)]
 
 
+def test_cedente_sheets_replace_stale_rows_and_preserve_cnae_as_text() -> None:
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    specs = (
+        ("Cedentes · Top 500", "cedente_top500_detail", "S"),
+        ("Cedentes · competência", "cedente_registry_by_competence", "M"),
+        ("Cedentes · cadastro", "cedente_registry_master", "H"),
+    )
+
+    with ZipFile(XLSX) as archive:
+        sheets = _workbook_sheets(archive)
+        shared = _shared_strings(archive)
+        for sheet_name, payload_key, column in specs:
+            expected_rows = len(payload[payload_key])
+            root = ET.fromstring(archive.read(sheets[sheet_name]))
+            values_by_row = {
+                int(re.search(r"\d+", cell.attrib["r"]).group()): _cell_value(
+                    cell, shared
+                )
+                for cell in root.findall(f".//{{{SHEET}}}c")
+                if cell.attrib.get("r", "").startswith(column)
+            }
+            assert all(
+                not value
+                for row, value in values_by_row.items()
+                if row > expected_rows + 4
+            ), sheet_name
+            cnae_codes = [
+                value
+                for row, value in values_by_row.items()
+                if 5 <= row <= expected_rows + 4 and value not in {"", "N/D"}
+            ]
+            assert cnae_codes
+            assert all(len(code) == 7 and code.isdigit() for code in cnae_codes)
+            assert any(code.startswith("0") for code in cnae_codes)
+
+
 def test_deck_order_and_compact_appendix_contract() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
@@ -514,11 +550,16 @@ def test_offer_slides_use_native_charts_and_editable_native_tables() -> None:
             path for path in regime_charts
             if ET.fromstring(archive.read(path)).find(f".//{{{CHART}}}barChart") is not None
         ]
-        assert len(regime_charts) == 3
+        assert len(regime_charts) == 1
         regime_slide = ET.fromstring(
             archive.read(f"ppt/slides/slide{SLIDE_OFFER_REGIME}.xml")
         )
         assert regime_slide.findall(f".//{{{DML}}}tbl") == []
+        regime_text = " ".join(
+            node.text or "" for node in regime_slide.iter(f"{{{DML}}}t")
+        )
+        assert "Número de ofertas" not in regime_text
+        assert "Volume registrado · R$ bi" not in regime_text
 
         current_slides = [
             ET.fromstring(archive.read(f"ppt/slides/slide{slide_number}.xml"))
@@ -875,7 +916,7 @@ def test_revision_renderer_version_tracks_export_simplification() -> None:
     source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(
         encoding="utf-8"
     )
-    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v47";' in source
+    assert 'const RENDERER_VERSION = "industry_revision_artifacts_v48";' in source
     assert "payload.executive_conclusions" in source
     assert "payload.executive_conclusion_notes" in source
 

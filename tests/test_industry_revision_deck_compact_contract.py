@@ -448,16 +448,14 @@ def test_offer_regime_uses_full_width_volume_shares_that_close_to_one() -> None:
             if root.find(f".//{{{CHART}}}barChart") is not None
         ]
 
-    assert len(bar_roots) == 3
+    assert len(bar_roots) == 1
     assert "Regime de colocação · número de ofertas" not in raw_text
+    assert "Número de ofertas" not in raw_text
+    assert "Volume registrado · R$ bi" not in raw_text
     assert "Regime de colocação · participação no volume · % do total" in raw_text
     assert "Melhores esforços repr. 69,2% do volume em 2026" in raw_text
 
-    regime_chart = next(
-        root
-        for root in bar_roots
-        if len(root.findall(f".//{{{CHART}}}barChart/{{{CHART}}}ser")) == 3
-    )
+    regime_chart = bar_roots[0]
     series = regime_chart.findall(f".//{{{CHART}}}barChart/{{{CHART}}}ser")
     assert _chart_categories(series[0]) == [
         "Não informado",

@@ -1,0 +1,123 @@
+{
+  "competence": "202312",
+  "cutoff_rank": 500,
+  "generated_at": "2026-08-05T00:03:32.629977+00:00",
+  "metrics": {
+    "fundos_com_cedente_real": 181,
+    "fundos_industria": 2404,
+    "fundos_sem_cedente_real": 319,
+    "pl_industria_reais": 485359225501.6,
+    "pl_sem_cedente_real_reais": 259109290313.28006,
+    "pl_top500_reais": 407481606300.37006,
+    "pl_top500_sobre_industria_pct": 0.8395464326020662,
+    "pl_ultimo_fundo_top_reais": 169302413.27
+  },
+  "outputs": {
+    "fidc_cedentes_cobertura_202312.csv.gz": {
+      "bytes": 306,
+      "name": "fidc_cedentes_cobertura_202312.csv.gz",
+      "sha256": "b6920df09521e0d3b8b0c94a672947790f6d33ca926f34409b8c36be75743580"
+    },
+    "fidc_cedentes_exclusoes_202312.csv.gz": {
+      "bytes": 12044,
+      "name": "fidc_cedentes_exclusoes_202312.csv.gz",
+      "sha256": "75c83afc7256d0159eb785c02171ac5a65818921c095caea0aca674acfc9e3ef"
+    },
+    "fidc_cedentes_fundos_sem_cedente_202312.csv.gz": {
+      "bytes": 21954,
+      "name": "fidc_cedentes_fundos_sem_cedente_202312.csv.gz",
+      "sha256": "aa3d58b6af9c585e4cae4440649f9c4a19eb72ba48bacbbe90018a53614c315b"
+    },
+    "fidc_cedentes_pl_por_segmento_202312.csv.gz": {
+      "bytes": 488,
+      "name": "fidc_cedentes_pl_por_segmento_202312.csv.gz",
+      "sha256": "f84e191da2c546779a46ec212fd3e15eb2746a678002fb6b71c325cc76cdba3b"
+    },
+    "fidc_cedentes_reparos_fonte_202312.csv.gz": {
+      "bytes": 377,
+      "name": "fidc_cedentes_reparos_fonte_202312.csv.gz",
+      "sha256": "0dee77344678d6b170bd3e74a0e84aed8e22cf75669e57ab959112b8aeb7bbb9"
+    },
+    "fidc_cedentes_top500_202312.csv.gz": {
+      "bytes": 40057,
+      "name": "fidc_cedentes_top500_202312.csv.gz",
+      "sha256": "7b52180db53647020b89baf3c145a0d7b08bb2716967a5d538b3cfcd24115f63"
+    },
+    "fidc_cedentes_vinculos_202312.csv.gz": {
+      "bytes": 39178,
+      "name": "fidc_cedentes_vinculos_202312.csv.gz",
+      "sha256": "3b5ee96469b10979de131dd9f1aac4c2742934f8120dace415ad2b323b28ef9a"
+    }
+  },
+  "parent_manifest": "../fidc_cedentes_triagem_index.json",
+  "schema_version": "fidc-cedente-top500/v2",
+  "source": {
+    "bytes": 17186058,
+    "name": "2023.zip",
+    "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/HIST/inf_mensal_fidc_2023.zip",
+    "role": "Informe Mensal FIDC da CVM",
+    "sha256": "b15b895b75d39d4e9031b64418eaa3ca91319e045a395bb0b0d1eb1cfe3e1720"
+  },
+  "source_repairs": [
+    {
+      "acao": "remove_unpaired_quote",
+      "competencia": "202312",
+      "data_referencia": "2023-12-31",
+      "denominacao_reparada": "VERSATILE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "41609394000167",
+      "fonte": "2023.zip!inf_mensal_fidc_tab_IV_202312.csv",
+      "linha_fisica": 1339,
+      "tabela": "Tabela IV"
+    },
+    {
+      "acao": "remove_unpaired_quote_and_adjacent_comma",
+      "competencia": "202312",
+      "data_referencia": "2023-12-31",
+      "denominacao_reparada": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGRO CITI-SYNGENTA RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "46073195000109",
+      "fonte": "2023.zip!inf_mensal_fidc_tab_IV_202312.csv",
+      "linha_fisica": 1712,
+      "tabela": "Tabela IV"
+    },
+    {
+      "acao": "remove_unpaired_quote",
+      "competencia": "202312",
+      "data_referencia": "2023-12-31",
+      "denominacao_reparada": "ORIGINAL PRECATÓRIOS I - FUNDO DE INVESTIMENTO EM DIRETOS CREDITÓRIOS",
+      "documento_fundo": "51531376000163",
+      "fonte": "2023.zip!inf_mensal_fidc_tab_IV_202312.csv",
+      "linha_fisica": 2168,
+      "tabela": "Tabela IV"
+    },
+    {
+      "acao": "remove_unpaired_quote",
+      "competencia": "202312",
+      "data_referencia": "2023-12-31",
+      "denominacao_reparada": "VERSATILE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "41609394000167",
+      "fonte": "2023.zip!inf_mensal_fidc_tab_I_202312.csv",
+      "linha_fisica": 1339,
+      "tabela": "Tabela I"
+    },
+    {
+      "acao": "remove_unpaired_quote_and_adjacent_comma",
+      "competencia": "202312",
+      "data_referencia": "2023-12-31",
+      "denominacao_reparada": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGRO CITI-SYNGENTA RESPONSABILIDADE LIMITADA",
+      "documento_fundo": "46073195000109",
+      "fonte": "2023.zip!inf_mensal_fidc_tab_I_202312.csv",
+      "linha_fisica": 1712,
+      "tabela": "Tabela I"
+    },
+    {
+      "acao": "remove_unpaired_quote",
+      "competencia": "202312",
+      "data_referencia": "2023-12-31",
+      "denominacao_reparada": "ORIGINAL PRECATÓRIOS I - FUNDO DE INVESTIMENTO EM DIRETOS CREDITÓRIOS",
+      "documento_fundo": "51531376000163",
+      "fonte": "2023.zip!inf_mensal_fidc_tab_I_202312.csv",
+      "linha_fisica": 2168,
+      "tabela": "Tabela I"
+    }
+  ]
+}

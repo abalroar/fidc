@@ -23,6 +23,8 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.chart import BarChart, Reference
 
 from services.industry_revision_export import (
+    CEDENTE_TOP500_COMPETENCES,
+    CEDENTE_TOP500_WORKBOOK_SHEETS,
     CURRENT_TOP15_SLIDE_SEQUENCE,
     EXPECTED_SLIDE_SEQUENCE,
     EXPECTED_SLIDES,
@@ -130,6 +132,31 @@ def test_revision_workbook_validator_separates_vnu_from_target_remuneration() ->
     ],
 )
 def test_revision_workbook_validator_rejects_conflated_remuneration_contract(
+    kwargs: dict[str, object],
+    message: str,
+) -> None:
+    with pytest.raises(RevisionExportUnavailable, match=message):
+        validate_revision_xlsx(_revision_workbook_bytes(**kwargs))
+
+
+@pytest.mark.parametrize(
+    ("kwargs", "message"),
+    [
+        (
+            {"invalid_cedent_identifier": True},
+            "deve preservar CNPJ do fundo como texto",
+        ),
+        (
+            {"missing_cedent_competence": True},
+            "competências divergentes do contrato",
+        ),
+        (
+            {"source_repair_rows": 9},
+            "Cedentes · reparos fonte deveria conter 10 linhas",
+        ),
+    ],
+)
+def test_revision_workbook_validator_rejects_invalid_cedent_top500_contract(
     kwargs: dict[str, object],
     message: str,
 ) -> None:
@@ -313,6 +340,9 @@ def _revision_workbook_bytes(
     missing_audit_header: str = "",
     coverage_target_count: int = 8,
     stale_price_coverage: bool = False,
+    invalid_cedent_identifier: bool = False,
+    missing_cedent_competence: bool = False,
+    source_repair_rows: int = 10,
 ) -> bytes:
     workbook = Workbook()
     workbook.remove(workbook.active)
@@ -339,6 +369,51 @@ def _revision_workbook_bytes(
             column=4,
             value="Preço por cota",
         )
+
+    for sheet_name, contract in CEDENTE_TOP500_WORKBOOK_SHEETS.items():
+        sheet = workbook[sheet_name]
+        headers = sorted(contract["required_headers"])
+        for column, header in enumerate(headers, start=1):
+            sheet.cell(row=4, column=column, value=header)
+
+        competence_header = contract["competence_header"]
+        expected_competences = tuple(
+            sorted(
+                contract.get(
+                    "expected_competences", CEDENTE_TOP500_COMPETENCES
+                )
+            )
+        )
+        if sheet_name == "Cedentes · reparos fonte":
+            row_competences = (["202312"] * 6 + ["202412"] * 4)[
+                :source_repair_rows
+            ]
+        elif competence_header:
+            row_competences = list(expected_competences)
+            if missing_cedent_competence and sheet_name == "Cedentes · Top 500":
+                row_competences.pop()
+        else:
+            row_competences = [""]
+
+        for row_number, competence in enumerate(row_competences, start=5):
+            for column, header in enumerate(headers, start=1):
+                if header == competence_header:
+                    value: object = competence
+                elif header in contract["identifier_headers"]:
+                    value = f"{row_number:014d}"
+                elif header in {"Rank PL", "linha_fisica", "Competências"}:
+                    value = 1
+                else:
+                    value = "Teste"
+                cell = sheet.cell(row=row_number, column=column, value=value)
+                if header in contract["identifier_headers"]:
+                    cell.number_format = "@"
+
+    if invalid_cedent_identifier:
+        sheet = workbook["Cedentes · Top 500"]
+        headers = [cell.value for cell in sheet[4]]
+        column = headers.index("CNPJ do fundo") + 1
+        sheet.cell(row=5, column=column, value=12_345_678_000_199)
 
     payload = BytesIO()
     workbook.save(payload)
@@ -529,7 +604,6 @@ SLIDE_TOKENS = {
         "Emissões | Garantia firme",
         "YoY YTD",
         "Melhores esforços repr. 69,2% do volume em 2026",
-        "Número de ofertas",
         "Regime de colocação · participação no volume",
         "% do total",
     ),
@@ -601,8 +675,16 @@ REQUIRED_WORKBOOK_SHEETS_V51 = {
     "Público-alvo ofertas",
     "Principais conclusões",
     "Cedentes · Leia-me",
-    "Cedentes · Top 437",
-    "Cedentes · Cobertura",
+    "Cedentes · Top 500",
+    "Cedentes · competência",
+    "Cedentes · sem cedente",
+    "Cedentes · evolução",
+    "Cedentes · presença",
+    "Cedentes · cobertura",
+    "Cedentes · PL segmento",
+    "Cedentes · cadastro",
+    "Cedentes · exclusões",
+    "Cedentes · reparos fonte",
     "Taxonomia · de-para",
     "Taxonomia · Outros",
     "Taxonomia · impacto",
@@ -1335,7 +1417,7 @@ def test_offer_ticket_distribution_uses_three_native_clustered_charts() -> None:
             assert len(bar_chart.findall(f"{{{CHART}}}ser")) == 3
 
 
-def test_offer_placement_slide_uses_three_native_bar_charts() -> None:
+def test_offer_placement_slide_uses_only_the_volume_share_chart() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
         chart_paths = _slide_chart_paths(archive, SLIDE_OFFER_REGIME)
@@ -1343,7 +1425,10 @@ def test_offer_placement_slide_uses_three_native_bar_charts() -> None:
         charts = [ET.fromstring(archive.read(path)) for path in chart_paths]
         assert sum(
             chart.find(f".//{{{CHART}}}barChart") is not None for chart in charts
-        ) == 3
+        ) == 1
+        slide_text = _fold(_slide_text(archive, SLIDE_OFFER_REGIME))
+        assert "numero de ofertas" not in slide_text
+        assert "volume registrado · r$ bi" not in slide_text
 
 
 def test_provider_concentration_has_two_native_charts() -> None:
