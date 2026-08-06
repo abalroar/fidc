@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+
 from contextlib import nullcontext
 from pathlib import Path
 from types import SimpleNamespace
@@ -1039,3 +1041,28 @@ def test_the_anbima_source_workbooks_drive_the_export_cache_key() -> None:
 
     assert signature
     assert signature != _industry_files_signature(())
+
+
+def test_every_data_file_the_anbima_deck_reads_is_in_the_cache_key() -> None:
+    """A refreshed dataset must not keep serving the previously cached deck."""
+
+    from services.anbima_executive_export import DECK_DATA_INPUTS
+    from tabs.tab_industry_study import _DATA_DIR, _anbima_sources_signature
+
+    assert DECK_DATA_INPUTS, "o deck declara os dados que lê"
+    for name in DECK_DATA_INPUTS:
+        assert (_DATA_DIR / name).is_file(), name
+
+    before = _anbima_sources_signature()
+    target = _DATA_DIR / DECK_DATA_INPUTS[0]
+    original = target.read_bytes()
+    stat = target.stat()
+    try:
+        target.write_bytes(original + b"\n# toque\n")
+        assert _anbima_sources_signature() != before
+    finally:
+        target.write_bytes(original)
+        # The signature reads size and mtime, so the file has to go back to its
+        # exact previous state or the test leaves the cache key shifted.
+        os.utime(target, ns=(stat.st_atime_ns, stat.st_mtime_ns))
+    assert _anbima_sources_signature() == before

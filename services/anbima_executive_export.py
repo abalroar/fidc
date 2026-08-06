@@ -719,6 +719,11 @@ def caveats_slide(
 
 TOP_FIDCS_NAME = "top_fidcs_middle_resolved.csv"
 
+#: Data files under ``data_dir`` that the deck reads.  Whoever caches the deck
+#: must fold these into its cache key, or a data refresh will keep serving the
+#: previously rendered deck.
+DECK_DATA_INPUTS: tuple[str, ...] = (TOP_FIDCS_NAME,)
+
 #: Short display names for the middle-market list; the legal names do not fit.
 _FIDC_SHORT = {
     1: "FIDC 30E",
@@ -1316,6 +1321,7 @@ def build_anbima_workbook_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
 
 __all__ = [
     "AnbimaSourceMissingError",
+    "DECK_DATA_INPUTS",
     "ANNEX_GLOB",
     "DEFAULT_DATA_DIR",
     "RANKING_GLOB",

@@ -9887,7 +9887,11 @@ def _anbima_sources_signature() -> str:
     invalidates the cache on its own.
     """
 
-    from services.anbima_executive_export import ANNEX_GLOB, RANKING_GLOB
+    from services.anbima_executive_export import (
+        ANNEX_GLOB,
+        DECK_DATA_INPUTS,
+        RANKING_GLOB,
+    )
 
     sources = _DATA_DIR / "sources"
     names = sorted(
@@ -9895,7 +9899,9 @@ def _anbima_sources_signature() -> str:
         for pattern in (RANKING_GLOB, ANNEX_GLOB)
         for path in sources.glob(pattern)
     )
-    return _industry_files_signature(tuple(names))
+    # The deck also reads curated tables from the data directory; they belong in
+    # the key too, otherwise a data refresh keeps serving the cached deck.
+    return _industry_files_signature(tuple(names) + DECK_DATA_INPUTS)
 
 
 def _industry_export_signature() -> str:
