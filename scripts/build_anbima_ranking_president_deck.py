@@ -21,16 +21,33 @@ from pathlib import Path
 import sys
 
 import pandas as pd
-from pptx import Presentation
-from pptx.dml.color import RGBColor
-from pptx.enum.shapes import MSO_SHAPE
-from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
-from pptx.util import Inches, Pt
 
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from services.bba_deck import (  # noqa: E402
+    BLACK,
+    Deck,
+    GRAY_100,
+    GRAY_300,
+    GRAY_500,
+    GRAY_700,
+    GRAY_900,
+    ORANGE,
+    WHITE,
+    fmt_mm,
+    fmt_pct as _pct,
+    fmt_rank as _rank,
+)
+from services.anbima_executive_package import display_name as _display_name  # noqa: E402
+
+
+def _bi(value: float) -> str:
+    """Format a BRL amount as R$ billions with one decimal."""
+
+    return fmt_mm(value / 1e9)
 
 DEFAULT_DATA_DIR = Path("data/industry_study")
 DEFAULT_OUTPUT = Path(
@@ -38,52 +55,14 @@ DEFAULT_OUTPUT = Path(
     "ANBIMA_Ranking_Renda_Fixa_Itau_BBA_1S26.pptx"
 )
 
-# Same palette and typography as services/industry_ppt_export.py so this deck
-# sits alongside the existing BBA decks without a visual break.
-BLACK = "151515"
-ORANGE = "E36C0A"
-ORANGE_LIGHT = "F8E9DE"
-GRAY_900 = "30353A"
-GRAY_700 = "5D6369"
-GRAY_500 = "8D9399"
-GRAY_300 = "D7DADD"
-GRAY_200 = "E7E9EB"
-GRAY_100 = "F5F6F7"
-WHITE = "FFFFFF"
-
-FONT = "Arial"
+FONT_KICKER = "RANKING ANBIMA · RENDA FIXA"
 HOUSE = "ITAU BBA"
-KICKER = "RANKING ANBIMA · RENDA FIXA"
+KICKER = FONT_KICKER
 
 SOURCE_LINE = (
     "Fonte: ANBIMA, Ranking de Renda Fixa e Híbridos — Originação (Valor), "
     "Tipo 1: Renda Fixa Consolidado, acumulado 2026 · referência Junho/2026"
 )
-
-#: ANBIMA publishes participant names in upper case.  Acronyms must survive the
-#: conversion to display case, so a plain ``str.title()`` is not usable.
-DISPLAY_NAMES: dict[str, str] = {
-    "BRADESCO BBI": "Bradesco BBI",
-    "ITAU BBA": "Itaú BBA",
-    "BTG PACTUAL": "BTG Pactual",
-    "SANTANDER": "Santander",
-    "XP INVESTIMENTOS": "XP Investimentos",
-    "UBS BB": "UBS BB",
-    "CEF": "Caixa Econômica Federal",
-    "SAFRA": "Safra",
-    "ABC BRASIL": "ABC Brasil",
-    "VOTORANTIM": "Votorantim",
-    "CITIGROUP": "Citigroup",
-    "BNDES": "BNDES",
-    "BR PARTNERS": "BR Partners",
-    "BB-BI": "BB-BI",
-    "DAYCOVAL": "Daycoval",
-    "BNP PARIBAS": "BNP Paribas",
-    "BOCOM BBM": "Bocom BBM",
-    "INTER": "Inter",
-    "M7 IB": "M7 IB",
-    "JP MORGAN": "J.P. Morgan",
-}
 
 #: Published sub-rankings that decompose the consolidated fixed-income number.
 SUBDIVISIONS: tuple[tuple[str, str], ...] = (
@@ -142,188 +121,6 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _bi(value: float) -> str:
-    return f"{value / 1e9:,.1f}".replace(",", "@").replace(".", ",").replace("@", ".")
-
-
-def _pct(value: float, decimals: int = 2) -> str:
-    if pd.isna(value):
-        return "—"
-    return f"{value * 100:,.{decimals}f}%".replace(".", ",")
-
-
-def _rank(value: object) -> str:
-    return "—" if pd.isna(value) else f"{int(value)}º"
-
-
-def _display_name(value: object) -> str:
-    label = str(value).strip()
-    return DISPLAY_NAMES.get(label.upper(), label)
-
-
-class Deck:
-    def __init__(self) -> None:
-        self.prs = Presentation()
-        self.prs.slide_width = Inches(13.333)
-        self.prs.slide_height = Inches(7.5)
-        self.page = 0
-
-    @staticmethod
-    def _rgb(value: str) -> RGBColor:
-        return RGBColor.from_string(value)
-
-    def text(
-        self,
-        slide,
-        content: object,
-        x: float,
-        y: float,
-        w: float,
-        h: float,
-        *,
-        size: float = 12,
-        color: str = GRAY_900,
-        bold: bool = False,
-        align=PP_ALIGN.LEFT,
-        valign=MSO_ANCHOR.TOP,
-    ):
-        box = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
-        frame = box.text_frame
-        frame.clear()
-        frame.word_wrap = True
-        frame.vertical_anchor = valign
-        frame.margin_left = frame.margin_right = Inches(0)
-        frame.margin_top = frame.margin_bottom = Inches(0)
-        paragraph = frame.paragraphs[0]
-        paragraph.text = str(content)
-        paragraph.alignment = align
-        paragraph.font.name = FONT
-        paragraph.font.size = Pt(size)
-        paragraph.font.bold = bold
-        paragraph.font.color.rgb = self._rgb(color)
-        return box
-
-    def rule(
-        self,
-        slide,
-        x: float,
-        y: float,
-        w: float,
-        *,
-        color: str = GRAY_300,
-        height: float = 0.012,
-    ):
-        shape = slide.shapes.add_shape(
-            MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(height)
-        )
-        shape.fill.solid()
-        shape.fill.fore_color.rgb = self._rgb(color)
-        shape.line.fill.background()
-        return shape
-
-    def block(
-        self, slide, x: float, y: float, w: float, h: float, color: str
-    ):
-        shape = slide.shapes.add_shape(
-            MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h)
-        )
-        shape.fill.solid()
-        shape.fill.fore_color.rgb = self._rgb(color)
-        shape.line.fill.background()
-        shape.shadow.inherit = False
-        return shape
-
-    def slide(self, title: str, kicker: str = KICKER):
-        slide = self.prs.slides.add_slide(self.prs.slide_layouts[6])
-        slide.background.fill.solid()
-        slide.background.fill.fore_color.rgb = self._rgb(WHITE)
-        self.text(slide, kicker, 0.62, 0.28, 8.0, 0.22, size=10, color=ORANGE, bold=True)
-        self.text(slide, title, 0.62, 0.57, 12.1, 0.48, size=22, color=BLACK, bold=True)
-        self.rule(slide, 0.62, 1.15, 12.05, color=GRAY_300, height=0.018)
-        return slide
-
-    def footer(self, slide, source: str) -> None:
-        self.page += 1
-        self.rule(slide, 0.62, 6.95, 12.05, color=GRAY_200, height=0.01)
-        self.text(slide, source, 0.62, 7.02, 11.45, 0.3, size=8, color=GRAY_500)
-        self.text(
-            slide,
-            str(self.page),
-            12.25,
-            7.01,
-            0.42,
-            0.22,
-            size=8,
-            color=GRAY_500,
-            align=PP_ALIGN.RIGHT,
-        )
-
-    def table(
-        self,
-        slide,
-        rows: list[list[str]],
-        x: float,
-        y: float,
-        widths: list[float],
-        *,
-        highlight: int | None = None,
-        row_height: float = 0.34,
-        size: float = 11,
-        align_right_from: int = 2,
-    ) -> float:
-        """Render a light, borderless table; returns the bottom y coordinate."""
-
-        header, *body = rows
-        cursor = y
-        for index, label in enumerate(header):
-            self.text(
-                slide,
-                label,
-                x + sum(widths[:index]),
-                cursor,
-                widths[index],
-                row_height,
-                size=size - 1,
-                color=GRAY_500,
-                bold=True,
-                align=PP_ALIGN.RIGHT if index >= align_right_from else PP_ALIGN.LEFT,
-            )
-        cursor += row_height * 0.85
-        self.rule(slide, x, cursor, sum(widths), color=GRAY_300, height=0.012)
-        cursor += 0.10
-
-        for position, row in enumerate(body):
-            is_house = highlight is not None and position == highlight
-            if is_house:
-                self.block(
-                    slide,
-                    x - 0.12,
-                    cursor - 0.05,
-                    sum(widths) + 0.24,
-                    row_height,
-                    ORANGE_LIGHT,
-                )
-            for index, value in enumerate(row):
-                self.text(
-                    slide,
-                    value,
-                    x + sum(widths[:index]),
-                    cursor,
-                    widths[index],
-                    row_height,
-                    size=size,
-                    color=BLACK if is_house else GRAY_900,
-                    bold=is_house,
-                    align=(
-                        PP_ALIGN.RIGHT if index >= align_right_from else PP_ALIGN.LEFT
-                    ),
-                )
-            cursor += row_height
-            if position < len(body) - 1:
-                self.rule(slide, x, cursor - 0.05, sum(widths), color=GRAY_200, height=0.008)
-        return cursor
-
-
 def _load(data_dir: Path) -> tuple[pd.DataFrame, dict]:
     official = pd.read_csv(data_dir / "anbima_rf_ranking_official.csv")
     manifest = json.loads(
@@ -361,12 +158,12 @@ def build(data_dir: Path, output: Path, house: str) -> Path:
         date.fromisoformat(cutoff).strftime("%d/%m/%Y") if cutoff else "n/d"
     )
 
-    deck = Deck()
+    deck = Deck(KICKER)
 
     # ---------------------------------------------------------------- capa
     cover = deck.prs.slides.add_slide(deck.prs.slide_layouts[6])
     cover.background.fill.solid()
-    cover.background.fill.fore_color.rgb = deck._rgb(WHITE)
+    cover.background.fill.fore_color.rgb = deck.rgb(WHITE)
     deck.block(cover, 0.0, 0.0, 0.22, 7.5, ORANGE)
     deck.text(cover, KICKER, 0.92, 2.28, 8.0, 0.26, size=11, color=ORANGE, bold=True)
     deck.text(
