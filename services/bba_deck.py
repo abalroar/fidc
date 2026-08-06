@@ -244,6 +244,11 @@ class Deck:
         size: float = 10,
         aligns: str | None = None,
         align_right_from: int = 2,
+        header_fill: str = GRAY_100,
+        header_color: str = GRAY_500,
+        emphasis_rows: tuple[int, ...] = (),
+        emphasis_fill: str = ORANGE,
+        emphasis_color: str = WHITE,
     ):
         """Insert a real PowerPoint table — editable, with addable rows/columns.
 
@@ -282,6 +287,7 @@ class Deck:
         for row_index, values in enumerate(rows):
             is_header = row_index == 0
             is_house = highlight is not None and row_index == highlight + 1
+            is_emphasis = row_index in emphasis_rows
             for column_index, value in enumerate(values):
                 cell = table.cell(row_index, column_index)
                 cell.text = str(value)
@@ -291,18 +297,30 @@ class Deck:
                 cell.margin_bottom = Inches(0.02)
                 cell.vertical_anchor = MSO_ANCHOR.MIDDLE
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = self.rgb(
-                    GRAY_100 if is_header else (ORANGE_LIGHT if is_house else WHITE)
-                )
+                if is_header:
+                    fill_color = header_fill
+                elif is_emphasis:
+                    fill_color = emphasis_fill
+                elif is_house:
+                    fill_color = ORANGE_LIGHT
+                else:
+                    fill_color = WHITE
+                cell.fill.fore_color.rgb = self.rgb(fill_color)
                 paragraph = cell.text_frame.paragraphs[0]
                 paragraph.alignment = alignment(column_index)
                 run = paragraph.runs[0] if paragraph.runs else paragraph.add_run()
                 run.font.name = FONT
                 run.font.size = Pt(size - 1 if is_header else size)
-                run.font.bold = is_header or is_house
-                run.font.color.rgb = self.rgb(
-                    GRAY_500 if is_header else (BLACK if is_house else GRAY_900)
-                )
+                run.font.bold = is_header or is_house or is_emphasis
+                if is_header:
+                    text_color = header_color
+                elif is_emphasis:
+                    text_color = emphasis_color
+                elif is_house:
+                    text_color = BLACK
+                else:
+                    text_color = GRAY_900
+                run.font.color.rgb = self.rgb(text_color)
                 _set_cell_borders(
                     cell,
                     bottom=(GRAY_300 if is_header else GRAY_200),
