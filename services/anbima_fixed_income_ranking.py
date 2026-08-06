@@ -243,6 +243,57 @@ def parse_ranking_workbook(path: str | Path) -> pd.DataFrame:
     ).reset_index(drop=True)
 
 
+def parse_ranking_totals(path: str | Path) -> pd.DataFrame:
+    """Return the published ``Total`` row of each ranking block.
+
+    The per-participant operation counts do not add up to the number of
+    operations — a syndicated deal credits one unit to every coordinator — so
+    the published total is the only correct source for "how many operations
+    happened in this segment".
+    """
+
+    path = Path(path)
+    available = set(pd.ExcelFile(path).sheet_names)
+    records: list[dict[str, object]] = []
+    for sheet, measure in RANKING_SHEETS.items():
+        if sheet not in available:
+            continue
+        is_value = measure != "originacao_numero_operacoes"
+        windows = (
+            (("acumulado_ano", 2), ("ultimos_3_meses", 5), ("ultimos_12_meses", 8))
+            if is_value
+            else (
+                ("acumulado_ano", 2),
+                ("ultimos_3_meses", 4),
+                ("ultimos_12_meses", 6),
+            )
+        )
+        rows = _load_rows(path, sheet)
+        for code, label, start, end in _iter_blocks(rows):
+            for row in rows[start + 3 : end]:
+                if _normalize(row[0] if row else "") != "TOTAL":
+                    continue
+                for window, column in windows:
+                    value = _numeric(row[column] if len(row) > column else None)
+                    if pd.isna(value):
+                        continue
+                    records.append(
+                        {
+                            "measure": measure,
+                            "ranking_code": code,
+                            "ranking_label": label,
+                            "window": window,
+                            "total": (
+                                float(value) * VALUE_UNIT_MULTIPLIER
+                                if is_value
+                                else float(value)
+                            ),
+                        }
+                    )
+                break
+    return pd.DataFrame(records)
+
+
 def parse_annex_workbook(path: str | Path) -> pd.DataFrame:
     """Return the closing annex as one row per operation and coordinator."""
 
@@ -394,6 +445,7 @@ __all__ = [
     "RELATED_PARTY_BLOCK",
     "VALUE_UNIT_MULTIPLIER",
     "parse_annex_workbook",
+    "parse_ranking_totals",
     "parse_ranking_workbook",
     "summarize_participants",
     "syndication_profile",
