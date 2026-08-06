@@ -9879,12 +9879,31 @@ def _bundle_predates_issuance_correction() -> bool:
         return False
 
 
+def _anbima_sources_signature() -> str:
+    """Cache token for the official ANBIMA workbooks.
+
+    Their file names carry the reference month, so they are resolved by glob
+    rather than listed in ``_INDUSTRY_EXPORT_INPUTS``; a new publication then
+    invalidates the cache on its own.
+    """
+
+    from services.anbima_executive_export import ANNEX_GLOB, RANKING_GLOB
+
+    sources = _DATA_DIR / "sources"
+    names = sorted(
+        f"sources/{path.name}"
+        for pattern in (RANKING_GLOB, ANNEX_GLOB)
+        for path in sources.glob(pattern)
+    )
+    return _industry_files_signature(tuple(names))
+
+
 def _industry_export_signature() -> str:
     from services.industry_revision_export import revision_export_signature
 
     bundle_signature = revision_export_signature(_DATA_DIR)
     input_signature = _industry_files_signature(_INDUSTRY_EXPORT_INPUTS)
-    return f"{bundle_signature}:{input_signature}"
+    return f"{bundle_signature}:{input_signature}:{_anbima_sources_signature()}"
 
 
 @st.cache_data(show_spinner=False)
@@ -9898,6 +9917,7 @@ def _industry_export_payloads(
     that built, and the reason for the ones that did not.
     """
 
+    from services.anbima_executive_export import build_anbima_deck_bytes
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
     from services.industry_revision_export import (
         build_revision_html_bytes,
@@ -9912,6 +9932,7 @@ def _industry_export_payloads(
         "portfolio": build_revision_portfolio_xlsx_bytes,
         "top100": build_revision_top100_xlsx_bytes,
         "html": build_revision_html_bytes,
+        "anbima": build_anbima_deck_bytes,
     }
     payloads: dict[str, bytes] = {}
     failures: dict[str, str] = {}
@@ -10112,6 +10133,18 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
             "com sinais de crédito corporativo e Middle Market"
         ),
         "widget": "industry-top100-xlsx",
+    },
+    {
+        "key": "anbima",
+        "label": "Ranking ANBIMA",
+        "file_name": "ANBIMA_Itau_BBA_Renda_Fixa_{period}.pptx",
+        "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "icon": ":material/slideshow:",
+        "help": (
+            "Baixar a apresentação de posição competitiva no ranking ANBIMA de "
+            "renda fixa e híbridos, com originação, distribuição e visão por produto"
+        ),
+        "widget": "industry-anbima-pptx",
     },
     {
         "key": "html",
