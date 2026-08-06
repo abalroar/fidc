@@ -701,7 +701,7 @@ def test_industry_exports_expose_the_top100_plus2_workbook_download() -> None:
         )
     ]
     download_source = source[
-        source.index("def _render_industry_exports") : source.index(
+        source.index("_INDUSTRY_EXPORT_BUTTONS") : source.index(
             "def _stock_delta_display"
         )
     ]
@@ -711,12 +711,11 @@ def test_industry_exports_expose_the_top100_plus2_workbook_download() -> None:
         )
     ]
 
-    assert "tuple[bytes, bytes, bytes, bytes, bytes]" in payload_source
+    assert "tuple[dict[str, bytes], dict[str, str]]" in payload_source
     assert "build_revision_top100_xlsx_bytes" in payload_source
     assert "Top 100 + 2 FIDCs" in download_source
-    assert "data=top100_xlsx_bytes" in download_source
     assert "Top100_Plus2_FIDCs_Middle_Market_" in download_source
-    assert "industry-top100-xlsx-" in download_source
+    assert "industry-top100-xlsx" in download_source
     assert "Excel — Top 100 + 2 FIDCs e Middle Market" in data_export_source
     assert "top100_fidcs_middle_market.xlsx" in data_export_source
 
@@ -970,3 +969,44 @@ def test_industry_holder_histogram_frames_apply_same_cut_and_anbima_filters() ->
     assert coverage.loc[0, "included_funds"] == 1
     assert "91,5% do PL ex-FIC" in _industry_anbima_coverage_note(pack)
     assert "proxy CVM ou N/D" in _industry_anbima_coverage_note(pack)
+
+
+def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
+    """A broken builder must not empty the whole export section."""
+
+    import services.industry_ppt_export as ppt_export
+    import services.industry_revision_export as revision_export
+    from tabs.tab_industry_study import _industry_export_payloads
+
+    monkeypatch.setattr(ppt_export, "build_industry_pptx_bytes", lambda *_: b"pptx")
+    monkeypatch.setattr(ppt_export, "build_industry_xlsx_bytes", lambda *_: b"xlsx")
+    monkeypatch.setattr(
+        revision_export, "build_revision_portfolio_xlsx_bytes", lambda *_: b"portfolio"
+    )
+    monkeypatch.setattr(
+        revision_export, "build_revision_html_bytes", lambda *_: b"html"
+    )
+
+    def explode(*_args, **_kwargs):
+        raise RuntimeError("openpyxl ausente")
+
+    monkeypatch.setattr(
+        revision_export, "build_revision_top100_xlsx_bytes", explode
+    )
+
+    payloads, failures = _industry_export_payloads.__wrapped__("assinatura")
+
+    assert set(payloads) == {"pptx", "xlsx", "portfolio", "html"}
+    assert set(failures) == {"top100"}
+    assert "openpyxl ausente" in failures["top100"]
+
+
+def test_every_export_button_is_declared_with_a_payload_key() -> None:
+    from tabs.tab_industry_study import _INDUSTRY_EXPORT_BUTTONS
+
+    keys = [spec["key"] for spec in _INDUSTRY_EXPORT_BUTTONS]
+
+    assert keys == ["pptx", "xlsx", "portfolio", "top100", "html"]
+    for spec in _INDUSTRY_EXPORT_BUTTONS:
+        assert spec["label"] and spec["mime"] and spec["widget"]
+        assert "{period}" in spec["file_name"]

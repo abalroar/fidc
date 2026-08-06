@@ -9890,7 +9890,14 @@ def _industry_export_signature() -> str:
 @st.cache_data(show_spinner=False)
 def _industry_export_payloads(
     signature: str,
-) -> tuple[bytes, bytes, bytes, bytes, bytes]:
+) -> tuple[dict[str, bytes], dict[str, str]]:
+    """Build every executive export independently.
+
+    One failing builder must not take the other downloads with it, so each is
+    attempted on its own.  The return is ``(payloads, failures)``: the exports
+    that built, and the reason for the ones that did not.
+    """
+
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
     from services.industry_revision_export import (
         build_revision_html_bytes,
@@ -9899,13 +9906,21 @@ def _industry_export_payloads(
     )
 
     del signature  # the value participates in Streamlit's cache key
-    return (
-        build_industry_pptx_bytes(_DATA_DIR),
-        build_industry_xlsx_bytes(_DATA_DIR),
-        build_revision_portfolio_xlsx_bytes(_DATA_DIR),
-        build_revision_top100_xlsx_bytes(_DATA_DIR),
-        build_revision_html_bytes(_DATA_DIR),
-    )
+    builders = {
+        "pptx": build_industry_pptx_bytes,
+        "xlsx": build_industry_xlsx_bytes,
+        "portfolio": build_revision_portfolio_xlsx_bytes,
+        "top100": build_revision_top100_xlsx_bytes,
+        "html": build_revision_html_bytes,
+    }
+    payloads: dict[str, bytes] = {}
+    failures: dict[str, str] = {}
+    for key, builder in builders.items():
+        try:
+            payloads[key] = builder(_DATA_DIR)
+        except Exception as exc:  # noqa: BLE001
+            failures[key] = f"{type(exc).__name__}: {exc}"
+    return payloads, failures
 
 
 @st.cache_data(show_spinner=False)
@@ -10056,74 +10071,105 @@ def _industry_holder_histogram_frames(
     return histogram.reset_index(drop=True), coverage.reset_index(drop=True)
 
 
+#: The executive downloads, in render order.  ``key`` matches the payload built
+#: by :func:`_industry_export_payloads`.
+_INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
+    {
+        "key": "pptx",
+        "label": "PPTX",
+        "file_name": "Industria_FIDC_Executivo_{period}.pptx",
+        "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "icon": ":material/slideshow:",
+        "help": "Baixar apresentação executiva",
+        "widget": "industry-pptx",
+    },
+    {
+        "key": "xlsx",
+        "label": "XLSX",
+        "file_name": "Industria_FIDC_Dados_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/table_view:",
+        "help": "Baixar bases e tabelas da apresentação",
+        "widget": "industry-xlsx",
+    },
+    {
+        "key": "portfolio",
+        "label": "Carteira 101",
+        "file_name": "Carteira_101_Flagships_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/table_view:",
+        "help": "Baixar base manipulável da Carteira 101 e dos Flagships",
+        "widget": "industry-portfolio-xlsx",
+    },
+    {
+        "key": "top100",
+        "label": "Top 100 + 2 FIDCs",
+        "file_name": "Top100_Plus2_FIDCs_Middle_Market_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/table_view:",
+        "help": (
+            "Baixar Top 100 por PL e as inclusões documentais Citi-Bayer e Lavoro, "
+            "com sinais de crédito corporativo e Middle Market"
+        ),
+        "widget": "industry-top100-xlsx",
+    },
+    {
+        "key": "html",
+        "label": "HTML interativo",
+        "file_name": "Industria_FIDC_Fluxos_Prestadores_{period}.html",
+        "mime": "text/html",
+        "icon": ":material/hub:",
+        "help": "Baixar o explorador interativo dos fluxos de prestadores",
+        "widget": "industry-html",
+    },
+)
+
+
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
     try:
-        (
-            pptx_bytes,
-            xlsx_bytes,
-            portfolio_xlsx_bytes,
-            top100_xlsx_bytes,
-            html_bytes,
-        ) = _industry_export_payloads(_industry_export_signature())
+        payloads, failures = _industry_export_payloads(_industry_export_signature())
     except Exception as exc:  # noqa: BLE001
-        st.warning(f"Exportação executiva indisponível: {exc}")
-        return
+        # The cache signature itself failed, so nothing could be built.  Keep
+        # the buttons visible and disabled rather than removing the section.
+        payloads = {}
+        failures = {
+            spec["key"]: f"{type(exc).__name__}: {exc}"
+            for spec in _INDUSTRY_EXPORT_BUTTONS
+        }
+
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    left, middle, portfolio, top100, right = st.columns([1, 1, 1, 1, 1])
-    with left:
-        st.download_button(
-            "PPTX",
-            data=pptx_bytes,
-            file_name=f"Industria_FIDC_Executivo_{file_period}.pptx",
-            mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
-            icon=":material/slideshow:",
-            help="Baixar apresentação executiva",
-            width="stretch",
-            key=f"industry-pptx-{suffix}",
-        )
-    with middle:
-        st.download_button(
-            "XLSX",
-            data=xlsx_bytes,
-            file_name=f"Industria_FIDC_Dados_{file_period}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            icon=":material/table_view:",
-            help="Baixar bases e tabelas da apresentação",
-            width="stretch",
-            key=f"industry-xlsx-{suffix}",
-        )
-    with portfolio:
-        st.download_button(
-            "Carteira 101",
-            data=portfolio_xlsx_bytes,
-            file_name=f"Carteira_101_Flagships_{file_period}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            icon=":material/table_view:",
-            help="Baixar base manipulável da Carteira 101 e dos Flagships",
-            width="stretch",
-            key=f"industry-portfolio-xlsx-{suffix}",
-        )
-    with top100:
-        st.download_button(
-            "Top 100 + 2 FIDCs",
-            data=top100_xlsx_bytes,
-            file_name=f"Top100_Plus2_FIDCs_Middle_Market_{file_period}.xlsx",
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            icon=":material/table_view:",
-            help="Baixar Top 100 por PL e as inclusões documentais Citi-Bayer e Lavoro, com sinais de crédito corporativo e Middle Market",
-            width="stretch",
-            key=f"industry-top100-xlsx-{suffix}",
-        )
-    with right:
-        st.download_button(
-            "HTML interativo",
-            data=html_bytes,
-            file_name=f"Industria_FIDC_Fluxos_Prestadores_{file_period}.html",
-            mime="text/html",
-            icon=":material/hub:",
-            help="Baixar o explorador interativo dos fluxos de prestadores",
-            width="stretch",
-            key=f"industry-html-{suffix}",
+    columns = st.columns([1] * len(_INDUSTRY_EXPORT_BUTTONS))
+    for column, spec in zip(columns, _INDUSTRY_EXPORT_BUTTONS):
+        key = spec["key"]
+        with column:
+            if key in payloads:
+                st.download_button(
+                    spec["label"],
+                    data=payloads[key],
+                    file_name=spec["file_name"].format(period=file_period),
+                    mime=spec["mime"],
+                    icon=spec["icon"],
+                    help=spec["help"],
+                    width="stretch",
+                    key=f"{spec['widget']}-{suffix}",
+                )
+            else:
+                st.button(
+                    spec["label"],
+                    icon=spec["icon"],
+                    help=f"Indisponível — {failures.get(key, 'erro desconhecido')}",
+                    width="stretch",
+                    disabled=True,
+                    key=f"{spec['widget']}-{suffix}-indisponivel",
+                )
+    if failures:
+        st.warning(
+            "Exportação indisponível: "
+            + " · ".join(
+                f"{spec['label']} ({failures[spec['key']]})"
+                for spec in _INDUSTRY_EXPORT_BUTTONS
+                if spec["key"] in failures
+            )
         )
 
 
