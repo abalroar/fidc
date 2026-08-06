@@ -97,24 +97,69 @@ def short_leader(name: str) -> str:
     return str(name).split()[0].title() if name else UNKNOWN
 
 
-def load_offers(archive: Path) -> pd.DataFrame:
+def _read(archive: Path, name: str) -> pd.DataFrame:
     with ZipFile(archive) as zipped:
-        frame = pd.read_csv(
-            zipped.open("oferta_resolucao_160.csv"),
+        return pd.read_csv(
+            zipped.open(name),
             sep=";",
             encoding="latin-1",
             dtype=str,
             keep_default_na=False,
             low_memory=False,
         )
-    frame["cnpj"] = frame["CNPJ_Emissor"].map(_digits)
-    frame["closing_date"] = pd.to_datetime(frame["Data_Encerramento"], errors="coerce")
-    frame["volume_brl"] = pd.to_numeric(frame["Valor_Total_Registrado"], errors="coerce")
-    return frame[
-        frame["Status_Requerimento"].eq("Oferta Encerrada")
-        & frame["closing_date"].notna()
-        & frame["volume_brl"].gt(0)
-    ]
+
+
+def load_offers(archive: Path) -> pd.DataFrame:
+    """Every closed primary offer of these funds, across both CVM rites.
+
+    The automatic RCVM 160 table and the legacy table (ICVM 400 and ICVM 476)
+    have different schemas and are normalized here.  The legacy table is read
+    without filtering on the instrument label: these offers are keyed on a fund
+    CNPJ already known to be a FIDC, and the legacy label is often the generic
+    ``COTAS DE FUNDOS DE INVESTIMENTO FECHADOS``, which says nothing about the
+    fund type on its own.
+
+    ``Regime_distribuicao`` exists only in the RCVM 160 table, so firm
+    commitment cannot be read for a legacy offer and is left blank.
+    """
+
+    automatic = _read(archive, "oferta_resolucao_160.csv")
+    automatic = pd.DataFrame(
+        {
+            "cnpj": automatic["CNPJ_Emissor"].map(_digits),
+            "closing_date": pd.to_datetime(automatic["Data_Encerramento"], errors="coerce"),
+            "volume_brl": pd.to_numeric(automatic["Valor_Total_Registrado"], errors="coerce"),
+            "leader": automatic["Nome_Lider"].str.strip(),
+            "regime": automatic["Regime_distribuicao"].str.strip(),
+            "rite": automatic["Rito_Requerimento"].str.strip(),
+            "status_ok": automatic["Status_Requerimento"].eq("Oferta Encerrada"),
+            "source": "RCVM 160 automática",
+        }
+    )
+
+    legacy = _read(archive, "oferta_distribuicao.csv")
+    legacy = pd.DataFrame(
+        {
+            "cnpj": legacy["CNPJ_Emissor"].map(_digits),
+            "closing_date": pd.to_datetime(
+                legacy["Data_Encerramento_Oferta"], errors="coerce",
+                format="mixed", dayfirst=True,
+            ),
+            "volume_brl": pd.to_numeric(legacy["Valor_Total"], errors="coerce"),
+            "leader": legacy["Nome_Lider"].str.strip(),
+            "regime": "",
+            "rite": legacy["Rito_Oferta"].str.strip(),
+            "status_ok": legacy["Tipo_Oferta"].eq("Primária"),
+            "source": "Legado (ICVM 400/476)",
+        }
+    )
+
+    offers = pd.concat([automatic, legacy], ignore_index=True)
+    return offers[
+        offers["status_ok"]
+        & offers["closing_date"].notna()
+        & offers["volume_brl"].gt(0)
+    ].drop(columns=["status_ok"])
 
 
 def resolve(data_dir: Path, archive: Path) -> pd.DataFrame:
@@ -140,8 +185,8 @@ def resolve(data_dir: Path, archive: Path) -> pd.DataFrame:
         if window.empty:
             scope = "sem oferta registrada"
 
-        leaders = sorted({str(value).strip() for value in window["Nome_Lider"] if str(value).strip()})
-        regimes = sorted({_ascii_upper(value) for value in window["Regime_distribuicao"]})
+        leaders = sorted({str(value).strip() for value in window["leader"] if str(value).strip()})
+        regimes = sorted({_ascii_upper(value) for value in window["regime"] if str(value).strip()})
         itau = [name for name in leaders if "ITAU BBA" in _ascii_upper(name)]
 
         if not leaders:
@@ -156,6 +201,20 @@ def resolve(data_dir: Path, archive: Path) -> pd.DataFrame:
         else:
             labels = {REGIME_LABELS.get(value, UNKNOWN) for value in regimes}
             firm = labels.pop() if len(labels) == 1 else "Misto"
+
+        # Leadership across every closed offer of the fund, both rites — the
+        # reference offer may hide that the house led an earlier one.
+        # An empty ``map`` yields an object-dtype Series, which pandas would read
+        # as a column selection instead of a mask, so the cast is required.
+        house_history = fund_offers[
+            fund_offers["leader"]
+            .map(lambda v: "ITAU BBA" in _ascii_upper(v))
+            .astype(bool)
+        ]
+        history = " | ".join(
+            f"{row.closing_date.date().isoformat()} ({row.rite})"
+            for row in house_history.sort_values("closing_date").itertuples()
+        )
 
         anbima = (
             classification.loc[cnpj] if cnpj in classification.index else None
@@ -181,11 +240,15 @@ def resolve(data_dir: Path, archive: Path) -> pd.DataFrame:
                 "data_referencia": (
                     window["closing_date"].max().date().isoformat() if not window.empty else ""
                 ),
+                "rito_oferta": " | ".join(sorted({str(v) for v in window["rite"] if str(v).strip()})) if not window.empty else "",
+                "fonte_oferta": " | ".join(sorted({str(v) for v in window["source"]})) if not window.empty else "",
                 "coordenador_lider": " | ".join(leaders) if leaders else UNKNOWN,
                 "ibba_coordenou": coordinator,
                 "regime_distribuicao": " | ".join(regimes) if regimes else UNKNOWN,
                 "garantia_firme": firm,
                 "originador": UNKNOWN,
+                "itau_lider_historico": history or "",
+                "ofertas_totais_fundo": int(len(fund_offers)),
                 "total_cessoes_brl": float(record.total_brl),
                 "fonte_volume": "CVM, Ofertas Públicas de Distribuição (RCVM 160)",
                 "fonte_classificacao": "ANBIMA, Fundos 175 características público",

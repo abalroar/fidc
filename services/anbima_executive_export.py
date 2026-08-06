@@ -897,9 +897,12 @@ def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
     )
     deck.footer(
         slide,
-        "Fonte: CVM, Oferta P\u00fablica de Distribui\u00e7\u00e3o (RCVM 160), cotas de FIDC, prim\u00e1ria, "
-        "status Oferta Encerrada \u00b7 ANBIMA, Fundos 175 caracter\u00edsticas p\u00fablico",
+        "Fonte: CVM, Oferta P\u00fablica de Distribui\u00e7\u00e3o \u2014 RCVM 160 e legado ICVM 400/476, "
+        "prim\u00e1ria, encerrada \u00b7 ANBIMA, Fundos 175 caracter\u00edsticas p\u00fablico",
     )
+
+
+UNKNOWN_LABEL = "Não identificado"
 
 
 def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
@@ -911,6 +914,9 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
     table = pd.read_csv(path)
     resolved = int(table["volume_emissao_brl"].notna().sum())
     in_window = int((table["escopo_oferta"] == "1S26").sum())
+    firm_known = int((~table["garantia_firme"].isin([UNKNOWN_LABEL])).sum())
+    history = table[table["itau_lider_historico"].fillna("").ne("")]
+    total_offers = int(table["ofertas_totais_fundo"].fillna(0).sum())
     missing = list(
         table.loc[table["volume_emissao_brl"].isna(), "ordem"].astype(int)
     )
@@ -935,7 +941,7 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
         ],
         [
             "R$ bi",
-            "CVM, valor total registrado da oferta",
+            "CVM, ofertas RCVM 160 e legado ICVM 400/476",
             f"{resolved} de 16 com oferta encerrada identificada",
         ],
         [
@@ -945,8 +951,8 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
         ],
         [
             "Garantia Firme",
-            "CVM, campo Regime_distribuicao da oferta",
-            f"{resolved} de 16; sem infer\u00eancia",
+            "CVM, campo Regime_distribuicao (s\u00f3 RCVM 160)",
+            f"{firm_known} de 16; o legado n\u00e3o traz o campo",
         ],
         ["Bookamos? / Risco IBBA", "\u2014", "Em branco por instru\u00e7\u00e3o"],
     ]
@@ -958,7 +964,7 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
         [2.4, 4.6, 5.05],
         aligns="lll",
         size=10,
-        row_height=0.32,
+        row_height=0.30,
     )
 
     notes = (
@@ -972,15 +978,29 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
             "Por que o Originador ficou aberto",
             "Nem o arquivo de ofertas da CVM nem o cadastro ANBIMA declaram o originador dos "
             "direitos credit\u00f3rios. Os campos Descricao_lastro e Identificacao_devedores_coobrigados "
-            "est\u00e3o vazios em todas as 54 ofertas destes fundos. Fechar a coluna exige o regulamento "
+            f"est\u00e3o vazios nas {total_offers} ofertas encerradas destes fundos. Fechar a coluna exige o regulamento "
             "vigente e os documentos da oferta no FundosNet, fundo a fundo.",
         ),
         (
-            "Fundos sem oferta registrada",
-            "Ordens "
+            "Ritos consultados",
+            "Foram lidos os dois arquivos da CVM: o de ofertas autom\u00e1ticas RCVM 160 e o "
+            "legado, com ICVM 400 e ICVM 476. As ICVM 476 s\u00e3o ofertas com esfor\u00e7os "
+            "restritos e chegam rotuladas como \u201cCotas de fundos de investimento fechados\u201d, "
+            "sem indicar o tipo do fundo; entram aqui porque o CNPJ emissor j\u00e1 \u00e9 um FIDC "
+            "conhecido. Ordens "
             + ", ".join(str(value) for value in missing)
-            + " n\u00e3o t\u00eam oferta p\u00fablica prim\u00e1ria encerrada na base da CVM. O volume cedido "
-            "informado na planilha de entrada n\u00e3o \u00e9 tamanho de emiss\u00e3o e n\u00e3o foi usado nessa coluna.",
+            + " seguem sem oferta encerrada em qualquer rito.",
+        ),
+        (
+            "Itaú BBA em ofertas anteriores",
+            "O banco liderou ofertas passadas de "
+            + ", ".join(
+                _FIDC_SHORT.get(int(row.ordem), str(row.fidc)[:18])
+                for row in history.itertuples()
+            )
+            + ". No LF III liderou tr\u00eas emiss\u00f5es entre 2023 e 2024, e a oferta de refer\u00eancia "
+            "de 2026 saiu com o UBS BB \u2014 hist\u00f3rico que a coluna IBBA Coord?, restrita \u00e0 "
+            "oferta de refer\u00eancia, n\u00e3o mostra. O CSV resolvido traz as datas.",
         ),
         (
             "Ranking ANBIMA",
@@ -988,11 +1008,11 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
             "pelo UBS BB. Os demais 15 n\u00e3o entram no ranking, que \u00e9 declarat\u00f3rio.",
         ),
     )
-    cursor = bottom + 0.22
+    cursor = bottom + 0.18
     for title, text in notes:
-        deck.text(slide, title, MARGIN_IN, cursor, 3.0, 0.26, size=10, color=ORANGE, bold=True)
-        deck.text(slide, text, MARGIN_IN + 3.2, cursor, 8.85, 0.58, size=9.5, color=GRAY_700)
-        cursor += 0.64
+        deck.text(slide, title, MARGIN_IN, cursor, 3.0, 0.24, size=9.5, color=ORANGE, bold=True)
+        deck.text(slide, text, MARGIN_IN + 3.2, cursor, 8.85, 0.52, size=9, color=GRAY_700)
+        cursor += 0.56
     deck.footer(
         slide,
         "Fontes consultadas: CVM Ofertas P\u00fablicas de Distribui\u00e7\u00e3o \u00b7 ANBIMA Fundos 175 "
