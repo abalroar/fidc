@@ -246,6 +246,19 @@ laranja, Arial, 16:9). O scaffolding está em `services/bba_deck.py`.
 
 O pacote **não** toca no contrato de slides do `services/industry_ppt_export.py`.
 
+### Download direto no dashboard
+
+A apresentação também está disponível como botão **"Ranking ANBIMA"** na seção
+*Dados e exportações* da aba Indústria FIDC, ao lado dos demais exports.
+
+O render vive em `services/anbima_executive_export.py`, que expõe
+`build_anbima_deck_bytes()` e `build_anbima_workbook_bytes()` — as mesmas funções alimentam
+o botão e o CLI, então o arquivo baixado é byte a byte o mesmo que o script escreve.
+
+As planilhas oficiais ficam versionadas em `data/industry_study/sources/` e são localizadas
+por padrão de nome, não por nome fixo: o arquivo carrega o mês de referência, então a
+próxima publicação é encontrada sozinha e invalida o cache do Streamlit.
+
 ### O que ainda falta (integração ao contrato existente)
 
 - adicionar o share ANBIMA ao `services/industry_ppt_export.py`, com as três janelas;

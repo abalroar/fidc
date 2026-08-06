@@ -974,6 +974,7 @@ def test_industry_holder_histogram_frames_apply_same_cut_and_anbima_filters() ->
 def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
     """A broken builder must not empty the whole export section."""
 
+    import services.anbima_executive_export as anbima_export
     import services.industry_ppt_export as ppt_export
     import services.industry_revision_export as revision_export
     from tabs.tab_industry_study import _industry_export_payloads
@@ -986,6 +987,9 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
     monkeypatch.setattr(
         revision_export, "build_revision_html_bytes", lambda *_: b"html"
     )
+    monkeypatch.setattr(
+        anbima_export, "build_anbima_deck_bytes", lambda *_: b"anbima"
+    )
 
     def explode(*_args, **_kwargs):
         raise RuntimeError("openpyxl ausente")
@@ -996,7 +1000,7 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
 
     payloads, failures = _industry_export_payloads.__wrapped__("assinatura")
 
-    assert set(payloads) == {"pptx", "xlsx", "portfolio", "html"}
+    assert set(payloads) == {"pptx", "xlsx", "portfolio", "html", "anbima"}
     assert set(failures) == {"top100"}
     assert "openpyxl ausente" in failures["top100"]
 
@@ -1006,7 +1010,32 @@ def test_every_export_button_is_declared_with_a_payload_key() -> None:
 
     keys = [spec["key"] for spec in _INDUSTRY_EXPORT_BUTTONS]
 
-    assert keys == ["pptx", "xlsx", "portfolio", "top100", "html"]
+    assert keys == ["pptx", "xlsx", "portfolio", "top100", "anbima", "html"]
     for spec in _INDUSTRY_EXPORT_BUTTONS:
         assert spec["label"] and spec["mime"] and spec["widget"]
         assert "{period}" in spec["file_name"]
+
+
+def test_the_anbima_deck_is_offered_as_its_own_download() -> None:
+    source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
+    download_source = source[
+        source.index("_INDUSTRY_EXPORT_BUTTONS") : source.index(
+            "def _stock_delta_display"
+        )
+    ]
+
+    assert "Ranking ANBIMA" in download_source
+    assert "ANBIMA_Itau_BBA_Renda_Fixa_" in download_source
+    assert "industry-anbima-pptx" in download_source
+    assert "build_anbima_deck_bytes" in source
+
+
+def test_the_anbima_source_workbooks_drive_the_export_cache_key() -> None:
+    """A new ANBIMA publication must invalidate the cached deck."""
+
+    from tabs.tab_industry_study import _anbima_sources_signature
+
+    signature = _anbima_sources_signature()
+
+    assert signature
+    assert signature != _industry_files_signature(())
