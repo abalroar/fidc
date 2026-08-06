@@ -717,6 +717,289 @@ def caveats_slide(
     deck.footer(slide, "ANBIMA Data — Ranking de Renda Fixa e Híbridos, referência Junho/2026")
 
 
+TOP_FIDCS_NAME = "top_fidcs_middle_resolved.csv"
+
+#: Short display names for the middle-market list; the legal names do not fit.
+_FIDC_SHORT = {
+    1: "FIDC 30E",
+    2: "Afinity MF",
+    3: "Cobuccio",
+    4: "For-Te",
+    5: "Consignado Privado Paketá",
+    6: "Cash Flow Multissegmentos",
+    7: "Monee I",
+    8: "Turbi I",
+    9: "XPCE Infra",
+    10: "Jefer Banking NP",
+    11: "Kyklos N",
+    12: "LF III",
+    13: "Multiplica",
+    14: "Red Real LP",
+    15: "Residence Club",
+    16: "Roqdeal",
+}
+
+
+def _short_cedente(value: str) -> str:
+    """First assignor, trimmed of the legal-form tail, for a narrow column."""
+
+    first = str(value).split("|")[0].strip()
+    for tail in (
+        " SOCIEDADE DE CRÉDITO AO MICROEMPREENDEDOR E À EMPRESA DE PEQUENO PORTE S.A.",
+        " SOCIEDADE DE CRÉDITO, FINANCIAMENTO E INVESTIMENTOS",
+        " SOCIEDADE DE CRÉDITO DIRETO S.A.",
+        " INSTITUIÇÃO DE PAGAMENTO LTDA",
+        " DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA",
+        " PARTICIPAÇÕES E PRODUÇÕES ARTÍSTICAS S.A.",
+        " COMÉRCIO, IMPORTAÇÃO E EXPORTAÇÃO LTDA.",
+        " INDÚSTRIA E COMÉRCIO DE CONFECÇÕES LTDA.",
+        " COMPARTILHAMENTO DE VEÍCULOS S/A",
+        " EMPREENDIMENTO HOTELEIRO S.A.",
+        " DA AMAZÔNIA INDÚSTRIA DE APARELHOS ELÉTRICOS LTDA",
+        " GARIMPEIRO URBANO COM. METAIS LTDA",
+        " TELECOMUNICAÇÕES LTDA.",
+        " PARTICIPAÇÕES S.A.",
+        " S/A",
+        " S.A.",
+        " LTDA.",
+        " LTDA",
+    ):
+        if first.upper().endswith(tail.upper()):
+            first = first[: -len(tail)]
+            break
+    words = first.strip().split()
+    # Acronyms such as QI, BMP, RQ, BWT, HRH and 30E must survive; only mixed
+    # words get title case.
+    return " ".join(
+        word if (word.isupper() and len(word) <= 4) or any(ch.isdigit() for ch in word)
+        else word.title()
+        for word in words
+    )
+
+
+def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
+    """Top FIDCs Middle — one row per fund, only what the bases confirm."""
+
+    path = Path(data_dir) / TOP_FIDCS_NAME
+    if not path.is_file():
+        return
+    table = pd.read_csv(path).sort_values("ordem")
+
+    slide = deck.slide("Top FIDCs Middle | jan\u2013jun/26")
+    deck.text(
+        slide,
+        "TOP 16 POR VOLUME CEDIDO NO PER\u00cdODO",
+        MARGIN_IN,
+        1.2,
+        6.0,
+        0.22,
+        size=10,
+        color=ORANGE,
+        bold=True,
+    )
+
+    header = [
+        "#",
+        "FIDC",
+        "Originador\u00b9",
+        "Tipo",
+        "Receb\u00edvel",
+        "R$ bi",
+        "IBBA Coord?",
+        "Garantia Firme",
+        "Bookamos?",
+        "Risco IBBA",
+    ]
+    rows = [header]
+    for record in table.itertuples():
+        volume = record.volume_emissao_brl
+        rows.append(
+            [
+                str(int(record.ordem)),
+                _FIDC_SHORT.get(int(record.ordem), str(record.fidc)[:26]),
+                _short_cedente(record.cedente_informado),
+                str(record.tipo_anbima).replace("Agro, Indústria e Comércio", "Agro, Ind. e Com."),
+                str(record.foco_anbima).replace("Multicarteira Agro, Indústria e Comércio", "Multicarteira Agro/Ind."),
+                fmt_mm(volume / 1e9, 2) if pd.notna(volume) else "n/d",
+                str(record.ibba_coordenou),
+                str(record.garantia_firme),
+                "",
+                "",
+            ]
+        )
+
+    subtotal = float(table["volume_emissao_brl"].dropna().sum())
+    in_window_volume = float(
+        table.loc[table["escopo_oferta"].eq("1S26"), "volume_emissao_brl"].dropna().sum()
+    )
+    # The denominator is the CVM universe of FIDC quota offers closed in 1S26,
+    # stated on the reconciliation slide of this same deck.
+    fidc_universe_brl = 65.488e9
+    rows.append(
+        ["", "Subtotal (R$ bi)", "", "", "", fmt_mm(subtotal / 1e9, 2), "", "", "", ""]
+    )
+    rows.append(
+        [
+            "",
+            "Subtotal 1S26 (% emiss\u00f5es FIDC CVM)",
+            "",
+            "",
+            "",
+            fmt_pct(in_window_volume / fidc_universe_brl),
+            "",
+            "",
+            "",
+            "",
+        ]
+    )
+
+    bottom = deck.native_table(
+        slide,
+        rows,
+        MARGIN_IN,
+        1.46,
+        [0.30, 2.05, 1.95, 1.35, 1.90, 0.60, 1.50, 0.90, 0.70, 0.80],
+        aligns="lllllrllll",
+        size=8,
+        row_height=0.245,
+        header_height=0.34,
+        header_fill=ORANGE,
+        header_color=WHITE,
+        emphasis_rows=(len(rows) - 2, len(rows) - 1),
+    )
+
+    missing = int(table["volume_emissao_brl"].isna().sum())
+    deck.text(
+        slide,
+        "\u00b9 A coluna Originador reproduz o cedente informado na planilha de entrada. "
+        "A confirma\u00e7\u00e3o de que o cedente \u00e9 tamb\u00e9m o originador dos direitos credit\u00f3rios exige "
+        "leitura do regulamento e dos documentos da oferta \u2014 ver nota t\u00e9cnica no slide seguinte.",
+        MARGIN_IN,
+        bottom + 0.14,
+        CONTENT_WIDTH_IN,
+        0.28,
+        size=8,
+        color=GRAY_700,
+    )
+    deck.text(
+        slide,
+        f"Subtotal em R$ bi soma as ofertas de refer\u00eancia mostradas; o percentual usa apenas as "
+        "encerradas no 1S26, sobre o universo CVM de cotas de FIDC do semestre (R$ 65,5 bi). "
+        f"Bookamos? e Risco IBBA em branco por instru\u00e7\u00e3o. {missing} fundos n\u00e3o t\u00eam oferta "
+        "p\u00fablica encerrada registrada na CVM e aparecem como n/d em R$ bi e "
+        "\u201cN\u00e3o identificado\u201d nas colunas dependentes da oferta.",
+        MARGIN_IN,
+        bottom + 0.42,
+        CONTENT_WIDTH_IN,
+        0.28,
+        size=8,
+        color=GRAY_700,
+    )
+    deck.footer(
+        slide,
+        "Fonte: CVM, Oferta P\u00fablica de Distribui\u00e7\u00e3o (RCVM 160), cotas de FIDC, prim\u00e1ria, "
+        "status Oferta Encerrada \u00b7 ANBIMA, Fundos 175 caracter\u00edsticas p\u00fablico",
+    )
+
+
+def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
+    """Which source answered each column, and what is still open."""
+
+    path = Path(data_dir) / TOP_FIDCS_NAME
+    if not path.is_file():
+        return
+    table = pd.read_csv(path)
+    resolved = int(table["volume_emissao_brl"].notna().sum())
+    in_window = int((table["escopo_oferta"] == "1S26").sum())
+    missing = list(
+        table.loc[table["volume_emissao_brl"].isna(), "ordem"].astype(int)
+    )
+
+    slide = deck.slide("Top FIDCs Middle \u2014 nota t\u00e9cnica de fontes")
+    rows = [["Coluna", "Fonte utilizada", "Situa\u00e7\u00e3o"]]
+    rows += [
+        [
+            "FIDC / CNPJ",
+            "Planilha de entrada curada",
+            "16 de 16 conferidos contra o cadastro ANBIMA",
+        ],
+        [
+            "Originador",
+            "\u2014",
+            "N\u00e3o confirmado: exige regulamento e documentos da oferta",
+        ],
+        [
+            "Tipo e Receb\u00edvel",
+            "ANBIMA, Fundos 175 caracter\u00edsticas p\u00fablico",
+            "16 de 16 classificados",
+        ],
+        [
+            "R$ bi",
+            "CVM, valor total registrado da oferta",
+            f"{resolved} de 16 com oferta encerrada identificada",
+        ],
+        [
+            "IBBA Coord?",
+            "CVM, campo Nome_Lider da oferta",
+            f"{resolved} de 16; a CVM publica apenas o l\u00edder",
+        ],
+        [
+            "Garantia Firme",
+            "CVM, campo Regime_distribuicao da oferta",
+            f"{resolved} de 16; sem infer\u00eancia",
+        ],
+        ["Bookamos? / Risco IBBA", "\u2014", "Em branco por instru\u00e7\u00e3o"],
+    ]
+    bottom = deck.native_table(
+        slide,
+        rows,
+        MARGIN_IN,
+        1.42,
+        [2.4, 4.6, 5.05],
+        aligns="lll",
+        size=10,
+        row_height=0.32,
+    )
+
+    notes = (
+        (
+            "Oferta de refer\u00eancia",
+            f"Quando o fundo tem oferta encerrada no 1S26, ela \u00e9 a refer\u00eancia ({in_window} fundos). "
+            "Sem oferta no semestre, usa-se a mais recente encerrada, e a data consta no CSV "
+            "resolvido. As demais colunas vêm sempre da mesma oferta.",
+        ),
+        (
+            "Por que o Originador ficou aberto",
+            "Nem o arquivo de ofertas da CVM nem o cadastro ANBIMA declaram o originador dos "
+            "direitos credit\u00f3rios. Os campos Descricao_lastro e Identificacao_devedores_coobrigados "
+            "est\u00e3o vazios em todas as 54 ofertas destes fundos. Fechar a coluna exige o regulamento "
+            "vigente e os documentos da oferta no FundosNet, fundo a fundo.",
+        ),
+        (
+            "Fundos sem oferta registrada",
+            "Ordens "
+            + ", ".join(str(value) for value in missing)
+            + " n\u00e3o t\u00eam oferta p\u00fablica prim\u00e1ria encerrada na base da CVM. O volume cedido "
+            "informado na planilha de entrada n\u00e3o \u00e9 tamanho de emiss\u00e3o e n\u00e3o foi usado nessa coluna.",
+        ),
+        (
+            "Ranking ANBIMA",
+            "Apenas o LF III aparece no anexo do ranking ANBIMA de junho/2026, coordenado "
+            "pelo UBS BB. Os demais 15 n\u00e3o entram no ranking, que \u00e9 declarat\u00f3rio.",
+        ),
+    )
+    cursor = bottom + 0.22
+    for title, text in notes:
+        deck.text(slide, title, MARGIN_IN, cursor, 3.0, 0.26, size=10, color=ORANGE, bold=True)
+        deck.text(slide, text, MARGIN_IN + 3.2, cursor, 8.85, 0.58, size=9.5, color=GRAY_700)
+        cursor += 0.64
+    deck.footer(
+        slide,
+        "Fontes consultadas: CVM Ofertas P\u00fablicas de Distribui\u00e7\u00e3o \u00b7 ANBIMA Fundos 175 "
+        "caracter\u00edsticas p\u00fablico \u00b7 ANBIMA Anexo ao Ranking de Renda Fixa e H\u00edbridos",
+    )
+
+
 def build_deck(
     official: pd.DataFrame,
     totals: pd.DataFrame,
@@ -725,6 +1008,7 @@ def build_deck(
     sources: dict[str, str],
     consistency: dict[str, int],
     output: Path,
+    data_dir: Path = DEFAULT_DATA_DIR,
 ) -> Path:
     """Assemble the single combined deck."""
 
@@ -793,6 +1077,8 @@ def build_deck(
     product_slide(deck, products)
     fidc_slide(deck, official, totals)
     operations_slide(deck, matrix)
+    top_fidcs_slide(deck, data_dir)
+    top_fidcs_note_slide(deck, data_dir)
     methodology_slide(deck)
     caveats_slide(deck, matrix, sources, consistency)
 
@@ -994,6 +1280,7 @@ def build_anbima_deck_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
         loaded["sources"],
         loaded["consistency"],
         buffer,
+        Path(data_dir),
     )
     return buffer.getvalue()
 
@@ -1016,5 +1303,6 @@ __all__ = [
     "build_anbima_workbook_bytes",
     "build_deck",
     "build_workbook",
+    "top_fidcs_slide",
     "resolve_source_workbooks",
 ]
