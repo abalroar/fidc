@@ -66,20 +66,37 @@ MEASURES: dict[str, str] = {
     "distribuicao_valor": "Distribuição",
 }
 
-#: Segments reported in the per-product view, in committee order.
-SEGMENTS: tuple[tuple[str, str], ...] = (
-    ("1", "Renda fixa consolidada"),
-    ("1.2", "Renda fixa — longo prazo"),
-    ("1.1", "Renda fixa — curto prazo"),
-    ("1.3", "Securitização"),
-    ("1.3.1", "FIDC"),
-    ("1.3.2", "CRI"),
-    ("1.3.3", "CRA"),
-    ("1.3.4", "CR"),
-    ("2", "Operações híbridas"),
-    ("2.2", "FII"),
-    ("2.4", "FI-Infra (FIP-IE)"),
-    ("2.5", "FIAGRO"),
+#: Segments reported in the per-product view, in committee order.  ``noted``
+#: marks the aggregates whose composition is spelled out in the slide footnote,
+#: because "renda fixa" and "securitização" are sums of other rows and the
+#: reader cannot tell what is inside them from the label alone.
+SEGMENTS: tuple[tuple[str, str, bool], ...] = (
+    ("1", "Renda fixa consolidada", True),
+    ("1.2", "Renda fixa — longo prazo", True),
+    ("1.1", "Renda fixa — curto prazo", True),
+    ("1.3", "Securitização", True),
+    ("1.3.1", "FIDC", False),
+    ("1.3.2", "CRI", False),
+    ("1.3.3", "CRA", False),
+    ("1.3.4", "CR", False),
+    ("2", "Operações híbridas", False),
+    ("2.2", "FII", False),
+    ("2.4", "FI-Infra (FIP-IE)", False),
+    ("2.5", "FIAGRO", False),
+)
+
+#: What each footnoted aggregate actually counts, per Chapter II of the ANBIMA
+#: methodology.  Shown under the per-product table.
+SEGMENT_CRITERIA: tuple[str, ...] = (
+    "Renda fixa consolidada: soma de curto prazo, longo prazo e securitização.",
+    "Renda fixa — curto prazo: vencimento até 366 dias. Longo prazo: acima de "
+    "366 dias. Ambos compostos por debêntures simples, notas promissórias, "
+    "notas comerciais, CPR-F e valor mobiliário de agência multilateral.",
+    "Securitização: soma de FIDC (cotas seniores e subordinadas de condomínio "
+    "fechado), CRI, CRA e CR.",
+    "Prazo considerado é a data da 1ª repactuação ou o vencimento final, o que "
+    "ocorrer primeiro. Operações de empresas ligadas são apuradas à parte e não "
+    "entram nestes números.",
 )
 
 #: Instrument label derived from the ANBIMA asset class of the operation.
@@ -182,11 +199,38 @@ def _position(official: pd.DataFrame, measure: str, window: str, code: str) -> t
     )
 
 
-def product_view(official: pd.DataFrame) -> pd.DataFrame:
-    """Per-segment position of the house across measures and windows."""
+def product_view(
+    official: pd.DataFrame, totals: pd.DataFrame | None = None
+) -> pd.DataFrame:
+    """Per-segment position of the house across measures and windows.
+
+    When ``totals`` is supplied, each row also carries the market size of the
+    segment: the number of operations, taken from the ranking's published
+    ``Total`` row, and the volume, summed across participants.  The per
+    participant operation counts must not be summed — a syndicated deal credits
+    one unit to every coordinator.
+    """
+
+    def segment_total(measure: str, window: str, code: str) -> float:
+        if totals is None or totals.empty:
+            return float("nan")
+        row = totals[
+            totals["measure"].eq(measure)
+            & totals["window"].eq(window)
+            & totals["ranking_code"].eq(code)
+        ]
+        return float(row["total"].iloc[0]) if not row.empty else float("nan")
+
+    def segment_volume(measure: str, window: str, code: str) -> float:
+        block = official[
+            official["measure"].eq(measure)
+            & official["window"].eq(window)
+            & official["ranking_code"].eq(code)
+        ]
+        return float(block["value_brl_or_count"].sum()) if not block.empty else float("nan")
 
     rows: list[dict[str, object]] = []
-    for code, label in SEGMENTS:
+    for code, label, noted in SEGMENTS:
         for measure, measure_label in MEASURES.items():
             rank_ytd, share_ytd, peers_ytd = _position(
                 official, measure, "acumulado_ano", code
@@ -200,6 +244,7 @@ def product_view(official: pd.DataFrame) -> pd.DataFrame:
                 {
                     "segmento": label,
                     "codigo_anbima": code,
+                    "nota_criterio": noted,
                     "visao": measure_label,
                     "ranking_1s26": rank_ytd,
                     "share_1s26": share_ytd,
@@ -211,6 +256,14 @@ def product_view(official: pd.DataFrame) -> pd.DataFrame:
                         else None
                     ),
                     "concorrentes_1s26": peers_ytd,
+                    "operacoes_1s26": segment_total(
+                        "originacao_numero_operacoes", "acumulado_ano", code
+                    ),
+                    "operacoes_12m": segment_total(
+                        "originacao_numero_operacoes", "ultimos_12_meses", code
+                    ),
+                    "volume_1s26_brl": segment_volume(measure, "acumulado_ano", code),
+                    "volume_12m_brl": segment_volume(measure, "ultimos_12_meses", code),
                 }
             )
     return pd.DataFrame(rows)
@@ -338,6 +391,7 @@ __all__ = [
     "PARTICIPATED",
     "PEERS",
     "SEGMENTS",
+    "SEGMENT_CRITERIA",
     "WINDOWS",
     "display_name",
     "largest_operations",

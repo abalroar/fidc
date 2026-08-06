@@ -69,6 +69,40 @@ def fmt_rank(value: object) -> str:
     return "—" if value is None or pd.isna(value) else f"{int(value)}º"
 
 
+#: "No Style, No Grid" — the built-in table style that ships no banding and no
+#: borders, so the deck's own styling is the only thing on screen.
+_PLAIN_TABLE_STYLE = "{2D5ABB26-0587-4C30-8999-92F81FD0307C}"
+
+_A_NAMESPACE = "http://schemas.openxmlformats.org/drawingml/2006/main"
+
+
+def _use_plain_table_style(table) -> None:
+    graphic = table._graphic_frame._element  # noqa: SLF001 - no public accessor
+    for properties in graphic.iter(f"{{{_A_NAMESPACE}}}tblPr"):
+        for existing in properties.findall(f"{{{_A_NAMESPACE}}}tableStyleId"):
+            properties.remove(existing)
+        style = properties.makeelement(f"{{{_A_NAMESPACE}}}tableStyleId", {})
+        style.text = _PLAIN_TABLE_STYLE
+        properties.append(style)
+
+
+def _set_cell_borders(cell, *, bottom: str | None = None) -> None:
+    """Draw a hairline under a table cell; python-pptx exposes no border API."""
+
+    if bottom is None:
+        return
+    properties = cell._tc.get_or_add_tcPr()  # noqa: SLF001 - no public accessor
+    tag = f"{{{_A_NAMESPACE}}}lnB"
+    for existing in properties.findall(tag):
+        properties.remove(existing)
+    line = properties.makeelement(tag, {"w": "6350", "cap": "flat"})
+    fill = properties.makeelement(f"{{{_A_NAMESPACE}}}solidFill", {})
+    color = properties.makeelement(f"{{{_A_NAMESPACE}}}srgbClr", {"val": bottom})
+    fill.append(color)
+    line.append(fill)
+    properties.append(line)
+
+
 class Deck:
     """A minimal, opinionated deck builder for the BBA house style."""
 
@@ -196,7 +230,7 @@ class Deck:
             self.text(slide, note, x + 0.2, y + 0.85, 2.5, 0.22, size=9, color=GRAY_500)
         return y + 1.16
 
-    def table(
+    def native_table(
         self,
         slide,
         rows: list[list[str]],
@@ -205,83 +239,75 @@ class Deck:
         widths: list[float],
         *,
         highlight: int | None = None,
-        row_height: float = 0.34,
-        size: float = 11,
-        align_right_from: int = 2,
+        row_height: float = 0.28,
+        header_height: float = 0.32,
+        size: float = 10,
         aligns: str | None = None,
-    ) -> float:
-        """Render a light, borderless table; returns the bottom y coordinate.
+        align_right_from: int = 2,
+    ):
+        """Insert a real PowerPoint table — editable, with addable rows/columns.
 
-        ``aligns`` overrides ``align_right_from`` with one character per column:
-        ``l`` for left, ``r`` for right.
+        Unlike a grid of text boxes, this is a single object the reader can
+        select, restyle, sort, or paste into Excel, and into which rows and
+        columns can be inserted with the normal Office commands.
         """
 
-        header, *body = rows
-        # A right-aligned column followed by a left-aligned one would touch at
-        # the shared boundary, so every cell is inset by half a gutter.
-        gutter = 0.07
+        row_count = len(rows)
+        column_count = len(rows[0])
+        total_height = header_height + (row_count - 1) * row_height
+        graphic = slide.shapes.add_table(
+            row_count,
+            column_count,
+            Inches(x),
+            Inches(y),
+            Inches(sum(widths)),
+            Inches(total_height),
+        )
+        table = graphic.table
+        _use_plain_table_style(table)
+        table.first_row = True
+        table.horz_banding = False
+
+        for index, width in enumerate(widths):
+            table.columns[index].width = Inches(width)
+        table.rows[0].height = Inches(header_height)
+        for index in range(1, row_count):
+            table.rows[index].height = Inches(row_height)
 
         def alignment(index: int):
             if aligns is not None and index < len(aligns):
                 return PP_ALIGN.RIGHT if aligns[index] == "r" else PP_ALIGN.LEFT
             return PP_ALIGN.RIGHT if index >= align_right_from else PP_ALIGN.LEFT
 
-        def cell_box(index: int) -> tuple[float, float]:
-            return (
-                x + sum(widths[:index]) + gutter,
-                max(widths[index] - 2 * gutter, 0.2),
-            )
-
-        cursor = y
-        for index, label in enumerate(header):
-            cell_x, cell_w = cell_box(index)
-            self.text(
-                slide,
-                label,
-                cell_x,
-                cursor,
-                cell_w,
-                row_height,
-                size=size - 1,
-                color=GRAY_500,
-                bold=True,
-                align=alignment(index),
-            )
-        cursor += row_height * 0.85
-        self.rule(slide, x, cursor, sum(widths), color=GRAY_300, height=0.012)
-        cursor += 0.10
-
-        for position, row in enumerate(body):
-            is_house = highlight is not None and position == highlight
-            if is_house:
-                self.block(
-                    slide,
-                    x - 0.12,
-                    cursor - 0.05,
-                    sum(widths) + 0.24,
-                    row_height,
-                    ORANGE_LIGHT,
+        for row_index, values in enumerate(rows):
+            is_header = row_index == 0
+            is_house = highlight is not None and row_index == highlight + 1
+            for column_index, value in enumerate(values):
+                cell = table.cell(row_index, column_index)
+                cell.text = str(value)
+                cell.margin_left = Inches(0.06)
+                cell.margin_right = Inches(0.06)
+                cell.margin_top = Inches(0.02)
+                cell.margin_bottom = Inches(0.02)
+                cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = self.rgb(
+                    GRAY_100 if is_header else (ORANGE_LIGHT if is_house else WHITE)
                 )
-            for index, value in enumerate(row):
-                cell_x, cell_w = cell_box(index)
-                self.text(
-                    slide,
-                    value,
-                    cell_x,
-                    cursor,
-                    cell_w,
-                    row_height,
-                    size=size,
-                    color=BLACK if is_house else GRAY_900,
-                    bold=is_house,
-                    align=alignment(index),
+                paragraph = cell.text_frame.paragraphs[0]
+                paragraph.alignment = alignment(column_index)
+                run = paragraph.runs[0] if paragraph.runs else paragraph.add_run()
+                run.font.name = FONT
+                run.font.size = Pt(size - 1 if is_header else size)
+                run.font.bold = is_header or is_house
+                run.font.color.rgb = self.rgb(
+                    GRAY_500 if is_header else (BLACK if is_house else GRAY_900)
                 )
-            cursor += row_height
-            if position < len(body) - 1:
-                self.rule(
-                    slide, x, cursor - 0.05, sum(widths), color=GRAY_200, height=0.008
+                _set_cell_borders(
+                    cell,
+                    bottom=(GRAY_300 if is_header else GRAY_200),
                 )
-        return cursor
+        return y + total_height
 
     def save(self, path) -> None:
         self.prs.save(path)

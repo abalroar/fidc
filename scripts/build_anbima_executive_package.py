@@ -30,11 +30,13 @@ if str(ROOT) not in sys.path:
 
 from services.anbima_fixed_income_ranking import (  # noqa: E402
     parse_annex_workbook,
+    parse_ranking_totals,
     parse_ranking_workbook,
     workbook_sha256,
 )
 from services.anbima_executive_package import (  # noqa: E402
     HOUSE,
+    SEGMENT_CRITERIA,
     display_name,
     MEASURES,
     PEERS,
@@ -261,9 +263,8 @@ def ranking_slide(deck: Deck, official: pd.DataFrame, measure: str) -> None:
     m12 = league_table(official, measure=measure, window="ultimos_12_meses")
     house_ytd = ytd[ytd["participante"].eq(HOUSE)].iloc[0]
     house_12m = m12[m12["participante"].eq(HOUSE)].iloc[0]
-    moved = int(house_12m["posicao"]) - int(house_ytd["posicao"])
 
-    if moved == 0:
+    if int(house_ytd["posicao"]) == int(house_12m["posicao"]):
         headline = (
             f"{label} de renda fixa: Itaú BBA em {fmt_rank(house_ytd['posicao'])} "
             "nas duas janelas"
@@ -275,20 +276,43 @@ def ranking_slide(deck: Deck, official: pd.DataFrame, measure: str) -> None:
         )
     slide = deck.slide(headline)
 
+    deck.stat_cards(
+        slide,
+        [
+            (
+                f"Volume {label.lower()}",
+                f"R$ {fmt_mm(float(house_ytd['volume_brl_mm']) / 1e3)} bi",
+                "acumulado 2026",
+            ),
+            ("Participação", fmt_pct(float(house_ytd["market_share"])), "do mercado apurado"),
+            (
+                "Posição 2026",
+                fmt_rank(house_ytd["posicao"]),
+                f"entre {len(ytd)} instituições",
+            ),
+            (
+                "Posição 12 meses",
+                fmt_rank(house_12m["posicao"]),
+                fmt_pct(float(house_12m["market_share"])) + " de participação",
+            ),
+        ],
+        y=1.4,
+    )
+
     for column, (table, window) in enumerate(
         ((ytd, "acumulado_ano"), (m12, "ultimos_12_meses"))
     ):
         x = MARGIN_IN + column * 6.15
-        deck.text(slide, WINDOWS[window], x, 1.42, 5.7, 0.26, size=11, color=ORANGE, bold=True)
+        deck.text(slide, WINDOWS[window], x, 2.78, 5.7, 0.26, size=11, color=ORANGE, bold=True)
         rows, highlight = _league_rows(table)
-        deck.table(
+        deck.native_table(
             slide,
             rows,
             x,
-            1.78,
-            [0.45, 1.85, 1.28, 0.86, 0.86, 0.6],
+            3.12,
+            [0.5, 1.9, 1.3, 0.82, 0.78, 0.6],
             highlight=highlight,
-            row_height=0.36,
+            aligns="llrrrr",
             size=10,
         )
     deck.footer(
@@ -328,87 +352,191 @@ def chart_slide(deck: Deck, official: pd.DataFrame, measure: str) -> None:
 
 
 def product_slide(deck: Deck, products: pd.DataFrame) -> None:
-    slide = deck.slide("Visão por produto: onde o Itaú BBA lidera e onde há espaço")
+    slide = deck.slide("Visão por produto: mercado, posição e participação do Itaú BBA")
     view = products[products["visao"].eq("Originação")]
-    rows = [["Segmento", "Rank 1S26", "Share 1S26", "Rank 12m", "Share 12m", "Mensagem"]]
-    messages = {
-        "Renda fixa consolidada": "2º no semestre, 1º em 12 meses",
-        "Renda fixa — longo prazo": "Bloco de maior peso; 2º no semestre",
-        "Renda fixa — curto prazo": "Segmento pequeno; espaço de recuperação",
-        "Securitização": "Liderança consistente nas duas janelas",
-        "FIDC": "Liderança folgada; mais que o dobro do 2º",
-        "CRI": "1º no semestre; 2º em 12 meses",
-        "CRA": "Ponto de atenção específico",
-        "CR": "Base pequena; 1º em 12 meses",
-        "Operações híbridas": "Liderança nas duas janelas",
-        "FII": "3º no semestre, 2º em 12 meses",
-        "FI-Infra (FIP-IE)": "Liderança dominante",
-        "FIAGRO": "2º no semestre, 1º em 12 meses",
-    }
+
+    rows = [
+        [
+            "Segmento",
+            "Operações (#)",
+            "Mercado (R$ bi)",
+            "Rank 1S26",
+            "Share 1S26",
+            "Rank 12m",
+            "Share 12m",
+        ]
+    ]
     for row in view.itertuples():
+        label = row.segmento + ("*" if row.nota_criterio else "")
         rows.append(
             [
-                row.segmento,
+                label,
+                fmt_mm(row.operacoes_1s26, 0),
+                fmt_mm(row.volume_1s26_brl / 1e9),
                 fmt_rank(row.ranking_1s26),
                 fmt_pct(row.share_1s26) if row.share_1s26 is not None else "—",
                 fmt_rank(row.ranking_12m),
                 fmt_pct(row.share_12m) if row.share_12m is not None else "—",
-                messages.get(row.segmento, ""),
             ]
         )
-    deck.table(
+    deck.native_table(
         slide,
         rows,
         MARGIN_IN,
-        1.45,
-        [3.0, 1.15, 1.25, 1.15, 1.25, 4.25],
-        row_height=0.36,
+        1.42,
+        [3.15, 1.45, 1.65, 1.35, 1.4, 1.35, 1.4],
+        aligns="lrrrrrr",
         size=10,
-        aligns="lrrrrl",
+        row_height=0.29,
+    )
+
+    note_top = 1.42 + 0.32 + len(view) * 0.29 + 0.22
+    deck.text(
+        slide,
+        "* Composição dos agregados",
+        MARGIN_IN,
+        note_top,
+        CONTENT_WIDTH_IN,
+        0.24,
+        size=10,
+        color=ORANGE,
+        bold=True,
     )
     deck.text(
         slide,
-        "Visão de originação. A tabela completa, com distribuição e contagem de "
-        "concorrentes por segmento, está no arquivo Excel que acompanha esta apresentação.",
+        " ".join(SEGMENT_CRITERIA),
         MARGIN_IN,
-        6.5,
+        note_top + 0.26,
         CONTENT_WIDTH_IN,
-        0.3,
-        size=10,
-        color=GRAY_500,
+        0.8,
+        size=9,
+        color=GRAY_700,
     )
-    deck.footer(slide, f"{SOURCE_RANKING} — Originação (Valor), por tipo de ranking")
+    deck.footer(
+        slide,
+        f"{SOURCE_RANKING} — Originação (Valor e Nº de Operações), acumulado 2026 e "
+        "últimos 12 meses · operações do total publicado por tipo",
+    )
+
+
+def fidc_slide(deck: Deck, official: pd.DataFrame, totals: pd.DataFrame) -> None:
+    fidc = league_table(
+        official, measure="originacao_valor", window="acumulado_ano", ranking_code="1.3.1"
+    )
+    if fidc.empty:
+        return
+    counts = official[
+        official["measure"].eq("originacao_numero_operacoes")
+        & official["window"].eq("acumulado_ano")
+        & official["ranking_code"].eq("1.3.1")
+    ].set_index("participant")["value_brl_or_count"]
+    distribution = league_table(
+        official, measure="distribuicao_valor", window="acumulado_ano", ranking_code="1.3.1"
+    )
+    total_ops = totals[
+        totals["measure"].eq("originacao_numero_operacoes")
+        & totals["window"].eq("acumulado_ano")
+        & totals["ranking_code"].eq("1.3.1")
+    ]
+    operations = int(total_ops["total"].iloc[0]) if not total_ops.empty else 0
+
+    house = fidc[fidc["participante"].eq(HOUSE)].iloc[0]
+    house_ops = int(counts.get(HOUSE, 0))
+    universe = float(fidc["volume_brl_mm"].sum())
+
+    slide = deck.slide(
+        "Em FIDC o Itaú BBA lidera com "
+        f"{fmt_pct(float(house['market_share']))}, mais que o dobro do segundo colocado"
+    )
+    deck.stat_cards(
+        slide,
+        [
+            ("Volume originado", f"R$ {fmt_mm(float(house['volume_brl_mm']) / 1e3)} bi", "1S26"),
+            ("Participação", fmt_pct(float(house["market_share"])), "do mercado apurado"),
+            ("Posição", fmt_rank(house["posicao"]), f"entre {len(fidc)} coordenadores"),
+            ("Operações", f"{house_ops} de {operations}", "originadas no semestre"),
+        ],
+        y=1.4,
+    )
+
+    rows = [["#", "Coordenador", "Volume (R$ mi)", "Share", "Operações (#)"]]
+    highlight = None
+    for position, row in enumerate(fidc.head(9).itertuples()):
+        if row.participante == HOUSE:
+            highlight = position
+        rows.append(
+            [
+                fmt_rank(row.posicao),
+                row.instituicao,
+                fmt_mm(row.volume_brl_mm),
+                fmt_pct(row.market_share),
+                fmt_mm(float(counts.get(row.participante, 0)), 0),
+            ]
+        )
+    bottom = deck.native_table(
+        slide,
+        rows,
+        MARGIN_IN,
+        2.78,
+        [0.7, 5.35, 2.2, 1.7, 2.1],
+        highlight=highlight,
+        aligns="llrrr",
+        size=10,
+    )
+
+    house_distribution = distribution[distribution["participante"].eq(HOUSE)]
+    share_text = (
+        fmt_pct(float(house_distribution["market_share"].iloc[0]))
+        if not house_distribution.empty
+        else "—"
+    )
+    deck.text(
+        slide,
+        f"Na distribuição de FIDC o Itaú BBA também é 1º, com {share_text}. O mercado "
+        f"apurado no ranking é de R$ {fmt_mm(universe / 1e3)} bi, contra R$ 65,5 bi de cotas "
+        "de FIDC registradas na CVM no mesmo período: o ranking cobre a parcela disputada, "
+        "sem as operações de empresas ligadas e sem as ofertas não reportadas à ANBIMA.",
+        MARGIN_IN,
+        bottom + 0.26,
+        CONTENT_WIDTH_IN,
+        0.62,
+        size=11,
+        color=GRAY_700,
+    )
+    deck.footer(
+        slide,
+        f"{SOURCE_RANKING} — Originação e Distribuição (Valor), Tipo 1.3.1 · "
+        "CVM, ofertas públicas de distribuição",
+    )
 
 
 def operations_slide(deck: Deck, matrix: pd.DataFrame) -> None:
     top = largest_operations(matrix, 12)
     slide = deck.slide("As maiores operações do período e a presença do Itaú BBA")
     rows = [["Operação", "Instrumento", "Data", "R$ mi", "Líder(es)", "Itaú BBA"]]
-    highlight = None
-    for position, row in enumerate(top.itertuples()):
+    for row in top.itertuples():
         name = row.operacao
-        if len(name) > 42:
-            name = name[:41].rstrip() + "…"
+        if len(name) > 44:
+            name = name[:43].rstrip() + "…"
         rows.append(
             [
                 name,
                 row.instrumento,
                 row.data_encerramento.strftime("%d/%m/%y"),
                 fmt_mm(row.valor_total_brl_mm),
-                row.lideres if len(row.lideres) <= 26 else row.lideres[:25] + "…",
+                row.lideres if len(row.lideres) <= 28 else row.lideres[:27] + "…",
                 row.participacao_itau,
             ]
         )
-    deck.table(
+    bottom = deck.native_table(
         slide,
         rows,
         MARGIN_IN,
-        1.45,
-        [4.25, 1.5, 0.9, 1.15, 2.7, 1.55],
-        highlight=highlight,
-        row_height=0.36,
-        size=10,
+        1.42,
+        [4.3, 1.55, 0.95, 1.2, 2.7, 1.35],
         aligns="llrrlr",
+        size=10,
+        row_height=0.3,
     )
     participated = int((top["itau_participa"] == "Sim").sum())
     deck.text(
@@ -417,7 +545,7 @@ def operations_slide(deck: Deck, matrix: pd.DataFrame) -> None:
         "A lista das 20 maiores e a matriz completa de participação, operação a operação, "
         "estão no arquivo Excel.",
         MARGIN_IN,
-        6.44,
+        bottom + 0.24,
         CONTENT_WIDTH_IN,
         0.36,
         size=10,
@@ -432,45 +560,53 @@ def methodology_slide(deck: Deck) -> None:
         (
             "Originação × Distribuição",
             "Originação mede a estruturação e a coordenação da oferta. Distribuição mede "
-            "o esforço efetivo de colocação junto ao investidor. São rankings distintos e "
-            "uma casa pode liderar um e não o outro.",
+            "o esforço de colocação junto ao investidor. Uma casa pode liderar um e não o outro.",
         ),
         (
-            "O ranking mede valor, não quantidade",
+            "O ranking mede valor",
             "A posição vem do volume das operações encerradas no período. Há um ranking "
             "separado por número de operações, em que cada coordenador recebe uma unidade.",
         ),
         (
             "As duas janelas",
-            "“Acumulado 2026” cobre jan–jun/26. “Últimos 12 meses” cobre jul/25–jun/26. "
-            "A segunda suaviza o efeito de operações grandes concentradas em um trimestre.",
+            "“Acumulado 2026” cobre jan–jun/26. “Últimos 12 meses” cobre jul/25–jun/26 e "
+            "suaviza o efeito de operações grandes concentradas em um trimestre.",
         ),
         (
             "Uma operação, vários coordenadores",
-            "O crédito é apropriado conforme os percentuais informados à ANBIMA: proporção "
-            "da garantia firme, ou proporção do fee em melhores esforços. Não é rateio "
-            "igualitário nem crédito integral ao líder.",
+            "O crédito segue os percentuais informados à ANBIMA: proporção da garantia "
+            "firme, ou proporção do fee em melhores esforços. Não é rateio igualitário.",
         ),
         (
             "O “Percentual Coordenado” define a liderança",
-            "Na matriz de operações, “Líder” marca a casa com o maior percentual coordenado "
-            "na operação; “X” marca participação sem liderança; “–” marca ausência.",
+            "Na matriz de operações, “Líder” marca a casa com o maior percentual "
+            "coordenado; “X” marca participação sem liderança; “–” marca ausência.",
         ),
         (
             "Participação formal sem valor",
-            "Cinco registros trazem participantes com percentual e valor zerados. Eles "
+            "Alguns registros trazem participantes com percentual e valor zerados. Eles "
             "constam como participantes, mas não elevam market share por valor.",
         ),
+        (
+            "É um ranking declaratório",
+            "Operação cujo formulário-padrão não foi enviado à ANBIMA não entra. Parte do "
+            "mercado liderado por administradores e DTVMs fica de fora.",
+        ),
+        (
+            "Empresas ligadas saem do Tipo 1",
+            "Coordenador com 10% ou mais do capital da emissora, cedente ou originadora "
+            "vai para o Tipo 3, apurado à parte.",
+        ),
     )
-    cursor = 1.5
+    cursor = 1.42
     for index, (title, body) in enumerate(items):
         column = index % 2
         if column == 0 and index:
-            cursor += 1.72
+            cursor += 1.36
         x = MARGIN_IN + column * 6.2
-        deck.block(slide, x, cursor, 0.045, 1.12, ORANGE)
-        deck.text(slide, title, x + 0.28, cursor, 5.5, 0.5, size=12, color=BLACK, bold=True)
-        deck.text(slide, body, x + 0.28, cursor + 0.44, 5.5, 1.0, size=10, color=GRAY_700)
+        deck.block(slide, x, cursor, 0.045, 1.02, ORANGE)
+        deck.text(slide, title, x + 0.26, cursor, 5.5, 0.46, size=11.5, color=BLACK, bold=True)
+        deck.text(slide, body, x + 0.26, cursor + 0.4, 5.5, 0.92, size=9.5, color=GRAY_700)
     deck.footer(
         slide,
         "Fonte: ANBIMA, Metodologia do Ranking de Renda Fixa e Híbridos, capítulos II a VII",
@@ -494,7 +630,7 @@ def caveats_slide(
         (
             "Chave de operação",
             "A matriz usa o registro CVM como chave. Séries da mesma emissão com registros "
-            "distintos permanecem em linhas separadas, conforme especificado.",
+            "distintos permanecem em linhas separadas.",
         ),
         (
             "Consistência verificada",
@@ -518,7 +654,7 @@ def caveats_slide(
             "Ele não equivale ao total emitido no mercado.",
         ),
     )
-    cursor = 1.5
+    cursor = 1.45
     for index, (title, body) in enumerate(items):
         column = index % 2
         if column == 0 and index:
@@ -543,12 +679,15 @@ def caveats_slide(
 
 def build_deck(
     official: pd.DataFrame,
+    totals: pd.DataFrame,
     matrix: pd.DataFrame,
     products: pd.DataFrame,
     sources: dict[str, str],
     consistency: dict[str, int],
     output: Path,
 ) -> Path:
+    """Assemble the single combined deck."""
+
     deck = Deck(KICKER)
 
     cover = deck.blank()
@@ -602,14 +741,7 @@ def build_deck(
     for message in executive_messages(official, matrix):
         deck.block(slide, MARGIN_IN, cursor + 0.05, 0.045, 0.5, ORANGE)
         deck.text(
-            slide,
-            message,
-            MARGIN_IN + 0.28,
-            cursor,
-            11.6,
-            0.72,
-            size=12,
-            color=GRAY_900,
+            slide, message, MARGIN_IN + 0.28, cursor, 11.6, 0.72, size=12, color=GRAY_900
         )
         cursor += 0.76
     deck.footer(slide, f"{SOURCE_RANKING} · {SOURCE_ANNEX_SHORT}")
@@ -619,6 +751,7 @@ def build_deck(
     ranking_slide(deck, official, "distribuicao_valor")
     chart_slide(deck, official, "distribuicao_valor")
     product_slide(deck, products)
+    fidc_slide(deck, official, totals)
     operations_slide(deck, matrix)
     methodology_slide(deck)
     caveats_slide(deck, matrix, sources, consistency)
@@ -657,17 +790,26 @@ def build_workbook(
             league_sheets[f"{measure_label} {tag}"] = table
 
     product_sheet = products.copy()
-    product_sheet.columns = [
-        "Segmento",
-        "Código ANBIMA",
-        "Visão",
-        "Ranking 1S26",
-        "Market share 1S26",
-        "Ranking 12 meses",
-        "Market share 12 meses",
-        "Variação de posição",
-        "Concorrentes no segmento",
-    ]
+    product_sheet["volume_1s26_brl"] = product_sheet["volume_1s26_brl"] / 1e9
+    product_sheet["volume_12m_brl"] = product_sheet["volume_12m_brl"] / 1e9
+    product_sheet = product_sheet.rename(
+        columns={
+            "segmento": "Segmento",
+            "codigo_anbima": "Código ANBIMA",
+            "nota_criterio": "Agregado com nota de critério",
+            "visao": "Visão",
+            "ranking_1s26": "Ranking 1S26",
+            "share_1s26": "Market share 1S26",
+            "ranking_12m": "Ranking 12 meses",
+            "share_12m": "Market share 12 meses",
+            "variacao_posicao": "Variação de posição",
+            "concorrentes_1s26": "Concorrentes no segmento",
+            "operacoes_1s26": "Operações 1S26 (#)",
+            "operacoes_12m": "Operações 12 meses (#)",
+            "volume_1s26_brl": "Mercado 1S26 (R$ bi)",
+            "volume_12m_brl": "Mercado 12 meses (R$ bi)",
+        }
+    )
 
     matrix_sheet = matrix.copy()
     ordered_columns = (
@@ -766,6 +908,8 @@ def build_workbook(
             "Market share": "0.0%",
             "Market share 1S26": "0.0%",
             "Market share 12 meses": "0.0%",
+            "Mercado 1S26 (R$ bi)": "#,##0.0",
+            "Mercado 12 meses (R$ bi)": "#,##0.0",
             "Participação Itaú BBA (%)": "0.0%",
             "Dif. para o líder (p.p.)": "+0.0;-0.0;0.0",
             "Dif. vs. Itaú BBA (p.p.)": "+0.0;-0.0;0.0",
@@ -796,10 +940,11 @@ def build_workbook(
 def main() -> None:
     args = parse_args()
     official = parse_ranking_workbook(args.ranking_xlsx)
+    totals = parse_ranking_totals(args.ranking_xlsx)
     annex = parse_annex_workbook(args.annex_xlsx)
 
     matrix = operation_matrix(annex)
-    products = product_view(official)
+    products = product_view(official, totals)
 
     origination = annex[annex["role"].eq("originacao")]
     per_registration = origination.groupby("registro_cvm")["percentual_participacao"].sum()
@@ -817,11 +962,12 @@ def main() -> None:
     )
     deck_path = build_deck(
         official,
+        totals,
         matrix,
         products,
         sources,
         consistency,
-        args.output_dir / "ANBIMA_Posicao_Competitiva_Itau_BBA_1S26.pptx",
+        args.output_dir / "ANBIMA_Itau_BBA_Renda_Fixa_1S26.pptx",
     )
     print(f"workbook: {workbook_path}")
     print(f"deck: {deck_path}")

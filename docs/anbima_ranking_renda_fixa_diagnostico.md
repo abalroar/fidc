@@ -197,7 +197,7 @@ enriquecer o ranking com cedente, sacado e taxonomia de carteira já existentes 
 | `data/industry_study/anbima_rf_ranking_reconciliation.csv` | Prova anexo × ranking publicado + comparação contra CVM líder |
 | `data/industry_study/anbima_rf_ranking_syndication.csv` | Distribuição de operações por nº de coordenadores |
 | `data/industry_study/anbima_rf_ranking_manifest.json` | Proveniência: URLs, SHA-256 dos arquivos, contagens, limitações |
-| `scripts/build_anbima_ranking_president_deck.py` | Deck avulso de 6 slides para o presidente (ver seção 8) |
+| `scripts/build_anbima_executive_package.py` | Apresentação executiva e planilha de trabalho (ver seção 8) |
 
 Reexecutar:
 
@@ -220,22 +220,31 @@ todos os escopos.
 
 ---
 
-## 8. Deck para o presidente
+## 8. Pacote executivo
 
-Existe um deck avulso de 6 slides gerado a partir dos artefatos acima:
+Um único arquivo de apresentação e uma planilha de trabalho, gerados dos dois anexos oficiais:
 
 ```bash
-python scripts/build_anbima_ranking_president_deck.py
+python scripts/build_anbima_executive_package.py \
+    --ranking-xlsx "<Ranking ... Junho 2026.xlsx>" \
+    --annex-xlsx  "<Anexo ao Ranking ... Junho 2026.xlsx>"
 ```
 
-Saída: `outputs/anbima_ranking_rf_presidente/ANBIMA_Ranking_Renda_Fixa_Itau_BBA_1S26.pptx`
+Saídas em `outputs/anbima_executivo_1s26/`:
 
-Capa · resultado do 1S26 com o top 10 de coordenadores · decomposição do consolidado nas
-subdivisões publicadas · recorte de FIDC · metodologia de apuração · fontes com SHA-256.
+| Arquivo | Conteúdo |
+| --- | --- |
+| `ANBIMA_Itau_BBA_Renda_Fixa_1S26.pptx` | 11 slides: sumário executivo, league tables de originação e distribuição nas duas janelas, quatro gráficos de barras, visão por produto, recorte de FIDC, maiores operações, metodologia e premissas |
+| `ANBIMA_Analise_Itau_BBA_1S26.xlsx` | 8 abas, incluindo a matriz de participação com 696 operações e a aba filtrada só com as do Itaú BBA |
+
+As tabelas do deck são **tabelas nativas do PowerPoint**, não grades de caixas de texto:
+podem ser selecionadas, reformatadas, coladas no Excel e receber linhas e colunas pelos
+comandos normais do Office. Os gráficos também são nativos e editáveis.
+
 Segue a paleta e a tipografia de `services/industry_ppt_export.py` (fundo branco, acento
-laranja, Arial, 16:9) para não destoar dos decks anteriores, e é nativo e editável.
+laranja, Arial, 16:9). O scaffolding está em `services/bba_deck.py`.
 
-O deck **não** toca no contrato de slides do `services/industry_ppt_export.py`.
+O pacote **não** toca no contrato de slides do `services/industry_ppt_export.py`.
 
 ### O que ainda falta (integração ao contrato existente)
 
