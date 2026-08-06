@@ -197,6 +197,7 @@ enriquecer o ranking com cedente, sacado e taxonomia de carteira já existentes 
 | `data/industry_study/anbima_rf_ranking_reconciliation.csv` | Prova anexo × ranking publicado + comparação contra CVM líder |
 | `data/industry_study/anbima_rf_ranking_syndication.csv` | Distribuição de operações por nº de coordenadores |
 | `data/industry_study/anbima_rf_ranking_manifest.json` | Proveniência: URLs, SHA-256 dos arquivos, contagens, limitações |
+| `scripts/build_anbima_ranking_president_deck.py` | Deck avulso de 6 slides para o presidente (ver seção 8) |
 
 Reexecutar:
 
@@ -219,9 +220,24 @@ todos os escopos.
 
 ---
 
-## 8. Momento 2 — integração ao contrato de slides
+## 8. Deck para o presidente
 
-Fora do escopo desta entrega, conforme combinado. Quando for a hora, o caminho natural é:
+Existe um deck avulso de 6 slides gerado a partir dos artefatos acima:
+
+```bash
+python scripts/build_anbima_ranking_president_deck.py
+```
+
+Saída: `outputs/anbima_ranking_rf_presidente/ANBIMA_Ranking_Renda_Fixa_Itau_BBA_1S26.pptx`
+
+Capa · resultado do 1S26 com o top 10 de coordenadores · decomposição do consolidado nas
+subdivisões publicadas · recorte de FIDC · metodologia de apuração · fontes com SHA-256.
+Segue a paleta e a tipografia de `services/industry_ppt_export.py` (fundo branco, acento
+laranja, Arial, 16:9) para não destoar dos decks anteriores, e é nativo e editável.
+
+O deck **não** toca no contrato de slides do `services/industry_ppt_export.py`.
+
+### O que ainda falta (integração ao contrato existente)
 
 - adicionar o share ANBIMA ao `services/industry_ppt_export.py`, com as três janelas;
 - casar `registro_cvm` do anexo com `offer_id` da base CVM para trazer cedente/sacado/taxonomia
