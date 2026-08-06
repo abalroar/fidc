@@ -5,8 +5,9 @@ Reads only the artefacts materialized by
 and fully editable 16:9 PowerPoint for the Itaú BBA president.
 
 Scope is the consolidated fixed-income ranking (ANBIMA Tipo 1), accumulated in
-the year through the cut-off date.  It deliberately does not touch the industry
-deck contract in ``services/industry_ppt_export.py``.
+the year through the cut-off date, decomposed into its published subdivisions
+and with a dedicated cut on FIDC (Tipo 1.3.1).  It deliberately does not touch
+the industry deck contract in ``services/industry_ppt_export.py``.
 
     python scripts/build_anbima_ranking_president_deck.py
 """
@@ -518,6 +519,112 @@ def build(data_dir: Path, output: Path, house: str) -> Path:
         "Fonte: ANBIMA, Ranking de Renda Fixa e Híbridos — Originação (Valor), "
         "subdivisões Tipo 1.1, 1.2 e 1.3, acumulado 2026 · referência Junho/2026",
     )
+
+    # -------------------------------------------------------------- FIDC
+    fidc = _accumulated(official, "1.3.1").sort_values("rank")
+    fidc_counts = official[
+        official["measure"].eq("originacao_numero_operacoes")
+        & official["window"].eq("acumulado_ano")
+        & official["ranking_code"].eq("1.3.1")
+    ].set_index("participant")["value_brl_or_count"]
+    fidc_distribution = official[
+        official["measure"].eq("distribuicao_valor")
+        & official["window"].eq("acumulado_ano")
+        & official["ranking_code"].eq("1.3.1")
+    ].set_index("participant")
+
+    if not fidc.empty:
+        fidc_universe = float(fidc["value_brl_or_count"].sum())
+        fidc_house = fidc[fidc["participant"].eq(house)].iloc[0]
+        # A syndicated operation credits one unit to each coordinator, so the
+        # per-participant counts do not add up to the number of operations.
+        # The operation total comes from the annex, deduplicated by operation.
+        share_table = pd.read_csv(data_dir / "anbima_rf_ranking_participant_share.csv")
+        fidc_scope = share_table[
+            share_table["scope"].eq("fidc")
+            & share_table["measure"].eq("originacao_valor")
+        ]
+        fidc_operations = (
+            int(fidc_scope["universe_operations"].iloc[0])
+            if not fidc_scope.empty
+            else 0
+        )
+        house_operations = int(fidc_counts.get(house, 0))
+
+        slide = deck.slide(
+            "Em FIDC o Itaú BBA lidera com 45,7%, mais que o dobro do segundo colocado"
+        )
+        for index, (label, value, note) in enumerate(
+            (
+                (
+                    "Volume originado",
+                    f"R$ {_bi(float(fidc_house['value_brl_or_count']))} bi",
+                    "1S26",
+                ),
+                ("Participação", _pct(float(fidc_house["share"]), 1), "do mercado apurado"),
+                ("Posição", _rank(fidc_house["rank"]), "entre 11 coordenadores ativos"),
+                (
+                    "Operações",
+                    f"{house_operations} de {fidc_operations}",
+                    "originadas no semestre",
+                ),
+            )
+        ):
+            x = 0.62 + index * 3.06
+            deck.block(slide, x, 1.45, 2.86, 1.16, GRAY_100)
+            deck.text(slide, label.upper(), x + 0.2, 1.6, 2.5, 0.22, size=9, color=GRAY_500, bold=True)
+            deck.text(slide, value, x + 0.2, 1.86, 2.5, 0.42, size=20, color=BLACK, bold=True)
+            deck.text(slide, note, x + 0.2, 2.3, 2.5, 0.22, size=9, color=GRAY_500)
+
+        rows = [["#", "Coordenador", "Volume (R$ bi)", "Part.", "Nº ops"]]
+        highlight = None
+        active = fidc[fidc["value_brl_or_count"] > 0].head(9)
+        for position, (_, row) in enumerate(active.iterrows()):
+            if row["participant"] == house:
+                highlight = position
+            rows.append(
+                [
+                    _rank(row["rank"]),
+                    _display_name(row["participant"]),
+                    _bi(float(row["value_brl_or_count"])),
+                    _pct(float(row["share"]), 1),
+                    str(int(fidc_counts.get(row["participant"], 0))),
+                ]
+            )
+        bottom = deck.table(
+            slide,
+            rows,
+            0.62,
+            2.92,
+            [0.7, 5.0, 2.5, 1.9, 1.95],
+            highlight=highlight,
+            row_height=0.30,
+        )
+
+        house_distribution = (
+            float(fidc_distribution.loc[house, "share"])
+            if house in fidc_distribution.index
+            else float("nan")
+        )
+        deck.text(
+            slide,
+            "Na distribuição — o esforço efetivo de colocação — o Itaú BBA também é 1º, com "
+            f"{_pct(house_distribution, 1)}. O mercado apurado de FIDC no ranking é de "
+            f"R$ {_bi(fidc_universe)} bi, contra R$ 65,5 bi de cotas de FIDC registradas na CVM "
+            "no mesmo período: o ranking cobre a parcela disputada, sem as operações de "
+            "empresas ligadas e sem as ofertas não reportadas à ANBIMA.",
+            0.62,
+            bottom + 0.26,
+            12.05,
+            0.62,
+            size=11,
+            color=GRAY_700,
+        )
+        deck.footer(
+            slide,
+            "Fonte: ANBIMA, Ranking de Renda Fixa e Híbridos — Originação e Distribuição "
+            "(Valor), Tipo 1.3.1, acumulado 2026 · CVM, ofertas públicas de distribuição",
+        )
 
     # ------------------------------------------------------- metodologia
     slide = deck.slide("Como a ANBIMA apura o ranking")
