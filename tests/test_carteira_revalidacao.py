@@ -64,6 +64,40 @@ def test_um_regulamento_mudo_nao_produz_categoria() -> None:
     assert not veredito.conclusivo
 
 
+def test_a_secao_de_recebiveis_comerciais_se_chama_fomento_mercantil() -> None:
+    """Nenhum destes veículos é factoring no sentido regulatório.
+
+    "Fomento Mercantil" é o termo da ANBIMA e o que os próprios regulamentos
+    usam ao se autoclassificarem — o do Pneucash II diz isso com todas as
+    letras.
+    """
+
+    from services.carteira_revalidacao import CATEGORIAS, FOMENTO_MERCANTIL
+
+    assert FOMENTO_MERCANTIL in CATEGORIAS
+    assert "Factoring" not in CATEGORIAS
+
+    regulamento = (
+        "Para fins do Código ANBIMA, o Fundo é classificado como Fomento "
+        "Mercantil. Os Direitos Creditórios são duplicatas mercantis oriundas "
+        "de operações a prazo. Fomento mercantil. Fomento mercantil."
+    )
+
+    assert classify("13", regulamento).categoria == FOMENTO_MERCANTIL
+
+
+def test_a_taxonomia_materializada_nao_carrega_o_rotulo_herdado() -> None:
+    """O payload publicado diz "Factoring"; a carteira traduz ao materializar."""
+
+    import pandas as pd
+
+    caminho = ROOT / "data" / "industry_study" / "carteira_taxonomia_estrutural.csv"
+    categorias = set(pd.read_csv(caminho, dtype=str)["categoria_estrutural"])
+
+    assert "Factoring" not in categorias
+    assert "Fomento Mercantil" in categorias
+
+
 def test_empate_tecnico_e_ausencia_de_evidencia() -> None:
     """Duas operações citadas com força parecida não escolhem uma delas."""
 
