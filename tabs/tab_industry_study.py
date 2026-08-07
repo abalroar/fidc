@@ -16181,7 +16181,7 @@ def _render_carteira(payload: dict[str, object]) -> None:
         ORIGEM_CARTEIRA_101,
         ORIGEM_MANUAL,
         RegistryError,
-        dumbbell_figure,
+        altair_dumbbell,
         format_cnpj,
         load_registry,
         remove_entry,
@@ -16225,9 +16225,18 @@ def _render_carteira(payload: dict[str, object]) -> None:
     frame = position.frame
     comparable = frame[frame["comparavel"]]
 
-    tipos = ["Todos"] + sorted(comparable["tipo_anbima"].dropna().unique().tolist())
-    escolhido = st.selectbox("Tipo ANBIMA", tipos, key="carteira-tipo")
-    plotted = comparable if escolhido == "Todos" else comparable[comparable["tipo_anbima"].eq(escolhido)]
+    # A taxonomia é a dos slides estruturais (Financeiro, Adquirência, Agro /
+    # Revenda, Risco Corporativo, Consignado INSS e FGTS, Factoring), e não o
+    # tipo ANBIMA: é o corte pelo qual a carteira sempre foi lida.
+    categorias = ["Todos"] + sorted(
+        comparable["categoria_estrutural"].dropna().unique().tolist()
+    )
+    escolhido = st.selectbox("Categoria", categorias, key="carteira-categoria")
+    plotted = (
+        comparable
+        if escolhido == "Todos"
+        else comparable[comparable["categoria_estrutural"].eq(escolhido)]
+    )
 
     breaches = int(plotted["abaixo_do_minimo"].fillna(False).sum())
     cols = st.columns(4)
@@ -16239,18 +16248,11 @@ def _render_carteira(payload: dict[str, object]) -> None:
     )
     cols[3].metric("Competência mais recente", _competence_label(position.competencia_base))
 
-    subtitulo = (
-        f"{'Carteira 101' if escolhido == 'Todos' else escolhido}"
-        f" · {'FIDCs ativos' if somente_ativos else 'todos os FIDCs do registro'}"
-        " · % do patrimônio líquido"
-    )
-    figure = dumbbell_figure(
-        plotted,
-        subtitulo=subtitulo,
-        rodape=CARTEIRA_FOOTNOTE,
-        fonte=CARTEIRA_SOURCE,
-    )
-    st.pyplot(figure, clear_figure=True, use_container_width=True)
+    # Na página o gráfico é o Altair nativo do dashboard: vetorial, responsivo
+    # e com tooltip por fundo.  O matplotlib fica só para o PPTX, que precisa
+    # de imagem.
+    st.altair_chart(altair_dumbbell(plotted), width="stretch")
+    st.caption(f"{CARTEIRA_FOOTNOTE} {CARTEIRA_SOURCE}")
 
     with st.expander("Incluir ou atualizar um FIDC", expanded=False):
         st.caption(
@@ -16301,16 +16303,20 @@ def _render_carteira(payload: dict[str, object]) -> None:
         fundo_curto=frame["fundo"].map(short_fund_name),
     )[
         [
-            "cnpj_formatado", "fundo", "tipo_anbima", "competencia", "pl_mm",
-            "sub_atual_pct", "referencia_pct", "referencia_tipo", "folga_pp",
-            "origem", "fonte",
+            "cnpj_formatado", "fundo", "categoria_estrutural", "tipo_anbima",
+            "competencia", "quadro_de_cotas_integro", "meses_sem_subordinada",
+            "pl_mm", "sub_atual_pct", "referencia_pct", "referencia_tipo",
+            "folga_pp", "origem", "fonte",
         ]
     ].rename(
         columns={
             "cnpj_formatado": "CNPJ",
             "fundo": "FIDC",
+            "categoria_estrutural": "Categoria",
             "tipo_anbima": "Tipo ANBIMA",
             "competencia": "Competência",
+            "quadro_de_cotas_integro": "Quadro de cotas íntegro",
+            "meses_sem_subordinada": "Meses sem cota subordinada",
             "pl_mm": "PL (R$ mm)",
             "sub_atual_pct": "Subord. atual (%)",
             "referencia_pct": "Mínimo exigido (%)",

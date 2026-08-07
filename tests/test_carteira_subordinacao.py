@@ -31,28 +31,43 @@ from services.carteira_subordinacao import (  # noqa: E402
 FUNDO_A = "11111111000191"
 FUNDO_B = "22222222000172"
 FUNDO_MORTO = "33333333000153"
+FUNDO_QUEBRADO = "55555555000115"
+FUNDO_UNICO = "66666666000196"
 
 
 @pytest.fixture()
 def data_dir(tmp_path: Path) -> Path:
     """Uma base mínima com o que ``resolve_portfolio`` lê."""
 
+    def linha(competencia, cnpj, nome, pl, sub, total=None):
+        total = pl if total is None else total
+        return {
+            "competencia": competencia, "cnpj": cnpj, "denominacao": nome,
+            "pl": pl, "subordinacao_pct": sub,
+            "vl_cotas_total": total,
+            "vl_cotas_subordinadas": (sub or 0.0) * total,
+        }
+
     monthly = pd.DataFrame(
         [
             # O fundo A reportou até julho; o B parou em junho.  A resolução
             # tem de dar a cada um a sua própria competência mais recente.
-            {"competencia": "2026-06", "cnpj": FUNDO_A, "denominacao": "FIDC A",
-             "pl": 100e6, "subordinacao_pct": 0.20},
-            {"competencia": "2026-07", "cnpj": FUNDO_A, "denominacao": "FIDC A",
-             "pl": 120e6, "subordinacao_pct": 0.25},
-            {"competencia": "2026-06", "cnpj": FUNDO_B, "denominacao": "FIDC B",
-             "pl": 80e6, "subordinacao_pct": 0.08},
+            linha("2026-06", FUNDO_A, "FIDC A", 100e6, 0.20),
+            linha("2026-07", FUNDO_A, "FIDC A", 120e6, 0.25),
+            linha("2026-06", FUNDO_B, "FIDC B", 80e6, 0.08),
             # Sem PL a linha não conta como reporte.
-            {"competencia": "2026-07", "cnpj": FUNDO_B, "denominacao": "FIDC B",
-             "pl": 0.0, "subordinacao_pct": None},
+            linha("2026-07", FUNDO_B, "FIDC B", 0.0, None),
             # Parou de reportar bem antes do corte.
-            {"competencia": "2025-01", "cnpj": FUNDO_MORTO, "denominacao": "FIDC Morto",
-             "pl": 10e6, "subordinacao_pct": 0.30},
+            linha("2025-01", FUNDO_MORTO, "FIDC Morto", 10e6, 0.30),
+            # O fundo QUEBRADO tem patrimônio em julho, mas o quadro de cotas
+            # daquele mês veio zerado: junho é o dado bom.
+            linha("2026-06", FUNDO_QUEBRADO, "FIDC Quebrado", 50e6, 0.30),
+            linha("2026-07", FUNDO_QUEBRADO, "FIDC Quebrado", 48e6, 0.0, total=0.0),
+            # O fundo CLASSE ÚNICA reporta o quadro de cotas todo mês, sempre
+            # sem cota subordinada: 0% ali é o dado, não uma falha.
+            linha("2026-05", FUNDO_UNICO, "FIDC Único", 30e6, 0.0),
+            linha("2026-06", FUNDO_UNICO, "FIDC Único", 31e6, 0.0),
+            linha("2026-07", FUNDO_UNICO, "FIDC Único", 32e6, 0.0),
         ]
     )
     monthly.to_csv(tmp_path / "vehicle_monthly.csv.gz", index=False, compression="gzip")
@@ -227,16 +242,62 @@ def test_sem_subordinacao_no_informe_o_fundo_nao_e_comparavel(data_dir: Path) ->
 # Gráfico
 # ---------------------------------------------------------------------------
 
-def test_o_grafico_desenha_um_par_de_pontos_por_fundo(data_dir: Path) -> None:
+def test_o_verde_marca_sempre_o_maior_dos_dois(data_dir: Path) -> None:
+    """O fundo A está acima do mínimo e o B abaixo; o ponto verde troca de lado.
+
+    É essa troca que carrega o alerta: o verde no lugar do mínimo significa que
+    o fundo não alcança o que o regulamento exige.
+    """
+
+    import numpy as np
+
+    from services.carteira_subordinacao import COLOR_HIGHER
+
     save_entry(cnpj=FUNDO_A, subordinacao_minima_pct=15, data_dir=data_dir)
     save_entry(cnpj=FUNDO_B, subordinacao_minima_pct=10, data_dir=data_dir)
 
-    figure = dumbbell_figure(resolve_portfolio(data_dir).frame)
+    frame = resolve_portfolio(data_dir).frame
+    figure = dumbbell_figure(frame)
     axes = figure.axes[0]
 
-    assert len(axes.collections) >= 3  # hastes + dois conjuntos de pontos
-    pontos = [c for c in axes.collections if hasattr(c, "get_offsets") and len(c.get_offsets()) == 2]
-    assert len(pontos) == 2
+    ordenado = frame[frame["comparavel"]].sort_values("sub_atual_pct", ascending=False)
+    esperado = np.maximum(
+        ordenado["sub_atual_pct"].to_numpy(), ordenado["referencia_pct"].to_numpy()
+    )
+    verdes = [
+        colecao
+        for colecao in axes.collections
+        if getattr(colecao, "get_facecolor", None) is not None
+        and len(colecao.get_facecolor())
+        and matplotlib_hex(colecao.get_facecolor()[0]) == COLOR_HIGHER.lower()
+    ]
+    assert len(verdes) == 1
+    alturas = verdes[0].get_offsets()[:, 1]
+    assert np.allclose(sorted(alturas), sorted(esperado))
+
+
+def matplotlib_hex(rgba) -> str:
+    from matplotlib.colors import to_hex
+
+    return to_hex(rgba)
+
+
+def test_a_haste_de_quem_esta_abaixo_do_minimo_e_destacada(data_dir: Path) -> None:
+    from services.carteira_subordinacao import COLOR_GAP
+
+    save_entry(cnpj=FUNDO_A, subordinacao_minima_pct=15, data_dir=data_dir)
+    save_entry(cnpj=FUNDO_B, subordinacao_minima_pct=10, data_dir=data_dir)
+
+    axes = dumbbell_figure(resolve_portfolio(data_dir).frame).axes[0]
+
+    vermelhas = [
+        colecao
+        for colecao in axes.collections
+        if getattr(colecao, "get_color", None) is not None
+        and len(getattr(colecao, "get_color")())
+        and matplotlib_hex(colecao.get_color()[0]) == COLOR_GAP.lower()
+    ]
+    assert vermelhas, "a haste do fundo em falta precisa aparecer em vermelho"
 
 
 def test_o_grafico_vazio_nao_quebra(data_dir: Path) -> None:
@@ -246,11 +307,32 @@ def test_o_grafico_vazio_nao_quebra(data_dir: Path) -> None:
 
 
 def test_o_nome_do_fundo_perde_a_boilerplate_registral() -> None:
+    """Corta-se **na** frase registral; subtraí-la deixaria restos sem sentido."""
+
     assert short_fund_name(
         "ATLANTA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA"
     ) == "Atlanta"
     assert short_fund_name("CLASSE ÚNICA DO FIDC CRÉDITO NITRO AGRO") == "Crédito Nitro Agro"
+    # Subtrair a boilerplate produziria "Cobuccio de Fechada de Re…".
+    assert short_fund_name(
+        "COBUCCIO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CLASSE ÚNICA "
+        "FECHADA DE RESPONSABILIDADE LIMITADA"
+    ) == "Cobuccio"
+    # O nome próprio pode vir depois da frase registral.
+    assert short_fund_name(
+        "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PAGSEGURO I"
+    ) == "Pagseguro I"
     assert normalize_cnpj("11.111.111/0001-91") == FUNDO_A
+
+
+def test_a_caixa_do_rotulo_separa_sigla_de_palavra() -> None:
+    """BLUE, CASH e CLUB são palavras; VTK e II são siglas."""
+
+    assert short_fund_name("RESIDENCE CLUB FIDC") == "Residence Club"
+    assert short_fund_name("CD CASH FIDC RESPONSABILIDADE LIMITADA") == "CD Cash"
+    assert short_fund_name("VTK FIDC RESPONSABILIDADE LIMITADA") == "VTK"
+    assert short_fund_name("VIA INVEST II FIDC") == "Via Invest II"
+    assert short_fund_name("TMAQ 21 FIDC DE ARRANJOS DE PAGAMENTO") == "Tmaq 21"
 
 
 # ---------------------------------------------------------------------------
@@ -283,7 +365,9 @@ def test_a_troca_de_slides_nao_duplica_partes_no_pacote() -> None:
     escritos = replace_structural_slides(presentation, data_dir)
     append_anbima_slides(presentation, data_dir)
 
-    assert escritos == REPLACED_SLIDE_RANGE[1] - REPLACED_SLIDE_RANGE[0] + 1
+    # Sete gráficos — o consolidado mais as seis categorias estruturais — para
+    # seis slots; o excedente é acrescentado, nunca conquistado por remoção.
+    assert escritos >= REPLACED_SLIDE_RANGE[1] - REPLACED_SLIDE_RANGE[0] + 1
     with warnings.catch_warnings(record=True) as capturados:
         warnings.simplefilter("always")
         buffer = BytesIO()
@@ -293,8 +377,8 @@ def test_a_troca_de_slides_nao_duplica_partes_no_pacote() -> None:
 
     reaberto = Presentation(BytesIO(buffer.getvalue()))
     assert len(reaberto.slides) > antes
-    primeiro, ultimo = REPLACED_SLIDE_RANGE
-    for numero in range(primeiro, ultimo + 1):
+    primeiro, _ = REPLACED_SLIDE_RANGE
+    for numero in range(primeiro, primeiro + escritos):
         slide = list(reaberto.slides)[numero - 1]
         textos = " ".join(
             shape.text_frame.text for shape in slide.shapes if shape.has_text_frame
@@ -329,3 +413,81 @@ def test_o_registro_participa_da_chave_de_cache_das_exportacoes(tmp_path: Path) 
         os.utime(caminho, (marca, marca))
 
     assert depois != antes
+
+
+# ---------------------------------------------------------------------------
+# Integridade do quadro de cotas
+# ---------------------------------------------------------------------------
+
+def test_o_mes_com_quadro_de_cotas_zerado_cede_lugar_ao_anterior(data_dir: Path) -> None:
+    """Patrimônio positivo com total de cotas zerado não é fundo sem subordinação.
+
+    É a quebra do quadro de cotas naquele mês, e ela produziria 0% onde o mês
+    anterior traz o número real.
+    """
+
+    save_entry(cnpj=FUNDO_QUEBRADO, subordinacao_minima_pct=10, data_dir=data_dir)
+
+    linha = resolve_portfolio(data_dir).frame.iloc[0]
+
+    assert linha["competencia"] == "2026-06"
+    assert linha["sub_atual_pct"] == pytest.approx(30.0)
+    assert bool(linha["quadro_de_cotas_integro"]) is True
+
+
+def test_zero_por_cento_reportado_todo_mes_permanece_zero(data_dir: Path) -> None:
+    """Um fundo de classe única reporta 0% de verdade; não se corrige isso.
+
+    A distinção entre o 0% real e o 0% de falha está em ``meses_sem_subordinada``:
+    um mês isolado é ruído, uma sequência descreve a estrutura do fundo.
+    """
+
+    save_entry(cnpj=FUNDO_UNICO, subordinacao_minima_pct=10, data_dir=data_dir)
+
+    linha = resolve_portfolio(data_dir).frame.iloc[0]
+
+    assert linha["competencia"] == "2026-07"
+    assert linha["sub_atual_pct"] == pytest.approx(0.0)
+    assert bool(linha["quadro_de_cotas_integro"]) is True
+    assert linha["meses_sem_subordinada"] == 3
+    assert bool(linha["abaixo_do_minimo"]) is True
+
+
+# ---------------------------------------------------------------------------
+# Taxonomia dos slides estruturais
+# ---------------------------------------------------------------------------
+
+def test_a_carteira_usa_a_taxonomia_dos_slides_estruturais() -> None:
+    """O corte é o dos slides 18–23, e não o tipo ANBIMA."""
+
+    from services.carteira_deck import slide_plans
+    from services.carteira_subordinacao import resolve_portfolio as resolver
+
+    esperadas = {
+        "Financeiro",
+        "Adquirência",
+        "Agro / Revenda",
+        "Risco Corporativo",
+        "Consignado INSS e FGTS",
+        "Factoring",
+    }
+    data_dir = ROOT / "data" / "industry_study"
+    frame = resolver(data_dir).frame
+    presentes = set(frame.loc[frame["comparavel"], "categoria_estrutural"])
+
+    assert presentes.issubset(esperadas | {"Não classificado"})
+    assert esperadas.issubset(presentes)
+
+    titulos = [titulo for titulo, _sub, _f in slide_plans(data_dir)]
+    for categoria in esperadas:
+        assert any(titulo.startswith(categoria) for titulo in titulos), categoria
+
+
+def test_um_cnpj_fora_da_taxonomia_nao_inventa_categoria(data_dir: Path) -> None:
+    from services.carteira_subordinacao import NAO_CLASSIFICADO
+
+    save_entry(cnpj=FUNDO_A, subordinacao_minima_pct=15, data_dir=data_dir)
+
+    assert resolve_portfolio(data_dir).frame.iloc[0]["categoria_estrutural"] == (
+        NAO_CLASSIFICADO
+    )

@@ -14,9 +14,11 @@ exatamente o que abre esse buraco — o pacote sairia com duas partes
 ``ppt/slides/slideN.xml``.  Reescrevendo, nenhuma parte nasce ou morre, e os
 slides do ranking podem ser acrescentados depois com segurança.
 
-No lugar deles entra um slide consolidado mais um por tipo ANBIMA com fundos
-suficientes, cada um com o gráfico de hastes: subordinação atual contra o
-mínimo que o regulamento exige.
+No lugar deles entra um slide consolidado mais um por categoria estrutural —
+a mesma taxonomia que dava nome aos slides originais: Financeiro, Adquirência,
+Agro / Revenda, Risco Corporativo, Consignado INSS e FGTS, Factoring.  Cada um
+traz o gráfico de hastes: subordinação atual contra o mínimo que o regulamento
+exige.  São sete gráficos para seis slots, e o excedente é acrescentado.
 """
 
 from __future__ import annotations
@@ -38,8 +40,8 @@ from services.carteira_subordinacao import (
 #: sequência "RISCO ESTRUTURAL · CARTEIRA I · <categoria>" do deck publicado.
 REPLACED_SLIDE_RANGE = (18, 23)
 #: Abaixo disso um gráfico de hastes não comunica nada: vira um punhado de
-#: pontos soltos.  O tipo continua representado no slide consolidado.
-MIN_FUNDS_PER_TYPE = 6
+#: pontos soltos.  A categoria continua representada no slide consolidado.
+MIN_FUNDS_PER_CATEGORY = 3
 
 KICKER = "RISCO ESTRUTURAL · CARTEIRA 101"
 FOOTNOTE = (
@@ -77,7 +79,7 @@ def _competence_label(competencia: str) -> str:
 def slide_plans(
     data_dir: Path = DEFAULT_DATA_DIR, *, limite: int | None = None
 ) -> list[tuple[str, str, pd.DataFrame]]:
-    """Os slides a desenhar: o consolidado e depois os maiores tipos ANBIMA."""
+    """Os slides a desenhar: o consolidado e depois cada categoria estrutural."""
 
     position = resolve_portfolio(data_dir, somente_ativos=True)
     comparable = position.frame[position.frame["comparavel"]]
@@ -90,19 +92,23 @@ def slide_plans(
             comparable,
         )
     ]
-    counts = comparable["tipo_anbima"].value_counts()
-    for tipo in counts[counts.ge(MIN_FUNDS_PER_TYPE)].index:
-        subset = comparable[comparable["tipo_anbima"].eq(tipo)]
+    # O corte é o dos slides estruturais originais — Financeiro, Adquirência,
+    # Agro / Revenda, Risco Corporativo, Consignado INSS e FGTS, Factoring —
+    # ordenado pelo tamanho, para que os slots existentes fiquem com as
+    # categorias que mais pesam.
+    counts = comparable["categoria_estrutural"].value_counts()
+    for categoria in counts[counts.ge(MIN_FUNDS_PER_CATEGORY)].index:
+        subset = comparable[comparable["categoria_estrutural"].eq(categoria)]
         breaches = int(subset["abaixo_do_minimo"].fillna(False).sum())
         titulo = (
-            f"{tipo} | {breaches} de {len(subset)} veículos abaixo do mínimo"
+            f"{categoria} | {breaches} de {len(subset)} veículos abaixo do mínimo"
             if breaches
-            else f"{tipo} | os {len(subset)} veículos estão acima do mínimo"
+            else f"{categoria} | os {len(subset)} veículos estão acima do mínimo"
         )
         plans.append(
             (
                 titulo,
-                f"{tipo} · FIDCs ativos · base até {rotulo} · % do patrimônio líquido",
+                f"{categoria} · FIDCs ativos · base até {rotulo} · % do patrimônio líquido",
                 subset,
             )
         )
@@ -129,22 +135,23 @@ def replace_structural_slides(
 ) -> int:
     """Reescreve os slides estruturais com os da carteira e devolve quantos.
 
-    Se houver menos gráficos do que slots, os slots restantes recebem o
-    consolidado filtrado pelos fundos abaixo do mínimo — nenhum slide é
-    removido, porque remover é o que quebra a numeração das partes.
+    Os seis slots existentes são reescritos no lugar.  Havendo mais gráficos do
+    que slots — o consolidado mais as seis categorias estruturais dão sete —, o
+    excedente **nasce no fim do deck e é movido** para depois dos slots.
+    Acrescentar é seguro; remover é que abriria buraco na numeração das partes.
+
+    Sobrando slot, ele recebe o consolidado restrito a quem está abaixo do
+    mínimo: o recorte que um leitor procuraria em seguida, sem inventar dado.
     """
 
     from services.bba_deck import Deck
 
     first, _ = REPLACED_SLIDE_RANGE
     slots = slot_count()
-    plans = slide_plans(data_dir, limite=slots)
+    plans = slide_plans(data_dir)
     if not plans:
         return 0
     while len(plans) < slots:
-        # Sem tipos suficientes para preencher, o slot extra repete o
-        # consolidado restrito a quem está abaixo do mínimo: é o recorte que
-        # um leitor procuraria em seguida, e não inventa dado nenhum.
         titulo, subtitulo, frame = plans[0]
         breached = frame[frame["abaixo_do_minimo"].fillna(False)]
         plans.append(
@@ -156,13 +163,22 @@ def replace_structural_slides(
         )
 
     deck = Deck(KICKER, presentation)
-    slides = list(presentation.slides)
-    if len(slides) < first - 1 + len(plans):
+    if len(presentation.slides) < first - 1 + slots:
         raise IndexError(
-            f"O deck tem {len(slides)} slides; a carteira precisa dos slots "
-            f"{first}–{first + len(plans) - 1}. O deck publicado mudou de tamanho."
+            f"O deck tem {len(presentation.slides)} slides; a carteira precisa "
+            f"dos slots {first}–{first + slots - 1}. O deck publicado mudou de "
+            "tamanho."
         )
+
+    extras = len(plans) - slots
+    if extras > 0:
+        total = len(presentation.slides)
+        for _ in range(extras):
+            deck.blank()
+        move_slides(presentation, total + 1, extras, first + slots)
+
     deck.page = first - 1
+    slides = list(presentation.slides)
     for offset, (titulo, subtitulo, frame) in enumerate(plans):
         slide = slides[first - 1 + offset]
         clear_slide(slide)
@@ -170,12 +186,30 @@ def replace_structural_slides(
     return len(plans)
 
 
+def move_slides(presentation, first: int, count: int, destination: int) -> None:
+    """Move ``count`` slides a partir de ``first`` para a posição ``destination``.
+
+    Índices 1-indexados, medidos na lista antes do movimento.  Mexe apenas na
+    ordem declarada em ``sldIdLst``: nenhuma parte é criada ou destruída, então
+    a numeração do pacote fica intacta.
+    """
+
+    id_list = presentation.slides._sldIdLst
+    entries = list(id_list)
+    moving = entries[first - 1 : first - 1 + count]
+    for entry in moving:
+        id_list.remove(entry)
+    for offset, entry in enumerate(moving):
+        id_list.insert(destination - 1 + offset, entry)
+
+
 __all__ = [
     "KICKER",
-    "MIN_FUNDS_PER_TYPE",
+    "MIN_FUNDS_PER_CATEGORY",
     "REPLACED_SLIDE_RANGE",
     "clear_slide",
     "draw_carteira_slide",
+    "move_slides",
     "replace_structural_slides",
     "slide_plans",
     "slot_count",

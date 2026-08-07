@@ -43,6 +43,19 @@ Um fundo é considerado **ativo** quando reportou em alguma das últimas
 Informe de um mês chega escalonado: exigir a competência mais recente derrubaria
 do gráfico fundos vivos que apenas ainda não entregaram.
 
+### Quando o mês escolhido tem o quadro de cotas quebrado
+
+Patrimônio positivo com `vl_cotas_total` zerado **não** é um fundo sem
+subordinação: é a quebra do quadro de cotas naquele mês, e produziria 0% onde o
+mês anterior traz o número real. A competência escolhida é a mais recente com
+patrimônio **e** quadro de cotas fechado; a coluna `quadro_de_cotas_integro`
+registra o caso raro em que nenhuma competência fecha.
+
+Foi o que aconteceu com o **Blue II Segmento Crédito Corporativo**: em jun-26 o
+quadro veio zerado, e mai-26 traz 100%. Já o **MCPO** reporta o quadro todo mês
+e a cota subordinada zerada há nove meses seguidos — ali o 0% é o dado, não uma
+falha, e `meses_sem_subordinada` é o que separa os dois casos.
+
 ### Unidades
 
 O Informe Mensal reporta subordinação como **fração** (`0,2474`); a curadoria
@@ -57,17 +70,32 @@ dois foi usado em cada linha, e a nota de rodapé do gráfico repete o critério
 
 ## O gráfico
 
-Um par de pontos por fundo, ligados por uma haste: cinza é a subordinação
-atual, vermelho é o mínimo exigido. Onde o vermelho aparece **acima** do cinza,
-o fundo está abaixo do que o próprio regulamento exige — a leitura é imediata,
-sem consultar legenda ou tabela. Os fundos em descumprimento recebem rótulo
-direto; os demais rótulos vão para os maiores por PL, para dar escala ao eixo.
+Um par de pontos por fundo, ligados por uma haste. **O ponto verde marca sempre
+o maior dos dois valores**: quando o verde está na subordinação atual, o fundo
+supera o mínimo; quando está no mínimo, não alcança. O outro ponto mantém a cor
+da sua série — cinza para a subordinação atual, vermelho para o mínimo.
 
-Desenhado com matplotlib sobre o dataframe do pandas. O cinza fica abaixo do
-piso de croma que o validador de paletas cobra de uma paleta categórica: é
-deliberado, porque a série cinza é a referência neutra e não uma categoria
-concorrente. A separação entre as duas séries é de ΔE 15,4 no pior caso de
-visão de cores, bem acima do piso, e o pareamento posicional reforça a leitura.
+O que carrega o alerta é a haste: quem está abaixo do mínimo ganha haste
+**vermelha e grossa** e rótulo direto, também em vermelho. Nada mais no gráfico
+muda de espessura, então o olho cai ali antes de ler qualquer texto.
+
+### Duas saídas, uma fonte
+
+| onde | função | por quê |
+| --- | --- | --- |
+| dashboard | `altair_dumbbell` | vetorial, responsivo, com tooltip por fundo — a saída nativa do app |
+| PPTX | `dumbbell_figure` (matplotlib) | o slide precisa de imagem |
+
+Ambas consomem `chart_frame`, então não há como as duas divergirem.
+
+### Cor
+
+Verde puro contra vermelho é o pior par possível para deuteranopia (ΔE 6,0).
+O verde-azulado `#17A398` sobe a separação para **ΔE 14,9**, bem acima do piso,
+e continua lendo como verde. A posição reforça: o ponto verde é sempre o de
+cima. O cinza fica abaixo do piso de croma que o validador cobra de uma paleta
+categórica — é deliberado, porque a série cinza é a referência neutra e não uma
+categoria concorrente.
 
 ## Os slides 18–23
 
@@ -83,9 +111,22 @@ exatamente o que abre esse buraco. O pacote sairia com dois
 `ppt/slides/slideN.xml`. `tests/test_carteira_subordinacao.py` guarda essa
 propriedade explicitamente.
 
-No lugar dos seis entram: um slide consolidado e um por tipo ANBIMA com pelo
-menos `MIN_FUNDS_PER_TYPE` fundos comparáveis. Sobrando slot, ele recebe o
-consolidado restrito a quem está abaixo do mínimo.
+No lugar dos seis entram: um slide consolidado e um por **categoria
+estrutural** — a mesma taxonomia que dava nome aos slides originais. São sete
+gráficos para seis slots; o excedente **nasce no fim do deck e é movido** para
+depois deles. Acrescentar é seguro: só remover abriria buraco na numeração.
+
+Sobrando slot, ele recebe o consolidado restrito a quem está abaixo do mínimo.
+
+## A taxonomia
+
+O corte é o dos slides 18–23, e não o tipo ANBIMA: Financeiro, Adquirência,
+Agro / Revenda, Risco Corporativo, Consignado INSS e FGTS, Factoring. Ela nasce
+em `services/industry_structural_risk.py` e só existia dentro do payload
+publicado, um JSON de 29 MB; `scripts/build_carteira_taxonomia_estrutural.py`
+extrai o mapa para `carteira_taxonomia_estrutural.csv`, com a origem de cada
+linha. Um CNPJ fora do mapa fica em "Não classificado" — nenhuma categoria é
+inferida.
 
 ## Cache
 
