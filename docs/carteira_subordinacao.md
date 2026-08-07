@@ -162,7 +162,8 @@ tal em vez de receberem um número inventado.
 ## A taxonomia
 
 O corte é o dos slides 18–23, e não o tipo ANBIMA: Financeiro, Adquirência,
-Agro / Revenda, Risco Corporativo, Consignado INSS e FGTS, Factoring. Ela nasce
+Agro / Revenda, Risco Corporativo, Consignado INSS e FGTS e Fomento Mercantil.
+Ela nasce
 em `services/industry_structural_risk.py` e só existia dentro do payload
 publicado, um JSON de 29 MB; `scripts/build_carteira_taxonomia_estrutural.py`
 extrai o mapa para `carteira_taxonomia_estrutural.csv`, com a origem de cada
@@ -199,6 +200,30 @@ Dois falsos positivos foram encontrados e travados por teste:
 A marca de multicedente/multissacado sai do mesmo texto e acompanha o nome do
 fundo na tabela: pulverizado entre muitos sacados não é o mesmo risco que
 concentrado em um.
+
+### Por que a marca não virou seção
+
+A concentração é um **eixo diferente** do que define as seções. As seis são
+definidas por lastro e devedor — cartão, folha, rural, banco, corporativo,
+comercial —, e a marca cruza todas elas: dos 14 fundos marcados multissacado,
+**13 estão fora de Fomento Mercantil** (7 em Agro / Revenda, 4 em Financeiro,
+1 em Risco Corporativo, 1 em Consignado), e dos 5 de Fomento Mercantil apenas
+1 é multissacado.
+
+Transformar a marca em seção mapearia mal nas duas direções. O Pneucash II é o
+caso didático: três cedentes o tornam multicedente na forma, mas concentrado no
+risco — ele entraria na seção pelo motivo errado.
+
+### O rótulo "Factoring"
+
+Nenhum destes veículos é factoring no sentido regulatório: são FIDCs de
+recebíveis comerciais. **Fomento Mercantil** é o termo da ANBIMA e o que os
+próprios regulamentos usam — o do Pneucash II diz, com todas as letras, que
+"para fins do Código ANBIMA, o Fundo é classificado como Fomento Mercantil".
+
+A tradução acontece ao materializar `carteira_taxonomia_estrutural.csv`, e não
+em `services/industry_structural_risk.py`: aquele serviço está amarrado ao
+contrato do bundle publicado, que continua dizendo "Factoring".
 
 ## Cache
 

@@ -469,7 +469,7 @@ def test_a_carteira_usa_a_taxonomia_dos_slides_estruturais() -> None:
         "Agro / Revenda",
         "Risco Corporativo",
         "Consignado INSS e FGTS",
-        "Factoring",
+        "Fomento Mercantil",
     }
     data_dir = ROOT / "data" / "industry_study"
     frame = resolver(data_dir).frame

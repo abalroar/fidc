@@ -23,13 +23,20 @@ import re
 import unicodedata
 
 
+#: Nenhum destes veículos é factoring no sentido regulatório: são FIDCs de
+#: recebíveis comerciais.  "Fomento Mercantil" é o termo da ANBIMA, e é o que
+#: os próprios regulamentos usam ao se autoclassificarem.  O serviço de risco
+#: estrutural upstream continua dizendo "Factoring" porque está amarrado ao
+#: bundle publicado; a tradução acontece ao materializar a taxonomia.
+FOMENTO_MERCANTIL = "Fomento Mercantil"
+
 CATEGORIAS = (
     "Adquirência",
     "Consignado INSS e FGTS",
     "Risco Corporativo",
     "Agro / Revenda",
     "Financeiro",
-    "Factoring",
+    FOMENTO_MERCANTIL,
 )
 SEM_EVIDENCIA = "sem evidência"
 
@@ -124,7 +131,7 @@ SINAIS: dict[str, tuple[tuple[str, int], ...]] = {
         (r"CEDULAS? DE CREDITO BANCARIO", 2),
         (r"\bCCB\b", 2),
     ),
-    "Factoring": (
+    FOMENTO_MERCANTIL: (
         (r"FOMENTO MERCANTIL", 5),
         (r"\bFACTORING\b", 5),
         (r"DUPLICATAS? (?:MERCANTIS|DE SERVICO)", 3),
@@ -225,6 +232,7 @@ def classify(cnpj: str, regulamento: str) -> Veredito:
 
 __all__ = [
     "CATEGORIAS",
+    "FOMENTO_MERCANTIL",
     "MARGEM_MINIMA",
     "MULTI_AMBOS",
     "MULTICEDENTE",

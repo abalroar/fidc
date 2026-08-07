@@ -32,6 +32,12 @@ PAYLOAD = Path("generated_revision/artifact_payload.json")
 OUTPUT_NAME = "carteira_taxonomia_estrutural.csv"
 BLOCK = "carteira_1_structural_assets"
 
+#: O rótulo herdado do payload publicado não descreve estes veículos: nenhum é
+#: factoring no sentido regulatório, e os próprios regulamentos se classificam
+#: como fomento mercantil.  A tradução acontece aqui, e não no serviço de risco
+#: estrutural, que está amarrado ao contrato do bundle.
+RENOMEIA = {"Factoring": "Fomento Mercantil"}
+
 COLUMNS = (
     "cnpj",
     "fundo",
@@ -56,7 +62,9 @@ def build_frame(data_dir: Path) -> pd.DataFrame:
         {
             "cnpj": assets["cnpj"].astype(str).str.replace(r"\D", "", regex=True).str.zfill(14),
             "fundo": assets["ativo"].astype(str),
-            "categoria_estrutural": assets["mvp_slide_categoria"].astype(str),
+            "categoria_estrutural": assets["mvp_slide_categoria"]
+            .astype(str)
+            .replace(RENOMEIA),
             # ``categoria`` é o corte fino (Consignado INSS e Consignado FGTS
             # entram separados ali e juntos na categoria do slide).
             "categoria_detalhe": assets["categoria"].astype(str),
