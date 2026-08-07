@@ -15,10 +15,35 @@ receberem um número inventado.
 from __future__ import annotations
 
 from pathlib import Path
+import re
 
 import pandas as pd
 
 from services.carteira_subordinacao import short_fund_name
+
+#: Sufixos societários que não identificam ninguém e comem a largura da célula.
+#: A âncora no fim é essencial: sem ela, "CLOUDWALK INSTITUICAO DE PAGAMENTO E
+#: SERVICOS LTDA" perde o miolo e vira "Cloudwalk E Servicos".
+_SUFIXO = re.compile(
+    r"(?:\s*[,-]?\s*(?:S[/.]?\s?A\.?|LTDA\.?|EIRELI|\bME\b|\bEPP\b|"
+    r"SOCIEDADE DE CREDITO DIRETO|SOCIEDADE DE CREDITO, FINANCIAMENTO E INVESTIMENTO"
+    r"))+\s*\.?$",
+    re.IGNORECASE,
+)
+
+
+def short_company(nome: str, limite: int) -> str:
+    """Razão social legível: sem o sufixo societário final, em caixa de título."""
+
+    bruto = _text(nome, 10_000)
+    if bruto == "—":
+        return bruto
+    texto = re.sub(r"\s+", " ", _SUFIXO.sub("", bruto)).strip(" -,.")
+    if not texto:
+        texto = bruto
+    if texto.isupper():
+        texto = texto.title()
+    return texto if len(texto) <= limite else texto[: limite - 1].rstrip() + "…"
 
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
@@ -90,7 +115,7 @@ def _cnpj(value: object) -> str:
 _LIMITES = {
     "FIDC": 46,
     "Coordenador líder": 19,
-    "Razão social cedente": 30,
+    "Razão social cedente": 28,
     "Setor cedente": 21,
     "MIDDLE (preencher)": 10,
 }
@@ -106,6 +131,8 @@ def table_rows(bloco: pd.DataFrame) -> list[list[str]]:
                 linha.append(_cnpj(valor))
             elif key == "rank_pl":
                 linha.append(_text(valor, 4))
+            elif key == "Razão social cedente":
+                linha.append(short_company(valor, _LIMITES[key]))
             elif key == "FIDC":
                 # No slide vale o nome próprio: a razão social completa enche a
                 # célula com boilerplate registral e esconde o que identifica o

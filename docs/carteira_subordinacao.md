@@ -231,3 +231,29 @@ Salvar um fundo no painel muda o gráfico e muda o deck. Por isso o registro
 entra na chave de cache das exportações (`_carteira_registry_signature`) e na
 da posição (`_carteira_signature`): sem isso, o site continuaria servindo o
 deck e o gráfico anteriores depois de uma gravação.
+
+
+## Triagem de prováveis clientes Middle Market
+
+Quem, entre os cedentes que os FIDCs declaram, tem porte de cliente Middle.
+
+O cedente vem do **Informe Mensal da CVM** (`TAB_I2A12`/`TAB_I2B12` da Tabela
+I) — é o próprio fundo dizendo à CVM quem lhe cede os direitos creditórios,
+documento primário e não inferência. A varredura cobre sete competências,
+porque um fundo declara num mês e omite no seguinte.
+
+O julgamento sai do **cadastro da Receita Federal**: capital social, CNAE,
+situação e UF. Três exclusões vêm antes de qualquer faixa, porque descrevem
+quem não é cliente por definição — o cedente que é o próprio veículo, o banco
+múltiplo ou comercial, e a pessoa física.
+
+| classificação | critério |
+| --- | --- |
+| Provável Middle | capital social entre R$ 1 mm e R$ 500 mm, cadastro ativo |
+| Improvável Middle | fora da faixa, fundo, banco, pessoa física ou cadastro baixado |
+| Não avaliado | sem cadastro resolvido ou sem capital publicado |
+
+A faixa de capital é proxy declarada: separa o microempreendedor da
+corporação, mas não substitui o faturamento, que a Receita não publica.
+
+**Não avaliado nunca vira improvável.** Ausência de dado é ausência de dado.
