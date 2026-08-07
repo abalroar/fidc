@@ -1016,20 +1016,38 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
 
     payloads, failures = _industry_export_payloads.__wrapped__("assinatura")
 
-    assert set(payloads) == {"pptx", "xlsx", "portfolio", "html"}
+    assert "top100" not in payloads
     assert set(failures) == {"top100"}
     assert "openpyxl ausente" in failures["top100"]
+    # As demais exportações do pacote continuam de pé.
+    assert {"pptx", "xlsx", "portfolio", "html"} <= set(payloads)
 
 
 def test_every_export_button_is_declared_with_a_payload_key() -> None:
     from tabs.tab_industry_study import _INDUSTRY_EXPORT_BUTTONS
 
+    from tabs.tab_industry_study import GRUPO_BASES, GRUPO_PACOTE
+
     keys = [spec["key"] for spec in _INDUSTRY_EXPORT_BUTTONS]
 
-    assert keys == ["pptx", "xlsx", "portfolio", "top100", "html"]
+    assert keys == [
+        "pptx",
+        "xlsx",
+        "portfolio",
+        "top100",
+        "html",
+        "middle",
+        "triagem",
+        "revalidacao",
+        "subordinacao",
+    ]
     for spec in _INDUSTRY_EXPORT_BUTTONS:
         assert spec["label"] and spec["mime"] and spec["widget"]
         assert "{period}" in spec["file_name"]
+        # Sem grupo o botão cairia numa linha só com os outros oito e o rótulo
+        # ficaria ilegível.
+        assert spec["group"] in {GRUPO_PACOTE, GRUPO_BASES}
+    assert len({spec["widget"] for spec in _INDUSTRY_EXPORT_BUTTONS}) == len(keys)
 
 
 def test_the_anbima_deck_is_appended_to_the_standard_export() -> None:

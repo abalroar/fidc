@@ -170,3 +170,70 @@ def test_o_originador_dos_top_fidcs_middle_sai_do_informe() -> None:
     assert resolved.loc[identificados, "originador_fonte"].str.contains(
         "Informe Mensal"
     ).all()
+
+
+# ---------------------------------------------------------------------------
+# Exportações
+# ---------------------------------------------------------------------------
+
+def test_as_bases_analiticas_saem_como_bytes_da_base_atual() -> None:
+    """O botão serve bytes construídos na hora, não um artefato velho em disco."""
+
+    from services.middle_market_exports import (
+        build_carteira101_subordinacao_xlsx_bytes,
+        build_cedentes_triagem_csv_bytes,
+        build_revalidacao_secoes_csv_bytes,
+        build_top100_middle_xlsx_bytes,
+    )
+
+    data_dir = ROOT / "data" / "industry_study"
+    xlsx = (
+        build_top100_middle_xlsx_bytes(data_dir),
+        build_carteira101_subordinacao_xlsx_bytes(data_dir),
+    )
+    csv = (
+        build_cedentes_triagem_csv_bytes(data_dir),
+        build_revalidacao_secoes_csv_bytes(data_dir),
+    )
+
+    for conteudo in xlsx:
+        assert conteudo.startswith(b"PK")  # um .xlsx é um zip
+    for conteudo in csv:
+        assert b"," in conteudo and len(conteudo) > 1000
+
+
+def test_um_csv_truncado_falha_na_exportacao_e_nao_na_mao_de_quem_baixou(
+    tmp_path: Path,
+) -> None:
+    """Ler e revalidar antes de servir é o que transforma corrupção em erro."""
+
+    import pytest
+
+    from services.middle_market_exports import TRIAGE_NAME, build_cedentes_triagem_csv_bytes
+
+    (tmp_path / TRIAGE_NAME).write_text("", encoding="utf-8")
+
+    with pytest.raises(Exception):
+        build_cedentes_triagem_csv_bytes(tmp_path)
+
+
+def test_as_bases_entram_na_chave_de_cache_das_exportacoes() -> None:
+    """Sem isso, atualizar a triagem continuaria servindo o download anterior."""
+
+    import os
+
+    import tabs.tab_industry_study as painel
+    from services.middle_market_exports import TRIAGE_NAME
+
+    caminho = painel._DATA_DIR / TRIAGE_NAME
+    antes = painel._industry_export_signature()
+    original = caminho.read_bytes()
+    marca = caminho.stat().st_mtime
+    try:
+        caminho.write_bytes(original + b"\n")
+        depois = painel._industry_export_signature()
+    finally:
+        caminho.write_bytes(original)
+        os.utime(caminho, (marca, marca))
+
+    assert depois != antes

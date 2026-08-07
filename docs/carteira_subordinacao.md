@@ -257,3 +257,23 @@ A faixa de capital é proxy declarada: separa o microempreendedor da
 corporação, mas não substitui o faturamento, que a Receita não publica.
 
 **Não avaliado nunca vira improvável.** Ausência de dado é ausência de dado.
+
+
+## Onde baixar
+
+**Dados da Indústria → Dados e exportações**, em dois grupos. Nove botões numa
+linha só espremem o rótulo até ficar ilegível, então o pacote executivo fica em
+cima e as bases analíticas embaixo.
+
+| botão | conteúdo |
+| --- | --- |
+| Revisão Middle | Top 100 por PL com o cedente declarado e a coluna MIDDLE pré-sugerida |
+| Triagem de cedentes | um par fundo–cedente por linha, com capital social, CNAE e o motivo |
+| Revalidação das seções | a leitura dos regulamentos, com o trecho literal de cada veredito |
+| Subordinação da carteira | atual contra o mínimo, com o gráfico de bolhas nativo |
+
+Cada botão serve **bytes construídos na hora**, não um arquivo antigo em disco:
+é o que garante que o download saiu da mesma base que a página está exibindo.
+Os CSV são lidos e revalidados antes de sair, de modo que um arquivo truncado
+apareça como botão desabilitado com o motivo, em vez de chegar ilegível na mão
+de quem baixou.

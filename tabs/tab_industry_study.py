@@ -9918,10 +9918,12 @@ def _carteira_registry_signature() -> str:
         REVALIDATION_NAME,
         TAXONOMY_NAME,
     )
+    from services.middle_market_exports import EXPORT_DATA_INPUTS
     from services.top100_middle_deck import REVIEW_NAME
 
     return _industry_files_signature(
         (REGISTRY_NAME, TAXONOMY_NAME, REVALIDATION_NAME, REVIEW_NAME)
+        + EXPORT_DATA_INPUTS
     )
 
 
@@ -9987,12 +9989,23 @@ def _industry_export_payloads(
         standard.save(buffer)
         return buffer.getvalue()
 
+    from services.middle_market_exports import (
+        build_carteira101_subordinacao_xlsx_bytes,
+        build_cedentes_triagem_csv_bytes,
+        build_revalidacao_secoes_csv_bytes,
+        build_top100_middle_xlsx_bytes,
+    )
+
     builders = {
         "pptx": industry_deck_with_anbima,
         "xlsx": build_industry_xlsx_bytes,
         "portfolio": build_revision_portfolio_xlsx_bytes,
         "top100": build_revision_top100_xlsx_bytes,
         "html": build_revision_html_bytes,
+        "middle": build_top100_middle_xlsx_bytes,
+        "triagem": build_cedentes_triagem_csv_bytes,
+        "revalidacao": build_revalidacao_secoes_csv_bytes,
+        "subordinacao": build_carteira101_subordinacao_xlsx_bytes,
     }
     payloads: dict[str, bytes] = {}
     failures: dict[str, str] = {}
@@ -10154,9 +10167,15 @@ def _industry_holder_histogram_frames(
 
 #: The executive downloads, in render order.  ``key`` matches the payload built
 #: by :func:`_industry_export_payloads`.
+#: Os botões, em dois grupos.  Nove numa linha só espremem o rótulo até ficar
+#: ilegível; o pacote executivo fica em cima e as bases analíticas embaixo.
+GRUPO_PACOTE = "Pacote executivo"
+GRUPO_BASES = "Bases analíticas"
+
 _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     {
         "key": "pptx",
+        "group": GRUPO_PACOTE,
         "label": "PPTX",
         "file_name": "Industria_FIDC_Executivo_{period}.pptx",
         "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
@@ -10166,6 +10185,7 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     },
     {
         "key": "xlsx",
+        "group": GRUPO_PACOTE,
         "label": "XLSX",
         "file_name": "Industria_FIDC_Dados_{period}.xlsx",
         "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -10175,6 +10195,7 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     },
     {
         "key": "portfolio",
+        "group": GRUPO_PACOTE,
         "label": "Carteira 101",
         "file_name": "Carteira_101_Flagships_{period}.xlsx",
         "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -10184,6 +10205,7 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     },
     {
         "key": "top100",
+        "group": GRUPO_PACOTE,
         "label": "Top 100 + 2 FIDCs",
         "file_name": "Top100_Plus2_FIDCs_Middle_Market_{period}.xlsx",
         "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -10196,12 +10218,65 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     },
     {
         "key": "html",
+        "group": GRUPO_PACOTE,
         "label": "HTML interativo",
         "file_name": "Industria_FIDC_Fluxos_Prestadores_{period}.html",
         "mime": "text/html",
         "icon": ":material/hub:",
         "help": "Baixar o explorador interativo dos fluxos de prestadores",
         "widget": "industry-html",
+    },
+    {
+        "key": "middle",
+        "group": GRUPO_BASES,
+        "label": "Revisão Middle",
+        "file_name": "Top100_FIDCs_Revisao_Middle_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/fact_check:",
+        "help": (
+            "Top 100 por PL com o cedente declarado à CVM e a coluna MIDDLE "
+            "pré-sugerida — tabela do Excel, com filtro e lista suspensa"
+        ),
+        "widget": "industry-middle-xlsx",
+    },
+    {
+        "key": "triagem",
+        "group": GRUPO_BASES,
+        "label": "Triagem de cedentes",
+        "file_name": "Cedentes_Triagem_Middle_{period}.csv",
+        "mime": "text/csv",
+        "icon": ":material/groups:",
+        "help": (
+            "Um par fundo–cedente por linha, com capital social, CNAE e o "
+            "motivo de cada classificação de porte"
+        ),
+        "widget": "industry-triagem-csv",
+    },
+    {
+        "key": "revalidacao",
+        "group": GRUPO_BASES,
+        "label": "Revalidação das seções",
+        "file_name": "Carteira_Revalidacao_Secoes_{period}.csv",
+        "mime": "text/csv",
+        "icon": ":material/rule:",
+        "help": (
+            "A leitura dos regulamentos que confirma ou corrige a seção de "
+            "cada FIDC, com o trecho literal que sustenta o veredito"
+        ),
+        "widget": "industry-revalidacao-csv",
+    },
+    {
+        "key": "subordinacao",
+        "group": GRUPO_BASES,
+        "label": "Subordinação da carteira",
+        "file_name": "Carteira101_Subordinacao_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/stacked_bar_chart:",
+        "help": (
+            "Subordinação atual contra o mínimo documentado, com gráfico de "
+            "bolhas nativo do Office"
+        ),
+        "widget": "industry-subordinacao-xlsx",
     },
 )
 
@@ -10219,8 +10294,16 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
         }
 
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    columns = st.columns([1] * len(_INDUSTRY_EXPORT_BUTTONS))
-    for column, spec in zip(columns, _INDUSTRY_EXPORT_BUTTONS):
+    grupos: dict[str, list[dict[str, str]]] = {}
+    for spec in _INDUSTRY_EXPORT_BUTTONS:
+        grupos.setdefault(spec.get("group", GRUPO_PACOTE), []).append(spec)
+
+    pares: list[tuple[object, dict[str, str]]] = []
+    for titulo, specs in grupos.items():
+        st.caption(titulo)
+        pares.extend(zip(st.columns([1] * len(specs)), specs))
+
+    for column, spec in pares:
         key = spec["key"]
         with column:
             if key in payloads:
