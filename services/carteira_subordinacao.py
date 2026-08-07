@@ -48,6 +48,7 @@ SCOPE_NAME = "industry_carteira_1_scope.csv"
 CLASSIFICATION_NAME = "industry_anbima_classification.csv.gz"
 TAXONOMY_NAME = "carteira_taxonomia_estrutural.csv"
 REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
+OVERRIDES_NAME = "carteira_subordinacao_overrides.csv"
 NAO_CLASSIFICADO = "Não classificado"
 
 REGISTRY_COLUMNS: tuple[str, ...] = (
@@ -65,6 +66,7 @@ REGISTRY_COLUMNS: tuple[str, ...] = (
 
 ORIGEM_CARTEIRA_101 = "carteira_101"
 ORIGEM_MANUAL = "manual"
+ORIGEM_OVERRIDE = "override_analista"
 
 #: Um fundo é considerado ativo quando reportou em alguma das últimas
 #: competências da base.  A tolerância existe porque o Informe de um mês chega
@@ -417,6 +419,38 @@ def _structural_taxonomy(data_dir: Path) -> dict[str, str]:
     return frame.set_index("cnpj")["categoria_estrutural"].to_dict()
 
 
+def load_overrides(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
+    """Os mínimos revisados por analista, que prevalecem sobre a leitura automática.
+
+    A camada é **separada do registro** de propósito.  O registro guarda o que
+    a curadoria documental extraiu dos regulamentos; sobrescrevê-lo apagaria o
+    dado bruto e ninguém saberia mais o que o documento dizia.  Aqui ficam o
+    valor revisado, o valor que a leitura automática tinha produzido, a fonte e
+    o motivo — e ``resolve_portfolio`` aplica por cima, guardando os dois.
+
+    O arquivo também **acrescenta** fundos: uma estrutura que a curadoria não
+    alcançou entra por aqui, com o mínimo do analista, e passa a integrar o
+    universo comparável.
+    """
+
+    path = Path(data_dir) / OVERRIDES_NAME
+    if not path.exists():
+        return pd.DataFrame(
+            columns=[
+                "cnpj",
+                "subordinacao_minima_pct",
+                "valor_extraido_pct",
+                "fonte",
+                "motivo",
+            ]
+        )
+    frame = pd.read_csv(path, dtype=str).fillna("")
+    frame["cnpj"] = frame["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
+    for column in ("subordinacao_minima_pct", "valor_extraido_pct"):
+        frame[column] = pd.to_numeric(frame[column], errors="coerce")
+    return frame.drop_duplicates("cnpj", keep="last")
+
+
 def _revalidation(data_dir: Path) -> pd.DataFrame:
     """A revalidação documental das seções, se materializada.
 
@@ -451,6 +485,32 @@ def resolve_portfolio(
     """O registro cruzado com o dado mais recente de cada fundo."""
 
     registry = load_registry(data_dir)
+    overrides = load_overrides(data_dir)
+    if len(overrides):
+        # Um CNPJ que só existe no override entra no universo; um que já existe
+        # tem o mínimo substituído, com o valor anterior preservado ao lado.
+        novos = overrides[~overrides["cnpj"].isin(set(registry["cnpj"]))]
+        if len(novos):
+            registry = pd.concat(
+                [
+                    registry,
+                    pd.DataFrame(
+                        {
+                            "cnpj": novos["cnpj"],
+                            "apelido": novos.get("fundo", ""),
+                            "subordinacao_minima_pct": novos["subordinacao_minima_pct"],
+                            "subordinacao_estrutural_pct": pd.NA,
+                            "inclui_mezanino": False,
+                            "origem": ORIGEM_OVERRIDE,
+                            "fonte": novos.get("fonte", ""),
+                            "observacao": novos.get("motivo", ""),
+                            "responsavel": novos.get("responsavel", ""),
+                            "atualizado_em_utc": novos.get("revisado_em", ""),
+                        }
+                    ),
+                ],
+                ignore_index=True,
+            )
     latest = _latest_monthly(data_dir)
     competencia_base = str(latest["competencia"].max()) if len(latest) else ""
     corte = _shift_competence(competencia_base, tolerancia_meses) if competencia_base else ""
@@ -489,6 +549,14 @@ def resolve_portfolio(
     merged.loc[tem_documental, "categoria_estrutural"] = merged.loc[
         tem_documental, "categoria_documental"
     ]
+    # A decisão do analista vem por último: ela é a única que enxerga o que o
+    # documento não diz — e, quando classifica contra a evidência, o motivo
+    # registrado no override explica por quê.
+    if len(overrides) and "categoria_estrutural" in overrides.columns:
+        revisada = merged["cnpj"].map(
+            overrides.set_index("cnpj")["categoria_estrutural"].replace("", pd.NA)
+        )
+        merged.loc[revisada.notna(), "categoria_estrutural"] = revisada[revisada.notna()]
     merged["multi_flag"] = merged["cnpj"].map(
         revalidacao.get("multi_flag", pd.Series(dtype=str))
     ).fillna("")
@@ -504,6 +572,33 @@ def resolve_portfolio(
         merged["subordinacao_estrutural_pct"].notna(),
         merged["subordinacao_minima_pct"],
     )
+    # O override do analista entra **sobre a referência**, e não sobre o mínimo
+    # júnior: a tabela revisada dá um mínimo por estrutura, e é contra ele que
+    # a folga é medida.  O valor que a leitura automática produziu fica
+    # preservado ao lado, e a fonte diz qual dos dois está valendo.
+    merged["referencia_extraida_pct"] = merged["referencia_pct"]
+    merged["minimo_fonte"] = "leitura documental automática"
+    merged["minimo_override_motivo"] = ""
+    if len(overrides):
+        indexado = overrides.set_index("cnpj")
+        revisado = merged["cnpj"].map(indexado["subordinacao_minima_pct"])
+        tem = revisado.notna()
+        # Um fundo que entrou pelo próprio override nunca teve leitura
+        # automática; registrar o override como se fosse extração seria
+        # inventar uma auditoria que não existe.
+        introduzido = merged["origem"].eq(ORIGEM_OVERRIDE)
+        merged.loc[introduzido, "referencia_extraida_pct"] = np.nan
+        merged.loc[tem, "referencia_pct"] = revisado[tem]
+        merged.loc[tem, "minimo_fonte"] = merged.loc[tem, "cnpj"].map(indexado["fonte"])
+        merged["minimo_override_motivo"] = (
+            merged["cnpj"].map(indexado["motivo"]).fillna("")
+        )
+    merged["minimo_divergiu"] = (
+        merged["referencia_extraida_pct"].notna()
+        & merged["referencia_pct"].notna()
+        & (merged["referencia_extraida_pct"] - merged["referencia_pct"]).abs().gt(0.01)
+    )
+
     merged["referencia_tipo"] = np.where(
         merged["subordinacao_estrutural_pct"].notna(),
         "Estrutural (Sub+Mez)",
@@ -948,6 +1043,8 @@ __all__ = [
     "ORIGEM_MANUAL",
     "REGISTRY_COLUMNS",
     "REGISTRY_NAME",
+    "OVERRIDES_NAME",
+    "ORIGEM_OVERRIDE",
     "REVALIDATION_NAME",
     "TAXONOMY_NAME",
     "COLOR_CURRENT",
@@ -962,6 +1059,7 @@ __all__ = [
     "dumbbell_figure",
     "figure_png_bytes",
     "format_cnpj",
+    "load_overrides",
     "load_registry",
     "normalize_cnpj",
     "registry_path",

@@ -1,0 +1,13 @@
+Nome na tabela interna,Tipo de instrumento,CNPJ,Nome na nossa base,Está no slide 18?,Critério do matching,Situação
+Fidc MBRF,FIDC,52720932000102,FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CLIENTES BRF II,Não,CNPJ pelo cedente declarado (BRF S.A.) e nome FIDC Clientes BRF II,Ausente; incluída
+DEB SYNGENTA,Debênture,—,—,Não,"Instrumento de dívida corporativa, não é fundo",Fora do escopo FIDC
+Fidc Basf,FIDC,45829624000154,FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SALES FINANCE - RESPONSABILIDADE LIMITADA,Não,"CNPJ pelo cedente declarado (BASF SA, 36% da carteira)",Ausente; incluída
+Fidc UPL,FIDC,28472392000100,UPL 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AGRONEGÓCIO RESPONSABILIDADE LIMITADA,Não,"CNPJ pelo cedente declarado (UPL do Brasil, 72,96%)",Ausente; incluída
+CR Origeo,Certificado de recebíveis,—,—,Não,"Emissão de securitizadora, não é fundo",Fora do escopo FIDC
+Fidc Albaugh II,FIDC,47280025000150,FIDC AGRO CAPITAL FINANCE RESPONSABILIDADE LIMITADA,Sim,"Mesmo CNPJ; ""FIDC Albaugh I"" nas ofertas da CVM e ""Agro Capital Finance"" no Informe; cedente Albaugh Agro Brasil",Já no slide 18
+Três Tentos,FIAGRO-FIDC,57259989000170,TRÊS TENTOS FIAGRO RESPONSABILIDADE LIMITADA,Sim,Nome e CNPJ,Já no slide 18
+Fidc Frimesa,FIDC,58171340000165,FRIMESA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA,Sim,Nome e CNPJ,Já no slide 18
+Fiagro Sinova,FIAGRO,—,—,Não,"Não localizado no Informe FIDC, no cadastro CVM nem nas bases de oferta",Não localizado
+Fidc UPL Revendas,FIDC,44574361000117,FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS UPL 02 - RESPONSABILIDADE LIMITADA,Sim,Nome UPL 02 e CNPJ,Já no slide 18
+Fidc MAQCAMPO,FIDC,—,—,Não,"Não localizado no Informe FIDC, no cadastro CVM nem nas bases de oferta",Não localizado
+Fidc OCP CIBRA,FIAGRO-FIDC,57933661000197,—,Não,Nome CIBRA FIAGRO; OCP é o grupo controlador da Cibra,Fora do universo ativo

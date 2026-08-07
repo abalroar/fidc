@@ -734,3 +734,77 @@ def test_a_tabela_da_carteira_termina_na_margem_direita() -> None:
     ).inches
     direita = Emu(tabelas[1].left + tabelas[1].width).inches
     assert direita <= SLIDE_WIDTH_IN - MARGIN_IN + 0.01
+
+
+# ---------------------------------------------------------------------------
+# Override do analista sobre o mínimo
+# ---------------------------------------------------------------------------
+
+def test_o_override_preserva_o_valor_extraido(data_dir: Path) -> None:
+    """Sobrescrever o registro apagaria o que o documento dizia.
+
+    O override mora numa camada separada; o valor da leitura automática
+    continua ao lado, e a coluna de fonte diz qual dos dois está valendo.
+    """
+
+    import pandas as pd
+
+    from services.carteira_subordinacao import OVERRIDES_NAME
+
+    save_entry(cnpj=FUNDO_A, subordinacao_minima_pct=1.0, data_dir=data_dir)
+    pd.DataFrame(
+        [{"cnpj": FUNDO_A, "fundo": "FIDC A", "subordinacao_minima_pct": 20.0,
+          "valor_extraido_pct": 1.0, "fonte": "tabela do analista",
+          "motivo": "divergência", "categoria_estrutural": ""}]
+    ).to_csv(data_dir / OVERRIDES_NAME, index=False)
+
+    linha = resolve_portfolio(data_dir).frame.iloc[0]
+
+    assert linha["referencia_extraida_pct"] == pytest.approx(1.0)
+    assert linha["referencia_pct"] == pytest.approx(20.0)
+    assert bool(linha["minimo_divergiu"]) is True
+    assert linha["minimo_fonte"] == "tabela do analista"
+    # E a folga é recalculada contra o mínimo revisado, não contra o extraído.
+    assert linha["folga_pp"] == pytest.approx(linha["sub_atual_pct"] - 20.0)
+
+
+def test_o_override_acrescenta_um_fundo_ao_universo(data_dir: Path) -> None:
+    """Uma estrutura que a curadoria não alcançou entra pelo override."""
+
+    import pandas as pd
+
+    from services.carteira_subordinacao import ORIGEM_OVERRIDE, OVERRIDES_NAME
+
+    save_entry(cnpj=FUNDO_A, subordinacao_minima_pct=15.0, data_dir=data_dir)
+    pd.DataFrame(
+        [{"cnpj": FUNDO_B, "fundo": "FIDC B", "subordinacao_minima_pct": 10.0,
+          "valor_extraido_pct": "", "fonte": "tabela do analista",
+          "motivo": "ausente da base", "categoria_estrutural": "Agro / Revenda"}]
+    ).to_csv(data_dir / OVERRIDES_NAME, index=False)
+
+    frame = resolve_portfolio(data_dir).frame.set_index("cnpj")
+
+    assert FUNDO_B in frame.index
+    assert frame.at[FUNDO_B, "origem"] == ORIGEM_OVERRIDE
+    assert frame.at[FUNDO_B, "categoria_estrutural"] == "Agro / Revenda"
+    # Um fundo que entrou pelo override nunca teve leitura automática.
+    assert pd.isna(frame.at[FUNDO_B, "referencia_extraida_pct"])
+    assert bool(frame.at[FUNDO_B, "minimo_divergiu"]) is False
+
+
+def test_a_tabela_interna_agro_esta_aplicada_na_base_publicada() -> None:
+    """O override tem de valer na base que o gráfico, o tabelão e o slide leem."""
+
+    from services.carteira_subordinacao import load_overrides
+
+    data_dir = ROOT / "data" / "industry_study"
+    overrides = load_overrides(data_dir)
+    frame = resolve_portfolio(data_dir, somente_ativos=False).frame.set_index("cnpj")
+
+    assert len(overrides) >= 7
+    for registro in overrides.itertuples():
+        assert registro.cnpj in frame.index, registro.cnpj
+        assert frame.at[registro.cnpj, "referencia_pct"] == pytest.approx(
+            registro.subordinacao_minima_pct
+        )
+        assert frame.at[registro.cnpj, "minimo_fonte"] != "leitura documental automática"
