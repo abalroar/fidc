@@ -1034,10 +1034,11 @@ def build_deck(
     consistency: dict[str, int],
     output: Path,
     data_dir: Path = DEFAULT_DATA_DIR,
+    presentation=None,
 ) -> Path:
-    """Assemble the single combined deck."""
+    """Assemble the deck, or append its slides to an existing presentation."""
 
-    deck = Deck(KICKER)
+    deck = Deck(KICKER, presentation)
 
     cover = deck.blank()
     deck.block(cover, 0.0, 0.0, 0.22, 7.5, ORANGE)
@@ -1107,6 +1108,8 @@ def build_deck(
     methodology_slide(deck)
     caveats_slide(deck, matrix, sources, consistency)
 
+    if output is None:
+        return deck.prs
     if isinstance(output, Path):
         output.parent.mkdir(parents=True, exist_ok=True)
     deck.save(output)
@@ -1310,6 +1313,23 @@ def build_anbima_deck_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return buffer.getvalue()
 
 
+def append_anbima_slides(presentation, data_dir: Path = DEFAULT_DATA_DIR):
+    """Append the ranking section to a deck someone else built."""
+
+    loaded = _load(Path(data_dir))
+    return build_deck(
+        loaded["official"],
+        loaded["totals"],
+        loaded["matrix"],
+        loaded["products"],
+        loaded["sources"],
+        loaded["consistency"],
+        None,
+        Path(data_dir),
+        presentation,
+    )
+
+
 def build_anbima_workbook_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     """Render the working spreadsheet straight to bytes."""
 
@@ -1325,6 +1345,7 @@ __all__ = [
     "ANNEX_GLOB",
     "DEFAULT_DATA_DIR",
     "RANKING_GLOB",
+    "append_anbima_slides",
     "build_anbima_deck_bytes",
     "build_anbima_workbook_bytes",
     "build_deck",
