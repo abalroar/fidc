@@ -46,6 +46,8 @@ MONTHLY_NAME = "vehicle_monthly.csv.gz"
 CURATION_NAME = "industry_carteira_1_document_curation.csv"
 SCOPE_NAME = "industry_carteira_1_scope.csv"
 CLASSIFICATION_NAME = "industry_anbima_classification.csv.gz"
+TAXONOMY_NAME = "carteira_taxonomia_estrutural.csv"
+NAO_CLASSIFICADO = "Não classificado"
 
 REGISTRY_COLUMNS: tuple[str, ...] = (
     "cnpj",
@@ -73,11 +75,22 @@ ACTIVE_TOLERANCE_MONTHS = 3
 # regulamento exige.  O vermelho carrega o alerta; o cinza é a referência.
 COLOR_CURRENT = "#8D9399"
 COLOR_MINIMUM = "#C8102E"
+#: O maior dos dois valores.  Verde puro contra o vermelho é o pior par possível
+#: para quem tem deuteranopia (ΔE 6,0); este verde-azulado sobe a separação para
+#: ΔE 14,9, bem acima do piso, e continua lendo como verde.  A posição reforça:
+#: o ponto verde é sempre o de cima.
+COLOR_HIGHER = "#17A398"
 COLOR_STEM = "#C9CCCF"
+#: A haste de quem está abaixo do mínimo — é o que o olho tem de encontrar.
+COLOR_GAP = "#C8102E"
 COLOR_INK = "#12151A"
 COLOR_MUTED = "#6B7178"
 COLOR_GRID = "#E4E6E8"
 SURFACE = "#FFFFFF"
+
+SERIE_MAIOR = "O maior dos dois"
+SERIE_ATUAL = "Subordinação atual"
+SERIE_MINIMO = "Mínimo exigido"
 
 
 class RegistryError(ValueError):
@@ -314,23 +327,90 @@ def _latest_monthly(data_dir: Path) -> pd.DataFrame:
     monthly = pd.read_csv(
         Path(data_dir) / MONTHLY_NAME,
         dtype={"cnpj": str},
-        usecols=["competencia", "cnpj", "denominacao", "pl", "subordinacao_pct"],
+        usecols=[
+            "competencia",
+            "cnpj",
+            "denominacao",
+            "pl",
+            "subordinacao_pct",
+            "vl_cotas_total",
+            "vl_cotas_subordinadas",
+        ],
         low_memory=False,
     )
     monthly["competencia"] = monthly["competencia"].astype(str)
     monthly["cnpj"] = monthly["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
-    monthly["pl"] = pd.to_numeric(monthly["pl"], errors="coerce")
-    monthly["subordinacao_pct"] = pd.to_numeric(monthly["subordinacao_pct"], errors="coerce")
+    for column in ("pl", "subordinacao_pct", "vl_cotas_total", "vl_cotas_subordinadas"):
+        monthly[column] = pd.to_numeric(monthly[column], errors="coerce")
+
     # Só uma competência em que o fundo de fato reportou patrimônio conta como
     # "o dado mais recente daquele fundo".
-    reported = monthly[monthly["pl"].gt(0)]
-    return reported.sort_values("competencia").groupby("cnpj", as_index=False).tail(1)
+    reported = monthly[monthly["pl"].gt(0)].sort_values("competencia")
+    # E o mês só serve para medir subordinação se o fundo tiver reportado o
+    # valor das cotas.  Patrimônio positivo com total de cotas zerado não é um
+    # fundo sem subordinação: é a quebra do quadro de cotas naquele mês, e ela
+    # produziria 0% onde o mês anterior traz o número real.
+    integro = reported[reported["vl_cotas_total"].gt(0)]
+    escolhido = integro.groupby("cnpj", as_index=False).tail(1).copy()
+    escolhido["quadro_de_cotas_integro"] = True
+
+    # Um fundo cujo quadro de cotas nunca fechou continua entrando, com a
+    # última competência que reportou patrimônio e a marca de que o quadro veio
+    # incompleto — some do gráfico, não da tabela.
+    faltantes = reported[~reported["cnpj"].isin(set(escolhido["cnpj"]))]
+    if len(faltantes):
+        resto = faltantes.groupby("cnpj", as_index=False).tail(1).copy()
+        resto["quadro_de_cotas_integro"] = False
+        escolhido = pd.concat([escolhido, resto], ignore_index=True)
+
+    # Quantos meses seguidos, até a competência escolhida, o fundo reporta
+    # cotas subordinadas zeradas.  Um 0% isolado é ruído; nove meses seguidos
+    # descrevem um fundo de classe única, e a tabela precisa distinguir os dois.
+    ultimo = escolhido.set_index("cnpj")["competencia"]
+    zerado = reported[reported["cnpj"].isin(set(escolhido["cnpj"]))].copy()
+    zerado = zerado[zerado["competencia"].le(zerado["cnpj"].map(ultimo))]
+    zerado["zerada"] = zerado["vl_cotas_subordinadas"].fillna(0).le(0)
+    meses = (
+        zerado.sort_values("competencia")
+        .groupby("cnpj")["zerada"]
+        .apply(lambda flags: _trailing_true(list(flags)))
+    )
+    escolhido["meses_sem_subordinada"] = escolhido["cnpj"].map(meses).fillna(0).astype(int)
+    return escolhido
+
+
+def _trailing_true(flags: list[bool]) -> int:
+    """Quantos ``True`` fecham a sequência."""
+
+    total = 0
+    for flag in reversed(flags):
+        if not flag:
+            break
+        total += 1
+    return total
 
 
 def _shift_competence(competencia: str, months: int) -> str:
     year, month = (int(part) for part in competencia.split("-")[:2])
     total = year * 12 + (month - 1) - months
     return f"{total // 12:04d}-{total % 12 + 1:02d}"
+
+
+def _structural_taxonomy(data_dir: Path) -> dict[str, str]:
+    """O mapa CNPJ → categoria dos slides estruturais, se materializado.
+
+    É a mesma classificação que dava nome aos slides 18–23 (Financeiro,
+    Adquirência, Agro / Revenda, Risco Corporativo, Consignado INSS e FGTS,
+    Factoring), extraída do payload publicado por
+    ``scripts/build_carteira_taxonomia_estrutural.py``.
+    """
+
+    path = Path(data_dir) / TAXONOMY_NAME
+    if not path.exists():
+        return {}
+    frame = pd.read_csv(path, dtype=str)
+    frame["cnpj"] = frame["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
+    return frame.set_index("cnpj")["categoria_estrutural"].to_dict()
 
 
 def _classification(data_dir: Path) -> pd.DataFrame:
@@ -369,6 +449,11 @@ def resolve_portfolio(
         .fillna(merged["cnpj"].map(by_class["tipo_anbima"]))
         .fillna("Não classificado")
     )
+    taxonomia = _structural_taxonomy(data_dir)
+    merged["categoria_estrutural"] = (
+        merged["cnpj"].map(taxonomia).replace("N/D", NAO_CLASSIFICADO)
+        .fillna(NAO_CLASSIFICADO)
+    )
     merged["foco_anbima"] = (
         merged["cnpj"].map(by_fund["foco_anbima"])
         .fillna(merged["cnpj"].map(by_class["foco_anbima"]))
@@ -394,7 +479,13 @@ def resolve_portfolio(
         if corte
         else merged["competencia"].notna()
     )
-    merged["comparavel"] = merged["sub_atual_pct"].notna() & merged["referencia_pct"].notna()
+    merged["quadro_de_cotas_integro"] = merged["quadro_de_cotas_integro"].fillna(False)
+    merged["meses_sem_subordinada"] = merged["meses_sem_subordinada"].fillna(0).astype(int)
+    merged["comparavel"] = (
+        merged["sub_atual_pct"].notna()
+        & merged["referencia_pct"].notna()
+        & merged["quadro_de_cotas_integro"]
+    )
 
     if somente_ativos:
         merged = merged[merged["ativo"]]
@@ -412,25 +503,74 @@ def resolve_portfolio(
 # Gráfico
 # ---------------------------------------------------------------------------
 
-_NAME_NOISE = re.compile(
-    r"\b(?:CLASSE [ÚU]NICA(?: DO)?|FUNDO DE INVESTIMENTO EM DIREITOS "
-    r"CREDIT[ÓO]RIOS(?: N[ÃA]O[- ]PADRONIZADOS?)?|FIDC(?: NP)?|"
-    r"RESPONSABILIDADE LIMITADA|RESP\.? LTDA\.?|RESP\.? LIMITADA|"
-    r"DE RESPONSABILIDADE LIMITADA|MULTISSETORIAL)\b",
+#: A frase registral que separa o nome próprio do fundo do resto.
+_BOILERPLATE = re.compile(
+    r"\bFUNDOS? DE INVESTIMENTOS? EM DIREITOS CREDIT[ÓO]RIOS?"
+    r"(?:\s+N[ÃA]O[- ]PADRONIZADOS?)?\b|\bFIDC(?:\s+NP)?\b",
     flags=re.IGNORECASE,
 )
+#: O que vem depois do nome próprio e não o identifica: forma de condomínio,
+#: responsabilidade, classe.  Corta-se no primeiro que aparecer.
+_TRAILING = re.compile(
+    r"\b(?:DE\s+)?(?:CLASSE\s+[ÚU]NICA|RESPONSABILIDADE\s+LIMITADA|"
+    r"RESP\.?\s*(?:LTDA|LIMITADA)|FECHAD[AO]|ABERT[AO])\b.*$",
+    flags=re.IGNORECASE,
+)
+#: Prefixo registral que às vezes antecede o nome próprio.
+_LEADING = re.compile(r"^\s*(?:CLASSE\s+[ÚU]NICA\s+(?:DO|DA|DE)?)\s*", flags=re.IGNORECASE)
+_MINUSCULAS = {"de", "do", "da", "dos", "das", "e", "em", "no", "na", "para", "com"}
+_ROMANOS = re.compile(r"^[IVX]+$")
+_VOGAIS = set("AEIOUÁÉÍÓÚÂÊÔÃÕÀ")
 
 
-def short_fund_name(name: str, *, limite: int = 26) -> str:
-    """O nome do fundo sem a boilerplate registral, em caixa de título."""
+def _e_sigla(palavra: str) -> bool:
+    """Sigla, e não palavra: sem vogal, com dígito, ou numeral romano.
 
-    core = _NAME_NOISE.sub(" ", str(name or ""))
-    core = re.sub(r"\s+", " ", core).strip(" -–·,")
-    if not core:
-        core = str(name or "").strip()
-    if core.isupper():
-        core = core.title()
-    return core if len(core) <= limite else core[: limite - 1].rstrip() + "…"
+    Sem esse teste, manter toda palavra curta em caixa alta transformaria BLUE,
+    CASH e CLUB em siglas.  O preço é que MCPO e IBBA saem em caixa de título —
+    continuam legíveis, que é o que o rótulo precisa ser.
+    """
+
+    if any(caractere.isdigit() for caractere in palavra):
+        return True
+    if _ROMANOS.fullmatch(palavra):
+        return True
+    return not (set(palavra) & _VOGAIS)
+
+
+def _caixa(nome: str) -> str:
+    """Caixa de título, preservando siglas e rebaixando conectivos."""
+
+    partes = []
+    for indice, palavra in enumerate(nome.split()):
+        if palavra.isupper() and _e_sigla(palavra):
+            partes.append(palavra)
+        elif indice and palavra.lower() in _MINUSCULAS:
+            partes.append(palavra.lower())
+        else:
+            partes.append(palavra.capitalize() if palavra.isupper() else palavra)
+    return " ".join(partes)
+
+
+def short_fund_name(name: str, *, limite: int = 28) -> str:
+    """O nome próprio do fundo, sem a boilerplate registral.
+
+    Corta **na** frase registral em vez de subtraí-la: retirar
+    "fundo de investimento em direitos creditórios" do meio de
+    "COBUCCIO … DE CLASSE ÚNICA FECHADA DE RESPONSABILIDADE LIMITADA" deixaria
+    "Cobuccio de Fechada de Re…", que não é nome de nada.  O que interessa é o
+    que vem antes; só quando não há nada antes é que se olha o que vem depois.
+    """
+
+    bruto = _LEADING.sub("", re.sub(r"\s+", " ", str(name or "")).strip())
+    partes = _BOILERPLATE.split(bruto, maxsplit=1)
+    nome = partes[0].strip(" -–·,")
+    if len(nome) < 3 and len(partes) > 1:
+        nome = _TRAILING.sub("", partes[1]).strip(" -–·,")
+    if len(nome) < 3:
+        nome = _TRAILING.sub("", bruto).strip(" -–·,") or bruto
+    nome = _caixa(nome)
+    return nome if len(nome) <= limite else nome[: limite - 1].rstrip() + "…"
 
 
 def dumbbell_figure(
@@ -482,12 +622,22 @@ def dumbbell_figure(
     atual = data["sub_atual_pct"].to_numpy(dtype=float)
     minimo = data["referencia_pct"].to_numpy(dtype=float)
 
-    axes.vlines(positions, np.minimum(atual, minimo), np.maximum(atual, minimo),
+    # O verde marca o maior dos dois valores; o outro ponto mantém a cor da sua
+    # série.  Quando o verde está no mínimo — e não na subordinação atual — o
+    # fundo está abaixo do que o regulamento exige, e é ali que a haste fica
+    # vermelha e grossa, para o olho cair no buraco antes de ler qualquer
+    # rótulo.
+    falta = minimo > atual
+    axes.vlines(positions[~falta], atual[~falta], minimo[~falta],
                 color=COLOR_STEM, linewidth=1.1, zorder=1)
-    axes.scatter(positions, atual, s=42, color=COLOR_CURRENT, zorder=3,
-                 edgecolors=SURFACE, linewidths=0.6)
-    axes.scatter(positions, minimo, s=42, color=COLOR_MINIMUM, zorder=4,
-                 edgecolors=SURFACE, linewidths=0.6)
+    axes.vlines(positions[falta], atual[falta], minimo[falta],
+                color=COLOR_GAP, linewidth=2.6, zorder=2)
+    axes.scatter(positions[~falta], minimo[~falta], s=42, color=COLOR_MINIMUM,
+                 zorder=3, edgecolors=SURFACE, linewidths=0.6)
+    axes.scatter(positions[falta], atual[falta], s=42, color=COLOR_CURRENT,
+                 zorder=3, edgecolors=SURFACE, linewidths=0.6)
+    axes.scatter(positions, np.maximum(atual, minimo), s=62,
+                 color=COLOR_HIGHER, zorder=4, edgecolors=SURFACE, linewidths=1.1)
 
     top = float(np.nanmax([atual.max(), minimo.max()]))
     axes.set_ylim(0, top * 1.08)
@@ -530,13 +680,15 @@ def dumbbell_figure(
         # Perto da borda direita o rótulo cresce para fora da figura; ali ele
         # passa a sair do ponto para a esquerda.
         a_esquerda = index > limite_direita
+        em_falta = bool(falta[index])
         axes.annotate(
             short_fund_name(str(data.at[index, "fundo"])),
             (index, altura),
             textcoords="offset points",
-            xytext=(-6 if a_esquerda else 6, 8),
+            xytext=(-6 if a_esquerda else 6, 10),
             fontsize=8.8,
-            color=COLOR_INK,
+            color=COLOR_GAP if em_falta else COLOR_INK,
+            fontweight="bold" if em_falta else "normal",
             ha="right" if a_esquerda else "left",
             zorder=5,
         )
@@ -552,17 +704,21 @@ def dumbbell_figure(
         figure.text(0.03, 0.848, subtitulo, fontsize=11.5, color=COLOR_MUTED)
     figure.legend(
         handles=[
+            Line2D([], [], marker="o", linestyle="none", markersize=8.6,
+                   color=COLOR_HIGHER, label="O maior dos dois"),
             Line2D([], [], marker="o", linestyle="none", markersize=7.5,
                    color=COLOR_CURRENT, label="Subordinação atual*"),
             Line2D([], [], marker="o", linestyle="none", markersize=7.5,
                    color=COLOR_MINIMUM, label="Mínimo exigido†"),
+            Line2D([], [], linestyle="-", linewidth=2.6, color=COLOR_GAP,
+                   label="Abaixo do mínimo"),
         ],
         loc="upper left",
         bbox_to_anchor=(0.028, 0.815),
         frameon=False,
-        ncol=2,
+        ncol=4,
         handletextpad=0.4,
-        columnspacing=1.6,
+        columnspacing=1.5,
         fontsize=10.5,
         labelcolor=COLOR_INK,
     )
@@ -571,6 +727,132 @@ def dumbbell_figure(
     if fonte:
         figure.text(0.03, 0.022, fonte, fontsize=8.8, color=COLOR_MUTED)
     return figure
+
+
+def chart_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    """A carteira no formato longo que o gráfico consome.
+
+    Uma linha por fundo com os dois valores e a ordem, mais duas linhas por
+    fundo (atual e mínimo) para as camadas de pontos.  Sai daqui pronto tanto
+    para o Altair quanto para qualquer outra saída.
+    """
+
+    data = frame[frame["comparavel"].fillna(False)] if "comparavel" in frame else frame
+    data = data.sort_values("sub_atual_pct", ascending=False).reset_index(drop=True)
+    data = data.assign(
+        ordem=range(len(data)),
+        rotulo=data["fundo"].map(short_fund_name),
+        maior=data[["sub_atual_pct", "referencia_pct"]].max(axis=1),
+        menor=data[["sub_atual_pct", "referencia_pct"]].min(axis=1),
+        falta=data["referencia_pct"].gt(data["sub_atual_pct"]),
+    )
+    return data
+
+
+def altair_dumbbell(frame: pd.DataFrame, *, height: int = 420):
+    """O mesmo gráfico em Altair — a saída nativa e interativa do dashboard.
+
+    O PNG do matplotlib existe para o PPTX, que precisa de imagem; na página o
+    gráfico é vetorial, responsivo e com tooltip por fundo.
+    """
+
+    import altair as alt
+
+    data = chart_frame(frame)
+    if data.empty:
+        return alt.Chart(pd.DataFrame({"x": [0], "y": [0]})).mark_text(
+            text="Nenhum fundo com subordinação atual e mínimo documentado.",
+            color=COLOR_MUTED,
+            size=13,
+        ).encode().properties(height=height)
+
+    ordem = data["rotulo"].tolist()
+    eixo_x = alt.X(
+        "rotulo:N",
+        sort=ordem,
+        title=None,
+        axis=alt.Axis(labels=False, ticks=False, domainColor=COLOR_INK, domainWidth=1.4),
+    )
+    dicas = [
+        alt.Tooltip("fundo:N", title="FIDC"),
+        alt.Tooltip("categoria_estrutural:N", title="categoria"),
+        alt.Tooltip("competencia:N", title="competência"),
+        alt.Tooltip("pl_mm:Q", title="PL R$ mm", format=",.1f"),
+        alt.Tooltip("sub_atual_pct:Q", title="subordinação atual %", format=",.2f"),
+        alt.Tooltip("referencia_pct:Q", title="mínimo exigido %", format=",.2f"),
+        alt.Tooltip("referencia_tipo:N", title="base do mínimo"),
+        alt.Tooltip("folga_pp:Q", title="folga p.p.", format=",.2f"),
+    ]
+    eixo_y = alt.Y(
+        "menor:Q",
+        title="% do patrimônio líquido",
+        scale=alt.Scale(domainMin=0, nice=False),
+        axis=alt.Axis(gridColor=COLOR_GRID, domain=False, ticks=False, orient="right"),
+    )
+
+    # A haste vermelha e grossa é a única marca que muda de espessura: ela sai
+    # do fundo que não alcança o mínimo, e é onde o olho deve cair primeiro.
+    hastes = (
+        alt.Chart(data)
+        .mark_rule(strokeWidth=1.2, color=COLOR_STEM)
+        .encode(x=eixo_x, y=eixo_y, y2="maior:Q", tooltip=dicas)
+        .transform_filter(alt.datum.falta == False)  # noqa: E712 — Vega precisa do literal
+    )
+    hastes_falta = (
+        alt.Chart(data)
+        .mark_rule(strokeWidth=3, color=COLOR_GAP)
+        .encode(x=eixo_x, y=eixo_y, y2="maior:Q", tooltip=dicas)
+        .transform_filter(alt.datum.falta == True)  # noqa: E712
+    )
+    # Os dois pontos entram na mesma camada, em formato longo, para que a
+    # legenda saia sozinha e com uma entrada por série — em vez de três
+    # camadas mudas e uma legenda escrita à mão em outro lugar.
+    pontos = pd.concat(
+        [
+            data.assign(valor=data["maior"], serie=SERIE_MAIOR),
+            data.assign(
+                valor=data["menor"],
+                serie=np.where(data["falta"], SERIE_ATUAL, SERIE_MINIMO),
+            ),
+        ],
+        ignore_index=True,
+    )
+    marcas = (
+        alt.Chart(pontos)
+        .mark_point(filled=True, stroke=SURFACE, strokeWidth=1.2)
+        .encode(
+            x=eixo_x,
+            y=alt.Y("valor:Q", title=None),
+            color=alt.Color(
+                "serie:N",
+                scale=alt.Scale(
+                    domain=[SERIE_MAIOR, SERIE_ATUAL, SERIE_MINIMO],
+                    range=[COLOR_HIGHER, COLOR_CURRENT, COLOR_MINIMUM],
+                ),
+                legend=alt.Legend(title=None, orient="top", direction="horizontal"),
+            ),
+            size=alt.Size(
+                "serie:N",
+                scale=alt.Scale(
+                    domain=[SERIE_MAIOR, SERIE_ATUAL, SERIE_MINIMO],
+                    range=[130, 70, 70],
+                ),
+                legend=None,
+            ),
+            order=alt.Order("serie:N", sort="descending"),
+            tooltip=dicas,
+        )
+    )
+    rotulos = (
+        alt.Chart(data[data["falta"]])
+        .mark_text(dy=-14, fontSize=10, fontWeight="bold", color=COLOR_GAP, angle=0)
+        .encode(x=eixo_x, y=alt.Y("maior:Q", title=None), text="rotulo:N", tooltip=dicas)
+    )
+    return (
+        alt.layer(hastes, hastes_falta, marcas, rotulos)
+        .resolve_scale(y="shared")
+        .properties(height=height)
+    )
 
 
 def figure_png_bytes(figure, *, dpi: int = 200) -> bytes:
@@ -587,8 +869,15 @@ __all__ = [
     "ORIGEM_MANUAL",
     "REGISTRY_COLUMNS",
     "REGISTRY_NAME",
+    "COLOR_CURRENT",
+    "COLOR_GAP",
+    "COLOR_HIGHER",
+    "COLOR_MINIMUM",
+    "NAO_CLASSIFICADO",
     "PortfolioPosition",
     "RegistryError",
+    "altair_dumbbell",
+    "chart_frame",
     "dumbbell_figure",
     "figure_png_bytes",
     "format_cnpj",
@@ -599,4 +888,5 @@ __all__ = [
     "resolve_portfolio",
     "save_entry",
     "seed_registry",
+    "short_fund_name",
 ]
