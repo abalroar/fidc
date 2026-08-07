@@ -666,3 +666,51 @@ def test_a_planilha_do_top100_e_uma_tabela_de_excel_filtravel(tmp_path: Path) ->
     # A coluna de revisão só aceita Sim ou Não.
     assert len(sheet.data_validations.dataValidation) == 1
     assert sheet.data_validations.dataValidation[0].formula1 == '"Sim,Não"'
+
+
+def test_as_tabelas_do_deck_cabem_na_largura_do_conteudo() -> None:
+    """A soma das larguras precisa fechar na margem; passando, a última coluna
+    sai pela borda da lâmina — e no Top 100 a última é a que o revisor preenche."""
+
+    from services.bba_deck import CONTENT_WIDTH_IN, MARGIN_IN, SLIDE_WIDTH_IN
+    from services.top100_middle_deck import COLUMNS
+
+    largura_top100 = sum(largura for _k, _t, largura, _a in COLUMNS)
+
+    assert largura_top100 <= CONTENT_WIDTH_IN
+    assert MARGIN_IN + largura_top100 <= SLIDE_WIDTH_IN - MARGIN_IN
+
+
+def test_a_tabela_da_carteira_termina_na_margem_direita() -> None:
+    from io import BytesIO
+
+    from pptx import Presentation
+    from pptx.util import Emu
+
+    from services.bba_deck import MARGIN_IN, SLIDE_HEIGHT_IN, SLIDE_WIDTH_IN
+    from services.carteira_deck import draw_carteira_slide, slide_plans
+
+    presentation = Presentation()
+    presentation.slide_width = int(SLIDE_WIDTH_IN * 914400)
+    presentation.slide_height = int(SLIDE_HEIGHT_IN * 914400)
+    from services.bba_deck import Deck
+
+    deck = Deck("teste", presentation)
+    plano = slide_plans(ROOT / "data" / "industry_study")[0]
+    slide = deck.blank()
+    draw_carteira_slide(deck, slide, plano)
+
+    buffer = BytesIO()
+    presentation.save(buffer)
+    reaberto = list(Presentation(BytesIO(buffer.getvalue())).slides)[0]
+    imagens = [shape for shape in reaberto.shapes if shape.shape_type == 13]
+    tabelas = [shape for shape in reaberto.shapes if shape.has_table]
+
+    assert imagens and tabelas
+    direita_imagem = Emu(imagens[0].left + imagens[0].width).inches
+    esquerda_tabela = Emu(tabelas[0].left).inches
+    direita_tabela = Emu(tabelas[0].left + tabelas[0].width).inches
+
+    # Lado a lado, sem sobreposição, terminando na margem.
+    assert esquerda_tabela > direita_imagem
+    assert direita_tabela <= SLIDE_WIDTH_IN - MARGIN_IN + 0.01

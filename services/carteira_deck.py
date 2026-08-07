@@ -237,7 +237,9 @@ def draw_carteira_slide(deck, slide, plano: dict[str, object]) -> None:
             Inches(1.42),
             width=Inches(7.4),
         )
-        x_tabela, largura = 8.22, (2.40, 0.72, 0.72, 0.85)
+        # A soma das larguras fecha na margem direita do conteúdo (12,67"),
+        # para o rodapé e a tabela terminarem na mesma linha.
+        x_tabela, largura = 8.22, (2.20, 0.70, 0.70, 0.85)
     else:
         x_tabela, largura = 0.62, (3.60, 1.05, 1.05, 1.15)
 
