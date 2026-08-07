@@ -106,12 +106,21 @@ def _set_cell_borders(cell, *, bottom: str | None = None) -> None:
 class Deck:
     """A minimal, opinionated deck builder for the BBA house style."""
 
-    def __init__(self, kicker: str) -> None:
-        self.prs = Presentation()
-        self.prs.slide_width = Inches(SLIDE_WIDTH_IN)
-        self.prs.slide_height = Inches(SLIDE_HEIGHT_IN)
+    def __init__(self, kicker: str, presentation: Presentation | None = None) -> None:
+        """Start a new deck, or continue an existing one.
+
+        Passing ``presentation`` appends to a deck someone else built, which is
+        how the ranking section reaches the standard export without a
+        package-level merge — python-pptx keeps every chart and table part
+        wired to the deck that ends up on disk.
+        """
+
+        self.prs = presentation or Presentation()
+        if presentation is None:
+            self.prs.slide_width = Inches(SLIDE_WIDTH_IN)
+            self.prs.slide_height = Inches(SLIDE_HEIGHT_IN)
         self.kicker = kicker
-        self.page = 0
+        self.page = len(self.prs.slides._sldIdLst) if presentation is not None else 0
 
     @staticmethod
     def rgb(value: str) -> RGBColor:
@@ -176,8 +185,17 @@ class Deck:
         shape.shadow.inherit = False
         return shape
 
+    def _blank_layout(self):
+        """The blank layout, or the only one a stripped-down deck ships with."""
+
+        layouts = self.prs.slide_layouts
+        for layout in layouts:
+            if str(getattr(layout, "name", "")).strip().lower() == "blank":
+                return layout
+        return layouts[6] if len(layouts) > 6 else layouts[0]
+
     def blank(self):
-        slide = self.prs.slides.add_slide(self.prs.slide_layouts[6])
+        slide = self.prs.slides.add_slide(self._blank_layout())
         slide.background.fill.solid()
         slide.background.fill.fore_color.rgb = self.rgb(WHITE)
         return slide

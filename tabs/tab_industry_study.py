@@ -9932,13 +9932,34 @@ def _industry_export_payloads(
     )
 
     del signature  # the value participates in Streamlit's cache key
+
+    def industry_deck_with_anbima(data_dir):
+        """The standard deck with the ANBIMA ranking section appended.
+
+        The two decks do not share a layout/master/theme chain, so a
+        package-level merge is refused.  The ranking slides are instead built
+        straight into the standard presentation, which keeps every native table
+        and chart wired to the file that is served.
+        """
+
+        from io import BytesIO
+
+        from pptx import Presentation
+
+        from services.anbima_executive_export import append_anbima_slides
+
+        standard = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
+        append_anbima_slides(standard, data_dir)
+        buffer = BytesIO()
+        standard.save(buffer)
+        return buffer.getvalue()
+
     builders = {
-        "pptx": build_industry_pptx_bytes,
+        "pptx": industry_deck_with_anbima,
         "xlsx": build_industry_xlsx_bytes,
         "portfolio": build_revision_portfolio_xlsx_bytes,
         "top100": build_revision_top100_xlsx_bytes,
         "html": build_revision_html_bytes,
-        "anbima": build_anbima_deck_bytes,
     }
     payloads: dict[str, bytes] = {}
     failures: dict[str, str] = {}
@@ -10139,18 +10160,6 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
             "com sinais de crédito corporativo e Middle Market"
         ),
         "widget": "industry-top100-xlsx",
-    },
-    {
-        "key": "anbima",
-        "label": "Ranking ANBIMA",
-        "file_name": "ANBIMA_Itau_BBA_Renda_Fixa_{period}.pptx",
-        "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-        "icon": ":material/slideshow:",
-        "help": (
-            "Baixar a apresentação de posição competitiva no ranking ANBIMA de "
-            "renda fixa e híbridos, com originação, distribuição e visão por produto"
-        ),
-        "widget": "industry-anbima-pptx",
     },
     {
         "key": "html",
