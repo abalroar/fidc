@@ -47,6 +47,7 @@ CURATION_NAME = "industry_carteira_1_document_curation.csv"
 SCOPE_NAME = "industry_carteira_1_scope.csv"
 CLASSIFICATION_NAME = "industry_anbima_classification.csv.gz"
 TAXONOMY_NAME = "carteira_taxonomia_estrutural.csv"
+REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
 NAO_CLASSIFICADO = "Não classificado"
 
 REGISTRY_COLUMNS: tuple[str, ...] = (
@@ -87,6 +88,9 @@ COLOR_INK = "#12151A"
 COLOR_MUTED = "#6B7178"
 COLOR_GRID = "#E4E6E8"
 SURFACE = "#FFFFFF"
+
+#: Fração da altura da figura reservada aos nomes na vertical.
+_FAIXA_NOMES = 0.36
 
 SERIE_MAIOR = "O maior dos dois"
 SERIE_ATUAL = "Subordinação atual"
@@ -413,6 +417,24 @@ def _structural_taxonomy(data_dir: Path) -> dict[str, str]:
     return frame.set_index("cnpj")["categoria_estrutural"].to_dict()
 
 
+def _revalidation(data_dir: Path) -> pd.DataFrame:
+    """A revalidação documental das seções, se materializada.
+
+    Traz a categoria que o regulamento sustenta e a marca de
+    multicedente/multissacado.  Ausente o arquivo, a carteira segue com a
+    taxonomia vigente — o painel não depende da revalidação para funcionar.
+    """
+
+    path = Path(data_dir) / REVALIDATION_NAME
+    if not path.exists():
+        return pd.DataFrame(
+            columns=["cnpj", "categoria_documental", "status", "multi_flag"]
+        ).set_index("cnpj")
+    frame = pd.read_csv(path, dtype=str).fillna("")
+    frame["cnpj"] = frame["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
+    return frame.drop_duplicates("cnpj").set_index("cnpj")
+
+
 def _classification(data_dir: Path) -> pd.DataFrame:
     registry = pd.read_csv(Path(data_dir) / CLASSIFICATION_NAME, dtype=str)
     by_fund = registry.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
@@ -454,6 +476,22 @@ def resolve_portfolio(
         merged["cnpj"].map(taxonomia).replace("N/D", NAO_CLASSIFICADO)
         .fillna(NAO_CLASSIFICADO)
     )
+    revalidacao = _revalidation(data_dir)
+    # Onde o regulamento diverge da taxonomia vigente, quem manda é o
+    # documento: a seção descreve o sacado e o recebível, e é o regulamento que
+    # os define.  Sem evidência, a vigente permanece.
+    documental = merged["cnpj"].map(revalidacao.get("categoria_documental", pd.Series(dtype=str)))
+    merged["categoria_documental"] = documental.fillna("")
+    merged["revalidacao_status"] = merged["cnpj"].map(
+        revalidacao.get("status", pd.Series(dtype=str))
+    ).fillna("sem documento")
+    tem_documental = merged["categoria_documental"].astype(str).str.len().gt(0)
+    merged.loc[tem_documental, "categoria_estrutural"] = merged.loc[
+        tem_documental, "categoria_documental"
+    ]
+    merged["multi_flag"] = merged["cnpj"].map(
+        revalidacao.get("multi_flag", pd.Series(dtype=str))
+    ).fillna("")
     merged["foco_anbima"] = (
         merged["cnpj"].map(by_fund["foco_anbima"])
         .fillna(merged["cnpj"].map(by_class["foco_anbima"]))
@@ -582,6 +620,7 @@ def dumbbell_figure(
     fonte: str = "",
     destaques: int = 3,
     rotulos: list[str] | None = None,
+    nomear_todos: bool = False,
     figsize: tuple[float, float] = (11.2, 6.6),
     dpi: int = 200,
 ):
@@ -663,7 +702,29 @@ def dumbbell_figure(
         if "pl_mm" in data
         else []
     )
-    if rotulos is not None:
+    if nomear_todos:
+        # Todo veículo nomeado, sem sobreposição: o nome desce para o eixo, na
+        # vertical.  É o único arranjo em que vinte e tantos rótulos cabem —
+        # anotar cada ponto no plano viraria uma mancha de texto.
+        tamanho = 7.4 if len(data) <= 14 else (6.4 if len(data) <= 24 else 5.4)
+        # O nome cabe até onde a faixa embaixo do eixo alcança; derivar o
+        # truncamento da altura evita rótulo cortado quando a figura encolhe.
+        disponivel = figsize[1] * _FAIXA_NOMES - 0.16
+        limite = max(10, int(disponivel / (tamanho / 72.0 * 0.62)))
+        axes.set_xticks(positions)
+        axes.set_xticklabels(
+            [short_fund_name(str(nome), limite=limite) for nome in data["fundo"]],
+            rotation=90,
+            fontsize=tamanho,
+            color=COLOR_MUTED,
+        )
+        axes.tick_params(axis="x", length=0, labelbottom=True, pad=4)
+        for indice, marca in enumerate(axes.get_xticklabels()):
+            if falta[indice]:
+                marca.set_color(COLOR_GAP)
+                marca.set_fontweight("bold")
+        labelled = []
+    elif rotulos is not None:
         # Quando o slide traz a tabela ao lado, quem nomeia é ela; o gráfico
         # rotula apenas os CNPJs pedidos, para não virar parede de texto.
         escolhidos = set(rotulos)
@@ -705,7 +766,9 @@ def dumbbell_figure(
         left=0.03,
         right=0.93,
         top=0.74 if tem_cabecalho else (0.88 if figsize[0] >= 9.5 else 0.84),
-        bottom=0.16 if (rodape or fonte) else 0.06,
+        # Nomes na vertical precisam de faixa embaixo; sem eles o gráfico
+        # aproveita a lâmina inteira.
+        bottom=0.16 if (rodape or fonte) else (_FAIXA_NOMES if nomear_todos else 0.06),
     )
     if tem_cabecalho:
         # Filete vermelho, título e subtítulo — a assinatura visual do formato.
@@ -885,6 +948,8 @@ __all__ = [
     "ORIGEM_MANUAL",
     "REGISTRY_COLUMNS",
     "REGISTRY_NAME",
+    "REVALIDATION_NAME",
+    "TAXONOMY_NAME",
     "COLOR_CURRENT",
     "COLOR_GAP",
     "COLOR_HIGHER",

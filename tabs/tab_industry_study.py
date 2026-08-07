@@ -9913,10 +9913,16 @@ def _carteira_registry_signature() -> str:
     the previous chart.
     """
 
-    from services.carteira_subordinacao import REGISTRY_NAME, TAXONOMY_NAME
+    from services.carteira_subordinacao import (
+        REGISTRY_NAME,
+        REVALIDATION_NAME,
+        TAXONOMY_NAME,
+    )
     from services.top100_middle_deck import REVIEW_NAME
 
-    return _industry_files_signature((REGISTRY_NAME, TAXONOMY_NAME, REVIEW_NAME))
+    return _industry_files_signature(
+        (REGISTRY_NAME, TAXONOMY_NAME, REVALIDATION_NAME, REVIEW_NAME)
+    )
 
 
 def _industry_export_signature() -> str:
@@ -16168,7 +16174,14 @@ def _carteira_signature() -> str:
     from services.carteira_subordinacao import MONTHLY_NAME, registry_path
 
     parts: list[str] = []
-    for path in (registry_path(_DATA_DIR), _DATA_DIR / MONTHLY_NAME):
+    from services.carteira_subordinacao import REVALIDATION_NAME, TAXONOMY_NAME
+
+    for path in (
+        registry_path(_DATA_DIR),
+        _DATA_DIR / MONTHLY_NAME,
+        _DATA_DIR / TAXONOMY_NAME,
+        _DATA_DIR / REVALIDATION_NAME,
+    ):
         try:
             stat = path.stat()
             parts.append(f"{path.name}:{stat.st_size}:{int(stat.st_mtime)}")
@@ -16306,16 +16319,18 @@ def _render_carteira(payload: dict[str, object]) -> None:
         fundo_curto=frame["fundo"].map(short_fund_name),
     )[
         [
-            "cnpj_formatado", "fundo", "categoria_estrutural", "tipo_anbima",
-            "competencia", "quadro_de_cotas_integro", "meses_sem_subordinada",
-            "pl_mm", "sub_atual_pct", "referencia_pct", "referencia_tipo",
-            "folga_pp", "origem", "fonte",
+            "cnpj_formatado", "fundo", "categoria_estrutural", "revalidacao_status",
+            "multi_flag", "tipo_anbima", "competencia", "quadro_de_cotas_integro",
+            "meses_sem_subordinada", "pl_mm", "sub_atual_pct", "referencia_pct",
+            "referencia_tipo", "folga_pp", "origem", "fonte",
         ]
     ].rename(
         columns={
             "cnpj_formatado": "CNPJ",
             "fundo": "FIDC",
             "categoria_estrutural": "Categoria",
+            "revalidacao_status": "Revalidação documental",
+            "multi_flag": "Multicedente/multissacado",
             "tipo_anbima": "Tipo ANBIMA",
             "competencia": "Competência",
             "quadro_de_cotas_integro": "Quadro de cotas íntegro",
