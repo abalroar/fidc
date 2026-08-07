@@ -827,19 +827,30 @@ def test_a_auditoria_consolidada_rastreia_cada_alteracao_da_revisao() -> None:
     reconciliacao = tabela[tabela["tipo_de_alteracao"].eq("Reconciliação da tabela interna")]
     assert len(reconciliacao) == 12
 
-    # A única divergência real de mínimo é rastreável de ponta a ponta.
-    divergencia = tabela[tabela["tipo_de_alteracao"].eq("Override do mínimo (divergência)")]
-    assert len(divergencia) == 1
-    assert divergencia.iloc[0]["cnpj"] == "58171340000165"
-    assert (divergencia.iloc[0]["valor_anterior"], divergencia.iloc[0]["valor_novo"]) == (
-        "1.0",
-        "20.0",
-    )
+    # Cada divergência de mínimo é rastreável de ponta a ponta, com a folga que
+    # ela move — o Frimesa para cima, o MCPO para baixo.
+    divergencia = tabela[
+        tabela["tipo_de_alteracao"].eq("Override do mínimo (divergência)")
+    ].set_index("cnpj")
+    folga = tabela[tabela["tipo_de_alteracao"].eq("Folga recalculada")].set_index("cnpj")
 
-    # E a folga que ela move está na tabela, não só no gráfico.
-    folga = tabela[tabela["tipo_de_alteracao"].eq("Folga recalculada")]
-    assert list(folga["cnpj"]) == ["58171340000165"]
-    assert (folga.iloc[0]["valor_anterior"], folga.iloc[0]["valor_novo"]) == ("20.0", "1.0")
+    esperado = {
+        "58171340000165": (("1.0", "20.0"), ("20.0", "1.0")),
+        "52968533000165": (("20.0", "0.0"), ("-20.0", "0.0")),
+    }
+    assert set(divergencia.index) == set(esperado)
+    assert set(folga.index) == set(esperado)
+    for cnpj, (minimo, salto) in esperado.items():
+        assert (
+            divergencia.at[cnpj, "valor_anterior"],
+            divergencia.at[cnpj, "valor_novo"],
+        ) == minimo
+        assert (folga.at[cnpj, "valor_anterior"], folga.at[cnpj, "valor_novo"]) == salto
+
+    # O mínimo condicional do MCPO fica registrado, com o gatilho.
+    condicional = tabela[tabela["tipo_de_alteracao"].eq("Mínimo condicional registrado")]
+    assert list(condicional["cnpj"]) == ["52968533000165"]
+    assert condicional.iloc[0]["valor_novo"] == "20.0 (Run-off)"
 
     # Os três fundos incluídos trazem a classificação e o motivo dela.
     classificacao = tabela[tabela["tipo_de_alteracao"].eq("Classificação estrutural")]
@@ -850,3 +861,46 @@ def test_a_auditoria_consolidada_rastreia_cada_alteracao_da_revisao() -> None:
     }
     brf = classificacao[classificacao["cnpj"].eq("52720932000102")].iloc[0]
     assert brf["valor_novo"] == "Risco Corporativo"
+
+
+def test_o_minimo_condicional_fica_fora_da_folga(data_dir: Path) -> None:
+    """Um mínimo que só vale em run-off não pode acusar desenquadramento hoje."""
+
+    # O FUNDO_UNICO reporta 0% de subordinação todo mês, com o quadro íntegro.
+    save_entry(cnpj=FUNDO_UNICO, subordinacao_minima_pct=20, data_dir=data_dir)
+    pd.DataFrame(
+        [
+            {
+                "cnpj": FUNDO_UNICO,
+                "subordinacao_minima_pct": "0.0",
+                "subordinacao_minima_condicional_pct": "20.0",
+                "condicao": "Run-off",
+                "valor_extraido_pct": "20.0",
+                "fonte": "Tabela interna",
+                "motivo": "0% em operação normal, 20% em run-off.",
+            }
+        ]
+    ).to_csv(data_dir / "carteira_subordinacao_overrides.csv", index=False)
+
+    linha = resolve_portfolio(data_dir).frame.set_index("cnpj").loc[FUNDO_UNICO]
+
+    assert linha["referencia_pct"] == pytest.approx(0.0)
+    assert linha["folga_pp"] == pytest.approx(0.0)
+    assert not linha["abaixo_do_minimo"]
+    # O condicional não some: fica registrado, com o gatilho.
+    assert linha["minimo_condicional_pct"] == pytest.approx(20.0)
+    assert linha["minimo_condicao"] == "Run-off"
+    # E o que o regulamento dizia continua auditável.
+    assert linha["referencia_extraida_pct"] == pytest.approx(20.0)
+
+
+def test_o_maqcampo_da_tabela_interna_e_o_mcpo() -> None:
+    """O 0% de subordinação do MCPO é o regime vigente, não desenquadramento."""
+
+    data_dir = ROOT / "data" / "industry_study"
+    linha = resolve_portfolio(data_dir).frame.set_index("cnpj").loc["52968533000165"]
+
+    assert linha["referencia_pct"] == pytest.approx(0.0)
+    assert linha["minimo_condicional_pct"] == pytest.approx(20.0)
+    assert linha["minimo_condicao"] == "Run-off"
+    assert not linha["abaixo_do_minimo"]

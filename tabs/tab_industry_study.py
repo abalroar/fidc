@@ -16427,7 +16427,8 @@ def _render_carteira(payload: dict[str, object]) -> None:
             "minimo_fonte", "revalidacao_status",
             "multi_flag", "tipo_anbima", "competencia", "quadro_de_cotas_integro",
             "meses_sem_subordinada", "pl_mm", "sub_atual_pct", "referencia_pct",
-            "referencia_tipo", "folga_pp", "origem", "fonte",
+            "referencia_tipo", "minimo_condicional_pct", "minimo_condicao",
+            "folga_pp", "origem", "fonte",
         ]
     ].rename(
         columns={
@@ -16446,6 +16447,8 @@ def _render_carteira(payload: dict[str, object]) -> None:
             "sub_atual_pct": "Subord. atual (%)",
             "referencia_pct": "Mínimo exigido (%)",
             "referencia_tipo": "Base do mínimo",
+            "minimo_condicional_pct": "Mínimo condicional (%)",
+            "minimo_condicao": "Condição do mínimo",
             "folga_pp": "Folga (p.p.)",
             "origem": "Origem",
             "fonte": "Fonte do mínimo",

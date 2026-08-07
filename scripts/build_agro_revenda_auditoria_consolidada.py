@@ -196,6 +196,28 @@ def construir(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
             }
         )
 
+    # 6. Os mínimos que só valem sob condição — o run-off, tipicamente.  Ficam
+    #    fora da folga de propósito: descrevem um regime que ainda não vigora.
+    condicionais = overrides[overrides["subordinacao_minima_condicional_pct"].ne("")]
+    for _, row in condicionais.iterrows():
+        linhas.append(
+            {
+                "tipo_de_alteracao": "Mínimo condicional registrado",
+                "estrutura_tabela_interna": row["estrutura_tabela_interna"],
+                "fundo": por_cnpj["fundo"].get(row["cnpj"], row["fundo"]),
+                "cnpj": row["cnpj"],
+                "campo_alterado": "minimo_condicional_pct",
+                "valor_anterior": "—",
+                "valor_novo": f"{_pct(row['subordinacao_minima_condicional_pct'])} ({row['condicao']})",
+                "fonte": FONTE_INTERNA,
+                "motivo": (
+                    f"A tabela interna dá dois mínimos. O vigente entra na folga; este"
+                    f" passa a valer em {row['condicao'].lower()} e fica registrado ao lado."
+                ),
+                "artefato": OVERRIDES_NAME,
+            }
+        )
+
     tabela = pd.DataFrame(linhas)
     tabela.insert(0, "id", [f"A{n:03d}" for n in range(1, len(tabela) + 1)])
     return tabela[COLUNAS]

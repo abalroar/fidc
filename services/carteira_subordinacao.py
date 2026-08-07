@@ -431,6 +431,13 @@ def load_overrides(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
     O arquivo também **acrescenta** fundos: uma estrutura que a curadoria não
     alcançou entra por aqui, com o mínimo do analista, e passa a integrar o
     universo comparável.
+
+    Alguns regulamentos dão **dois** mínimos: um em operação normal e outro que
+    só passa a valer numa condição — tipicamente o run-off.  Nesse caso
+    ``subordinacao_minima_pct`` traz o que está valendo hoje, e o outro fica em
+    ``subordinacao_minima_condicional_pct`` com a ``condicao`` que o dispara.
+    Medir a folga contra o mínimo condicional acusaria desenquadramento num
+    fundo enquadrado.
     """
 
     path = Path(data_dir) / OVERRIDES_NAME
@@ -439,6 +446,8 @@ def load_overrides(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
             columns=[
                 "cnpj",
                 "subordinacao_minima_pct",
+                "subordinacao_minima_condicional_pct",
+                "condicao",
                 "valor_extraido_pct",
                 "fonte",
                 "motivo",
@@ -446,8 +455,16 @@ def load_overrides(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
         )
     frame = pd.read_csv(path, dtype=str).fillna("")
     frame["cnpj"] = frame["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
-    for column in ("subordinacao_minima_pct", "valor_extraido_pct"):
+    for column in (
+        "subordinacao_minima_pct",
+        "subordinacao_minima_condicional_pct",
+        "valor_extraido_pct",
+    ):
+        if column not in frame.columns:
+            frame[column] = ""
         frame[column] = pd.to_numeric(frame[column], errors="coerce")
+    if "condicao" not in frame.columns:
+        frame["condicao"] = ""
     return frame.drop_duplicates("cnpj", keep="last")
 
 
@@ -579,6 +596,8 @@ def resolve_portfolio(
     merged["referencia_extraida_pct"] = merged["referencia_pct"]
     merged["minimo_fonte"] = "leitura documental automática"
     merged["minimo_override_motivo"] = ""
+    merged["minimo_condicional_pct"] = np.nan
+    merged["minimo_condicao"] = ""
     if len(overrides):
         indexado = overrides.set_index("cnpj")
         revisado = merged["cnpj"].map(indexado["subordinacao_minima_pct"])
@@ -593,6 +612,12 @@ def resolve_portfolio(
         merged["minimo_override_motivo"] = (
             merged["cnpj"].map(indexado["motivo"]).fillna("")
         )
+        # O mínimo condicional não entra na folga: ele descreve um regime que
+        # ainda não vigora.  Fica registrado ao lado, com o gatilho.
+        merged["minimo_condicional_pct"] = merged["cnpj"].map(
+            indexado["subordinacao_minima_condicional_pct"]
+        )
+        merged["minimo_condicao"] = merged["cnpj"].map(indexado["condicao"]).fillna("")
     merged["minimo_divergiu"] = (
         merged["referencia_extraida_pct"].notna()
         & merged["referencia_pct"].notna()

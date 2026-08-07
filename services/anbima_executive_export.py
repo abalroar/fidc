@@ -809,7 +809,7 @@ def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
         "Originador\u00b9",
         "Tipo",
         "Receb\u00edvel",
-        "R$ bi",
+        "R$ mm",
         "IBBA Coord?",
         "Garantia Firme",
         "Bookamos?",
@@ -825,7 +825,7 @@ def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
                 _short_cedente(record.cedente_informado),
                 str(record.tipo_anbima).replace("Agro, Indústria e Comércio", "Agro, Ind. e Com."),
                 str(record.foco_anbima).replace("Multicarteira Agro, Indústria e Comércio", "Multicarteira Agro/Ind."),
-                fmt_mm(volume / 1e9, 2) if pd.notna(volume) else "n/d",
+                fmt_mm(volume / 1e6, 1) if pd.notna(volume) else "n/d",
                 str(record.ibba_coordenou),
                 str(record.garantia_firme),
                 "",
@@ -841,7 +841,7 @@ def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
     # stated on the reconciliation slide of this same deck.
     fidc_universe_brl = 65.488e9
     rows.append(
-        ["", "Subtotal (R$ bi)", "", "", "", fmt_mm(subtotal / 1e9, 2), "", "", "", ""]
+        ["", "Subtotal (R$ mm)", "", "", "", fmt_mm(subtotal / 1e6, 1), "", "", "", ""]
     )
     rows.append(
         [
@@ -863,7 +863,7 @@ def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
         rows,
         MARGIN_IN,
         1.46,
-        [0.30, 2.05, 1.95, 1.35, 1.90, 0.60, 1.50, 0.90, 0.70, 0.80],
+        [0.30, 2.05, 1.95, 1.35, 1.65, 0.85, 1.50, 0.90, 0.70, 0.80],
         aligns="lllllrllll",
         size=8,
         row_height=0.245,
@@ -888,10 +888,10 @@ def top_fidcs_slide(deck: Deck, data_dir: Path) -> None:
     )
     deck.text(
         slide,
-        f"Subtotal em R$ bi soma as ofertas de refer\u00eancia mostradas; o percentual usa apenas as "
+        f"Subtotal em R$ mm soma as ofertas de refer\u00eancia mostradas; o percentual usa apenas as "
         "encerradas no 1S26, sobre o universo CVM de cotas de FIDC do semestre (R$ 65,5 bi). "
         f"Bookamos? e Risco IBBA em branco por instru\u00e7\u00e3o. {missing} fundos n\u00e3o t\u00eam oferta "
-        "p\u00fablica encerrada registrada na CVM e aparecem como n/d em R$ bi e "
+        "p\u00fablica encerrada registrada na CVM e aparecem como n/d em R$ mm e "
         "\u201cN\u00e3o identificado\u201d nas colunas dependentes da oferta.",
         MARGIN_IN,
         bottom + 0.42,
@@ -945,7 +945,7 @@ def top_fidcs_note_slide(deck: Deck, data_dir: Path) -> None:
             "16 de 16 classificados",
         ],
         [
-            "R$ bi",
+            "R$ mm",
             "CVM, ofertas RCVM 160 e legado ICVM 400/476",
             f"{resolved} de 16 com oferta encerrada identificada",
         ],
