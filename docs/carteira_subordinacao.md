@@ -277,3 +277,35 @@ Cada botão serve **bytes construídos na hora**, não um arquivo antigo em disc
 Os CSV são lidos e revalidados antes de sair, de modo que um arquivo truncado
 apareça como botão desabilitado com o motivo, em vez de chegar ilegível na mão
 de quem baixou.
+
+
+## Override do analista sobre o mínimo
+
+`data/industry_study/carteira_subordinacao_overrides.csv`
+
+A camada é **separada do registro**, de propósito. O registro guarda o que a
+curadoria documental extraiu dos regulamentos; sobrescrevê-lo apagaria o dado
+bruto e ninguém saberia mais o que o documento dizia. O override fica por cima,
+e `resolve_portfolio` preserva os dois:
+
+| coluna resultante | conteúdo |
+| --- | --- |
+| `referencia_extraida_pct` | o que a leitura automática produziu |
+| `referencia_pct` | o que está valendo |
+| `minimo_fonte` | qual dos dois, e de onde veio |
+| `minimo_divergiu` | os dois existem e discordam |
+| `minimo_override_motivo` | por que o analista decidiu assim |
+
+O override incide sobre a **referência** — o mínimo contra o qual a folga é
+medida —, e não sobre o mínimo júnior isolado: a tabela revisada dá um mínimo
+por estrutura.
+
+O arquivo também **acrescenta** fundos. Uma estrutura que a curadoria não
+alcançou entra por ali, com o mínimo do analista e a categoria, e passa a
+integrar o universo comparável. Um fundo introduzido assim tem
+`referencia_extraida_pct` vazio: ele nunca teve leitura automática, e registrar
+o override como se fosse extração seria inventar uma auditoria que não existe.
+
+A categoria do override vem por último, depois da revalidação documental. É a
+única camada que enxerga o que o documento não diz — e, quando classifica
+contra a evidência, o motivo registrado explica por quê.
