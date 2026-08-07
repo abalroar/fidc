@@ -17,7 +17,6 @@ from tabs.tab_estimativas_modelagem import (
     render_tab_estimativas_modelagem,
 )
 from tabs.tab_industry_study import render_tab_industry_study
-from tabs.tab_taxonomy_queue import render_tab_taxonomy_queue
 
 
 _APP_BASE_CSS = """
@@ -411,7 +410,6 @@ _MAIN_SECTIONS = (
     ("industria", "Dados da Indústria"),
     ("carteira", "Dados de Carteira"),
     ("estimativas", "Estimativas e Modelagem"),
-    ("taxonomia", "Fila de Taxonomia"),
     ("glossario", "Glossário"),
 )
 _MAIN_SECTION_LABELS = dict(_MAIN_SECTIONS)
@@ -485,8 +483,6 @@ with dashboard_page(selected_section):
         render_portfolio_center_page(period=period)
     elif selected_section == "estimativas":
         render_tab_estimativas_modelagem()
-    elif selected_section == "taxonomia":
-        render_tab_taxonomy_queue()
     elif selected_section == "glossario":
         render_tab_fidc_book()
     elif selected_section == "sobre":
