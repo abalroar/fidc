@@ -520,27 +520,30 @@ def test_a_folga_e_atual_menos_minimo_com_uma_casa() -> None:
 
     from services.carteira_deck import table_rows
 
+    from services.carteira_deck import TABLE_HEADER
+
     frame = pd.DataFrame(
         [
-            {"cnpj": "a", "fundo": "FIDC ALFA", "pl_mm": 10.0,
+            {"cnpj": "a", "fundo": "FIDC ALFA", "pl_mm": 1234.5, "multi_flag": "",
              "referencia_pct": 15.0, "sub_atual_pct": 21.34, "folga_pp": 6.34},
-            {"cnpj": "b", "fundo": "FIDC BETA", "pl_mm": 5.0,
+            {"cnpj": "b", "fundo": "FIDC BETA", "pl_mm": 5.0, "multi_flag": "",
              "referencia_pct": 10.0, "sub_atual_pct": 7.5, "folga_pp": -2.5},
         ]
     )
     rows, _fills, _colors = table_rows(frame)
 
-    assert rows[0] == ["FIDC", "Mínimo (%)", "Atual (%)", "Folga (p.p.)"]
-    assert rows[1][1:] == ["15,0", "21,3", "+6,3"]
-    assert rows[2][1:] == ["10,0", "7,5", "-2,5"]
+    assert rows[0] == list(TABLE_HEADER)
+    assert rows[1][1:] == ["1.234,5", "15,0", "21,3", "+6,3"]
+    assert rows[2][1:] == ["5,0", "10,0", "7,5", "-2,5"]
 
 
 def test_a_folga_ganha_cor_por_banda_de_risco() -> None:
-    """Verde confortável, amarelo atenção, vermelho baixo ou negativo."""
+    """Vermelho só no desenquadramento; amarelo até +1,5; verde acima disso."""
 
     import pandas as pd
 
     from services.carteira_deck import (
+        COL_FOLGA,
         FILL_AMARELO,
         FILL_VERDE,
         FILL_VERMELHO,
@@ -549,19 +552,26 @@ def test_a_folga_ganha_cor_por_banda_de_risco() -> None:
 
     frame = pd.DataFrame(
         [
-            {"cnpj": "a", "fundo": "A", "pl_mm": 3.0, "referencia_pct": 10.0,
-             "sub_atual_pct": 30.0, "folga_pp": 20.0},
-            {"cnpj": "b", "fundo": "B", "pl_mm": 2.0, "referencia_pct": 10.0,
-             "sub_atual_pct": 13.0, "folga_pp": 3.0},
-            {"cnpj": "c", "fundo": "C", "pl_mm": 1.0, "referencia_pct": 10.0,
-             "sub_atual_pct": 9.0, "folga_pp": -1.0},
+            {"cnpj": "a", "fundo": "A", "pl_mm": 5.0, "multi_flag": "",
+             "referencia_pct": 10.0, "sub_atual_pct": 30.0, "folga_pp": 20.0},
+            {"cnpj": "b", "fundo": "B", "pl_mm": 4.0, "multi_flag": "",
+             "referencia_pct": 10.0, "sub_atual_pct": 11.6, "folga_pp": 1.6},
+            {"cnpj": "c", "fundo": "C", "pl_mm": 3.0, "multi_flag": "",
+             "referencia_pct": 10.0, "sub_atual_pct": 11.5, "folga_pp": 1.5},
+            {"cnpj": "d", "fundo": "D", "pl_mm": 2.0, "multi_flag": "",
+             "referencia_pct": 10.0, "sub_atual_pct": 10.0, "folga_pp": 0.0},
+            {"cnpj": "e", "fundo": "E", "pl_mm": 1.0, "multi_flag": "",
+             "referencia_pct": 10.0, "sub_atual_pct": 9.0, "folga_pp": -1.0},
         ]
     )
     _rows, fills, _colors = table_rows(frame)
 
-    assert fills[(1, 3)] == FILL_VERDE
-    assert fills[(2, 3)] == FILL_AMARELO
-    assert fills[(3, 3)] == FILL_VERMELHO
+    assert fills[(1, COL_FOLGA)] == FILL_VERDE
+    assert fills[(2, COL_FOLGA)] == FILL_VERDE
+    # A borda de +1,5 pertence ao amarelo, e +0,0 também.
+    assert fills[(3, COL_FOLGA)] == FILL_AMARELO
+    assert fills[(4, COL_FOLGA)] == FILL_AMARELO
+    assert fills[(5, COL_FOLGA)] == FILL_VERMELHO
 
 
 def test_todo_fidc_do_grafico_aparece_na_tabela_do_slide() -> None:
@@ -577,27 +587,33 @@ def test_todo_fidc_do_grafico_aparece_na_tabela_do_slide() -> None:
         categoria = str(plano["categoria"])
         rows, _f, _c = table_rows(plano["tabela"])
         por_categoria.setdefault(categoria, set()).update(linha[0] for linha in rows[1:])
-        graficos[categoria] = {
-            short_fund_name(str(nome), limite=34) for nome in plano["grafico"]["fundo"]
-        }
+        graficos.setdefault(categoria, set()).update(
+            short_fund_name(str(nome), limite=26) for nome in plano["grafico"]["fundo"]
+        )
 
     for categoria, nomes in graficos.items():
-        assert nomes.issubset(por_categoria[categoria]), categoria
+        # O rótulo da tabela pode carregar a marca de multicedente; o nome
+        # curto tem de aparecer nele.
+        for nome in nomes:
+            assert any(nome in linha for linha in por_categoria[categoria]), (
+                categoria,
+                nome,
+            )
 
 
-def test_o_grafico_do_slide_rotula_so_os_relevantes() -> None:
-    """Rotular tudo viraria parede de texto; quem nomeia o resto é a tabela."""
+def test_o_grafico_nomeia_todos_os_veiculos_no_eixo() -> None:
+    """Um rótulo por ponto, na vertical: nenhum FIDC fica anônimo no gráfico."""
 
-    from services.carteira_deck import chart_labels, slide_plans
+    from services.carteira_deck import slide_plans
+    from services.carteira_subordinacao import dumbbell_figure
 
     plano = slide_plans(ROOT / "data" / "industry_study")[0]
     grafico = plano["grafico"]
-    rotulados = chart_labels(grafico)
-    em_falta = set(grafico.loc[grafico["abaixo_do_minimo"].fillna(False), "cnpj"])
+    axes = dumbbell_figure(grafico, nomear_todos=True, figsize=(12.05, 3.1)).axes[0]
 
-    assert len(rotulados) < len(grafico)
-    # Quem está abaixo do mínimo nunca fica sem nome no gráfico.
-    assert em_falta.issubset(set(rotulados))
+    marcas = [marca.get_text() for marca in axes.get_xticklabels()]
+    assert len(marcas) == len(grafico)
+    assert all(texto.strip() for texto in marcas)
 
 
 # ---------------------------------------------------------------------------
@@ -704,13 +720,17 @@ def test_a_tabela_da_carteira_termina_na_margem_direita() -> None:
     presentation.save(buffer)
     reaberto = list(Presentation(BytesIO(buffer.getvalue())).slides)[0]
     imagens = [shape for shape in reaberto.shapes if shape.shape_type == 13]
-    tabelas = [shape for shape in reaberto.shapes if shape.has_table]
+    tabelas = sorted(
+        (shape for shape in reaberto.shapes if shape.has_table), key=lambda s: s.left
+    )
 
-    assert imagens and tabelas
-    direita_imagem = Emu(imagens[0].left + imagens[0].width).inches
-    esquerda_tabela = Emu(tabelas[0].left).inches
-    direita_tabela = Emu(tabelas[0].left + tabelas[0].width).inches
-
-    # Lado a lado, sem sobreposição, terminando na margem.
-    assert esquerda_tabela > direita_imagem
-    assert direita_tabela <= SLIDE_WIDTH_IN - MARGIN_IN + 0.01
+    assert imagens and len(tabelas) == 2
+    # O gráfico toma a largura inteira do conteúdo e a tabela vem abaixo dele,
+    # em duas tranches que terminam na margem direita.
+    assert Emu(imagens[0].width).inches == pytest.approx(12.05, abs=0.01)
+    assert Emu(tabelas[0].top).inches > Emu(imagens[0].top + imagens[0].height).inches
+    assert Emu(tabelas[1].left).inches > Emu(
+        tabelas[0].left + tabelas[0].width
+    ).inches
+    direita = Emu(tabelas[1].left + tabelas[1].width).inches
+    assert direita <= SLIDE_WIDTH_IN - MARGIN_IN + 0.01

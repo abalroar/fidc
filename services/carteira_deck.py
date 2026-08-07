@@ -42,11 +42,22 @@ REPLACED_SLIDE_RANGE = (18, 23)
 #: Abaixo disso um gráfico de hastes não comunica nada: vira um punhado de
 #: pontos soltos.
 MIN_FUNDS_PER_CATEGORY = 3
-#: Leitura executiva: mais que isso e a fonte cai abaixo do legível.  O que
-#: passar vai para um slide de continuação da mesma categoria.
-MAX_ROWS_PER_SLIDE = 22
-#: Quantos veículos o gráfico nomeia.  O resto está na tabela ao lado.
-CHART_LABELS = 4
+#: A tabela ocupa a metade inferior em duas tranches lado a lado; cada uma
+#: leva metade das linhas.  O que passar vai para um slide de continuação da
+#: mesma categoria, em vez de encolher a fonte abaixo do legível.
+ROWS_PER_TRANCHE = 11
+MAX_ROWS_PER_SLIDE = ROWS_PER_TRANCHE * 2
+
+# Geometria da lâmina: o gráfico toma a largura inteira do conteúdo e a
+# tabela ocupa a metade inferior, dividida em duas tranches.
+MARGIN_IN = 0.62
+CHART_TOP_IN = 1.30
+CHART_WIDTH_IN = 12.05
+CHART_HEIGHT_IN = 3.10
+TABLE_TOP_IN = 4.52
+TRANCHE_WIDTH_IN = 5.90
+TRANCHE_GAP_IN = 0.25
+TRANCHE_COLUMNS = (2.30, 0.95, 0.80, 0.80, 1.05)
 
 KICKER = "CARTEIRA 101 · RISCO ESTRUTURAL"
 SOURCE = (
@@ -56,9 +67,9 @@ SOURCE = (
 )
 
 # Bandas da folga, em pontos percentuais.  Só sinalização de risco — sem ícone,
-# sem forma, sem decoração.
-FOLGA_ATENCAO = 2.0
-FOLGA_CONFORTAVEL = 5.0
+# sem forma, sem decoração.  O vermelho marca exclusivamente o desenquadramento.
+FOLGA_ATENCAO = 0.0
+FOLGA_CONFORTAVEL = 1.5
 FILL_VERDE = "E4F2EC"
 FILL_AMARELO = "FBF0D9"
 FILL_VERMELHO = "F8DFE1"
@@ -120,18 +131,24 @@ def order_for_table(frame: pd.DataFrame) -> pd.DataFrame:
     ).reset_index(drop=True)
 
 
-def chart_labels(frame: pd.DataFrame, quantidade: int = CHART_LABELS) -> list[str]:
-    """Os veículos que o gráfico nomeia: quem está em falta e os maiores por PL."""
+#: Cabeçalho da tabela.  O PL entra logo depois do nome: é ele que ordena e é
+#: por ele que o leitor mede o tamanho de cada caso.
+TABLE_HEADER = ("FIDC", "PL jun-26 (R$ mm)", "Mín. (%)", "Atual (%)", "Folga (p.p.)")
+COL_FOLGA = len(TABLE_HEADER) - 1
 
-    em_falta = frame[frame["abaixo_do_minimo"].fillna(False)]
-    maiores = frame.sort_values("pl_mm", ascending=False)
-    escolhidos: list[str] = []
-    for cnpj in list(em_falta["cnpj"]) + list(maiores["cnpj"]):
-        if cnpj not in escolhidos:
-            escolhidos.append(cnpj)
-        if len(escolhidos) >= max(quantidade, len(em_falta)):
-            break
-    return escolhidos
+
+def _mm(value: object) -> str:
+    if pd.isna(value):
+        return "—"
+    return f"{float(value):,.1f}".replace(",", "@").replace(".", ",").replace("@", ".")
+
+
+def fund_label(registro) -> str:
+    """O nome curto, com a marca de multicedente/multissacado quando houver."""
+
+    nome = short_fund_name(str(registro.fundo), limite=26)
+    marca = str(getattr(registro, "multi_flag", "") or "").strip()
+    return f"{nome} · {marca}" if marca else nome
 
 
 def _pct(value: object) -> str:
@@ -149,7 +166,7 @@ def _folga(value: object) -> str:
 def table_rows(frame: pd.DataFrame) -> tuple[list[list[str]], dict, dict]:
     """As linhas da tabela e as cores que sinalizam risco e materialidade."""
 
-    rows: list[list[str]] = [["FIDC", "Mínimo (%)", "Atual (%)", "Folga (p.p.)"]]
+    rows: list[list[str]] = [list(TABLE_HEADER)]
     fills: dict[tuple[int, int], str] = {}
     colors: dict[tuple[int, int], str] = {}
 
@@ -157,7 +174,8 @@ def table_rows(frame: pd.DataFrame) -> tuple[list[list[str]], dict, dict]:
     for indice, registro in enumerate(frame.itertuples(), start=1):
         rows.append(
             [
-                short_fund_name(str(registro.fundo), limite=34),
+                fund_label(registro),
+                _mm(registro.pl_mm),
                 _pct(registro.referencia_pct),
                 _pct(registro.sub_atual_pct),
                 _folga(registro.folga_pp),
@@ -166,14 +184,14 @@ def table_rows(frame: pd.DataFrame) -> tuple[list[list[str]], dict, dict]:
         folga = registro.folga_pp
         if pd.notna(folga):
             if folga < FOLGA_ATENCAO:
-                fills[(indice, 3)] = FILL_VERMELHO
-                colors[(indice, 3)] = TEXTO_VERMELHO
-            elif folga < FOLGA_CONFORTAVEL:
-                fills[(indice, 3)] = FILL_AMARELO
-                colors[(indice, 3)] = TEXTO_AMARELO
+                fills[(indice, COL_FOLGA)] = FILL_VERMELHO
+                colors[(indice, COL_FOLGA)] = TEXTO_VERMELHO
+            elif folga <= FOLGA_CONFORTAVEL:
+                fills[(indice, COL_FOLGA)] = FILL_AMARELO
+                colors[(indice, COL_FOLGA)] = TEXTO_AMARELO
             else:
-                fills[(indice, 3)] = FILL_VERDE
-                colors[(indice, 3)] = TEXTO_VERDE
+                fills[(indice, COL_FOLGA)] = FILL_VERDE
+                colors[(indice, COL_FOLGA)] = TEXTO_VERDE
         if registro.cnpj in materiais:
             # O destaque de materialidade fica só na coluna do nome, para não
             # competir com a sinalização de risco na coluna da folga.
@@ -219,46 +237,45 @@ def slide_plans(data_dir: Path = DEFAULT_DATA_DIR) -> list[dict[str, object]]:
 
 
 def draw_carteira_slide(deck, slide, plano: dict[str, object]) -> None:
-    """Gráfico à esquerda, tabela nativa à direita, sobre um slide já vazio."""
+    """Gráfico em largura total no topo; tabela em duas tranches embaixo."""
 
     from pptx.util import Inches
 
     deck.compose(slide, str(plano["titulo"]), KICKER)
-    tabela = plano["tabela"]
     grafico = plano["grafico"]
 
     if plano["desenha_grafico"]:
         figure = dumbbell_figure(
-            grafico, rotulos=chart_labels(grafico), figsize=(7.4, 4.7)
+            grafico, nomear_todos=True, figsize=(CHART_WIDTH_IN, CHART_HEIGHT_IN)
         )
         slide.shapes.add_picture(
             BytesIO(figure_png_bytes(figure)),
-            Inches(0.62),
-            Inches(1.42),
-            width=Inches(7.4),
+            Inches(MARGIN_IN),
+            Inches(CHART_TOP_IN),
+            width=Inches(CHART_WIDTH_IN),
         )
-        # A soma das larguras fecha na margem direita do conteúdo (12,67"),
-        # para o rodapé e a tabela terminarem na mesma linha.
-        x_tabela, largura = 8.22, (2.20, 0.70, 0.70, 0.85)
-    else:
-        x_tabela, largura = 0.62, (3.60, 1.05, 1.05, 1.15)
 
-    rows, fills, colors = table_rows(tabela)
-    compacta = len(rows) > 16
-    deck.native_table(
-        slide,
-        rows,
-        x_tabela,
-        1.42,
-        list(largura),
-        row_height=0.215 if compacta else 0.26,
-        header_height=0.28,
-        size=8.4 if compacta else 9.2,
-        aligns="lrrr",
-        cell_fills=fills,
-        cell_colors=colors,
-    )
-    deck.text(slide, str(plano["nota"]), 0.62, 6.70, 8.0, 0.22, size=8.6, color="8D9399")
+    # Duas tranches lado a lado: com onze linhas cada, a categoria inteira cabe
+    # na metade inferior sem apertar a fonte.
+    tabela = plano["tabela"]
+    for indice, inicio in enumerate(range(0, len(tabela), ROWS_PER_TRANCHE)):
+        recorte = tabela.iloc[inicio : inicio + ROWS_PER_TRANCHE]
+        if recorte.empty:
+            continue
+        rows, fills, colors = table_rows(recorte)
+        deck.native_table(
+            slide,
+            rows,
+            MARGIN_IN + indice * (TRANCHE_WIDTH_IN + TRANCHE_GAP_IN),
+            TABLE_TOP_IN,
+            list(TRANCHE_COLUMNS),
+            row_height=0.175,
+            header_height=0.22,
+            size=7.6,
+            aligns="lrrrr",
+            cell_fills=fills,
+            cell_colors=colors,
+        )
     deck.footer(slide, SOURCE)
 
 
@@ -300,12 +317,20 @@ def replace_structural_slides(
 
 
 __all__ = [
-    "CHART_LABELS",
+    "MARGIN_IN",
+    "TRANCHE_COLUMNS",
+    "TRANCHE_GAP_IN",
+    "TRANCHE_WIDTH_IN",
+    "TABLE_TOP_IN",
+    "CHART_HEIGHT_IN",
+    "CHART_WIDTH_IN",
+    "CHART_TOP_IN",
     "KICKER",
     "MAX_ROWS_PER_SLIDE",
+    "ROWS_PER_TRANCHE",
+    "TABLE_HEADER",
     "MIN_FUNDS_PER_CATEGORY",
     "REPLACED_SLIDE_RANGE",
-    "chart_labels",
     "clear_slide",
     "draw_carteira_slide",
     "move_slides",
