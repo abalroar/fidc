@@ -309,3 +309,22 @@ o override como se fosse extração seria inventar uma auditoria que não existe
 A categoria do override vem por último, depois da revalidação documental. É a
 única camada que enxerga o que o documento não diz — e, quando classifica
 contra a evidência, o motivo registrado explica por quê.
+
+### Auditoria consolidada
+
+`data/industry_study/agro_revenda_auditoria_consolidada.csv`, gerado por
+`scripts/build_agro_revenda_auditoria_consolidada.py`.
+
+Três planilhas registram a revisão do Agro / Revenda, e cada uma responde a uma
+pergunta diferente: o que aconteceu com cada estrutura da tabela interna
+(`agro_revenda_auditoria_tabela_interna.csv`), quanto o mínimo mudou
+(`agro_revenda_reconciliacao_minimo.csv`) e o que o regulamento de cada fundo
+adicional sustenta (`agro_revenda_revisao_adicionais.csv`).
+
+A consolidada junta as três numa linha por alteração — `campo_alterado`,
+`valor_anterior`, `valor_novo`, `motivo`, `artefato` —, para que uma auditoria
+percorra a revisão inteira sem cruzar CNPJ na mão entre três arquivos. Ela é
+**derivada**: lê os três CSVs e a carteira já resolvida, de modo que acompanha
+o que o pipeline publica em vez de fossilizar um retrato antigo.
+
+Sai pelo botão *Auditoria Agro / Revenda*, em Dados e exportações.
