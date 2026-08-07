@@ -18,6 +18,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from services.carteira_subordinacao import short_fund_name
+
 
 DEFAULT_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 REVIEW_NAME = "top100_fidcs_middle_review.csv"
@@ -32,15 +34,18 @@ SOURCE = (
 
 #: Colunas do slide, na ordem: o que identifica o veículo, o que mede a
 #: materialidade e o que sustenta a decisão de Middle.
+#: A soma tem de fechar em ``CONTENT_WIDTH_IN``; passando disso, a última
+#: coluna sai pela borda da lâmina — e a última é justamente a que o revisor
+#: preenche.
 COLUMNS: tuple[tuple[str, str, float, str], ...] = (
-    ("rank_pl", "#", 0.42, "r"),
-    ("FIDC", "FIDC", 3.55, "l"),
-    ("cnpj", "CNPJ", 1.28, "l"),
-    ("pl_mm", "PL (R$ mm)", 0.98, "r"),
-    ("Volume 2026 (R$ mi)", "Emissão 26 (R$ mi)", 1.10, "r"),
-    ("Coordenador líder", "Coordenador líder", 1.42, "l"),
-    ("Razão social cedente", "Cedente", 2.20, "l"),
-    ("Setor cedente", "Setor do cedente", 1.55, "l"),
+    ("rank_pl", "#", 0.38, "r"),
+    ("FIDC", "FIDC", 3.10, "l"),
+    ("cnpj", "CNPJ", 1.22, "l"),
+    ("pl_mm", "PL (R$ mm)", 0.92, "r"),
+    ("Volume 2026 (R$ mi)", "Emissão 26 (R$ mi)", 1.00, "r"),
+    ("Coordenador líder", "Coordenador líder", 1.28, "l"),
+    ("Razão social cedente", "Cedente", 2.00, "l"),
+    ("Setor cedente", "Setor do cedente", 1.40, "l"),
     ("MIDDLE (preencher)", "MIDDLE", 0.75, "l"),
 )
 
@@ -79,12 +84,14 @@ def _cnpj(value: object) -> str:
     return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
 
 
-#: Quantos caracteres cabem por coluna de texto antes de a célula quebrar.
+#: Quantos caracteres cabem por coluna antes de a célula quebrar em duas
+#: linhas e desalinhar a tabela.  Calibrado para Arial 8,6 pt na largura de
+#: cada coluna.
 _LIMITES = {
-    "FIDC": 58,
-    "Coordenador líder": 22,
-    "Razão social cedente": 34,
-    "Setor cedente": 24,
+    "FIDC": 46,
+    "Coordenador líder": 19,
+    "Razão social cedente": 30,
+    "Setor cedente": 21,
     "MIDDLE (preencher)": 10,
 }
 
@@ -99,6 +106,11 @@ def table_rows(bloco: pd.DataFrame) -> list[list[str]]:
                 linha.append(_cnpj(valor))
             elif key == "rank_pl":
                 linha.append(_text(valor, 4))
+            elif key == "FIDC":
+                # No slide vale o nome próprio: a razão social completa enche a
+                # célula com boilerplate registral e esconde o que identifica o
+                # fundo.  A planilha guarda a denominação inteira.
+                linha.append(short_fund_name(str(valor or ""), limite=_LIMITES["FIDC"]))
             elif key in {"pl_mm", "Volume 2026 (R$ mi)"}:
                 linha.append(_number(valor))
             else:
