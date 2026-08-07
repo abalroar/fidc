@@ -169,6 +169,37 @@ extrai o mapa para `carteira_taxonomia_estrutural.csv`, com a origem de cada
 linha. Um CNPJ fora do mapa fica em "Não classificado" — nenhuma categoria é
 inferida.
 
+### Revalidação contra o regulamento
+
+A seção descreve **quem é o sacado e qual é o recebível encarteirado**, e quem
+define os dois é o regulamento. `services/carteira_revalidacao.py` lê o
+regulamento vigente de cada CNPJ, pontua os termos que descrevem lastro e
+devedor, e devolve a categoria sustentada pelo documento com o trecho literal.
+
+Duas travas evitam decisão por semelhança de nome:
+
+| trava | efeito |
+| --- | --- |
+| `PONTUACAO_MINIMA` | abaixo dela o documento não distingue a operação |
+| `MARGEM_MINIMA` | vantagem fina sobre a segunda colocada é empate, não escolha |
+
+Sem evidência, a categoria vigente permanece e a linha fica marcada como não
+revalidada. Onde o documento conclui e diverge, **o documento manda**.
+
+Dois falsos positivos foram encontrados e travados por teste:
+
+* o capítulo de **fatores de risco** repete todo o vocabulário do fundo em
+  frases que não descrevem operação nenhuma — "podem afetar adversamente os
+  produtores rurais" reclassificava um fundo de máquinas como agro. O corte do
+  capítulo existia mas nunca disparava, porque olhava a primeira ocorrência do
+  título, que está no sumário; passou a procurar a primeira dentro do corpo;
+* **"consignado"** solto: todo regulamento diz que o voto é "consignado na
+  ata". O termo só conta em contexto de crédito.
+
+A marca de multicedente/multissacado sai do mesmo texto e acompanha o nome do
+fundo na tabela: pulverizado entre muitos sacados não é o mesmo risco que
+concentrado em um.
+
 ## Cache
 
 Salvar um fundo no painel muda o gráfico e muda o deck. Por isso o registro

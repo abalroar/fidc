@@ -86,7 +86,11 @@ SINAIS: dict[str, tuple[tuple[str, int], ...]] = {
         (r"\bADQUIRENTES?\b", 3),
     ),
     "Consignado INSS e FGTS": (
-        (r"CONSIGNADO", 5),
+        # "Consignado" solto não serve: todo regulamento diz que o voto é
+        # "consignado na ata".  O termo só conta em contexto de crédito.
+        (r"(?:CREDITOS?|EMPRESTIMOS?|OPERAC(?:AO|OES)|CARTAO|CARTEIRA)\s+"
+         r"CONSIGNAD[OA]S?", 5),
+        (r"CONSIGNAD[OA]S?\s+(?:EM FOLHA|INSS|FGTS|PRIVAD|PUBLIC)", 5),
         (r"\bINSS\b", 4),
         (r"\bFGTS\b", 4),
         (r"SAQUE[- ]ANIVERSARIO", 5),
@@ -143,9 +147,11 @@ SINAIS_MULTI = {
 #: Abaixo desta pontuação o documento não distingue a operação, e a categoria
 #: vigente permanece.  Dois sinais fracos não fazem uma conclusão.
 PONTUACAO_MINIMA = 5
-#: E a vantagem sobre a segunda colocada precisa ser real; empate técnico é
-#: ausência de evidência, não escolha.
-MARGEM_MINIMA = 2
+#: E a vantagem sobre a segunda colocada precisa ser real.  Margem de dois
+#: pontos é um sinal fraco a mais, não uma conclusão: veículos de lastro misto
+#: — recebíveis de cartão *e* duplicatas na mesma carteira — caem exatamente
+#: aí, e reclassificá-los por isso seria cara ou coroa.
+MARGEM_MINIMA = 4
 
 
 @dataclass(frozen=True)

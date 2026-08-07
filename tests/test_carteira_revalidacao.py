@@ -118,3 +118,27 @@ def test_o_veredito_carrega_a_evidencia_literal() -> None:
     assert veredito.categoria == "Agro / Revenda"
     assert veredito.evidencia
     assert veredito.termos
+
+
+def test_consignado_na_ata_nao_e_credito_consignado() -> None:
+    """Todo regulamento diz que o voto é "consignado na ata".
+
+    O termo solto colocava um FIDC de crédito pessoal em Consignado INSS e
+    FGTS; ele só conta em contexto de crédito.
+    """
+
+    ata = """
+    O voto poderá ser proferido por cada cotista durante a Assembleia Geral e
+    será obrigatoriamente consignado na respectiva ata por meio da assinatura
+    da lista de presença.
+    """
+
+    assert classify("11", ata).categoria == SEM_EVIDENCIA
+
+    credito = """
+    Os Direitos Creditórios decorrem de empréstimos consignados em folha de
+    pagamento, com desconto na margem consignável. Crédito consignado INSS.
+    Consignado FGTS. Aposentados e pensionistas.
+    """
+
+    assert classify("12", credito).categoria == "Consignado INSS e FGTS"
