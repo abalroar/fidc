@@ -478,9 +478,8 @@ def test_a_carteira_usa_a_taxonomia_dos_slides_estruturais() -> None:
     assert presentes.issubset(esperadas | {"Não classificado"})
     assert esperadas.issubset(presentes)
 
-    titulos = [titulo for titulo, _sub, _f in slide_plans(data_dir)]
-    for categoria in esperadas:
-        assert any(titulo.startswith(categoria) for titulo in titulos), categoria
+    categorias = {str(plano["categoria"]) for plano in slide_plans(data_dir)}
+    assert esperadas == categorias
 
 
 def test_um_cnpj_fora_da_taxonomia_nao_inventa_categoria(data_dir: Path) -> None:
@@ -491,3 +490,179 @@ def test_um_cnpj_fora_da_taxonomia_nao_inventa_categoria(data_dir: Path) -> None
     assert resolve_portfolio(data_dir).frame.iloc[0]["categoria_estrutural"] == (
         NAO_CLASSIFICADO
     )
+
+
+# ---------------------------------------------------------------------------
+# Tabela ao lado do gráfico
+# ---------------------------------------------------------------------------
+
+def test_a_ordenacao_da_tabela_privilegia_materialidade_e_depois_risco() -> None:
+    """PL do maior para o menor; a folga desempata pelo mais perto do limite."""
+
+    import pandas as pd
+
+    from services.carteira_deck import order_for_table
+
+    bruto = pd.DataFrame(
+        [
+            {"cnpj": "a", "pl_mm": 100.0, "folga_pp": 20.0},
+            {"cnpj": "b", "pl_mm": 500.0, "folga_pp": 9.0},
+            {"cnpj": "c", "pl_mm": 500.0, "folga_pp": 1.0},
+            {"cnpj": "d", "pl_mm": None, "folga_pp": -3.0},
+        ]
+    )
+
+    assert order_for_table(bruto)["cnpj"].tolist() == ["c", "b", "a", "d"]
+
+
+def test_a_folga_e_atual_menos_minimo_com_uma_casa() -> None:
+    import pandas as pd
+
+    from services.carteira_deck import table_rows
+
+    frame = pd.DataFrame(
+        [
+            {"cnpj": "a", "fundo": "FIDC ALFA", "pl_mm": 10.0,
+             "referencia_pct": 15.0, "sub_atual_pct": 21.34, "folga_pp": 6.34},
+            {"cnpj": "b", "fundo": "FIDC BETA", "pl_mm": 5.0,
+             "referencia_pct": 10.0, "sub_atual_pct": 7.5, "folga_pp": -2.5},
+        ]
+    )
+    rows, _fills, _colors = table_rows(frame)
+
+    assert rows[0] == ["FIDC", "Mínimo (%)", "Atual (%)", "Folga (p.p.)"]
+    assert rows[1][1:] == ["15,0", "21,3", "+6,3"]
+    assert rows[2][1:] == ["10,0", "7,5", "-2,5"]
+
+
+def test_a_folga_ganha_cor_por_banda_de_risco() -> None:
+    """Verde confortável, amarelo atenção, vermelho baixo ou negativo."""
+
+    import pandas as pd
+
+    from services.carteira_deck import (
+        FILL_AMARELO,
+        FILL_VERDE,
+        FILL_VERMELHO,
+        table_rows,
+    )
+
+    frame = pd.DataFrame(
+        [
+            {"cnpj": "a", "fundo": "A", "pl_mm": 3.0, "referencia_pct": 10.0,
+             "sub_atual_pct": 30.0, "folga_pp": 20.0},
+            {"cnpj": "b", "fundo": "B", "pl_mm": 2.0, "referencia_pct": 10.0,
+             "sub_atual_pct": 13.0, "folga_pp": 3.0},
+            {"cnpj": "c", "fundo": "C", "pl_mm": 1.0, "referencia_pct": 10.0,
+             "sub_atual_pct": 9.0, "folga_pp": -1.0},
+        ]
+    )
+    _rows, fills, _colors = table_rows(frame)
+
+    assert fills[(1, 3)] == FILL_VERDE
+    assert fills[(2, 3)] == FILL_AMARELO
+    assert fills[(3, 3)] == FILL_VERMELHO
+
+
+def test_todo_fidc_do_grafico_aparece_na_tabela_do_slide() -> None:
+    """A razão de a tabela existir: o gráfico rotula poucos, ela nomeia todos."""
+
+    from services.carteira_deck import slide_plans, table_rows
+    from services.carteira_subordinacao import short_fund_name
+
+    data_dir = ROOT / "data" / "industry_study"
+    por_categoria: dict[str, set[str]] = {}
+    graficos: dict[str, set[str]] = {}
+    for plano in slide_plans(data_dir):
+        categoria = str(plano["categoria"])
+        rows, _f, _c = table_rows(plano["tabela"])
+        por_categoria.setdefault(categoria, set()).update(linha[0] for linha in rows[1:])
+        graficos[categoria] = {
+            short_fund_name(str(nome), limite=34) for nome in plano["grafico"]["fundo"]
+        }
+
+    for categoria, nomes in graficos.items():
+        assert nomes.issubset(por_categoria[categoria]), categoria
+
+
+def test_o_grafico_do_slide_rotula_so_os_relevantes() -> None:
+    """Rotular tudo viraria parede de texto; quem nomeia o resto é a tabela."""
+
+    from services.carteira_deck import chart_labels, slide_plans
+
+    plano = slide_plans(ROOT / "data" / "industry_study")[0]
+    grafico = plano["grafico"]
+    rotulados = chart_labels(grafico)
+    em_falta = set(grafico.loc[grafico["abaixo_do_minimo"].fillna(False), "cnpj"])
+
+    assert len(rotulados) < len(grafico)
+    # Quem está abaixo do mínimo nunca fica sem nome no gráfico.
+    assert em_falta.issubset(set(rotulados))
+
+
+# ---------------------------------------------------------------------------
+# Top 100 para revisão do universo Middle
+# ---------------------------------------------------------------------------
+
+def test_o_top100_entra_no_deck_em_tabelas_nativas_ordenadas_por_pl() -> None:
+    from io import BytesIO
+
+    from pptx import Presentation
+
+    from services.bba_deck import SLIDE_HEIGHT_IN, SLIDE_WIDTH_IN
+    from services.top100_middle_deck import (
+        COLUMNS,
+        ROWS_PER_SLIDE,
+        append_top100_slides,
+        load_review,
+    )
+
+    data_dir = ROOT / "data" / "industry_study"
+    review = load_review(data_dir)
+    presentation = Presentation()
+    presentation.slide_width = int(SLIDE_WIDTH_IN * 914400)
+    presentation.slide_height = int(SLIDE_HEIGHT_IN * 914400)
+
+    blocos = append_top100_slides(presentation, data_dir)
+
+    assert blocos == -(-len(review) // ROWS_PER_SLIDE)
+    buffer = BytesIO()
+    presentation.save(buffer)
+    reaberto = Presentation(BytesIO(buffer.getvalue()))
+
+    total = 0
+    for slide in reaberto.slides:
+        tabelas = [shape for shape in slide.shapes if shape.has_table]
+        assert len(tabelas) == 1
+        tabela = tabelas[0].table
+        assert len(tabela.columns) == len(COLUMNS)
+        total += len(tabela.rows) - 1
+    assert total == len(review)
+
+    # A ordenação por PL é o que dá materialidade à revisão.
+    valores = review["pl_num"].dropna().tolist()
+    assert valores == sorted(valores, reverse=True)
+
+
+def test_a_planilha_do_top100_e_uma_tabela_de_excel_filtravel(tmp_path: Path) -> None:
+    """Tabela nativa, não intervalo formatado: filtro e ordenação vêm com ela."""
+
+    from openpyxl import load_workbook
+
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from build_top100_middle_review_xlsx import write_workbook  # noqa: E402
+
+    from services.top100_middle_deck import load_review
+
+    destino = tmp_path / "top100.xlsx"
+    write_workbook(load_review(ROOT / "data" / "industry_study"), destino)
+    workbook = load_workbook(destino)
+    sheet = workbook["Top 100"]
+
+    assert list(sheet.tables) == ["Top100Middle"]
+    assert sheet.freeze_panes == "C2"
+    cabecalho = [cell.value for cell in sheet[1]]
+    assert cabecalho[0] == "#" and cabecalho[-1] == "MIDDLE"
+    # A coluna de revisão só aceita Sim ou Não.
+    assert len(sheet.data_validations.dataValidation) == 1
+    assert sheet.data_validations.dataValidation[0].formula1 == '"Sim,Não"'

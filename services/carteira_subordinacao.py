@@ -576,11 +576,12 @@ def short_fund_name(name: str, *, limite: int = 28) -> str:
 def dumbbell_figure(
     frame: pd.DataFrame,
     *,
-    titulo: str = "Subordinação atual v. mínimo exigido",
+    titulo: str = "",
     subtitulo: str = "",
     rodape: str = "",
     fonte: str = "",
     destaques: int = 3,
+    rotulos: list[str] | None = None,
     figsize: tuple[float, float] = (11.2, 6.6),
     dpi: int = 200,
 ):
@@ -662,18 +663,24 @@ def dumbbell_figure(
         if "pl_mm" in data
         else []
     )
-    # Rótulos vizinhos se sobrepõem e viram borrão; exigimos um afastamento
-    # mínimo no eixo, o que também impede que a marcação atropele o texto.
-    espacamento = max(3, len(data) // 12)
-    labelled: list[int] = []
-    for index in breaches + by_size:
-        if index in labelled:
-            continue
-        if any(abs(index - taken) < espacamento for taken in labelled):
-            continue
-        labelled.append(index)
-        if len(labelled) >= max(destaques, len(breaches)):
-            break
+    if rotulos is not None:
+        # Quando o slide traz a tabela ao lado, quem nomeia é ela; o gráfico
+        # rotula apenas os CNPJs pedidos, para não virar parede de texto.
+        escolhidos = set(rotulos)
+        labelled = [i for i in data.index if data.at[i, "cnpj"] in escolhidos]
+    else:
+        # Rótulos vizinhos se sobrepõem e viram borrão; exigimos um afastamento
+        # mínimo no eixo, o que também impede que a marcação atropele o texto.
+        espacamento = max(3, len(data) // 12)
+        labelled = []
+        for index in breaches + by_size:
+            if index in labelled:
+                continue
+            if any(abs(index - taken) < espacamento for taken in labelled):
+                continue
+            labelled.append(index)
+            if len(labelled) >= max(destaques, len(breaches)):
+                break
     limite_direita = len(data) * 0.72
     for index in labelled:
         altura = max(atual[index], minimo[index])
@@ -693,33 +700,42 @@ def dumbbell_figure(
             zorder=5,
         )
 
-    figure.subplots_adjust(left=0.03, right=0.93, top=0.74, bottom=0.16)
-    # Filete vermelho, título e subtítulo — a assinatura visual do formato.
-    figure.add_artist(
-        Line2D([0.03, 0.09], [0.955, 0.955], color=COLOR_MINIMUM, linewidth=3.6,
-               transform=figure.transFigure)
+    tem_cabecalho = bool(titulo or subtitulo)
+    figure.subplots_adjust(
+        left=0.03,
+        right=0.93,
+        top=0.74 if tem_cabecalho else (0.88 if figsize[0] >= 9.5 else 0.84),
+        bottom=0.16 if (rodape or fonte) else 0.06,
     )
-    figure.text(0.03, 0.895, titulo, fontsize=16.5, fontweight="bold", color=COLOR_INK)
-    if subtitulo:
-        figure.text(0.03, 0.848, subtitulo, fontsize=11.5, color=COLOR_MUTED)
+    if tem_cabecalho:
+        # Filete vermelho, título e subtítulo — a assinatura visual do formato.
+        figure.add_artist(
+            Line2D([0.03, 0.09], [0.955, 0.955], color=COLOR_MINIMUM, linewidth=3.6,
+                   transform=figure.transFigure)
+        )
+        figure.text(0.03, 0.895, titulo, fontsize=16.5, fontweight="bold", color=COLOR_INK)
+        if subtitulo:
+            figure.text(0.03, 0.848, subtitulo, fontsize=11.5, color=COLOR_MUTED)
     figure.legend(
         handles=[
             Line2D([], [], marker="o", linestyle="none", markersize=8.6,
                    color=COLOR_HIGHER, label="O maior dos dois"),
             Line2D([], [], marker="o", linestyle="none", markersize=7.5,
-                   color=COLOR_CURRENT, label="Subordinação atual*"),
+                   color=COLOR_CURRENT, label="Subordinação atual"),
             Line2D([], [], marker="o", linestyle="none", markersize=7.5,
-                   color=COLOR_MINIMUM, label="Mínimo exigido†"),
+                   color=COLOR_MINIMUM, label="Mínimo exigido"),
             Line2D([], [], linestyle="-", linewidth=2.6, color=COLOR_GAP,
                    label="Abaixo do mínimo"),
         ],
         loc="upper left",
-        bbox_to_anchor=(0.028, 0.815),
+        bbox_to_anchor=(0.028, 0.815 if tem_cabecalho else 0.995),
         frameon=False,
-        ncol=4,
+        # Quatro entradas só cabem em uma linha numa figura larga; abaixo disso
+        # a última sai cortada pela borda.
+        ncol=4 if figsize[0] >= 9.5 else 2,
         handletextpad=0.4,
         columnspacing=1.5,
-        fontsize=10.5,
+        fontsize=10.5 if figsize[0] >= 9.5 else 8.8,
         labelcolor=COLOR_INK,
     )
     if rodape:
