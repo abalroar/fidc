@@ -211,6 +211,7 @@ def test_all_primary_views_and_chart_series_are_preserved() -> None:
         "Carteira e inadimplência",
         "Prestadores",
         "Ofertas e originação",
+        "Carteira",
         "Dados e exportações",
     )
     for removed in (
@@ -981,18 +982,23 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
     from pptx import Presentation
 
     import services.anbima_executive_export as anbima_export
+    import services.carteira_deck as carteira_deck
     import services.industry_ppt_export as ppt_export
     import services.industry_revision_export as revision_export
     from tabs.tab_industry_study import _industry_export_payloads
 
-    # The standard export is now parsed and appended to, so the stub has to be
-    # a real presentation rather than arbitrary bytes.
+    # The standard export is now parsed, rewritten and appended to, so the stub
+    # has to be a real presentation rather than arbitrary bytes — and the two
+    # steps that need the published deck's slide layout are stubbed out with it.
     empty = BytesIO()
     Presentation().save(empty)
     monkeypatch.setattr(
         ppt_export, "build_industry_pptx_bytes", lambda *_: empty.getvalue()
     )
     monkeypatch.setattr(anbima_export, "append_anbima_slides", lambda *a, **k: None)
+    monkeypatch.setattr(
+        carteira_deck, "replace_structural_slides", lambda *a, **k: 0
+    )
     monkeypatch.setattr(ppt_export, "build_industry_xlsx_bytes", lambda *_: b"xlsx")
     monkeypatch.setattr(
         revision_export, "build_revision_portfolio_xlsx_bytes", lambda *_: b"portfolio"

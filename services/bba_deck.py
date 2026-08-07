@@ -200,8 +200,17 @@ class Deck:
         slide.background.fill.fore_color.rgb = self.rgb(WHITE)
         return slide
 
-    def slide(self, title: str, kicker: str | None = None):
-        slide = self.blank()
+    def compose(self, slide, title: str, kicker: str | None = None):
+        """Draw the standard header onto ``slide``, whatever its origin.
+
+        Split out of :meth:`slide` so an existing slide can be rewritten in
+        place.  Replacing a slide by deleting and re-adding is not equivalent:
+        python-pptx hands out partnames that are already taken once the slide
+        numbering has a hole in it.
+        """
+
+        slide.background.fill.solid()
+        slide.background.fill.fore_color.rgb = self.rgb(WHITE)
         self.text(
             slide,
             kicker or self.kicker,
@@ -218,6 +227,9 @@ class Deck:
         )
         self.rule(slide, MARGIN_IN, 1.15, CONTENT_WIDTH_IN, color=GRAY_300, height=0.018)
         return slide
+
+    def slide(self, title: str, kicker: str | None = None):
+        return self.compose(self.blank(), title, kicker)
 
     def footer(self, slide, source: str) -> None:
         self.page += 1

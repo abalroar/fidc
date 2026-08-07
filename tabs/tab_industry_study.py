@@ -132,6 +132,7 @@ INDUSTRY_VIEW_TABS = (
     "Carteira e inadimplência",
     "Prestadores",
     "Ofertas e originação",
+    "Carteira",
     "Dados e exportações",
 )
 #: Os dois modos do seletor de classificação.  A ordem importa: o segundo é o
@@ -9904,12 +9905,28 @@ def _anbima_sources_signature() -> str:
     return _industry_files_signature(tuple(names) + DECK_DATA_INPUTS)
 
 
+def _carteira_registry_signature() -> str:
+    """Cache token for the subordination registry.
+
+    The registry is written by the Carteira panel, so it changes between
+    deploys: without it in the key, saving a fund would leave the deck serving
+    the previous chart.
+    """
+
+    from services.carteira_subordinacao import REGISTRY_NAME
+
+    return _industry_files_signature((REGISTRY_NAME,))
+
+
 def _industry_export_signature() -> str:
     from services.industry_revision_export import revision_export_signature
 
     bundle_signature = revision_export_signature(_DATA_DIR)
     input_signature = _industry_files_signature(_INDUSTRY_EXPORT_INPUTS)
-    return f"{bundle_signature}:{input_signature}:{_anbima_sources_signature()}"
+    return (
+        f"{bundle_signature}:{input_signature}:{_anbima_sources_signature()}"
+        f":{_carteira_registry_signature()}"
+    )
 
 
 @st.cache_data(show_spinner=False)
@@ -9934,12 +9951,17 @@ def _industry_export_payloads(
     del signature  # the value participates in Streamlit's cache key
 
     def industry_deck_with_anbima(data_dir):
-        """The standard deck with the ANBIMA ranking section appended.
+        """The standard deck, with the carteira slides swapped in and ANBIMA appended.
 
         The two decks do not share a layout/master/theme chain, so a
         package-level merge is refused.  The ranking slides are instead built
         straight into the standard presentation, which keeps every native table
         and chart wired to the file that is served.
+
+        The six structural-risk slides are replaced in the same pass, and for
+        the same reason: the published bundle is a validated binary, so the
+        substitution happens on the presentation being served rather than on
+        the file on disk.
         """
 
         from io import BytesIO
@@ -9947,8 +9969,10 @@ def _industry_export_payloads(
         from pptx import Presentation
 
         from services.anbima_executive_export import append_anbima_slides
+        from services.carteira_deck import replace_structural_slides
 
         standard = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
+        replace_structural_slides(standard, data_dir)
         append_anbima_slides(standard, data_dir)
         buffer = BytesIO()
         standard.save(buffer)
@@ -16111,6 +16135,208 @@ def _render_revision_closed_offer_placement_regime(
     )
 
 
+CARTEIRA_SUBTITLE = "Carteira 101 · FIDCs ativos · % do patrimônio líquido"
+CARTEIRA_FOOTNOTE = (
+    "*Cotas subordinadas / PL no Informe Mensal mais recente de cada fundo. "
+    "†Mínimo estrutural (subordinada + mezanino) quando o regulamento o define; "
+    "mínimo júnior nos demais."
+)
+CARTEIRA_SOURCE = "Fontes: CVM, Informe Mensal FIDC; regulamentos na FundosNet/B3."
+
+
+@st.cache_data(show_spinner=False)
+def _carteira_position(signature: str, somente_ativos: bool):
+    """A carteira resolvida, recalculada quando o registro ou o Informe mudam.
+
+    ``signature`` não é lido: ele existe para que uma gravação no registro, ou
+    uma competência nova no Informe, invalide o cache.  Sem ele o painel
+    continuaria servindo a posição anterior depois de um salvamento.
+    """
+
+    from services.carteira_subordinacao import resolve_portfolio
+
+    del signature
+    return resolve_portfolio(_DATA_DIR, somente_ativos=somente_ativos)
+
+
+def _carteira_signature() -> str:
+    """Assinatura do registro e do Informe — o que faz a posição mudar."""
+
+    from services.carteira_subordinacao import MONTHLY_NAME, registry_path
+
+    parts: list[str] = []
+    for path in (registry_path(_DATA_DIR), _DATA_DIR / MONTHLY_NAME):
+        try:
+            stat = path.stat()
+            parts.append(f"{path.name}:{stat.st_size}:{int(stat.st_mtime)}")
+        except OSError:
+            parts.append(f"{path.name}:ausente")
+    return "|".join(parts)
+
+
+def _render_carteira(payload: dict[str, object]) -> None:
+    """Subordinação atual contra o mínimo documentado, fundo a fundo."""
+
+    from services.carteira_subordinacao import (
+        ORIGEM_CARTEIRA_101,
+        ORIGEM_MANUAL,
+        RegistryError,
+        dumbbell_figure,
+        format_cnpj,
+        load_registry,
+        remove_entry,
+        save_entry,
+        seed_registry,
+        short_fund_name,
+    )
+
+    del payload
+    st.subheader("Subordinação atual v. mínimo exigido")
+    st.caption(
+        "Cada fundo entra com a sua própria competência mais recente no Informe "
+        "Mensal. Quando julho chega para parte da carteira e junho é o que existe "
+        "para o resto, o gráfico usa o dado mais novo de cada fundo — a coluna "
+        "*Competência* na tabela diz qual foi usada."
+    )
+
+    registry = load_registry(_DATA_DIR)
+    if registry.empty:
+        st.info(
+            "O registro de mínimos está vazio. A Carteira 101 pode ser semeada a "
+            "partir da curadoria documental já publicada."
+        )
+        if st.button("Semear a Carteira 101", key="carteira-seed"):
+            seeded = seed_registry(_DATA_DIR)
+            st.success(f"{len(seeded)} fundos gravados no registro.")
+            st.rerun()
+        return
+
+    somente_ativos = st.toggle(
+        "Somente fundos ativos",
+        value=True,
+        key="carteira-somente-ativos",
+        help=(
+            "Um fundo é considerado ativo quando reportou patrimônio em alguma "
+            "das últimas competências da base. Desligue para ver também os que "
+            "pararam de reportar."
+        ),
+    )
+    position = _carteira_position(_carteira_signature(), somente_ativos)
+    frame = position.frame
+    comparable = frame[frame["comparavel"]]
+
+    tipos = ["Todos"] + sorted(comparable["tipo_anbima"].dropna().unique().tolist())
+    escolhido = st.selectbox("Tipo ANBIMA", tipos, key="carteira-tipo")
+    plotted = comparable if escolhido == "Todos" else comparable[comparable["tipo_anbima"].eq(escolhido)]
+
+    breaches = int(plotted["abaixo_do_minimo"].fillna(False).sum())
+    cols = st.columns(4)
+    cols[0].metric("Fundos no gráfico", _fmt_int(len(plotted)))
+    cols[1].metric("Abaixo do mínimo", _fmt_int(breaches))
+    cols[2].metric(
+        "PL somado",
+        f"R$ {plotted['pl_mm'].sum() / 1000:,.1f} bi".replace(",", "_").replace(".", ",").replace("_", "."),
+    )
+    cols[3].metric("Competência mais recente", _competence_label(position.competencia_base))
+
+    subtitulo = (
+        f"{'Carteira 101' if escolhido == 'Todos' else escolhido}"
+        f" · {'FIDCs ativos' if somente_ativos else 'todos os FIDCs do registro'}"
+        " · % do patrimônio líquido"
+    )
+    figure = dumbbell_figure(
+        plotted,
+        subtitulo=subtitulo,
+        rodape=CARTEIRA_FOOTNOTE,
+        fonte=CARTEIRA_SOURCE,
+    )
+    st.pyplot(figure, clear_figure=True, use_container_width=True)
+
+    with st.expander("Incluir ou atualizar um FIDC", expanded=False):
+        st.caption(
+            "O CNPJ entra no mesmo registro que guarda a Carteira 101. O mínimo "
+            "é digitado aqui porque ele vem do regulamento, não do Informe: "
+            "informe o júnior isolado, o estrutural (Sub+Mez) ou ambos."
+        )
+        with st.form("carteira-incluir", clear_on_submit=False):
+            entrada = st.text_input("CNPJ do fundo", key="carteira-cnpj", placeholder="00.000.000/0001-00")
+            linha = st.columns(2)
+            minima = linha[0].number_input(
+                "Mínimo de subordinação júnior (p.p.)",
+                min_value=0.0, max_value=100.0, value=0.0, step=0.5,
+                key="carteira-minima",
+            )
+            estrutural = linha[1].number_input(
+                "Mínimo estrutural — Sub+Mez (p.p.)",
+                min_value=0.0, max_value=100.0, value=0.0, step=0.5,
+                key="carteira-estrutural",
+            )
+            fonte = st.text_input(
+                "Fonte", key="carteira-fonte",
+                placeholder="Regulamento 1157934, p. 102 · 09/04/2026",
+            )
+            responsavel = st.text_input("Quem está incluindo", key="carteira-responsavel")
+            observacao = st.text_area("Observação", key="carteira-observacao", height=68)
+            enviado = st.form_submit_button("Salvar no registro")
+        if enviado:
+            try:
+                save_entry(
+                    cnpj=entrada,
+                    subordinacao_minima_pct=minima or None,
+                    subordinacao_estrutural_pct=estrutural or None,
+                    fonte=fonte,
+                    observacao=observacao,
+                    responsavel=responsavel,
+                    origem=ORIGEM_MANUAL,
+                    data_dir=_DATA_DIR,
+                )
+            except RegistryError as exc:
+                st.error(str(exc))
+            else:
+                st.success(f"{format_cnpj(entrada)} gravado no registro.")
+                st.rerun()
+
+    display = frame.assign(
+        cnpj_formatado=frame["cnpj"].map(format_cnpj),
+        fundo_curto=frame["fundo"].map(short_fund_name),
+    )[
+        [
+            "cnpj_formatado", "fundo", "tipo_anbima", "competencia", "pl_mm",
+            "sub_atual_pct", "referencia_pct", "referencia_tipo", "folga_pp",
+            "origem", "fonte",
+        ]
+    ].rename(
+        columns={
+            "cnpj_formatado": "CNPJ",
+            "fundo": "FIDC",
+            "tipo_anbima": "Tipo ANBIMA",
+            "competencia": "Competência",
+            "pl_mm": "PL (R$ mm)",
+            "sub_atual_pct": "Subord. atual (%)",
+            "referencia_pct": "Mínimo exigido (%)",
+            "referencia_tipo": "Base do mínimo",
+            "folga_pp": "Folga (p.p.)",
+            "origem": "Origem",
+            "fonte": "Fonte do mínimo",
+        }
+    )
+    st.dataframe(display, width="stretch", hide_index=True)
+
+    with st.expander("Remover um CNPJ do registro", expanded=False):
+        alvos = registry["cnpj"].map(format_cnpj).tolist()
+        alvo = st.selectbox("CNPJ", alvos, key="carteira-remover-cnpj")
+        if st.button("Remover", key="carteira-remover"):
+            remove_entry(alvo, _DATA_DIR)
+            st.success(f"{alvo} removido.")
+            st.rerun()
+
+    manuais = int(registry["origem"].eq(ORIGEM_MANUAL).sum())
+    st.caption(
+        f"Registro: {len(registry)} fundos — {int(registry['origem'].eq(ORIGEM_CARTEIRA_101).sum())} "
+        f"da Carteira 101 e {manuais} incluídos manualmente. "
+        f"Ativo = reportou a partir de {_competence_label(position.competencia_corte_ativo)}."
+    )
+
 def _render_revision_offers(payload: dict[str, object]) -> None:
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
@@ -16863,6 +17089,7 @@ def render_tab_industry_study() -> None:
         credit_tab,
         providers_tab,
         offers_tab,
+        carteira_tab,
         audit_tab,
     ) = st.tabs(INDUSTRY_VIEW_TABS)
     with conclusions_tab:
@@ -16877,5 +17104,7 @@ def render_tab_industry_study() -> None:
         _render_revision_providers(revision_payload)
     with offers_tab:
         _render_revision_offers(revision_payload)
+    with carteira_tab:
+        _render_carteira(revision_payload)
     with audit_tab:
         _render_revision_data_exports(revision_payload, status, industry)
