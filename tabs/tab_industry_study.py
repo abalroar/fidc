@@ -9991,6 +9991,7 @@ def _industry_export_payloads(
         return buffer.getvalue()
 
     from services.middle_market_exports import (
+        build_agro_auditoria_csv_bytes,
         build_carteira101_subordinacao_xlsx_bytes,
         build_cedentes_triagem_csv_bytes,
         build_revalidacao_secoes_csv_bytes,
@@ -10007,6 +10008,7 @@ def _industry_export_payloads(
         "triagem": build_cedentes_triagem_csv_bytes,
         "revalidacao": build_revalidacao_secoes_csv_bytes,
         "subordinacao": build_carteira101_subordinacao_xlsx_bytes,
+        "auditoria_agro": build_agro_auditoria_csv_bytes,
     }
     payloads: dict[str, bytes] = {}
     failures: dict[str, str] = {}
@@ -10278,6 +10280,19 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
             "bolhas nativo do Office"
         ),
         "widget": "industry-subordinacao-xlsx",
+    },
+    {
+        "key": "auditoria_agro",
+        "group": GRUPO_BASES,
+        "label": "Auditoria Agro / Revenda",
+        "file_name": "Agro_Revenda_Auditoria_Consolidada_{period}.csv",
+        "mime": "text/csv",
+        "icon": ":material/history:",
+        "help": (
+            "Uma linha por alteração da revisão do Agro / Revenda: o que mudou, "
+            "de que valor para que valor, por quê e em que artefato"
+        ),
+        "widget": "industry-auditoria-agro-csv",
     },
 )
 

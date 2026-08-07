@@ -4,8 +4,8 @@ Cada função devolve **bytes**, e não um caminho: é isso que o botão de down
 do Streamlit consome, e é o que garante que o arquivo servido saiu da mesma
 base que a página está exibindo — nunca de um artefato antigo em disco.
 
-Os quatro artefatos vêm de três lugares distintos e não têm um construtor
-comum, então cada um traz o seu:
+Os artefatos vêm de lugares distintos e não têm um construtor comum, então cada
+um traz o seu:
 
 ``build_top100_middle_xlsx_bytes``
     A planilha de revisão do universo Middle: tabela do Excel com filtro,
@@ -21,6 +21,10 @@ comum, então cada um traz o seu:
 
 ``build_carteira101_subordinacao_xlsx_bytes``
     Subordinação atual contra o mínimo, com o gráfico de bolhas nativo.
+
+``build_agro_auditoria_csv_bytes``
+    Uma linha por alteração da revisão do Agro / Revenda — o que mudou, de que
+    valor para que valor, por quê e em que artefato.
 """
 
 from __future__ import annotations
@@ -36,10 +40,16 @@ DEFAULT_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_stud
 REVIEW_NAME = "top100_fidcs_middle_review.csv"
 TRIAGE_NAME = "top100_cedentes_middle_triagem.csv"
 REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
+AGRO_AUDIT_NAME = "agro_revenda_auditoria_consolidada.csv"
 
 #: Arquivos que estas exportações leem.  Entram na chave de cache da seção,
 #: senão uma atualização de base continuaria servindo o download anterior.
-EXPORT_DATA_INPUTS: tuple[str, ...] = (REVIEW_NAME, TRIAGE_NAME, REVALIDATION_NAME)
+EXPORT_DATA_INPUTS: tuple[str, ...] = (
+    REVIEW_NAME,
+    TRIAGE_NAME,
+    REVALIDATION_NAME,
+    AGRO_AUDIT_NAME,
+)
 
 
 def _csv_bytes(path: Path) -> bytes:
@@ -89,11 +99,17 @@ def build_carteira101_subordinacao_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR)
         return destino.read_bytes()
 
 
+def build_agro_auditoria_csv_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+    return _csv_bytes(Path(data_dir) / AGRO_AUDIT_NAME)
+
+
 __all__ = [
+    "AGRO_AUDIT_NAME",
     "EXPORT_DATA_INPUTS",
     "REVALIDATION_NAME",
     "REVIEW_NAME",
     "TRIAGE_NAME",
+    "build_agro_auditoria_csv_bytes",
     "build_carteira101_subordinacao_xlsx_bytes",
     "build_cedentes_triagem_csv_bytes",
     "build_revalidacao_secoes_csv_bytes",

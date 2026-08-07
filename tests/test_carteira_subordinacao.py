@@ -808,3 +808,45 @@ def test_a_tabela_interna_agro_esta_aplicada_na_base_publicada() -> None:
             registro.subordinacao_minima_pct
         )
         assert frame.at[registro.cnpj, "minimo_fonte"] != "leitura documental automática"
+
+
+def test_a_auditoria_consolidada_rastreia_cada_alteracao_da_revisao() -> None:
+    """Uma auditoria tem de achar, numa planilha só, cada mudança que fizemos."""
+
+    from scripts.build_agro_revenda_auditoria_consolidada import construir
+
+    data_dir = ROOT / "data" / "industry_study"
+    tabela = construir(data_dir)
+
+    # Toda linha diz o que mudou e por quê — uma auditoria sem motivo não serve.
+    assert tabela["id"].is_unique
+    assert tabela["motivo"].str.strip().ne("").all()
+    assert tabela["campo_alterado"].str.strip().ne("").all()
+
+    # As doze estruturas da tabela interna aparecem, uma a uma.
+    reconciliacao = tabela[tabela["tipo_de_alteracao"].eq("Reconciliação da tabela interna")]
+    assert len(reconciliacao) == 12
+
+    # A única divergência real de mínimo é rastreável de ponta a ponta.
+    divergencia = tabela[tabela["tipo_de_alteracao"].eq("Override do mínimo (divergência)")]
+    assert len(divergencia) == 1
+    assert divergencia.iloc[0]["cnpj"] == "58171340000165"
+    assert (divergencia.iloc[0]["valor_anterior"], divergencia.iloc[0]["valor_novo"]) == (
+        "1.0",
+        "20.0",
+    )
+
+    # E a folga que ela move está na tabela, não só no gráfico.
+    folga = tabela[tabela["tipo_de_alteracao"].eq("Folga recalculada")]
+    assert list(folga["cnpj"]) == ["58171340000165"]
+    assert (folga.iloc[0]["valor_anterior"], folga.iloc[0]["valor_novo"]) == ("20.0", "1.0")
+
+    # Os três fundos incluídos trazem a classificação e o motivo dela.
+    classificacao = tabela[tabela["tipo_de_alteracao"].eq("Classificação estrutural")]
+    assert set(classificacao["cnpj"]) == {
+        "52720932000102",
+        "45829624000154",
+        "28472392000100",
+    }
+    brf = classificacao[classificacao["cnpj"].eq("52720932000102")].iloc[0]
+    assert brf["valor_novo"] == "Risco Corporativo"
