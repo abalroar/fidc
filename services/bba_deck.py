@@ -279,13 +279,25 @@ class Deck:
         emphasis_rows: tuple[int, ...] = (),
         emphasis_fill: str = ORANGE,
         emphasis_color: str = WHITE,
+        cell_fills: dict[tuple[int, int], str] | None = None,
+        cell_colors: dict[tuple[int, int], str] | None = None,
+        bold_rows: tuple[int, ...] = (),
     ):
         """Insert a real PowerPoint table — editable, with addable rows/columns.
 
         Unlike a grid of text boxes, this is a single object the reader can
         select, restyle, sort, or paste into Excel, and into which rows and
         columns can be inserted with the normal Office commands.
+
+        ``cell_fills`` and ``cell_colors`` paint individual cells, keyed by
+        ``(row, column)`` with the header as row 0.  They are what conditional
+        formatting is built from: the colour rides on the cell, so editing the
+        number in PowerPoint keeps the cell — the reader just has to repaint it
+        if the band changes.
         """
+
+        cell_fills = cell_fills or {}
+        cell_colors = cell_colors or {}
 
         row_count = len(rows)
         column_count = len(rows[0])
@@ -335,13 +347,16 @@ class Deck:
                     fill_color = ORANGE_LIGHT
                 else:
                     fill_color = WHITE
+                fill_color = cell_fills.get((row_index, column_index), fill_color)
                 cell.fill.fore_color.rgb = self.rgb(fill_color)
                 paragraph = cell.text_frame.paragraphs[0]
                 paragraph.alignment = alignment(column_index)
                 run = paragraph.runs[0] if paragraph.runs else paragraph.add_run()
                 run.font.name = FONT
                 run.font.size = Pt(size - 1 if is_header else size)
-                run.font.bold = is_header or is_house or is_emphasis
+                run.font.bold = (
+                    is_header or is_house or is_emphasis or row_index in bold_rows
+                )
                 if is_header:
                     text_color = header_color
                 elif is_emphasis:
@@ -350,6 +365,7 @@ class Deck:
                     text_color = BLACK
                 else:
                     text_color = GRAY_900
+                text_color = cell_colors.get((row_index, column_index), text_color)
                 run.font.color.rgb = self.rgb(text_color)
                 _set_cell_borders(
                     cell,

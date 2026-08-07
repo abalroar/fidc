@@ -9913,9 +9913,10 @@ def _carteira_registry_signature() -> str:
     the previous chart.
     """
 
-    from services.carteira_subordinacao import REGISTRY_NAME
+    from services.carteira_subordinacao import REGISTRY_NAME, TAXONOMY_NAME
+    from services.top100_middle_deck import REVIEW_NAME
 
-    return _industry_files_signature((REGISTRY_NAME,))
+    return _industry_files_signature((REGISTRY_NAME, TAXONOMY_NAME, REVIEW_NAME))
 
 
 def _industry_export_signature() -> str:
@@ -9961,7 +9962,7 @@ def _industry_export_payloads(
         The six structural-risk slides are replaced in the same pass, and for
         the same reason: the published bundle is a validated binary, so the
         substitution happens on the presentation being served rather than on
-        the file on disk.
+        the file on disk.  The Top 100 review tables close the deck.
         """
 
         from io import BytesIO
@@ -9970,10 +9971,12 @@ def _industry_export_payloads(
 
         from services.anbima_executive_export import append_anbima_slides
         from services.carteira_deck import replace_structural_slides
+        from services.top100_middle_deck import append_top100_slides
 
         standard = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
         replace_structural_slides(standard, data_dir)
         append_anbima_slides(standard, data_dir)
+        append_top100_slides(standard, data_dir)
         buffer = BytesIO()
         standard.save(buffer)
         return buffer.getvalue()

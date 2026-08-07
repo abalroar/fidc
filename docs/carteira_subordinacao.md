@@ -111,12 +111,53 @@ exatamente o que abre esse buraco. O pacote sairia com dois
 `ppt/slides/slideN.xml`. `tests/test_carteira_subordinacao.py` guarda essa
 propriedade explicitamente.
 
-No lugar dos seis entram: um slide consolidado e um por **categoria
-estrutural** — a mesma taxonomia que dava nome aos slides originais. São sete
-gráficos para seis slots; o excedente **nasce no fim do deck e é movido** para
-depois deles. Acrescentar é seguro: só remover abriria buraco na numeração.
+No lugar dos seis entram seis: um por **categoria estrutural**, a mesma
+taxonomia que dava nome aos slides originais. Cada slide traz o gráfico à
+esquerda e, à direita, **uma tabela nativa do Office** com todos os veículos
+daquele gráfico.
 
-Sobrando slot, ele recebe o consolidado restrito a quem está abaixo do mínimo.
+O gráfico nomeia só quem está abaixo do mínimo e os maiores por PL; a tabela é
+quem garante que nenhum FIDC fique sem identificação. Ela é um objeto de tabela
+de verdade — dá para ordenar, editar e colar no Excel.
+
+| coluna | conteúdo |
+| --- | --- |
+| FIDC | nome curto do veículo |
+| Mínimo (%) | mínimo estrutural quando existe; júnior nos demais |
+| Atual (%) | subordinação da competência escolhida |
+| Folga (p.p.) | **atual − mínimo**, uma casa decimal |
+
+Ordenação: **PL do maior para o menor**, e a folga desempata pelo mais próximo
+do limite. A cor da folga é sinalização de risco, e só isso — sem ícone, sem
+forma, sem decoração:
+
+| banda | folga |
+| --- | --- |
+| verde | ≥ 5,0 p.p. |
+| amarelo | entre 2,0 e 5,0 p.p. |
+| vermelho | < 2,0 p.p., inclusive negativa |
+
+Os três maiores PLs do slide levam um cinza claríssimo na coluna do nome — o
+destaque de materialidade fica longe da coluna da folga para não competir com
+a sinalização de risco.
+
+Passando de `MAX_ROWS_PER_SLIDE` linhas, a tabela continua num slide adicional
+da mesma categoria, em vez de encolher a fonte.
+
+O PNG do gráfico não desenha mais título nem subtítulo: o slide já os tem, e
+repeti-los era ruído.
+
+## Top 100 para revisão do universo Middle
+
+`services/top100_middle_deck.py` fecha o deck com a lista dos cem maiores por
+PL, em blocos de `ROWS_PER_SLIDE` linhas, cada bloco numa tabela nativa. A base
+é `top100_fidcs_middle_review.csv`, e a mesma base gera
+`outputs/top100_middle/Top100_FIDCs_Revisao_Middle.xlsx` — ali a aba é uma
+**tabela do Excel** (ListObject), com filtro, ordenação e lista suspensa
+Sim/Não na coluna `MIDDLE`.
+
+Oito dos cem nunca reportaram patrimônio e fecham a lista, identificados como
+tal em vez de receberem um número inventado.
 
 ## A taxonomia
 
