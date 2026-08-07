@@ -310,6 +310,22 @@ A categoria do override vem por último, depois da revalidação documental. É 
 única camada que enxerga o que o documento não diz — e, quando classifica
 contra a evidência, o motivo registrado explica por quê.
 
+### Mínimo condicional
+
+Alguns regulamentos dão **dois** mínimos: um em operação normal e outro que só
+passa a valer numa condição — tipicamente o run-off. A leitura automática captura
+o número que o documento enuncia com mais destaque, que nem sempre é o vigente.
+
+`subordinacao_minima_pct` traz o que vale hoje e entra na folga;
+`subordinacao_minima_condicional_pct` guarda o outro, com a `condicao` que o
+dispara, e sai na carteira resolvida como `minimo_condicional_pct` e
+`minimo_condicao`.
+
+O MCPO é o caso: 0% em operação normal e 20% em run-off. A extração pegou os 20%
+e media a folga contra eles, acusando −20,0 p.p. num fundo enquadrado — e a
+subordinação de 0% observada havia nove meses, com o quadro de cotas íntegro, era
+o regime normal, não uma falha de reporte.
+
 ### Auditoria consolidada
 
 `data/industry_study/agro_revenda_auditoria_consolidada.csv`, gerado por
