@@ -47,6 +47,7 @@ CURATION_NAME = "industry_carteira_1_document_curation.csv"
 SCOPE_NAME = "industry_carteira_1_scope.csv"
 CLASSIFICATION_NAME = "industry_anbima_classification.csv.gz"
 TAXONOMY_NAME = "carteira_taxonomia_estrutural.csv"
+REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
 NAO_CLASSIFICADO = "Não classificado"
 
 REGISTRY_COLUMNS: tuple[str, ...] = (
@@ -416,6 +417,24 @@ def _structural_taxonomy(data_dir: Path) -> dict[str, str]:
     return frame.set_index("cnpj")["categoria_estrutural"].to_dict()
 
 
+def _revalidation(data_dir: Path) -> pd.DataFrame:
+    """A revalidação documental das seções, se materializada.
+
+    Traz a categoria que o regulamento sustenta e a marca de
+    multicedente/multissacado.  Ausente o arquivo, a carteira segue com a
+    taxonomia vigente — o painel não depende da revalidação para funcionar.
+    """
+
+    path = Path(data_dir) / REVALIDATION_NAME
+    if not path.exists():
+        return pd.DataFrame(
+            columns=["cnpj", "categoria_documental", "status", "multi_flag"]
+        ).set_index("cnpj")
+    frame = pd.read_csv(path, dtype=str).fillna("")
+    frame["cnpj"] = frame["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
+    return frame.drop_duplicates("cnpj").set_index("cnpj")
+
+
 def _classification(data_dir: Path) -> pd.DataFrame:
     registry = pd.read_csv(Path(data_dir) / CLASSIFICATION_NAME, dtype=str)
     by_fund = registry.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
@@ -457,6 +476,22 @@ def resolve_portfolio(
         merged["cnpj"].map(taxonomia).replace("N/D", NAO_CLASSIFICADO)
         .fillna(NAO_CLASSIFICADO)
     )
+    revalidacao = _revalidation(data_dir)
+    # Onde o regulamento diverge da taxonomia vigente, quem manda é o
+    # documento: a seção descreve o sacado e o recebível, e é o regulamento que
+    # os define.  Sem evidência, a vigente permanece.
+    documental = merged["cnpj"].map(revalidacao.get("categoria_documental", pd.Series(dtype=str)))
+    merged["categoria_documental"] = documental.fillna("")
+    merged["revalidacao_status"] = merged["cnpj"].map(
+        revalidacao.get("status", pd.Series(dtype=str))
+    ).fillna("sem documento")
+    tem_documental = merged["categoria_documental"].astype(str).str.len().gt(0)
+    merged.loc[tem_documental, "categoria_estrutural"] = merged.loc[
+        tem_documental, "categoria_documental"
+    ]
+    merged["multi_flag"] = merged["cnpj"].map(
+        revalidacao.get("multi_flag", pd.Series(dtype=str))
+    ).fillna("")
     merged["foco_anbima"] = (
         merged["cnpj"].map(by_fund["foco_anbima"])
         .fillna(merged["cnpj"].map(by_class["foco_anbima"]))
@@ -913,6 +948,8 @@ __all__ = [
     "ORIGEM_MANUAL",
     "REGISTRY_COLUMNS",
     "REGISTRY_NAME",
+    "REVALIDATION_NAME",
+    "TAXONOMY_NAME",
     "COLOR_CURRENT",
     "COLOR_GAP",
     "COLOR_HIGHER",
