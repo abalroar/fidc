@@ -16294,123 +16294,36 @@ def _carteira_signature() -> str:
     return "|".join(parts)
 
 
-PROVISAO_FOOTNOTES = {
-    "pdd": (
-        "PDD é a redução ao valor recuperável da Tabela I do Informe Mensal, "
-        "somados os direitos creditórios com e sem coobrigação."
-    ),
-    "inad": (
-        "Inadimplência são os direitos creditórios inadimplentes da Tabela I do "
-        "Informe Mensal, somados os blocos com e sem coobrigação."
-    ),
-}
-PROVISAO_DENOMINADOR = (
-    "O denominador é a carteira de direitos creditórios da mesma competência. "
-    "Quocientes acima de 100% aparecem em fundos em run-off, onde a carteira "
-    "remanescente já está quase toda provisionada ou vencida."
-)
-
-
-def _render_carteira_provisao(frame, categoria: str) -> None:
-    """Carteira em barras e PDD (ou inadimplência) sobre carteira em pontos."""
+def _render_carteira_provisao(frame) -> None:
+    """PDD sobre inadimplência, uma barra por fundo, com seletor de seções."""
 
     from services.carteira_provisao import (
-        REPORTADO,
-        SEM_DADO,
-        ZERO_DECLARADO,
-        altair_carteira_pdd,
+        COM_COBERTURA,
         attach_provisao,
-        cobertura,
-        por_categoria,
+        altair_cobertura,
     )
     from services.carteira_subordinacao import short_fund_name
 
     dados = attach_provisao(frame, _DATA_DIR)
-    st.subheader("Carteira de crédito, PDD e inadimplência")
+    st.subheader("PDD / Inadimplência")
 
-    indicador = st.radio(
-        "Indicador no eixo secundário",
-        ("PDD / Carteira", "Inadimplência / Carteira"),
-        horizontal=True,
-        key="carteira-provisao-indicador",
+    secoes = sorted(dados["categoria_estrutural"].dropna().unique().tolist())
+    escolhidas = st.multiselect(
+        "Seções no gráfico",
+        secoes,
+        default=secoes,
+        key="carteira-cobertura-secoes",
     )
-    chave = "pdd" if indicador.startswith("PDD") else "inad"
-    prefixo = "pdd" if chave == "pdd" else "inad"
+    recorte = dados[dados["categoria_estrutural"].isin(escolhidas or secoes)]
+    recorte = recorte.assign(rotulo=recorte["fundo"].map(short_fund_name))
 
-    conta = cobertura(dados)
-    reportam = conta[f"{prefixo}_reportada"]
-    zeros = conta[f"{prefixo}_zero"]
-    sem = conta[f"{prefixo}_sem_dado"]
-    cols = st.columns(4)
-    cols[0].metric("Fundos na seleção", _fmt_int(conta["fundos"]))
-    cols[1].metric(
-        "Reportam valor positivo",
-        _fmt_int(reportam),
-        help="Declararam um valor maior que zero na competência usada.",
-    )
-    cols[2].metric(
-        "Declaram zero",
-        _fmt_int(zeros),
-        help=(
-            "A CVM não deixa o campo em branco na Tabela I: zero é uma "
-            "declaração do fundo, não uma lacuna."
-        ),
-    )
-    cols[3].metric(
-        "Sem informe",
-        _fmt_int(sem),
-        help="Sem carteira de direitos creditórios na competência — o quociente não existe.",
-    )
-
-    # Com a carteira inteira em tela, o corte por seção é o que se lê primeiro:
-    # seis barras contra oitenta e três.  O detalhe fundo a fundo vem embaixo.
-    if categoria == "Todos":
-        st.caption("Por seção — quociente da soma, não média dos quocientes.")
-        st.altair_chart(
-            altair_carteira_pdd(
-                por_categoria(dados),
-                indicador=chave,
-                height=300,
-                largura_por_barra=150,
-                largura_minima=900,
-            ),
-            width="content",
-        )
-
-    detalhe = dados.assign(rotulo=dados["fundo"].map(short_fund_name))
+    sem_denominador = int(recorte["cobertura_estado"].ne(COM_COBERTURA).sum())
+    st.altair_chart(altair_cobertura(recorte), width="content")
     st.caption(
-        f"Fundo a fundo, ordenado pela carteira. Ponto cheio = {REPORTADO}; "
-        f"ponto vazado = {ZERO_DECLARADO}; “s/d” no rodapé = {SEM_DADO}. "
-        "Triângulo no topo marca quem passa do teto do eixo, com o valor real ao lado."
+        f"Barra cortada em 200%; o rótulo traz o valor real. {sem_denominador} "
+        "fundos sem inadimplência a cobrir ficam de fora. "
+        "Fonte: CVM, Informe Mensal FIDC."
     )
-    st.altair_chart(
-        altair_carteira_pdd(detalhe, indicador=chave), width="content"
-    )
-    st.caption(
-        f"{PROVISAO_FOOTNOTES[chave]} {PROVISAO_DENOMINADOR} {CARTEIRA_SOURCE}"
-    )
-
-    with st.expander("Ver a tabela por trás do gráfico", expanded=False):
-        tabela = detalhe[
-            [
-                "rotulo", "categoria_estrutural", "competencia", "carteira_mm",
-                "pdd_mm", "pdd_sobre_carteira_pct", "pdd_estado",
-                "inad_sobre_carteira_pct", "inad_estado",
-            ]
-        ].rename(
-            columns={
-                "rotulo": "FIDC",
-                "categoria_estrutural": "Categoria",
-                "competencia": "Competência",
-                "carteira_mm": "Carteira (R$ mm)",
-                "pdd_mm": "PDD (R$ mm)",
-                "pdd_sobre_carteira_pct": "PDD / carteira (%)",
-                "pdd_estado": "PDD — estado",
-                "inad_sobre_carteira_pct": "Inadimplência / carteira (%)",
-                "inad_estado": "Inadimplência — estado",
-            }
-        )
-        st.dataframe(tabela, width="stretch", hide_index=True)
 
 
 def _render_carteira(payload: dict[str, object]) -> None:
@@ -16494,8 +16407,7 @@ def _render_carteira(payload: dict[str, object]) -> None:
     st.caption(f"{CARTEIRA_FOOTNOTE} {CARTEIRA_SOURCE}")
 
     st.divider()
-    _render_carteira_provisao(plotted, escolhido)
-    st.divider()
+    _render_carteira_provisao(plotted)
 
     with st.expander("Incluir ou atualizar um FIDC", expanded=False):
         st.caption(
