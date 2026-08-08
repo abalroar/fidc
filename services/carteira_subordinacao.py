@@ -329,24 +329,47 @@ class PortfolioPosition:
     competencia_corte_ativo: str
 
 
+#: O que a subordinação exige da base mensal.
+_MONTHLY_REQUIRED: tuple[str, ...] = (
+    "competencia",
+    "cnpj",
+    "denominacao",
+    "pl",
+    "subordinacao_pct",
+    "vl_cotas_total",
+    "vl_cotas_subordinadas",
+)
+#: Carteira de crédito e inadimplência não entram na subordinação, mas viajam
+#: com a competência escolhida — é contra elas que a PDD é lida.  São opcionais
+#: porque uma base mínima continua servindo para o gráfico de subordinação.
+_MONTHLY_OPTIONAL: tuple[str, ...] = ("carteira_dc", "dc_inadimplentes")
+
+
 def _latest_monthly(data_dir: Path) -> pd.DataFrame:
+    caminho = Path(data_dir) / MONTHLY_NAME
+    disponiveis = set(
+        pd.read_csv(caminho, nrows=0, low_memory=False).columns
+    )
+    opcionais = [c for c in _MONTHLY_OPTIONAL if c in disponiveis]
     monthly = pd.read_csv(
-        Path(data_dir) / MONTHLY_NAME,
+        caminho,
         dtype={"cnpj": str},
-        usecols=[
-            "competencia",
-            "cnpj",
-            "denominacao",
-            "pl",
-            "subordinacao_pct",
-            "vl_cotas_total",
-            "vl_cotas_subordinadas",
-        ],
+        usecols=[*_MONTHLY_REQUIRED, *opcionais],
         low_memory=False,
     )
+    for coluna in _MONTHLY_OPTIONAL:
+        if coluna not in monthly.columns:
+            monthly[coluna] = np.nan
     monthly["competencia"] = monthly["competencia"].astype(str)
     monthly["cnpj"] = monthly["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
-    for column in ("pl", "subordinacao_pct", "vl_cotas_total", "vl_cotas_subordinadas"):
+    for column in (
+        "pl",
+        "subordinacao_pct",
+        "vl_cotas_total",
+        "vl_cotas_subordinadas",
+        "carteira_dc",
+        "dc_inadimplentes",
+    ):
         monthly[column] = pd.to_numeric(monthly[column], errors="coerce")
 
     # Só uma competência em que o fundo de fato reportou patrimônio conta como
