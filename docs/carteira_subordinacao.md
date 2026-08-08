@@ -345,55 +345,47 @@ o que o pipeline publica em vez de fossilizar um retrato antigo.
 
 Sai pelo botão *Auditoria Agro / Revenda*, em Dados e exportações.
 
-## Carteira de crédito, PDD e inadimplência
+## PDD / Inadimplência
 
 `services/carteira_provisao.py`, base em
 `data/industry_study/carteira_provisao_monthly.csv.gz`, gerada por
 `scripts/build_carteira_provisao.py`.
 
-Carteira de direitos creditórios e inadimplência já vêm no `vehicle_monthly`
-que a carteira lê. A provisão não: ela mora na Tabela I do Informe Mensal, no
-campo *redução ao valor recuperável* (`TAB_I2A11_VL_REDUCAO_RECUP` e o par sem
-coobrigação `TAB_I2B11_*`), e a PDD do fundo é a soma dos dois blocos.
+A inadimplência já vem no `vehicle_monthly` que a carteira lê. A provisão não:
+ela mora na Tabela I do Informe Mensal, no campo *redução ao valor recuperável*
+(`TAB_I2A11_VL_REDUCAO_RECUP` e o par sem coobrigação `TAB_I2B11_*`), e a PDD do
+fundo é a soma dos dois blocos.
 
-O join é por **`(cnpj, competencia)`**, não só por CNPJ. A carteira mistura
-meses de propósito — cada fundo entra com o seu mais recente —, e casar a PDD de
-junho com a carteira de março de um fundo que parou de reportar produziria um
-quociente que nunca existiu.
+O join é por **`(cnpj, competencia)`**, não só por CNPJ. A carteira mistura meses
+de propósito — cada fundo entra com o seu mais recente —, e casar a PDD de junho
+com a inadimplência de março inventaria um quociente que nunca existiu.
 
-### Zero declarado não é ausência
+A leitura é uma só: **PDD ÷ inadimplência**, com o limiar em 100%. Abaixo dele o
+fundo provisionou menos do que já venceu, e a barra fica vermelha; daí para cima,
+verde-azulada. O par vale ΔE 14,9 em deuteranopia, e a linha tracejada dos 100%
+reforça a leitura sem depender da cor.
 
-A CVM **nunca deixa o campo em branco** na Tabela I. Um fundo que não provisiona
-reporta `0`, e isso é uma declaração. A base separa três estados:
+### O que não tem denominador
 
-| estado | o que significa | como aparece no gráfico |
-| --- | --- | --- |
-| `reportado` | valor positivo declarado | ponto cheio |
-| `zero declarado` | o fundo declarou zero | ponto vazado, no eixo |
-| `sem informe` | sem carteira de direitos creditórios na competência | sem ponto; `s/d` no rodapé |
+| estado | o que significa |
+| --- | --- |
+| `com cobertura` | tem inadimplência; entra no gráfico |
+| `sem inadimplência` | tem carteira, nada em atraso — não existe quociente |
+| `sem carteira` | sem carteira de direitos creditórios na competência |
 
-Um fundo sem carteira não vira 0% de PDD: o quociente não existe, e uma barra de
-altura zero com ponto em zero mentiria duas vezes. Ele sai do gráfico e continua
-contado no cartão *Sem informe*.
+Um fundo sem atraso **não** é um fundo sem cobertura. Ele sai do gráfico e é
+contado na legenda de rodapé, em vez de virar uma barra em zero.
 
-### Sobre o eixo duplo
+### O teto de 200%
 
-O gráfico põe a carteira em barras e o quociente em pontos, em escalas
-separadas. Eixo duplo é reconhecidamente arriscado — o alinhamento das duas
-escalas é arbitrário e pode sugerir uma correlação que não está no dado. As três
-defesas aqui:
+A distribuição é dominada por denominadores minúsculos: há fundo com R$ 30 mil de
+PDD sobre R$ 121 de inadimplência, o que dá 24.884%. Cobertura de 300% e de
+24.000% dizem a mesma coisa — amplamente provisionado —, e a segunda esmaga todas
+as outras barras contra o chão.
 
-- **as duas escalas ancoradas em zero**, então nenhuma leitura depende de onde a
-  outra começa;
-- **séries separadas por forma**, barra contra ponto, e não só por cor;
-- **os dois eixos empilhados do mesmo lado**, para que continuem visíveis quando
-  o gráfico é largo o bastante para rolar horizontalmente.
-
-Quocientes acima de 100% são reais e aparecem em fundos em run-off, cuja carteira
-remanescente já está quase toda provisionada. Um único extremo achataria os
-outros oitenta contra o zero, então `limite_do_eixo` corta a escala no percentil
-90 folgado — e o que passa dele não some: vira triângulo no topo, com o valor
-verdadeiro escrito ao lado.
+A barra para em `TETO_PCT`; **o rótulo em cima traz o número verdadeiro**. É por
+isso que o rótulo vai em todas as barras, e não só nas notáveis: ele é o que
+devolve o que o teto corta.
 
 ### Recarregar
 

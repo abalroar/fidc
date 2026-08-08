@@ -1,4 +1,4 @@
-"""Carteira de crédito, PDD e inadimplência: o que é zero e o que é ausência."""
+"""Cobertura de PDD sobre inadimplência: o que tem denominador e o que não tem."""
 
 from __future__ import annotations
 
@@ -15,35 +15,37 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from services.carteira_provisao import (  # noqa: E402
+    COM_COBERTURA,
+    LIMIAR_PCT,
     PROVISAO_NAME,
-    REPORTADO,
-    SEM_DADO,
-    ZERO_DECLARADO,
-    altair_carteira_pdd,
+    SEM_CARTEIRA,
+    SEM_INADIMPLENCIA,
+    TETO_PCT,
+    altair_cobertura,
     attach_provisao,
     chart_frame,
-    cobertura,
-    limite_do_eixo,
-    por_categoria,
+    formatar_pct,
 )
 
-COM_PDD = "11111111000191"
-SEM_PDD = "22222222000172"
-SEM_CARTEIRA = "33333333000153"
-OUTRA_COMPETENCIA = "44444444000134"
+COBERTO = "11111111000191"
+DESCOBERTO = "22222222000172"
+SEM_ATRASO = "33333333000153"
+SEM_DC = "44444444000134"
+MARCO = "55555555000115"
 
 
 @pytest.fixture()
 def data_dir(tmp_path: Path) -> Path:
     pd.DataFrame(
         [
-            {"competencia": "2026-06", "cnpj": COM_PDD, "pdd_brl": 20e6},
-            {"competencia": "2026-06", "cnpj": SEM_PDD, "pdd_brl": 0.0},
-            {"competencia": "2026-06", "cnpj": SEM_CARTEIRA, "pdd_brl": 0.0},
+            {"competencia": "2026-06", "cnpj": COBERTO, "pdd_brl": 12e6},
+            {"competencia": "2026-06", "cnpj": DESCOBERTO, "pdd_brl": 1e6},
+            {"competencia": "2026-06", "cnpj": SEM_ATRASO, "pdd_brl": 0.0},
+            {"competencia": "2026-06", "cnpj": SEM_DC, "pdd_brl": 0.0},
             # O fundo que ficou em março tem PDD nas duas competências; só a
             # dele pode ser usada.
-            {"competencia": "2026-03", "cnpj": OUTRA_COMPETENCIA, "pdd_brl": 5e6},
-            {"competencia": "2026-06", "cnpj": OUTRA_COMPETENCIA, "pdd_brl": 900e6},
+            {"competencia": "2026-03", "cnpj": MARCO, "pdd_brl": 2e6},
+            {"competencia": "2026-06", "cnpj": MARCO, "pdd_brl": 900e6},
         ]
     ).to_csv(tmp_path / PROVISAO_NAME, index=False, compression="gzip")
     return tmp_path
@@ -51,145 +53,151 @@ def data_dir(tmp_path: Path) -> Path:
 
 @pytest.fixture()
 def carteira() -> pd.DataFrame:
+    def linha(cnpj, nome, competencia, categoria, carteira, inad):
+        return {
+            "cnpj": cnpj, "fundo": nome, "competencia": competencia,
+            "categoria_estrutural": categoria,
+            "carteira_dc": carteira, "dc_inadimplentes": inad,
+        }
+
     return pd.DataFrame(
         [
-            {
-                "cnpj": COM_PDD, "fundo": "FIDC Com PDD", "competencia": "2026-06",
-                "categoria_estrutural": "Financeiro",
-                "carteira_dc": 100e6, "dc_inadimplentes": 4e6,
-            },
-            {
-                "cnpj": SEM_PDD, "fundo": "FIDC Sem PDD", "competencia": "2026-06",
-                "categoria_estrutural": "Financeiro",
-                "carteira_dc": 50e6, "dc_inadimplentes": 0.0,
-            },
-            {
-                "cnpj": SEM_CARTEIRA, "fundo": "FIDC Sem Carteira",
-                "competencia": "2026-06", "categoria_estrutural": "Adquirência",
-                "carteira_dc": 0.0, "dc_inadimplentes": 0.0,
-            },
-            {
-                "cnpj": OUTRA_COMPETENCIA, "fundo": "FIDC Março",
-                "competencia": "2026-03", "categoria_estrutural": "Adquirência",
-                "carteira_dc": 25e6, "dc_inadimplentes": 1e6,
-            },
+            linha(COBERTO, "FIDC Coberto", "2026-06", "Financeiro", 100e6, 8e6),
+            linha(DESCOBERTO, "FIDC Descoberto", "2026-06", "Financeiro", 90e6, 5e6),
+            linha(SEM_ATRASO, "FIDC Sem Atraso", "2026-06", "Adquirência", 50e6, 0.0),
+            linha(SEM_DC, "FIDC Sem Carteira", "2026-06", "Adquirência", 0.0, 0.0),
+            linha(MARCO, "FIDC Março", "2026-03", "Agro / Revenda", 40e6, 4e6),
         ]
     )
 
 
-def test_zero_declarado_nao_e_a_mesma_coisa_que_ausencia(
+def test_a_cobertura_e_pdd_sobre_inadimplencia(
     carteira: pd.DataFrame, data_dir: Path
 ) -> None:
-    """O campo nunca vem em branco na Tabela I: zero é declaração do fundo."""
+    frame = attach_provisao(carteira, data_dir).set_index("cnpj")
+
+    assert frame.at[COBERTO, "cobertura_pct"] == pytest.approx(150.0)
+    assert frame.at[DESCOBERTO, "cobertura_pct"] == pytest.approx(20.0)
+
+
+def test_sem_inadimplencia_nao_e_cobertura_zero(
+    carteira: pd.DataFrame, data_dir: Path
+) -> None:
+    """Um fundo sem atraso não é um fundo sem cobertura — falta denominador."""
 
     frame = attach_provisao(carteira, data_dir).set_index("cnpj")
 
-    assert frame.at[COM_PDD, "pdd_estado"] == REPORTADO
-    assert frame.at[SEM_PDD, "pdd_estado"] == ZERO_DECLARADO
-    assert frame.at[SEM_PDD, "pdd_sobre_carteira_pct"] == pytest.approx(0.0)
-    # Sem carteira o quociente não existe — e não vale zero.
-    assert frame.at[SEM_CARTEIRA, "pdd_estado"] == SEM_DADO
-    assert np.isnan(frame.at[SEM_CARTEIRA, "pdd_sobre_carteira_pct"])
+    assert frame.at[SEM_ATRASO, "cobertura_estado"] == SEM_INADIMPLENCIA
+    assert np.isnan(frame.at[SEM_ATRASO, "cobertura_pct"])
+    assert frame.at[SEM_DC, "cobertura_estado"] == SEM_CARTEIRA
+    assert frame.at[COBERTO, "cobertura_estado"] == COM_COBERTURA
 
 
 def test_a_pdd_vem_da_competencia_do_proprio_fundo(
     carteira: pd.DataFrame, data_dir: Path
 ) -> None:
-    """Casar junho com a carteira de março inventaria um quociente."""
+    """Casar junho com a inadimplência de março inventaria um quociente."""
 
     frame = attach_provisao(carteira, data_dir).set_index("cnpj")
 
-    assert frame.at[OUTRA_COMPETENCIA, "pdd_mm"] == pytest.approx(5.0)
-    assert frame.at[OUTRA_COMPETENCIA, "pdd_sobre_carteira_pct"] == pytest.approx(20.0)
+    assert frame.at[MARCO, "pdd_mm"] == pytest.approx(2.0)
+    assert frame.at[MARCO, "cobertura_pct"] == pytest.approx(50.0)
 
 
-def test_a_cobertura_conta_os_tres_estados(
+def test_so_entra_no_grafico_quem_tem_denominador(
     carteira: pd.DataFrame, data_dir: Path
 ) -> None:
-    conta = cobertura(attach_provisao(carteira, data_dir))
-
-    assert conta["fundos"] == 4
-    assert conta["pdd_reportada"] == 2
-    assert conta["pdd_zero"] == 1
-    assert conta["pdd_sem_dado"] == 1
-    assert conta["inad_reportada"] == 2
-    assert conta["inad_zero"] == 1
-    assert conta["inad_sem_dado"] == 1
-
-
-def test_a_seção_usa_o_quociente_da_soma(
-    carteira: pd.DataFrame, data_dir: Path
-) -> None:
-    """A média dos quocientes daria o mesmo peso a R$ 25 mm e a R$ 100 mm."""
-
-    grupos = por_categoria(attach_provisao(carteira, data_dir)).set_index(
-        "categoria_estrutural"
-    )
-
-    # Financeiro: (20 + 0) / (100 + 50).
-    assert grupos.at["Financeiro", "pdd_sobre_carteira_pct"] == pytest.approx(
-        20.0 / 150.0 * 100
-    )
-    # Adquirência: só o fundo de março tem carteira.
-    assert grupos.at["Adquirência", "pdd_sobre_carteira_pct"] == pytest.approx(20.0)
-
-
-def test_quem_nao_tem_carteira_sai_do_grafico(
-    carteira: pd.DataFrame, data_dir: Path
-) -> None:
-    """Uma barra de altura zero com ponto em zero mentiria duas vezes."""
-
     frame = attach_provisao(carteira, data_dir)
     dados = chart_frame(frame.assign(rotulo=frame["fundo"]))
 
-    assert SEM_CARTEIRA not in set(dados["cnpj"])
-    # E a ordem é a da carteira, do maior para o menor.
-    assert dados["carteira_mm"].is_monotonic_decreasing
+    assert set(dados["cnpj"]) == {COBERTO, DESCOBERTO, MARCO}
+    # Da maior cobertura para a menor.
+    assert dados["cobertura_pct"].is_monotonic_decreasing
 
 
-def test_o_teto_do_eixo_so_entra_quando_ha_extremo() -> None:
-    """Sem outlier o eixo fica inteiro; com outlier o resto não pode achatar."""
+def test_a_barra_para_no_teto_mas_o_rotulo_nao(data_dir: Path) -> None:
+    """Coberturas de 300% e de 24.000% dizem a mesma coisa; o número não some."""
 
-    parelho = pd.Series([10.0, 12.0, 9.0, 11.0, 13.0, 10.5])
-    assert limite_do_eixo(parelho) is None
+    extremo = pd.DataFrame(
+        [
+            {
+                "cnpj": COBERTO, "fundo": "FIDC Extremo", "competencia": "2026-06",
+                "categoria_estrutural": "Financeiro",
+                "carteira_dc": 100e6, "dc_inadimplentes": 1e3,
+            }
+        ]
+    )
+    frame = attach_provisao(extremo, data_dir)
+    linha = chart_frame(frame.assign(rotulo=frame["fundo"])).iloc[0]
 
-    com_extremo = pd.Series([1.0, 2.0, 3.0, 2.5, 1.5, 276.0])
-    teto = limite_do_eixo(com_extremo)
-    assert teto is not None and teto < 276.0
+    assert linha["cobertura_pct"] > TETO_PCT
+    assert linha["altura_pct"] == pytest.approx(TETO_PCT)
+    assert linha["etiqueta"] == formatar_pct(linha["cobertura_pct"])
+    assert "1.200.000" in linha["etiqueta"]
 
 
-def test_o_grafico_marca_o_que_passa_do_teto(
+def test_a_faixa_muda_no_limiar_de_cem(
     carteira: pd.DataFrame, data_dir: Path
 ) -> None:
-    """O ponto sai da escala, não do gráfico: vira triângulo com o valor."""
+    frame = attach_provisao(carteira, data_dir)
+    dados = chart_frame(frame.assign(rotulo=frame["fundo"])).set_index("cnpj")
+
+    assert dados.at[COBERTO, "faixa"] != dados.at[DESCOBERTO, "faixa"]
+    assert dados.at[COBERTO, "cobertura_pct"] >= LIMIAR_PCT
+    assert dados.at[DESCOBERTO, "cobertura_pct"] < LIMIAR_PCT
+
+
+def test_o_rotulo_cabe_sobre_a_barra() -> None:
+    """Separador de milhar brasileiro, e decimal só onde ele informa."""
+
+    assert formatar_pct(0.0) == "0,0%"
+    assert formatar_pct(3.14) == "3,1%"
+    assert formatar_pct(150.0) == "150%"
+    assert formatar_pct(24883.86) == "24.884%"
+
+
+def test_todo_fundo_do_grafico_tem_nome_e_rotulo(
+    carteira: pd.DataFrame, data_dir: Path
+) -> None:
+    """Nada de rotular só os notáveis: era o pedido, e é o que o teto exige."""
 
     frame = attach_provisao(carteira, data_dir)
-    grafico = altair_carteira_pdd(frame.assign(rotulo=frame["fundo"]))
+    dados = frame.assign(rotulo=frame["fundo"])
+    grafico = altair_cobertura(dados)
     spec = grafico.to_dict()
 
-    # Barra, ponto, triângulo, rótulo do triângulo e a marca de sem informe.
-    assert len(spec["layer"]) == 5
-    assert spec["resolve"]["scale"]["y"] == "independent"
-    # As duas escalas ancoradas em zero — é o que torna o eixo duplo defensável.
-    for camada in spec["layer"][:2]:
-        assert camada["encoding"]["y"]["scale"].get("domainMin") == 0 or camada[
-            "encoding"
-        ]["y"]["scale"].get("domain", [None])[0] == 0
+    # Limiar, barras e etiquetas — uma camada de texto para todas as barras.
+    assert len(spec["layer"]) == 3
+    texto = spec["layer"][2]
+    assert texto["mark"]["type"] == "text"
+    assert texto["encoding"]["text"]["field"] == "etiqueta"
+    # A etiqueta lê o mesmo dado que a barra: uma por barra, e não uma seleção
+    # de notáveis.
+    barras = spec["layer"][1]
+    assert texto["data"] == barras["data"]
+    nome = barras["data"]["name"]
+    assert len(spec["datasets"][nome]) == len(chart_frame(dados))
+    # E o eixo categórico não esconde nome nenhum: sem labels=False e sem
+    # truncar em poucos caracteres.
+    eixo = barras["encoding"]["x"]["axis"]
+    assert eixo.get("labels", True) is not False
+    assert eixo["labelLimit"] >= 200
 
 
-def test_sem_base_de_pdd_o_grafico_ainda_sobe(carteira: pd.DataFrame, tmp_path: Path) -> None:
-    """A base é opcional: sem ela a carteira aparece e a PDD fica sem informe."""
+def test_sem_base_de_pdd_a_cobertura_fica_em_zero(
+    carteira: pd.DataFrame, tmp_path: Path
+) -> None:
+    """A base é opcional: sem ela o gráfico sobe, com cobertura zerada."""
 
     frame = attach_provisao(carteira, tmp_path)
 
     assert frame["pdd_brl"].isna().all()
-    assert set(frame["pdd_estado"]) == {SEM_DADO}
-    # A inadimplência não depende da base de PDD e continua lida.
-    assert frame.set_index("cnpj").at[COM_PDD, "inad_estado"] == REPORTADO
+    assert frame.set_index("cnpj").at[COBERTO, "cobertura_pct"] == pytest.approx(0.0)
+    assert frame.set_index("cnpj").at[SEM_ATRASO, "cobertura_estado"] == SEM_INADIMPLENCIA
 
 
 def test_a_base_publicada_cobre_a_carteira_ativa() -> None:
-    """Um fundo da carteira sem PDD materializada apareceria como lacuna falsa."""
+    """Um fundo sem PDD materializada apareceria como cobertura zero falsa."""
 
     from services.carteira_subordinacao import resolve_portfolio
 

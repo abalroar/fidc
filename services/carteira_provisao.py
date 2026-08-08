@@ -1,27 +1,26 @@
-"""Carteira de direitos creditórios, PDD e inadimplência dos fundos da carteira.
+"""Cobertura de PDD sobre a inadimplência, fundo a fundo.
 
-O Informe Mensal traz os três números, mas em lugares diferentes: carteira e
-inadimplência já vêm no ``vehicle_monthly`` que a carteira lê, e a provisão sai
-da Tabela I, no campo *redução ao valor recuperável*, materializada por
+Carteira de direitos creditórios e inadimplência já vêm no ``vehicle_monthly``
+que a carteira lê.  A provisão não: ela sai da Tabela I do Informe Mensal, no
+campo *redução ao valor recuperável*, materializada por
 ``scripts/build_carteira_provisao.py``.
 
-O que este módulo faz é juntá-los **na competência que cada fundo usa** — a
-carteira mistura meses de propósito, cada fundo entra com o seu mais recente —
-e separar três coisas que um gráfico ingênuo confunde:
+A leitura é uma só — **PDD ÷ inadimplência** —, e o limiar é 100%: abaixo dele o
+fundo provisionou menos do que já venceu.
 
-``reportado``
-    o fundo declarou um valor positivo;
+Duas coisas o quociente não consegue dizer, e o módulo separa em vez de fingir
+que valem zero:
 
-``zero declarado``
-    o fundo declarou zero, o que é uma informação e não uma lacuna: a CVM nunca
-    deixa o campo em branco na Tabela I;
+``sem inadimplência``
+    o fundo tem carteira mas nada inadimplente.  Não existe denominador, e um
+    fundo sem atraso não é um fundo sem cobertura.
 
-``sem informe``
-    o fundo não consta da competência, ou não tem carteira de direitos
-    creditórios — e aí o quociente não existe, em vez de valer zero.
+``sem carteira``
+    o fundo não tem carteira de direitos creditórios na competência usada.
 
-Um fundo sem carteira não vira 0% de PDD: vira ausência.  Essa distinção é a
-razão de o módulo existir.
+O join com a PDD é por ``(cnpj, competencia)``: a carteira mistura meses de
+propósito — cada fundo entra com o seu mais recente —, e casar a PDD de junho
+com a inadimplência de março inventaria um quociente que nunca existiu.
 """
 
 from __future__ import annotations
@@ -35,26 +34,31 @@ import pandas as pd
 DEFAULT_DATA_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 PROVISAO_NAME = "carteira_provisao_monthly.csv.gz"
 
-#: Os três estados que um indicador pode ter, na ordem em que a legenda os lê.
-REPORTADO = "reportado"
-ZERO_DECLARADO = "zero declarado"
-SEM_DADO = "sem informe"
-ESTADOS = (REPORTADO, ZERO_DECLARADO, SEM_DADO)
+COM_COBERTURA = "com cobertura"
+SEM_INADIMPLENCIA = "sem inadimplência"
+SEM_CARTEIRA = "sem carteira"
 
-#: A barra é contexto de escala e fica neutra de propósito; o ponto é a
-#: mensagem e é o único elemento com cor própria.  A separação também é de
-#: forma — barra contra ponto —, então a identidade nunca depende só da cor.
-COLOR_CARTEIRA = "#8892A0"
-COLOR_PDD = "#1D6FA5"
-COLOR_INAD = "#B4532A"
+#: O limiar que a barra tem de deixar óbvio: abaixo de 100% o fundo provisionou
+#: menos do que já venceu.
+LIMIAR_PCT = 100.0
+
+#: O teto do eixo.  Coberturas de 300% e de 24.000% dizem a mesma coisa —
+#: amplamente provisionado —, e a segunda esmaga todas as outras barras contra o
+#: chão.  A barra para no teto; o rótulo em cima traz o número verdadeiro.
+TETO_PCT = 200.0
+
+#: Vermelho para quem está abaixo do limiar, verde-azulado para quem alcança.
+#: O par vale ΔE 14,9 em deuteranopia, bem acima do piso, e a posição contra a
+#: linha de 100% reforça a leitura sem depender da cor.
+COLOR_ABAIXO = "#C8102E"
+COLOR_ACIMA = "#17A398"
 COLOR_INK = "#12151A"
 COLOR_MUTED = "#6B7178"
 COLOR_GRID = "#E4E6E8"
 SURFACE = "#FFFFFF"
 
-SERIE_CARTEIRA = "Carteira de direitos creditórios"
-SERIE_PDD = "PDD / Carteira"
-SERIE_INAD = "Inadimplência / Carteira"
+SERIE_ABAIXO = "Abaixo de 100%"
+SERIE_ACIMA = "100% ou mais"
 
 
 def load_provisao(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
@@ -70,29 +74,10 @@ def load_provisao(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
     return frame.drop_duplicates(["competencia", "cnpj"], keep="last")
 
 
-def _estado(valor: pd.Series, base: pd.Series) -> pd.Series:
-    """Reportado, zero declarado ou sem informe — nessa ordem de decisão."""
-
-    return pd.Series(
-        np.where(
-            base.isna() | base.le(0) | valor.isna(),
-            SEM_DADO,
-            np.where(valor.gt(0), REPORTADO, ZERO_DECLARADO),
-        ),
-        index=valor.index,
-        dtype=object,
-    )
-
-
 def attach_provisao(
     frame: pd.DataFrame, data_dir: Path = DEFAULT_DATA_DIR
 ) -> pd.DataFrame:
-    """A carteira resolvida com carteira de crédito, PDD e inadimplência.
-
-    O join é por ``(cnpj, competencia)``, e não só por CNPJ: casar a PDD de
-    junho com a carteira de março de um fundo que parou de reportar produziria
-    um quociente que nunca existiu.
-    """
+    """A carteira resolvida com PDD, inadimplência e a cobertura entre as duas."""
 
     provisao = load_provisao(data_dir)
     saida = frame.copy()
@@ -109,281 +94,154 @@ def attach_provisao(
 
     saida["carteira_mm"] = saida["carteira_dc"] / 1e6
     saida["pdd_mm"] = saida["pdd_brl"] / 1e6
-    base = saida["carteira_dc"].where(saida["carteira_dc"].gt(0))
-    saida["pdd_sobre_carteira_pct"] = saida["pdd_brl"] / base * 100.0
-    saida["inad_sobre_carteira_pct"] = saida["dc_inadimplentes"] / base * 100.0
-    saida["pdd_estado"] = _estado(saida["pdd_brl"], saida["carteira_dc"])
-    saida["inad_estado"] = _estado(saida["dc_inadimplentes"], saida["carteira_dc"])
+    saida["inad_mm"] = saida["dc_inadimplentes"] / 1e6
+
+    tem_carteira = saida["carteira_dc"].fillna(0).gt(0)
+    tem_inad = saida["dc_inadimplentes"].fillna(0).gt(0)
+    saida["cobertura_pct"] = (
+        saida["pdd_brl"].fillna(0.0)
+        / saida["dc_inadimplentes"].where(tem_inad)
+        * 100.0
+    )
+    saida["cobertura_estado"] = np.where(
+        ~tem_carteira,
+        SEM_CARTEIRA,
+        np.where(tem_inad, COM_COBERTURA, SEM_INADIMPLENCIA),
+    )
     return saida
 
 
-def cobertura(frame: pd.DataFrame) -> dict[str, int]:
-    """Quantos fundos reportam cada coisa — o cabeçalho honesto do gráfico."""
+def formatar_pct(valor: float) -> str:
+    """O rótulo da barra: curto o bastante para caber sobre ela.
 
-    return {
-        "fundos": int(len(frame)),
-        "com_carteira": int(frame["carteira_dc"].fillna(0).gt(0).sum()),
-        "inad_reportada": int(frame["inad_estado"].eq(REPORTADO).sum()),
-        "inad_zero": int(frame["inad_estado"].eq(ZERO_DECLARADO).sum()),
-        "inad_sem_dado": int(frame["inad_estado"].eq(SEM_DADO).sum()),
-        "pdd_reportada": int(frame["pdd_estado"].eq(REPORTADO).sum()),
-        "pdd_zero": int(frame["pdd_estado"].eq(ZERO_DECLARADO).sum()),
-        "pdd_sem_dado": int(frame["pdd_estado"].eq(SEM_DADO).sum()),
-    }
-
-
-def por_categoria(frame: pd.DataFrame) -> pd.DataFrame:
-    """A mesma leitura agregada por seção, com quociente ponderado.
-
-    A média dos quocientes de cada fundo daria peso igual a um fundo de R$ 5 mm
-    e a outro de R$ 5 bi.  O quociente da soma é o que a seção de fato carrega.
+    Abaixo de dez, uma casa decimal; daí para cima, inteiro com separador de
+    milhar — ``24.884%`` ocupa o mesmo espaço que ``0,4%``.
     """
 
-    grupos = frame.groupby("categoria_estrutural", as_index=False).agg(
-        carteira_dc=("carteira_dc", "sum"),
-        pdd_brl=("pdd_brl", "sum"),
-        dc_inadimplentes=("dc_inadimplentes", "sum"),
-        fundos=("cnpj", "count"),
-        pdd_reportada=("pdd_estado", lambda s: int(s.eq(REPORTADO).sum())),
-        inad_reportada=("inad_estado", lambda s: int(s.eq(REPORTADO).sum())),
-    )
-    base = grupos["carteira_dc"].where(grupos["carteira_dc"].gt(0))
-    grupos["carteira_mm"] = grupos["carteira_dc"] / 1e6
-    grupos["pdd_mm"] = grupos["pdd_brl"] / 1e6
-    grupos["pdd_sobre_carteira_pct"] = grupos["pdd_brl"] / base * 100.0
-    grupos["inad_sobre_carteira_pct"] = grupos["dc_inadimplentes"] / base * 100.0
-    grupos["pdd_estado"] = _estado(grupos["pdd_brl"], grupos["carteira_dc"])
-    grupos["inad_estado"] = _estado(grupos["dc_inadimplentes"], grupos["carteira_dc"])
-    grupos["rotulo"] = grupos["categoria_estrutural"]
-    return grupos.sort_values("carteira_mm", ascending=False).reset_index(drop=True)
+    if valor is None or pd.isna(valor):
+        return "—"
+    if valor < 10:
+        return f"{valor:.1f}%".replace(".", ",")
+    return f"{valor:,.0f}%".replace(",", ".")
 
 
-def chart_frame(
-    frame: pd.DataFrame, *, rotulo: str = "rotulo", indicador: str = "pdd"
-) -> pd.DataFrame:
-    """O formato longo que o gráfico consome, já ordenado por carteira."""
+def chart_frame(frame: pd.DataFrame, *, rotulo: str = "rotulo") -> pd.DataFrame:
+    """Só quem tem cobertura definida, da maior para a menor."""
 
-    coluna = "pdd_sobre_carteira_pct" if indicador == "pdd" else "inad_sobre_carteira_pct"
-    estado = "pdd_estado" if indicador == "pdd" else "inad_estado"
-    serie = SERIE_PDD if indicador == "pdd" else SERIE_INAD
-
-    data = frame[frame["carteira_dc"].fillna(0).gt(0)].copy()
-    data = data.sort_values("carteira_mm", ascending=False).reset_index(drop=True)
+    data = frame[frame["cobertura_estado"].eq(COM_COBERTURA)].copy()
     data["rotulo"] = data[rotulo]
-    data["quociente_pct"] = data[coluna].fillna(0.0)
-    data["estado"] = data[estado]
-    data["serie"] = serie
-    # Um zero declarado é plotado no zero, com marca vazada: ele está no eixo
-    # porque o fundo disse zero, não porque o dado sumiu.
-    data["preenchido"] = data["estado"].eq(REPORTADO)
+    data = data.sort_values("cobertura_pct", ascending=False).reset_index(drop=True)
+    data["faixa"] = np.where(
+        data["cobertura_pct"].ge(LIMIAR_PCT), SERIE_ACIMA, SERIE_ABAIXO
+    )
+    # A barra para no teto; o rótulo em cima continua trazendo o número real.
+    data["altura_pct"] = data["cobertura_pct"].clip(upper=TETO_PCT)
+    data["etiqueta"] = data["cobertura_pct"].map(formatar_pct)
     return data
 
 
-def limite_do_eixo(valores: pd.Series) -> float | None:
-    """Até onde o eixo do quociente vai antes de um outlier achatar o resto.
-
-    Um fundo em run-off com PDD de 276% da carteira estica a escala e deixa os
-    outros oitenta e dois colados no zero.  O corte só entra quando o extremo é
-    de fato desproporcional, e o que passa dele não é escondido: vira triângulo
-    no topo, com o valor escrito ao lado.
-    """
-
-    limpos = valores.dropna()
-    limpos = limpos[limpos.gt(0)]
-    if len(limpos) < 5:
-        return None
-    # ``lower`` em vez de interpolar: numa amostra pequena o próprio outlier
-    # entra na interpolação do percentil e esconde que ele é um outlier.
-    p90 = float(limpos.quantile(0.90, interpolation="lower"))
-    topo = float(limpos.max())
-    if p90 <= 0 or topo <= p90 * 2.5:
-        return None
-    return float(np.ceil(p90 * 1.25))
-
-
-def altair_carteira_pdd(
+def altair_cobertura(
     frame: pd.DataFrame,
     *,
     rotulo: str = "rotulo",
-    indicador: str = "pdd",
-    height: int = 360,
-    largura_por_barra: int = 20,
+    height: int = 420,
+    largura_por_barra: int = 48,
     largura_minima: int = 560,
 ):
-    """Carteira em barras e o quociente em pontos, no eixo secundário.
-
-    O eixo secundário é o que a leitura de crédito pede: volume e taxa lado a
-    lado, fundo a fundo.  Ele carrega o risco conhecido de sugerir correlação
-    pelo alinhamento arbitrário das escalas, e a defesa aqui é tripla — as duas
-    escalas ancoradas em zero, as séries separadas por **forma** (barra contra
-    ponto) e não só por cor, e os dois eixos empilhados do mesmo lado, para que
-    continuem visíveis quando o gráfico é largo o bastante para rolar.
-    """
+    """Uma barra por fundo, com o nome e o valor sempre visíveis."""
 
     import altair as alt
 
-    data = chart_frame(frame, rotulo=rotulo, indicador=indicador)
+    data = chart_frame(frame, rotulo=rotulo)
     if data.empty:
         return alt.Chart(pd.DataFrame({"x": [0], "y": [0]})).mark_text(
-            text="Nenhum fundo desta seleção reporta carteira de direitos creditórios.",
+            text="Nenhum fundo desta seleção tem inadimplência para cobrir.",
             color=COLOR_MUTED,
             size=13,
         ).encode().properties(height=height)
 
-    cor_ponto = COLOR_PDD if indicador == "pdd" else COLOR_INAD
-    titulo_ponto = SERIE_PDD if indicador == "pdd" else SERIE_INAD
     ordem = data["rotulo"].tolist()
     largura = max(largura_minima, len(ordem) * largura_por_barra)
-
-    # O extremo é mantido no gráfico, mas no topo e escrito: sem o corte, um
-    # fundo em run-off achata os outros oitenta e dois contra o zero.
-    teto = limite_do_eixo(data["quociente_pct"])
-    data["excede"] = False if teto is None else data["quociente_pct"].gt(teto)
-    data["plotado_pct"] = (
-        data["quociente_pct"] if teto is None else data["quociente_pct"].clip(upper=teto)
-    )
-    escala_ponto = alt.Scale(domainMin=0, nice=True) if teto is None else alt.Scale(
-        domain=[0, teto], nice=False, clamp=True
-    )
-
     eixo_x = alt.X(
         "rotulo:N",
         sort=ordem,
         title=None,
         axis=alt.Axis(
             labelAngle=-45,
-            labelLimit=140,
-            labelFontSize=9,
-            labelColor=COLOR_MUTED,
+            labelLimit=200,
+            labelFontSize=10,
+            labelColor=COLOR_INK,
+            # Sem isto o Vega esconde um nome sim, outro não, assim que eles se
+            # encostam — e o pedido é que todo fundo apareça nomeado.
+            labelOverlap=False,
             ticks=False,
             domainColor=COLOR_INK,
         ),
     )
+    eixo_y = alt.Y(
+        "altura_pct:Q",
+        title="PDD / Inadimplência (%)",
+        scale=alt.Scale(domain=[0, TETO_PCT], nice=False, clamp=True),
+        axis=alt.Axis(
+            gridColor=COLOR_GRID,
+            domain=False,
+            ticks=False,
+            labelColor=COLOR_MUTED,
+            values=[0, 50, 100, 150, 200],
+        ),
+    )
+    cor = alt.Color(
+        "faixa:N",
+        scale=alt.Scale(
+            domain=[SERIE_ABAIXO, SERIE_ACIMA], range=[COLOR_ABAIXO, COLOR_ACIMA]
+        ),
+        legend=alt.Legend(title=None, orient="top", direction="horizontal"),
+    )
     dicas = [
         alt.Tooltip("rotulo:N", title="FIDC"),
+        alt.Tooltip("categoria_estrutural:N", title="categoria"),
         alt.Tooltip("competencia:N", title="competência"),
-        alt.Tooltip("carteira_mm:Q", title="carteira R$ mm", format=",.1f"),
-        alt.Tooltip("pdd_mm:Q", title="PDD R$ mm", format=",.1f"),
-        alt.Tooltip("pdd_sobre_carteira_pct:Q", title="PDD / carteira %", format=",.2f"),
-        alt.Tooltip(
-            "inad_sobre_carteira_pct:Q", title="inadimplência / carteira %", format=",.2f"
-        ),
-        alt.Tooltip("estado:N", title="estado do dado"),
+        alt.Tooltip("pdd_mm:Q", title="PDD R$ mm", format=",.2f"),
+        alt.Tooltip("inad_mm:Q", title="inadimplência R$ mm", format=",.2f"),
+        alt.Tooltip("cobertura_pct:Q", title="cobertura %", format=",.1f"),
     ]
     dicas = [d for d in dicas if d.shorthand.split(":")[0] in data.columns]
 
-    # Uma fresta de superfície entre barras vizinhas: coladas, elas viram um
-    # histograma e sugerem continuidade entre fundos que não têm nenhuma.
     barras = (
         alt.Chart(data)
-        .mark_bar(color=COLOR_CARTEIRA, size=max(4, int(largura_por_barra * 0.62)))
-        .encode(
-            x=eixo_x,
-            y=alt.Y(
-                "carteira_mm:Q",
-                title="Carteira de direitos creditórios (R$ mm)",
-                scale=alt.Scale(domainMin=0, nice=True),
-                axis=alt.Axis(
-                    gridColor=COLOR_GRID,
-                    domain=False,
-                    ticks=False,
-                    titleColor=COLOR_CARTEIRA,
-                    labelColor=COLOR_MUTED,
-                    labelFontSize=9,
-                ),
-            ),
-            tooltip=dicas,
-        )
+        .mark_bar(size=max(6, int(largura_por_barra * 0.62)))
+        .encode(x=eixo_x, y=eixo_y, color=cor, tooltip=dicas)
     )
-    eixo_quociente = alt.Y(
-        "plotado_pct:Q",
-        title=f"{titulo_ponto} (%)",
-        scale=escala_ponto,
-        axis=alt.Axis(
-            grid=False,
-            domain=False,
-            ticks=False,
-            orient="left",
-            offset=92,
-            # O título do segundo eixo sai deitado, acima da escala: dois
-            # títulos girados no mesmo canto se sobrepõem e viram um borrão.
-            titleAngle=0,
-            titleAlign="left",
-            titleBaseline="bottom",
-            titleX=-92,
-            titleY=-8,
-            titleColor=cor_ponto,
-            labelColor=COLOR_MUTED,
-            labelFontSize=9,
-        ),
-    )
-    pontos = (
+    # O rótulo vai em todas as barras, e não só nas notáveis: é ele que devolve
+    # o número que o teto do eixo corta.
+    etiquetas = (
         alt.Chart(data)
-        .mark_point(size=90, strokeWidth=1.8, stroke=cor_ponto)
-        .encode(
-            x=eixo_x,
-            y=eixo_quociente,
-            # Reportado é ponto cheio; zero declarado é vazado, e a diferença
-            # entre "declarou zero" e "não declarou" não fica só na cor.
-            fill=alt.Fill(
-                "preenchido:N",
-                scale=alt.Scale(domain=[True, False], range=[cor_ponto, SURFACE]),
-                legend=None,
-            ),
-            tooltip=dicas,
-        )
-        .transform_filter(alt.datum.estado != SEM_DADO)
-        .transform_filter(alt.datum.excede == False)  # noqa: E712 — Vega precisa do literal
+        .mark_text(dy=-6, fontSize=9, color=COLOR_INK, baseline="bottom")
+        .encode(x=eixo_x, y=eixo_y, text="etiqueta:N", tooltip=dicas)
     )
-    # Quem passa do teto vira triângulo no topo, com o valor real escrito: o
-    # ponto sai da escala, não do gráfico.
-    acima = (
-        alt.Chart(data)
-        .mark_point(size=110, shape="triangle-up", filled=True, color=cor_ponto)
-        .encode(x=eixo_x, y=eixo_quociente, tooltip=dicas)
-        .transform_filter(alt.datum.excede == True)  # noqa: E712
-    )
-    acima_texto = (
-        alt.Chart(data)
-        .mark_text(dy=-11, fontSize=9, fontWeight="bold", color=cor_ponto)
-        .encode(
-            x=eixo_x,
-            y=eixo_quociente,
-            text=alt.Text("quociente_pct:Q", format=",.0f"),
-            tooltip=dicas,
-        )
-        .transform_filter(alt.datum.excede == True)  # noqa: E712
-    )
-    # Onde não há informe o ponto não é plotado em lugar nenhum — some do eixo,
-    # e a marca no rodapé diz que o buraco é de dado, não de valor.
-    ausentes = (
-        alt.Chart(data)
-        .mark_text(text="s/d", dy=8, fontSize=8, color=COLOR_MUTED, baseline="top")
-        .encode(x=eixo_x, y=alt.value(height - 4), tooltip=dicas)
-        .transform_filter(alt.datum.estado == SEM_DADO)
+    limiar = (
+        alt.Chart(pd.DataFrame({"y": [LIMIAR_PCT]}))
+        .mark_rule(strokeDash=[4, 3], strokeWidth=1, color=COLOR_INK)
+        .encode(y=alt.Y("y:Q", title=None, scale=alt.Scale(domain=[0, TETO_PCT])))
     )
     return (
-        alt.layer(barras, pontos, acima, acima_texto, ausentes)
-        .resolve_scale(y="independent")
-        .properties(height=height, width=largura, padding={"top": 22, "right": 20})
+        alt.layer(limiar, barras, etiquetas)
+        .properties(height=height, width=largura, padding={"top": 10, "right": 16})
     )
 
 
 __all__ = [
-    "COLOR_CARTEIRA",
-    "COLOR_INAD",
-    "COLOR_PDD",
-    "ESTADOS",
+    "COLOR_ABAIXO",
+    "COLOR_ACIMA",
+    "COM_COBERTURA",
+    "LIMIAR_PCT",
     "PROVISAO_NAME",
-    "REPORTADO",
-    "SEM_DADO",
-    "SERIE_INAD",
-    "SERIE_PDD",
-    "ZERO_DECLARADO",
-    "altair_carteira_pdd",
+    "SEM_CARTEIRA",
+    "SEM_INADIMPLENCIA",
+    "TETO_PCT",
+    "altair_cobertura",
     "attach_provisao",
     "chart_frame",
-    "cobertura",
+    "formatar_pct",
     "load_provisao",
-    "por_categoria",
 ]
