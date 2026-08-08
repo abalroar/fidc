@@ -450,8 +450,16 @@ otimista — ou seja, o teste é, nessa margem, benevolente.
 
 ### A lâmina
 
-Uma só, no fim do deck: o gráfico de cobertura em cima, os fundos abaixo de 100%
-em duas tranches embaixo, folga negativa em vermelho e o aporte ao lado.
+Uma só, **logo depois dos slides de índices de subordinação** (posição
+`REPLACED_SLIDE_RANGE[1] + 1`): o gráfico de cobertura em cima, os fundos abaixo
+de 100% em duas tranches embaixo, folga negativa em vermelho e o aporte ao lado.
+
+Ela é **acrescentada no fim e só então reposicionada** — o `next_partname` do
+python-pptx devolve nomes de parte já ocupados quando a numeração deixa de ser
+contígua, e inserir no meio abriria esse buraco. O que muda é a ordem dos
+`sldId` no XML; as partes ficam onde estão. Como os números de página são caixas
+de texto escritas na montagem, e não campos do PowerPoint, `_mover_para`
+renumera tudo o que vem adiante.
 
 A tabela de apuração — quem não declarou PDD, inadimplência ou as duas — fica
 **fora da área projetada**, à direita do limite da lâmina, no mesmo arquivo. Ela

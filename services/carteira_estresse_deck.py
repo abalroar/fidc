@@ -43,14 +43,20 @@ from services.carteira_provisao import (
     cobertura_figure,
     figure_png_bytes,
 )
+from services.carteira_deck import REPLACED_SLIDE_RANGE
 from services.carteira_subordinacao import resolve_portfolio, short_fund_name
 
 KICKER = "CARTEIRA 101 · PROVISÃO NÃO RECONHECIDA"
+
+#: A lâmina fecha o bloco de subordinação, logo após os índices de sub v. mínimo.
+_, ULTIMO_SLIDE_ESTRUTURAL = REPLACED_SLIDE_RANGE
 
 CHART_TOP_IN = 1.24
 CHART_HEIGHT_IN = 2.24
 TABLE_TOP_IN = 3.78
 TRANCHE_GAP_IN = 0.05
+#: Onde o número de página mora no rodapé padrão do deck.
+PAGINA_X_IN = 12.25
 #: FIDC · cobertura · déficit · subordinação pós · folga pós · aporte.
 TRANCHE_COLUMNS = (2.02, 0.70, 0.82, 0.82, 0.80, 0.84)
 TABLE_HEADER = (
@@ -207,6 +213,59 @@ def _tabela_apuracao(deck: Deck, slide, pendentes: pd.DataFrame) -> None:
     )
 
 
+def _caixa_de_pagina(slide):
+    """A caixinha do número de página, achada pela geometria do rodapé."""
+
+    for forma in slide.shapes:
+        if not forma.has_text_frame:
+            continue
+        texto = forma.text_frame.text.strip()
+        if (
+            texto.isdigit()
+            and forma.top > Inches(6.8)
+            and abs(forma.left - Inches(PAGINA_X_IN)) < Inches(0.3)
+        ):
+            return forma, int(texto)
+    return None, None
+
+
+def _mover_para(presentation, depois_do_slide: int) -> None:
+    """Leva a última lâmina para logo depois de ``depois_do_slide`` (1-based).
+
+    A lâmina é **acrescentada** e só então reposicionada, porque o
+    ``next_partname`` do python-pptx devolve nomes de parte já ocupados quando a
+    numeração deixa de ser contígua — inserir no meio abriria esse buraco.  Aqui
+    o que muda é apenas a ordem dos ``sldId`` no XML: as partes ficam onde estão,
+    e o pacote continua íntegro.
+
+    Depois da mudança de ordem, os números de página de tudo que vem adiante
+    andam um.  Eles não são campos do PowerPoint, e sim caixas de texto escritas
+    na montagem, então quem insere no meio tem de corrigi-los.
+    """
+
+    ids = presentation.slides._sldIdLst
+    elementos = list(ids)
+    if len(elementos) <= depois_do_slide:
+        return
+    ids.remove(elementos[-1])
+    ids.insert(depois_do_slide, elementos[-1])
+
+    # O número da lâmina anterior manda; a numeração publicada não é igual à
+    # posição (há lâminas sem número), então o que se preserva é a sequência.
+    _, anterior = _caixa_de_pagina(presentation.slides[depois_do_slide - 1])
+    for posicao, slide in enumerate(presentation.slides):
+        if posicao < depois_do_slide:
+            continue
+        caixa, numero = _caixa_de_pagina(slide)
+        if caixa is None:
+            continue
+        if posicao == depois_do_slide:
+            novo = (anterior or depois_do_slide) + 1
+        else:
+            novo = numero + 1
+        caixa.text_frame.paragraphs[0].runs[0].text = str(novo)
+
+
 def append_stress_slide(presentation, data_dir: Path):
     """Acrescenta a lâmina do teste de estresse ao fim da apresentação."""
 
@@ -235,16 +294,19 @@ def append_stress_slide(presentation, data_dir: Path):
         Inches(CHART_HEIGHT_IN),
     )
 
+    # O racional em uma linha: a carteira do Informe já é líquida de PDD, então o
+    # que falta reconhecer é o que sobra da inadimplência, e ele consome a júnior.
     deck.text(
         slide,
-        "Δ = inadimplência − PDD é abatido da classe subordinada e do total de cotas. "
-        f"Aporte somado para reenquadrar os {len(quebram)}: R$ {_brl_mm(aporte_total)} mm.",
+        "Δ = Inadimplência − PDD (o que falta provisionar). Reconhecido, sai da "
+        "subordinada e do total de cotas: Sub pós = (Sub − Δ) ÷ (Total − Δ). "
+        f"Aporte para reenquadrar os {len(quebram)}: R$ {_brl_mm(aporte_total)} mm.",
         MARGIN_IN,
         CHART_TOP_IN + CHART_HEIGHT_IN + 0.06,
         CONTENT_WIDTH_IN,
         0.24,
-        size=8.5,
-        color=GRAY_700,
+        size=9,
+        color=GRAY_900,
     )
 
     metade = (len(teste) + 1) // 2
@@ -269,6 +331,7 @@ def append_stress_slide(presentation, data_dir: Path):
         "e regulamentos na FundosNet/B3. A carteira reportada já é líquida de PDD; a "
         "provisão é tratada como integralmente alocada aos créditos inadimplentes.",
     )
+    _mover_para(presentation, ULTIMO_SLIDE_ESTRUTURAL)
     return presentation
 
 
