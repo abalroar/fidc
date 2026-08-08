@@ -1041,6 +1041,7 @@ def test_every_export_button_is_declared_with_a_payload_key() -> None:
         "revalidacao",
         "subordinacao",
         "auditoria_agro",
+        "apuracao",
     ]
     for spec in _INDUSTRY_EXPORT_BUTTONS:
         assert spec["label"] and spec["mime"] and spec["widget"]

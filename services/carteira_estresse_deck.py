@@ -38,6 +38,7 @@ from services.carteira_estresse import (
     nao_reportantes,
     sob_estresse,
 )
+from services.carteira_apuracao_documental import load_apuracao
 from services.carteira_provisao import (
     attach_provisao,
     cobertura_figure,
@@ -75,14 +76,14 @@ FILL_ACIMA = "DCEFE9"
 #: A tabela acessória mora à direita da lâmina — presente no arquivo, ausente
 #: da projeção.
 OFFSLIDE_LEFT_IN = SLIDE_WIDTH_IN + 0.60
-APURACAO_COLUMNS = (3.30, 1.55, 1.05, 1.05, 1.05, 3.05)
+APURACAO_COLUMNS = (2.60, 1.45, 0.95, 0.95, 0.95, 9.60)
 APURACAO_HEADER = (
     "FIDC",
     "Seção",
     "Carteira R$ mm",
     "Inad. R$ mm",
     "PDD R$ mm",
-    "Caso a apurar",
+    "Caso e apuração documental",
 )
 
 
@@ -173,8 +174,14 @@ def _tranche(deck: Deck, slide, teste: pd.DataFrame, x: float, altura_linha: flo
     )
 
 
-def _tabela_apuracao(deck: Deck, slide, pendentes: pd.DataFrame) -> None:
-    """A lista de quem não reportou, fora da área projetada."""
+def _tabela_apuracao(deck: Deck, slide, pendentes: pd.DataFrame, data_dir: Path) -> None:
+    """A lista de quem não reportou, fora da área projetada.
+
+    A última coluna carrega, além do caso, o que a varredura dos documentos do
+    próprio fundo encontrou — e o que não encontrou.
+    """
+
+    diagnosticos = load_apuracao(data_dir).set_index("cnpj")
 
     deck.text(
         slide,
@@ -194,7 +201,7 @@ def _tabela_apuracao(deck: Deck, slide, pendentes: pd.DataFrame) -> None:
             _brl_mm_fino(linha.carteira_dc),
             _brl_mm_fino(linha.dc_inadimplentes),
             _brl_mm_fino(linha.pdd_brl),
-            str(linha.caso),
+            _caso_com_apuracao(linha, diagnosticos),
         ]
         for linha in pendentes.itertuples()
     ]
@@ -211,6 +218,18 @@ def _tabela_apuracao(deck: Deck, slide, pendentes: pd.DataFrame) -> None:
         header_fill=GRAY_100,
         header_color=GRAY_500,
     )
+
+
+def _caso_com_apuracao(linha, diagnosticos: pd.DataFrame) -> str:
+    caso = str(linha.caso).replace(" — apurar", "")
+    if linha.cnpj not in diagnosticos.index:
+        return caso
+    registro = diagnosticos.loc[linha.cnpj]
+    partes = [caso, str(registro.get("diagnostico", "") or "")]
+    falta = str(registro.get("lacunas", "") or "")
+    if falta:
+        partes.append(f"falta: {falta}")
+    return " · ".join(p for p in partes if p)
 
 
 def _caixa_de_pagina(slide):
@@ -324,7 +343,7 @@ def append_stress_slide(presentation, data_dir: Path):
         altura_linha,
     )
 
-    _tabela_apuracao(deck, slide, pendentes)
+    _tabela_apuracao(deck, slide, pendentes, data_dir)
     deck.footer(
         slide,
         "CVM, Informe Mensal FIDC — Tabela I (competência mais recente de cada fundo) "
