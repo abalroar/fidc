@@ -9982,6 +9982,7 @@ def _industry_export_payloads(
         from services.anbima_executive_export import append_anbima_slides
         from services.carteira_deck import replace_structural_slides
         from services.carteira_estresse_deck import append_stress_slide
+        from services.deck_layout import move_slides, renumber_pages
         from services.top100_middle_deck import append_top100_slides
 
         standard = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
@@ -9989,6 +9990,14 @@ def _industry_export_payloads(
         append_anbima_slides(standard, data_dir)
         append_top100_slides(standard, data_dir)
         append_stress_slide(standard, data_dir)
+        # Os Top 15 por categoria viram anexo, logo antes do Top 100.  A
+        # reordenação vem por último: as seções anteriores endereçam lâminas por
+        # posição, e mexer na ordem antes delas quebraria esses índices.  Se o
+        # deck base vier menor do que o esperado, o passo é pulado — perder a
+        # ordem preferida é melhor do que perder o arquivo inteiro.
+        if len(standard.slides._sldIdLst) >= RANKING_POR_CATEGORIA[1]:
+            move_slides(standard, *RANKING_POR_CATEGORIA, ANEXO_TOP100)
+        renumber_pages(standard)
         buffer = BytesIO()
         standard.save(buffer)
         return buffer.getvalue()
@@ -10177,6 +10186,12 @@ def _industry_holder_histogram_frames(
 #: ilegível; o pacote executivo fica em cima e as bases analíticas embaixo.
 GRUPO_PACOTE = "Pacote executivo"
 GRUPO_BASES = "Bases analíticas"
+
+#: O bloco de Top 15 por categoria ANBIMA, movido para o anexo.
+RANKING_POR_CATEGORIA = (9, 17)
+#: A lâmina em que o anexo do Top 100 começa — o bloco entra logo antes dela.
+ANEXO_TOP100 = 52
+
 
 _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     {
