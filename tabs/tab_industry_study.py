@@ -16328,6 +16328,100 @@ def _render_carteira_provisao(frame) -> None:
         "Fonte: CVM, Informe Mensal FIDC."
     )
 
+    _render_carteira_estresse(recorte)
+
+
+def _render_carteira_estresse(recorte) -> None:
+    """O que sobra de subordinação se o buraco de provisão for reconhecido."""
+
+    from services.carteira_estresse import (
+        CAPITAL_CONSUMIDO,
+        DESENQUADRADO,
+        nao_reportantes,
+        sob_estresse,
+    )
+
+    teste = sob_estresse(recorte)
+    st.subheader("Teste de estresse")
+    st.caption(
+        "Δ = Inadimplência − PDD, o que falta provisionar. Reconhecido, sai da "
+        "subordinada e do total de cotas: **Sub pós = (Sub − Δ) ÷ (Total − Δ)**. "
+        "A carteira do Informe já é líquida de PDD, então Δ incide sobre a "
+        "inadimplência, não sobre a carteira."
+    )
+    if teste.empty:
+        st.info("Nenhum fundo desta seleção está abaixo de 100% de cobertura.")
+        return
+
+    quebram = teste[teste["estresse_status"].isin({DESENQUADRADO, CAPITAL_CONSUMIDO})]
+    colunas = st.columns(3)
+    colunas[0].metric("Fundos no teste", _fmt_int(len(teste)))
+    colunas[1].metric("Desenquadram", _fmt_int(len(quebram)))
+    colunas[2].metric(
+        "Aporte para reenquadrar",
+        f"R$ {teste['aporte_brl'].fillna(0).sum() / 1e6:,.1f} mm".replace(",", "_")
+        .replace(".", ",")
+        .replace("_", "."),
+    )
+
+    tabela = teste.assign(
+        deficit_mm=teste["deficit_brl"] / 1e6,
+        aporte_mm=teste["aporte_brl"].where(teste["aporte_brl"].gt(0)) / 1e6,
+    )[
+        [
+            "rotulo", "categoria_estrutural", "cobertura_pct", "deficit_mm",
+            "sub_antes_pct", "sub_pos_pct", "referencia_pct", "folga_pos_pp",
+            "aporte_mm",
+        ]
+    ].rename(
+        columns={
+            "rotulo": "FIDC",
+            "categoria_estrutural": "Seção",
+            "cobertura_pct": "Cobertura (%)",
+            "deficit_mm": "Δ (R$ mm)",
+            "sub_antes_pct": "Sub antes (%)",
+            "sub_pos_pct": "Sub pós (%)",
+            "referencia_pct": "Mínimo (%)",
+            "folga_pos_pp": "Folga pós (p.p.)",
+            "aporte_mm": "Aporte (R$ mm)",
+        }
+    )
+    st.dataframe(
+        tabela.style.map(
+            lambda valor: "background-color: #F7D5DA"
+            if pd.notna(valor) and valor < 0
+            else ("background-color: #DCEFE9" if pd.notna(valor) else ""),
+            subset=["Folga pós (p.p.)"],
+        ).format(precision=1),
+        width="stretch",
+        hide_index=True,
+    )
+
+    pendentes = nao_reportantes(recorte)
+    with st.expander(
+        f"Apurar: {len(pendentes)} fundos sem PDD e/ou sem inadimplência declarada",
+        expanded=False,
+    ):
+        st.dataframe(
+            pendentes.assign(
+                carteira_mm=pendentes["carteira_dc"] / 1e6,
+                inad_mm=pendentes["dc_inadimplentes"] / 1e6,
+                pdd_mm=pendentes["pdd_brl"] / 1e6,
+            )[["rotulo", "categoria_estrutural", "carteira_mm", "inad_mm", "pdd_mm", "caso"]]
+            .rename(
+                columns={
+                    "rotulo": "FIDC",
+                    "categoria_estrutural": "Seção",
+                    "carteira_mm": "Carteira (R$ mm)",
+                    "inad_mm": "Inadimplência (R$ mm)",
+                    "pdd_mm": "PDD (R$ mm)",
+                    "caso": "Caso",
+                }
+            ),
+            width="stretch",
+            hide_index=True,
+        )
+
 
 def _render_carteira(payload: dict[str, object]) -> None:
     """Subordinação atual contra o mínimo documentado, fundo a fundo."""

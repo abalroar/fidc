@@ -204,3 +204,39 @@ def test_a_lamina_de_estresse_entra_no_deck() -> None:
 
     # E a tabela é nativa, não uma imagem.
     assert fora[0].table.cell(0, 0).text == "FIDC"
+
+
+def test_a_lamina_entra_logo_apos_o_bloco_de_subordinacao() -> None:
+    """A lâmina fecha o bloco estrutural, e a numeração adiante acompanha."""
+
+    from pptx import Presentation
+    from pptx.util import Inches
+
+    from services.bba_deck import Deck, SLIDE_HEIGHT_IN, SLIDE_WIDTH_IN
+    from services.carteira_estresse_deck import (
+        ULTIMO_SLIDE_ESTRUTURAL,
+        _caixa_de_pagina,
+        append_stress_slide,
+    )
+
+    apresentacao = Presentation()
+    apresentacao.slide_width = Inches(SLIDE_WIDTH_IN)
+    apresentacao.slide_height = Inches(SLIDE_HEIGHT_IN)
+    deck = Deck("BLOCO")
+    deck.prs = apresentacao
+    deck.page = 0
+    for numero in range(1, ULTIMO_SLIDE_ESTRUTURAL + 4):
+        deck.footer(deck.slide(f"Lâmina {numero}"), "fonte")
+
+    total = len(apresentacao.slides._sldIdLst)
+    append_stress_slide(apresentacao, ROOT / "data" / "industry_study")
+
+    assert len(apresentacao.slides._sldIdLst) == total + 1
+    posicionada = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL]
+    assert any(
+        forma.has_text_frame and "Teste de estresse" in forma.text_frame.text
+        for forma in posicionada.shapes
+    )
+    # A numeração continua sequencial de ponta a ponta.
+    numeros = [_caixa_de_pagina(s)[1] for s in apresentacao.slides]
+    assert numeros == list(range(1, len(numeros) + 1))
