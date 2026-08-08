@@ -230,6 +230,82 @@ def altair_cobertura(
     )
 
 
+def cobertura_figure(
+    frame: pd.DataFrame,
+    *,
+    rotulo: str = "rotulo",
+    figsize: tuple[float, float] = (12.0, 2.9),
+    dpi: int = 200,
+):
+    """A mesma leitura do site, em imagem, para o slide.
+
+    O eixo do site é vetorial e rola; a lâmina não rola, então aqui os nomes
+    saem na vertical e o rótulo fica só em quem está abaixo do limiar — que é o
+    conjunto sobre o qual a tabela ao lado fala.
+    """
+
+    import matplotlib
+
+    matplotlib.use("Agg", force=True)
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import Patch
+
+    data = chart_frame(frame, rotulo=rotulo)
+    figura, eixo = plt.subplots(figsize=figsize, dpi=dpi)
+    figura.patch.set_facecolor(SURFACE)
+    eixo.set_facecolor(SURFACE)
+    if data.empty:
+        eixo.set_axis_off()
+        figura.tight_layout()
+        return figura
+
+    posicao = np.arange(len(data))
+    cores = np.where(data["faixa"].eq(SERIE_ACIMA), COLOR_ACIMA, COLOR_ABAIXO)
+    eixo.bar(posicao, data["altura_pct"], color=cores, width=0.74, zorder=3)
+    eixo.axhline(LIMIAR_PCT, color=COLOR_INK, linewidth=0.9, linestyle=(0, (4, 3)), zorder=4)
+
+    for x, linha in zip(posicao, data.itertuples()):
+        if linha.faixa == SERIE_ACIMA:
+            continue
+        eixo.text(
+            x, linha.altura_pct + 4, linha.etiqueta, ha="center", va="bottom",
+            fontsize=4.6, color=COLOR_INK, rotation=90, zorder=5,
+        )
+
+    eixo.set_xticks(posicao)
+    eixo.set_xticklabels(
+        [str(n)[:24] for n in data["rotulo"]], rotation=90, fontsize=4.4, color=COLOR_MUTED
+    )
+    eixo.set_xlim(-0.8, len(data) - 0.2)
+    eixo.set_ylim(0, TETO_PCT * 1.16)
+    eixo.set_yticks([0, 50, 100, 150, 200])
+    eixo.set_yticklabels(["0", "50", "100%", "150", "200"], fontsize=6, color=COLOR_MUTED)
+    eixo.set_ylabel("PDD / Inadimplência", fontsize=6.5, color=COLOR_MUTED)
+    eixo.grid(axis="y", color=COLOR_GRID, linewidth=0.6, zorder=0)
+    eixo.set_axisbelow(True)
+    for lado in ("top", "right", "left"):
+        eixo.spines[lado].set_visible(False)
+    eixo.spines["bottom"].set_color(COLOR_INK)
+    eixo.tick_params(axis="both", length=0)
+    eixo.legend(
+        handles=[
+            Patch(facecolor=COLOR_ABAIXO, label=SERIE_ABAIXO),
+            Patch(facecolor=COLOR_ACIMA, label=SERIE_ACIMA),
+        ],
+        loc="upper right", frameon=False, fontsize=6.5, ncol=2, handlelength=1.1,
+    )
+    figura.tight_layout(pad=0.4)
+    return figura
+
+
+def figure_png_bytes(figura, *, dpi: int = 200) -> bytes:
+    from io import BytesIO
+
+    buffer = BytesIO()
+    figura.savefig(buffer, format="png", dpi=dpi, facecolor=SURFACE)
+    return buffer.getvalue()
+
+
 __all__ = [
     "COLOR_ABAIXO",
     "COLOR_ACIMA",
@@ -241,6 +317,8 @@ __all__ = [
     "TETO_PCT",
     "altair_cobertura",
     "attach_provisao",
+    "cobertura_figure",
+    "figure_png_bytes",
     "chart_frame",
     "formatar_pct",
     "load_provisao",

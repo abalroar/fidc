@@ -394,3 +394,67 @@ devolve o que o teto corta.
 Sem argumentos, o script baixa exatamente as competências que a carteira ativa
 usa e guarda os zips em `.cache/cvm-industry-study/`. Quando julho chegar, basta
 rodar de novo.
+
+## Teste de estresse
+
+`services/carteira_estresse.py`, lâmina em `services/carteira_estresse_deck.py`.
+
+A pergunta: se o fundo reconhecesse hoje toda a inadimplência que ainda não
+provisionou, ele continuaria cumprindo a subordinação mínima?
+
+### O buraco é sobre a inadimplência, não sobre a carteira
+
+A carteira que o Informe reporta **já é líquida de PDD**. No Investcred de
+jun-26: `a vencer 731,4 + vencido não pago 36,4 + inadimplentes 1.668,9 − PDD
+1.443,8 = 992,9`. O que falta reconhecer, portanto, é
+
+    Δ = inadimplência − PDD
+
+equivalente a `(1 − cobertura) × inadimplência` — e **não** a
+`(1 − cobertura) × carteira`. Nos fundos em run-off a inadimplência chega a
+superar a carteira, e a diferença entre as duas bases é grande: no Investcred,
+R$ 225,1 mm contra R$ 133,9 mm.
+
+### A mecânica
+
+Reconhecer Δ derruba o ativo em Δ. O sênior está protegido pela estrutura, então
+a perda inteira consome a classe subordinada primeiro:
+
+| | fórmula |
+| --- | --- |
+| Sub pós | `Sub antes − Δ` |
+| Total pós | `Total antes − Δ` |
+| Sub pós % | `Sub pós ÷ Total pós` |
+| Folga pós | `Sub pós % − mínimo` |
+
+O denominador é o **total de cotas**, que é a base do índice que o regulamento
+cobra — não o PL, que difere dele em alguns fundos da carteira.
+
+Subordinação pós-estresse negativa não é erro: significa que a classe júnior foi
+consumida e o sênior ficou exposto.
+
+### O aporte
+
+Exigindo `(Sub + A) / (Total + A) ≥ m`:
+
+    A = (m · Total_pós − Sub_pós) / (1 − m)
+
+Com o mínimo em 100% não existe `A` finito, e a coluna sai vazia.
+
+### A premissa que fica registrada
+
+A PDD é tratada como se estivesse **toda alocada contra os créditos
+inadimplentes**. A CVM não abre a provisão por faixa de atraso, e qualquer
+parcela provisionada contra créditos a vencer tornaria a cobertura aqui medida
+otimista — ou seja, o teste é, nessa margem, benevolente.
+
+### A lâmina
+
+Uma só, no fim do deck: o gráfico de cobertura em cima, os fundos abaixo de 100%
+em duas tranches embaixo, folga negativa em vermelho e o aporte ao lado.
+
+A tabela de apuração — quem não declarou PDD, inadimplência ou as duas — fica
+**fora da área projetada**, à direita do limite da lâmina, no mesmo arquivo. Ela
+separa o zero legítimo do silêncio: fundo sem carteira, fundo que provisiona sem
+declarar atraso, fundo que declara atraso sem provisionar, e fundo que não
+declara nenhum dos dois.
