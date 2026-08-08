@@ -173,7 +173,7 @@ def test_a_apuracao_separa_o_zero_legitimo_do_silencio() -> None:
 
 
 def test_a_lamina_de_estresse_entra_no_deck() -> None:
-    """Uma lâmina a mais, com gráfico, as duas tranches e a tabela fora da área."""
+    """Uma lâmina a mais: gráfico, a pauta curta e a apuração fora da área."""
 
     from pptx import Presentation
     from pptx.util import Inches
@@ -191,11 +191,13 @@ def test_a_lamina_de_estresse_entra_no_deck() -> None:
     assert len(apresentacao.slides._sldIdLst) == antes + 1
     slide = apresentacao.slides[-1]
     tabelas = [shape for shape in slide.shapes if shape.has_table]
-    assert len(tabelas) == 3
+    assert len(tabelas) == 2
 
     dentro = [t for t in tabelas if t.left < Inches(SLIDE_WIDTH_IN)]
     fora = [t for t in tabelas if t.left >= Inches(SLIDE_WIDTH_IN)]
-    assert len(dentro) == 2 and len(fora) == 1
+    assert len(dentro) == 1 and len(fora) == 1
+    # A pauta é curta de propósito: cabeçalho + no máximo quinze fundos.
+    assert len(dentro[0].table.rows) <= 16
 
     # Nada da lâmina invade o rodapé nem transborda a margem direita.
     for tabela in dentro:
@@ -234,7 +236,7 @@ def test_a_lamina_entra_logo_apos_o_bloco_de_subordinacao() -> None:
     assert len(apresentacao.slides._sldIdLst) == total + 1
     posicionada = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL]
     assert any(
-        forma.has_text_frame and "Teste de estresse" in forma.text_frame.text
+        forma.has_text_frame and "de aporte" in forma.text_frame.text
         for forma in posicionada.shapes
     )
     # A numeração continua sequencial de ponta a ponta.

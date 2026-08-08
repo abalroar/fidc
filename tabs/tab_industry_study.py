@@ -16363,85 +16363,83 @@ def _render_carteira_provisao(frame) -> None:
 
 
 def _render_carteira_estresse(recorte) -> None:
-    """O que sobra de subordinação se o buraco de provisão for reconhecido."""
+    """Quem merece a conversa de PDD/inadimplência — e por que os outros não."""
 
-    from services.carteira_estresse import (
-        CAPITAL_CONSUMIDO,
-        DESENQUADRADO,
-        nao_reportantes,
-        sob_estresse,
-    )
+    from services.carteira_apuracao_documental import load_apuracao
+    from services.carteira_estresse import estressar, nao_reportantes
+    from services.carteira_triagem import DECIDIR, pauta, resumo
 
-    teste = sob_estresse(recorte)
+    dados = estressar(recorte)
+    mesa = pauta(dados)
+    numeros = resumo(dados)
+
     st.subheader("Teste de estresse")
     st.caption(
         "Δ = Inadimplência − PDD, o que falta provisionar. Reconhecido, sai da "
-        "subordinada e do total de cotas: **Sub pós = (Sub − Δ) ÷ (Total − Δ)**. "
-        "A carteira do Informe já é líquida de PDD, então Δ incide sobre a "
-        "inadimplência, não sobre a carteira."
+        "subordinada e do total de cotas: **Sub pós = (Sub − Δ) ÷ (Total − Δ)**."
     )
-    if teste.empty:
-        st.info("Nenhum fundo desta seleção está abaixo de 100% de cobertura.")
-        return
-
-    quebram = teste[teste["estresse_status"].isin({DESENQUADRADO, CAPITAL_CONSUMIDO})]
     colunas = st.columns(3)
-    colunas[0].metric("Fundos no teste", _fmt_int(len(teste)))
-    colunas[1].metric("Desenquadram", _fmt_int(len(quebram)))
+    colunas[0].metric("Aportar", _fmt_int(numeros["decidir"]))
+    colunas[1].metric("Acompanhar", _fmt_int(numeros["observar"]))
     colunas[2].metric(
         "Aporte para reenquadrar",
-        f"R$ {teste['aporte_brl'].fillna(0).sum() / 1e6:,.1f} mm".replace(",", "_")
+        f"R$ {numeros['aporte_decidir_brl'] / 1e6:,.1f} mm".replace(",", "_")
         .replace(".", ",")
         .replace("_", "."),
     )
 
-    tabela = teste.assign(
-        deficit_mm=teste["deficit_brl"] / 1e6,
-        aporte_mm=teste["aporte_brl"].where(teste["aporte_brl"].gt(0)) / 1e6,
-    )[
-        [
-            "rotulo", "categoria_estrutural", "cobertura_pct", "deficit_mm",
-            "sub_antes_pct", "sub_pos_pct", "referencia_pct", "folga_pos_pp",
-            "aporte_mm",
-        ]
-    ].rename(
-        columns={
-            "rotulo": "FIDC",
-            "categoria_estrutural": "Seção",
-            "cobertura_pct": "Cobertura (%)",
-            "deficit_mm": "Δ (R$ mm)",
-            "sub_antes_pct": "Sub antes (%)",
-            "sub_pos_pct": "Sub pós (%)",
-            "referencia_pct": "Mínimo (%)",
-            "folga_pos_pp": "Folga pós (p.p.)",
-            "aporte_mm": "Aporte (R$ mm)",
-        }
+    if mesa.empty:
+        st.info("Nenhum fundo desta seleção chega à pauta.")
+    else:
+        tabela = mesa.assign(
+            pl_mm=mesa["vl_cotas_total"] / 1e6,
+            aporte_mm=mesa["aporte_brl"].where(mesa["aporte_brl"].gt(0)) / 1e6,
+            acao=mesa["triagem_status"].map(
+                lambda estado: "Aportar" if estado == DECIDIR else "Acompanhar"
+            ),
+        )[
+            [
+                "rotulo", "categoria_estrutural", "pl_mm", "cobertura_pct",
+                "sub_antes_pct", "sub_pos_pct", "referencia_pct", "folga_pos_pp",
+                "aporte_mm", "acao",
+            ]
+        ].rename(
+            columns={
+                "rotulo": "FIDC",
+                "categoria_estrutural": "Seção",
+                "pl_mm": "PL (R$ mm)",
+                "cobertura_pct": "Cobertura (%)",
+                "sub_antes_pct": "Sub antes (%)",
+                "sub_pos_pct": "Sub pós (%)",
+                "referencia_pct": "Mínimo (%)",
+                "folga_pos_pp": "Folga pós (p.p.)",
+                "aporte_mm": "Aporte (R$ mm)",
+                "acao": "Ação",
+            }
+        )
+        st.dataframe(
+            tabela.style.map(
+                lambda valor: "background-color: #F7D5DA"
+                if pd.notna(valor) and valor < 0
+                else ("background-color: #FCEFCF" if pd.notna(valor) else ""),
+                subset=["Folga pós (p.p.)"],
+            ).format(precision=1),
+            width="stretch",
+            hide_index=True,
+        )
+
+    motivos = "; ".join(
+        f"{quantos} {motivo}" for motivo, quantos in numeros["motivos_descarte"].items()
     )
-    st.dataframe(
-        tabela.style.map(
-            lambda valor: "background-color: #F7D5DA"
-            if pd.notna(valor) and valor < 0
-            else ("background-color: #DCEFE9" if pd.notna(valor) else ""),
-            subset=["Folga pós (p.p.)"],
-        ).format(precision=1),
-        width="stretch",
-        hide_index=True,
+    st.caption(
+        f"Fora da pauta, {numeros['descartar']} dos {numeros['universo']} — {motivos}."
     )
 
-    from services.carteira_apuracao_documental import load_apuracao
-
-    pendentes = nao_reportantes(recorte)
-    # A última coluna passa a carregar, além do caso, o que os documentos do
-    # próprio fundo dizem — e o que não foi achado neles.
+    pendentes = nao_reportantes(dados)
     apuracao = load_apuracao(_DATA_DIR).set_index("cnpj")
     diagnostico = pendentes["cnpj"].map(apuracao.get("diagnostico", pd.Series(dtype=str)))
-    lacunas = pendentes["cnpj"].map(apuracao.get("lacunas", pd.Series(dtype=str)))
     caso = pendentes["caso"].str.replace(" — apurar", "", regex=False)
     detalhe = caso.str.cat(diagnostico.fillna(""), sep=" · ").str.strip(" ·")
-    detalhe = detalhe.str.cat(
-        lacunas.fillna("").radd("falta: ").where(lacunas.fillna("").ne(""), ""),
-        sep=" · ",
-    ).str.strip(" ·")
 
     with st.expander(
         f"Apurar: {len(pendentes)} fundos sem PDD e/ou sem inadimplência declarada",

@@ -32,12 +32,8 @@ from services.bba_deck import (
     Deck,
     fmt_mm,
 )
-from services.carteira_estresse import (
-    CAPITAL_CONSUMIDO,
-    DESENQUADRADO,
-    nao_reportantes,
-    sob_estresse,
-)
+from services.carteira_estresse import estressar, nao_reportantes
+from services.carteira_triagem import DECIDIR, pauta, resumo
 from services.carteira_apuracao_documental import load_apuracao
 from services.carteira_provisao import (
     attach_provisao,
@@ -58,20 +54,24 @@ TABLE_TOP_IN = 3.78
 TRANCHE_GAP_IN = 0.05
 #: Onde o número de página mora no rodapé padrão do deck.
 PAGINA_X_IN = 12.25
-#: FIDC · cobertura · déficit · subordinação pós · folga pós · aporte.
-TRANCHE_COLUMNS = (2.02, 0.70, 0.82, 0.82, 0.80, 0.84)
+#: FIDC · seção · PL · cobertura · sub antes · sub pós · mínimo · folga · aporte.
+PAUTA_COLUMNS = (2.80, 1.70, 0.95, 0.72, 1.00, 0.92, 0.82, 0.86, 1.10, 1.18)
 TABLE_HEADER = (
     "FIDC",
+    "Seção",
+    "PL R$ mm",
     "Cob.",
-    "Δ R$ mm",
+    "Sub antes",
     "Sub pós",
+    "Mínimo",
     "Folga",
-    "Aporte",
+    "Aporte R$ mm",
+    "Ação",
 )
 
 #: Vermelho de desenquadramento e verde de folga, os mesmos do resto do deck.
 FILL_ABAIXO = "F7D5DA"
-FILL_ACIMA = "DCEFE9"
+FILL_ATENCAO = "FCEFCF"
 
 #: A tabela acessória mora à direita da lâmina — presente no arquivo, ausente
 #: da projeção.
@@ -128,49 +128,50 @@ def _dados(data_dir: Path) -> pd.DataFrame:
     return frame.assign(rotulo=frame["fundo"].map(short_fund_name))
 
 
-def _linhas_estresse(teste: pd.DataFrame) -> list[list[str]]:
+def _linhas_pauta(mesa: pd.DataFrame) -> list[list[str]]:
     return [
         [
-            str(linha.rotulo)[:30],
+            str(linha.rotulo)[:40],
+            str(linha.categoria_estrutural)[:24],
+            _brl_mm(linha.vl_cotas_total),
             _pct(linha.cobertura_pct),
-            _brl_mm(linha.deficit_brl),
+            _pct(linha.sub_antes_pct),
             _pct(linha.sub_pos_pct),
+            _pct(linha.referencia_pct),
             _pp(linha.folga_pos_pp),
             _brl_mm(linha.aporte_brl) if linha.aporte_brl and linha.aporte_brl > 0 else "—",
+            "Aportar" if linha.triagem_status == DECIDIR else "Acompanhar",
         ]
-        for linha in teste.itertuples()
+        for linha in mesa.itertuples()
     ]
 
 
-def _pinta(teste: pd.DataFrame) -> dict[tuple[int, int], str]:
-    """Vermelho onde a folga pós-estresse é negativa; verde onde sobra."""
+def _pinta(mesa: pd.DataFrame) -> dict[tuple[int, int], str]:
+    """Vermelho em quem desenquadra; amarelo em quem fica com folga fina."""
 
     fills: dict[tuple[int, int], str] = {}
-    for posicao, linha in enumerate(teste.itertuples(), start=1):
-        if pd.isna(linha.folga_pos_pp):
-            continue
-        cor = FILL_ABAIXO if linha.folga_pos_pp < 0 else FILL_ACIMA
-        fills[(posicao, 4)] = cor
-        if linha.folga_pos_pp < 0:
-            fills[(posicao, 5)] = FILL_ABAIXO
+    for posicao, linha in enumerate(mesa.itertuples(), start=1):
+        cor = FILL_ABAIXO if linha.triagem_status == DECIDIR else FILL_ATENCAO
+        for coluna in (7, 8, 9):
+            fills[(posicao, coluna)] = cor
     return fills
 
 
-def _tranche(deck: Deck, slide, teste: pd.DataFrame, x: float, altura_linha: float):
-    linhas = [list(TABLE_HEADER)] + _linhas_estresse(teste)
+def _tabela_pauta(deck: Deck, slide, mesa: pd.DataFrame) -> None:
+    linhas = [list(TABLE_HEADER)] + _linhas_pauta(mesa)
     deck.native_table(
         slide,
         linhas,
-        x,
+        MARGIN_IN,
         TABLE_TOP_IN,
-        list(TRANCHE_COLUMNS),
-        aligns="lrrrrr",
-        size=6.5,
-        row_height=altura_linha,
-        header_height=0.20,
+        list(PAUTA_COLUMNS),
+        aligns="llrrrrrrrl",
+        size=8,
+        row_height=0.205,
+        header_height=0.24,
         header_fill=GRAY_100,
         header_color=GRAY_500,
-        cell_fills=_pinta(teste),
+        cell_fills=_pinta(mesa),
     )
 
 
@@ -286,20 +287,19 @@ def _mover_para(presentation, depois_do_slide: int) -> None:
 
 
 def append_stress_slide(presentation, data_dir: Path):
-    """Acrescenta a lâmina do teste de estresse ao fim da apresentação."""
+    """Acrescenta a lâmina do teste de estresse ao fim e a reposiciona."""
 
-    dados = _dados(data_dir)
-    teste = sob_estresse(dados)
+    dados = estressar(_dados(data_dir))
+    mesa = pauta(dados)
+    numeros = resumo(dados)
     pendentes = nao_reportantes(dados)
-    if teste.empty:
+    if mesa.empty:
         return presentation
-
-    quebram = teste[teste["estresse_status"].isin({DESENQUADRADO, CAPITAL_CONSUMIDO})]
-    aporte_total = float(teste["aporte_brl"].fillna(0).sum())
 
     deck = Deck(KICKER, presentation)
     slide = deck.slide(
-        f"Teste de estresse | {len(quebram)} de {len(teste)} desenquadram"
+        f"{numeros['decidir']} FIDCs concentram R$ "
+        f"{_brl_mm(numeros['aporte_decidir_brl'])} mm de aporte"
     )
 
     imagem = figure_png_bytes(
@@ -313,34 +313,36 @@ def append_stress_slide(presentation, data_dir: Path):
         Inches(CHART_HEIGHT_IN),
     )
 
-    # O racional em uma linha: a carteira do Informe já é líquida de PDD, então o
-    # que falta reconhecer é o que sobra da inadimplência, e ele consome a júnior.
+    # O racional em uma linha, e só ele.
     deck.text(
         slide,
         "Δ = Inadimplência − PDD (o que falta provisionar). Reconhecido, sai da "
-        "subordinada e do total de cotas: Sub pós = (Sub − Δ) ÷ (Total − Δ). "
-        f"Aporte para reenquadrar os {len(quebram)}: R$ {_brl_mm(aporte_total)} mm.",
+        "subordinada e do total de cotas: Sub pós = (Sub − Δ) ÷ (Total − Δ).",
         MARGIN_IN,
         CHART_TOP_IN + CHART_HEIGHT_IN + 0.06,
         CONTENT_WIDTH_IN,
-        0.24,
+        0.22,
         size=9,
         color=GRAY_900,
     )
 
-    metade = (len(teste) + 1) // 2
-    largura_tranche = sum(TRANCHE_COLUMNS)
-    # O rodapé começa por volta de 7,05"; a última linha não pode encostar nele.
-    altura_linha = min(
-        0.165, (6.94 - TABLE_TOP_IN - 0.20) / max(metade, 1)
+    _tabela_pauta(deck, slide, mesa)
+
+    # Por que os outros saíram — o descarte fica explícito, não invisível.
+    motivos = "; ".join(
+        f"{quantos} {motivo}" for motivo, quantos in numeros["motivos_descarte"].items()
     )
-    _tranche(deck, slide, teste.iloc[:metade], MARGIN_IN, altura_linha)
-    _tranche(
-        deck,
+    altura_tabela = 0.24 + 0.205 * len(mesa)
+    deck.text(
         slide,
-        teste.iloc[metade:],
-        MARGIN_IN + largura_tranche + TRANCHE_GAP_IN,
-        altura_linha,
+        f"Fora da pauta, {numeros['descartar']} dos {numeros['universo']} da "
+        f"carteira — {motivos}.",
+        MARGIN_IN,
+        TABLE_TOP_IN + altura_tabela + 0.10,
+        CONTENT_WIDTH_IN,
+        0.22,
+        size=8,
+        color=GRAY_700,
     )
 
     _tabela_apuracao(deck, slide, pendentes, data_dir)

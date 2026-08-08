@@ -528,3 +528,27 @@ pelo botão **Apuração documental** em Dados e exportações. Três abas: *Apu
 (um fundo por linha, com trechos), *Subordinação* (o confronto do mínimo) e **Em
 branco** — uma linha por lacuna, que é a lista de trabalho de quem vai ler os
 documentos à mão.
+
+## A triagem: quantos merecem a conversa
+
+`services/carteira_triagem.py`
+
+O teste de estresse roda em 37 fundos, e 37 linhas não são uma decisão. A
+triagem aplica os cortes que separam o dado que presta do que não sustenta
+conclusão, e entrega três grupos — **decidir**, **observar**, **descartar** —
+com o motivo de cada descarte explícito.
+
+| corte | o que elimina | hoje |
+| --- | --- | --- |
+| sem inadimplência de crédito | adquirência: o lastro é agenda de arranjo de pagamento; o que ocorre é chargeback/cancelamento, com recompra e substituição pelo cedente | 26 |
+| inadimplência imaterial | abaixo de R$ 5 mm ou de 2% da carteira, o quociente é ruído — há fundo com R$ 121 de inadimplência e cobertura de 24.884% | 20 |
+| buraco não mexe na subordinação | Δ abaixo de 1% do total de cotas | 11 |
+| folga confortável | sobra mais de 5 p.p. depois do estresse | 8 |
+| veículo pequeno | carteira abaixo de R$ 50 mm | 6 |
+
+O que sobra: **9 para decidir** (desenquadram) e **3 para observar** (folga
+abaixo de 5 p.p.). Os 9 concentram **99,5% do aporte** — descartar 71 fundos não
+esconde custo, e um teste guarda essa propriedade.
+
+A lâmina e a aba passam a mostrar só a pauta, com uma linha dizendo quantos
+saíram e por quê. O descarte fica auditável em vez de invisível.
