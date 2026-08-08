@@ -9982,6 +9982,7 @@ def _industry_export_payloads(
         from services.anbima_executive_export import append_anbima_slides
         from services.carteira_deck import replace_structural_slides
         from services.carteira_estresse_deck import append_stress_slide
+        from services.deck_layout import move_slides, renumber_pages
         from services.top100_middle_deck import append_top100_slides
 
         standard = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
@@ -9989,12 +9990,21 @@ def _industry_export_payloads(
         append_anbima_slides(standard, data_dir)
         append_top100_slides(standard, data_dir)
         append_stress_slide(standard, data_dir)
+        # Os Top 15 por categoria viram anexo, logo antes do Top 100.  A
+        # reordenação vem por último: as seções anteriores endereçam lâminas por
+        # posição, e mexer na ordem antes delas quebraria esses índices.  Se o
+        # deck base vier menor do que o esperado, o passo é pulado — perder a
+        # ordem preferida é melhor do que perder o arquivo inteiro.
+        if len(standard.slides._sldIdLst) >= RANKING_POR_CATEGORIA[1]:
+            move_slides(standard, *RANKING_POR_CATEGORIA, ANEXO_TOP100)
+        renumber_pages(standard)
         buffer = BytesIO()
         standard.save(buffer)
         return buffer.getvalue()
 
     from services.middle_market_exports import (
         build_agro_auditoria_csv_bytes,
+        build_apuracao_xlsx_bytes,
         build_carteira101_subordinacao_xlsx_bytes,
         build_cedentes_triagem_csv_bytes,
         build_revalidacao_secoes_csv_bytes,
@@ -10012,6 +10022,7 @@ def _industry_export_payloads(
         "revalidacao": build_revalidacao_secoes_csv_bytes,
         "subordinacao": build_carteira101_subordinacao_xlsx_bytes,
         "auditoria_agro": build_agro_auditoria_csv_bytes,
+        "apuracao": build_apuracao_xlsx_bytes,
     }
     payloads: dict[str, bytes] = {}
     failures: dict[str, str] = {}
@@ -10178,6 +10189,12 @@ def _industry_holder_histogram_frames(
 GRUPO_PACOTE = "Pacote executivo"
 GRUPO_BASES = "Bases analíticas"
 
+#: O bloco de Top 15 por categoria ANBIMA, movido para o anexo.
+RANKING_POR_CATEGORIA = (9, 17)
+#: A lâmina em que o anexo do Top 100 começa — o bloco entra logo antes dela.
+ANEXO_TOP100 = 52
+
+
 _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     {
         "key": "pptx",
@@ -10296,6 +10313,20 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
             "de que valor para que valor, por quê e em que artefato"
         ),
         "widget": "industry-auditoria-agro-csv",
+    },
+    {
+        "key": "apuracao",
+        "group": GRUPO_BASES,
+        "label": "Apuração documental",
+        "file_name": "Carteira_Apuracao_Documental_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/plagiarism:",
+        "help": (
+            "Por que cada FIDC não reporta inadimplência e/ou PDD, o mínimo de "
+            "subordinação conferido contra o regulamento, e a lista do que ficou "
+            "em branco para apurar à mão"
+        ),
+        "widget": "industry-apuracao-xlsx",
     },
 )
 
@@ -16397,7 +16428,21 @@ def _render_carteira_estresse(recorte) -> None:
         hide_index=True,
     )
 
+    from services.carteira_apuracao_documental import load_apuracao
+
     pendentes = nao_reportantes(recorte)
+    # A última coluna passa a carregar, além do caso, o que os documentos do
+    # próprio fundo dizem — e o que não foi achado neles.
+    apuracao = load_apuracao(_DATA_DIR).set_index("cnpj")
+    diagnostico = pendentes["cnpj"].map(apuracao.get("diagnostico", pd.Series(dtype=str)))
+    lacunas = pendentes["cnpj"].map(apuracao.get("lacunas", pd.Series(dtype=str)))
+    caso = pendentes["caso"].str.replace(" — apurar", "", regex=False)
+    detalhe = caso.str.cat(diagnostico.fillna(""), sep=" · ").str.strip(" ·")
+    detalhe = detalhe.str.cat(
+        lacunas.fillna("").radd("falta: ").where(lacunas.fillna("").ne(""), ""),
+        sep=" · ",
+    ).str.strip(" ·")
+
     with st.expander(
         f"Apurar: {len(pendentes)} fundos sem PDD e/ou sem inadimplência declarada",
         expanded=False,
@@ -16407,7 +16452,8 @@ def _render_carteira_estresse(recorte) -> None:
                 carteira_mm=pendentes["carteira_dc"] / 1e6,
                 inad_mm=pendentes["dc_inadimplentes"] / 1e6,
                 pdd_mm=pendentes["pdd_brl"] / 1e6,
-            )[["rotulo", "categoria_estrutural", "carteira_mm", "inad_mm", "pdd_mm", "caso"]]
+                apurado=detalhe,
+            )[["rotulo", "categoria_estrutural", "carteira_mm", "inad_mm", "pdd_mm", "apurado"]]
             .rename(
                 columns={
                     "rotulo": "FIDC",
@@ -16415,7 +16461,7 @@ def _render_carteira_estresse(recorte) -> None:
                     "carteira_mm": "Carteira (R$ mm)",
                     "inad_mm": "Inadimplência (R$ mm)",
                     "pdd_mm": "PDD (R$ mm)",
-                    "caso": "Caso",
+                    "apurado": "Caso e apuração documental",
                 }
             ),
             width="stretch",

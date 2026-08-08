@@ -466,3 +466,65 @@ A tabela de apuração — quem não declarou PDD, inadimplência ou as duas —
 separa o zero legítimo do silêncio: fundo sem carteira, fundo que provisiona sem
 declarar atraso, fundo que declara atraso sem provisionar, e fundo que não
 declara nenhum dos dois.
+
+## Apuração documental
+
+Duas varreduras sobre o mesmo acervo baixado da FundosNET — 32 dossiês, 395
+documentos, 13.380 páginas —, materializadas por
+`scripts/build_carteira_apuracao.py`.
+
+### Por que o fundo não reporta inadimplência e/ou PDD
+
+`services/carteira_apuracao_documental.py` →
+`data/industry_study/carteira_apuracao_documental.csv`
+
+Zero num fundo com carteira viva tem explicações legítimas, e todas moram no
+regulamento: **recompra/substituição pelo cedente**, **resolução da cessão**,
+**coobrigação**, **liquidação em poucos dias** (adquirência) e a **política de
+provisionamento** que o próprio regulamento fixa.
+
+Cada família sai com o trecho literal, o documento e a página. A coobrigação
+carrega um `sinal` — `afirmativa` ou `negativa` — porque a redação mais comum é
+justamente a negativa ("sem direito de regresso contra a Cedente"), e ela **não**
+justifica coisa alguma.
+
+A contraprova mais dura é o **Informe Trimestral**: ele traz as linhas `1.b)
+Direitos Creditórios Vencidos` e `1.c) PDD` estruturadas, medindo exatamente o
+que o Informe Mensal traz zerado. O veredito é `terceiro também mede zero` ou
+`terceiro mede valor positivo`, com a competência ao lado — o Informe Trimestral
+saiu de uso, e as competências disponíveis são antigas.
+
+Nada é inferido do tipo, do nome ou do setor do fundo. O que não foi localizado
+sai como lacuna nomeada.
+
+### O mínimo de subordinação, conferido contra o regulamento
+
+`services/carteira_validacao_subordinacao.py` →
+`data/industry_study/carteira_subordinacao_validacao.csv`
+
+Três armadilhas moldaram o extrator, e todas apareceram nos documentos reais:
+
+- **o regulamento diz a mesma coisa de duas formas** — piso direto ("Cotas
+  Subordinadas no mínimo 20% do PL") ou cobertura da sênior ("relação mínima de
+  125% entre o PL e as Cotas Seniores"). São equivalentes: `sub = 1 − 1/cobertura`;
+- **há outros índices na mesma página** — o de Resolução de Cessão, o de
+  liquidez, o de cobertura de despesas, cada um com percentual próprio;
+- **limites de concentração se parecem com pisos** — "Endossante cujos Direitos
+  Creditórios representem pelo menos 50% da carteira" tem piso e percentual, e
+  não é subordinação.
+
+O extrator é **precisão primeiro**: só afirma `confirma` ou `diverge` quando o
+percentual está colado a uma expressão de piso e ancorado no patrimônio líquido.
+Fora disso devolve `remete a suplemento` (o piso existe mas mora em peça que não
+acompanha o regulamento na FundosNET) ou `sem cláusula localizada`, sempre com a
+página do melhor candidato. Um "não localizei" com ponteiro vale mais do que um
+número plausível sem lastro.
+
+### A munição
+
+`scripts/build_carteira_apuracao_xlsx.py` gera
+`outputs/carteira_apuracao/Carteira_Apuracao_Documental.xlsx`, também disponível
+pelo botão **Apuração documental** em Dados e exportações. Três abas: *Apuração*
+(um fundo por linha, com trechos), *Subordinação* (o confronto do mínimo) e **Em
+branco** — uma linha por lacuna, que é a lista de trabalho de quem vai ler os
+documentos à mão.

@@ -41,6 +41,8 @@ REVIEW_NAME = "top100_fidcs_middle_review.csv"
 TRIAGE_NAME = "top100_cedentes_middle_triagem.csv"
 REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
 AGRO_AUDIT_NAME = "agro_revenda_auditoria_consolidada.csv"
+APURACAO_NAME = "carteira_apuracao_documental.csv"
+VALIDACAO_NAME = "carteira_subordinacao_validacao.csv"
 
 #: Arquivos que estas exportações leem.  Entram na chave de cache da seção,
 #: senão uma atualização de base continuaria servindo o download anterior.
@@ -49,6 +51,8 @@ EXPORT_DATA_INPUTS: tuple[str, ...] = (
     TRIAGE_NAME,
     REVALIDATION_NAME,
     AGRO_AUDIT_NAME,
+    APURACAO_NAME,
+    VALIDACAO_NAME,
 )
 
 
@@ -103,13 +107,47 @@ def build_agro_auditoria_csv_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return _csv_bytes(Path(data_dir) / AGRO_AUDIT_NAME)
 
 
+def build_apuracao_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+    """A munição da apuração: cláusulas, contraprova e a lista do que falta."""
+
+    import tempfile
+
+    from scripts.build_carteira_apuracao_xlsx import (
+        CABECALHO_BRANCO,
+        CABECALHO_VALIDACAO,
+        _cabecalho_apuracao,
+        _escrever,
+        montar_em_branco,
+    )
+    from openpyxl import Workbook
+
+    pasta = Path(data_dir)
+    apuracao = pd.read_csv(pasta / APURACAO_NAME, dtype={"cnpj": str}).fillna("")
+    validacao = pd.read_csv(pasta / VALIDACAO_NAME, dtype={"cnpj": str}).fillna("")
+    branco = montar_em_branco(apuracao, validacao)
+
+    workbook = Workbook()
+    workbook.remove(workbook.active)
+    _escrever(workbook, "Apuração", _cabecalho_apuracao(), apuracao, "Apuracao")
+    _escrever(workbook, "Subordinação", CABECALHO_VALIDACAO, validacao, "Subordinacao")
+    _escrever(workbook, "Em branco", CABECALHO_BRANCO, branco, "EmBranco")
+
+    with tempfile.TemporaryDirectory() as temporaria:
+        destino = Path(temporaria) / "apuracao.xlsx"
+        workbook.save(destino)
+        return destino.read_bytes()
+
+
 __all__ = [
     "AGRO_AUDIT_NAME",
+    "APURACAO_NAME",
+    "VALIDACAO_NAME",
     "EXPORT_DATA_INPUTS",
     "REVALIDATION_NAME",
     "REVIEW_NAME",
     "TRIAGE_NAME",
     "build_agro_auditoria_csv_bytes",
+    "build_apuracao_xlsx_bytes",
     "build_carteira101_subordinacao_xlsx_bytes",
     "build_cedentes_triagem_csv_bytes",
     "build_revalidacao_secoes_csv_bytes",
