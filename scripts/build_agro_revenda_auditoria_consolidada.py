@@ -152,6 +152,7 @@ def construir(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
     overrides = pd.read_csv(data_dir / OVERRIDES_NAME, dtype=str).fillna("")
     motivos = overrides.set_index("cnpj")["categoria_motivo"]
     estruturas = overrides.set_index("cnpj")["estrutura_tabela_interna"]
+    categorias_do_override = overrides.set_index("cnpj")["categoria_estrutural"]
     introduzidos = carteira[carteira["origem"].eq(ORIGEM_OVERRIDE)]
     for fundo in introduzidos.itertuples():
         linhas.append(
@@ -162,7 +163,9 @@ def construir(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
                 "cnpj": fundo.cnpj,
                 "campo_alterado": "categoria_estrutural",
                 "valor_anterior": "—",
-                "valor_novo": fundo.categoria_estrutural,
+                "valor_novo": categorias_do_override.get(
+                    fundo.cnpj, fundo.categoria_estrutural
+                ),
                 "fonte": FONTE_INTERNA,
                 "motivo": motivos.get(fundo.cnpj, "") or "—",
                 "artefato": OVERRIDES_NAME,

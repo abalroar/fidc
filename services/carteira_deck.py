@@ -29,6 +29,7 @@ import pandas as pd
 
 from services.carteira_subordinacao import (
     DEFAULT_DATA_DIR,
+    MULTI_CATEGORY,
     dumbbell_figure,
     figure_png_bytes,
     resolve_portfolio,
@@ -45,8 +46,19 @@ MIN_FUNDS_PER_CATEGORY = 3
 #: A tabela ocupa a metade inferior em duas tranches lado a lado; cada uma
 #: leva metade das linhas.  O que passar vai para um slide de continuação da
 #: mesma categoria, em vez de encolher a fonte abaixo do legível.
-ROWS_PER_TRANCHE = 11
+ROWS_PER_TRANCHE = 12
 MAX_ROWS_PER_SLIDE = ROWS_PER_TRANCHE * 2
+
+CATEGORY_ORDER = (
+    "Agro / Revenda",
+    "Financeiro",
+    "Adquirência",
+    "Risco Corporativo",
+    MULTI_CATEGORY,
+    "Consignado INSS e FGTS",
+    "Fomento Mercantil",
+)
+KEEP_SMALL_CATEGORIES = {"Risco Corporativo", MULTI_CATEGORY}
 
 # Geometria da lâmina: o gráfico toma a largura inteira do conteúdo e a
 # tabela ocupa a metade inferior, dividida em duas tranches.
@@ -54,6 +66,8 @@ MARGIN_IN = 0.62
 CHART_TOP_IN = 1.30
 CHART_WIDTH_IN = 12.05
 CHART_HEIGHT_IN = 3.10
+SPLIT_CHART_TOP_IN = 1.48
+SPLIT_CHART_HEIGHT_IN = 2.84
 TABLE_TOP_IN = 4.52
 TRANCHE_WIDTH_IN = 5.90
 TRANCHE_GAP_IN = 0.25
@@ -63,7 +77,8 @@ KICKER = "CARTEIRA 101 · RISCO ESTRUTURAL"
 SOURCE = (
     "CVM, Informe Mensal FIDC (competência mais recente de cada fundo) e "
     "regulamentos na FundosNet/B3. Folga = subordinação atual − mínimo exigido; "
-    "mínimo estrutural (subordinada + mezanino) quando o regulamento o define."
+    "mínimo estrutural (subordinada + mezanino) quando o regulamento o define. "
+    "Pluralidade validada por regulamento; rastreabilidade no arquivo de adjudicação."
 )
 
 # Bandas da folga, em pontos percentuais.  Só sinalização de risco — sem ícone,
@@ -203,12 +218,20 @@ def slide_plans(data_dir: Path = DEFAULT_DATA_DIR) -> list[dict[str, object]]:
     """Um plano por slide: categoria, recorte da tabela e gráfico completo."""
 
     position = resolve_portfolio(data_dir, somente_ativos=True)
-    comparable = position.frame[position.frame["comparavel"]]
+    comparable = position.frame[
+        position.frame["comparavel"] & ~position.frame["comparacao_excluida"]
+    ]
     rotulo = _competence_label(position.competencia_base)
 
     plans: list[dict[str, object]] = []
     counts = comparable["categoria_estrutural"].value_counts()
-    for categoria in counts[counts.ge(MIN_FUNDS_PER_CATEGORY)].index:
+    categories = [
+        category
+        for category in CATEGORY_ORDER
+        if counts.get(category, 0) >= MIN_FUNDS_PER_CATEGORY
+        or (category in KEEP_SMALL_CATEGORIES and counts.get(category, 0) > 0)
+    ]
+    for categoria in categories:
         subset = order_for_table(
             comparable[comparable["categoria_estrutural"].eq(categoria)]
         )
@@ -216,6 +239,8 @@ def slide_plans(data_dir: Path = DEFAULT_DATA_DIR) -> list[dict[str, object]]:
         titulo = (
             f"{categoria} | {breaches} de {len(subset)} abaixo do mínimo"
             if breaches
+            else f"{categoria} | o fundo está acima do mínimo"
+            if len(subset) == 1
             else f"{categoria} | os {len(subset)} estão acima do mínimo"
         )
         paginas = max(1, -(-len(subset) // MAX_ROWS_PER_SLIDE))
@@ -223,8 +248,7 @@ def slide_plans(data_dir: Path = DEFAULT_DATA_DIR) -> list[dict[str, object]]:
             recorte = subset.iloc[
                 pagina * MAX_ROWS_PER_SLIDE : (pagina + 1) * MAX_ROWS_PER_SLIDE
             ]
-            plans.append(
-                {
+            plan = {
                     "categoria": categoria,
                     "titulo": titulo if pagina == 0 else f"{titulo} (cont.)",
                     "nota": f"{categoria} · FIDCs ativos · base até {rotulo}",
@@ -232,7 +256,18 @@ def slide_plans(data_dir: Path = DEFAULT_DATA_DIR) -> list[dict[str, object]]:
                     "tabela": recorte,
                     "desenha_grafico": pagina == 0,
                 }
-            )
+            if categoria == MULTI_CATEGORY and pagina == 0:
+                corporativos = subset[
+                    subset["multi_categoria_original"].eq("Risco Corporativo")
+                ]
+                demais = subset[
+                    ~subset["multi_categoria_original"].eq("Risco Corporativo")
+                ]
+                plan["graficos"] = [
+                    ("Origem: Risco Corporativo", corporativos),
+                    ("Demais origens", demais),
+                ]
+            plans.append(plan)
     return plans
 
 
@@ -245,17 +280,35 @@ def draw_carteira_slide(deck, slide, plano: dict[str, object]) -> None:
     grafico = plano["grafico"]
 
     if plano["desenha_grafico"]:
-        figure = dumbbell_figure(
-            grafico, nomear_todos=True, figsize=(CHART_WIDTH_IN, CHART_HEIGHT_IN)
-        )
-        slide.shapes.add_picture(
-            BytesIO(figure_png_bytes(figure)),
-            Inches(MARGIN_IN),
-            Inches(CHART_TOP_IN),
-            width=Inches(CHART_WIDTH_IN),
-        )
+        graficos = plano.get("graficos")
+        if graficos:
+            largura = TRANCHE_WIDTH_IN
+            for indice, (rotulo, recorte_grafico) in enumerate(graficos):
+                x = MARGIN_IN + indice * (largura + TRANCHE_GAP_IN)
+                deck.text(slide, rotulo, x, 1.25, largura, 0.18, size=8, bold=True)
+                figure = dumbbell_figure(
+                    recorte_grafico,
+                    nomear_todos=True,
+                    figsize=(largura, SPLIT_CHART_HEIGHT_IN),
+                )
+                slide.shapes.add_picture(
+                    BytesIO(figure_png_bytes(figure)),
+                    Inches(x),
+                    Inches(SPLIT_CHART_TOP_IN),
+                    width=Inches(largura),
+                )
+        else:
+            figure = dumbbell_figure(
+                grafico, nomear_todos=True, figsize=(CHART_WIDTH_IN, CHART_HEIGHT_IN)
+            )
+            slide.shapes.add_picture(
+                BytesIO(figure_png_bytes(figure)),
+                Inches(MARGIN_IN),
+                Inches(CHART_TOP_IN),
+                width=Inches(CHART_WIDTH_IN),
+            )
 
-    # Duas tranches lado a lado: com onze linhas cada, a categoria inteira cabe
+    # Duas tranches lado a lado: com doze linhas cada, a categoria inteira cabe
     # na metade inferior sem apertar a fonte.
     tabela = plano["tabela"]
     for indice, inicio in enumerate(range(0, len(tabela), ROWS_PER_TRANCHE)):
@@ -316,6 +369,13 @@ def replace_structural_slides(
     return len(plans)
 
 
+def last_structural_slide(data_dir: Path = DEFAULT_DATA_DIR) -> int:
+    """Posição final do bloco estrutural após eventuais slides excedentes."""
+
+    first, _ = REPLACED_SLIDE_RANGE
+    return first + len(slide_plans(data_dir)) - 1
+
+
 __all__ = [
     "MARGIN_IN",
     "TRANCHE_COLUMNS",
@@ -323,9 +383,13 @@ __all__ = [
     "TRANCHE_WIDTH_IN",
     "TABLE_TOP_IN",
     "CHART_HEIGHT_IN",
+    "SPLIT_CHART_HEIGHT_IN",
+    "SPLIT_CHART_TOP_IN",
     "CHART_WIDTH_IN",
     "CHART_TOP_IN",
     "KICKER",
+    "CATEGORY_ORDER",
+    "KEEP_SMALL_CATEGORIES",
     "MAX_ROWS_PER_SLIDE",
     "ROWS_PER_TRANCHE",
     "TABLE_HEADER",
@@ -334,6 +398,7 @@ __all__ = [
     "clear_slide",
     "draw_carteira_slide",
     "move_slides",
+    "last_structural_slide",
     "order_for_table",
     "replace_structural_slides",
     "slide_plans",
