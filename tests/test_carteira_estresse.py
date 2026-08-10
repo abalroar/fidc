@@ -173,7 +173,7 @@ def test_a_apuracao_separa_o_zero_legitimo_do_silencio() -> None:
 
 
 def test_a_lamina_de_estresse_entra_no_deck() -> None:
-    """Uma lâmina a mais: gráfico, a pauta curta e a apuração fora da área."""
+    """Duas lâminas: método, resultado e apuração fora da área projetada."""
 
     from pptx import Presentation
     from pptx.util import Inches
@@ -188,16 +188,34 @@ def test_a_lamina_de_estresse_entra_no_deck() -> None:
 
     append_stress_slide(apresentacao, ROOT / "data" / "industry_study")
 
-    assert len(apresentacao.slides._sldIdLst) == antes + 1
+    assert len(apresentacao.slides._sldIdLst) == antes + 2
+    metodologia = apresentacao.slides[-2]
     slide = apresentacao.slides[-1]
+    assert any(
+        forma.has_text_frame and "Stress Test | Metodologia" in forma.text_frame.text
+        for forma in metodologia.shapes
+    )
+    assert not any(forma.has_table for forma in metodologia.shapes)
+    assert not any(forma.shape_type == 13 for forma in slide.shapes)
     tabelas = [shape for shape in slide.shapes if shape.has_table]
     assert len(tabelas) == 2
 
     dentro = [t for t in tabelas if t.left < Inches(SLIDE_WIDTH_IN)]
     fora = [t for t in tabelas if t.left >= Inches(SLIDE_WIDTH_IN)]
     assert len(dentro) == 1 and len(fora) == 1
-    # A pauta é curta de propósito: cabeçalho + no máximo quinze fundos.
-    assert len(dentro[0].table.rows) <= 16
+    # Cabeçalho e os nove desenquadramentos da triagem.
+    assert len(dentro[0].table.rows) == 10
+    assert [cell.text for cell in dentro[0].table.rows[0].cells] == [
+        "FIDC",
+        "Cob.",
+        "PL R$ mm",
+        "Sub Mín.",
+        "Sub/PL",
+        "Sub+Mez/PL",
+        "Folga",
+        "Aporte R$ mm",
+        "Aporte/PL",
+    ]
 
     # Nada da lâmina invade o rodapé nem transborda a margem direita.
     for tabela in dentro:
@@ -233,10 +251,16 @@ def test_a_lamina_entra_logo_apos_o_bloco_de_subordinacao() -> None:
     total = len(apresentacao.slides._sldIdLst)
     append_stress_slide(apresentacao, ROOT / "data" / "industry_study")
 
-    assert len(apresentacao.slides._sldIdLst) == total + 1
-    posicionada = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL]
+    assert len(apresentacao.slides._sldIdLst) == total + 2
+    metodologia = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL]
+    posicionada = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL + 1]
     assert any(
-        forma.has_text_frame and "de aporte" in forma.text_frame.text
+        forma.has_text_frame and "Stress Test | Metodologia" in forma.text_frame.text
+        for forma in metodologia.shapes
+    )
+    assert any(
+        forma.has_text_frame
+        and "Stress Test | Nove FIDCs c/ cobertura < 100%" in forma.text_frame.text
         for forma in posicionada.shapes
     )
     # A numeração continua sequencial de ponta a ponta.

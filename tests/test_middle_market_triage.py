@@ -184,12 +184,14 @@ def test_as_bases_analiticas_saem_como_bytes_da_base_atual() -> None:
         build_cedentes_triagem_csv_bytes,
         build_revalidacao_secoes_csv_bytes,
         build_top100_middle_xlsx_bytes,
+        build_validacao_analistas_xlsx_bytes,
     )
 
     data_dir = ROOT / "data" / "industry_study"
     xlsx = (
         build_top100_middle_xlsx_bytes(data_dir),
         build_carteira101_subordinacao_xlsx_bytes(data_dir),
+        build_validacao_analistas_xlsx_bytes(data_dir),
     )
     csv = (
         build_cedentes_triagem_csv_bytes(data_dir),

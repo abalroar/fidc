@@ -10009,6 +10009,7 @@ def _industry_export_payloads(
         build_cedentes_triagem_csv_bytes,
         build_revalidacao_secoes_csv_bytes,
         build_top100_middle_xlsx_bytes,
+        build_validacao_analistas_xlsx_bytes,
     )
 
     builders = {
@@ -10023,6 +10024,7 @@ def _industry_export_payloads(
         "subordinacao": build_carteira101_subordinacao_xlsx_bytes,
         "auditoria_agro": build_agro_auditoria_csv_bytes,
         "apuracao": build_apuracao_xlsx_bytes,
+        "validacao_analistas": build_validacao_analistas_xlsx_bytes,
     }
     payloads: dict[str, bytes] = {}
     failures: dict[str, str] = {}
@@ -10327,6 +10329,19 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
             "em branco para apurar à mão"
         ),
         "widget": "industry-apuracao-xlsx",
+    },
+    {
+        "key": "validacao_analistas",
+        "group": GRUPO_BASES,
+        "label": "Validação Analistas",
+        "file_name": "Validacao_Analistas_{period}.xlsx",
+        "mime": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "icon": ":material/fact_check:",
+        "help": (
+            "Validar os nove FIDCs do stress e consultar as mesmas variáveis "
+            "para os 101 CNPJs da carteira"
+        ),
+        "widget": "industry-validacao-analistas-xlsx",
     },
 )
 

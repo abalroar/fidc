@@ -1,9 +1,8 @@
-"""A lâmina do teste de estresse: gráfico, tabela dos vermelhos e apuração.
+"""As duas lâminas do teste de estresse: método e nove desenquadramentos.
 
-Uma lâmina só. Em cima, a mesma leitura de PDD sobre inadimplência que o painel
-mostra; embaixo, o que acontece com a subordinação de cada fundo abaixo de 100%
-quando o buraco de provisão é reconhecido, e o aporte que reenquadra os que
-desenquadram.
+A primeira lâmina registra as equações. A segunda preserva a leitura de PDD
+sobre inadimplência e expõe júnior, mezanino, folga e aporte para os nove fundos
+que desenquadram na triagem já validada.
 
 Fora da área visível — à direita do limite da lâmina, no mesmo arquivo — vai a
 tabela de apuração: quem não declarou PDD, inadimplência ou as duas.  Ela não
@@ -13,10 +12,10 @@ qualquer tabela do Office.
 
 from __future__ import annotations
 
-from io import BytesIO
 from pathlib import Path
 
 import pandas as pd
+from pptx.enum.text import PP_ALIGN
 from pptx.util import Inches
 
 from services.bba_deck import (
@@ -33,15 +32,14 @@ from services.bba_deck import (
     fmt_mm,
 )
 from services.carteira_estresse import estressar, nao_reportantes
-from services.carteira_triagem import DECIDIR, pauta, resumo
 from services.carteira_apuracao_documental import load_apuracao
 from services.carteira_provisao import (
     attach_provisao,
-    cobertura_figure,
-    figure_png_bytes,
 )
 from services.carteira_deck import REPLACED_SLIDE_RANGE
 from services.carteira_subordinacao import resolve_portfolio, short_fund_name
+from services.carteira_validacao_analistas import slide_frame
+from services.deck_layout import move_slides, renumber_pages
 
 KICKER = "CARTEIRA 101 · PROVISÃO NÃO RECONHECIDA"
 
@@ -54,20 +52,23 @@ TABLE_TOP_IN = 3.78
 TRANCHE_GAP_IN = 0.05
 #: Onde o número de página mora no rodapé padrão do deck.
 PAGINA_X_IN = 12.25
-#: FIDC · seção · PL · cobertura · sub antes · sub pós · mínimo · folga · aporte.
-PAUTA_COLUMNS = (2.80, 1.70, 0.95, 0.72, 1.00, 0.92, 0.82, 0.86, 1.10, 1.18)
+#: FIDC · cobertura · PL · mínimo · júnior · júnior+mezz · folga · aporte · aporte/PL.
+PAUTA_COLUMNS = (4.34, 0.72, 1.05, 0.86, 0.86, 1.02, 0.82, 1.20, 1.18)
 TABLE_HEADER = (
     "FIDC",
-    "Seção",
-    "PL R$ mm",
     "Cob.",
-    "Sub antes",
-    "Sub pós",
-    "Mínimo",
+    "PL R$ mm",
+    "Sub Mín.",
+    "Sub/PL",
+    "Sub+Mez/PL",
     "Folga",
     "Aporte R$ mm",
-    "Ação",
+    "Aporte/PL",
 )
+
+COLOR_ABAIXO = "C8102E"
+COLOR_ACIMA = "17A398"
+COLOR_GRID = "E4E6E8"
 
 #: Vermelho de desenquadramento e verde de folga, os mesmos do resto do deck.
 FILL_ABAIXO = "F7D5DA"
@@ -132,28 +133,30 @@ def _linhas_pauta(mesa: pd.DataFrame) -> list[list[str]]:
     return [
         [
             str(linha.rotulo)[:40],
-            str(linha.categoria_estrutural)[:24],
-            _brl_mm(linha.vl_cotas_total),
             _pct(linha.cobertura_pct),
-            _pct(linha.sub_antes_pct),
-            _pct(linha.sub_pos_pct),
+            _brl_mm(linha.pl_total_cotas_brl),
             _pct(linha.referencia_pct),
+            _pct(float(linha.subordinada_sobre_pl) * 100.0),
+            (
+                _pct(float(linha.submaismez_sobre_pl) * 100.0)
+                if linha.tem_mezanino and pd.notna(linha.submaismez_sobre_pl)
+                else "—"
+            ),
             _pp(linha.folga_pos_pp),
             _brl_mm(linha.aporte_brl) if linha.aporte_brl and linha.aporte_brl > 0 else "—",
-            "Aportar" if linha.triagem_status == DECIDIR else "Acompanhar",
+            _pct(float(linha.aporte_sobre_pl) * 100.0),
         ]
         for linha in mesa.itertuples()
     ]
 
 
 def _pinta(mesa: pd.DataFrame) -> dict[tuple[int, int], str]:
-    """Vermelho em quem desenquadra; amarelo em quem fica com folga fina."""
+    """Vermelho nas três medidas que registram o desenquadramento."""
 
     fills: dict[tuple[int, int], str] = {}
     for posicao, linha in enumerate(mesa.itertuples(), start=1):
-        cor = FILL_ABAIXO if linha.triagem_status == DECIDIR else FILL_ATENCAO
-        for coluna in (7, 8, 9):
-            fills[(posicao, coluna)] = cor
+        for coluna in (6, 7, 8):
+            fills[(posicao, coluna)] = FILL_ABAIXO
     return fills
 
 
@@ -165,14 +168,81 @@ def _tabela_pauta(deck: Deck, slide, mesa: pd.DataFrame) -> None:
         MARGIN_IN,
         TABLE_TOP_IN,
         list(PAUTA_COLUMNS),
-        aligns="llrrrrrrrl",
+        aligns="lrrrrrrrr",
         size=8,
-        row_height=0.205,
-        header_height=0.24,
+        row_height=0.23,
+        header_height=0.27,
         header_fill=GRAY_100,
         header_color=GRAY_500,
         cell_fills=_pinta(mesa),
     )
+
+
+def _grafico_cobertura(deck: Deck, slide, mesa: pd.DataFrame) -> None:
+    """Gráfico nativo para evitar deslocamento de PNG no Office."""
+
+    chart_left = 1.28
+    chart_right = 12.58
+    chart_top = 1.43
+    baseline = 3.05
+    plot_height = baseline - chart_top
+    for value in (0, 50, 100, 150, 200):
+        y = baseline - plot_height * value / 200.0
+        if value == 100:
+            dash_width = 0.12
+            x = chart_left
+            while x < chart_right:
+                deck.rule(slide, x, y, min(dash_width, chart_right - x), color=GRAY_900, height=0.012)
+                x += 0.20
+        else:
+            deck.rule(slide, chart_left, y, chart_right - chart_left, color=COLOR_GRID, height=0.008)
+        deck.text(
+            slide,
+            "100%" if value == 100 else str(value),
+            MARGIN_IN,
+            y - 0.08,
+            0.52,
+            0.16,
+            size=6.5,
+            color=GRAY_700,
+            align=PP_ALIGN.RIGHT,
+        )
+
+    count = len(mesa)
+    slot = (chart_right - chart_left) / max(count, 1)
+    width = min(0.78, slot * 0.64)
+    for index, linha in enumerate(mesa.itertuples()):
+        value = max(0.0, min(float(linha.cobertura_pct), 200.0))
+        height = plot_height * value / 200.0
+        x = chart_left + index * slot + (slot - width) / 2
+        deck.block(slide, x, baseline - height, width, max(height, 0.012), COLOR_ABAIXO)
+        deck.text(
+            slide,
+            _pct(linha.cobertura_pct),
+            x - 0.05,
+            max(chart_top, baseline - height - 0.17),
+            width + 0.10,
+            0.15,
+            size=6.2,
+            color=GRAY_900,
+            align=PP_ALIGN.CENTER,
+        )
+        deck.text(
+            slide,
+            str(linha.rotulo)[:20],
+            x - 0.18,
+            baseline + 0.05,
+            width + 0.36,
+            0.27,
+            size=5.8,
+            color=GRAY_700,
+            align=PP_ALIGN.CENTER,
+        )
+
+    deck.block(slide, 10.42, 1.30, 0.11, 0.08, COLOR_ABAIXO)
+    deck.text(slide, "Abaixo de 100%", 10.60, 1.27, 0.88, 0.15, size=6.5, color=GRAY_900)
+    deck.block(slide, 11.68, 1.30, 0.11, 0.08, COLOR_ACIMA)
+    deck.text(slide, "100% ou mais", 11.86, 1.27, 0.82, 0.15, size=6.5, color=GRAY_900)
 
 
 def _tabela_apuracao(deck: Deck, slide, pendentes: pd.DataFrame, data_dir: Path) -> None:
@@ -249,8 +319,8 @@ def _caixa_de_pagina(slide):
     return None, None
 
 
-def _mover_para(presentation, depois_do_slide: int) -> None:
-    """Leva a última lâmina para logo depois de ``depois_do_slide`` (1-based).
+def _mover_para(presentation, depois_do_slide: int, quantidade: int = 1) -> None:
+    """Leva as últimas lâminas para logo depois do ponto informado.
 
     A lâmina é **acrescentada** e só então reposicionada, porque o
     ``next_partname`` do python-pptx devolve nomes de parte já ocupados quando a
@@ -263,63 +333,100 @@ def _mover_para(presentation, depois_do_slide: int) -> None:
     na montagem, então quem insere no meio tem de corrigi-los.
     """
 
-    ids = presentation.slides._sldIdLst
-    elementos = list(ids)
-    if len(elementos) <= depois_do_slide:
+    total = len(presentation.slides._sldIdLst)
+    if total <= depois_do_slide or quantidade <= 0:
         return
-    ids.remove(elementos[-1])
-    ids.insert(depois_do_slide, elementos[-1])
+    primeiro = total - quantidade + 1
+    move_slides(presentation, primeiro, total, depois_do_slide + 1)
+    renumber_pages(presentation)
 
-    # O número da lâmina anterior manda; a numeração publicada não é igual à
-    # posição (há lâminas sem número), então o que se preserva é a sequência.
-    _, anterior = _caixa_de_pagina(presentation.slides[depois_do_slide - 1])
-    for posicao, slide in enumerate(presentation.slides):
-        if posicao < depois_do_slide:
-            continue
-        caixa, numero = _caixa_de_pagina(slide)
-        if caixa is None:
-            continue
-        if posicao == depois_do_slide:
-            novo = (anterior or depois_do_slide) + 1
-        else:
-            novo = numero + 1
-        caixa.text_frame.paragraphs[0].runs[0].text = str(novo)
+
+def _slide_metodologia(deck: Deck):
+    slide = deck.slide("Stress Test | Metodologia")
+    deck.block(slide, MARGIN_IN, 1.42, 5.92, 2.05, GRAY_100)
+    deck.text(slide, "PERDA RECONHECIDA", 0.78, 1.66, 5.35, 0.22, size=10, color=ORANGE, bold=True)
+    deck.text(slide, "Δ = máx(Inadimplência − PDD, 0)", 0.78, 2.05, 5.35, 0.38, size=20, color=GRAY_900, bold=True)
+    deck.text(
+        slide,
+        "A premissa aloca a PDD integralmente aos créditos inadimplentes. O Δ reduz a cota subordinada e o total de cotas.",
+        0.78,
+        2.63,
+        5.25,
+        0.56,
+        size=11,
+        color=GRAY_700,
+    )
+
+    deck.block(slide, 6.67, 1.42, 6.13, 2.05, GRAY_100)
+    deck.text(slide, "ÍNDICE PÓS-ESTRESSE", 6.92, 1.66, 5.45, 0.22, size=10, color=ORANGE, bold=True)
+    deck.text(slide, "Sub pós = (Sub + Mez − Δ) ÷ (Total − Δ)", 6.92, 2.05, 5.55, 0.38, size=18, color=GRAY_900, bold=True)
+    deck.text(
+        slide,
+        "A parcela mezanino entra quando existe na Tabela X.2. O denominador é o total de cotas do Informe Mensal.",
+        6.92,
+        2.63,
+        5.45,
+        0.56,
+        size=11,
+        color=GRAY_700,
+    )
+
+    deck.block(slide, MARGIN_IN, 3.74, CONTENT_WIDTH_IN, 2.56, WHITE)
+    deck.rule(slide, MARGIN_IN, 3.74, CONTENT_WIDTH_IN, color=ORANGE, height=0.03)
+    deck.text(slide, "REENQUADRAMENTO", 0.78, 4.05, 3.1, 0.22, size=10, color=ORANGE, bold=True)
+    deck.text(slide, "Folga = Sub pós − Sub Mínima", 0.78, 4.43, 5.2, 0.36, size=18, color=GRAY_900, bold=True)
+    deck.text(
+        slide,
+        "Aporte = máx[0; (m × (Total − Δ) − (Sub + Mez − Δ)) ÷ (1 − m)]",
+        0.78,
+        5.06,
+        11.8,
+        0.38,
+        size=17,
+        color=GRAY_900,
+        bold=True,
+    )
+    deck.text(
+        slide,
+        "m representa a Sub Mínima usada no stress. O aporte zera a folga negativa e entra simultaneamente no numerador e no denominador.",
+        0.78,
+        5.63,
+        11.8,
+        0.42,
+        size=10,
+        color=GRAY_700,
+    )
+    deck.footer(
+        slide,
+        "Metodologia da Carteira 101. Valores monetários em R$; índices em percentual do total de cotas.",
+    )
+    return slide
 
 
 def append_stress_slide(presentation, data_dir: Path):
-    """Acrescenta a lâmina do teste de estresse ao fim e a reposiciona."""
+    """Acrescenta as duas lâminas ao fim e reposiciona o bloco por ``sldId``."""
 
     dados = estressar(_dados(data_dir))
-    mesa = pauta(dados)
-    numeros = resumo(dados)
+    mesa = slide_frame(data_dir).assign(
+        rotulo=lambda frame: frame["fundo"].map(short_fund_name)
+    )
     pendentes = nao_reportantes(dados)
     if mesa.empty:
         return presentation
 
     deck = Deck(KICKER, presentation)
-    slide = deck.slide(
-        f"{numeros['decidir']} FIDCs concentram R$ "
-        f"{_brl_mm(numeros['aporte_decidir_brl'])} mm de aporte"
-    )
+    _slide_metodologia(deck)
+    slide = deck.slide("Stress Test | Nove FIDCs c/ cobertura < 100%")
 
-    imagem = figure_png_bytes(
-        cobertura_figure(dados, figsize=(12.0, 2.24), dpi=220)
-    )
-    slide.shapes.add_picture(
-        BytesIO(imagem),
-        Inches(MARGIN_IN),
-        Inches(CHART_TOP_IN),
-        Inches(CONTENT_WIDTH_IN),
-        Inches(CHART_HEIGHT_IN),
-    )
+    _grafico_cobertura(deck, slide, mesa)
 
     # O racional em uma linha, e só ele.
     deck.text(
         slide,
         "Δ = Inadimplência − PDD (o que falta provisionar). Reconhecido, sai da "
-        "subordinada e do total de cotas: Sub pós = (Sub − Δ) ÷ (Total − Δ).",
+        "subordinada e do total de cotas: Sub pós = (Sub + Mez − Δ) ÷ (Total − Δ).",
         MARGIN_IN,
-        CHART_TOP_IN + CHART_HEIGHT_IN + 0.06,
+        CHART_TOP_IN + 2.10 + 0.04,
         CONTENT_WIDTH_IN,
         0.22,
         size=9,
@@ -328,17 +435,11 @@ def append_stress_slide(presentation, data_dir: Path):
 
     _tabela_pauta(deck, slide, mesa)
 
-    # Por que os outros saíram — o descarte fica explícito, não invisível.
-    motivos = "; ".join(
-        f"{quantos} {motivo}" for motivo, quantos in numeros["motivos_descarte"].items()
-    )
-    altura_tabela = 0.24 + 0.205 * len(mesa)
     deck.text(
         slide,
-        f"Fora da pauta, {numeros['descartar']} dos {numeros['universo']} da "
-        f"carteira — {motivos}.",
+        "A tabela reúne os casos com folga negativa após os filtros de materialidade da triagem. Sub/PL mostra a cota júnior; Sub+Mez/PL aparece quando há mezanino.",
         MARGIN_IN,
-        TABLE_TOP_IN + altura_tabela + 0.10,
+        6.28,
         CONTENT_WIDTH_IN,
         0.22,
         size=8,
@@ -352,7 +453,7 @@ def append_stress_slide(presentation, data_dir: Path):
         "e regulamentos na FundosNet/B3. A carteira reportada já é líquida de PDD; a "
         "provisão é tratada como integralmente alocada aos créditos inadimplentes.",
     )
-    _mover_para(presentation, ULTIMO_SLIDE_ESTRUTURAL)
+    _mover_para(presentation, ULTIMO_SLIDE_ESTRUTURAL, quantidade=2)
     return presentation
 
 
