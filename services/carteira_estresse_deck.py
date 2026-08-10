@@ -36,15 +36,12 @@ from services.carteira_apuracao_documental import load_apuracao
 from services.carteira_provisao import (
     attach_provisao,
 )
-from services.carteira_deck import REPLACED_SLIDE_RANGE
+from services.carteira_deck import last_structural_slide
 from services.carteira_subordinacao import resolve_portfolio, short_fund_name
 from services.carteira_validacao_analistas import slide_frame
 from services.deck_layout import move_slides, renumber_pages
 
 KICKER = "CARTEIRA 101 · PROVISÃO NÃO RECONHECIDA"
-
-#: A lâmina fecha o bloco de subordinação, logo após os índices de sub v. mínimo.
-_, ULTIMO_SLIDE_ESTRUTURAL = REPLACED_SLIDE_RANGE
 
 CHART_TOP_IN = 1.24
 CHART_HEIGHT_IN = 2.24
@@ -453,7 +450,7 @@ def append_stress_slide(presentation, data_dir: Path):
         "e regulamentos na FundosNet/B3. A carteira reportada já é líquida de PDD; a "
         "provisão é tratada como integralmente alocada aos créditos inadimplentes.",
     )
-    _mover_para(presentation, ULTIMO_SLIDE_ESTRUTURAL, quantidade=2)
+    _mover_para(presentation, last_structural_slide(data_dir), quantidade=2)
     return presentation
 
 

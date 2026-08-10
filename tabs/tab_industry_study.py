@@ -9914,6 +9914,7 @@ def _carteira_registry_signature() -> str:
     """
 
     from services.carteira_subordinacao import (
+        MULTI_VALIDATION_NAME,
         OVERRIDES_NAME,
         REGISTRY_NAME,
         REVALIDATION_NAME,
@@ -9923,7 +9924,14 @@ def _carteira_registry_signature() -> str:
     from services.top100_middle_deck import REVIEW_NAME
 
     return _industry_files_signature(
-        (REGISTRY_NAME, TAXONOMY_NAME, REVALIDATION_NAME, OVERRIDES_NAME, REVIEW_NAME)
+        (
+            REGISTRY_NAME,
+            TAXONOMY_NAME,
+            REVALIDATION_NAME,
+            OVERRIDES_NAME,
+            MULTI_VALIDATION_NAME,
+            REVIEW_NAME,
+        )
         + EXPORT_DATA_INPUTS
     )
 

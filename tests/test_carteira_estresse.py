@@ -233,11 +233,8 @@ def test_a_lamina_entra_logo_apos_o_bloco_de_subordinacao() -> None:
     from pptx.util import Inches
 
     from services.bba_deck import Deck, SLIDE_HEIGHT_IN, SLIDE_WIDTH_IN
-    from services.carteira_estresse_deck import (
-        ULTIMO_SLIDE_ESTRUTURAL,
-        _caixa_de_pagina,
-        append_stress_slide,
-    )
+    from services.carteira_deck import last_structural_slide
+    from services.carteira_estresse_deck import _caixa_de_pagina, append_stress_slide
 
     apresentacao = Presentation()
     apresentacao.slide_width = Inches(SLIDE_WIDTH_IN)
@@ -245,15 +242,17 @@ def test_a_lamina_entra_logo_apos_o_bloco_de_subordinacao() -> None:
     deck = Deck("BLOCO")
     deck.prs = apresentacao
     deck.page = 0
-    for numero in range(1, ULTIMO_SLIDE_ESTRUTURAL + 4):
+    data_dir = ROOT / "data" / "industry_study"
+    ultimo_slide_estrutural = last_structural_slide(data_dir)
+    for numero in range(1, ultimo_slide_estrutural + 4):
         deck.footer(deck.slide(f"Lâmina {numero}"), "fonte")
 
     total = len(apresentacao.slides._sldIdLst)
-    append_stress_slide(apresentacao, ROOT / "data" / "industry_study")
+    append_stress_slide(apresentacao, data_dir)
 
     assert len(apresentacao.slides._sldIdLst) == total + 2
-    metodologia = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL]
-    posicionada = apresentacao.slides[ULTIMO_SLIDE_ESTRUTURAL + 1]
+    metodologia = apresentacao.slides[ultimo_slide_estrutural]
+    posicionada = apresentacao.slides[ultimo_slide_estrutural + 1]
     assert any(
         forma.has_text_frame and "Stress Test | Metodologia" in forma.text_frame.text
         for forma in metodologia.shapes

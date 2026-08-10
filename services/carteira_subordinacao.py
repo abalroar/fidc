@@ -49,6 +49,8 @@ CLASSIFICATION_NAME = "industry_anbima_classification.csv.gz"
 TAXONOMY_NAME = "carteira_taxonomia_estrutural.csv"
 REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
 OVERRIDES_NAME = "carteira_subordinacao_overrides.csv"
+MULTI_VALIDATION_NAME = "carteira_multicedente_validacao.csv"
+MULTI_CATEGORY = "Multicedente/Multissacado"
 NAO_CLASSIFICADO = "Não classificado"
 
 REGISTRY_COLUMNS: tuple[str, ...] = (
@@ -509,6 +511,64 @@ def _revalidation(data_dir: Path) -> pd.DataFrame:
     return frame.drop_duplicates("cnpj").set_index("cnpj")
 
 
+def load_multicedente_validation(data_dir: Path = DEFAULT_DATA_DIR) -> pd.DataFrame:
+    """Carrega a adjudicação documental de pluralidade e grupo comparável.
+
+    O arquivo conserva documento, data, página e evidência por CNPJ. A camada
+    fica separada da taxonomia histórica porque também registra exclusões
+    operacionais do comparativo e exceções determinadas pelo usuário.
+    """
+
+    columns = (
+        "cnpj",
+        "fundo",
+        "categoria_original",
+        "risco_corporativo",
+        "cedente",
+        "multicedente",
+        "multissacado",
+        "categoria_final",
+        "acao",
+        "documento_id",
+        "documento_data",
+        "pagina",
+        "evidencia",
+        "observacao",
+    )
+    path = Path(data_dir) / MULTI_VALIDATION_NAME
+    if not path.exists():
+        return pd.DataFrame(columns=columns)
+    frame = pd.read_csv(path, dtype=str).fillna("")
+    missing = [column for column in columns if column not in frame.columns]
+    if missing:
+        raise RegistryError(
+            f"{MULTI_VALIDATION_NAME} sem colunas obrigatórias: {', '.join(missing)}"
+        )
+    frame = frame[list(columns)].copy()
+    frame["cnpj"] = frame["cnpj"].str.replace(r"\D", "", regex=True).str.zfill(14)
+    invalid = ~frame["cnpj"].str.fullmatch(r"\d{14}")
+    if invalid.any() or frame["cnpj"].duplicated().any():
+        raise RegistryError(
+            f"{MULTI_VALIDATION_NAME} exige CNPJ válido e uma linha por fundo"
+        )
+    valid_actions = {"mover", "manter", "remover"}
+    if not set(frame["acao"]).issubset(valid_actions):
+        raise RegistryError(f"{MULTI_VALIDATION_NAME} contém ação inválida")
+    moved = frame["acao"].eq("mover")
+    confirmed = frame[["multicedente", "multissacado"]].eq("sim").any(axis=1)
+    if (moved & ~confirmed).any():
+        raise RegistryError("Todo fundo movido precisa de pluralidade documental confirmada")
+    if (moved & frame["categoria_final"].ne(MULTI_CATEGORY)).any():
+        raise RegistryError(f"Todo fundo movido deve entrar em {MULTI_CATEGORY}")
+    traced = frame["acao"].isin({"mover", "manter"})
+    required_trace = ["documento_id", "documento_data", "evidencia"]
+    if frame.loc[traced, required_trace].apply(lambda col: col.str.strip().eq("")).any().any():
+        raise RegistryError(
+            f"{MULTI_VALIDATION_NAME} exige documento, data e evidência nas decisões"
+        )
+    return frame
+
+
 def _classification(data_dir: Path) -> pd.DataFrame:
     registry = pd.read_csv(Path(data_dir) / CLASSIFICATION_NAME, dtype=str)
     by_fund = registry.drop_duplicates("cnpj_fundo").set_index("cnpj_fundo")
@@ -600,6 +660,47 @@ def resolve_portfolio(
     merged["multi_flag"] = merged["cnpj"].map(
         revalidacao.get("multi_flag", pd.Series(dtype=str))
     ).fillna("")
+    multicedente = load_multicedente_validation(data_dir)
+    merged["comparacao_excluida"] = False
+    merged["multi_documento_id"] = ""
+    merged["multi_documento_data"] = ""
+    merged["multi_documento_pagina"] = ""
+    merged["multi_evidencia"] = ""
+    merged["multicedente_status"] = ""
+    merged["multissacado_status"] = ""
+    merged["multi_categoria_original"] = ""
+    if len(multicedente):
+        auditada = multicedente.set_index("cnpj")
+        acao = merged["cnpj"].map(auditada["acao"]).fillna("")
+        categoria_final = merged["cnpj"].map(auditada["categoria_final"]).fillna("")
+        aplicar_categoria = acao.isin({"mover", "manter"}) & categoria_final.ne("")
+        merged.loc[aplicar_categoria, "categoria_estrutural"] = categoria_final[
+            aplicar_categoria
+        ]
+        merged["comparacao_excluida"] = acao.eq("remover")
+        for output, source in (
+            ("multi_documento_id", "documento_id"),
+            ("multi_documento_data", "documento_data"),
+            ("multi_documento_pagina", "pagina"),
+            ("multi_evidencia", "evidencia"),
+            ("multicedente_status", "multicedente"),
+            ("multissacado_status", "multissacado"),
+            ("multi_categoria_original", "categoria_original"),
+        ):
+            merged[output] = merged["cnpj"].map(auditada[source]).fillna("")
+
+        def _multi_label(row: pd.Series) -> str:
+            labels = []
+            if row["multicedente_status"] == "sim":
+                labels.append("multicedente")
+            if row["multissacado_status"] == "sim":
+                labels.append("multissacado")
+            return "/".join(labels)
+
+        auditada_mask = acao.ne("")
+        merged.loc[auditada_mask, "multi_flag"] = merged.loc[
+            auditada_mask, ["multicedente_status", "multissacado_status"]
+        ].apply(_multi_label, axis=1)
     merged["foco_anbima"] = (
         merged["cnpj"].map(by_fund["foco_anbima"])
         .fillna(merged["cnpj"].map(by_class["foco_anbima"]))
@@ -1091,6 +1192,8 @@ __all__ = [
     "ORIGEM_MANUAL",
     "REGISTRY_COLUMNS",
     "REGISTRY_NAME",
+    "MULTI_CATEGORY",
+    "MULTI_VALIDATION_NAME",
     "OVERRIDES_NAME",
     "ORIGEM_OVERRIDE",
     "REVALIDATION_NAME",
@@ -1108,6 +1211,7 @@ __all__ = [
     "figure_png_bytes",
     "format_cnpj",
     "load_overrides",
+    "load_multicedente_validation",
     "load_registry",
     "normalize_cnpj",
     "registry_path",

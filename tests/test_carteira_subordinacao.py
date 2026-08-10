@@ -20,6 +20,7 @@ from services.carteira_subordinacao import (  # noqa: E402
     dumbbell_figure,
     format_cnpj,
     load_registry,
+    load_multicedente_validation,
     normalize_cnpj,
     remove_entry,
     resolve_portfolio,
@@ -468,6 +469,7 @@ def test_a_carteira_usa_a_taxonomia_dos_slides_estruturais() -> None:
         "Adquirência",
         "Agro / Revenda",
         "Risco Corporativo",
+        "Multicedente/Multissacado",
         "Consignado INSS e FGTS",
         "Fomento Mercantil",
     }
@@ -480,6 +482,108 @@ def test_a_carteira_usa_a_taxonomia_dos_slides_estruturais() -> None:
 
     categorias = {str(plano["categoria"]) for plano in slide_plans(data_dir)}
     assert esperadas == categorias
+
+
+def test_a_adjudicacao_documental_move_exclui_e_preserva_as_excecoes() -> None:
+    """O grupo novo deriva do ledger e as duas remoções somem dos dois objetos."""
+
+    from services.carteira_deck import slide_plans
+    from services.carteira_subordinacao import MULTI_CATEGORY
+
+    data_dir = ROOT / "data" / "industry_study"
+    ledger = load_multicedente_validation(data_dir).set_index("cnpj")
+    frame = resolve_portfolio(data_dir).frame.set_index("cnpj")
+    plans = slide_plans(data_dir)
+    graph_by_category = {
+        str(plan["categoria"]): set(plan["grafico"]["cnpj"])
+        for plan in plans
+        if bool(plan["desenha_grafico"])
+    }
+    table_by_category: dict[str, set[str]] = {}
+    for plan in plans:
+        table_by_category.setdefault(str(plan["categoria"]), set()).update(
+            plan["tabela"]["cnpj"]
+        )
+
+    excluded = {"47151680000108", "43616659000180"}
+    all_graph = set().union(*graph_by_category.values())
+    all_table = set().union(*table_by_category.values())
+    assert excluded.isdisjoint(all_graph)
+    assert excluded.isdisjoint(all_table)
+
+    expected_multi = {
+        cnpj
+        for cnpj, row in ledger.iterrows()
+        if row["acao"] == "mover"
+        and cnpj in frame.index
+        and bool(frame.at[cnpj, "ativo"])
+        and bool(frame.at[cnpj, "comparavel"])
+    }
+    assert graph_by_category[MULTI_CATEGORY] == expected_multi
+    assert table_by_category[MULTI_CATEGORY] == expected_multi
+    assert "29492605000129" in expected_multi  # Gazin
+    assert "31570767000180" in expected_multi  # Tradepay
+    assert "38658727000133" in expected_multi  # Madeira Madeira
+    assert "52720932000102" in expected_multi  # Clientes BRF II
+
+    multi_plan = next(plan for plan in plans if plan["categoria"] == MULTI_CATEGORY)
+    chart_groups = {label: set(group["cnpj"]) for label, group in multi_plan["graficos"]}
+    assert chart_groups["Origem: Risco Corporativo"]
+    assert chart_groups["Demais origens"]
+    assert chart_groups["Origem: Risco Corporativo"].isdisjoint(
+        chart_groups["Demais origens"]
+    )
+    assert set().union(*chart_groups.values()) == expected_multi
+    assert {"31570767000180", "38658727000133", "52720932000102"}.issubset(
+        chart_groups["Origem: Risco Corporativo"]
+    )
+
+    agro = graph_by_category["Agro / Revenda"]
+    assert {"37035970000132", "47425750000179"}.issubset(agro)
+    assert {"37035970000132", "47425750000179"}.isdisjoint(expected_multi)
+
+
+def test_todo_risco_corporativo_atual_recebeu_validacao_cruzada() -> None:
+    """A inserção tardia de um override também precisa passar pela auditoria."""
+
+    data_dir = ROOT / "data" / "industry_study"
+    ledger = load_multicedente_validation(data_dir).set_index("cnpj")
+    frame = resolve_portfolio(data_dir).frame
+    current_or_original = frame[
+        frame["cnpj"].isin(ledger.index)
+        & frame["cnpj"].map(ledger["categoria_original"]).eq("Risco Corporativo")
+    ]
+    assert len(current_or_original) == 14
+    assert current_or_original["multi_documento_id"].str.strip().ne("").all()
+    assert current_or_original["multi_documento_data"].str.strip().ne("").all()
+    assert current_or_original["multi_evidencia"].str.strip().ne("").all()
+
+    remaining = frame[
+        frame["comparavel"] & frame["categoria_estrutural"].eq("Risco Corporativo")
+    ]
+    assert remaining["cnpj"].tolist() == ["65836995000170"]
+    assert remaining.iloc[0]["multicedente_status"] == "indeterminado"
+    assert remaining.iloc[0]["multissacado_status"] == "indeterminado"
+
+
+def test_o_ledger_exige_rastreabilidade_para_toda_decisao_documental() -> None:
+    ledger = load_multicedente_validation(ROOT / "data" / "industry_study")
+    decided = ledger[ledger["acao"].isin({"mover", "manter"})]
+
+    assert ledger["cnpj"].is_unique
+    assert decided["documento_id"].str.strip().ne("").all()
+    assert decided["documento_data"].str.strip().ne("").all()
+    assert decided["evidencia"].str.strip().ne("").all()
+    assert decided.loc[decided["acao"].eq("mover"), ["multicedente", "multissacado"]].eq(
+        "sim"
+    ).any(axis=1).all()
+
+    gazin = ledger.set_index("cnpj").loc["29492605000129"]
+    assert gazin["risco_corporativo"] == "sim, predominante"
+    assert gazin["cedente"] == "Cedentes Outro; Entidades Gazin; Gazincred S.A. SCFI"
+    assert gazin["multicedente"] == gazin["multissacado"] == "sim"
+    assert gazin["documento_id"] == "1117213"
+    assert gazin["pagina"] == "5-8; 30-32"
 
 
 def test_um_cnpj_fora_da_taxonomia_nao_inventa_categoria(data_dir: Path) -> None:
