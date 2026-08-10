@@ -22,6 +22,9 @@ um traz o seu:
 ``build_carteira101_subordinacao_xlsx_bytes``
     Subordinação atual contra o mínimo, com o gráfico de bolhas nativo.
 
+``build_validacao_analistas_xlsx_bytes``
+    Nove casos de estresse para confirmação e a base completa da Carteira 101.
+
 ``build_agro_auditoria_csv_bytes``
     Uma linha por alteração da revisão do Agro / Revenda — o que mudou, de que
     valor para que valor, por quê e em que artefato.
@@ -43,6 +46,7 @@ REVALIDATION_NAME = "carteira_revalidacao_secoes.csv"
 AGRO_AUDIT_NAME = "agro_revenda_auditoria_consolidada.csv"
 APURACAO_NAME = "carteira_apuracao_documental.csv"
 VALIDACAO_NAME = "carteira_subordinacao_validacao.csv"
+TRANCHES_NAME = "carteira_cotas_tranches.csv"
 
 #: Arquivos que estas exportações leem.  Entram na chave de cache da seção,
 #: senão uma atualização de base continuaria servindo o download anterior.
@@ -53,6 +57,7 @@ EXPORT_DATA_INPUTS: tuple[str, ...] = (
     AGRO_AUDIT_NAME,
     APURACAO_NAME,
     VALIDACAO_NAME,
+    TRANCHES_NAME,
 )
 
 
@@ -103,6 +108,25 @@ def build_carteira101_subordinacao_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR)
         return destino.read_bytes()
 
 
+def build_validacao_analistas_xlsx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
+    import tempfile
+
+    from scripts.build_carteira_validacao_analistas_xlsx import write_workbook
+    from services.carteira_validacao_analistas import (
+        build_validation_frame,
+        target_validation_frame,
+    )
+
+    with tempfile.TemporaryDirectory() as pasta:
+        destino = Path(pasta) / "Validacao_Analistas.xlsx"
+        write_workbook(
+            target_validation_frame(data_dir),
+            build_validation_frame(data_dir),
+            destino,
+        )
+        return destino.read_bytes()
+
+
 def build_agro_auditoria_csv_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
     return _csv_bytes(Path(data_dir) / AGRO_AUDIT_NAME)
 
@@ -142,6 +166,7 @@ __all__ = [
     "AGRO_AUDIT_NAME",
     "APURACAO_NAME",
     "VALIDACAO_NAME",
+    "TRANCHES_NAME",
     "EXPORT_DATA_INPUTS",
     "REVALIDATION_NAME",
     "REVIEW_NAME",
@@ -152,4 +177,5 @@ __all__ = [
     "build_cedentes_triagem_csv_bytes",
     "build_revalidacao_secoes_csv_bytes",
     "build_top100_middle_xlsx_bytes",
+    "build_validacao_analistas_xlsx_bytes",
 ]
