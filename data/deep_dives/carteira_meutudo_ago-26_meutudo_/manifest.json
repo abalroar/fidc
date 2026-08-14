@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_meutudo_ago-26_meutudo_",
+  "title": "Curadoria MeuTudo Ago-26",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
+  "portfolio_id": "meutudo_ago26_202608",
+  "portfolio_signature": "40752367000186|44173467000109|51290497000160|53179862000190|54464892000100|58458416000138|60010416000112|62010175000137|62310468000130|63953620000165",
+  "generated_at": "2026-08-14T15:28:03-03:00",
+  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "60.010.416/0001-12",
+      "name": "MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "MT CONSIGNADO PRIVADO I"
+    },
+    {
+      "cnpj": "58.458.416/0001-38",
+      "name": "MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "MT CONSIGNADO PRIVADO II"
+    },
+    {
+      "cnpj": "53.179.862/0001-90",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA FGTS MT II",
+      "short_name": "FGTS MT II"
+    },
+    {
+      "cnpj": "40.752.367/0001-86",
+      "name": "MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "MT INSS RECEIVABLES II"
+    },
+    {
+      "cnpj": "44.173.467/0001-09",
+      "name": "MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE",
+      "short_name": "MT INSS RECEIVABLES III RESPONSABILI"
+    },
+    {
+      "cnpj": "51.290.497/0001-60",
+      "name": "MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS",
+      "short_name": "MT INSS RECEIVABLES V CONSIGNADOS"
+    },
+    {
+      "cnpj": "62.010.175/0001-37",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES IV",
+      "short_name": "MT FGTS RECEIVABLES IV"
+    },
+    {
+      "cnpj": "62.310.468/0001-30",
+      "name": "MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "MT INSS RECEIVABLES VI"
+    },
+    {
+      "cnpj": "54.464.892/0001-00",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES II",
+      "short_name": "MT FGTS RECEIVABLES II"
+    },
+    {
+      "cnpj": "63.953.620/0001-65",
+      "name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+      "short_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOB"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "subtitle": "Conclusões materiais para consulta humana",
+      "kind": "source_table",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
+      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
+      "Custos estruturais: 20 linhas com taxa de administração/gestão e mínimos mensais quando curados.",
+      "Tabela principal com 38 linhas; contagem documental foi substituída por páginas locais analisadas."
+    ]
+  }
+}

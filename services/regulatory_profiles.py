@@ -62,10 +62,11 @@ def load_curated_regulatory_profile(
         sources = triage_sources if is_triage else manual_sources
         emissions_frames = triage_emissions_frames if is_triage else manual_emissions_frames
         criteria_frames = triage_criteria_frames if is_triage else manual_criteria_frames
-        sources.append(path)
         if {"Cota/Classe", "Amortização principal"}.issubset(frame.columns):
+            sources.append(path)
             emissions_frames.append(frame)
         elif {"Critério", "Monitorabilidade IME"}.issubset(frame.columns):
+            sources.append(path)
             criteria_frames.append(frame)
 
     emissions_frames = manual_emissions_frames or triage_emissions_frames

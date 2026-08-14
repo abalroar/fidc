@@ -1,15 +1,15 @@
 # Estudo regulatório dos FIDCs monitorados
 
-Gerado em: 2026-06-01T18:31:46Z
+Gerado em: 2026-08-14T18:03:58Z
 
 ## Resumo executivo
 
-- Fundos com base gerada: 64
-- Documentos inventariados: 2872
-- Documentos com extração estruturada: 1445
-- Critérios extraídos: 6010
-- Critérios classificados como monitoráveis pelo IME: 2760
-- Documentos com erro de extração estruturada: 36
+- Fundos com base gerada: 70
+- Documentos inventariados: 3173
+- Documentos com extração estruturada: 1651
+- Critérios extraídos: 7035
+- Critérios classificados como monitoráveis pelo IME: 3155
+- Documentos com erro de extração estruturada: 44
 
 A base separa documentos, critérios regulatórios e eventos de emissão/amortização. O app deve monitorar apenas critérios explicitamente encontrados e com mapeamento viável para o Informe Mensal; os demais ficam como referência para análise manual.
 
@@ -19,19 +19,19 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 
 | Critério | Ocorrências | Fundos | Monitoramento | Métrica IME |
 | --- | --- | --- | --- | --- |
-| credit_rights_allocation_min | 1298 | 58 | monitoravel | Dir Cred / PL |
-| permitted_hedges | 876 | 51 | parcial | Posições mantidas em derivativos |
-| concentration_limits | 638 | 46 | nao_monitoravel |  |
-| subordination_ratio_min | 842 | 38 | monitoravel | Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL % |
-| eligibility_criteria_text | 704 | 23 | nao_monitoravel |  |
-| pdd_coverage_min | 307 | 23 | monitoravel | PDD / Venc Total ou PDD / Venc > 90 d |
-| minimum_cash_ratio | 464 | 22 | parcial | Disponibilidades / PL ou Disponibilidades / amortização estimada |
-| service_provider_replacement_event | 512 | 19 | nao_monitoravel |  |
-| default_rate_evaluation_event | 108 | 14 | monitoravel | Vencidos Over 30/60/90/180/360 d / Crédito |
-| recompras_max | 199 | 14 | monitoravel | Recompras / Crédito ou Recompras / PL |
-| cancellation_rate_max | 52 | 6 | parcial | Recompras / Crédito, baixas ou eventos operacionais informados |
+| credit_rights_allocation_min | 1506 | 63 | monitoravel | Dir Cred / PL |
+| permitted_hedges | 987 | 58 | parcial | Posições mantidas em derivativos |
+| concentration_limits | 698 | 52 | nao_monitoravel |  |
+| subordination_ratio_min | 995 | 44 | monitoravel | Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL % |
+| eligibility_criteria_text | 1009 | 31 | nao_monitoravel |  |
+| minimum_cash_ratio | 508 | 25 | parcial | Disponibilidades / PL ou Disponibilidades / amortização estimada |
+| pdd_coverage_min | 313 | 25 | monitoravel | PDD / Venc Total ou PDD / Venc > 90 d |
+| service_provider_replacement_event | 548 | 23 | nao_monitoravel |  |
+| default_rate_evaluation_event | 130 | 18 | monitoravel | Vencidos Over 30/60/90/180/360 d / Crédito |
+| recompras_max | 205 | 16 | monitoravel | Recompras / Crédito ou Recompras / PL |
+| cancellation_rate_max | 91 | 9 | parcial | Recompras / Crédito, baixas ou eventos operacionais informados |
+| dilution_rate_max | 39 | 3 | nao_monitoravel |  |
 | default_rate_early_maturity | 6 | 1 | monitoravel | Vencidos Over 30/60/90/180/360 d / Crédito |
-| dilution_rate_max | 4 | 1 | nao_monitoravel |  |
 
 ## Cobertura por fundo
 
@@ -54,6 +54,7 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 | MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA | 37.511.828/0001-14 | 75 | 13 | 27 | 0 | 190 | 133 | 30 | 31/12/2025 |
 | FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BASSANO DI GRAPPO - RESPONSABILIDADE LIMITADA | 37.645.459/0001-52 | 46 | 14 | 6 | 1 | 86 | 15 | 21 | 31/12/2025 |
 | FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FORNECEDORES MADEIRA MADEIRA I | 38.658.727/0001-33 | 69 | 9 | 9 | 3 | 116 | 26 | 15 | 31/01/2026 |
+| MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 40.752.367/0001-86 | 52 | 6 | 15 | 1 | 69 | 21 | 4 | 31/12/2025 |
 | 3RD - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 40.975.325/0001-04 | 48 | 6 | 5 | 0 | 71 | 17 | 15 | 31/12/2025 |
 | SIFRA LP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 41.351.629/0001-63 | 55 | 10 | 4 | 4 | 92 | 32 | 0 | 30/06/2025 |
 | MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA | 41.970.012/0001-26 | 80 | 22 | 14 | 3 | 171 | 164 | 6 | 31/12/2025 |
@@ -62,20 +63,23 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 | CLOUDWALK KICK ASS II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 42.102.603/0001-44 | 50 | 13 | 6 | 3 | 64 | 39 | 10 | 31/12/2023 |
 | MULTIPLIKE PLUS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 42.154.687/0001-60 | 157 | 34 | 22 | 52 | 661 | 335 | 58 | 30/11/2025 |
 | CLOUDWALK AKIRA II FIDC SEGMENTO MEIOS DE PAGAMENTO | 44.124.617/0001-94 | 47 | 10 | 5 | 1 | 52 | 30 | 14 | 31/12/2025 |
-| MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE | 44.173.467/0001-09 | 42 | 6 | 9 | 2 | 29 | 3 | 5 | 31/12/2025 |
+| MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE | 44.173.467/0001-09 | 43 | 6 | 9 | 2 | 29 | 3 | 5 | 31/12/2025 |
 | SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI | 45.598.747/0001-21 | 40 | 9 | 1 | 3 | 21 | 3 | 12 | 31/12/2025 |
 | MF GROUP FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NÃO PADRONIZADOS | 47.424.724/0001-26 | 34 | 5 | 3 | 1 | 63 | 10 | 12 | 31/03/2025 |
 | INOVA CREDTECH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 47.669.476/0001-83 | 8 | 6 | 0 | 2 | 39 | 14 | 6 | 23/12/2022 |
 | TAMBASA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 50.327.909/0001-27 | 18 | 6 | 2 | 1 | 33 | 0 | 4 | 31/01/2026 |
 | SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA | 50.473.039/0001-02 | 45 | 8 | 5 | 8 | 75 | 48 | 23 | 31/03/2025 |
 | CARTÃO DE COMPRA SUPPLIER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS II-RESPONSABILIDADE LIMITADA | 50.988.212/0001-05 | 41 | 7 | 17 | 2 | 53 | 34 | 19 | 31/12/2025 |
+| MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS | 51.290.497/0001-60 | 86 | 28 | 39 | 3 | 480 | 220 | 49 | 31/12/2025 |
 | FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ANGÁ FGTS I - RESPONSABILIDADE LIMITADA | 51.957.370/0001-52 | 45 | 10 | 12 | 5 | 144 | 86 | 58 | 30/09/2025 |
 | INOVA CREDTECH III FIDC SEGMENTO MULTICARTEIRA DE RESPONSABILIDADE LIMITADA | 52.340.225/0001-90 | 56 | 9 | 20 | 7 | 434 | 218 | 70 | 31/12/2025 |
+| FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA FGTS MT II | 53.179.862/0001-90 | 50 | 8 | 11 | 12 | 143 | 60 | 47 | 31/12/2024 |
 | CLOUDWALK BIG PICTURE I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 54.218.673/0001-41 | 28 | 6 | 1 | 6 | 21 | 6 | 10 | 31/12/2025 |
 | CLOUDWALK BIG PICTURE II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 54.218.941/0001-25 | 27 | 6 | 1 | 6 | 21 | 6 | 10 | 31/12/2025 |
 | CLOUDWALK BIG PICTURE III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 54.219.179/0001-00 | 28 | 6 | 1 | 6 | 25 | 10 | 10 | 31/12/2025 |
 | CLOUDWALK BIG PICTURE IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 54.248.022/0001-02 | 29 | 6 | 1 | 6 | 31 | 16 | 10 | 31/12/2025 |
 | J17 FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FINANCEIRO - RESPONSABILIDADE LIMITADA | 54.252.144/0001-64 | 55 | 21 | 8 | 10 | 453 | 161 | 149 | 31/12/2025 |
+| FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES II | 54.464.892/0001-00 | 47 | 10 | 12 | 11 | 148 | 27 | 58 | 31/12/2025 |
 | ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA | 54.559.035/0001-94 | 18 | 2 | 2 | 3 | 6 | 6 | 0 | 31/05/2025 |
 | ANGÁ FGTS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 54.810.968/0001-02 | 26 | 6 | 8 | 2 | 87 | 48 | 39 | 30/11/2025 |
 | CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 54.871.427/0001-94 | 24 | 3 | 3 | 6 | 9 | 4 | 3 | 31/12/2025 |
@@ -86,9 +90,11 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 | CRÉDITO UNIVERSITÁRIO IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA | 55.983.705/0001-68 | 35 | 5 | 6 | 8 | 79 | 37 | 42 | 31/12/2025 |
 | CLOUDWALK A.I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 57.609.282/0001-46 | 30 | 8 | 5 | 2 | 20 | 12 | 2 | 31/12/2025 |
 | ALTOMAX FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO RECEBÍVEIS COMERCIAIS DE RESP LTDA | 58.288.437/0001-52 | 28 | 6 | 5 | 9 | 178 | 60 | 18 | 31/12/2025 |
-| MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 60.010.416/0001-12 | 17 | 2 | 8 | 1 | 16 | 6 | 6 | 31/03/2026 10:00 |
+| MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 58.458.416/0001-38 | 35 | 9 | 7 | 11 | 108 | 55 | 10 | 31/12/2025 |
+| MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 60.010.416/0001-12 | 21 | 2 | 9 | 1 | 26 | 6 | 6 | 31/03/2026 10:00 |
 | CLOUDWALK PI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 60.356.171/0001-80 | 19 | 3 | 2 | 4 | 22 | 14 | 2 | 31/12/2025 |
-| MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 62.310.468/0001-30 | 26 | 10 | 6 | 4 | 73 | 13 | 19 | 30/10/2025 07:00 |
+| FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES IV | 62.010.175/0001-37 | 17 | 3 | 2 | 3 | 57 | 10 | 25 | 31/12/2025 |
+| MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 62.310.468/0001-30 | 27 | 10 | 6 | 4 | 73 | 13 | 19 | 30/10/2025 07:00 |
 | CLOUDWALK BELA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO | 62.393.679/0001-83 | 38 | 9 | 9 | 7 | 61 | 37 | 15 | 31/12/2025 |
 | V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 62.552.447/0001-20 | 7 | 2 | 0 | 1 | 6 | 0 | 4 | 21/05/2026 |
 | VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 62.588.266/0001-54 | 14 | 4 | 1 | 5 | 59 | 39 | 16 | 31/12/2025 |
@@ -98,7 +104,7 @@ A extração estruturada desta entrega foi feita localmente, sem chamada externa
 | ENDURANCE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 62.838.025/0001-16 | 11 | 3 | 3 | 3 | 17 | 8 | 5 | 22/09/2025 |
 | PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 63.546.406/0001-94 | 9 | 3 | 0 | 5 | 27 | 14 | 12 | 22/04/2026 |
 | SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA | 63.572.282/0001-11 | 11 | 4 | 1 | 5 | 31 | 22 | 9 | 23/01/2025 |
-| CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA | 63.953.620/0001-65 | 8 | 0 | 2 | 2 | 0 | 0 | 0 | 28/04/2026 00:00 |
+| CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA | 63.953.620/0001-65 | 16 | 1 | 5 | 2 | 10 | 2 | 1 | 29/07/2026 08:00 |
 | CLASSE INSS DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA | 63.953.769/0001-44 | 5 | 0 | 1 | 2 | 0 | 0 | 0 | 19/02/2026 |
 | FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FORNECEDORES MADEIRA MADEIRA II | 66.299.762/0001-49 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |  |
 
