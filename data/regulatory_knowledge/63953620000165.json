@@ -2,7 +2,7 @@
   "schema_version": 1,
   "fund_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
   "fund_cnpj": "63.953.620/0001-65",
-  "generated_at": "2026-05-29T01:35:04Z",
+  "generated_at": "2026-08-14T18:03:58Z",
   "documents": [
     {
       "id": 1087883,
@@ -103,6 +103,34 @@
       "source_file": "data/raw/63953620000165/1142756_assembleia_assembleia_1142756_2026-03-17.pdf"
     },
     {
+      "id": 1224479,
+      "categoria": "Outras Demonstrações Financeiras ",
+      "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "18/03/2026",
+      "data_entrega": "18/06/2026 20:59",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1282179,
+      "categoria": "Outras Demonstrações Financeiras ",
+      "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "16/04/2026",
+      "data_entrega": "10/08/2026 19:58",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
       "id": 1205431,
       "categoria": "Assembleia",
       "tipo": "AGE",
@@ -115,14 +143,320 @@
       "downloaded": true,
       "download_error": "",
       "source_file": "data/raw/63953620000165/1205431_assembleia_assembleia_1205431_2026-04-28.pdf"
+    },
+    {
+      "id": 1282180,
+      "categoria": "Outras Demonstrações Financeiras ",
+      "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "28/04/2026",
+      "data_entrega": "10/08/2026 19:59",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1291068,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "outro",
+      "data_referencia": "06/2026",
+      "data_entrega": "13/08/2026 23:31",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": ""
+    },
+    {
+      "id": 1222860,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "02/06/2026 10:00",
+      "data_entrega": "16/06/2026 17:37",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1222860_assembleia_assembleia_1222860_2026-06-02.pdf"
+    },
+    {
+      "id": 1222863,
+      "categoria": "Anexo ao Regulamento",
+      "tipo": "",
+      "especie": "",
+      "classification": "regulamento",
+      "data_referencia": "02/06/2026",
+      "data_entrega": "16/06/2026 17:39",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1222863_regulamento_regulamento_1222863_2026-06-02.pdf"
+    },
+    {
+      "id": 1270336,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "15/07/2026 08:00",
+      "data_entrega": "30/07/2026 14:49",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1270336_assembleia_assembleia_1270336_2026-07-15.pdf"
+    },
+    {
+      "id": 1277543,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "29/07/2026 08:00",
+      "data_entrega": "05/08/2026 14:31",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": true,
+      "download_error": "",
+      "source_file": "data/raw/63953620000165/1277543_assembleia_assembleia_1277543_2026-07-29.pdf"
     }
   ],
-  "criteria": [],
-  "eligibility_criteria": [],
+  "criteria": [
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.01,
+      "threshold_unit": "ratio",
+      "threshold_display": "1%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "s Amortizações eventualmente realizadas; e (ii) o resultado da divisão do valor do Patrimônio Líquido apurado para o respectivo dia, pelo número de Cotas Seniores em circulação na respectiva data de cálculo; observado que, caso o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando-se os Valores Unitários das Cotas Seniores de cada Série. 4…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "event_type": "enquadramento",
+      "threshold_value": 0.01,
+      "threshold_unit": "ratio",
+      "threshold_display": "1%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "o respectivo dia, pelo número de Cotas Seniores em circulação na respectiva data de cálculo; observado que, caso o Valor Unitário calculado no Dia Útil anterior seja distinto para a Subclasse ou Série, referida divisão será realizada ponderando-se os Valores Unitários das Cotas Seniores de cada Série. 4. Índice de Subordinação Sênior e Excesso de Subordinação 4.1. Após a Data da 1ª Integralização de Cotas Seniores,…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "monitoravel",
+        "ime_metric": "Cotas Sub / PL %, Cotas MZ / PL % e Cotas SR / PL %",
+        "rationale": "O Informe Mensal traz PL e classes/cotas; a subordinação pode ser recalculada por classe quando as cotas reconciliam."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.67,
+      "threshold_unit": "ratio",
+      "threshold_display": "67%",
+      "comparison": ">=",
+      "formula_text": "",
+      "source_excerpt": "ireitos Creditórios Consignado Privado oferecidos à Classe satisfazem as condições de endosso previstas no Contrato de Endosso. Ativos Financeiros 4.12 A parcela do Patrimônio Líquido que não estiver alocada em Direitos Creditórios será necessariamente alocada em Ativos Financeiros. 4.12.1 É vedada à Classe a aplicação de recursos de seu Patrimônio Líquido na aquisição de Ativos Financeiros no exterior. Limites de C…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Limite de concentração",
+      "canonical_key": "concentration_limits",
+      "event_type": "elegibilidade",
+      "threshold_value": 1.0,
+      "threshold_unit": "ratio",
+      "threshold_display": "100%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "idade ou coobrigação de Devedores de um mesmo Grupo Econômico e/ou de um mesmo Devedor, individualmente considerado , ainda que devidos e/ou de responsabilidade ou coobrigação dos Prestadores de Serviço Essenciais, outros prestadores de serviço da Classe, e/ou suas Partes Relacionadas. 4.15 Sem prejuízo de limites mais restritivos definidos neste Regulamento, o Gestor deverá observar , ainda, os seguintes limites de…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Limites por sacado, cedente ou grupo econômico exigem granularidade não disponível no IME público."
+      }
+    },
+    {
+      "name": "Hedges/derivativos permitidos",
+      "canonical_key": "permitted_hedges",
+      "event_type": "enquadramento",
+      "threshold_value": 0.5,
+      "threshold_unit": "ratio",
+      "threshold_display": "50%",
+      "comparison": "<=",
+      "formula_text": "",
+      "source_excerpt": "Direitos Creditórios não sejam partes relacionadas ao originador ou Cedente . (ii) No máximo, 50% (cinquenta por cento) do Patrimônio Líquido investido em Ativos Financeiros de Liquidez de emissão ou que envolvam retenção de risco por parte do Administrador, Gestor, e/ou suas partes relacionadas, observado ainda o disposto acima; (iii) No máximo , 100% (cem por cento) do Patrimônio Líquido investido em operações com…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posições mantidas em derivativos",
+        "rationale": "O IME mostra posições agregadas em derivativos, mas não valida integralmente elegibilidade contratual da proteção."
+      }
+    },
+    {
+      "name": "Troca de administrador, gestor ou prestador-chave",
+      "canonical_key": "service_provider_replacement_event",
+      "event_type": "evento_de_avaliação_ou_liquidação",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "ento de sua aquisição; (ix) alteração na classificação de risco das Cotas , se houver, que, para qualquer dado período após a classificação de risco inicial das Cotas e/ou após a deliberação da Assembleia Especial de Cotistas a respeito de um rebaixamento da classificação de risco das Cotas, implique no rebaixamento de dois níveis na escala de risco pertinente elaborada pela Agência Classificadora de Risco; e/ou (x)…",
+      "source_excerpt": "ento de sua aquisição; (ix) alteração na classificação de risco das Cotas , se houver, que, para qualquer dado período após a classificação de risco inicial das Cotas e/ou após a deliberação da Assembleia Especial de Cotistas a respeito de um rebaixamento da classificação de risco das Cotas, implique no rebaixamento de dois níveis na escala de risco pertinente elaborada pela Agência Classificadora de Risco; e/ou (x)…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Troca, renúncia ou substituição de administrador, gestor, custodiante ou consultor é evento documental/eventual, não métrica mensal do IME."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível deixar de atender a qualque…",
+      "source_excerpt": "de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível deixar de atender a qualque…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso d…",
+      "source_excerpt": "eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado previamente ao endosso d…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": null,
+      "threshold_unit": "texto",
+      "threshold_display": "",
+      "comparison": "texto",
+      "formula_text": "asse, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que estejam em desacordo com a…",
+      "source_excerpt": "asse, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que estejam em desacordo com a…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    },
+    {
+      "name": "Critérios de elegibilidade dos direitos creditórios",
+      "canonical_key": "eligibility_criteria_text",
+      "event_type": "elegibilidade",
+      "threshold_value": 0.1,
+      "threshold_unit": "ratio",
+      "threshold_display": "10,00%",
+      "comparison": "texto",
+      "formula_text": "ão, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critérios de Elegibilidade e à…",
+      "source_excerpt": "ão, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critérios de Elegibilidade e à…",
+      "confidence": "média",
+      "notes": "Extração local heurística; validar manualmente antes de ativar alerta.",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863,
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "",
+        "rationale": "Critérios de elegibilidade exigem granularidade por direito creditório, sacado, cedente e documentação de lastro não disponível no IME público."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ue apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível dei…",
+      "source_excerpt": "ue apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível dei…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "r por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado…",
+      "source_excerpt": "r por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s ao funcionamento d a Classe, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que e…",
+      "source_excerpt": "s ao funcionamento d a Classe, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que e…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de resgate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "de resgate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    }
+  ],
   "emissions": [
     {
       "date": null,
-      "event": "evento de cota",
+      "event": "emissão",
       "series_or_class": "cotas seniores das Classes (“Cotas Seniores”)",
       "amount": 15000000000.0,
       "amount_display": "R$ 15.000.000.000,00",
@@ -131,12 +465,12 @@
       "amortization_schedule": "",
       "maturity": "ação Privada: R$ 15.000.000.000,00 (quinze bilhões de reais); b. Quantidade de Cotas : 15.000.000 ( quinze milhões) de Cotas Seniore s; c. Preço de Emissão (Valor Unitário) : R$ 1.000,00 (mil reais); d. Forma e Preço de Integralização: as Cotas serão integralizadas na forma prevista no Boletim de Subscrição; e. Prazo da Colocação Privada : as Cotas serão colocadas em até 180 (cento e oitenta) dias da data dest e IPA…",
       "source_excerpt": ".2, 6.8.3 e 6.8.4 ; (iii) No Anexo III , (a) alterar o item 4.20.1, 6.8 e o Capítulo 13, (b) incluir o item 3.1, 8.1.(ii), 8.2, 8.2.1, e 10.2.(xvii); e (c) excluir os itens 6.8.1, 6.8.2, 6.8.3 e 6.8.4; (iv) No Anexo IV , (a) alterar o item 4.15.1, 6.8 e o Capítulo 13, (b) incluir o item 3.1, 8.1.(ii), 8.2, 8.2.1, e 10.2.(xvii); e (c) excluir os itens 6.8.1, 6.8.2, 6.8.3 e 6.8.4; (v) O Regulamento consolidado segue n…",
-      "source_document": "1087883_assembleia_assembleia_1087883_2026-01-08.pdf",
+      "source_document": "1087883_emissao_emissao_1087883_2026-01-08.pdf",
       "source_document_id": 1087883
     },
     {
       "date": null,
-      "event": "evento de cota",
+      "event": "emissão",
       "series_or_class": "",
       "amount": 1000000000.0,
       "amount_display": "R$ 1.000.000.000,00",
@@ -145,10 +479,38 @@
       "amortization_schedule": "",
       "maturity": "",
       "source_excerpt": "ÁRIOS, com sede no município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botaf ogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250-040, inscrita no Cadastro Nacional da Pessoa Jurídica (“CNPJ”) sob o nº 59.281.253/0001-23, devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declarat…",
-      "source_document": "1119041_assembleia_assembleia_1119041_2026-02-18.pdf",
+      "source_document": "1119041_emissao_emissao_1119041_2026-02-18.pdf",
       "source_document_id": 1119041
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": null,
+      "amount_display": "",
+      "currency": null,
+      "remuneration": "",
+      "amortization_schedule": "",
+      "maturity": "",
+      "source_excerpt": "ÁRIOS, com sede no município do Rio de Janeiro, Estado do Rio de Janeiro, na Praia de Botafogo, nº 501, Torre Corcovado, 5º andar – parte, Botafogo, CEP 22250-040, inscrita no Cada stro Nacional da Pessoa Ju rídica (“CNPJ”) sob o nº 59.281.253/0001-23, devidamente autorizada pela Comissão de Valores Mobiliários (“CVM”) para a atividade de administração de carteiras de valores mobiliários, de acordo com o Ato Declara…",
+      "source_document": "1222860_assembleia_assembleia_1222860_2026-06-02.pdf",
+      "source_document_id": 1222860
+    },
+    {
+      "date": null,
+      "event": "evento de cota",
+      "series_or_class": "",
+      "amount": 150000.0,
+      "amount_display": "R$ 150.000,00",
+      "currency": "R$",
+      "remuneration": "Taxa DI + 1,50% a.a. | itos Creditórios, e/ou verificação de lastro dos Direitos Creditórios, conforme aplicável; (iii) Despesas com a contratação de atividades relacionadas à verificação de lastro ; (iv) Despesas com a contratação de Agente de Retenção/Cobrança ; Despesas com a contratação de consultoria especializada, conforme o caso; (v) Remuneração do Custodiante; (vi) Despesas com honorários advocatícios para quaisquer assuntos de in…",
+      "amortization_schedule": "Classe é constituído por meio da soma (i) do disponível, (ii) do valor da Carteira; e (iii) dos valores a receber, deduzidas de tal soma as exigibilidades e a rentabilidade auferida no período (“Patrimônio Líquido”). As Cotas possuem as características descritas nos seus respectivos Apêndices Integralização, Resgate e Amortização A integralização, o resgate e a amortização de Cotas poderão ser realizados em moeda co…",
+      "maturity": "arteira da Classe (“Carteira”), estabelecidos neste Regulamento e na regulamentação aplicável. Subsidiariamente, a parcela do Patrimônio Líquido que não esteja alocada em Direitos Creditórios poderá estar alocado em : (1) certificados de depósito bancário (CDB) ou recibos de depósito bancário (RDB) com prazo máximo de vencimento equivalente ao prazo remanescente do Período de Investimento, com liquidez diária, emiti…",
+      "source_excerpt": "ederal, de acordo com a legislação aplicável e em conformidade com os procedimentos estabelecidos no convênio celebrado entre o Endossante e a Empresa de Tecnologia e Informações da Previdência – DATAPREV e paga na Conta Vinculada do Endossante (“Convênio Consignado Privado ”); e/ou (ii) “Direitos Creditórios TVM ”, representados por direitos, títulos e/ou valores mobiliários representativos de créditos originados n…",
+      "source_document": "1222863_regulamento_regulamento_1222863_2026-06-02.pdf",
+      "source_document_id": 1222863
     }
   ],
-  "extraction_count": 4,
+  "extraction_count": 8,
   "extraction_errors": []
 }

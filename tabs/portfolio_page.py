@@ -773,6 +773,10 @@ def _render_unified_portfolio_download(
     period: ImePeriodSelection,
 ) -> None:
     from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+    from services.fidc_analytical_slide import (
+        build_fidc_analytical_pptx_bytes,
+        build_fidc_analytical_xlsx_bytes,
+    )
     from services.pptx_merge import merge_pptx_bytes
     from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
 
@@ -814,6 +818,20 @@ def _render_unified_portfolio_download(
             )
         except Exception as exc:  # noqa: BLE001
             export_warnings.append(f"Base analítica: {exc}")
+    try:
+        decks.append(
+            build_fidc_analytical_pptx_bytes(
+                selected_portfolio.funds,
+                portfolio_name=selected_portfolio.name,
+            )
+        )
+        analytical_xlsx_bytes = build_fidc_analytical_xlsx_bytes(
+            selected_portfolio.funds,
+            portfolio_name=selected_portfolio.name,
+        )
+    except Exception as exc:  # noqa: BLE001
+        analytical_xlsx_bytes = None
+        export_warnings.append(f"Estrutura, emissões e RDB: {exc}")
 
     file_token = _safe_file_token(selected_portfolio.name)
     if decks:
@@ -868,6 +886,15 @@ def _render_unified_portfolio_download(
             key=f"portfolio_full_csv::{selected_portfolio.id}",
             use_container_width=True,
         )
+        if analytical_xlsx_bytes is not None:
+            st.download_button(
+                "Estrutura, emissões e RDB (Excel auditável)",
+                data=analytical_xlsx_bytes,
+                file_name=f"carteira_estrutura_emissoes_rdb_{file_token}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                key=f"portfolio_analytical_excel::{selected_portfolio.id}",
+                use_container_width=True,
+            )
         for warning in export_warnings:
             st.caption(f"Parte não incluída no PPT: {warning}")
 
