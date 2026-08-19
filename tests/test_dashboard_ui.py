@@ -273,7 +273,14 @@ def test_routes_and_exports_remain_available() -> None:
     assert '("estimativas", "Estimativas e Modelagem")' in app_source
 
     source_expectations = {
-        "tabs/tab_industry_study.py": ("PPTX", "XLSX", "HTML interativo", "Baixar CSV"),
+        "tabs/tab_industry_study.py": (
+            "PPTX",
+            "Estudos de Caso",
+            "Prompt usado para atualizar este artefato",
+            "XLSX",
+            "HTML interativo",
+            "Baixar CSV",
+        ),
         "tabs/tab_cloudwalk_financial_cost.py": ("Baixar memória XLSX", "Baixar PPTX", "Baixar pacote CSV"),
         "tabs/tab_estimativas_modelagem.py": ("Custo Financeiro do Cedente", "Vencimentário e Premissas"),
         "tabs/tab_deep_dive.py": (
@@ -689,6 +696,8 @@ def test_industry_cache_signatures_track_every_declared_input(tmp_path: Path) ->
         "generated_revision/revision_manifest.json",
         "generated_revision/industry_export_bundle.json",
         "generated_revision/industry_executive_revised.pptx",
+        "generated_revision/fidc_case_studies.pptx",
+        "generated_revision/fidc_case_studies_prompt.md",
         "generated_revision/industry_data_revised.xlsx",
         "generated_revision/carteira_101_flagships.xlsx",
         "generated_revision/top100_fidcs_middle_market.xlsx",
@@ -1020,7 +1029,7 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
     assert set(failures) == {"top100"}
     assert "openpyxl ausente" in failures["top100"]
     # As demais exportações do pacote continuam de pé.
-    assert {"pptx", "xlsx", "portfolio", "html"} <= set(payloads)
+    assert {"pptx", "case_studies", "xlsx", "portfolio", "html"} <= set(payloads)
 
 
 def test_every_export_button_is_declared_with_a_payload_key() -> None:
@@ -1032,6 +1041,7 @@ def test_every_export_button_is_declared_with_a_payload_key() -> None:
 
     assert keys == [
         "pptx",
+        "case_studies",
         "xlsx",
         "portfolio",
         "top100",

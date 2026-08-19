@@ -220,6 +220,8 @@ _INDUSTRY_EXPORT_INPUTS = (
     "generated_revision/revision_manifest.json",
     "generated_revision/industry_export_bundle.json",
     "generated_revision/industry_executive_revised.pptx",
+    "generated_revision/fidc_case_studies.pptx",
+    "generated_revision/fidc_case_studies_prompt.md",
     "generated_revision/industry_data_revised.xlsx",
     "generated_revision/carteira_101_flagships.xlsx",
     "generated_revision/top100_fidcs_middle_market.xlsx",
@@ -9959,6 +9961,7 @@ def _industry_export_payloads(
     """
 
     from services.anbima_executive_export import build_anbima_deck_bytes
+    from services.industry_case_studies_export import build_case_studies_deck_bytes
     from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
     from services.industry_revision_export import (
         build_revision_html_bytes,
@@ -10022,6 +10025,7 @@ def _industry_export_payloads(
 
     builders = {
         "pptx": industry_deck_with_anbima,
+        "case_studies": build_case_studies_deck_bytes,
         "xlsx": build_industry_xlsx_bytes,
         "portfolio": build_revision_portfolio_xlsx_bytes,
         "top100": build_revision_top100_xlsx_bytes,
@@ -10217,6 +10221,16 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
         "widget": "industry-pptx",
     },
     {
+        "key": "case_studies",
+        "group": GRUPO_PACOTE,
+        "label": "Estudos de Caso",
+        "file_name": "FIDC_Estudos_de_Caso_{period}.pptx",
+        "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        "icon": ":material/history_edu:",
+        "help": "Baixar timelines de casos, evolução regulatória e método de risco e retorno",
+        "widget": "industry-case-studies-pptx",
+    },
+    {
         "key": "xlsx",
         "group": GRUPO_PACOTE,
         "label": "XLSX",
@@ -10408,6 +10422,15 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
                 if spec["key"] in failures
             )
         )
+    try:
+        from services.industry_case_studies_export import load_case_studies_prompt
+
+        update_prompt = load_case_studies_prompt(_DATA_DIR)
+    except Exception as exc:  # noqa: BLE001
+        st.caption(f"Prompt de atualização indisponível: {type(exc).__name__}: {exc}")
+    else:
+        with st.expander("Prompt usado para atualizar este artefato", expanded=False):
+            st.code(update_prompt, language=None)
 
 
 def _stock_delta_display(stock: pd.DataFrame, role: str, segment: str, metric: str, top_n: int) -> pd.DataFrame:
