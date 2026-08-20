@@ -11,11 +11,19 @@ const require = createRequire(path.join(bundledNodeModules, "package.json"));
 const { FileBlob, PresentationFile } = require("@oai/artifact-tool");
 
 const ROOT = process.cwd();
-const starterPptxPath = path.join(
+const baseTemplatePptxPath = path.join(
   ROOT,
   "data/industry_study/generated_revision/fidc_case_studies_template.pptx",
 );
+const templateFollowingStarterPptxPath = path.join(ROOT, "work/monocotista_ppt_build/template-starter.pptx");
+const starterPptxPath = process.env.CASE_STUDIES_USE_TEMPLATE_STARTER === "1"
+  ? templateFollowingStarterPptxPath
+  : baseTemplatePptxPath;
 const DATA = path.join(ROOT, "data/industry_study/generated_revision/directors_update/fidc_directors_update_data.json");
+const GOVERNANCE_DATA = path.join(
+  ROOT,
+  "data/industry_study/generated_revision/directors_update/fidc_monocotista_governance_202607.json",
+);
 const OUTPUT = path.join(ROOT, "data/industry_study/generated_revision/fidc_case_studies.pptx");
 const PREVIEW_DIR = path.join(ROOT, "work/presentation_build/rendered");
 
@@ -498,6 +506,117 @@ function updateCarteira101Existing(presentation, data, slideOverride = null) {
   setTable(tables[1], [headers, ...rows.slice(10)]);
 }
 
+function replaceSlideText(slide, oldText, newText) {
+  const shape = slide.shapes.items.find((item) => String(item.text ?? "") === oldText);
+  if (!shape) throw new Error(`Texto herdado não encontrado no slide duplicado: ${oldText}`);
+  shape.text = newText;
+}
+
+function formatGovernanceTable(table, riskRows, alertRows) {
+  [174, 112, 106, 66, 110].forEach((width, index) => {
+    table.columns.get(index).width = width;
+  });
+  table.cells.block({ row: 0, column: 0, rowCount: 1, columnCount: 5 }).assign({
+    textStyle: {
+      typeface: F.xbold,
+      fontSize: 8.4,
+      bold: true,
+      color: C.white,
+      alignment: "left",
+      verticalAlignment: "middle",
+      autoFit: "shrinkText",
+      wrap: "square",
+    },
+    margins: { top: 1.5, right: 3, bottom: 1.5, left: 3 },
+  });
+  for (let rowIndex = 1; rowIndex <= 10; rowIndex += 1) {
+    let fill = rowIndex % 2 === 0 ? C.pale : C.white;
+    if (riskRows.has(rowIndex - 1)) fill = "#FFF1E6";
+    if (alertRows.has(rowIndex - 1)) fill = "#ECECEC";
+    table.cells.block({ row: rowIndex, column: 0, rowCount: 1, columnCount: 5 }).assign({
+      fill,
+      textStyle: {
+        typeface: F.body,
+        fontSize: 8.05,
+        color: C.charcoal,
+        alignment: "left",
+        verticalAlignment: "middle",
+        autoFit: "shrinkText",
+        wrap: "square",
+      },
+      margins: { top: 1, right: 3, bottom: 1, left: 3 },
+    });
+    table.rows[rowIndex].height = 35.5 * 0.75;
+  }
+  table.cells.block({ row: 1, column: 3, rowCount: 10, columnCount: 1 }).textStyle.alignment = "center";
+}
+
+function buildMonocotistaGovernance(presentation, governance, slideOverride = null) {
+  const source = slideOverride || presentation.slides.items[9];
+  if (!source || source.tables.items.length !== 2) {
+    throw new Error("Slide 10 deveria conter duas tabelas nativas para ser duplicado.");
+  }
+  const slide = slideOverride || source.duplicate();
+  if (!slideOverride) slide.moveTo(10);
+
+  replaceSlideText(slide, "Carteira 101 · cotas seniores", "Carteira 101 · governança de cotistas");
+  replaceSlideText(slide, "A CVM sinaliza 19 fundos com uma única conta sênior reportada", "Quatro fundos têm uma posição sênior; três dão maioria de votos à subordinada");
+  replaceSlideText(slide, "19 fundos", "4 / 20");
+  replaceSlideText(slide, "uma conta sênior na Tabela X.1.1", "uma posição sênior reportada em jul/26");
+  replaceSlideText(slide, "R$ 7,45 bi", "3 / 20");
+  replaceSlideText(slide, "PL publicado desses veículos", "Mez + Jr acima de 50% dos votos");
+  replaceSlideText(slide, "99,0%", "0 / 20");
+  replaceSlideText(slide, "do PL conhecido da carteira com dado CVM", "beneficiário final identificado publicamente");
+  replaceSlideText(slide, "23 fundos", "3 alertas");
+  replaceSlideText(slide, "sem dado exato; mantidos como N/D", "iFood, Pine e VTK exigem reconciliação");
+  replaceSlideText(
+    slide,
+    "* Uma conta sênior é indício compatível com posição exclusiva da carteira interna; a CVM não publica a identidade do titular. CNPJ é a chave de reconciliação.",
+    "Posições = contas por série no Informe Mensal; podem repetir o investidor. QC = 1 cota/1 voto; FP = posição financeira. % por beneficiário exige registro do escriturador/B3.",
+  );
+
+  const headers = ["FIDC / CNPJ", "Sênior", "Mez + Jr", "Voto sub.", "Conclusão documental"];
+  const rows = governance.fundos.map((row) => [
+    `${row.nome}\n${row.cnpj}`,
+    row.senior,
+    row.subordinada,
+    row.voto_sub,
+    row.conclusao,
+  ]);
+  const leftTable = slide.tables.items[0];
+  const inheritedRightTable = slide.tables.items[1];
+  setTable(leftTable, [headers, ...rows.slice(0, 10)]);
+  slide.tables.deleteById(inheritedRightTable.id);
+  const rightTable = addNativeTable(slide, {
+    left: 652,
+    top: 211,
+    width: 568,
+    height: 425,
+    headers,
+    rows: rows.slice(10),
+    columnWidths: [174, 112, 106, 66, 110],
+    aligns: ["left", "left", "left", "center", "left"],
+    fontSize: 8.05,
+    headerFontSize: 8.4,
+  });
+  formatGovernanceTable(leftTable, new Set([8, 9]), new Set([]));
+  formatGovernanceTable(rightTable, new Set([2]), new Set([0, 1, 9]));
+
+  const fundDocumentIds = governance.fundos
+    .flatMap((row) => row.documentos)
+    .map((item) => item.replace("Fundos.NET ", ""));
+  addNotes(slide, [
+    "CVM — Informe Mensal FIDC, Tabelas X.1.1 e X.2, competência 31 jul. 2026: https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal",
+    `Fundos.NET/B3 — regulamentos, atas, anúncios de encerramento e demonstrações financeiras: documentos ${fundDocumentIds.join(", ")}; consulta por ID em https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento`,
+    `Corpus documental: ${governance.metodologia.corpus}`,
+    `Método de posições: ${governance.metodologia.posicao}`,
+    `Método de PL: ${governance.metodologia.pl}`,
+    `Método de voto: ${governance.metodologia.voto}`,
+    "Correções cadastrais validadas: Angá FGTS II 53.577.135/0001-80; Cartão de Compra Supplier II 50.988.212/0001-05.",
+  ]);
+  return slide;
+}
+
 function buildFinanceiro(presentation, after, data) {
   const { slide } = presentation.slides.insert({ after });
   const summary = data.financeiro.summary;
@@ -748,30 +867,37 @@ async function writeBlob(filePath, blob) {
 
 async function main() {
   const data = JSON.parse(await fs.readFile(DATA, "utf8"));
+  const governance = JSON.parse(await fs.readFile(GOVERNANCE_DATA, "utf8"));
   const presentation = await PresentationFile.importPptx(await FileBlob.load(starterPptxPath));
   const originals = [...presentation.slides.items];
-  if (![16, 20, 22].includes(originals.length)) throw new Error(`Deck-base deveria ter 16, 20 ou 22 slides; contém ${originals.length}.`);
-  updateRegulatorySlides(presentation);
-  updateAgendaSlide(presentation);
-  updateCaseOverviewSlides(presentation);
-  if (originals.length === 16) {
-    let caseAfter = originals[5];
-    caseAfter = buildNexoosCase(presentation, caseAfter);
-    buildLightCase(presentation, caseAfter);
-    let after = originals[6];
-    after = buildCarteira101(presentation, after, data);
-    after = buildFinanceiro(presentation, after, data);
-    after = buildCarbono(presentation, after);
-    buildMaster(presentation, after);
-  } else if (originals.length === 20) {
-    let caseAfter = originals[5];
-    caseAfter = buildNexoosCase(presentation, caseAfter);
-    buildLightCase(presentation, caseAfter);
-    updateCarteira101Existing(presentation, data, originals[7]);
+  if (![16, 20, 22, 23].includes(originals.length)) throw new Error(`Deck-base deveria ter 16, 20, 22 ou 23 slides; contém ${originals.length}.`);
+  if (originals.length === 23) {
+    updateCarteira101Existing(presentation, data, originals[9]);
+    buildMonocotistaGovernance(presentation, governance, originals[10]);
+  } else {
+    updateRegulatorySlides(presentation);
+    updateAgendaSlide(presentation);
+    updateCaseOverviewSlides(presentation);
+    if (originals.length === 16) {
+      let caseAfter = originals[5];
+      caseAfter = buildNexoosCase(presentation, caseAfter);
+      buildLightCase(presentation, caseAfter);
+      let after = originals[6];
+      after = buildCarteira101(presentation, after, data);
+      after = buildFinanceiro(presentation, after, data);
+      after = buildCarbono(presentation, after);
+      buildMaster(presentation, after);
+    } else if (originals.length === 20) {
+      let caseAfter = originals[5];
+      caseAfter = buildNexoosCase(presentation, caseAfter);
+      buildLightCase(presentation, caseAfter);
+      updateCarteira101Existing(presentation, data, originals[7]);
+    }
+    buildMonocotistaGovernance(presentation, governance);
   }
   setPageAndCutoff(presentation);
 
-  if (presentation.slides.items.length !== 22) throw new Error(`Deck deveria ter 22 slides; gerou ${presentation.slides.items.length}.`);
+  if (presentation.slides.items.length !== 23) throw new Error(`Deck deveria ter 23 slides; gerou ${presentation.slides.items.length}.`);
   await fs.mkdir(PREVIEW_DIR, { recursive: true });
   for (const [index, slide] of presentation.slides.items.entries()) {
     const stem = `slide-${String(index + 1).padStart(2, "0")}`;
