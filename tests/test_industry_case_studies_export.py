@@ -29,12 +29,21 @@ def test_case_studies_materialized_export_is_native_and_editable() -> None:
             package.read(name).decode("utf-8", errors="ignore") for name in slides
         )
 
-    assert len(slides) == 16
-    assert slide_xml.count("<a:tbl>") == 18
+    assert len(slides) == 22
+    assert slide_xml.count("<a:tbl>") == 27
     assert "Itau Display" in slide_xml
     assert "Itau Display Black" in slide_xml
     assert "Itau Display X-Bold" in slide_xml
     assert "Estudos de Caso" in slide_xml
+    assert "uma única conta sênior reportada" in slide_xml
+    assert "R$ 323,9 bi" in slide_xml
+    assert "Operação Carbono Oculto" in slide_xml
+    assert "Credcesta" in slide_xml
+    assert "SAV Nexoos" in slide_xml
+    assert "38.284.301/0001-67" in slide_xml
+    assert "FIDC Light" in slide_xml
+    assert "29.665.468/0001-87" in slide_xml
+    assert "99,70353%" in slide_xml
 
 
 def test_case_studies_prompt_covers_research_design_and_publication() -> None:
@@ -45,6 +54,12 @@ def test_case_studies_prompt_covers_research_design_and_publication() -> None:
         "MCPO/Maqcampo",
         "Lavoro Agro FIDC I",
         "Vinci Antecipe Plus FIDC",
+        "SAV Nexoos",
+        "FIDC Light",
+        "Carteira 101",
+        "Tipo ANBIMA Financeiro",
+        "Operação Carbono Oculto",
+        "Banco Master",
         "tabelas nativas do Office",
         "Prompt usado para atualizar este artefato",
         "Dados da Indústria > Exportações",
