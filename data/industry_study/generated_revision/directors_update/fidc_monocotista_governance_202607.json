@@ -1,0 +1,38 @@
+{
+  "competencia": "2026-07-31",
+  "metodologia": {
+    "posicao": "Soma de TAB_X_NR_COTST das séries ativas por nível de subordinação. Uma posição reportada não identifica o beneficiário final e a mesma pessoa pode aparecer em mais de uma série.",
+    "pl": "Participação calculada com os valores de classe/subclasse da Tabela X.2 sobre o PL reportado. N/R indica reconciliação insuficiente.",
+    "voto": "Percentual estimado do bloco mezanino+júnior segundo a regra do regulamento: QC = uma cota por voto; FP = posição financeira.",
+    "corpus": "193 documentos; 5.503 páginas; 12,96 milhões de caracteres; duas atas digitalizadas revisadas visualmente."
+  },
+  "resumo": {
+    "fundos": 20,
+    "uma_posicao_senior": 4,
+    "voto_subordinado_acima_50": 3,
+    "beneficiario_final_publico": 0,
+    "alertas_reconciliacao": 3
+  },
+  "fundos": [
+    {"cnpj":"53.270.983/0001-42","nome":"Angá FGTS +AG","senior":"1 série / 1 pos. · 79,8% PL","subordinada":"Mez 2 + Jr 3 · 20,2% PL","voto_sub":"20,0% QC","conclusao":"1 posição Sr; oferta teve 1 subscritor; 5 posições sub e vetos","uma_posicao_senior":true,"voto_sub_pct":20.0,"alerta_reconciliacao":false,"documentos":["Fundos.NET 881263","Fundos.NET 732153"]},
+    {"cnpj":"53.577.135/0001-80","nome":"Angá FGTS II","senior":"2 séries / 2 pos. · 77,5% PL","subordinada":"Jr 5 · 22,5% PL","voto_sub":"22,5% FP","conclusao":"2 posições Sr; identidade comum N/D; Jr em fundos Angá","uma_posicao_senior":false,"voto_sub_pct":22.5,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1224059","Fundos.NET 634211","Fundos.NET 675234"]},
+    {"cnpj":"54.810.968/0001-02","nome":"Angá FGTS III","senior":"1 série / 2 pos. · 83,6% PL","subordinada":"Jr 5 · 16,4% PL","voto_sub":"16,4% FP","conclusao":"2 posições na mesma série; Jr restrita a fundos Angá","uma_posicao_senior":false,"voto_sub_pct":16.4,"alerta_reconciliacao":false,"documentos":["Fundos.NET 937760"]},
+    {"cnpj":"50.988.212/0001-05","nome":"Cartão Supplier II","senior":"2 séries / 2 pos. · 92,8% PL","subordinada":"Jr 1 · 7,2% PL","voto_sub":"4,9% QC","conclusao":"2 blocos Sr e 1 posição Jr","uma_posicao_senior":false,"voto_sub_pct":4.9,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1013021"]},
+    {"cnpj":"54.559.035/0001-94","nome":"Estratégia Vinculada I","senior":"1 série / 9 pos. · 86,2% PL","subordinada":"Jr 8 · 12,7% PL","voto_sub":"11,4% QC","conclusao":"9 posições Sr + 8 Jr; X.2 reconcilia 98,9%","uma_posicao_senior":false,"voto_sub_pct":11.4,"alerta_reconciliacao":false,"documentos":["Fundos.NET 634463"]},
+    {"cnpj":"65.976.848/0001-04","nome":"Agibank II","senior":"1 série / 104 pos. · 84,8% PL","subordinada":"Jr 1 · 15,3% PL","voto_sub":"15,1% QC","conclusao":"104 posições Sr; coordenação assemblear elevada","uma_posicao_senior":false,"voto_sub_pct":15.1,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1239452"]},
+    {"cnpj":"51.957.370/0001-52","nome":"Angá FGTS I","senior":"1 série / 1 pos. · 83,2% PL","subordinada":"Mez 12 + Jr 4 · 16,8% PL","voto_sub":"10,3% QC","conclusao":"1 posição Sr; 16 posições sub e vetos","uma_posicao_senior":true,"voto_sub_pct":10.3,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1025473"]},
+    {"cnpj":"54.464.892/0001-00","nome":"MT FGTS Receivables II","senior":"3 séries / 56 pos. · 80,3% PL","subordinada":"Mez 14 + Jr 1 · 19,7% PL","voto_sub":"15,6% QC","conclusao":"56 posições Sr + 14 Mez; retenção mínima Jr","uma_posicao_senior":false,"voto_sub_pct":15.6,"alerta_reconciliacao":false,"documentos":["Fundos.NET 884293"]},
+    {"cnpj":"28.169.275/0001-72","nome":"PagSeguro I","senior":"2 séries / 2 pos. · 34,6% PL","subordinada":"Jr 3 · 65,4% PL","voto_sub":"98,95% QC","conclusao":"Jr exclusivamente PagSeguro; maioria econômica e assemblear","uma_posicao_senior":false,"voto_sub_pct":98.95,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1149521","Fundos.NET 1150895"]},
+    {"cnpj":"44.173.467/0001-09","nome":"MT INSS Receivables III","senior":"1 série / 1 pos. · 90,2% PL","subordinada":"Mez 1 + Jr 1 · 9,8% PL","voto_sub":"98,77% QC","conclusao":"Sub domina votos gerais; decisões-chave reservadas a Sr+Mez","uma_posicao_senior":true,"voto_sub_pct":98.77,"alerta_reconciliacao":false,"documentos":["Fundos.NET 791513"]},
+    {"cnpj":"41.197.066/0001-09","nome":"iFood Pago Crédito I","senior":"4 séries / 154 pos. · PL N/R","subordinada":"Mez 32 + Jr 1 · PL N/R","voto_sub":"29,0% QC · proxy","conclusao":"154 posições Sr; X.2 soma 127,9% do PL","uma_posicao_senior":false,"voto_sub_pct":29.0,"alerta_reconciliacao":true,"documentos":["Fundos.NET 1076481"]},
+    {"cnpj":"63.546.406/0001-94","nome":"Pine INSS III","senior":"1 série / 1 pos. · 84,6% PL","subordinada":"Mez 3 + Jr 1 · 15,4% PL","voto_sub":"14,5% QC","conclusao":"CVM: 1 posição atual; oferta: 41 subscritores","uma_posicao_senior":true,"voto_sub_pct":14.5,"alerta_reconciliacao":true,"documentos":["Fundos.NET 1130481","Fundos.NET 1172101"]},
+    {"cnpj":"29.226.654/0001-10","nome":"Investcred","senior":"2 séries / 2 pos. · 20,0% PL","subordinada":"Jr 2 · 80,0% PL","voto_sub":"80,69% QC","conclusao":"Bloco subordinado com interesse único controla maioria","uma_posicao_senior":false,"voto_sub_pct":80.69,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1023849"]},
+    {"cnpj":"57.028.406/0001-08","nome":"IS Green Solfácil VI","senior":"1 série / 5 pos. · 66,4% PL","subordinada":"Mez 7 + Jr 1 · 33,6% PL","voto_sub":"24,6% QC","conclusao":"Jr 75% pode solicitar amortização das cotas públicas","uma_posicao_senior":false,"voto_sub_pct":24.6,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1202319"]},
+    {"cnpj":"60.851.290/0001-09","nome":"LRS","senior":"1 série / 3 pos. · 100% PL","subordinada":"Sem Mez/Jr","voto_sub":"0,0%","conclusao":"Conflito potencial entre 3 posições Sr","uma_posicao_senior":false,"voto_sub_pct":0.0,"alerta_reconciliacao":false,"documentos":["Fundos.NET 912157"]},
+    {"cnpj":"42.154.687/0001-60","nome":"Multiplike Plus","senior":"14 séries / 175 pos. · 57,3% PL","subordinada":"Mez 101 + Jr 1 · 42,7% PL","voto_sub":"42,7% FP","conclusao":"Maior fragmentação; bloco sub próximo de 50%","uma_posicao_senior":false,"voto_sub_pct":42.7,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1223029"]},
+    {"cnpj":"26.749.095/0001-34","nome":"Pravaler Crédito Universitário II","senior":"8 séries / 8 pos. · 76,1% PL","subordinada":"Mez 33 + Jr 1 · 23,9% PL","voto_sub":"16,3% QC","conclusao":"1 posição por série Sr; Mez disperso; Jr da gestora","uma_posicao_senior":false,"voto_sub_pct":16.3,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1061833","Fundos.NET 1139680"]},
+    {"cnpj":"55.401.645/0001-28","nome":"Quatá FIDC FGTS","senior":"2 séries / 2 pos. · 82,7% PL","subordinada":"Mez 2 + Jr 2 · 17,3% PL","voto_sub":"12,2% QC","conclusao":"2 blocos Sr; Jr vinculada e vetos","uma_posicao_senior":false,"voto_sub_pct":12.2,"alerta_reconciliacao":false,"documentos":["Fundos.NET 1051890"]},
+    {"cnpj":"45.598.747/0001-21","nome":"SumUp Solo","senior":"1 série / 2 pos. · 92,3% PL","subordinada":"Jr 1 · 7,7% PL","voto_sub":"8,7% QC","conclusao":"2 posições Sr; Jr exclusivamente cedente","uma_posicao_senior":false,"voto_sub_pct":8.7,"alerta_reconciliacao":false,"documentos":["Fundos.NET 883977"]},
+    {"cnpj":"62.588.266/0001-54","nome":"VTK","senior":"1 série / 93 pos. · PL N/R","subordinada":"Mez 20 + Jr 3 · PL N/R","voto_sub":"16,1% QC · proxy","conclusao":"93 posições Sr; X.2 soma 81,2% do PL","uma_posicao_senior":false,"voto_sub_pct":16.1,"alerta_reconciliacao":true,"documentos":["Fundos.NET 1002580","Fundos.NET 1130591"]}
+  ]
+}

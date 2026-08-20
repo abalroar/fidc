@@ -10,8 +10,9 @@ Atue como analista sênior de crédito estruturado e pesquisador de FIDCs. Atual
 4. Atualize termos de compromisso, TACs, termos ANBIMA, multas e a cooperação CVM–Banco Central.
 5. Atualize a metodologia de risco e retorno por subclasse ou série.
 6. Recalcule a Carteira 101 por CNPJ e identifique os veículos com exatamente uma conta sênior reportada no Informe Mensal mais recente, com fallback explícito para a competência anterior.
-7. Decomponha o PL ex-FIC do Tipo ANBIMA Financeiro em meios de pagamento, consignado INSS/público, FGTS, privado/CLT, consignado sem segregação, demais PF, PJ, imobiliário e multicarteira sem segregação.
-8. Atualize a cronologia pública da Operação Carbono Oculto, da REAG e do Banco Master/Credcesta, preservando o estágio processual de cada alegação ou investigação.
+7. Para a seleção dirigida de FIDCs, leia integralmente regulamentos, suplementos, atas, anúncios de encerramento e demonstrações financeiras. Organize uma tabela de governança dos cotistas com séries e posições seniores, posições mezanino e júnior, participação no PL, regra de voto, estimativa do bloco subordinado e conclusão por fundo.
+8. Decomponha o PL ex-FIC do Tipo ANBIMA Financeiro em meios de pagamento, consignado INSS/público, FGTS, privado/CLT, consignado sem segregação, demais PF, PJ, imobiliário e multicarteira sem segregação.
+9. Atualize a cronologia pública da Operação Carbono Oculto, da REAG e do Banco Master/Credcesta, preservando o estágio processual de cada alegação ou investigação.
 
 ## Pesquisa de cada caso
 
@@ -48,6 +49,10 @@ Para cada valor material, escreva no slide a fonte de coleta: Informe Mensal CVM
 - Calcule retorno econômico com cota e fluxos de amortização/distribuição, datas efetivas e benchmark.
 - Mantenha divergências entre CVM, Fundos.NET e administrador visíveis.
 - Trate “uma conta sênior reportada” como indício. A CVM não publica a identidade do titular; a confirmação de posição exclusiva exige cadastro interno ou informação do custodiante.
+- Na análise de governança dos cotistas, use “uma posição sênior reportada” quando o Informe Mensal trouxer uma única conta na série. `TAB_X_NR_COTST` conta posições por série e pode repetir o mesmo investidor. Informe 100% da série somente quando houver uma posição naquela série; não converta esse dado em percentual do beneficiário sobre o PL total sem identificação e reconciliação.
+- Registre o beneficiário final como `N/D` quando os documentos públicos não identificarem o titular econômico das cotas.
+- Estime o poder de voto segundo o regulamento vigente: quantidade de cotas quando houver uma cota por voto; posição financeira quando essa for a regra expressa. Destaque Mez + Jr acima de 50%, direitos de veto e matérias reservadas por classe.
+- Marque reconciliações insuficientes como `PL N/R` e preserve alertas quando a soma da Tabela X.2 divergir materialmente do PL ou quando o número atual de posições divergir do encerramento da oferta.
 - Na Carteira 101, ordene os candidatos por PL publicado, mostre competência e preserve fundos sem dado exato como `N/D`.
 - Na decomposição de Financeiro, use buckets mutuamente exclusivos e um ledger por CNPJ. Nome é sinal de triagem; taxonomia funcional e documento têm precedência. Preserve “sem segregação” quando a fonte pública não separar INSS, servidor público, FGTS, CLT, PF e PJ.
 - Reconcilie TAPSO, PagSeguro, CloudWalk, PicPay e demais veículos da cadeia de pagamentos por CNPJ. Informe quanto está dentro e fora do Tipo ANBIMA Financeiro.
@@ -72,16 +77,17 @@ Mantenha uma lâmina por caso e capítulos separados para:
 2. casos em timeline;
 3. leitura transversal das evidências;
 4. Carteira 101: uma conta sênior reportada;
-5. decomposição do Tipo ANBIMA Financeiro;
-6. Operação Carbono Oculto e REAG;
-7. Banco Master e Credcesta;
-8. evolução regulatória, posições públicas e teste de efetividade;
-9. plano emergencial da CVM;
-10. instrumentos jurídicos e termos por prestador;
-11. sanções e multas confirmadas;
-12. cooperação CVM–BCB;
-13. risco e retorno;
-14. agenda analítica.
+5. governança dos cotistas: posição sênior, bloco subordinado, voto e conclusão por FIDC;
+6. decomposição do Tipo ANBIMA Financeiro;
+7. Operação Carbono Oculto e REAG;
+8. Banco Master e Credcesta;
+9. evolução regulatória, posições públicas e teste de efetividade;
+10. plano emergencial da CVM;
+11. instrumentos jurídicos e termos por prestador;
+12. sanções e multas confirmadas;
+13. cooperação CVM–BCB;
+14. risco e retorno;
+15. agenda analítica.
 
 ## Padrão visual e Office
 

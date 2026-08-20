@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -29,8 +30,8 @@ def test_case_studies_materialized_export_is_native_and_editable() -> None:
             package.read(name).decode("utf-8", errors="ignore") for name in slides
         )
 
-    assert len(slides) == 22
-    assert slide_xml.count("<a:tbl>") == 27
+    assert len(slides) == 23
+    assert slide_xml.count("<a:tbl>") == 29
     assert "Itau Display" in slide_xml
     assert "Itau Display Black" in slide_xml
     assert "Itau Display X-Bold" in slide_xml
@@ -44,6 +45,31 @@ def test_case_studies_materialized_export_is_native_and_editable() -> None:
     assert "FIDC Light" in slide_xml
     assert "29.665.468/0001-87" in slide_xml
     assert "99,70353%" in slide_xml
+    assert "Quatro fundos têm uma posição sênior" in slide_xml
+    assert "beneficiário final identificado publicamente" in slide_xml
+    assert "98,95% QC" in slide_xml
+    assert "98,77% QC" in slide_xml
+    assert "80,69% QC" in slide_xml
+    assert "53.577.135/0001-80" in slide_xml
+    assert "50.988.212/0001-05" in slide_xml
+
+
+def test_monocotista_governance_data_preserves_positions_votes_and_alerts() -> None:
+    path = (
+        DATA_DIR
+        / "generated_revision"
+        / "directors_update"
+        / "fidc_monocotista_governance_202607.json"
+    )
+    data = json.loads(path.read_text(encoding="utf-8"))
+
+    assert data["competencia"] == "2026-07-31"
+    assert len(data["fundos"]) == 20
+    assert sum(row["uma_posicao_senior"] for row in data["fundos"]) == 4
+    assert sum(row["voto_sub_pct"] > 50 for row in data["fundos"]) == 3
+    assert sum(row["alerta_reconciliacao"] for row in data["fundos"]) == 3
+    assert data["resumo"]["beneficiario_final_publico"] == 0
+    assert "não identifica o beneficiário final" in data["metodologia"]["posicao"]
 
 
 def test_case_studies_prompt_covers_research_design_and_publication() -> None:
@@ -57,6 +83,9 @@ def test_case_studies_prompt_covers_research_design_and_publication() -> None:
         "SAV Nexoos",
         "FIDC Light",
         "Carteira 101",
+        "governança dos cotistas",
+        "beneficiário final",
+        "uma posição sênior reportada",
         "Tipo ANBIMA Financeiro",
         "Operação Carbono Oculto",
         "Banco Master",
