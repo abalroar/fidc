@@ -4,11 +4,14 @@ Atue como analista sênior de crédito estruturado e pesquisador de FIDCs. Atual
 
 ## Escopo
 
-1. Atualize os casos Blue II/Azul, MCPO/Maqcampo, Lavoro Agro FIDC I, Lavoro Agro II FIAGRO-FIDC e a exposição a Americanas no Vinci Antecipe Plus FIDC.
+1. Atualize os casos Blue II/Azul, MCPO/Maqcampo, Lavoro Agro FIDC I, Lavoro Agro II FIAGRO-FIDC, a exposição a Americanas no Vinci Antecipe Plus FIDC, o SAV Nexoos FIDC e o FIDC Light.
 2. Pesquise novos casos somente quando houver identificação inequívoca do veículo, CNPJ e documento primário.
 3. Atualize a evolução regulatória e informacional desde maio de 2024 até a data de corte.
 4. Atualize termos de compromisso, TACs, termos ANBIMA, multas e a cooperação CVM–Banco Central.
 5. Atualize a metodologia de risco e retorno por subclasse ou série.
+6. Recalcule a Carteira 101 por CNPJ e identifique os veículos com exatamente uma conta sênior reportada no Informe Mensal mais recente, com fallback explícito para a competência anterior.
+7. Decomponha o PL ex-FIC do Tipo ANBIMA Financeiro em meios de pagamento, consignado INSS/público, FGTS, privado/CLT, consignado sem segregação, demais PF, PJ, imobiliário e multicarteira sem segregação.
+8. Atualize a cronologia pública da Operação Carbono Oculto, da REAG e do Banco Master/Credcesta, preservando o estágio processual de cada alegação ou investigação.
 
 ## Pesquisa de cada caso
 
@@ -27,6 +30,10 @@ Monte uma timeline com:
 - assembleias, quórum, matérias, votos, conflitos e resultado;
 - situação final e lacunas documentais.
 
+No SAV Nexoos, separe a relação societária e a posição de cotas da Americanas/Ame da causa documental da liquidação. A liquidação antecipada de outubro de 2022 antecede a divulgação da crise contábil da Americanas. Reconcilie o atraso bruto produzido pelo efeito vagão, a subordinação e a ordem de amortização Sênior → Mezanino.
+
+No FIDC Light, trate o lastro como fluxo futuro de recebíveis de energia. Reconcilie rating, Evento de Desalavancagem, votação sobre Realavancagem, tutela cautelar, recuperação judicial, retenção em contas vinculadas e amortização acelerada. Destaque quando o campo de inadimplência da CVM permanecer em zero apesar dos sinais contratuais e jurídicos.
+
 Para cada valor material, escreva no slide a fonte de coleta: Informe Mensal CVM, regulamento/ata no Fundos.NET-B3, demonstração financeira auditada, página do administrador, decisão CVM, termo ANBIMA, Banco Central, Judiciário ou notícia de mercado. Registre URL, data de consulta, documento e página nas notas do slide.
 
 ## Regras de dados
@@ -40,6 +47,10 @@ Para cada valor material, escreva no slide a fonte de coleta: Informe Mensal CVM
 - Identifique retornos da CVM como “retorno reportado”.
 - Calcule retorno econômico com cota e fluxos de amortização/distribuição, datas efetivas e benchmark.
 - Mantenha divergências entre CVM, Fundos.NET e administrador visíveis.
+- Trate “uma conta sênior reportada” como indício. A CVM não publica a identidade do titular; a confirmação de posição exclusiva exige cadastro interno ou informação do custodiante.
+- Na Carteira 101, ordene os candidatos por PL publicado, mostre competência e preserve fundos sem dado exato como `N/D`.
+- Na decomposição de Financeiro, use buckets mutuamente exclusivos e um ledger por CNPJ. Nome é sinal de triagem; taxonomia funcional e documento têm precedência. Preserve “sem segregação” quando a fonte pública não separar INSS, servidor público, FGTS, CLT, PF e PJ.
+- Reconcilie TAPSO, PagSeguro, CloudWalk, PicPay e demais veículos da cadeia de pagamentos por CNPJ. Informe quanto está dentro e fora do Tipo ANBIMA Financeiro.
 
 ## Regulação e fiscalização
 
@@ -49,6 +60,10 @@ Para Termo de Compromisso CVM, TAC e termo ANBIMA, explique base jurídica, efei
 
 No acordo CVM–BCB, detalhe objeto, ampliação do SCR, entidades reportantes, uso supervisório, sigilo, cronograma e novidades posteriores. Informe quando o resultado existir apenas em ambiente protegido ou não tiver painel público.
 
+Na Operação Carbono Oculto, informe datas, fundos e tipos de fundos citados, prestadores, uso alegado das estruturas, providências da CVM antes e depois da operação e recomendações posteriores. Separe operação policial, investigação administrativa, termo de acusação, processo sancionador e condenação.
+
+No Banco Master, trate Credcesta como produto/carteira de crédito. Separe originação, venda de carteira, substituições, circulação por fundos e avaliação dos ativos. Informe a fonte de cada valor e explique que o Informe Mensal público não comprova a existência ou a validade de contratos individuais.
+
 ## Estrutura do deck
 
 Mantenha uma lâmina por caso e capítulos separados para:
@@ -56,13 +71,17 @@ Mantenha uma lâmina por caso e capítulos separados para:
 1. síntese executiva;
 2. casos em timeline;
 3. leitura transversal das evidências;
-4. evolução regulatória e teste de efetividade;
-5. plano emergencial da CVM;
-6. instrumentos jurídicos e termos por prestador;
-7. sanções e multas confirmadas;
-8. cooperação CVM–BCB;
-9. risco e retorno;
-10. agenda analítica.
+4. Carteira 101: uma conta sênior reportada;
+5. decomposição do Tipo ANBIMA Financeiro;
+6. Operação Carbono Oculto e REAG;
+7. Banco Master e Credcesta;
+8. evolução regulatória, posições públicas e teste de efetividade;
+9. plano emergencial da CVM;
+10. instrumentos jurídicos e termos por prestador;
+11. sanções e multas confirmadas;
+12. cooperação CVM–BCB;
+13. risco e retorno;
+14. agenda analítica.
 
 ## Padrão visual e Office
 

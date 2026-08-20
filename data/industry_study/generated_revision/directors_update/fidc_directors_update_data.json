@@ -1,0 +1,255 @@
+{
+  "carteira_101": {
+    "summary": {
+      "portfolio_funds": 101,
+      "funds_with_cvm_data": 78,
+      "fund_coverage": 0.7722772277227723,
+      "known_portfolio_pl_brl": 55280316935.75,
+      "covered_pl_brl": 54723797005.43,
+      "pl_coverage": 0.9899327652016391,
+      "one_senior_account_funds": 19,
+      "one_senior_account_pl_brl": 7450404893.97,
+      "one_senior_account_share_covered_pl": 0.13614561309096898,
+      "more_than_one_senior_account_funds": 54,
+      "zero_senior_account_funds": 5,
+      "missing_funds": 23,
+      "primary_competence": "2026-07",
+      "fallback_competence": "2026-06",
+      "method": "Soma das contas seniores por tipo de investidor na Tabela X.1.1, por CNPJ de classe/fundo. A CVM nao publica a identidade do titular."
+    },
+    "one_senior_account_funds": [
+      {
+        "cnpj": "62838025000116",
+        "nome_referencia": "TOP 2025 J FIDC RESP LTDA",
+        "nome_cvm": "ENDURANCE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 2003213672.74,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "63546406000194",
+        "nome_referencia": "PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS RESPONSABILIDADE",
+        "nome_cvm": "PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS  RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 1123416602.95,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "65347578000164",
+        "nome_referencia": "ICRED INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS RESPONSABILIDADE",
+        "nome_cvm": "ICRED INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 690077243.57,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "44574361000117",
+        "nome_referencia": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS UPL",
+        "nome_cvm": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS UPL 02 - RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 480955627.35,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "58152340000118",
+        "nome_referencia": "MONEE II FUNDO DE INVESTIMENTO",
+        "nome_cvm": "MONEE II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO FINANCEIRO - RESP. LIMITADA",
+        "competencia_cvm": "2026-06",
+        "pl_publicado_brl": 442213717.89,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "62626887000185",
+        "nome_referencia": "TOP 2025 C FIDC RESP LTDA",
+        "nome_cvm": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 357876597.97,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "63622842000103",
+        "nome_referencia": "DESBRAVA UNO ART ESP FIDC RL",
+        "nome_cvm": "DESBRAVA UNO ARTIGOS ESPORTIVOS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 348330480.96,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "40919667000107",
+        "nome_referencia": "RECARGAPAY I FUNDO DE INVESTIMENTO EM DIREITOS CRE",
+        "nome_cvm": "RECARGAPAY I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 282075326.64,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "47640584000123",
+        "nome_referencia": "SOL AGORA GREEN ESG FIDC IS SEGMENTO FINANCEIRO DE",
+        "nome_cvm": "SOL AGORA GREEN ESG FIDC IS SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 277743631.93,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "42085830000109",
+        "nome_referencia": "CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITO",
+        "nome_cvm": "CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 267022638.13,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "54083697000130",
+        "nome_referencia": "PERNAMBUCANAS FIDC DE RESPONSABILIDADE LIMITADA",
+        "nome_cvm": "PERNAMBUCANAS FIDC DE RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 226732689.34,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "52100879000147",
+        "nome_referencia": "SOTREQ FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",
+        "nome_cvm": "SOTREQ FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS -  RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 211287599.71,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "58476088000100",
+        "nome_referencia": "CONSORCIO DALTEZ",
+        "nome_cvm": "SAGA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CRÉDITO PRIVADO - RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 166274150.46,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "65873297000145",
+        "nome_referencia": "ARCELORMITTAL VERTICE FUNDO DE INVESTIMENTO EM DIREITOS CRED",
+        "nome_cvm": "ARCELORMITTAL VÉRTICE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS COMERCIAIS - RESP LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 161139915.95,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "65836995000170",
+        "nome_referencia": "DAYCOVAL 0410 FUNDO DE INV EM DIREITOS CREDITORIOS",
+        "nome_cvm": "PNEUCASH II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE  CLASSE ÚNICA FECHADA RESP LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 156145138.4,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "54857414000160",
+        "nome_referencia": "INDIE MERX RAIZ I CREDITO AGRO FUNDO DE INVESTIMEN",
+        "nome_cvm": "INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO - RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 106808826.44,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "53270983000142",
+        "nome_referencia": "ANGA FGTS MAIS AG FIDC RESPONSABILIDADE LIMITADA",
+        "nome_cvm": "ANGÁ FGTS +AG FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 70660715.97,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "57270666000187",
+        "nome_referencia": "MOBILITAS FIDC RL",
+        "nome_cvm": "MOBILITAS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 53283562.37,
+        "contas_senior_reportadas": 1.0
+      },
+      {
+        "cnpj": "44173467000109",
+        "nome_referencia": "RECEIVABLES 48 FUNDO DE INVEST INSS MEU TUDO",
+        "nome_cvm": "MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE",
+        "competencia_cvm": "2026-07",
+        "pl_publicado_brl": 25146755.2,
+        "contas_senior_reportadas": 1.0
+      }
+    ]
+  },
+  "financeiro": {
+    "summary": {
+      "competence": "2026-06",
+      "financeiro_pl_brl": 323893158722.31,
+      "financeiro_funds": 1103,
+      "payment_chain_pl_brl": 106231334303.69002,
+      "consignado_total_pl_brl": 86321210744.74,
+      "consignado_unsegmented_pl_brl": 24148790957.86,
+      "document_curated_acquiring_inside_financeiro_pl_brl": 94944093361.34,
+      "tapso_inside_financeiro": true,
+      "tapso_pl_brl": 41496046291.59,
+      "tapso_type_applied": "Financeiro",
+      "method": "Prioridade mutuamente exclusiva: meios de pagamento; FGTS; privado/CLT; INSS/publico; consignado nao segregado; demais PF; PJ; imobiliario; multicarteira/N/D. Nome e taxonomia funcional sao proxies; o bucket nao segregado preserva lacunas em vez de forcar classificacao."
+    },
+    "decomposition": [
+      {
+        "bucket_financeiro": "Meios de pagamento / cartoes",
+        "pl_brl": 106231334303.69,
+        "fundos": 38,
+        "share": 0.3279826432,
+        "ordem": 1
+      },
+      {
+        "bucket_financeiro": "Consignado INSS / publico (proxy)",
+        "pl_brl": 34924665065.61,
+        "fundos": 49,
+        "share": 0.1078277331,
+        "ordem": 2
+      },
+      {
+        "bucket_financeiro": "Consignado FGTS",
+        "pl_brl": 10729651202.25,
+        "fundos": 32,
+        "share": 0.0331271313,
+        "ordem": 3
+      },
+      {
+        "bucket_financeiro": "Consignado privado / CLT",
+        "pl_brl": 16518103519.02,
+        "fundos": 29,
+        "share": 0.0509986181,
+        "ordem": 4
+      },
+      {
+        "bucket_financeiro": "Consignado sem segregacao publica",
+        "pl_brl": 24148790957.86,
+        "fundos": 133,
+        "share": 0.0745578914,
+        "ordem": 5
+      },
+      {
+        "bucket_financeiro": "Demais credito PF",
+        "pl_brl": 49544886229.0,
+        "fundos": 144,
+        "share": 0.1529667574,
+        "ordem": 6
+      },
+      {
+        "bucket_financeiro": "Credito PJ",
+        "pl_brl": 14617256059.97,
+        "fundos": 91,
+        "share": 0.0451298697,
+        "ordem": 7
+      },
+      {
+        "bucket_financeiro": "Imobiliario PF/PJ",
+        "pl_brl": 12281325827.53,
+        "fundos": 117,
+        "share": 0.0379178303,
+        "ordem": 8
+      },
+      {
+        "bucket_financeiro": "Outros / multicarteira sem segregacao PF-PJ",
+        "pl_brl": 54897145557.38,
+        "fundos": 470,
+        "share": 0.1694915255,
+        "ordem": 9
+      }
+    ]
+  }
+}
