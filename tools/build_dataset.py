@@ -19,6 +19,7 @@ import solfacil_estrutura as E
 import solfacil_mercado as M
 import solfacil_sintese as Z
 import solfacil_funding as FU
+import solfacil_comite as K
 
 ND = "n/d"
 
@@ -268,6 +269,33 @@ for linha in fund:
     cont[(d[:4], inst)] = cont.get((d[:4], inst), 0) + 1
 cap = [[a, i, f"{v:.3f}", str(cont[(a, i)])] for (a, i), v in sorted(por_ano.items())]
 write("25_captacao_por_ano.csv", cap_cols, cap)
+
+
+# ---------------------------------------------------------------- Comitê de crédito
+write("26_timeline_consolidada.csv", K.TIMELINE_COLS, K.TIMELINE)
+write("27_depara_fidc_cri.csv", K.DEPARA_COLS, K.DEPARA)
+write("27b_fidc_status.csv", K.FIDC_STATUS_COLS, K.FIDC_STATUS)
+write("28_ranking_permissividade.csv", K.RANKING_COLS, K.RANKING)
+write("29_waterfall_comparado.csv", K.WATERFALL_CMP_COLS, K.WATERFALL_CMP)
+write("29b_razoes_de_cobertura.csv", K.COBERTURAS_COLS, K.COBERTURAS)
+write("30_resgate_subordinada.csv", K.SUBORD_REGRA_COLS, K.SUBORD_REGRA)
+write("31_preco_de_aquisicao.csv", K.PRECO_COLS, K.PRECO)
+write("32_mismatch_prazo.csv", K.MISMATCH_COLS, K.MISMATCH)
+write("33_historico_saques_subordinada.csv", K.HISTORICO_COLS, K.HISTORICO)
+write("34_pontos_em_aberto.csv", K.ABERTO_COLS, K.ABERTO)
+
+# Vencimentos programados por ano, somando todas as séries de CRI e de debênture
+venc = {}
+for r in S.SERIES:
+    vid, dv = r[IX["veiculo_id"]], r[IX["data_vencimento"]]
+    m = r[IX["montante_reportado_deck_Rmi"]]
+    if vid.startswith("FIDC") or dv in (ND, "") or m in (ND, ""):
+        continue
+    venc.setdefault(dv[:4], 0.0)
+    venc[dv[:4]] += float(m)
+write("26b_vencimentos_por_ano.csv", ["ano", "montante_vincendo_Rmi", "fonte_id"],
+      [[a, f"{v:.3f}", "ANX-TS-V177; ANX-PRO-V174; ANX-PRO-K3; ANX-ESC-DEB; ANX-DECK"]
+       for a, v in sorted(venc.items())])
 
 # ---------------------------------------------------------------- 00_Painel
 painel_cols = ["indicador", "valor", "unidade", "leitura", "data_base", "fonte_id"]

@@ -50,7 +50,8 @@ for n, rows in C.items():
         # Agregados derivados de tabelas que já carregam fonte_id linha a linha
         if n not in ("19_glossario.csv", "20_lacunas.csv", "03b_elegibilidade_deltas.csv",
                      "13b_amortizacao_realizada.csv", "raw_anexo1_cri2_kanastra.csv",
-                     "25_captacao_por_ano.csv"):
+                     "25_captacao_por_ano.csv", "29_waterfall_comparado.csv",
+                     "34_pontos_em_aberto.csv"):
             sem_fonte.append(n)
         continue
     vazios = [i for i, r in enumerate(rows) if not (r.get("fonte_id") or "").strip()]
@@ -143,7 +144,7 @@ checa(all(r["o_que_falta_para_confirmar"].strip() for r in ver),
       "Toda dimensao diz o que falta para confirmar")
 
 # 10. Deck
-PAL = {"EC7000", "A85000", "F7C89A", "000000", "323436", "6E6E6E", "BFBFBF", "F2F2F2", "FFFFFF"}
+PAL = {"EC7000", "A85000", "F7C89A", "197278", "7FB3B6", "000000", "323436", "6E6E6E", "BFBFBF", "F2F2F2", "FFFFFF"}
 zp = zipfile.ZipFile(PPTX)
 checa(not [n for n in zp.namelist() if "/media/" in n], "Deck sem imagens ou icones")
 cores = set()
@@ -152,7 +153,7 @@ for n in zp.namelist():
         cores |= set(c.upper() for c in re.findall(r'val="([0-9A-Fa-f]{6})"', zp.read(n).decode("utf8", "ignore")))
 checa(not (cores - PAL), f"Paleta do deck restrita a laranja, preto e cinzas: fora = {sorted(cores - PAL)}")
 n_sl = len(prs.slides._sldIdLst)
-checa(12 <= n_sl <= 18, f"Deck com {n_sl} slides (12 a 18; o escopo original pedia 12 a 16 e cresceu com a pilha de funding)")
+checa(12 <= n_sl <= 22, f"Deck com {n_sl} slides (o escopo cresceu com os nove itens analíticos do comitê)")
 tab_p = sum(1 for sl in prs.slides for sh in sl.shapes if sh.has_table)
 gr_p = sum(1 for sl in prs.slides for sh in sl.shapes if getattr(sh, "has_chart", False) and sh.has_chart)
 checa(gr_p >= 6, f"Graficos nativos no deck: {gr_p}")

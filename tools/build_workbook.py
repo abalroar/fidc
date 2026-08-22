@@ -284,6 +284,15 @@ INDICE = [
     ("21_Funding_por_Tranche", "As 70 tranches do programa: valor captado e preço de cada uma"),
     ("22_Custo_Senior", "Como o custo da camada sênior evoluiu de 2020 a 2026"),
     ("23_Debenture", "A debênture de 2022, quarto tipo de veículo do programa"),
+    ("24_Timeline", "Linha do tempo de todas as emissões e o muro de vencimentos"),
+    ("25_De_Para_FIDC_CRI", "Qual fundo cedeu para qual operação e o que segue vigente"),
+    ("26_Ranking_Risco", "Do mandato mais restritivo ao mais permissivo"),
+    ("27_Waterfall_Comparado", "As duas cascatas documentadas, degrau a degrau"),
+    ("28_Resgate_Subordinada", "Quando a subordinada pode virar caixa da originadora"),
+    ("29_Preco_de_Aquisicao", "Como cada veículo precifica o crédito que compra"),
+    ("30_Mismatch_e_Prazo", "Descasamento e prazo sugerido de aprovação da sênior"),
+    ("31_Historico_Saques", "O que já saiu de subordinada, e onde"),
+    ("32_Pontos_em_Aberto", "As dez perguntas para a diligência"),
 ]
 for nm, desc in INDICE:
     cel = ws.cell(row=linha, column=1, value=nm)
@@ -794,6 +803,103 @@ nota(ws, gf + 3,
      "A escritura fixa o vencimento da 1ª série em 18/02/2033 e o da 2ª em 18/08/2035; o relatório do agente "
      "fiduciário exibe 18/08/2035 para as duas. A divergência está registrada em 16_Conflitos e o valor da "
      "escritura foi o adotado, por ser o documento constitutivo.")
+
+
+# ---------------------------------------------------------------- 24 a 32: comitê de crédito
+import solfacil_comite as K_
+
+c, r = ler("26_timeline_consolidada.csv")
+ws = aba(wb, "24_Timeline", "Linha do tempo consolidada",
+         "Todos os eventos de emissão do programa em ordem cronológica, dos sete FIDCs, das seis operações de CRI e da debênture. "
+         + K_.NOTA_TIMELINE, DB)
+ini, fim = tabela(ws, c, r, "tbl_24_Timeline", wrap_cols=("evento", "situacao"))
+linha = fim + 3
+ws.cell(row=linha, column=1, value="VENCIMENTOS LEGAIS POR ANO").font = F_SUB
+c2, r2 = ler("26b_vencimentos_por_ano.csv")
+gi, gf = tabela(ws, c2, r2, "tbl_24_Vencimentos", linha0=linha + 1)
+ch = BarChart(); ch.type = "col"
+ch.title = "Valor nominal com vencimento legal no ano - CRI e debênture"
+ch.y_axis.title = "R$ mi"; ch.x_axis.title = "Ano de vencimento"
+dados = Reference(ws, min_col=2, min_row=gi - 1, max_row=gf)
+cats = Reference(ws, min_col=1, min_row=gi, max_row=gf)
+ch.add_data(dados, titles_from_data=True); ch.set_categories(cats)
+estilo_serie(ch.series[0], LARANJA)
+ch.legend = None; ch.height = 9; ch.width = 20
+ws.add_chart(ch, f"E{linha + 1}")
+
+c, r = ler("27_depara_fidc_cri.csv")
+ws = aba(wb, "25_De_Para_FIDC_CRI", "De-para: qual fundo cedeu para qual operação",
+         K_.NOTA_DEPARA, DB)
+ini, fim = tabela(ws, c, r, "tbl_25_DePara", wrap_cols=("qualidade_da_evidencia", "cedentes_documentados"))
+ws.column_dimensions["G"].width = 90
+linha = fim + 3
+ws.cell(row=linha, column=1, value="SITUAÇÃO DE CADA FUNDO HOJE").font = F_SUB
+c2, r2 = ler("27b_fidc_status.csv")
+tabela(ws, c2, r2, "tbl_25_Status", linha0=linha + 1, wrap_cols=("nome_oficial", "cedeu_para", "situacao_hoje"))
+
+c, r = ler("28_ranking_permissividade.csv")
+ws = aba(wb, "26_Ranking_Risco", "Ranking de permissividade dos mandatos",
+         K_.NOTA_RANKING, DB + " | Inferido: agregação de parâmetros documentados; fórmula em 18_Metodologia")
+ini, fim = tabela(ws, c, r, "tbl_26_Ranking", wrap_cols=("leitura", "fonte_id", "status"))
+ws.column_dimensions["N"].width = 96
+ch = BarChart(); ch.type = "bar"
+ch.title = "Índice de permissividade do mandato (0 = mais restritivo)"
+ch.y_axis.title = "Índice"
+dados = Reference(ws, min_col=12, min_row=ini - 1, max_row=fim)
+cats = Reference(ws, min_col=2, min_row=ini, max_row=fim)
+ch.add_data(dados, titles_from_data=True); ch.set_categories(cats)
+estilo_serie(ch.series[0], LARANJA)
+ch.legend = None; ch.height = 11; ch.width = 20
+ws.add_chart(ch, f"A{fim + 3}")
+
+c, r = ler("29_waterfall_comparado.csv")
+ws = aba(wb, "27_Waterfall_Comparado", "As duas cascatas integralmente documentadas, lado a lado",
+         K_.NOTA_WATERFALL_CMP, DB + " | CRI-II: 2º Aditamento ao Termo | CRI-VI: Termo da 177ª emissão")
+ini, fim = tabela(ws, c, r, "tbl_27_WfCmp", wrap_cols=("CRI-II (2ª Kanastra)", "CRI-VI (177ª VERT)", "divergencia"))
+for letra, w in {"A": 40, "B": 8, "C": 62, "D": 62, "E": 52}.items():
+    ws.column_dimensions[letra].width = w
+linha = fim + 3
+ws.cell(row=linha, column=1, value="RAZÕES DE COBERTURA CONTRATUAIS").font = F_SUB
+c2, r2 = ler("29b_razoes_de_cobertura.csv")
+tabela(ws, c2, r2, "tbl_27_Coberturas", linha0=linha + 1)
+
+c, r = ler("30_resgate_subordinada.csv")
+ws = aba(wb, "28_Resgate_Subordinada", "Em que condições a subordinada sai antes do fim",
+         K_.NOTA_SUBORDINADA_CAIXA, DB)
+ini, fim = tabela(ws, c, r, "tbl_28_Resgate",
+                  wrap_cols=("como_a_subordinada_recebe", "gatilho_ou_teste", "trava_temporal",
+                             "pode_ser_fonte_de_caixa_do_originador", "evidencia_documental", "status"))
+for letra, w in {"C": 46, "D": 54, "F": 40, "G": 54, "H": 52, "J": 34}.items():
+    ws.column_dimensions[letra].width = w
+
+c, r = ler("31_preco_de_aquisicao.csv")
+ws = aba(wb, "29_Preco_de_Aquisicao", "Como cada veículo precifica o crédito que compra",
+         K_.NOTA_PRECO, DB)
+ini, fim = tabela(ws, c, r, "tbl_29_Preco",
+                  wrap_cols=("mecanismo_de_preco", "teto_contratual", "preco_efetivamente_praticado", "status"))
+for letra, w in {"C": 54, "D": 60, "E": 54, "F": 34, "H": 40}.items():
+    ws.column_dimensions[letra].width = w
+
+c, r = ler("32_mismatch_prazo.csv")
+ws = aba(wb, "30_Mismatch_e_Prazo", "Descasamento de prazo e prazo sugerido de aprovação",
+         K_.NOTA_MISMATCH, DB)
+ini, fim = tabela(ws, c, r, "tbl_30_Mismatch", wrap_cols=("racional", "regime_muda_em", "prazo_sugerido_de_exposicao"))
+ws.column_dimensions["L"].width = 96
+nota(ws, fim + 3, K_.PRAZO_SUGERIDO_NOTA)
+
+c, r = ler("33_historico_saques_subordinada.csv")
+ws = aba(wb, "31_Historico_Saques", "Histórico de amortização de subordinada",
+         K_.NOTA_HISTORICO, DB)
+ini, fim = tabela(ws, c, r, "tbl_31_Historico", wrap_cols=("respeitou_o_regulamento",))
+ws.column_dimensions["I"].width = 84
+
+c, r = ler("34_pontos_em_aberto.csv")
+ws = aba(wb, "32_Pontos_em_Aberto", "O que permanece sem resposta nos documentos disponíveis",
+         "Dez perguntas em ordem de prioridade, com o documento que fecharia cada uma e o impacto na decisão de crédito.", DB)
+ini, fim = tabela(ws, c, r, "tbl_32_Aberto",
+                  wrap_cols=("pergunta_do_comite", "o_que_falta", "onde_obter", "impacto_na_decisao"))
+for letra, w in {"A": 11, "B": 52, "C": 56, "D": 40, "E": 60}.items():
+    ws.column_dimensions[letra].width = w
 
 # ---------------------------------------------------------------- salvar
 os.makedirs(OUTDIR, exist_ok=True)
