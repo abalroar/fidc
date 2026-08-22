@@ -1,0 +1,69 @@
+veiculo_id,tipo,serie,camada,wam_contratual_max_dias,wam_contratual_max_meses,wam_observado_dias,prazo_max_recebivel_dias,prazo_max_recebivel_meses,data_emissao,vencimento_do_veiculo,prazo_legal_da_serie_meses,duration_dias,duration_meses,gap_duration_vs_prazo_legal_meses,gap_prazo_max_recebivel_vs_duration_meses,periodo_revolvencia_meses,inicio_amortizacao,fonte_id
+CRI-I,CRI,1a,Super Senior,2000,65.7,n/d,3845,126.3,2024-01-15,2031-01-15,84,1246,40.9,43.1,85.4,0 - pool fechado na cessao,n/d,ANX-ENC-K1; ANX-LAM-K1; ANX-DECK
+CRI-I,CRI,2a,Senior,2000,65.7,n/d,3845,126.3,2024-01-15,2032-01-15,96,1295,42.5,53.5,83.8,0 - pool fechado na cessao,n/d,ANX-ENC-K1; ANX-LAM-K1; ANX-DECK
+CRI-I,CRI,3a,Mezanino,2000,65.7,n/d,3845,126.3,2024-01-15,2034-01-15,120,1311,43.1,76.9,83.2,0 - pool fechado na cessao,n/d,ANX-ENC-K1; ANX-LAM-K1; ANX-DECK
+CRI-I,CRI,4a,Subordinado,2000,65.7,n/d,3845,126.3,2024-01-15,2034-01-15,120,1146,37.7,82.3,88.6,0 - pool fechado na cessao,n/d,ANX-ENC-K1; ANX-LAM-K1; ANX-DECK
+CRI-I,CRI,5a,Subordinado Jr.,2000,65.7,n/d,3845,126.3,2024-01-15,2036-01-15,144,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-LAM-K1; ANX-DECK
+CRI-II,CRI,1a,Super Senior,2000,65.7,n/d,3845,126.3,2024-06-25,2029-06-07,60,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-CM-K2; ANX-PRO-K2; ANX-DECK
+CRI-II,CRI,2a,Senior,2000,65.7,n/d,3845,126.3,2024-06-25,2032-06-07,96,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-CM-K2; ANX-PRO-K2; ANX-DECK
+CRI-II,CRI,3a,Mezanino,2000,65.7,n/d,3845,126.3,2024-06-25,2034-06-07,120,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-CM-K2; ANX-PRO-K2; ANX-DECK
+CRI-II,CRI,4a,Subordinado,2000,65.7,n/d,3845,126.3,2024-06-25,2034-06-07,120,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-CM-K2; ANX-PRO-K2; ANX-DECK
+CRI-II,CRI,5a,Subordinado Jr.,2000,65.7,n/d,3845,126.3,2024-06-25,2036-06-06,144,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-TS2-K2; ANX-DECK
+CRI-III,CRI,1a,Super Senior A,2000,65.7,n/d,3845,126.3,2025-05-28,2030-05-08,60,1806,59.3,0.7,67.0,0 - pool fechado na cessao,n/d,ANX-LAM-K3; ANX-DECK
+CRI-III,CRI,2a,Super Senior B,2000,65.7,n/d,3845,126.3,2025-05-28,2030-05-08,60,1806,59.3,0.7,67.0,0 - pool fechado na cessao,n/d,ANX-LAM-K3; ANX-DECK
+CRI-III,CRI,3a,Senior,2000,65.7,n/d,3845,126.3,2025-05-28,2033-05-06,96,2900,95.3,0.7,31.0,0 - pool fechado na cessao,n/d,ANX-LAM-K3; ANX-DECK
+CRI-III,CRI,4a,Mezanino,2000,65.7,n/d,3845,126.3,2025-05-28,2035-05-08,120,3632,119.3,0.7,7.0,0 - pool fechado na cessao,n/d,ANX-LAM-K3; ANX-DECK
+CRI-III,CRI,5a,Subordinado,2000,65.7,n/d,3845,126.3,2025-05-28,2035-05-08,120,3632,119.3,0.7,7.0,0 - pool fechado na cessao,n/d,ANX-LAM-K3; ANX-DECK
+CRI-III,CRI,6a,Subordinado Jr.,2000,65.7,n/d,3845,126.3,2025-05-28,2037-05-08,144,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-LAM-K3; ANX-DECK
+CRI-IV,CRI,1a,Super Senior A,2000,65.7,n/d,3845,126.3,2025-09-28,2030-09-20,60,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-IV,CRI,2a,Super Senior B,2000,65.7,n/d,3845,126.3,2025-09-28,2030-09-20,60,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-IV,CRI,3a,Senior A,2000,65.7,n/d,3845,126.3,2025-09-28,2033-09-22,96,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-IV,CRI,4a,Senior B,2000,65.7,n/d,3845,126.3,2025-09-28,2033-09-22,96,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-IV,CRI,5a,Mezanino,2000,65.7,n/d,3845,126.3,2025-09-28,2035-09-24,120,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-IV,CRI,6a,Subordinado,2000,65.7,n/d,3845,126.3,2025-09-28,2035-09-24,120,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-IV,CRI,7a,Subordinado Jr.,2000,65.7,n/d,3845,126.3,2025-09-28,2037-09-22,144,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-INI-K4; ANX-DECK
+CRI-V,CRI,1a,Super Senior A,2000,65.7,n/d,3845,126.3,2026-05-20,2031-05-20,60,659,21.7,38.3,104.6,0 - pool fechado na cessao,n/d,ANX-LAM-V174; ANX-DECK
+CRI-V,CRI,2a,Super Senior B,2000,65.7,n/d,3845,126.3,2026-05-20,2031-05-20,60,660,21.7,38.3,104.6,0 - pool fechado na cessao,n/d,ANX-LAM-V174; ANX-DECK
+CRI-V,CRI,3a,Senior,2000,65.7,n/d,3845,126.3,2026-05-20,2034-05-22,96,713,23.4,72.6,102.9,0 - pool fechado na cessao,n/d,ANX-LAM-V174; ANX-DECK
+CRI-V,CRI,4a,Mezanino,2000,65.7,n/d,3845,126.3,2026-05-20,2036-05-20,120,690,22.7,97.3,103.6,0 - pool fechado na cessao,n/d,ANX-LAM-V174; ANX-DECK
+CRI-V,CRI,5a,Subordinado,2000,65.7,n/d,3845,126.3,2026-05-20,2036-05-20,120,689,22.6,97.4,103.7,0 - pool fechado na cessao,n/d,ANX-LAM-V174; ANX-DECK
+CRI-V,CRI,6a,Subordinado Jr.,2000,65.7,n/d,3845,126.3,2026-05-20,2038-05-20,144,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-LAM-V174; ANX-DECK
+CRI-VI,CRI,1a,Senior,2000,65.7,n/d,3845,126.3,2026-07-21,2031-05-20,58,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-DECK
+CRI-VI,CRI,2a,Senior,2000,65.7,n/d,3845,126.3,2026-07-21,2031-07-21,60,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-DECK
+CRI-VI,CRI,3a,Mezanino,2000,65.7,n/d,3845,126.3,2026-07-21,2036-07-21,120,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-DECK
+CRI-VI,CRI,4a,Mezanino,2000,65.7,n/d,3845,126.3,2026-07-21,2036-07-21,120,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-DECK
+CRI-VI,CRI,5a,Subordinado,2000,65.7,n/d,3845,126.3,2026-07-21,2038-07-20,144,n/d,n/d,n/d,n/d,0 - pool fechado na cessao,n/d,ANX-DECK
+FIDC-I,FIDC,1a em. Serie Unica,Senior,2135,70.1,n/d,3836,126.1,2020-12-09,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-I,FIDC,1a em. Sub. Mezz,Mezanino,2135,70.1,n/d,3836,126.1,2020-12-09,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-I,FIDC,1a em. Sub. Junior,Subordinado Jr.,2135,70.1,n/d,3836,126.1,2020-12-09,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-I,FIDC,2a oferta Sub. Junior,Subordinado Jr.,2135,70.1,n/d,3836,126.1,2021-11-05,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-I,FIDC,3a oferta Sub. Junior,Subordinado Jr.,2135,70.1,n/d,3836,126.1,2021-12-21,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-I,FIDC,Sub. Mezz B,Mezanino,2135,70.1,n/d,3836,126.1,2022-06-20,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-II,FIDC,1a em. Serie Unica,Senior,2400,78.9,n/d,2340 (pre) / 4500 (pos),"76,9 / 147,9",2021-10-07,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-II,FIDC,1a em. Sub. Mezz A,Mezanino,2400,78.9,n/d,2340 (pre) / 4500 (pos),"76,9 / 147,9",2021-10-07,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-II,FIDC,2a em. 2a Serie,Senior,2400,78.9,n/d,2340 (pre) / 4500 (pos),"76,9 / 147,9",2022-04-25,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-II,FIDC,2a em. Sub. Mezz B,Mezanino,2400,78.9,n/d,2340 (pre) / 4500 (pos),"76,9 / 147,9",2022-04-25,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-II,FIDC,1a em. Sub. Junior,Subordinado Jr.,2400,78.9,n/d,2340 (pre) / 4500 (pos),"76,9 / 147,9",2021-09-24,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-III,FIDC,1a Serie,Senior,2000,65.7,n/d,3845,126.3,2023-07-10,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-III,FIDC,Sub. Mezz A,Mezanino,2000,65.7,n/d,3845,126.3,2023-07-10,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-III,FIDC,Sub. Mezz B,Mezanino,2000,65.7,n/d,3845,126.3,2023-07-10,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-III,FIDC,Sub. Junior (privada),Subordinado Jr.,2000,65.7,n/d,3845,126.3,2023-09-30,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Unica Senior A,Senior,n/d,n/d,n/d,n/d,n/d,2022-06-23,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Sub. Mezz A-1,Mezanino,n/d,n/d,n/d,n/d,n/d,2022-06-23,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Sub. Junior,Subordinado Jr.,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Senior B,Senior,n/d,n/d,n/d,n/d,n/d,2023-01-12,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Sub. Mezz A-2,Mezanino,n/d,n/d,n/d,n/d,n/d,2023-01-13,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Sub. Mezz B-1,Mezanino,n/d,n/d,n/d,n/d,n/d,2023-01-13,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Sub. Mezz B-2,Mezanino,n/d,n/d,n/d,n/d,n/d,2023-01-13,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-IV,FIDC,1a em. Senior C,Senior,n/d,n/d,n/d,n/d,n/d,2023-12-05,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-V,FIDC,1a em. Unica,Senior,n/d,n/d,n/d,4760,156.5,2022-12-08,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-V,FIDC,1a em. Unica Sub. Mezz,Mezanino,n/d,n/d,n/d,4760,156.5,2022-12-08,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-V,FIDC,Sub. Junior (privada),Subordinado Jr.,n/d,n/d,n/d,4760,156.5,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-VI,FIDC,1a serie,Senior,2400,78.9,n/d,3836,126,2024-11-06,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-VI,FIDC,1a serie Sub. Mezz A,Mezanino,2400,78.9,n/d,3836,126,2024-11-06,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-VI,FIDC,1a serie Sub. Mezz B,Mezanino,2400,78.9,n/d,3836,126,2024-11-06,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-VI,FIDC,Sub. Junior (privada),Subordinado Jr.,2400,78.9,n/d,3836,126,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,n/d,ANX-DECK
+FIDC-VII,FIDC,1a serie Senior,Senior,2400,78.9,n/d,3836,126,2026-01-13,n/d,n/d,n/d,n/d,n/d,n/d,12,n/d,ANX-DECK
+FIDC-VII,FIDC,1a serie Sub. Mezz A,Mezanino,2400,78.9,n/d,3836,126,2026-01-13,n/d,n/d,n/d,n/d,n/d,n/d,12,n/d,ANX-DECK
+FIDC-VII,FIDC,1a serie Sub. Mezz B,Mezanino,2400,78.9,n/d,3836,126,2026-01-13,n/d,n/d,n/d,n/d,n/d,n/d,12,n/d,ANX-DECK
+FIDC-VII,FIDC,Sub. Junior (privada),Subordinado Jr.,2400,78.9,n/d,3836,126,n/d,n/d,n/d,n/d,n/d,n/d,n/d,12,n/d,ANX-DECK

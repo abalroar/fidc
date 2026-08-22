@@ -1,0 +1,27 @@
+veiculo_id,tipo,descricao_do_gatilho,parametro_numerico,consequencia_automatica,quorum_de_dispensa,prazo_de_cura,ja_ocorreu,data_da_ocorrencia,fonte_id,status
+CRI-II,Desalavancagem,Indice de Atraso de Estoque desenquadrado em 3 Datas de Verificacao consecutivas,Indice de Atraso de Estoque nao pode superar 15%,Regime muda de pro rata para Amortizacao Sequencial,Assembleia Especial de Titulares de CRI,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Desalavancagem,Rebaixamento de rating dos CRI Super Senior e/ou Senior,Queda de 2 niveis abaixo da classificacao originalmente atribuida,Amortizacao Sequencial,Assembleia Especial de Titulares de CRI,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Desalavancagem,Nao pagamento de remuneracao ou amortizacao da 1a serie prevista no Anexo I,n/a,Amortizacao Sequencial,n/d,"5 Dias Uteis contados da Data de Pagamento, observada a carencia",Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Desalavancagem,Nao divulgacao do Relatorio da Emissao no prazo,n/a,Amortizacao Sequencial,n/d,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Desalavancagem,Desenquadramento das Razoes de Cobertura,2 Datas de Pagamento consecutivas ou 4 alternadas nos 12 meses anteriores,Amortizacao Sequencial,n/d,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Amortizacao Sequencial por prazo,Alcance do mes 48 da operacao,Mes 48 (inclusive),Amortizacao Sequencial permanente ate Evento de Realavancagem,n/d,n/d,Nao,Prevista para 2028,ANX-TS2-K2,Documentado
+CRI-II,Realavancagem,Reenquadramento do Indice de Atraso de Estoque,3 Datas de Verificacao consecutivas dentro do limite,Retorno ao regime pro rata,n/d,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Realavancagem,Regularizacao do pagamento da 1a serie,Pagamento regular em 3 Datas de Verificacao consecutivas; se o evento persistir por 6 meses consecutivos a operacao fica em sequencial permanente,"Retorno ao regime pro rata, salvo o caso de 6 meses",Assembleia Especial para retomar o pro rata,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Resgate Antecipado Obrigatorio,Saldo do VNU da serie igual ou inferior a 2% e recursos suficientes,2% do Valor Nominal Unitario,Resgate integral da serie,n/d,n/d,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Substituicao do Agente de Cobranca,Eventos Materiais Solfacil; impedimento de atuar; descumprimento do Contrato Operacional; resilicao; condenacao na Lei 12.846; crime contra a administracao publica,n/a,Emissora assume como Backup Servicer e convoca Assembleia Especial,Assembleia Especial de Titulares de CRI,Prazo de cura especifico do Contrato Operacional,Nao,n/a,ANX-TS2-K2,Documentado
+CRI-II,Recompra Obrigatoria,Hipoteses do Contrato de Cessao,n/a,"Recompra ou compra dos Direitos Creditorios pelos Cedentes, Endossantes Iniciais, Solfacil ou Comprador Indicado",n/d,n/d,n/d,n/a,ANX-TS2-K2,Documentado
+CRI-II,Vencimento Antecipado,Nao aplicavel,n/a,n/a,n/a,n/a,n/a,n/a,ANX-TS2-K2,Documentado: nao aplicavel
+CRI-V,Resgate Antecipado Compulsorio,Cumulativamente: (i) 98% do VNU da serie amortizado e (ii) recursos suficientes para o resgate integral da serie,98% do Valor Nominal Unitario,Resgate integral da serie na Data de Pagamento,n/d,n/d,Nao,n/a,ANX-LAM-V174,Documentado
+CRI-V,Recompra Obrigatoria,Hipoteses de recompra das Cedentes e/ou Endossante Inicial e/ou Solfacil previstas no Contrato de Cessao,n/a,Recompra dos Direitos Creditorios Cedidos,n/d,n/d,n/d,n/a,ANX-LAM-V174,Documentado
+CRI-V,Vencimento Antecipado,Nao aplicavel - a lamina registra 'N/A' no campo,n/a,n/a,n/a,n/a,n/a,n/a,ANX-LAM-V174,Documentado: nao aplicavel
+CRI-III,Resgate Antecipado Obrigatorio,"Na Data de Pagamento subsequente a Data de Verificacao Amortizacao e Pagamento, nos termos do Termo de Securitizacao",n/d,Resgate da serie,n/d,n/d,Nao,n/a,ANX-LAM-K3,Documentado
+CRI-III,Recompra Obrigatoria,Hipoteses de recompra das Cedentes e/ou Endossante Inicial e/ou Solfacil previstas no Contrato de Cessao,n/a,Recompra dos Direitos Creditorios Cedidos,n/d,n/d,n/d,n/a,ANX-LAM-K3,Documentado
+CRI-III,Vencimento Antecipado,Nao aplicavel - a lamina registra 'N/A' no campo,n/a,n/a,n/a,n/a,n/a,n/a,ANX-LAM-K3,Documentado: nao aplicavel
+CRI-I,Recompra Obrigatoria,Hipoteses de recompra das Cedentes e/ou Endossante Inicial e/ou Solfacil previstas no Contrato de Cessao,n/a,Recompra dos Direitos Creditorios Cedidos,n/d,n/d,n/d,n/a,ANX-LAM-K1,Documentado
+CRI-I,Governanca,"Notificacoes formais registradas em 2026 pelo agente fiduciario, sem evidencia publica de cura",n/a,n/d,n/d,n/d,Sim,2026,ANX-DECK,Documentado
+FIDC-VI,Desalavancagem,Eventos de desalavancagem do regulamento; 6 datas sequenciais aceleram ate aceleracao definitiva,6 datas,Regime sequencial,n/d,n/d,n/d,n/a,ANX-DECK,Documentado
+FIDC-VI,Rating,Rebaixamento da classificacao de risco,Queda de 2 ou mais niveis,Evento de desalavancagem,n/d,n/d,Nao,n/a,ANX-DECK,Documentado
+FIDC-VII,Desalavancagem,Eventos de desalavancagem do regulamento; 6 datas sequenciais aceleram ate aceleracao definitiva,6 datas,Regime sequencial,n/d,n/d,n/d,n/a,ANX-DECK,Documentado
+FIDC-VII,Rating,Rebaixamento da classificacao de risco,Queda de 2 ou mais niveis,Evento de desalavancagem,n/d,n/d,Nao,n/a,ANX-DECK,Documentado
+FIDC-VII,Desinvestimento,Inicio do periodo de desinvestimento,"Mes 61 ou PL de R$ 100 mi, o que ocorrer primeiro",Inicio do desinvestimento,n/d,n/d,Nao,n/a,ANX-DECK,Documentado
+FIDC-VII,Revolvencia,Periodo de reinvestimento obrigatorio,12 meses,Principal suspenso e saldo reinvestido,n/d,n/d,Sim - em curso,2026-02-06,ANX-DECK,Documentado
