@@ -1,0 +1,11 @@
+﻿regime,ordem,degrau,condicao,fonte_id,status,nota_metodo
+Pró-rata condicionado,1,Despesas e reservas,Mantido enquanto índices e coberturas permanecem enquadrados,METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Pró-rata condicionado,2,Juros das camadas,Mantido enquanto índices e coberturas permanecem enquadrados,METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Pró-rata condicionado,3,Principal conforme targets,Mantido enquanto índices e coberturas permanecem enquadrados,METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Pró-rata condicionado,4,Júnior apenas se testes passam,Mantido enquanto índices e coberturas permanecem enquadrados,METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Pró-rata condicionado,5,Reinvestimento quando permitido,Mantido enquanto índices e coberturas permanecem enquadrados,METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Sequencial pós-evento,1,Despesas e reservas,"Ativado por evento, passagem do tempo ou aceleração",METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Sequencial pós-evento,2,Juros da camada prioritária,"Ativado por evento, passagem do tempo ou aceleração",METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Sequencial pós-evento,3,Principal sênior integral,"Ativado por evento, passagem do tempo ou aceleração",METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Sequencial pós-evento,4,Mezanino A e B,"Ativado por evento, passagem do tempo ou aceleração",METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
+Sequencial pós-evento,5,Júnior por último,"Ativado por evento, passagem do tempo ou aceleração",METH_WATERFALL_COMPARATIVO,Inferido,Síntese comparativa dos contratos; diferenças por veículo permanecem em 06_Waterfall.
