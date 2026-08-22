@@ -1,34 +1,34 @@
 veiculo_id,regime,ordem,item_contratual,descricao,fonte_id
-CRI-II,Pro rata,1,(a),Pagamento de Despesas,ANX-TS2-K2
-CRI-II,Pro rata,2,(b),Composicao da Reserva de Despesas,ANX-TS2-K2
-CRI-II,Pro rata,3,(c)-(d),Encargos moratorios e remuneracao vencida e nao paga da 1a serie (Super Senior),ANX-TS2-K2
-CRI-II,Pro rata,4,(e),Remuneracao da 1a serie (Super Senior),ANX-TS2-K2
-CRI-II,Pro rata,5,(f),Amortizacao da 1a serie: o maior entre o Anexo I e o necessario para atingir o Saldo Devedor Target; ou resgate se saldo <= 2%,ANX-TS2-K2
-CRI-II,Pro rata,6,(g),"Reserva para Resgate Antecipado da 1a serie, a partir de 98% amortizado",ANX-TS2-K2
-CRI-II,Pro rata,7,(h)-(i),Encargos moratorios e remuneracao vencida e nao paga da 2a serie (Senior),ANX-TS2-K2
-CRI-II,Pro rata,8,(j),"Remuneracao da 2a serie, se a Razao de Cobertura Super Senior estiver enquadrada",ANX-TS2-K2
-CRI-II,Pro rata,9,(k),"Amortizacao da 2a serie ate o Target, se a Razao de Cobertura Super Senior estiver enquadrada",ANX-TS2-K2
-CRI-II,Pro rata,10,(l),Reserva para Resgate Antecipado da 2a serie,ANX-TS2-K2
-CRI-II,Pro rata,11,(m)-(n),Encargos moratorios e remuneracao vencida e nao paga da 3a serie (Mezanino),ANX-TS2-K2
-CRI-II,Pro rata,12,(o),"Remuneracao da 3a serie, se as Coberturas Super Senior e Senior estiverem enquadradas",ANX-TS2-K2
-CRI-II,Pro rata,13,(p),"Amortizacao da 3a serie ate o Target, sob as mesmas duas coberturas",ANX-TS2-K2
-CRI-II,Pro rata,14,(q),Reserva para Resgate Antecipado da 3a serie,ANX-TS2-K2
-CRI-II,Pro rata,15,(r)-(s),Encargos moratorios e remuneracao vencida e nao paga da 4a serie (Subordinado),ANX-TS2-K2
-CRI-II,Pro rata,16,(t),"Remuneracao da 4a serie, se as Coberturas Super Senior, Senior e Mezanino estiverem enquadradas",ANX-TS2-K2
-CRI-II,Pro rata,17,(u),"Amortizacao da 4a serie ate o Target, sob as mesmas tres coberturas",ANX-TS2-K2
-CRI-II,Pro rata,18,(v),Reserva para Resgate Antecipado da 4a serie,ANX-TS2-K2
-CRI-II,Pro rata,19,(w)-(x),"Encargos moratorios e remuneracao vencida e nao paga da 5a serie (Subordinado Jr., privada)",ANX-TS2-K2
-CRI-II,Pro rata,20,(y),"Remuneracao da 5a serie, se as quatro Razoes de Cobertura estiverem enquadradas e o saldo estiver acima do Target",ANX-TS2-K2
-CRI-II,Pro rata,21,(z),"Amortizacao da 5a serie ate o Target, sob as mesmas quatro coberturas",ANX-TS2-K2
-CRI-II,Pro rata,22,(aa),"Amortizacao extraordinaria proporcional entre as series com cobertura enquadrada, excluidas as desenquadradas",ANX-TS2-K2
-CRI-II,Pro rata,23,(bb),"Premio Final: todo o valor remanescente do Patrimonio Separado vai a 5a serie, apos o resgate das quatro series publicas",ANX-TS2-K2
-CRI-II,Pro rata,24,(cc),Alocacao em Investimentos Permitidos,ANX-TS2-K2
+CRI-II,Pró-rata,1,(a),Pagamento de Despesas,ANX-TS2-K2
+CRI-II,Pró-rata,2,(b),Composição da Reserva de Despesas,ANX-TS2-K2
+CRI-II,Pró-rata,3,(c)-(d),Encargos moratórios e remuneração vencida e não paga da 1ª série (Super Sênior),ANX-TS2-K2
+CRI-II,Pró-rata,4,(e),Remuneração da 1ª série (Super Sênior),ANX-TS2-K2
+CRI-II,Pró-rata,5,(f),Amortização da 1ª série: o maior entre o Anexo I e o necessário para atingir o Saldo Devedor Target; ou resgate se saldo <= 2%,ANX-TS2-K2
+CRI-II,Pró-rata,6,(g),"Reserva para Resgate Antecipado da 1ª série, a partir de 98% amortizado",ANX-TS2-K2
+CRI-II,Pró-rata,7,(h)-(i),Encargos moratórios e remuneração vencida e não paga da 2ª série (Sênior),ANX-TS2-K2
+CRI-II,Pró-rata,8,(j),"Remuneração da 2ª série, se a Razão de Cobertura Super Sênior estiver enquadrada",ANX-TS2-K2
+CRI-II,Pró-rata,9,(k),"Amortização da 2ª série até o Target, se a Razão de Cobertura Super Sênior estiver enquadrada",ANX-TS2-K2
+CRI-II,Pró-rata,10,(l),Reserva para Resgate Antecipado da 2ª série,ANX-TS2-K2
+CRI-II,Pró-rata,11,(m)-(n),Encargos moratórios e remuneração vencida e não paga da 3ª série (Mezanino),ANX-TS2-K2
+CRI-II,Pró-rata,12,(o),"Remuneração da 3ª série, se as Coberturas Super Sênior e Sênior estiverem enquadradas",ANX-TS2-K2
+CRI-II,Pró-rata,13,(p),"Amortização da 3ª série até o Target, sob as mesmas duas coberturas",ANX-TS2-K2
+CRI-II,Pró-rata,14,(q),Reserva para Resgate Antecipado da 3ª série,ANX-TS2-K2
+CRI-II,Pró-rata,15,(r)-(s),Encargos moratórios e remuneração vencida e não paga da 4ª série (Subordinado),ANX-TS2-K2
+CRI-II,Pró-rata,16,(t),"Remuneração da 4ª série, se as Coberturas Super Sênior, Sênior e Mezanino estiverem enquadradas",ANX-TS2-K2
+CRI-II,Pró-rata,17,(u),"Amortização da 4ª série até o Target, sob as mesmas três coberturas",ANX-TS2-K2
+CRI-II,Pró-rata,18,(v),Reserva para Resgate Antecipado da 4ª série,ANX-TS2-K2
+CRI-II,Pró-rata,19,(w)-(x),"Encargos moratórios e remuneração vencida e não paga da 5ª série (Subordinado Jr., privada)",ANX-TS2-K2
+CRI-II,Pró-rata,20,(y),"Remuneração da 5ª série, se as quatro Razões de Cobertura estiverem enquadradas é o saldo estiver acima do Target",ANX-TS2-K2
+CRI-II,Pró-rata,21,(z),"Amortização da 5ª série até o Target, sob as mesmas quatro coberturas",ANX-TS2-K2
+CRI-II,Pró-rata,22,(aa),"Amortização extraordinária proporcional entre as séries com cobertura enquadrada, excluídas as desenquadradas",ANX-TS2-K2
+CRI-II,Pró-rata,23,(bb),"Prêmio Final: todo o valor remanescente do Patrimônio Separado vai a 5ª série, após o resgate das quatro séries públicas",ANX-TS2-K2
+CRI-II,Pró-rata,24,(cc),Alocação em Investimentos Permitidos,ANX-TS2-K2
 CRI-II,Sequencial,1,(a)-(b),Despesas e Reserva de Despesas,ANX-TS2-K2
-CRI-II,Sequencial,2,(c)-(e),"Encargos, remuneracao vencida e remuneracao corrente da 1a serie",ANX-TS2-K2
-CRI-II,Sequencial,3,(f)-(g),Amortizacao da 1a serie ate 98% do VNU e reserva de resgate - sem condicao de cobertura e sem Target,ANX-TS2-K2
-CRI-II,Sequencial,4,(h)-(l),"2a serie: encargos, remuneracao, amortizacao ate 98% e reserva de resgate",ANX-TS2-K2
-CRI-II,Sequencial,5,(m)-(q),"3a serie: encargos, remuneracao, amortizacao ate 98% e reserva de resgate",ANX-TS2-K2
-CRI-II,Sequencial,6,(r)-(v),"4a serie: encargos, remuneracao, amortizacao ate 98% e reserva de resgate",ANX-TS2-K2
-CRI-II,Sequencial,7,(w)-(y),"5a serie: remuneracao vencida, remuneracao corrente e amortizacao",ANX-TS2-K2
-CRI-II,Sequencial,8,(z),Premio Final a 5a serie apos o resgate das quatro series publicas,ANX-TS2-K2
-CRI-II,Sequencial,9,(aa),Alocacao em Investimentos Permitidos,ANX-TS2-K2
+CRI-II,Sequencial,2,(c)-(e),"Encargos, remuneração vencida e remuneração corrente da 1ª série",ANX-TS2-K2
+CRI-II,Sequencial,3,(f)-(g),Amortização da 1ª série até 98% do VNU e reserva de resgate - sem condição de cobertura e sem Target,ANX-TS2-K2
+CRI-II,Sequencial,4,(h)-(l),"2ª série: encargos, remuneração, amortização até 98% e reserva de resgate",ANX-TS2-K2
+CRI-II,Sequencial,5,(m)-(q),"3ª série: encargos, remuneração, amortização até 98% e reserva de resgate",ANX-TS2-K2
+CRI-II,Sequencial,6,(r)-(v),"4ª série: encargos, remuneração, amortização até 98% e reserva de resgate",ANX-TS2-K2
+CRI-II,Sequencial,7,(w)-(y),"5ª série: remuneração vencida, remuneração corrente e amortização",ANX-TS2-K2
+CRI-II,Sequencial,8,(z),Prêmio Final a 5ª série após o resgate das quatro séries públicas,ANX-TS2-K2
+CRI-II,Sequencial,9,(aa),Alocação em Investimentos Permitidos,ANX-TS2-K2

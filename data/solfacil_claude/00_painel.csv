@@ -1,13 +1,15 @@
 indicador,valor,unidade,leitura,data_base,fonte_id
-Veiculos no programa,13,veiculos,Sete FIDCs de warehouse e seis operacoes de CRI de take-out,2026-08-21,ANX-DECK
-Series de CRI,34,series,"5+5+6+7+6+5 nas seis operacoes, incluindo a serie privada de cada uma",2026-08-21,ANX-DECK; ANX-LAM-K1; ANX-INI-K4
-Classes de cotas de FIDC,34,classes,Coincidencia numerica com as series de CRI; sao dimensoes diferentes e nao se somam,2026-07-31,ANX-DECK
-Volume nominal de CRI emitido,"3.670,7",R$ mi,"Soma das seis operacoes, series publicas e privadas",2026-08-21,ANX-DECK
-Series privadas Subordinado Jr.,"107,0",R$ mi,"De 2,49% a 3,00% de cada operacao, subscritas pela Solfacil e/ou partes relacionadas",2026-08-21,ANX-DECK
-PL somado dos sete FIDCs,"1.234,6",R$ mi,Competencia de julho de 2026,2026-07-31,ANX-DECK
-Carteira somada dos sete FIDCs,"986,7",R$ mi,Direitos creditorios; a diferenca para o PL sao outros ativos liquidos,2026-07-31,ANX-DECK
-Cap por devedor mais apertado,"0,07",% do Patrimonio Separado,"CRI-V, a partir de 750.000 quantidades integralizadas",2026-04-17,ANX-LAM-V174
-WAM contratual maximo,2.000,dias,Igual nas seis operacoes de CRI; 2.400 dias em tres dos sete FIDCs,2026-08-21,ANX-LAM-K3; ANX-LAM-V174
-Prazo maximo por recebivel,3.845,dias,"126,4 meses, contados da emissao da CCB, nas seis operacoes",2026-08-21,ANX-LAM-K3; ANX-LAM-V174
-Principal subordinado ja pago nos FIDCs,"1.076,2",R$ mi,Mezanino e junior somados; ocorreu nos sete fundos,2026-07-31,ANX-DECK
-Operacoes com informe mensal de CRI,5 de 6,operacoes,A VERT 177a ainda nao tem informe,2026-08-21,ANX-DECK
+Veículos no programa,14,veículos,"Sete FIDCs de warehouse, seis operações de CRI de take-out e uma debênture de 2022",2026-08-21,ANX-DECK; ANX-ESC-DEB
+Tranches precificadas,70,tranches,"34 classes de cotas de FIDC, 34 séries de CRI e 2 séries de debênture, cada uma com valor captado e preço",2026-08-22,ANX-TS-V177; ANX-ESC-DEB
+Spread sênior mais baixo do programa,"DI + 1,50%",% a.a.,"Sênior A da 177ª emissão de CRI, em julho de 2026, contra DI + 2,00% do FIDC VII que a alimenta",2026-07-21,ANX-TS-V177
+Séries de CRI,34,séries,"5+5+6+7+6+5 nas seis operações, incluindo a série privada de cada uma",2026-08-21,ANX-DECK; ANX-LAM-K1; ANX-INI-K4
+Classes de cotas de FIDC,34,classes,Coincidência numérica com as séries de CRI; são dimensões diferentes e não se somam,2026-07-31,ANX-DECK
+Volume nominal de CRI emitido,"3.670,6",R$ mi,"Soma das seis operações, séries públicas e privadas, agora toda documentada por série",2026-08-21,ANX-DECK
+Séries privadas Subordinado Jr.,"107,0",R$ mi,"De 2,49% a 3,00% de cada operação, subscritas pela Solfácil e/ou partes relacionadas",2026-08-21,ANX-DECK
+PL somado dos sete FIDCs,"1.234,6",R$ mi,Competência de julho de 2026,2026-07-31,ANX-DECK
+Carteira somada dos sete FIDCs,"986,7",R$ mi,Direitos creditórios; a diferença para o PL são outros ativos líquidos,2026-07-31,ANX-DECK
+Cap por devedor mais apertado,"0,07",% do Patrimônio Separado,"CRI-V, a partir de 750.000 quantidades integralizadas",2026-04-17,ANX-LAM-V174
+WAM contratual máximo,2.000,dias,Igual nas seis operações de CRI; 2.400 dias em três dos sete FIDCs,2026-08-21,ANX-LAM-K3; ANX-LAM-V174
+Prazo máximo por recebível,3.845,dias,"126,4 meses, contados da emissão da CCB, nas seis operações",2026-08-21,ANX-LAM-K3; ANX-LAM-V174
+Principal subordinado já pago nos FIDCs,"1.076,2",R$ mi,Mezanino e júnior somados; ocorreu nos sete fundos,2026-07-31,ANX-DECK
+Operações com informe mensal de CRI,5 de 6,operações,A VERT 177ª ainda não tem informe,2026-08-21,ANX-DECK

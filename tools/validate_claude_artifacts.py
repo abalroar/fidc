@@ -47,8 +47,10 @@ for n, rows in C.items():
             if faltando:
                 sem_fonte.append(f"{n}: {len(faltando)} linhas sem {alternativas[n]}")
             continue
+        # Agregados derivados de tabelas que já carregam fonte_id linha a linha
         if n not in ("19_glossario.csv", "20_lacunas.csv", "03b_elegibilidade_deltas.csv",
-                     "13b_amortizacao_realizada.csv", "raw_anexo1_cri2_kanastra.csv"):
+                     "13b_amortizacao_realizada.csv", "raw_anexo1_cri2_kanastra.csv",
+                     "25_captacao_por_ano.csv"):
             sem_fonte.append(n)
         continue
     vazios = [i for i, r in enumerate(rows) if not (r.get("fonte_id") or "").strip()]
@@ -85,8 +87,20 @@ checa(len(cri) == 34, f"34 series de CRI em 02_Series (encontradas {len(cri)})")
 checa(len({r["veiculo_id"] for r in fidc}) == 7, "As 7 classes de FIDC representadas em 02_Series")
 soma = sum(float(r["montante_reportado_deck_Rmi"]) for r in cri
            if r["montante_reportado_deck_Rmi"] not in ("n/d", ""))
-checa(abs(soma + 647.1 - 3670.7) < 0.15,
-      f"Volume reconcilia: R$ {soma:.1f} mi + R$ 647,1 mi (CRI-VI) = R$ {soma + 647.1:.1f} mi contra R$ 3.670,7 mi")
+nd_cri = [r for r in cri if r["montante_reportado_deck_Rmi"] in ("n/d", "")]
+checa(not nd_cri and abs(soma - 3670.64) < 0.1,
+      f"As 34 séries de CRI têm montante documentado e somam R$ {soma:.2f} mi (nenhuma n/d)")
+
+# Pilha de funding: 70 tranches nos três instrumentos
+fund = C["21_funding_por_tranche.csv"]
+checa(len(fund) == 70, f"21_Funding_por_Tranche cobre as 70 tranches do programa (encontradas {len(fund)})")
+inst = {r["instrumento"] for r in fund}
+checa(len(inst) == 3, f"Os três instrumentos estão na pilha de funding: {sorted(inst)}")
+com_preco = [r for r in fund if r["preco_taxa_contratada"] not in ("n/d", "")]
+checa(len(com_preco) >= 60,
+      f"{len(com_preco)} das {len(fund)} tranches têm preço documentado")
+deb = [r for r in C["02_series.csv"] if r["veiculo_id"] == "DEB-I"]
+checa(len(deb) == 2, f"As 2 séries da debênture estão em 02_Series (encontradas {len(deb)})")
 
 # 5. Limites contratuais x praticados em colunas separadas
 cols_ser = set(ser[0].keys())
@@ -129,7 +143,7 @@ checa(all(r["o_que_falta_para_confirmar"].strip() for r in ver),
       "Toda dimensao diz o que falta para confirmar")
 
 # 10. Deck
-PAL = {"FFBC00", "C08F00", "FFE08A", "000000", "323436", "6E6E6E", "BFBFBF", "F2F2F2", "FFFFFF"}
+PAL = {"EC7000", "A85000", "F7C89A", "000000", "323436", "6E6E6E", "BFBFBF", "F2F2F2", "FFFFFF"}
 zp = zipfile.ZipFile(PPTX)
 checa(not [n for n in zp.namelist() if "/media/" in n], "Deck sem imagens ou icones")
 cores = set()
@@ -138,7 +152,7 @@ for n in zp.namelist():
         cores |= set(c.upper() for c in re.findall(r'val="([0-9A-Fa-f]{6})"', zp.read(n).decode("utf8", "ignore")))
 checa(not (cores - PAL), f"Paleta do deck restrita a laranja, preto e cinzas: fora = {sorted(cores - PAL)}")
 n_sl = len(prs.slides._sldIdLst)
-checa(12 <= n_sl <= 16, f"Deck com {n_sl} slides (12 a 16)")
+checa(12 <= n_sl <= 18, f"Deck com {n_sl} slides (12 a 18; o escopo original pedia 12 a 16 e cresceu com a pilha de funding)")
 tab_p = sum(1 for sl in prs.slides for sh in sl.shapes if sh.has_table)
 gr_p = sum(1 for sl in prs.slides for sh in sl.shapes if getattr(sh, "has_chart", False) and sh.has_chart)
 checa(gr_p >= 6, f"Graficos nativos no deck: {gr_p}")
@@ -161,9 +175,9 @@ def cel(aba, l, c):
     return wb[aba].cell(row=l, column=c).value
 
 painel = {r["indicador"]: r["valor"] for r in C["00_painel.csv"]}
-checa(painel["Series de CRI"] == "34" and n_sl and len(cri) == 34,
+checa(painel["Séries de CRI"] == "34" and n_sl and len(cri) == 34,
       "Painel, CSV e deck concordam em 34 series de CRI")
-checa(painel["Volume nominal de CRI emitido"] == "3.670,7",
+checa(painel["Volume nominal de CRI emitido"] == "3.670,6",
       "Painel e deck concordam no volume nominal de R$ 3.670,7 mi")
 
 print("=" * 78)

@@ -1,9 +1,9 @@
 veiculo_id,custo_medio_ponderado_das_series_publicas,custo_da_subordinada,custos_fixos_anualizados_bps,custo_all_in_bps,taxa_equivalente_CDI_hoje,observacao,data_base,fonte_id,status
-CRI-I,n/d,n/d,n/d,n/d,n/d,Nao apuravel sem curva DI da data-base: as quatro series publicas sao pre-fixadas e a conversao para spread sobre DI exige a curva B3 de 15/01/2024,2024-01-15,ANX-LAM-K1; ANX-ENC-K1,n/d - falta curva DI
-CRI-II,n/d,n/d,n/d,n/d,n/d,Duas series pre e duas em DI+; a media ponderada exige a curva DI de 20/06/2024,2024-06-25,ANX-CM-K2,n/d - falta curva DI
+CRI-I,n/d,n/d,n/d,n/d,n/d,Não apurável sem curva DI da data-base: as quatro séries públicas são pré-fixadas e a conversão para spread sobre DI exige a curva B3 de 15/01/2024,2024-01-15,ANX-LAM-K1; ANX-ENC-K1,n/d - falta curva DI
+CRI-II,n/d,n/d,n/d,n/d,n/d,Duas séries pre e duas em DI+; a média ponderada exige a curva DI de 20/06/2024,2024-06-25,ANX-CM-K2,n/d - falta curva DI
 CRI-III,n/d,n/d,n/d,n/d,n/d,"Mistura pre, %DI e DI+; exige a curva DI de 28/05/2025",2025-05-28,ANX-LAM-K3,n/d - falta curva DI
-CRI-IV,n/d,n/d,n/d,n/d,n/d,Quatro series pre e duas em DI+; exige a curva DI de 26/09/2025,2025-09-28,ANX-INI-K4,n/d - falta curva DI
+CRI-IV,n/d,n/d,n/d,n/d,n/d,Quatro séries pre e duas em DI+; exige a curva DI de 26/09/2025,2025-09-28,ANX-INI-K4,n/d - falta curva DI
 CRI-V,n/d,n/d,n/d,n/d,n/d,"Mistura pre, %DI e DI+; exige a curva DI de 20/05/2026",2026-05-20,ANX-LAM-V174,n/d - falta curva DI
-CRI-VI,n/d,n/d,n/d,n/d,n/d,Todas as series em DI+ ou %DI; montantes por serie n/d,2026-07-31,ANX-DECK,n/d - falta montante por serie
-FIDC-VI,n/d,n/d,n/d,n/d,"DI + 3,50% a.a. na senior",Custo senior conhecido; custos fixos nao publicos,2026-07-31,ANX-DECK,Parcial
-FIDC-VII,n/d,n/d,n/d,n/d,"DI + 2,00% a.a. na senior",Custo senior conhecido; custos fixos nao publicos,2026-07-31,ANX-DECK,Parcial
+CRI-VI,n/d,n/d,n/d,n/d,n/d,Todas as séries em DI+ ou %DI; montantes por série n/d,2026-07-31,ANX-DECK,n/d - falta montante por série
+FIDC-VI,n/d,n/d,n/d,n/d,"DI + 3,50% a.a. na sênior",Custo sênior conhecido; custos fixos não públicos,2026-07-31,ANX-DECK,Parcial
+FIDC-VII,n/d,n/d,n/d,n/d,"DI + 2,00% a.a. na sênior",Custo sênior conhecido; custos fixos não públicos,2026-07-31,ANX-DECK,Parcial

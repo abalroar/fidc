@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Gera a camada de dados auditavel em data/solfacil/*.csv.
+"""Gera a camada de dados auditavel em data/Solfácil/*.csv.
 
-Todo numero dos entregaveis nasce aqui. Nada e digitado direto no Excel ou no PPTX.
+Todo número dos entregaveis nasce aqui. Nada e digitado direto no Excel ou no PPTX.
 """
 import csv, os, sys
 from datetime import date
@@ -18,6 +18,7 @@ import solfacil_criterios as C
 import solfacil_estrutura as E
 import solfacil_mercado as M
 import solfacil_sintese as Z
+import solfacil_funding as FU
 
 ND = "n/d"
 
@@ -35,7 +36,7 @@ def write(name, cols, rows):
 
 
 def num(x):
-    """Converte para float apenas se for numero de verdade; n/d nunca vira zero."""
+    """Converte para float apenas se for número de verdade; n/d nunca vira zero."""
     if x in (ND, "", None) or not isinstance(x, str):
         return None
     t = x.replace(".", "").replace(",", ".") if x.count(",") == 1 and x.count(".") <= 1 else x
@@ -48,7 +49,7 @@ def num(x):
             return None
 
 
-print("Gerando camada de dados em data/solfacil/ ...")
+print("Gerando camada de dados em data/Solfácil/ ...")
 os.makedirs(OUT, exist_ok=True)
 
 # ---------------------------------------------------------------- diretos
@@ -84,9 +85,9 @@ ELEG_IDX = {c: i for i, c in enumerate(C.ELEGIBILIDADE_COLS)}
 eleg_by_v = {r[0]: r for r in C.ELEGIBILIDADE}
 
 prazos_cols = [
-    "veiculo_id", "tipo", "serie", "camada", "wam_contratual_max_dias", "wam_contratual_max_meses",
+    "veiculo_id", "tipo", "série", "camada", "wam_contratual_max_dias", "wam_contratual_max_meses",
     "wam_observado_dias", "prazo_max_recebivel_dias", "prazo_max_recebivel_meses",
-    "data_emissao", "vencimento_do_veiculo", "prazo_legal_da_serie_meses",
+    "data_emissão", "vencimento_do_veiculo", "prazo_legal_da_serie_meses",
     "duration_dias", "duration_meses", "gap_duration_vs_prazo_legal_meses",
     "gap_prazo_max_recebivel_vs_duration_meses", "periodo_revolvencia_meses",
     "inicio_amortizacao", "fonte_id",
@@ -117,7 +118,7 @@ for r in S.SERIES:
     pm = num(prz_m)
     if d and pm:
         gap_ativo_dur = f"{pm - d / 30.4375:.1f}"
-    revolv = "12" if vid == "FIDC-VII" else ("0 - pool fechado na cessao" if tipo == "CRI" else ND)
+    revolv = "12" if vid == "FIDC-VII" else ("0 - pool fechado na cessão" if tipo == "CRI" else ND)
     prazos.append([
         vid, tipo, r[IDX["serie"]], r[IDX["camada"]], wam_d, wam_m, ND, prz_d, prz_m,
         r[IDX["data_emissao"]], r[IDX["data_vencimento"]], legal, dur_d, dur_m,
@@ -133,7 +134,7 @@ for r in M.SUBS_LONGA:
     key = (r[SL["veiculo_id"]], r[SL["serie"]], r[SL["camada"]])
     por_serie.setdefault(key, []).append((r[SL["tipo_de_investidor"]], int(r[SL["numero_de_subscritores"]]), int(r[SL["quantidade_subscrita"]])))
 
-conc_cols = ["veiculo_id", "serie", "camada", "qtd_total", "total_subscritores",
+conc_cols = ["veiculo_id", "série", "camada", "qtd_total", "total_subscritores",
              "maior_categoria", "maior_categoria_qtd", "maior_categoria_pct",
              "maior_titular_unico_categoria", "maior_titular_unico_qtd", "maior_titular_unico_pct",
              "pct_varejo_PF", "ticket_medio_PF_R", "data_base", "fonte_id"]
@@ -158,11 +159,12 @@ write("10c_concentracao_subscritores.csv", conc_cols, conc)
 
 # ---------------------------------------------------------------- 13_Cronograma (Anexo I de CRI-II + realizado)
 raw_path = os.path.join(OUT, "raw_anexo1_cri2_kanastra.csv")
-crono_cols = ["veiculo_id", "serie", "camada", "n_pagamento", "competencia", "status",
+crono_cols = ["veiculo_id", "série", "camada", "n_pagamento", "competência", "status",
               "paga_amortizacao", "pct_amortizacao_do_saldo", "saldo_final_pct_do_VNU",
               "paga_remuneracao", "atinge_98pct_amortizado", "fonte_id"]
 crono = []
-CAMADA_CRI2 = {"1a": "Super Senior", "2a": "Senior", "3a": "Mezanino", "4a": "Subordinado", "5a": "Subordinado Jr."}
+CAMADA_CRI2 = {"1ª": "Super Sênior", "2ª": "Sênior", "3ª": "Mezanino",
+                "4ª": "Subordinado", "5ª": "Subordinado Jr."}
 if os.path.exists(raw_path):
     with open(raw_path, encoding="utf-8") as fh:
         saldo = {}
@@ -180,14 +182,14 @@ if os.path.exists(raw_path):
                 pct_txt = pct if pct != "n/d" else ND
                 if pct == "n/d":
                     saldo_txt = ND
-            atinge = "sim" if (saldo_txt != ND and float(saldo_txt) <= 2.0) else ("nao" if saldo_txt != ND else ND)
+            atinge = "sim" if (saldo_txt != ND and float(saldo_txt) <= 2.0) else ("não" if saldo_txt != ND else ND)
             crono.append([
                 "CRI-II", s, CAMADA_CRI2[s], row["n_pagamento"], row["data"], "Projetado",
                 row["paga_amortizacao"], pct_txt, saldo_txt, row["paga_remuneracao"], atinge, "ANX-TS2-K2",
             ])
 write("13_cronograma_pagamentos.csv", crono_cols, crono)
 
-# Realizado observado, agregado por camada (deck A3) - nao ha serie mensal publica
+# Realizado observado, agregado por camada (deck A3) - não há serie mensal publica
 real_cols = ["veiculo_id", "camada", "primeira_ocorrencia", "ultima_ocorrencia", "meses_com_pagamento",
              "total_amortizado_Rmi", "maximo_mensal_Rmi", "status", "fonte_id"]
 REALIZADO = [
@@ -204,44 +206,95 @@ REALIZADO = [
     ("FIDC-VI", "Subordinado Jr.", "2025-12-31", "2026-06-30", "2", "35.2", "29.0", "Realizado", "ANX-DECK"),
     ("FIDC-VI", "Mezanino", "2025-03-31", "2026-06-30", "15", "148.1", "111.4", "Realizado", "ANX-DECK"),
     ("FIDC-VII", "Subordinado Jr.", "2026-07-31", "2026-07-31", "1", "7.7", "7.7", "Realizado", "ANX-DECK"),
-    ("CRI-I", "Senior", "2024-04-01", "2026-06-01", "27", "268.4", "16.8", "Realizado", "ANX-DECK"),
+    ("CRI-I", "Sênior", "2024-04-01", "2026-06-01", "27", "268.4", "16.8", "Realizado", "ANX-DECK"),
     ("CRI-I", "Mezanino", "2024-09-01", "2026-06-01", "22", "77.7", "6.5", "Realizado", "ANX-DECK"),
     ("CRI-I", "Subordinado", "2025-07-01", "2026-06-01", "12", "22.5", "7.4", "Realizado", "ANX-DECK"),
-    ("CRI-II", "Senior", "2024-09-01", "2026-05-01", "19", "258.7", "18.5", "Realizado", "ANX-DECK"),
+    ("CRI-II", "Sênior", "2024-09-01", "2026-05-01", "19", "258.7", "18.5", "Realizado", "ANX-DECK"),
     ("CRI-II", "Mezanino", "2025-01-01", "2026-05-01", "15", "31.7", "6.4", "Realizado", "ANX-DECK"),
     ("CRI-II", "Subordinado", "2025-09-01", "2026-05-01", "9", "7.8", "2.6", "Realizado", "ANX-DECK"),
     ("CRI-II", "Subordinado Jr.", "2025-10-01", "2026-05-01", "8", "6.8", "1.4", "Realizado", "ANX-DECK"),
-    ("CRI-III", "Senior", "2025-08-01", "2026-05-01", "10", "156.1", "21.4", "Realizado", "ANX-DECK"),
+    ("CRI-III", "Sênior", "2025-08-01", "2026-05-01", "10", "156.1", "21.4", "Realizado", "ANX-DECK"),
     ("CRI-III", "Mezanino", "2026-02-01", "2026-05-01", "4", "6.6", "1.7", "Realizado", "ANX-DECK"),
     ("CRI-III", "Subordinado", "2026-02-01", "2026-05-01", "4", "8.3", "3.2", "Realizado", "ANX-DECK"),
-    ("CRI-IV", "Senior", "2025-12-01", "2026-05-01", "6", "56.8", "6.7", "Realizado", "ANX-DECK"),
+    ("CRI-IV", "Sênior", "2025-12-01", "2026-05-01", "6", "56.8", "6.7", "Realizado", "ANX-DECK"),
 ]
 write("13b_amortizacao_realizada.csv", real_cols, REALIZADO)
+
+
+# ---------------------------------------------------------------- 21_Funding por tranche (derivado)
+# Uma linha por tranche de TODOS os instrumentos: cota de FIDC, série de CRI e série de debênture.
+# Valor captado e preço lado a lado, com a família de indexador que torna a comparação honesta.
+IX = {c: i for i, c in enumerate(S.SERIES_COLS)}
+TIPO = {"FIDC": "FIDC (warehouse)", "CRI": "CRI (take-out)", "DEB": "Debênture"}
+fund_cols = ["ordem_cronologica", "data_emissão", "instrumento", "veiculo_id", "camada", "série",
+             "montante_captado_Rmi", "familia_indexador", "preco_taxa_contratada",
+             "colocação", "retida_pelo_originador", "fonte_id", "status"]
+fund = []
+for r in S.SERIES:
+    vid = r[IX["veiculo_id"]]
+    inst = TIPO["FIDC" if vid.startswith("FIDC") else ("CRI" if vid.startswith("CRI") else "DEB")]
+    montante = r[IX["montante_reportado_deck_Rmi"]]
+    fund.append([r[IX["data_emissao"]] or ND, r[IX["data_emissao"]], inst, vid,
+                 r[IX["camada"]], r[IX["serie"]], montante, r[IX["indexador"]],
+                 r[IX["taxa_contratada"]], r[IX["colocacao"]], r[IX["retida_pelo_originador"]],
+                 r[IX["fonte_id"]], r[IX["status"]]])
+fund.sort(key=lambda x: (x[1] if x[1] != ND else "9999"))
+for i, linha in enumerate(fund, 1):
+    linha[0] = str(i)
+write("21_funding_por_tranche.csv", fund_cols, fund)
+
+# ---------------------------------------------------------------- 22_Custo senior no tempo
+write("22_custo_senior_timeline.csv", FU.CUSTO_SENIOR_COLS, FU.CUSTO_SENIOR)
+
+# ---------------------------------------------------------------- 23/24 Debenture
+write("23_debenture_posicao.csv", FU.DEBENTURE_POSICAO_COLS, FU.DEBENTURE_POSICAO)
+write("24_debenture_carteira.csv", FU.DEBENTURE_CARTEIRA_COLS, FU.DEBENTURE_CARTEIRA)
+
+# ---------------------------------------------------------------- 25_Captacao por instrumento e ano
+por_ano = {}
+for linha in fund:
+    d, inst, m = linha[1], linha[2], linha[6]
+    if d == ND or m in (ND, ""):
+        continue
+    ano = d[:4]
+    por_ano.setdefault((ano, inst), 0.0)
+    por_ano[(ano, inst)] += float(m)
+cap_cols = ["ano", "instrumento", "montante_captado_Rmi", "numero_de_tranches"]
+cont = {}
+for linha in fund:
+    d, inst, m = linha[1], linha[2], linha[6]
+    if d == ND or m in (ND, ""):
+        continue
+    cont[(d[:4], inst)] = cont.get((d[:4], inst), 0) + 1
+cap = [[a, i, f"{v:.3f}", str(cont[(a, i)])] for (a, i), v in sorted(por_ano.items())]
+write("25_captacao_por_ano.csv", cap_cols, cap)
 
 # ---------------------------------------------------------------- 00_Painel
 painel_cols = ["indicador", "valor", "unidade", "leitura", "data_base", "fonte_id"]
 PAINEL = [
-    ("Veiculos no programa", "13", "veiculos", "Sete FIDCs de warehouse e seis operacoes de CRI de take-out", "2026-08-21", "ANX-DECK"),
-    ("Series de CRI", "34", "series", "5+5+6+7+6+5 nas seis operacoes, incluindo a serie privada de cada uma", "2026-08-21", "ANX-DECK; ANX-LAM-K1; ANX-INI-K4"),
-    ("Classes de cotas de FIDC", "34", "classes", "Coincidencia numerica com as series de CRI; sao dimensoes diferentes e nao se somam", "2026-07-31", "ANX-DECK"),
-    ("Volume nominal de CRI emitido", "3.670,7", "R$ mi", "Soma das seis operacoes, series publicas e privadas", "2026-08-21", "ANX-DECK"),
-    ("Series privadas Subordinado Jr.", "107,0", "R$ mi", "De 2,49% a 3,00% de cada operacao, subscritas pela Solfacil e/ou partes relacionadas", "2026-08-21", "ANX-DECK"),
-    ("PL somado dos sete FIDCs", "1.234,6", "R$ mi", "Competencia de julho de 2026", "2026-07-31", "ANX-DECK"),
-    ("Carteira somada dos sete FIDCs", "986,7", "R$ mi", "Direitos creditorios; a diferenca para o PL sao outros ativos liquidos", "2026-07-31", "ANX-DECK"),
-    ("Cap por devedor mais apertado", "0,07", "% do Patrimonio Separado", "CRI-V, a partir de 750.000 quantidades integralizadas", "2026-04-17", "ANX-LAM-V174"),
-    ("WAM contratual maximo", "2.000", "dias", "Igual nas seis operacoes de CRI; 2.400 dias em tres dos sete FIDCs", "2026-08-21", "ANX-LAM-K3; ANX-LAM-V174"),
-    ("Prazo maximo por recebivel", "3.845", "dias", "126,4 meses, contados da emissao da CCB, nas seis operacoes", "2026-08-21", "ANX-LAM-K3; ANX-LAM-V174"),
-    ("Principal subordinado ja pago nos FIDCs", "1.076,2", "R$ mi", "Mezanino e junior somados; ocorreu nos sete fundos", "2026-07-31", "ANX-DECK"),
-    ("Operacoes com informe mensal de CRI", "5 de 6", "operacoes", "A VERT 177a ainda nao tem informe", "2026-08-21", "ANX-DECK"),
+    ("Veículos no programa", "14", "veículos", "Sete FIDCs de warehouse, seis operações de CRI de take-out e uma debênture de 2022", "2026-08-21", "ANX-DECK; ANX-ESC-DEB"),
+    ("Tranches precificadas", "70", "tranches", "34 classes de cotas de FIDC, 34 séries de CRI e 2 séries de debênture, cada uma com valor captado e preço", "2026-08-22", "ANX-TS-V177; ANX-ESC-DEB"),
+    ("Spread sênior mais baixo do programa", "DI + 1,50%", "% a.a.", "Sênior A da 177ª emissão de CRI, em julho de 2026, contra DI + 2,00% do FIDC VII que a alimenta", "2026-07-21", "ANX-TS-V177"),
+    ("Séries de CRI", "34", "séries", "5+5+6+7+6+5 nas seis operações, incluindo a série privada de cada uma", "2026-08-21", "ANX-DECK; ANX-LAM-K1; ANX-INI-K4"),
+    ("Classes de cotas de FIDC", "34", "classes", "Coincidência numérica com as séries de CRI; são dimensões diferentes e não se somam", "2026-07-31", "ANX-DECK"),
+    ("Volume nominal de CRI emitido", "3.670,6", "R$ mi", "Soma das seis operações, séries públicas e privadas, agora toda documentada por série", "2026-08-21", "ANX-DECK"),
+    ("Séries privadas Subordinado Jr.", "107,0", "R$ mi", "De 2,49% a 3,00% de cada operação, subscritas pela Solfácil e/ou partes relacionadas", "2026-08-21", "ANX-DECK"),
+    ("PL somado dos sete FIDCs", "1.234,6", "R$ mi", "Competência de julho de 2026", "2026-07-31", "ANX-DECK"),
+    ("Carteira somada dos sete FIDCs", "986,7", "R$ mi", "Direitos creditórios; a diferença para o PL são outros ativos líquidos", "2026-07-31", "ANX-DECK"),
+    ("Cap por devedor mais apertado", "0,07", "% do Patrimônio Separado", "CRI-V, a partir de 750.000 quantidades integralizadas", "2026-04-17", "ANX-LAM-V174"),
+    ("WAM contratual máximo", "2.000", "dias", "Igual nas seis operações de CRI; 2.400 dias em três dos sete FIDCs", "2026-08-21", "ANX-LAM-K3; ANX-LAM-V174"),
+    ("Prazo máximo por recebível", "3.845", "dias", "126,4 meses, contados da emissão da CCB, nas seis operações", "2026-08-21", "ANX-LAM-K3; ANX-LAM-V174"),
+    ("Principal subordinado já pago nos FIDCs", "1.076,2", "R$ mi", "Mezanino e júnior somados; ocorreu nos sete fundos", "2026-07-31", "ANX-DECK"),
+    ("Operações com informe mensal de CRI", "5 de 6", "operações", "A VERT 177ª ainda não tem informe", "2026-08-21", "ANX-DECK"),
 ]
 write("00_painel.csv", painel_cols, PAINEL)
 
 # ---------------------------------------------------------------- checagens
 print("\nChecagens de integridade:")
 tot_series_cri = len([r for r in S.SERIES if r[0].startswith("CRI")])
-print(f"  series de CRI: {tot_series_cri} (esperado 34) -> {'OK' if tot_series_cri == 34 else 'FALHA'}")
+print(f"  séries de CRI: {tot_series_cri} (esperado 34) -> {'OK' if tot_series_cri == 34 else 'FALHA'}")
 soma_deck = sum(num(r[IDX['montante_reportado_deck_Rmi']]) or 0 for r in S.SERIES if r[0].startswith("CRI"))
-print(f"  soma dos montantes reportados por serie de CRI: R$ {soma_deck:,.1f} mi (deck: 3.670,7 mi, com CRI-VI n/d por serie)")
+print(f"  soma dos montantes reportados por série de CRI: R$ {soma_deck:,.1f} mi (deck: 3.670,7 mi, com CRI-VI n/d por série)")
 fontes_ids = {r[0] for r in F.FONTES}
 usados = set()
 for rows, ci in [(S.SERIES, IDX['fonte_id']), (C.ELEGIBILIDADE, 25), (E.PDD, 19), (M.MATRIZ, 4)]:
@@ -251,5 +304,5 @@ for rows, ci in [(S.SERIES, IDX['fonte_id']), (C.ELEGIBILIDADE, 25), (E.PDD, 19)
             if f and f not in ("n/a", ND):
                 usados.add(f)
 orfaos = sorted(usados - fontes_ids)
-print(f"  fonte_id orfaos (usados e nao inventariados): {orfaos if orfaos else 'nenhum'}")
+print(f"  fonte_id orfaos (usados e não inventariados): {orfaos if orfaos else 'nenhum'}")
 print("\nCamada de dados concluida.")
