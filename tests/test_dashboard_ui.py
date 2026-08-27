@@ -1032,6 +1032,41 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
     assert {"pptx", "case_studies", "xlsx", "portfolio", "html"} <= set(payloads)
 
 
+def test_director_revision_downloads_use_validated_materialized_bytes(monkeypatch):
+    import services.industry_requested_revision_export as exports
+
+    payloads = {"complete": b"complete", "slides": b"slides", "package": b"package"}
+    rendered = []
+    captions = []
+    monkeypatch.setattr(exports, "load_requested_revision_downloads", lambda *_: payloads)
+    monkeypatch.setattr(tab_industry_study.st, "columns", lambda widths: [nullcontext() for _ in widths])
+    monkeypatch.setattr(tab_industry_study.st, "subheader", lambda *_: None)
+    monkeypatch.setattr(tab_industry_study.st, "caption", captions.append)
+    monkeypatch.setattr(tab_industry_study.st, "download_button", lambda label, **kwargs: rendered.append((label, kwargs)))
+    tab_industry_study._render_requested_revision_exports(suffix="test")
+
+    assert [label for label, _ in rendered] == ["PPTX completo revisado", "Três lâminas revisadas", "Pacote com relatório e bases"]
+    assert [kwargs["data"] for _, kwargs in rendered] == list(payloads.values())
+    assert all(kwargs["on_click"] == "ignore" for _, kwargs in rendered)
+    assert "pulverizado validado N/D" in captions[0]
+
+
+def test_invalid_director_revision_does_not_expose_downloads(monkeypatch):
+    import services.industry_requested_revision_export as exports
+
+    def unavailable(*_):
+        raise ValueError("hash divergente")
+
+    warnings = []
+    monkeypatch.setattr(exports, "load_requested_revision_downloads", unavailable)
+    monkeypatch.setattr(tab_industry_study.st, "subheader", lambda *_: None)
+    monkeypatch.setattr(tab_industry_study.st, "caption", lambda *_: None)
+    monkeypatch.setattr(tab_industry_study.st, "warning", warnings.append)
+    monkeypatch.setattr(tab_industry_study.st, "download_button", lambda *a, **k: pytest.fail("download não validado"))
+    tab_industry_study._render_requested_revision_exports(suffix="test")
+    assert warnings == ["Revisão da Diretoria indisponível: hash divergente"]
+
+
 def test_every_export_button_is_declared_with_a_payload_key() -> None:
     from tabs.tab_industry_study import _INDUSTRY_EXPORT_BUTTONS
 
