@@ -10368,7 +10368,45 @@ _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
 )
 
 
+def _render_requested_revision_exports(*, suffix: str) -> None:
+    from services.industry_requested_revision_export import (
+        DOWNLOADS,
+        load_requested_revision_downloads,
+    )
+
+    st.subheader("Revisão da Diretoria · 27/08/2026")
+    st.caption(
+        "Base jun/26. Top 5 + Itaú e Kanastra separados; versão sem TAPSO e "
+        "Sistema Petrobras; triagem PF/PJ com volume pulverizado validado N/D. "
+        "O PPTX completo desta revisão tem 39 slides; os demais anexos continuam "
+        "no pacote executivo abaixo."
+    )
+    try:
+        payloads = load_requested_revision_downloads(_DATA_DIR)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        st.warning(f"Revisão da Diretoria indisponível: {exc}")
+        return
+    specs = (
+        ("complete", "PPTX completo revisado", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+        ("slides", "Três lâminas revisadas", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+        ("package", "Pacote com relatório e bases", "application/zip"),
+    )
+    for column, (key, label, mime) in zip(st.columns([1, 1, 1]), specs):
+        with column:
+            st.download_button(
+                label,
+                data=payloads[key],
+                file_name=DOWNLOADS[key],
+                mime=mime,
+                type="primary" if key == "complete" else "secondary",
+                width="stretch",
+                on_click="ignore",
+                key=f"industry-director-revision-{key}-{suffix}",
+            )
+
+
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
+    _render_requested_revision_exports(suffix=suffix)
     try:
         payloads, failures = _industry_export_payloads(_industry_export_signature())
     except Exception as exc:  # noqa: BLE001

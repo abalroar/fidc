@@ -1,0 +1,108 @@
+{
+  "schema": "fidc.director_revision_release.v1",
+  "revision_date": "2026-08-27",
+  "competencia": "2026-06",
+  "scope": "Suplemento datado; preserva o bundle canônico e seus anexos dinâmicos.",
+  "pulverizacao_validada": "N/D",
+  "source_pptx_sha256": "b1f13db7ba56b14f2b2261ca7604301f6ead420a1f4cb34d04971c7a122b53c8",
+  "files": {
+    "Industria_FIDC_Completa_Revisada_20260827.pptx": {
+      "bytes": 268131,
+      "sha256": "4fc8e3580118dbff51ccab74f3779500e19f1c29334190f98297538eafbfc2e4"
+    },
+    "FIDC_Revisao_Diretoria_20260827.pptx": {
+      "bytes": 39387,
+      "sha256": "d3821a8f6fdf42e7a57a9680e4f547de899a316a837026e068462f40f7325a05"
+    },
+    "FIDC_Revisao_Diretoria_20260827.zip": {
+      "bytes": 1562654,
+      "sha256": "7d6983f75a3cabfdebd649412fdb4ea683eb005d4a364be71fa38b7c1263e46a"
+    },
+    "Relatorio_Revisao_Diretoria.md": {
+      "bytes": 11557,
+      "sha256": "1eb2ae5bd96c0e745b9a4a6044e0184485fec28ad1ab8b8dc47bae5fe43f212f"
+    }
+  },
+  "package_members": {
+    "FIDC_Revisao_Diretoria_20260827.pptx": {
+      "bytes": 39387,
+      "sha256": "d3821a8f6fdf42e7a57a9680e4f547de899a316a837026e068462f40f7325a05"
+    },
+    "Industria_FIDC_Completa_Revisada_20260827.pptx": {
+      "bytes": 268131,
+      "sha256": "4fc8e3580118dbff51ccab74f3779500e19f1c29334190f98297538eafbfc2e4"
+    },
+    "Relatorio_Revisao_Diretoria.md": {
+      "bytes": 11557,
+      "sha256": "1eb2ae5bd96c0e745b9a4a6044e0184485fec28ad1ab8b8dc47bae5fe43f212f"
+    },
+    "bases/cobertura_classificacao.csv": {
+      "bytes": 483,
+      "sha256": "3343afa7472c21fd1ecda4de94ba58c55076d2d0321071f6d0c2ea47bf94ca23"
+    },
+    "bases/credito_triagem_cnpj.csv": {
+      "bytes": 4040411,
+      "sha256": "7dabce6dfda893e42e4a7a0682ef1fab767dd7749d45670af0d2e017492e0899"
+    },
+    "bases/credito_triagem_resumo.csv": {
+      "bytes": 853,
+      "sha256": "fb790b38b2e166673fa7978fd17a29249d5154d71a50ea74a06a1b6682f7402d"
+    },
+    "bases/emissoes_cenario.csv": {
+      "bytes": 1356,
+      "sha256": "056f54622ca51ed178cc2b6b467736dab0ee7b93e040587cf9dc40066cc62eb3"
+    },
+    "bases/evidencias_taxonomia.csv": {
+      "bytes": 4067040,
+      "sha256": "f7ca35f14159544d9348309d9dad3624f890a332d4a22662de848dd1fef64135"
+    },
+    "bases/exclusoes_por_cnpj.csv": {
+      "bytes": 946,
+      "sha256": "b99fee487bad1d69b9abf086e708416dfd469f853ac97f46d9f225a56cf73f30"
+    },
+    "bases/manifest.json": {
+      "bytes": 3231,
+      "sha256": "50d3588812e3a164559ba15d775f04cd0ec108c93e5fa6ca56f80d267ba33aea"
+    },
+    "bases/metricas_reconciliacao.csv": {
+      "bytes": 361,
+      "sha256": "3f6fd02a08a9595fc5758fd205cd353ab7c778675b4cdd5a0f2f3cadf4637e24"
+    },
+    "bases/prestadores_linhagem.csv": {
+      "bytes": 255292,
+      "sha256": "44ee46a4deb19b3bb5696462f03ca2637721c31e455bc55e49f4c3e64cba5f35"
+    },
+    "bases/prestadores_separados.csv": {
+      "bytes": 185877,
+      "sha256": "bdfebc38a704d6def66d5c40377179c82c93603b5660ce93792ec759487dac73"
+    },
+    "bases/revision_payload.json": {
+      "bytes": 450425,
+      "sha256": "f90d0e5aebcbf229ddea29925a69a184a3f210630c9e31a4708aa5f4c840e119"
+    },
+    "bases/saldo_cenarios.csv": {
+      "bytes": 5748,
+      "sha256": "7a3c4f92a67b2275775d26d9321a3a9a1d1f3ab45ce183055b2a2a27e83900d0"
+    },
+    "bases/verificacao_documental_focal.csv": {
+      "bytes": 2591,
+      "sha256": "478fa0b027ca9e60d2eeb2aabac580490c847903dbba3ed0e499652f13922737"
+    },
+    "qa/auditoria_entrega.json": {
+      "bytes": 1048,
+      "sha256": "b02c4900cca92bc1070a4b0027228f5768c980de0ae2d3d5972e8d5f27bf0eef"
+    },
+    "qa/fidelidade_apresentacao_completa.json": {
+      "bytes": 564,
+      "sha256": "a03449980960e5e8217a7b08310e85c19bb7caf5536140208c602ab0620dbad7"
+    },
+    "qa/overflow_apresentacao_completa.txt": {
+      "bytes": 35,
+      "sha256": "13d8701a58c13435d9ce9570cb52fdb46135423ce5a9716ce200b2a2859f4d28"
+    },
+    "qa/validacao.md": {
+      "bytes": 1510,
+      "sha256": "9acc762151ef38b114a770fa20f7f99f7165b71774b5dff977462c19997b8b6a"
+    }
+  }
+}
