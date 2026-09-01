@@ -1045,7 +1045,7 @@ def test_director_revision_downloads_use_validated_materialized_bytes(monkeypatc
     monkeypatch.setattr(tab_industry_study.st, "download_button", lambda label, **kwargs: rendered.append((label, kwargs)))
     tab_industry_study._render_requested_revision_exports(suffix="test")
 
-    assert [label for label, _ in rendered] == ["PPTX completo revisado", "Três lâminas revisadas", "Pacote com relatório e bases"]
+    assert [label for label, _ in rendered] == ["PPTX completo revisado", "Duas lâminas revisadas", "Pacote com relatório e bases"]
     assert [kwargs["data"] for _, kwargs in rendered] == list(payloads.values())
     assert all(kwargs["on_click"] == "ignore" for _, kwargs in rendered)
     assert "R$ 7,1 bi de PL" in captions[0]

@@ -10374,14 +10374,15 @@ def _render_requested_revision_exports(*, suffix: str) -> None:
         load_requested_revision_downloads,
     )
 
-    st.subheader("Revisão da Diretoria · 01/09/2026 · v2")
+    st.subheader("Revisão da Diretoria · 01/09/2026 · v3")
     st.caption(
-        "PPTX executivo de 33 slides: bloco ANBIMA/IBBA restaurado, com visão por "
-        "produto e destaque de FIDC; rankings de prestadores com paleta por casa. "
+        "PPTX executivo de 29 slides: bloco ANBIMA/IBBA preservado, com visão por "
+        "produto, destaque de FIDC e gráficos nativos compatíveis com PowerPoint. "
         "Base jun/26. Slides 4–6 com Multicarteira Pulverizado PF/PJ: 24 fundos, "
         "R$ 7,1 bi de PL e exposição efetiva N/D; Sólido e BizCapital permanecem "
         "em Financeiro. Cenário sem TAPSO/Petrobras; emissões cruzadas pelas mesmas "
-        "listas de CNPJ; Top 5 + Itaú e Kanastra separados."
+        "listas de CNPJ; Top 5 + Itaú e Kanastra separados. Revisão visual com títulos "
+        "em caixa mista, rodapés à esquerda e menos linhas separadoras."
     )
     try:
         payloads = load_requested_revision_downloads(_DATA_DIR)
@@ -10390,7 +10391,7 @@ def _render_requested_revision_exports(*, suffix: str) -> None:
         return
     specs = (
         ("complete", "PPTX completo revisado", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
-        ("slides", "Três lâminas revisadas", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+        ("slides", "Duas lâminas revisadas", "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
         ("package", "Pacote com relatório e bases", "application/zip"),
     )
     for column, (key, label, mime) in zip(st.columns([1, 1, 1]), specs):
