@@ -11,16 +11,16 @@ from xml.etree import ElementTree as ET
 from zipfile import BadZipFile, ZipFile
 
 
-RELEASE_DIR = "director_revision_20260901_v2"
-RELEASE_SCHEMA = "fidc.director_revision_release.v3"
+RELEASE_DIR = "director_revision_20260901_v3"
+RELEASE_SCHEMA = "fidc.director_revision_release.v4"
 DOWNLOADS = {
-    "complete": "Industria_FIDC_Completa_Revisada_20260901_v2.pptx",
-    "slides": "FIDC_Revisao_Diretoria_20260901_v2.pptx",
-    "package": "FIDC_Revisao_Diretoria_20260901_v2.zip",
+    "complete": "Industria_FIDC_Completa_Revisada_20260901_v3.pptx",
+    "slides": "FIDC_Revisao_Diretoria_20260901_v3.pptx",
+    "package": "FIDC_Revisao_Diretoria_20260901_v3.zip",
 }
-REPORT_NAME = "Relatorio_Revisao_Diretoria_v2.md"
-PROMPT_NAME = "Prompt_Atualizacao_FIDC_v2.md"
-METHODOLOGY_NAME = "Metodologia_FIDC_20260901_v2.md"
+REPORT_NAME = "Relatorio_Revisao_Diretoria_v3.md"
+PROMPT_NAME = "Prompt_Atualizacao_FIDC_v3.md"
+METHODOLOGY_NAME = "Metodologia_FIDC_20260901_v3.md"
 
 
 def _safe_path(root: Path, name: str) -> Path:
@@ -79,18 +79,22 @@ def load_requested_revision_downloads(data_dir: str | Path) -> dict[str, bytes]:
         "Itaú e Kanastra separados",
         "Sólido e BizCapital",
         "Top1",
-        "taxonomia congelada",
     )
     _validate_deck(
         files[DOWNLOADS["complete"]],
-        33,
+        29,
         common_content
         + (
+            "taxonomia congelada",
             "Visão por produto: mercado, posição e participação do Itaú BBA",
             "Em FIDC o Itaú BBA lidera com 45,7%",
         ),
     )
-    _validate_deck(files[DOWNLOADS["slides"]], 3, common_content)
+    _validate_deck(
+        files[DOWNLOADS["slides"]],
+        2,
+        common_content + ("cenário sem TAPSO/Petrobras",),
+    )
     try:
         with ZipFile(BytesIO(files[DOWNLOADS["package"]])) as archive:
             members = manifest["package_members"]
