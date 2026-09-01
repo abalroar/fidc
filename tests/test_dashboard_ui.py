@@ -1048,7 +1048,8 @@ def test_director_revision_downloads_use_validated_materialized_bytes(monkeypatc
     assert [label for label, _ in rendered] == ["PPTX completo revisado", "Três lâminas revisadas", "Pacote com relatório e bases"]
     assert [kwargs["data"] for _, kwargs in rendered] == list(payloads.values())
     assert all(kwargs["on_click"] == "ignore" for _, kwargs in rendered)
-    assert "pulverizado validado N/D" in captions[0]
+    assert "R$ 7,1 bi de PL" in captions[0]
+    assert "exposição efetiva N/D" in captions[0]
 
 
 def test_invalid_director_revision_does_not_expose_downloads(monkeypatch):

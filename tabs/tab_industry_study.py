@@ -10374,12 +10374,12 @@ def _render_requested_revision_exports(*, suffix: str) -> None:
         load_requested_revision_downloads,
     )
 
-    st.subheader("Revisão da Diretoria · 27/08/2026")
+    st.subheader("Revisão da Diretoria · 01/09/2026")
     st.caption(
-        "Base jun/26. Top 5 + Itaú e Kanastra separados; versão sem TAPSO e "
-        "Sistema Petrobras; triagem PF/PJ com volume pulverizado validado N/D. "
-        "O PPTX completo desta revisão tem 39 slides; os demais anexos continuam "
-        "no pacote executivo abaixo."
+        "Base jun/26. Slides 4–6 com Multicarteira Pulverizado PF/PJ: 24 fundos, "
+        "R$ 7,1 bi de PL e exposição efetiva N/D; Sólido e BizCapital permanecem "
+        "em Financeiro. Cenário sem TAPSO/Petrobras; emissões cruzadas pelas mesmas "
+        "listas de CNPJ; Top 5 + Itaú e Kanastra separados."
     )
     try:
         payloads = load_requested_revision_downloads(_DATA_DIR)
