@@ -97,6 +97,7 @@ def test_credit_screen_does_not_infer_pulverization_or_classify_from_name():
 def test_requested_revision_downloads_match_the_approved_artifacts():
     from io import BytesIO
     from zipfile import ZipFile
+    from pptx import Presentation
     from services.industry_requested_revision_export import (
         DOWNLOADS, RELEASE_DIR, load_requested_revision_downloads,
     )
@@ -105,14 +106,33 @@ def test_requested_revision_downloads_match_the_approved_artifacts():
     downloads = load_requested_revision_downloads(data_dir)
     assert set(downloads) == {"complete", "slides", "package"}
     assert downloads["complete"] == (data_dir / RELEASE_DIR / DOWNLOADS["complete"]).read_bytes()
+    deck = Presentation(BytesIO(downloads["complete"]))
+    assert len(deck.slides) == 33
+    deck_text = [
+        " ".join(shape.text for shape in slide.shapes if hasattr(shape, "text"))
+        for slide in deck.slides
+    ]
+    assert "Posição competitiva do Itaú BBA" in deck_text[13]
+    assert "Em FIDC o Itaú BBA lidera com 45,7%" in deck_text[20]
+    assert "Premissas, limitações e fontes" in deck_text[25]
+    assert "Volume por prestador" in deck_text[27]
+    provider_xml = "".join(
+        rel.target_part.blob.decode()
+        for rel in deck.slides[27].part.rels.values()
+        if rel.reltype.endswith("/chart")
+    )
+    for color in ("FF5500", "7030A0", "2456D6", "1D4080", "7A1F3D", "30353A"):
+        assert color in provider_xml
     with ZipFile(BytesIO(downloads["package"])) as archive:
         assert archive.read(DOWNLOADS["slides"]) == downloads["slides"]
         stock = pd.read_csv(archive.open("bases/saldo_cenarios.csv"))
         latest = stock[stock.competencia.eq("2026-06")]
         assert latest.loc[latest.cenario.eq("sem_tapso_petrobras"), "pl_brl"].sum() == pytest.approx(718610541429.85)
-        report = archive.read("Relatorio_Revisao_Diretoria.md").decode()
+        report = archive.read("Relatorio_Revisao_Diretoria_v2.md").decode()
         assert "R$ 7.102.640.442,08" in report
         assert "Número total de devedores: **N/D**" in report
+        assert "33 slides" in report
+        assert "ANBIMA" in report
 
 
 @pytest.mark.parametrize("broken", ["complete", "package"])

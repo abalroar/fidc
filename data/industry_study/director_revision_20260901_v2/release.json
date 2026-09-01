@@ -1,0 +1,139 @@
+{
+  "schema": "fidc.director_revision_release.v3",
+  "revision_date": "2026-09-01",
+  "competencia": "2026-06",
+  "scope": "Deck executivo de 33 slides; remoção dos antigos 10-23 e 28-32; bloco ANBIMA/IBBA de 13 slides restaurado; paleta de prestadores reconciliada; cenário sem TAPSO/Petrobras e abertura PF/PJ auditável.",
+  "stock_scenario": "sem_tapso_petrobras",
+  "pfpj_fundos": 24,
+  "pfpj_pl_brl": 7102640442.08,
+  "pfpj_exposure_brl": "N/D",
+  "pfpj_total_debtors": "N/D",
+  "files": {
+    "Industria_FIDC_Completa_Revisada_20260901_v2.pptx": {
+      "bytes": 230739,
+      "sha256": "205d2d28772b8d4d804c332ff297ed0639c49320e913f1bfc9487a035ffb5111"
+    },
+    "FIDC_Revisao_Diretoria_20260901_v2.pptx": {
+      "bytes": 40189,
+      "sha256": "a90f50813851eebf80ea2491500a626f818d7dc7bfe817355dccdd923fe04f41"
+    },
+    "FIDC_Revisao_Diretoria_20260901_v2.zip": {
+      "bytes": 1320497,
+      "sha256": "563bc9825cca11610e138fad0c13e6cebb8133cd6f8ed1f557755ebcc1a52138"
+    },
+    "Relatorio_Revisao_Diretoria_v2.md": {
+      "bytes": 5130,
+      "sha256": "7635b00386cd07733ba5efa4b0f9bff3801c183caebb91c1ba44361a262fbdd9"
+    },
+    "Prompt_Atualizacao_FIDC_v2.md": {
+      "bytes": 7531,
+      "sha256": "7fa7ffb5ef9547ac2087377984b36a3b07597d0c4d6527920158f14f2416b7d6"
+    },
+    "Metodologia_FIDC_20260901_v2.md": {
+      "bytes": 2767,
+      "sha256": "d56880e7a36078729e5890060b798436b52a6970e17c0ee2e1152257220217ba"
+    }
+  },
+  "package_members": {
+    "FIDC_Revisao_Diretoria_20260901_v2.pptx": {
+      "bytes": 40189,
+      "sha256": "a90f50813851eebf80ea2491500a626f818d7dc7bfe817355dccdd923fe04f41"
+    },
+    "Industria_FIDC_Completa_Revisada_20260901_v2.pptx": {
+      "bytes": 230739,
+      "sha256": "205d2d28772b8d4d804c332ff297ed0639c49320e913f1bfc9487a035ffb5111"
+    },
+    "Metodologia_FIDC_20260901_v2.md": {
+      "bytes": 2767,
+      "sha256": "d56880e7a36078729e5890060b798436b52a6970e17c0ee2e1152257220217ba"
+    },
+    "Prompt_Atualizacao_FIDC_v2.md": {
+      "bytes": 7531,
+      "sha256": "7fa7ffb5ef9547ac2087377984b36a3b07597d0c4d6527920158f14f2416b7d6"
+    },
+    "Relatorio_Revisao_Diretoria_v2.md": {
+      "bytes": 5130,
+      "sha256": "7635b00386cd07733ba5efa4b0f9bff3801c183caebb91c1ba44361a262fbdd9"
+    },
+    "bases/categorias_cnpj_jun26.csv": {
+      "bytes": 712346,
+      "sha256": "5623082772faa8b24181febf394abd3d93c05631af1fa2c363f34b368d1f3253"
+    },
+    "bases/criterios_categorias.csv": {
+      "bytes": 1113,
+      "sha256": "9f7a28c54ed55ae534a81440ab7183eafa0e31f25f95b59fbb0ef90c0bd6367d"
+    },
+    "bases/emissoes_auditoria.csv": {
+      "bytes": 628,
+      "sha256": "6ed44d8ba48f5748f4a8bb1e211ed11f1366897825da80dde26b79c12519f8d6"
+    },
+    "bases/emissoes_por_categoria.csv": {
+      "bytes": 3547,
+      "sha256": "f0d17279828488d8ffc684cd1a0c4637c57989bc36ca00424405d061527cfc96"
+    },
+    "bases/emissoes_por_cnpj.csv": {
+      "bytes": 1229298,
+      "sha256": "45481de7d2a04f9361e499f40ac82a3f651177b07265b41b72885155c795a9a3"
+    },
+    "bases/evidencias_taxonomia.csv": {
+      "bytes": 4067040,
+      "sha256": "f7ca35f14159544d9348309d9dad3624f890a332d4a22662de848dd1fef64135"
+    },
+    "bases/exclusoes_por_cnpj.csv": {
+      "bytes": 946,
+      "sha256": "b99fee487bad1d69b9abf086e708416dfd469f853ac97f46d9f225a56cf73f30"
+    },
+    "bases/manifest.json": {
+      "bytes": 3690,
+      "sha256": "378218c88a028b159665b3fc880a03ea109c05b3636f900147dbc391d33b76d8"
+    },
+    "bases/metricas_reconciliacao.csv": {
+      "bytes": 381,
+      "sha256": "5ad1b65faa026a97dab4de17540aa39b21e66fccb7eeca38a3841484e4703e6d"
+    },
+    "bases/pfpj_24_incluidos.csv": {
+      "bytes": 51760,
+      "sha256": "d136c052769db86e0f2afe9c58f45cb0e3f6f9f291450a70885e9c4f449706a4"
+    },
+    "bases/pfpj_26_decisoes.csv": {
+      "bytes": 52537,
+      "sha256": "844416655e20c95f60930e5277e04408fb1866efa2a246d209d63a2562bb60cd"
+    },
+    "bases/prestadores_linhagem.csv": {
+      "bytes": 255292,
+      "sha256": "44ee46a4deb19b3bb5696462f03ca2637721c31e455bc55e49f4c3e64cba5f35"
+    },
+    "bases/prestadores_separados.csv": {
+      "bytes": 185877,
+      "sha256": "bdfebc38a704d6def66d5c40377179c82c93603b5660ce93792ec759487dac73"
+    },
+    "bases/revision_payload.json": {
+      "bytes": 459487,
+      "sha256": "ea01c238088a49bdb7e4ad2bbec35ad93f3eb170c3e421b1bc651a253f756e3b"
+    },
+    "bases/saldo_cenarios.csv": {
+      "bytes": 6647,
+      "sha256": "e60e608c7250afd9cb6384f42f599d1451eebf3256d07f4d90807ba2dbeed15c"
+    },
+    "qa/audit_delivery.py": {
+      "bytes": 8262,
+      "sha256": "e65f74ea9049f5ce79c9758c2ab519e19d40d4cacbf41156fb63686e0474dfd1"
+    },
+    "qa/audit_delivery_output.txt": {
+      "bytes": 1710,
+      "sha256": "c3620ceb81bcf8b39c50c0ce83a5bc608d104fc687eacb2172acf0d4bfce7eb5"
+    },
+    "qa/auditoria_entrega.json": {
+      "bytes": 1709,
+      "sha256": "d177a231cebec9b60f58c15cd163f126fb0560cf83e0766d996c1fb1432c75d8"
+    },
+    "qa/overflow_apresentacao_completa.txt": {
+      "bytes": 35,
+      "sha256": "13d8701a58c13435d9ce9570cb52fdb46135423ce5a9716ce200b2a2859f4d28"
+    },
+    "qa/overflow_laminas.txt": {
+      "bytes": 35,
+      "sha256": "13d8701a58c13435d9ce9570cb52fdb46135423ce5a9716ce200b2a2859f4d28"
+    }
+  }
+}
