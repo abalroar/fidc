@@ -8,7 +8,9 @@ import pandas as pd
 import pytest
 
 from services.industry_requested_revision import (
-    build_provider_comparison, build_stock_scenarios, build_credit_screen,
+    PF_PJ_CATEGORY, build_category_cnpj_ledger,
+    build_issuance_by_display_category, build_provider_comparison,
+    build_stock_scenarios, build_credit_screen, load_pfpj_ledger, prepare_funds,
 )
 
 
@@ -108,7 +110,9 @@ def test_requested_revision_downloads_match_the_approved_artifacts():
         stock = pd.read_csv(archive.open("bases/saldo_cenarios.csv"))
         latest = stock[stock.competencia.eq("2026-06")]
         assert latest.loc[latest.cenario.eq("sem_tapso_petrobras"), "pl_brl"].sum() == pytest.approx(718610541429.85)
-        assert "pulverizado PF/PJ permanece N/D" in archive.read("Relatorio_Revisao_Diretoria.md").decode()
+        report = archive.read("Relatorio_Revisao_Diretoria.md").decode()
+        assert "R$ 7.102.640.442,08" in report
+        assert "Número total de devedores: **N/D**" in report
 
 
 @pytest.mark.parametrize("broken", ["complete", "package"])
@@ -133,3 +137,51 @@ def test_requested_revision_rejects_partial_release(tmp_path):
     (tmp_path / RELEASE_DIR / "release.json").unlink()
     with pytest.raises(FileNotFoundError):
         load_requested_revision_downloads(tmp_path)
+
+
+def test_pfpj_ledger_preserves_26_decisions_and_excludes_11_and_26():
+    path = ROOT / "data/industry_study/director_pfpj_ledger_20260901.csv"
+    ledger = load_pfpj_ledger(path)
+    included = ledger[ledger.incluir_pfpj]
+    excluded = ledger[~ledger.incluir_pfpj]
+    assert len(included) == 24
+    assert set(excluded.ordem.astype(int)) == {11, 26}
+    assert included.pl_brl.sum() == pytest.approx(7_102_640_442.08)
+    assert set(excluded.nome_exibicao) == {"Sólido", "BizCapital Finpass PME"}
+
+
+def test_pfpj_overlay_moves_only_selected_financeiro_rows():
+    ledger = pd.DataFrame([
+        {"cnpj_fundo": "00000000000001", "incluir_pfpj": True},
+        {"cnpj_fundo": "00000000000002", "incluir_pfpj": False},
+    ])
+    funds = pd.DataFrame([
+        {"competencia": "2026-06", "cnpj_fundo": "00000000000001", "cnpj_classe": "", "is_fic_fidc": False, "pl": 7, "anbima_tipo": "Financeiro", "anbima_foco": "Crédito Pessoal"},
+        {"competencia": "2026-06", "cnpj_fundo": "00000000000002", "cnpj_classe": "", "is_fic_fidc": False, "pl": 3, "anbima_tipo": "Financeiro", "anbima_foco": "Crédito Pessoal"},
+    ])
+    actions = pd.DataFrame(columns=["cnpj_fundo", "status"])
+    frame = prepare_funds(funds, actions, ledger)
+    assert frame.set_index("cnpj_fundo").loc["00000000000001", "categoria_slide"] == PF_PJ_CATEGORY
+    assert frame.set_index("cnpj_fundo").loc["00000000000002", "categoria_slide"] == "Financeiro"
+
+
+def test_issuance_uses_fund_then_class_and_keeps_unmatched_as_nd():
+    ledger = pd.DataFrame([
+        {"cnpj_fundo": "00000000000001", "cnpj_classe": "00000000000011", "categoria_slide": PF_PJ_CATEGORY},
+        {"cnpj_fundo": "00000000000002", "cnpj_classe": "", "categoria_slide": "Financeiro"},
+    ])
+    offers = pd.DataFrame([
+        {"cnpj_emissor": "00000000000001", "data_encerramento": "2023-01-10", "registered_volume_brl": 10},
+        {"cnpj_emissor": "00000000000011", "data_encerramento": "2024-01-10", "registered_volume_brl": 20},
+        {"cnpj_emissor": "00000000000099", "data_encerramento": "2025-01-10", "registered_volume_brl": 30},
+        {"cnpj_emissor": "00000000000002", "data_encerramento": "2025-02-10", "registered_volume_brl": 40},
+        {"cnpj_emissor": "00000000000002", "data_encerramento": "2026-02-10", "registered_volume_brl": 50},
+    ])
+    summary, detail, audit = build_issuance_by_display_category(
+        offers, ledger, anbima_2023_brl=10
+    )
+    assert detail.loc[detail.cnpj_n.eq("00000000000001"), "match_categoria"].iloc[0] == "cnpj_fundo"
+    assert detail.loc[detail.cnpj_n.eq("00000000000011"), "match_categoria"].iloc[0] == "cnpj_classe"
+    assert detail.loc[detail.cnpj_n.eq("00000000000099"), "categoria"].iloc[0] == "N/D"
+    assert summary.groupby("period_key").share.sum().eq(1).all()
+    assert audit.loc[audit.period_key.eq("2025"), "nao_localizado_emissores"].iloc[0] == 1

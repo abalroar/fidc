@@ -11,14 +11,16 @@ from xml.etree import ElementTree as ET
 from zipfile import BadZipFile, ZipFile
 
 
-RELEASE_DIR = "director_revision_20260827"
-RELEASE_SCHEMA = "fidc.director_revision_release.v1"
+RELEASE_DIR = "director_revision_20260901"
+RELEASE_SCHEMA = "fidc.director_revision_release.v2"
 DOWNLOADS = {
-    "complete": "Industria_FIDC_Completa_Revisada_20260827.pptx",
-    "slides": "FIDC_Revisao_Diretoria_20260827.pptx",
-    "package": "FIDC_Revisao_Diretoria_20260827.zip",
+    "complete": "Industria_FIDC_Completa_Revisada_20260901.pptx",
+    "slides": "FIDC_Revisao_Diretoria_20260901.pptx",
+    "package": "FIDC_Revisao_Diretoria_20260901.zip",
 }
 REPORT_NAME = "Relatorio_Revisao_Diretoria.md"
+PROMPT_NAME = "Prompt_Atualizacao_FIDC.md"
+METHODOLOGY_NAME = "Metodologia_FIDC_20260901.md"
 
 
 def _safe_path(root: Path, name: str) -> Path:
@@ -45,8 +47,8 @@ def _validate_deck(payload: bytes, expected_slides: int) -> None:
             if len(slides) != expected_slides or len(sequence) != expected_slides:
                 raise ValueError("Quantidade de slides inválida na revisão")
             text = " ".join(archive.read(n).decode("utf-8") for n in slides)
-            for required in ("Itaú e Kanastra separados", "Sem TAPSO e Sistema Petrobras", "pulverizado validado = N/D"):
-                if required not in text:
+            for required in ("Itaú e Kanastra separados", "Sólido e BizCapital", "Top1", "taxonomia congelada"):
+                if required.casefold() not in text.casefold():
                     raise ValueError(f"Conteúdo obrigatório ausente: {required}")
     except (BadZipFile, KeyError, ET.ParseError) as exc:
         raise ValueError("PPTX da revisão inválido") from exc
@@ -63,7 +65,7 @@ def load_requested_revision_downloads(data_dir: str | Path) -> dict[str, bytes]:
     manifest = json.loads((root / "release.json").read_text(encoding="utf-8"))
     if manifest.get("schema") != RELEASE_SCHEMA or manifest.get("competencia") != "2026-06":
         raise ValueError("Manifesto incompatível da revisão da diretoria")
-    expected_files = set(DOWNLOADS.values()) | {REPORT_NAME}
+    expected_files = set(DOWNLOADS.values()) | {REPORT_NAME, PROMPT_NAME, METHODOLOGY_NAME}
     if set(manifest.get("files", {})) != expected_files:
         raise ValueError("Pacote incompleto da revisão da diretoria")
     files = {}
@@ -81,7 +83,7 @@ def load_requested_revision_downloads(data_dir: str | Path) -> dict[str, bytes]:
             for name, spec in members.items():
                 _safe_path(root, name)
                 _check_digest(archive.read(name), spec, name)
-            for name in (DOWNLOADS["complete"], DOWNLOADS["slides"], REPORT_NAME):
+            for name in (DOWNLOADS["complete"], DOWNLOADS["slides"], REPORT_NAME, PROMPT_NAME, METHODOLOGY_NAME):
                 if archive.read(name) != files[name]:
                     raise ValueError("ZIP e arquivos avulsos da revisão divergem")
     except (BadZipFile, KeyError) as exc:
