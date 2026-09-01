@@ -10374,8 +10374,10 @@ def _render_requested_revision_exports(*, suffix: str) -> None:
         load_requested_revision_downloads,
     )
 
-    st.subheader("Revisão da Diretoria · 01/09/2026")
+    st.subheader("Revisão da Diretoria · 01/09/2026 · v2")
     st.caption(
+        "PPTX executivo de 33 slides: bloco ANBIMA/IBBA restaurado, com visão por "
+        "produto e destaque de FIDC; rankings de prestadores com paleta por casa. "
         "Base jun/26. Slides 4–6 com Multicarteira Pulverizado PF/PJ: 24 fundos, "
         "R$ 7,1 bi de PL e exposição efetiva N/D; Sólido e BizCapital permanecem "
         "em Financeiro. Cenário sem TAPSO/Petrobras; emissões cruzadas pelas mesmas "

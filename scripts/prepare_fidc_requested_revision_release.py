@@ -1,4 +1,4 @@
-"""Package the validated 2026-09-01 director revision for site download."""
+"""Package the validated 2026-09-01 v2 director revision for site download."""
 from __future__ import annotations
 
 import argparse
@@ -103,7 +103,11 @@ def main() -> None:
             "schema": RELEASE_SCHEMA,
             "revision_date": "2026-09-01",
             "competencia": "2026-06",
-            "scope": "Slides 4-6, prestadores e apêndice; cenário sem TAPSO/Petrobras; abertura PF/PJ auditável.",
+            "scope": (
+                "Deck executivo de 33 slides; remoção dos antigos 10-23 e 28-32; "
+                "bloco ANBIMA/IBBA de 13 slides restaurado; paleta de prestadores "
+                "reconciliada; cenário sem TAPSO/Petrobras e abertura PF/PJ auditável."
+            ),
             "stock_scenario": "sem_tapso_petrobras",
             "pfpj_fundos": 24,
             "pfpj_pl_brl": qa["pfpj_pl_brl"],

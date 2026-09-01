@@ -39,6 +39,24 @@ const colors={
  'Recuperação / NP':'D7DADF',
  'N/D':'EEF0F2',
 };
+const providerColors={
+ 'Itaú':'FF5500',
+ 'Kanastra (incl. Limine)':'7030A0',
+ 'QI Tech':'2456D6',
+ 'BTG Pactual':'1D4080',
+ 'Oliveira Trust':'7A1F3D',
+ 'Bradesco':'73787D',
+ 'Daycoval':'BEC2C5',
+ 'Genial':'6EC5E9',
+ 'Tercon Investimentos':'8D9399',
+ 'CBSF':'73C6A1',
+ 'Solis Investimentos':'BEC2C5',
+ 'Integral Investimentos':'A7ACB0',
+ 'REAG':'73C6A1',
+ 'Finaxis':'5B6065',
+ 'BRL Trust':'454A4F',
+ 'Hemera':'30353A',
+};
 const clone=x=>structuredClone(x);
 const solid=hex=>({type:1,color:{type:1,value:hex.replace('#','')},gradientStops:[],pictureEffects:[]});
 const fmt=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1});
@@ -251,7 +269,7 @@ function editProvider(index,page){
   const rows=data.prestadores_separados.filter(r=>r.competencia===latest && r.papel===role && r.ordem_slide!=='').sort((a,b)=>Number(a.ordem_slide)-Number(b.ordem_slide)).reverse();
   const c=chart(index,id),s=c.series[0];
   setValues(s,rows.map(r=>r.participante==='Kanastra (incl. Limine)'?'Kanastra / Limine':r.participante),rows.map(r=>Number(r.pl_brl)/1e9));
-  s.points=rows.map((r,i)=>({idx:i,fill:solid(r.participante==='Itaú'?'FF5500':r.participante.includes('Kanastra')?'7030A0':'73787D')}));
+  s.points=rows.map((r,i)=>({idx:i,fill:solid(providerColors[r.participante] || '8D9399')}));
  }
  setText(index,'22','Volume por prestador | Itaú e Kanastra separados');
  setText(index,'2','Jun/26 · PL ex-FIC, em R$ bilhões · Top 5 + comparadores');

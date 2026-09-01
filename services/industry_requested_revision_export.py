@@ -11,16 +11,16 @@ from xml.etree import ElementTree as ET
 from zipfile import BadZipFile, ZipFile
 
 
-RELEASE_DIR = "director_revision_20260901"
-RELEASE_SCHEMA = "fidc.director_revision_release.v2"
+RELEASE_DIR = "director_revision_20260901_v2"
+RELEASE_SCHEMA = "fidc.director_revision_release.v3"
 DOWNLOADS = {
-    "complete": "Industria_FIDC_Completa_Revisada_20260901.pptx",
-    "slides": "FIDC_Revisao_Diretoria_20260901.pptx",
-    "package": "FIDC_Revisao_Diretoria_20260901.zip",
+    "complete": "Industria_FIDC_Completa_Revisada_20260901_v2.pptx",
+    "slides": "FIDC_Revisao_Diretoria_20260901_v2.pptx",
+    "package": "FIDC_Revisao_Diretoria_20260901_v2.zip",
 }
-REPORT_NAME = "Relatorio_Revisao_Diretoria.md"
-PROMPT_NAME = "Prompt_Atualizacao_FIDC.md"
-METHODOLOGY_NAME = "Metodologia_FIDC_20260901.md"
+REPORT_NAME = "Relatorio_Revisao_Diretoria_v2.md"
+PROMPT_NAME = "Prompt_Atualizacao_FIDC_v2.md"
+METHODOLOGY_NAME = "Metodologia_FIDC_20260901_v2.md"
 
 
 def _safe_path(root: Path, name: str) -> Path:
@@ -38,7 +38,9 @@ def _check_digest(payload: bytes, spec: dict, name: str) -> None:
         raise ValueError(f"Arquivo da revisão divergente do manifesto: {name}")
 
 
-def _validate_deck(payload: bytes, expected_slides: int) -> None:
+def _validate_deck(
+    payload: bytes, expected_slides: int, required_content: tuple[str, ...]
+) -> None:
     try:
         with ZipFile(BytesIO(payload)) as archive:
             slides = [n for n in archive.namelist() if re.fullmatch(r"ppt/slides/slide\d+\.xml", n)]
@@ -47,7 +49,7 @@ def _validate_deck(payload: bytes, expected_slides: int) -> None:
             if len(slides) != expected_slides or len(sequence) != expected_slides:
                 raise ValueError("Quantidade de slides inválida na revisão")
             text = " ".join(archive.read(n).decode("utf-8") for n in slides)
-            for required in ("Itaú e Kanastra separados", "Sólido e BizCapital", "Top1", "taxonomia congelada"):
+            for required in required_content:
                 if required.casefold() not in text.casefold():
                     raise ValueError(f"Conteúdo obrigatório ausente: {required}")
     except (BadZipFile, KeyError, ET.ParseError) as exc:
@@ -73,8 +75,22 @@ def load_requested_revision_downloads(data_dir: str | Path) -> dict[str, bytes]:
         payload = _safe_path(root, name).read_bytes()
         _check_digest(payload, spec, name)
         files[name] = payload
-    _validate_deck(files[DOWNLOADS["complete"]], 39)
-    _validate_deck(files[DOWNLOADS["slides"]], 3)
+    common_content = (
+        "Itaú e Kanastra separados",
+        "Sólido e BizCapital",
+        "Top1",
+        "taxonomia congelada",
+    )
+    _validate_deck(
+        files[DOWNLOADS["complete"]],
+        33,
+        common_content
+        + (
+            "Visão por produto: mercado, posição e participação do Itaú BBA",
+            "Em FIDC o Itaú BBA lidera com 45,7%",
+        ),
+    )
+    _validate_deck(files[DOWNLOADS["slides"]], 3, common_content)
     try:
         with ZipFile(BytesIO(files[DOWNLOADS["package"]])) as archive:
             members = manifest["package_members"]

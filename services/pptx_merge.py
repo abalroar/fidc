@@ -338,7 +338,10 @@ def _find_compatible_blank_layout(files: dict[str, bytes]) -> str:
     )
     for candidate in candidates:
         root = _xml(files, candidate)
-        if str(root.get("type") or "").lower() == "blank":
+        if (
+            str(root.get("type") or "").lower() == "blank"
+            or not root.xpath('.//*[local-name()="ph"]')
+        ):
             _layout_chain_signature(files, candidate)
             return candidate
     raise PptxMergeError("Deck principal não contém um slide layout vazio compatível.")
@@ -360,13 +363,24 @@ def _slide_layout_path(files: dict[str, bytes], slide_path: str) -> str:
 
 def _layout_chain_signature(files: dict[str, bytes], layout_path: str) -> tuple[str, str, str]:
     layout_root = _xml(files, layout_path)
-    if str(layout_root.get("type") or "").lower() != "blank":
+    if (
+        str(layout_root.get("type") or "").lower() != "blank"
+        and layout_root.xpath('.//*[local-name()="ph"]')
+    ):
         raise PptxMergeError(f"Layout não vazio não suportado: {layout_path!r}.")
     master_path = _related_part_by_type(files, layout_path, _SLIDE_MASTER_REL_TYPE)
     theme_path = _related_part_by_type(files, master_path, _THEME_REL_TYPE)
+    roots = [_xml(files, path) for path in (layout_path, master_path, theme_path)]
+    # PowerPoint and python-pptx freely regenerate relationship IDs. They are
+    # package-local pointers and do not change the layout/master/theme design.
+    # Normalizing them prevents a false incompatibility after a valid Office
+    # round trip while all visual XML remains part of the signature.
+    for root in roots:
+        for node in root.xpath('.//*[@r:id]', namespaces={"r": _R_NS}):
+            node.set(f"{{{_R_NS}}}id", "rId")
     return tuple(
-        sha256(files[path]).hexdigest()
-        for path in (layout_path, master_path, theme_path)
+        sha256(etree.tostring(root, method="c14n")).hexdigest()
+        for root in roots
     )  # type: ignore[return-value]
 
 
