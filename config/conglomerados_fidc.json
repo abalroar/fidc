@@ -1,0 +1,63 @@
+{
+  "_meta": {
+    "descricao": "De-para de conglomerados para consolidar gestores/administradores de FIDC por grupo economico. Chave primaria = CNPJ (14 digitos). Verificado contra os dados de mai/2026 do Toma Conta FIDCs (industry_fund_snapshot).",
+    "taxonomia_controle": {
+      "Ligada a banco": "Grupo com banco comercial/de investimento e franquia de distribuicao (segue a definicao do rodape do deck Itau BBA: inclui XP, Genial, Daycoval, Plural, BTG e demais bancos grandes).",
+      "Independente Grande": "Grande fiduciario/servicer independente, nao vinculado a banco (Oliveira Trust, BRL Trust, BR Trust).",
+      "Independente": "Gestor/fiduciario nao vinculado a banco (demais)."
+    },
+    "falsos_positivos_excluidos": [
+      "ITAUNA CAPITAL LTDA. (nao pertence ao Itau; excluido do grupo Itau)"
+    ],
+    "notas": [
+      "S3 CACEIS: JV Santander (controle) + CACEIS; mapeado a Santander com ressalva.",
+      "Fiduciarios de servico (QI, Vortx, CBSF, Finaxis, Singulare) classificados como Independente, pois nao sao bancos de distribuicao de varejo/atacado."
+    ]
+  },
+  "grupos": [
+    {"grupo": "Itau", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"62418140000131": "INTRAG DTVM LTDA.", "60701190000104": "ITAU UNIBANCO S.A.", "40430971000196": "ITAU UNIBANCO ASSET MANAGEMENT LTDA.", "08604187000144": "KINEA INVESTIMENTOS LTDA."}},
+    {"grupo": "BTG Pactual", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"30306294000145": "BANCO BTG PACTUAL S/A", "59281253000123": "BTG PACTUAL SERVICOS FINANCEIROS S/A DTVM", "29650082000100": "BTG PACTUAL ASSET MANAGEMENT S/A DTVM", "07625159000140": "BTG PACTUAL GESTORA DE INVESTIMENTOS ALTERNATIVOS LTDA.", "12695840000103": "BTG PACTUAL GESTAO E CONSULTORIA DE INVESTIMENTOS LTDA", "09631542000137": "BTG PACTUAL GESTORA DE RECURSOS LTDA"}},
+    {"grupo": "XP", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"02332886000104": "XP INVESTIMENTOS CCTVM S.A.", "16789525000198": "XP VISTA ASSET MANAGEMENT LTDA.", "05389174000101": "XP SERVICOS FINANCEIROS DTVM LTDA.", "37918829000188": "XP ALLOCATION ASSET MANAGEMENT LTDA."}},
+    {"grupo": "Bradesco", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"60746948000112": "BANCO BRADESCO S.A.", "00066670000100": "BEM - DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS LTDA."}},
+    {"grupo": "Banco do Brasil", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"30822936000169": "BB GESTAO DE RECURSOS DTVM S.A", "00000000000191": "BANCO DO BRASIL S.A."}},
+    {"grupo": "Caixa", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"00360305000104": "CAIXA ECONOMICA FEDERAL", "42040639000140": "CAIXA DISTRIBUIDORA DE TITULOS E VALORES MOBILIARIOS S.A."}},
+    {"grupo": "Santander", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"62318407000119": "S3 CACEIS BRASIL DTVM S.A", "90400888000142": "BANCO SANTANDER (BRASIL) S.A.", "03502968000104": "SANTANDER DTVM S.A."}},
+    {"grupo": "Genial", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"45246410000155": "BANCO GENIAL S.A.", "27652684000162": "GENIAL INVESTIMENTOS CVM S.A.", "22119959000183": "GENIAL GESTAO LTDA."}},
+    {"grupo": "Daycoval", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"62232889000190": "BANCO DAYCOVAL S.A.", "72027832000102": "DAYCOVAL ASSET MANAGEMENT LTDA"}},
+    {"grupo": "Plural", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"09630188000126": "PLURAL INVESTIMENTOS GESTAO DE RECURSOS LTDA.", "11397672000280": "PLURAL GESTAO DE RECURSOS LTDA"}},
+    {"grupo": "Safra", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"03017677000120": "BANCO J. SAFRA S.A."}},
+    {"grupo": "Banco Master", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"33886862000112": "MASTER S/A CCTVM"}},
+    {"grupo": "Inter", "tipo_controle": "Ligada a banco",
+     "cnpjs": {"18945670000146": "INTER DTVM", "05585083000141": "INTER ASSET GESTAO DE RECURSOS LTDA."}},
+    {"grupo": "Oliveira Trust", "tipo_controle": "Independente Grande",
+     "cnpjs": {"36113876000191": "OLIVEIRA TRUST DTVM S.A.", "02150453000120": "OLIVEIRA TRUST SERVICER S/A"}},
+    {"grupo": "BRL Trust", "tipo_controle": "Independente Grande",
+     "cnpjs": {"13486793000142": "BRL TRUST DTVM S.A."}},
+    {"grupo": "QI Tech", "tipo_controle": "Independente",
+     "cnpjs": {"62285390000140": "QI CORRETORA DE TITULOS E VALORES MOBILIARIOS S.A.", "52332058000136": "QI GESTAO DE RECURSOS LTDA."}},
+    {"grupo": "Vortx", "tipo_controle": "Independente",
+     "cnpjs": {"22610500000188": "VORTX DTVM LTDA.", "09645906000138": "VORTX CAPITAL GESTAO DE RECURSOS LTDA"}},
+    {"grupo": "REAG", "tipo_controle": "Independente",
+     "cnpjs": {"46356742000155": "REAG JUS GESTAO DE ATIVOS JUDICIAIS LTDA.", "48954141000170": "REAG PORTFOLIO SOLUTIONS LTDA.", "14084509000174": "REAG SPECIALTY FINANCE LTDA."}},
+    {"grupo": "CBSF", "tipo_controle": "Independente",
+     "cnpjs": {"34829992000186": "CBSF DTVM S.A.", "23863529000134": "CBSF TRUST ADMINISTRADORA DE RECURSOS LTDA."}},
+    {"grupo": "Finaxis", "tipo_controle": "Independente",
+     "cnpjs": {"11758741000152": "BANCO FINAXIS S.A.", "03317692000194": "FINAXIS CCTVM S.A."}},
+    {"grupo": "JIVE", "tipo_controle": "Independente",
+     "cnpjs": {"07170960000149": "JIVE HIGH YIELD GESTAO DE RECURSOS LTDA.", "12600032000107": "JIVE INVESTMENTS GESTAO DE RECURSOS E CONSULTORIA S.A."}}
+  ],
+  "bancos_keywords_singleton": ["BANCO ", "BMG", "ABC BRASIL", "PINE", "MODAL", "C6", "VOTORANTIM", "SICOOB", "SICREDI", "BNP", "CITI", "JPMORGAN", "MERCANTIL DO BRASIL", "BANRISUL"],
+  "independente_grande_keywords": ["OLIVEIRA TRUST", "BRL TRUST", "BR TRUST", "BRTRUST"]
+}
