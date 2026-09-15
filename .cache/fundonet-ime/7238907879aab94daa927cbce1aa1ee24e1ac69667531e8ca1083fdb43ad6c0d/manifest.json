@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "cache_key": "7238907879aab94daa927cbce1aa1ee24e1ac69667531e8ca1083fdb43ad6c0d",
+  "cnpj_fundo": "37511828000114",
+  "data_inicial": "2025-05-01",
+  "data_final": "2026-04-01",
+  "competencias": [
+    "05/2025",
+    "06/2025",
+    "07/2025",
+    "08/2025",
+    "09/2025",
+    "10/2025",
+    "11/2025",
+    "12/2025",
+    "01/2026",
+    "02/2026",
+    "03/2026"
+  ],
+  "contas_row_count": 4073,
+  "listas_row_count": 424,
+  "wide_row_count": 389,
+  "files": {
+    "docs_csv_path": "documentos_filtrados.csv",
+    "contas_csv_path": "informes_tidy.csv",
+    "listas_csv_path": "estruturas_lista.csv",
+    "wide_csv_path": "informes_wide.csv",
+    "excel_path": "informes_wide.xlsx",
+    "audit_json_path": "audit_log.json",
+    "audit_csv_path": "audit_log.csv"
+  }
+}
