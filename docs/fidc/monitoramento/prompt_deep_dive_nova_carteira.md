@@ -8,7 +8,7 @@ Copie a partir da linha abaixo.
 
 ---
 
-Você é Codex trabalhando no repositório local `/Users/matheusjprates/fidc`.
+Você é Codex trabalhando na raiz do repositório local `fidc`. Use caminhos relativos à raiz e o ambiente Python do projeto.
 
 ## Objetivo
 
@@ -61,7 +61,7 @@ Período/competência IME de referência, se aplicável:
 9. Não regenere pacotes de carteiras não solicitadas.
 10. Preserve mudanças alheias no working tree. Nunca reverta arquivos que você não alterou.
 11. Use internet/API apenas para CVM/Fundos.NET ou fonte pública indispensável para resolver documento do próprio CNPJ. Não use inferência fraca para preencher dado material.
-12. Lacunas devem aparecer como texto, nunca como zero, vazio, média, extrapolação ou suposição.
+12. Nos arquivos de auditoria, descreva as lacunas como texto, nunca como zero, vazio, média, extrapolação ou suposição. Na tela e no PPTX, aplique a simplificação de células definida no contrato visual abaixo.
 
 ## Primeiro bloco de trabalho: confirmar escopo
 
@@ -229,7 +229,7 @@ Regra crítica para spreads:
 
 - Se o texto vier como `CDI`, `DI`, `Taxa DI` ou equivalente, normalize como índice + spread aditivo percentual quando o documento permitir.
 - Exemplos: `DI + 5,50% a.a.`, `CDI + 7,00% a.a.`, `Taxa DI + 2,20% a.a.`.
-- Se a taxa final depender de bookbuilding, suplemento ou ato não localizado, escreva explicitamente:
+- Se a taxa final depender de bookbuilding, suplemento ou ato não localizado, registre explicitamente nos arquivos de auditoria:
   - `spread final não localizado`;
   - `sobretaxa definida em bookbuilding`;
   - `sobretaxa definida em ato não localizado`;
@@ -237,7 +237,7 @@ Regra crítica para spreads:
   - `prazo remetido ao suplemento`;
   - `cronograma fechado não identificado`.
 
-Não deixe remuneração vazia quando a lacuna puder ser descrita.
+Não deixe remuneração vazia nos arquivos de auditoria quando a lacuna puder ser descrita. Na tela e no PPTX, exiba `-` quando não houver remuneração apurada.
 
 ## Critérios monitoráveis e qualitativos
 
@@ -417,7 +417,7 @@ Não persista:
 
 ## Contrato obrigatório das tabelas comparativas e do PPTX
 
-O formato padrão de toda execução é uma sequência de quadros comparativos. Mantenha a redação curta, objetiva e factual. Cada quadro tem primeira coluna `Critério` e uma coluna por fundo da carteira, sempre na mesma ordem. Inclua também os fundos sem documentos, com a lacuna escrita nas células. Mesmo uma carteira de um fundo deve usar tabela.
+O formato padrão de toda execução é uma sequência de quadros comparativos. Mantenha a redação curta, objetiva e factual. Cada quadro tem primeira coluna `Critério` e uma coluna por fundo da carteira, sempre na mesma ordem. Inclua também os fundos sem documentos, com `-` nas células sem resposta. Mesmo uma carteira de um fundo deve usar tabela. Os CSVs e JSONs de auditoria preservam as regras, fontes e descrições completas das lacunas.
 
 Gere os sete arquivos abaixo. O ID no manifesto corresponde ao nome do arquivo sem `.csv`. Os temas orientam a redação; use as regras efetivamente aplicáveis aos recebíveis de cada fundo.
 
@@ -434,10 +434,10 @@ Gere os sete arquivos abaixo. O ID no manifesto corresponde ao nome do arquivo s
 Regras de redação e comparação:
 
 1. Compare o mesmo conceito em cada linha, com unidade, denominador, período e condição material explícitos. Exemplo: um índice de perdas contratual por valor de face histórico deve manter essa base; não o equipare ao `Over 90 / Crédito` do IME.
-2. Distinga proposta, aprovação, oferta e distribuição efetiva; indique classe/série e versão documental. Uma imagem ou tabela fornecida pelo usuário serve de referência visual e de hipótese a verificar. Valide cada afirmação contra os documentos integrais acessíveis do CNPJ e registre correção, divergência ou lacuna no próprio quadro.
-3. Escreva `não localizado`, `documento inacessível`, `não aplicável — motivo` ou outra lacuna específica. Não use campos vazios, travessão isolado ou zero para falta de informação. Escreva a lacuna de spread e calendário conforme as regras desta curadoria.
+2. Distinga proposta, aprovação, oferta e distribuição efetiva; indique classe/série e versão documental. Valide cada afirmação contra os documentos integrais acessíveis do CNPJ e registre correção, divergência ou lacuna nos arquivos de auditoria. Mantenha no quadro a informação apurada e sua condição material.
+3. Na tela e no PPTX, exiba `-` para células sem resposta apurada, lacunas de acesso ou textos que apenas remetam a suplemento, bookbuilding, ato ou outro documento. Preserve o texto completo, o motivo da lacuna e as fontes nos CSVs e JSONs de auditoria, inclusive para spread e calendário. Uma célula com valor confirmado deve manter esse valor e sua condição essencial.
 4. Mostre todos os fundos sem dropdown de características ou de fundo. Para muitos fundos ou linhas longas, pagine as tabelas e repita os cabeçalhos, preservando todas as condições e séries. Não corte texto material nem use reticências.
-5. Use título e cabeçalho laranja (`#EC7000`), corpo branco, texto escuro, critérios à esquerda, valores centralizados, linhas discretas e espaçamento que permita leitura. Use tabelas nativas editáveis no PPTX.
+5. Use título laranja, cabeçalho com fundo laranja vivo (`#FF6200`) e letras brancas (`#FFFFFF`), corpo branco, texto escuro, critérios à esquerda, valores centralizados, linhas discretas e espaçamento que permita leitura. Use tabelas nativas editáveis no PPTX.
 
 Fontes e registro do pacote:
 
@@ -446,7 +446,7 @@ Fontes e registro do pacote:
 3. Registre os sete CSVs em `manifest.tables`, com `kind: document_comparison` e `first_column: Critério`. Registre `comparison_evidence`, com `source_file: evidence/comparison_sources.csv` e `first_column: Tabela`. O finalizador abaixo faz esse registro após validar os arquivos.
 4. Mantenha `tables/key_findings.csv` com colunas exatas `Tema` e `Conclusão`, 3 a 5 conclusões materiais para consulta humana e fontes nos arquivos internos. Evite contagens de linhas/páginas, nomes internos, chaves de sistema e status intermediários.
 5. Registre lacunas de acesso e revise as ressalvas do manifesto. Só afirme leitura integral para documentos efetivamente acessíveis. Marque a data e o horário reais de conclusão da leitura, com fuso, em `manifest.generated_at`. Reempacotar ou exportar uma análise existente deve preservar sua data de leitura.
-6. A tela e o PPTX usam `build_document_comparison_pages` e `build_document_comparison_pptx_bytes`. Mantenha os mesmos valores e ressalvas nos dois resultados, com fontes completas nas notas dos slides e notas curtas abaixo das tabelas. O download aparece em `Curadoria de Leitura (Documentos)` e os quadros também integram o PPTX completo da carteira.
+6. A tela e o PPTX usam `build_document_comparison_pages` e `build_document_comparison_pptx_bytes`. Aplique a mesma simplificação de células nos dois resultados, preservando os valores apurados e as condições materiais. Mantenha fontes completas nas notas dos slides e notas curtas abaixo das tabelas. A simplificação visual não altera os dados nem as lacunas detalhadas dos arquivos de auditoria. O download aparece em `Curadoria de Leitura (Documentos)` e os quadros também integram o PPTX completo da carteira.
 7. Execute o finalizador após revisar os sete quadros e suas evidências. Ele valida cobertura, fontes, correspondência de valores e carteira, registra os quadros e grava `exports/documentary_comparison.pptx`. Se a validação falhar, corrija a causa e execute novamente. Não entregue uma análise incompleta como finalizada.
 
 Se `portfolios.json` tiver diff e o usuário não pediu alteração de carteira, reverta apenas a sua alteração nesse arquivo, preservando mudanças alheias.
@@ -517,8 +517,8 @@ Antes de responder, valide:
 9. `emissions.csv` tem as colunas esperadas e fonte por linha.
 10. `thresholds.csv` tem critérios com fonte, chave, monitorabilidade e métrica/proxy.
 11. `structural_costs.csv` tem Administração e Gestão por fundo.
-12. Nenhuma lacuna material virou zero ou campo vazio.
-13. Nenhuma remuneração/spread ficou vazio sem texto de lacuna.
+12. Nos arquivos de auditoria, nenhuma lacuna material virou zero ou campo vazio; na tela e no PPTX, células sem resposta aparecem como `-`.
+13. Nos arquivos de auditoria, nenhuma remuneração/spread ficou vazio sem texto de lacuna; simples remissões documentais aparecem como `-` na tela e no PPTX.
 14. O Streamlit consegue enxergar o pacote pela sub-aba `Curadoria de Leitura (Documentos)`.
 15. A aba Monitoramento/Base regulatória consegue carregar Base Regulatória, Emissões, Critérios e Timeline para os CNPJs da carteira.
 16. `manifest.generated_at` corresponde à data desta leitura e `key_findings.csv` contém no máximo 5 conclusões úteis.

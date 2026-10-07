@@ -22,6 +22,7 @@ from typing import Iterable
 from zipfile import BadZipFile, ZIP_DEFLATED, ZipFile
 
 from lxml import etree
+from services.presentation_text import public_pptx_bytes
 
 
 _CONTENT_TYPES_PATH = "[Content_Types].xml"
@@ -115,7 +116,7 @@ def merge_pptx_bytes(primary_pptx: bytes, *additional_pptx: bytes) -> bytes:
     destination = _read_package(primary_pptx, label="deck principal")
     _validate_core_parts(destination, label="deck principal")
     if not additional_pptx:
-        return bytes(primary_pptx)
+        return public_pptx_bytes(bytes(primary_pptx))
 
     destination_content_types = _ContentTypes.from_files(destination)
     destination_layout = _find_compatible_blank_layout(destination)
@@ -144,7 +145,7 @@ def merge_pptx_bytes(primary_pptx: bytes, *additional_pptx: bytes) -> bytes:
     destination[_CONTENT_TYPES_PATH] = destination_content_types.to_bytes()
     merged = _write_package(destination)
     _validate_openable_presentation(merged)
-    return merged
+    return public_pptx_bytes(merged)
 
 
 def _append_package_slides(

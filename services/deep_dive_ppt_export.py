@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from dataclasses import replace
 from io import BytesIO
 import re
 import textwrap
@@ -10,6 +11,7 @@ from zoneinfo import ZoneInfo
 import pandas as pd
 
 from services.deep_dive_models import DeepDiveManifest, DeepDiveTableSpec
+from services.presentation_text import document_comparison_value, public_document_text, public_pptx_bytes
 
 if TYPE_CHECKING:
     from services.document_curation_comparison import DocumentComparisonPage
@@ -29,6 +31,7 @@ TABLE_H = TABLE_BOTTOM - TABLE_TOP
 BLACK = "1F1F1F"
 HEADER = "111827"
 ORANGE = "EC7000"
+HEADER_ORANGE = "FF6200"
 WHITE = "FFFFFF"
 SOFT = "F7F7F7"
 GRID = "D9DEE5"
@@ -71,11 +74,16 @@ def build_document_comparison_pptx_bytes(
     prs.slide_height = Inches(SLIDE_H)
     jobs = []
     for page in pages:
+        page = replace(page,
+            notes=tuple(clean for note in page.notes if (clean := public_document_text(note))),
+            sources=tuple(clean for source in page.sources if (clean := public_document_text(source))),
+        )
         frame = page.frame.copy()
         if frame.empty or not len(frame.columns):
             continue
-        frame = frame.map(_document_cell_text)
-        note_lines = [line for note in page.notes for line in textwrap.wrap(note, width=165) or [""]]
+        for column in frame.columns[1:]:
+            frame[column] = frame[column].map(_document_cell_text)
+        note_lines = [line for note in page.notes if (clean := public_document_text(note)) for line in textwrap.wrap(clean, width=165)]
         note_groups = [note_lines[start : start + 8] for start in range(0, len(note_lines), 8)] or [[]]
         for selected in comparison_column_chunks(frame, max_funds=DOCUMENT_MAX_FUNDS):
             widths = _document_column_widths(len(selected.columns))
@@ -135,7 +143,7 @@ def build_document_comparison_pptx_bytes(
                 cell = table.cell(row_index, col_index)
                 cell.text = "\n".join(_document_wrapped_lines(value, widths[col_index]))
                 cell.fill.solid()
-                cell.fill.fore_color.rgb = rgb(ORANGE if row_index == 0 else WHITE)
+                cell.fill.fore_color.rgb = rgb(HEADER_ORANGE if row_index == 0 else WHITE)
                 cell.margin_left = cell.margin_right = Inches(DOCUMENT_CELL_PADDING)
                 cell.margin_top = cell.margin_bottom = Inches(0.045)
                 cell.vertical_anchor = MSO_ANCHOR.MIDDLE
@@ -149,7 +157,7 @@ def build_document_comparison_pptx_bytes(
                         run.font.name = FONT
                         run.font.size = Pt(DOCUMENT_FONT_SIZE)
                         run.font.bold = row_index == 0 or col_index == 0
-                        run.font.color.rgb = rgb(BLACK)
+                        run.font.color.rgb = rgb(WHITE if row_index == 0 else BLACK)
                 _document_cell_borders(cell, header=row_index == 0, last=row_index == len(frame))
 
         if visible_notes:
@@ -167,13 +175,11 @@ def build_document_comparison_pptx_bytes(
 
     output = BytesIO()
     prs.save(output)
-    return output.getvalue()
+    return public_pptx_bytes(output.getvalue())
 
 
 def _document_cell_text(value: object) -> str:
-    if value is None or pd.isna(value) or not str(value).strip() or str(value).strip() in {"—", "-"}:
-        return "Não localizado"
-    return str(value).strip()
+    return document_comparison_value(value)
 
 
 def _document_reading_date(value: str) -> str:
@@ -319,7 +325,7 @@ def build_deep_dive_pptx_bytes(
         p = tf.paragraphs[0]
         p.alignment = align
         run = p.add_run()
-        run.text = str(text or "")
+        run.text = public_document_text(text)
         run.font.name = FONT
         run.font.size = Pt(size)
         run.font.bold = bold
@@ -377,7 +383,7 @@ def build_deep_dive_pptx_bytes(
 
     output = BytesIO()
     prs.save(output)
-    return output.getvalue()
+    return public_pptx_bytes(output.getvalue())
 
 
 def _normalize_table(frame: pd.DataFrame, *, first_column: str) -> pd.DataFrame:
@@ -482,7 +488,7 @@ def _add_table(slide, frame: pd.DataFrame, *, highlighted_column: str | None, rg
             cell.margin_bottom = Inches(0.012)
             cell.fill.solid()
             if is_header:
-                cell.fill.fore_color.rgb = rgb(ORANGE if is_highlight else HEADER)
+                cell.fill.fore_color.rgb = rgb(HEADER_ORANGE)
             elif is_highlight:
                 cell.fill.fore_color.rgb = rgb(HIGHLIGHT)
             elif is_first:
@@ -512,7 +518,7 @@ def _font_size(*, row_count: int, col_count: int, is_header: bool) -> float:
 
 
 def _cell_text(value: object) -> str:
-    text = str(value if value is not None else "—").strip() or "—"
+    text = document_comparison_value(value)
     if len(text) > 80 and " | " in text:
         text = re.sub(r"\s+\|\s+", "\n", text)
     return text

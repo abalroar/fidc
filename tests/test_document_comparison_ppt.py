@@ -65,9 +65,9 @@ def test_document_comparison_matches_reference_as_native_editable_table() -> Non
     assert len(presentation.slides) == 1
     table = _native_tables(presentation)[0]
     assert table.cell(0, 0).text == "Critério"
-    assert tuple(table.cell(0, 1).fill.fore_color.rgb) == (236, 112, 0)
+    assert tuple(table.cell(0, 1).fill.fore_color.rgb) == (255, 98, 0)
     assert tuple(table.cell(1, 1).fill.fore_color.rgb) == (255, 255, 255)
-    assert tuple(table.cell(0, 1).text_frame.paragraphs[0].runs[0].font.color.rgb) == (31, 31, 31)
+    assert tuple(table.cell(0, 1).text_frame.paragraphs[0].runs[0].font.color.rgb) == (255, 255, 255)
     assert table.cell(1, 0).text_frame.paragraphs[0].runs[0].font.bold
     assert table.cell(1, 1).text == "≤ 80%"
     slide = presentation.slides[0]
@@ -117,7 +117,7 @@ def test_document_comparison_retains_long_payment_schedule_without_overflow() ->
 def test_document_comparison_missing_is_explicit_and_zero_remains_zero() -> None:
     page = DocumentComparisonPage("Lacunas", pd.DataFrame({"Critério": ["Taxa", "Quantidade"], "Fundo A": [None, 0]}, dtype=object))
     table = _native_tables(Presentation(BytesIO(build_document_comparison_pptx_bytes(_manifest(), [page]))))[0]
-    assert table.cell(1, 1).text == "Não localizado"
+    assert table.cell(1, 1).text == "-"
     assert table.cell(2, 1).text == "0"
     with pytest.raises(ValueError, match="Não há tabelas"):
         build_document_comparison_pptx_bytes(_manifest(), [])

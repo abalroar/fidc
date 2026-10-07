@@ -22,6 +22,7 @@ from services.document_curation_comparison import (
     comparison_column_chunks,
 )
 from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
+from services.presentation_text import document_comparison_value, public_document_text
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
     list_saved_portfolios,
@@ -43,14 +44,14 @@ _CSS = """
 </style>
 """
 
-_LEGACY_REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando no repositório local `/fidc`.
+_LEGACY_REVERSE_ENGINEERING_PROMPT = """Você é Codex trabalhando na raiz do repositório local `fidc`.
 
 Tarefa: fazer o Deep Dive regulatório de UMA ÚNICA carteira específica e atualizar o pacote consumido pela aba Deep Dive. Atue como advogado de mercado de capitais, estruturador de renda fixa e engenheiro Python: leia documentos integralmente quando necessário, reconstrua termos econômicos, traduza regras jurídicas em dados auditáveis e diga claramente o que não é monitorável pelo Informe Mensal Estruturado (IME).
 
 INPUTS DA EXECUÇÃO:
 - Nome da carteira: [NOME_DA_CARTEIRA]
 - CNPJs dos fundos: [LISTA_DE_CNPJS]
-- Caminho do repositório: /Users/matheusjprates/fidc
+- Caminho do repositório: raiz do checkout local `fidc`; use caminhos relativos
 - Período de análise / competência IME: [PERÍODO]
 - Deep Dive ID esperado: [DEEP_DIVE_ID]
 - Outputs esperados: perfis curados em `data/regulatory_profiles`, pacote `data/deep_dives/<deep_dive_id>/`, evidências, notas de auditoria e PPTX QA editável.
@@ -75,10 +76,10 @@ REGRAS INEGOCIÁVEIS:
 3. Use evidências locais do repositório: `reports/regulatory_document_inventory.csv`, `reports/regulatory_criteria_matrix.csv`, `data/raw/<cnpj>/`, `data/regulatory_knowledge/<cnpj>.json`, `data/regulatory_profiles/*`, `data/deep_dives/*` e caches IME locais.
 4. Não consulte APIs externas nem crie dados por inferência fraca. Se algo depender de suplemento, bookbuilding, anúncio de encerramento ou ata não localizado, escreva a lacuna.
 5. Toda afirmação material precisa ter fonte: arquivo, data, ID CVM, página, seção, cláusula ou trecho curto auditável quando disponível.
-6. Lacunas devem aparecer como lacunas textuais, nunca como zero, média, extrapolação ou campo vazio.
+6. Nos arquivos de auditoria, descreva lacunas como texto, nunca como zero, média, extrapolação ou campo vazio. Na tela e no PPTX, exiba `-` para células sem resposta apurada ou que apenas remetam a suplemento, bookbuilding, ato ou outro documento; preserve as regras e lacunas completas nos CSVs e JSONs de auditoria.
 7. Conflitos entre documentos, versões de regulamento ou termos econômicos devem ser registrados e resolvidos por hierarquia temporal/documental.
 8. Preserve pacotes existentes, dados curados, arquivos não rastreados e separação entre dado documental offline e métrica IME ao vivo.
-9. O resultado precisa aparecer na aba Deep Dive e exportar PPTX com tabelas editáveis, sem rasterização e sem truncar cronogramas longos com `...`.
+9. O resultado precisa aparecer na aba Deep Dive e exportar PPTX com tabelas editáveis, sem rasterização e sem truncar cronogramas longos com `...`. Use cabeçalho com fundo laranja vivo `#FF6200` e letras brancas `#FFFFFF`.
 
 ETAPA 1 - ESCOPO E BASE LOCAL:
 - Verifique `git status` e registre mudanças alheias sem revertê-las.
@@ -193,6 +194,8 @@ _REVERSE_ENGINEERING_PROMPT = """Atualize a Curadoria de Leitura de uma única c
 10. Gere os sete quadros comparativos (elegibilidade, proteções, mecânica, emissões, pagamentos, custos e monitoramento), com `Critério` e uma coluna por fundo, sem dropdown.
 11. Registre fontes por célula em `evidence/comparison_sources.csv` e a correspondência coluna/CNPJ em `manifest.comparison_columns`.
 12. Execute `scripts/finalize_document_curation.py --portfolio-id <portfolio_id> --reading-at <data_hora_ISO_com_fuso>` após a revisão documental. O finalizador valida os quadros e gera `exports/documentary_comparison.pptx`, com tabelas editáveis e fontes nas notas, usando os mesmos dados da tela.
+13. Na tela e no PPTX, exiba `-` para células sem resposta apurada ou que apenas remetam a suplemento, bookbuilding, ato ou outro documento. Preserve regras, fontes e lacunas detalhadas nos CSVs e JSONs de auditoria.
+14. Use cabeçalho com fundo laranja vivo `#FF6200` e letras brancas `#FFFFFF`.
 """
 
 
@@ -370,7 +373,7 @@ def _render_document_curation(manifest: Any) -> None:
         f"<div class='deepdive-curation-date'>Data da leitura: <strong>{escape(reading_date)}</strong></div>",
         unsafe_allow_html=True,
     )
-    st.caption("CVM e Fundos.NET. Regras documentais por fundo. Lacunas e divergências permanecem explícitas.")
+    st.caption("CVM e Fundos.NET. Regras documentais por fundo.")
     _render_fund_reading(manifest)
 
     warnings = _useful_manifest_warnings(manifest)
@@ -490,22 +493,22 @@ def _render_fund_reading(manifest: Any) -> None:
 
 def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int) -> str:
     """Semantic HTML table with the same short comparison cells as the deck."""
-    def cell(value: object) -> str:
-        text = "Não localizado" if pd.isna(value) else str(value).strip()
-        text = text or "Não localizado"
+    def cell(value: object, *, fact: bool = True) -> str:
+        text = document_comparison_value(value) if fact else public_document_text(value)
         return escape(text).replace("\n", "<br>")
 
-    header = "".join(f"<th scope='col'>{cell(c)}</th>" for c in frame.columns)
+    header = "".join(f"<th scope='col'>{cell(c, fact=False)}</th>" for c in frame.columns)
     rows = []
     for _, row in frame.iterrows():
-        first, *values = [cell(row[c]) for c in frame.columns]
+        first = cell(row.iloc[0], fact=False)
+        values = [cell(row[c]) for c in frame.columns[1:]]
         rows.append(f"<tr><th scope='row'>{first}</th>" + "".join(f"<td>{v}</td>" for v in values) + "</tr>")
     return (
         "<style>.document-comparison{margin:1.6rem 0 0.5rem;color:#202020;}"
         ".document-comparison h4{color:#b95000;font-size:1.25rem;margin:0 0 0.8rem;}"
         ".document-comparison-scroll{overflow-x:auto;}"
         ".document-comparison table{width:100%;border-collapse:collapse;font-size:0.92rem;line-height:1.35;}"
-        ".document-comparison thead th{background:#ec7000;color:#171717;font-weight:700;padding:0.55rem 0.7rem;text-align:center;}"
+        ".document-comparison thead th{background:#ff6200;color:#ffffff;font-weight:700;padding:0.55rem 0.7rem;text-align:center;}"
         ".document-comparison th:first-child{width:23%;text-align:left;}"
         ".document-comparison tbody th{font-weight:600;}"
         ".document-comparison tbody th,.document-comparison td{padding:0.6rem 0.7rem;border-bottom:1px solid #e4e4e4;vertical-align:middle;}"
@@ -802,7 +805,7 @@ def _useful_manifest_warnings(manifest: Any, *, limit: int = 2) -> tuple[str, ..
 
 
 def _sanitize_visible_text(value: object) -> str:
-    text = re.sub(r"\s+", " ", str(value or "").strip())
+    text = re.sub(r"\s+", " ", public_document_text(value))
     if not text or text.casefold() in {"nan", "none", "<na>", "—", "-"}:
         return ""
     return text.replace("—", "-").replace("–", "-").replace(" · ", ", ")

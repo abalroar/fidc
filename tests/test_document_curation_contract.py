@@ -122,7 +122,8 @@ def test_implicit_gaps_are_rejected(reviewed_package, value):
 def test_explicit_documentary_gap_and_common_notes_are_accepted(reviewed_package):
     _, package, portfolio = reviewed_package
     validated = validate_document_curation_contract(package, portfolio)
-    assert validated.pages[0].frame.iloc[0]["B"] == "Limite não localizado nos documentos acessíveis"
+    assert validated.pages[0].frame.iloc[0]["B"] == "-"
+    assert "Limite não localizado nos documentos acessíveis" in (package / "evidence/comparison_sources.csv").read_text()
     assert validated.pages[0].notes == ("A regra exige verificação documental.",)
     assert "Lacuna documental" in validated.pages[0].sources[1]
 

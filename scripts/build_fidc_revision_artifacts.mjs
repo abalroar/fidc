@@ -6331,7 +6331,7 @@ function buildPresentation(payload) {
       slide,
       "RANKING · TOP 20 FIDCs",
       `Top 20 somam ${pct(share, 1)} do PL ex-FIC; Petrobras e TAPSO são ${pct(topTwo, 1)} do bloco`,
-      `Fonte: CVM, ANBIMA, ledger analítico e base Carteira 101, ${stockShortLower}. * = foto manual confirmada; N/D = originador/cedente não localizado.`,
+      `Fonte: CVM, ANBIMA, ledger analítico e base Carteira 101, ${stockShortLower}. * = cadastro conferido; N/D = originador/cedente não localizado.`,
       15 + providerInsightOffset,
     );
     const tableRows = top20.map((row) => [
@@ -6358,7 +6358,7 @@ function buildPresentation(payload) {
     });
     addText(
       slide,
-      "* Fonte manual confirmada nas imagens da Carteira 101; o dado documental permanece prioritário. N/D não é inferido pelo nome do fundo.",
+      "* Cadastro conferido na base Carteira 101; o dado documental permanece prioritário. N/D não é inferido pelo nome do fundo.",
       { left: 60, top: 625, width: 1160, height: 24 },
       { fontSize: 9.2, color: C.note, alignment: "right", verticalAlignment: "middle" },
     );

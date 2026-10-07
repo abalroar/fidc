@@ -26,7 +26,7 @@ def test_reviewed_pages_preserve_zero_missing_and_source(tmp_path: Path):
     ])
     pages = build_document_comparison_pages(manifest)
     assert pages[0].frame.iloc[0]["FIDC A"] == "0% a.a."
-    assert pages[0].frame.iloc[1]["FIDC A"] == "Não localizado"
+    assert pages[0].frame.iloc[1]["FIDC A"] == "-"
     assert pages[0].notes == ("Despesas estimadas",)
     assert pages[0].sources == ("ID CVM 123, p. 7",)
 
@@ -43,7 +43,7 @@ def test_legacy_package_shows_all_funds_and_all_schedules(tmp_path: Path):
     assert list(pages[0].frame.columns) == ["Critério", "FIDC A", "FIDC B"]
     rate = next(p for p in pages if p.title == "Remuneração das cotas")
     assert "Série 1" in rate.frame.iloc[0]["FIDC A"] and "Série 2" in rate.frame.iloc[0]["FIDC A"]
-    assert rate.frame.iloc[0]["FIDC B"] == "Série B: Não localizado"
+    assert rate.frame.iloc[0]["FIDC B"] == "-"
     payments = next(p for p in pages if p.title == "Amortização e pagamentos")
     assert schedule in payments.frame.iloc[0]["FIDC A"]
 
@@ -66,10 +66,11 @@ def test_column_pagination_retains_every_fund():
 def test_html_table_escapes_text_without_truncating_conditions():
     html = _comparison_table_html("<Título>", pd.DataFrame({"Critério": ["Reserva"], "A": ["3 meses\n<script>bad</script>"], "B": [""]}), 1)
     assert "<table>" in html and "scope='row'" in html
-    assert "#ec7000" in html
+    assert "#ff6200" in html
     assert "3 meses<br>&lt;script&gt;bad&lt;/script&gt;" in html
     assert "<script>" not in html
-    assert "Não localizado" in html
+    assert "<td>-</td>" in html
+    assert "color:#ffffff" in html
 
 
 def test_fund_reading_has_no_fund_dropdown():

@@ -196,7 +196,8 @@ def build_fidc_analytical_pptx_bytes(funds: Iterable[object], *, portfolio_name:
     _render_rdb_synthesis(deck, data, portfolio_name)
     for item in data:
         _render_fund_slides(deck, item)
-    output = BytesIO(); deck.prs.save(output); return output.getvalue()
+    from services.presentation_text import public_pptx_bytes
+    output = BytesIO(); deck.prs.save(output); return public_pptx_bytes(output.getvalue())
 
 
 def _render_rdb_synthesis(deck: Deck, data: list[FidcSlideData], portfolio_name: str) -> None:
@@ -250,7 +251,8 @@ def _render_fund_slides(deck: Deck, data: FidcSlideData) -> None:
             deck.text(slide, "\n".join(f"• {x}" for x in data.validations[:3]) or "• Sem divergência material identificada", 10.15, 5.88, 2.53, .72, size=7.5, color=GRAY_700)
         sources = sorted({i.source for i in chunk if i.source != "N/D"})
         source = f"CVM Informe Mensal {data.competence}; Fundos.NET/B3: " + ("; ".join(sources)[:340] if sources else data.rdb_source)
-        deck.footer(slide, source + ". Geração: 14/08/2026. Uso interno.")
+        from services.presentation_text import public_document_text
+        deck.footer(slide, public_document_text(source) + ". Geração: 14/08/2026. Uso interno.")
 
 
 def build_fidc_analytical_xlsx_bytes(funds: Iterable[object], *, portfolio_name: str) -> bytes:

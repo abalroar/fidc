@@ -8,6 +8,7 @@ import unicodedata
 import pandas as pd
 
 from services.deep_dive_store import load_deep_dive_table
+from services.presentation_text import document_comparison_value, public_document_text
 
 CELL_REFERENCES_SUBTITLE = 'Referências por célula; observações comuns no rodapé'
 
@@ -55,7 +56,14 @@ def _load(manifest, table_id: str) -> pd.DataFrame:
 
 def _sources(frame: pd.DataFrame) -> tuple[str, ...]:
     columns = [c for c in frame if _fold(c) in {"fonte", "fontes"}]
-    return tuple(dict.fromkeys(_text(v) for c in columns for v in frame[c] if _text(v) != "Não localizado"))
+    return tuple(dict.fromkeys(clean for c in columns for v in frame[c] if _text(v) != "Não localizado" if (clean := public_document_text(v))))
+
+
+def presentation_comparison_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    output = frame.copy()
+    for column in output.columns[1:]:
+        output[column] = output[column].map(document_comparison_value)
+    return output
 
 
 def _group_notes(manifest, page_id: str) -> tuple[tuple[str, ...], tuple[str, ...]]:
@@ -65,13 +73,13 @@ def _group_notes(manifest, page_id: str) -> tuple[tuple[str, ...], tuple[str, ..
     evidence = evidence[evidence["Tabela"].eq(page_id)]
     evidence_spec = next((spec for spec in manifest.tables if spec.id == 'comparison_evidence'), None)
     if evidence_spec is None or evidence_spec.subtitle != CELL_REFERENCES_SUBTITLE:
-        notes = tuple(dict.fromkeys(_text(v) for v in evidence.get('Nota', []) if _text(v) != 'Não localizado'))
+        notes = tuple(dict.fromkeys(clean for v in evidence.get('Nota', []) if _text(v) != 'Não localizado' if (clean := public_document_text(v))))
         return notes, _sources(evidence)
     # Cell qualifications stay attached to their exact fund/criterion in the slide
     # notes. Only common table notes occupy the visible footer; repeating every
     # cell note there multiplied the same table across dozens of slides.
     common = evidence[evidence['CNPJ'].astype(str).eq('Carteira')] if 'CNPJ' in evidence else evidence
-    notes = tuple(dict.fromkeys(_text(v) for v in common.get("Nota", []) if _text(v) != "Não localizado"))
+    notes = tuple(dict.fromkeys(clean for v in common.get("Nota", []) if _text(v) != "Não localizado" if (clean := public_document_text(v))))
     if 'CNPJ' not in evidence:
         return notes, _sources(evidence)
     sources = []
@@ -81,7 +89,9 @@ def _group_notes(manifest, page_id: str) -> tuple[tuple[str, ...], tuple[str, ..
             continue
         identity = f"CNPJ {row.get('CNPJ', 'não informado')} · {row.get('Critério', 'regra')} · {row.get('Valor', 'valor não informado')}"
         note = _text(row.get('Nota'))
-        sources.append(identity + ' · ' + source + (' · Observação: ' + note if note != 'Não localizado' else ''))
+        clean = public_document_text(identity + ' · ' + source + (' · Observação: ' + note if note != 'Não localizado' else ''))
+        if clean:
+            sources.append(clean)
     return notes, tuple(dict.fromkeys(sources))
 
 
@@ -99,7 +109,7 @@ def build_document_comparison_pages(manifest) -> list[DocumentComparisonPage]:
             if frame.empty:
                 continue
             notes, sources = _group_notes(manifest, spec.id)
-            pages.append(DocumentComparisonPage(spec.title, frame.map(_text), notes, sources))
+            pages.append(DocumentComparisonPage(spec.title, presentation_comparison_frame(frame), notes, sources))
         if pages:
             return pages
 
@@ -169,7 +179,7 @@ def build_document_comparison_pages(manifest) -> list[DocumentComparisonPage]:
             rows.append(row)
         for start in range(0, len(rows), 5):
             pages.append(DocumentComparisonPage("Custos estruturais", pd.DataFrame(rows[start:start + 5]), sources=_sources(costs)))
-    return pages
+    return [DocumentComparisonPage(page.title, presentation_comparison_frame(page.frame), page.notes, page.sources) for page in pages]
 
 
 def _quota_type(value: object) -> str:
