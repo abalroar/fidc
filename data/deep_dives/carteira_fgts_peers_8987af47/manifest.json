@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_fgts_peers_8987af47",
+  "title": "Curadoria FGTS Peers",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "8987af47bd434ae985a38d28454e337e",
+  "portfolio_signature": "51957370000152|53270983000142|53577135000180|54252144000164|54464892000100|54810968000102|55401645000128",
+  "generated_at": "2026-10-07T14:59:40-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "51957370000152",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ANGÁ FGTS I - RESPONSABILIDADE LIMITADA",
+      "short_name": "Angá FGTS I"
+    },
+    {
+      "cnpj": "53270983000142",
+      "name": "ANGÁ FGTS +AG FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "Angá FGTS +AG"
+    },
+    {
+      "cnpj": "53577135000180",
+      "name": "ANGÁ FGTS II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "Angá FGTS II"
+    },
+    {
+      "cnpj": "55401645000128",
+      "name": "QUATÁ FDC FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "Quatá FGTS"
+    },
+    {
+      "cnpj": "54810968000102",
+      "name": "ANGÁ FGTS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "Angá FGTS III"
+    },
+    {
+      "cnpj": "54252144000164",
+      "name": "J17 FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS FINANCEIRO - RESPONSABILIDADE LIMITADA",
+      "short_name": "J17 FGTS"
+    },
+    {
+      "cnpj": "54464892000100",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES II",
+      "short_name": "MT FGTS Receivables II"
+    }
+  ],
+  "comparison_columns": {
+    "Angá FGTS I": "51957370000152",
+    "Angá FGTS +AG": "53270983000142",
+    "Angá FGTS II": "53577135000180",
+    "Quatá FGTS": "55401645000128",
+    "Angá FGTS III": "54810968000102",
+    "J17 FGTS": "54252144000164",
+    "MT FGTS Receivables II": "54464892000100"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "524036: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "Nova tentativa inventário: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "794749: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "666042: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1072290: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 1072290: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1033290: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "884293: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "921382: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "829655: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "826235: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1033290: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "cd215956ece8aefab8e3d0272aff47a56c9ef770c63b89e77eb151cd1594dcff",
+    "rendering_sha256": "3791243703ab8ee98135ed320d4b72d8d64ebe37b1c5c94c2be8214435e7572c",
+    "input_sha256": "b0034a578c920ddca624b268f18ba28444dc6cdfbff022d010c36b79086e3110"
+  }
+}

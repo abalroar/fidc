@@ -1,0 +1,289 @@
+{
+  "cnpj": "63505455000189",
+  "label": "Solfácil VII",
+  "reviewed_at": "2026-10-07T14:46:12-03:00",
+  "document_status": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada",
+  "scope_note": "Revisão dirigida de cláusulas e termos materiais dos documentos locais acessíveis. A data desta revisão não atesta atualização completa do inventário CVM. Lacunas e falhas de acesso estão descritas; nenhuma posição IME foi transformada em volume de emissão.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Financiamento de sistemas solares, representado por CCBs.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; política de investimento / condições de aquisição; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Originador/endossante": {
+        "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; definições de Originador, Endossante e Instituição Financeira Parceira; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Identidade dos endossantes depende da versão do contrato; não inferida do nome do fundo."
+      },
+      "Devedor": {
+        "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; definições de Devedores e Financiamento Solar; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Garantia": {
+        "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; condições de cessão / definições de Equipamentos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Não equivale a garantia de recuperação integral; registro e lastro exigem documentos individualizados."
+      },
+      "Elegibilidade": {
+        "value": "CCBs prefixadas em reais, adimplentes; prazo médio ≤2.400 dias; original ≤126 meses; carência ≤185 dias; nominal PF R$ 350 mil/PJ R$ 700 mil.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.113–116, condições/critério de aquisição; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Concentração": {
+        "value": "Limite nominal também agregado por devedor: PF R$ 350 mil/PJ R$ 700 mil; preço ≤104% do saldo contábil.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.113–116; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Monitorar contratos e devedor individual; IME público não oferece essa granularidade."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Índices mínimos das subclasses: mezanino A 5%/PL; mezanino B 2,5%/PL; júnior 2%/PL.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.118–119; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Índices por subclasse são distintos das razões de cobertura e dos pesos de amortização; não somar sem confirmar cálculo de proteção sênior."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Cobertura sênior/A/B: 133,33%/111,11%/104,17%; atraso90 >15%; rolagem90 >1,6%; patamares adicionais por regime.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; p.120, 11.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Aging IME/crédito não reproduz fórmula de cobertura/rolagem/vintage; valores contratuais, sem conclusão de enquadramento ao vivo."
+      },
+      "Reserva de caixa": {
+        "value": "3 meses de despesas futuras; reserva de MTM negativo limitada ao menor entre valor absoluto do MTM e 1% do nocional agregado.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.70–71, 18.1–18.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Reserva de MTM depende da posição derivativa e da aplicabilidade indicada no anexo."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção de posições à vista; sem exposição descoberta/alavancagem; limite agregado de exposição contratual.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; p.117, política de derivativos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "IME agregado não prova finalidade, nocional, MTM por contraparte ou aderência à cobertura contratual."
+      },
+      "PDD": {
+        "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; anexo de política de provisão para devedores duvidosos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "PDD/crédito e PDD/vencidos são proxies. Não foi encontrado um piso uniforme de PDD/PL aplicável a todas as versões."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "50%/PL em DC; 67%/PL para enquadramento tributário.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; p.85, política de investimento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Pool/revolvência": {
+        "value": "Reinvestimento obrigatório das receitas em ativos elegíveis durante período de revolvência; duração por série não preenchida.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.115–117, 6.1.1/6.2.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada; prazos e remuneração de séries nos apêndices; investidores autorizados.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; modelos de apêndices / características da classe; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Cessão/recompra": {
+        "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; política de investimento; Contrato de Endosso / Transferência; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "IME Recompras/crédito não identifica vício de lastro, motivo ou cumprimento da indenização."
+      },
+      "Coobrigação": {
+        "value": "Transferência sem coobrigação do endossante; responsabilidades por vícios seguem contrato específico.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; política de investimento / definição de Contrato de Transferência; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Waterfall": {
+        "value": "Pro rata sujeito a metas; desalavancagem aciona sequencial com prioridade sênior → mezanino A → B → júnior.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.51–60, alocação e regimes; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, subordinadas mezanino e júnior; modelos de emissão não comprovam todas as séries em circulação.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado; taxa e benchmark remetidos ao apêndice/suplemento de cada série.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; parâmetros de pagamento e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Volume/VNU": {
+        "value": "Volume aprovado/distribuído por série não confirmado pelos modelos; VNU depende do suplemento preenchido.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; parâmetros da oferta e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Ofertas": {
+        "value": "Rito, público e montante por emissão remetidos aos respectivos atos e anúncios; encerramentos não confirmados.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; modelos de apêndices / parâmetros da oferta; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao suplemento; carência efetiva por série não confirmada.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; parâmetros de pagamento / modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Juros/amortização": {
+        "value": "Pagamentos sujeitos à disponibilidade de caixa e waterfall; cronograma fechado não identificado.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; capítulo de amortização / modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Vencimento": {
+        "value": "Data final por série remetida ao suplemento; primeira integralização efetiva não confirmada.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; parâmetros de pagamento / modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,10% a.a./PL; mínimo R$ 13 mil/mês; IPCA positivo anual.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.111–112, 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Gestão": {
+        "value": "0,20% a.a./PL; mínimo R$ 15 mil/mês; IPCA positivo anual.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.111–112, 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Custódia": {
+        "value": "0,02% a.a./PL; mínimo R$ 2 mil/mês; IPCA positivo anual.",
+        "source": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.111–112, 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas subordinadas/PL: cálculo agregado com validação de classes e do denominador.",
+        "source": "Corpus do CNPJ 63505455000189, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1199536, referência 14/05/2026, arquivo data/raw/63505455000189/1199536_regulamento_14-05-2026.txt",
+        "note": "Monitorável com ressalva: IME mensal não prova cumprimento diário nem composição jurídica por série."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90/180/crédito e PDD/crédito: proxies agregados; gatilhos contratuais exigem fórmula própria.",
+        "source": "Corpus do CNPJ 63505455000189, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1199536, referência 14/05/2026, arquivo data/raw/63505455000189/1199536_regulamento_14-05-2026.txt",
+        "note": "Parcial: não equiparar índices de estoque/vintage/rolagem à carteira atual sem reconciliação de denominadores."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, lastro, finalidade do hedge e troca de prestadores exigem controle documental.",
+        "source": "Corpus do CNPJ 63505455000189, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1199536, referência 14/05/2026, arquivo data/raw/63505455000189/1199536_regulamento_14-05-2026.txt",
+        "note": "Não monitorável pelo IME público sem dados individualizados; caixa e recompras ajudam apenas como proxies."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada para esta revisão.",
+        "source": "services.ime_loader.peek_cached_informe: miss para CNPJ 63505455000189; período consultado 01/01/2026–30/09/2026 em 2026-10-07T14:46:12-03:00",
+        "note": "Não foi definida competência de referência pelo usuário. O cache consultado não cobre o período; análise contratual permanece offline."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Elegibilidade",
+      "Conclusão": "Créditos prefixados, prazo médio até 2.400 dias e tetos nominais agregados por devedor."
+    },
+    {
+      "Tema": "Reservas",
+      "Conclusão": "Despesas futuras e MTM de derivativos exigem controle além do caixa agregado mensal."
+    },
+    {
+      "Tema": "Pagamentos",
+      "Conclusão": "Regimes pro rata/sequencial e gatilhos de cobertura estão no contrato; spreads e datas finais por série seguem apêndices."
+    },
+    {
+      "Tema": "Revolvência",
+      "Conclusão": "Receitas reinvestidas durante a revolvência; teto de preço de aquisição de 104% do saldo contábil."
+    }
+  ],
+  "warnings": [
+    "Inventário online atual não confirmado; versões posteriores ao corpus local podem existir.",
+    "Modelos de apêndices com campos não preenchidos não confirmam série emitida, spread final ou data efetiva."
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": "1199536",
+      "date": "14/05/2026",
+      "path": "data/raw/63505455000189/1199536_regulamento_14-05-2026.txt",
+      "pages": 145,
+      "identity_verified": true,
+      "review_scope": "Revisão dirigida das cláusulas citadas; texto integral disponível localmente."
+    }
+  ],
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Séries sênior não individualizadas",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+      "Status curadoria": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "Cota/Classe": "Séries mezanino não individualizadas",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+      "Status curadoria": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "Cota/Classe": "Séries júnior não individualizadas",
+      "Tipo": "Júnior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+      "Status curadoria": "parcial — termos/suplemento final não localizado"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "0,10% a.a./PL; mínimo R$ 13 mil/mês; IPCA positivo anual.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.111–112, 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada; 14/05/2026"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "0,20% a.a./PL; mínimo R$ 15 mil/mês; IPCA positivo anual.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.111–112, 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada; 14/05/2026"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "0,02% a.a./PL; mínimo R$ 2 mil/mês; IPCA positivo anual.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1199536; referência 14/05/2026; data/raw/63505455000189/1199536_regulamento_14-05-2026.txt; pp.111–112, 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1199536&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada; 14/05/2026"
+    }
+  ],
+  "metrics": {
+    "documents_inventoried": 7,
+    "inventory_scope": "Inventário local de regulamentos versionados, corpus Fundos.NET de 08/09/2026; demais categorias/inventário online atual não confirmados",
+    "local_regulatory_pdfs": 7,
+    "new_network_pdfs_downloaded": 0,
+    "local_analyzable_pdf_pages": 869,
+    "text_caches_without_local_pdf": 0,
+    "documents_without_local_pdf": 0,
+    "extraction_errors": "Nenhum erro na extração dos PDFs locais processados",
+    "reviewed_source_documents": 1,
+    "full_document_human_reading_claim": false
+  }
+}

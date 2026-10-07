@@ -707,6 +707,1228 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Fundo qualificados; oferta desta série exclusiva a profissionais",
+      "source_document": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 3 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…",
+      "source_excerpt": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…",
+      "source_excerpt": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "m a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsáv…",
+      "source_excerpt": "m a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsáv…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
+      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…",
+      "source_excerpt": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…",
+      "source_excerpt": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 47 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável p…",
+      "source_excerpt": "tabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 47 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável p…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
+      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão ser representados por CCB; h) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…",
+      "source_excerpt": "ão ser representados por CCB; h) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…",
+      "source_excerpt": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "47 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…",
+      "source_excerpt": "47 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
+      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…",
+      "source_excerpt": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e 19 (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…",
+      "source_excerpt": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e 19 (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ecursos preponderantemente nos ativos identificados nos incisos (i), (ii), e (iii) acima. 42 6.4 Observado o percentual mínimo de alocação em Direitos Creditório, a Gestora Ext deve celebrar com uma Contraparte de Derivativos Autorizada um Contrato Global de Derivativos (CGD) e mantê -lo ativo enquanto durar a Classe. Tais operações de derivativos têm a finalidade de proteção, tendo em vista a natureza do descasamen…",
+      "source_excerpt": "ecursos preponderantemente nos ativos identificados nos incisos (i), (ii), e (iii) acima. 42 6.4 Observado o percentual mínimo de alocação em Direitos Creditório, a Gestora Ext deve celebrar com uma Contraparte de Derivativos Autorizada um Contrato Global de Derivativos (CGD) e mantê -lo ativo enquanto durar a Classe. Tais operações de derivativos têm a finalidade de proteção, tendo em vista a natureza do descasamen…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tem a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsá…",
+      "source_excerpt": "tem a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsá…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade das operações…",
+      "source_excerpt": "ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade das operações…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "58 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
+      "source_excerpt": "58 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…",
+      "source_excerpt": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 17 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…",
+      "source_excerpt": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 17 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "49 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…",
+      "source_excerpt": "49 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
+      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "itórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório…",
+      "source_excerpt": "itórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "exercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 16 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do…",
+      "source_excerpt": "exercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 16 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "icitem a 48 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será re…",
+      "source_excerpt": "icitem a 48 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será re…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o destinado ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade d…",
+      "source_excerpt": "o destinado ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "à Classe. 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à c…",
+      "source_excerpt": "à Classe. 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à c…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Cronograma alterado 31/03/2025",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "2ª série / 1ª emissão",
+      "amount_display": "R$ 6,5 mi aprovados",
+      "remuneration": "DI + 4,00% a.a.",
+      "amortization_schedule": "96 parcelas escalonadas: primeira até 30/03/2025; última 15/02/2033",
+      "source_document": "Fundos.NET ID 908443 · 31/03/2025 · p. 3-6 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    },
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "3ª série",
+      "amount_display": "53.316,2271 cotas; total com mezanino R$ 56.958.011,98",
+      "remuneration": "Spread final não localizado no anúncio",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 1090574 · 23/01/2026 · p. 1-3 · data/raw/53179862000190/1090574_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1090574",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    },
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "3ª série",
+      "amount_display": "1.878,6298 cotas; total com sênior R$ 56.958.011,98",
+      "remuneration": "Spread final não localizado no anúncio",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 1090574 · 23/01/2026 · p. 1-3 · data/raw/53179862000190/1090574_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1090574",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ],
+  "extraction_count": 32,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/53179862000190.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 1232504,
+          "date": "29/06/2026",
+          "path": "data/raw/53179862000190/1232504_documentary_review.pdf",
+          "text_path": "data/raw/53179862000190/1232504_documentary_review.txt",
+          "pages": 2,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 1090574,
+          "date": "23/01/2026",
+          "path": "data/raw/53179862000190/1090574_documentary_review.pdf",
+          "text_path": "data/raw/53179862000190/1090574_documentary_review.txt",
+          "pages": 3,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Encerramento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 953854,
+          "date": "28/07/2025",
+          "path": "data/raw/53179862000190/953854_documentary_review.pdf",
+          "text_path": "data/raw/53179862000190/953854_documentary_review.txt",
+          "pages": 2,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 926238,
+          "date": "16/06/2025",
+          "path": "data/raw/53179862000190/926238_documentary_review.pdf",
+          "text_path": "data/raw/53179862000190/926238_documentary_review.txt",
+          "pages": 2,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Encerramento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 908443,
+          "date": "31/03/2025",
+          "path": "data/raw/53179862000190/908443_documentary_review.pdf",
+          "text_path": "data/raw/53179862000190/908443_documentary_review.txt",
+          "pages": 6,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Emissão de Cotas",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+        "948986: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "794094: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "845548: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "Nova tentativa ID 948986: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+      ],
+      "inventory_count": 50,
+      "pdf_count": 5,
+      "pages_analyzed": 15,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 50,
+    "pdf_count": 5,
+    "pages_analyzed": 15,
+    "documents": [
+      {
+        "id": 588882,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "23/01/2024",
+        "data_entrega": "23/01/2024 17:50",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/588882_regulamento_regulamento_588882_2024-01-23.pdf"
+      },
+      {
+        "id": 588883,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "23/01/2024",
+        "data_entrega": "23/01/2024 17:52",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/588883_regulamento_regulamento_588883_2024-01-23.pdf"
+      },
+      {
+        "id": 599028,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "07/02/2024",
+        "data_entrega": "08/02/2024 11:37",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/599028_regulamento_regulamento_599028_2024-02-07.pdf"
+      },
+      {
+        "id": 599031,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "07/02/2024",
+        "data_entrega": "08/02/2024 11:38",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/599031_regulamento_regulamento_599031_2024-02-07.pdf"
+      },
+      {
+        "id": 663751,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2024",
+        "data_entrega": "15/05/2024 22:04",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 614324,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "04/03/2024",
+        "data_entrega": "04/03/2024 18:07",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/614324_emissao_emissao_614324_2024-03-04.pdf"
+      },
+      {
+        "id": 625339,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "25/03/2024",
+        "data_entrega": "25/03/2024 16:23",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/625339_emissao_emissao_625339_2024-03-25.pdf"
+      },
+      {
+        "id": 627401,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "26/03/2024",
+        "data_entrega": "26/03/2024 18:24",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/627401_emissao_emissao_627401_2024-03-26.pdf"
+      },
+      {
+        "id": 816805,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "26/03/2024",
+        "data_entrega": "10/01/2025 15:07",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/816805_emissao_emissao_816805_2024-03-26.pdf"
+      },
+      {
+        "id": 729143,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "28/03/2024",
+        "data_entrega": "29/08/2024 15:05",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 638010,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "11/04/2024",
+        "data_entrega": "11/04/2024 16:13",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/638010_regulamento_regulamento_638010_2024-04-11.pdf"
+      },
+      {
+        "id": 638200,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "11/04/2024 18:00",
+        "data_entrega": "11/04/2024 18:23",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/638200_assembleia_assembleia_638200_2024-04-11.pdf"
+      },
+      {
+        "id": 664123,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "15/05/2024 18:00",
+        "data_entrega": "16/05/2024 10:38",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/664123_assembleia_assembleia_664123_2024-05-15.pdf"
+      },
+      {
+        "id": 664126,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "15/05/2024",
+        "data_entrega": "16/05/2024 10:40",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/664126_regulamento_regulamento_664126_2024-05-15.pdf"
+      },
+      {
+        "id": 720095,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2024",
+        "data_entrega": "15/08/2024 14:41",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 781228,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2024",
+        "data_entrega": "14/11/2024 22:53",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 746005,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "22/09/2024",
+        "data_entrega": "27/09/2024 09:22",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/746005_emissao_emissao_746005_2024-09-22.pdf"
+      },
+      {
+        "id": 851337,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "30/11/2024",
+        "data_entrega": "28/02/2025 18:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 841457,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2024",
+        "data_entrega": "14/02/2025 18:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 794093,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "02/12/2024 17:00",
+        "data_entrega": "03/12/2024 19:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/794093_assembleia_assembleia_794093_2024-12-02.pdf"
+      },
+      {
+        "id": 794094,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "03/12/2024",
+        "data_entrega": "03/12/2024 19:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/794094_regulamento_regulamento_794094_2024-12-03.pdf"
+      },
+      {
+        "id": 803557,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "18/12/2024",
+        "data_entrega": "18/12/2024 11:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/803557_emissao_emissao_803557_2024-12-18.pdf"
+      },
+      {
+        "id": 935485,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2024",
+        "data_entrega": "30/06/2025 14:46",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 845548,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "17/02/2025",
+        "data_entrega": "19/02/2025 18:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/845548_emissao_emissao_845548_2025-02-17.pdf"
+      },
+      {
+        "id": 906669,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2025",
+        "data_entrega": "15/05/2025 19:09",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 908443,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "31/03/2025",
+        "data_entrega": "19/05/2025 14:10",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/908443_emissao_emissao_908443_2025-03-31.pdf"
+      },
+      {
+        "id": 1090108,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/03/2025",
+        "data_entrega": "22/01/2026 16:17",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 877265,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 13:45",
+        "data_entrega": "10/04/2025 09:40",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/877265_assembleia_assembleia_877265_2025-04-25.pdf"
+      },
+      {
+        "id": 885415,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Sumário das Decisões",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 13:45",
+        "data_entrega": "28/04/2025 11:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/885415_assembleia_assembleia_885415_2025-04-25.pdf"
+      },
+      {
+        "id": 885430,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 13:45",
+        "data_entrega": "28/04/2025 11:50",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/885430_assembleia_assembleia_885430_2025-04-25.pdf"
+      },
+      {
+        "id": 968757,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2025",
+        "data_entrega": "13/08/2025 20:28",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 926238,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "16/06/2025",
+        "data_entrega": "16/06/2025 16:52",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/926238_emissao_emissao_926238_2025-06-16.pdf"
+      },
+      {
+        "id": 1090111,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "30/06/2025",
+        "data_entrega": "22/01/2026 16:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 948985,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Outros Documentos",
+        "classification": "assembleia",
+        "data_referencia": "14/07/2025 12:00",
+        "data_entrega": "17/07/2025 12:52",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/948985_assembleia_assembleia_948985_2025-07-14.pdf"
+      },
+      {
+        "id": 948986,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "14/07/2025",
+        "data_entrega": "17/07/2025 12:56",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/948986_regulamento_regulamento_948986_2025-07-14.pdf"
+      },
+      {
+        "id": 949189,
+        "categoria": "Fato Relevante",
+        "tipo": "",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "17/07/2025",
+        "data_entrega": "17/07/2025 18:08",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/949189_evento_evento_949189_2025-07-17.pdf"
+      },
+      {
+        "id": 953854,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "28/07/2025",
+        "data_entrega": "28/07/2025 13:09",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/953854_emissao_emissao_953854_2025-07-28.pdf"
+      },
+      {
+        "id": 1040577,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "14/11/2025 19:41",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 988711,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "09/09/2025 09:00",
+        "data_entrega": "11/09/2025 18:08",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/988711_assembleia_assembleia_988711_2025-09-09.pdf"
+      },
+      {
+        "id": 1090112,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "30/09/2025",
+        "data_entrega": "22/01/2026 16:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1119734,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "30/11/2025",
+        "data_entrega": "23/02/2026 19:16",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1116045,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "13/02/2026 19:18",
+        "nome_arquivo": null,
+        "status": "IC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1194690,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "15/05/2026 15:03",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1090574,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "23/01/2026",
+        "data_entrega": "23/01/2026 11:48",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/1090574_emissao_emissao_1090574_2026-01-23.pdf"
+      },
+      {
+        "id": 1197696,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 23:20",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1165956,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "24/04/2026 10:30",
+        "data_entrega": "17/04/2026 12:06",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/1165956_assembleia_assembleia_1165956_2026-04-24.pdf"
+      },
+      {
+        "id": 1260866,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Outros Documentos",
+        "classification": "assembleia",
+        "data_referencia": "24/04/2026 10:00",
+        "data_entrega": "21/07/2026 09:38",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/1260866_assembleia_assembleia_1260866_2026-04-24.pdf"
+      },
+      {
+        "id": 1291547,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2026",
+        "data_entrega": "14/08/2026 10:48",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1225388,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Outros Documentos",
+        "classification": "assembleia",
+        "data_referencia": "19/06/2026 10:00",
+        "data_entrega": "22/06/2026 14:51",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/1225388_assembleia_assembleia_1225388_2026-06-19.pdf"
+      },
+      {
+        "id": 1232504,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "29/06/2026",
+        "data_entrega": "29/06/2026 15:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/53179862000190/1232504_emissao_emissao_1232504_2026-06-29.pdf"
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1232504,
+        "date": "29/06/2026",
+        "path": "data/raw/53179862000190/1232504_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/1232504_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 1090574,
+        "date": "23/01/2026",
+        "path": "data/raw/53179862000190/1090574_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/1090574_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 953854,
+        "date": "28/07/2025",
+        "path": "data/raw/53179862000190/953854_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/953854_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 926238,
+        "date": "16/06/2025",
+        "path": "data/raw/53179862000190/926238_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/926238_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 908443,
+        "date": "31/03/2025",
+        "path": "data/raw/53179862000190/908443_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/908443_documentary_review.txt",
+        "pages": 6,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Cancelamento máximo",
       "canonical_key": "cancellation_rate_max",
       "event_type": "enquadramento",
@@ -3567,144 +4789,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…",
-      "source_excerpt": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…",
-      "source_excerpt": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "m a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsáv…",
-      "source_excerpt": "m a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsáv…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
-      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…",
-      "source_excerpt": "deverão atender a Taxa Mínima de Endosso; f) os Direitos Creditórios deverão ser representados por CCB; g) os Direitos Creditórios possam ser recomprados pelo Endossante. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com rela…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…",
-      "source_excerpt": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 47 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável p…",
-      "source_excerpt": "tabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previam ente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 47 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável p…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
-      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão ser representados por CCB; h) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…",
-      "source_excerpt": "ão ser representados por CCB; h) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…",
-      "source_excerpt": "xercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do des…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "47 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…",
-      "source_excerpt": "47 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
-      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…",
-      "source_excerpt": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e 19 (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…",
-      "source_excerpt": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e 19 (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ecursos preponderantemente nos ativos identificados nos incisos (i), (ii), e (iii) acima. 42 6.4 Observado o percentual mínimo de alocação em Direitos Creditório, a Gestora Ext deve celebrar com uma Contraparte de Derivativos Autorizada um Contrato Global de Derivativos (CGD) e mantê -lo ativo enquanto durar a Classe. Tais operações de derivativos têm a finalidade de proteção, tendo em vista a natureza do descasamen…",
-      "source_excerpt": "ecursos preponderantemente nos ativos identificados nos incisos (i), (ii), e (iii) acima. 42 6.4 Observado o percentual mínimo de alocação em Direitos Creditório, a Gestora Ext deve celebrar com uma Contraparte de Derivativos Autorizada um Contrato Global de Derivativos (CGD) e mantê -lo ativo enquanto durar a Classe. Tais operações de derivativos têm a finalidade de proteção, tendo em vista a natureza do descasamen…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tem a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsá…",
-      "source_excerpt": "tem a portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsá…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade das operações…",
-      "source_excerpt": "ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade das operações…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "58 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
-      "source_excerpt": "58 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…",
-      "source_excerpt": "ão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório Cedido com r…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 17 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…",
-      "source_excerpt": "o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 17 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do descasame…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "49 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…",
-      "source_excerpt": "49 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será responsável…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…",
-      "source_excerpt": ". 10.41. Risco de Rescisão do Contrato de Correspondente Bancário . O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à continui…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "itórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório…",
-      "source_excerpt": "itórios deverão ser representados por CCB; i) os Direitos Creditórios possam ser recomprados pelo Endossante ou pelo Originador, nos termos dos contratos firmados entre estes e a Classe. 8.1.1 Observados os termos e condições do presente Anexo, a verificação do enquadramento dos Direitos Creditórios aos Critérios de Elegibilidade será considerada como definitiva. 8.2 O desenquadramento de qualquer Direito Creditório…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "exercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 16 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do…",
-      "source_excerpt": "exercendo o direito de voto decorrente dos Ativos Financeiros de Liquidez detidos pela Classe; (b) decidir pela aquisição e alienação de Ativos Financeiros de Liquidez; 16 (c) monitorar os indicadores de gestão de risco e desempenho da Carteira relacionados à gestão da carteira de Ativos Financeiros de Liquidez; e (d) realizar todas as operações de derivativos com finalidade de proteção, tendo em vista a natureza do…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "icitem a 48 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será re…",
-      "source_excerpt": "icitem a 48 portabilidade dos empréstimos (e consequentemente dos Direitos Creditórios). Nestes casos, a Portabilidade pode implicar no recebimento de um valor inferior ao previamente previsto no momento de aquisição dos Direitos Creditórios, resultando na redução dos rendimentos a serem distribuídos aos Cotistas. 10.25. Risco de Formalização Inadequada dos Documentos Representativos de Crédito. O Endossante será re…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o destinado ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade d…",
-      "source_excerpt": "o destinado ao Regime Específico dos Fundos Não Sujeitos à Tributação Periódica. Riscos do Originador e de Originação 10.40. Risco de Rescisão do Contrato de Endosso e Originação de Direitos Creditórios. O Endossante, sem prejuízo das penalidades previstas no Contrato de Endosso pode, a qualquer momento, deixar de alienar Direitos Creditórios à Classe. Assim, a existência da Classe está condicionada à continuidade d…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "à Classe. 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à c…",
-      "source_excerpt": "à Classe. 10.41. Risco de Rescisão do Contrato de Correspondente Bancário. O Originador foi contratado pelo Endossante como seu correspondente bancário, nos termos da Resolução CMN 3.954/2011. Na medida em que os Direitos Creditórios a serem adquiridos pela Classe são exclusivamente aqueles originados pelo Originador, na qualidade de correspondente bancário do Endossante, a existência da Classe está condicionada à c…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -4070,6 +5155,307 @@
       "source_document_id": 1232504
     }
   ],
-  "extraction_count": 32,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "53179862000190",
+    "label": "FGTS MT II",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Garantia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Concentração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Fundo qualificados; oferta desta série exclusiva a profissionais",
+          "source": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 3 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior e mezanino A por séries; demais classes sem validação integral",
+          "source": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 1-3 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "2ª série mezanino A: DI + 4,00% a.a.",
+          "source": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 4 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+          "note": "Não atribuir ao sênior ou às 3ª/4ª séries."
+        },
+        "Volume/VNU": {
+          "value": "3ª: 53.316,2271 sênior e 1.878,6298 mezanino A; VNU inicial R$ 1.000",
+          "source": "Fundos.NET ID 1090574 · 23/01/2026 · Oferta Pública de Distribuição de Cotas · p. 1 · data/raw/53179862000190/1090574_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1090574",
+          "note": "Valor final do anúncio: R$ 56.958.011,98."
+        },
+        "Ofertas": {
+          "value": "3ª série encerrada 23/01/2026; distribuídos R$ 56.958.011,98",
+          "source": "Fundos.NET ID 1090574 · 23/01/2026 · Oferta Pública de Distribuição de Cotas · p. 1 · data/raw/53179862000190/1090574_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1090574",
+          "note": "Cotas atualizadas fazem volume distribuído diferir de quantidade × VNU inicial."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Mezanino A 2ª: primeira amortização até 30/03/2025",
+          "source": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 4 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Juros/amortização": {
+          "value": "Mezanino A 2ª: juros mensais dia 15; principal em 96 parcelas escalonadas",
+          "source": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 4-6 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+          "note": "Cronograma corrigido em 31/03/2025, tendo integralização em fevereiro/2025."
+        },
+        "Vencimento": {
+          "value": "Mezanino A 2ª: último pagamento conforme tabela de 96 amortizações",
+          "source": "Fundos.NET ID 908443 · 31/03/2025 · Atos de Deliberação do Administrador · p. 4-6 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+          "note": "Data final individualizada em emissions_rows."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gestão": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Custódia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 53179862000190: ID 1232504 (29/06/2026), data/raw/53179862000190/1232504_documentary_review.pdf; ID 1090574 (23/01/2026), data/raw/53179862000190/1090574_documentary_review.pdf; ID 953854 (28/07/2025), data/raw/53179862000190/953854_documentary_review.pdf; ID 926238 (16/06/2025), data/raw/53179862000190/926238_documentary_review.pdf; ID 908443 (31/03/2025), data/raw/53179862000190/908443_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Documentação",
+        "Conclusão": "O acesso aos documentos deste CNPJ apresentou lacunas; regras materiais permanecem pendentes."
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "948986: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "794094: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "845548: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 948986: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1232504,
+        "date": "29/06/2026",
+        "path": "data/raw/53179862000190/1232504_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/1232504_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 1090574,
+        "date": "23/01/2026",
+        "path": "data/raw/53179862000190/1090574_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/1090574_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 953854,
+        "date": "28/07/2025",
+        "path": "data/raw/53179862000190/953854_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/953854_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 926238,
+        "date": "16/06/2025",
+        "path": "data/raw/53179862000190/926238_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/926238_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 908443,
+        "date": "31/03/2025",
+        "path": "data/raw/53179862000190/908443_documentary_review.pdf",
+        "text_path": "data/raw/53179862000190/908443_documentary_review.txt",
+        "pages": 6,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 50,
+    "pdf_count": 5,
+    "pages_analyzed": 15,
+    "extraction_errors": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "2ª série / 1ª emissão",
+        "Tipo": "Mezanino A",
+        "Remuneração": "DI + 4,00% a.a.",
+        "Juros/remuneração": "Mensal, dia 15",
+        "Amortização principal": "96 parcelas escalonadas: primeira até 30/03/2025; última 15/02/2033",
+        "Volume": "R$ 6,5 mi aprovados",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Cronograma alterado 31/03/2025",
+        "Data emissão / 1ª integralização": "Fevereiro de 2025, dia não indicado",
+        "Data encerramento/oferta": "Resultado da colocação não localizado",
+        "Fonte": "Fundos.NET ID 908443 · 31/03/2025 · p. 3-6 · data/raw/53179862000190/908443_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=908443",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      },
+      {
+        "Cota/Classe": "3ª série",
+        "Tipo": "Sênior",
+        "Remuneração": "Spread final não localizado no anúncio",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "53.316,2271 cotas; total com mezanino R$ 56.958.011,98",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Encerramento 23/01/2026",
+        "Fonte": "Fundos.NET ID 1090574 · 23/01/2026 · p. 1-3 · data/raw/53179862000190/1090574_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1090574",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      },
+      {
+        "Cota/Classe": "3ª série",
+        "Tipo": "Mezanino A",
+        "Remuneração": "Spread final não localizado no anúncio",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "1.878,6298 cotas; total com sênior R$ 56.958.011,98",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Encerramento 23/01/2026",
+        "Fonte": "Fundos.NET ID 1090574 · 23/01/2026 · p. 1-3 · data/raw/53179862000190/1090574_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1090574",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 50,
+      "pdf_count": 5,
+      "pages_analyzed": 15
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/53179862000190.json"
 }

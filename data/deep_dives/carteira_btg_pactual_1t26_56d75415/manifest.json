@@ -1,118 +1,182 @@
 {
   "schema_version": 1,
   "deep_dive_id": "carteira_btg_pactual_1t26_56d75415",
-  "title": "Deep Dive BTG Pactual (Fundos Consolidados 1T26)",
-  "subtitle": "Cedentes, sacados, origem dos consignados, emissões, gatilhos monitoráveis e métricas IME",
+  "title": "Curadoria BTG Pactual (Fundos Consolidados 1T26)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
   "portfolio_id": "56d75415a8444cf1981f0e08d9cb2e40",
   "portfolio_signature": "54871427000194|55563624000109|60010416000112|62552447000120|62696791000193|63953620000165",
-  "generated_at": "2026-05-14T11:46:27-03:00",
-  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "generated_at": "2026-10-07T14:59:40-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
   "confidentiality": "Uso interno",
   "funds": [
     {
-      "cnpj": "54.871.427/0001-94",
+      "cnpj": "54871427000194",
       "name": "CONSIGNADO DELTA RECEIVABLES I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "CONSIGNADO DELTA RECEIVABLES I"
+      "short_name": "Consignado Delta I"
     },
     {
-      "cnpj": "60.010.416/0001-12",
+      "cnpj": "60010416000112",
       "name": "MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "MT CONSIGNADO PRIVADO I"
+      "short_name": "MT Consignado Privado I"
     },
     {
-      "cnpj": "62.696.791/0001-93",
+      "cnpj": "62696791000193",
       "name": "BTG PACTUAL CERES CONFINA FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LIMITADA",
-      "short_name": "BTG PACTUAL CERES CONFINA FUNDO DE I"
+      "short_name": "BTG Ceres Confina (FIAGRO)"
     },
     {
-      "cnpj": "55.563.624/0001-09",
+      "cnpj": "55563624000109",
       "name": "PLGN MARKETPLACE FUNDO DE INVESTIMENTO EM COTAS DE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "PLGN MARKETPLACE FUNDO DE INVESTIMEN"
+      "short_name": "PLGN Marketplace (FIC-FIDC)"
     },
     {
-      "cnpj": "62.552.447/0001-20",
+      "cnpj": "62552447000120",
       "name": "V CDT 1 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
       "short_name": "V CDT 1"
     },
     {
-      "cnpj": "63.953.620/0001-65",
+      "cnpj": "63953620000165",
       "name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
-      "short_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOB"
+      "short_name": "MT Global — Classe CP"
     }
   ],
+  "comparison_columns": {
+    "Consignado Delta I": "54871427000194",
+    "MT Consignado Privado I": "60010416000112",
+    "BTG Ceres Confina (FIAGRO)": "62696791000193",
+    "PLGN Marketplace (FIC-FIDC)": "55563624000109",
+    "V CDT 1": "62552447000120",
+    "MT Global — Classe CP": "63953620000165"
+  },
   "tables": [
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
-      "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
-      "first_column": "Nome"
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "structural_costs",
       "title": "Custos estruturais",
-      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
-      "kind": "source_table",
       "source_file": "tables/structural_costs.csv",
-      "first_column": "Fundo"
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "key_findings",
-      "title": "Achados principais",
-      "subtitle": "Resumo executivo auditável da carteira",
-      "kind": "source_table",
+      "title": "Destaques da carteira",
       "source_file": "tables/key_findings.csv",
-      "first_column": "Tema"
+      "first_column": "Tema",
+      "kind": "source_table"
     },
     {
-      "id": "cedentes_sacados_origem",
-      "title": "Cedentes, sacados e origem",
-      "subtitle": "Mapa documental de originadores, agentes, devedores e menções a Meu Tudo/Parati/Banco PAN",
-      "kind": "source_table",
-      "source_file": "tables/cedentes_sacados_origem.csv",
-      "first_column": "Fundo"
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
     },
     {
-      "id": "source_vehicle_trace",
-      "title": "Trilha de veículos-fonte",
-      "subtitle": "Cisões, CNPJs e vínculos usados para interpretar a origem dos créditos",
-      "kind": "source_table",
-      "source_file": "tables/source_vehicle_trace.csv",
-      "first_column": "Veículo"
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
     },
     {
-      "id": "emissions",
-      "title": "Cronograma de emissões",
-      "kind": "source_table",
-      "source_file": "tables/emissions.csv",
-      "first_column": "Fundo"
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
     },
     {
-      "id": "thresholds",
-      "title": "Regulamento mais recente",
-      "kind": "source_table",
-      "source_file": "tables/thresholds.csv",
-      "first_column": "fundo"
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
     },
     {
-      "id": "document_inventory",
-      "title": "Inventário regulatório local",
-      "subtitle": "Documentos públicos não-IME considerados na extração offline",
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
       "kind": "source_table",
-      "source_file": "tables/document_inventory.csv",
-      "first_column": "Fundo"
+      "subtitle": "Referências por célula; observações comuns no rodapé"
     }
   ],
   "audit": {
     "warnings": [
-      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
-      "Curadoria dedicada de BTG Pactual 1T26 adiciona mapa explícito de cedentes/sacados/origem e reaproveita a curadoria do Consignado Delta sem duplicar suas emissões.",
-      "Única menção nominal a Meu Tudo/Parati encontrada na carteira: MT Consignado Privado I; Banco PAN não foi identificado por busca textual exata nos documentos locais analisados.",
-      "MT Global foi corrigido para a classe 63.953.620/0001-65; 63.953.619/0001-30 é o fundo guarda-chuva e não retornava documentos da classe no fluxo usado.",
-      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Nova tentativa ID 1049114: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 911262: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1004656: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "1143317: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1143317: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1143319: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "1200623: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1200625: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "988020: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1200623: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1087883: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1142756: Fundos.NET respondeu HTTP 520 em downloadDocumento."
     ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "57e01d5778e67409bf487af26cd542d38116ab1a6775b4fda52f031200dcb336",
+    "rendering_sha256": "e950bafaec4f76ca8a29551dd6420834c6e9a179375fca8907eafa6e26a2369f",
+    "input_sha256": "b498648b0319dfc5f044363803c5164d5fb849c0a0c01b6a707bbac0b206fb2e"
   }
 }

@@ -47,6 +47,9 @@ def load_curated_regulatory_profile(
     triage_emissions_frames: list[pd.DataFrame] = []
     triage_criteria_frames: list[pd.DataFrame] = []
     triage_sources: list[Path] = []
+    reviewed_emissions_frames: list[pd.DataFrame] = []
+    reviewed_criteria_frames: list[pd.DataFrame] = []
+    reviewed_sources: list[Path] = []
 
     for path in sorted(base_dir.glob("*.csv")):
         try:
@@ -59,9 +62,10 @@ def load_curated_regulatory_profile(
         if frame.empty:
             continue
         is_triage = path.name.startswith("all_fidcs_")
-        sources = triage_sources if is_triage else manual_sources
-        emissions_frames = triage_emissions_frames if is_triage else manual_emissions_frames
-        criteria_frames = triage_criteria_frames if is_triage else manual_criteria_frames
+        is_reviewed = path.name.startswith("documentary_review_")
+        sources = reviewed_sources if is_reviewed else triage_sources if is_triage else manual_sources
+        emissions_frames = reviewed_emissions_frames if is_reviewed else triage_emissions_frames if is_triage else manual_emissions_frames
+        criteria_frames = reviewed_criteria_frames if is_reviewed else triage_criteria_frames if is_triage else manual_criteria_frames
         if {"Cota/Classe", "Amortização principal"}.issubset(frame.columns):
             sources.append(path)
             emissions_frames.append(frame)
@@ -69,9 +73,9 @@ def load_curated_regulatory_profile(
             sources.append(path)
             criteria_frames.append(frame)
 
-    emissions_frames = manual_emissions_frames or triage_emissions_frames
-    criteria_frames = manual_criteria_frames or triage_criteria_frames
-    sources = manual_sources or triage_sources
+    emissions_frames = reviewed_emissions_frames or manual_emissions_frames or triage_emissions_frames
+    criteria_frames = reviewed_criteria_frames or manual_criteria_frames or triage_criteria_frames
+    sources = reviewed_sources or manual_sources or triage_sources
     emissions_df = _concat_or_empty(emissions_frames)
     criteria_df = _concat_or_empty(criteria_frames)
     if emissions_df.empty and criteria_df.empty:

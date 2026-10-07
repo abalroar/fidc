@@ -385,6 +385,1020 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subordinadas/PL ≥ 5%; júnior/PL ≥ 5%, desde 46º dia da 1ª integralização",
+      "source_document": "Fundos.NET ID 985036 · 04/09/2025 · Atos de Deliberação do Administrador · p. 3 · data/raw/62310468000130/985036_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=985036",
+      "notes": "Fonte acessível de 04/09/2025; regulamento consolidado posterior não obtido. Não afirmar vigência integral dos pisos antigos.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Fonte acessível de 04/09/2025; regulamento consolidado posterior não obtido. Não afirmar vigência integral dos pisos antigos."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Sênior 2ª série: revolvência por 18 meses da 1ª integralização sênior",
+      "source_document": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 9 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+      "notes": "Marco deve ser confirmado na implementação; fonte visual.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Marco deve ser confirmado na implementação; fonte visual."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Encargos/reserva → sênior → mezanino → júnior conforme investimento",
+      "source_document": "Fundos.NET ID 985036 · 04/09/2025 · Atos de Deliberação do Administrador · p. 2-3 · data/raw/62310468000130/985036_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=985036",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; eaté 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.4.1…",
+      "source_excerpt": "rios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; eaté 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.4.1…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de Direitos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivoEndossante, não podendo, em qualquer caso, o Gestor ser respon…",
+      "source_excerpt": "de Direitos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivoEndossante, não podendo, em qualquer caso, o Gestor ser respon…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 11 (ii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes.4.11.1Na hipótese de o Direito Creditório TVM elegíve…",
+      "source_excerpt": "ECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 11 (ii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes.4.11.1Na hipótese de o Direito Creditório TVM elegíve…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "alor Unitáriono Anexo I, para efeito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number>…",
+      "source_excerpt": "alor Unitáriono Anexo I, para efeito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number>…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "feito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number><passed_underwriting_criteria>…",
+      "source_excerpt": "feito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number><passed_underwriting_criteria>…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mentos.4.2Os Direitos Creditórios poderão ser: (i)originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a políticade concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio…",
+      "source_excerpt": "mentos.4.2Os Direitos Creditórios poderão ser: (i)originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a políticade concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ces Mínimos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe.5.14Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a)…",
+      "source_excerpt": "ces Mínimos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe.5.14Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a)…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "será deduzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento.12.10A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese d…",
+      "source_excerpt": "será deduzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento.12.10A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "iretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia…",
+      "source_excerpt": "iretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e pagamento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retençã…",
+      "source_excerpt": "e pagamento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retençã…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…",
+      "source_excerpt": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…",
+      "source_excerpt": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…",
+      "source_excerpt": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…",
+      "source_excerpt": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…",
+      "source_excerpt": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…",
+      "source_excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…",
+      "source_excerpt": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…",
+      "source_excerpt": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…",
+      "source_excerpt": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…",
+      "source_excerpt": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…",
+      "source_excerpt": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…",
+      "source_excerpt": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…",
+      "source_excerpt": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…",
+      "source_excerpt": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…",
+      "source_excerpt": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…",
+      "source_excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…",
+      "source_excerpt": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…",
+      "source_excerpt": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…",
+      "source_excerpt": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…",
+      "source_excerpt": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (iv) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…",
+      "source_excerpt": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (iv) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…",
+      "source_excerpt": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…",
+      "source_excerpt": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…",
+      "source_excerpt": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (viii) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…",
+      "source_excerpt": "os Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (viii) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…",
+      "source_excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…",
+      "source_excerpt": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…",
+      "source_excerpt": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…",
+      "source_excerpt": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…",
+      "source_excerpt": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na últim a comunicação recebi da pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…",
+      "source_excerpt": "tos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na últim a comunicação recebi da pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observ ada a política de concessão deste re gulamento. O Endossante MT deve ter celebrado o Convênio INSS…",
+      "source_excerpt": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observ ada a política de concessão deste re gulamento. O Endossante MT deve ter celebrado o Convênio INSS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "duzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 12.10 A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…",
+      "source_excerpt": "duzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 12.10 A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nte ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em…",
+      "source_excerpt": "nte ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "gamento de cada Direito Creditório Elegível na carteira; observado que , para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/C…",
+      "source_excerpt": "gamento de cada Direito Creditório Elegível na carteira; observado que , para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/C…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "editórios cujo devedor é um único Devedor, maior será a vulnerabil idade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi) Riscoo dee concentraçãoo emm umm únicoo Endossante:: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores…",
+      "source_excerpt": "editórios cujo devedor é um único Devedor, maior será a vulnerabil idade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi) Riscoo dee concentraçãoo emm umm únicoo Endossante:: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) ano s ou mais, na Data de Aquisição de Direitos Creditó riosM T ; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá s e r composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) ano s ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.9.1 Pa…",
+      "source_excerpt": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) ano s ou mais, na Data de Aquisição de Direitos Creditó riosM T ; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá s e r composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) ano s ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.9.1 Pa…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "to s Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respecti vo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…",
+      "source_excerpt": "to s Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respecti vo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizad as por via eletrônica de acordo com a legislaç ão aplicável, observada a política de concessão deste regulamento. O Endossante MT deve ter celebrado o Convênio INSS…",
+      "source_excerpt": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizad as por via eletrônica de acordo com a legislaç ão aplicável, observada a política de concessão deste regulamento. O Endossante MT deve ter celebrado o Convênio INSS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mos de Subordinação, notad amente, o Índic e Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe. 5.13 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) susp…",
+      "source_excerpt": "mos de Subordinação, notad amente, o Índic e Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe. 5.13 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) susp…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "BILIDADE LIMITADA 37 mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 112.10 A remuneraçãoprevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…",
+      "source_excerpt": "BILIDADE LIMITADA 37 mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 112.10 A remuneraçãoprevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia e m q…",
+      "source_excerpt": "ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia e m q…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "co Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo BTG Pactual S A C :0 8 0 07 7 22 82 7-O u v i d o r i a :0 8 0 07 2 20 04 8 -b t g p a c t u a l . c o m 52 CComplementoo 11 doo Anexo II aao RRegulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIME NTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Endossante aos Devedores…",
+      "source_excerpt": "co Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo BTG Pactual S A C :0 8 0 07 7 22 82 7-O u v i d o r i a :0 8 0 07 2 20 04 8 -b t g p a c t u a l . c o m 52 CComplementoo 11 doo Anexo II aao RRegulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIME NTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Endossante aos Devedores…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "01/04/2026",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "2ª série / 1ª emissão",
+      "amount_display": "Até R$ 600 mi; 600 mil cotas",
+      "remuneration": "DI + 0,95% a.a.",
+      "amortization_schedule": "Prazo esperado até 120 meses da 1ª integralização; investimento 18 meses",
+      "source_document": "Fundos.NET ID 1153512 · 01/04/2026 · p. 2,8-9,12 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+      "notes": "Conferência visual de PDF com codificação de texto corrompida"
+    },
+    {
+      "date": "01/04/2026",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª série / 2ª emissão",
+      "amount_display": "Até R$ 105 mi; 105 mil cotas",
+      "remuneration": "DI + 3,50% a.a.",
+      "amortization_schedule": "Resgate após totalidade da sênior; cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 1153512 · 01/04/2026 · p. 2,4 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+      "notes": "Conferência visual de PDF com codificação de texto corrompida"
+    },
+    {
+      "date": "01/04/2026",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "3ª emissão",
+      "amount_display": "Até R$ 36 mi; 36 mil cotas",
+      "remuneration": "Resultado residual; benchmark não validado no suplemento",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 1153512 · 01/04/2026 · p. 2 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+      "notes": "Conferência visual de PDF com codificação de texto corrompida"
+    }
+  ],
+  "extraction_count": 21,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/62310468000130.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 977555,
+          "date": "25/08/2025",
+          "path": "data/raw/62310468000130/977555_documentary_review.pdf",
+          "text_path": "data/raw/62310468000130/977555_documentary_review.txt",
+          "pages": 1,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 977281,
+          "date": "19/08/2025",
+          "path": "data/raw/62310468000130/977281_documentary_review.pdf",
+          "text_path": "data/raw/62310468000130/977281_documentary_review.txt",
+          "pages": 3,
+          "identity_verified": false,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Emissão de Cotas",
+          "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+        },
+        {
+          "document_id": 985036,
+          "date": "04/09/2025",
+          "path": "data/raw/62310468000130/985036_documentary_review.pdf",
+          "text_path": "data/raw/62310468000130/985036_documentary_review.txt",
+          "pages": 5,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Alteração do Regulamento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 1153512,
+          "date": "01/04/2026",
+          "path": "data/raw/62310468000130/1153512_documentary_review.pdf",
+          "text_path": "data/raw/62310468000130/1153512_documentary_review.txt",
+          "pages": 13,
+          "identity_verified": false,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Alteração do Regulamento",
+          "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+        "1153512: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "1153514: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "1075684: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "1053545: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Fundos.NET ID 1153512: extração pypdf/pdftotext com codificação de fonte corrompida. Páginas 2,4,8,9,11,12 conferidas visualmente; OCR/texto corrigido necessário para leitura integral automatizada."
+      ],
+      "inventory_count": 27,
+      "pdf_count": 4,
+      "pages_analyzed": 22,
+      "extraction_errors": [
+        {
+          "document_id": 1153512,
+          "error": "Fonte codificada impede texto legível; conferência visual parcial realizada"
+        }
+      ]
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 27,
+    "pdf_count": 4,
+    "pages_analyzed": 22,
+    "documents": [
+      {
+        "id": 977281,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "19/08/2025",
+        "data_entrega": "25/08/2025 16:17",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/977281_emissao_emissao_977281_2025-08-19.pdf"
+      },
+      {
+        "id": 977555,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "25/08/2025",
+        "data_entrega": "25/08/2025 18:53",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/977555_emissao_emissao_977555_2025-08-25.pdf"
+      },
+      {
+        "id": 979361,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "28/08/2025",
+        "data_entrega": "28/08/2025 16:35",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/979361_regulamento_regulamento_979361_2025-08-28.pdf"
+      },
+      {
+        "id": 979365,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "28/08/2025",
+        "data_entrega": "28/08/2025 16:36",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/979365_regulamento_regulamento_979365_2025-08-28.pdf"
+      },
+      {
+        "id": 1038438,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "14/11/2025 10:39",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 985036,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "04/09/2025",
+        "data_entrega": "05/09/2025 16:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/985036_regulamento_regulamento_985036_2025-09-04.pdf"
+      },
+      {
+        "id": 985037,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "04/09/2025",
+        "data_entrega": "05/09/2025 16:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/985037_regulamento_regulamento_985037_2025-09-04.pdf"
+      },
+      {
+        "id": 1033990,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "22/10/2025 07:00",
+        "data_entrega": "11/11/2025 18:15",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1033990_assembleia_assembleia_1033990_2025-10-22.pdf"
+      },
+      {
+        "id": 1044009,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "30/10/2025 07:00",
+        "data_entrega": "18/11/2025 17:16",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1044009_assembleia_assembleia_1044009_2025-10-30.pdf"
+      },
+      {
+        "id": 1044010,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "30/10/2025",
+        "data_entrega": "18/11/2025 17:17",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1044010_regulamento_regulamento_1044010_2025-10-30.pdf"
+      },
+      {
+        "id": 1028763,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "04/11/2025 07:00",
+        "data_entrega": "05/11/2025 17:30",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1028763_assembleia_assembleia_1028763_2025-11-04.pdf"
+      },
+      {
+        "id": 1028765,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "04/11/2025",
+        "data_entrega": "05/11/2025 17:30",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1028765_regulamento_regulamento_1028765_2025-11-04.pdf"
+      },
+      {
+        "id": 1110288,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "12/02/2026 12:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1053545,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "03/12/2025",
+        "data_entrega": "03/12/2025 21:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1053545_emissao_emissao_1053545_2025-12-03.pdf"
+      },
+      {
+        "id": 1079569,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "11/12/2025 07:00",
+        "data_entrega": "12/01/2026 14:56",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1079569_assembleia_assembleia_1079569_2025-12-11.pdf"
+      },
+      {
+        "id": 1079570,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "11/12/2025",
+        "data_entrega": "12/01/2026 14:57",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1079570_regulamento_regulamento_1079570_2025-12-11.pdf"
+      },
+      {
+        "id": 1076981,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "02/01/2026 10:00",
+        "data_entrega": "07/01/2026 20:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1076981_assembleia_assembleia_1076981_2026-01-02.pdf"
+      },
+      {
+        "id": 1075684,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "05/01/2026",
+        "data_entrega": "06/01/2026 13:47",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1075684_emissao_emissao_1075684_2026-01-05.pdf"
+      },
+      {
+        "id": 1079573,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "06/01/2026 07:00",
+        "data_entrega": "12/01/2026 14:59",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1079573_assembleia_assembleia_1079573_2026-01-06.pdf"
+      },
+      {
+        "id": 1079574,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "06/01/2026",
+        "data_entrega": "12/01/2026 14:59",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1079574_regulamento_regulamento_1079574_2026-01-06.pdf"
+      },
+      {
+        "id": 1117748,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/02/2026",
+        "data_entrega": "19/02/2026 10:07",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1196997,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 20:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1153512,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "01/04/2026",
+        "data_entrega": "02/04/2026 15:53",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1153512_regulamento_regulamento_1153512_2026-04-01.pdf"
+      },
+      {
+        "id": 1153514,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "01/04/2026",
+        "data_entrega": "02/04/2026 15:56",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1153514_regulamento_regulamento_1153514_2026-04-01.pdf"
+      },
+      {
+        "id": 1166401,
+        "categoria": "Comunicado ao Mercado",
+        "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "16/04/2026",
+        "data_entrega": "17/04/2026 20:23",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62310468000130/1166401_evento_evento_1166401_2026-04-16.pdf"
+      },
+      {
+        "id": 1204288,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "15/05/2026",
+        "data_entrega": "26/05/2026 20:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1292061,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2026",
+        "data_entrega": "14/08/2026 13:05",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 977555,
+        "date": "25/08/2025",
+        "path": "data/raw/62310468000130/977555_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/977555_documentary_review.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 977281,
+        "date": "19/08/2025",
+        "path": "data/raw/62310468000130/977281_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/977281_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": false,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+      },
+      {
+        "document_id": 985036,
+        "date": "04/09/2025",
+        "path": "data/raw/62310468000130/985036_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/985036_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 1153512,
+        "date": "01/04/2026",
+        "path": "data/raw/62310468000130/1153512_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/1153512_documentary_review.txt",
+        "pages": 13,
+        "identity_verified": false,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Atraso/Inadimplência - evento de avaliação",
       "canonical_key": "default_rate_evaluation_event",
       "event_type": "avaliação",
@@ -1845,274 +2859,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; eaté 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.4.1…",
-      "source_excerpt": "rios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; eaté 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT.4.1…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de Direitos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivoEndossante, não podendo, em qualquer caso, o Gestor ser respon…",
-      "source_excerpt": "de Direitos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivoEndossante, não podendo, em qualquer caso, o Gestor ser respon…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 11 (ii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes.4.11.1Na hipótese de o Direito Creditório TVM elegíve…",
-      "source_excerpt": "ECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA 11 (ii) a natureza ou característica essencial dos Direitos Creditórios TVM deverá permitir o seu registro contábil e a sua custódia pelo Custodiante, de acordo com os procedimentos operacionais e contábeis praticados pelo Custodiante, de acordo com as normas aplicáveis vigentes.4.11.1Na hipótese de o Direito Creditório TVM elegíve…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "alor Unitáriono Anexo I, para efeito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number>…",
-      "source_excerpt": "alor Unitáriono Anexo I, para efeito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number>…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "feito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number><passed_underwriting_criteria>…",
-      "source_excerpt": "feito da definição de seu valor de integralização, amortização e/ou resgate.* * * 1 Complemento 2 do Anexo I ao RegulamentoCLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D O DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADACOMPLEMENTO 2(Ao Anexo I)MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADEIdentificação dos Direitos Creditórios<report_date> DD/MM/AAAA<loan_number><passed_underwriting_criteria>…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "mentos.4.2Os Direitos Creditórios poderão ser: (i)originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a políticade concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio…",
-      "source_excerpt": "mentos.4.2Os Direitos Creditórios poderão ser: (i)originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a políticade concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ces Mínimos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe.5.14Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a)…",
-      "source_excerpt": "ces Mínimos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe.5.14Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a)…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "será deduzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento.12.10A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese d…",
-      "source_excerpt": "será deduzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento.12.10A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese d…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "iretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia…",
-      "source_excerpt": "iretamente aoAgente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT.12.10.1Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e pagamento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retençã…",
-      "source_excerpt": "e pagamento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retençã…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…",
-      "source_excerpt": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…",
-      "source_excerpt": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…",
-      "source_excerpt": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…",
-      "source_excerpt": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…",
-      "source_excerpt": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…",
-      "source_excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…",
-      "source_excerpt": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…",
-      "source_excerpt": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…",
-      "source_excerpt": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…",
-      "source_excerpt": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…",
-      "source_excerpt": "se poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…",
-      "source_excerpt": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…",
-      "source_excerpt": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…",
-      "source_excerpt": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…",
-      "source_excerpt": "ireitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…",
-      "source_excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…",
-      "source_excerpt": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…",
-      "source_excerpt": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…",
-      "source_excerpt": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…",
-      "source_excerpt": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (iv) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…",
-      "source_excerpt": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (iv) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.10.1 Para…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…",
-      "source_excerpt": "itos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabili…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…",
-      "source_excerpt": "definição de seu valor de integralização, amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_crite…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…",
-      "source_excerpt": ", amortização e/ou resgate. * * * 1 Complemento 2 do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI F U N D ODE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Sim □ N…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (viii) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…",
-      "source_excerpt": "os Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) anos ou mais, na Data de Aquisição de Direitos Creditórios MT; e (viii) até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) anos ou mais, na Data de Aquisição de Direitos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…",
-      "source_excerpt": "4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de concessão de crédito descrita no Complemento 10 ao presente Anexo. O Endossante MT deve ter celebrado o Convênio INSS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…",
-      "source_excerpt": "mos de Subordinação, notadamente, o Índice Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe . 5.14 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) suspe…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…",
-      "source_excerpt": "e ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em qu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…",
-      "source_excerpt": "amento de cada Direito Creditório Elegível na carteira; observado que, para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/Cob…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…",
-      "source_excerpt": "Creditórios cujo devedor é um único Devedor, maior será a vulnerabilidade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi ) Risco de concentração em um único Endossante: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores e su…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na últim a comunicação recebi da pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…",
-      "source_excerpt": "tos Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na últim a comunicação recebi da pelo respectivo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observ ada a política de concessão deste re gulamento. O Endossante MT deve ter celebrado o Convênio INSS…",
-      "source_excerpt": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observ ada a política de concessão deste re gulamento. O Endossante MT deve ter celebrado o Convênio INSS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "duzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 12.10 A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…",
-      "source_excerpt": "duzido dos pagamentos mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 12.10 A remuneração prevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nte ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em…",
-      "source_excerpt": "nte ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação dos serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia em…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "gamento de cada Direito Creditório Elegível na carteira; observado que , para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/C…",
-      "source_excerpt": "gamento de cada Direito Creditório Elegível na carteira; observado que , para fins do cálculo da remuneração devida ao Agente de Retenção/Cobrança nos termos deste item, o preço de venda de qualquer Direito Creditório Inadimplido vendido nos termos deste item será equivalente a 0 (zero). Para evitar qualquer dúvida, as Partes concordam que a remuneração estabelecida neste item não será devida ao Agente de Retenção/C…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "editórios cujo devedor é um único Devedor, maior será a vulnerabil idade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi) Riscoo dee concentraçãoo emm umm únicoo Endossante:: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores…",
-      "source_excerpt": "editórios cujo devedor é um único Devedor, maior será a vulnerabil idade da Classe com relação ao risco de crédito desse emissor ou Devedor. (vi) Riscoo dee concentraçãoo emm umm únicoo Endossante:: os Direitos Creditórios a serem cedidos à Classe podem ser de um único Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo Endossante aos Devedores…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) ano s ou mais, na Data de Aquisição de Direitos Creditó riosM T ; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá s e r composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) ano s ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.9.1 Pa…",
-      "source_excerpt": "poderá ser composta por Direitos Creditórios MT devidos por Devedores que tenham 65 (sessenta e cinco) ano s ou mais, na Data de Aquisição de Direitos Creditó riosM T ; e • até 10% (dez por cento) da carteira de Direitos Creditórios da Classe poderá s e r composta por Direitos Creditórios MT devidos por Devedores que tenham 69 (sessenta e nove) ano s ou mais, na Data de Aquisição de Direitos Creditórios MT. 4.9.1 Pa…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "to s Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respecti vo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…",
-      "source_excerpt": "to s Creditórios MT, sendo certo que, caso haja alguma alteração em tais prazos máximos previstos no Convênio INSS e/ou na legislação e regulamentação aplicáveis sem que seja realizada a comunicação aqui prevista, o Gestor deverá considerar (a) o prazo previsto neste Regulamento ou (b) o prazo previsto na última comunicação recebida pelo respecti vo Endossante, não podendo, em qualquer caso, o Gestor ser responsabil…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizad as por via eletrônica de acordo com a legislaç ão aplicável, observada a política de concessão deste regulamento. O Endossante MT deve ter celebrado o Convênio INSS…",
-      "source_excerpt": "com a Política de Investimentos. 4.2 Os Direitos Creditórios poderão ser: ( (i) originados no âmbito de operações empréstimos consignados concedidos pelo Endossante MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizad as por via eletrônica de acordo com a legislaç ão aplicável, observada a política de concessão deste regulamento. O Endossante MT deve ter celebrado o Convênio INSS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "mos de Subordinação, notad amente, o Índic e Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe. 5.13 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) susp…",
-      "source_excerpt": "mos de Subordinação, notad amente, o Índic e Mínimo de Subordinação Sênior e o Índice Mínimo de Subordinação Mezanino, os quais serão apurados todo Dia Útil e serão acessíveis aos Cotistas da Classe. 5.13 Caso quaisquer dos Índices Mínimos de Subordinação não sejam atendidos em qualquer data de apuração, o Administrador deverá imediatamente, até o 5º (quinto) Dia Útil seguinte à data de apuração em questão: (a) susp…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "BILIDADE LIMITADA 37 mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 112.10 A remuneraçãoprevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…",
-      "source_excerpt": "BILIDADE LIMITADA 37 mensais devidos ao Agente de Retenção e Cobrança nos termos deste Regulamento. 112.10 A remuneraçãoprevista no item 12.6 acima será calculada pelo Administrador e paga diretamente ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia e m q…",
-      "source_excerpt": "ao Agente de Retenção/Cobrança até o 5º (quinto) Dia Útil do mês subsequente ao da prestação d o s serviços, conforme estabelecido no Contrato de Serviços MT. 12.10.1 Independentemente do acima disposto, na hipótese de venda de qualquer parte dos Direitos Creditórios Elegíveis a terceiros, inclusive no caso de liquidação da Classe, o Agente de Retenção/Cobrança terá o direito de receber uma remuneração, no dia e m q…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "co Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo BTG Pactual S A C :0 8 0 07 7 22 82 7-O u v i d o r i a :0 8 0 07 2 20 04 8 -b t g p a c t u a l . c o m 52 CComplementoo 11 doo Anexo II aao RRegulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIME NTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Endossante aos Devedores…",
-      "source_excerpt": "co Endossante, o que pode comprometer a continuidade da Classe, em virtude da não continuidade da concessão de empréstimos pelo BTG Pactual S A C :0 8 0 07 7 22 82 7-O u v i d o r i a :0 8 0 07 2 20 04 8 -b t g p a c t u a l . c o m 52 CComplementoo 11 doo Anexo II aao RRegulamento CLASSE ÚNICA DO MT INSS RECEIVABLES VI FUNDO DE INVESTIME NTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA Endossante aos Devedores…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -2338,6 +3085,307 @@
       "source_document_id": 1166401
     }
   ],
-  "extraction_count": 21,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "62310468000130",
+    "label": "MT INSS Receivables VI",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Garantia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Concentração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subordinadas/PL ≥ 5%; júnior/PL ≥ 5%, desde 46º dia da 1ª integralização",
+          "source": "Fundos.NET ID 985036 · 04/09/2025 · Atos de Deliberação do Administrador · p. 3 · data/raw/62310468000130/985036_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=985036",
+          "note": "Fonte acessível de 04/09/2025; regulamento consolidado posterior não obtido. Não afirmar vigência integral dos pisos antigos."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Sênior 2ª série: revolvência por 18 meses da 1ª integralização sênior",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 9 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "Marco deve ser confirmado na implementação; fonte visual."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Encargos/reserva → sênior → mezanino → júnior conforme investimento",
+          "source": "Fundos.NET ID 985036 · 04/09/2025 · Atos de Deliberação do Administrador · p. 2-3 · data/raw/62310468000130/985036_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=985036",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior; mezanino; júnior",
+          "source": "Fundos.NET ID 985036 · 04/09/2025 · Atos de Deliberação do Administrador · p. 1-3 · data/raw/62310468000130/985036_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=985036",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "2ª sênior: DI + 0,95% a.a.; mezanino 1ª série, 2ª emissão: DI + 3,50%",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 4, 8, 12 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "PDF com codificação de texto corrompida; valores conferidos visualmente nas páginas renderizadas."
+        },
+        "Volume/VNU": {
+          "value": "2ª sênior R$ 600 mi; 2ª mezanino R$ 105 mi; 3ª júnior R$ 36 mi; VNU R$ 1.000",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 2, 4, 8 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "Deliberação 01/04/2026; valores aprovados em colocação privada."
+        },
+        "Ofertas": {
+          "value": "Novas emissões privadas deliberadas 01/04/2026",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 2-3 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração adicional": {
+          "value": "Sênior/mezanino: 0,38% do valor integralizado, parcela única em até 40 dias",
+          "source": "Fundos.NET ID 985036 · 04/09/2025 · Atos de Deliberação do Administrador · p. 1 · data/raw/62310468000130/985036_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=985036",
+          "note": "Benefício adicional da versão de 04/09/2025; confirmar manutenção para séries posteriores."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Sênior 2ª série por cash sweep, proporção da subclasse/série no PL",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 9 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "Calendário fechado não identificado."
+        },
+        "Vencimento": {
+          "value": "Sênior 2ª série: prazo esperado até 120 meses da 1ª integralização",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 8 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "Pode resgatar antes por regime de amortização; não fixar data sem marco."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gestão": {
+          "value": "0,30% a.a. do PL; se PL > R$ 900 mi, 0,10% a.a. sobre todo PL",
+          "source": "Fundos.NET ID 1153512 · 01/04/2026 · Atos de Deliberação do Administrador · p. 2 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+          "note": "Alteração expressa de 01/04/2026, conferida visualmente. Administração permanece lacuna."
+        },
+        "Custódia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 62310468000130: ID 977555 (25/08/2025), data/raw/62310468000130/977555_documentary_review.pdf; ID 977281 (19/08/2025), data/raw/62310468000130/977281_documentary_review.pdf; ID 985036 (04/09/2025), data/raw/62310468000130/985036_documentary_review.pdf; ID 1153512 (01/04/2026), data/raw/62310468000130/1153512_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Subordinadas/PL ≥ 5%; júnior/PL ≥ 5%, desde 46º dia da 1ª integralização"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "1153512: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1153514: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1075684: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1053545: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Fundos.NET ID 1153512: extração pypdf/pdftotext com codificação de fonte corrompida. Páginas 2,4,8,9,11,12 conferidas visualmente; OCR/texto corrigido necessário para leitura integral automatizada."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 977555,
+        "date": "25/08/2025",
+        "path": "data/raw/62310468000130/977555_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/977555_documentary_review.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 977281,
+        "date": "19/08/2025",
+        "path": "data/raw/62310468000130/977281_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/977281_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": false,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+      },
+      {
+        "document_id": 985036,
+        "date": "04/09/2025",
+        "path": "data/raw/62310468000130/985036_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/985036_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 1153512,
+        "date": "01/04/2026",
+        "path": "data/raw/62310468000130/1153512_documentary_review.pdf",
+        "text_path": "data/raw/62310468000130/1153512_documentary_review.txt",
+        "pages": 13,
+        "identity_verified": false,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+      }
+    ],
+    "inventory_count": 27,
+    "pdf_count": 4,
+    "pages_analyzed": 22,
+    "extraction_errors": [
+      {
+        "document_id": 1153512,
+        "error": "Fonte codificada impede texto legível; conferência visual parcial realizada"
+      }
+    ],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "2ª série / 1ª emissão",
+        "Tipo": "Sênior",
+        "Remuneração": "DI + 0,95% a.a.",
+        "Juros/remuneração": "Cash sweep; datas fechadas não identificadas",
+        "Amortização principal": "Prazo esperado até 120 meses da 1ª integralização; investimento 18 meses",
+        "Volume": "Até R$ 600 mi; 600 mil cotas",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "01/04/2026",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Resultado da colocação não localizado",
+        "Fonte": "Fundos.NET ID 1153512 · 01/04/2026 · p. 2,8-9,12 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+        "Status curadoria": "Conferência visual de PDF com codificação de texto corrompida"
+      },
+      {
+        "Cota/Classe": "1ª série / 2ª emissão",
+        "Tipo": "Subordinada mezanino",
+        "Remuneração": "DI + 3,50% a.a.",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Resgate após totalidade da sênior; cronograma fechado não identificado",
+        "Volume": "Até R$ 105 mi; 105 mil cotas",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "01/04/2026",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Resultado da colocação não localizado",
+        "Fonte": "Fundos.NET ID 1153512 · 01/04/2026 · p. 2,4 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+        "Status curadoria": "Conferência visual de PDF com codificação de texto corrompida"
+      },
+      {
+        "Cota/Classe": "3ª emissão",
+        "Tipo": "Subordinada júnior",
+        "Remuneração": "Resultado residual; benchmark não validado no suplemento",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "Até R$ 36 mi; 36 mil cotas",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "01/04/2026",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Resultado da colocação não localizado",
+        "Fonte": "Fundos.NET ID 1153512 · 01/04/2026 · p. 2 · data/raw/62310468000130/1153512_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1153512",
+        "Status curadoria": "Conferência visual de PDF com codificação de texto corrompida"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 27,
+      "pdf_count": 4,
+      "pages_analyzed": 22
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/62310468000130.json"
 }

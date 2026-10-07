@@ -581,6 +581,970 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Financiamentos e operações comerciais de cartão de crédito Supplier",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 24-25, 31 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Emissores/cedentes Supplier e seu grupo econômico",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 25, 29, 31 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Titulares de cartão vinculados às operações comerciais/financiamentos",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 23-25, 33-34 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Seguro de crédito distingue limites; cobertura efetiva exige apólice/contrato",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 33-35 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Direitos adimplentes; vencimento ≤ 180 dias; prazo médio ponderado ≤ 90 dias",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 33-35 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Verificação por titular e direito; cessão parcial de um direito não admitida, respeitadas operações comerciais individualizadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Verificação por titular e direito; cessão parcial de um direito não admitida, respeitadas operações comerciais individualizadas."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Titular/grupo sem seguro: maior de 1,25% PL e R$ 2,5 mi; com seguro: maior de 4%/2% PL e R$ 4 mi",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 34-35 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Seguro: 4% do PL nos primeiros 3 meses, 2% depois; estabelecimento: maior de 50% PL/R$100mi até 18 meses, 40% PL/R$80mi depois. Não inferir limites por IME agregado.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Seguro: 4% do PL nos primeiros 3 meses, 2% depois; estabelecimento: maior de 50% PL/R$100mi até 18 meses, 40% PL/R$80mi depois. Não inferir limites por IME agregado."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "(Sênior − outros ativos)/(PL − outros ativos) ≤95,5% numérico; extenso divergente",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 29, 62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Documento registra 95,5% numérico e noventa e cinco inteiros e cinco centésimos por extenso (95,05%); confirmar com administrador. Razão ajusta outros ativos e não equivale diretamente à subordinada/PL.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Documento registra 95,5% numérico e noventa e cinco inteiros e cinco centésimos por extenso (95,05%); confirmar com administrador. Razão ajusta outros ativos e não equivale diretamente à subordinada/PL."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "DCV > 15%; DCV30 > 10%; DCV120 > 6%; DCV180 > 7% em 2 meses seguidos ou 3 alternados",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 23-24, 76 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Janelas jurídicas: <30d, 30–<120d, 120–<180d e ≥180d. Denominadores dos três primeiros excluem operações provisionadas; DCV180 usa histórico adquirido e cedido. Alternados na janela de 180 dias. Reserva/alocação/garantia: cura 5 DU.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Janelas jurídicas: <30d, 30–<120d, 120–<180d e ≥180d. Denominadores dos três primeiros excluem operações provisionadas; DCV180 usa histórico adquirido e cedido. Alternados na janela de 180 dias. Reserva/alocação/garantia: cura 5 DU."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "3 meses de encargos estimados + reserva de liquidez de 3% do VP dos direitos",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 75 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "O denominador da reserva de liquidez é valor presente dos direitos creditórios, não PL.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "O denominador da reserva de liquidez é valor presente dos direitos creditórios, não PL."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Operações com derivativos vedadas",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 32 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível do CNPJ 50988212000105: ID 1013021 (14/11/2024), data/raw/50988212000105/1013021_regulamento.pdf; ID 743214 (19/09/2024), data/raw/50988212000105/743214_regulamento.pdf",
+      "notes": "Lacuna documental explícita; requer instrumento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Excesso de spread",
+      "canonical_key": "documentary_excesso_de_spread",
+      "threshold_display": "≥ 2,50% a.a.; evento após 2 verificações seguidas ou 3 alternadas em 180 dias",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 62, 76 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Direitos creditórios entre 67% e 100% do PL",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "direto com validação",
+        "ime_metric": "Direitos creditórios / PL; validar ativo elegível, período e denominador",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Aquisições recorrentes pelo potencial de cessão e reenquadramento",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 74-75 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Prazo de 30 anos; investidores profissionais",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 18, 31 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Responsabilidade do cedente pela existência/formalização; regras completas no contrato de cessão",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 57 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Contrato não obtido nesta leitura; não certificar todos os motivos e preços de recompra.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Contrato não obtido nesta leitura; não certificar todos os motivos e preços de recompra."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Cedentes sem coobrigação; operações podem ter coobrigação do estabelecimento",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 57 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "A ausência de coobrigação do Supplier não elimina obrigação específica do estabelecimento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "A ausência de coobrigação do Supplier não elimina obrigação específica do estabelecimento."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Encargos → reservas → remuneração/amortização sênior → subordinadas → aquisições",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 74-75 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Na liquidação: encargos/reserva de encerramento, resgate integral sênior, depois subordinadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Na liquidação: encargos/reserva de encerramento, resgate integral sênior, depois subordinadas."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão , as informações necessárias para que o Custod…",
+      "source_excerpt": "dimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão , as informações necessárias para que o Custod…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "das e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…",
+      "source_excerpt": "das e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. - 20 - 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anterior, a alte…",
+      "source_excerpt": "rações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. - 20 - 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anterior, a alte…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ido expressamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respo…",
+      "source_excerpt": "ido expressamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…",
+      "source_excerpt": "4, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao valo…",
+      "source_excerpt": "pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao valo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “Bacen”: Banco Central do Brasil; 18) “Base de Dados do Fundo”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…",
+      "source_excerpt": "Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “Bacen”: Banco Central do Brasil; 18) “Base de Dados do Fundo”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de crédito seguida pelos Cedentes, descrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) “Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa ser uti…",
+      "source_excerpt": "de crédito seguida pelos Cedentes, descrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) “Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa ser uti…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item ( 5.2 ) acima, ser á efetuad a pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pel o respectivo Cedente , no respectivo Layout de Cessão . 5 .2.1.1 Caberá ao respectivo Cedente encaminhar , no respectivo Layout de Cessão , as informações necessárias para que o Custod…",
+      "source_excerpt": "os Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item ( 5.2 ) acima, ser á efetuad a pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pel o respectivo Cedente , no respectivo Layout de Cessão . 5 .2.1.1 Caberá ao respectivo Cedente encaminhar , no respectivo Layout de Cessão , as informações necessárias para que o Custod…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade , após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…",
+      "source_excerpt": "as e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade , após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", contado do recebimento da notificação que o info rme sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item ( 11.6 ) deste Regulamento. DocuSign Envelope ID: C0D9A1A0-6CF1-4E00-8005-57089353FCAA - 20 - 5.7.1. Na hipótese d e o Custodiante requerer o término do Contrato de Custódia, nos termos do item ( 5.7 ) anterior, a alt…",
+      "source_excerpt": ", contado do recebimento da notificação que o info rme sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item ( 11.6 ) deste Regulamento. DocuSign Envelope ID: C0D9A1A0-6CF1-4E00-8005-57089353FCAA - 20 - 5.7.1. Na hipótese d e o Custodiante requerer o término do Contrato de Custódia, nos termos do item ( 5.7 ) anterior, a alt…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "expressamente autorizado a atuar em nome da referida Pessoa; 6) “ Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “ Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respon…",
+      "source_excerpt": "expressamente autorizado a atuar em nome da referida Pessoa; 6) “ Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “ Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respon…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "07 , sala 20 2 , Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001 - 20 ; 9) “ Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…",
+      "source_excerpt": "07 , sala 20 2 , Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001 - 20 ; 9) “ Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "elo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao val…",
+      "source_excerpt": "elo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao val…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30 , DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo , conforme previsto no item ( 22.1 ) do Capítulo XX II ; 16) “ B3 ”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “ Bacen ”: Banco Central do Brasil; 18) “ Base de Dados do Fundo ”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…",
+      "source_excerpt": "pread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30 , DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo , conforme previsto no item ( 22.1 ) do Capítulo XX II ; 16) “ B3 ”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “ Bacen ”: Banco Central do Brasil; 18) “ Base de Dados do Fundo ”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dito seguida pelos Cedente s, descrita resumidamente no Anexo I I e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração do s Contrato s de Cessão; 101) “ Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta , que, observadas as disposições do presente Regulamento , possa ser ut…",
+      "source_excerpt": "dito seguida pelos Cedente s, descrita resumidamente no Anexo I I e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração do s Contrato s de Cessão; 101) “ Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta , que, observadas as disposições do presente Regulamento , possa ser ut…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…",
+      "source_excerpt": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…",
+      "source_excerpt": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…",
+      "source_excerpt": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "PRÉXDI válida no dia da cessão de acordo com o prazo médio ponderado pelo valor de face truncado, em dias úteis, dos títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aq…",
+      "source_excerpt": "PRÉXDI válida no dia da cessão de acordo com o prazo médio ponderado pelo valor de face truncado, em dias úteis, dos títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aq…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aquisição preponderante de Direitos Creditórios Elegíveis de acordo com a política de investimento descrita no Capítulo…",
+      "source_excerpt": "títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aquisição preponderante de Direitos Creditórios Elegíveis de acordo com a política de investimento descrita no Capítulo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "belece que o Fundo deve destinar-se, primordialmente, à aplicação em Direitos Creditórios. Nesse sentido, a continuidade do Fundo pode ser comprometida, independentemente de qualquer expectativa por parte de Cotistas quanto ao tempo de duração de seus investimentos no Fundo, em função da descontinuidade das operações regulares dos Cedentes, da Supplier, da capacidade dos Cedentes e/ou da Supplier, nos termos do Cont…",
+      "source_excerpt": "belece que o Fundo deve destinar-se, primordialmente, à aplicação em Direitos Creditórios. Nesse sentido, a continuidade do Fundo pode ser comprometida, independentemente de qualquer expectativa por parte de Cotistas quanto ao tempo de duração de seus investimentos no Fundo, em função da descontinuidade das operações regulares dos Cedentes, da Supplier, da capacidade dos Cedentes e/ou da Supplier, nos termos do Cont…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s integrantes da carteira do Fundo, eventualmente recebidos pelos Cedentes, também poderão afetar negativamente os resultados do Fundo. p) Risco dos Cedentes. Qualquer um dos Cedentes, sem prejuízo das penalidades previstas no respectivo Contrato de Cessão, pode, a qualquer momento, deixar de ceder Direitos Creditórios ao Fundo. Assim, o Fundo poderá ser adversamente afetado na hipótese de descontinuidade das operaç…",
+      "source_excerpt": "s integrantes da carteira do Fundo, eventualmente recebidos pelos Cedentes, também poderão afetar negativamente os resultados do Fundo. p) Risco dos Cedentes. Qualquer um dos Cedentes, sem prejuízo das penalidades previstas no respectivo Contrato de Cessão, pode, a qualquer momento, deixar de ceder Direitos Creditórios ao Fundo. Assim, o Fundo poderá ser adversamente afetado na hipótese de descontinuidade das operaç…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ito atestada e receba os recursos referentes aos Direitos Creditórios cedidos. A rentabilidade do Fundo poderá ser afetada negativamente, seja pelos custos, seja pela demora no julgamento da ação. 12.4. Quanto aos riscos de Mercado, destacam-se, de forma não taxativa: a) Descasamento de Rentabilidade. A distribuição dos rendimentos da carteira do Fundo para as Cotas pode ter parâmetros diferentes daqueles utilizados…",
+      "source_excerpt": "ito atestada e receba os recursos referentes aos Direitos Creditórios cedidos. A rentabilidade do Fundo poderá ser afetada negativamente, seja pelos custos, seja pela demora no julgamento da ação. 12.4. Quanto aos riscos de Mercado, destacam-se, de forma não taxativa: a) Descasamento de Rentabilidade. A distribuição dos rendimentos da carteira do Fundo para as Cotas pode ter parâmetros diferentes daqueles utilizados…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…",
+      "source_excerpt": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…",
+      "source_excerpt": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…",
+      "source_excerpt": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ministradora, por conta e ordem do Fundo, responsável pela classificação de risco das Cotas Seniores; 5) Agentemandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6) Agente Cobrador BancárioFundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) Agente de CobrançaFundo, para ser…",
+      "source_excerpt": "ministradora, por conta e ordem do Fundo, responsável pela classificação de risco das Cotas Seniores; 5) Agentemandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6) Agente Cobrador BancárioFundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) Agente de CobrançaFundo, para ser…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ladoria: Oliveira Trust Servicer S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do…",
+      "source_excerpt": "ladoria: Oliveira Trust Servicer S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…",
+      "source_excerpt": "ra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "haver a necessidade de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) B3 Brasil, Bolsa, Balcão; 17) Bacen 18) Base de Dados do Fundocerta…",
+      "source_excerpt": "haver a necessidade de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) B3 Brasil, Bolsa, Balcão; 17) Bacen 18) Base de Dados do Fundocerta…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ediante protocolo de recebimento, na data de celebração dos Contratos de Cobrança; 100) Política de Concessão de Créditodescrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) Potencial de Cessãodo Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa s…",
+      "source_excerpt": "ediante protocolo de recebimento, na data de celebração dos Contratos de Cobrança; 100) Política de Concessão de Créditodescrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) Potencial de Cessãodo Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa s…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…",
+      "source_excerpt": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "resas controladas e controladoras do Titular. 5.3.Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4.A perda superveniente, por qualquer motivo, pelo Direito Creditó…",
+      "source_excerpt": "resas controladas e controladoras do Titular. 5.3.Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4.A perda superveniente, por qualquer motivo, pelo Direito Creditó…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "corde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1.Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…",
+      "source_excerpt": "corde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1.Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "administrador, empregado, prestador de serviços, preposto ou mandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6)Agente Cobrador Bancáriocelebrado contrato com o Fundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7)Agente de CobrançaAdministrador, em nome do Fundo, para ser…",
+      "source_excerpt": "administrador, empregado, prestador de serviços, preposto ou mandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6)Agente Cobrador Bancáriocelebrado contrato com o Fundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7)Agente de CobrançaAdministrador, em nome do Fundo, para ser…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9)Agente de FinanciamentoInstituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do…",
+      "source_excerpt": "as Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9)Agente de FinanciamentoInstituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "te contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…",
+      "source_excerpt": "te contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16)B3 Brasil, Bolsa, Balcão; 17)Bacen 18)Base de Dados do FundoCustodiante, contendo certas…",
+      "source_excerpt": "de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16)B3 Brasil, Bolsa, Balcão; 17)Bacen 18)Base de Dados do FundoCustodiante, contendo certas…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de carteira de títulos e valores mobiliários por meio do Ato Declaratório CVM n.º 6.696, de 21 de fevereiro de 2002, com sede cidade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 46)CVMários; 47)Data de Amortizaçãoamortização das Cotas Seniores, conforme disposto em seu respectivo Suplemento; 48)…",
+      "source_excerpt": "de carteira de títulos e valores mobiliários por meio do Ato Declaratório CVM n.º 6.696, de 21 de fevereiro de 2002, com sede cidade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 46)CVMários; 47)Data de Amortizaçãoamortização das Cotas Seniores, conforme disposto em seu respectivo Suplemento; 48)…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…",
+      "source_excerpt": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…",
+      "source_excerpt": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…",
+      "source_excerpt": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…",
+      "source_excerpt": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…",
+      "source_excerpt": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…",
+      "source_excerpt": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…",
+      "source_excerpt": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…",
+      "source_excerpt": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…",
+      "source_excerpt": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…",
+      "source_excerpt": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…",
+      "source_excerpt": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…",
+      "source_excerpt": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…",
+      "source_excerpt": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…",
+      "source_excerpt": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Subclasses sênior e subordinada; séries concretas não individualizadas",
+      "amount_display": "VNU inicial de R$ 1.000; volume efetivo não localizado",
+      "remuneration": "Benchmark sênior remetido ao apêndice; spread final não localizado",
+      "amortization_schedule": "Datas e parcelas da sênior remetidas ao apêndice; cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021; Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021; Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-61, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021; Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-62, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "extraction_count": 26,
+  "extraction_errors": [
+    {
+      "document_id": 743210,
+      "source_file": "data/raw/50988212000105/743210_assembleia_assembleia_743210_2024-09-19.pdf",
+      "error": "RuntimeError: PDF sem texto extraível: 743210_assembleia_assembleia_743210_2024-09-19.pdf"
+    }
+  ],
+  "review_notes": [
+    {
+      "reviewed_at": "2026-10-07T15:17:45-03:00",
+      "document_status": "Documentos locais revisados; lacunas e divergências assinaladas",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode estar preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 1013021,
+          "kind": "regulamento",
+          "date": "14/11/2024",
+          "path": "data/raw/50988212000105/1013021_regulamento.pdf",
+          "text_path": "data/raw/50988212000105/1013021_regulamento.full.txt",
+          "identity_verified": true,
+          "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+          "pages": 105,
+          "extractable_pages": 105,
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 743214,
+          "kind": "regulamento",
+          "date": "19/09/2024",
+          "path": "data/raw/50988212000105/743214_regulamento.pdf",
+          "text_path": "data/raw/50988212000105/743214_regulamento.full.txt",
+          "identity_verified": true,
+          "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+          "pages": 105,
+          "extractable_pages": 105,
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário preservado do cache; consulta atual: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+        "Taxa de gestão: discrepâncias de percentual numérico/extenso na cláusula 9.2.",
+        "Séries, sobretaxas e calendários individuais não identificados nos modelos do regulamento.",
+        "Razão de garantia: número95,5% e extenso95,05% divergem na cláusula14.7; confirmar limite aplicável com administrador."
+      ],
+      "inventory_count": 41,
+      "pdf_count": 2,
+      "pages_analyzed": 210,
+      "extraction_errors": [],
+      "review_id": "documentary_comparisons_20261007",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/50988212000105.json"
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T15:17:45-03:00",
+    "inventory_count": 41,
+    "pdf_count": 2,
+    "pages_analyzed": 210,
+    "sources_reviewed": [
+      {
+        "document_id": 1013021,
+        "kind": "regulamento",
+        "date": "14/11/2024",
+        "path": "data/raw/50988212000105/1013021_regulamento.pdf",
+        "text_path": "data/raw/50988212000105/1013021_regulamento.full.txt",
+        "identity_verified": true,
+        "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+        "pages": 105,
+        "extractable_pages": 105,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 743214,
+        "kind": "regulamento",
+        "date": "19/09/2024",
+        "path": "data/raw/50988212000105/743214_regulamento.pdf",
+        "text_path": "data/raw/50988212000105/743214_regulamento.full.txt",
+        "identity_verified": true,
+        "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+        "pages": 105,
+        "extractable_pages": 105,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "documents": [
+      {
+        "document_id": 505364,
+        "classification": "outro",
+        "categoria": "Outras Informações",
+        "tipo": "Outros Documentos",
+        "especie": "",
+        "reference_date": "30/06/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 552623,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "09/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 525792,
+        "classification": "regulamento",
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "reference_date": "22/09/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 525794,
+        "classification": "regulamento",
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "reference_date": "22/09/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 530370,
+        "classification": "emissao",
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "reference_date": "29/09/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 532694,
+        "classification": "emissao",
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "reference_date": "06/10/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 560274,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "03/11/2023 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 560278,
+        "classification": "regulamento",
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "reference_date": "03/11/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 563739,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "27/11/2023 17:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 563742,
+        "classification": "regulamento",
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "reference_date": "27/11/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 563748,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "01/12/2023 17:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 563751,
+        "classification": "regulamento",
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "reference_date": "01/12/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 602432,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "12/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 572310,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "14/12/2023 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 594597,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "reference_date": "31/12/2023",
+        "status": "AC"
+      },
+      {
+        "document_id": 661385,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "03/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 686900,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "17/05/2024 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 668399,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "23/05/2024 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 718160,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "06/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 703755,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "22/07/2024 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 783451,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "09/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 743210,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "19/09/2024 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 743214,
+        "classification": "regulamento",
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "reference_date": "19/09/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 1013021,
+        "classification": "regulamento",
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "reference_date": "14/11/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 841371,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "12/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 827024,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "reference_date": "31/12/2024",
+        "status": "AC"
+      },
+      {
+        "document_id": 847597,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGO/E",
+        "especie": "Ata da Assembleia",
+        "reference_date": "25/02/2025 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 904642,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "03/2025",
+        "status": "AC"
+      },
+      {
+        "document_id": 860470,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "17/03/2025 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 969108,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "06/2025",
+        "status": "AC"
+      },
+      {
+        "document_id": 950312,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "21/07/2025 12:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 955275,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "28/07/2025 17:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 961955,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "06/08/2025 17:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 963870,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "08/08/2025 17:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 975860,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "21/08/2025 17:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 1037341,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "09/2025",
+        "status": "AC"
+      },
+      {
+        "document_id": 986754,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "05/09/2025 10:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 1111910,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "12/2025",
+        "status": "AC"
+      },
+      {
+        "document_id": 1098450,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "reference_date": "31/12/2025",
+        "status": "AC"
+      },
+      {
+        "document_id": 1094865,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "27/01/2026 11:00",
+        "status": "AC"
+      },
+      {
+        "document_id": 1196752,
+        "classification": "outro",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "03/2026",
+        "status": "AC"
+      }
+    ],
+    "errors": [
+      "Inventário preservado do cache; consulta atual: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Taxa de gestão: discrepâncias de percentual numérico/extenso na cláusula 9.2.",
+      "Séries, sobretaxas e calendários individuais não identificados nos modelos do regulamento.",
+      "Razão de garantia: número95,5% e extenso95,05% divergem na cláusula14.7; confirmar limite aplicável com administrador."
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Alocação mínima em direitos creditórios",
       "canonical_key": "credit_rights_allocation_min",
       "event_type": "enquadramento",
@@ -1641,279 +2605,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão , as informações necessárias para que o Custod…",
-      "source_excerpt": "dimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão , as informações necessárias para que o Custod…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "das e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…",
-      "source_excerpt": "das e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. - 20 - 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anterior, a alte…",
-      "source_excerpt": "rações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. - 20 - 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anterior, a alte…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ido expressamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respo…",
-      "source_excerpt": "ido expressamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…",
-      "source_excerpt": "4, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao valo…",
-      "source_excerpt": "pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao valo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “Bacen”: Banco Central do Brasil; 18) “Base de Dados do Fundo”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…",
-      "source_excerpt": "Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “Bacen”: Banco Central do Brasil; 18) “Base de Dados do Fundo”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de crédito seguida pelos Cedentes, descrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) “Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa ser uti…",
-      "source_excerpt": "de crédito seguida pelos Cedentes, descrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) “Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa ser uti…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item ( 5.2 ) acima, ser á efetuad a pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pel o respectivo Cedente , no respectivo Layout de Cessão . 5 .2.1.1 Caberá ao respectivo Cedente encaminhar , no respectivo Layout de Cessão , as informações necessárias para que o Custod…",
-      "source_excerpt": "os Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item ( 5.2 ) acima, ser á efetuad a pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pel o respectivo Cedente , no respectivo Layout de Cessão . 5 .2.1.1 Caberá ao respectivo Cedente encaminhar , no respectivo Layout de Cessão , as informações necessárias para que o Custod…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "as e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade , após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…",
-      "source_excerpt": "as e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade , após o pagamento de Preço de Aqu isição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, d o at…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", contado do recebimento da notificação que o info rme sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item ( 11.6 ) deste Regulamento. DocuSign Envelope ID: C0D9A1A0-6CF1-4E00-8005-57089353FCAA - 20 - 5.7.1. Na hipótese d e o Custodiante requerer o término do Contrato de Custódia, nos termos do item ( 5.7 ) anterior, a alt…",
-      "source_excerpt": ", contado do recebimento da notificação que o info rme sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item ( 11.6 ) deste Regulamento. DocuSign Envelope ID: C0D9A1A0-6CF1-4E00-8005-57089353FCAA - 20 - 5.7.1. Na hipótese d e o Custodiante requerer o término do Contrato de Custódia, nos termos do item ( 5.7 ) anterior, a alt…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "expressamente autorizado a atuar em nome da referida Pessoa; 6) “ Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “ Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respon…",
-      "source_excerpt": "expressamente autorizado a atuar em nome da referida Pessoa; 6) “ Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com o Fundo e o Custodiante , cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “ Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Administrador, em nome do Fundo, para ser respon…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "07 , sala 20 2 , Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001 - 20 ; 9) “ Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…",
-      "source_excerpt": "07 , sala 20 2 , Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001 - 20 ; 9) “ Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrim…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "elo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao val…",
-      "source_excerpt": "elo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios ; 10) “ Alocação Mínima de Investimento ”: Significa a alocação de, pelo menos, 50% (cinquenta por cent o) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao val…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30 , DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo , conforme previsto no item ( 22.1 ) do Capítulo XX II ; 16) “ B3 ”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “ Bacen ”: Banco Central do Brasil; 18) “ Base de Dados do Fundo ”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…",
-      "source_excerpt": "pread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30 , DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo , conforme previsto no item ( 22.1 ) do Capítulo XX II ; 16) “ B3 ”: B3 S.A. – Brasil, Bolsa, Balcão; 17) “ Bacen ”: Banco Central do Brasil; 18) “ Base de Dados do Fundo ”: base de dados, atualizada diariamente pelo Custodiante, contendo certas info…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dito seguida pelos Cedente s, descrita resumidamente no Anexo I I e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração do s Contrato s de Cessão; 101) “ Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta , que, observadas as disposições do presente Regulamento , possa ser ut…",
-      "source_excerpt": "dito seguida pelos Cedente s, descrita resumidamente no Anexo I I e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração do s Contrato s de Cessão; 101) “ Potencial de Cessão ”: o valor das disponibilidades, em moeda corrente nacional, de titularidade do Fundo, apurado em cada Data de Oferta , que, observadas as disposições do presente Regulamento , possa ser ut…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…",
-      "source_excerpt": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…",
-      "source_excerpt": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…",
-      "source_excerpt": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "PRÉXDI válida no dia da cessão de acordo com o prazo médio ponderado pelo valor de face truncado, em dias úteis, dos títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aq…",
-      "source_excerpt": "PRÉXDI válida no dia da cessão de acordo com o prazo médio ponderado pelo valor de face truncado, em dias úteis, dos títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aq…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aquisição preponderante de Direitos Creditórios Elegíveis de acordo com a política de investimento descrita no Capítulo…",
-      "source_excerpt": "títulos ofertados. SpreadSen Conforme definido no item (16.1 abaixo ECT Excesso de Caixa Target de 10% Reserva de Despesas Equivalente a 0.4% a.a. DocuSign Envelope ID: A99ED7F6-37EB-424F-A6F6-566104F51534 - 22 - CAPÍTULO III DA NATUREZA DO FUNDO 3.1. O Fundo é uma comunhão de recursos destinados à aquisição preponderante de Direitos Creditórios Elegíveis de acordo com a política de investimento descrita no Capítulo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "belece que o Fundo deve destinar-se, primordialmente, à aplicação em Direitos Creditórios. Nesse sentido, a continuidade do Fundo pode ser comprometida, independentemente de qualquer expectativa por parte de Cotistas quanto ao tempo de duração de seus investimentos no Fundo, em função da descontinuidade das operações regulares dos Cedentes, da Supplier, da capacidade dos Cedentes e/ou da Supplier, nos termos do Cont…",
-      "source_excerpt": "belece que o Fundo deve destinar-se, primordialmente, à aplicação em Direitos Creditórios. Nesse sentido, a continuidade do Fundo pode ser comprometida, independentemente de qualquer expectativa por parte de Cotistas quanto ao tempo de duração de seus investimentos no Fundo, em função da descontinuidade das operações regulares dos Cedentes, da Supplier, da capacidade dos Cedentes e/ou da Supplier, nos termos do Cont…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s integrantes da carteira do Fundo, eventualmente recebidos pelos Cedentes, também poderão afetar negativamente os resultados do Fundo. p) Risco dos Cedentes. Qualquer um dos Cedentes, sem prejuízo das penalidades previstas no respectivo Contrato de Cessão, pode, a qualquer momento, deixar de ceder Direitos Creditórios ao Fundo. Assim, o Fundo poderá ser adversamente afetado na hipótese de descontinuidade das operaç…",
-      "source_excerpt": "s integrantes da carteira do Fundo, eventualmente recebidos pelos Cedentes, também poderão afetar negativamente os resultados do Fundo. p) Risco dos Cedentes. Qualquer um dos Cedentes, sem prejuízo das penalidades previstas no respectivo Contrato de Cessão, pode, a qualquer momento, deixar de ceder Direitos Creditórios ao Fundo. Assim, o Fundo poderá ser adversamente afetado na hipótese de descontinuidade das operaç…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ito atestada e receba os recursos referentes aos Direitos Creditórios cedidos. A rentabilidade do Fundo poderá ser afetada negativamente, seja pelos custos, seja pela demora no julgamento da ação. 12.4. Quanto aos riscos de Mercado, destacam-se, de forma não taxativa: a) Descasamento de Rentabilidade. A distribuição dos rendimentos da carteira do Fundo para as Cotas pode ter parâmetros diferentes daqueles utilizados…",
-      "source_excerpt": "ito atestada e receba os recursos referentes aos Direitos Creditórios cedidos. A rentabilidade do Fundo poderá ser afetada negativamente, seja pelos custos, seja pela demora no julgamento da ação. 12.4. Quanto aos riscos de Mercado, destacam-se, de forma não taxativa: a) Descasamento de Rentabilidade. A distribuição dos rendimentos da carteira do Fundo para as Cotas pode ter parâmetros diferentes daqueles utilizados…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…",
-      "source_excerpt": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…",
-      "source_excerpt": "sas controladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditó…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…",
-      "source_excerpt": "orde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1. Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ministradora, por conta e ordem do Fundo, responsável pela classificação de risco das Cotas Seniores; 5) Agentemandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6) Agente Cobrador BancárioFundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) Agente de CobrançaFundo, para ser…",
-      "source_excerpt": "ministradora, por conta e ordem do Fundo, responsável pela classificação de risco das Cotas Seniores; 5) Agentemandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6) Agente Cobrador BancárioFundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) Agente de CobrançaFundo, para ser…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ladoria: Oliveira Trust Servicer S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do…",
-      "source_excerpt": "ladoria: Oliveira Trust Servicer S.A., sociedade com sede na Cidade do Rio de Janeiro, Estado do Rio de Janeiro, na Avenida das Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…",
-      "source_excerpt": "ra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) Agente de Financiamentointermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) Alocação Mínima de Investimentocento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "haver a necessidade de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) B3 Brasil, Bolsa, Balcão; 17) Bacen 18) Base de Dados do Fundocerta…",
-      "source_excerpt": "haver a necessidade de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16) B3 Brasil, Bolsa, Balcão; 17) Bacen 18) Base de Dados do Fundocerta…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ediante protocolo de recebimento, na data de celebração dos Contratos de Cobrança; 100) Política de Concessão de Créditodescrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) Potencial de Cessãodo Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa s…",
-      "source_excerpt": "ediante protocolo de recebimento, na data de celebração dos Contratos de Cobrança; 100) Política de Concessão de Créditodescrita resumidamente no Anexo II e contida em manual a ser entregue à Administradora, mediante protocolo de recebimento, na data de celebração dos Contratos de Cessão; 101) Potencial de Cessãodo Fundo, apurado em cada Data de Oferta, que, observadas as disposições do presente Regulamento, possa s…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…",
-      "source_excerpt": "do atendimento dos Direitos Creditórios aos Critérios de Elegibilidade previstos nas alíneas (c) e (d) do item (5.2) acima, será efetuada pelo Custodiante, mediante identificação do Titular e/ou do Estabelecimento, conforme o caso, informados pelo respectivo Cedente, no respectivo Layout de Cessão. 5.2.1.1 Caberá ao respectivo Cedente encaminhar, no respectivo Layout de Cessão, as informações necessárias para que o…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "resas controladas e controladoras do Titular. 5.3.Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4.A perda superveniente, por qualquer motivo, pelo Direito Creditó…",
-      "source_excerpt": "resas controladas e controladoras do Titular. 5.3.Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4.A perda superveniente, por qualquer motivo, pelo Direito Creditó…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "corde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1.Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…",
-      "source_excerpt": "corde com tais alterações, esse deverá requerer, no prazo de 15 (quinze) Dias Úteis, contado do recebimento da notificação que o informe sobre a referida alteração deste Regulamento, a resilição do Contrato de Custódia, sem prejuízo do exercício de suas atividades pelo prazo do item (11.6) deste Regulamento. 5.7.1.Na hipótese de o Custodiante requerer o término do Contrato de Custódia, nos termos do item (5.7) anter…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "administrador, empregado, prestador de serviços, preposto ou mandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6)Agente Cobrador Bancáriocelebrado contrato com o Fundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7)Agente de CobrançaAdministrador, em nome do Fundo, para ser…",
-      "source_excerpt": "administrador, empregado, prestador de serviços, preposto ou mandatário de qualquer Pessoa que tenha sido expressamente autorizado a atuar em nome da referida Pessoa; 6)Agente Cobrador Bancáriocelebrado contrato com o Fundo e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7)Agente de CobrançaAdministrador, em nome do Fundo, para ser…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "as Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9)Agente de FinanciamentoInstituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do…",
-      "source_excerpt": "as Américas, nº 3434, bloco 07, sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9)Agente de FinanciamentoInstituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "te contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…",
-      "source_excerpt": "te contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10)Alocação Mínima de InvestimentoSignifica a alocação de, pelo menos, 50% (cinquenta por cento) do Patrimônio Líquido do Fundo em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16)B3 Brasil, Bolsa, Balcão; 17)Bacen 18)Base de Dados do FundoCustodiante, contendo certas…",
-      "source_excerpt": "de reenquadramento da Razão de Garantia, da Alocação Mínima de Investimento, do valor mínimo de Excesso de Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item (22.1) do Capítulo XXII; 16)B3 Brasil, Bolsa, Balcão; 17)Bacen 18)Base de Dados do FundoCustodiante, contendo certas…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de carteira de títulos e valores mobiliários por meio do Ato Declaratório CVM n.º 6.696, de 21 de fevereiro de 2002, com sede cidade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 46)CVMários; 47)Data de Amortizaçãoamortização das Cotas Seniores, conforme disposto em seu respectivo Suplemento; 48)…",
-      "source_excerpt": "de carteira de títulos e valores mobiliários por meio do Ato Declaratório CVM n.º 6.696, de 21 de fevereiro de 2002, com sede cidade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 46)CVMários; 47)Data de Amortizaçãoamortização das Cotas Seniores, conforme disposto em seu respectivo Suplemento; 48)…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…",
-      "source_excerpt": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…",
-      "source_excerpt": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…",
-      "source_excerpt": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…",
-      "source_excerpt": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…",
-      "source_excerpt": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…",
-      "source_excerpt": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…",
-      "source_excerpt": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…",
-      "source_excerpt": "ladas e controladoras do Titular. 5.3. Observados os termos e as condições do Contrato de Cessão, a cessão de Direitos Creditórios será considerada realizada após a verificação e validação do atendimento pelos Direitos Creditórios aos Critérios de Elegibilidade, após o pagamento de Preço de Aquisição, como definitiva, perfeita e acabada. 5.4. A perda superveniente, por qualquer motivo, pelo Direito Creditório, do at…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…",
-      "source_excerpt": "essamente autorizado a atuar em nome da referida Pessoa; 6) “Agente Cobrador Bancário ”: qualquer Instituição Autorizada que tenha celebrado contrato com a Classe Única e o Custodiante, cujo objeto e atribuições sejam substancialmente equivalentes às avenças contidas no Contrato de Cobrança Bancária; 7) “Agente de Cobrança ”: Significa o Cedente, a ser contratado pelo Gestor, em nome d a Classe Única, para ser respo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…",
-      "source_excerpt": ", sala 202, Barra da Tijuca, inscrita no CNPJ sob o nº 02.150.453/0001-20; 9) “Agente de Financiamento ”: Instituição financeira a ser eventualmente contratada pelo devedor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Lí…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…",
-      "source_excerpt": "dor por intermédio da Supplier para quitação do saldo devedor remanescente em caso de inadimplência dos Direitos Creditórios; 10) “Alocação Mínima de Investimento”: Significa a alocação de, pelo menos, 67% (sessenta e sete por cento) do Patrimônio Líquido da Classe Única em Direitos Creditórios Elegíveis. Para fins de entendimento, a presente alocação será controlada por uma fração cujo numerador é equivalente ao va…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…",
-      "source_excerpt": "Spread, da Reserva de Caixa e/ou da Reserva de Liquidez, ou caso os índices DCV, DCV 30, DCV 120, DCV 180 atinjam valores superiores àqueles previstos no neste Capítulo, conforme previsto no item ( 23.1) do Capítulo XXIII; 17) “B3”: B3 S.A. – Brasil, Bolsa, Balcão; 18) “Bacen”: Banco Central do Brasil; 19) “Base de Dados da Classe Única”: base de dados, atualizada diariamente pelo Custodiante, contendo certas inform…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…",
-      "source_excerpt": "dade do Rio de Janeiro, no estado do Rio de Janeiro, na Avenida das Américas, n.º 3.434, bloco 07, sala 201, Barra da Tijuca, inscrita no CNPJ sob o n.º 36.113.876/0001-91; 23 50) “CVM”: Comissão de Valores Mobiliários; 51) “Data de Amortização”: é a respectiva data de amortização das Cotas Seniores, conforme disposto em seu respectivo Apêndice; 52) “Data de Aquisição ”: data em que a Classe Única efetua o pagamento…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…",
-      "source_excerpt": "a por qualquer um dos Cedentes de seus deveres e obrigações previstos nos Documentos da Securitização, desde que, notificada pela Administradora para regularizar ou justificar o descumprimento, o Cedente inadimplente não o faça no prazo de 30 (trinta) dias, contado do recebimento da referida notificação; 76 b) inobservância por qualquer um dos Cedentes da vedação quanto à cessão a Classe Única de Direitos Creditório…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -2251,12 +2943,278 @@
       "source_document_id": 1094865
     }
   ],
-  "extraction_count": 26,
-  "extraction_errors": [
-    {
-      "document_id": 743210,
-      "source_file": "data/raw/50988212000105/743210_assembleia_assembleia_743210_2024-09-19.pdf",
-      "error": "RuntimeError: PDF sem texto extraível: 743210_assembleia_assembleia_743210_2024-09-19.pdf"
+  "documentary_review": {
+    "cnpj": "50988212000105",
+    "label": "Supplier II",
+    "reviewed_at": "2026-10-07T15:17:45-03:00",
+    "document_status": "Documentos locais revisados; lacunas e divergências assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode estar preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Financiamentos e operações comerciais de cartão de crédito Supplier",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 24-25, 31 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Originador/endossante": {
+          "value": "Emissores/cedentes Supplier e seu grupo econômico",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 25, 29, 31 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Devedor": {
+          "value": "Titulares de cartão vinculados às operações comerciais/financiamentos",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 23-25, 33-34 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Garantia": {
+          "value": "Seguro de crédito distingue limites; cobertura efetiva exige apólice/contrato",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 33-35 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Elegibilidade": {
+          "value": "Direitos adimplentes; vencimento ≤ 180 dias; prazo médio ponderado ≤ 90 dias",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 33-35 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Verificação por titular e direito; cessão parcial de um direito não admitida, respeitadas operações comerciais individualizadas."
+        },
+        "Concentração": {
+          "value": "Titular/grupo sem seguro: maior de 1,25% PL e R$ 2,5 mi; com seguro: maior de 4%/2% PL e R$ 4 mi",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 34-35 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Seguro: 4% do PL nos primeiros 3 meses, 2% depois; estabelecimento: maior de 50% PL/R$100mi até 18 meses, 40% PL/R$80mi depois. Não inferir limites por IME agregado."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "(Sênior − outros ativos)/(PL − outros ativos) ≤95,5% numérico; extenso divergente",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 29, 62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Documento registra 95,5% numérico e noventa e cinco inteiros e cinco centésimos por extenso (95,05%); confirmar com administrador. Razão ajusta outros ativos e não equivale diretamente à subordinada/PL."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "DCV > 15%; DCV30 > 10%; DCV120 > 6%; DCV180 > 7% em 2 meses seguidos ou 3 alternados",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 23-24, 76 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Janelas jurídicas: <30d, 30–<120d, 120–<180d e ≥180d. Denominadores dos três primeiros excluem operações provisionadas; DCV180 usa histórico adquirido e cedido. Alternados na janela de 180 dias. Reserva/alocação/garantia: cura 5 DU."
+        },
+        "Reserva de caixa": {
+          "value": "3 meses de encargos estimados + reserva de liquidez de 3% do VP dos direitos",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 75 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "O denominador da reserva de liquidez é valor presente dos direitos creditórios, não PL."
+        },
+        "Derivativos/hedge": {
+          "value": "Operações com derivativos vedadas",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 32 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível do CNPJ 50988212000105: ID 1013021 (14/11/2024), data/raw/50988212000105/1013021_regulamento.pdf; ID 743214 (19/09/2024), data/raw/50988212000105/743214_regulamento.pdf",
+          "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+        },
+        "Excesso de spread": {
+          "value": "≥ 2,50% a.a.; evento após 2 verificações seguidas ou 3 alternadas em 180 dias",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 62, 76 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Direitos creditórios entre 67% e 100% do PL",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Pool/revolvência": {
+          "value": "Aquisições recorrentes pelo potencial de cessão e reenquadramento",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 74-75 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Duração/público-alvo": {
+          "value": "Prazo de 30 anos; investidores profissionais",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 18, 31 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Cessão/recompra": {
+          "value": "Responsabilidade do cedente pela existência/formalização; regras completas no contrato de cessão",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 57 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Contrato não obtido nesta leitura; não certificar todos os motivos e preços de recompra."
+        },
+        "Coobrigação": {
+          "value": "Cedentes sem coobrigação; operações podem ter coobrigação do estabelecimento",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 31, 57 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "A ausência de coobrigação do Supplier não elimina obrigação específica do estabelecimento."
+        },
+        "Waterfall": {
+          "value": "Encargos → reservas → remuneração/amortização sênior → subordinadas → aquisições",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 74-75 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Na liquidação: encargos/reserva de encerramento, resgate integral sênior, depois subordinadas."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Subclasses sênior e subordinada; séries concretas não individualizadas",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "O glossário menciona mezaninos, mas a cláusula operativa 14.2 prevê duas subclasses. Preservar a regra operativa e exigir ato para classe adicional."
+        },
+        "Remuneração": {
+          "value": "Benchmark sênior remetido ao apêndice; spread final não localizado",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Anexos de emissão acessíveis são modelos com campos a preencher."
+        },
+        "Volume/VNU": {
+          "value": "VNU inicial de R$ 1.000; volume efetivo não localizado",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-61, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Ofertas": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível do CNPJ 50988212000105: ID 1013021 (14/11/2024), data/raw/50988212000105/1013021_regulamento.pdf; ID 743214 (19/09/2024), data/raw/50988212000105/743214_regulamento.pdf",
+          "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível do CNPJ 50988212000105: ID 1013021 (14/11/2024), data/raw/50988212000105/1013021_regulamento.pdf; ID 743214 (19/09/2024), data/raw/50988212000105/743214_regulamento.pdf",
+          "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Datas e parcelas da sênior remetidas ao apêndice; cronograma fechado não identificado",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-62, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Vencimento": {
+          "value": "Prazo de cada série remetido ao apêndice",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 60-62, 103-105 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Faixas marginais PL: 0,13% / 0,10% / 0,074% / 0,060% / 0,030%; mínimo R$ 18 mil/mês",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 44-45 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Faixas até R$70mi, R$300mi, R$600mi, R$900mi e excedente; inclui custódia/controladoria. IGP-M positivo anual; R$27mil inicial de controladoria adicional."
+        },
+        "Gestão": {
+          "value": "Faixas numéricas 0,065% / 0,05% / 0,037% / 0,03% / 0,015%; divergência com extenso",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 46-47 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Marginais nos mesmos patamares do PL; extenso de 0,065%, 0,037% e 0,015% equivale a 0,65%, 0,37%, 0,15%. Exige validação do administrador; mínimo mensal não localizado."
+        },
+        "Custódia": {
+          "value": "Incluída na administração; verificação de lastro R$ 5 mil/mês adicional",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 44, 46 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL acompanha alocação; razão ajustada requer validar outros ativos",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 29, 31, 62 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over/PDD são proxies; não reproduzem DCV contratual e seu histórico",
+          "source": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 23-24, 76 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro e eventos exigem acompanhamento documental",
+          "source": "Corpus acessível do CNPJ 50988212000105: ID 1013021 (14/11/2024), data/raw/50988212000105/1013021_regulamento.pdf; ID 743214 (19/09/2024), data/raw/50988212000105/743214_regulamento.pdf",
+          "note": "O IME público agregado não possui contratos e eventos suficientes para certificar as regras."
+        },
+        "Competência IME": {
+          "value": "Cache local: 03/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/49d344b6e3b234479e12977184ec55fbb66f89b3c15e6b692bca1074ccbf2f85/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Recebíveis",
+        "Conclusão": "Supplier II financia operações de cartões, com limites de concentração diferentes conforme seguro."
+      },
+      {
+        "Tema": "Garantia",
+        "Conclusão": "A razão de garantia desconta outros ativos das bases; o limite numérico de95,5% diverge do extenso."
+      },
+      {
+        "Tema": "Perdas",
+        "Conclusão": "Os índices de atraso usam faixas e denominadores próprios; exigem acompanhamento adicional ao IME."
+      },
+      {
+        "Tema": "Custos",
+        "Conclusão": "A taxa de gestão tem divergências entre percentuais numéricos e texto por extenso."
+      }
+    ],
+    "warnings": [
+      "Inventário preservado do cache; consulta atual: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Taxa de gestão: discrepâncias de percentual numérico/extenso na cláusula 9.2.",
+      "Séries, sobretaxas e calendários individuais não identificados nos modelos do regulamento.",
+      "Razão de garantia: número95,5% e extenso95,05% divergem na cláusula14.7; confirmar limite aplicável com administrador."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1013021,
+        "kind": "regulamento",
+        "date": "14/11/2024",
+        "path": "data/raw/50988212000105/1013021_regulamento.pdf",
+        "text_path": "data/raw/50988212000105/1013021_regulamento.full.txt",
+        "identity_verified": true,
+        "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+        "pages": 105,
+        "extractable_pages": 105,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 743214,
+        "kind": "regulamento",
+        "date": "19/09/2024",
+        "path": "data/raw/50988212000105/743214_regulamento.pdf",
+        "text_path": "data/raw/50988212000105/743214_regulamento.full.txt",
+        "identity_verified": true,
+        "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+        "pages": 105,
+        "extractable_pages": 105,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 41,
+    "pdf_count": 2,
+    "pages_analyzed": 210,
+    "extraction_errors": [],
+    "emissions_rows": [],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Faixas marginais PL: 0,13% / 0,10% / 0,074% / 0,060% / 0,030%; mínimo R$ 18 mil/mês",
+        "Mínimo mensal": "R$18.000/mês",
+        "Fonte": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 44-45 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+        "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+        "Mudanças relevantes": "Faixas até R$70mi, R$300mi, R$600mi, R$900mi e excedente; inclui custódia/controladoria. IGP-M positivo anual; R$27mil inicial de controladoria adicional.",
+        "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "Faixas numéricas 0,065% / 0,05% / 0,037% / 0,03% / 0,015%; divergência com extenso",
+        "Mínimo mensal": "Mínimo mensal de gestão não localizado",
+        "Fonte": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 46-47 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+        "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+        "Mudanças relevantes": "Marginais nos mesmos patamares do PL; extenso de 0,065%, 0,037% e 0,015% equivale a 0,65%, 0,37%, 0,15%. Exige validação do administrador; mínimo mensal não localizado.",
+        "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Incluída na administração; verificação de lastro R$ 5 mil/mês adicional",
+        "Mínimo mensal": "Administração compartilhada: piso R$18.000/mês; lastro adicional R$5.000/mês",
+        "Fonte": "Fundos.NET ID 1013021 · 14/11/2024 · regulamento · p. 44, 46 · data/raw/50988212000105/1013021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1013021",
+        "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+        "Mudanças relevantes": "Conclusão documental; preservar versão, condições e denominador.",
+        "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 41,
+      "pdf_count": 2,
+      "pages_analyzed": 210
     }
-  ]
+  },
+  "reviewed_at": "2026-10-07T15:17:45-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/50988212000105.json"
 }

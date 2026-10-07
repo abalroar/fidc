@@ -1218,9 +1218,11 @@
       "data_entrega": "19/11/2024 16:32",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/08417544000165/784311_regulamento_regulamento_784311_2024-11-18.pdf"
+      "source_file": "data/raw/08417544000165/784311_regulamento_cache_integral.txt",
+      "local_text_cache": "data/raw/08417544000165/784311_regulamento_cache_integral.txt",
+      "current_access_note": "Fonte local recuperada e cláusulas revalidadas nesta revisão; tentativa online detalhada em access_status."
     },
     {
       "id": 841316,
@@ -1602,6 +1604,830 @@
     }
   ],
   "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Crédito estudantil para matrículas e semestralidades; empréstimos/financiamentos e programas elegíveis.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; direitos creditórios; contratos de empréstimo e definições; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Cedentes bancos/instituições financeiras e instituições de ensino, conforme contrato; Pravaler presta gestão/originação operacional.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; definições de Cedentes; capítulo Direitos Creditórios; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Não atribuir toda cessão à Pravaler sem identificar o cedente econômico e jurídico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Não atribuir toda cessão à Pravaler sem identificar o cedente econômico e jurídico."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Alunos ou representantes, com devedor solidário nos contratos sujeitos à condição contratual.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Direitos Creditórios e Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Garantias contratuais e devedores solidários; garantia real uniforme não demonstrada.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Direitos Creditórios; Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "O valor de recuperação depende do contrato e da cobrança; não presumir alienação fiduciária de bens.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "O valor de recuperação depende do contrato e da cobrança; não presumir alienação fiduciária de bens."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Crédito vincendo e validação de contratos/lastro na cessão; regras especiais por etapa e espécie.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Critérios de Elegibilidade e Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Aquisição na cessão não garante manutenção posterior dos critérios; renegociações e substituições dependem de regras específicas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Aquisição na cessão não garante manutenção posterior dos critérios; renegociações e substituições dependem de regras específicas."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Limites por devedor/coobrigado e tipo de crédito exigem consulta individual; IME agregado não valida concentração.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento e composição/diversificação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Tetos específicos não transcritos sem reconciliar anexos; lacuna desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Tetos específicos não transcritos sem reconciliar anexos; lacuna desta revisão."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Relação de proteção contratual exige cálculo de ativos/obrigações e condições por emissão; percentual uniforme não confirmado.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Relação Mínima / Índice de Subordinação / condições de integralização; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Retenção de 50% das cotas júnior pela gestora, quando prevista, é alinhamento de interesses, com denominador distinto de PL.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Retenção de 50% das cotas júnior pela gestora, quando prevista, é alinhamento de interesses, com denominador distinto de PL."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Atrasos30/60/90/180: 14%/12%/10,5%/8%; recorrência em 2 datas consecutivas, 3/6 meses ou 4/12.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; 13.1(b) do Anexo Descritivo; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Índices com defasagem e fórmula própria; divergências de vintage devem ser reconciliadas com IME.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Índices com defasagem e fórmula própria; divergências de vintage devem ser reconciliadas com IME."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Despesas de 1 mês; reserva da próxima amortização de 100%; liquidez igual ao maior entre despesas+amortização e fluxo futuro.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; 8.6–8.9 do Anexo Descritivo; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Finalidade de proteção de posições à vista; conformidade exige contrato/posição individual.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento / riscos de instrumentos derivativos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Não inferir hedge contratado da permissão regulatória.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Não inferir hedge contratado da permissão regulatória."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Renegociados mantêm provisionamento de inadimplência; exceção para atraso <90 dias e fluxo sem novo inadimplemento.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; metodologia de avaliação dos ativos / provisões; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Não equivale a piso de PDD/PL; aging e PDD agregados são proxies parciais.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "PDD / Crédito e PDD / Vencidos; validar definição contratual",
+        "rationale": "Não equivale a piso de PDD/PL; aging e PDD agregados são proxies parciais."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Alocação Mínima definida no regulamento; percentual não transcrito sem reconciliar definições e anexos.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento / definição de Alocação Mínima; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Novas cessões permitidas sob critérios/reservas; suspensas por eventos; fluxo longo de crédito estudantil.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento e ordem de alocação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Classe fechada de prazo indeterminado; cotas/séries com prazo próprio; investidores autorizados.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; características da classe e cotas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Condições de cessão, resolução e recompra em contratos; vícios/culpa/dolo sujeitos a responsabilização.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Direitos Creditórios / Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "IME de recompras não comprova motivo jurídico ou indenização.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "IME de recompras não comprova motivo jurídico ou indenização."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Devedores solidários e responsabilidades por vícios são distintos de coobrigação irrestrita do cedente.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Condições de Cessão; riscos de créditos e cedentes; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Coobrigação integral do cedente não foi confirmada nesta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Coobrigação integral do cedente não foi confirmada nesta revisão."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Despesas/reservas e cotas prioritárias antes de júnior; evento altera alocação e suspende novas aquisições.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; ordem de alocação de recursos / eventos de avaliação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…",
+      "source_excerpt": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…",
+      "source_excerpt": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…",
+      "source_excerpt": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…",
+      "source_excerpt": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…",
+      "source_excerpt": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…",
+      "source_excerpt": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…",
+      "source_excerpt": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…",
+      "source_excerpt": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…",
+      "source_excerpt": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…",
+      "source_excerpt": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…",
+      "source_excerpt": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…",
+      "source_excerpt": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…",
+      "source_excerpt": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…",
+      "source_excerpt": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…",
+      "source_excerpt": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…",
+      "source_excerpt": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…",
+      "source_excerpt": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…",
+      "source_excerpt": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e financiamento, programas de bolsa restituível, programas de financiamento estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de se…",
+      "source_excerpt": "e financiamento, programas de bolsa restituível, programas de financiamento estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de se…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…",
+      "source_excerpt": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "inanciamentos concedidos pelo respectivo cedente aos devedores para o financiamento de matrículas e semestralidades devidas a instituições de ensino a título de pagamento de serviços educacionais prestados aos devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos crité…",
+      "source_excerpt": "inanciamentos concedidos pelo respectivo cedente aos devedores para o financiamento de matrículas e semestralidades devidas a instituições de ensino a título de pagamento de serviços educacionais prestados aos devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos crité…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "financiamento, programas de bolsa restituível, programas de financiamen to estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de ser…",
+      "source_excerpt": "financiamento, programas de bolsa restituível, programas de financiamen to estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de ser…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…",
+      "source_excerpt": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas 25 respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer mot…",
+      "source_excerpt": "o negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas 25 respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer mot…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…",
+      "source_excerpt": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considerar-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…",
+      "source_excerpt": "os termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considerar-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "axa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo qu…",
+      "source_excerpt": "axa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo qu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária necessita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.…",
+      "source_excerpt": "e cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária necessita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "stas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios. A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e val…",
+      "source_excerpt": "stas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios. A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e val…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…",
+      "source_excerpt": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critér…",
+      "source_excerpt": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critér…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…",
+      "source_excerpt": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "iar a política fiscal vigente poderão impactar nas operações do Fundo. Não será devido pelo Fundo ou por qualquer pessoa, incluindo a administradora, qualquer multa ou penalidade de qualquer natureza, caso o(s) cotista(s) sofra(m) qualquer dano ou prejuízo resultante de tal evento. Riscos de crédito Fatores macroeconômicos - como o Fundo aplicará seus recursos preponderantemente em direitos creditórios elegíveis, de…",
+      "source_excerpt": "iar a política fiscal vigente poderão impactar nas operações do Fundo. Não será devido pelo Fundo ou por qualquer pessoa, incluindo a administradora, qualquer multa ou penalidade de qualquer natureza, caso o(s) cotista(s) sofra(m) qualquer dano ou prejuízo resultante de tal evento. Riscos de crédito Fatores macroeconômicos - como o Fundo aplicará seus recursos preponderantemente em direitos creditórios elegíveis, de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tribuição de rendimentos aos cotistas. A originação de direitos creditórios elegíveis bem como a solvência dos devedores pode ser afetada por fatores macroeconômicos relacionados à economia brasileira, tais como elevação das taxas de juros, aumento da inflação, baixos índices de crescimento econômico e/ou impactos em sua originação etc. Assim, na hipótese de ocorrência de um ou mais desses eventos, poderá haver o au…",
+      "source_excerpt": "tribuição de rendimentos aos cotistas. A originação de direitos creditórios elegíveis bem como a solvência dos devedores pode ser afetada por fatores macroeconômicos relacionados à economia brasileira, tais como elevação das taxas de juros, aumento da inflação, baixos índices de crescimento econômico e/ou impactos em sua originação etc. Assim, na hipótese de ocorrência de um ou mais desses eventos, poderá haver o au…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "apresentar baixa liquidez, o que pode dificultar a venda de cotas ou ocasionar a obtenção de um preço de venda que cause perda de patrimônio ao cotista. Caso o cotista precise vender suas cotas, poderá não haver compradores ou o preço de alienação das cotas poderá refletir essa falta de liquidez, causando perda de patrimônio aos cotistas. Risco de aplicação em direitos creditórios – O Fundo deve aplicar seus recurso…",
+      "source_excerpt": "apresentar baixa liquidez, o que pode dificultar a venda de cotas ou ocasionar a obtenção de um preço de venda que cause perda de patrimônio ao cotista. Caso o cotista precise vender suas cotas, poderá não haver compradores ou o preço de alienação das cotas poderá refletir essa falta de liquidez, causando perda de patrimônio aos cotistas. Risco de aplicação em direitos creditórios – O Fundo deve aplicar seus recurso…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "itórios elegíveis apresenta peculiaridades em relação às aplicações usuais da maioria dos fundos de investimento. Não existe, no Brasil, por exemplo, mercado ativo com liquidez para compra e venda dos direitos creditórios elegíveis. Assim, caso seja necessária a venda dos direitos creditórios cedidos da carteira do Fundo, como nas hipóteses de liquidação previstas no regulamento, poderá não haver compradores ou o pr…",
+      "source_excerpt": "itórios elegíveis apresenta peculiaridades em relação às aplicações usuais da maioria dos fundos de investimento. Não existe, no Brasil, por exemplo, mercado ativo com liquidez para compra e venda dos direitos creditórios elegíveis. Assim, caso seja necessária a venda dos direitos creditórios cedidos da carteira do Fundo, como nas hipóteses de liquidação previstas no regulamento, poderá não haver compradores ou o pr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "O Fundo tem prazo indeterminado de duração, sendo que cada emissão de cotas seniores e de cotas subordinadas mezanino terá o prazo de duração estipulado no respectivo suplemento. O objetivo do Fundo é proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação de seu patrimônio líquido na aquisição de: (i) direitos creditórios, for malizados pelos documentos comprobatórios, que atendam aos crité…",
+      "source_excerpt": "O Fundo tem prazo indeterminado de duração, sendo que cada emissão de cotas seniores e de cotas subordinadas mezanino terá o prazo de duração estipulado no respectivo suplemento. O objetivo do Fundo é proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação de seu patrimônio líquido na aquisição de: (i) direitos creditórios, for malizados pelos documentos comprobatórios, que atendam aos crité…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ensino a título de pagamento de serviços educacionais prestados aos devedores, ou pagamentos devidos a agências de intercâmbio a título de pagamento de serviços de assessoria e planejamento de programas de intercâmbio, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos critéri…",
+      "source_excerpt": "ensino a título de pagamento de serviços educacionais prestados aos devedores, ou pagamentos devidos a agências de intercâmbio a título de pagamento de serviços de assessoria e planejamento de programas de intercâmbio, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o há subsídio da instituição de ensino durante todas as contratações, ou seja, nos quais os devedores estão obrigados ao pagamento de 100% dos juros de sua primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da…",
+      "source_excerpt": "o há subsídio da instituição de ensino durante todas as contratações, ou seja, nos quais os devedores estão obrigados ao pagamento de 100% dos juros de sua primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "a primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da carteira do Fundo. e) Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…",
+      "source_excerpt": "a primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da carteira do Fundo. e) Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "asse Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão. 6.2.1 Observados os termos e as condições do presente Anexo Descritivo , a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 6.3 O desenquadramento de qualquer Direito Creditório com…",
+      "source_excerpt": "asse Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão. 6.2.1 Observados os termos e as condições do presente Anexo Descritivo , a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 6.3 O desenquadramento de qualquer Direito Creditório com…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única , os Direitos Creditórios deixarem, por qualquer m…",
+      "source_excerpt": "amente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única , os Direitos Creditórios deixarem, por qualquer m…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "este Regulamento, não seja Dia Útil, conforme definição deste item, considerar -se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte 126 “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contratos de…",
+      "source_excerpt": "este Regulamento, não seja Dia Útil, conforme definição deste item, considerar -se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte 126 “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contratos de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteis “Taxa Interna de Retorno da Carteira de Direitos Creditórios” Com relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil…",
+      "source_excerpt": "pitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteis “Taxa Interna de Retorno da Carteira de Direitos Creditórios” Com relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "eparadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro; (r) possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Direitos Cre…",
+      "source_excerpt": "eparadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro; (r) possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Direitos Cre…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nciamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamen to de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos Critéri…",
+      "source_excerpt": "nciamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamen to de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos neste Anexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão. 6. CRITÉ…",
+      "source_excerpt": "qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos neste Anexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão. 6. CRITÉ…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pela Classe Única, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e cumula…",
+      "source_excerpt": "pela Classe Única, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e cumula…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ursos de educação à distância, dentre outras), a Institui ção de Ensino deverá restituir imediatamente à Classe Única o Preço de Aquisição proporcional aos Direitos Creditórios devidos pelos Devedores Cedidos cujos contratos de prestação de serviços tenham sido cancelados ou interrompidos referente aos meses não cursados pelo Devedor Cedido. 6.5 A Gestora será responsável por verificar e validar o atendimento dos Di…",
+      "source_excerpt": "ursos de educação à distância, dentre outras), a Institui ção de Ensino deverá restituir imediatamente à Classe Única o Preço de Aquisição proporcional aos Direitos Creditórios devidos pelos Devedores Cedidos cujos contratos de prestação de serviços tenham sido cancelados ou interrompidos referente aos meses não cursados pelo Devedor Cedido. 6.5 A Gestora será responsável por verificar e validar o atendimento dos Di…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ditórios que a Classe Únicapretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão.6.2.1Observados os termos e as condições do presente Anexo Descritivo, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva.6.3O desenquadramento de qualquer Direito Cre…",
+      "source_excerpt": "ditórios que a Classe Únicapretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão.6.2.1Observados os termos e as condições do presente Anexo Descritivo, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva.6.3O desenquadramento de qualquer Direito Cre…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "egativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única, os Direitos Creditórios deixarem, por qualq…",
+      "source_excerpt": "egativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única, os Direitos Creditórios deixarem, por qualq…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dos Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados da Classe Única não sofrerão impactos em razão de sua exposição a tais riscos.11.8.3Risco de Originaçã…",
+      "source_excerpt": "dos Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados da Classe Única não sofrerão impactos em razão de sua exposição a tais riscos.11.8.3Risco de Originaçã…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "substituí-lo, expressa na forma percentual e calculada diariamente sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteisCom relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente…",
+      "source_excerpt": "substituí-lo, expressa na forma percentual e calculada diariamente sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteisCom relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão;(ii)Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, se…",
+      "source_excerpt": "do, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão;(ii)Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, se…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "is, manter, separadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro;possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Dire…",
+      "source_excerpt": "is, manter, separadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro;possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Dire…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "uscada mediante a aplicação em Ativos Financeiros, de acordo com os critérios estabelecidos no presente item.4.2Os Direitos Creditórios serão adquiridos pelo Classe Únicade acordo com a política de investimento, diversificação e composição da carteira da Classe abaixo estabelecida, observadas, ainda, as condições previstas nos Contratos de Cessão e na legislação pertinente.4.2.1 A Classe Única adquirirá apenas Direi…",
+      "source_excerpt": "uscada mediante a aplicação em Ativos Financeiros, de acordo com os critérios estabelecidos no presente item.4.2Os Direitos Creditórios serão adquiridos pelo Classe Únicade acordo com a política de investimento, diversificação e composição da carteira da Classe abaixo estabelecida, observadas, ainda, as condições previstas nos Contratos de Cessão e na legislação pertinente.4.2.1 A Classe Única adquirirá apenas Direi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de financiamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamento de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos C…",
+      "source_excerpt": "de financiamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamento de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos C…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tora, na qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos nesteAnexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão.…",
+      "source_excerpt": "tora, na qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos nesteAnexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão.…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "lienação pela Classe Única, nem dará àClasse Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo.6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e…",
+      "source_excerpt": "lienação pela Classe Única, nem dará àClasse Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo.6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não localizado no corpus acessível desta revisão.",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Sênior — série não individualizada",
+      "amount_display": "Não localizado no corpus acessível desta revisão.",
+      "remuneration": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "amortization_schedule": "Não localizado no corpus acessível desta revisão.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "date": "Não localizado no corpus acessível desta revisão.",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Mezanino — série não individualizada",
+      "amount_display": "Não localizado no corpus acessível desta revisão.",
+      "remuneration": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "amortization_schedule": "Não localizado no corpus acessível desta revisão.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "date": "Não localizado no corpus acessível desta revisão.",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Júnior — série não individualizada",
+      "amount_display": "Não localizado no corpus acessível desta revisão.",
+      "remuneration": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "amortization_schedule": "Não localizado no corpus acessível desta revisão.",
+      "source_document": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+      "notes": "parcial — termos/suplemento final não localizado"
+    }
+  ],
+  "extraction_count": 43,
+  "extraction_errors": [],
+  "documentary_review": {
+    "cnpj": "08417544000165",
+    "label": "Pravaler I",
+    "reviewed_at": "2026-10-07T14:50:59-03:00",
+    "document_status": "regulamento em cache textual integral; PDF não recuperado nesta revisão",
+    "scope_note": "Revisão dirigida de cláusulas e termos materiais dos documentos locais acessíveis. A data desta revisão não atesta atualização completa do inventário CVM. Lacunas e falhas de acesso estão descritas; nenhuma posição IME foi transformada em volume de emissão.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Crédito estudantil para matrículas e semestralidades; empréstimos/financiamentos e programas elegíveis.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; direitos creditórios; contratos de empréstimo e definições; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Originador/endossante": {
+          "value": "Cedentes bancos/instituições financeiras e instituições de ensino, conforme contrato; Pravaler presta gestão/originação operacional.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; definições de Cedentes; capítulo Direitos Creditórios; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Não atribuir toda cessão à Pravaler sem identificar o cedente econômico e jurídico."
+        },
+        "Devedor": {
+          "value": "Alunos ou representantes, com devedor solidário nos contratos sujeitos à condição contratual.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Direitos Creditórios e Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Garantia": {
+          "value": "Garantias contratuais e devedores solidários; garantia real uniforme não demonstrada.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Direitos Creditórios; Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "O valor de recuperação depende do contrato e da cobrança; não presumir alienação fiduciária de bens."
+        },
+        "Elegibilidade": {
+          "value": "Crédito vincendo e validação de contratos/lastro na cessão; regras especiais por etapa e espécie.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Critérios de Elegibilidade e Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Aquisição na cessão não garante manutenção posterior dos critérios; renegociações e substituições dependem de regras específicas."
+        },
+        "Concentração": {
+          "value": "Limites por devedor/coobrigado e tipo de crédito exigem consulta individual; IME agregado não valida concentração.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento e composição/diversificação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Tetos específicos não transcritos sem reconciliar anexos; lacuna desta revisão."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Relação de proteção contratual exige cálculo de ativos/obrigações e condições por emissão; percentual uniforme não confirmado.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Relação Mínima / Índice de Subordinação / condições de integralização; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Retenção de 50% das cotas júnior pela gestora, quando prevista, é alinhamento de interesses, com denominador distinto de PL."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Atrasos30/60/90/180: 14%/12%/10,5%/8%; recorrência em 2 datas consecutivas, 3/6 meses ou 4/12.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; 13.1(b) do Anexo Descritivo; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Índices com defasagem e fórmula própria; divergências de vintage devem ser reconciliadas com IME."
+        },
+        "Reserva de caixa": {
+          "value": "Despesas de 1 mês; reserva da próxima amortização de 100%; liquidez igual ao maior entre despesas+amortização e fluxo futuro.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; 8.6–8.9 do Anexo Descritivo; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Derivativos/hedge": {
+          "value": "Finalidade de proteção de posições à vista; conformidade exige contrato/posição individual.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento / riscos de instrumentos derivativos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Não inferir hedge contratado da permissão regulatória."
+        },
+        "PDD": {
+          "value": "Renegociados mantêm provisionamento de inadimplência; exceção para atraso <90 dias e fluxo sem novo inadimplemento.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; metodologia de avaliação dos ativos / provisões; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Não equivale a piso de PDD/PL; aging e PDD agregados são proxies parciais."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Alocação Mínima definida no regulamento; percentual não transcrito sem reconciliar definições e anexos.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento / definição de Alocação Mínima; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Pool/revolvência": {
+          "value": "Novas cessões permitidas sob critérios/reservas; suspensas por eventos; fluxo longo de crédito estudantil.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; política de investimento e ordem de alocação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Duração/público-alvo": {
+          "value": "Classe fechada de prazo indeterminado; cotas/séries com prazo próprio; investidores autorizados.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; características da classe e cotas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Cessão/recompra": {
+          "value": "Condições de cessão, resolução e recompra em contratos; vícios/culpa/dolo sujeitos a responsabilização.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Direitos Creditórios / Condições de Cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "IME de recompras não comprova motivo jurídico ou indenização."
+        },
+        "Coobrigação": {
+          "value": "Devedores solidários e responsabilidades por vícios são distintos de coobrigação irrestrita do cedente.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; Condições de Cessão; riscos de créditos e cedentes; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Coobrigação integral do cedente não foi confirmada nesta revisão."
+        },
+        "Waterfall": {
+          "value": "Despesas/reservas e cotas prioritárias antes de júnior; evento altera alocação e suspende novas aquisições.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; ordem de alocação de recursos / eventos de avaliação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior, subordinadas mezanino e júnior; termos finais por série devem ser confirmados em apêndices.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo de cotas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Remuneração": {
+          "value": "Spread final não localizado no texto disponível, salvo apêndices III identificados nesta revisão.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Volume/VNU": {
+          "value": "Volume por série não confirmado; VNU geral R$ 1,00.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; 3.1.4 do Anexo Descritivo; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Ofertas": {
+          "value": "Início, encerramento e distribuição efetiva não confirmados por anúncios nesta revisão.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; parâmetros de oferta / apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Prazo remetido ao apêndice/suplemento; carência real por série não confirmada.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; pagamento de remuneração, amortização e resgate; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Juros/amortização": {
+          "value": "Metas condicionadas a caixa, prioridades e regime pro rata/sequencial; cronograma fechado não identificado.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; pagamento de remuneração, amortização e resgate / waterfall; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Vencimento": {
+          "value": "Vencimento por série no apêndice; primeira integralização não confirmada.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; cotas e prazo de duração; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Faixas marginais: 0,23% a.a. até R$ 300 mi, 0,16% sobre excesso até R$ 500 mi e 0,15% acima; mínimo R$ 25 mil/mês.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo 4, remuneração dos prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Inclui serviços citados de custódia/controladoria/escrituração; mínimos com reajuste e tributos previstos no contrato."
+        },
+        "Gestão": {
+          "value": "0,05% a.a./PL; mínimo mensal não identificado na cláusula.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo 4, remuneração dos prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Custódia": {
+          "value": "Serviços de custódia incluídos na taxa de administração; tarifa separada não identificada.",
+          "source": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo 4, remuneração dos prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL e cotas subordinadas/PL: cálculo agregado com validação de classes e do denominador.",
+          "source": "Corpus do CNPJ 08417544000165, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 784311, referência 18/11/2024, arquivo data/raw/08417544000165/784311_regulamento_cache_integral.txt",
+          "note": "Monitorável com ressalva: IME mensal não prova cumprimento diário nem composição jurídica por série."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over 30/60/90/180/crédito e PDD/crédito: proxies agregados; gatilhos contratuais exigem fórmula própria.",
+          "source": "Corpus do CNPJ 08417544000165, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 784311, referência 18/11/2024, arquivo data/raw/08417544000165/784311_regulamento_cache_integral.txt",
+          "note": "Parcial: não equiparar índices de estoque/vintage/rolagem à carteira atual sem reconciliação de denominadores."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração individual, lastro, finalidade do hedge e troca de prestadores exigem controle documental.",
+          "source": "Corpus do CNPJ 08417544000165, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 784311, referência 18/11/2024, arquivo data/raw/08417544000165/784311_regulamento_cache_integral.txt",
+          "note": "Não monitorável pelo IME público sem dados individualizados; caixa e recompras ajudam apenas como proxies."
+        },
+        "Competência IME": {
+          "value": "Cache local: 03/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/d48fc9925e2f9d97bf53b1bbc3a03dc9f5bf1efa99947956ef8db72d43376840/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Recebíveis",
+        "Conclusão": "Financiamentos educacionais e contratos com devedores solidários exigem validação do cedente e do lastro."
+      },
+      {
+        "Tema": "Reservas",
+        "Conclusão": "Liquidez depende de despesas e obrigações futuras; caixa agregado não demonstra suficiência do waterfall."
+      },
+      {
+        "Tema": "Lacuna",
+        "Conclusão": "Spreads finais, volumes e datas por série dependem de apêndices/atos não confirmados nesta revisão."
+      }
+    ],
+    "warnings": [
+      "Tentativa de baixar PDF no Fundos.NET teve falha técnica de acesso; texto integral em cache permite revisão por cláusula, sem afirmar paginação física.",
+      "Inventário histórico; atualização online não confirmada.",
+      "Campos de referências quebradas do arquivo (Erro! Fonte de referência não encontrada) exigem consulta ao contrato final, sem inferir cláusula referenciada.",
+      "Data de referência do inventário ID784311: 18/11/2024; texto do regulamento fecha em 19/11/2024. Divergência de data preservada."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": "784311",
+        "date": "18/11/2024",
+        "path": "data/raw/08417544000165/784311_regulamento_cache_integral.txt",
+        "pages": "Paginação física não preservada no cache textual",
+        "identity_verified": true,
+        "review_scope": "Revisão dirigida das cláusulas citadas; texto integral disponível localmente."
+      }
+    ],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "Sênior — série não individualizada",
+        "Tipo": "Sênior",
+        "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+        "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+        "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+        "Volume": "Não localizado no corpus acessível desta revisão.",
+        "VNU": "Não localizado no corpus acessível desta revisão.",
+        "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+        "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+        "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+        "Fonte": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+        "Status curadoria": "parcial — termos/suplemento final não localizado"
+      },
+      {
+        "Cota/Classe": "Mezanino — série não individualizada",
+        "Tipo": "Mezanino",
+        "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+        "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+        "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+        "Volume": "Não localizado no corpus acessível desta revisão.",
+        "VNU": "Não localizado no corpus acessível desta revisão.",
+        "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+        "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+        "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+        "Fonte": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+        "Status curadoria": "parcial — termos/suplemento final não localizado"
+      },
+      {
+        "Cota/Classe": "Júnior — série não individualizada",
+        "Tipo": "Júnior",
+        "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+        "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+        "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+        "Volume": "Não localizado no corpus acessível desta revisão.",
+        "VNU": "Não localizado no corpus acessível desta revisão.",
+        "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+        "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+        "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+        "Fonte": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; valoração das cotas e suplementos/apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+        "Status curadoria": "parcial — termos/suplemento final não localizado"
+      }
+    ],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Faixas marginais: 0,23% a.a. até R$ 300 mi, 0,16% sobre excesso até R$ 500 mi e 0,15% acima; mínimo R$ 25 mil/mês.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo 4, remuneração dos prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+        "Versão vigente / base documental": "regulamento em cache textual integral; PDF não recuperado nesta revisão; 18/11/2024"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "0,05% a.a./PL; mínimo mensal não identificado na cláusula.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo 4, remuneração dos prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+        "Versão vigente / base documental": "regulamento em cache textual integral; PDF não recuperado nesta revisão; 18/11/2024"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Serviços de custódia incluídos na taxa de administração; tarifa separada não identificada.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 784311; referência 18/11/2024; data/raw/08417544000165/784311_regulamento_cache_integral.txt; capítulo 4, remuneração dos prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=784311&cvm=true",
+        "Versão vigente / base documental": "regulamento em cache textual integral; PDF não recuperado nesta revisão; 18/11/2024"
+      }
+    ],
+    "metrics": {
+      "documents_inventoried": 114,
+      "inventory_scope": "Inventário histórico local e documentos públicos locais identificados; inventário online completo atual não confirmado",
+      "local_regulatory_pdfs": 0,
+      "new_network_pdfs_downloaded": 0,
+      "local_analyzable_pdf_pages": 0,
+      "text_caches_without_local_pdf": 1,
+      "documents_without_local_pdf": 114,
+      "extraction_errors": "Extração PDF não realizada: PDF local ausente; detalhes de acesso registrados",
+      "reviewed_source_documents": 1,
+      "full_document_human_reading_claim": false
+    }
+  },
+  "historical_heuristic_criteria": [
     {
       "name": "Alocação mínima em direitos creditórios",
       "canonical_key": "credit_rights_allocation_min",
@@ -4303,304 +5129,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…",
-      "source_excerpt": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…",
-      "source_excerpt": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…",
-      "source_excerpt": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…",
-      "source_excerpt": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…",
-      "source_excerpt": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…",
-      "source_excerpt": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…",
-      "source_excerpt": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…",
-      "source_excerpt": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…",
-      "source_excerpt": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…",
-      "source_excerpt": "afetado negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…",
-      "source_excerpt": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…",
-      "source_excerpt": "s termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considera r-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…",
-      "source_excerpt": "erna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: 100 (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo que t…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…",
-      "source_excerpt": "cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária nec essita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…",
-      "source_excerpt": "as, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios . A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e vali…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…",
-      "source_excerpt": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…",
-      "source_excerpt": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis . Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Crité…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…",
-      "source_excerpt": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e financiamento, programas de bolsa restituível, programas de financiamento estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de se…",
-      "source_excerpt": "e financiamento, programas de bolsa restituível, programas de financiamento estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de se…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…",
-      "source_excerpt": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "inanciamentos concedidos pelo respectivo cedente aos devedores para o financiamento de matrículas e semestralidades devidas a instituições de ensino a título de pagamento de serviços educacionais prestados aos devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos crité…",
-      "source_excerpt": "inanciamentos concedidos pelo respectivo cedente aos devedores para o financiamento de matrículas e semestralidades devidas a instituições de ensino a título de pagamento de serviços educacionais prestados aos devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos crité…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "financiamento, programas de bolsa restituível, programas de financiamen to estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de ser…",
-      "source_excerpt": "financiamento, programas de bolsa restituível, programas de financiamen to estudantil, crediários ou outros instrumentos válidos para a liberação de recursos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de ser…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…",
-      "source_excerpt": "sos e/ou constituição de dívida/crédito, que tenham como partes (i) alunos ou seus representantes e (ii) cedentes instituições de ensino ou instituições ligadas, direta ou indiretamente, ao setor educacional, sempre com o escopo de financiar débitos advindos de serviços educacionais. b. Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas 25 respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer mot…",
-      "source_excerpt": "o negativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem aos Critérios de Elegibilidade nas 25 respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer mot…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…",
-      "source_excerpt": "s Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados do Fundo não sofrerão impactos em razão de sua exposição a tais riscos. 9.7.3 Risco de Originação – Dimi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considerar-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…",
-      "source_excerpt": "os termos deste Regulamento, não seja Dia Útil, conforme definição deste item, considerar-se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contra…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "axa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo qu…",
-      "source_excerpt": "axa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão; (ii) Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, sendo certo qu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária necessita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.…",
-      "source_excerpt": "e cobrança substancialmente superior à Taxa de Cobrança cobrada pela Pravaler S.A. Além disso, a substituição do Agente de Cobrança Extraordinária necessita de aprovação em Assembleia Geral de Cotistas. Caso tal substituição e renegociação de taxa seja necessária e aprovada pelos Cotistas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "stas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios. A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e val…",
-      "source_excerpt": "stas, poderá ocorrer um aumento de custos para o Fundo, o que pode levar a perdas patrimoniais e à queda de rentabilidade do Fundo. 9.5.8 Não Verificação das Condições de Cessão após a Data de Oferta de Direitos Creditórios. A Gestora verificará e validará que os Direitos Creditórios ofertados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e val…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…",
-      "source_excerpt": "rtados ao Fundo atendem às Condições de Cessão na Data de Oferta de Direitos Creditórios. Na hipótese de, entre a verificação e validação pela Gestora das Condições de Cessão e a Data de Aquisição e Pagamento, ou, ainda, após a aquisição dos Direitos Creditórios pelo Fundo, os Direitos Creditórios deixarem, por qualquer motivo, de atender a alguma Condição de Cessão, o Fundo poderá ter em sua carteira Direitos Credi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critér…",
-      "source_excerpt": "Risco de Originação – Diminuição da Quantidade de Direitos Creditórios Elegíveis. Os Direitos Creditórios a serem adquiridos pelo Fundo são decorrentes de financiamentos estudantis, destinados ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critér…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…",
-      "source_excerpt": "ao pagamento de serviços educacionais, e devem necessariamente respeitar os parâmetros da política de investimento, composição e diversificação da carteira do Fundo descrita no presente Regulamento, bem como atender aos Critérios de Elegibilidade e às Condições de Cessão. Na hipótese de, por qualquer motivo, não existirem Direitos Creditórios disponíveis para cessão ao Fundo que satisfaçam, cumulativamente, aos Crit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "iar a política fiscal vigente poderão impactar nas operações do Fundo. Não será devido pelo Fundo ou por qualquer pessoa, incluindo a administradora, qualquer multa ou penalidade de qualquer natureza, caso o(s) cotista(s) sofra(m) qualquer dano ou prejuízo resultante de tal evento. Riscos de crédito Fatores macroeconômicos - como o Fundo aplicará seus recursos preponderantemente em direitos creditórios elegíveis, de…",
-      "source_excerpt": "iar a política fiscal vigente poderão impactar nas operações do Fundo. Não será devido pelo Fundo ou por qualquer pessoa, incluindo a administradora, qualquer multa ou penalidade de qualquer natureza, caso o(s) cotista(s) sofra(m) qualquer dano ou prejuízo resultante de tal evento. Riscos de crédito Fatores macroeconômicos - como o Fundo aplicará seus recursos preponderantemente em direitos creditórios elegíveis, de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tribuição de rendimentos aos cotistas. A originação de direitos creditórios elegíveis bem como a solvência dos devedores pode ser afetada por fatores macroeconômicos relacionados à economia brasileira, tais como elevação das taxas de juros, aumento da inflação, baixos índices de crescimento econômico e/ou impactos em sua originação etc. Assim, na hipótese de ocorrência de um ou mais desses eventos, poderá haver o au…",
-      "source_excerpt": "tribuição de rendimentos aos cotistas. A originação de direitos creditórios elegíveis bem como a solvência dos devedores pode ser afetada por fatores macroeconômicos relacionados à economia brasileira, tais como elevação das taxas de juros, aumento da inflação, baixos índices de crescimento econômico e/ou impactos em sua originação etc. Assim, na hipótese de ocorrência de um ou mais desses eventos, poderá haver o au…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "apresentar baixa liquidez, o que pode dificultar a venda de cotas ou ocasionar a obtenção de um preço de venda que cause perda de patrimônio ao cotista. Caso o cotista precise vender suas cotas, poderá não haver compradores ou o preço de alienação das cotas poderá refletir essa falta de liquidez, causando perda de patrimônio aos cotistas. Risco de aplicação em direitos creditórios – O Fundo deve aplicar seus recurso…",
-      "source_excerpt": "apresentar baixa liquidez, o que pode dificultar a venda de cotas ou ocasionar a obtenção de um preço de venda que cause perda de patrimônio ao cotista. Caso o cotista precise vender suas cotas, poderá não haver compradores ou o preço de alienação das cotas poderá refletir essa falta de liquidez, causando perda de patrimônio aos cotistas. Risco de aplicação em direitos creditórios – O Fundo deve aplicar seus recurso…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "itórios elegíveis apresenta peculiaridades em relação às aplicações usuais da maioria dos fundos de investimento. Não existe, no Brasil, por exemplo, mercado ativo com liquidez para compra e venda dos direitos creditórios elegíveis. Assim, caso seja necessária a venda dos direitos creditórios cedidos da carteira do Fundo, como nas hipóteses de liquidação previstas no regulamento, poderá não haver compradores ou o pr…",
-      "source_excerpt": "itórios elegíveis apresenta peculiaridades em relação às aplicações usuais da maioria dos fundos de investimento. Não existe, no Brasil, por exemplo, mercado ativo com liquidez para compra e venda dos direitos creditórios elegíveis. Assim, caso seja necessária a venda dos direitos creditórios cedidos da carteira do Fundo, como nas hipóteses de liquidação previstas no regulamento, poderá não haver compradores ou o pr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "O Fundo tem prazo indeterminado de duração, sendo que cada emissão de cotas seniores e de cotas subordinadas mezanino terá o prazo de duração estipulado no respectivo suplemento. O objetivo do Fundo é proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação de seu patrimônio líquido na aquisição de: (i) direitos creditórios, for malizados pelos documentos comprobatórios, que atendam aos crité…",
-      "source_excerpt": "O Fundo tem prazo indeterminado de duração, sendo que cada emissão de cotas seniores e de cotas subordinadas mezanino terá o prazo de duração estipulado no respectivo suplemento. O objetivo do Fundo é proporcionar aos seus cotistas a valorização de suas cotas por meio da aplicação de seu patrimônio líquido na aquisição de: (i) direitos creditórios, for malizados pelos documentos comprobatórios, que atendam aos crité…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ensino a título de pagamento de serviços educacionais prestados aos devedores, ou pagamentos devidos a agências de intercâmbio a título de pagamento de serviços de assessoria e planejamento de programas de intercâmbio, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos critéri…",
-      "source_excerpt": "ensino a título de pagamento de serviços educacionais prestados aos devedores, ou pagamentos devidos a agências de intercâmbio a título de pagamento de serviços de assessoria e planejamento de programas de intercâmbio, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos devedores e seus devedores solidários para garantir o pagamento dos mesmos, que atendam aos critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o há subsídio da instituição de ensino durante todas as contratações, ou seja, nos quais os devedores estão obrigados ao pagamento de 100% dos juros de sua primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da…",
-      "source_excerpt": "o há subsídio da instituição de ensino durante todas as contratações, ou seja, nos quais os devedores estão obrigados ao pagamento de 100% dos juros de sua primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "a primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da carteira do Fundo. e) Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…",
-      "source_excerpt": "a primeira até a última contratação, deverão representar no máximo 10% do valor total dos direitos creditórios objeto de cad a cessão ao Fundo, excluídos deste cálculo os direitos creditórios cujos devedores já sejam devedores de direitos creditórios integrantes da carteira do Fundo. e) Condições de cessão Os direitos creditórios a serem adquiridos pelo Fundo são direitos creditórios que atendam, exclusiva e cumulat…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "asse Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão. 6.2.1 Observados os termos e as condições do presente Anexo Descritivo , a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 6.3 O desenquadramento de qualquer Direito Creditório com…",
-      "source_excerpt": "asse Única pretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão. 6.2.1 Observados os termos e as condições do presente Anexo Descritivo , a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 6.3 O desenquadramento de qualquer Direito Creditório com…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "amente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única , os Direitos Creditórios deixarem, por qualquer m…",
-      "source_excerpt": "amente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única , os Direitos Creditórios deixarem, por qualquer m…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "este Regulamento, não seja Dia Útil, conforme definição deste item, considerar -se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte 126 “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contratos de…",
-      "source_excerpt": "este Regulamento, não seja Dia Útil, conforme definição deste item, considerar -se-á como a data devida para o referido evento o Dia Útil imediatamente seguinte 126 “Direitos Creditórios” Todos os direitos creditórios vincendos detidos pelos Cedentes contra os Devedores, decorrentes do financiamento de serviços educacionais prestados pelas Instituições de Ensino aos Devedores, nos termos dos respectivos Contratos de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteis “Taxa Interna de Retorno da Carteira de Direitos Creditórios” Com relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil…",
-      "source_excerpt": "pitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteis “Taxa Interna de Retorno da Carteira de Direitos Creditórios” Com relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa em base em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa: (i) Valor presente: Valor contábil…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "eparadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro; (r) possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Direitos Cre…",
-      "source_excerpt": "eparadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro; (r) possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Direitos Cre…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nciamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamen to de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos Critéri…",
-      "source_excerpt": "nciamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamen to de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos neste Anexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão. 6. CRITÉ…",
-      "source_excerpt": "qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos neste Anexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão. 6. CRITÉ…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pela Classe Única, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e cumula…",
-      "source_excerpt": "pela Classe Única, nem dará à Classe Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo. 6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e cumula…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ursos de educação à distância, dentre outras), a Institui ção de Ensino deverá restituir imediatamente à Classe Única o Preço de Aquisição proporcional aos Direitos Creditórios devidos pelos Devedores Cedidos cujos contratos de prestação de serviços tenham sido cancelados ou interrompidos referente aos meses não cursados pelo Devedor Cedido. 6.5 A Gestora será responsável por verificar e validar o atendimento dos Di…",
-      "source_excerpt": "ursos de educação à distância, dentre outras), a Institui ção de Ensino deverá restituir imediatamente à Classe Única o Preço de Aquisição proporcional aos Direitos Creditórios devidos pelos Devedores Cedidos cujos contratos de prestação de serviços tenham sido cancelados ou interrompidos referente aos meses não cursados pelo Devedor Cedido. 6.5 A Gestora será responsável por verificar e validar o atendimento dos Di…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ditórios que a Classe Únicapretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão.6.2.1Observados os termos e as condições do presente Anexo Descritivo, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva.6.3O desenquadramento de qualquer Direito Cre…",
-      "source_excerpt": "ditórios que a Classe Únicapretenda adquirir aos Critérios de Elegibilidade será verificado e validado pela Gestora ou por prestador de serviço por ela subcontratado, previamente a cada cessão.6.2.1Observados os termos e as condições do presente Anexo Descritivo, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva.6.3O desenquadramento de qualquer Direito Cre…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "egativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única, os Direitos Creditórios deixarem, por qualq…",
-      "source_excerpt": "egativamente. Além disso, o Custodiante verificará e validará que os Direitos Creditórios ofertados à Classe Única atendem aos Critérios de Elegibilidade nas respectivas Datas de Aquisição e Pagamento de Direitos Creditórios. Na hipótese de, após a verificação e validação pelo Custodiante dos Critérios de Elegibilidade e aquisição de Direitos Creditórios pela Classe Única, os Direitos Creditórios deixarem, por qualq…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dos Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados da Classe Única não sofrerão impactos em razão de sua exposição a tais riscos.11.8.3Risco de Originaçã…",
-      "source_excerpt": "dos Direitos Creditórios e à Política de Crédito adotada pelos Cedentes na concessão de limites de crédito e de financiamentos, conforme descritos no anexo II a este Regulamento. Não há garantia de que os Cedentes observarão, livre de erros, tal Política de Crédito. Além disso, não há garantias de que os resultados da Classe Única não sofrerão impactos em razão de sua exposição a tais riscos.11.8.3Risco de Originaçã…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "substituí-lo, expressa na forma percentual e calculada diariamente sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteisCom relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente…",
-      "source_excerpt": "substituí-lo, expressa na forma percentual e calculada diariamente sob forma de capitalização composta, com base em um ano de 252 (duzentos e cinquenta e dois) dias úteisCom relação a um mês calendário e aos Direitos Creditórios do Fundo, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "do, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão;(ii)Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, se…",
-      "source_excerpt": "do, significa a taxa interna de retorno, expressa embase em um ano de 252 (duzentos e cinquenta e dois) Dias Úteis, determinada considerando o seguinte fluxo de caixa:(i)Valor presente: Valor contábil agregado dos Direitos Creditórios Elegíveis para TIR, com relação ao último Dia Útil do mês calendário em questão;(ii)Valores futuros: valor de vencimento (valor futuro) de cada Direito Creditório Elegível para TIR, se…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "is, manter, separadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro;possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Dire…",
-      "source_excerpt": "is, manter, separadamente, registros com informações completas sobre toda e qualquer modalidade de negociação realizada entre a Administradora, Gestora, Custodiante, Entidade Registradora, e respectivas partes relacionadas, de um lado; e a Classe de Cotas, de outro;possuir regras e procedimentos adequados, por escrito e passíveis de verificação, que lhe permitam verificar o cumprimento a obrigação de validar os Dire…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "uscada mediante a aplicação em Ativos Financeiros, de acordo com os critérios estabelecidos no presente item.4.2Os Direitos Creditórios serão adquiridos pelo Classe Únicade acordo com a política de investimento, diversificação e composição da carteira da Classe abaixo estabelecida, observadas, ainda, as condições previstas nos Contratos de Cessão e na legislação pertinente.4.2.1 A Classe Única adquirirá apenas Direi…",
-      "source_excerpt": "uscada mediante a aplicação em Ativos Financeiros, de acordo com os critérios estabelecidos no presente item.4.2Os Direitos Creditórios serão adquiridos pelo Classe Únicade acordo com a política de investimento, diversificação e composição da carteira da Classe abaixo estabelecida, observadas, ainda, as condições previstas nos Contratos de Cessão e na legislação pertinente.4.2.1 A Classe Única adquirirá apenas Direi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de financiamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamento de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos C…",
-      "source_excerpt": "de financiamentos concedidos pelo respectivo Cedente aos Devedores para o financiamento de matrículas e semestralidades devidas a Instituições de Ensino a título de pagamento de serviços educacionais prestados aos Devedores, conforme pactuados nos seus respectivos instrumentos, que incluem todas as garantias prestadas pelos Devedores e seus Devedores Solidários para garantir o pagamento dos mesmos, que atendam aos C…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tora, na qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos nesteAnexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão.…",
-      "source_excerpt": "tora, na qualidade de gestora do processo de assinatura dos Termos de Cessão, desde que a Classe Única tenha disponibilidade de recursos, e após o Custodiante validar os Critérios de Elegibilidade previstos nesteAnexo Descritivo, elaborará o Termo de Cessão e solicitará que o(s) Cedente(s) e a Administradora assinem o Termo de Cessão por meio físico ou eletrônico, conforme disposto no respectivo Contrato de Cessão.…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "lienação pela Classe Única, nem dará àClasse Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo.6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e…",
-      "source_excerpt": "lienação pela Classe Única, nem dará àClasse Única qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante, seus controladores, sociedades por eles direta ou indiretamente controladas, coligadas ou outras sociedades sob controle comum, exceto em caso de comprovada culpa ou dolo.6.4 A Classe Única somente adquirirá Direitos Creditórios que atendam, exclusiva e…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -5134,6 +5663,6 @@
       "source_document_id": 974566
     }
   ],
-  "extraction_count": 43,
-  "extraction_errors": []
+  "reviewed_at": "2026-10-07T14:50:59-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/08417544000165.json"
 }

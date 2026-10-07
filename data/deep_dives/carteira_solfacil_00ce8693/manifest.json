@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_solfacil_00ce8693",
+  "title": "Curadoria Solfácil",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "00ce869300fc475791bc6164592f6bbb",
+  "portfolio_signature": "36771685000117|42462306000100|44909456000144|47240785000133|49920525000134|57028406000108|63505455000189",
+  "generated_at": "2026-10-07T14:46:12-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "36771685000117",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS IS GREEN SOLFÁCIL I DE RESPONSABILIDADE LIMITADA",
+      "short_name": "Solfácil I"
+    },
+    {
+      "cnpj": "47240785000133",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS IS GREEN SOLFÁCIL V DE RESPONSABILIDADE LIMITADA",
+      "short_name": "Solfácil V"
+    },
+    {
+      "cnpj": "42462306000100",
+      "name": "IS GREEN SOLFÁCIL II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
+      "short_name": "Solfácil II"
+    },
+    {
+      "cnpj": "49920525000134",
+      "name": "IS GREEN SOLFÁCIL III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "Solfácil III"
+    },
+    {
+      "cnpj": "57028406000108",
+      "name": "IS GREEN SOLFÁCIL VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "Solfácil VI"
+    },
+    {
+      "cnpj": "63505455000189",
+      "name": "IS GREEN SOLFÁCIL VII FINANCEIRO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA LIM",
+      "short_name": "Solfácil VII"
+    },
+    {
+      "cnpj": "44909456000144",
+      "name": "SOLFÁCIL IV FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "Solfácil IV"
+    }
+  ],
+  "comparison_columns": {
+    "Solfácil I": "36771685000117",
+    "Solfácil V": "47240785000133",
+    "Solfácil II": "42462306000100",
+    "Solfácil III": "49920525000134",
+    "Solfácil VI": "57028406000108",
+    "Solfácil VII": "63505455000189",
+    "Solfácil IV": "44909456000144"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Inventário online atual não confirmado; versões posteriores ao corpus local podem existir.",
+      "Modelos de apêndices com campos não preenchidos não confirmam série emitida, spread final ou data efetiva.",
+      "Critérios de aquisição e política de originação usam tetos e prazos diferentes; não apresentar um teto único sem identificar a camada contratual."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "f962f9ad951c330769abb95943c490486c6040f5edab9c2d3be1ca0f7045130a",
+    "rendering_sha256": "c7dcf16df2845d9dccc68ab7fb2ff9d611cc3651b45be13320db85cebe621319",
+    "input_sha256": "c70fca6263c1c10c19bdfed5131bdf9a4eaf035a9bdb2979f066095a8085223f"
+  }
+}

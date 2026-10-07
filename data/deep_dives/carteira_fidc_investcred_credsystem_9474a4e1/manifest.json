@@ -2,57 +2,135 @@
   "schema_version": 1,
   "deep_dive_id": "carteira_fidc_investcred_credsystem_9474a4e1",
   "title": "Curadoria FIDC Investcred (Credsystem)",
-  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
   "portfolio_id": "9474a4e17117447c896345827c177843",
   "portfolio_signature": "29226654000110",
-  "generated_at": "2026-06-01T15:42:08-03:00",
-  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "generated_at": "2026-10-07T14:50:59-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
   "confidentiality": "Uso interno",
   "funds": [
     {
-      "cnpj": "29.226.654/0001-10",
+      "cnpj": "29226654000110",
       "name": "INVESTCRED FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "INVESTCRED"
+      "short_name": "Investcred (Credsystem)"
     }
   ],
+  "comparison_columns": {
+    "Investcred (Credsystem)": "29226654000110"
+  },
   "tables": [
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
-      "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
-      "first_column": "Nome"
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "structural_costs",
       "title": "Custos estruturais",
-      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
-      "kind": "source_table",
       "source_file": "tables/structural_costs.csv",
-      "first_column": "Fundo"
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "emissions",
-      "title": "Cronograma de emissões",
-      "kind": "source_table",
-      "source_file": "tables/emissions.csv",
-      "first_column": "Fundo"
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "thresholds",
-      "title": "Regulamento mais recente",
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
       "kind": "source_table",
-      "source_file": "tables/thresholds.csv",
-      "first_column": "fundo"
+      "subtitle": "Referências por célula; observações comuns no rodapé"
     }
   ],
   "audit": {
     "warnings": [
-      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Custos estruturais: 2 linhas com taxa de administração/gestão e mínimos mensais quando curados.",
-      "Tabela principal com 38 linhas; contagem documental foi substituída por páginas locais analisadas."
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Inventário histórico de 67 documentos; atualização online e PDFs de todas as ofertas não concluídos.",
+      "Spreads, razão de garantia e calendário sênior são remetidos aos suplementos; não usar taxas de remuneração de prestadores como spread de cota."
     ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "ea094630b50c4d2974e0138998f4992bf8420a3ecfa49e8d211b532aa12b3335",
+    "rendering_sha256": "bd0f972a24f2fd405bb003a5ff581701b41cd0ae6be6cd304e5e049453417b47",
+    "input_sha256": "e51dc6ba540dc1923e44b14417e03e1056ed470b6bbf14ee25b3474a8c109651"
   }
 }

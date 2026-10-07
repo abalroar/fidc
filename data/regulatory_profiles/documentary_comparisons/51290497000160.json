@@ -1,0 +1,292 @@
+{
+  "cnpj": "51290497000160",
+  "label": "MT INSS Receivables V",
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+  "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs de consignado INSS pela Plataforma MT",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 9-11, 60 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Originador/endossante": {
+        "value": "Parati; QI Tech; outras IFs aprovadas e conveniadas INSS",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 60 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Devedor": {
+        "value": "Beneficiário/pensionista INSS; idade final ≤ 76a11m29d, inválidos ≤ 72a11m29d",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 10-11 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Garantia": {
+        "value": "Consignação INSS/Dataprev; portabilidade e glosa sujeitas a defesa da carteira",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 9-11, 60 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Concentração": {
+        "value": "Devedor > 61 anos até R$ 60 mil; ≤ 61 anos até R$ 120 mil; invalidez ≤ 20% do PL",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 10-11 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Demais bandas de idade e critérios mantidos no regulamento, sem consolidação indevida."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 1%",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 61 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Inadimplência cumulativa > 7,82%; subordinação fora por > 13 DU; rating cai 2 níveis",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 24, 61 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Índice cumulativo usa face, arrasto de CCB, atraso 120 dias e óbito; numerador não sai por reinicialização."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas 1% do PL + defesa da carteira 1% do PL",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 8 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Derivativos/hedge": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "PDD": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Coobrigação": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Waterfall": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Classe A: sênior; mezanino; júnior",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 61, 68-80 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Remuneração": {
+        "value": "Taxas por suplemento; spread final não localizado no regulamento acessível",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 68-80 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Taxa mínima de endosso 19,44% a.a. não é remuneração de cotas."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Ofertas": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Vencimento": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,07%/0,0375%/0,025% a.a.; mínimo R$ 8,75 mil/mês",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 36 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "PL ≤ R$ 300 mi; até R$ 600 mi; acima. IGP-M positivo anual."
+      },
+      "Gestão": {
+        "value": "0,07%/0,0375%/0,025% a.a.; mínimo R$ 8,75 mil/mês",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 37 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Mesmas faixas; IGP-M anual. Lastro R$ 5 mil/mês e escrituração R$ 2 mil/mês adicionais."
+      },
+      "Custódia": {
+        "value": "Incluída na administração; mesma tabela/mínimo, sem encargo adicional",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 36-37 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Evitar dupla contagem; retenção/cobrança 0,5% a 3% a.a. sobre PL alocado em DC, por contrato."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Subordinadas/PL e júnior/PL diretos com validação de classe",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 61 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over/PDD são proxies parciais; IME não reproduz inadimplência cumulativa/óbitos",
+        "source": "Fundos.NET ID 956736 · 28/07/2025 · Regulamento · p. 60-61 · data/raw/51290497000160/956736_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=956736",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+        "source": "Corpus acessível CNPJ 51290497000160: ID 956736 (28/07/2025), data/raw/51290497000160/956736_documentary_review.pdf; ID 913141 (21/05/2025), data/raw/51290497000160/913141_documentary_review.pdf; ID 557485 (21/11/2023), data/raw/51290497000160/557485_documentary_review.pdf; ID 551560 (10/11/2023), data/raw/51290497000160/551560_documentary_review.pdf; ID 545845 (06/11/2023), data/raw/51290497000160/545845_documentary_review.pdf; ID 528268 (28/09/2023), data/raw/51290497000160/528268_documentary_review.pdf; ID 526857 (26/09/2023), data/raw/51290497000160/526857_documentary_review.pdf",
+        "note": "O IME público agregado não certifica essas condições."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura",
+        "source": "CNPJ 51290497000160; revisão documental 07/10/2026",
+        "note": "Dados ao vivo da aplicação dependem da competência selecionada; nenhum saldo foi presumido."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "CCBs de consignado INSS pela Plataforma MT"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 1%"
+    },
+    {
+      "Tema": "Administração",
+      "Conclusão": "0,07%/0,0375%/0,025% a.a.; mínimo R$ 8,75 mil/mês"
+    }
+  ],
+  "warnings": [],
+  "sources_reviewed": [
+    {
+      "document_id": 956736,
+      "date": "28/07/2025",
+      "path": "data/raw/51290497000160/956736_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/956736_documentary_review.txt",
+      "pages": 80,
+      "identity_verified": false,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+    },
+    {
+      "document_id": 913141,
+      "date": "21/05/2025",
+      "path": "data/raw/51290497000160/913141_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/913141_documentary_review.txt",
+      "pages": 90,
+      "identity_verified": false,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+    },
+    {
+      "document_id": 557485,
+      "date": "21/11/2023",
+      "path": "data/raw/51290497000160/557485_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/557485_documentary_review.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "categoria": "Oferta Pública de Distribuição de Cotas",
+      "tipo": "Anúncio de Encerramento",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 551560,
+      "date": "10/11/2023",
+      "path": "data/raw/51290497000160/551560_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/551560_documentary_review.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "categoria": "Oferta Pública de Distribuição de Cotas",
+      "tipo": "Aviso ao Mercado",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 545845,
+      "date": "06/11/2023",
+      "path": "data/raw/51290497000160/545845_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/545845_documentary_review.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "categoria": "Oferta Pública de Distribuição de Cotas",
+      "tipo": "Anúncio de Início",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 528268,
+      "date": "28/09/2023",
+      "path": "data/raw/51290497000160/528268_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/528268_documentary_review.txt",
+      "pages": 92,
+      "identity_verified": true,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 526857,
+      "date": "26/09/2023",
+      "path": "data/raw/51290497000160/526857_documentary_review.pdf",
+      "text_path": "data/raw/51290497000160/526857_documentary_review.txt",
+      "pages": 94,
+      "identity_verified": true,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    }
+  ],
+  "inventory_count": 124,
+  "pdf_count": 7,
+  "pages_analyzed": 365,
+  "extraction_errors": [],
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Classe 1 / emissão mezanino",
+      "Tipo": "Subordinada mezanino",
+      "Remuneração": "Spread final não localizado no anúncio",
+      "Juros/remuneração": "Periodicidade não localizada no corpus",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Volume": "R$ 4,5 mi distribuídos",
+      "VNU": "R$ 1.000",
+      "Data deliberação": "Data de deliberação não localizada",
+      "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+      "Data encerramento/oferta": "Registro 30/10/2023; encerramento conforme anúncio 557485",
+      "Fonte": "Fundos.NET ID 557485 · 21/11/2023 · p. 1-3 · data/raw/51290497000160/557485_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=557485",
+      "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "cnpj": "44909456000144",
+  "label": "Solfácil IV",
+  "reviewed_at": "2026-10-07T14:46:12-03:00",
+  "document_status": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada",
+  "scope_note": "Revisão dirigida de cláusulas e termos materiais dos documentos locais acessíveis. A data desta revisão não atesta atualização completa do inventário CVM. Lacunas e falhas de acesso estão descritas; nenhuma posição IME foi transformada em volume de emissão.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Financiamento de sistemas solares, representado por CCBs.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; política de investimento / condições de aquisição; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Originador/endossante": {
+        "value": "Solfácil origina pela plataforma; instituições financeiras endossantes nos termos da versão contratual.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; definições de Originador, Endossante e Instituição Financeira Parceira; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Identidade dos endossantes depende da versão do contrato; não inferida do nome do fundo."
+      },
+      "Devedor": {
+        "value": "Pessoas físicas e jurídicas que financiam sistemas solares.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; definições de Devedores e Financiamento Solar; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Garantia": {
+        "value": "Equipamentos solares em alienação fiduciária; formalização e registro sujeitos às condições contratuais.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; condições de cessão / definições de Equipamentos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Não equivale a garantia de recuperação integral; registro e lastro exigem documentos individualizados."
+      },
+      "Elegibilidade": {
+        "value": "CCBs para sistemas solares; condições de cessão e integridade do lastro previstas no contrato.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; pp.20–26, condições de aquisição; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Concentração": {
+        "value": "Limites individuais/por grupo não transcritos sem reconciliação dos anexos da versão vigente.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; pp.20–26, condições de cessão; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Lacuna desta revisão; não equivale a ausência de limite contratual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Não localizado no corpus documental acessível desta revisão.",
+        "source": "Corpus do CNPJ 44909456000144, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1030295, referência 23/10/2025, arquivo data/raw/44909456000144/1030295_regulamento_23-10-2025.txt",
+        "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado no corpus documental acessível desta revisão.",
+        "source": "Corpus do CNPJ 44909456000144, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1030295, referência 23/10/2025, arquivo data/raw/44909456000144/1030295_regulamento_23-10-2025.txt",
+        "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      },
+      "Reserva de caixa": {
+        "value": "Reservas para despesas e benchmark; verificação mensal e restrição a chamadas enquanto não recompostas.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; pp.50–51, reservas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Caixa agregado IME é proxy parcial e não mede pagamento esperado por série."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos para proteção; finalidade, contraparte e cobertura dependem de controle contratual.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; política de investimento / operações de derivativos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Parcial via IME: exposição agregada não comprova finalidade ou cobertura por contrato."
+      },
+      "PDD": {
+        "value": "Política de provisão em anexo; faixa por atraso e renegociação exige aplicação ao contrato.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; anexo de política de provisão para devedores duvidosos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "PDD/crédito e PDD/vencidos são proxies. Não foi encontrado um piso uniforme de PDD/PL aplicável a todas as versões."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "67%/PL em DC até 90 dias da primeira integralização.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.20, 5.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisição e chamadas sujeitas a reservas e condições contratuais; duração da revolvência não confirmada.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; pp.38,50–51; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada; prazos e resgates dependem de suplementos.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.38, pagamentos e resgate; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Cessão/recompra": {
+        "value": "Endosso definitivo; recompra/resolução e indenização condicionadas ao contrato de transferência.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; política de investimento; Contrato de Endosso / Transferência; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "IME Recompras/crédito não identifica vício de lastro, motivo ou cumprimento da indenização."
+      },
+      "Coobrigação": {
+        "value": "Transferência sem coobrigação do endossante; responsabilidades por vícios seguem contrato específico.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; política de investimento / definição de Contrato de Transferência; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Waterfall": {
+        "value": "Pagamento de despesas, benchmark e principal segundo ordem contratual; valores dependem do suplemento.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; capítulo de pagamentos / alocação; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, subordinadas mezanino e júnior; modelos de emissão não comprovam todas as séries em circulação.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Remuneração": {
+        "value": "Suplemento histórico mezanino cita DI + 6,65%; spread atual por série não confirmado.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; pp.38 e modelos de suplementos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Fonte histórica complementar: ID 344609, pp.124–125. Documento de 2022 contém assinatura/data não preenchida."
+      },
+      "Volume/VNU": {
+        "value": "Volume aprovado/distribuído por série não confirmado pelos modelos; VNU depende do suplemento preenchido.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; parâmetros da oferta e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Ofertas": {
+        "value": "Rito, público e montante por emissão remetidos aos respectivos atos e anúncios; encerramentos não confirmados.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; modelos de apêndices / parâmetros da oferta; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao suplemento; carência efetiva por série não confirmada.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; parâmetros de pagamento / modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Juros/amortização": {
+        "value": "Pagamentos sujeitos à disponibilidade de caixa e waterfall; cronograma fechado não identificado.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; capítulo de amortização / modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Vencimento": {
+        "value": "Data final por série remetida ao suplemento; primeira integralização efetiva não confirmada.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; parâmetros de pagamento / modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "R$ 15 mil/mês; IPCA anual; setup de R$ 75 mil separado.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.50, taxas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Gestão": {
+        "value": "10% a.a. sobre a taxa de administração, teto R$ 4 mil/mês; deduzida da administração.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.50, taxas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Base contratual é a taxa de administração. Não tratar como 10% a.a./PL nem somar a mesma parcela duas vezes."
+      },
+      "Custódia": {
+        "value": "0,02% a.a./PL; mínimo R$ 2 mil/mês.",
+        "source": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.50, taxas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas subordinadas/PL: cálculo agregado com validação de classes e do denominador.",
+        "source": "Corpus do CNPJ 44909456000144, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1030295, referência 23/10/2025, arquivo data/raw/44909456000144/1030295_regulamento_23-10-2025.txt",
+        "note": "Monitorável com ressalva: IME mensal não prova cumprimento diário nem composição jurídica por série."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90/180/crédito e PDD/crédito: proxies agregados; gatilhos contratuais exigem fórmula própria.",
+        "source": "Corpus do CNPJ 44909456000144, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1030295, referência 23/10/2025, arquivo data/raw/44909456000144/1030295_regulamento_23-10-2025.txt",
+        "note": "Parcial: não equiparar índices de estoque/vintage/rolagem à carteira atual sem reconciliação de denominadores."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, lastro, finalidade do hedge e troca de prestadores exigem controle documental.",
+        "source": "Corpus do CNPJ 44909456000144, revisão 2026-10-07T14:46:12-03:00; Fundos.NET ID 1030295, referência 23/10/2025, arquivo data/raw/44909456000144/1030295_regulamento_23-10-2025.txt",
+        "note": "Não monitorável pelo IME público sem dados individualizados; caixa e recompras ajudam apenas como proxies."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada para esta revisão.",
+        "source": "services.ime_loader.peek_cached_informe: miss para CNPJ 44909456000144; período consultado 01/01/2026–30/09/2026 em 2026-10-07T14:46:12-03:00",
+        "note": "Não foi definida competência de referência pelo usuário. O cache consultado não cobre o período; análise contratual permanece offline."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Custos",
+      "Conclusão": "Gestão é parcela da taxa de administração, com teto; sua base de cálculo exige atenção para evitar dupla contagem."
+    },
+    {
+      "Tema": "Alocação",
+      "Conclusão": "Direitos creditórios devem alcançar 67% do PL até 90 dias da primeira integralização."
+    },
+    {
+      "Tema": "Emissões",
+      "Conclusão": "Há taxa mezanino histórica de DI + 6,65%; termos atuais por série e calendário precisam de suplemento confirmado."
+    }
+  ],
+  "warnings": [
+    "Inventário online atual não confirmado; versões posteriores ao corpus local podem existir.",
+    "Modelos de apêndices com campos não preenchidos não confirmam série emitida, spread final ou data efetiva."
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": "1030295",
+      "date": "23/10/2025",
+      "path": "data/raw/44909456000144/1030295_regulamento_23-10-2025.txt",
+      "pages": 97,
+      "identity_verified": true,
+      "review_scope": "Revisão dirigida das cláusulas citadas; texto integral disponível localmente."
+    },
+    {
+      "document_id": "344609",
+      "date": "26/08/2022",
+      "path": "data/raw/44909456000144/344609_regulamento_26-08-2022.txt",
+      "pages": 135,
+      "identity_verified": true,
+      "review_scope": "Leitura dirigida do suplemento histórico pp.124–125; taxa não promovida a vigente."
+    }
+  ],
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Séries sênior não individualizadas",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+      "Status curadoria": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "Cota/Classe": "Séries mezanino não individualizadas",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+      "Status curadoria": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "Cota/Classe": "Séries júnior não individualizadas",
+      "Tipo": "Júnior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; capítulo de cotas e modelos de apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+      "Status curadoria": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "Cota/Classe": "1ª emissão mezanino — suplemento histórico de 2022",
+      "Tipo": "Mezanino",
+      "Remuneração": "Taxa DI + 6,65% (texto histórico; vigência atual não confirmada)",
+      "Juros/remuneração": "Mensal, dia 15 ou próximo útil; histórico 2022",
+      "Amortização principal": "Antecipação por eventos ou após limite de chamada sênior; cronograma atual não confirmado",
+      "Volume": "Não localizado no corpus acessível desta revisão.",
+      "VNU": "Valor de abertura na integralização; VNU final atual não confirmado",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 344609; referência 26/08/2022; data/raw/44909456000144/344609_regulamento_26-08-2022.txt; pp.124–125, suplemento mezanino; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=344609&cvm=true",
+      "Status curadoria": "Histórico — suplemento contém data de assinatura não preenchida; não confirmado como emissão atual"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "R$ 15 mil/mês; IPCA anual; setup de R$ 75 mil separado.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.50, taxas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada; 23/10/2025"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "10% a.a. sobre a taxa de administração, teto R$ 4 mil/mês; deduzida da administração.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.50, taxas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada; 23/10/2025"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "0,02% a.a./PL; mínimo R$ 2 mil/mês.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1030295; referência 23/10/2025; data/raw/44909456000144/1030295_regulamento_23-10-2025.txt; p.50, taxas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1030295&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente do corpus local de 08/09/2026; atualização online não confirmada; 23/10/2025"
+    }
+  ],
+  "metrics": {
+    "documents_inventoried": 16,
+    "inventory_scope": "Inventário local de regulamentos versionados, corpus Fundos.NET de 08/09/2026; demais categorias/inventário online atual não confirmados",
+    "local_regulatory_pdfs": 16,
+    "new_network_pdfs_downloaded": 0,
+    "local_analyzable_pdf_pages": 1903,
+    "text_caches_without_local_pdf": 0,
+    "documents_without_local_pdf": 0,
+    "extraction_errors": "Nenhum erro na extração dos PDFs locais processados",
+    "reviewed_source_documents": 2,
+    "full_document_human_reading_claim": false
+  }
+}

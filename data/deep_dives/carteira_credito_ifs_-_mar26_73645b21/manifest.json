@@ -1,143 +1,265 @@
 {
   "schema_version": 1,
   "deep_dive_id": "carteira_credito_ifs_-_mar26_73645b21",
-  "title": "Deep Dive Crédito IFs (Carteira Atual 1T26)",
-  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "title": "Curadoria Crédito IFs (Carteira Atual 1T26)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
   "portfolio_id": "73645b2112b04ba280bb1b3437a43fc2",
   "portfolio_signature": "08692888000182|26749095000134|28169275000172|35868110000154|42085816000105|42085830000109|45598747000121|50473039000102|50988212000105|51957370000152|54559035000194|54810968000102|55070804000159|55401645000128|62588266000154|62626887000185|62838025000116|63546406000194",
-  "generated_at": "2026-05-13T20:55:54-03:00",
-  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "generated_at": "2026-10-07T15:17:45-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
   "confidentiality": "Uso interno",
   "funds": [
     {
-      "cnpj": "08.692.888/0001-82",
+      "cnpj": "08692888000182",
       "name": "CARTÃO DE COMPRA SUPPLIER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
-      "short_name": "CARTÃO DE COMPRA SUPPLIER"
+      "short_name": "Supplier I"
     },
     {
-      "cnpj": "50.473.039/0001-02",
+      "cnpj": "50473039000102",
       "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
-      "short_name": "SELLER FIDC"
+      "short_name": "SELLER"
     },
     {
-      "cnpj": "62.838.025/0001-16",
+      "cnpj": "62838025000116",
       "name": "ENDURANCE FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-      "short_name": "ENDURANCE"
+      "short_name": "Endurance"
     },
     {
-      "cnpj": "55.070.804/0001-59",
+      "cnpj": "55070804000159",
       "name": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
-      "short_name": "ESTRATÉGIA VINCULADA II"
+      "short_name": "Estratégia Vinculada II"
     },
     {
-      "cnpj": "28.169.275/0001-72",
+      "cnpj": "28169275000172",
       "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PAGSEGURO I",
-      "short_name": "PAGSEGURO I"
+      "short_name": "PagSeguro I"
     },
     {
-      "cnpj": "35.868.110/0001-54",
+      "cnpj": "35868110000154",
       "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS BV - CRÉDITO DE VEÍCULOS RESPONSABILIDADE LIMITADA",
-      "short_name": "BV - CRÉDITO DE VEÍCULOS"
+      "short_name": "BV Crédito de Veículos"
     },
     {
-      "cnpj": "54.559.035/0001-94",
+      "cnpj": "54559035000194",
       "name": "ESTRATÉGIA VINCULADA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
-      "short_name": "ESTRATÉGIA VINCULADA I"
+      "short_name": "Estratégia Vinculada I"
     },
     {
-      "cnpj": "50.988.212/0001-05",
+      "cnpj": "50988212000105",
       "name": "CARTÃO DE COMPRA SUPPLIER FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS II-RESPONSABILIDADE LIMITADA",
-      "short_name": "CARTÃO DE COMPRA SUPPLIER II"
+      "short_name": "Supplier II"
     },
     {
-      "cnpj": "62.626.887/0001-85",
+      "cnpj": "62626887000185",
       "name": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
-      "short_name": "SUMUP SMART IV FIDC"
+      "short_name": "SUMUP SMART IV"
     },
     {
-      "cnpj": "45.598.747/0001-21",
+      "cnpj": "45598747000121",
       "name": "SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI",
-      "short_name": "SUMUP SOLO DE RESPONSABILI"
+      "short_name": "SUMUP SOLO"
     },
     {
-      "cnpj": "62.588.266/0001-54",
+      "cnpj": "62588266000154",
       "name": "VTK FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
       "short_name": "VTK"
     },
     {
-      "cnpj": "63.546.406/0001-94",
+      "cnpj": "63546406000194",
       "name": "PINE INSS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-      "short_name": "PINE INSS III"
+      "short_name": "Pine INSS III"
     },
     {
-      "cnpj": "42.085.830/0001-09",
+      "cnpj": "42085830000109",
       "name": "CLOUDWALK AKIRA I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
       "short_name": "CLOUDWALK AKIRA I"
     },
     {
-      "cnpj": "42.085.816/0001-05",
+      "cnpj": "42085816000105",
       "name": "CLOUDWALK KICK ASS I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO",
       "short_name": "CLOUDWALK KICK ASS I"
     },
     {
-      "cnpj": "51.957.370/0001-52",
+      "cnpj": "51957370000152",
       "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ANGÁ FGTS I - RESPONSABILIDADE LIMITADA",
-      "short_name": "ANGÁ FGTS I"
+      "short_name": "Angá FGTS I"
     },
     {
-      "cnpj": "55.401.645/0001-28",
+      "cnpj": "55401645000128",
       "name": "QUATÁ FDC FGTS FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "QUATÁ FDC FGTS"
+      "short_name": "Quatá FGTS"
     },
     {
-      "cnpj": "26.749.095/0001-34",
+      "cnpj": "26749095000134",
       "name": "PRAVALER CRÉDITO UNIVERSITÁRIO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESP LIMITADAL",
-      "short_name": "PRAVALER CRÉDITO UNIVERSITÁRIO II"
+      "short_name": "Pravaler II"
     },
     {
-      "cnpj": "54.810.968/0001-02",
+      "cnpj": "54810968000102",
       "name": "ANGÁ FGTS III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "ANGÁ FGTS III"
+      "short_name": "Angá FGTS III"
     }
   ],
+  "comparison_columns": {
+    "Supplier I": "08692888000182",
+    "SELLER": "50473039000102",
+    "Endurance": "62838025000116",
+    "Estratégia Vinculada II": "55070804000159",
+    "PagSeguro I": "28169275000172",
+    "BV Crédito de Veículos": "35868110000154",
+    "Estratégia Vinculada I": "54559035000194",
+    "Supplier II": "50988212000105",
+    "SUMUP SMART IV": "62626887000185",
+    "SUMUP SOLO": "45598747000121",
+    "VTK": "62588266000154",
+    "Pine INSS III": "63546406000194",
+    "CLOUDWALK AKIRA I": "42085830000109",
+    "CLOUDWALK KICK ASS I": "42085816000105",
+    "Angá FGTS I": "51957370000152",
+    "Quatá FGTS": "55401645000128",
+    "Pravaler II": "26749095000134",
+    "Angá FGTS III": "54810968000102"
+  },
   "tables": [
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
-      "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
-      "first_column": "Nome"
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "structural_costs",
       "title": "Custos estruturais",
-      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
-      "kind": "source_table",
       "source_file": "tables/structural_costs.csv",
-      "first_column": "Fundo"
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "emissions",
-      "title": "Cronograma de emissões",
-      "kind": "source_table",
-      "source_file": "tables/emissions.csv",
-      "first_column": "Fundo"
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "thresholds",
-      "title": "Regulamento mais recente",
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
       "kind": "source_table",
-      "source_file": "tables/thresholds.csv",
-      "first_column": "fundo"
+      "subtitle": "Referências por célula; observações comuns no rodapé"
     }
   ],
   "audit": {
     "warnings": [
-      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
-      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Atualização do inventário indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "ID 686119: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Contrato CDB e todos os contratos de leasing vinculados não obtidos; regras privadas permanecem lacunas.",
+      "Taxa de administração/gestão com redação conjunta de 0,175%; segregação e mínimo por prestador exigem validação.",
+      "Alocação tributária com discrepância entre número e texto por extenso.",
+      "Encerramento documental em 23/06/2026; baixa cadastral CVM/auditoria final não verificadas. O fundo permanece no perímetro histórico 1T26.",
+      "Inventário preservado do cache; consulta atual: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Este CNPJ é BV Crédito de Veículos, distinto de Auto BV I–IV; regras não intercambiáveis.",
+      "Taxas de administração e gestão divergem entre 0,07% numérico e sete décimos por extenso.",
+      "Cabeçalho nominal compatível e inventário do CNPJ; CNPJ não localizado automaticamente no texto dos dois regulamentos.",
+      "ID 634463: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "AGE 672167 alterou quóruns em 08/05/2024; anexo II não presente no PDF de 2 páginas. Regimento posterior integral não certificado.",
+      "Taxa de gestão: discrepâncias de percentual numérico/extenso na cláusula 9.2.",
+      "Séries, sobretaxas e calendários individuais não identificados nos modelos do regulamento.",
+      "Razão de garantia: número95,5% e extenso95,05% divergem na cláusula14.7; confirmar limite aplicável com administrador.",
+      "Atualização do inventário indisponível: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+      "Lacunas de acesso/extracão: ID1152823: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna.",
+      "Lacunas de acesso/extracão: ID883977: Fundos.NET respondeu HTTP 520 em downloadDocumento.; ID903840: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Inventário atual tecnicamente indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.. Inventário anterior preservado; vigência mais recente exige nova consulta.",
+      "Lacunas de acesso/extracão: ID1281928: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Lacunas de acesso/extracão: ID1152028: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "524036: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Tentativa de baixar PDF no Fundos.NET teve falha técnica de acesso; texto integral em cache permite revisão por cláusula, sem afirmar paginação física.",
+      "Inventário histórico; atualização online não confirmada.",
+      "Campos de referências quebradas do arquivo (Erro! Fonte de referência não encontrada) exigem consulta ao contrato final, sem inferir cláusula referenciada.",
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "794749: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "666042: Fundos.NET respondeu HTTP 520 em downloadDocumento."
     ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "9b26b59dfa0fe6cda6c1d7a191039d5cc737291e10095d2786086d28625c2456",
+    "rendering_sha256": "182f17660e6eadf469c26578dd34ee323debaaa4442c2aa2f05463cec8e8600c",
+    "input_sha256": "15ef837e556d33f07365c12efbd9941d73f1c170f4ea31fcb9b00dd50d80d1ea"
   }
 }

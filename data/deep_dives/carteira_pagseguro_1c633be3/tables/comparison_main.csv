@@ -1,0 +1,33 @@
+Nome,PagSeguro I
+Recebíveis e elegibilidade · Natureza dos recebíveis,"Transações de crédito à vista/parcelado sem juros e débito, operacionalizadas pelo Sistema PagSeguro"
+Recebíveis e elegibilidade · Originador/endossante,Estabelecimentos credenciados cedem seus recebíveis; PagSeguro operacionaliza
+Recebíveis e elegibilidade · Devedor,Devedor na figura de credenciador; confirmar contrato da UR
+Recebíveis e elegibilidade · Garantia,Cessão acompanha garantias/acessórios do crédito; sem coobrigação do cedente pela solvência
+Recebíveis e elegibilidade · Elegibilidade,"Prazo ≤ 24 meses; valor de face > R$ 0,01; reais; titularidade e ausência de ônus"
+Recebíveis e elegibilidade · Concentração,"Dispensa do limite de 20% por mesmo devedor/coobrigado, art. 3.19.1"
+"Subordinação, gatilhos e proteção · Subordinação mínima",Subordinadas ≥ 50% do PL; apuração diária
+"Subordinação, gatilhos e proteção · Gatilhos de avaliação/liquidação",Falha de pagamento sênior/MZ não regularizada em 2 DU; hipóteses adicionais no cap.8
+"Subordinação, gatilhos e proteção · Reserva de caixa",Reserva de despesas ≥ R$ 1 milhão; apuração mensal
+"Subordinação, gatilhos e proteção · Derivativos/hedge","Permitidos exclusivamente para proteção de posições à vista, até seu limite"
+"Subordinação, gatilhos e proteção · PDD",Não localizado nas fontes acessíveis desta leitura
+Alocação e mecânica contratual · Alocação mínima,50% do PL após 180 dias; alvo tributário discricionário de 67%
+Alocação e mecânica contratual · Pool/revolvência,Não localizado nas fontes acessíveis desta leitura
+Alocação e mecânica contratual · Duração/público-alvo,20 anos; prorrogável por mais 20; sênior/MZ: profissionais; subordinadas: PagSeguro/relacionadas
+Alocação e mecânica contratual · Cessão/recompra,Resolução de cessão por inelegibilidade/vício; preço de resolução conforme condições gerais
+Alocação e mecânica contratual · Coobrigação,Cessão definitiva sem regresso por solvência; responsabilidade por existência e formalização preservada
+Alocação e mecânica contratual · Waterfall,Despesas → reserva → sênior → mezanino → subordinadas
+Alocação e mecânica contratual · Prestadores essenciais,Administração/custódia/escrituração/controladoria: Genial Investimentos C.V.M.; gestão: Genial Gestão
+Emissões e remuneração · Classes/séries,Sênior e mezanino em séries; subordinadas em subclasses
+Emissões e remuneração · Remuneração,"4ª sênior: DI + 0,75% a.a."
+Emissões e remuneração · Volume/VNU,4ª sênior: R$ 1 bilhão; 1 milhão de cotas; VNU R$ 1 mil
+Emissões e remuneração · Ofertas,Início 30/03/2026; liquidação prevista 31/03/2026; garantia firme
+Amortização e calendário de pagamentos · Carência,Não localizado nas fontes acessíveis desta leitura
+Amortização e calendário de pagamentos · Juros/amortização,"4ª sênior: principal e remuneração em 31/01, 28/02 e 31/03/2029, DU seguinte se necessário"
+Amortização e calendário de pagamentos · Vencimento,4ª sênior: 31/03/2029
+Custos estruturais · Administração,"Faixas cumulativas: 0,100% a.a. até R$ 1,5 bi; 0,075% até R$ 3 bi; 0,060% acima; agente de registro R$ 10 mil adicionais"
+Custos estruturais · Gestão,"10% da taxa de administração, limitada a R$ 4 mil/mês"
+Custos estruturais · Custódia,"Máximo 0,02% a.a. sobre PL"
+Monitoramento IME e controles documentais · Alocação/subordinação IME,"DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões"
+Monitoramento IME e controles documentais · Inadimplência/PDD IME,Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico
+Monitoramento IME e controles documentais · Controles documentais,"Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos"
+Monitoramento IME e controles documentais · Competência IME,Cache local: 03/2026; selecionar competência para monitorar

@@ -217,6 +217,861 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CDBs vinculados do Banco IBM a contratos de arrendamento mercantil",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Banco IBM; arrendamentos vinculados no contrato de CDB",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Banco IBM; pagamento dos CDB-V condicionado aos fluxos de leasing vinculados",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Risco de fluxo dos arrendatários e de operacionalização/insolvência do banco; não converter em empréstimo consignado.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Risco de fluxo dos arrendatários e de operacionalização/insolvência do banco; não converter em empréstimo consignado."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Vinculação contratual a operações de leasing; sem garantia do FGC",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51, 65 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Emissão Banco IBM; reais; formalização integral; sem ônus, atraso prévio ou repactuação",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 63-64 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Lista integral e vínculo do CDB-V dependem do Contrato CDB. Redação de elegibilidade usa termo CCB em passagens do anexo, divergente da definição de CDB-V; não altera o ativo por inferência.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Lista integral e vínculo do CDB-V dependem do Contrato CDB. Redação de elegibilidade usa termo CCB em passagens do anexo, divergente da definição de CDB-V; não altera o ativo por inferência."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Exposição vinculada ao Banco IBM e aos contratos indicados; limite por arrendatário não localizado",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subordinadas/PL ≥ 10%; PL/sênior ≥ 111,11%",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 57 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Relação mínima sem cura em 12 DU; alocação em 20 DU; reserva em 10 DU; falha de pagamentos",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 91-93 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Eventos/documentos do Banco IBM e dos prestadores exigem controle manual; consultar hipóteses de liquidação e prioridades contratuais.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Eventos/documentos do Banco IBM e dos prestadores exigem controle manual; consultar hipóteses de liquidação e prioridades contratuais."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "R$ 9.893.130,23 para custos e despesas estimadas",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 90 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+      "notes": "Lacuna documental explícita; requer instrumento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+      "notes": "Lacuna documental explícita; requer instrumento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Índice de cobertura",
+      "canonical_key": "documentary_indice_de_cobertura",
+      "threshold_display": "[(Sênior + subordinadas) × 0,8857]/sênior ≥ 1",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 69, 91, 137 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Fator ponderado distinto da relação de subordinação; respeitar fórmula e valor do suplemento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Fator ponderado distinto da relação de subordinação; respeitar fórmula e valor do suplemento."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "≥ 50% do PL após 180 dias; percentual tributário com divergência numérico/extenso",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 46, 65, 90 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "A definição tributária registra 67% por número e 50% por extenso. Não harmonizar por hipótese; distinguir alocação contratual do objetivo fiscal.",
+      "monitoring_mapping": {
+        "status": "direto com validação",
+        "ime_metric": "Direitos creditórios / PL; validar ativo elegível, período e denominador",
+        "rationale": "A definição tributária registra 67% por número e 50% por extenso. Não harmonizar por hipótese; distinguir alocação contratual do objetivo fiscal."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+      "notes": "Lacuna documental explícita; requer instrumento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Classe fechada; profissionais; prazo originalmente de 27 meses",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 60-61 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "CDB-V e dação em pagamento de créditos de leasing conforme Contrato CDB",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123, 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Contrato CDB integral não obtido; condições finais de recompra, substituição e indenização permanecem lacuna.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Contrato CDB integral não obtido; condições finais de recompra, substituição e indenização permanecem lacuna."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Garantia de solvência/coobrigação adicional não localizada; CDB-V dependente dos fluxos",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Amortização pro rata ordinária; evento de liquidação aciona regime sequencial",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 88-89 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+      "notes": "Conclusão documental; preservar versão, condições e denominador.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    {
+      "name": "Situação documental",
+      "canonical_key": "documentary_situacao_documental",
+      "threshold_display": "Encerrado em 23/06/2026; preservar no retrato histórico da carteira 1T26",
+      "source_document": "Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+      "notes": "Termo informa despesas pagas/provisionadas e procedimentos de baixa/auditoria subsequentes. Não afirmar cadastro CVM baixado sem confirmação.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Termo informa despesas pagas/provisionadas e procedimentos de baixa/auditoria subsequentes. Não afirmar cadastro CVM baixado sem confirmação."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "amentos realizados no Dia Útil subsequente. DocuSign Envelope ID: 1D5534A9-86BA-4EC1-B277-A81E1686029A “Despesas da Classe” Significa o somatório em reais de todos os custos, encargos e despesas exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente , considerando os custos referentes às despesas fixas da Classe Única para um período de 3 (três) meses. “Direitos Creditórios Adquiri…",
+      "source_excerpt": "amentos realizados no Dia Útil subsequente. DocuSign Envelope ID: 1D5534A9-86BA-4EC1-B277-A81E1686029A “Despesas da Classe” Significa o somatório em reais de todos os custos, encargos e despesas exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente , considerando os custos referentes às despesas fixas da Classe Única para um período de 3 (três) meses. “Direitos Creditórios Adquiri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ilidade do Cotista está limitada ao valor por ele subscrito. Caso o Administrador verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência do pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175/22. 2.2. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderant…",
+      "source_excerpt": "ilidade do Cotista está limitada ao valor por ele subscrito. Caso o Administrador verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência do pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175/22. 2.2. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderant…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tica de Investimento e aos respectivos Critérios de Elegibilidade, verificados em cada respectiva Data de Aquisição. 3.2.3. Os Direitos Creditórios serão adquiridos pela Classe, por intermédio do Fundo, por meio da celebração do Contrato de Cessão entre o Fundo, em benefício da Classe, e o Cedente, com cessão dos respectivos Direitos Creditórios à Classe. 3.3. Formalização da Aquisição dos Direitos Creditórios. 3.3.…",
+      "source_excerpt": "tica de Investimento e aos respectivos Critérios de Elegibilidade, verificados em cada respectiva Data de Aquisição. 3.2.3. Os Direitos Creditórios serão adquiridos pela Classe, por intermédio do Fundo, por meio da celebração do Contrato de Cessão entre o Fundo, em benefício da Classe, e o Cedente, com cessão dos respectivos Direitos Creditórios à Classe. 3.3. Formalização da Aquisição dos Direitos Creditórios. 3.3.…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dição à verificação integral dos Documentos Comprobatórios conforme a metodologia disposta acima, o Custodiante verificará, de maneira integral, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Adquiridos substituídos no respectivo trimestre. 5. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 5.1. O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas, por m…",
+      "source_excerpt": "dição à verificação integral dos Documentos Comprobatórios conforme a metodologia disposta acima, o Custodiante verificará, de maneira integral, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Adquiridos substituídos no respectivo trimestre. 5. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 5.1. O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas, por m…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "no manual de precificação do Administrador disponível em “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (TIR) calculada na Data de Aquisição pelo prazo a decorrer até a respectiva Data…",
+      "source_excerpt": "no manual de precificação do Administrador disponível em “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (TIR) calculada na Data de Aquisição pelo prazo a decorrer até a respectiva Data…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Data não localizada no corpus acessível",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª série sênior",
+      "amount_display": "R$689.269.880 distribuídos; R$740 mi aprovados",
+      "remuneration": "DI + 1,10% a.a.",
+      "amortization_schedule": "Tabela variável no suplemento; amortização integral em 23/06/2026",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137-138 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195; Fundos.NET ID 758570 · 07/10/2024 · emissao · p. 1-3 · data/raw/55070804000159/758570_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=758570; Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+      "notes": "Curado; encerrado documentalmente em 23/06/2026"
+    },
+    {
+      "date": "Data não localizada no corpus acessível",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Subclasse júnior da 1ª emissão",
+      "amount_display": "R$86.580.627 distribuídos; R$110 mi aprovados",
+      "remuneration": "DI + 2,70% a.a. + prêmio de saldo remanescente",
+      "amortization_schedule": "Tabela variável no suplemento; amortização integral em 23/06/2026",
+      "source_document": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 140-141 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195; Fundos.NET ID 758570 · 07/10/2024 · emissao · p. 1-3 · data/raw/55070804000159/758570_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=758570; Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+      "notes": "Curado; encerrado documentalmente em 23/06/2026"
+    }
+  ],
+  "extraction_count": 5,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "reviewed_at": "2026-10-07T15:17:45-03:00",
+      "document_status": "Documentos locais revisados; lacunas e divergências assinaladas",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode estar preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 1248767,
+          "kind": "emissao",
+          "date": "23/06/2026",
+          "path": "data/raw/55070804000159/1248767_emissao.pdf",
+          "text_path": "data/raw/55070804000159/1248767_emissao.full.txt",
+          "identity_verified": true,
+          "pages": 2,
+          "extractable_pages": 0,
+          "identity_verification_note": "CNPJ 55.070.804/0001-59 e nome do fundo conferidos visualmente na página 1; documento sem texto extraível.",
+          "review_mode": "Conferência visual da página material 1"
+        },
+        {
+          "document_id": 1027106,
+          "kind": "assembleia",
+          "date": "28/10/2025 11:00",
+          "path": "data/raw/55070804000159/1027106_assembleia.pdf",
+          "text_path": "data/raw/55070804000159/1027106_assembleia.full.txt",
+          "identity_verified": true,
+          "pages": 2,
+          "extractable_pages": 2,
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 758570,
+          "kind": "emissao",
+          "date": "07/10/2024",
+          "path": "data/raw/55070804000159/758570_emissao.pdf",
+          "text_path": "data/raw/55070804000159/758570_emissao.full.txt",
+          "identity_verified": true,
+          "pages": 5,
+          "extractable_pages": 5,
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 667195,
+          "kind": "regulamento",
+          "date": "22/05/2024",
+          "path": "data/raw/55070804000159/667195_regulamento.pdf",
+          "text_path": "data/raw/55070804000159/667195_regulamento.full.txt",
+          "identity_verified": true,
+          "pages": 144,
+          "extractable_pages": 144,
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "ID 686119: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "Contrato CDB e todos os contratos de leasing vinculados não obtidos; regras privadas permanecem lacunas.",
+        "Taxa de administração/gestão com redação conjunta de 0,175%; segregação e mínimo por prestador exigem validação.",
+        "Alocação tributária com discrepância entre número e texto por extenso.",
+        "Encerramento documental em 23/06/2026; baixa cadastral CVM/auditoria final não verificadas. O fundo permanece no perímetro histórico 1T26."
+      ],
+      "inventory_count": 44,
+      "pdf_count": 4,
+      "pages_analyzed": 152,
+      "extraction_errors": [
+        {
+          "document_id": 1248767,
+          "error": "PDF sem texto extraível / OCR necessário; página 1 conferida visualmente"
+        }
+      ],
+      "review_id": "documentary_comparisons_20261007",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/55070804000159.json"
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T15:17:45-03:00",
+    "inventory_count": 44,
+    "pdf_count": 4,
+    "pages_analyzed": 152,
+    "sources_reviewed": [
+      {
+        "document_id": 1248767,
+        "kind": "emissao",
+        "date": "23/06/2026",
+        "path": "data/raw/55070804000159/1248767_emissao.pdf",
+        "text_path": "data/raw/55070804000159/1248767_emissao.full.txt",
+        "identity_verified": true,
+        "pages": 2,
+        "extractable_pages": 0,
+        "identity_verification_note": "CNPJ 55.070.804/0001-59 e nome do fundo conferidos visualmente na página 1; documento sem texto extraível.",
+        "review_mode": "Conferência visual da página material 1"
+      },
+      {
+        "document_id": 1027106,
+        "kind": "assembleia",
+        "date": "28/10/2025 11:00",
+        "path": "data/raw/55070804000159/1027106_assembleia.pdf",
+        "text_path": "data/raw/55070804000159/1027106_assembleia.full.txt",
+        "identity_verified": true,
+        "pages": 2,
+        "extractable_pages": 2,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 758570,
+        "kind": "emissao",
+        "date": "07/10/2024",
+        "path": "data/raw/55070804000159/758570_emissao.pdf",
+        "text_path": "data/raw/55070804000159/758570_emissao.full.txt",
+        "identity_verified": true,
+        "pages": 5,
+        "extractable_pages": 5,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 667195,
+        "kind": "regulamento",
+        "date": "22/05/2024",
+        "path": "data/raw/55070804000159/667195_regulamento.pdf",
+        "text_path": "data/raw/55070804000159/667195_regulamento.full.txt",
+        "identity_verified": true,
+        "pages": 144,
+        "extractable_pages": 144,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "documents": [
+      {
+        "document_id": 686046,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "05/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 667195,
+        "classification": "regulamento",
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "reference_date": "22/05/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 667196,
+        "classification": "emissao",
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "reference_date": "22/05/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 727018,
+        "classification": "demonstracoes_financeiras",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "reference_date": "31/05/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 698157,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "06/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 720827,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "06/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 686119,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "21/06/2024 10:00",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 719795,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "07/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 739398,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "08/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 758346,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "09/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 782022,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "09/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 782049,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "10/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 758570,
+        "classification": "emissao",
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "reference_date": "07/10/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 801576,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "11/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 820317,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "12/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 840416,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "12/2024",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 842909,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "01/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 859429,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "02/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 880787,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "03/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 903903,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "03/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 904713,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "04/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 925452,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "05/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 968572,
+        "classification": "demonstracoes_financeiras",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "reference_date": "31/05/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 946572,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "06/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 970688,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "06/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 972147,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "07/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 991085,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "08/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1014568,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "09/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1037414,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "09/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1042012,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "10/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1027106,
+        "classification": "assembleia",
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "reference_date": "28/10/2025 11:00",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1061980,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "11/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1079671,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "12/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1111926,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "12/2025",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1114006,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "01/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1136030,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "02/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1162745,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "03/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1196354,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "03/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1189315,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "04/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1220357,
+        "classification": "informe_mensal",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal Estruturado ",
+        "especie": "",
+        "reference_date": "05/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1266608,
+        "classification": "demonstracoes_financeiras",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "reference_date": "31/05/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1291881,
+        "classification": "informe_trimestral",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "reference_date": "06/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1248767,
+        "classification": "emissao",
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+        "especie": "",
+        "reference_date": "23/06/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      },
+      {
+        "document_id": 1266613,
+        "classification": "demonstracoes_financeiras",
+        "categoria": "Outras Demonstrações Financeiras ",
+        "tipo": "Demonstrações Financeiras - Encerramento de atividades",
+        "especie": "",
+        "reference_date": "23/06/2026",
+        "nome_fundo": "ESTRATÉGIA VINCULADA II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+        "status": "AC"
+      }
+    ],
+    "errors": [
+      "ID 686119: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Contrato CDB e todos os contratos de leasing vinculados não obtidos; regras privadas permanecem lacunas.",
+      "Taxa de administração/gestão com redação conjunta de 0,175%; segregação e mínimo por prestador exigem validação.",
+      "Alocação tributária com discrepância entre número e texto por extenso.",
+      "Encerramento documental em 23/06/2026; baixa cadastral CVM/auditoria final não verificadas. O fundo permanece no perímetro histórico 1T26."
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Alocação mínima em direitos creditórios",
       "canonical_key": "credit_rights_allocation_min",
       "event_type": "enquadramento",
@@ -257,34 +1112,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "amentos realizados no Dia Útil subsequente. DocuSign Envelope ID: 1D5534A9-86BA-4EC1-B277-A81E1686029A “Despesas da Classe” Significa o somatório em reais de todos os custos, encargos e despesas exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente , considerando os custos referentes às despesas fixas da Classe Única para um período de 3 (três) meses. “Direitos Creditórios Adquiri…",
-      "source_excerpt": "amentos realizados no Dia Útil subsequente. DocuSign Envelope ID: 1D5534A9-86BA-4EC1-B277-A81E1686029A “Despesas da Classe” Significa o somatório em reais de todos os custos, encargos e despesas exclusivos da Classe Única estimados pelo Administrador a serem incorridos periodicamente , considerando os custos referentes às despesas fixas da Classe Única para um período de 3 (três) meses. “Direitos Creditórios Adquiri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ilidade do Cotista está limitada ao valor por ele subscrito. Caso o Administrador verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência do pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175/22. 2.2. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderant…",
-      "source_excerpt": "ilidade do Cotista está limitada ao valor por ele subscrito. Caso o Administrador verifique que o Patrimônio Líquido da Classe está negativo, ou tenha ciência do pedido de declaração judicial de insolvência da Classe ou da declaração judicial de insolvência da Classe, deverá adotar as medidas aplicáveis previstas na Resolução CVM 175/22. 2.2. Objeto. A Classe Única é uma comunhão de recursos destinados, preponderant…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tica de Investimento e aos respectivos Critérios de Elegibilidade, verificados em cada respectiva Data de Aquisição. 3.2.3. Os Direitos Creditórios serão adquiridos pela Classe, por intermédio do Fundo, por meio da celebração do Contrato de Cessão entre o Fundo, em benefício da Classe, e o Cedente, com cessão dos respectivos Direitos Creditórios à Classe. 3.3. Formalização da Aquisição dos Direitos Creditórios. 3.3.…",
-      "source_excerpt": "tica de Investimento e aos respectivos Critérios de Elegibilidade, verificados em cada respectiva Data de Aquisição. 3.2.3. Os Direitos Creditórios serão adquiridos pela Classe, por intermédio do Fundo, por meio da celebração do Contrato de Cessão entre o Fundo, em benefício da Classe, e o Cedente, com cessão dos respectivos Direitos Creditórios à Classe. 3.3. Formalização da Aquisição dos Direitos Creditórios. 3.3.…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dição à verificação integral dos Documentos Comprobatórios conforme a metodologia disposta acima, o Custodiante verificará, de maneira integral, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Adquiridos substituídos no respectivo trimestre. 5. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 5.1. O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas, por m…",
-      "source_excerpt": "dição à verificação integral dos Documentos Comprobatórios conforme a metodologia disposta acima, o Custodiante verificará, de maneira integral, os Direitos Creditórios Inadimplidos e os Direitos Creditórios Adquiridos substituídos no respectivo trimestre. 5. POLÍTICA DE INVESTIMENTO, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 5.1. O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas, por m…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "no manual de precificação do Administrador disponível em “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (TIR) calculada na Data de Aquisição pelo prazo a decorrer até a respectiva Data…",
-      "source_excerpt": "no manual de precificação do Administrador disponível em “http://www.oliveiratrust.com.br/portal/docs/ManualdePrecificacaodeAtivos_MTM.pdf”; e (ii) os Direitos Creditórios Adquiridos serão contabilizados e registrados com base em seu Preço de Aquisição, com apropriação de seus respectivos rendimentos, conforme a taxa interna de retorno (TIR) calculada na Data de Aquisição pelo prazo a decorrer até a respectiva Data…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -342,6 +1170,339 @@
       "source_document_id": 758570
     }
   ],
-  "extraction_count": 5,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "55070804000159",
+    "label": "Estratégia Vinculada II",
+    "reviewed_at": "2026-10-07T15:17:45-03:00",
+    "document_status": "Documentos locais revisados; lacunas e divergências assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode estar preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CDBs vinculados do Banco IBM a contratos de arrendamento mercantil",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Originador/endossante": {
+          "value": "Banco IBM; arrendamentos vinculados no contrato de CDB",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Devedor": {
+          "value": "Banco IBM; pagamento dos CDB-V condicionado aos fluxos de leasing vinculados",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Risco de fluxo dos arrendatários e de operacionalização/insolvência do banco; não converter em empréstimo consignado."
+        },
+        "Garantia": {
+          "value": "Vinculação contratual a operações de leasing; sem garantia do FGC",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51, 65 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Elegibilidade": {
+          "value": "Emissão Banco IBM; reais; formalização integral; sem ônus, atraso prévio ou repactuação",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 63-64 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Lista integral e vínculo do CDB-V dependem do Contrato CDB. Redação de elegibilidade usa termo CCB em passagens do anexo, divergente da definição de CDB-V; não altera o ativo por inferência."
+        },
+        "Concentração": {
+          "value": "Exposição vinculada ao Banco IBM e aos contratos indicados; limite por arrendatário não localizado",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subordinadas/PL ≥ 10%; PL/sênior ≥ 111,11%",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 57 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Relação mínima sem cura em 12 DU; alocação em 20 DU; reserva em 10 DU; falha de pagamentos",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 91-93 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Eventos/documentos do Banco IBM e dos prestadores exigem controle manual; consultar hipóteses de liquidação e prioridades contratuais."
+        },
+        "Reserva de caixa": {
+          "value": "R$ 9.893.130,23 para custos e despesas estimadas",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 90 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+          "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+          "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+        },
+        "Índice de cobertura": {
+          "value": "[(Sênior + subordinadas) × 0,8857]/sênior ≥ 1",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 69, 91, 137 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Fator ponderado distinto da relação de subordinação; respeitar fórmula e valor do suplemento."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "≥ 50% do PL após 180 dias; percentual tributário com divergência numérico/extenso",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 46, 65, 90 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "A definição tributária registra 67% por número e 50% por extenso. Não harmonizar por hipótese; distinguir alocação contratual do objetivo fiscal."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+          "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Classe fechada; profissionais; prazo originalmente de 27 meses",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 60-61 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Cessão/recompra": {
+          "value": "CDB-V e dação em pagamento de créditos de leasing conforme Contrato CDB",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123, 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Contrato CDB integral não obtido; condições finais de recompra, substituição e indenização permanecem lacuna."
+        },
+        "Coobrigação": {
+          "value": "Garantia de solvência/coobrigação adicional não localizada; CDB-V dependente dos fluxos",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Waterfall": {
+          "value": "Amortização pro rata ordinária; evento de liquidação aciona regime sequencial",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 88-89 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Situação documental": {
+          "value": "Encerrado em 23/06/2026; preservar no retrato histórico da carteira 1T26",
+          "source": "Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+          "note": "Termo informa despesas pagas/provisionadas e procedimentos de baixa/auditoria subsequentes. Não afirmar cadastro CVM baixado sem confirmação."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "1ª série sênior e subclasse subordinada júnior",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137-141 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Remuneração": {
+          "value": "Sênior: DI + 1,10% a.a.; júnior: DI + 2,70% a.a. + prêmio residual",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137, 140 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Volume/VNU": {
+          "value": "Até R$ 740 mi sênior + R$ 110 mi júnior aprovados; VNU R$ 1",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137, 140 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Ofertas": {
+          "value": "Encerramento 07/10/2024: R$689,27 mi sênior + R$86,58 mi júnior; R$74,15 mi cancelados",
+          "source": "Fundos.NET ID 758570 · 07/10/2024 · emissao · p. 1-3 · data/raw/55070804000159/758570_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=758570",
+          "note": "R$775.850.507 distribuídos; anúncio usa cabeçalho de início mas corpo comunica encerramento. Não confundir volume aprovado de R$850mi com distribuído."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Primeiro pagamento 24/06/2024",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137-141 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Cronograma documental; não presumir adimplemento dos eventos previstos."
+        },
+        "Juros/amortização": {
+          "value": "Mensal; cronograma de principal e remuneração no suplemento",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137-141 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Vencimento": {
+          "value": "Amortização integral e encerramento documental em 23/06/2026",
+          "source": "Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+          "note": "Suplemento previa resgate em 24/06/2026 e tabela final 23/06/2026. Termo confirma pagamento integral sênior/júnior em 23/06/2026; baixa cadastral CVM não certificada."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; mínimo R$ 15 mil/mês",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Cláusula usa taxa de administração e de gestão em redação conjunta. Confirmar rateio/aplicação antes de somar duas taxas; pagamento antecipado 1 DU após primeira integralização pelo prazo de duração."
+        },
+        "Gestão": {
+          "value": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; adicional único R$ 40 mil",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Não duplicar automaticamente a taxa conjunta. Adicional na primeira integralização; AG R$700/hora ao administrador."
+        },
+        "Custódia": {
+          "value": "Custódia, escrituração e controladoria incluídas na cláusula conjunta de taxas",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL e subordinadas/PL são diretos com validação; cobertura ponderada exige fórmula",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 57, 91 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over/PDD são proxies agregados; fluxo de leasing, CDB-V e solvência IBM exigem contratos",
+          "source": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 49-51 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+          "note": "Conclusão documental; preservar versão, condições e denominador."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro e eventos exigem acompanhamento documental",
+          "source": "Corpus acessível do CNPJ 55070804000159: ID 1248767 (23/06/2026), data/raw/55070804000159/1248767_emissao.pdf; ID 1027106 (28/10/2025 11:00), data/raw/55070804000159/1027106_assembleia.pdf; ID 758570 (07/10/2024), data/raw/55070804000159/758570_emissao.pdf; ID 667195 (22/05/2024), data/raw/55070804000159/667195_regulamento.pdf",
+          "note": "O IME público agregado não possui contratos e eventos suficientes para certificar as regras."
+        },
+        "Competência IME": {
+          "value": "Cache local: 03/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/83c06907290226eda3ba2fb4f8a5f7bf14fbba2b45b33cba976d966edce07265/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Encerramento",
+        "Conclusão": "As cotas foram integralmente amortizadas em 23 de junho de 2026; o termo declara o encerramento do fundo."
+      },
+      {
+        "Tema": "Ativo",
+        "Conclusão": "CDBs do Banco IBM são vinculados a arrendamentos mercantis e seus fluxos."
+      },
+      {
+        "Tema": "Oferta",
+        "Conclusão": "A oferta distribuiu R$775,85 milhões, abaixo do teto aprovado de R$850 milhões."
+      },
+      {
+        "Tema": "Remuneração",
+        "Conclusão": "A sênior previa DI + 1,10% e a júnior DI + 2,70%, com prêmio residual."
+      }
+    ],
+    "warnings": [
+      "ID 686119: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Contrato CDB e todos os contratos de leasing vinculados não obtidos; regras privadas permanecem lacunas.",
+      "Taxa de administração/gestão com redação conjunta de 0,175%; segregação e mínimo por prestador exigem validação.",
+      "Alocação tributária com discrepância entre número e texto por extenso.",
+      "Encerramento documental em 23/06/2026; baixa cadastral CVM/auditoria final não verificadas. O fundo permanece no perímetro histórico 1T26."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1248767,
+        "kind": "emissao",
+        "date": "23/06/2026",
+        "path": "data/raw/55070804000159/1248767_emissao.pdf",
+        "text_path": "data/raw/55070804000159/1248767_emissao.full.txt",
+        "identity_verified": true,
+        "pages": 2,
+        "extractable_pages": 0,
+        "identity_verification_note": "CNPJ 55.070.804/0001-59 e nome do fundo conferidos visualmente na página 1; documento sem texto extraível.",
+        "review_mode": "Conferência visual da página material 1"
+      },
+      {
+        "document_id": 1027106,
+        "kind": "assembleia",
+        "date": "28/10/2025 11:00",
+        "path": "data/raw/55070804000159/1027106_assembleia.pdf",
+        "text_path": "data/raw/55070804000159/1027106_assembleia.full.txt",
+        "identity_verified": true,
+        "pages": 2,
+        "extractable_pages": 2,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 758570,
+        "kind": "emissao",
+        "date": "07/10/2024",
+        "path": "data/raw/55070804000159/758570_emissao.pdf",
+        "text_path": "data/raw/55070804000159/758570_emissao.full.txt",
+        "identity_verified": true,
+        "pages": 5,
+        "extractable_pages": 5,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 667195,
+        "kind": "regulamento",
+        "date": "22/05/2024",
+        "path": "data/raw/55070804000159/667195_regulamento.pdf",
+        "text_path": "data/raw/55070804000159/667195_regulamento.full.txt",
+        "identity_verified": true,
+        "pages": 144,
+        "extractable_pages": 144,
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 44,
+    "pdf_count": 4,
+    "pages_analyzed": 152,
+    "extraction_errors": [
+      {
+        "document_id": 1248767,
+        "error": "PDF sem texto extraível / OCR necessário; página 1 conferida visualmente"
+      }
+    ],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "1ª série sênior",
+        "Tipo": "Sênior",
+        "Remuneração": "DI + 1,10% a.a.",
+        "Juros/remuneração": "Mensal de 24/06/2024 a 23/06/2026 no cronograma; encerramento confirmado",
+        "Amortização principal": "Tabela variável no suplemento; amortização integral em 23/06/2026",
+        "Volume": "R$689.269.880 distribuídos; R$740 mi aprovados",
+        "VNU": "R$ 1,00",
+        "Data deliberação": "Data não localizada no corpus acessível",
+        "Data emissão / 1ª integralização": "23/05/2024 conforme suplemento",
+        "Data encerramento/oferta": "Encerramento de oferta 07/10/2024",
+        "Fonte": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 137-138 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195; Fundos.NET ID 758570 · 07/10/2024 · emissao · p. 1-3 · data/raw/55070804000159/758570_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=758570; Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+        "Status curadoria": "Curado; encerrado documentalmente em 23/06/2026"
+      },
+      {
+        "Cota/Classe": "Subclasse júnior da 1ª emissão",
+        "Tipo": "Subordinada júnior",
+        "Remuneração": "DI + 2,70% a.a. + prêmio de saldo remanescente",
+        "Juros/remuneração": "Mensal de 24/06/2024 a 23/06/2026 no cronograma; encerramento confirmado",
+        "Amortização principal": "Tabela variável no suplemento; amortização integral em 23/06/2026",
+        "Volume": "R$86.580.627 distribuídos; R$110 mi aprovados",
+        "VNU": "R$ 1,00",
+        "Data deliberação": "Data não localizada no corpus acessível",
+        "Data emissão / 1ª integralização": "23/05/2024 conforme suplemento",
+        "Data encerramento/oferta": "Encerramento de oferta 07/10/2024",
+        "Fonte": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 140-141 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195; Fundos.NET ID 758570 · 07/10/2024 · emissao · p. 1-3 · data/raw/55070804000159/758570_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=758570; Fundos.NET ID 1248767 · 23/06/2026 · emissao · p. 1 (visual) · data/raw/55070804000159/1248767_emissao.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1248767",
+        "Status curadoria": "Curado; encerrado documentalmente em 23/06/2026"
+      }
+    ],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; mínimo R$ 15 mil/mês",
+        "Mínimo mensal": "R$15.000/mês na cláusula conjunta; mínimo por prestador não segregado",
+        "Fonte": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+        "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+        "Mudanças relevantes": "Cláusula usa taxa de administração e de gestão em redação conjunta. Confirmar rateio/aplicação antes de somar duas taxas; pagamento antecipado 1 DU após primeira integralização pelo prazo de duração.",
+        "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "Cláusula conjunta: 0,175% a.a. do PL; segregação administração/gestão não explicitada; adicional único R$ 40 mil",
+        "Mínimo mensal": "R$15.000/mês na cláusula conjunta; adicional único R$40.000",
+        "Fonte": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+        "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+        "Mudanças relevantes": "Não duplicar automaticamente a taxa conjunta. Adicional na primeira integralização; AG R$700/hora ao administrador.",
+        "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Custódia, escrituração e controladoria incluídas na cláusula conjunta de taxas",
+        "Mínimo mensal": "Incluída na cláusula conjunta; mínimo individual não localizado",
+        "Fonte": "Fundos.NET ID 667195 · 22/05/2024 · regulamento · p. 123 · data/raw/55070804000159/667195_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=667195",
+        "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+        "Mudanças relevantes": "Conclusão documental; preservar versão, condições e denominador.",
+        "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 44,
+      "pdf_count": 4,
+      "pages_analyzed": 152
+    }
+  },
+  "reviewed_at": "2026-10-07T15:17:45-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/55070804000159.json"
 }

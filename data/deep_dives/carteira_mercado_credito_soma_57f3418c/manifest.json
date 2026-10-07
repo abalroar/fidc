@@ -1,68 +1,147 @@
 {
   "schema_version": 1,
   "deep_dive_id": "carteira_mercado_credito_soma_57f3418c",
-  "title": "Deep Dive MELI (FIDCs Mercado Crédito 0, I e II)",
-  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "title": "Curadoria MELI (FIDCs Mercado Crédito 0, I e II)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
   "portfolio_id": "57f3418c1e9341e79edeef6086b8c25d",
   "portfolio_signature": "33254370000104|37511828000114|41970012000126",
-  "generated_at": "2026-05-13T20:56:03-03:00",
-  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "generated_at": "2026-10-07T15:13:33-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
   "confidentiality": "Uso interno",
   "funds": [
     {
-      "cnpj": "33.254.370/0001-04",
+      "cnpj": "33254370000104",
       "name": "MERCADO CRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-      "short_name": "MERCADO CRÉDITO"
+      "short_name": "Mercado Crédito 0"
     },
     {
-      "cnpj": "37.511.828/0001-14",
+      "cnpj": "37511828000114",
       "name": "MERCADO CRÉDITO I BRASIL FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
-      "short_name": "MERCADO CRÉDITO I BRASIL"
+      "short_name": "Mercado Crédito I Brasil"
     },
     {
-      "cnpj": "41.970.012/0001-26",
+      "cnpj": "41970012000126",
       "name": "MERCADO CRÉDITO II BRASIL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA",
-      "short_name": "MERCADO CRÉDITO II BRASIL"
+      "short_name": "Mercado Crédito II Brasil"
     }
   ],
+  "comparison_columns": {
+    "Mercado Crédito 0": "33254370000104",
+    "Mercado Crédito I Brasil": "37511828000114",
+    "Mercado Crédito II Brasil": "41970012000126"
+  },
   "tables": [
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
-      "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
-      "first_column": "Nome"
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "structural_costs",
       "title": "Custos estruturais",
-      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
-      "kind": "source_table",
       "source_file": "tables/structural_costs.csv",
-      "first_column": "Fundo"
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "emissions",
-      "title": "Cronograma de emissões",
-      "kind": "source_table",
-      "source_file": "tables/emissions.csv",
-      "first_column": "Fundo"
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "thresholds",
-      "title": "Regulamento mais recente",
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
       "kind": "source_table",
-      "source_file": "tables/thresholds.csv",
-      "first_column": "fundo"
+      "subtitle": "Referências por célula; observações comuns no rodapé"
     }
   ],
   "audit": {
     "warnings": [
-      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
-      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Inventário atual tecnicamente indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.. Inventário anterior preservado; vigência mais recente exige nova consulta."
     ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "5a64717979224fc6dac9ae6a4428af1fbcfa875bec33d68c3306adfd5893d472",
+    "rendering_sha256": "858db93d040129329a98ea430ed0f286816647179e7ccc373f38f0ce4d0552e2",
+    "input_sha256": "3dc80f44a370a2bb2b5247bfd00424da5d14977b1116edc7d88a1a0d5aacb0c9"
   }
 }

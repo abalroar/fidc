@@ -371,6 +371,743 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CCBs de antecipação de saque-aniversário FGTS",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 25-28 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Pessoa física titular de conta FGTS; idade mínima 18 anos",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 27-28 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Cessão fiduciária do saque-aniversário; bloqueio na conta FGTS",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 25-26 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "CCB adimplente; prazo ≤ 120 meses e até vencimento da sênior mais longa",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 27 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Saldo por devedor ≤ R$ 120 mil",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 27 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 5%",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 16 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Arrecadação < 93% em 2 datas/12 meses; atraso > 10%; PL < R$ 1 mi por 3 meses",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 48-50 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Arrecadação/atraso contratuais não replicados pelo IME agregado.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Arrecadação/atraso contratuais não replicados pelo IME agregado."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "3 meses de despesas + liquidez 2% do PL, limitada a R$ 15 mi",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 51-52 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Liquidez deve ser constituída nas três primeiras arrecadações, mínimo R$ 5 mi por mês até o teto.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Liquidez deve ser constituída nas três primeiras arrecadações, mínimo R$ 5 mi por mês até o teto."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Cessão definitiva; desconformidade pode resolver aquisição",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 25-28 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Não há regresso por perda posterior de elegibilidade, salvo má-fé, culpa ou dolo.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Não há regresso por perda posterior de elegibilidade, salvo má-fé, culpa ou dolo."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Encargos/derivativos → caixa/liquidez → sênior → mezanino → júnior",
+      "source_document": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 52-53 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
+      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
+      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
+      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
+      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª série",
+      "amount_display": "Até R$ 1,35 bi ofertados",
+      "remuneration": "Spread final não localizado no anúncio",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 666840 · 21/05/2024 · p. 1-2 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    },
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª emissão",
+      "amount_display": "Até R$ 170 mi ofertados",
+      "remuneration": "Resultado residual; benchmark não localizado",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 666840 · 21/05/2024 · p. 1-2 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ],
+  "extraction_count": 16,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/54810968000102.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 937760,
+          "date": "22/04/2025",
+          "path": "data/raw/54810968000102/937760_documentary_review.pdf",
+          "text_path": "data/raw/54810968000102/937760_documentary_review.txt",
+          "pages": 101,
+          "identity_verified": true,
+          "categoria": "Regulamento",
+          "tipo": "",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 666840,
+          "date": "21/05/2024",
+          "path": "data/raw/54810968000102/666840_documentary_review.pdf",
+          "text_path": "data/raw/54810968000102/666840_documentary_review.txt",
+          "pages": 5,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 666836,
+          "date": "22/05/2024",
+          "path": "data/raw/54810968000102/666836_documentary_review.pdf",
+          "text_path": "data/raw/54810968000102/666836_documentary_review.txt",
+          "pages": 6,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Alteração do Regulamento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 666751,
+          "date": "21/05/2024",
+          "path": "data/raw/54810968000102/666751_documentary_review.pdf",
+          "text_path": "data/raw/54810968000102/666751_documentary_review.txt",
+          "pages": 5,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Alteração do Regulamento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+        "794749: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "666042: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+      ],
+      "inventory_count": 26,
+      "pdf_count": 4,
+      "pages_analyzed": 117,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 26,
+    "pdf_count": 4,
+    "pages_analyzed": 117,
+    "documents": [
+      {
+        "id": 666042,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Aviso ao Mercado",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "17/05/2024",
+        "data_entrega": "20/05/2024 18:48",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/666042_emissao_emissao_666042_2024-05-17.pdf"
+      },
+      {
+        "id": 666748,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "21/05/2024",
+        "data_entrega": "22/05/2024 10:40",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/666748_regulamento_regulamento_666748_2024-05-21.pdf"
+      },
+      {
+        "id": 666751,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "21/05/2024",
+        "data_entrega": "22/05/2024 10:41",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/666751_regulamento_regulamento_666751_2024-05-21.pdf"
+      },
+      {
+        "id": 666840,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "21/05/2024",
+        "data_entrega": "22/05/2024 14:10",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/666840_emissao_emissao_666840_2024-05-21.pdf"
+      },
+      {
+        "id": 666836,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "22/05/2024",
+        "data_entrega": "22/05/2024 13:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/666836_regulamento_regulamento_666836_2024-05-22.pdf"
+      },
+      {
+        "id": 666837,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "22/05/2024",
+        "data_entrega": "22/05/2024 13:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/666837_regulamento_regulamento_666837_2024-05-22.pdf"
+      },
+      {
+        "id": 721733,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2024",
+        "data_entrega": "15/08/2024 21:11",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 781232,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2024",
+        "data_entrega": "14/11/2024 23:11",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 794746,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "29/11/2024 17:00",
+        "data_entrega": "04/12/2024 19:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/794746_assembleia_assembleia_794746_2024-11-29.pdf"
+      },
+      {
+        "id": 849792,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "30/11/2024",
+        "data_entrega": "28/02/2025 09:05",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 835192,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2024",
+        "data_entrega": "10/02/2025 18:38",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 794749,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "02/12/2024",
+        "data_entrega": "04/12/2024 19:22",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/794749_regulamento_regulamento_794749_2024-12-02.pdf"
+      },
+      {
+        "id": 903230,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2025",
+        "data_entrega": "14/05/2025 19:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 937758,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "22/04/2025 11:00",
+        "data_entrega": "02/07/2025 09:12",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/937758_assembleia_assembleia_937758_2025-04-22.pdf"
+      },
+      {
+        "id": 937760,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "22/04/2025",
+        "data_entrega": "02/07/2025 09:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/937760_regulamento_regulamento_937760_2025-04-22.pdf"
+      },
+      {
+        "id": 937766,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "22/04/2025 11:00",
+        "data_entrega": "02/07/2025 09:26",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/937766_assembleia_assembleia_937766_2025-04-22.pdf"
+      },
+      {
+        "id": 937769,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "22/04/2025 12:00",
+        "data_entrega": "02/07/2025 09:28",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/937769_assembleia_assembleia_937769_2025-04-22.pdf"
+      },
+      {
+        "id": 877269,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 14:15",
+        "data_entrega": "10/04/2025 09:48",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/877269_assembleia_assembleia_877269_2025-04-25.pdf"
+      },
+      {
+        "id": 885453,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 14:15",
+        "data_entrega": "28/04/2025 12:03",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/885453_assembleia_assembleia_885453_2025-04-25.pdf"
+      },
+      {
+        "id": 885456,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Sumário das Decisões",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 14:15",
+        "data_entrega": "28/04/2025 12:04",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/885456_assembleia_assembleia_885456_2025-04-25.pdf"
+      },
+      {
+        "id": 966250,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2025",
+        "data_entrega": "12/08/2025 17:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1032201,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "10/11/2025 11:59",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1121266,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "30/11/2025",
+        "data_entrega": "25/02/2026 15:40",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1107552,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "10/02/2026 20:13",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1197852,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "16/05/2026 01:20",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1165950,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "27/04/2026 13:45",
+        "data_entrega": "17/04/2026 11:55",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/54810968000102/1165950_assembleia_assembleia_1165950_2026-04-27.pdf"
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 937760,
+        "date": "22/04/2025",
+        "path": "data/raw/54810968000102/937760_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/937760_documentary_review.txt",
+        "pages": 101,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 666840,
+        "date": "21/05/2024",
+        "path": "data/raw/54810968000102/666840_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/666840_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 666836,
+        "date": "22/05/2024",
+        "path": "data/raw/54810968000102/666836_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/666836_documentary_review.txt",
+        "pages": 6,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 666751,
+        "date": "21/05/2024",
+        "path": "data/raw/54810968000102/666751_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/666751_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Subordinação mínima",
       "canonical_key": "subordination_ratio_min",
       "event_type": "enquadramento",
@@ -2111,29 +2848,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
-      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
-      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
-      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…",
-      "source_excerpt": "ximo de 120 (cento e vinte) meses e deverão ter vencimento em data igual ou inferior à data de vencimento das Cotas Seniores de maior prazo; (iv) os Direitos Creditórios devem ter sido adquiridos pelo Preço de Cessão, conforme definido no respectivo Contrato de Cessão; e (v) o Preço de Cessão deverá observar a Taxa de Cessão definida no respectivo Contrato de Cessão. 28/101 5.2. Na hipótese de o Direito Creditório p…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -2247,6 +2962,288 @@
       "source_document_id": 937760
     }
   ],
-  "extraction_count": 16,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "54810968000102",
+    "label": "Angá FGTS III",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CCBs de antecipação de saque-aniversário FGTS",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 25-28 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Pessoa física titular de conta FGTS; idade mínima 18 anos",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 27-28 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Garantia": {
+          "value": "Cessão fiduciária do saque-aniversário; bloqueio na conta FGTS",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 25-26 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Elegibilidade": {
+          "value": "CCB adimplente; prazo ≤ 120 meses e até vencimento da sênior mais longa",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 27 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Concentração": {
+          "value": "Saldo por devedor ≤ R$ 120 mil",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 27 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 5%",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 16 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Arrecadação < 93% em 2 datas/12 meses; atraso > 10%; PL < R$ 1 mi por 3 meses",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 48-50 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Arrecadação/atraso contratuais não replicados pelo IME agregado."
+        },
+        "Reserva de caixa": {
+          "value": "3 meses de despesas + liquidez 2% do PL, limitada a R$ 15 mi",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 51-52 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Liquidez deve ser constituída nas três primeiras arrecadações, mínimo R$ 5 mi por mês até o teto."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Cessão/recompra": {
+          "value": "Cessão definitiva; desconformidade pode resolver aquisição",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 25-28 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Não há regresso por perda posterior de elegibilidade, salvo má-fé, culpa ou dolo."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Encargos/derivativos → caixa/liquidez → sênior → mezanino → júnior",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 52-53 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Classe A; sênior; mezanino; júnior",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 16, 43-46 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "Spread final não localizado no anúncio acessível; exige suplemento da série",
+          "source": "Fundos.NET ID 666840 · 21/05/2024 · Oferta Pública de Distribuição de Cotas · p. 1-5 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Volume/VNU": {
+          "value": "1ª sênior até R$ 1,35 bi; júnior até R$ 170 mi; VNU R$ 1.000",
+          "source": "Fundos.NET ID 666840 · 21/05/2024 · Oferta Pública de Distribuição de Cotas · p. 1-2 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+          "note": "Anúncio de início; não é resultado distribuído."
+        },
+        "Ofertas": {
+          "value": "1ª oferta registrada e iniciada em 21/05/2024",
+          "source": "Fundos.NET ID 666840 · 21/05/2024 · Oferta Pública de Distribuição de Cotas · p. 1 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Vencimento": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "0,10%/0,08%/0,05% a.a.; mínimo R$ 12 mil/mês",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 41 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "PL até R$ 500 mi; R$ 500 mi a R$ 1 bi; acima R$ 1 bi. Percentual sobre todo PL ao atingir faixa."
+        },
+        "Gestão": {
+          "value": "0,45% a.a. do PL + tributos; mínimo próprio não localizado",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 41-42 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Há divergência entre algarismos e expressão por extenso; valor numérico mantido com ressalva."
+        },
+        "Custódia": {
+          "value": "0,03% a.a. do PL; mínimo R$ 3,5 mil/mês",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 42 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Guarda/verificação terceirizada é encargo adicional."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Subordinadas/PL e júnior/PL: diretos com identificação de subclasses",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 16 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over/PDD: proxies; atraso contratual usa arrasto de parcelas na CCB",
+          "source": "Fundos.NET ID 937760 · 22/04/2025 · Regulamento · p. 15-16, 48 · data/raw/54810968000102/937760_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=937760",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 54810968000102: ID 937760 (22/04/2025), data/raw/54810968000102/937760_documentary_review.pdf; ID 666840 (21/05/2024), data/raw/54810968000102/666840_documentary_review.pdf; ID 666836 (22/05/2024), data/raw/54810968000102/666836_documentary_review.pdf; ID 666751 (21/05/2024), data/raw/54810968000102/666751_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Cache local: 03/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/2ac5e64d5c5f04d0501c682de58585a556851c2b64dd3973bb8e8b6af13bdcd9/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Natureza dos recebíveis",
+        "Conclusão": "CCBs de antecipação de saque-aniversário FGTS"
+      },
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Mezanino + júnior/PL ≥ 10%; júnior/PL ≥ 5%"
+      },
+      {
+        "Tema": "Administração",
+        "Conclusão": "0,10%/0,08%/0,05% a.a.; mínimo R$ 12 mil/mês"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "794749: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "666042: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 937760,
+        "date": "22/04/2025",
+        "path": "data/raw/54810968000102/937760_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/937760_documentary_review.txt",
+        "pages": 101,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 666840,
+        "date": "21/05/2024",
+        "path": "data/raw/54810968000102/666840_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/666840_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 666836,
+        "date": "22/05/2024",
+        "path": "data/raw/54810968000102/666836_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/666836_documentary_review.txt",
+        "pages": 6,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 666751,
+        "date": "21/05/2024",
+        "path": "data/raw/54810968000102/666751_documentary_review.pdf",
+        "text_path": "data/raw/54810968000102/666751_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 26,
+    "pdf_count": 4,
+    "pages_analyzed": 117,
+    "extraction_errors": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "1ª série",
+        "Tipo": "Sênior",
+        "Remuneração": "Spread final não localizado no anúncio",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "Até R$ 1,35 bi ofertados",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Início 21/05/2024; encerramento não localizado",
+        "Fonte": "Fundos.NET ID 666840 · 21/05/2024 · p. 1-2 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      },
+      {
+        "Cota/Classe": "1ª emissão",
+        "Tipo": "Subordinada júnior",
+        "Remuneração": "Resultado residual; benchmark não localizado",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "Até R$ 170 mi ofertados",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Início 21/05/2024; encerramento não localizado",
+        "Fonte": "Fundos.NET ID 666840 · 21/05/2024 · p. 1-2 · data/raw/54810968000102/666840_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=666840",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 26,
+      "pdf_count": 4,
+      "pages_analyzed": 117
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/54810968000102.json"
 }

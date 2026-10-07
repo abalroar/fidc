@@ -14,9 +14,9 @@
       "data_entrega": "14/10/2024 20:20",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/757909_emissao_emissao_757909_2024-10-07.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 757913,
@@ -28,9 +28,9 @@
       "data_entrega": "14/10/2024 20:23",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/757913_regulamento_regulamento_757913_2024-10-07.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 757915,
@@ -42,9 +42,9 @@
       "data_entrega": "14/10/2024 20:24",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/757915_regulamento_regulamento_757915_2024-10-11.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 757917,
@@ -56,9 +56,9 @@
       "data_entrega": "14/10/2024 20:27",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/757917_regulamento_regulamento_757917_2024-10-11.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 757906,
@@ -70,9 +70,9 @@
       "data_entrega": "14/10/2024 20:18",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/757906_regulamento_regulamento_757906_2024-10-14.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 770926,
@@ -84,9 +84,9 @@
       "data_entrega": "04/11/2024 14:29",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/770926_regulamento_regulamento_770926_2024-11-01.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 770927,
@@ -98,9 +98,9 @@
       "data_entrega": "04/11/2024 14:30",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/770927_regulamento_regulamento_770927_2024-11-01.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 772663,
@@ -112,9 +112,9 @@
       "data_entrega": "07/11/2024 09:44",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/772663_evento_evento_772663_2024-11-06.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 774281,
@@ -126,9 +126,9 @@
       "data_entrega": "08/11/2024 10:57",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/774281_regulamento_regulamento_774281_2024-11-07.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 774347,
@@ -140,22 +140,22 @@
       "data_entrega": "08/11/2024 11:58",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/774347_emissao_emissao_774347_2024-11-07.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 839144,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2024",
       "data_entrega": "13/02/2025 19:43",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -163,13 +163,13 @@
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "13/12/2024",
       "data_entrega": "18/02/2025 11:31",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -177,13 +177,13 @@
       "categoria": "Informes Periódicos",
       "tipo": "Demonstrações Financeiras",
       "especie": "",
-      "classification": "outro",
+      "classification": "demonstracoes_financeiras",
       "data_referencia": "31/12/2024",
       "data_entrega": "31/03/2025 20:27",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -191,13 +191,13 @@
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2025",
       "data_entrega": "13/05/2025 17:55",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -205,13 +205,13 @@
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "08/05/2025",
       "data_entrega": "14/08/2025 18:49",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -219,13 +219,13 @@
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2025",
       "data_entrega": "14/08/2025 09:29",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -233,13 +233,13 @@
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "21/08/2025",
       "data_entrega": "08/10/2025 09:44",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -247,13 +247,13 @@
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "09/2025",
       "data_entrega": "12/11/2025 08:39",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -266,9 +266,9 @@
       "data_entrega": "17/09/2025 19:19",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/993692_assembleia_assembleia_993692_2025-09-04.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 993693,
@@ -282,20 +282,20 @@
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/57609282000146/993693_regulamento_regulamento_993693_2025-09-04.pdf"
+      "source_file": "data/raw/57609282000146/993693_review_20261007.pdf"
     },
     {
       "id": 1039191,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "10/11/2025",
       "data_entrega": "14/11/2025 14:41",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -303,13 +303,13 @@
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2025",
       "data_entrega": "12/02/2026 12:13",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -317,13 +317,13 @@
       "categoria": "Informes Periódicos",
       "tipo": "Demonstrações Financeiras",
       "especie": "",
-      "classification": "outro",
+      "classification": "demonstracoes_financeiras",
       "data_referencia": "31/12/2025",
       "data_entrega": "31/03/2026 18:59",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "Falha de rede ao acessar downloadDocumento: The read operation timed out",
       "source_file": ""
     },
     {
@@ -336,22 +336,22 @@
       "data_entrega": "16/01/2026 19:21",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/1086719_assembleia_assembleia_1086719_2026-01-14.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1196824,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2026",
       "data_entrega": "15/05/2026 20:22",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     },
     {
@@ -364,9 +364,9 @@
       "data_entrega": "08/04/2026 19:52",
       "nome_arquivo": null,
       "status": "CC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/1157275_assembleia_assembleia_1157275_2026-04-08.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1198480,
@@ -378,9 +378,9 @@
       "data_entrega": "18/05/2026 16:47",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/1198480_evento_evento_1198480_2026-05-11.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1198765,
@@ -392,9 +392,9 @@
       "data_entrega": "18/05/2026 19:07",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/1198765_assembleia_assembleia_1198765_2026-05-11.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1179452,
@@ -406,26 +406,996 @@
       "data_entrega": "04/05/2026 19:27",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/57609282000146/1179452_assembleia_assembleia_1179452_2026-05-15.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1204281,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "15/05/2026",
       "data_entrega": "26/05/2026 20:12",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 801203,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2024",
+      "data_entrega": "13/12/2024 19:35",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 815623,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2024",
+      "data_entrega": "09/01/2025 17:06",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 839904,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2025",
+      "data_entrega": "14/02/2025 11:53",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 867252,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2025",
+      "data_entrega": "28/03/2025 15:57",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 969926,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2025",
+      "data_entrega": "14/08/2025 15:29",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 856071,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2025",
+      "data_entrega": "11/03/2025 18:51",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 867254,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2025",
+      "data_entrega": "28/03/2025 15:58",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 969928,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2025",
+      "data_entrega": "14/08/2025 15:30",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 876245,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2025",
+      "data_entrega": "09/04/2025 11:10",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 969934,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2025",
+      "data_entrega": "14/08/2025 15:31",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 904149,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2025",
+      "data_entrega": "15/05/2025 11:29",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 910376,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2025",
+      "data_entrega": "23/05/2025 14:30",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 969940,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2025",
+      "data_entrega": "14/08/2025 15:32",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 922730,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2025",
+      "data_entrega": "12/06/2025 14:17",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 969942,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2025",
+      "data_entrega": "14/08/2025 15:33",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 938747,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2025",
+      "data_entrega": "03/07/2025 10:52",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 962967,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2025",
+      "data_entrega": "08/08/2025 13:52",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 973417,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "07/2025",
+      "data_entrega": "15/08/2025 18:30",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 991019,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "08/2025",
+      "data_entrega": "15/09/2025 15:52",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1012682,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "09/2025",
+      "data_entrega": "14/10/2025 11:45",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1028010,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "10/2025",
+      "data_entrega": "05/11/2025 10:23",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1057451,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2025",
+      "data_entrega": "10/12/2025 00:11",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1085321,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2025",
+      "data_entrega": "15/01/2026 20:03",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1099065,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2025",
+      "data_entrega": "02/02/2026 13:41",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1107651,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2026",
+      "data_entrega": "10/02/2026 20:58",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1138131,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2026",
+      "data_entrega": "13/03/2026 21:49",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1164174,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2026",
+      "data_entrega": "15/04/2026 17:22",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1191782,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2026",
+      "data_entrega": "14/05/2026 16:33",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1208247,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2026",
+      "data_entrega": "29/05/2026 18:56",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1217669,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2026",
+      "data_entrega": "11/06/2026 14:45",
+      "status": "IC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1222674,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2026",
+      "data_entrega": "16/06/2026 14:07",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1246833,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2026",
+      "data_entrega": "14/07/2026 12:53",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1291029,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Trimestral",
+      "especie": "",
+      "classification": "informe_trimestral",
+      "data_referencia": "06/2026",
+      "data_entrega": "13/08/2026 23:04",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1286899,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "07/2026",
+      "data_entrega": "12/08/2026 19:04",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1315357,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "08/2026",
+      "data_entrega": "11/09/2026 11:25",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
+    },
+    {
+      "id": 1294794,
+      "categoria": "Relatórios",
+      "tipo": "Relatório de Agência de Rating",
+      "especie": "",
+      "classification": "rating",
+      "data_referencia": "07/08/2026",
+      "data_entrega": "17/08/2026 11:25",
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     }
   ],
   "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Cloud Walk, como credenciadora",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Emissores dos instrumentos de pagamento; grupos de elegibilidade previstos no anexo",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Sem garantia do administrador, gestor, cedente, custodiante, seguro ou FGC",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 34, Anexo I, ausência de garantias | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35, Anexo I, critérios de elegibilidade | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Consultar critérios integrais e condições de cessão; o IME público não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Consultar critérios integrais e condições de cessão; o IME público não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Grupo 1+ caixa ≥52,5% do PL; Grupo 2 ≤15% por devedor; Grupo 3 ≤4%; Grupo 4 ≤2%; grupos 3/4 limitados também por subordinadas",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35–36, AnexoI3.2(vi) | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Os tetos agregados de grupos 3/4 são testados separadamente; classificação dos grupos depende das definições do regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Os tetos agregados de grupos 3/4 são testados separadamente; classificação dos grupos depende das definições do regulamento."
+      }
+    },
+    {
+      "name": "Prazo dos recebíveis",
+      "canonical_key": "documentary_prazo_dos_recebiveis",
+      "threshold_display": "Mínimo 7 dias; máximo menor entre 365 dias e vencimento das cotas seniores",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35, Anexo I, elegibilidade/prazo | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Ativos vedados",
+      "canonical_key": "documentary_ativos_vedados",
+      "threshold_display": "Créditos de administrador, gestor e relacionados vedados salvo exceção com independência entre registradora/custodiante e partes relacionadas",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, partes relacionadas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 115, Suplemento definições, índices sênior | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Níveis mínimo, ramp-up e target têm funções distintas; validar estágio contratual para alerta.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Níveis mínimo, ramp-up e target têm funções distintas; validar estágio contratual para alerta."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 69, Anexo I, eventos de avaliação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693 | Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 50, Anexo I, eventos de liquidação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Próxima amortização: 30 dias de antecedência; próxima remuneração: 15 dias",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 120, Suplemento definições, reserva de caixa | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Depende dos apêndices e do cronograma; disponibilidades IME isoladas não comprovam cobertura.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Depende dos apêndices e do cronograma; disponibilidades IME isoladas não comprovam cobertura."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Operações em derivativos vedadas",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, derivativos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 1, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "PDD / Crédito e PDD / Vencidos; validar definição contratual",
+        "rationale": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+      }
+    },
+    {
+      "name": "Subordinação mezanino",
+      "canonical_key": "documentary_subordinacao_mezanino",
+      "threshold_display": "Júnior / PL: mínimo 2,5%; ramp-up 2,75%; target 3%",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 115, Suplemento definições, índices mezanino | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Eventos de avaliação",
+      "canonical_key": "documentary_eventos_de_avaliacao",
+      "threshold_display": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 69, Anexo I, eventos de avaliação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Liquidação antecipada",
+      "canonical_key": "documentary_liquidacao_antecipada",
+      "threshold_display": "Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 50, Anexo I, eventos de liquidação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Reserva de despesas",
+      "canonical_key": "documentary_reserva_de_despesas",
+      "threshold_display": "Despesas ordinárias estimadas dos 3 meses seguintes, incluindo administração e gestão",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 58, Anexo I, encargos/reserva | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "≥ 50% do PL em direitos elegíveis, após 180 dias",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, alocação mínima | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "direto com validação",
+        "ime_metric": "Direitos creditórios / PL; validar ativo elegível, período e denominador",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Revolvente; compras com recursos da carteira, observada a ordem de alocação",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, revolvência | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Indeterminado para fundo/classe; séries conforme apêndices",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 30, Anexo I, prazo de duração | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Resolução por vício, inelegibilidade, chargeback/cancelamento não coberto; demais recompras conforme contrato",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 61, Anexo I, resolução/cessão/recompra | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Recompras declaradas no IME não identificam motivo jurídico nem indenização efetiva.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Recompras declaradas no IME não identificam motivo jurídico nem indenização efetiva."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Sem regresso/coobrigação da cedente pela solvência; responsabilidade por existência e formalização preservada",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 32, Anexo I, cessão definitiva | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Encargos e reservas precedem distribuições; sênior prioritária; subordinadas condicionadas",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 65, Anexo I, ordem de alocação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Resumo da hierarquia; consultar ordem completa antes de projetar pagamentos.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Resumo da hierarquia; consultar ordem completa antes de projetar pagamentos."
+      }
+    },
+    {
+      "name": "Prestadores",
+      "canonical_key": "documentary_prestadores",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 57609282000146, consulta Fundos.NET em 07/10/2026: 66 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993693. ID1151110: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…",
+      "source_excerpt": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "GI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA..................................…",
+      "source_excerpt": "GI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA..................................…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 56 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 59 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…",
+      "source_excerpt": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 56 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 59 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…",
+      "source_excerpt": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "da Resolução CVM 160 e demais leis e regulamentações aplicáveis, sendo certo que eventual Lote Adicional não será objeto da Garantia Firme; (xii) Destinação dos Recursos: observada a política de investimentos d a Classe descrita no Anexo da Classe, os recursos líquidos da Oferta serão destinados à aquisição de Direitos Creditórios e Ativos Financeiros (conforme definidos no Anexo da Classe) que atendam aos Critérios…",
+      "source_excerpt": "da Resolução CVM 160 e demais leis e regulamentações aplicáveis, sendo certo que eventual Lote Adicional não será objeto da Garantia Firme; (xii) Destinação dos Recursos: observada a política de investimentos d a Classe descrita no Anexo da Classe, os recursos líquidos da Oferta serão destinados à aquisição de Direitos Creditórios e Ativos Financeiros (conforme definidos no Anexo da Classe) que atendam aos Critérios…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a qualquer C…",
+      "source_excerpt": "disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a qualquer C…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "..................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…",
+      "source_excerpt": "..................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "uração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, preponderanteme…",
+      "source_excerpt": "uração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, preponderanteme…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "(iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalidade dos Dir…",
+      "source_excerpt": "(iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalidade dos Dir…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Direitos Creditórios . A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima . Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu…",
+      "source_excerpt": "Direitos Creditórios . A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima . Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Cedente. 2.6. A Classe A não realizará investimentos no exterior. 2.7. A Classe A não realizará investimentos em direitos creditórios não -padronizados, conforme definidos no artigo 2º, inciso (xiii) do Anexo Normativo II. 2.8. Realização de Operações com Derivativos. A Classe A não poderá realizar operações em mercados de derivativos. 2.9. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe A que não esti…",
+      "source_excerpt": "Cedente. 2.6. A Classe A não realizará investimentos no exterior. 2.7. A Classe A não realizará investimentos em direitos creditórios não -padronizados, conforme definidos no artigo 2º, inciso (xiii) do Anexo Normativo II. 2.8. Realização de Operações com Derivativos. A Classe A não poderá realizar operações em mercados de derivativos. 2.9. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe A que não esti…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…",
+      "source_excerpt": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A . O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de…",
+      "source_excerpt": "do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A . O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critério…",
+      "source_excerpt": "rrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critério…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "editórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Credit…",
+      "source_excerpt": "editórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Credit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "gações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de…",
+      "source_excerpt": "gações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s diários disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a…",
+      "source_excerpt": "s diários disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "....................................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ............... 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO ............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A....................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO................... 58 CAPÍTULO XIII – CESSÃO, PAGA…",
+      "source_excerpt": "....................................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ............... 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO ............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A....................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO................... 58 CAPÍTULO XIII – CESSÃO, PAGA…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "prazo de duração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, prepo…",
+      "source_excerpt": "prazo de duração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, prepo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "gamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalida…",
+      "source_excerpt": "gamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalida…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ceiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome da Classe A, conforme o caso, em contas específicas abertas no Sistema Especial de Liquidação e Custódia - SELIC, no sistema de registro e liquidação financeira administrado pela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 2.1.5. Inexistência de Direito de Regresso e Coo…",
+      "source_excerpt": "ceiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome da Classe A, conforme o caso, em contas específicas abertas no Sistema Especial de Liquidação e Custódia - SELIC, no sistema de registro e liquidação financeira administrado pela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 2.1.5. Inexistência de Direito de Regresso e Coo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "elação aos Direitos Creditórios. A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento…",
+      "source_excerpt": "elação aos Direitos Creditórios. A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ".I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO................................ 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO ........................................................................................ 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA...............................................…",
+      "source_excerpt": ".I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO................................ 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO ........................................................................................ 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA...............................................…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos C…",
+      "source_excerpt": "ão CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos C…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "i) em decorrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento do…",
+      "source_excerpt": "i) em decorrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento do…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direi…",
+      "source_excerpt": "Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ções, coobrigações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos C…",
+      "source_excerpt": "ções, coobrigações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos C…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Data não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Sênior 1ª",
+      "amount_display": "R$ 2.245.625.000,00",
+      "remuneration": "DI + 0,85% a.a.",
+      "amortization_schedule": "S/M 11/06/2027–11/11/2027; júniorcondicionada",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 124, apêndicespreenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Revisão documental com lacunas identificadas"
+    },
+    {
+      "date": "Data não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Mezanino 1ª",
+      "amount_display": "R$ 347.538.000,00",
+      "remuneration": "DI + 3,85% a.a.",
+      "amortization_schedule": "S/M 11/06/2027–11/11/2027; júniorcondicionada",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 127, apêndicespreenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Revisão documental com lacunas identificadas"
+    },
+    {
+      "date": "Data não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Júnior 1ª",
+      "amount_display": "R$ 90.000.000,00",
+      "remuneration": "Residual conformewaterfall",
+      "amortization_schedule": "S/M 11/06/2027–11/11/2027; júniorcondicionada",
+      "source_document": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 130, apêndicespreenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+      "notes": "Revisão documental com lacunas identificadas"
+    }
+  ],
+  "extraction_count": 17,
+  "extraction_errors": [
+    {
+      "document_id": 774281,
+      "source_file": "data/raw/57609282000146/774281_regulamento_regulamento_774281_2024-11-07.pdf",
+      "error": "RuntimeError: PDF sem texto extraível: 774281_regulamento_regulamento_774281_2024-11-07.pdf"
+    }
+  ],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:49:47-03:00",
+      "scope": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993693, 04/09/2025.",
+      "documentary_profile": "data/regulatory_profiles/documentary_comparisons/57609282000146.json",
+      "inventory_error": "",
+      "sources_reviewed": [
+        {
+          "document_id": 993693,
+          "date": "04/09/2025",
+          "path": "data/raw/57609282000146/993693_review_20261007.pdf",
+          "pages": 132,
+          "identity_verified": true,
+          "review_scope": "Texto integral extraído; revisão das cláusulas materiais e dos atos de emissão acessíveis."
+        }
+      ],
+      "warnings": [
+        "Lacunas de acesso/extracão: ID1151110: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+      ],
+      "method": "Extração integral dos PDFs acessíveis; revisão das cláusulas materiais. Não significa leitura integral de todo o inventário."
+    }
+  ],
+  "documentary_review_metadata": {
+    "reviewed_at": "2026-10-07T14:49:47-03:00",
+    "documents_inventoried": 66,
+    "documents_in_current_query": 66,
+    "pdfs_downloaded_accessible": 1,
+    "analyzable_pages": 132,
+    "extraction_errors": 1,
+    "inventory_error": "",
+    "curation_scope": "CNPJs únicos das carteiras explicitamente selecionadas pelo usuário.",
+    "source_documents_materially_reviewed": 1,
+    "pages_are_analyzable_not_claim_of_full_reading": true
+  },
+  "historical_heuristic_criteria": [
     {
       "name": "Subordinação mínima",
       "canonical_key": "subordination_ratio_min",
@@ -827,144 +1797,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…",
-      "source_excerpt": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "GI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA..................................…",
-      "source_excerpt": "GI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA..................................…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 56 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 59 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…",
-      "source_excerpt": "..................... 50 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 52 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 56 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 57 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 59 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…",
-      "source_excerpt": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 31 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 31 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "da Resolução CVM 160 e demais leis e regulamentações aplicáveis, sendo certo que eventual Lote Adicional não será objeto da Garantia Firme; (xii) Destinação dos Recursos: observada a política de investimentos d a Classe descrita no Anexo da Classe, os recursos líquidos da Oferta serão destinados à aquisição de Direitos Creditórios e Ativos Financeiros (conforme definidos no Anexo da Classe) que atendam aos Critérios…",
-      "source_excerpt": "da Resolução CVM 160 e demais leis e regulamentações aplicáveis, sendo certo que eventual Lote Adicional não será objeto da Garantia Firme; (xii) Destinação dos Recursos: observada a política de investimentos d a Classe descrita no Anexo da Classe, os recursos líquidos da Oferta serão destinados à aquisição de Direitos Creditórios e Ativos Financeiros (conforme definidos no Anexo da Classe) que atendam aos Critérios…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a qualquer C…",
-      "source_excerpt": "disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a qualquer C…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "..................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…",
-      "source_excerpt": "..................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ................. 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO .............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A ........................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO ..................... 58 CAPÍTULO XIII – CESSÃO, PAGAMENTO,…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "uração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, preponderanteme…",
-      "source_excerpt": "uração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, preponderanteme…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "(iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalidade dos Dir…",
-      "source_excerpt": "(iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalidade dos Dir…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Direitos Creditórios . A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima . Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu…",
-      "source_excerpt": "Direitos Creditórios . A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima . Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento) do seu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Cedente. 2.6. A Classe A não realizará investimentos no exterior. 2.7. A Classe A não realizará investimentos em direitos creditórios não -padronizados, conforme definidos no artigo 2º, inciso (xiii) do Anexo Normativo II. 2.8. Realização de Operações com Derivativos. A Classe A não poderá realizar operações em mercados de derivativos. 2.9. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe A que não esti…",
-      "source_excerpt": "Cedente. 2.6. A Classe A não realizará investimentos no exterior. 2.7. A Classe A não realizará investimentos em direitos creditórios não -padronizados, conforme definidos no artigo 2º, inciso (xiii) do Anexo Normativo II. 2.8. Realização de Operações com Derivativos. A Classe A não poderá realizar operações em mercados de derivativos. 2.9. Ativos Financeiros. A parcela do Patrimônio Líquido da Classe A que não esti…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…",
-      "source_excerpt": "M DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO ................................... 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO .................................................................................................. 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA ...........................................................…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A . O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de…",
-      "source_excerpt": "do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A . O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos Critérios de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critério…",
-      "source_excerpt": "rrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critério…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "editórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Credit…",
-      "source_excerpt": "editórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão . A Classe A adquirirá apenas Direitos Credit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "gações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de…",
-      "source_excerpt": "gações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos Critérios de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s diários disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a…",
-      "source_excerpt": "s diários disponibilizados pelas Bandeiras nas respectivas datas de pagamento do Preço de Aquisição. 3.4. Verificação Definitiva. Observados os termos e as condições do presente Anexo, a verificação, pela Cedente, do atendimento às Condições de Cessão, e, pelo Gestor, do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.5. Na hipótese de o Direito Creditório Elegível deixar de atender a…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "....................................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ............... 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO ............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A....................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO................... 58 CAPÍTULO XIII – CESSÃO, PAGA…",
-      "source_excerpt": "....................................... 49 CAPÍTULO IX - DOS PRESTADORES DE SERVIÇO DA CLASSE A ............... 51 CAPÍTULO X – REMUNERAÇÃO DOS PRESTADORES DE SERVIÇO ............. 55 CAPÍTULO XI - DOS ENCARGOS DA CLASSE A....................................... 56 CAPÍTULO XII – DO PROCESSO DE ORIGINAÇÃO DOS DIREITOS CREDITÓRIOS E DA POLÍTICA DE CONCESSÃO DE CRÉDITO................... 58 CAPÍTULO XIII – CESSÃO, PAGA…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "prazo de duração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, prepo…",
-      "source_excerpt": "prazo de duração indeterminado, sendo que cada série de Cotas Seniores e de Cotas Subordinadas Mezanino terão o prazo de duração estipulado nos respectivos Apêndices, ressalvadas as hipóteses de ocorrência de liquidação antecipada. 1.4.1. O funcionamento da Classe A terá início na 1ª (primeira) data de integralização de Cotas de qualquer Subclasse. 1.5. Objeto. A Classe A é uma comunhão de recursos destinados, prepo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "gamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalida…",
-      "source_excerpt": "gamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direitos Creditórios que atendam às Condições de Cessão e aos Critérios de Elegibilidade, conforme verificados nas respectivas datas de aquisição. 2.1.3. Cessão da Totalida…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ceiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome da Classe A, conforme o caso, em contas específicas abertas no Sistema Especial de Liquidação e Custódia - SELIC, no sistema de registro e liquidação financeira administrado pela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 2.1.5. Inexistência de Direito de Regresso e Coo…",
-      "source_excerpt": "ceiros devem ser registrados, custodiados ou mantidos em conta de depósito diretamente em nome da Classe A, conforme o caso, em contas específicas abertas no Sistema Especial de Liquidação e Custódia - SELIC, no sistema de registro e liquidação financeira administrado pela B3 ou em instituições ou entidades autorizadas à prestação desse serviço pelo BACEN ou pela CVM. 2.1.5. Inexistência de Direito de Regresso e Coo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "elação aos Direitos Creditórios. A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento…",
-      "source_excerpt": "elação aos Direitos Creditórios. A Cedente não responderá pela solvência do respectivo Devedor, mas apenas pela boa formalização, correta constituição, existência, liquidez e certeza dos Direitos Creditórios Cedidos à Classe A, nos termos do Contrato de Cessão. 2.2. Alocação Mínima. Decorridos 180 (cento e oitenta) dias do início das suas atividades, a Classe A deverá ter alocado, no mínimo, 50% (cinquenta por cento…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ".I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO................................ 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO ........................................................................................ 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA...............................................…",
-      "source_excerpt": ".I. FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO................................ 30 CAPÍTULO I - DA CLASSE, FORMA DE CONSTITUIÇÃO, PRAZO DE DURAÇÃO E OBJETO ........................................................................................ 30 CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA...............................................…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos C…",
-      "source_excerpt": "ão CVM 175 e do artigo 1.368-D, inciso I, do Código Civil. CAPÍTULO II - DO OBJETIVO DA CLASSE A, DA POLÍTICA DE INVESTIMENTO E DA COMPOSIÇÃO DA CARTEIRA 2.1. Objetivo da Classe A. O objetivo da Classe A é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios, formalizados pelos Documentos Comprobatórios, que atendam aos C…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "i) em decorrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento do…",
-      "source_excerpt": "i) em decorrência do item (ii) acima, cada Transação de Pagamento origina um ou mais Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento do…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direi…",
-      "source_excerpt": "Direitos Creditórios, de modo que a CloudWalk também passa a ser detentora de Direitos Creditórios em face do Emissor do Cartão utilizado na respectiva Transação de Pagamento; e (iv) a Classe A, portanto, irá adquirir da CloudWalk os Direitos Creditórios em face dos Devedores dos Cartões de quaisquer Bandeiras. 2.1.2. Cumprimento dos Critérios de Elegibilidade e Condições de Cessão. A Classe A adquirirá apenas Direi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ções, coobrigações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos C…",
-      "source_excerpt": "ções, coobrigações e garantias pertinentes, em caráter definitivo e sem qualquer direito de regresso contra a Cedente e/ou coobrigação desta, observados, em qualquer caso: (i) os demais termos e condições deste Anexo; (ii) os termos, condições e procedimentos previstos no Contrato de Cessão e nos respectivos Termos de Cessão; (iii) os procedimentos pertinentes à aquisição dos Direitos Creditórios e atendimento aos C…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -1106,12 +1939,404 @@
       "source_document_id": 1086719
     }
   ],
-  "extraction_count": 17,
-  "extraction_errors": [
-    {
-      "document_id": 774281,
-      "source_file": "data/raw/57609282000146/774281_regulamento_regulamento_774281_2024-11-07.pdf",
-      "error": "RuntimeError: PDF sem texto extraível: 774281_regulamento_regulamento_774281_2024-11-07.pdf"
+  "documentary_review": {
+    "cnpj": "57609282000146",
+    "label": "CLOUDWALK A.I.",
+    "reviewed_at": "2026-10-07T14:49:47-03:00",
+    "document_status": "revisão documental com lacunas explícitas",
+    "scope_note": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993693, 04/09/2025.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Devedor": {
+          "value": "Emissores dos instrumentos de pagamento; grupos de elegibilidade previstos no anexo",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Elegibilidade": {
+          "value": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35, Anexo I, critérios de elegibilidade | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Consultar critérios integrais e condições de cessão; o IME público não comprova elegibilidade individual."
+        },
+        "Prazo dos recebíveis": {
+          "value": "Mínimo 7 dias; máximo menor entre 365 dias e vencimento das cotas seniores",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35, Anexo I, elegibilidade/prazo | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Concentração": {
+          "value": "Grupo 1+ caixa ≥52,5% do PL; Grupo 2 ≤15% por devedor; Grupo 3 ≤4%; Grupo 4 ≤2%; grupos 3/4 limitados também por subordinadas",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 35–36, AnexoI3.2(vi) | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Os tetos agregados de grupos 3/4 são testados separadamente; classificação dos grupos depende das definições do regulamento."
+        },
+        "Ativos vedados": {
+          "value": "Créditos de administrador, gestor e relacionados vedados salvo exceção com independência entre registradora/custodiante e partes relacionadas",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, partes relacionadas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Originador/endossante": {
+          "value": "Cloud Walk, como credenciadora",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Garantia": {
+          "value": "Sem garantia do administrador, gestor, cedente, custodiante, seguro ou FGC",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 34, Anexo I, ausência de garantias | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mezanino": {
+          "value": "Júnior / PL: mínimo 2,5%; ramp-up 2,75%; target 3%",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 115, Suplemento definições, índices mezanino | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Eventos de avaliação": {
+          "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 69, Anexo I, eventos de avaliação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Liquidação antecipada": {
+          "value": "Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 50, Anexo I, eventos de liquidação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Reserva de despesas": {
+          "value": "Despesas ordinárias estimadas dos 3 meses seguintes, incluindo administração e gestão",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 58, Anexo I, encargos/reserva | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Subordinação mínima": {
+          "value": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 115, Suplemento definições, índices sênior | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Níveis mínimo, ramp-up e target têm funções distintas; validar estágio contratual para alerta."
+        },
+        "Reserva de caixa": {
+          "value": "Próxima amortização: 30 dias de antecedência; próxima remuneração: 15 dias",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 120, Suplemento definições, reserva de caixa | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Depende dos apêndices e do cronograma; disponibilidades IME isoladas não comprovam cobertura."
+        },
+        "Derivativos/hedge": {
+          "value": "Operações em derivativos vedadas",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, derivativos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 69, Anexo I, eventos de avaliação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693 | Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 50, Anexo I, eventos de liquidação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "PDD": {
+          "value": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 1, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "≥ 50% do PL em direitos elegíveis, após 180 dias",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, alocação mínima | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Coobrigação": {
+          "value": "Sem regresso/coobrigação da cedente pela solvência; responsabilidade por existência e formalização preservada",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 32, Anexo I, cessão definitiva | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Waterfall": {
+          "value": "Encargos e reservas precedem distribuições; sênior prioritária; subordinadas condicionadas",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 65, Anexo I, ordem de alocação | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Resumo da hierarquia; consultar ordem completa antes de projetar pagamentos."
+        },
+        "Prestadores": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 57609282000146, consulta Fundos.NET em 07/10/2026: 66 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993693. ID1151110: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Pool/revolvência": {
+          "value": "Revolvente; compras com recursos da carteira, observada a ordem de alocação",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo I, revolvência | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Duração/público-alvo": {
+          "value": "Indeterminado para fundo/classe; séries conforme apêndices",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 30, Anexo I, prazo de duração | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Cessão/recompra": {
+          "value": "Resolução por vício, inelegibilidade, chargeback/cancelamento não coberto; demais recompras conforme contrato",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 61, Anexo I, resolução/cessão/recompra | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Recompras declaradas no IME não identificam motivo jurídico nem indenização efetiva."
+        }
+      },
+      "comparison_emissions": {
+        "Remuneração sênior": {
+          "value": "1ª série: DI + 0,85% a.a.",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+        },
+        "Remuneração mezanino": {
+          "value": "1ª série: DI + 3,85% a.a.",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 128, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+        },
+        "Remuneração subordinada": {
+          "value": "Residual conforme waterfall; taxa fixa final não localizada",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 4, Anexo I, características das cotas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Volume / quantidade": {
+          "value": "Sênior R$ 2.245.625.000; mezanino R$ 347.538.000; júnior R$ 90.000.000",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 124, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+        },
+        "VNU / preço": {
+          "value": "R$ 1.000,00 naemissão",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 124, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+        },
+        "Classes/séries": {
+          "value": "Sênior 1ª, mezanino 1ª e subordinada júnior 1ª emissão",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 124, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+        },
+        "Ofertas": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 57609282000146, consulta Fundos.NET em 07/10/2026: 66 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993693. ID1151110: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração": {
+          "value": "1ª série: DI + 0,85% a.a.; 1ª série: DI + 3,85% a.a.; Residual conforme waterfall; taxa fixa final não localizada",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693 | Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 128, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693 | Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 4, Anexo I, características das cotas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação. Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Volume/VNU": {
+          "value": "Sênior R$ 2.245.625.000; mezanino R$ 347.538.000; júnior R$ 90.000.000; R$ 1.000,00 naemissão",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 124, apêndices efetivamente preenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Sênior/mezanino: até 10/06/2027",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125–130, apêndices/cronogramas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Percentuais de amortização reportados na coluna contratual; validar denominador antes de calcular fluxo monetário."
+        },
+        "Juros / pagamentos": {
+          "value": "Mensais: dia 11, desde 11/12/2024 até 11/11/2027",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125–130, apêndices/cronogramas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Percentuais de amortização reportados na coluna contratual; validar denominador antes de calcular fluxo monetário."
+        },
+        "Amortização programada": {
+          "value": "Jun–nov/2027:16,6667%;33,3333%;50%;66,6667%;83,3333%;100%",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125–130, apêndices/cronogramas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Percentuais de amortização reportados na coluna contratual; validar denominador antes de calcular fluxo monetário."
+        },
+        "Amortização extraordinária": {
+          "value": "Prevista nas hipóteses do anexo; requisitos variam por senioridade",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 40, Anexo I, amortização extraordinária | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Vencimento": {
+          "value": "Sênior/mezanino:11/11/2027; júniorna liquidação",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125–130, apêndices/cronogramas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Percentuais de amortização reportados na coluna contratual; validar denominador antes de calcular fluxo monetário."
+        },
+        "Juros/amortização": {
+          "value": "Mensais: dia 11, desde 11/12/2024 até 11/11/2027; Jun–nov/2027:16,6667%;33,3333%;50%;66,6667%;83,3333%;100%",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 125–130, apêndices/cronogramas | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Percentuais de amortização reportados na coluna contratual; validar denominador antes de calcular fluxo monetário."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "0,02% a.a. sobre PL; mínimo R$ 15.000,00/mês",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 55, Anexo I, remuneração dos prestadores | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Base literal do documento. Atenção a mínimo/máximo e inconsistências de redação entre versões."
+        },
+        "Gestão": {
+          "value": "0,08% a.a. sobre PL; máximo R$ 7.000,00/mês",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 55, Anexo I, remuneração dos prestadores | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Base literal do documento. Atenção a mínimo/máximo e inconsistências de redação entre versões."
+        },
+        "Reajuste / base": {
+          "value": "Valores fixos reajustados por IPCA positivo; cálculo diário base 252, conforme cada taxa",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 55, Anexo I, taxas/reajuste | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        },
+        "Custódia": {
+          "value": "Não devida remuneração ao custodiante, conforme cláusula",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 56, Anexo I, taxa de custódia | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação via IME": {
+          "value": "DC / PL: proxy com validação de elegibilidade e denominador",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Subordinação via IME": {
+          "value": "Subordinadas / PL: conferir subclasses e fórmula do índice",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 9, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Concentração / elegibilidade": {
+          "value": "Exige cadastro por devedor/grupo e validação de lastro; não comprovável pelo IME agregado",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 31, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Reservas / pagamentos": {
+          "value": "Caixa agregado é proxy parcial; exige calendário, encargos e waterfall",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 22, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Chargeback / recompra": {
+          "value": "Recompras / crédito é proxy parcial; cancelamento e chargeback dependem de dados complementares",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over 30/60/90 e PDD / crédito: indicadores agregados, sem equivalência automática a gatilhos",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 1, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Controles documentais": {
+          "value": "Rating, prestadores, cessão e insolvência: controle documental/manual",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 5, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Alocação/subordinação IME": {
+          "value": "DC / PL: proxy com validação de elegibilidade e denominador; Subordinadas / PL: conferir subclasses e fórmula do índice",
+          "source": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 33, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693 | Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 9, Anexo e avaliação metodológica da revisão | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+          "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+        },
+        "Competência IME": {
+          "value": "Cache local: 06/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/b8642359df29434704b91f7073fc0cd9389fb93446d94bb69108f103a0bff0a1/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Recebíveis",
+        "Conclusão": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk"
+      },
+      {
+        "Tema": "Proteção",
+        "Conclusão": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)"
+      },
+      {
+        "Tema": "Remuneração",
+        "Conclusão": "1ª série: DI + 0,85% a.a."
+      }
+    ],
+    "warnings": [
+      "Lacunas de acesso/extracão: ID1151110: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 993693,
+        "date": "04/09/2025",
+        "path": "data/raw/57609282000146/993693_review_20261007.pdf",
+        "pages": 132,
+        "identity_verified": true,
+        "review_scope": "Texto integral extraído; revisão das cláusulas materiais e dos atos de emissão acessíveis."
+      }
+    ],
+    "inventory_count": 66,
+    "downloaded_count": 1,
+    "analyzable_pages": 132,
+    "inventory_error": "",
+    "emissions_rows": [
+      {
+        "Cota/Classe": "Sênior 1ª",
+        "Tipo": "Sênior",
+        "Remuneração": "DI + 0,85% a.a.",
+        "Juros/remuneração": "Mensal dia 11 para S/M; júniorcondicionada",
+        "Amortização principal": "S/M 11/06/2027–11/11/2027; júniorcondicionada",
+        "Volume": "R$ 2.245.625.000,00",
+        "VNU": "R$ 1.000,00",
+        "Data deliberação": "Data não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+        "Data encerramento/oferta": "Encerramento não localizado",
+        "Vencimento final": "S/M 11/11/2027; júniorna liquidação",
+        "Fonte": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 124, apêndicespreenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+        "Status curadoria": "Revisão documental com lacunas identificadas"
+      },
+      {
+        "Cota/Classe": "Mezanino 1ª",
+        "Tipo": "Mezanino",
+        "Remuneração": "DI + 3,85% a.a.",
+        "Juros/remuneração": "Mensal dia 11 para S/M; júniorcondicionada",
+        "Amortização principal": "S/M 11/06/2027–11/11/2027; júniorcondicionada",
+        "Volume": "R$ 347.538.000,00",
+        "VNU": "R$ 1.000,00",
+        "Data deliberação": "Data não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+        "Data encerramento/oferta": "Encerramento não localizado",
+        "Vencimento final": "S/M 11/11/2027; júniorna liquidação",
+        "Fonte": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 127, apêndicespreenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+        "Status curadoria": "Revisão documental com lacunas identificadas"
+      },
+      {
+        "Cota/Classe": "Júnior 1ª",
+        "Tipo": "Subordinada",
+        "Remuneração": "Residual conformewaterfall",
+        "Juros/remuneração": "Mensal dia 11 para S/M; júniorcondicionada",
+        "Amortização principal": "S/M 11/06/2027–11/11/2027; júniorcondicionada",
+        "Volume": "R$ 90.000.000,00",
+        "VNU": "R$ 1.000,00",
+        "Data deliberação": "Data não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+        "Data encerramento/oferta": "Encerramento não localizado",
+        "Vencimento final": "S/M 11/11/2027; júniorna liquidação",
+        "Fonte": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 130, apêndicespreenchidos | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+        "Status curadoria": "Revisão documental com lacunas identificadas"
+      }
+    ],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "0,02%",
+        "Mínimo mensal": "R$ 15.000,00",
+        "Fonte": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 55, Anexo I, remuneração dos prestadores | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993693, 04/09/2025.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "revisão documental com lacunas explícitas",
+        "Base de cálculo / regra completa": "0,02% a.a. sobre PL; mínimo R$ 15.000,00/mês"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "0,08%",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 55, Anexo I, remuneração dos prestadores | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993693, 04/09/2025.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "revisão documental com lacunas explícitas",
+        "Base de cálculo / regra completa": "0,08% a.a. sobre PL; máximo R$ 7.000,00/mês"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Fundos.NET ID 993693 | 04/09/2025 | Regulamento | p. 56, Anexo I, taxa de custódia | data/raw/57609282000146/993693_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993693",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993693, 04/09/2025.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "revisão documental com lacunas explícitas",
+        "Base de cálculo / regra completa": "Não devida remuneração ao custodiante, conforme cláusula"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 66,
+      "downloaded_count": 1,
+      "analyzable_pages": 132
     }
-  ]
+  },
+  "reviewed_at": "2026-10-07T14:49:47-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/57609282000146.json"
 }

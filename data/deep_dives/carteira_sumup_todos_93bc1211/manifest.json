@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_sumup_todos_93bc1211",
+  "title": "Curadoria SumUp (Todos)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "93bc1211708446d89bc053ac0c724b7f",
+  "portfolio_signature": "45598747000121|62626409000175|62626887000185|62627051000103|62627122000160",
+  "generated_at": "2026-10-07T14:49:47-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "62626409000175",
+      "name": "SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART I"
+    },
+    {
+      "cnpj": "62627051000103",
+      "name": "SUMUP SMART II FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART II"
+    },
+    {
+      "cnpj": "62627122000160",
+      "name": "SUMUP SMART III FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART III"
+    },
+    {
+      "cnpj": "62626887000185",
+      "name": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART IV"
+    },
+    {
+      "cnpj": "45598747000121",
+      "name": "SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI",
+      "short_name": "SUMUP SOLO"
+    }
+  ],
+  "comparison_columns": {
+    "SUMUP SMART I": "62626409000175",
+    "SUMUP SMART II": "62627051000103",
+    "SUMUP SMART III": "62627122000160",
+    "SUMUP SMART IV": "62626887000185",
+    "SUMUP SOLO": "45598747000121"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Lacunas de acesso/extracão: ID1152539: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna.",
+      "Atualização do inventário indisponível: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+      "Atualização do inventário indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Lacunas de acesso/extracão: ID1152823: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Lacunas de acesso/extracão: ID883977: Fundos.NET respondeu HTTP 520 em downloadDocumento.; ID903840: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "6d3964ace15e673fef12e34b86d025b7ce3c2d3896e12e16dd2f2276d690b0d3",
+    "rendering_sha256": "21e485dbd032883fd7b547bad1a61db494d3207181c6affd6bc6460a8888201b",
+    "input_sha256": "7807268d9a79a7b8ebc999bf4ccccf32f2f8eba97eeb44b4b226dde5f9126ffd"
+  }
+}

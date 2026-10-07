@@ -1,0 +1,460 @@
+{
+  "schema_version": 1,
+  "fund_name": "ANGÁ FGTS +AG FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+  "fund_cnpj": "53270983000142",
+  "documents": [],
+  "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    }
+  ],
+  "eligibility_criteria": [],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Não localizado no corpus acessível",
+      "amount_display": "Não localizado no corpus acessível",
+      "remuneration": "Não localizado no corpus acessível",
+      "amortization_schedule": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "extraction_count": 0,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Lacuna de acesso documental",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/53270983000142.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [],
+      "warnings": [
+        "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+        "Nova tentativa inventário: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+      ],
+      "inventory_count": 0,
+      "pdf_count": 0,
+      "pages_analyzed": 0,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 0,
+    "pdf_count": 0,
+    "pages_analyzed": 0,
+    "documents": [],
+    "errors": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": []
+  },
+  "generated_at": "2026-10-07T14:59:40-03:00",
+  "historical_heuristic_criteria": [],
+  "historical_heuristic_emissions": [],
+  "documentary_review": {
+    "cnpj": "53270983000142",
+    "label": "Angá FGTS +AG",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Lacuna de acesso documental",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Garantia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Concentração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Remuneração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Ofertas": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Vencimento": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gestão": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Custódia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 53270983000142: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Documentação",
+        "Conclusão": "O acesso aos documentos deste CNPJ apresentou lacunas; regras materiais permanecem pendentes."
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "Nova tentativa inventário: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": [],
+    "inventory_count": 0,
+    "pdf_count": 0,
+    "pages_analyzed": 0,
+    "extraction_errors": [],
+    "emissions_rows": [],
+    "metrics": {
+      "inventory_count": "Inventário indisponível; consultar lacuna de acesso",
+      "pdf_count": 0,
+      "pages_analyzed": 0
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/53270983000142.json"
+}

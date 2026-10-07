@@ -1,0 +1,287 @@
+{
+  "cnpj": "62838025000116",
+  "label": "Endurance",
+  "reviewed_at": "2026-10-07T15:13:33-03:00",
+  "document_status": "Revisão documental dirigida; lacunas e divergências explícitas",
+  "scope_note": "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. ",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis performados de cartões representados por URs",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 25 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Originador/endossante": {
+        "value": "Cedentes exclusivos: PagueVeloz IP (03.816.413/0001-37) e Serasa (62.173.620/0133-20)",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 3 · Definição Cedentes · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      },
+      "Devedor": {
+        "value": "Credenciadoras Cielo, Redecard, PagSeguro e Getnet; lista exclusiva do regulamento",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 5 · Definição Devedores · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Não substituir pela marca do cedente; contratante e emissor/credenciadora têm papéis diferentes."
+      },
+      "Garantia": {
+        "value": "Aplicações sem garantia de prestadores, terceiros, seguros ou FGC",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 64–65 · Fatores de risco 1.11 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Cláusula descreve ausência de garantia das aplicações; não invalida acessórios de crédito previstos em cada cessão."
+      },
+      "Elegibilidade": {
+        "value": "URs e contratos/termos de cessão; lastro integral validado antes da aquisição",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 27–29 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Concentração": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Júnior ≥ 10% PL; excepcionalmente 9% nos primeiros 30 dias",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 39 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Texto e página cotejados com a versão integral. Divergências requerem esclarecimento antes de alertas automáticos."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "DC/PL < 50% por > 15 dias após 180 dias; insolvência, trocas de prestadores e descumprimentos sem cura",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 42 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Conferir fórmula e janelas de cura no regulamento integral; proxy público agregado não valida todos os eventos."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Derivativos/hedge": {
+        "value": "Somente proteção da carteira; exposição limitada ao PL",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 26 e 62 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "PDD": {
+        "value": "Fluxos de DC do índice de liquidez são líquidos de PDD; limite percentual próprio não localizado",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 7 · Definição Índice de Liquidez · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Fórmula desconta fluxos a DI e inclui ponderação, despesas e MTM; PDD/crédito não replica o teste."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "50% PL; gestor busca 67% para enquadramento tributário",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 2 e 25 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Pool/revolvência": {
+        "value": "Reinvestimento permitido, observada ordem de pagamentos",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 25 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Prestadores essenciais": {
+        "value": "Administração Intrag; gestão/custódia de DC Kanastra; custódia de valores mobiliários Limine Trust",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 2/5/7 · Definições Administrador/Custodiantes/Gestor · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      },
+      "Condições de cessão": {
+        "value": "Cedentes atestam condições em cada termo; gestor valida; perda posterior não gera indenização automática",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 29–30 · 7.9.1/7.10/7.11 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Ausência de indenização posterior aplica-se a créditos regularmente adquiridos, conforme cláusula."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior e subordinada júnior",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 56 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Remuneração": {
+        "value": "Sênior CDI + 0,80% a.a.",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 56 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62838025000116 em 07/10/2026; 23 registros no inventário obtido; fontes acessíveis: 1171493, 1058234, 1052452, 1032846",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Principal somente a partir do 43º mês",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 56 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Conferir fórmula e janelas de cura no regulamento integral; proxy público agregado não valida todos os eventos."
+      },
+      "Juros/amortização": {
+        "value": "Remuneração mensal de 15/01/2026 a 15/12/2029; seis parcelas de principal em julho–dezembro/2029",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 56–57 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Conferir fórmula e janelas de cura no regulamento integral; proxy público agregado não valida todos os eventos."
+      },
+      "Vencimento": {
+        "value": "Última amortização sênior: 15/12/2029",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 57 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,033% a.a. PL; mínimo R$ 15 mil/mês; IPC/FIPE",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 46–47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Texto e página cotejados com a versão integral. Divergências requerem esclarecimento antes de alertas automáticos."
+      },
+      "Gestão": {
+        "value": "0,030% a.a. até R$ 500 mi; 0,025% acima; mínimo R$ 15 mil/mês; implementação R$ 45 mil",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Custódia": {
+        "value": "Máximo agregado 0,027% do PL; mínimo R$ 15 mil/mês",
+        "source": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+        "note": "Preservada redação e base do documento; conferir periodicidade nos contratos dos prestadores."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta leitura; consultar cache e selecionar competência no Monitoramento",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Remuneração e calendário",
+      "Conclusão": "A sênior tem meta CDI + 0,80% a.a. e seis amortizações mensais programadas de julho a dezembro de 2029. A subordinação júnior é 10%, com exceção inicial de 9%."
+    }
+  ],
+  "warnings": [],
+  "sources_reviewed": [
+    {
+      "document_id": 1171493,
+      "kind": "assembleia",
+      "date": "06/02/2026 14:00",
+      "path": "data/raw/62838025000116/1171493_assembleia.pdf",
+      "text_path": "data/raw/62838025000116/1171493_assembleia.full.txt",
+      "identity_verified": true,
+      "pages": 2,
+      "extractable_pages": 2,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1058234,
+      "kind": "regulamento",
+      "date": "10/12/2025",
+      "path": "data/raw/62838025000116/1058234_regulamento.pdf",
+      "text_path": "data/raw/62838025000116/1058234_regulamento.full.txt",
+      "identity_verified": true,
+      "pages": 70,
+      "extractable_pages": 70,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1052452,
+      "kind": "emissao",
+      "date": "02/12/2025",
+      "path": "data/raw/62838025000116/1052452_emissao.pdf",
+      "text_path": "data/raw/62838025000116/1052452_emissao.full.txt",
+      "identity_verified": true,
+      "pages": 2,
+      "extractable_pages": 2,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1032846,
+      "kind": "emissao",
+      "date": "10/11/2025",
+      "path": "data/raw/62838025000116/1032846_emissao.pdf",
+      "text_path": "data/raw/62838025000116/1032846_emissao.full.txt",
+      "identity_verified": true,
+      "pages": 1,
+      "extractable_pages": 1,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    }
+  ],
+  "metrics": {
+    "inventory_count": 23,
+    "pdf_count": 4,
+    "pages_locally_available": 75
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior — apêndice",
+      "Tipo": "Sênior",
+      "Remuneração": "CDI + 0,80% a.a.",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/62838025000116/1058234_regulamento.pdf · ID 1058234 · 10/12/2025 · p. 56–57 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Amortização principal": "15/07/2029: 1ª parcela; 15/08/2029: 2ª; 15/09/2029: 3ª; 15/10/2029: 4ª; 15/11/2029: 5ª; 15/12/2029: última; conforme calendário e dias úteis",
+      "Juros/remuneração": "Mensal de 15/01/2026 a 15/12/2029, com ajuste de dia útil; ID1058234 p.57"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "0,030% a.a. até R$ 500 mi; 0,025% acima; mínimo R$ 15 mil/mês; implementação R$ 45 mil",
+      "Mínimo mensal": "R$ 15 mil",
+      "Fonte": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Versão vigente / base documental": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Máximo agregado 0,027% do PL; mínimo R$ 15 mil/mês",
+      "Mínimo mensal": "R$ 15 mil",
+      "Fonte": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Versão vigente / base documental": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · regulamento · p. 48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Mudanças relevantes": "Preservada redação e base do documento; conferir periodicidade nos contratos dos prestadores.",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "0,033% a.a. PL; mínimo R$ 15 mil/mês; IPC/FIPE",
+      "Mínimo mensal": "Ver mínimo explícito na descrição; contrato próprio não localizado quando houver remissão",
+      "Fonte": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 46–47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Versão vigente / base documental": "data/raw/62838025000116/1058234_regulamento.pdf · ID Fundos.NET 1058234 · 10/12/2025 · p. 46–47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1058234",
+      "Mudanças relevantes": "Fonte/paginação conferidas no documento integral",
+      "Status curadoria": "Revisão documental verificada"
+    }
+  ]
+}

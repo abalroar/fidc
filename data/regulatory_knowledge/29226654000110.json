@@ -842,7 +842,9 @@
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/29226654000110/1023849_regulamento_regulamento_1023849_2025-10-29.pdf"
+      "source_file": "data/raw/29226654000110/1023849_regulamento.pdf",
+      "local_text_cache": "data/raw/29226654000110/1023849_regulamento.txt",
+      "current_access_note": "Fonte local recuperada e cláusulas revalidadas nesta revisão; tentativa online detalhada em access_status."
     },
     {
       "id": 1026237,
@@ -944,6 +946,755 @@
     }
   ],
   "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CCBs de refinanciamento/parcelamento de faturas e carnês de cartões administrados pela Credsystem.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.8–11, definições; capítulo 3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Credsystem representa titulares na emissão; instituições financeiras conveniadas endossam as CCBs.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; definições de CCBs e Instituições Financeiras Conveniadas; 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Pessoas físicas titulares de cartões Credsystem.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; definição de Devedores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "CCB e documentação de lastro; garantia real específica não confirmada no corpus revisto.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 4.1–4.3 e documentos comprobatórios; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Ausência de confirmação documental não significa inexistência de garantia em contrato individual.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Ausência de confirmação documental não significa inexistência de garantia em contrato individual."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "CCB em reais, sem atraso na aquisição, prazo até 36 meses e anterior ao término da classe; apta a registro/custódia.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 4.1, critérios de elegibilidade; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Mesmo devedor/coobrigado: DC e ativos financeiros até 5%/PL.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.40, 3.6.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Razão mínima de garantia e índice de cobertura definidos no suplemento; piso específico não localizado.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 9.20–9.22; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Não converter razão PL/sênior em percentual de subordinadas sem limite específico de cada série.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Não converter razão PL/sênior em percentual de subordinadas sem limite específico de cada série."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "NPL90 ≥62,5%; atraso150+ >53% por mais de 3 meses; concentração persistente e eventos de prestadores.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.71–74, 12.1(xv–xx)/13.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "NPL90 requer reenquadramento no mês seguinte ou reincidência em 12 meses; não aciona liquidação automática sem rito.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "NPL90 requer reenquadramento no mês seguinte ou reincidência em 12 meses; não aciona liquidação automática sem rito."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Mínimo de 1 mês de despesas ordinárias, mantido em ativos financeiros.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.17, Reserva de Caixa; p.39, 3.3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Operações em mercados de derivativos vedadas.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.39, 3.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Provisão conforme metodologia do Anexo IV e manual da administradora; piso uniforme não confirmado.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.66, 10.2–10.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "PDD / Crédito e PDD / Vencidos; validar definição contratual",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Parcela superior a 50%/PL em DC elegíveis, após prazo de enquadramento do 3.2.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 3.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Preservar operador superior a; não converter em ≥50%.",
+      "monitoring_mapping": {
+        "status": "direto com validação",
+        "ime_metric": "Direitos creditórios / PL; validar ativo elegível, período e denominador",
+        "rationale": "Preservar operador superior a; não converter em ≥50%."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Novas aquisições previstas no waterfall; suspensão por avaliação/liquidação; não há pool estático demonstrado.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 10.1; 12.1/13.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Classe fechada; séries têm prazos próprios nos suplementos; público profissional nos termos do regulamento.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; características da classe; capítulo 9; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Endosso definitivo; regressos e recompras seguem hipóteses do Contrato de Endosso.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 3.1.4; 4.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Sem regresso/coobrigação do endossante, ressalvados dolo/má-fé comprovados e hipóteses contratuais.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 3.1.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Despesas → reserva → obrigações seniores → novos créditos/ativos → subordinadas; liquidação preserva prioridade sênior.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 10.1; p.74, 13.1.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pelas Instituições Financeiras Conveniadas contra os Devedores, representados pela Cred-System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Cr…",
+      "source_excerpt": "pelas Instituições Financeiras Conveniadas contra os Devedores, representados pela Cred-System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Cr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento…",
+      "source_excerpt": "são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "a taxa a que a Gestora terá direito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, prepond…",
+      "source_excerpt": "a taxa a que a Gestora terá direito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, prepond…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s pelos Devedores, representados pela Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direit…",
+      "source_excerpt": "s pelos Devedores, representados pela Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "la Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Dire…",
+      "source_excerpt": "la Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Dire…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…",
+      "source_excerpt": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
+      "source_excerpt": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…",
+      "source_excerpt": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…",
+      "source_excerpt": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…",
+      "source_excerpt": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…",
+      "source_excerpt": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
+      "source_excerpt": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…",
+      "source_excerpt": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…",
+      "source_excerpt": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…",
+      "source_excerpt": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ições Financeiras Conveniadas contra os Devedores, representados pela Credsystem nos termos da cláu sula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que co ntenham qualquer tipo de parcelamento. Direitos Creditórios Tr…",
+      "source_excerpt": "ições Financeiras Conveniadas contra os Devedores, representados pela Credsystem nos termos da cláu sula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que co ntenham qualquer tipo de parcelamento. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "es ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios são os Direitos Creditórios Transferidos cujo Devedor Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Transferidos Inadimplidos esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na respe…",
+      "source_excerpt": "es ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios são os Direitos Creditórios Transferidos cujo Devedor Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Transferidos Inadimplidos esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na respe…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "gadas diariamente pela B3. Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…",
+      "source_excerpt": "gadas diariamente pela B3. Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ndo adquirirá apenas Direitos Creditórios que Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios…",
+      "source_excerpt": "ndo adquirirá apenas Direitos Creditórios que Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "r | www.singulare.com.br veracidade e devida formalização dos respectivos Direitos Creditórios transferidos ao Fundo, nos termos deste Regulamento e dos respectivos Documentos Comprobatórios. 5.2. Alocação Mínima . Decorridos 90 (noventa) dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50% (cinquenta por cento) (“ Alocação Mínima”), e, no máximo, 100% (cem por cento) de seu Patrimônio Líq…",
+      "source_excerpt": "r | www.singulare.com.br veracidade e devida formalização dos respectivos Direitos Creditórios transferidos ao Fundo, nos termos deste Regulamento e dos respectivos Documentos Comprobatórios. 5.2. Alocação Mínima . Decorridos 90 (noventa) dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50% (cinquenta por cento) (“ Alocação Mínima”), e, no máximo, 100% (cem por cento) de seu Patrimônio Líq…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dores, representados pela Credsystemnos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnêsem atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos…",
+      "source_excerpt": "dores, representados pela Credsystemnos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnêsem atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "reitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios.Direitos Creditórios Transferidos Inadimplidossão os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamen…",
+      "source_excerpt": "reitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios.Direitos Creditórios Transferidos Inadimplidossão os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamen…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO3.1.O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, prepon…",
+      "source_excerpt": "ias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO3.1.O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, prepon…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rito e passíveis de verificação, que lhe permitirão o efetivo controle da guarda, conservação e movimentação dos Documentos Comprobatórios sob sua guarda, bem como para diligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no websiteda Administradora (https://www.singulare.com.br/).6.3.2.Anomeação de qualquer tercei…",
+      "source_excerpt": "rito e passíveis de verificação, que lhe permitirão o efetivo controle da guarda, conservação e movimentação dos Documentos Comprobatórios sob sua guarda, bem como para diligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no websiteda Administradora (https://www.singulare.com.br/).6.3.2.Anomeação de qualquer tercei…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades:(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;(ii)receber e verificar, por amostragem estatística, a documenta…",
+      "source_excerpt": "CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades:(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;(ii)receber e verificar, por amostragem estatística, a documenta…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "neste Regulamento, incluindo o limite de concentração previsto no Artigo 3.6.1 do Anexo, o NPL 90 e os Eventos de Avaliação indicados nos itens (xvii), (xviii), (xix) e (xx) do Artigo 12.1 do Anexo.” (g) alteração do artigo 3.3. do anexo descritivo ao Regulamento (“Anexo”), o qual passará a vigorar com a seguinte nova redação: Corporativo | Interno “3.3. A parcela do Patrimônio Líquido da Classe Única que não estive…",
+      "source_excerpt": "neste Regulamento, incluindo o limite de concentração previsto no Artigo 3.6.1 do Anexo, o NPL 90 e os Eventos de Avaliação indicados nos itens (xvii), (xviii), (xix) e (xx) do Artigo 12.1 do Anexo.” (g) alteração do artigo 3.3. do anexo descritivo ao Regulamento (“Anexo”), o qual passará a vigorar com a seguinte nova redação: Corporativo | Interno “3.3. A parcela do Patrimônio Líquido da Classe Única que não estive…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
+      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
+      "source_excerpt": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
+      "source_excerpt": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…",
+      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
+      "source_excerpt": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
+      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
+      "source_excerpt": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
+      "source_excerpt": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…",
+      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
+      "source_excerpt": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
+      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
+      "source_excerpt": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
+      "source_excerpt": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…",
+      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
+      "source_excerpt": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
+      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na r…",
+      "source_excerpt": "Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "adora e realização das adaptações necessárias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
+      "source_excerpt": "adora e realização das adaptações necessárias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evi…",
+      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, comerciais e de serviços, uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
+      "source_excerpt": "contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, comerciais e de serviços, uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não localizado no corpus acessível desta revisão.",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Sênior — séries a confirmar",
+      "amount_display": "Não localizado no corpus acessível desta revisão.",
+      "remuneration": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "amortization_schedule": "Não localizado no corpus acessível desta revisão.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.59, 9.1.4–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "parcial — termos/suplemento final não localizado"
+    },
+    {
+      "date": "Não localizado no corpus acessível desta revisão.",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Subordinada residual",
+      "amount_display": "Não localizado no corpus acessível desta revisão.",
+      "remuneration": "Residual; sem parâmetro de remuneração definido.",
+      "amortization_schedule": "Não localizado no corpus acessível desta revisão.",
+      "source_document": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.59, 9.1.4–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+      "notes": "parcial — termos/suplemento final não localizado"
+    }
+  ],
+  "extraction_count": 25,
+  "extraction_errors": [],
+  "documentary_review": {
+    "cnpj": "29226654000110",
+    "label": "Investcred (Credsystem)",
+    "reviewed_at": "2026-10-07T14:50:59-03:00",
+    "document_status": "regulamento local identificado por CNPJ; atualização online não confirmada",
+    "scope_note": "Revisão dirigida de cláusulas e termos materiais dos documentos locais acessíveis. A data desta revisão não atesta atualização completa do inventário CVM. Lacunas e falhas de acesso estão descritas; nenhuma posição IME foi transformada em volume de emissão.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CCBs de refinanciamento/parcelamento de faturas e carnês de cartões administrados pela Credsystem.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.8–11, definições; capítulo 3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Originador/endossante": {
+          "value": "Credsystem representa titulares na emissão; instituições financeiras conveniadas endossam as CCBs.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; definições de CCBs e Instituições Financeiras Conveniadas; 3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Devedor": {
+          "value": "Pessoas físicas titulares de cartões Credsystem.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; definição de Devedores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Garantia": {
+          "value": "CCB e documentação de lastro; garantia real específica não confirmada no corpus revisto.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 4.1–4.3 e documentos comprobatórios; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Ausência de confirmação documental não significa inexistência de garantia em contrato individual."
+        },
+        "Elegibilidade": {
+          "value": "CCB em reais, sem atraso na aquisição, prazo até 36 meses e anterior ao término da classe; apta a registro/custódia.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 4.1, critérios de elegibilidade; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Concentração": {
+          "value": "Mesmo devedor/coobrigado: DC e ativos financeiros até 5%/PL.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.40, 3.6.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Razão mínima de garantia e índice de cobertura definidos no suplemento; piso específico não localizado.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 9.20–9.22; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Não converter razão PL/sênior em percentual de subordinadas sem limite específico de cada série."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "NPL90 ≥62,5%; atraso150+ >53% por mais de 3 meses; concentração persistente e eventos de prestadores.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.71–74, 12.1(xv–xx)/13.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "NPL90 requer reenquadramento no mês seguinte ou reincidência em 12 meses; não aciona liquidação automática sem rito."
+        },
+        "Reserva de caixa": {
+          "value": "Mínimo de 1 mês de despesas ordinárias, mantido em ativos financeiros.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.17, Reserva de Caixa; p.39, 3.3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Derivativos/hedge": {
+          "value": "Operações em mercados de derivativos vedadas.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.39, 3.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "PDD": {
+          "value": "Provisão conforme metodologia do Anexo IV e manual da administradora; piso uniforme não confirmado.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.66, 10.2–10.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Parcela superior a 50%/PL em DC elegíveis, após prazo de enquadramento do 3.2.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 3.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Preservar operador superior a; não converter em ≥50%."
+        },
+        "Pool/revolvência": {
+          "value": "Novas aquisições previstas no waterfall; suspensão por avaliação/liquidação; não há pool estático demonstrado.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 10.1; 12.1/13.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Duração/público-alvo": {
+          "value": "Classe fechada; séries têm prazos próprios nos suplementos; público profissional nos termos do regulamento.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; características da classe; capítulo 9; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Cessão/recompra": {
+          "value": "Endosso definitivo; regressos e recompras seguem hipóteses do Contrato de Endosso.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 3.1.4; 4.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Coobrigação": {
+          "value": "Sem regresso/coobrigação do endossante, ressalvados dolo/má-fé comprovados e hipóteses contratuais.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 3.1.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Waterfall": {
+          "value": "Despesas → reserva → obrigações seniores → novos créditos/ativos → subordinadas; liquidação preserva prioridade sênior.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 10.1; p.74, 13.1.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior por séries e subordinadas; inventário completo de emissões não reconstruído sem suplementos.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.59–60, 9.1–9.5; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Remuneração": {
+          "value": "Sênior: benchmark/spread no suplemento, não localizado; subordinadas recebem residual sem parâmetro definido.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.59, 9.1.4–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Volume/VNU": {
+          "value": "Emissão autorizada de subordinadas até R$ 1 bi é autorização, com volume efetivo/VNU não confirmados.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.60, 9.5.2–9.5.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Ofertas": {
+          "value": "Atos, suplementos e encerramentos específicos não confirmados nesta revisão.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.59, 9.1.5–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Prazo remetido ao suplemento de cada série.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 9.1.5–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Juros/amortização": {
+          "value": "Cronograma por suplemento; aceleração pode dobrar parcelas e antecipar início após evento de avaliação.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.73, 12.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Vencimento": {
+          "value": "Vencimento por série no suplemento; cronograma fechado não identificado.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; 9.1.5–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "0,125% a.a./PL até R$ 500 mi; 0,10% acima; mínimos R$ 44 mil (12 primeiros meses)/R$ 54 mil depois; INPC anual.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.66–67, 11.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Taxa provisionada em 1/252 por dia útil; mínimo nominal sujeito a atualização."
+        },
+        "Gestão": {
+          "value": "0,600%/0,550%/0,500% a.a./PL por faixas até R$ 500 mi, R$ 1 bi e acima; mínimos R$ 34 mil/R$ 44 mil.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.67–68, 11.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Custódia": {
+          "value": "0,125% a.a./PL até R$ 500 mi; 0,10% acima; mínimo R$ 15 mil/mês; INPC anual.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.68–69, 11.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+        },
+        "Performance": {
+          "value": "Cobrança cessou em 01/01/2025; cláusula histórica previa 1,75% do excesso sobre DI, com tetos.",
+          "source": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.68, 11.3.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+          "note": "Não tratar a cláusula anterior como encargo vigente."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL e cotas subordinadas/PL: cálculo agregado com validação de classes e do denominador.",
+          "source": "Corpus do CNPJ 29226654000110, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 1023849, referência 29/10/2025, arquivo data/raw/29226654000110/1023849_regulamento.txt",
+          "note": "Monitorável com ressalva: IME mensal não prova cumprimento diário nem composição jurídica por série."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over 30/60/90/180/crédito e PDD/crédito: proxies agregados; gatilhos contratuais exigem fórmula própria.",
+          "source": "Corpus do CNPJ 29226654000110, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 1023849, referência 29/10/2025, arquivo data/raw/29226654000110/1023849_regulamento.txt",
+          "note": "Parcial: não equiparar índices de estoque/vintage/rolagem à carteira atual sem reconciliação de denominadores."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração individual, lastro, finalidade do hedge e troca de prestadores exigem controle documental.",
+          "source": "Corpus do CNPJ 29226654000110, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 1023849, referência 29/10/2025, arquivo data/raw/29226654000110/1023849_regulamento.txt",
+          "note": "Não monitorável pelo IME público sem dados individualizados; caixa e recompras ajudam apenas como proxies."
+        },
+        "Competência IME": {
+          "value": "Cache local: 06/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/1d6ce29d99dfe969ff023ea07c8652b9849ca2ba34dd9152a3e1af71808c020b/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Carteira",
+        "Conclusão": "Crédito de pessoas físicas por CCBs vinculadas a cartões/faturas Credsystem; concentração de 5% do PL por devedor/coobrigado."
+      },
+      {
+        "Tema": "Proteções",
+        "Conclusão": "Derivativos vedados e caixa equivalente a um mês de despesas; índices contratuais têm prazos próprios de cura."
+      },
+      {
+        "Tema": "Emissões",
+        "Conclusão": "Benchmark, garantia mínima e calendário sênior precisam dos suplementos de cada série."
+      },
+      {
+        "Tema": "Custos",
+        "Conclusão": "A taxa de performance deixou de ser cobrada em janeiro de 2025."
+      }
+    ],
+    "warnings": [
+      "Inventário histórico de 67 documentos; atualização online e PDFs de todas as ofertas não concluídos.",
+      "Spreads, razão de garantia e calendário sênior são remetidos aos suplementos; não usar taxas de remuneração de prestadores como spread de cota."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": "1023849",
+        "date": "29/10/2025",
+        "path": "data/raw/29226654000110/1023849_regulamento.txt",
+        "pages": 88,
+        "identity_verified": true,
+        "review_scope": "Revisão dirigida das cláusulas citadas; texto integral disponível localmente."
+      }
+    ],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "Sênior — séries a confirmar",
+        "Tipo": "Sênior",
+        "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+        "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+        "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+        "Volume": "Não localizado no corpus acessível desta revisão.",
+        "VNU": "Não localizado no corpus acessível desta revisão.",
+        "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+        "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+        "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+        "Fonte": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.59, 9.1.4–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+        "Status curadoria": "parcial — termos/suplemento final não localizado"
+      },
+      {
+        "Cota/Classe": "Subordinada residual",
+        "Tipo": "Subordinada",
+        "Remuneração": "Residual; sem parâmetro de remuneração definido.",
+        "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+        "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+        "Volume": "Não localizado no corpus acessível desta revisão.",
+        "VNU": "Não localizado no corpus acessível desta revisão.",
+        "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+        "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+        "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+        "Fonte": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.59, 9.1.4–9.1.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+        "Status curadoria": "parcial — termos/suplemento final não localizado"
+      }
+    ],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "0,125% a.a./PL até R$ 500 mi; 0,10% acima; mínimos R$ 44 mil (12 primeiros meses)/R$ 54 mil depois; INPC anual.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.66–67, 11.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+        "Versão vigente / base documental": "regulamento local identificado por CNPJ; atualização online não confirmada; 29/10/2025"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "0,600%/0,550%/0,500% a.a./PL por faixas até R$ 500 mi, R$ 1 bi e acima; mínimos R$ 34 mil/R$ 44 mil.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.67–68, 11.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+        "Versão vigente / base documental": "regulamento local identificado por CNPJ; atualização online não confirmada; 29/10/2025"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "0,125% a.a./PL até R$ 500 mi; 0,10% acima; mínimo R$ 15 mil/mês; INPC anual.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; pp.68–69, 11.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+        "Versão vigente / base documental": "regulamento local identificado por CNPJ; atualização online não confirmada; 29/10/2025"
+      },
+      {
+        "Item": "Performance",
+        "Percentual a.a.": "Cobrança cessou em 01/01/2025; cláusula histórica previa 1,75% do excesso sobre DI, com tetos.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Fundos.NET ID 1023849; referência 29/10/2025; data/raw/29226654000110/1023849_regulamento.txt; p.68, 11.3.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1023849&cvm=true",
+        "Versão vigente / base documental": "regulamento local identificado por CNPJ; atualização online não confirmada; 29/10/2025"
+      }
+    ],
+    "metrics": {
+      "documents_inventoried": 67,
+      "inventory_scope": "Inventário histórico local e documentos públicos locais identificados; inventário online completo atual não confirmado",
+      "local_regulatory_pdfs": 1,
+      "new_network_pdfs_downloaded": 0,
+      "local_analyzable_pdf_pages": 88,
+      "text_caches_without_local_pdf": 0,
+      "documents_without_local_pdf": 66,
+      "extraction_errors": "Nenhum erro na extração dos PDFs locais processados",
+      "reviewed_source_documents": 1,
+      "full_document_human_reading_claim": false
+    }
+  },
+  "historical_heuristic_criteria": [
     {
       "name": "Alocação mínima em direitos creditórios",
       "canonical_key": "credit_rights_allocation_min",
@@ -3565,239 +4316,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pelas Instituições Financeiras Conveniadas contra os Devedores, representados pela Cred-System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Cr…",
-      "source_excerpt": "pelas Instituições Financeiras Conveniadas contra os Devedores, representados pela Cred-System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Cr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento…",
-      "source_excerpt": "são os Direitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "a taxa a que a Gestora terá direito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, prepond…",
-      "source_excerpt": "a taxa a que a Gestora terá direito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, prepond…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s pelos Devedores, representados pela Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direit…",
-      "source_excerpt": "s pelos Devedores, representados pela Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "la Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Dire…",
-      "source_excerpt": "la Cred-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Dire…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…",
-      "source_excerpt": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
-      "source_excerpt": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…",
-      "source_excerpt": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…",
-      "source_excerpt": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…",
-      "source_excerpt": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…",
-      "source_excerpt": "ões Financeiras Conveniadas contra os Devedores, representados pela Cred -System nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus 9 encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
-      "source_excerpt": "os Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento do Fundo, transferidos pelos Endossantes ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…",
-      "source_excerpt": "ireito, conforme disposto no Artigo 10.2 abaixo. Taxa DI significa a variação das taxas médias dos DI – Depósitos Interfinanceiros, calculadas e divulgadas diariamente pela B3. Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. 13 OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…",
-      "source_excerpt": "-System, para quitar faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento referentes aos cartões de crédito emitidos pela Cred-System. O Fundo adquirirá apenas Direitos Creditórios que atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Cr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…",
-      "source_excerpt": "de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios Elegíveis. Os Direitos Creditórios Elegíveis serão adquiridos pelo Fundo com todos os seus respectivos direitos, preferências, garantias, prerrogativas, ações e acessórios assegurados aos Endossantes correspondentes, nos termos da legislação cambiária aplicável. 14 5.1.3. Pagamento do Preço de Aquisição. A…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ições Financeiras Conveniadas contra os Devedores, representados pela Credsystem nos termos da cláu sula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que co ntenham qualquer tipo de parcelamento. Direitos Creditórios Tr…",
-      "source_excerpt": "ições Financeiras Conveniadas contra os Devedores, representados pela Credsystem nos termos da cláu sula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pelo Fundo, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que co ntenham qualquer tipo de parcelamento. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "es ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios são os Direitos Creditórios Transferidos cujo Devedor Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Transferidos Inadimplidos esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na respe…",
-      "source_excerpt": "es ao Fundo, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios são os Direitos Creditórios Transferidos cujo Devedor Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Transferidos Inadimplidos esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na respe…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "gadas diariamente pela B3. Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…",
-      "source_excerpt": "gadas diariamente pela B3. Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br Termo de Adesão é o documento por meio do qual os Cotistas aderem a este Regulamento e que deve ser firmado quando de seu ingresso no Fundo. OBJETO 3.1. Objeto. O Fundo é uma comunhão de recursos destinados, preponderantemente, à aquisição…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ndo adquirirá apenas Direitos Creditórios que Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios…",
-      "source_excerpt": "ndo adquirirá apenas Direitos Creditórios que Av. Brig. Faria Lima, 1355 ▪ 5° andar ▪ São Paulo/SP ▪ 01452-919 | Tel.: (55 11) 2827-3500 | Ouvidoria:ouvidoria@singulare.com.br | www.singulare.com.br atendam aos Critérios de Elegibilidade e às Condições de Endosso, conforme verificados nas respectivas datas de aquisição. 5.1.2. Transferência da Totalidade dos Direitos e Obrigações Vinculados aos Direitos Creditórios…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "r | www.singulare.com.br veracidade e devida formalização dos respectivos Direitos Creditórios transferidos ao Fundo, nos termos deste Regulamento e dos respectivos Documentos Comprobatórios. 5.2. Alocação Mínima . Decorridos 90 (noventa) dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50% (cinquenta por cento) (“ Alocação Mínima”), e, no máximo, 100% (cem por cento) de seu Patrimônio Líq…",
-      "source_excerpt": "r | www.singulare.com.br veracidade e devida formalização dos respectivos Direitos Creditórios transferidos ao Fundo, nos termos deste Regulamento e dos respectivos Documentos Comprobatórios. 5.2. Alocação Mínima . Decorridos 90 (noventa) dias do início das atividades do Fundo, este deverá ter alocado, no mínimo, 50% (cinquenta por cento) (“ Alocação Mínima”), e, no máximo, 100% (cem por cento) de seu Patrimônio Líq…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dores, representados pela Credsystemnos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnêsem atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos…",
-      "source_excerpt": "dores, representados pela Credsystemnos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnêsem atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "reitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios.Direitos Creditórios Transferidos Inadimplidossão os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamen…",
-      "source_excerpt": "reitos Creditórios Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios.Direitos Creditórios Transferidos Inadimplidossão os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamen…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO3.1.O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, prepon…",
-      "source_excerpt": "ias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO3.1.O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, prepon…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rito e passíveis de verificação, que lhe permitirão o efetivo controle da guarda, conservação e movimentação dos Documentos Comprobatórios sob sua guarda, bem como para diligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no websiteda Administradora (https://www.singulare.com.br/).6.3.2.Anomeação de qualquer tercei…",
-      "source_excerpt": "rito e passíveis de verificação, que lhe permitirão o efetivo controle da guarda, conservação e movimentação dos Documentos Comprobatórios sob sua guarda, bem como para diligenciar o cumprimento de suas obrigações nos termos deste Regulamento. Tais regras e procedimentos permanecerão disponíveis e atualizados para consulta no websiteda Administradora (https://www.singulare.com.br/).6.3.2.Anomeação de qualquer tercei…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades:(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;(ii)receber e verificar, por amostragem estatística, a documenta…",
-      "source_excerpt": "CVM 175/22, o Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades:(i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória;(ii)receber e verificar, por amostragem estatística, a documenta…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "neste Regulamento, incluindo o limite de concentração previsto no Artigo 3.6.1 do Anexo, o NPL 90 e os Eventos de Avaliação indicados nos itens (xvii), (xviii), (xix) e (xx) do Artigo 12.1 do Anexo.” (g) alteração do artigo 3.3. do anexo descritivo ao Regulamento (“Anexo”), o qual passará a vigorar com a seguinte nova redação: Corporativo | Interno “3.3. A parcela do Patrimônio Líquido da Classe Única que não estive…",
-      "source_excerpt": "neste Regulamento, incluindo o limite de concentração previsto no Artigo 3.6.1 do Anexo, o NPL 90 e os Eventos de Avaliação indicados nos itens (xvii), (xviii), (xix) e (xx) do Artigo 12.1 do Anexo.” (g) alteração do artigo 3.3. do anexo descritivo ao Regulamento (“Anexo”), o qual passará a vigorar com a seguinte nova redação: Corporativo | Interno “3.3. A parcela do Patrimônio Líquido da Classe Única que não estive…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
-      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
-      "source_excerpt": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
-      "source_excerpt": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…",
-      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
-      "source_excerpt": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
-      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
-      "source_excerpt": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
-      "source_excerpt": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…",
-      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
-      "source_excerpt": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
-      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…",
-      "source_excerpt": "egíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento d a Classe Única , transferidos pelos Endossantes à Classe Única , nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
-      "source_excerpt": "ulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo , constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…",
-      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento , caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que ev…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
-      "source_excerpt": "nsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, JUR_SP - 50932916v12 - 10114004.527890 Corporativo | Interno comerciais e de serviços , uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…",
-      "source_excerpt": "ados pela Credsystem nos termos da cláusula mandato contida nos Contratos com Titulares, por meio da emissão de CCBs, vincendas na data de aquisição dos Direitos Creditórios pela Classe Única, juntamente com seus encargos e taxas, referentes ao financiamento das faturas e/ou carnês em atraso ou que contenham qualquer tipo de parcelamento, os quais são passíveis de aquisição pela Classe Única. Direitos Creditórios Tr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na r…",
-      "source_excerpt": "Elegíveis, observados os Critérios de Elegibilidade, as Condições de Endosso e a Política de Investimento da Classe Única, transferidos pelos Endossantes à Classe Única, nos termos do Contrato de Endosso e demais Documentos Comprobatórios. Direitos Creditórios Transferidos Inadimplidos são os Direitos Creditórios Transferidos cujo Devedor esteja em atraso no cumprimento de suas obrigações de pagamento dispostas na r…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "adora e realização das adaptações necessárias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…",
-      "source_excerpt": "adora e realização das adaptações necessárias ao presente Regulamento e aos Anexos, a partir da entrada em vigor da integralidade do artigo 5º da Resolução CVM 175/22, o Fundo poderá criar diferentes Classes de cotas, com patrimônio segregado, e respectivas Subclasses, nos termos da Resolução CVM 175/22. OBJETO 3.1. O Fundo, constituído pela Classe Única, é uma comunhão de recursos destinados, preponderantemente, à…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evi…",
-      "source_excerpt": "Custodiante, diretamente ou por meio de seus representantes, será responsável pelas seguintes atividades: (i) validar, no momento do endosso, os Direitos Creditórios em relação aos Critérios de Elegibilidade estabelecidos no presente Regulamento, caso seja contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, comerciais e de serviços, uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…",
-      "source_excerpt": "contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (ii) receber e verificar, por amostragem estatística, a documentação que evidencia o lastro dos Direitos Creditórios Elegíveis representados por operações financeiras, comerciais e de serviços, uma vez que foi contratado pela Gestora para tanto, sem prejuízo de sua responsabilidade regulatória; (iii) realizar a liquidação física e…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -4121,6 +4640,6 @@
       "source_document_id": 1026237
     }
   ],
-  "extraction_count": 25,
-  "extraction_errors": []
+  "reviewed_at": "2026-10-07T14:50:59-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/29226654000110.json"
 }

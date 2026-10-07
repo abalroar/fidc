@@ -1,0 +1,334 @@
+{
+  "cnpj": "63546406000194",
+  "label": "Pine INSS III",
+  "reviewed_at": "2026-10-07T15:13:33-03:00",
+  "document_status": "Revisão documental dirigida; lacunas e divergências explícitas",
+  "scope_note": "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. ",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCCBs lastreados em CCBs de empréstimos consignados INSS",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 130–133 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Originador/endossante": {
+        "value": "Cedente Banco Pine; originadores Banco Pine e Facta Financeira",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 122 · 2.7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      },
+      "Devedor": {
+        "value": "Pessoas físicas devedoras das CCBs, beneficiárias do INSS",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 131/154 · 6.1(A)(VIII); definição Devedores · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      },
+      "Garantia": {
+        "value": "Consignação autorizada e margem averbada; validação do lastro das CCBs",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 133 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Elegibilidade": {
+        "value": "Sem inadimplência; idade média ≤ 70 anos; idade + prazo ≤ 79 anos; saldo por devedor ≤ R$ 150 mil",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 133 e 139–140 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Concentração": {
+        "value": "Faixas etárias, benefício 32 e limites individuais; base valor presente de créditos não inadimplidos",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 139 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Júnior inicial ≥1,50%, meta ≥2,50%; MZ A: B+C+júnior ≥5%. Exclusão de MTM expressa para A/júnior",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 141–142 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "MZ B/C têm camadas próprias. A proteção MZ C de 3% e os pisos júnior de 1,50%/2,50% requerem conciliação das condições contratuais."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Patamares cobertura 1,00/0,98; perdas desalavancagem 5% / realavancagem 4%",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 144 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Reserva de caixa": {
+        "value": "Liquidez ≥ 2,50% PL; pode cair a 2% com proteção MZ C de 2,50%; reserva MTM aplicável",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 144 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Derivativos/hedge": {
+        "value": "Swap PRE → DI + spread; proteção à vista sem alavancagem; política de reavaliação quinzenal",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 140–141 e 173–177 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "PDD": {
+        "value": "Cobertura usa DC a valor presente líquido de PDD; provisão conforme manual da administração",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 38/119 · 7.2.2(i); 2.1(b) · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Sem limite de PDD/crédito inferido; provisão é componente de cálculo, não piso de cobertura autônomo."
+      },
+      "Pré-pagamento e inadimplência": {
+        "value": "Pré-pagamento >35%; inadimplência >5% em data de verificação: eventos adicionais",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 151 · 14.1(xiii)–(xiv) · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Índice de inadimplência possui definição própria na cláusula; requer valores/parcelas e denominador contratuais."
+      },
+      "Subordinação mezanino por camada": {
+        "value": "MZ A protegida por B+C+júnior ≥5%; MZ B por C+júnior ≥5%; MZ C por júnior ≥3%",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 141–142 · 9.2 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Anexo também indica júnior inicial1,50%/meta2,50%; avaliar compatibilidade de MZ C. Exclusão de MTM expressa para A/júnior; não expandir a todas as bases."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "50% PL regulatório; 67% PL para entidade de investimento",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 80 · Definições Alocações Mínimas · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Validar base de cálculo e enquadramento dos direitos elegíveis; não inferir que o teste está cumprido."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisição até fim do primeiro mês completo de alocação; sem revolvência",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 140 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Duração/público-alvo": {
+        "value": "Fundo indeterminado; investidores autorizados devem ser qualificados",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 2/154 · 1.1; definição Investidores Autorizados · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Oferta pública específica de 2026 é dirigida a profissionais; distinguir regra geral da classe e público da oferta."
+      },
+      "Cessão/recompra": {
+        "value": "Termo eletrônico + registro; contrato prevê resolução da cessão com recompra pelo cedente",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 126–127 · 5.5/5.4.1 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "O rol completo de eventos de resolução depende do Contrato de Promessa de Cessão não localizado."
+      },
+      "Coobrigação": {
+        "value": "Sem direito de regresso/coobrigação de terceiros pelo pagamento dos ativos",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 76 · Fatores de risco – ausência de recursos adicionais · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Obrigações por existência, formalização e recompra contratual são distintas da solvência do devedor."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 63546406000194 em 07/10/2026; 19 registros no inventário obtido; fontes acessíveis: 1172101, 1162293, 1130481, 1130478",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Prestadores essenciais": {
+        "value": "Administração/custódia: Vert DTVM; gestão: Vert Gestora; arrecadação: Banco Pine",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 118–123 · 2.1/2.2/2.3/2.8 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior; MZ A, B e C; subordinada júnior",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 163–171 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Remuneração": {
+        "value": "Sênior CDI + spread em bookbuilding, piso 1,10% e teto 1,25%; MZ A +3,50%, B +4,75%, C +7,50% a.a.",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 163, 165, 167 e 169 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Piso/teto sênior não representam spread final. Resultado de bookbuilding não localizado nesta leitura."
+      },
+      "Volume/VNU": {
+        "value": "Oferta total R$ 1,25 bi; sênior R$ 1.068,75 mi; MZ A/B R$ 62,5 mi cada; C R$ 31,25 mi; júnior R$ 25 mi; VNU R$ 1 mil",
+        "source": "data/raw/63546406000194/1172101_emissao.pdf · ID Fundos.NET 1172101 · 22/04/2026 · emissao · p. 2 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1172101",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Ofertas": {
+        "value": "Encerramento divulgado em 22/04/2026; melhores esforços; profissionais",
+        "source": "data/raw/63546406000194/1172101_emissao.pdf · ID Fundos.NET 1172101 · 22/04/2026 · emissao · p. 1–7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1172101",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 63546406000194 em 07/10/2026; 19 registros no inventário obtido; fontes acessíveis: 1172101, 1162293, 1130481, 1130478",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Juros/amortização": {
+        "value": "Principal ligado ao fluxo/estoque de créditos; calendário fechado remetido ao suplemento",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 163–172 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 63546406000194 em 07/10/2026; 19 registros no inventário obtido; fontes acessíveis: 1172101, 1162293, 1130481, 1130478",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas cumulativas 0,045% / 0,035% / 0,02% a.a.; mínimo R$ 7.500/mês; IGP-M; tributos adicionais",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 124–125 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gestão": {
+        "value": "Faixas cumulativas 0,045% / 0,035% / 0,02% a.a.; mínimo R$ 7.500/mês; IGP-M",
+        "source": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 124–125 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Custódia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 63546406000194 em 07/10/2026; 19 registros no inventário obtido; fontes acessíveis: 1172101, 1162293, 1130481, 1130478",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta leitura; consultar cache e selecionar competência no Monitoramento",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Pool e proteção",
+      "Conclusão": "O pool INSS é estático. A proteção júnior exclui MTM dos derivativos e a reserva de liquidez depende da subordinação; esses ajustes exigem controle além do IME agregado."
+    }
+  ],
+  "warnings": [],
+  "sources_reviewed": [
+    {
+      "document_id": 1172101,
+      "kind": "emissao",
+      "date": "22/04/2026",
+      "path": "data/raw/63546406000194/1172101_emissao.pdf",
+      "text_path": "data/raw/63546406000194/1172101_emissao.full.txt",
+      "identity_verified": true,
+      "pages": 7,
+      "extractable_pages": 7,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1162293,
+      "kind": "emissao",
+      "date": "13/04/2026",
+      "path": "data/raw/63546406000194/1162293_emissao.pdf",
+      "text_path": "data/raw/63546406000194/1162293_emissao.full.txt",
+      "identity_verified": true,
+      "pages": 7,
+      "extractable_pages": 7,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1130481,
+      "kind": "regulamento",
+      "date": "05/03/2026",
+      "path": "data/raw/63546406000194/1130481_regulamento.pdf",
+      "text_path": "data/raw/63546406000194/1130481_regulamento.full.txt",
+      "identity_verified": true,
+      "pages": 183,
+      "extractable_pages": 183,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1130478,
+      "kind": "regulamento",
+      "date": "05/03/2026",
+      "path": "data/raw/63546406000194/1130478_regulamento.pdf",
+      "text_path": "data/raw/63546406000194/1130478_regulamento.full.txt",
+      "identity_verified": true,
+      "pages": 18,
+      "extractable_pages": 18,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    }
+  ],
+  "metrics": {
+    "inventory_count": 19,
+    "pdf_count": 4,
+    "pages_locally_available": 215
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior — 1ª emissão",
+      "Tipo": "Sênior",
+      "Remuneração": "CDI + sobretaxa em bookbuilding; piso 1,10% e teto 1,25%; spread final não localizado",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/63546406000194/1130481_regulamento.pdf · ID 1130481 · 05/03/2026 · p. 163; data/raw/63546406000194/1172101_emissao.pdf · ID 1172101 · 22/04/2026 · p.2",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Volume": "R$ 1.068.750.000,00 distribuído; anúncio ID 1172101 p.2",
+      "Quantidade": "1.068.750",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "22/04/2026, ID 1172101",
+      "Amortização principal": "Calendário fechado não identificado; fórmula de fluxo/estoque e suplemento"
+    },
+    {
+      "Cota/Classe": "MZ A — 1ª emissão",
+      "Tipo": "Mezanino",
+      "Remuneração": "CDI + 3,50% a.a.",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/63546406000194/1130481_regulamento.pdf · ID 1130481 · 05/03/2026 · p. 165; data/raw/63546406000194/1172101_emissao.pdf · ID 1172101 · 22/04/2026 · p.2",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Volume": "R$ 62.500.000,00 distribuído; anúncio ID 1172101 p.2",
+      "Quantidade": "62.500",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "22/04/2026, ID 1172101",
+      "Amortização principal": "Calendário fechado não identificado; fórmula de fluxo/estoque e suplemento"
+    },
+    {
+      "Cota/Classe": "MZ B — 1ª emissão",
+      "Tipo": "Mezanino",
+      "Remuneração": "CDI + 4,75% a.a.",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/63546406000194/1130481_regulamento.pdf · ID 1130481 · 05/03/2026 · p. 167; data/raw/63546406000194/1172101_emissao.pdf · ID 1172101 · 22/04/2026 · p.2",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Volume": "R$ 62.500.000,00 distribuído; anúncio ID 1172101 p.2",
+      "Quantidade": "62.500",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "22/04/2026, ID 1172101",
+      "Amortização principal": "Calendário fechado não identificado; fórmula de fluxo/estoque e suplemento"
+    },
+    {
+      "Cota/Classe": "MZ C — 1ª emissão",
+      "Tipo": "Mezanino",
+      "Remuneração": "CDI + 7,50% a.a.",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/63546406000194/1130481_regulamento.pdf · ID 1130481 · 05/03/2026 · p. 169; data/raw/63546406000194/1172101_emissao.pdf · ID 1172101 · 22/04/2026 · p.2",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Volume": "R$ 31.250.000,00 distribuído; anúncio ID 1172101 p.2",
+      "Quantidade": "31.250",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "22/04/2026, ID 1172101",
+      "Amortização principal": "Calendário fechado não identificado; fórmula de fluxo/estoque e suplemento"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "Faixas cumulativas 0,045% / 0,035% / 0,02% a.a.; mínimo R$ 7.500/mês; IGP-M; tributos adicionais",
+      "Mínimo mensal": "R$ 7.500",
+      "Fonte": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 124–125 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+      "Versão vigente / base documental": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 124–125 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "Faixas cumulativas 0,045% / 0,035% / 0,02% a.a.; mínimo R$ 7.500/mês; IGP-M",
+      "Mínimo mensal": "R$ 7.500",
+      "Fonte": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 124–125 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+      "Versão vigente / base documental": "data/raw/63546406000194/1130481_regulamento.pdf · ID Fundos.NET 1130481 · 05/03/2026 · regulamento · p. 124–125 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1130481",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Não localizado nas fontes acessíveis desta leitura",
+      "Mínimo mensal": "Mínimo mensal não localizado na fonte",
+      "Fonte": "Consulta Fundos.NET por CNPJ 63546406000194 em 07/10/2026; 19 registros no inventário obtido; fontes acessíveis: 1172101, 1162293, 1130481, 1130478",
+      "Versão vigente / base documental": "Consulta Fundos.NET por CNPJ 63546406000194 em 07/10/2026; 19 registros no inventário obtido; fontes acessíveis: 1172101, 1162293, 1130481, 1130478",
+      "Mudanças relevantes": "Lacuna documental; não equivale à inexistência da regra",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    }
+  ]
+}

@@ -1,68 +1,151 @@
 {
   "schema_version": 1,
   "deep_dive_id": "carteira_fidc_sellers_soma_47b0eb1b",
-  "title": "Deep Dive MELI (FIDC Sellers I, II e III)",
-  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas IME",
+  "title": "Curadoria MELI (FIDC Sellers I, II e III)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
   "portfolio_id": "47b0eb1b7bea42ef85233f9b1186129c",
   "portfolio_signature": "50473039000102|55471753000177|63572282000111",
-  "generated_at": "2026-05-13T20:55:58-03:00",
-  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "generated_at": "2026-10-07T14:49:47-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
   "confidentiality": "Uso interno",
   "funds": [
     {
-      "cnpj": "50.473.039/0001-02",
+      "cnpj": "50473039000102",
       "name": "SELLER FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
-      "short_name": "SELLER FIDC"
+      "short_name": "SELLER"
     },
     {
-      "cnpj": "55.471.753/0001-77",
+      "cnpj": "55471753000177",
       "name": "SELLER II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO RESP LTDA",
       "short_name": "SELLER II"
     },
     {
-      "cnpj": "63.572.282/0001-11",
+      "cnpj": "63572282000111",
       "name": "SELLER 3 FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESP LIMITADA",
       "short_name": "SELLER 3"
     }
   ],
+  "comparison_columns": {
+    "SELLER": "50473039000102",
+    "SELLER II": "55471753000177",
+    "SELLER 3": "63572282000111"
+  },
   "tables": [
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
-      "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
-      "first_column": "Nome"
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "structural_costs",
       "title": "Custos estruturais",
-      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
-      "kind": "source_table",
       "source_file": "tables/structural_costs.csv",
-      "first_column": "Fundo"
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "emissions",
-      "title": "Cronograma de emissões",
-      "kind": "source_table",
-      "source_file": "tables/emissions.csv",
-      "first_column": "Fundo"
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "thresholds",
-      "title": "Regulamento mais recente",
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
       "kind": "source_table",
-      "source_file": "tables/thresholds.csv",
-      "first_column": "fundo"
+      "subtitle": "Referências por célula; observações comuns no rodapé"
     }
   ],
   "audit": {
     "warnings": [
-      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Tabela principal com 31 linhas; contagem documental foi substituída por páginas locais analisadas.",
-      "Custos estruturais incluídos a partir de data/regulatory_profiles/structural_costs.csv; lacunas permanecem explícitas quando não há curadoria documental para o CNPJ."
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Atualização do inventário indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Atualização do inventário indisponível: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+      "Regulamento ID 704724 p.61: Alocação Mínima Adicional contém 67% em numeral e “cinquenta por cento” por extenso.",
+      "Lacunas de acesso/extracão: ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna."
     ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "b13f0973ff10840e44bcba3397a240512a10d1298bafb0b4c9434037cf766a4f",
+    "rendering_sha256": "062525be27b0d7ad3ed7a1cdf1a36406b7019adedaeb15dfb43af16b0f23a736",
+    "input_sha256": "78e1e3ef3c7671342d5f708a9ac231e85e622192b9aea67b2d3e94f4effafc0e"
   }
 }

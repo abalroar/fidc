@@ -1,0 +1,299 @@
+{
+  "cnpj": "62588266000154",
+  "label": "VTK",
+  "reviewed_at": "2026-10-07T15:13:33-03:00",
+  "document_status": "Revisão documental dirigida; lacunas e divergências explícitas",
+  "scope_note": "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. Inventário atual tecnicamente indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.. Inventário anterior preservado; vigência mais recente exige nova consulta.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs Facta de crédito/cartão INSS; direitos cedidos conforme convênio",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 28 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Originador/endossante": {
+        "value": "Facta, conforme contratos de endosso",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 28 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Devedor": {
+        "value": "Pessoa física; consignado/cartão INSS",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 32 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62588266000154 em 07/10/2026; 14 registros no inventário anterior preservado; fontes acessíveis: 1002580, 987463, 995150, 1126575",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Elegibilidade": {
+        "value": "Saldo/devedor ≤ R$ 120 mil; parcela média ≥ R$ 200; idade média ≤ 68; idade + prazo ≤ 80, com exceções de seguro",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 31–32 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Concentração": {
+        "value": "Homens ≤ 60%; idade >61 ≤70%, >66 ≤50%, >71 ≤12,5%; exclusões de seguros conforme cláusula",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 32 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior ≥ 15%; mezanino e mezanino ajustado ≥ 5%",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 26 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Pré-pagamento > 20%; Over90: 3,5% numeral e 3,05% por extenso; persistência 2 meses consecutivos ou 4 alternados",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · p. 65–66 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Texto e página cotejados com a versão integral. Divergências requerem esclarecimento antes de alertas automáticos."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas: 3 meses; remuneração sênior: acumular D-30; derivativo: posição líquida devedora",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 71–72 · 19.1–19.4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Reserva de derivativo na janela de 6 meses anteriores ao vencimento sênior ou na amortização sequencial; excluída dos testes de subordinação."
+      },
+      "Derivativos/hedge": {
+        "value": "Notional inicial 70% DC; recalibrar em 45 dias se >100% ou <60%; contraparte AAA; cura rating em 60 dias",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 138 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Anexo permite equalização de indexadores, mas a redação inicial também veda troca de indexador. Exigir esclarecimento dessa tensão antes de automatizar finalidade."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62588266000154 em 07/10/2026; 14 registros no inventário anterior preservado; fontes acessíveis: 1002580, 987463, 995150, 1126575",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "≥ 67% PL em direitos creditórios",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 101 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62588266000154 em 07/10/2026; 14 registros no inventário anterior preservado; fontes acessíveis: 1002580, 987463, 995150, 1126575",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62588266000154 em 07/10/2026; 14 registros no inventário anterior preservado; fontes acessíveis: 1002580, 987463, 995150, 1126575",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62588266000154 em 07/10/2026; 14 registros no inventário anterior preservado; fontes acessíveis: 1002580, 987463, 995150, 1126575",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Coobrigação": {
+        "value": "Facta não responde pela solvência dos devedores; sem coobrigação/garantia de terceiros",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 77 · Risco de crédito – Ausência de coobrigação · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Recompra por vício/hipóteses contratuais é obrigação distinta da solvência."
+      },
+      "Waterfall": {
+        "value": "Pro rata inicialmente; sequencial após desalavancagem/liquidação, com possível realavancagem",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 52–56 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Prestadores essenciais": {
+        "value": "Administração: Oliveira Trust DTVM; gestão: Oliveira Trust Servicer",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 19 · Assinaturas do regulamento · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "1ª emissão sênior e mezanino; subordinadas júnior conforme regulamento",
+        "source": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.pdf · ID Fundos.NET 1126575 · 27/02/2026 · emissao · p. 1 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126575",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Remuneração": {
+        "value": "Sobretaxa definida em suplemento não localizado; modelos mantêm campos abertos",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 131–134 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Volume/VNU": {
+        "value": "Distribuídos: sênior R$ 2,55 bi e mezanino R$ 300 mi; VNU R$ 1 mil",
+        "source": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.pdf · ID Fundos.NET 1126575 · 27/02/2026 · emissao · p. 1 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126575",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Ofertas": {
+        "value": "Encerramento em 27/02/2026; primária por melhores esforços; profissionais",
+        "source": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.pdf · ID Fundos.NET 1126575 · 27/02/2026 · emissao · p. 1–4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126575",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao suplemento; modelo em aberto",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 132 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Juros/amortização": {
+        "value": "Cronograma fechado não identificado; amortização pro rata/sequencial em regime de caixa",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 52–56 e 131–134 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 62588266000154 em 07/10/2026; 14 registros no inventário anterior preservado; fontes acessíveis: 1002580, 987463, 995150, 1126575",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas PL: 0,056% / 0,04% / 0,016% a.a.; mínimo R$ 22.400/mês; IGP-M e tributos",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 46–48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gestão": {
+        "value": "Faixas PL: 0,014% / 0,01% / 0,004% a.a.; mínimo R$ 5.600/mês; IGP-M",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 46–48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Custódia": {
+        "value": "Incluída na administração; escrituração R$ 2 mil/mês; lastro R$ 5 mil/mês",
+        "source": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta leitura; consultar cache e selecionar competência no Monitoramento",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Oferta encerrada",
+      "Conclusão": "O anúncio de encerramento de 27/02/2026 confirma R$ 2,55 bilhões em sênior e R$ 300 milhões em mezanino. O montante distribuído não resolve, por si, spread e calendário contratual."
+    }
+  ],
+  "warnings": [
+    "Inventário atual tecnicamente indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.. Inventário anterior preservado; vigência mais recente exige nova consulta."
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1002580,
+      "kind": "regulamento",
+      "date": "29/09/2025",
+      "path": "data/raw/62588266000154/1002580_regulamento.pdf",
+      "text_path": "data/raw/62588266000154/1002580_regulamento.full.txt",
+      "pages": 138,
+      "identity_verified": true,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 987463,
+      "kind": "regulamento",
+      "date": "05/09/2025",
+      "path": "data/raw/62588266000154/987463_regulamento.pdf",
+      "text_path": "data/raw/62588266000154/987463_regulamento.full.txt",
+      "identity_verified": false,
+      "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "pages": 138,
+      "extractable_pages": 136,
+      "identity_method": "Documento retornado na listagem Fundos.NET do próprio CNPJ; título cotejado com o ato local identificado",
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 995150,
+      "kind": "regulamento",
+      "date": "18/09/2025",
+      "path": "data/raw/62588266000154/995150_regulamento.pdf",
+      "text_path": "data/raw/62588266000154/995150_regulamento.full.txt",
+      "pages": 139,
+      "identity_verified": true,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1126575,
+      "kind": "emissao",
+      "date": "27/02/2026",
+      "path": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.pdf",
+      "text_path": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.full.txt",
+      "pages": 4,
+      "identity_verified": true,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    }
+  ],
+  "metrics": {
+    "inventory_count": 14,
+    "pdf_count": 4,
+    "pages_locally_available": 419
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior — 1ª emissão",
+      "Tipo": "Sênior",
+      "Remuneração": "Sobretaxa definida em suplemento não localizado",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.pdf · ID 1126575 · 27/02/2026 · p. 1–4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126575",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Volume": "R$ 2.550.000.000,00 distribuído",
+      "Quantidade": "2.550.000",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "27/02/2026",
+      "Amortização principal": "Cronograma fechado não identificado; modelo em aberto (ID 1002580 pp.131–134)"
+    },
+    {
+      "Cota/Classe": "Mezanino — 1ª emissão",
+      "Tipo": "Mezanino",
+      "Remuneração": "Sobretaxa definida em suplemento não localizado",
+      "Status/evidência": "Termos identificados na fonte; datas efetivas requerem documentos de integralização",
+      "Fonte": "data/raw/62588266000154/1126575_instrumento_de_emiss_o.pdf · ID 1126575 · 27/02/2026 · p. 1–4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1126575",
+      "Status curadoria": "Leitura documental verificada com ressalvas explícitas",
+      "Volume": "R$ 300.000.000,00 distribuído",
+      "Quantidade": "300.000",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "27/02/2026",
+      "Amortização principal": "Cronograma fechado não identificado; modelo em aberto (ID 1002580 pp.131–134)"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "Faixas PL: 0,056% / 0,04% / 0,016% a.a.; mínimo R$ 22.400/mês; IGP-M e tributos",
+      "Mínimo mensal": "R$ 22.400",
+      "Fonte": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 46–48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "Versão vigente / base documental": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 46–48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "Faixas PL: 0,014% / 0,01% / 0,004% a.a.; mínimo R$ 5.600/mês; IGP-M",
+      "Mínimo mensal": "R$ 5.600",
+      "Fonte": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 46–48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "Versão vigente / base documental": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 46–48 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Incluída na administração; escrituração R$ 2 mil/mês; lastro R$ 5 mil/mês",
+      "Mínimo mensal": "Incluída em outra taxa; mínimo próprio não individualizado",
+      "Fonte": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "Versão vigente / base documental": "data/raw/62588266000154/1002580_regulamento.pdf · ID Fundos.NET 1002580 · 29/09/2025 · regulamento · p. 47 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1002580",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    }
+  ]
+}

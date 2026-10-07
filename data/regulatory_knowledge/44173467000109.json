@@ -609,6 +609,1027 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CCBs de consignado INSS pela Plataforma MT",
+      "source_document": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 10-13 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Beneficiários e pensionistas INSS",
+      "source_document": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 10-13 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Consignação de benefícios INSS/Dataprev",
+      "source_document": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 10-13 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subordinadas/PL ≥ 10%; júnior/patrimônio subordinado ≥ 10%",
+      "source_document": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 19 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+      "notes": "Segundo piso usa patrimônio subordinado, não PL total. Razão de garantia de 111,11% em cada nível.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Segundo piso usa patrimônio subordinado, não PL total. Razão de garantia de 111,11% em cada nível."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Classe fechada, indeterminada; cotistas profissionais",
+      "source_document": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 8-9 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Despesas/derivativos → reservas → sênior → mezanino → júnior",
+      "source_document": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 22-23 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+      "notes": "Amortização pro rata sênior/mezanino condicionada às razões de garantia.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Amortização pro rata sênior/mezanino condicionada às razões de garantia."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…",
+      "source_excerpt": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…",
+      "source_excerpt": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…",
+      "source_excerpt": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…",
+      "source_excerpt": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 19 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…",
+      "source_excerpt": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 19 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…",
+      "source_excerpt": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…",
+      "source_excerpt": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…",
+      "source_excerpt": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…",
+      "source_excerpt": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 15 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…",
+      "source_excerpt": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 15 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4. Para os fins do Código ANBIMA e das Normas e Procedimentos ANBIMA para a Classificação FIDC nº 08, de 23 de maio de 2019, o Fundo está caracterizado como um fundo de investimento em direitos creditórios, do tipo “Financeiro” e com foco em \"Créditos Consignados\". CAPÍTULO II - OBJETO DO FUNDO 5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recu…",
+      "source_excerpt": "4. Para os fins do Código ANBIMA e das Normas e Procedimentos ANBIMA para a Classificação FIDC nº 08, de 23 de maio de 2019, o Fundo está caracterizado como um fundo de investimento em direitos creditórios, do tipo “Financeiro” e com foco em \"Créditos Consignados\". CAPÍTULO II - OBJETO DO FUNDO 5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por 12 meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. Parágrafo Primeiro Cada Cedente deve ter celebrado o Convênio INSS previamente…",
+      "source_excerpt": "Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por 12 meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. Parágrafo Primeiro Cada Cedente deve ter celebrado o Convênio INSS previamente…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ente ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabilidade obtidos pelo Fundo no passado não representam nenhuma garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recur…",
+      "source_excerpt": "ente ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabilidade obtidos pelo Fundo no passado não representam nenhuma garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recur…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rágrafo Primeiro, o Cedente e o Custodiante serão responsáveis pelo registro de cada cessão de Direitos Creditórios na C3 Registradora, conforme disposto na Resolução CMN nº 3.998, na Circular do Banco Central nº 3.553 e no Manual de Operações da C3 Registradora. 7. No prazo de até 90 (noventa) dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio…",
+      "source_excerpt": "rágrafo Primeiro, o Cedente e o Custodiante serão responsáveis pelo registro de cada cessão de Direitos Creditórios na C3 Registradora, conforme disposto na Resolução CMN nº 3.998, na Circular do Banco Central nº 3.553 e no Manual de Operações da C3 Registradora. 7. No prazo de até 90 (noventa) dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Direitos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…",
+      "source_excerpt": "dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Direitos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de Condomínio Fechado. Prazo de Duração Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Especial de Cotistas. Classe de Investimento em Cotas Não. Classificação ANBIMA Tipo “Financeiro”. Foco de atuação “Crédito Consignado”. Objetivo O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na…",
+      "source_excerpt": "de Condomínio Fechado. Prazo de Duração Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Especial de Cotistas. Classe de Investimento em Cotas Não. Classificação ANBIMA Tipo “Financeiro”. Foco de atuação “Crédito Consignado”. Objetivo O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 6 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…",
+      "source_excerpt": "tica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 6 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "isição: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pel a Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos r…",
+      "source_excerpt": "isição: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pel a Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "er inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das…",
+      "source_excerpt": "er inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo ADMINISTRADOR, nos termos deste Regulamento: (i) considerada pro forma cada cessão de Direitos Creditórios pretendida, pelo menos 40% (quarenta por cento) da carteira de Direitos Creditórios da Classe…",
+      "source_excerpt": "ais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo ADMINISTRADOR, nos termos deste Regulamento: (i) considerada pro forma cada cessão de Direitos Creditórios pretendida, pelo menos 40% (quarenta por cento) da carteira de Direitos Creditórios da Classe…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "30/12/2025",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "3ª emissão",
+      "amount_display": "Até R$ 500 mil; até 500 cotas",
+      "remuneration": "Residual; benchmark não localizado no ato",
+      "amortization_schedule": "Para recompor razão de garantia; termos do regulamento",
+      "source_document": "Fundos.NET ID 1078471 · 30/12/2025 · p. 1 · data/raw/44173467000109/1078471_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1078471",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ],
+  "extraction_count": 19,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/44173467000109.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 1078471,
+          "date": "30/12/2025",
+          "path": "data/raw/44173467000109/1078471_documentary_review.pdf",
+          "text_path": "data/raw/44173467000109/1078471_documentary_review.txt",
+          "pages": 1,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Alteração do Regulamento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 791513,
+          "date": "28/11/2024",
+          "path": "data/raw/44173467000109/791513_documentary_review.pdf",
+          "text_path": "data/raw/44173467000109/791513_documentary_review.txt",
+          "pages": 72,
+          "identity_verified": true,
+          "categoria": "Regulamento",
+          "tipo": "",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 467860,
+          "date": "10/05/2023",
+          "path": "data/raw/44173467000109/467860_documentary_review.pdf",
+          "text_path": "data/raw/44173467000109/467860_documentary_review.txt",
+          "pages": 1,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Emissão de Cotas",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+      ],
+      "inventory_count": 43,
+      "pdf_count": 3,
+      "pages_analyzed": 74,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 43,
+    "pdf_count": 3,
+    "pages_analyzed": 74,
+    "documents": [
+      {
+        "id": 342136,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2022",
+        "data_entrega": "19/08/2022 11:53",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 320076,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "14/06/2022",
+        "data_entrega": "29/06/2022 11:12",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/320076_emissao_emissao_320076_2022-06-14.pdf"
+      },
+      {
+        "id": 320078,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "14/06/2022",
+        "data_entrega": "29/06/2022 11:13",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/320078_regulamento_regulamento_320078_2022-06-14.pdf"
+      },
+      {
+        "id": 377644,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2022",
+        "data_entrega": "14/11/2022 16:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 355219,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "23/09/2022",
+        "data_entrega": "23/09/2022 19:29",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/355219_regulamento_regulamento_355219_2022-09-23.pdf"
+      },
+      {
+        "id": 355220,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "23/09/2022",
+        "data_entrega": "23/09/2022 19:31",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/355220_regulamento_regulamento_355220_2022-09-23.pdf"
+      },
+      {
+        "id": 416099,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2022",
+        "data_entrega": "14/02/2023 15:08",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 437156,
+        "categoria": "Relatórios",
+        "tipo": "Outros Relatórios",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2022",
+        "data_entrega": "30/03/2023 18:49",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 437537,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2022",
+        "data_entrega": "31/03/2023 11:31",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 462485,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2023",
+        "data_entrega": "13/05/2023 23:37",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 437809,
+        "categoria": "Outras Informações",
+        "tipo": "Outros Documentos",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "29/03/2023",
+        "data_entrega": "31/03/2023 15:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 467860,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "10/05/2023",
+        "data_entrega": "23/05/2023 09:21",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/467860_emissao_emissao_467860_2023-05-10.pdf"
+      },
+      {
+        "id": 467863,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "01/06/2023 00:00",
+        "data_entrega": "23/05/2023 09:29",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/467863_assembleia_assembleia_467863_2023-06-01.pdf"
+      },
+      {
+        "id": 505516,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2023",
+        "data_entrega": "11/08/2023 16:06",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 500345,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Carta Consulta",
+        "classification": "assembleia",
+        "data_referencia": "01/08/2023 00:00",
+        "data_entrega": "02/08/2023 20:04",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/500345_assembleia_assembleia_500345_2023-08-01.pdf"
+      },
+      {
+        "id": 551900,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2023",
+        "data_entrega": "13/11/2023 19:15",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 598064,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2023",
+        "data_entrega": "07/02/2024 17:36",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 628955,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2023",
+        "data_entrega": "27/03/2024 21:54",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 630805,
+        "categoria": "Relatórios",
+        "tipo": "Outros Relatórios",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2023",
+        "data_entrega": "28/03/2024 19:07",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 657760,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2024",
+        "data_entrega": "11/05/2024 13:55",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 653259,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "03/05/2024 00:00",
+        "data_entrega": "03/05/2024 20:08",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/653259_assembleia_assembleia_653259_2024-05-03.pdf"
+      },
+      {
+        "id": 715799,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2024",
+        "data_entrega": "12/08/2024 18:54",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 684538,
+        "categoria": "Comunicado ao Mercado",
+        "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "21/06/2024",
+        "data_entrega": "21/06/2024 20:09",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/684538_evento_evento_684538_2024-06-21.pdf"
+      },
+      {
+        "id": 778254,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2024",
+        "data_entrega": "13/11/2024 16:06",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 791321,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "18/11/2024 10:00",
+        "data_entrega": "29/11/2024 10:23",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/791321_assembleia_assembleia_791321_2024-11-18.pdf"
+      },
+      {
+        "id": 791325,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "18/11/2024",
+        "data_entrega": "29/11/2024 10:24",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/791325_regulamento_regulamento_791325_2024-11-18.pdf"
+      },
+      {
+        "id": 791511,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "27/11/2024 16:00",
+        "data_entrega": "29/11/2024 12:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/791511_assembleia_assembleia_791511_2024-11-27.pdf"
+      },
+      {
+        "id": 791513,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "28/11/2024",
+        "data_entrega": "29/11/2024 12:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/791513_regulamento_regulamento_791513_2024-11-28.pdf"
+      },
+      {
+        "id": 839636,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2024",
+        "data_entrega": "14/02/2025 10:01",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 865192,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2024",
+        "data_entrega": "26/03/2025 19:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 855991,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "13/02/2025 00:00",
+        "data_entrega": "11/03/2025 18:11",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/855991_assembleia_assembleia_855991_2025-02-13.pdf"
+      },
+      {
+        "id": 901395,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2025",
+        "data_entrega": "14/05/2025 04:35",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 886260,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "25/04/2025 00:00",
+        "data_entrega": "29/04/2025 10:27",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/886260_assembleia_assembleia_886260_2025-04-25.pdf"
+      },
+      {
+        "id": 918185,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "06/05/2025 00:00",
+        "data_entrega": "05/06/2025 17:12",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/918185_assembleia_assembleia_918185_2025-05-06.pdf"
+      },
+      {
+        "id": 969066,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2025",
+        "data_entrega": "14/08/2025 09:02",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1038459,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "14/11/2025 10:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1040431,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "02/10/2025 10:00",
+        "data_entrega": "14/11/2025 19:12",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/1040431_assembleia_assembleia_1040431_2025-10-02.pdf"
+      },
+      {
+        "id": 1114127,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "13/02/2026 14:35",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1078471,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "30/12/2025",
+        "data_entrega": "09/01/2026 19:34",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/1078471_regulamento_regulamento_1078471_2025-12-30.pdf"
+      },
+      {
+        "id": 1151643,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2025",
+        "data_entrega": "31/03/2026 21:03",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1197002,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 20:46",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1198644,
+        "categoria": "Comunicado ao Mercado",
+        "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "11/05/2026",
+        "data_entrega": "18/05/2026 18:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/44173467000109/1198644_evento_evento_1198644_2026-05-11.pdf"
+      },
+      {
+        "id": 1290978,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2026",
+        "data_entrega": "13/08/2026 22:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1078471,
+        "date": "30/12/2025",
+        "path": "data/raw/44173467000109/1078471_documentary_review.pdf",
+        "text_path": "data/raw/44173467000109/1078471_documentary_review.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 791513,
+        "date": "28/11/2024",
+        "path": "data/raw/44173467000109/791513_documentary_review.pdf",
+        "text_path": "data/raw/44173467000109/791513_documentary_review.txt",
+        "pages": 72,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 467860,
+        "date": "10/05/2023",
+        "path": "data/raw/44173467000109/467860_documentary_review.pdf",
+        "text_path": "data/raw/44173467000109/467860_documentary_review.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Hedges/derivativos permitidos",
       "canonical_key": "permitted_hedges",
       "event_type": "enquadramento",
@@ -1189,109 +2210,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…",
-      "source_excerpt": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…",
-      "source_excerpt": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…",
-      "source_excerpt": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…",
-      "source_excerpt": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 19 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…",
-      "source_excerpt": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 19 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…",
-      "source_excerpt": "e ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabi lidade obtidos pelo Fundo no passado não representam nenhum a garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recurs…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…",
-      "source_excerpt": "as da primeira Data de Integralização, o Fundo deverá ter alocado pelo meno s 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…",
-      "source_excerpt": "ento) de seu patrimônio líquido na aquisição dos Dire itos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Parágrafo Segundo O…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…",
-      "source_excerpt": "os Elegíveis e Ativos Financeiros devidos por um mesmo Devedor e/ou codevedor até o limite de 20% (vinte por cento) do patr imônio líquido do Fundo, nos termos do artigo 40-A da Instrução CVM nº 356, observada a vedação de que trata o § 2º do art. 39 da mesma norma. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio l…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 15 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…",
-      "source_excerpt": "i) os Direitos Creditórios deverão de correr de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; 15 (ii) o valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais); (…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4. Para os fins do Código ANBIMA e das Normas e Procedimentos ANBIMA para a Classificação FIDC nº 08, de 23 de maio de 2019, o Fundo está caracterizado como um fundo de investimento em direitos creditórios, do tipo “Financeiro” e com foco em \"Créditos Consignados\". CAPÍTULO II - OBJETO DO FUNDO 5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recu…",
-      "source_excerpt": "4. Para os fins do Código ANBIMA e das Normas e Procedimentos ANBIMA para a Classificação FIDC nº 08, de 23 de maio de 2019, o Fundo está caracterizado como um fundo de investimento em direitos creditórios, do tipo “Financeiro” e com foco em \"Créditos Consignados\". CAPÍTULO II - OBJETO DO FUNDO 5. O Fundo tem a finalidade de proporcionar aos Cotistas a valorização de suas Cotas, aplicando a maior parte dos seus recu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por 12 meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. Parágrafo Primeiro Cada Cedente deve ter celebrado o Convênio INSS previamente…",
-      "source_excerpt": "Elegíveis decorrentes de empréstimos consignados concedidos por um Cedente a um Devedor por 12 meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, segundo os critérios de composição e diversificação estabelecidos pela regulamentação aplicável e neste Regulamento. Parágrafo Primeiro Cada Cedente deve ter celebrado o Convênio INSS previamente…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ente ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabilidade obtidos pelo Fundo no passado não representam nenhuma garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recur…",
-      "source_excerpt": "ente ou do Coordenador Líder quanto à rentabilidade da aplicação dos recursos no Fundo. Parágrafo Terceiro Os rendimentos e a rentabilidade obtidos pelo Fundo no passado não representam nenhuma garantia de rendimentos ou rentabilidade futuros. CAPÍTULO III - POLÍTICA DE INVESTIMENTO, APLICAÇÃO DE RECURSOS, COMPOSIÇÃO E DIVERSIFICAÇÃO DA CARTEIRA 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recur…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rágrafo Primeiro, o Cedente e o Custodiante serão responsáveis pelo registro de cada cessão de Direitos Creditórios na C3 Registradora, conforme disposto na Resolução CMN nº 3.998, na Circular do Banco Central nº 3.553 e no Manual de Operações da C3 Registradora. 7. No prazo de até 90 (noventa) dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio…",
-      "source_excerpt": "rágrafo Primeiro, o Cedente e o Custodiante serão responsáveis pelo registro de cada cessão de Direitos Creditórios na C3 Registradora, conforme disposto na Resolução CMN nº 3.998, na Circular do Banco Central nº 3.553 e no Manual de Operações da C3 Registradora. 7. No prazo de até 90 (noventa) dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Direitos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…",
-      "source_excerpt": "dias da primeira Data de Integralização, o Fundo deverá ter alocado pelo menos 50% (cinquenta por cento) de seu patrimônio líquido na aquisição dos Direitos Creditórios Elegíveis, observado que a CVM poderá, a seu exclusivo critério, prorrogar esse prazo por mais 90 (noventa) dias, mediante solicitação justificada apresentada pelo Administrador. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de se…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de Condomínio Fechado. Prazo de Duração Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Especial de Cotistas. Classe de Investimento em Cotas Não. Classificação ANBIMA Tipo “Financeiro”. Foco de atuação “Crédito Consignado”. Objetivo O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na…",
-      "source_excerpt": "de Condomínio Fechado. Prazo de Duração Indeterminado, exceto se de outra forma vier a ser deliberado pelos Cotistas reunidos em Assembleia Especial de Cotistas. Classe de Investimento em Cotas Não. Classificação ANBIMA Tipo “Financeiro”. Foco de atuação “Crédito Consignado”. Objetivo O objetivo da Classe é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 6 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…",
-      "source_excerpt": "tica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 6 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "isição: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pel a Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos r…",
-      "source_excerpt": "isição: (i) os Direitos Creditórios deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior à última data de resgate de Cotas Seniores de qualquer das Séries em circulação; (ii) o valor principal pendente de cada CCB a ser adquirida pel a Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos r…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "er inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das…",
-      "source_excerpt": "er inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder R$ 60.000,00 (sessenta mil reais); (iv) na data de emissão da respectiva CCB, o respectivo Devedor deve ter entre 18 (dezoito) e 75 (setenta e cinco) anos, 11 meses e 29 dias de idade, inclusive; (v) o prazo de vencimento das…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo ADMINISTRADOR, nos termos deste Regulamento: (i) considerada pro forma cada cessão de Direitos Creditórios pretendida, pelo menos 40% (quarenta por cento) da carteira de Direitos Creditórios da Classe…",
-      "source_excerpt": "ais), os seguintes Critérios de Elegibilidade deverão passar a ser observados, a serem verificados segundo o valor contábil dos Direitos Creditórios, desconsiderando-se eventuais provisões para perdas constituídas pelo ADMINISTRADOR, nos termos deste Regulamento: (i) considerada pro forma cada cessão de Direitos Creditórios pretendida, pelo menos 40% (quarenta por cento) da carteira de Direitos Creditórios da Classe…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -1461,6 +2380,261 @@
       "source_document_id": 1078471
     }
   ],
-  "extraction_count": 19,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "44173467000109",
+    "label": "MT INSS Receivables III",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CCBs de consignado INSS pela Plataforma MT",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 10-13 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Beneficiários e pensionistas INSS",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 10-13 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Garantia": {
+          "value": "Consignação de benefícios INSS/Dataprev",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 10-13 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Concentração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subordinadas/PL ≥ 10%; júnior/patrimônio subordinado ≥ 10%",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 19 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Segundo piso usa patrimônio subordinado, não PL total. Razão de garantia de 111,11% em cada nível."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Classe fechada, indeterminada; cotistas profissionais",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 8-9 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Despesas/derivativos → reservas → sênior → mezanino → júnior",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 22-23 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Amortização pro rata sênior/mezanino condicionada às razões de garantia."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior por série; subordinada mezanino; subordinada júnior",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 16-18 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "Benchmark sênior/mezanino remetido ao suplemento; spread final não localizado",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 51 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Ofertas": {
+          "value": "3ª emissão júnior: até R$ 500 mil; VNU R$ 1.000; deliberada 30/12/2025",
+          "source": "Fundos.NET ID 1078471 · 30/12/2025 · Atos de Deliberação do Administrador · p. 1 · data/raw/44173467000109/1078471_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1078471",
+          "note": "Para recompor garantia; cancelado saldo anterior não subscrito e não integralizado."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Caixa disponível líquido de reservas; reenquadramento prioriza sênior",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 21-23 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Vencimento": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Rateio da taxa agregada Fundos PDL; mínimo R$ 20 mil/mês, IPCA anual",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 36-37 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Faixas numéricas 0,45/0,40/0,35/0,30% sobre PL agregado; última conflita com extenso 0,55%. Exige validação antes de cobrança."
+        },
+        "Gestão": {
+          "value": "Incluída no conjunto de serviços da taxa agregada; parcela própria não segregada",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 36-37 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Referência da taxa de gestão no glossário está quebrada."
+        },
+        "Custódia": {
+          "value": "0% a.a. expresso",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 37 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Agente de retenção/cobrança: 3% a.a. sobre PL alocado em DC, exclusão de PDD conforme cl. 13.8."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Proteção sênior usa subordinadas/PL; júnior usa patrimônio subordinado",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 19 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over e PDD/crédito são proxies; portabilidade e glosa exigem base contratual",
+          "source": "Fundos.NET ID 791513 · 28/11/2024 · Regulamento · p. 36 · data/raw/44173467000109/791513_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=791513",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 44173467000109: ID 1078471 (30/12/2025), data/raw/44173467000109/1078471_documentary_review.pdf; ID 791513 (28/11/2024), data/raw/44173467000109/791513_documentary_review.pdf; ID 467860 (10/05/2023), data/raw/44173467000109/467860_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Natureza dos recebíveis",
+        "Conclusão": "CCBs de consignado INSS pela Plataforma MT"
+      },
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Subordinadas/PL ≥ 10%; júnior/patrimônio subordinado ≥ 10%"
+      },
+      {
+        "Tema": "Administração",
+        "Conclusão": "Rateio da taxa agregada Fundos PDL; mínimo R$ 20 mil/mês, IPCA anual"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1078471,
+        "date": "30/12/2025",
+        "path": "data/raw/44173467000109/1078471_documentary_review.pdf",
+        "text_path": "data/raw/44173467000109/1078471_documentary_review.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 791513,
+        "date": "28/11/2024",
+        "path": "data/raw/44173467000109/791513_documentary_review.pdf",
+        "text_path": "data/raw/44173467000109/791513_documentary_review.txt",
+        "pages": 72,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 467860,
+        "date": "10/05/2023",
+        "path": "data/raw/44173467000109/467860_documentary_review.pdf",
+        "text_path": "data/raw/44173467000109/467860_documentary_review.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 43,
+    "pdf_count": 3,
+    "pages_analyzed": 74,
+    "extraction_errors": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "3ª emissão",
+        "Tipo": "Subordinada júnior",
+        "Remuneração": "Residual; benchmark não localizado no ato",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Para recompor razão de garantia; termos do regulamento",
+        "Volume": "Até R$ 500 mil; até 500 cotas",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "30/12/2025",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Privada; até 180 dias; resultado não comprovado",
+        "Fonte": "Fundos.NET ID 1078471 · 30/12/2025 · p. 1 · data/raw/44173467000109/1078471_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1078471",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 43,
+      "pdf_count": 3,
+      "pages_analyzed": 74
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/44173467000109.json"
 }

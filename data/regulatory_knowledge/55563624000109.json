@@ -511,6 +511,903 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "FIC-FIDC: mezanino do Mercado Crédito II (CNPJ 41.970.012/0001-26)",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Exposição indireta. Não somar PL do FIC e investido como direitos creditórios diretos.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Exposição indireta. Não somar PL do FIC e investido como direitos creditórios diretos."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Originação indireta Mercado Pago na classe investida",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Não há concessão/aquisição direta de crédito pelo PLGN.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Não há concessão/aquisição direta de crédito pelo PLGN."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Classe investida; devedores finais requerem regulamento e base do investido",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Direitos das cotas investidas; garantia dos créditos finais não validada aqui",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 12, 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Somente cotas da classe investida identificada + ativos de liquidez",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Concentração na classe investida; limites de devedor final não se aplicam diretamente",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Não aplicar ao FIC o piso de subordinação do Mercado Crédito II.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Não aplicar ao FIC o piso de subordinação do Mercado Crédito II."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Proteção patrimonial ou troca de indexador sem risco de capital",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Investimento em cotas da classe investida; percentual específico não localizado",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-13 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "DC/PL do FIC não demonstra alocação direta nem carteira consolidada.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "DC/PL do FIC não demonstra alocação direta nem carteira consolidada."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Fechado; investidores profissionais; prazos por subclassse A/B/C",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 9, 15, 45-50 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Alienação de cotas permitida se regras do investido permitirem",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Encargos → pagamentos de cotas → aquisição/liquidez, conforme cap. 8",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 18-19 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "mortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos…",
+      "source_excerpt": "mortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "VESTIR EM FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe In…",
+      "source_excerpt": "VESTIR EM FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe In…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "tratos de aquisição de Cotas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e r…",
+      "source_excerpt": "tratos de aquisição de Cotas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e r…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ida , sendo este o único e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cota…",
+      "source_excerpt": "ida , sendo este o único e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cota…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "gações das Cotas; 90% (noventa por cento) do total das Cotas emitidas (vii) alterar critérios e procedimentos para resgate de Cotas mediante dação em pagamento de Cotas da Classe Investida; Maioria do total das Cotas emitidas (viii) aprovar a emissão de novas Cotas fora do Capital Autorizado; Maioria do total das Cotas emitidas (ix) alterar a Política de Investimentos; 90% (noventa por cento) do total das Cotas emit…",
+      "source_excerpt": "gações das Cotas; 90% (noventa por cento) do total das Cotas emitidas (vii) alterar critérios e procedimentos para resgate de Cotas mediante dação em pagamento de Cotas da Classe Investida; Maioria do total das Cotas emitidas (viii) aprovar a emissão de novas Cotas fora do Capital Autorizado; Maioria do total das Cotas emitidas (ix) alterar a Política de Investimentos; 90% (noventa por cento) do total das Cotas emit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os crité…",
+      "source_excerpt": "ão decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os crité…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Subclasses A, B e C; sem senioridade entre si",
+      "amount_display": "Não localizado no corpus acessível",
+      "remuneration": "Resultado patrimonial das cotas investidas; sem DI + spread garantido",
+      "amortization_schedule": "Por determinação da gestora, proporcional; resgate na liquidação",
+      "source_document": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614; Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 16-17 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614; Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf; Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 17-18 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "extraction_count": 6,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/55563624000109.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 1192614,
+          "date": "30/04/2026",
+          "path": "data/raw/55563624000109/1192614_documentary_review.pdf",
+          "text_path": "data/raw/55563624000109/1192614_documentary_review.txt",
+          "pages": 50,
+          "identity_verified": true,
+          "categoria": "Regulamento",
+          "tipo": "",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 811323,
+          "date": "30/12/2024",
+          "path": "data/raw/55563624000109/811323_documentary_review.pdf",
+          "text_path": "data/raw/55563624000109/811323_documentary_review.txt",
+          "pages": 2,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Encerramento",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 691674,
+          "date": "03/07/2024",
+          "path": "data/raw/55563624000109/691674_documentary_review.pdf",
+          "text_path": "data/raw/55563624000109/691674_documentary_review.txt",
+          "pages": 3,
+          "identity_verified": true,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Emissão de Cotas",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 702585,
+          "date": "03/07/2024",
+          "path": "data/raw/55563624000109/702585_documentary_review.pdf",
+          "text_path": "data/raw/55563624000109/702585_documentary_review.txt",
+          "pages": 3,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 703295,
+          "date": "03/07/2024",
+          "path": "data/raw/55563624000109/703295_documentary_review.pdf",
+          "text_path": "data/raw/55563624000109/703295_documentary_review.txt",
+          "pages": 3,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+      ],
+      "inventory_count": 36,
+      "pdf_count": 5,
+      "pages_analyzed": 61,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 36,
+    "pdf_count": 5,
+    "pages_analyzed": 61,
+    "documents": [
+      {
+        "id": 691674,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "03/07/2024",
+        "data_entrega": "03/07/2024 18:13",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/55563624000109/691674_emissao_emissao_691674_2024-07-03.pdf"
+      },
+      {
+        "id": 702585,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "03/07/2024",
+        "data_entrega": "22/07/2024 18:39",
+        "nome_arquivo": null,
+        "status": "IC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/55563624000109/702585_emissao_emissao_702585_2024-07-03.pdf"
+      },
+      {
+        "id": 703295,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "03/07/2024",
+        "data_entrega": "23/07/2024 18:27",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/55563624000109/703295_emissao_emissao_703295_2024-07-03.pdf"
+      },
+      {
+        "id": 757749,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2024",
+        "data_entrega": "14/10/2024 18:23",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 779290,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2024",
+        "data_entrega": "14/11/2024 11:26",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 778737,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "10/2024",
+        "data_entrega": "13/11/2024 19:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 800615,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "11/2024",
+        "data_entrega": "13/12/2024 15:48",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 820126,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2024",
+        "data_entrega": "15/01/2025 12:30",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 836270,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2024",
+        "data_entrega": "12/02/2025 08:49",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 811323,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "30/12/2024",
+        "data_entrega": "30/12/2024 19:03",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/55563624000109/811323_emissao_emissao_811323_2024-12-30.pdf"
+      },
+      {
+        "id": 841519,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "01/2025",
+        "data_entrega": "14/02/2025 18:49",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 891861,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/01/2025",
+        "data_entrega": "30/04/2025 19:32",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 861401,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "02/2025",
+        "data_entrega": "18/03/2025 17:26",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 879963,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2025",
+        "data_entrega": "14/04/2025 18:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 901031,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2025",
+        "data_entrega": "13/05/2025 19:24",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 900431,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "04/2025",
+        "data_entrega": "13/05/2025 16:26",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 923441,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "05/2025",
+        "data_entrega": "12/06/2025 18:28",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 945784,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2025",
+        "data_entrega": "14/07/2025 17:37",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 967601,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2025",
+        "data_entrega": "13/08/2025 13:52",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 970479,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "07/2025",
+        "data_entrega": "14/08/2025 17:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 990079,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "08/2025",
+        "data_entrega": "12/09/2025 18:17",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1013645,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "14/10/2025 22:21",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1034087,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "11/11/2025 19:16",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1039497,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "10/2025",
+        "data_entrega": "14/11/2025 15:24",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1061054,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "11/2025",
+        "data_entrega": "12/12/2025 17:50",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1081819,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "14/01/2026 11:28",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1109559,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "12/02/2026 10:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1110024,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "01/2026",
+        "data_entrega": "12/02/2026 11:46",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1178840,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/01/2026",
+        "data_entrega": "04/05/2026 10:20",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1130823,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "02/2026",
+        "data_entrega": "08/03/2026 00:39",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1156313,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "08/04/2026 12:19",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1196870,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 20:30",
+        "nome_arquivo": null,
+        "status": "IC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1206836,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "28/05/2026 20:22",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1184496,
+        "categoria": "Informes Periódicos",
+        "tipo": "Composição da Carteira (CDA)",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "04/2026",
+        "data_entrega": "10/05/2026 19:56",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1192603,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "30/04/2026 10:00",
+        "data_entrega": "14/05/2026 19:01",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/55563624000109/1192603_assembleia_assembleia_1192603_2026-04-30.pdf"
+      },
+      {
+        "id": 1192614,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "30/04/2026",
+        "data_entrega": "14/05/2026 19:02",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/55563624000109/1192614_regulamento_regulamento_1192614_2026-04-30.pdf"
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1192614,
+        "date": "30/04/2026",
+        "path": "data/raw/55563624000109/1192614_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/1192614_documentary_review.txt",
+        "pages": 50,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 811323,
+        "date": "30/12/2024",
+        "path": "data/raw/55563624000109/811323_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/811323_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 691674,
+        "date": "03/07/2024",
+        "path": "data/raw/55563624000109/691674_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/691674_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 702585,
+        "date": "03/07/2024",
+        "path": "data/raw/55563624000109/702585_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/702585_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 703295,
+        "date": "03/07/2024",
+        "path": "data/raw/55563624000109/703295_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/703295_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Alocação mínima em direitos creditórios",
       "canonical_key": "credit_rights_allocation_min",
       "event_type": "enquadramento",
@@ -711,39 +1608,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "mortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos…",
-      "source_excerpt": "mortização e resgate das Cotas; (iv) ordem de alocação de recursos; (v) assembleia especial de cotistas e demais procedimentos aplicáveis às manifestações de vontade dos cotistas; (vi) remuneração dos prestadores de serviços ; (vii) política de investimento e composição e diversificação da Carteira; (viii) eventos de avaliação, eventos de liquidação e procedimentos de liquidação antecipada da Classe; (ix) origem dos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "VESTIR EM FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe In…",
-      "source_excerpt": "VESTIR EM FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE CARTEIRA DIVERSIFICADA, COM NATUREZA E CARACTERÍSTICAS DISTINTAS. DESTA FORMA, O DESEMPENHO DA CARTEIRA PODE APRESENTAR COMPORTAMENTO DISTINTO AO LONGO DA EXISTÊNCIA DA CLASSE DE COTAS. Objetivo O objetivo da Classe é proporcionar aos Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Cotas da Classe In…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "tratos de aquisição de Cotas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e r…",
-      "source_excerpt": "tratos de aquisição de Cotas da Classe Investida firmados entre a Classe e os respectivos vendedores das Cotas da Classe Investida ; (ii) negociação em mercado organizado; e/ou (iii) da subscrição de Cotas da Classe Investida, colocadas de forma privada ou ofertadas publicamente, independentemente do regime de distribuição, observada a Política de Investimentos e as demais disposições deste Anexo e da legislação e r…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ida , sendo este o único e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cota…",
-      "source_excerpt": "ida , sendo este o único e exclusivo Critério de Elegibilidade a ser verificado e validado pelo GESTOR, previamente à subscrição ou aquisição das Cotas da Classe Investida pela Classe. 4.8.1 A verificação e validação pelo GESTOR do enquadramento das Cotas da Classe Investida ao Critério de Elegibilidade será considerada como definitiva. 4.8.2 O GESTOR será o responsável por verificar e validar o atendimento das Cota…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "gações das Cotas; 90% (noventa por cento) do total das Cotas emitidas (vii) alterar critérios e procedimentos para resgate de Cotas mediante dação em pagamento de Cotas da Classe Investida; Maioria do total das Cotas emitidas (viii) aprovar a emissão de novas Cotas fora do Capital Autorizado; Maioria do total das Cotas emitidas (ix) alterar a Política de Investimentos; 90% (noventa por cento) do total das Cotas emit…",
-      "source_excerpt": "gações das Cotas; 90% (noventa por cento) do total das Cotas emitidas (vii) alterar critérios e procedimentos para resgate de Cotas mediante dação em pagamento de Cotas da Classe Investida; Maioria do total das Cotas emitidas (viii) aprovar a emissão de novas Cotas fora do Capital Autorizado; Maioria do total das Cotas emitidas (ix) alterar a Política de Investimentos; 90% (noventa por cento) do total das Cotas emit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os crité…",
-      "source_excerpt": "ão decorrentes de operações de empréstimo específicas envolvendo as operações do Mercado Pago, conforme detalhadas no regulamento da Classe Investida. Na hipótese de não originação, originação insuficiente ou indisponibilidade para aquisição pelo Classe Investida, por qualquer motivo, inclusive em caso de redução ou descontinuidade das operações regulares dos cedentes, de direitos creditórios que satisfaçam os crité…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -829,6 +1694,268 @@
       "source_document_id": 1192614
     }
   ],
-  "extraction_count": 6,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "55563624000109",
+    "label": "PLGN Marketplace (FIC-FIDC)",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "FIC-FIDC: mezanino do Mercado Crédito II (CNPJ 41.970.012/0001-26)",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Exposição indireta. Não somar PL do FIC e investido como direitos creditórios diretos."
+        },
+        "Originador/endossante": {
+          "value": "Originação indireta Mercado Pago na classe investida",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Não há concessão/aquisição direta de crédito pelo PLGN."
+        },
+        "Devedor": {
+          "value": "Classe investida; devedores finais requerem regulamento e base do investido",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Garantia": {
+          "value": "Direitos das cotas investidas; garantia dos créditos finais não validada aqui",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 12, 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Elegibilidade": {
+          "value": "Somente cotas da classe investida identificada + ativos de liquidez",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Concentração": {
+          "value": "Concentração na classe investida; limites de devedor final não se aplicam diretamente",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Não aplicar ao FIC o piso de subordinação do Mercado Crédito II."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Proteção patrimonial ou troca de indexador sem risco de capital",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Investimento em cotas da classe investida; percentual específico não localizado",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-13 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "DC/PL do FIC não demonstra alocação direta nem carteira consolidada."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Fechado; investidores profissionais; prazos por subclassse A/B/C",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 9, 15, 45-50 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Cessão/recompra": {
+          "value": "Alienação de cotas permitida se regras do investido permitirem",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Encargos → pagamentos de cotas → aquisição/liquidez, conforme cap. 8",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 18-19 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Subclasses A, B e C; sem senioridade entre si",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "Resultado patrimonial das cotas investidas; sem DI + spread garantido",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 16-17 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Ofertas": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Por determinação da gestora, proporcional; resgate na liquidação",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 17-18 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Vencimento": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "R$ 10 mil/mês; IGP-M positivo em janeiro; teto 0,10% a.a. sobre PL investido",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 28 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Base do teto é PL da classe investida, conforme cláusula 13.2; não equivale a 0,10% sobre PLGN."
+        },
+        "Gestão": {
+          "value": "0,50% a.a. do PL; mínimo R$ 40 mil/mês IPCA; adicional 1,25% do capital integralizado",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 29 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Adicional cobrado em chamadas de capital; não somar como taxa anual."
+        },
+        "Custódia": {
+          "value": "0% a.a. expresso",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 29 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Monitorar exposição em cotas do FIDC; não usar DC/PL como lastro direto",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12, 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "IME do FIC não mostra atraso dos devedores finais; exige look-through do investido",
+          "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Cache local: 06/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/9780b5dda261f166f82b7601d038c440162463eea46d5ae0ee46b474fdd77372/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Natureza dos recebíveis",
+        "Conclusão": "FIC-FIDC: mezanino do Mercado Crédito II (CNPJ 41.970.012/0001-26)"
+      },
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido"
+      },
+      {
+        "Tema": "Administração",
+        "Conclusão": "R$ 10 mil/mês; IGP-M positivo em janeiro; teto 0,10% a.a. sobre PL investido"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 1192614,
+        "date": "30/04/2026",
+        "path": "data/raw/55563624000109/1192614_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/1192614_documentary_review.txt",
+        "pages": 50,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 811323,
+        "date": "30/12/2024",
+        "path": "data/raw/55563624000109/811323_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/811323_documentary_review.txt",
+        "pages": 2,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Encerramento",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 691674,
+        "date": "03/07/2024",
+        "path": "data/raw/55563624000109/691674_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/691674_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 702585,
+        "date": "03/07/2024",
+        "path": "data/raw/55563624000109/702585_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/702585_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 703295,
+        "date": "03/07/2024",
+        "path": "data/raw/55563624000109/703295_documentary_review.pdf",
+        "text_path": "data/raw/55563624000109/703295_documentary_review.txt",
+        "pages": 3,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 36,
+    "pdf_count": 5,
+    "pages_analyzed": 61,
+    "extraction_errors": [],
+    "emissions_rows": [],
+    "metrics": {
+      "inventory_count": 36,
+      "pdf_count": 5,
+      "pages_analyzed": 61
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/55563624000109.json"
 }

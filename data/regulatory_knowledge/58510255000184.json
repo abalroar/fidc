@@ -1,0 +1,479 @@
+{
+  "schema_version": 1,
+  "fund_name": "SolAgora III",
+  "fund_cnpj": "58510255000184",
+  "documents": [],
+  "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+      "source_document": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+      "notes": "Lacuna documental; exige documento/ato específico do mesmo CNPJ.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+      }
+    }
+  ],
+  "eligibility_criteria": [],
+  "emissions": [
+    {
+      "date": "Não localizado no corpus acessível desta revisão.",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "Séries não identificadas por falha de acesso",
+      "amount_display": "Não localizado no corpus acessível desta revisão.",
+      "remuneration": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "amortization_schedule": "Não localizado no corpus acessível desta revisão.",
+      "source_document": "CNPJ 58510255000184; falha Fundos.NET registrada em data/raw/58510255000184/access_status_20261007.txt; revisão 2026-10-07T14:53:15-03:00",
+      "notes": "parcial — termos/suplemento final não localizado"
+    }
+  ],
+  "documentary_review": {
+    "cnpj": "58510255000184",
+    "label": "SolAgora III",
+    "reviewed_at": "2026-10-07T14:53:15-03:00",
+    "document_status": "Falha técnica de acesso ao inventário/documentos; curadoria documental não concluída",
+    "scope_note": "Revisão dirigida de cláusulas e termos materiais dos documentos locais acessíveis. A data desta revisão não atesta atualização completa do inventário CVM. Lacunas e falhas de acesso estão descritas; nenhuma posição IME foi transformada em volume de emissão.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Originador/endossante": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Devedor": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Garantia": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Elegibilidade": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Concentração": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Reserva de caixa": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Derivativos/hedge": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "PDD": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Pool/revolvência": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Duração/público-alvo": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Cessão/recompra": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Coobrigação": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Waterfall": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Remuneração": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Volume/VNU": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Ofertas": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Juros/amortização": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Vencimento": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Gestão": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        },
+        "Custódia": {
+          "value": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Lacuna documental; exige documento/ato específico do mesmo CNPJ."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL e cotas subordinadas/PL: cálculo agregado com validação de classes e do denominador.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Monitorável com ressalva: IME mensal não prova cumprimento diário nem composição jurídica por série."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over 30/60/90/180/crédito e PDD/crédito: proxies agregados; gatilhos contratuais exigem fórmula própria.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Parcial: não equiparar índices de estoque/vintage/rolagem à carteira atual sem reconciliação de denominadores."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração individual, lastro, finalidade do hedge e troca de prestadores exigem controle documental.",
+          "source": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+          "note": "Não monitorável pelo IME público sem dados individualizados; caixa e recompras ajudam apenas como proxies."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Identidade",
+        "Conclusão": "CNPJ original da carteira preservado; nenhum fundo de nome semelhante foi usado para preencher regras."
+      },
+      {
+        "Tema": "Acesso",
+        "Conclusão": "Fundos.NET retornou timeout/HTTP520; termos contratuais não confirmados nesta leitura."
+      },
+      {
+        "Tema": "Validação pendente",
+        "Conclusão": "Regulamento consolidado e atos/suplementos do próprio CNPJ são necessários para validar emissão, limites e calendário."
+      }
+    ],
+    "warnings": [
+      "Consulta Fundos.NET por CNPJ teve timeout e HTTP520. Não há regulamento integral local acessível desta revisão.",
+      "Falha técnica de acesso não demonstra ausência de documentos ou inexistência de regra.",
+      "Sem substituição por fundo de nome semelhante; termos materiais permanecem não confirmados."
+    ],
+    "sources_reviewed": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "Séries não identificadas por falha de acesso",
+        "Tipo": "Tipo não confirmado",
+        "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+        "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+        "Amortização principal": "Não localizado no corpus acessível desta revisão.",
+        "Volume": "Não localizado no corpus acessível desta revisão.",
+        "VNU": "Não localizado no corpus acessível desta revisão.",
+        "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+        "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+        "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+        "Fonte": "CNPJ 58510255000184; falha Fundos.NET registrada em data/raw/58510255000184/access_status_20261007.txt; revisão 2026-10-07T14:53:15-03:00",
+        "Status curadoria": "parcial — termos/suplemento final não localizado"
+      }
+    ],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+        "Versão vigente / base documental": "Falha técnica de acesso ao inventário/documentos; curadoria documental não concluída; Falha de acesso"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+        "Versão vigente / base documental": "Falha técnica de acesso ao inventário/documentos; curadoria documental não concluída; Falha de acesso"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Não confirmado: acesso documental do CNPJ falhou nesta revisão.",
+        "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+        "Fonte": "Corpus do CNPJ 58510255000184, revisão 2026-10-07T14:53:15-03:00; acesso documental não concluído; detalhes em data/raw/58510255000184/access_status_20261007.txt",
+        "Versão vigente / base documental": "Falha técnica de acesso ao inventário/documentos; curadoria documental não concluída; Falha de acesso"
+      }
+    ],
+    "metrics": {
+      "documents_inventoried": "Inventário completo CVM não obtido nesta revisão",
+      "inventory_scope": "Consulta Fundos.NET do CNPJ com timeout/HTTP 520 nesta revisão; inventário completo indisponível",
+      "local_regulatory_pdfs": 0,
+      "new_network_pdfs_downloaded": 0,
+      "local_analyzable_pdf_pages": 0,
+      "text_caches_without_local_pdf": 0,
+      "documents_without_local_pdf": "Contagem indisponível; inventário completo não obtido",
+      "extraction_errors": "Extração PDF não realizada: PDF local ausente; detalhes de acesso registrados",
+      "reviewed_source_documents": 0,
+      "full_document_human_reading_claim": false
+    }
+  },
+  "generated_at": "2026-10-07T14:53:15-03:00",
+  "historical_heuristic_criteria": [],
+  "historical_heuristic_emissions": [],
+  "reviewed_at": "2026-10-07T14:53:15-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/58510255000184.json"
+}

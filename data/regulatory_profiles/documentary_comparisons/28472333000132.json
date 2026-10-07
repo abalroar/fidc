@@ -1,0 +1,261 @@
+{
+  "cnpj": "28472333000132",
+  "label": "Mercado Crédito Merchant",
+  "reviewed_at": "2026-10-07T15:13:33-03:00",
+  "document_status": "Revisão documental dirigida; lacunas e divergências explícitas",
+  "scope_note": "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. ",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs de crédito parcelado e direitos PPV da plataforma Mercado Pago",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 4–7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Originador/endossante": {
+        "value": "IFs parceiras originam CCBs; cedentes PPV conforme contratos",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Devedor": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Concentração": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Júnior/PL ≥ 30%; pode cair a 20% com rating sênior ≥ AA e atraso histórico < 7%",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 28 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias; inelegibilidade sem solução em 10 dias",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 36 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Reserva de caixa": {
+        "value": "Reserva de amortização: valor total da 1ª série sênior em circulação + R$5 milhões",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 33 · 12.2.1 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Constituição exclusivamente em ativos financeiros; não converter em percentual do PL."
+      },
+      "Derivativos/hedge": {
+        "value": "Divergência: cláusula 2.9 admite proteção; fator de risco afirma vedação inclusive a hedge",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 6 e 9 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Não ativar controle automático antes de esclarecer a contradição no regulamento."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "≥ 50% PL após 90 dias",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Gestor identificado": {
+        "value": "Polígono Capital Ltda.; CNPJ 43.241.789/0001-85",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 20 · 9.2 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior em séries e subordinada júnior",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 27 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Remuneração": {
+        "value": "Sobretaxa definida em suplemento não localizado; modelo não fecha os termos",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 84 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Taxa máxima agregada 1,25% a.a. PL; mínimo R$ 30 mil/mês; IGP-M",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18–19 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gestão": {
+        "value": "Parcela deduzida da taxa de administração; percentual no contrato não localizado",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 22 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Custódia": {
+        "value": "Incluída na taxa máxima agregada de administração",
+        "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta leitura; consultar cache e selecionar competência no Monitoramento",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Derivativos",
+      "Conclusão": "O regulamento Merchant contém disposições divergentes sobre derivativos. A cláusula de investimento admite hedge e o fator de risco afirma vedação; a regra requer esclarecimento documental."
+    }
+  ],
+  "warnings": [],
+  "sources_reviewed": [
+    {
+      "document_id": 732140,
+      "kind": "regulamento",
+      "date": "03/09/2024",
+      "path": "data/raw/28472333000132/732140_regulamento.pdf",
+      "text_path": "data/raw/28472333000132/732140_regulamento.full.txt",
+      "identity_verified": false,
+      "pages": 95,
+      "extractable_pages": 95,
+      "identity_method": "Documento retornado na listagem Fundos.NET do próprio CNPJ; título cotejado com o ato local identificado",
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 681860,
+      "kind": "assembleia",
+      "date": "17/06/2024 10:00",
+      "path": "data/raw/28472333000132/681860_assembleia.pdf",
+      "text_path": "data/raw/28472333000132/681860_assembleia.full.txt",
+      "identity_verified": true,
+      "pages": 1,
+      "extractable_pages": 1,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 448299,
+      "kind": "regulamento",
+      "date": "19/04/2023",
+      "path": "data/raw/28472333000132/448299_regulamento.pdf",
+      "text_path": "data/raw/28472333000132/448299_regulamento.full.txt",
+      "identity_verified": true,
+      "pages": 97,
+      "extractable_pages": 97,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    }
+  ],
+  "metrics": {
+    "inventory_count": 102,
+    "pdf_count": 3,
+    "pages_locally_available": 193
+  },
+  "emissions_rows": [],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "Taxa máxima agregada 1,25% a.a. PL; mínimo R$ 30 mil/mês; IGP-M",
+      "Mínimo mensal": "R$ 30 mil",
+      "Fonte": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18–19 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "Versão vigente / base documental": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18–19 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "Parcela deduzida da taxa de administração; percentual no contrato não localizado",
+      "Mínimo mensal": "Mínimo mensal não localizado na fonte",
+      "Fonte": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 22 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "Versão vigente / base documental": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 22 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Incluída na taxa máxima agregada de administração",
+      "Mínimo mensal": "Incluída em outra taxa; mínimo próprio não individualizado",
+      "Fonte": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "Versão vigente / base documental": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    }
+  ]
+}

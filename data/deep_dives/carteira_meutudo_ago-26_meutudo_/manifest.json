@@ -2,110 +2,223 @@
   "schema_version": 1,
   "deep_dive_id": "carteira_meutudo_ago-26_meutudo_",
   "title": "Curadoria MeuTudo Ago-26",
-  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
   "portfolio_id": "meutudo_ago26_202608",
   "portfolio_signature": "40752367000186|44173467000109|51290497000160|53179862000190|54464892000100|58458416000138|60010416000112|62010175000137|62310468000130|63953620000165",
-  "generated_at": "2026-08-14T15:28:03-03:00",
-  "source": "Extração offline local · CVM/Fundos.NET · IME cache",
+  "generated_at": "2026-10-07T14:59:40-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
   "confidentiality": "Uso interno",
   "funds": [
     {
-      "cnpj": "60.010.416/0001-12",
+      "cnpj": "60010416000112",
       "name": "MT CONSIGNADO PRIVADO I FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
-      "short_name": "MT CONSIGNADO PRIVADO I"
+      "short_name": "MT Consignado Privado I"
     },
     {
-      "cnpj": "58.458.416/0001-38",
+      "cnpj": "58458416000138",
       "name": "MT CONSIGNADO PRIVADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-      "short_name": "MT CONSIGNADO PRIVADO II"
+      "short_name": "MT Consignado Privado II"
     },
     {
-      "cnpj": "53.179.862/0001-90",
+      "cnpj": "53179862000190",
       "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS DE RESPONSABILIDADE LIMITADA FGTS MT II",
       "short_name": "FGTS MT II"
     },
     {
-      "cnpj": "40.752.367/0001-86",
+      "cnpj": "40752367000186",
       "name": "MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-      "short_name": "MT INSS RECEIVABLES II"
+      "short_name": "MT INSS Receivables II"
     },
     {
-      "cnpj": "44.173.467/0001-09",
+      "cnpj": "44173467000109",
       "name": "MT INSS RECEIVABLES III FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE",
-      "short_name": "MT INSS RECEIVABLES III RESPONSABILI"
+      "short_name": "MT INSS Receivables III"
     },
     {
-      "cnpj": "51.290.497/0001-60",
+      "cnpj": "51290497000160",
       "name": "MT INSS RECEIVABLES V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADOS",
-      "short_name": "MT INSS RECEIVABLES V CONSIGNADOS"
+      "short_name": "MT INSS Receivables V"
     },
     {
-      "cnpj": "62.010.175/0001-37",
+      "cnpj": "62010175000137",
       "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES IV",
-      "short_name": "MT FGTS RECEIVABLES IV"
+      "short_name": "MT FGTS Receivables IV"
     },
     {
-      "cnpj": "62.310.468/0001-30",
+      "cnpj": "62310468000130",
       "name": "MT INSS RECEIVABLES VI FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
-      "short_name": "MT INSS RECEIVABLES VI"
+      "short_name": "MT INSS Receivables VI"
     },
     {
-      "cnpj": "54.464.892/0001-00",
+      "cnpj": "54464892000100",
       "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MT FGTS RECEIVABLES II",
-      "short_name": "MT FGTS RECEIVABLES II"
+      "short_name": "MT FGTS Receivables II"
     },
     {
-      "cnpj": "63.953.620/0001-65",
+      "cnpj": "63953620000165",
       "name": "CLASSE CONSIGNADO PRIVADO DO MT GLOBAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESP LIMITADA",
-      "short_name": "CLASSE CONSIGNADO PRIVADO DO MT GLOB"
+      "short_name": "MT Global — Classe CP"
     }
   ],
+  "comparison_columns": {
+    "MT Consignado Privado I": "60010416000112",
+    "MT Consignado Privado II": "58458416000138",
+    "FGTS MT II": "53179862000190",
+    "MT INSS Receivables II": "40752367000186",
+    "MT INSS Receivables III": "44173467000109",
+    "MT INSS Receivables V": "51290497000160",
+    "MT FGTS Receivables IV": "62010175000137",
+    "MT INSS Receivables VI": "62310468000130",
+    "MT FGTS Receivables II": "54464892000100",
+    "MT Global — Classe CP": "63953620000165"
+  },
   "tables": [
     {
       "id": "comparison_main",
       "title": "Comparativo principal",
-      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
-      "kind": "comparison_matrix",
       "source_file": "tables/comparison_main.csv",
-      "first_column": "Nome"
+      "first_column": "Nome",
+      "kind": "source_table"
     },
     {
-      "id": "key_findings",
-      "title": "Destaques da carteira",
-      "subtitle": "Conclusões materiais para consulta humana",
-      "kind": "source_table",
-      "source_file": "tables/key_findings.csv",
-      "first_column": "Tema"
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
       "id": "structural_costs",
       "title": "Custos estruturais",
-      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
-      "kind": "source_table",
       "source_file": "tables/structural_costs.csv",
-      "first_column": "Fundo"
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "emissions",
-      "title": "Cronograma de emissões",
-      "kind": "source_table",
-      "source_file": "tables/emissions.csv",
-      "first_column": "Fundo"
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
     },
     {
-      "id": "thresholds",
-      "title": "Regulamento mais recente",
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
       "kind": "source_table",
-      "source_file": "tables/thresholds.csv",
-      "first_column": "fundo"
+      "subtitle": "Referências por célula; observações comuns no rodapé"
     }
   ],
   "audit": {
     "warnings": [
-      "Pacote gerado exclusivamente a partir de arquivos locais já extraídos no repositório.",
-      "Métricas IME foram enriquecidas a partir do cache local quando disponível; fundos sem IME vigente mantêm lacuna explícita.",
-      "Custos estruturais: 20 linhas com taxa de administração/gestão e mínimos mensais quando curados.",
-      "Tabela principal com 38 linhas; contagem documental foi substituída por páginas locais analisadas."
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Nova tentativa ID 1049114: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 911262: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1004656: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "1279108: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1155573: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1013022: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 1279108: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "948986: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "794094: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "845548: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 948986: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "864357: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "230752: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 864357: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "976910: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "971919: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 976910: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1153512: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1153514: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1075684: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1053545: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Fundos.NET ID 1153512: extração pypdf/pdftotext com codificação de fonte corrompida. Páginas 2,4,8,9,11,12 conferidas visualmente; OCR/texto corrigido necessário para leitura integral automatizada.",
+      "1033290: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "884293: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "921382: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "829655: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "826235: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1033290: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1087883: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1142756: Fundos.NET respondeu HTTP 520 em downloadDocumento."
     ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "8a38b423219d44c35fbf7e01b01a71ae39946ff1bc3187d5e1d24cbb502ec26d",
+    "rendering_sha256": "a4610dbb02bc3da37a4c2a1e1d5137af4bf3f3672500a5fc0fa5b429200ba2f5",
+    "input_sha256": "e8fb5d5859b5fefa5376fd236dd1b963b44f82c927a0b97e69f13f081d8d6580"
   }
 }

@@ -9,6 +9,8 @@ import pandas as pd
 
 from services.deep_dive_store import load_deep_dive_table
 
+CELL_REFERENCES_SUBTITLE = 'Referências por célula; observações comuns no rodapé'
+
 
 @dataclass(frozen=True)
 class DocumentComparisonPage:
@@ -61,8 +63,26 @@ def _group_notes(manifest, page_id: str) -> tuple[tuple[str, ...], tuple[str, ..
     if evidence.empty or "Tabela" not in evidence:
         return (), ()
     evidence = evidence[evidence["Tabela"].eq(page_id)]
-    notes = tuple(dict.fromkeys(_text(v) for v in evidence.get("Nota", []) if _text(v) != "Não localizado"))
-    return notes, _sources(evidence)
+    evidence_spec = next((spec for spec in manifest.tables if spec.id == 'comparison_evidence'), None)
+    if evidence_spec is None or evidence_spec.subtitle != CELL_REFERENCES_SUBTITLE:
+        notes = tuple(dict.fromkeys(_text(v) for v in evidence.get('Nota', []) if _text(v) != 'Não localizado'))
+        return notes, _sources(evidence)
+    # Cell qualifications stay attached to their exact fund/criterion in the slide
+    # notes. Only common table notes occupy the visible footer; repeating every
+    # cell note there multiplied the same table across dozens of slides.
+    common = evidence[evidence['CNPJ'].astype(str).eq('Carteira')] if 'CNPJ' in evidence else evidence
+    notes = tuple(dict.fromkeys(_text(v) for v in common.get("Nota", []) if _text(v) != "Não localizado"))
+    if 'CNPJ' not in evidence:
+        return notes, _sources(evidence)
+    sources = []
+    for _, row in evidence.iterrows():
+        source = _text(row.get('Fonte'))
+        if source == 'Não localizado':
+            continue
+        identity = f"CNPJ {row.get('CNPJ', 'não informado')} · {row.get('Critério', 'regra')} · {row.get('Valor', 'valor não informado')}"
+        note = _text(row.get('Nota'))
+        sources.append(identity + ' · ' + source + (' · Observação: ' + note if note != 'Não localizado' else ''))
+    return notes, tuple(dict.fromkeys(sources))
 
 
 def build_document_comparison_pages(manifest) -> list[DocumentComparisonPage]:

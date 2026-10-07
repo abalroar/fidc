@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_solagora_614d238a",
+  "title": "Curadoria SolAgora",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "614d238af3a748218f5e9afe57381f8c",
+  "portfolio_signature": "47640584000123|53164652000128|58510255000184|64330030000149|65473122000140",
+  "generated_at": "2026-10-07T14:53:15-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "47640584000123",
+      "name": "SOL AGORA GREEN ESG FIDC IS SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SolAgora I"
+    },
+    {
+      "cnpj": "53164652000128",
+      "name": "IS SOL AGORA GREEN II ESG FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SolAgora II"
+    },
+    {
+      "cnpj": "58510255000184",
+      "name": "SOL AGORA GREEN III ESG FIDC IS SEGMENTO FINANCEIRO RESPONSABILIDADE LIMITADA",
+      "short_name": "SolAgora III"
+    },
+    {
+      "cnpj": "65473122000140",
+      "name": "SOL AGORA IV FIDC SEGMENTO FINANCEIRO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SolAgora IV"
+    },
+    {
+      "cnpj": "64330030000149",
+      "name": "WAREHOUSE SOL AGORA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO FINANCEIRO RESP LIMITADA",
+      "short_name": "Warehouse SolAgora"
+    }
+  ],
+  "comparison_columns": {
+    "SolAgora I": "47640584000123",
+    "SolAgora II": "53164652000128",
+    "SolAgora III": "58510255000184",
+    "SolAgora IV": "65473122000140",
+    "Warehouse SolAgora": "64330030000149"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Consulta Fundos.NET por CNPJ teve timeout e HTTP520. Não há regulamento integral local acessível desta revisão.",
+      "Falha técnica de acesso não demonstra ausência de documentos ou inexistência de regra.",
+      "Sem substituição por fundo de nome semelhante; termos materiais permanecem não confirmados.",
+      "PDF de 5 páginas é ato de alteração do administrador; texto consolidado de política/taxas não integra o arquivo.",
+      "Regulamento anterior ID791680 identificado no inventário, mas download teve HTTP502/520; falha de acesso, não ausência de documento.",
+      "ID 1157550 é catalogado como regulamento, mas PDF contém ato e apêndices I–IV; página 11 anuncia Anexo V na página seguinte, inexistente neste arquivo.",
+      "Subordinação, elegibilidade, reservas, hedge, custos e duração da carência remetidos ao regulamento não podem ser confirmados por este PDF.",
+      "Volumes aprovados não comprovam colocação, primeira integralização ou encerramento das ofertas.",
+      "PDF de 6 páginas anuncia regulamento no Anexo I, mas apresenta outro ato e apêndice júnior; corpo do regulamento ausente.",
+      "Primeira emissão é volume aprovado e não saldo/valor distribuído confirmado."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "33bc9965250552aecae0b8a4b6a4fffe8a01689e4f2eedc4b08b92828ec282f9",
+    "rendering_sha256": "d51d8eade919f443e090b9968ba11d6ea158de0df0a47a0c6b7e4febed5c0197",
+    "input_sha256": "e56f30affd0f284177a94fd3216ba901359deb552e31379366f5904d1934ce55"
+  }
+}

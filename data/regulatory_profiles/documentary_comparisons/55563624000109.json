@@ -1,0 +1,257 @@
+{
+  "cnpj": "55563624000109",
+  "label": "PLGN Marketplace (FIC-FIDC)",
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+  "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "FIC-FIDC: mezanino do Mercado Crédito II (CNPJ 41.970.012/0001-26)",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Exposição indireta. Não somar PL do FIC e investido como direitos creditórios diretos."
+      },
+      "Originador/endossante": {
+        "value": "Originação indireta Mercado Pago na classe investida",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Não há concessão/aquisição direta de crédito pelo PLGN."
+      },
+      "Devedor": {
+        "value": "Classe investida; devedores finais requerem regulamento e base do investido",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Garantia": {
+        "value": "Direitos das cotas investidas; garantia dos créditos finais não validada aqui",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 12, 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Elegibilidade": {
+        "value": "Somente cotas da classe investida identificada + ativos de liquidez",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Concentração": {
+        "value": "Concentração na classe investida; limites de devedor final não se aplicam diretamente",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Não aplicar ao FIC o piso de subordinação do Mercado Crédito II."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção patrimonial ou troca de indexador sem risco de capital",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "PDD": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Investimento em cotas da classe investida; percentual específico não localizado",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-13 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "DC/PL do FIC não demonstra alocação direta nem carteira consolidada."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Duração/público-alvo": {
+        "value": "Fechado; investidores profissionais; prazos por subclassse A/B/C",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 9, 15, 45-50 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Cessão/recompra": {
+        "value": "Alienação de cotas permitida se regras do investido permitirem",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 14 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Coobrigação": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Waterfall": {
+        "value": "Encargos → pagamentos de cotas → aquisição/liquidez, conforme cap. 8",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 18-19 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Subclasses A, B e C; sem senioridade entre si",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Remuneração": {
+        "value": "Resultado patrimonial das cotas investidas; sem DI + spread garantido",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 16-17 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Ofertas": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      },
+      "Juros/amortização": {
+        "value": "Por determinação da gestora, proporcional; resgate na liquidação",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 17-18 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Vencimento": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "R$ 10 mil/mês; IGP-M positivo em janeiro; teto 0,10% a.a. sobre PL investido",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 28 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Base do teto é PL da classe investida, conforme cláusula 13.2; não equivale a 0,10% sobre PLGN."
+      },
+      "Gestão": {
+        "value": "0,50% a.a. do PL; mínimo R$ 40 mil/mês IPCA; adicional 1,25% do capital integralizado",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 29 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Adicional cobrado em chamadas de capital; não somar como taxa anual."
+      },
+      "Custódia": {
+        "value": "0% a.a. expresso",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 29 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Monitorar exposição em cotas do FIDC; não usar DC/PL como lastro direto",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12, 15 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "IME do FIC não mostra atraso dos devedores finais; exige look-through do investido",
+        "source": "Fundos.NET ID 1192614 · 30/04/2026 · Regulamento · p. 11-12 · data/raw/55563624000109/1192614_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1192614",
+        "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+        "source": "Corpus acessível CNPJ 55563624000109: ID 1192614 (30/04/2026), data/raw/55563624000109/1192614_documentary_review.pdf; ID 811323 (30/12/2024), data/raw/55563624000109/811323_documentary_review.pdf; ID 691674 (03/07/2024), data/raw/55563624000109/691674_documentary_review.pdf; ID 702585 (03/07/2024), data/raw/55563624000109/702585_documentary_review.pdf; ID 703295 (03/07/2024), data/raw/55563624000109/703295_documentary_review.pdf",
+        "note": "O IME público agregado não certifica essas condições."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura",
+        "source": "CNPJ 55563624000109; revisão documental 07/10/2026",
+        "note": "Dados ao vivo da aplicação dependem da competência selecionada; nenhum saldo foi presumido."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "FIC-FIDC: mezanino do Mercado Crédito II (CNPJ 41.970.012/0001-26)"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Subclasses A/B/C sem subordinação entre si; exposição ao mezanino investido"
+    },
+    {
+      "Tema": "Administração",
+      "Conclusão": "R$ 10 mil/mês; IGP-M positivo em janeiro; teto 0,10% a.a. sobre PL investido"
+    }
+  ],
+  "warnings": [
+    "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1192614,
+      "date": "30/04/2026",
+      "path": "data/raw/55563624000109/1192614_documentary_review.pdf",
+      "text_path": "data/raw/55563624000109/1192614_documentary_review.txt",
+      "pages": 50,
+      "identity_verified": true,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 811323,
+      "date": "30/12/2024",
+      "path": "data/raw/55563624000109/811323_documentary_review.pdf",
+      "text_path": "data/raw/55563624000109/811323_documentary_review.txt",
+      "pages": 2,
+      "identity_verified": true,
+      "categoria": "Oferta Pública de Distribuição de Cotas",
+      "tipo": "Anúncio de Encerramento",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 691674,
+      "date": "03/07/2024",
+      "path": "data/raw/55563624000109/691674_documentary_review.pdf",
+      "text_path": "data/raw/55563624000109/691674_documentary_review.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Emissão de Cotas",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 702585,
+      "date": "03/07/2024",
+      "path": "data/raw/55563624000109/702585_documentary_review.pdf",
+      "text_path": "data/raw/55563624000109/702585_documentary_review.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "categoria": "Oferta Pública de Distribuição de Cotas",
+      "tipo": "Anúncio de Início",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    },
+    {
+      "document_id": 703295,
+      "date": "03/07/2024",
+      "path": "data/raw/55563624000109/703295_documentary_review.pdf",
+      "text_path": "data/raw/55563624000109/703295_documentary_review.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "categoria": "Oferta Pública de Distribuição de Cotas",
+      "tipo": "Anúncio de Início",
+      "identity_verification_note": "CNPJ encontrado no texto local"
+    }
+  ],
+  "inventory_count": 36,
+  "pdf_count": 5,
+  "pages_analyzed": 61,
+  "extraction_errors": [],
+  "emissions_rows": []
+}

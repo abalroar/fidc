@@ -1,0 +1,417 @@
+{
+  "cnpj": "60356171000180",
+  "label": "CLOUDWALK PI",
+  "reviewed_at": "2026-10-07T14:49:47-03:00",
+  "document_status": "revisão documental com lacunas explícitas",
+  "scope_note": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993687, 04/09/2025. Identidade do regulamento reconciliada pelo inventário oficial do próprioCNPJ e pelo anúncioID884542, que traz nome eCNPJ; o regulamento não imprimeCNPJ do fundo.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Devedor": {
+        "value": "Emissores dos instrumentos de pagamento; grupos de elegibilidade previstos no anexo",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Elegibilidade": {
+        "value": "Transações em moeda nacional; devedores adimplentes; validação na aquisição",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 35, Anexo I, critérios de elegibilidade | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Consultar critérios integrais e condições de cessão; o IME público não comprova elegibilidade individual."
+      },
+      "Prazo dos recebíveis": {
+        "value": "Mínimo 7 dias; máximo menor entre 365 dias e vencimento das cotas seniores",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 35, Anexo I, elegibilidade/prazo | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Concentração": {
+        "value": "Grupo 1+ caixa ≥52,5% do PL; Grupo 2 ≤15% por devedor; Grupo 3 ≤4%; Grupo 4 ≤2%; grupos 3/4 limitados também por subordinadas",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 35–36, AnexoI3.2(vi) | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Os tetos agregados de grupos 3/4 são testados separadamente; classificação dos grupos depende das definições do regulamento."
+      },
+      "Ativos vedados": {
+        "value": "Créditos de administrador, gestor e relacionados vedados salvo exceção com independência entre registradora/custodiante e partes relacionadas",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo I, partes relacionadas | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Originador/endossante": {
+        "value": "Cloud Walk, como credenciadora",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 31, Anexo I, origem dos créditos | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Garantia": {
+        "value": "Sem garantia do administrador, gestor, cedente, custodiante, seguro ou FGC",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 34, Anexo I, ausência de garantias | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mezanino": {
+        "value": "Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      },
+      "Eventos de avaliação": {
+        "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 70, Anexo I, eventos de avaliação | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Liquidação antecipada": {
+        "value": "Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 50, Anexo I, eventos de liquidação | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Reserva de despesas": {
+        "value": "Despesas ordinárias estimadas dos 3 meses seguintes, incluindo administração e gestão",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 58, Anexo I, encargos/reserva | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Subordinação mínima": {
+        "value": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 112, Suplemento definições, índices sênior | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Níveis mínimo, ramp-up e target têm funções distintas; validar estágio contratual para alerta."
+      },
+      "Reserva de caixa": {
+        "value": "Próxima amortização: 30 dias de antecedência; próxima remuneração: 15 dias",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 117, Suplemento definições, reserva de caixa | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Depende dos apêndices e do cronograma; disponibilidades IME isoladas não comprovam cobertura."
+      },
+      "Derivativos/hedge": {
+        "value": "Operações em derivativos vedadas",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo I, derivativos | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Falhas de pagamento, reservas, subordinação e prestadores; prazos de cura no anexo; Eventos contratuais de insolvência, cessão e prestadores; observar hipóteses e cura",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 70, Anexo I, eventos de avaliação | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687 | Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 50, Anexo I, eventos de liquidação | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "PDD": {
+        "value": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 1, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "≥ 50% do PL em direitos elegíveis, após 180 dias",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo I, alocação mínima | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Coobrigação": {
+        "value": "Sem regresso/coobrigação da cedente pela solvência; responsabilidade por existência e formalização preservada",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 32, Anexo I, cessão definitiva | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Waterfall": {
+        "value": "Encargos e reservas precedem distribuições; sênior prioritária; subordinadas condicionadas",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 66, Anexo I, ordem de alocação | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Resumo da hierarquia; consultar ordem completa antes de projetar pagamentos."
+      },
+      "Prestadores": {
+        "value": "Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvente; compras com recursos da carteira, observada a ordem de alocação",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo I, revolvência | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Duração/público-alvo": {
+        "value": "Indeterminado para fundo/classe; séries conforme apêndices",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 30, Anexo I, prazo de duração | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Cessão/recompra": {
+        "value": "Resolução por vício, inelegibilidade, chargeback/cancelamento não coberto; demais recompras conforme contrato",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 62, Anexo I, resolução/cessão/recompra | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Recompras declaradas no IME não identificam motivo jurídico nem indenização efetiva."
+      }
+    },
+    "comparison_emissions": {
+      "Remuneração sênior": {
+        "value": "Taxa DI + spread final não localizado; modelos com [=] não fixam taxa contratada",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 121–129, apêndices-modelo | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Os números por extenso em modelos não comprovam taxa final; ato ID883903 possui texto codificado ilegível/OCR necessário."
+      },
+      "Remuneração mezanino": {
+        "value": "Taxa DI + spreads A/B finais não localizados; suplementos-modelo com [=]",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 125–129, apêndices-modelo | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+      },
+      "Remuneração subordinada": {
+        "value": "Residual conforme waterfall; taxa fixa final não localizada",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 4, Anexo I, características das cotas | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Volume / quantidade": {
+        "value": "Oferta R$ 3.141.592.653,59: S1 R$ 1,65 bi; S2 R$ 1.070.554.462; MA R$ 226.712.872; MB R$ 194.325.319,59",
+        "source": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 2, volume ofertado/distribuição | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+        "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+      },
+      "VNU / preço": {
+        "value": "S1/S2/MA R$ 1,00; MB R$ 12,23 na primeira integralização",
+        "source": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 2, valores unitários | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+        "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+      },
+      "Classes/séries": {
+        "value": "Seniores 1ª/2ª; mezanino A/B 1ª; júnior; termos finais além do anúncio pendentes",
+        "source": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 1–2, anúncio encerramento | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+        "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+      },
+      "Ofertas": {
+        "value": "Oferta primária encerrada 24/04/2025; quatro subclasses/séries do anúncio",
+        "source": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 1–7, encerramento/distribuição | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+        "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+      },
+      "Remuneração": {
+        "value": "Taxa DI + spread final não localizado; modelos com [=] não fixam taxa contratada; Taxa DI + spreads A/B finais não localizados; suplementos-modelo com [=]; Residual conforme waterfall; taxa fixa final não localizada",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 121–129, apêndices-modelo | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687 | Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 125–129, apêndices-modelo | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687 | Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 4, Anexo I, características das cotas | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Os números por extenso em modelos não comprovam taxa final; ato ID883903 possui texto codificado ilegível/OCR necessário. Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação. Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Volume/VNU": {
+        "value": "Oferta R$ 3.141.592.653,59: S1 R$ 1,65 bi; S2 R$ 1.070.554.462; MA R$ 226.712.872; MB R$ 194.325.319,59; S1/S2/MA R$ 1,00; MB R$ 12,23 na primeira integralização",
+        "source": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 2, volume ofertado/distribuição | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542 | Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 2, valores unitários | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+        "note": "Cláusula documental; emissão e data-base indicadas. Não implica posição atual em circulação."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      },
+      "Juros / pagamentos": {
+        "value": "Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      },
+      "Amortização programada": {
+        "value": "Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      },
+      "Amortização extraordinária": {
+        "value": "Prevista nas hipóteses do anexo; requisitos variam por senioridade",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 40, Anexo I, amortização extraordinária | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Vencimento": {
+        "value": "Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+        "source": "Inventário por CNPJ 60356171000180, consulta Fundos.NET em 07/10/2026: 50 documentos listados; listagem pública obtida.  PDFs efetivamente revistos: 993687, 884542. ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,02% a.a. sobre PL; mínimo R$ 15.000,00/mês",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 55, Anexo I, remuneração dos prestadores | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Base literal do documento. Atenção a mínimo/máximo e inconsistências de redação entre versões."
+      },
+      "Gestão": {
+        "value": "0,06% a.a. sobre PL; mínimo R$ 7.000,00/mês",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 56, Anexo I, remuneração dos prestadores | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Base literal do documento. Atenção a mínimo/máximo e inconsistências de redação entre versões."
+      },
+      "Reajuste / base": {
+        "value": "Valores fixos reajustados por IPCA positivo; cálculo diário base 252, conforme cada taxa",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 56, Anexo I, taxas/reajuste | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      },
+      "Custódia": {
+        "value": "Não devida remuneração ao custodiante, conforme cláusula",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 56, Anexo I, taxa de custódia | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Cláusula documental; verificar vigência e eventuais aditamentos posteriores."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação via IME": {
+        "value": "DC / PL: proxy com validação de elegibilidade e denominador",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Subordinação via IME": {
+        "value": "Subordinadas / PL: conferir subclasses e fórmula do índice",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 9, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Concentração / elegibilidade": {
+        "value": "Exige cadastro por devedor/grupo e validação de lastro; não comprovável pelo IME agregado",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 31, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Reservas / pagamentos": {
+        "value": "Caixa agregado é proxy parcial; exige calendário, encargos e waterfall",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 22, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Chargeback / recompra": {
+        "value": "Recompras / crédito é proxy parcial; cancelamento e chargeback dependem de dados complementares",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90 e PDD / crédito: indicadores agregados, sem equivalência automática a gatilhos",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 1, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Controles documentais": {
+        "value": "Rating, prestadores, cessão e insolvência: controle documental/manual",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 5, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Alocação/subordinação IME": {
+        "value": "DC / PL: proxy com validação de elegibilidade e denominador; Subordinadas / PL: conferir subclasses e fórmula do índice",
+        "source": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 33, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687 | Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 9, Anexo e avaliação metodológica da revisão | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+        "note": "Classificação de monitoramento derivada da disponibilidade pública do IME; não é declaração de enquadramento atual. Sem nova competência IME carregada."
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta revisão",
+        "source": "Revisão documental em 07/10/2026; dados IME ao vivo/cache são processados separadamente pelos helpers da aplicação.",
+        "note": "Datas/termos documentais não são observação de enquadramento da carteira em competência IME."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Recebíveis",
+      "Conclusão": "Recebíveis de transações de cartões, devidos por emissores à Cloud Walk"
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Mínimo 15,5%; ramp-up 15,75%; target 16% (subordinadas / PL)"
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Taxa DI + spread final não localizado; modelos com[=] não fixam taxa contratada"
+    }
+  ],
+  "warnings": [
+    "Lacunas de acesso/extracão: ID883903: Texto codificado ilegível em pypdf e pdftotext / OCR necessário; ID1151115: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 993687,
+      "date": "04/09/2025",
+      "path": "data/raw/60356171000180/993687_review_20261007.pdf",
+      "pages": 132,
+      "identity_verified": true,
+      "identity_basis": "Inventário Fundos.NET do CNPJ + anúncioID884542, nome exato do fundo eCNPJ",
+      "review_scope": "Texto integral extraído; revisão das cláusulas materiais e dos atos de emissão acessíveis."
+    },
+    {
+      "document_id": 884542,
+      "date": "24/04/2025",
+      "path": "data/raw/60356171000180/884542_review_20261007.pdf",
+      "pages": 7,
+      "identity_verified": true,
+      "review_scope": "Texto integral extraído; revisão das cláusulas materiais e dos atos de emissão acessíveis."
+    }
+  ],
+  "inventory_count": 50,
+  "downloaded_count": 3,
+  "analyzable_pages": 139,
+  "inventory_error": "",
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 1ª",
+      "Tipo": "Sênior",
+      "Remuneração": "DI + spread final não localizado",
+      "Juros/remuneração": "Periodicidade final não localizada",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Volume": "R$ 1.650.000.000,00",
+      "VNU": "R$ 1,00",
+      "Data deliberação": "Data não localizada",
+      "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+      "Data encerramento/oferta": "24/04/2025",
+      "Vencimento final": "Prazo remetido ao suplemento",
+      "Fonte": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 1–7, anúncio encerramento | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+      "Status curadoria": "Revisão documental com lacunas identificadas"
+    },
+    {
+      "Cota/Classe": "Sênior 2ª",
+      "Tipo": "Sênior",
+      "Remuneração": "DI + spread final não localizado",
+      "Juros/remuneração": "Periodicidade final não localizada",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Volume": "R$ 1.070.554.462,00",
+      "VNU": "R$ 1,00",
+      "Data deliberação": "Data não localizada",
+      "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+      "Data encerramento/oferta": "24/04/2025",
+      "Vencimento final": "Prazo remetido ao suplemento",
+      "Fonte": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 1–7, anúncio encerramento | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+      "Status curadoria": "Revisão documental com lacunas identificadas"
+    },
+    {
+      "Cota/Classe": "Mezanino A1ª",
+      "Tipo": "Mezanino",
+      "Remuneração": "DI + spread final não localizado",
+      "Juros/remuneração": "Periodicidade final não localizada",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Volume": "R$ 226.712.872,00",
+      "VNU": "R$ 1,00",
+      "Data deliberação": "Data não localizada",
+      "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+      "Data encerramento/oferta": "24/04/2025",
+      "Vencimento final": "Prazo remetido ao suplemento",
+      "Fonte": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 1–7, anúncio encerramento | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+      "Status curadoria": "Revisão documental com lacunas identificadas"
+    },
+    {
+      "Cota/Classe": "Mezanino B1ª",
+      "Tipo": "Mezanino",
+      "Remuneração": "DI + spread final não localizado",
+      "Juros/remuneração": "Periodicidade final não localizada",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Volume": "R$ 194.325.319,59",
+      "VNU": "R$ 12,23",
+      "Data deliberação": "Data não localizada",
+      "Data emissão / 1ª integralização": "Primeira integralização; data efetiva não localizada",
+      "Data encerramento/oferta": "24/04/2025",
+      "Vencimento final": "Prazo remetido ao suplemento",
+      "Fonte": "Fundos.NET ID 884542 | 24/04/2025 | Anúncio de Encerramento | p. 1–7, anúncio encerramento | data/raw/60356171000180/884542_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=884542",
+      "Status curadoria": "Revisão documental com lacunas identificadas"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "0,02%",
+      "Mínimo mensal": "R$ 15.000,00",
+      "Fonte": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 55, Anexo I, remuneração dos prestadores | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+      "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993687, 04/09/2025. Identidade do regulamento reconciliada pelo inventário oficial do próprioCNPJ e pelo anúncioID884542, que traz nome eCNPJ; o regulamento não imprimeCNPJ do fundo.",
+      "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+      "Status curadoria": "revisão documental com lacunas explícitas",
+      "Base de cálculo / regra completa": "0,02% a.a. sobre PL; mínimo R$ 15.000,00/mês"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "0,06%",
+      "Mínimo mensal": "R$ 7.000,00",
+      "Fonte": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 56, Anexo I, remuneração dos prestadores | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+      "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993687, 04/09/2025. Identidade do regulamento reconciliada pelo inventário oficial do próprioCNPJ e pelo anúncioID884542, que traz nome eCNPJ; o regulamento não imprimeCNPJ do fundo.",
+      "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+      "Status curadoria": "revisão documental com lacunas explícitas",
+      "Base de cálculo / regra completa": "0,06% a.a. sobre PL; mínimo R$ 7.000,00/mês"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+      "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+      "Fonte": "Fundos.NET ID 993687 | 04/09/2025 | Regulamento | p. 56, Anexo I, taxa de custódia | data/raw/60356171000180/993687_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993687",
+      "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho. Base principal: ID993687, 04/09/2025. Identidade do regulamento reconciliada pelo inventário oficial do próprioCNPJ e pelo anúncioID884542, que traz nome eCNPJ; o regulamento não imprimeCNPJ do fundo.",
+      "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+      "Status curadoria": "revisão documental com lacunas explícitas",
+      "Base de cálculo / regra completa": "Não devida remuneração ao custodiante, conforme cláusula"
+    }
+  ]
+}

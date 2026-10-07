@@ -245,6 +245,574 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CCBs de antecipação de saque-aniversário FGTS",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 12-15 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Pessoa física titular FGTS, ≥ 18 anos; devedores > 71 anos limitados",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 14 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Cessão fiduciária do saque-aniversário FGTS",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 12-15 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "CCB adimplente; prazo ≤ 4.415 dias e até vencimento sênior",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 14 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Top 5/10/15/20/50/100: R$ 0,6/1/1,5/2/5/10 mi",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 14 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Bloco de devedores >71 anos ≤5% da carteira pelo valor de aquisição.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Bloco de devedores >71 anos ≤5% da carteira pelo valor de aquisição."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Sênior 13,5% no investimento e 15% depois; júnior 3,5% e 5% do PL",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 74-75 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Índices ajustados são 20% e 10%; não confundir com pisos ordinários. Waiver de até 1,5 pp nos seis primeiros meses não elimina cálculo.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Índices ajustados são 20% e 10%; não confundir com pisos ordinários. Waiver de até 1,5 pp nos seis primeiros meses não elimina cálculo."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Arrecadação < 95%; atraso Over 90 > 1%; diluição > 1%; falha repasse FGTS",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 35, 74 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Atraso usa todas parcelas de CCB com atraso >90/face carteira; IME Over tem conceito diverso.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Atraso usa todas parcelas de CCB com atraso >90/face carteira; IME Over tem conceito diverso."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Liquidez: 2 meses de despesas; derivativo: reserva do MTM líquido devedor",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 77 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Reserva do derivativo depende de período contratual e evento; não impor percentual genérico de caixa.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Reserva do derivativo depende de período contratual e evento; não impor percentual genérico de caixa."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Encargos/reservas/derivativos → sênior → mezanino → júnior",
+      "source_document": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 28-30 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimentos de…",
+      "source_excerpt": "Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimentos de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nto do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimen…",
+      "source_excerpt": "nto do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimen…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimento…",
+      "source_excerpt": "o do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimento…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "primento do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os proce…",
+      "source_excerpt": "primento do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os proce…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª série",
+      "amount_display": "Até R$ 500 mi ofertados",
+      "remuneration": "Spread final não localizado no anúncio",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 975532 · 21/08/2025 · p. 1-2 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    },
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª série",
+      "amount_display": "Até R$ 58,824 mi ofertados",
+      "remuneration": "Spread final não localizado no anúncio",
+      "amortization_schedule": "Cronograma fechado não identificado",
+      "source_document": "Fundos.NET ID 975532 · 21/08/2025 · p. 1-2 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ],
+  "extraction_count": 10,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/62010175000137.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 971924,
+          "date": "13/08/2025",
+          "path": "data/raw/62010175000137/971924_documentary_review.pdf",
+          "text_path": "data/raw/62010175000137/971924_documentary_review.txt",
+          "pages": 85,
+          "identity_verified": true,
+          "categoria": "Regulamento",
+          "tipo": "",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        },
+        {
+          "document_id": 975532,
+          "date": "21/08/2025",
+          "path": "data/raw/62010175000137/975532_documentary_review.pdf",
+          "text_path": "data/raw/62010175000137/975532_documentary_review.txt",
+          "pages": 5,
+          "identity_verified": true,
+          "categoria": "Oferta Pública de Distribuição de Cotas",
+          "tipo": "Anúncio de Início",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+        "976910: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "971919: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "Nova tentativa ID 976910: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+      ],
+      "inventory_count": 17,
+      "pdf_count": 2,
+      "pages_analyzed": 90,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 17,
+    "pdf_count": 2,
+    "pages_analyzed": 90,
+    "documents": [
+      {
+        "id": 971889,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "31/07/2025",
+        "data_entrega": "15/08/2025 10:00",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/971889_emissao_emissao_971889_2025-07-31.pdf"
+      },
+      {
+        "id": 971910,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "31/07/2025",
+        "data_entrega": "15/08/2025 10:06",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/971910_regulamento_regulamento_971910_2025-07-31.pdf"
+      },
+      {
+        "id": 971919,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "13/08/2025",
+        "data_entrega": "15/08/2025 10:08",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/971919_emissao_emissao_971919_2025-08-13.pdf"
+      },
+      {
+        "id": 971924,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "13/08/2025",
+        "data_entrega": "15/08/2025 10:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/971924_regulamento_regulamento_971924_2025-08-13.pdf"
+      },
+      {
+        "id": 975532,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "21/08/2025",
+        "data_entrega": "21/08/2025 15:11",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/975532_emissao_emissao_975532_2025-08-21.pdf"
+      },
+      {
+        "id": 976910,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "22/08/2025",
+        "data_entrega": "22/08/2025 19:15",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/976910_regulamento_regulamento_976910_2025-08-22.pdf"
+      },
+      {
+        "id": 1038310,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "14/11/2025 10:06",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1068603,
+        "categoria": "Relatórios",
+        "tipo": "Relatório de Agência de Rating",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "24/11/2025",
+        "data_entrega": "23/12/2025 14:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1047347,
+        "categoria": "Fato Relevante",
+        "tipo": "",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "26/11/2025",
+        "data_entrega": "26/11/2025 19:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/1047347_evento_evento_1047347_2025-11-26.pdf"
+      },
+      {
+        "id": 1116857,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "13/02/2026 22:11",
+        "nome_arquivo": null,
+        "status": "IC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1230771,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "26/06/2026 16:42",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1152263,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2025",
+        "data_entrega": "01/04/2026 00:42",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1075508,
+        "categoria": "Fato Relevante",
+        "tipo": "",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "05/01/2026",
+        "data_entrega": "05/01/2026 22:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/1075508_evento_evento_1075508_2026-01-05.pdf"
+      },
+      {
+        "id": 1197617,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 22:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1168472,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Carta Consulta",
+        "classification": "assembleia",
+        "data_referencia": "23/04/2026 10:00",
+        "data_entrega": "23/04/2026 20:15",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/1168472_assembleia_assembleia_1168472_2026-04-23.pdf"
+      },
+      {
+        "id": 1214770,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Sumário das Decisões",
+        "classification": "assembleia",
+        "data_referencia": "05/05/2026 10:00",
+        "data_entrega": "09/06/2026 14:13",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62010175000137/1214770_assembleia_assembleia_1214770_2026-05-05.pdf"
+      },
+      {
+        "id": 1289751,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2026",
+        "data_entrega": "13/08/2026 17:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 971924,
+        "date": "13/08/2025",
+        "path": "data/raw/62010175000137/971924_documentary_review.pdf",
+        "text_path": "data/raw/62010175000137/971924_documentary_review.txt",
+        "pages": 85,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 975532,
+        "date": "21/08/2025",
+        "path": "data/raw/62010175000137/975532_documentary_review.pdf",
+        "text_path": "data/raw/62010175000137/975532_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Subordinação mínima",
       "canonical_key": "subordination_ratio_min",
       "event_type": "enquadramento",
@@ -1385,29 +1953,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimentos de…",
-      "source_excerpt": "Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimentos de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nto do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimen…",
-      "source_excerpt": "nto do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimen…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimento…",
-      "source_excerpt": "o do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os procedimento…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "primento do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os proce…",
-      "source_excerpt": "primento do Índice de Subordinação Sênior e o Índice de Subordinação Mezanino não desencadearão Evento de Avaliação ou Evento de Liquidação, desde que limitados a 1,5 ponto percentual (um ponto percentual e meio). 5.14.2 Na hipótese de inobservância de qualquer dos Índices de Subordinação, conforme aplicável, o ADMINISTRADOR, após comunicação enviada pelo GESTOR nesse sentido, imediatamente (i) interromperá os proce…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -1507,6 +2053,267 @@
       "source_document_id": 1075508
     }
   ],
-  "extraction_count": 10,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "62010175000137",
+    "label": "MT FGTS Receivables IV",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CCBs de antecipação de saque-aniversário FGTS",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 12-15 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Pessoa física titular FGTS, ≥ 18 anos; devedores > 71 anos limitados",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 14 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Garantia": {
+          "value": "Cessão fiduciária do saque-aniversário FGTS",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 12-15 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Elegibilidade": {
+          "value": "CCB adimplente; prazo ≤ 4.415 dias e até vencimento sênior",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 14 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Concentração": {
+          "value": "Top 5/10/15/20/50/100: R$ 0,6/1/1,5/2/5/10 mi",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 14 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Bloco de devedores >71 anos ≤5% da carteira pelo valor de aquisição."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Sênior 13,5% no investimento e 15% depois; júnior 3,5% e 5% do PL",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 74-75 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Índices ajustados são 20% e 10%; não confundir com pisos ordinários. Waiver de até 1,5 pp nos seis primeiros meses não elimina cálculo."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Arrecadação < 95%; atraso Over 90 > 1%; diluição > 1%; falha repasse FGTS",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 35, 74 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Atraso usa todas parcelas de CCB com atraso >90/face carteira; IME Over tem conceito diverso."
+        },
+        "Reserva de caixa": {
+          "value": "Liquidez: 2 meses de despesas; derivativo: reserva do MTM líquido devedor",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 77 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Reserva do derivativo depende de período contratual e evento; não impor percentual genérico de caixa."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Encargos/reservas/derivativos → sênior → mezanino → júnior",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 28-30 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior por série; mezanino por série; júnior",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 74-75 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "Spread final não localizado no anúncio acessível; exige suplemento",
+          "source": "Fundos.NET ID 975532 · 21/08/2025 · Oferta Pública de Distribuição de Cotas · p. 1-5 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Volume/VNU": {
+          "value": "1ª oferta até R$ 500 mi sênior + R$ 58,824 mi mezanino; VNU R$ 1.000",
+          "source": "Fundos.NET ID 975532 · 21/08/2025 · Oferta Pública de Distribuição de Cotas · p. 1-2 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+          "note": "Anúncio de início; resultado final não localizado."
+        },
+        "Ofertas": {
+          "value": "1ª oferta registrada 20/08/2025",
+          "source": "Fundos.NET ID 975532 · 21/08/2025 · Oferta Pública de Distribuição de Cotas · p. 1 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Vencimento": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "0,15%/0,14%/0,13% a.a.; mínimo R$ 15/11,5/8 mil por tempo de funcionamento",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 47 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "PL até R$200 mi; até R$400 mi; acima. Mínimo meses1–36/37–60/>60; IPCA positivo em 15/janeiro."
+        },
+        "Gestão": {
+          "value": "0,20%/0,18%/0,16% a.a.; mínimo R$ 8 mil/mês; IPCA anual",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 48 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Mesmas faixas de PL."
+        },
+        "Custódia": {
+          "value": "Incluída na administração; lastro trimestral R$ 4 mil adicionais",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 47 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Escrituração R$ 1,25 mil/mês; banco liquidante R$ 800/mês, se listado."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Subordinadas/PL diretos, diferenciando investimento e índices ajustados",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 74-75 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over/PDD/recompras como proxies; índices contratuais exigem face e base de CCBs",
+          "source": "Fundos.NET ID 971924 · 13/08/2025 · Regulamento · p. 74 · data/raw/62010175000137/971924_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=971924",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 62010175000137: ID 971924 (13/08/2025), data/raw/62010175000137/971924_documentary_review.pdf; ID 975532 (21/08/2025), data/raw/62010175000137/975532_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Natureza dos recebíveis",
+        "Conclusão": "CCBs de antecipação de saque-aniversário FGTS"
+      },
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Sênior 13,5% no investimento e 15% depois; júnior 3,5% e 5% do PL"
+      },
+      {
+        "Tema": "Administração",
+        "Conclusão": "0,15%/0,14%/0,13% a.a.; mínimo R$ 15/11,5/8 mil por tempo de funcionamento"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "976910: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "971919: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 976910: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 971924,
+        "date": "13/08/2025",
+        "path": "data/raw/62010175000137/971924_documentary_review.pdf",
+        "text_path": "data/raw/62010175000137/971924_documentary_review.txt",
+        "pages": 85,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      },
+      {
+        "document_id": 975532,
+        "date": "21/08/2025",
+        "path": "data/raw/62010175000137/975532_documentary_review.pdf",
+        "text_path": "data/raw/62010175000137/975532_documentary_review.txt",
+        "pages": 5,
+        "identity_verified": true,
+        "categoria": "Oferta Pública de Distribuição de Cotas",
+        "tipo": "Anúncio de Início",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 17,
+    "pdf_count": 2,
+    "pages_analyzed": 90,
+    "extraction_errors": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "1ª série",
+        "Tipo": "Sênior",
+        "Remuneração": "Spread final não localizado no anúncio",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "Até R$ 500 mi ofertados",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Registro 20/08/2025; encerramento não localizado",
+        "Fonte": "Fundos.NET ID 975532 · 21/08/2025 · p. 1-2 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      },
+      {
+        "Cota/Classe": "1ª série",
+        "Tipo": "Subordinada mezanino",
+        "Remuneração": "Spread final não localizado no anúncio",
+        "Juros/remuneração": "Periodicidade não localizada no corpus",
+        "Amortização principal": "Cronograma fechado não identificado",
+        "Volume": "Até R$ 58,824 mi ofertados",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Registro 20/08/2025; encerramento não localizado",
+        "Fonte": "Fundos.NET ID 975532 · 21/08/2025 · p. 1-2 · data/raw/62010175000137/975532_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=975532",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 17,
+      "pdf_count": 2,
+      "pages_analyzed": 90
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/62010175000137.json"
 }

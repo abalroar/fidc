@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import pandas as pd
 
 from services.deep_dive_models import DeepDiveTableSpec
-from services.document_curation_comparison import build_document_comparison_pages, comparison_column_chunks
+from services.document_curation_comparison import CELL_REFERENCES_SUBTITLE, build_document_comparison_pages, comparison_column_chunks
 from tabs.tab_deep_dive import _comparison_table_html
 
 
@@ -46,6 +46,14 @@ def test_legacy_package_shows_all_funds_and_all_schedules(tmp_path: Path):
     assert rate.frame.iloc[0]["FIDC B"] == "Série B: Não localizado"
     payments = next(p for p in pages if p.title == "Amortização e pagamentos")
     assert schedule in payments.frame.iloc[0]["FIDC A"]
+
+
+def test_cell_qualifications_stay_with_fund_and_rule_in_slide_sources(tmp_path: Path):
+    pd.DataFrame({'Critério': ['Subordinação'], 'FIDC A': ['5% numeral; 3% por extenso'], 'FIDC B': ['15%']}).to_csv(tmp_path / 'short.csv', index=False)
+    pd.DataFrame([{'Tabela': 'short', 'CNPJ': '11111111000111', 'Critério': 'Subordinação', 'Valor': '5% numeral; 3% por extenso', 'Fonte': 'ID 123 p.8', 'Nota': 'Divergência; obter esclarecimento'}, {'Tabela': 'short', 'CNPJ': 'Carteira', 'Critério': 'Nota', 'Valor': 'Base documental', 'Fonte': '', 'Nota': 'Versões identificadas por data'}]).to_csv(tmp_path / 'sources.csv', index=False)
+    pages = build_document_comparison_pages(_manifest(tmp_path, [DeepDiveTableSpec('short', 'Proteções', 'short.csv', first_column='Critério', kind='document_comparison'), DeepDiveTableSpec('comparison_evidence', 'Fontes', 'sources.csv', subtitle=CELL_REFERENCES_SUBTITLE, first_column='Tabela', kind='source_table')]))
+    assert pages[0].notes == ('Versões identificadas por data',)
+    assert all(term in pages[0].sources[0] for term in ('11111111000111', 'Subordinação', '5% numeral', 'ID 123 p.8', 'Divergência'))
 
 
 def test_column_pagination_retains_every_fund():

@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_fidcs_sumup_sumup_i_e_solo_8bbd1b0f",
+  "title": "Curadoria FIDCs SumUp (SumUp I e Solo)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "8bbd1b0f85584e95a00a704bed76ca79",
+  "portfolio_signature": "34850088000152|36083634000100|45598747000121|62626409000175|62626887000185|62627051000103|62627122000160",
+  "generated_at": "2026-10-07T14:49:47-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "45598747000121",
+      "name": "SUMUP SOLO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILI",
+      "short_name": "SUMUP SOLO"
+    },
+    {
+      "cnpj": "34850088000152",
+      "name": "SUMUP I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP I"
+    },
+    {
+      "cnpj": "62626409000175",
+      "name": "SUMUP SMART I FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART I"
+    },
+    {
+      "cnpj": "62627051000103",
+      "name": "SUMUP SMART II FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART II"
+    },
+    {
+      "cnpj": "62627122000160",
+      "name": "SUMUP SMART III FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART III"
+    },
+    {
+      "cnpj": "62626887000185",
+      "name": "SUMUP SMART IV FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "SUMUP SMART IV"
+    },
+    {
+      "cnpj": "36083634000100",
+      "name": "BRASIL MICROCRÉDITO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "BRASIL MICROCRÉDITO"
+    }
+  ],
+  "comparison_columns": {
+    "SUMUP SOLO": "45598747000121",
+    "SUMUP I": "34850088000152",
+    "SUMUP SMART I": "62626409000175",
+    "SUMUP SMART II": "62627051000103",
+    "SUMUP SMART III": "62627122000160",
+    "SUMUP SMART IV": "62626887000185",
+    "BRASIL MICROCRÉDITO": "36083634000100"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Atualização do inventário indisponível: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+      "Lacunas de acesso/extracão: ID883977: Fundos.NET respondeu HTTP 520 em downloadDocumento.; ID903840: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna.",
+      "Atualização do inventário indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Lacunas de acesso/extracão: ID1152539: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Lacunas de acesso/extracão: ID1152823: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "bf35e5efdfbfde76e2978839c55d5c402b5b3ec0660ae003be20aa0b73fcc444",
+    "rendering_sha256": "af896ddbd260a0f2c3880635f0721701f29d9ab75ea84385994eeba28470433b",
+    "input_sha256": "1e56771d664a1d75bf83f18a3e2e81df67389c9b194d070286a18f77871b2001"
+  }
+}

@@ -231,6 +231,507 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ue apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível dei…",
+      "source_excerpt": "ue apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível dei…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "r por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado…",
+      "source_excerpt": "r por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s ao funcionamento d a Classe, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que e…",
+      "source_excerpt": "s ao funcionamento d a Classe, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que e…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de resgate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "de resgate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Não localizado no corpus acessível",
+      "amount_display": "Não localizado no corpus acessível",
+      "remuneration": "Não localizado no corpus acessível",
+      "amortization_schedule": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "extraction_count": 8,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Lacuna de acesso documental",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/63953620000165.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [],
+      "warnings": [
+        "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+        "1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "1087883: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Nova tentativa ID 1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Nova tentativa ID 1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Nova tentativa ID 1142756: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+      ],
+      "inventory_count": 16,
+      "pdf_count": 0,
+      "pages_analyzed": 0,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 16,
+    "pdf_count": 0,
+    "pages_analyzed": 0,
+    "documents": [
+      {
+        "id": 1087883,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "08/01/2026",
+        "data_entrega": "19/01/2026 21:35",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1087883_emissao_emissao_1087883_2026-01-08.pdf"
+      },
+      {
+        "id": 1167032,
+        "categoria": "Relatórios",
+        "tipo": "Outros Relatórios",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "21/01/2026",
+        "data_entrega": "20/04/2026 23:11",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1177607,
+        "categoria": "Outras Demonstrações Financeiras ",
+        "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "02/02/2026",
+        "data_entrega": "30/04/2026 18:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1119041,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "18/02/2026",
+        "data_entrega": "20/02/2026 18:37",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1119041_emissao_emissao_1119041_2026-02-18.pdf"
+      },
+      {
+        "id": 1200324,
+        "categoria": "Outras Demonstrações Financeiras ",
+        "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "19/02/2026",
+        "data_entrega": "20/05/2026 19:37",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1197021,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 20:47",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1142756,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "17/03/2026 08:00",
+        "data_entrega": "23/03/2026 20:23",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1142756_assembleia_assembleia_1142756_2026-03-17.pdf"
+      },
+      {
+        "id": 1224479,
+        "categoria": "Outras Demonstrações Financeiras ",
+        "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "18/03/2026",
+        "data_entrega": "18/06/2026 20:59",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1282179,
+        "categoria": "Outras Demonstrações Financeiras ",
+        "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "16/04/2026",
+        "data_entrega": "10/08/2026 19:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1205431,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "28/04/2026 00:00",
+        "data_entrega": "27/05/2026 16:56",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1205431_assembleia_assembleia_1205431_2026-04-28.pdf"
+      },
+      {
+        "id": 1282180,
+        "categoria": "Outras Demonstrações Financeiras ",
+        "tipo": "Demonstrações Financeiras - Fusão, cisão e incorporação",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "28/04/2026",
+        "data_entrega": "10/08/2026 19:59",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1291068,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2026",
+        "data_entrega": "13/08/2026 23:31",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1222860,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "02/06/2026 10:00",
+        "data_entrega": "16/06/2026 17:37",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1222860_assembleia_assembleia_1222860_2026-06-02.pdf"
+      },
+      {
+        "id": 1222863,
+        "categoria": "Anexo ao Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "02/06/2026",
+        "data_entrega": "16/06/2026 17:39",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1222863_regulamento_regulamento_1222863_2026-06-02.pdf"
+      },
+      {
+        "id": 1270336,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "15/07/2026 08:00",
+        "data_entrega": "30/07/2026 14:49",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1270336_assembleia_assembleia_1270336_2026-07-15.pdf"
+      },
+      {
+        "id": 1277543,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "29/07/2026 08:00",
+        "data_entrega": "05/08/2026 14:31",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/63953620000165/1277543_assembleia_assembleia_1277543_2026-07-29.pdf"
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": []
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Subordinação mínima",
       "canonical_key": "subordination_ratio_min",
       "event_type": "enquadramento",
@@ -431,29 +932,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ue apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível dei…",
-      "source_excerpt": "ue apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição, atendam a todos os Critérios de Elegibilidade. 4.10.1 Para fins da verificação dos Critérios de Elegibilidade, será considerado o Patrimônio Líquido e o valor dos Direitos Creditórios integrantes da Carteira no Dia Útil imediatamente anterior à Data de Aquisição. 4.10.2 Na hipótese de o Direito Creditório elegível dei…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "r por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado…",
-      "source_excerpt": "r por meio da plataforma eletrônica mantida pelo Agente de Retenção/ Cobrança e utilizada por ele em relação ao processamento e monitoramento das operações de crédito consignado (“Plataforma MT”) e representado por CCB, devidamente formalizada por via eletrônica, de acordo com a legislação aplicável, observada a política de crédito constante do Contrato de Endosso. O Endossante celebrou o Convênio Consignado Privado…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s ao funcionamento d a Classe, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que e…",
-      "source_excerpt": "s ao funcionamento d a Classe, verificada pel o Administrador, pelo Custodiante e/ou pel o Gestor ou por qualquer dos Cotistas, desde que, uma vez notificados para sanar ou justificar o descumprimento, o Administrador, o Custodiante e/ou o Gestor, conforme o caso, não o sane no prazo de 5 (cinco) Dias Úteis contados do recebimento da referida notificação ; (viii) aquisição, pela Classe, de Direitos Creditórios que e…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de resgate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
-      "source_excerpt": "de resgate ou amortização, ou (ii) o recebimento dos Direitos Creditórios pela Classe, a título de integralização de Cotas Subordinadas, as disposições da Política de Investimentos permaneçam atendidas; e (iv) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Art. 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -511,6 +990,210 @@
       "source_document_id": 1222863
     }
   ],
-  "extraction_count": 8,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "63953620000165",
+    "label": "MT Global — Classe CP",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Lacuna de acesso documental",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Garantia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Concentração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Remuneração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Ofertas": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Vencimento": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gestão": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Custódia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 63953620000165: não obtido; consulta Fundos.NET em 07/10/2026",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Cache local: 06/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/345d74bedc26435eef60ab8e3498c257366f589cd9f50ff5290158b29e45e518/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Documentação",
+        "Conclusão": "O acesso aos documentos deste CNPJ apresentou lacunas; regras materiais permanecem pendentes."
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "1087883: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1222863: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1119041: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1142756: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+    ],
+    "sources_reviewed": [],
+    "inventory_count": 16,
+    "pdf_count": 0,
+    "pages_analyzed": 0,
+    "extraction_errors": [],
+    "emissions_rows": [],
+    "metrics": {
+      "inventory_count": 16,
+      "pdf_count": 0,
+      "pages_analyzed": 0
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/63953620000165.json"
 }

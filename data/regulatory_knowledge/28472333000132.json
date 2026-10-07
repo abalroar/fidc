@@ -9,14 +9,36 @@
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "23/10/2020",
       "data_entrega": "19/03/2021 12:15",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 132349,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2020",
+      "status": "IC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 136612,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2020",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 135822,
@@ -28,9 +50,9 @@
       "data_entrega": "29/12/2020 20:18",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/135822_assembleia_assembleia_135822_2020-11-06.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 135821,
@@ -42,387 +64,728 @@
       "data_entrega": "29/12/2020 20:12",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/135821_regulamento_regulamento_135821_2020-11-16.pdf"
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 138921,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2020",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 146340,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2020",
       "data_entrega": "11/02/2021 18:10",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 146344,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "31/12/2020",
       "data_entrega": "11/02/2021 18:13",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 166929,
       "categoria": "Informes Periódicos",
       "tipo": "Demonstrações Financeiras",
       "especie": "",
-      "classification": "outro",
+      "classification": "demonstracoes_financeiras",
       "data_referencia": "31/12/2020",
       "data_entrega": "26/04/2021 10:01",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 147796,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 154441,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 157110,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "15/02/2021",
       "data_entrega": "19/03/2021 12:16",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 164572,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 173096,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2021",
       "data_entrega": "12/05/2021 11:37",
       "nome_arquivo": null,
       "status": "IC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 173101,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2021",
       "data_entrega": "12/05/2021 11:42",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 173098,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "31/03/2021",
       "data_entrega": "12/05/2021 11:38",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 173040,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 185749,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2021",
+      "status": "IC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 196449,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 194628,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 205041,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2021",
       "data_entrega": "13/08/2021 22:54",
       "nome_arquivo": null,
       "status": "IC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 208366,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2021",
       "data_entrega": "20/08/2021 21:13",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 205027,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "30/06/2021",
       "data_entrega": "13/08/2021 22:44",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 204522,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "07/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 215625,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "08/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 225433,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "09/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 235040,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "09/2021",
       "data_entrega": "12/11/2021 16:41",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 235044,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "30/09/2021",
       "data_entrega": "12/11/2021 16:42",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 235878,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "30/09/2021",
       "data_entrega": "12/11/2021 20:07",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 234407,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "10/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 247110,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 257789,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2021",
+      "status": "IC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 270880,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2021",
       "data_entrega": "21/02/2022 11:53",
       "nome_arquivo": null,
       "status": "IC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 318698,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2021",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 321401,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2021",
       "data_entrega": "01/07/2022 09:41",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 510926,
       "categoria": "Informes Periódicos",
       "tipo": "Demonstrações Financeiras",
       "especie": "",
-      "classification": "outro",
+      "classification": "demonstracoes_financeiras",
       "data_referencia": "31/12/2021",
       "data_entrega": "21/08/2023 10:36",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 269684,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 278134,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 288079,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 304904,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2022",
       "data_entrega": "16/05/2022 15:27",
       "nome_arquivo": null,
       "status": "IC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 373768,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2022",
       "data_entrega": "09/11/2022 09:23",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 300084,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 314342,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 327971,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 340650,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2022",
       "data_entrega": "15/08/2022 23:03",
       "nome_arquivo": null,
       "status": "IC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 373901,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2022",
       "data_entrega": "09/11/2022 11:18",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 340771,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "07/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 352468,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "08/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 364983,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "09/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 376748,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "09/2022",
       "data_entrega": "14/11/2022 10:09",
       "nome_arquivo": null,
       "status": "IC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 410062,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "09/2022",
       "data_entrega": "06/02/2023 09:58",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 376628,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "10/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 390112,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 400086,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2022",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 415493,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2022",
       "data_entrega": "14/02/2023 09:49",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 410762,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "30/12/2022",
       "data_entrega": "06/02/2023 16:10",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 565264,
       "categoria": "Informes Periódicos",
       "tipo": "Demonstrações Financeiras",
       "especie": "",
-      "classification": "outro",
+      "classification": "demonstracoes_financeiras",
       "data_referencia": "31/12/2022",
       "data_entrega": "07/12/2023 10:40",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 417715,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 425847,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 444556,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 454622,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2023",
       "data_entrega": "01/05/2023 18:27",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 457230,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "31/03/2023",
       "data_entrega": "06/05/2023 15:15",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 464781,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 444985,
@@ -434,9 +797,9 @@
       "data_entrega": "13/04/2023 18:29",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/444985_assembleia_assembleia_444985_2023-04-13.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 436942,
@@ -448,9 +811,9 @@
       "data_entrega": "30/03/2023 17:09",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/436942_assembleia_assembleia_436942_2023-04-14.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 448299,
@@ -464,7 +827,7 @@
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/448299_regulamento_regulamento_448299_2023-04-19.pdf"
+      "source_file": "data/raw/28472333000132/448299_regulamento.pdf"
     },
     {
       "id": 448302,
@@ -476,51 +839,106 @@
       "data_entrega": "19/04/2023 19:09",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/448302_evento_evento_448302_2023-04-19.pdf"
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 478790,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 492546,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 507575,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2023",
       "data_entrega": "14/08/2023 18:50",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 499533,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "30/06/2023",
       "data_entrega": "01/08/2023 13:03",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 504943,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "07/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 521433,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "08/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 536945,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "09/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 552045,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "09/2023",
       "data_entrega": "13/11/2023 20:13",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 517767,
@@ -532,9 +950,9 @@
       "data_entrega": "08/09/2023 16:19",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/517767_assembleia_assembleia_517767_2023-09-23.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 528403,
@@ -546,23 +964,56 @@
       "data_entrega": "28/09/2023 16:51",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/528403_assembleia_assembleia_528403_2023-09-24.pdf"
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 555717,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "10/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 569867,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "11/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 585518,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "12/2023",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 607588,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "12/2023",
       "data_entrega": "20/02/2024 20:55",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 566552,
@@ -574,9 +1025,9 @@
       "data_entrega": "08/12/2023 15:13",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/566552_assembleia_assembleia_566552_2023-12-18.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 572987,
@@ -588,79 +1039,156 @@
       "data_entrega": "19/12/2023 16:33",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/572987_assembleia_assembleia_572987_2023-12-18.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 607607,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "31/12/2023",
       "data_entrega": "20/02/2024 21:25",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 643226,
       "categoria": "Informes Periódicos",
       "tipo": "Demonstrações Financeiras",
       "especie": "",
-      "classification": "outro",
+      "classification": "demonstracoes_financeiras",
       "data_referencia": "31/12/2023",
       "data_entrega": "22/04/2024 18:49",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 605218,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "01/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 619952,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "02/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 640578,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "03/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 653128,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "03/2024",
       "data_entrega": "03/05/2024 17:45",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 664505,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "28/03/2024",
       "data_entrega": "16/05/2024 18:05",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 660530,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2024",
+      "status": "CC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 663167,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "04/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 679949,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "05/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 698070,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "06/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 714174,
       "categoria": "Informes Periódicos",
       "tipo": "Informe Trimestral",
       "especie": "",
-      "classification": "outro",
+      "classification": "informe_trimestral",
       "data_referencia": "06/2024",
       "data_entrega": "09/08/2024 11:27",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 674485,
@@ -672,9 +1200,9 @@
       "data_entrega": "05/06/2024 15:20",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
+      "downloaded": false,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/674485_assembleia_assembleia_674485_2024-06-15.pdf"
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 681860,
@@ -688,35 +1216,43 @@
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/681860_assembleia_assembleia_681860_2024-06-17.pdf"
+      "source_file": "data/raw/28472333000132/681860_assembleia.pdf"
     },
     {
       "id": 709466,
       "categoria": "Relatórios",
       "tipo": "Relatório de Agência de Rating",
       "especie": "",
-      "classification": "outro",
+      "classification": "rating",
       "data_referencia": "28/06/2024",
       "data_entrega": "31/07/2024 18:24",
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
       "download_error": "",
-      "source_file": ""
+      "source_file": "Não baixado nesta leitura"
     },
     {
-      "id": 732139,
-      "categoria": "Assembleia",
-      "tipo": "AGE",
-      "especie": "Ata da Assembleia",
-      "classification": "assembleia",
-      "data_referencia": "03/09/2024 10:00",
-      "data_entrega": "04/09/2024 20:42",
-      "nome_arquivo": null,
+      "id": 721958,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "07/2024",
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/28472333000132/732139_assembleia_assembleia_732139_2024-09-03.pdf"
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
+    },
+    {
+      "id": 739757,
+      "categoria": "Informes Periódicos",
+      "tipo": "Informe Mensal Estruturado ",
+      "especie": "",
+      "classification": "informe_mensal",
+      "data_referencia": "08/2024",
+      "status": "AC",
+      "downloaded": false,
+      "source_file": "Não baixado nesta leitura"
     },
     {
       "id": 732140,
@@ -730,10 +1266,428 @@
       "status": "AC",
       "downloaded": true,
       "download_error": "",
-      "source_file": "data/raw/28472333000132/732140_regulamento_regulamento_732140_2024-09-03.pdf"
+      "source_file": "data/raw/28472333000132/732140_regulamento.pdf"
+    },
+    {
+      "id": 732139,
+      "categoria": "Assembleia",
+      "tipo": "AGE",
+      "especie": "Ata da Assembleia",
+      "classification": "assembleia",
+      "data_referencia": "03/09/2024 10:00",
+      "data_entrega": "04/09/2024 20:42",
+      "nome_arquivo": null,
+      "status": "AC",
+      "downloaded": false,
+      "download_error": "",
+      "source_file": "Não baixado nesta leitura"
     }
   ],
   "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CCBs de crédito parcelado e direitos PPV da plataforma Mercado Pago",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 4–7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "IFs parceiras originam CCBs; cedentes PPV conforme contratos",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Júnior/PL ≥ 30%; pode cair a 20% com rating sênior ≥ AA e atraso histórico < 7%",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 28 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias; inelegibilidade sem solução em 10 dias",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 36 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Reserva de amortização: valor total da 1ª série sênior em circulação + R$5 milhões",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 33 · 12.2.1 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Constituição exclusivamente em ativos financeiros; não converter em percentual do PL.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Constituição exclusivamente em ativos financeiros; não converter em percentual do PL."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Divergência: cláusula 2.9 admite proteção; fator de risco afirma vedação inclusive a hedge",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 6 e 9 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Não ativar controle automático antes de esclarecer a contradição no regulamento.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Não ativar controle automático antes de esclarecer a contradição no regulamento."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "≥ 50% PL após 90 dias",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "monitoring_mapping": {
+        "status": "direto com validação",
+        "ime_metric": "Direitos creditórios / PL; validar ativo elegível, período e denominador",
+        "rationale": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Lacuna documental; não equivale à inexistência da regra",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    {
+      "name": "Gestor identificado",
+      "canonical_key": "documentary_gestor_identificado",
+      "threshold_display": "Polígono Capital Ltda.; CNPJ 43.241.789/0001-85",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 20 · 9.2 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+      "notes": "Controle documental; IME agregado não comprova a hipótese contratual.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Controle documental; IME agregado não comprova a hipótese contratual."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "REGULAMENTO DO “MERCADO CRÉDITO MERCHANT FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS” ________________________ Datado de 16 de novembro de 2020 ________________________ 2 SP - 23542534v1 ÍNDICE REGULAMENTO 4 CONDOMÍNIO E PRAZO DE DURAÇÃO 4 POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA 4 CRITÉRIOS DE ELEGIBILIDADE, CONDIÇÕES DE CESSÃO E AQUISIÇÃO 7 FATORES DE RISCO 12 ADMINISTRADORA 21 OBRIGAÇÕES, VEDAÇÕES E RE…",
+      "source_excerpt": "REGULAMENTO DO “MERCADO CRÉDITO MERCHANT FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS” ________________________ Datado de 16 de novembro de 2020 ________________________ 2 SP - 23542534v1 ÍNDICE REGULAMENTO 4 CONDOMÍNIO E PRAZO DE DURAÇÃO 4 POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA 4 CRITÉRIOS DE ELEGIBILIDADE, CONDIÇÕES DE CESSÃO E AQUISIÇÃO 7 FATORES DE RISCO 12 ADMINISTRADORA 21 OBRIGAÇÕES, VEDAÇÕES E RE…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "erá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. Política de Investimento e Composição da Carteira O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de E…",
+      "source_excerpt": "erá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. Política de Investimento e Composição da Carteira O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de E…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Eleg ibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
+      "source_excerpt": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Eleg ibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o; ou (vii) do Fundo Garantidor de Créditos - FGC. Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. Critérios de…",
+      "source_excerpt": "o; ou (vii) do Fundo Garantidor de Créditos - FGC. Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. Critérios de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "r Critério de Elegibilidade, por qualquer motivo, ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. A aquisição pelo Fundo de t odos e quaisquer Direitos Creditórios deve atender, cumulativ…",
+      "source_excerpt": "r Critério de Elegibilidade, por qualquer motivo, ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. A aquisição pelo Fundo de t odos e quaisquer Direitos Creditórios deve atender, cumulativ…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…",
+      "source_excerpt": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................4 Condomínio e Prazo de Duração ................................................................................................................... 4 Política de Investimento e Composição da Carteira................................................................. 4 Critéri…",
+      "source_excerpt": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................4 Condomínio e Prazo de Duração ................................................................................................................... 4 Política de Investimento e Composição da Carteira................................................................. 4 Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "azo de duração indeterminado, podendo ser liquidado por deliberação da Asse mbleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de…",
+      "source_excerpt": "azo de duração indeterminado, podendo ser liquidado por deliberação da Asse mbleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pa gamento, o atendimento dos…",
+      "source_excerpt": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pa gamento, o atendimento dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…",
+      "source_excerpt": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "undo, nem dará Erro! Nome de propriedade do documento desconhecido. ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativamente, às seguintes co ndições de cessão, na respectiva Data de Aquisiçã…",
+      "source_excerpt": "undo, nem dará Erro! Nome de propriedade do documento desconhecido. ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativamente, às seguintes co ndições de cessão, na respectiva Data de Aquisiçã…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…",
+      "source_excerpt": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................5 Condomínio e Prazo de Duração ................................................................................................................... 5 Política de Investimento e Composição da Carteira................................................................. 5 Critéri…",
+      "source_excerpt": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................5 Condomínio e Prazo de Duração ................................................................................................................... 5 Política de Investimento e Composição da Carteira................................................................. 5 Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "razo de dur ação indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…",
+      "source_excerpt": "razo de dur ação indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
+      "source_excerpt": "e observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento pa ra estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…",
+      "source_excerpt": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento pa ra estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ós a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. Erro! Nome de propriedade do documento desconhecido. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativament…",
+      "source_excerpt": "ós a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. Erro! Nome de propriedade do documento desconhecido. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativament…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…",
+      "source_excerpt": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…",
+      "source_excerpt": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…",
+      "source_excerpt": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…",
+      "source_excerpt": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…",
+      "source_excerpt": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
+      "source_excerpt": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…",
+      "source_excerpt": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…",
+      "source_excerpt": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…",
+      "source_excerpt": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…",
+      "source_excerpt": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…",
+      "source_excerpt": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…",
+      "source_excerpt": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…",
+      "source_excerpt": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
+      "source_excerpt": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…",
+      "source_excerpt": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…",
+      "source_excerpt": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Sênior em séries e subordinada júnior",
+      "amount_display": "Não localizado nas fontes acessíveis desta leitura",
+      "remuneration": "Sobretaxa definida em suplemento não localizado; modelo não fecha os termos",
+      "amortization_schedule": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 27 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140; data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 84 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140; Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "extraction_count": 14,
+  "extraction_errors": [],
+  "reviewed_at": "2026-10-07T15:13:33-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/28472333000132.json",
+  "review_notes": [
+    "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. "
+  ],
+  "historical_heuristic_criteria": [
     {
       "name": "Alocação mínima em direitos creditórios",
       "canonical_key": "credit_rights_allocation_min",
@@ -1175,174 +2129,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "REGULAMENTO DO “MERCADO CRÉDITO MERCHANT FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS” ________________________ Datado de 16 de novembro de 2020 ________________________ 2 SP - 23542534v1 ÍNDICE REGULAMENTO 4 CONDOMÍNIO E PRAZO DE DURAÇÃO 4 POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA 4 CRITÉRIOS DE ELEGIBILIDADE, CONDIÇÕES DE CESSÃO E AQUISIÇÃO 7 FATORES DE RISCO 12 ADMINISTRADORA 21 OBRIGAÇÕES, VEDAÇÕES E RE…",
-      "source_excerpt": "REGULAMENTO DO “MERCADO CRÉDITO MERCHANT FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS” ________________________ Datado de 16 de novembro de 2020 ________________________ 2 SP - 23542534v1 ÍNDICE REGULAMENTO 4 CONDOMÍNIO E PRAZO DE DURAÇÃO 4 POLÍTICA DE INVESTIMENTO E COMPOSIÇÃO DA CARTEIRA 4 CRITÉRIOS DE ELEGIBILIDADE, CONDIÇÕES DE CESSÃO E AQUISIÇÃO 7 FATORES DE RISCO 12 ADMINISTRADORA 21 OBRIGAÇÕES, VEDAÇÕES E RE…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "erá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. Política de Investimento e Composição da Carteira O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de E…",
-      "source_excerpt": "erá prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. Política de Investimento e Composição da Carteira O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de E…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Eleg ibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
-      "source_excerpt": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Eleg ibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o; ou (vii) do Fundo Garantidor de Créditos - FGC. Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. Critérios de…",
-      "source_excerpt": "o; ou (vii) do Fundo Garantidor de Créditos - FGC. Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. Critérios de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "r Critério de Elegibilidade, por qualquer motivo, ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. A aquisição pelo Fundo de t odos e quaisquer Direitos Creditórios deve atender, cumulativ…",
-      "source_excerpt": "r Critério de Elegibilidade, por qualquer motivo, ocorrido após a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. A aquisição pelo Fundo de t odos e quaisquer Direitos Creditórios deve atender, cumulativ…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…",
-      "source_excerpt": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................4 Condomínio e Prazo de Duração ................................................................................................................... 4 Política de Investimento e Composição da Carteira................................................................. 4 Critéri…",
-      "source_excerpt": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................4 Condomínio e Prazo de Duração ................................................................................................................... 4 Política de Investimento e Composição da Carteira................................................................. 4 Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "azo de duração indeterminado, podendo ser liquidado por deliberação da Asse mbleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de…",
-      "source_excerpt": "azo de duração indeterminado, podendo ser liquidado por deliberação da Asse mbleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pa gamento, o atendimento dos…",
-      "source_excerpt": "observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pa gamento, o atendimento dos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…",
-      "source_excerpt": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento para estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "undo, nem dará Erro! Nome de propriedade do documento desconhecido. ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativamente, às seguintes co ndições de cessão, na respectiva Data de Aquisiçã…",
-      "source_excerpt": "undo, nem dará Erro! Nome de propriedade do documento desconhecido. ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativamente, às seguintes co ndições de cessão, na respectiva Data de Aquisiçã…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…",
-      "source_excerpt": "ão, não atendia(m) aos Critérios de Elegibilidade, exclusivamente nos casos de comprovada culpa ou dolo por parte do Custodiante 3.2.2 Não obstante a obrigação de aquisição e/ou negociação dos Direitos Creditórios Adquiridos no mercado secundário, conforme estabelecido no Contrato de Promessa de Aquisição de Recebíveis a ser celebrado entre o Fundo e o Mercado Pago, o desenquadramento de qualquer Direito Creditório…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................5 Condomínio e Prazo de Duração ................................................................................................................... 5 Política de Investimento e Composição da Carteira................................................................. 5 Critéri…",
-      "source_excerpt": "umento desconhecido. ÍNDICE REGULAMENTO .........................................................................................................5 Condomínio e Prazo de Duração ................................................................................................................... 5 Política de Investimento e Composição da Carteira................................................................. 5 Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "razo de dur ação indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…",
-      "source_excerpt": "razo de dur ação indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
-      "source_excerpt": "e observada a cláusula 3.2 e cláusula 3.4 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento pa ra estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…",
-      "source_excerpt": "vii) do Fundo Garantidor de Créditos - FGC. 2.13.1 Caso as Instituições Financeiras Parceiras, através de seu correspondente Mercado Pago, venham a oferecer Direitos Creditórios Análogos ao Fundo, a Administradora convocará Assembleia Geral para deliberar sobre eventual alteração do presente Regulamento pa ra estabelecer os termos e condições em que o Fundo poderá adquirir Direitos Creditórios Análogos. 3. Critérios…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ós a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. Erro! Nome de propriedade do documento desconhecido. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativament…",
-      "source_excerpt": "ós a sua transferência ao Fundo, não obrigará a sua alienação pelo Fundo, nem dará ao Fundo qualquer pretensão, recurso ou direito de regresso contra os Cedentes, a Administradora, a Gestora, o Custodiante ou suas Afiliadas, exceto em caso de comprovada culpa ou dolo. Erro! Nome de propriedade do documento desconhecido. 3.3 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumulativament…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…",
-      "source_excerpt": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…",
-      "source_excerpt": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…",
-      "source_excerpt": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…",
-      "source_excerpt": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…",
-      "source_excerpt": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
-      "source_excerpt": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…",
-      "source_excerpt": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…",
-      "source_excerpt": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…",
-      "source_excerpt": "e/ou recompra facultativa dos Direitos Creditórios PPV. 3.4 Além de atender as Condições de Cessão, todos e quaisquer Direitos Creditórios a serem adquiridos pelo Fundo deverão atender, cumulativamente, aos critérios de elegibilidade previstos nas Cláusulas 3.5. e 3.6. em relação aos Direitos Creditórios CCB e Direitos Creditórios PPV, respectivamente, na respectiva Data de Aquisição e Pagamento (“Critérios de Elegi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…",
-      "source_excerpt": "da Cláusula 3.2. será realizada pela Gestora; e b) a verificação das Condições de Cessão previstas na alínea (c) da Cláusula 3.2. e na Cláusula 3.3. será realizada pelo Mercado Pago. 3.8 Observados os termos e as condições do presente Regulamento, a verificação pelo Custodiante do atendimento aos Critérios de Elegibilidade será considerada como definitiva. 3.9 O desenquadramento de qualquer Direito Creditório com re…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…",
-      "source_excerpt": "enação de Direitos Creditórios ao Fundo poderá ser interrompido, podendo desta forma comprometer a continuidade do Fundo e o horizonte de investimento dos Cotistas. Além disso, os Direitos Creditórios já integrantes da carteira podem ter sua validade questionada, podendo acarretar desta forma prejuízos aos Cotistas. (i) Possibilidade de Redução da Taxa de Remuneração dos Direitos Creditórios Elegíveis. Apesar de as…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…",
-      "source_excerpt": "Datado de 03 de setembro Nom propried e do d cumento desconhec o ÍNDICE REGULAMENTO ...................................................................................................... 5 Condomínio e Prazo de Duração .................................................................. 5 Política de Investimento e Composição da Carteira ...................................... 5 Critérios de Elegibilidade, Condições de…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…",
-      "source_excerpt": "prazo de duração indeterminado, podendo ser liquidado por deliberação da Assembleia Geral. O prazo de cada série de Cotas estará referido no respectivo Suplemento. 2. Política de Investimento e Composição da Carteira 2.1 O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critérios d…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…",
-      "source_excerpt": "e observada a cláusula 3.7 e cláusula 3.8 abaixo, (i) o Custodiante será responsável por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos Direitos Creditórios aos Critérios de Elegibilidade em cada operação de aquisição de Direitos Creditórios pelo Fundo, e (ii) o Mercado Pago e a Gestora serão responsáveis por verificar e validar, em cada Data de Aquisição e Pagamento, o atendimento dos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…",
-      "source_excerpt": "riminados Nom propried e do d cumento desconhec o neste Regulamento, responsabilizando-se integralmente pelas consequências de seu investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Ele…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…",
-      "source_excerpt": "investimento nas Cotas. 2.13 As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) do Cedente; (iv) do Custodiante; (v) do Agente de Cobrança; (vi) de qualquer mecanismo de seguro; ou (vii) do Fundo Garantidor de Créditos - FGC. 3. Critérios de Elegibilidade, Condições de Cessão e Aquisição 3.1 A aquisição pelo Fundo de todos e quaisquer Direitos Creditórios deve atender, cumu…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -1428,6 +2215,265 @@
       "source_document_id": 732140
     }
   ],
-  "extraction_count": 14,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "28472333000132",
+    "label": "Mercado Crédito Merchant",
+    "reviewed_at": "2026-10-07T15:13:33-03:00",
+    "document_status": "Revisão documental dirigida; lacunas e divergências explícitas",
+    "scope_note": "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. ",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CCBs de crédito parcelado e direitos PPV da plataforma Mercado Pago",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 4–7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Originador/endossante": {
+          "value": "IFs parceiras originam CCBs; cedentes PPV conforme contratos",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Devedor": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Garantia": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Elegibilidade": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Concentração": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Júnior/PL ≥ 30%; pode cair a 20% com rating sênior ≥ AA e atraso histórico < 7%",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 28 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Alocação < 50% por 30 dias; relação mínima sem cura em 30 dias; inelegibilidade sem solução em 10 dias",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 36 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Reserva de caixa": {
+          "value": "Reserva de amortização: valor total da 1ª série sênior em circulação + R$5 milhões",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 33 · 12.2.1 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Constituição exclusivamente em ativos financeiros; não converter em percentual do PL."
+        },
+        "Derivativos/hedge": {
+          "value": "Divergência: cláusula 2.9 admite proteção; fator de risco afirma vedação inclusive a hedge",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 6 e 9 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Não ativar controle automático antes de esclarecer a contradição no regulamento."
+        },
+        "PDD": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "≥ 50% PL após 90 dias",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 4 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Coobrigação": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Waterfall": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Gestor identificado": {
+          "value": "Polígono Capital Ltda.; CNPJ 43.241.789/0001-85",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 20 · 9.2 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior em séries e subordinada júnior",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 27 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Remuneração": {
+          "value": "Sobretaxa definida em suplemento não localizado; modelo não fecha os termos",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 84 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Volume/VNU": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Ofertas": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Juros/amortização": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        },
+        "Vencimento": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Consulta Fundos.NET por CNPJ 28472333000132 em 07/10/2026; 102 registros no inventário obtido; fontes acessíveis: 732140, 681860, 448299",
+          "note": "Lacuna documental; não equivale à inexistência da regra"
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Taxa máxima agregada 1,25% a.a. PL; mínimo R$ 30 mil/mês; IGP-M",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18–19 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Gestão": {
+          "value": "Parcela deduzida da taxa de administração; percentual no contrato não localizado",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 22 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        },
+        "Custódia": {
+          "value": "Incluída na taxa máxima agregada de administração",
+          "source": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+          "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões",
+          "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+          "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico",
+          "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+          "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos",
+          "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+          "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+        },
+        "Competência IME": {
+          "value": "Cache local: 08/2024; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/8ed75537bb67dc6a19170f583161c2a47ff3e682619558cf0385ab333e36d5f7/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Derivativos",
+        "Conclusão": "O regulamento Merchant contém disposições divergentes sobre derivativos. A cláusula de investimento admite hedge e o fator de risco afirma vedação; a regra requer esclarecimento documental."
+      }
+    ],
+    "warnings": [],
+    "sources_reviewed": [
+      {
+        "document_id": 732140,
+        "kind": "regulamento",
+        "date": "03/09/2024",
+        "path": "data/raw/28472333000132/732140_regulamento.pdf",
+        "text_path": "data/raw/28472333000132/732140_regulamento.full.txt",
+        "identity_verified": false,
+        "pages": 95,
+        "extractable_pages": 95,
+        "identity_method": "Documento retornado na listagem Fundos.NET do próprio CNPJ; título cotejado com o ato local identificado",
+        "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+      },
+      {
+        "document_id": 681860,
+        "kind": "assembleia",
+        "date": "17/06/2024 10:00",
+        "path": "data/raw/28472333000132/681860_assembleia.pdf",
+        "text_path": "data/raw/28472333000132/681860_assembleia.full.txt",
+        "identity_verified": true,
+        "pages": 1,
+        "extractable_pages": 1,
+        "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+      },
+      {
+        "document_id": 448299,
+        "kind": "regulamento",
+        "date": "19/04/2023",
+        "path": "data/raw/28472333000132/448299_regulamento.pdf",
+        "text_path": "data/raw/28472333000132/448299_regulamento.full.txt",
+        "identity_verified": true,
+        "pages": 97,
+        "extractable_pages": 97,
+        "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 102,
+      "pdf_count": 3,
+      "pages_locally_available": 193
+    },
+    "emissions_rows": [],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Taxa máxima agregada 1,25% a.a. PL; mínimo R$ 30 mil/mês; IGP-M",
+        "Mínimo mensal": "R$ 30 mil",
+        "Fonte": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18–19 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "Versão vigente / base documental": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18–19 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+        "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "Parcela deduzida da taxa de administração; percentual no contrato não localizado",
+        "Mínimo mensal": "Mínimo mensal não localizado na fonte",
+        "Fonte": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 22 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "Versão vigente / base documental": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 22 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+        "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Incluída na taxa máxima agregada de administração",
+        "Mínimo mensal": "Incluída em outra taxa; mínimo próprio não individualizado",
+        "Fonte": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "Versão vigente / base documental": "data/raw/28472333000132/732140_regulamento.pdf · ID Fundos.NET 732140 · 03/09/2024 · regulamento · p. 18 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=732140",
+        "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+        "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+      }
+    ]
+  }
 }

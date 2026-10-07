@@ -105,6 +105,388 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subclasse única; piso de subordinação não indicado no suplemento",
+      "source_document": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+      "notes": "Política completa exige regulamento, cuja tentativa de download falhou.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Política completa exige regulamento, cuja tentativa de download falhou."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "forma que serão de sua propriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deix…",
+      "source_excerpt": "forma que serão de sua propriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deix…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "03/09/2025",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª emissão",
+      "amount_display": "Até R$ 250 mi aprovados",
+      "remuneration": "Patrimonial por cash sweep; benchmark fixo não localizado",
+      "amortization_schedule": "Cash sweep pela disponibilidade; classe indeterminada",
+      "source_document": "Fundos.NET ID 988020 · 03/09/2025 · p. 5-6 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ],
+  "extraction_count": 4,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/62552447000120.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 988020,
+          "date": "03/09/2025",
+          "path": "data/raw/62552447000120/988020_documentary_review.pdf",
+          "text_path": "data/raw/62552447000120/988020_documentary_review.txt",
+          "pages": 6,
+          "identity_verified": false,
+          "categoria": "Atos de Deliberação do Administrador",
+          "tipo": "Instrumento Particular de Emissão de Cotas",
+          "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+        "1200623: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "1200625: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "988020: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Nova tentativa ID 1200623: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+      ],
+      "inventory_count": 7,
+      "pdf_count": 1,
+      "pages_analyzed": 6,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 7,
+    "pdf_count": 1,
+    "pages_analyzed": 6,
+    "documents": [
+      {
+        "id": 1034494,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "12/11/2025 08:41",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 988020,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "03/09/2025",
+        "data_entrega": "10/09/2025 18:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62552447000120/988020_emissao_emissao_988020_2025-09-03.pdf"
+      },
+      {
+        "id": 1110293,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "12/02/2026 12:20",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1196511,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 19:36",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1200623,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "21/05/2026",
+        "data_entrega": "21/05/2026 15:31",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62552447000120/1200623_regulamento_regulamento_1200623_2026-05-21.pdf"
+      },
+      {
+        "id": 1200625,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Alteração do Regulamento",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "21/05/2026",
+        "data_entrega": "21/05/2026 15:32",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62552447000120/1200625_regulamento_regulamento_1200625_2026-05-21.pdf"
+      },
+      {
+        "id": 1200627,
+        "categoria": "Comunicado ao Mercado",
+        "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "21/05/2026",
+        "data_entrega": "21/05/2026 15:32",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/62552447000120/1200627_evento_evento_1200627_2026-05-21.pdf"
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 988020,
+        "date": "03/09/2025",
+        "path": "data/raw/62552447000120/988020_documentary_review.pdf",
+        "text_path": "data/raw/62552447000120/988020_documentary_review.txt",
+        "pages": 6,
+        "identity_verified": false,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Hedges/derivativos permitidos",
       "canonical_key": "permitted_hedges",
       "event_type": "enquadramento",
@@ -225,14 +607,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "forma que serão de sua propriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deix…",
-      "source_excerpt": "forma que serão de sua propriedade exclusivamente, não devendo, portanto, ser contabilizados para fins de enquadramento da Classe. Regras, procedimentos e limites para efetuar qualquer modalidade de transferência dos Direitos Creditórios, incluindo, sem limitação, endosso (“ Transferência”) para o Endossante e suas partes relacionadas 4.19 Na hipótese de, após a Data de Aquisição, o Direito Creditório adquirido deix…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -262,6 +637,235 @@
       "source_document_id": 1200623
     }
   ],
-  "extraction_count": 4,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "62552447000120",
+    "label": "V CDT 1",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Garantia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Concentração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subclasse única; piso de subordinação não indicado no suplemento",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "Política completa exige regulamento, cuja tentativa de download falhou."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Coobrigação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Waterfall": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "1ª emissão de subclasse única",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "Ganho patrimonial por cash sweep; benchmark fixo não localizado no suplemento",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5-6 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "O regulamento citado como Anexo I não consta materialmente nas seis páginas do PDF."
+        },
+        "Volume/VNU": {
+          "value": "250 mil cotas; até R$ 250 mi; VNU inicial R$ 1.000",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "Aprovado, não comprova distribuição."
+        },
+        "Ofertas": {
+          "value": "Deliberação 03/09/2025; privada para profissionais; colocação ≤ 180 dias",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5-6 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Regime de caixa conforme disponibilidade; sem cronograma fechado",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 6 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Vencimento": {
+          "value": "Fundo/classe indeterminados; resgate conforme regulamento",
+          "source": "Fundos.NET ID 988020 · 03/09/2025 · Atos de Deliberação do Administrador · p. 5 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Gestão": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Custódia": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 62552447000120: ID 988020 (03/09/2025), data/raw/62552447000120/988020_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Cache local: 06/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/1806119c2ceaf8106b5e17345708e22b4f76c99afb3ddf004c5074e2f3ce9dd1/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Subclasse única; piso de subordinação não indicado no suplemento"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Falha de rede ao acessar abrirGerenciadorDocumentosCVM: The read operation timed out",
+      "1200623: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "1200625: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "988020: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Nova tentativa ID 1200623: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 988020,
+        "date": "03/09/2025",
+        "path": "data/raw/62552447000120/988020_documentary_review.pdf",
+        "text_path": "data/raw/62552447000120/988020_documentary_review.txt",
+        "pages": 6,
+        "identity_verified": false,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Emissão de Cotas",
+        "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível. CNPJ não encontrado automaticamente no texto; não usar para trocar veículo."
+      }
+    ],
+    "inventory_count": 7,
+    "pdf_count": 1,
+    "pages_analyzed": 6,
+    "extraction_errors": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "1ª emissão",
+        "Tipo": "Única",
+        "Remuneração": "Patrimonial por cash sweep; benchmark fixo não localizado",
+        "Juros/remuneração": "Rendimentos por amortização/resgate",
+        "Amortização principal": "Cash sweep pela disponibilidade; classe indeterminada",
+        "Volume": "Até R$ 250 mi aprovados",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "03/09/2025",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Privada para profissionais; até 180 dias",
+        "Fonte": "Fundos.NET ID 988020 · 03/09/2025 · p. 5-6 · data/raw/62552447000120/988020_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=988020",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 7,
+      "pdf_count": 1,
+      "pages_analyzed": 6
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/62552447000120.json"
 }

@@ -1,0 +1,262 @@
+{
+  "cnpj": "35868110000154",
+  "label": "BV Crédito de Veículos",
+  "reviewed_at": "2026-10-07T15:17:45-03:00",
+  "document_status": "Documentos locais revisados; lacunas e divergências assinaladas",
+  "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode estar preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Financiamento de veículos por CDC/CCB eletrônica",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 17-18 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Originador/endossante": {
+        "value": "Banco Votorantim/BV, conforme definição de cedente",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 78 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Devedor": {
+        "value": "Pessoa física; idade máxima de 65 anos na aquisição",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 18 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Garantia": {
+        "value": "Alienação fiduciária do veículo registrada no SNG em nome do cedente",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 18 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Garantia não transferida formalmente ao fundo; execução/repasse dependem do contrato de cessão."
+      },
+      "Elegibilidade": {
+        "value": "LTV < 70%; ≥2 parcelas pagas; veículo ≤10 anos; sem atraso; taxa Price ≥1,10% a.m.",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 18 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "LTV = VP/saldo da CCB dividido pelo valor Molicar do veículo; 1,10% é taxa do crédito, não remuneração de cotas. CCB integral, sem carência."
+      },
+      "Concentração": {
+        "value": "CCB ≤R$150 mil; por CPF ≤R$200 mil; veículos pesados/vans/caminhões ≤10% PL",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 16-18 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Autos podem chegar a 100% do PL. Não confundir com Auto BV I–IV ou aplicar ticket de R$175 mil de outro CNPJ."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas/PL ≥25%, apuração diária",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 48 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Cura e aporte facultativo do cedente nas cláusulas17.3–17.6; não presumir obrigação de aporte."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "IP90+ >2%; resolução de cessões >3% PL em 6 meses; eventos de prestadores",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 58 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Índice jurídico de perdas não é automaticamente Over90/Crédito do IME. Requer composição, histórico e denominador contratual."
+      },
+      "Reserva de caixa": {
+        "value": "R$2,5 mi reajustados por IPCA; reserva de pagamento 30% D−30 e 100% D−15",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 47 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Reserva de pagamento ligada à próxima amortização sênior; disponibilidades/PL não reproduzem o requisito."
+      },
+      "Derivativos/hedge": {
+        "value": "Operações com derivativos vedadas",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 16 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "PDD": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível do CNPJ 35868110000154: ID 792021 (27/11/2024), data/raw/35868110000154/792021_regulamento.pdf; ID 537768 (09/10/2023), data/raw/35868110000154/537768_regulamento.pdf",
+        "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios ≥50% do PL após 90 dias",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 15 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Prazo pode ser prorrogado pela CVM por mais90dias em justificativa. Exigência tributária tratada separadamente no texto; não presume aprovação de prorrogação."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisições permitidas; interrupção 30 dias antes do resgate da 1ª série sênior",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 46-47 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Duração/público-alvo": {
+        "value": "Prazo indeterminado; investidores qualificados",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 3 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão de CCB integral; resolução/indenização remetidas ao contrato",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 18, 58 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Contrato de cessão completo não acessível nesta leitura; manter motivo/preço privado como lacuna."
+      },
+      "Coobrigação": {
+        "value": "Cessão sem coobrigação do cedente",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 36 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Waterfall": {
+        "value": "Encargos/cobrança → reservas → remuneração/principal sênior → subordinada condicional → aquisições",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 46-47 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Liquidação: atender credores/encargos e prioridades de cotas antes da residual subordinada."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Cotas seniores por subclasses/séries; subordinadas do cedente",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 43-45 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Remuneração": {
+        "value": "Sênior: taxa DI/sobretaxa do apêndice; spread final não localizado",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 43, 94-99 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Apêndices acessíveis são modelos sem dados de série; subordinadas residuais, sem sobretaxa fixa documentada."
+      },
+      "Volume/VNU": {
+        "value": "Volumes e VNU de séries efetivas não localizados",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 94-99 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Ofertas": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível do CNPJ 35868110000154: ID 792021 (27/11/2024), data/raw/35868110000154/792021_regulamento.pdf; ID 537768 (09/10/2023), data/raw/35868110000154/537768_regulamento.pdf",
+        "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado no corpus acessível",
+        "source": "Corpus acessível do CNPJ 35868110000154: ID 792021 (27/11/2024), data/raw/35868110000154/792021_regulamento.pdf; ID 537768 (09/10/2023), data/raw/35868110000154/537768_regulamento.pdf",
+        "note": "Lacuna documental explícita; requer instrumento ou contrato aplicável."
+      },
+      "Juros/amortização": {
+        "value": "Calendário e prazos remetidos aos apêndices; cronograma fechado não identificado",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 43-47, 94-99 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Vencimento": {
+        "value": "Fundo indeterminado; vencimentos individuais dependem dos apêndices não preenchidos",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 3, 94-99 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Numérico: 0,07% a.a. até R$300 mi PL +0,035% excedente; mínimo R$9.750/mês",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 13 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Extenso registra sete décimos (0,7%), divergindo de 0,07%; taxa exige confirmação. IGP-M positivo anual conforme remuneração."
+      },
+      "Gestão": {
+        "value": "Numérico: 0,07% a.a. até R$300 mi PL +0,035% excedente; mínimo R$9.750/mês",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 13 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Extenso registra sete décimos (0,7%), divergindo de 0,07%; taxa exige confirmação."
+      },
+      "Custódia": {
+        "value": "Custódia/controladoria: 0,14% até R$300 mi +0,07% excedente; mínimo R$23 mil/mês",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 14 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Rateio50%/50%; escrituração R$15mil inicial +R$2mil/mês; lastro R$5mil/mês e guarda R$4,5mil/mês adicionais. IGP-M positivo anual."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL ≥50% e subordinadas/PL ≥25%: diretos com validação dos campos",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 15, 48 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over90/PDD agregados são proxies; não certificam IP90+ jurídico e cessões resolvidas",
+        "source": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 58 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+        "note": "Conclusão documental; preservar versão, condições e denominador."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem acompanhamento documental",
+        "source": "Corpus acessível do CNPJ 35868110000154: ID 792021 (27/11/2024), data/raw/35868110000154/792021_regulamento.pdf; ID 537768 (09/10/2023), data/raw/35868110000154/537768_regulamento.pdf",
+        "note": "O IME público agregado não possui contratos e eventos suficientes para certificar as regras."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura",
+        "source": "CNPJ 35868110000154; revisão documental 07/10/2026",
+        "note": "A aplicação carrega a competência selecionada ao vivo; nenhum saldo foi presumido."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Elegibilidade",
+      "Conclusão": "CCBs de veículos exigem LTV inferior a 70%, ao menos duas parcelas pagas e devedor com até 65 anos."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "A subordinação mínima é 25% do PL e a reserva de pagamento acompanha a próxima amortização sênior."
+    },
+    {
+      "Tema": "Cotas",
+      "Conclusão": "Apêndices acessíveis não individualizam os spreads e calendários das séries efetivas."
+    },
+    {
+      "Tema": "Custos",
+      "Conclusão": "Administração e gestão têm divergência entre 0,07% numérico e 0,7% por extenso."
+    }
+  ],
+  "warnings": [
+    "Inventário preservado do cache; consulta atual: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+    "Este CNPJ é BV Crédito de Veículos, distinto de Auto BV I–IV; regras não intercambiáveis.",
+    "Taxas de administração e gestão divergem entre 0,07% numérico e sete décimos por extenso.",
+    "Cabeçalho nominal compatível e inventário do CNPJ; CNPJ não localizado automaticamente no texto dos dois regulamentos."
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 792021,
+      "kind": "regulamento",
+      "date": "27/11/2024",
+      "path": "data/raw/35868110000154/792021_regulamento.pdf",
+      "text_path": "data/raw/35868110000154/792021_regulamento.full.txt",
+      "identity_verified": false,
+      "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "pages": 99,
+      "extractable_pages": 99,
+      "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível, sem CNPJ textual encontrado automaticamente."
+    },
+    {
+      "document_id": 537768,
+      "kind": "regulamento",
+      "date": "09/10/2023",
+      "path": "data/raw/35868110000154/537768_regulamento.pdf",
+      "text_path": "data/raw/35868110000154/537768_regulamento.full.txt",
+      "identity_verified": false,
+      "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "pages": 97,
+      "extractable_pages": 97,
+      "identity_verification_note": "Documento retornado pelo inventário do CNPJ; cabeçalho nominal compatível, sem CNPJ textual encontrado automaticamente."
+    }
+  ],
+  "inventory_count": 52,
+  "pdf_count": 2,
+  "pages_analyzed": 196,
+  "extraction_errors": [],
+  "emissions_rows": [],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "Numérico: 0,07% a.a. até R$300 mi PL +0,035% excedente; mínimo R$9.750/mês",
+      "Mínimo mensal": "R$9.750/mês",
+      "Fonte": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 13 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+      "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+      "Mudanças relevantes": "Extenso registra sete décimos (0,7%), divergindo de 0,07%; taxa exige confirmação. IGP-M positivo anual conforme remuneração.",
+      "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "Numérico: 0,07% a.a. até R$300 mi PL +0,035% excedente; mínimo R$9.750/mês",
+      "Mínimo mensal": "R$9.750/mês",
+      "Fonte": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 13 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+      "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+      "Mudanças relevantes": "Extenso registra sete décimos (0,7%), divergindo de 0,07%; taxa exige confirmação.",
+      "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Custódia/controladoria: 0,14% até R$300 mi +0,07% excedente; mínimo R$23 mil/mês",
+      "Mínimo mensal": "R$23.000/mês incluindo controladoria; demais adicionais descritos",
+      "Fonte": "Fundos.NET ID 792021 · 27/11/2024 · regulamento · p. 14 · data/raw/35868110000154/792021_regulamento.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=792021",
+      "Versão vigente / base documental": "Base documental local revisada em07/10/2026; vigência posterior integral não certificada",
+      "Mudanças relevantes": "Rateio50%/50%; escrituração R$15mil inicial +R$2mil/mês; lastro R$5mil/mês e guarda R$4,5mil/mês adicionais. IGP-M positivo anual.",
+      "Status curadoria": "Curado com ressalvas de taxa/segregação quando assinaladas"
+    }
+  ]
+}

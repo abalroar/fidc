@@ -735,6 +735,1307 @@
   ],
   "criteria": [
     {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "CCBs de consignado INSS pela Plataforma MT; TVM elegíveis de conglomerados S1",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Beneficiários/pensionistas INSS; devedor do TVM conforme instrumento",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9-10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Consignação INSS/Dataprev; garantias do TVM conforme instrumento",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9-10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "CCB prefixada/adimplente; valor principal ≥ R$ 200; prazo conforme limite legal",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10-11 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Por devedor R$ 85 mil; até R$ 150 mil para faixa etária ≤ 60a11m29d e bloco ≤ 5% dos DC",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Exceção exige simultaneamente idade e concentração agregada do bloco acima R$ 85 mil.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Exceção exige simultaneamente idade e concentração agregada do bloco acima R$ 85 mil."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subclasse única, pari passu; sem prioridade/subordinação entre cotas",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 8, 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Fechado, indeterminado; único cotista ou grupo indissociável profissional",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 8 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Endosso definitivo em preto; resolução/opção de venda conforme contrato",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Sem coobrigação; obrigações por vícios no contrato de cessão",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Conclusão documental revisada; preservar a versão e a unidade indicadas.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado no corpus acessível",
+      "source_document": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+      "notes": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando esta…",
+      "source_excerpt": "other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando esta…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…",
+      "source_excerpt": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…",
+      "source_excerpt": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…",
+      "source_excerpt": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net e quity, pursuant to article 40 - A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…",
+      "source_excerpt": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net e quity, pursuant to article 40 - A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "go 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equity not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…",
+      "source_excerpt": "go 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equity not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll- deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…",
+      "source_excerpt": "ilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll- deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…",
+      "source_excerpt": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando estabelecido Internal Use Only connection with other PDL Funds who also engage the Custodian as responsible for providing custody services there…",
+      "source_excerpt": "s assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando estabelecido Internal Use Only connection with other PDL Funds who also engage the Custodian as responsible for providing custody services there…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "te of issuance of the respective CCB. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 anos na data de emissão da respectiva CCB. (iv) A alteração do Anexo I - MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE, a fim de refletir o disposto no item (iii) acima , excluindo um dos critérios de elegibilidade dispostos no Anexo, passando a vigorar da seguinte forma: El…",
+      "source_excerpt": "te of issuance of the respective CCB. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 anos na data de emissão da respectiva CCB. (iv) A alteração do Anexo I - MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE, a fim de refletir o disposto no item (iii) acima , excluindo um dos critérios de elegibilidade dispostos no Anexo, passando a vigorar da seguinte forma: El…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "lation to any other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. Os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplent e em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; fi…",
+      "source_excerpt": "lation to any other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. Os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplent e em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; fi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ibilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…",
+      "source_excerpt": "ibilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "case of item (ii) below; (ii) one hundred and twenty thousand Brazilian reais (R$120,000.00), provided that: (a) the total amount of Eligible Credit Rights owed by Debtors which individually own more than the amount set forth in item (i) above does not exceed five percent (5%) of the outstanding balance of the Credit Rights; and (b) the relevant Debtor is up to 60 years, 11 months and 29 days on the assignment date;…",
+      "source_excerpt": "case of item (ii) below; (ii) one hundred and twenty thousand Brazilian reais (R$120,000.00), provided that: (a) the total amount of Eligible Credit Rights owed by Debtors which individually own more than the amount set forth in item (i) above does not exceed five percent (5%) of the outstanding balance of the Credit Rights; and (b) the relevant Debtor is up to 60 years, 11 months and 29 days on the assignment date;…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e laws and regulations; (iv) o prazo de vencimento das CCBs representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) the Eligible Credit Rights may not be due by a Debtor who is in default in relation to any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be veri…",
+      "source_excerpt": "e laws and regulations; (iv) o prazo de vencimento das CCBs representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) the Eligible Credit Rights may not be due by a Debtor who is in default in relation to any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be veri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "r PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. que tal Critério de Elegibilidade somente será verificado com relação a outros Fundos PDL que também contratem o Custodiante como responsável pelos serviços de custódia aqui descritos. (vi) the Eligible Credits Rights shall not be due by Debtors that are more than 76 years old at the date of issuance of the respective…",
+      "source_excerpt": "r PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. que tal Critério de Elegibilidade somente será verificado com relação a outros Fundos PDL que também contratem o Custodiante como responsável pelos serviços de custódia aqui descritos. (vi) the Eligible Credits Rights shall not be due by Debtors that are more than 76 years old at the date of issuance of the respective…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s) shall not be lower than R$ 200.00 (two hundred Brazilian reais). O valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais). The balance of the Eligible Credit Rights owed by the same Debtor to the Fund, considering pro forma the intended assignment, should not exceed R$ 60,000.00 (sixty thousand Braz…",
+      "source_excerpt": "s) shall not be lower than R$ 200.00 (two hundred Brazilian reais). O valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais). The balance of the Eligible Credit Rights owed by the same Debtor to the Fund, considering pro forma the intended assignment, should not exceed R$ 60,000.00 (sixty thousand Braz…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "y other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for provid ing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…",
+      "source_excerpt": "y other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for provid ing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…",
+      "source_excerpt": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…",
+      "source_excerpt": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…",
+      "source_excerpt": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ignors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40 -A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…",
+      "source_excerpt": "ignors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40 -A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equi ty not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…",
+      "source_excerpt": "o 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equi ty not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "bilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…",
+      "source_excerpt": "bilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…",
+      "source_excerpt": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…",
+      "source_excerpt": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…",
+      "source_excerpt": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…",
+      "source_excerpt": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…",
+      "source_excerpt": "any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…",
+      "source_excerpt": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…",
+      "source_excerpt": "SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…",
+      "source_excerpt": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…",
+      "source_excerpt": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…",
+      "source_excerpt": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos n…",
+      "source_excerpt": "E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos n…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40-A of CVM Instruction No. 356. Parágrafo Segundo O Fundo po…",
+      "source_excerpt": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40-A of CVM Instruction No. 356. Parágrafo Segundo O Fundo po…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ") anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis ; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; fica…",
+      "source_excerpt": ") anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis ; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; fica…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ão firmado entre um Cedente e a Classe, e, como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwrit…",
+      "source_excerpt": "ão firmado entre um Cedente e a Classe, e, como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwrit…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ", como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □…",
+      "source_excerpt": ", como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…",
+      "source_excerpt": "ica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ssa ser feito por Consignação. Critérios de Elegibilidade 4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Da…",
+      "source_excerpt": "ssa ser feito por Consignação. Critérios de Elegibilidade 4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Da…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…",
+      "source_excerpt": "Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "celas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…",
+      "source_excerpt": "celas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…",
+      "source_excerpt": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ões aplicáveis; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…",
+      "source_excerpt": "ões aplicáveis; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…",
+      "source_excerpt": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…",
+      "source_excerpt": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…",
+      "source_excerpt": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…",
+      "source_excerpt": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "sição: 4.7 Quando para Direitos Creditórios MT: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…",
+      "source_excerpt": "sição: 4.7 Quando para Direitos Creditórios MT: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…",
+      "source_excerpt": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…",
+      "source_excerpt": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v ) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…",
+      "source_excerpt": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v ) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…",
+      "source_excerpt": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…",
+      "source_excerpt": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…",
+      "source_excerpt": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…",
+      "source_excerpt": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ição: 4.7 Quando para Direitos Creditórios MT: (i ) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…",
+      "source_excerpt": "ição: 4.7 Quando para Direitos Creditórios MT: (i ) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…",
+      "source_excerpt": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv ) o prazo de vencimento da…",
+      "source_excerpt": "ais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv ) o prazo de vencimento da…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Data de deliberação não localizada",
+      "event": "Não informado nas fontes consultadas",
+      "series_or_class": "1ª emissão",
+      "amount_display": "Até R$ 300 mi; 300 mil cotas",
+      "remuneration": "Patrimonial; sem DI + spread",
+      "amortization_schedule": "Indeterminada; conforme deliberação e liquidação",
+      "source_document": "Fundos.NET ID 846588 · 21/02/2025 · p. 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+      "notes": "Curado nas fontes acessíveis; lacunas explícitas"
+    }
+  ],
+  "extraction_count": 25,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:59:40-03:00",
+      "status": "Documentos acessíveis revisados; lacunas assinaladas",
+      "comparison_profile": "data/regulatory_profiles/documentary_comparisons/40752367000186.json",
+      "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+      "sources_reviewed": [
+        {
+          "document_id": 846588,
+          "date": "21/02/2025",
+          "path": "data/raw/40752367000186/846588_documentary_review.pdf",
+          "text_path": "data/raw/40752367000186/846588_documentary_review.txt",
+          "pages": 64,
+          "identity_verified": true,
+          "categoria": "Regulamento",
+          "tipo": "",
+          "identity_verification_note": "CNPJ encontrado no texto local"
+        }
+      ],
+      "warnings": [
+        "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+        "864357: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "230752: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+        "Nova tentativa ID 864357: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+      ],
+      "inventory_count": 52,
+      "pdf_count": 1,
+      "pages_analyzed": 64,
+      "extraction_errors": []
+    }
+  ],
+  "documentary_inventory_review": {
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "inventory_count": 52,
+    "pdf_count": 1,
+    "pages_analyzed": 64,
+    "documents": [
+      {
+        "id": 230752,
+        "categoria": "Atos de Deliberação do Administrador",
+        "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+        "especie": "",
+        "classification": "emissao",
+        "data_referencia": "29/10/2021",
+        "data_entrega": "03/11/2021 21:55",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/230752_emissao_emissao_230752_2021-10-29.pdf"
+      },
+      {
+        "id": 230753,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "29/10/2021",
+        "data_entrega": "03/11/2021 21:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/230753_regulamento_regulamento_230753_2021-10-29.pdf"
+      },
+      {
+        "id": 267604,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2021",
+        "data_entrega": "14/02/2022 23:27",
+        "nome_arquivo": null,
+        "status": "IC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 269279,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2021",
+        "data_entrega": "15/02/2022 19:49",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 283378,
+        "categoria": "Relatórios",
+        "tipo": "Outros Relatórios",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2021",
+        "data_entrega": "31/03/2022 14:17",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 283397,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2021",
+        "data_entrega": "31/03/2022 14:29",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 304311,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2022",
+        "data_entrega": "13/05/2022 21:41",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 287067,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "30/03/2022 10:00",
+        "data_entrega": "07/04/2022 19:22",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/287067_assembleia_assembleia_287067_2022-03-30.pdf"
+      },
+      {
+        "id": 287069,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "30/03/2022",
+        "data_entrega": "07/04/2022 19:24",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/287069_regulamento_regulamento_287069_2022-03-30.pdf"
+      },
+      {
+        "id": 338068,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2022",
+        "data_entrega": "12/08/2022 19:12",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 322750,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "04/07/2022 11:00",
+        "data_entrega": "06/07/2022 11:34",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/322750_assembleia_assembleia_322750_2022-07-04.pdf"
+      },
+      {
+        "id": 328337,
+        "categoria": "Fato Relevante",
+        "tipo": "",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "18/07/2022",
+        "data_entrega": "19/07/2022 10:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/328337_evento_evento_328337_2022-07-18.pdf"
+      },
+      {
+        "id": 346498,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "31/08/2022 10:00",
+        "data_entrega": "31/08/2022 17:41",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/346498_assembleia_assembleia_346498_2022-08-31.pdf"
+      },
+      {
+        "id": 346549,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "31/08/2022",
+        "data_entrega": "31/08/2022 17:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/346549_regulamento_regulamento_346549_2022-08-31.pdf"
+      },
+      {
+        "id": 377445,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2022",
+        "data_entrega": "14/11/2022 15:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 416082,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2022",
+        "data_entrega": "14/02/2023 15:03",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 437473,
+        "categoria": "Relatórios",
+        "tipo": "Outros Relatórios",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2022",
+        "data_entrega": "31/03/2023 10:39",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 437594,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2022",
+        "data_entrega": "31/03/2023 12:02",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 420273,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "06/02/2023 16:00",
+        "data_entrega": "22/02/2023 17:13",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/420273_assembleia_assembleia_420273_2023-02-06.pdf"
+      },
+      {
+        "id": 462482,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2023",
+        "data_entrega": "13/05/2023 23:29",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 450920,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "26/04/2023 16:00",
+        "data_entrega": "26/04/2023 19:10",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/450920_assembleia_assembleia_450920_2023-04-26.pdf"
+      },
+      {
+        "id": 505446,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2023",
+        "data_entrega": "11/08/2023 15:39",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 552000,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2023",
+        "data_entrega": "13/11/2023 19:59",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 597663,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2023",
+        "data_entrega": "07/02/2024 15:33",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 628951,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2023",
+        "data_entrega": "27/03/2024 21:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 634514,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "29/01/2024 16:00",
+        "data_entrega": "05/04/2024 14:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/634514_assembleia_assembleia_634514_2024-01-29.pdf"
+      },
+      {
+        "id": 659170,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2024",
+        "data_entrega": "14/05/2024 08:51",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 716772,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "22/05/2024 10:00",
+        "data_entrega": "13/08/2024 16:36",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/716772_assembleia_assembleia_716772_2024-05-22.pdf"
+      },
+      {
+        "id": 715955,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2024",
+        "data_entrega": "13/08/2024 08:55",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 778219,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2024",
+        "data_entrega": "13/11/2024 16:00",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 791097,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "28/11/2024 12:00",
+        "data_entrega": "29/11/2024 08:09",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/791097_assembleia_assembleia_791097_2024-11-28.pdf"
+      },
+      {
+        "id": 791098,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "29/11/2024",
+        "data_entrega": "29/11/2024 08:09",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/791098_regulamento_regulamento_791098_2024-11-29.pdf"
+      },
+      {
+        "id": 839635,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2024",
+        "data_entrega": "14/02/2025 10:01",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 865188,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2024",
+        "data_entrega": "26/03/2025 19:14",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 846587,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "20/02/2025 10:00",
+        "data_entrega": "21/02/2025 18:24",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/846587_assembleia_assembleia_846587_2025-02-20.pdf"
+      },
+      {
+        "id": 846588,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "21/02/2025",
+        "data_entrega": "21/02/2025 18:25",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/846588_regulamento_regulamento_846588_2025-02-21.pdf"
+      },
+      {
+        "id": 901394,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2025",
+        "data_entrega": "14/05/2025 04:35",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 864356,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "18/03/2025 10:00",
+        "data_entrega": "25/03/2025 18:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/864356_assembleia_assembleia_864356_2025-03-18.pdf"
+      },
+      {
+        "id": 864357,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "especie": "",
+        "classification": "regulamento",
+        "data_referencia": "19/03/2025",
+        "data_entrega": "25/03/2025 18:58",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/864357_regulamento_regulamento_864357_2025-03-19.pdf"
+      },
+      {
+        "id": 894098,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Edital de Convocação",
+        "classification": "assembleia",
+        "data_referencia": "17/04/2025 00:00",
+        "data_entrega": "05/05/2025 16:48",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/894098_assembleia_assembleia_894098_2025-04-17.pdf"
+      },
+      {
+        "id": 918508,
+        "categoria": "Assembleia",
+        "tipo": "AGO",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "29/04/2025 00:00",
+        "data_entrega": "06/06/2025 10:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/918508_assembleia_assembleia_918508_2025-04-29.pdf"
+      },
+      {
+        "id": 969052,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2025",
+        "data_entrega": "14/08/2025 08:55",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 999482,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "12/06/2025 07:00",
+        "data_entrega": "26/09/2025 15:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/999482_assembleia_assembleia_999482_2025-06-12.pdf"
+      },
+      {
+        "id": 976629,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "21/08/2025 10:00",
+        "data_entrega": "22/08/2025 15:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/976629_assembleia_assembleia_976629_2025-08-21.pdf"
+      },
+      {
+        "id": 1038457,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "09/2025",
+        "data_entrega": "14/11/2025 10:44",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1114118,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "12/2025",
+        "data_entrega": "13/02/2026 14:32",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1151650,
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "31/12/2025",
+        "data_entrega": "31/03/2026 21:06",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1124883,
+        "categoria": "Fato Relevante",
+        "tipo": "",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "27/02/2026",
+        "data_entrega": "27/02/2026 20:28",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/1124883_evento_evento_1124883_2026-02-27.pdf"
+      },
+      {
+        "id": 1196999,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "03/2026",
+        "data_entrega": "15/05/2026 20:45",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1198639,
+        "categoria": "Comunicado ao Mercado",
+        "tipo": "Outros Comunicados Não Considerados Fatos Relevantes ",
+        "especie": "",
+        "classification": "evento",
+        "data_referencia": "11/05/2026",
+        "data_entrega": "18/05/2026 18:18",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/1198639_evento_evento_1198639_2026-05-11.pdf"
+      },
+      {
+        "id": 1290976,
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Trimestral",
+        "especie": "",
+        "classification": "outro",
+        "data_referencia": "06/2026",
+        "data_entrega": "13/08/2026 22:43",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": false,
+        "download_error": "",
+        "source_file": ""
+      },
+      {
+        "id": 1277538,
+        "categoria": "Assembleia",
+        "tipo": "AGE",
+        "especie": "Ata da Assembleia",
+        "classification": "assembleia",
+        "data_referencia": "29/07/2026 08:00",
+        "data_entrega": "05/08/2026 14:29",
+        "nome_arquivo": null,
+        "status": "AC",
+        "downloaded": true,
+        "download_error": "",
+        "source_file": "data/raw/40752367000186/1277538_assembleia_assembleia_1277538_2026-07-29.pdf"
+      }
+    ],
+    "errors": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM."
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 846588,
+        "date": "21/02/2025",
+        "path": "data/raw/40752367000186/846588_documentary_review.pdf",
+        "text_path": "data/raw/40752367000186/846588_documentary_review.txt",
+        "pages": 64,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ]
+  },
+  "historical_heuristic_criteria": [
+    {
       "name": "Critérios de elegibilidade dos direitos creditórios",
       "canonical_key": "eligibility_criteria_text",
       "event_type": "elegibilidade",
@@ -2115,304 +3416,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando esta…",
-      "source_excerpt": "other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando esta…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…",
-      "source_excerpt": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…",
-      "source_excerpt": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 87 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…",
-      "source_excerpt": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net e quity, pursuant to article 40 - A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…",
-      "source_excerpt": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net e quity, pursuant to article 40 - A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "go 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equity not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…",
-      "source_excerpt": "go 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equity not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll- deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…",
-      "source_excerpt": "ilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll- deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…",
-      "source_excerpt": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando estabelecido Internal Use Only connection with other PDL Funds who also engage the Custodian as responsible for providing custody services there…",
-      "source_excerpt": "s assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando estabelecido Internal Use Only connection with other PDL Funds who also engage the Custodian as responsible for providing custody services there…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "te of issuance of the respective CCB. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 anos na data de emissão da respectiva CCB. (iv) A alteração do Anexo I - MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE, a fim de refletir o disposto no item (iii) acima , excluindo um dos critérios de elegibilidade dispostos no Anexo, passando a vigorar da seguinte forma: El…",
-      "source_excerpt": "te of issuance of the respective CCB. (vi) os Direitos Creditórios Elegíveis não poderão ser devidos por Devedores que tenham acima de 76 anos na data de emissão da respectiva CCB. (iv) A alteração do Anexo I - MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE, a fim de refletir o disposto no item (iii) acima , excluindo um dos critérios de elegibilidade dispostos no Anexo, passando a vigorar da seguinte forma: El…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "lation to any other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. Os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplent e em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; fi…",
-      "source_excerpt": "lation to any other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. Os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplent e em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; fi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ibilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…",
-      "source_excerpt": "ibilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "case of item (ii) below; (ii) one hundred and twenty thousand Brazilian reais (R$120,000.00), provided that: (a) the total amount of Eligible Credit Rights owed by Debtors which individually own more than the amount set forth in item (i) above does not exceed five percent (5%) of the outstanding balance of the Credit Rights; and (b) the relevant Debtor is up to 60 years, 11 months and 29 days on the assignment date;…",
-      "source_excerpt": "case of item (ii) below; (ii) one hundred and twenty thousand Brazilian reais (R$120,000.00), provided that: (a) the total amount of Eligible Credit Rights owed by Debtors which individually own more than the amount set forth in item (i) above does not exceed five percent (5%) of the outstanding balance of the Credit Rights; and (b) the relevant Debtor is up to 60 years, 11 months and 29 days on the assignment date;…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e laws and regulations; (iv) o prazo de vencimento das CCBs representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) the Eligible Credit Rights may not be due by a Debtor who is in default in relation to any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be veri…",
-      "source_excerpt": "e laws and regulations; (iv) o prazo de vencimento das CCBs representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v) the Eligible Credit Rights may not be due by a Debtor who is in default in relation to any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be veri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "r PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. que tal Critério de Elegibilidade somente será verificado com relação a outros Fundos PDL que também contratem o Custodiante como responsável pelos serviços de custódia aqui descritos. (vi) the Eligible Credits Rights shall not be due by Debtors that are more than 76 years old at the date of issuance of the respective…",
-      "source_excerpt": "r PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. que tal Critério de Elegibilidade somente será verificado com relação a outros Fundos PDL que também contratem o Custodiante como responsável pelos serviços de custódia aqui descritos. (vi) the Eligible Credits Rights shall not be due by Debtors that are more than 76 years old at the date of issuance of the respective…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s) shall not be lower than R$ 200.00 (two hundred Brazilian reais). O valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais). The balance of the Eligible Credit Rights owed by the same Debtor to the Fund, considering pro forma the intended assignment, should not exceed R$ 60,000.00 (sixty thousand Braz…",
-      "source_excerpt": "s) shall not be lower than R$ 200.00 (two hundred Brazilian reais). O valor principal pendente de cada CCB a ser adquirida pelo Fundo (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$200,00 (duzentos reais). The balance of the Eligible Credit Rights owed by the same Debtor to the Fund, considering pro forma the intended assignment, should not exceed R$ 60,000.00 (sixty thousand Braz…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "y other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for provid ing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…",
-      "source_excerpt": "y other Credit Rights assigned to any of the PDL Funds ; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for provid ing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…",
-      "source_excerpt": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…",
-      "source_excerpt": "SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…",
-      "source_excerpt": "O E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ignors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40 -A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…",
-      "source_excerpt": "ignors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40 -A of CVM Instruction No. 356. Parágrafo Segundo O Fundo…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equi ty not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…",
-      "source_excerpt": "o 40 -A da Instrução CVM nº 356. Paragraph Three Subject to this Chapter III and Chapter IV below, the Fund may apply the remaining balance of its net equi ty not invested in Eligible Credit Rights in any type of Financial Assets set forth in Article 8, below. Parágrafo Terceiro Observadas as disposições deste Capítulo III e do Capítulo IV abaixo, o Fundo poderá aplicar o saldo remanescente de seu patrimônio líquido…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "bilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…",
-      "source_excerpt": "bilidade listados abaixo serão validados pelo Custodiante na data de cessão de cada Direito Creditório ao Fundo. Para os fins das leis aplicáveis e deste Regulamento, são considerados Critérios de Elegibilidade os seguintes: (i) each Eligible Credit Right shall arise from payroll-deductible loans represented by a CCB providing for prefixed interest rate and whose final maturity is earlier than the final maturity of…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…",
-      "source_excerpt": "nt Debtor is up to 60 years, 11 months and 29 days on the assignment date; (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor ao Fundo, considerando, pro forma , a cessão pretendida, não deverá exceder (i) R$60.000,00 (sessenta mil reais) ressalvado o disposto no item (ii) abaixo; (ii) R$120.000,00 (cento e vinte mil reais), desde que: (a) o montante devido pelo conjunto de Devedores cujo sa…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…",
-      "source_excerpt": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…",
-      "source_excerpt": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…",
-      "source_excerpt": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…",
-      "source_excerpt": "any other Credit Rights assigned to any of the PDL Funds; provided that this Eligibility Criteria will only be verified in connection with other PDL Funds who also engage the Custodian as responsible for providing custody services thereunder. (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer dos Fundos PDL; ficando es…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…",
-      "source_excerpt": "-B Fundo de Investimento em Direitos Creditórios BTG Pactual SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…",
-      "source_excerpt": "SAC: 0800 772 28 27 ‐ Ouvidoria: 0800 722 00 48 ‐ btgpactual.com 86 EXHIBIT I TEMPLATE OF ELIGIBILITY CHECK REPORT ANEXO I MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identification of Credit Right Identificação dos Direitos Creditórios <report_date> DD/MM/YYYY DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Eligibility Criteria Critério de Elegibilidade □ Yes □ Sim □ No □ Não Eligibility Criteri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…",
-      "source_excerpt": "ermos do Artigo 28, Parágrafo 5º, da Instrução CVM nº 356, de 17 de dezembro de 2001, conforme alterada. 4. DELIBERAÇÕES: Os Cotistas deliberaram por unanimidade, sem quaisquer reservas ou restrições, aprovar: (i) A alteração do item 12.(iii) do regulamento do Fundo (“Regulamento”), com efeitos retroativos a partir de 10 de agosto de 2022, o qual, com as dev idas alterações, passará a constar com a seguinte redação:…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…",
-      "source_excerpt": "rtir de 03 de junho de 2022, o qual, com as devidas alterações, passará a constar com a seguinte redação: “24. Para a prestação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…",
-      "source_excerpt": "restação de serviços ao Fundo, o Agente de Retenção/Cobrança fará jus a uma remuneração a ser auferida todo Dia Útil e p aga mensalmente, a qual será calculada com base na seguinte fórmula: Internal Use Only ൤ሺ1 ൅2,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ൤ሺ1 ൅1,10%ሻቀଵ ଶହଶቁ൨െ1 𝑥 𝐶𝑅 ∗ 𝑜𝑛𝑑𝑒: CRൌvalor do Patrimônio Líquido alocado em Direitos Creditórios Elegíveis originados a partir de 03 de junho de 2022 . CR*ൌvalor do Patrimônio Líquido…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos n…",
-      "source_excerpt": "E DIVERSIFICAÇÃO DA CARTEIRA 6. With the purpose of reaching the intended purpose, the Fund will allocate its resources in the acquisition of Eligible Credit Rights, Financial Assets and/or other operations available within the financial market, subject to the limits and restrictions set forth in CVM Instruction No. 356 and in these Bylaws. 6. De modo a atingir o objetivo pretendido, o Fundo aplicará seus recursos n…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40-A of CVM Instruction No. 356. Parágrafo Segundo O Fundo po…",
-      "source_excerpt": "nors. Parágrafo Primeiro O Fundo poderá alocar até 100% (cem por cento) de seu patrimônio líquido em Direitos Creditórios Elegíveis cedidos pelos Cedentes. Paragraph Two The Fund may acquire Eligible Credit Rights and Financial Assets owed by a same Debtor and/or coobligor up to a limit of twenty percent (20%) of the Fund’s net equity, pursuant to article 40-A of CVM Instruction No. 356. Parágrafo Segundo O Fundo po…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ") anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis ; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; fica…",
-      "source_excerpt": ") anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento das CCB representativas dos Direitos Creditórios Elegíveis deverá ser, no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis ; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; fica…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ão firmado entre um Cedente e a Classe, e, como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwrit…",
-      "source_excerpt": "ão firmado entre um Cedente e a Classe, e, como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwrit…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ", como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □…",
-      "source_excerpt": ", como interveniente anuente, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * ‘ BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…",
-      "source_excerpt": "ica de Investimentos. 4.2 Os Direitos Creditórios são originados no âmbito de operações empréstimos consignados concedidos por um Cedente a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente deve ter celebrado o Convênio INS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ssa ser feito por Consignação. Critérios de Elegibilidade 4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Da…",
-      "source_excerpt": "ssa ser feito por Consignação. Critérios de Elegibilidade 4.7 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Da…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…",
-      "source_excerpt": "Direitos Creditórios que, na Data de Aquisição: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "celas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…",
-      "source_excerpt": "celas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe , considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…",
-      "source_excerpt": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ões aplicáveis; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…",
-      "source_excerpt": "ões aplicáveis; (v) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em Glossário do Anexo I ao Regulamento CLASSE ÚNICA DO MT INSS RECEIVABLES II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…",
-      "source_excerpt": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…",
-      "source_excerpt": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…",
-      "source_excerpt": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…",
-      "source_excerpt": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "sição: 4.7 Quando para Direitos Creditórios MT: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…",
-      "source_excerpt": "sição: 4.7 Quando para Direitos Creditórios MT: (i) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…",
-      "source_excerpt": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…",
-      "source_excerpt": "eais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv) o prazo de vencimento da…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v ) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…",
-      "source_excerpt": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 4 no máximo, equivalente ao prazo máximo permitido pelas leis e regulamentações aplicáveis; (v ) os Direitos Creditórios Elegíveis não poderão ser devidos por um Devedor inadimplente em relação a outros Direitos Creditórios cedidos a qualquer das Classes PDL; ficando es…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…",
-      "source_excerpt": "veniente anuente, exclusivamente para dos Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…",
-      "source_excerpt": "s Direitos Creditórios MT, o Agente de Retenção/Cobrança, conforme disposto no respectivo Contrato de Cessão; * * * BTG Pactual SAC: 0800 772 28 27 - Ouvidoria: 0800 722 00 48 - btgpactual.com 1 ‘ COMPLEMENTO 2 (Ao Anexo I) MODELO DE RELATÓRIO DE VERIFICAÇÃO DE ELEGIBILIDADE Identificação dos Direitos Creditórios <report_date> DD/MM/AAAA <loan_number> [●] <passed_underwriting_criteria> Critério de Elegibilidade □ Si…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…",
-      "source_excerpt": "s. 4.2 Os Direitos Creditórios poderão ser: (i) originados no âmbito de operações empréstimos consignados concedidos por um Cedente MT a um Devedor por meio da Plataforma MT e representados por CCB devidamente formalizadas por via eletrônica de acordo com a legislação aplicável, observada a política de conessão de crédito descrita no Complemento 10 ao presente Anexo. Cada Cedente MT deve ter celebrado o Convênio INS…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…",
-      "source_excerpt": "de Elegibilidade 4.6 A Classe somente poderá adquirir os Direitos Creditórios que atendam cumulativamente aos seguintes Critérios de Elegibilidade, a serem verificados e validados pelo GESTOR, de forma individualizada e integral, previamente à cessão e na respectiva Data de Aquisição, de modo que apenas são passíveis de aquisição pela Classe os Direitos Creditórios que, na Data de Aquisição: 4.7 Quando para Direitos…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ição: 4.7 Quando para Direitos Creditórios MT: (i ) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…",
-      "source_excerpt": "ição: 4.7 Quando para Direitos Creditórios MT: (i ) os Direitos Creditórios Elegíveis deverão decorrer de empréstimos consignados representados por uma CCB, com taxa de juros prefixada e vencimento final anterior ao vencimento final da Classe; (ii) o valor principal pendente de cada CCB a ser adquirida pela Classe (considerando a cessão de todas as parcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos re…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…",
-      "source_excerpt": "rcelas vincendas) não deverá ser inferior a R$ 200,00 (duzentos reais); (iii) o saldo dos Direitos Creditórios Elegíveis devidos pelo mesmo Devedor à Classe, considerando, pro forma, a cessão pretendida, não deverá exceder (a) R$ 85.000,00 (oitenta e cinco mil reais) ressalvado o disposto no item “(b)” abaixo; (b) R$ 150.000,00 (cento e cinquenta mil reais), desde que: 1) o montante devido pelo conjunto de Devedores…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv ) o prazo de vencimento da…",
-      "source_excerpt": "ais), desde que: 1) o montante devido pelo conjunto de Devedores cujo saldo individual de Direitos Creditórios Elegíveis devidos exceda o limite previsto no item “(a)” acima não supere 5% (cinco por cento) do valor contábil dos Direitos Creditórios, e 2) o Devedor possua, na data de cessão do Direito Creditório, até 60 (sessenta) anos, 11 (onze) meses e 29 (vinte e nove) dias de idade; (iv ) o prazo de vencimento da…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -2680,6 +3684,242 @@
       "source_document_id": 976629
     }
   ],
-  "extraction_count": 25,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "40752367000186",
+    "label": "MT INSS Receivables II",
+    "reviewed_at": "2026-10-07T14:59:40-03:00",
+    "document_status": "Documentos acessíveis revisados; lacunas assinaladas",
+    "scope_note": "Unidade de análise: CNPJ da carteira. Conclusões restritas às páginas materiais dos PDFs locais identificados; inventário pode ser preservado de consulta anterior quando Fundos.NET falha. Não certifica leitura integral de todos os documentos do inventário.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "CCBs de consignado INSS pela Plataforma MT; TVM elegíveis de conglomerados S1",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Devedor": {
+          "value": "Beneficiários/pensionistas INSS; devedor do TVM conforme instrumento",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9-10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Garantia": {
+          "value": "Consignação INSS/Dataprev; garantias do TVM conforme instrumento",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9-10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Elegibilidade": {
+          "value": "CCB prefixada/adimplente; valor principal ≥ R$ 200; prazo conforme limite legal",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10-11 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Concentração": {
+          "value": "Por devedor R$ 85 mil; até R$ 150 mil para faixa etária ≤ 60a11m29d e bloco ≤ 5% dos DC",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Exceção exige simultaneamente idade e concentração agregada do bloco acima R$ 85 mil."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subclasse única, pari passu; sem prioridade/subordinação entre cotas",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 8, 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "PDD": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Duração/público-alvo": {
+          "value": "Fechado, indeterminado; único cotista ou grupo indissociável profissional",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 8 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Cessão/recompra": {
+          "value": "Endosso definitivo em preto; resolução/opção de venda conforme contrato",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Coobrigação": {
+          "value": "Sem coobrigação; obrigações por vícios no contrato de cessão",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Waterfall": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Subclasse única",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Remuneração": {
+          "value": "Cota patrimonial; sem DI + spread contratual para subclasse única",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Volume/VNU": {
+          "value": "1ª emissão até R$ 300 mi; 300 mil cotas; VNU R$ 1.000",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Valor aprovado histórico, não PL atual."
+        },
+        "Ofertas": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado no corpus acessível",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "Lacuna documental explícita; exige regulamento, anexo, suplemento ou contrato aplicável."
+        },
+        "Juros/amortização": {
+          "value": "Rendimentos distribuídos por amortização/resgate conforme deliberação",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9, 15-16 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Cronograma fechado não localizado."
+        },
+        "Vencimento": {
+          "value": "Prazo indeterminado; resgate conforme eventos de liquidação",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 8, 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Rateio da taxa agregada Fundos PDL; mínimo R$ 20 mil/mês; taxas exigem validação",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 29-30 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Tabela conflita algarismos/extenso (ex.: 0,60% vs setenta centésimos). Faixas e cálculo agregado não equivalem a taxa simples do PL individual."
+        },
+        "Gestão": {
+          "value": "Incluída no conjunto de serviços da taxa agregada; parcela própria não segregada",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 29-30 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Custódia": {
+          "value": "0% a.a. expresso",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 30 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Alocação verificável com ressalva TVM; piso sênior não se aplica a cotas únicas",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 9, 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over/PDD agregados; não validam elegibilidade nem limite de cada devedor",
+          "source": "Fundos.NET ID 846588 · 21/02/2025 · Regulamento · p. 10-11 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+          "note": "Conclusão documental revisada; preservar a versão e a unidade indicadas."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração, lastro, prestadores e eventos exigem documentação específica",
+          "source": "Corpus acessível CNPJ 40752367000186: ID 846588 (21/02/2025), data/raw/40752367000186/846588_documentary_review.pdf",
+          "note": "O IME público agregado não certifica essas condições."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Natureza dos recebíveis",
+        "Conclusão": "CCBs de consignado INSS pela Plataforma MT; TVM elegíveis de conglomerados S1"
+      },
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Subclasse única, pari passu; sem prioridade/subordinação entre cotas"
+      },
+      {
+        "Tema": "Administração",
+        "Conclusão": "Rateio da taxa agregada Fundos PDL; mínimo R$ 20 mil/mês; taxas exigem validação"
+      }
+    ],
+    "warnings": [
+      "Inventário atual FundosNet: Fundos.NET respondeu HTTP 520 em abrirGerenciadorDocumentosCVM.",
+      "864357: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "230752: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+      "Nova tentativa ID 864357: Falha de rede ao acessar downloadDocumento: The read operation timed out"
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 846588,
+        "date": "21/02/2025",
+        "path": "data/raw/40752367000186/846588_documentary_review.pdf",
+        "text_path": "data/raw/40752367000186/846588_documentary_review.txt",
+        "pages": 64,
+        "identity_verified": true,
+        "categoria": "Regulamento",
+        "tipo": "",
+        "identity_verification_note": "CNPJ encontrado no texto local"
+      }
+    ],
+    "inventory_count": 52,
+    "pdf_count": 1,
+    "pages_analyzed": 64,
+    "extraction_errors": [],
+    "emissions_rows": [
+      {
+        "Cota/Classe": "1ª emissão",
+        "Tipo": "Única",
+        "Remuneração": "Patrimonial; sem DI + spread",
+        "Juros/remuneração": "Rendimentos por amortização/resgate",
+        "Amortização principal": "Indeterminada; conforme deliberação e liquidação",
+        "Volume": "Até R$ 300 mi; 300 mil cotas",
+        "VNU": "R$ 1.000",
+        "Data deliberação": "Data de deliberação não localizada",
+        "Data emissão / 1ª integralização": "Primeira integralização não localizada",
+        "Data encerramento/oferta": "Resultado da colocação não localizado",
+        "Fonte": "Fundos.NET ID 846588 · 21/02/2025 · p. 14 · data/raw/40752367000186/846588_documentary_review.pdf · https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=846588",
+        "Status curadoria": "Curado nas fontes acessíveis; lacunas explícitas"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 52,
+      "pdf_count": 1,
+      "pages_analyzed": 64
+    }
+  },
+  "reviewed_at": "2026-10-07T14:59:40-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/40752367000186.json"
 }

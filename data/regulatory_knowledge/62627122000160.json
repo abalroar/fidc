@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "fund_name": "SUMUP SMART III FIDC SEGMENTO MEIOS DE PAGAMENTO DE RESPONSABILIDADE LIMITADA",
+  "fund_cnpj": "62627122000160",
+  "documents": [],
+  "extractions": [],
+  "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Prazo dos recebíveis",
+      "canonical_key": "documentary_prazo_dos_recebiveis",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Ativos vedados",
+      "canonical_key": "documentary_ativos_vedados",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "PDD / Crédito e PDD / Vencidos; validar definição contratual",
+        "rationale": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+      }
+    },
+    {
+      "name": "Subordinação mezanino",
+      "canonical_key": "documentary_subordinacao_mezanino",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Eventos de avaliação",
+      "canonical_key": "documentary_eventos_de_avaliacao",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Liquidação antecipada",
+      "canonical_key": "documentary_liquidacao_antecipada",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Reserva de despesas",
+      "canonical_key": "documentary_reserva_de_despesas",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Prestadores",
+      "canonical_key": "documentary_prestadores",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Não localizado na documentação acessível",
+      "amount_display": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+      "remuneration": "Não localizado na documentação acessível",
+      "amortization_schedule": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:49:47-03:00",
+      "scope": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+      "documentary_profile": "data/regulatory_profiles/documentary_comparisons/62627122000160.json",
+      "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "sources_reviewed": [],
+      "warnings": [
+        "Atualização do inventário indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+        "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna."
+      ],
+      "method": "Extração integral dos PDFs acessíveis; revisão das cláusulas materiais. Não significa leitura integral de todo o inventário."
+    }
+  ],
+  "documentary_review_metadata": {
+    "reviewed_at": "2026-10-07T14:49:47-03:00",
+    "documents_inventoried": 0,
+    "documents_in_current_query": 0,
+    "pdfs_downloaded_accessible": 0,
+    "analyzable_pages": 0,
+    "extraction_errors": 0,
+    "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+    "curation_scope": "CNPJs únicos das carteiras explicitamente selecionadas pelo usuário.",
+    "source_documents_materially_reviewed": 0,
+    "pages_are_analyzable_not_claim_of_full_reading": true
+  },
+  "historical_heuristic_criteria": [],
+  "historical_heuristic_emissions": [],
+  "documentary_review": {
+    "cnpj": "62627122000160",
+    "label": "SUMUP SMART III",
+    "reviewed_at": "2026-10-07T14:49:47-03:00",
+    "document_status": "acesso documental insuficiente; lacunas preservadas",
+    "scope_note": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Devedor": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Prazo dos recebíveis": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Concentração": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Ativos vedados": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Garantia": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mezanino": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Eventos de avaliação": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Liquidação antecipada": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reserva de despesas": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Subordinação mínima": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "PDD": {
+          "value": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Coobrigação": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Waterfall": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Prestadores": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_emissions": {
+        "Remuneração sênior": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração mezanino": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração subordinada": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Volume / quantidade": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "VNU / preço": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Classes/séries": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Ofertas": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Juros / pagamentos": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Amortização programada": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Amortização extraordinária": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Vencimento": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Juros/amortização": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Gestão": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reajuste / base": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Custódia": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação via IME": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Subordinação via IME": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Concentração / elegibilidade": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reservas / pagamentos": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Chargeback / recompra": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Controles documentais": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Alocação/subordinação IME": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Competência IME": {
+          "value": "Cache local: 06/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/3f837708ac49e7b72a27f63d7c7ec11adb0dac39099d0a0f95f816ea64b6fd2d/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Estrutura contratual",
+        "Conclusão": "Regras de lastro, subordinação e pagamentos dependem de regulamento acessível do CNPJ preservado."
+      },
+      {
+        "Tema": "Emissões",
+        "Conclusão": "Não localizado na documentação acessível"
+      },
+      {
+        "Tema": "Lacuna de acesso",
+        "Conclusão": "Falhas de acesso estão identificadas; nenhum termo foi preenchido a partir do nome do fundo."
+      }
+    ],
+    "warnings": [
+      "Atualização do inventário indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna."
+    ],
+    "sources_reviewed": [],
+    "inventory_count": 0,
+    "downloaded_count": 0,
+    "analyzable_pages": 0,
+    "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+    "emissions_rows": [],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "acesso documental insuficiente; lacunas preservadas",
+        "Base de cálculo / regra completa": "Não localizado na documentação acessível"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "acesso documental insuficiente; lacunas preservadas",
+        "Base de cálculo / regra completa": "Não localizado na documentação acessível"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Inventário por CNPJ 62627122000160, consulta Fundos.NET em 07/10/2026: 0 documentos listados; Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. Não foi identificado termo específico na revisão.",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "acesso documental insuficiente; lacunas preservadas",
+        "Base de cálculo / regra completa": "Não localizado na documentação acessível"
+      }
+    ],
+    "metrics": {
+      "inventory_count": "Inventário indisponível; consultar lacuna de acesso",
+      "downloaded_count": 0,
+      "analyzable_pages": 0
+    }
+  },
+  "reviewed_at": "2026-10-07T14:49:47-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/62627122000160.json"
+}

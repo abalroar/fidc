@@ -14,9 +14,9 @@
       "data_entrega": "26/01/2026 09:33",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1091930_emissao_emissao_1091930_2025-01-23.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1059049,
@@ -28,9 +28,9 @@
       "data_entrega": "11/12/2025 15:32",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1059049_emissao_emissao_1059049_2025-11-07.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1059052,
@@ -42,9 +42,9 @@
       "data_entrega": "11/12/2025 15:33",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1059052_regulamento_regulamento_1059052_2025-11-07.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1080485,
@@ -56,9 +56,9 @@
       "data_entrega": "13/01/2026 11:26",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1080485_regulamento_regulamento_1080485_2026-01-05.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1080487,
@@ -70,9 +70,9 @@
       "data_entrega": "13/01/2026 11:26",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1080487_regulamento_regulamento_1080487_2026-01-05.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1080490,
@@ -84,9 +84,9 @@
       "data_entrega": "13/01/2026 11:27",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1080490_emissao_emissao_1080490_2026-01-12.pdf"
+      "downloaded": false,
+      "download_error": "Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "source_file": ""
     },
     {
       "id": 1089840,
@@ -98,9 +98,9 @@
       "data_entrega": "22/01/2026 11:00",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1089840_assembleia_assembleia_1089840_2026-01-21.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1089845,
@@ -112,9 +112,9 @@
       "data_entrega": "22/01/2026 11:02",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1089845_regulamento_regulamento_1089845_2026-01-21.pdf"
+      "downloaded": false,
+      "download_error": "Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "source_file": ""
     },
     {
       "id": 1101975,
@@ -126,9 +126,9 @@
       "data_entrega": "04/02/2026 18:52",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1101975_emissao_emissao_1101975_2026-02-04.pdf"
+      "downloaded": false,
+      "download_error": "PDF não acessível na base local desta revisão",
+      "source_file": ""
     },
     {
       "id": 1104314,
@@ -140,9 +140,9 @@
       "data_entrega": "06/02/2026 18:30",
       "nome_arquivo": null,
       "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/63572282000111/1104314_emissao_emissao_1104314_2026-02-06.pdf"
+      "downloaded": false,
+      "download_error": "Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "source_file": ""
     },
     {
       "id": 1196530,
@@ -155,11 +155,435 @@
       "nome_arquivo": null,
       "status": "AC",
       "downloaded": false,
-      "download_error": "",
+      "download_error": "PDF não acessível na base local desta revisão",
       "source_file": ""
     }
   ],
   "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Prazo dos recebíveis",
+      "canonical_key": "documentary_prazo_dos_recebiveis",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Ativos vedados",
+      "canonical_key": "documentary_ativos_vedados",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "PDD / Crédito e PDD / Vencidos; validar definição contratual",
+        "rationale": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+      }
+    },
+    {
+      "name": "Subordinação mezanino",
+      "canonical_key": "documentary_subordinacao_mezanino",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Eventos de avaliação",
+      "canonical_key": "documentary_eventos_de_avaliacao",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Liquidação antecipada",
+      "canonical_key": "documentary_liquidacao_antecipada",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Reserva de despesas",
+      "canonical_key": "documentary_reserva_de_despesas",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    },
+    {
+      "name": "Prestadores",
+      "canonical_key": "documentary_prestadores",
+      "threshold_display": "Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "o titular de Cotas da presente Classe Única emitidas pelo Fundo. significam os titulares de Cotas Seniores emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. significa o Cadastro de Pessoa Física no Ministério da Fazenda. significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercad…",
+      "source_excerpt": "o titular de Cotas da presente Classe Única emitidas pelo Fundo. significam os titulares de Cotas Seniores emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. significa o Cadastro de Pessoa Física no Ministério da Fazenda. significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercad…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…",
+      "source_excerpt": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "ivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obr…",
+      "source_excerpt": "ivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obr…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Credi…",
+      "source_excerpt": "Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Credi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "aordinária” “Amortização Final” “Adendo” significa a base de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patrimônio L…",
+      "source_excerpt": "aordinária” “Amortização Final” “Adendo” significa a base de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patrimônio L…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "aulo, CEP 06.233-903, inscrita no CNPJ sob o nº 10.573.521/0001-91. significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme apl…",
+      "source_excerpt": "aulo, CEP 06.233-903, inscrita no CNPJ sob o nº 10.573.521/0001-91. significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme apl…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…",
+      "source_excerpt": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…",
+      "source_excerpt": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rsos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…",
+      "source_excerpt": "rsos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "órios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…",
+      "source_excerpt": "órios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…",
+      "source_excerpt": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…",
+      "source_excerpt": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…",
+      "source_excerpt": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…",
+      "source_excerpt": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "sos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…",
+      "source_excerpt": "sos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "rios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…",
+      "source_excerpt": "rios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…",
+      "source_excerpt": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…",
+      "source_excerpt": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Não localizado na documentação acessível",
+      "amount_display": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+      "remuneration": "Não localizado na documentação acessível",
+      "amortization_schedule": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+      "source_document": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "extraction_count": 10,
+  "extraction_errors": [],
+  "review_notes": [
+    {
+      "review_id": "documentary_comparisons_20261007",
+      "reviewed_at": "2026-10-07T14:49:47-03:00",
+      "scope": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+      "documentary_profile": "data/regulatory_profiles/documentary_comparisons/63572282000111.json",
+      "inventory_error": "Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+      "sources_reviewed": [],
+      "warnings": [
+        "Atualização do inventário indisponível: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+        "Lacunas de acesso/extracão: ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna."
+      ],
+      "method": "Extração integral dos PDFs acessíveis; revisão das cláusulas materiais. Não significa leitura integral de todo o inventário."
+    }
+  ],
+  "documentary_review_metadata": {
+    "reviewed_at": "2026-10-07T14:49:47-03:00",
+    "documents_inventoried": 11,
+    "documents_in_current_query": 11,
+    "pdfs_downloaded_accessible": 0,
+    "analyzable_pages": 0,
+    "extraction_errors": 3,
+    "inventory_error": "Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+    "curation_scope": "CNPJs únicos das carteiras explicitamente selecionadas pelo usuário.",
+    "source_documents_materially_reviewed": 0,
+    "pages_are_analyzable_not_claim_of_full_reading": true
+  },
+  "historical_heuristic_criteria": [
     {
       "name": "Subordinação mínima",
       "canonical_key": "subordination_ratio_min",
@@ -781,99 +1205,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "o titular de Cotas da presente Classe Única emitidas pelo Fundo. significam os titulares de Cotas Seniores emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. significa o Cadastro de Pessoa Física no Ministério da Fazenda. significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercad…",
-      "source_excerpt": "o titular de Cotas da presente Classe Única emitidas pelo Fundo. significam os titulares de Cotas Seniores emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. significa o Cadastro de Pessoa Física no Ministério da Fazenda. significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercad…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…",
-      "source_excerpt": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "ivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obr…",
-      "source_excerpt": "ivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obr…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Credi…",
-      "source_excerpt": "Cotistas a valorização de suas Cotas por meio da aplicação de recursos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Credi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "aordinária” “Amortização Final” “Adendo” significa a base de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patrimônio L…",
-      "source_excerpt": "aordinária” “Amortização Final” “Adendo” significa a base de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patrimônio L…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "aulo, CEP 06.233-903, inscrita no CNPJ sob o nº 10.573.521/0001-91. significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme apl…",
-      "source_excerpt": "aulo, CEP 06.233-903, inscrita no CNPJ sob o nº 10.573.521/0001-91. significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme apl…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…",
-      "source_excerpt": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…",
-      "source_excerpt": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rsos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…",
-      "source_excerpt": "rsos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "órios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…",
-      "source_excerpt": "órios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: BC0612A7-13AD-4468-9CC7-DF2441F2098C 11 JUR_SP - 56690675v6 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…",
-      "source_excerpt": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…",
-      "source_excerpt": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…",
-      "source_excerpt": "4004.566958 “Cotistas Subordinados Mezanino” significam os titulares de Cotas Subordinadas Mezanino emitidas pelo Fundo. “Cotistas Subordinados Juniores” significam os titulares de Cotas Subordinadas Juniores emitidas pelo Fundo. “CPF” significa o Cadastro de Pessoa Física no Ministério da Fazenda. “Critérios de Elegibilidade” significam os Critérios de Elegibilidade dos Direitos Creditórios do Mercado Crédito e/ou…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…",
-      "source_excerpt": "pela Resolução CMN 2.907/01, pela Resolução CVM 175/22 e demais disposições legais e regulamentares aplicáveis, composto unicamente por Cotas da Classe Única, vedada a constituição de novas classes de cotas pelo Fundo, e será regido pelo presente Regulamento e pelo Anexo Descritivo, observada a exceção prevista no Artigo 2.3.1 deste Regulamento. 2.2 Objeto. O Fundo é uma comunhão de recursos destinados, preponderant…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "sos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…",
-      "source_excerpt": "sos na aquisição de Direitos Creditórios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigaç…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "rios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…",
-      "source_excerpt": "rios e ativos financeiros, conforme política de investimento específica da Classe Docusign Envelope ID: DFB917AD-54F9-4013-ACFB-6B3CF4B325C9 11 JUR_SP - 56690675v12 - 2154004.566958 Única, detalhada em seu respectivo Anexo Descritivo e observados os índices de composição e diversificação da carteira da Classe Única, conforme estabelecido no Anexo Descritivo. 3.2 Direitos e Obrigações Vinculados aos Direitos Creditór…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…",
-      "source_excerpt": "e de controle e mecanismos de trocas de informações padronizadas que viabilizam a interoperabilidade entre as Entidades Registradoras, na forma prevista na Convenção entre Entidades Registradoras, conforme aplicável. “Alocação Mínima” tem seu significado atribuído no Artigo 3.2 deste Anexo Descritivo. “Alocação Mínima de Investimento Tributária” significa a alocação de, pelo menos, 67% (cinquenta por cento) do Patri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…",
-      "source_excerpt": "significa qualquer dia que não seja sábado, domingo, feriado nacional, ou dias em que, por qualquer motivo, não houver expediente bancário na República Federativa do Brasil. “Direitos Creditórios” significam os Direitos Creditórios dos Estabelecimentos Comerciais e os Direitos Creditórios do Mercado Crédito quando referidos em conjunto ou de forma indistinta, conforme aplicável. “Direitos Creditórios Adquiridos” sig…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "emissão",
@@ -1015,6 +1347,351 @@
       "source_document_id": 1104314
     }
   ],
-  "extraction_count": 10,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "63572282000111",
+    "label": "SELLER 3",
+    "reviewed_at": "2026-10-07T14:49:47-03:00",
+    "document_status": "acesso documental insuficiente; lacunas preservadas",
+    "scope_note": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Devedor": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Prazo dos recebíveis": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Concentração": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Ativos vedados": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Garantia": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mezanino": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Eventos de avaliação": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Liquidação antecipada": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reserva de despesas": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Subordinação mínima": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "PDD": {
+          "value": "Gatilho contratual específico de PDD não localizado; usar PDD/crédito como indicador agregado",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Sem limite automático de PDD inferido; regra contratual deve ser conciliada separadamente."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Coobrigação": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Waterfall": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Prestadores": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_emissions": {
+        "Remuneração sênior": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração mezanino": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração subordinada": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Volume / quantidade": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "VNU / preço": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Classes/séries": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Ofertas": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Remuneração": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Juros / pagamentos": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Amortização programada": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Amortização extraordinária": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Vencimento": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Juros/amortização": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Gestão": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reajuste / base": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Custódia": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação via IME": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Subordinação via IME": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Concentração / elegibilidade": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Reservas / pagamentos": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Chargeback / recompra": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Controles documentais": {
+          "value": "Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Alocação/subordinação IME": {
+          "value": "Não localizado na documentação acessível; Não localizado na documentação acessível",
+          "source": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+          "note": "Lacuna documental; não preencher por aproximação de nome ou por campo heurístico."
+        },
+        "Competência IME": {
+          "value": "Cache local: 05/2026; selecionar competência para monitorar",
+          "source": ".cache/fundonet-ime/0d107a49fab9bd2333d5e0398c8bfe249e0ff6fbf10e9ef8f2fc54f3b88232e5/manifest.json",
+          "note": "Dado offline do IME; não representa atualização ao vivo nem comprovação dos critérios jurídicos."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Estrutura contratual",
+        "Conclusão": "Regras de lastro, subordinação e pagamentos dependem de regulamento acessível do CNPJ preservado."
+      },
+      {
+        "Tema": "Emissões",
+        "Conclusão": "Não localizado na documentação acessível"
+      },
+      {
+        "Tema": "Lacuna de acesso",
+        "Conclusão": "Falhas de acesso estão identificadas; nenhum termo foi preenchido a partir do nome do fundo."
+      }
+    ],
+    "warnings": [
+      "Atualização do inventário indisponível: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+      "Lacunas de acesso/extracão: ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+      "Regulamento com CNPJ inequívoco não acessado nesta revisão; regras materiais permanecem como lacuna."
+    ],
+    "sources_reviewed": [],
+    "inventory_count": 11,
+    "downloaded_count": 0,
+    "analyzable_pages": 0,
+    "inventory_error": "Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out",
+    "emissions_rows": [],
+    "costs_rows": [
+      {
+        "Item": "Administração",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "acesso documental insuficiente; lacunas preservadas",
+        "Base de cálculo / regra completa": "Não localizado na documentação acessível"
+      },
+      {
+        "Item": "Gestão",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "acesso documental insuficiente; lacunas preservadas",
+        "Base de cálculo / regra completa": "Não localizado na documentação acessível"
+      },
+      {
+        "Item": "Custódia",
+        "Percentual a.a.": "Percentual não localizado ou remuneração incluída em outra taxa",
+        "Mínimo mensal": "Mínimo próprio não localizado; ver regra completa",
+        "Fonte": "Inventário por CNPJ 63572282000111, consulta Fundos.NET em 07/10/2026: 11 documentos listados; Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out; inventário local anterior preservado.  PDFs efetivamente revistos: nenhum. ID1089845: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1080490: Falha de rede ao acessar downloadDocumento: The read operation timed out; ID1104314: Falha de rede ao acessar downloadDocumento: The read operation timed out",
+        "Versão vigente / base documental": "Revisão documental em 07/10/2026. O nome da carteira com 1T26 não define a vigência destas cláusulas; versões posteriores estão datadas por fonte. Não houve atualização de competência IME neste trabalho.",
+        "Mudanças relevantes": "Versões/materialidades indicadas nas evidências; série completa de alterações não reconciliada",
+        "Status curadoria": "acesso documental insuficiente; lacunas preservadas",
+        "Base de cálculo / regra completa": "Não localizado na documentação acessível"
+      }
+    ],
+    "metrics": {
+      "inventory_count": 11,
+      "downloaded_count": 0,
+      "analyzable_pages": 0
+    }
+  },
+  "reviewed_at": "2026-10-07T14:49:47-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/63572282000111.json"
 }

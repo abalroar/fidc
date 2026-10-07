@@ -453,6 +453,10 @@ Se `portfolios.json` tiver diff e o usuário não pediu alteração de carteira,
 
 ## Comandos esperados
 
+Para uma carteira existente, registre a revisão humana por CNPJ em `data/regulatory_profiles/documentary_comparisons/<cnpj>.json`: data `reviewed_at` com fuso, escopo e lacunas de acesso, sete temas em `facts`, valor curto/fonte/nota por critério, fontes efetivamente consultadas, emissões individualizadas e custos. O montador abaixo exige todos os CNPJs da carteira e atualiza somente suas linhas nos perfis compartilhados e seu próprio pacote. Ele gera as tabelas e o PPTX a partir desses pareceres, preservando a data da leitura. Uma execução do montador não constitui nova leitura documental.
+
+Use `--portfolio-id` apenas para a carteira solicitada. A ausência de regulamento exige um parecer de lacuna para o mesmo CNPJ. Os perfis revisados têm prioridade sobre a triagem heurística anterior. Registre a versão/data de cada termo histórico e nunca transporte automaticamente uma taxa antiga para a emissão vigente.
+
 Use estes comandos como base, ajustando o ID/nome da carteira, o config temporário e a data efetiva da leitura. O gerador prepara a base analítica; depois revise os sete comparativos e as evidências e execute o finalizador.
 
 ```bash
@@ -464,11 +468,11 @@ Use estes comandos como base, ajustando o ID/nome da carteira, o config temporá
 ```
 
 ```bash
-./.venv/bin/python scripts/build_curated_regulatory_profiles.py --include-sellers
+./.venv/bin/python scripts/build_documentary_portfolio_reviews.py --portfolio-id <portfolio_id>
 ```
 
 ```bash
-./.venv/bin/python scripts/build_deep_dive_package.py --portfolio-id <portfolio_id>
+./.venv/bin/python scripts/finalize_document_curation.py --portfolio-id <portfolio_id> --check
 ```
 
 Após a revisão documental e a gravação dos quadros/evidências:

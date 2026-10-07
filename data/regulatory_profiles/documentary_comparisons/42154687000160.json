@@ -1,0 +1,678 @@
+{
+  "cnpj": "42154687000160",
+  "label": "Multiplike Plus",
+  "reviewed_at": "2026-10-07T14:50:59-03:00",
+  "document_status": "regulamento mais recente no corpus local público, 08/06/2026; inventário online não confirmado",
+  "scope_note": "Revisão dirigida de cláusulas e termos materiais dos documentos locais acessíveis. A data desta revisão não atesta atualização completa do inventário CVM. Lacunas e falhas de acesso estão descritas; nenhuma posição IME foi transformada em volume de emissão.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis comerciais/industriais/serviços e crédito financeiro: duplicatas, CCBs, CPRs, notas comerciais e contratos.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.23–24, 4.1–4.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Originador/endossante": {
+        "value": "Múltiplos credores brasileiros aprovados pela gestora; Multiplike Consultoria e Cobrança atua na seleção/cobrança.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; 4.1–4.4; anexo de prestadores; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Devedor": {
+        "value": "Múltiplos sacados/devedores; em CCB bancarizada, concentração considera devedor econômico, sob condições.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.28–29, 5.1(j); https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Garantia": {
+        "value": "Carteira CCB/CPR/NCC com colaterais mínimos de 60%; crédito sem garantia tem limite próprio.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.29, 5.1(n–o); https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Garantias contratuais não equivalem a cobertura financeira certa; mensuração individual pela gestora."
+      },
+      "Elegibilidade": {
+        "value": "Crédito adimplente na aquisição; devedor sem atraso >12 dias úteis; prazos médios de 540 DU (CCB/CPR/NCC) e 70 DU (demais).",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.25–28, 5.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Concentração": {
+        "value": "CCB/CPR/NCC: mesmo devedor ≤3,5%/PL, top10 ≤20%/PL; não cobertos por garantias ≤2%/PL.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.29, 5.1(k–n); https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Limites adicionais por credor/grupo continuam aplicáveis; bancarizador não é originador econômico quando atendido 5.1(j)."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas ≥40%/PL; júnior ≥50% do patrimônio das subordinadas.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.54, 8.9–8.10; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Bases diferentes: 50% refere-se à parcela subordinada. O valor histórico 166,7% não representa piso de subordinadas/PL."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Desenquadramento exige aviso e decisão em 5 DU; cura em 10 DU; falhas persistentes sujeitas à avaliação/liquidação.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.54–55, 8.12; capítulo de eventos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas: maior entre 90 dias estimados e 1%/PL; amortização 50% a 30 dias e 100% a 7 DU.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.62, 9.1–9.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Derivativos/hedge": {
+        "value": "Somente proteção de posições à vista, até o limite destas; day trade vedado.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.21, 3.4–3.4.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "PDD": {
+        "value": "Perda esperada/recuperabilidade e precificação; piso uniforme de PDD/crédito não confirmado.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.63, 10.6; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "50%/PL em DC após 180 dias da primeira integralização.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.20, 3.1; p.80, Alocação Mínima; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Pool/revolvência": {
+        "value": "Carteira com novas aquisições, sujeita a reservas e eventos; múltiplos credores e devedores.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.64–65, 12.1–12.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada, prazo indeterminado; investidores autorizados e prazo próprio de cada série.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.20, 1.3/2.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Cessão/recompra": {
+        "value": "Transferência definitiva com ou sem regresso; recompra e lastro regidos pelo Contrato de Aquisição.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.23–24, 4.3–4.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Coobrigação": {
+        "value": "Com ou sem coobrigação; cedente responde por constituição/validade e pelo pagamento quando coobrigado.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.24, 4.3–4.4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Waterfall": {
+        "value": "Liquidação: despesas → reserva de despesas → sênior → mezanino → júnior.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.65, 12.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "21ª/22ª sênior no prospecto; 5ª emissão júnior aprovada em junho; demais séries identificadas no rating histórico.",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true; Fundos.NET ID 1237432; 30/06/2026; data/raw/42154687000160/1237432_instrumento_de_emiss_o.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237432&cvm=true; Fundos.NET ID 1237281; 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+        "note": "Conclusão documental da cláusula citada; não representa posição IME."
+      },
+      "Remuneração": {
+        "value": "21ª sênior CDI + 2,00% a.a.; 22ª CDI + 1,25% a.a.; júnior residual.",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true; Fundos.NET ID 1237432; 30/06/2026; data/raw/42154687000160/1237432_instrumento_de_emiss_o.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237432&cvm=true",
+        "note": "Conclusão documental da cláusula citada; não representa posição IME."
+      },
+      "Volume/VNU": {
+        "value": "21ª até R$ 200 mi; 22ª até R$ 10 mi; VNU R$ 1 mil; 5ª júnior até R$ 100 mi (ato posterior).",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true; Fundos.NET ID 1237432; 30/06/2026; data/raw/42154687000160/1237432_instrumento_de_emiss_o.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237432&cvm=true",
+        "note": "Valores ofertados/aprovados; distribuição efetiva não confirmada por encerramento."
+      },
+      "Ofertas": {
+        "value": "21ª/22ª no prospecto automático; 5ª júnior restrita a cotistas existentes, com cancelamento do saldo.",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true; Fundos.NET ID 1237432; 30/06/2026; data/raw/42154687000160/1237432_instrumento_de_emiss_o.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237432&cvm=true",
+        "note": "Encerramento e volumes efetivamente distribuídos não confirmados."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "21ª/22ª: 24 meses de principal, juros mensais; divergência interna sobre número de parcelas.",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true",
+        "note": "Conclusão documental da cláusula citada; não representa posição IME."
+      },
+      "Juros/amortização": {
+        "value": "Amortização indicada desde 15/05/2028; documento diverge entre 24 parcelas e meses 25–36.",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true",
+        "note": "Necessário suplemento/instrumento final para fechar calendário."
+      },
+      "Vencimento": {
+        "value": "Prospecto informa 1.825 dias; incompatibilidade aparente com texto de meses 25–36.",
+        "source": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true",
+        "note": "Conclusão documental da cláusula citada; não representa posição IME."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Componente V1: 0,215% a.a./PL; mínimo numérico R$ 15,5 mil/mês inclui custódia/controladoria/escrituração; TA agrega gestão e REA.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.10, 7.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Mínimo contraditório com extenso quatro mil reais; confirmado somente como valor numérico do documento."
+      },
+      "Gestão": {
+        "value": "1,20% a.a./PL; mínimo R$ 6 mil/mês; componente da TA; IPCA anual.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.10–11, 7.1–7.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Custódia": {
+        "value": "Incluída no componente V1/serviços da administradora; taxa separada não identificada.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.10, 7.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Conclusão documental; validade limitada à versão citada e às ressalvas desta revisão."
+      },
+      "Consultoria/cobrança": {
+        "value": "0,75% ao mês sobre valor de aquisição dos DC, conforme anexo de consultoria.",
+        "source": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; anexo de Consultor Especializado, 7.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+        "note": "Base de aquisição, não PL; verificar volume de cessões para apurar custo."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas subordinadas/PL: cálculo agregado com validação de classes e do denominador.",
+        "source": "Corpus do CNPJ 42154687000160, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 1223029, referência 08/06/2026, arquivo data/raw/42154687000160/1223029_regulamento.txt",
+        "note": "Monitorável com ressalva: IME mensal não prova cumprimento diário nem composição jurídica por série."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90/180/crédito e PDD/crédito: proxies agregados; gatilhos contratuais exigem fórmula própria.",
+        "source": "Corpus do CNPJ 42154687000160, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 1223029, referência 08/06/2026, arquivo data/raw/42154687000160/1223029_regulamento.txt",
+        "note": "Parcial: não equiparar índices de estoque/vintage/rolagem à carteira atual sem reconciliação de denominadores."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, lastro, finalidade do hedge e troca de prestadores exigem controle documental.",
+        "source": "Corpus do CNPJ 42154687000160, revisão 2026-10-07T14:50:59-03:00; Fundos.NET ID 1223029, referência 08/06/2026, arquivo data/raw/42154687000160/1223029_regulamento.txt",
+        "note": "Não monitorável pelo IME público sem dados individualizados; caixa e recompras ajudam apenas como proxies."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada para esta revisão.",
+        "source": "services.ime_loader.peek_cached_informe: miss para CNPJ 42154687000160; período consultado 01/01/2026–30/09/2026 em 2026-10-07T14:50:59-03:00",
+        "note": "Não foi definida competência de referência pelo usuário. O cache consultado não cobre o período; análise contratual permanece offline."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinação total de 40% do PL; o piso júnior usa o patrimônio das subordinadas como denominador."
+    },
+    {
+      "Tema": "Emissões",
+      "Conclusão": "21ª e 22ª seniores têm metas CDI + 2,00% e CDI + 1,25%; calendário do prospecto exige correção documental."
+    },
+    {
+      "Tema": "Custos",
+      "Conclusão": "Mínimo numérico de administração diverge do valor por extenso; gestão e custódia compõem a estrutura da taxa."
+    },
+    {
+      "Tema": "Rating",
+      "Conclusão": "Ratings da 15ª sênior e 9ª mezanino foram retirados a pedido do emissor em junho de 2026."
+    }
+  ],
+  "warnings": [
+    "A definição de administração agrega gestão e REA: conservar componentes para evitar dupla contagem.",
+    "Regulamento escreve R$ 15.500,00 e por extenso quatro mil reais no mesmo mínimo; exige confirmação da administradora.",
+    "Prospecto 1160029 diverge entre 24 parcelas após carência, pagamento nos meses 25–36 e prazo de 1.825 dias; calendário fechado não validado.",
+    "Rating publicado 30/06/2026 informa retirada a pedido do emissor; não apresentar brA+/brBBB+ como rating vigente."
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": "1223029",
+      "date": "08/06/2026",
+      "path": "data/raw/42154687000160/1223029_regulamento.txt",
+      "pages": 100,
+      "identity_verified": true,
+      "review_scope": "Revisão dirigida das cláusulas citadas; texto integral disponível localmente."
+    },
+    {
+      "document_id": "1160029",
+      "date": "01/04/2026",
+      "path": "data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt",
+      "pages": 26,
+      "identity_verified": true,
+      "review_scope": "Características da oferta, taxas e calendário; divergências preservadas."
+    },
+    {
+      "document_id": "1237432",
+      "date": "30/06/2026",
+      "path": "data/raw/42154687000160/1237432_instrumento_de_emiss_o.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "review_scope": "Leitura integral do instrumento de 5ª emissão júnior."
+    },
+    {
+      "document_id": "1237281",
+      "date": "30/06/2026",
+      "path": "data/raw/42154687000160/1237281_relat_rio_de_rating.txt",
+      "pages": 5,
+      "identity_verified": false,
+      "identity_note": "Nome inequívoco da estrutura e referência do inventário público local; CNPJ não impresso no relatório.",
+      "review_scope": "Ação de rating e tabela de séries; PL histórico não tratado como emissão."
+    }
+  ],
+  "emissions_rows": [
+    {
+      "Cota/Classe": "21ª sênior",
+      "Tipo": "Sênior",
+      "Remuneração": "CDI + 2,00% a.a.",
+      "Juros/remuneração": "Mensal; carência principal de 24 meses",
+      "Amortização principal": "Desde 15/05/2028; divergência entre 24 parcelas e meses 25–36",
+      "Volume": "R$ 200 milhões ofertados",
+      "VNU": "R$ 1.000,00",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "13/04/2026 no prospecto; efetiva integralização não confirmada",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true",
+      "Status curadoria": "Documentado no prospecto; calendário divergente, distribuição efetiva não confirmada"
+    },
+    {
+      "Cota/Classe": "22ª sênior",
+      "Tipo": "Sênior",
+      "Remuneração": "CDI + 1,25% a.a.",
+      "Juros/remuneração": "Mensal; carência principal de 24 meses",
+      "Amortização principal": "Desde 15/05/2028; divergência entre 24 parcelas e meses 25–36",
+      "Volume": "R$ 10 milhões ofertados",
+      "VNU": "R$ 1.000,00",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "13/04/2026 no prospecto; efetiva integralização não confirmada",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1160029; prospecto 01/04/2026; data/raw/42154687000160/1160029_prospecto_ou_l_mina.txt; pp.6–7,12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1160029&cvm=true",
+      "Status curadoria": "Documentado no prospecto; calendário divergente, distribuição efetiva não confirmada"
+    },
+    {
+      "Cota/Classe": "5ª emissão júnior",
+      "Tipo": "Júnior",
+      "Remuneração": "Residual; sem benchmark definido no termo",
+      "Juros/remuneração": "Conforme regulamento; periodicidade específica não localizada no termo",
+      "Amortização principal": "Conforme regulamento; cronograma fechado não identificado",
+      "Volume": "R$ 100 milhões aprovados",
+      "VNU": "R$ 1.000,00 na primeira integralização",
+      "Data deliberação": "30/06/2026",
+      "Data emissão / 1ª integralização": "Data da efetiva integralização; data real não localizada",
+      "Data encerramento/oferta": "Saldo não colocado cancelável; encerramento real não localizado",
+      "Fonte": "Fundos.NET ID 1237432; 30/06/2026; data/raw/42154687000160/1237432_instrumento_de_emiss_o.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237432&cvm=true",
+      "Status curadoria": "Aprovação documentada; distribuição e integralização não confirmadas"
+    },
+    {
+      "Cota/Classe": "7ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 09/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "10ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 09/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "11ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 09/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "12ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 11/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "13ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 12/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "14ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 03/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "15ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 05/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "16ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 10/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "17ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 12/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "18ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 02/2029; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "19ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 03/2029; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "20ª sênior — posição histórica maio/2026",
+      "Tipo": "Sênior",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 03/2029; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; relatório informa PL da série, que não é volume ofertado",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "3ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 09/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "4ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 09/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "5ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 10/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "7ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 12/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "8ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 03/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "9ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 05/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "10ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 10/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "11ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 10/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "12ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 11/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "13ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 11/2028; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "14ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 03/2029; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "15ª mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 03/2029; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    },
+    {
+      "Cota/Classe": "F mezanino — posição histórica maio/2026",
+      "Tipo": "Mezanino",
+      "Remuneração": "Spread final não localizado; ato/suplemento preenchido não localizado.",
+      "Juros/remuneração": "Não localizado no corpus acessível desta revisão.",
+      "Amortização principal": "Vencimento indicado 11/2027; cronograma de parcelas não localizado",
+      "Volume": "Volume de emissão não confirmado; PL da série não equivale à oferta",
+      "VNU": "Não localizado no corpus acessível desta revisão.",
+      "Data deliberação": "Não localizado no corpus acessível desta revisão.",
+      "Data emissão / 1ª integralização": "Não localizado no corpus acessível desta revisão.",
+      "Data encerramento/oferta": "Não localizado no corpus acessível desta revisão.",
+      "Fonte": "Fundos.NET ID 1237281; comunicado S&P 30/06/2026; data/raw/42154687000160/1237281_relat_rio_de_rating.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1237281&cvm=true",
+      "Status curadoria": "Série histórica identificada; spread/termo de emissão não localizado"
+    }
+  ],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "Componente V1: 0,215% a.a./PL; mínimo numérico R$ 15,5 mil/mês inclui custódia/controladoria/escrituração; TA agrega gestão e REA.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.10, 7.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente no corpus local público, 08/06/2026; inventário online não confirmado; 08/06/2026"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "1,20% a.a./PL; mínimo R$ 6 mil/mês; componente da TA; IPCA anual.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; pp.10–11, 7.1–7.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente no corpus local público, 08/06/2026; inventário online não confirmado; 08/06/2026"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "Incluída no componente V1/serviços da administradora; taxa separada não identificada.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; p.10, 7.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente no corpus local público, 08/06/2026; inventário online não confirmado; 08/06/2026"
+    },
+    {
+      "Item": "Consultoria/cobrança",
+      "Percentual a.a.": "0,75% ao mês sobre valor de aquisição dos DC, conforme anexo de consultoria.",
+      "Mínimo mensal": "Ver termo completo na remuneração; mínimo nominal e reajuste descritos quando disponíveis.",
+      "Fonte": "Fundos.NET ID 1223029; referência 08/06/2026; data/raw/42154687000160/1223029_regulamento.txt; anexo de Consultor Especializado, 7.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1223029&cvm=true",
+      "Versão vigente / base documental": "regulamento mais recente no corpus local público, 08/06/2026; inventário online não confirmado; 08/06/2026"
+    }
+  ],
+  "metrics": {
+    "documents_inventoried": 160,
+    "inventory_scope": "Inventário histórico local e documentos públicos locais identificados; inventário online completo atual não confirmado",
+    "local_regulatory_pdfs": 8,
+    "new_network_pdfs_downloaded": 0,
+    "local_analyzable_pdf_pages": 312,
+    "text_caches_without_local_pdf": 0,
+    "documents_without_local_pdf": 152,
+    "extraction_errors": "Nenhum erro na extração dos PDFs locais processados",
+    "reviewed_source_documents": 4,
+    "full_document_human_reading_claim": false
+  }
+}

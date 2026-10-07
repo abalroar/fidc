@@ -1,0 +1,263 @@
+{
+  "cnpj": "37511828000114",
+  "label": "Mercado Crédito I Brasil",
+  "reviewed_at": "2026-10-07T15:13:33-03:00",
+  "document_status": "Revisão documental dirigida; lacunas e divergências explícitas",
+  "scope_note": "Leitura dirigida de regulamentos completos e atos acessíveis identificados nas fontes; o inventário não foi integralmente relido. Datas documentais posteriores ao período do nome da carteira estão explicitadas. Inventário atual tecnicamente indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.. Inventário anterior preservado; vigência mais recente exige nova consulta.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs de crédito parcelado a consumidores e comerciantes, originadas por IFs parceiras",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 133 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Originador/endossante": {
+        "value": "IFs parceiras; Mercado Pago atua como correspondente",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 133 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Devedor": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Concentração": {
+        "value": "Devedor único ≤ 0,5% dos DC; limites por produto, perfil e prazo",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 143 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Day trade": {
+        "value": "Operações iniciadas e encerradas no mesmo dia vedadas",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 50 · 5.7 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Júnior ≥ 10% PL, com majorações condicionais por excesso de juros e perdas",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 42 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Índice histórico comerciante: avaliação 8%; amortização acelerada 7%; tabelas MOB adicionais",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 33 e 92 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Índice histórico e safras MOB não correspondem diretamente ao aging agregado do IME."
+      },
+      "Reserva de caixa": {
+        "value": "Reserva de despesas de 0,20% PL; recompor se saldo < 50% do valor requerido",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 107 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção patrimonial/troca de indexador sem risco de capital; proteção de posições à vista",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 50/112 · 5.8; 21.1.1(i) · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Validar finalidade, posição coberta e instrumento; IME oferece posição agregada."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Cross default": {
+        "value": "Endividamento do Mercado Pago: inadimplemento/aceleração >US$75 milhões; observar cura",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 88 · 13.1(xviii) · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Extenso informa setenta e cinco milhões; numeral extraído “US$75.000.00,00” está malformado. Confirmar instrumento antes de alerta automático."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Prestadores essenciais": {
+        "value": "Administração: Banco Genial; gestão: Polígono Capital",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 6/31 · Definições Administrator/Manager · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Controle documental; IME agregado não comprova a hipótese contratual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, mezanino e júnior; apêndices-modelo mantêm campos abertos",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 128–132 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Remuneração": {
+        "value": "Spread final da versão atual não localizado; apêndices econômicos atuais em aberto",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 130 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Consulta Fundos.NET por CNPJ 37511828000114 em 07/10/2026; 75 registros no inventário anterior preservado; fontes acessíveis: 1200490, 1019776",
+        "note": "Lacuna documental; não equivale à inexistência da regra"
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas cumulativas 0,125% / 0,11% / 0,09% a.a.; mínimo R$ 27 mil/mês",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 105 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Gestão": {
+        "value": "0,12% a.a. sobre PL; mínimo não recuperável no texto extraído",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 106 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      },
+      "Custódia": {
+        "value": "0,05% a.a.; mínimo R$ 3 mil/mês",
+        "source": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 106 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+        "note": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série"
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas/PL são candidatos; validar denominadores, subclasses e exclusões",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados são proxies; safras MOB/perdas ajustadas exigem relatório analítico",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração individual, cross-default, trocas de prestadores e finalidade do hedge exigem documentos",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta leitura; consultar cache e selecionar competência no Monitoramento",
+        "source": "Metodologia IME público: services/documentary_portfolio_reviews.py; fórmulas dependem das definições documentais citadas neste perfil",
+        "note": "Classificação metodológica; não afirma enquadramento do fundo em uma competência"
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Gatilhos",
+      "Conclusão": "Os gatilhos de perda usam índices históricos por produto e tabelas por MOB. O aging público do IME permite alertas preliminares e exige a base analítica de safras para validar o contrato."
+    }
+  ],
+  "warnings": [
+    "Inventário atual tecnicamente indisponível: Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.. Inventário anterior preservado; vigência mais recente exige nova consulta."
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1200490,
+      "kind": "regulamento",
+      "date": "27/03/2026",
+      "path": "data/raw/37511828000114/1200490_regulamento.pdf",
+      "text_path": "data/raw/37511828000114/1200490_regulamento.full.txt",
+      "identity_verified": true,
+      "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "pages": 144,
+      "extractable_pages": 142,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    },
+    {
+      "document_id": 1019776,
+      "kind": "regulamento",
+      "date": "20/10/2025",
+      "path": "data/raw/37511828000114/1019776_regulamento.pdf",
+      "text_path": "data/raw/37511828000114/1019776_regulamento.full.txt",
+      "identity_verified": true,
+      "inventory_error": "Fundos.NET respondeu HTTP 520 em pesquisarGerenciadorDocumentosDados.",
+      "pages": 141,
+      "extractable_pages": 141,
+      "reading_scope": "Extração integral disponível; consulta dirigida por cláusulas, sem declaração de leitura integral de todas as páginas"
+    }
+  ],
+  "metrics": {
+    "inventory_count": 75,
+    "pdf_count": 2,
+    "pages_locally_available": 285
+  },
+  "emissions_rows": [],
+  "costs_rows": [
+    {
+      "Item": "Administração",
+      "Percentual a.a.": "Faixas cumulativas 0,125% / 0,11% / 0,09% a.a.; mínimo R$ 27 mil/mês",
+      "Mínimo mensal": "R$ 27 mil",
+      "Fonte": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 105 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+      "Versão vigente / base documental": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 105 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Gestão",
+      "Percentual a.a.": "0,12% a.a. sobre PL; mínimo não recuperável no texto extraído",
+      "Mínimo mensal": "Mínimo mensal não localizado na fonte",
+      "Fonte": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 106 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+      "Versão vigente / base documental": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 106 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    },
+    {
+      "Item": "Custódia",
+      "Percentual a.a.": "0,05% a.a.; mínimo R$ 3 mil/mês",
+      "Mínimo mensal": "R$ 3 mil",
+      "Fonte": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 106 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+      "Versão vigente / base documental": "data/raw/37511828000114/1200490_regulamento.pdf · ID Fundos.NET 1200490 · 27/03/2026 · regulamento · p. 106 · https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1200490",
+      "Mudanças relevantes": "Resumo jurídico da fonte identificada; verificar aditamentos e aplicação à série",
+      "Status curadoria": "Revisão documental; faixas e bases preservadas na descrição"
+    }
+  ]
+}
