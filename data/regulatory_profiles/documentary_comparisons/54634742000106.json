@@ -1,0 +1,256 @@
+{
+  "cnpj": "54634742000106",
+  "label": "LARCA CONSIGNADO II",
+  "reviewed_at": "2026-10-07T16:31:15-03:00",
+  "document_status": "Revisão documental dirigida com lacunas explícitas",
+  "scope_note": "Revisão dirigida das cláusulas materiais dos documentos acessíveis; texto integral extraído quando disponível. Não corresponde à leitura integral de todos os registros do inventário. Regulamento 11/09/2026 acessível; assembleia correspondente retornou HTTP 520. Mudanças e seus efeitos devem ser confrontados com a ata quando o acesso for restabelecido. O nome da carteira não fixa a vigência documental; cada fonte mantém sua própria data. Não foi carregada nova competência IME.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs e contratos de assistência financeira: consignado em folha/benefício; regras próprias para FGTS",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 8,49; Definições;8.1 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Devedor": {
+        "value": "Pessoas 21–70 anos; crédito presente por devedor≤R$ 220 mil",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 49; 8.1(ii–iii) | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Elegibilidade": {
+        "value": "Até 96 parcelas (excetoFGTS); título≥R$ 100; primeira parcela≤70 dias (excetoFGTS); sem atraso",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 49; 8.1 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Concentração": {
+        "value": "Devedor/grupo≤20% PL com exceções condicionadas; entes públicos conforme apenso",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 45,49; 6.6;8.1(vii) | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas / PL≥20%; júnior / PL≥5%; amortização mezanino exige 25% ou 30% em gatilhos",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 72–74; 11.3;11.5–11.6 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Liquidação: F 30>25%,F 60>22%,F 90>18%,perda líquida>10%; pré-pagamento/resolução têm janelas",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 13–14,86; Definições;17.3 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Atraso usa PNP da faixa / valor de face de créditos com vencimento na faixa. Over/total crédito IME não replica regra."
+      },
+      "Reserva de caixa": {
+        "value": "Maior entre 90 dias de despesas e 0,5% PL",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 81; 14.5 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção de posições à vista; sem descoberto/alavancagem; registro com garantia",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 45; 6.4–6.4.2 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios≥67% PL, conforme definição",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 2; Alocação Mínima | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvência conforme ordem de pagamentos; suspensa em gatilhos específicos",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 48–49; 7.3;8.2 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Remuneração": {
+        "value": "Spread final sênior/mezanino não localizado; ato recente é emissão júnior",
+        "source": "Fundos.NET ID 1005796 | 30/09/2025 | emissao | p. 1–4; Ato emissão | data/raw/54634742000106/1005796_emissao_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1005796",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Volume/VNU": {
+        "value": "Ato 30/09/2025: júnior R$ 3 mi; preço unitário=cota do dia da integralização",
+        "source": "Fundos.NET ID 1005796 | 30/09/2025 | emissao | p. 3; Suplemento | data/raw/54634742000106/1005796_emissao_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1005796",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,15% a.a. PL; mínimo R$ 12 mil primeiros 6 meses e R$ 17 mil após",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 42; 5.1 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gestão": {
+        "value": "Selic>12,25%:0,50% a.a.PL; Selic≤12,25%:1,30%; mínimo R$ 15 mil/mês",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 42; 5.2 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Custódia": {
+        "value": "0,05% a.a. PL; mínimo R$ 3 mil/mês",
+        "source": "Fundos.NET ID 1316627 | 11/09/2026 | regulamento | p. 44; 5.11 | data/raw/54634742000106/1316627_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1316627",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar ativo elegível, subclasses e fórmula contratual",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90 e PDD / crédito: indicadores agregados; gatilhos dependem de denominador e janela contratual",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração por devedor/grupo, lastro, prestadores e eventos: validação documental e operacional",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta revisão",
+        "source": "data/raw/54634742000106/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 54634742000106 em 07/10/2026; inventário completo com 79 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "CCBs e contratos de assistência financeira: consignado em folha/benefício; regras próprias para FGTS"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Subordinadas / PL≥20%; júnior / PL≥5%; amortização mezanino exige 25% ou 30% em gatilhos"
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "Direitos creditórios≥67% PL, conforme definição"
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Spread final sênior/mezanino não localizado; ato recente é emissão júnior"
+    }
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1316627,
+      "kind": "regulamento",
+      "date": "11/09/2026",
+      "path": "data/raw/54634742000106/1316627_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/54634742000106/1316627_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 94,
+      "extractable_pages": 93,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "54634742000106",
+      "document_type": "",
+      "reference_date": "11/09/2026",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 1142255,
+      "kind": "regulamento",
+      "date": "19/03/2026",
+      "path": "data/raw/54634742000106/1142255_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/54634742000106/1142255_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 88,
+      "extractable_pages": 88,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "54634742000106",
+      "document_type": "",
+      "reference_date": "19/03/2026",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 1005796,
+      "kind": "emissao",
+      "date": "30/09/2025",
+      "path": "data/raw/54634742000106/1005796_emissao_review_20261007.pdf",
+      "text_path": "data/raw/54634742000106/1005796_emissao_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 4,
+      "extractable_pages": 4,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "54634742000106",
+      "document_type": "Instrumento Particular de Emissão de Cotas",
+      "reference_date": "30/09/2025",
+      "inventory_queried_at": "2026-10-07"
+    }
+  ],
+  "warnings": [
+    "ID 1316616: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+  ],
+  "metrics": {
+    "inventory_count": 79,
+    "pdf_count": 3,
+    "pages_analyzed": 185,
+    "documents_without_local_pdf": 76,
+    "extraction_errors": 1,
+    "download_errors": 1,
+    "pdfs_without_extractable_text": 0,
+    "identity_exclusions": 0
+  }
+}

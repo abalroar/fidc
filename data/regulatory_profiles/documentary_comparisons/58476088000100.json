@@ -1,0 +1,270 @@
+{
+  "cnpj": "58476088000100",
+  "label": "Saga",
+  "reviewed_at": "2026-10-07T16:37:58-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 852325,
+      "kind": "regulamento",
+      "date": "25/02/2025",
+      "path": "data/raw/58476088000100/852325_documentary_review.pdf",
+      "text_path": "data/raw/58476088000100/852325_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 127,
+      "extractable_pages": 127,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 852323,
+      "kind": "assembleia",
+      "date": "25/02/2025 10:00",
+      "path": "data/raw/58476088000100/852323_documentary_review.pdf",
+      "text_path": "data/raw/58476088000100/852323_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 5,
+      "extractable_pages": 5,
+      "identity_verification_note": "CNPJ literal verificado na extração Poppler",
+      "extraction_method": "Poppler after corrupt pypdf",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 833533,
+      "kind": "emissao",
+      "date": "07/02/2025",
+      "path": "data/raw/58476088000100/833533_documentary_review.pdf",
+      "text_path": "data/raw/58476088000100/833533_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Notas comerciais emitidas por sociedades do Grupo Saga; subscrição primária",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 14-15,64",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Originador/endossante": {
+        "value": "Emissão primária pelos próprios devedores do Grupo Saga",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 14-15,64",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Devedor": {
+        "value": "Saga Brasil Administração e Participações; Saga Participações e controladas",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 14,18",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Notas comerciais em reais, vincendas; vencimento até a última cota sênior; modelo aprovado",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 67",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas/PL ≥33,33%",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 18",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Reserva inicial e reserva mínima de 3 meses de custos/despesas/encargos",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 23,86-87",
+        "note": "Não reduzir toda a reserva ao mínimo de 3 meses; a reserva inicial tem função própria e recomposição por subordinados."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos vedados",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 70",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios elegíveis ≥90% PL",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 6",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada, duração indeterminada; prazo das séries no apêndice",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 25,63",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Amortização extraordinária": {
+        "value": "Pagamento antecipado das notas sem nova aquisição em 10 DU exige deliberação de amortização sênior proporcional",
+        "source": "data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00 | assembleia | p. 2-3",
+        "note": "Deliberação de 25/02/2025; respeita despesas e reserva. Não equivale a amortização automática integral."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "1ª série sênior; oferta em garantia firme",
+        "source": "data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025 | emissao | p. 1-2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "DI + sobretaxa: modelo não preenchido; spread final não localizado",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 119-120",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Volume/VNU": {
+        "value": "R$ 100 milhões ofertados; 100 mil cotas; VNU R$ 1 mil",
+        "source": "data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025 | emissao | p. 2",
+        "note": "Anúncio de início; não certificar distribuição/integração final."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Modelo de apêndice sem calendário preenchido; cronograma fechado não identificado",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 119-120",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Taxa global 0,22% a.a. PL; mínimo R$ 24,5 mil/mês; inclui gestão/custódia/controladoria/escrituração",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 110",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Gestão": {
+        "value": "Incluída na taxa global; rateio por prestador não localizado",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 111",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Custódia": {
+        "value": "Incluída na taxa global; custos de verificação do lastro adicionais",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 111-112",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025; data/raw/58476088000100/852323_documentary_review.pdf | Fundos.NET ID 852323 | 25/02/2025 10:00; data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 58476088000100; revisão em 2026-10-07T16:37:58-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [
+    "ID 830536: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+  ],
+  "metrics": {
+    "inventory_count": 35,
+    "pdf_count": 3,
+    "pages_available": 135,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 32,
+    "extraction_errors": 0,
+    "access_errors": 1,
+    "sources_consulted": 3
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "1ª série sênior",
+      "Tipo": "Sênior",
+      "Volume": "R$ 100 milhões ofertados; distribuição final não localizada",
+      "Quantidade": "100.000 ofertadas",
+      "VNU": "R$ 1.000",
+      "Data encerramento/oferta": "Início 07/02/2025; encerramento não localizado",
+      "Remuneração": "DI + sobretaxa; spread final não localizado no apêndice-modelo",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Prazo remetido a apêndice preenchido não localizado",
+      "Fonte": "data/raw/58476088000100/833533_documentary_review.pdf | Fundos.NET ID 833533 | 07/02/2025 | emissao | p. 2; data/raw/58476088000100/852325_documentary_review.pdf | Fundos.NET ID 852325 | 25/02/2025 | regulamento | p. 119-120",
+      "Status/evidência": "Oferta inicial; leitura dirigida, condições econômicas finais pendentes",
+      "Status curadoria": "Fontes acessíveis revisadas; lacunas explícitas"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Notas comerciais primárias de sociedades do Grupo Saga."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinadas mínimas de 33,33% PL; alocação de 90% PL; derivativos vedados."
+    },
+    {
+      "Tema": "Pagamentos",
+      "Conclusão": "Pagamento antecipado do lastro sem reinvestimento em 10 dias úteis exige deliberação de amortização sênior."
+    },
+    {
+      "Tema": "Lacuna",
+      "Conclusão": "Oferta inicial de R$ 100 milhões localizada; spread e calendário dependem de apêndice preenchido."
+    }
+  ]
+}

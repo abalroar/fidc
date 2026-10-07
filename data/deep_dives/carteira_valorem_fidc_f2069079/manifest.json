@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_valorem_fidc_f2069079",
+  "title": "Curadoria Valorem FIDC",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "f20690799ce9429c87cddd67d757da41",
+  "portfolio_signature": "17468142000180",
+  "generated_at": "2026-10-07T16:29:59-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "17468142000180",
+      "name": "VALOREM FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS MULTISETORIAL RESPONSABILIDADE LIMITADA",
+      "short_name": "Valorem"
+    }
+  ],
+  "comparison_columns": {
+    "Valorem": "17468142000180"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Versão documental conforme ID/data citados; o nome comercial do cadastro não confirma cedente, devedor ou garantia.",
+      "Cronogramas e spreads dependem dos suplementos efetivamente preenchidos; metas não garantem pagamento.",
+      "Anúncio sênior 29 ID1333217 declara 100 cotas × R$100 e R$10 milhões; o quadro soma 98,81 cotas. Valores não conciliados; não inferir volume efetivo."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "5867c90d43176b28b34604a1e59a5a155b6a4aad513959d74e018be6af9489f2",
+    "rendering_sha256": "f1787765ac61668cfba8d23045436058f57d2f780de2191bc8aefd1bb22ea7f5",
+    "input_sha256": "a787366bf6825871925341795a886e7f89f3844e9eedf12a5f68f439fb7d9101"
+  }
+}

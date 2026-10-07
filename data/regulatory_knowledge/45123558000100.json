@@ -1,0 +1,476 @@
+{
+  "schema_version": 1,
+  "fund_name": "CANAÃ FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO - FIAGRO - IMOBILIÁRIO - RESPONSABILIDADE LIMITADA",
+  "fund_cnpj": "45.123.558/0001-00",
+  "generated_at": "2026-10-07T16:50:54-03:00",
+  "documents": [
+    {
+      "id": 1251347,
+      "classification": "fato_relevante",
+      "categoria": "Distribuição de rendimentos",
+      "tipo": "Comunicado de distribuição",
+      "especie": "",
+      "data_referencia": "16/07/2026",
+      "data_entrega": "Não recuperada",
+      "status": "Fonte exata indexada na busca pública",
+      "downloaded": true,
+      "source_file": "data/raw/45123558000100/1251347_documentary_review.pdf",
+      "download_error": ""
+    }
+  ],
+  "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Subclasse A da Classe I identificada; FIAGRO imobiliário",
+      "amount_display": "Não localizado nas fontes acessíveis desta leitura",
+      "remuneration": "Spread/meta final não localizados; comunicado de rendimentos não define remuneração contratual",
+      "amortization_schedule": "Rendimento anunciado R$ 7, 42542501 por cota; competência jul/2026; pagamento 17/07/2026",
+      "source_document": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true; Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "warnings": [
+    "Inventário ao vivo indisponível: Consulta tipoFundo=2 retornou vazio para FIAGRO imobiliário; repetição tipoFundo vazio e1 respondeu HTTP520. Inventário completo não recuperado.",
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário.",
+    "Unidade FIAGRO imobiliário exige confirmar aplicabilidade e fonte de métricas; não usar IME FIDC como réplica automática."
+  ],
+  "documentary_review": {
+    "cnpj": "45123558000100",
+    "label": "Canaã FIAGRO Imobiliário",
+    "reviewed_at": "2026-10-07T16:50:54-03:00",
+    "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+    "scope_note": "Leitura integral do comunicado local de1 página, por CNPJ literal. Regulamento e inventário completo indisponíveis; nenhuma regra de FIDC presumida para o FIAGRO imobiliário.",
+    "sources_reviewed": [
+      {
+        "document_id": 1251347,
+        "kind": "fato_relevante",
+        "date": "16/07/2026",
+        "path": "data/raw/45123558000100/1251347_documentary_review.pdf",
+        "text_path": "data/raw/45123558000100/1251347_documentary_review.txt",
+        "pages": 1,
+        "extractable_pages": 1,
+        "identity_verified": true,
+        "identity_verification_note": "CNPJ literal e/ou ID obtido por consulta exata CNPJ",
+        "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+        "reviewed_locators": [
+          "Comunicado, p1"
+        ],
+        "pages_available": 1
+      }
+    ],
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Devedor": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Garantia": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Elegibilidade": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Concentração": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Reserva de caixa": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Derivativos/hedge": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "PDD": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Cessão/recompra": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Coobrigação": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Waterfall": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Subclasse A da Classe I identificada; FIAGRO imobiliário",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+        },
+        "Remuneração": {
+          "value": "Spread/meta final não localizados; comunicado de rendimentos não define remuneração contratual",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+        },
+        "Volume/VNU": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Ofertas": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        },
+        "Juros/amortização": {
+          "value": "Rendimento anunciado R$ 7, 42542501 por cota; competência jul/2026; pagamento 17/07/2026",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Pagamento declarado não é rendimento recorrente garantido nem taxa anual."
+        },
+        "Vencimento": {
+          "value": "Vencimento e cronograma contratual não localizados; evento pontual 17/07/2026",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Banco Genial identificado; taxa e mínimo mensal não localizados",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+        },
+        "Gestão": {
+          "value": "Genial Gestão identificada; taxa e mínimo mensal não localizados",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Comunicado, p1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+        },
+        "Custódia": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Controles de FIDC bloqueados: FIAGRO imobiliário; conciliar categoria e regulamento antes de usar IME de FIDC.",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Não usar IME de FIDC para presumir enquadramento do FIAGRO imobiliário. A conciliação de categoria e regulamento está pendente."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Aging/PDD de FIDC sem aplicabilidade comprovada ao FIAGRO imobiliário.",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Não usar IME de FIDC para presumir enquadramento do FIAGRO imobiliário. A conciliação de categoria e regulamento está pendente."
+        },
+        "Controles documentais": {
+          "value": "Regulamento, política, custos e séries pendentes; exigir documentos do mesmo CNPJ e categoria.",
+          "source": "Fundos.NET ID 1251347; referência 16/07/2026; data/raw/45123558000100/1251347_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1251347&cvm=true",
+          "note": "Não usar IME de FIDC para presumir enquadramento do FIAGRO imobiliário. A conciliação de categoria e regulamento está pendente."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Identidade",
+        "Conclusão": "CNPJ 45.123.558/0001-00 aparece como Canaã FIAGRO Imobiliário, Subclasse A da Classe I."
+      },
+      {
+        "Tema": "Pagamento",
+        "Conclusão": "Comunicado de 16/07/2026 anuncia R$ 7,42542501 por cota, com pagamento 17/07/2026."
+      },
+      {
+        "Tema": "Lacuna",
+        "Conclusão": "Inventário completo e regulamento não foram recuperados; critérios, emissões e custos permanecem pendentes."
+      }
+    ],
+    "warnings": [
+      "Inventário ao vivo indisponível: Consulta tipoFundo=2 retornou vazio para FIAGRO imobiliário; repetição tipoFundo vazio e1 respondeu HTTP520. Inventário completo não recuperado.",
+      "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário.",
+      "Unidade FIAGRO imobiliário exige confirmar aplicabilidade e fonte de métricas; não usar IME FIDC como réplica automática.",
+      "Controles/proxies IME de FIDC bloqueados até conciliar categoria FIAGRO imobiliário e regulamento do CNPJ; não transferir parâmetros de outro veículo."
+    ],
+    "metrics": {
+      "inventory_count": "Inventário parcial:1 documento primário localizado; total indisponível",
+      "sources_consulted": 1,
+      "pdf_count": 1,
+      "pages_available": 1,
+      "documents_without_local_pdf": 0,
+      "extraction_errors": 0,
+      "inventory_scope": "FIAGRO imobiliário; consulta tipoFundo2 vazia, repetição tipoFundo1/vazio HTTP520; documento exato localizado no Fundos.NET",
+      "pages_scope": "1 página do comunicado efetivamente lida; inventário completo indisponível.",
+      "extractable_pages": 1,
+      "documents_with_incomplete_text": 0
+    }
+  },
+  "reviewed_at": "2026-10-07T16:50:54-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/45123558000100.json",
+  "historical_heuristic_criteria": [],
+  "historical_heuristic_emissions": []
+}

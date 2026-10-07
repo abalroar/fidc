@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_real_moto_pecas_per_fundo_de_invest_3ad00d58",
+  "title": "Curadoria Real Moto Peças (PER FUNDO DE INVEST)",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "3ad00d5893cc4f21be6893717eb48fcd",
+  "portfolio_signature": "30659408000130",
+  "generated_at": "2026-10-07T16:18:20-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "30659408000130",
+      "name": "PER FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "PER"
+    }
+  ],
+  "comparison_columns": {
+    "PER": "30659408000130"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "ID 1117496: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "514c703bc8def4aa5da3fa73f1917c616121394f2fd1118e61646400427e5a01",
+    "rendering_sha256": "ec8ae6b0672dbb77fd23a8a28de0c9100065da0ad2f034b32364bb37fe6ea3df",
+    "input_sha256": "d8e97ae7d8c7c622669ad8150075c8ce5ef08c2df04912d5ff51675be1adc8d8"
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "cnpj": "44272584000120",
+  "label": "Lavoro Agro FIAGRO",
+  "reviewed_at": "2026-10-07T16:50:54-03:00",
+  "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+  "scope_note": "Revisão dirigida das fontes identificadas abaixo por CNPJ, incluindo regras e atos materiais localizados. Não se afirma leitura integral de cada registro inventariado.",
+  "sources_reviewed": [
+    {
+      "document_id": 1003378,
+      "kind": "regulamento",
+      "date": "30/09/2025",
+      "path": "data/raw/44272584000120/1003378_documentary_review.pdf",
+      "text_path": "data/raw/44272584000120/1003378_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 159,
+      "extractable_pages": 159,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Anexo,8.1 e12.5, pp71 e90",
+        "Glossário Cedentes, p45",
+        "Anexo,12.5, p90",
+        "Anexo,8.2, p72;11.2, p85",
+        "Anexo,12.1 e12.5, pp88–90",
+        "Anexo,12.5, p91; Glossário, p54",
+        "Anexo,14.16, p114",
+        "Anexo,18.1 e21.2, pp131 e135–136",
+        "Anexo,17.1–17.3, p125",
+        "Anexo,7.7–7.8, p70",
+        "Glossário Índice de Perda, p54",
+        "Glossário Alocação Mínima, p41; Anexo,7.4, p68",
+        "Anexo,11.4, p86",
+        "Anexo,3–4, p61",
+        "Anexo,11.3 e11.12, pp85 e88",
+        "Anexo,11.2–11.3, p85",
+        "Anexo,17, pp125–130",
+        "Anexo,14",
+        "Modelos de Apêndices, pp146–154",
+        "Anexo,14.1.2,14.17 e19.1, pp112,116 e133",
+        "Apêndices, pp146–154",
+        "Anexo,15.8.2, p124",
+        "Anexo,3.1; Apêndices",
+        "Anexo,6.1, p65",
+        "Anexo,6.2, p65",
+        "Anexo,6.3–6.13, pp65–67"
+      ],
+      "pages_available": 159
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis performados de vendas de insumos agrícolas a produtores rurais",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,8.1 e12.5, pp71 e90; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Originador/endossante": {
+        "value": "Agrocontato, Agrovenci, Lavoro e Pitangueiras",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Glossário Cedentes, p45; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Devedor": {
+        "value": "Produtores rurais compradores dos produtos das cedentes",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,12.5, p90; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Garantia": {
+        "value": "Garantias reais/fidejussórias admitidas; cobertura varia por rating interno/cluster",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,8.2, p72;11.2, p85; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Tabela de rating interno do devedor não é rating da série de cotas."
+      },
+      "Elegibilidade": {
+        "value": "Créditos vincendos; 35–290 dias da emissão da NF; devedor adimplente e relacionamento ≥ 2 anos",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,12.1 e12.5, pp88–90; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Exceções na primeira integralização e condições ambientais exigem validação individual."
+      },
+      "Concentração": {
+        "value": "Grupos econômicos novos: ≤ 15% dos créditos e ≤ 10% PL; mínimo 100 devedores",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,12.5, p91; Glossário, p54; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Os dois denominadores devem ser preservados; IME público não identifica grupos."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior ≥ 40% PL; mezanino A ≥ 25% PL; mezanino B ≥ 5% PL",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,14.16, p114; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Perda> 6% recorrente ou> 8% pontual desalavanca; perda> 10% é avaliação; diluição/resolução/fungibilidade> 5% com recorrência",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,18.1 e21.2, pp131 e135–136; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Perda usa todo saldo de créditos com atraso> 90 dias dividido por carteira; não replicar diretamente Over 90/Crédito."
+      },
+      "Reserva de caixa": {
+        "value": "6 meses de despesas; cobrança R$ 750 mil; pagamento 50% a 60 dias e 100% a 30 dias",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,17.1–17.3, p125; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos e day trade vedados",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,7.7–7.8, p70; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "PDD": {
+        "value": "Método/piso específico de provisão não confirmado; índice de perda contratual tem definição própria",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Glossário Índice de Perda, p54; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios ≥ 67% PL após 180 dias; aquisições após oferta em 30 dias, prorrogáveis 15",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Glossário Alocação Mínima, p41; Anexo,7.4, p68; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvência durante a vigência, observada ordem de alocação",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,11.4, p86; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Duração/público-alvo": {
+        "value": "Prazo indeterminado; classe fechada exclusiva para profissionais",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,3–4, p61; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão irrevogável e definitiva; documentos não apresentados ensejam resolução",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,11.3 e11.12, pp85 e88; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Coobrigação": {
+        "value": "Cessão sem coobrigação dos cedentes/terceiros; garantias individuais podem existir",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,11.2–11.3, p85; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Waterfall": {
+        "value": "Encargos e reservas precedem pagamentos de cotas e aquisições; ordem varia por fase",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,17, pp125–130; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, mezanino A/B e júnior",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,14; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Remuneração": {
+        "value": "Índice/sobretaxa por apêndice; spread final não localizado nos modelos gerais",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Modelos de Apêndices, pp146–154; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Volume/VNU": {
+        "value": "Primeira emissão até R$ 160 mi; VNU R$ 1 mil; capital autorizado R$ 1, 5 bi",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,14.1.2,14.17 e19.1, pp112,116 e133; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Capital autorizado não é volume distribuído."
+      },
+      "Ofertas": {
+        "value": "Ofertas para profissionais; condições finais remetidas ao apêndice",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Apêndices, pp146–154; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao apêndice; período final não localizado",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Apêndices, pp146–154; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Juros/amortização": {
+        "value": "Cronograma por apêndice; pro rata/sequencial conforme fase",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,15.8.2, p124; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Vencimento": {
+        "value": "Prazo por série; cronograma fechado não identificado",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,3.1; Apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0, 27%/0, 25%/0, 22%/0, 20%/0, 15% a.a. por faixas de PL; mínimo R$ 15 mil/mês",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,6.1, p65; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Faixas R$ 300 mi, 600 mi, 1 bi, 2 bi; reajuste IPC/FIPE, subsidiariamente IGP-DI."
+      },
+      "Gestão": {
+        "value": "0, 06%/0, 04%/0, 03%/0, 02%/0, 01% a.a. por faixas; custos de conferência das NFs adicionais",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,6.2, p65; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Custódia": {
+        "value": "0, 10% a.a./PL; escrituração R$ 2 mil/mês e serviços adicionais; lastro R$ 4.850/trimestre",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Anexo,6.3–6.13, pp65–67; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Métricas padronizadas são proxies; data, unidade e denominador precisam coincidir com a regra jurídica."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "O IME não substitui bases por devedor, cedente, vintage ou fluxo de vencimentos."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais",
+        "source": "Fundos.NET ID 1003378; referência 30/09/2025; data/raw/44272584000120/1003378_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1003378&cvm=true",
+        "note": "Controle documental separado de posições agregadas do IME; lacuna não deve produzir enquadramento presumido."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura; verificar cache na publicação",
+        "source": "data/raw/44272584000120/access_status_20261007.txt",
+        "note": "Curadoria documental preservada; esta etapa não consultou saldos IME ao vivo."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Recebíveis de insumos agrícolas do grupo Lavoro, com créditos performados e regras de relacionamento, prazo e risco do produtor."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Sênior exige 40% de proteção; reservas cobrem 6 meses de despesas e pagamentos futuros."
+    },
+    {
+      "Tema": "Gatilhos",
+      "Conclusão": "Perdas acima de 6% recorrentes ou 8% pontuais provocam desalavancagem; cálculo depende do saldo do devedor inadimplente."
+    },
+    {
+      "Tema": "Emissões",
+      "Conclusão": "Spreads e calendário final dependem dos apêndices; os modelos gerais disponíveis têm campos não preenchidos."
+    }
+  ],
+  "warnings": [
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário."
+  ],
+  "metrics": {
+    "inventory_count": 120,
+    "sources_consulted": 1,
+    "pdf_count": 3,
+    "pages_available": 326,
+    "documents_without_local_pdf": 117,
+    "extraction_errors": 0,
+    "inventory_scope": "Fundos.NET ao vivo por CNPJ",
+    "pages_scope": "Páginas com texto disponíveis localmente; leitura dirigida das cláusulas citadas. Total de páginas não comprova leitura integral.",
+    "extractable_pages": 325,
+    "documents_with_incomplete_text": 1
+  }
+}

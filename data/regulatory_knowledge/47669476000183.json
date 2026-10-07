@@ -6,118 +6,362 @@
   "documents": [
     {
       "id": 387776,
+      "classification": "emissao",
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "emissao",
       "data_referencia": "16/08/2022",
-      "data_entrega": "12/12/2022 15:29",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/387776_emissao_emissao_387776_2022-08-16.pdf"
+      "source_file": "data/raw/47669476000183/387776_emissao.pdf"
     },
     {
       "id": 387777,
+      "classification": "regulamento",
       "categoria": "Regulamento",
       "tipo": "",
       "especie": "",
-      "classification": "regulamento",
       "data_referencia": "16/08/2022",
-      "data_entrega": "12/12/2022 15:30",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/387777_regulamento_regulamento_387777_2022-08-16.pdf"
+      "source_file": ""
     },
     {
       "id": 393439,
+      "classification": "regulamento",
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Alteração do Regulamento",
       "especie": "",
-      "classification": "regulamento",
       "data_referencia": "23/11/2022",
-      "data_entrega": "23/12/2022 17:02",
-      "nome_arquivo": null,
-      "status": "CC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/393439_regulamento_regulamento_393439_2022-11-23.pdf"
+      "source_file": ""
     },
     {
       "id": 393441,
+      "classification": "regulamento",
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Alteração do Regulamento",
       "especie": "",
-      "classification": "regulamento",
       "data_referencia": "23/12/2022",
-      "data_entrega": "23/12/2022 17:03",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/393441_regulamento_regulamento_393441_2022-12-23.pdf"
+      "source_file": ""
     },
     {
       "id": 393442,
+      "classification": "regulamento",
       "categoria": "Regulamento",
       "tipo": "",
       "especie": "",
-      "classification": "regulamento",
       "data_referencia": "23/12/2022",
-      "data_entrega": "23/12/2022 17:04",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/393442_regulamento_regulamento_393442_2022-12-23.pdf"
+      "source_file": ""
     },
     {
       "id": 400717,
+      "classification": "regulamento",
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Alteração do Regulamento",
       "especie": "",
-      "classification": "regulamento",
       "data_referencia": "12/01/2023",
-      "data_entrega": "12/01/2023 17:33",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/400717_regulamento_regulamento_400717_2023-01-12.pdf"
+      "source_file": "data/raw/47669476000183/400717_regulamento.pdf"
     },
     {
       "id": 400722,
+      "classification": "regulamento",
       "categoria": "Regulamento",
       "tipo": "",
       "especie": "",
-      "classification": "regulamento",
       "data_referencia": "12/01/2023",
-      "data_entrega": "12/01/2023 17:36",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/400722_regulamento_regulamento_400722_2023-01-12.pdf"
+      "source_file": "data/raw/47669476000183/400722_regulamento.pdf"
     },
     {
       "id": 572305,
+      "classification": "emissao",
       "categoria": "Atos de Deliberação do Administrador",
       "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
       "especie": "",
-      "classification": "emissao",
       "data_referencia": "18/12/2023",
-      "data_entrega": "18/12/2023 15:55",
-      "nome_arquivo": null,
-      "status": "AC",
-      "downloaded": true,
-      "download_error": "",
-      "source_file": "data/raw/47669476000183/572305_emissao_emissao_572305_2023-12-18.pdf"
+      "source_file": "data/raw/47669476000183/572305_emissao.pdf"
     }
   ],
   "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Antecipação de recebíveis de cedente e fornecedores; contratos/títulos elegíveis.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.3, 4.2/5.2",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Vincendos; devedor sem atraso>60 dias; prazo médio≤180 e individual≤365 dias; cessão≥100% DI.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.6, 6.1",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Total≥25%/PL; júnior≥12,5% com mezanino e 25% sem mezanino.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; pp.11–12, 8.13",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Amortização:50% emD-20 e 100% emD-10; verificar dias/calendário do suplemento.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.50, definição Reserva de Amortização",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Derivativos e day trade vedados.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.5, 5.7",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Limite contratual pendente; o IME pode informar saldos, mas não comprova enquadramento",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+      "source_document": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+      "notes": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    {
+      "name": "Situação documental",
+      "canonical_key": "documentary_situacao_documental",
+      "threshold_display": "Liquidação em 18/12/2023; sem subscrição, cotistas ou início de atividades até o ato.",
+      "source_document": "Fundos.NET ID 572305; 18/12/2023; data/raw/47669476000183/572305_emissao.full.txt; emissao; p.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=572305&cvm=true",
+      "notes": "Condição documental; não confundir deliberação, oferta e integralização efetiva.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+      }
+    }
+  ],
+  "eligibility_criteria": [
+    {
+      "name": "Critério de elegibilidade",
+      "description": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…",
+      "source_excerpt": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…",
+      "source_excerpt": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…",
+      "source_excerpt": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…",
+      "source_excerpt": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…",
+      "source_excerpt": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…",
+      "source_excerpt": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…",
+      "source_excerpt": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…",
+      "source_excerpt": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…"
+    },
+    {
+      "name": "Critério de elegibilidade",
+      "description": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
+      "source_excerpt": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
+    }
+  ],
+  "emissions": [
+    {
+      "date": "18/12/2023",
+      "event": "Liquidação antes de subscrição e início de atividades",
+      "series_or_class": "Fundo liquidado",
+      "amount_display": "Não informado nas fontes consultadas",
+      "remuneration": "Sem emissão efetivada até o ato; remuneração atual não aplicável",
+      "amortization_schedule": "Não informado nas fontes consultadas",
+      "source_document": "Fundos.NET ID 572305; 18/12/2023; data/raw/47669476000183/572305_emissao.full.txt; emissao; p.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=572305&cvm=true",
+      "notes": "Estrutura histórica; liquidação declarada em 18/12/2023"
+    }
+  ],
+  "extraction_count": 8,
+  "extraction_errors": [],
+  "historical_heuristic_criteria": [
     {
       "name": "Subordinação mínima",
       "canonical_key": "subordination_ratio_min",
@@ -899,59 +1143,7 @@
       }
     }
   ],
-  "eligibility_criteria": [
-    {
-      "name": "Critério de elegibilidade",
-      "description": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…",
-      "source_excerpt": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…",
-      "source_excerpt": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…",
-      "source_excerpt": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…",
-      "source_excerpt": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
-      "source_excerpt": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…",
-      "source_excerpt": "comunhão de recursos destinad a, preponderantemente, à aquisição de Direitos Creditórios. Os Direitos Creditórios serão adquiridos integral ou parcialmente, sempre de acordo com a Política de Investimentos, os Critérios de FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 2 Elegib…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…",
-      "source_excerpt": "(b) boletos bancários de cobrança emitidos pelo Banco Cobrador e enviados aos respectivos Devedores, nos termos do Contrato de Cobrança Bancária. CAPÍTULO V – OBJETIVO, POLÍTICA DE INVESTIMENTOS E COMPOSIÇÃO DA CARTEIRA 5.1. O objetivo do Fundo é proporcionar aos seus Cotistas a valorização de suas Cotas por meio da aplicação de seu Patrimônio Líquido na aquisição de: (i) Direitos Creditórios que atendam aos Critéri…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…",
-      "source_excerpt": ". 5.11. As aplicações no Fundo não contam com garantia: (i) da Administradora; (ii) da Gestora; (iii) dos Cedentes; (iv) do Custodiante; (v) dos demais prestadores de serviço do Fundo; (vi) de qualquer mecanismo de seguro; e/ou (vii) do Fundo Garantidor de Créditos - FGC. Caso o Patrimônio Líquido torne -se inferior a zero, os Cotistas poderão ser chamados a aportar recursos adicionais no Fundo. CAPÍTULO VI – CRITÉR…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…",
-      "source_excerpt": "espeitado o Grupo Econômico e excetuado o disposto na alínea (c) abaixo; (b) Limite de até 1,0% (um por cento) do Patrimônio Líquido do F undo por sacado, respeitado o Grupo Econômico; FINAXIS - SP Av. Paulista, 1842, Torre Norte 1º andar cj.17 01310-923 São Paulo SP FINAXIS - PR R. Pasteur, 463, 11º andar 80250-104 Curitiba PR Ouvidoria 0800 601 1313 www.finaxis.com.br 6 6.2.1. Para fins da verificação pelo Custodi…"
-    },
-    {
-      "name": "Critério de elegibilidade",
-      "description": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…",
-      "source_excerpt": "te ou amortização, ou (ii) o recebimento dos Direitos Creditórios pelo Fundo, a tí tulo de integralização de Cotas Subordinadas Júnior, as disposições da Política de Investimentos permaneçam atendidas; e (d) adicionalmente, caso se trate de integralização: (i) sejam atendidas as disposições do Artigo 1º da Lei nº 13.043, de 13 de novembro de 2014, conforme alterada; e (ii) os Direitos Creditórios atendam aos Critéri…"
-    }
-  ],
-  "emissions": [
+  "historical_heuristic_emissions": [
     {
       "date": null,
       "event": "evento de cota",
@@ -995,6 +1187,254 @@
       "source_document_id": 400722
     }
   ],
-  "extraction_count": 8,
-  "extraction_errors": []
+  "documentary_review": {
+    "cnpj": "47669476000183",
+    "label": "Inova CredTech II",
+    "reviewed_at": "2026-10-07T16:29:59-03:00",
+    "document_status": "Estrutura histórica; liquidação declarada em 18/12/2023",
+    "scope_note": "Inventário Fundos.NET por CNPJ e revisão dirigida de cláusulas materiais do regulamento identificado. PDFs integrais disponíveis para auditoria. Leitura integral de todo o inventário não foi realizada; documentos de oferta e fatos posteriores exigem revisão específica.",
+    "sources_reviewed": [
+      {
+        "document_id": 400722,
+        "date": "12/01/2023",
+        "kind": "regulamento",
+        "path": "data/raw/47669476000183/400722_regulamento.pdf",
+        "text_path": "data/raw/47669476000183/400722_regulamento_cache_integral.txt",
+        "inventory_error": null,
+        "pages": 55,
+        "extractable_pages": 55,
+        "identity_verified": true,
+        "identity_verification_note": "CNPJ literal no texto",
+        "review_scope": "Leitura dirigida das cláusulas citadas; texto integral extraído disponível localmente."
+      },
+      {
+        "document_id": 572305,
+        "date": "18/12/2023",
+        "kind": "emissao",
+        "path": "data/raw/47669476000183/572305_emissao.pdf",
+        "text_path": "data/raw/47669476000183/572305_emissao.full.txt",
+        "pages": 1,
+        "identity_verified": true,
+        "review_scope": "Leitura das páginas do ato/suplemento citadas nas células; documento completo extraído disponível."
+      }
+    ],
+    "warnings": [
+      "Versão documental conforme ID/data citados; o nome comercial do cadastro não confirma cedente, devedor ou garantia.",
+      "Cronogramas e spreads dependem dos suplementos efetivamente preenchidos; metas não garantem pagamento.",
+      "Versão2023 anterior à adaptação CVM175; inventário consultado não confirma atos posteriores. Cálculo de subordinação exclui Ativos Financeiros na8.13.1 e requer conciliação de base.",
+      "Ato ID572305 liquida o fundo e declara ausência de subscrição/cotistas/início de atividades até 18/12/2023. Regras do regulamento de janeiro/2023 são históricas."
+    ],
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Antecipação de recebíveis de cedente e fornecedores; contratos/títulos elegíveis.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.3, 4.2/5.2",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "Originador/endossante": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Devedor": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Garantia": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Elegibilidade": {
+          "value": "Vincendos; devedor sem atraso>60 dias; prazo médio≤180 e individual≤365 dias; cessão≥100% DI.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.6, 6.1",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "Concentração": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Total≥25%/PL; júnior≥12,5% com mezanino e 25% sem mezanino.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; pp.11–12, 8.13",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Reserva de caixa": {
+          "value": "Amortização:50% emD-20 e 100% emD-10; verificar dias/calendário do suplemento.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.50, definição Reserva de Amortização",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "Derivativos/hedge": {
+          "value": "Derivativos e day trade vedados.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.5, 5.7",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "PDD": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Pool/revolvência": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Duração/público-alvo": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Cessão/recompra": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Coobrigação": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Waterfall": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Situação documental": {
+          "value": "Liquidação em 18/12/2023; sem subscrição, cotistas ou início de atividades até o ato.",
+          "source": "Fundos.NET ID 572305; 18/12/2023; data/raw/47669476000183/572305_emissao.full.txt; emissao; p.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=572305&cvm=true",
+          "note": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Remuneração": {
+          "value": "Spread final não localizado nesta revisão; conferir suplemento preenchido.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; escopo e condições da revisão",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Taxas de prestadores não representam remuneração das cotas."
+        },
+        "Volume/VNU": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Ofertas": {
+          "value": "Ato de liquidação declara ausência de subscrição até 18/12/2023.",
+          "source": "Fundos.NET ID 572305; 18/12/2023; data/raw/47669476000183/572305_emissao.full.txt; emissao; p.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=572305&cvm=true",
+          "note": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        },
+        "Juros/amortização": {
+          "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; escopo e condições da revisão",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Data do regulamento não equivale a data de integralização."
+        },
+        "Vencimento": {
+          "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Lacuna desta revisão; não implica inexistência da regra no regulamento."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Taxa conjunta 0,35% a.a./PL; mínimos R$ 14 mil (meses 1–6) eR$ 18 mil (≥7); IPCA.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.29, 17.1",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "Gestão": {
+          "value": "Incluída na taxa conjunta 0,35% a.a.; componente próprio não confirmado.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.29, 17.1",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        },
+        "Custódia": {
+          "value": "Cobrança como encargo, fora da taxa conjunta; tarifa não individualizada.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; p.29, 17.3",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Regra documental; verificar versão, base e condições antes de monitorar."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "DC/PL e cotas por categoria/PL; validar regra e denominador.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; escopo e condições da revisão",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Proxy agregado; não comprova enquadramento diário nem prioridade por série."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Aging e PDD/crédito agregados; conciliar índice contratual.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; escopo e condições da revisão",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. Proxy parcial; vintage, efeito vagão e defasagem não reproduzidos automaticamente."
+        },
+        "Controles documentais": {
+          "value": "Lastro, elegibilidade, concentração individual e prestadores exigem documentos.",
+          "source": "Fundos.NET ID 400722; 12/01/2023; data/raw/47669476000183/400722_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=400722&cvm=true; escopo e condições da revisão",
+          "note": "Regra histórica anterior ao ato de liquidação ID 572305 de 18/12/2023. IME público sem granularidade individual; não usar como prova de conformidade."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Liquidação",
+        "Conclusão": "Ato de 18/12/2023 liquida o fundo antes de subscrições e atividades; retomada não comprovada nas fontes desta leitura."
+      },
+      {
+        "Tema": "Termos históricos",
+        "Conclusão": "Regulamento de janeiro/2023 tinha piso subordinado de 25%/PL; parâmetros anteriores à liquidação devem ser tratados como históricos."
+      },
+      {
+        "Tema": "Remuneração",
+        "Conclusão": "Remuneração atual não aplicável ao estado documental de liquidação; não presumir cotas ou pagamentos em circulação."
+      }
+    ],
+    "metrics": {
+      "inventory_count": 8,
+      "inventory_scope": "Consulta Fundos.NET completa por CNPJ",
+      "pdf_count": 4,
+      "available_regulation_pages": 58,
+      "reviewed_source_documents": 2,
+      "full_inventory_human_reading_claim": false,
+      "sources_with_access_error": []
+    },
+    "emissions_rows": [
+      {
+        "Cota/Classe": "Fundo liquidado",
+        "Tipo": "Evento documental",
+        "Remuneração": "Sem emissão efetivada até o ato; remuneração atual não aplicável",
+        "Data deliberação": "18/12/2023",
+        "Status/evidência": "Liquidação antes de subscrição e início de atividades",
+        "Fonte": "Fundos.NET ID 572305; 18/12/2023; data/raw/47669476000183/572305_emissao.full.txt; emissao; p.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=572305&cvm=true",
+        "Status curadoria": "Estrutura histórica; liquidação declarada em 18/12/2023"
+      }
+    ]
+  },
+  "reviewed_at": "2026-10-07T16:29:59-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/47669476000183.json"
 }

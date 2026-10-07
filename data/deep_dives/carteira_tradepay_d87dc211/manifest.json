@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_tradepay_d87dc211",
+  "title": "Curadoria Tradepay",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "d87dc211a7694ddfa66c20943891bc4f",
+  "portfolio_signature": "31570767000180",
+  "generated_at": "2026-10-07T16:31:11-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "31570767000180",
+      "name": "FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS TRADEPAY VAREJO I - RESPONSABILIDADE LIMITADA",
+      "short_name": "Tradepay Varejo I"
+    }
+  ],
+  "comparison_columns": {
+    "Tradepay Varejo I": "31570767000180"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "eac705d8b1beb6c3d98c3487973735ed3371f0281b326246335f3d94cc5e837d",
+    "rendering_sha256": "c75362b096df76af2fc7a8bbccf84535b7d4e6f84b353042b96f4d63fd0b3561",
+    "input_sha256": "472fcafd2db04cb08208d33edb246becb6cc04cd8abf0fd027a7d737c25e15f1"
+  }
+}

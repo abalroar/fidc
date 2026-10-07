@@ -1,0 +1,264 @@
+{
+  "cnpj": "58288437000152",
+  "label": "Altomax",
+  "reviewed_at": "2026-10-07T16:29:59-03:00",
+  "document_status": "Leitura documental dirigida; termos finais e qualificações descritos por critério",
+  "scope_note": "Inventário Fundos.NET por CNPJ e revisão dirigida de cláusulas materiais do regulamento identificado. PDFs integrais disponíveis para auditoria. Leitura integral de todo o inventário não foi realizada; documentos de oferta e fatos posteriores exigem revisão específica.",
+  "sources_reviewed": [
+    {
+      "document_id": 1240668,
+      "date": "24/02/2026",
+      "kind": "regulamento",
+      "path": "data/raw/58288437000152/1240668_regulamento.pdf",
+      "text_path": "data/raw/58288437000152/1240668_regulamento_cache_integral.txt",
+      "inventory_error": null,
+      "pages": 108,
+      "extractable_pages": 107,
+      "identity_verified": true,
+      "identity_verification_note": "CNPJ literal no texto",
+      "review_scope": "Leitura dirigida das cláusulas citadas; texto integral extraído disponível localmente."
+    },
+    {
+      "document_id": 1240663,
+      "date": "24/02/2026 15:00",
+      "kind": "assembleia",
+      "path": "data/raw/58288437000152/1240663_assembleia.pdf",
+      "text_path": "data/raw/58288437000152/1240663_assembleia.full.txt",
+      "pages": 2,
+      "identity_verified": true,
+      "review_scope": "Leitura das páginas do ato/suplemento citadas nas células; documento completo extraído disponível."
+    },
+    {
+      "document_id": 982590,
+      "date": "02/09/2025",
+      "kind": "emissao",
+      "path": "data/raw/58288437000152/982590_emissao.pdf",
+      "text_path": "data/raw/58288437000152/982590_emissao.full.txt",
+      "pages": 2,
+      "identity_verified": true,
+      "review_scope": "Leitura das páginas do ato/suplemento citadas nas células; documento completo extraído disponível."
+    }
+  ],
+  "warnings": [
+    "Versão documental conforme ID/data citados; o nome comercial do cadastro não confirma cedente, devedor ou garantia.",
+    "Cronogramas e spreads dependem dos suplementos efetivamente preenchidos; metas não garantem pagamento."
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Duplicatas; cartões sob aprovação/homologação; créditos adicionais sujeitos a excesso de cobertura.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.5, 3.1",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Originador/endossante": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Devedor": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Garantia": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Elegibilidade": {
+        "value": "Prazo médio e individual ≤180 dias; taxa de cessão ≥DI + benchmark ponderado.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; pp.9–10, 3.16.1",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Concentração": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Lastro das duplicatas": {
+        "value": "Duplicata eletrônica, XML da NF-e ou CT-e e termo de cessão.",
+        "source": "Fundos.NET ID 1240663; 24/02/2026 15:00; data/raw/58288437000152/1240663_assembleia.full.txt; assembleia; pp.1–2, deliberação I; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240663&cvm=true",
+        "note": "Alteração aprovada em 24/02/2026; texto consolidado ID 1240668."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Total subordinadas ≥30%/PL; júnior ≥20%/PL quando houver mezanino.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; pp.94–95, definições",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Atrasos até 30/over 60/over 90: limites 20%/10%/5%; avaliação em 2 ocorrências seguidas ou 3 alternadas/2 anos.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; pp.51,93–94; 18.1(iii)",
+        "note": "Atrasos sobre PL e valores presentes/média 30 dias; over 60/90 inclui efeito vagão. IME agregado não reproduz fórmula."
+      },
+      "Reserva de caixa": {
+        "value": "Reserva de despesas: 6 meses; reserva de amortização conforme cronograma.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.97, definições; capítulos14–15",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Derivativos/hedge": {
+        "value": "Operações com derivativos vedadas.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.7, 3.12",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "PDD": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "67%/PL após 180 dias; 85%/PL após 210 dias da primeira integralização.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.81, definições",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Pool/revolvência": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Duração/público-alvo": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Cessão/recompra": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Coobrigação": {
+        "value": "Cedentes sem coobrigação; vícios/resolução regidos pelo contrato.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.12, 3.17.1",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Waterfall": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nesta revisão; conferir suplemento preenchido.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; escopo e condições da revisão",
+        "note": "Taxas de prestadores não representam remuneração das cotas."
+      },
+      "Volume/VNU": {
+        "value": "Sênior 2: R$ 15 mi distribuídos; 15 mil cotas de R$ 1 mil.",
+        "source": "Fundos.NET ID 982590; 02/09/2025; data/raw/58288437000152/982590_emissao.full.txt; emissao; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=982590&cvm=true",
+        "note": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+      },
+      "Ofertas": {
+        "value": "Sênior 2: registro 28/07/2025, encerramento 02/09/2025.",
+        "source": "Fundos.NET ID 982590; 02/09/2025; data/raw/58288437000152/982590_emissao.full.txt; emissao; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=982590&cvm=true",
+        "note": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Juros/amortização": {
+        "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; escopo e condições da revisão",
+        "note": "Data do regulamento não equivale a data de integralização."
+      },
+      "Vencimento": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas marginais 0,20%/0,175%/0,15% a.a.; cortes R$ 250/500 mi; mínimo R$ 22 mil/mês; IPCA.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.24, 7.1",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      },
+      "Gestão": {
+        "value": "0,12% a.a. até PL R$ 200 mi; 0,11% acima; mínimo R$ 11,3 mil/mês, IPCA.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; p.25, 7.3",
+        "note": "Conferir aplicação da faixa e tributos; cláusula 7.3."
+      },
+      "Custódia": {
+        "value": "Integrada à remuneração administrativa; escrituração adicional R$ 2,5 mil/mês.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; p.24, 7.1/7.1.7",
+        "note": "Regra conforme versão citada; verificar condições e denominadores."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas por categoria/PL; validar regra e denominador.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; escopo e condições da revisão",
+        "note": "Proxy agregado; não comprova enquadramento diário nem prioridade por série."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD/crédito agregados; conciliar índice contratual.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; escopo e condições da revisão",
+        "note": "Proxy parcial; vintage, efeito vagão e defasagem não reproduzidos automaticamente."
+      },
+      "Controles documentais": {
+        "value": "Lastro, elegibilidade, concentração individual e prestadores exigem documentos.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true; escopo e condições da revisão",
+        "note": "IME público sem granularidade individual; não usar como prova de conformidade."
+      },
+      "Competência IME": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1240668; 24/02/2026; data/raw/58288437000152/1240668_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1240668&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "Duplicatas; cartões sob aprovação/homologação; créditos adicionais sujeitos a excesso de cobertura."
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Total subordinadas ≥30%/PL; júnior ≥20%/PL quando houver mezanino."
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "67%/PL após 180 dias; 85%/PL após 210 dias da primeira integralização."
+    }
+  ],
+  "metrics": {
+    "inventory_count": 54,
+    "inventory_scope": "Consulta Fundos.NET completa por CNPJ",
+    "pdf_count": 4,
+    "available_regulation_pages": 227,
+    "reviewed_source_documents": 3,
+    "full_inventory_human_reading_claim": false,
+    "sources_with_access_error": [
+      {
+        "document_id": 1240826,
+        "error": "Falha de rede ao acessar downloadDocumento: The read operation timed out"
+      }
+    ]
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 2",
+      "Tipo": "Sênior",
+      "Quantidade": "15.000",
+      "Volume": "R$ 15.000.000,00 distribuídos",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "02/09/2025",
+      "Remuneração": "Spread final não localizado no anúncio; conferir suplemento da série 2",
+      "Status/evidência": "Encerramento, melhores esforços de colocação",
+      "Fonte": "Fundos.NET ID 982590; 02/09/2025; data/raw/58288437000152/982590_emissao.full.txt; emissao; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=982590&cvm=true",
+      "Status curadoria": "Leitura documental dirigida; termos finais e qualificações descritos por critério"
+    }
+  ]
+}

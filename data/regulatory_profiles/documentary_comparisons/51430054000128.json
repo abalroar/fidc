@@ -1,0 +1,222 @@
+{
+  "cnpj": "51430054000128",
+  "label": "Bravos",
+  "reviewed_at": "2026-10-07T16:29:59-03:00",
+  "document_status": "Leitura documental dirigida; termos finais e qualificações descritos por critério",
+  "scope_note": "Inventário Fundos.NET por CNPJ e revisão dirigida de cláusulas materiais do regulamento identificado. PDFs integrais disponíveis para auditoria. Leitura integral de todo o inventário não foi realizada; documentos de oferta e fatos posteriores exigem revisão específica.",
+  "sources_reviewed": [
+    {
+      "document_id": 1121859,
+      "date": "26/02/2026",
+      "kind": "regulamento",
+      "path": "data/raw/51430054000128/1121859_regulamento_regulamento_1121859_2026-02-26.pdf",
+      "text_path": "data/raw/51430054000128/1121859_regulamento_cache_integral.txt",
+      "inventory_error": null,
+      "pages": 47,
+      "extractable_pages": 46,
+      "identity_verified": false,
+      "identity_verification_note": "Vínculo ID/CNPJ no inventário histórico; conferir denominação do texto.",
+      "review_scope": "Leitura dirigida das cláusulas citadas; texto integral extraído disponível localmente."
+    }
+  ],
+  "warnings": [
+    "Versão documental conforme ID/data citados; o nome comercial do cadastro não confirma cedente, devedor ou garantia.",
+    "Cronogramas e spreads dependem dos suplementos efetivamente preenchidos; metas não garantem pagamento.",
+    "Regulamento admite direitos vencidos; o nome Servopa não confirma lastro exclusivamente de consórcio.",
+    "Assembleia ID1121858: PDF sem texto extraível / OCR necessário. Ato ID672649 não contém CNPJ literal nas páginas extraídas; não utilizado para concluir termos vigentes."
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Originador/endossante": {
+        "value": "Cedente PF/PJ por contrato; Servopa não confirmado como cedente exclusivo.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.2, definição Cedente",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Devedor": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Garantia": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Elegibilidade": {
+        "value": "Créditos em reais, certos/válidos/líquidos, aprovados por PLC; créditos vencidos permitidos.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.34, 9.1",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Concentração": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Reserva de caixa": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Derivativos/hedge": {
+        "value": "Somente proteção patrimonial; contraparte central exigida.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.31, 7.4",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "PDD": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "67%/PL em DC após 180 dias do início.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; p.1 glossário e p.30, 7.2",
+        "note": "Enquadramento diário; proxy IME mensal agregado."
+      },
+      "Pool/revolvência": {
+        "value": "Novas aquisições permitidas conforme ordem de alocação.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.33, 8.3",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Duração/público-alvo": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão definitiva; cedente responde por existência do crédito.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.33, 8.2",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Coobrigação": {
+        "value": "Pode haver ou não coobrigação, conforme contrato.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.33, 8.2(a)",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Waterfall": {
+        "value": "Encargos → derivativos → reserva → resgates → novas aquisições.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.42, 13.1",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, mezanino e júnior; efeito sujeito à emissão/suplemento.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.25, 5.1",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nesta revisão; conferir suplemento preenchido.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; escopo e condições da revisão",
+        "note": "Taxas de prestadores não representam remuneração das cotas."
+      },
+      "Volume/VNU": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Ofertas": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Juros/amortização": {
+        "value": "Resgate em até 180 dias corridos da solicitação; prioridade conforme subclasse.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; pp.26–27, 5.7–5.10",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Vencimento": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,10%/0,05% a.a. por faixas de PL; mínimo R$ 7 mil/mês, reajuste IGP-M.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; pp.28–29, 6.1",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Gestão": {
+        "value": "0,80%/0,60%/0,40%/0,30%/0,20% a.a. por faixas; mínimo R$ 14,5 mil/mês.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.29, 6.2",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Custódia": {
+        "value": "0,06% a.a./PL, mínimo R$ 8 mil/mês; inclui escrituração/controladoria.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; p.29, 6.3",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas por categoria/PL; validar regra e denominador.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; escopo e condições da revisão",
+        "note": "Proxy agregado; não comprova enquadramento diário nem prioridade por série."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD/crédito agregados; conciliar índice contratual.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; escopo e condições da revisão",
+        "note": "Proxy parcial; vintage, efeito vagão e defasagem não reproduzidos automaticamente."
+      },
+      "Controles documentais": {
+        "value": "Lastro, elegibilidade, concentração individual e prestadores exigem documentos.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true; escopo e condições da revisão",
+        "note": "IME público sem granularidade individual; não usar como prova de conformidade."
+      },
+      "Competência IME": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1121859; 26/02/2026; data/raw/51430054000128/1121859_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1121859&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica."
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica."
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "Alocação mínima contratual após 180 dias; percentual não confirmado nesta revisão."
+    }
+  ],
+  "metrics": {
+    "inventory_count": 72,
+    "inventory_scope": "Consulta Fundos.NET completa por CNPJ",
+    "pdf_count": 13,
+    "available_regulation_pages": 94,
+    "reviewed_source_documents": 1,
+    "full_inventory_human_reading_claim": false,
+    "sources_with_access_error": []
+  }
+}

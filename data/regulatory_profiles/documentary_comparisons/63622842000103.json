@@ -1,0 +1,320 @@
+{
+  "cnpj": "63622842000103",
+  "label": "Desbrava Uno Artigos Esportivos",
+  "reviewed_at": "2026-10-07T16:50:54-03:00",
+  "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+  "scope_note": "Revisão dirigida das fontes identificadas abaixo por CNPJ, incluindo regras e atos materiais localizados. Não se afirma leitura integral de cada registro inventariado.",
+  "sources_reviewed": [
+    {
+      "document_id": 1058151,
+      "kind": "emissao",
+      "date": "09/12/2025",
+      "path": "data/raw/63622842000103/1058151_documentary_review.pdf",
+      "text_path": "data/raw/63622842000103/1058151_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 4,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Anúncio de encerramento,p2"
+      ],
+      "pages_available": 4
+    },
+    {
+      "document_id": 1051646,
+      "kind": "regulamento",
+      "date": "01/12/2025",
+      "path": "data/raw/63622842000103/1051646_documentary_review.pdf",
+      "text_path": "data/raw/63622842000103/1051646_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 90,
+      "extractable_pages": 90,
+      "identity_verification_note": "Regulamento sem CNPJ literal: ID1051646 retornado por consulta exata, mesma denominação, vinculado ao ato ID1051644,01/12/2025,CNPJ63.622.842/0001-03, e anúncio ID1058151 que cita suplementos sênior/subordinado e parâmetros.",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Glossário Direitos Creditórios,p8; Anexo,6.1–6.10, pp28–30",
+        "Glossário Devedores, pp7–8",
+        "Anexo,6.11, p30",
+        "Anexo,8.3, pp33–34",
+        "Anexo,6.5 e6.13, pp29–30",
+        "Apêndice B,2.1(d), p69",
+        "Anexo,19.1, p48",
+        "Anexo,12.9–12.10, p41",
+        "Anexo,6.12, p30",
+        "Anexo,6.1.1, p28",
+        "Anexo,6.4, p29",
+        "Parte Geral,6.1, p25; Anexo,2–4",
+        "Anexo,8.3.2–8.4, p34",
+        "Glossário e Anexo,6–8",
+        "Anexo,12 e17",
+        "Suplementos, pp67–72",
+        "Suplemento Sênior,p67; Anexo,11.13,p40",
+        "Suplementos, pp67 e71",
+        "Suplemento,p67; Anexo,12.1,p40",
+        "Suplementos, pp68 e71–72",
+        "Suplementos,p67 e72",
+        "Anexo,20.1,p52",
+        "Anexo,20.2,p52",
+        "Anexo,20.8,p53"
+      ],
+      "pages_available": 90
+    },
+    {
+      "document_id": 1051644,
+      "kind": "regulamento",
+      "date": "01/12/2025",
+      "path": "data/raw/63622842000103/1051644_documentary_review.pdf",
+      "text_path": "data/raw/63622842000103/1051644_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 1,
+      "extractable_pages": 1,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [],
+      "pages_available": 1
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Notas Comerciais para projetos de investimento em calçados/vestuário esportivo, Lei 12.431",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Glossário Direitos Creditórios,p8; Anexo,6.1–6.10, pp28–30; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Originador/endossante": {
+        "value": "Dass Nordeste Calçados e Artigos Esportivos S.A. emite Notas Comerciais",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Glossário Devedores, pp7–8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Devedor": {
+        "value": "Dass Nordeste Calçados e Artigos Esportivos S.A., CNPJ 01.287.588/0001-79 e filiais",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Glossário Devedores, pp7–8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Garantia": {
+        "value": "Garantias conforme Notas Comerciais; bens externos à carteira podem garantir créditos",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,6.11, p30; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Garantia específica não foi confirmada no termo de emissão das Notas Comerciais."
+      },
+      "Elegibilidade": {
+        "value": "Notas Comerciais com prazo mínimo 6 anos; juros/principal a intervalos≥ 180 dias; IPCA ou taxa prefixada",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,8.3, pp33–34; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Concentração": {
+        "value": "Devedor único/grupo admitido; sem teto máximo por devedor, cedente ou originador",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,6.5 e6.13, pp29–30; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas ≥ 50% PL",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Apêndice B,2.1(d), p69; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Reservas/alocação/subordinação desenquadradas por 5 dias úteis; decisões exigíveis do devedor> R$ 10 mi; falhas de prestadores",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,19.1, p48; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Reserva de caixa": {
+        "value": "12 meses de encargos; 100% do próximo pagamento até 2 dias úteis antes",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,12.9–12.10, p41; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos, renda variável e exposição cambial vedados",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,6.12, p30; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1058151; referência 09/12/2025; data/raw/63622842000103/1058151_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1058151&cvm=true; Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios ≥ 85% PL, nos requisitos da Lei 12.431",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,6.1.1, p28; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Pool/revolvência": {
+        "value": "Pool sem revolvência: recursos de pagamentos não podem adquirir novos créditos",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,6.4, p29; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada exclusiva para profissionais; fundo até 17/12/2032",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Parte Geral,6.1, p25; Anexo,2–4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Cessão/recompra": {
+        "value": "Sem indenização contra prestadores por desenquadramento posterior; fraude suspende aquisições",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,8.3.2–8.4, p34; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Coobrigação": {
+        "value": "Coobrigação de terceiros não confirmada; concentração no emissor das Notas Comerciais",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Glossário e Anexo,6–8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Waterfall": {
+        "value": "Encargos/reservas → sênior → subordinadas, observados suplementos",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,12 e17; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior 1ª série e subordinadas",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplementos, pp67–72; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Remuneração": {
+        "value": "Sênior 1ª série: taxa fixa 14, 70% a.a.; subordinadas recebem excedente patrimonial",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplemento Sênior,p67; Anexo,11.13,p40; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Volume/VNU": {
+        "value": "Sênior R$ 158, 5 mi; subordinadas R$ 158, 5 mi; 158.500 cotas cada; VNU R$ 1 mil",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplementos, pp67 e71; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Oferta encerrada registra montante ligeiramente distinto; aprovado e distribuído devem permanecer separados."
+      },
+      "Ofertas": {
+        "value": "Oferta encerrada em 10/12/2025: sênior 158.500 cotas/R$ 158, 5 mi e subordinada 158.477 cotas/R$ 158, 477 mi; totalR$ 316, 977 mi",
+        "source": "Fundos.NET ID 1058151; referência 09/12/2025; data/raw/63622842000103/1058151_documentary_review.txt; Anúncio de encerramento,p2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1058151&cvm=true",
+        "note": "Data efetiva 10/12/2025 no corpo do anúncio, distinta de referência 09/12/2025 do índice. Aprovado 317 mi e distribuído 316, 977 mi separados."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Sênior 1ª série: 24 meses da primeira integralização; remuneração durante carência",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplemento,p67; Anexo,12.1,p40; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Juros/amortização": {
+        "value": "Remuneração anual 17/12/2026–2032; principal começa 17/12/2027; subordinadas principal integral em 2032",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplementos, pp68 e71–72; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Vencimento": {
+        "value": "17/12/2032",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplementos,p67 e72; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0, 05% a.a./PL; máxima 0, 10% incluindo fundos investidos; mínimo não localizado",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,20.1,p52; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gestão": {
+        "value": "0, 10% a.a./PL; máxima 0, 30% incluindo fundos investidos; mínimo não localizado",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,20.2,p52; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Custódia": {
+        "value": "0, 05% a.a./PL; mínimo mensal até R$ 22 mil; IPCA anual; taxa máxima 0, 10%",
+        "source": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Anexo,20.8,p53; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar",
+        "source": "Fundos.NET ID 1058151; referência 09/12/2025; data/raw/63622842000103/1058151_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1058151&cvm=true; Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Métricas padronizadas são proxies; data, unidade e denominador precisam coincidir com a regra jurídica."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação",
+        "source": "Fundos.NET ID 1058151; referência 09/12/2025; data/raw/63622842000103/1058151_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1058151&cvm=true; Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "O IME não substitui bases por devedor, cedente, vintage ou fluxo de vencimentos."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais",
+        "source": "Fundos.NET ID 1058151; referência 09/12/2025; data/raw/63622842000103/1058151_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1058151&cvm=true; Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true",
+        "note": "Controle documental separado de posições agregadas do IME; lacuna não deve produzir enquadramento presumido."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura; verificar cache na publicação",
+        "source": "data/raw/63622842000103/access_status_20261007.txt",
+        "note": "Curadoria documental preservada; esta etapa não consultou saldos IME ao vivo."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Notas Comerciais da Dass Nordeste para projetos de calçados e vestuário; concentração em devedor/grupo único."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "50% PL subordinado, 85% de alocação em créditos e reservas de 12 meses de encargos."
+    },
+    {
+      "Tema": "Emissão",
+      "Conclusão": "Sênior 1ª série prefixada 14, 70% a.a., principal após carência 24 meses e vencimento 17/12/2032."
+    },
+    {
+      "Tema": "Pool",
+      "Conclusão": "Sem revolvência e sem derivativos; conferir destinação dos recursos e os termos das Notas Comerciais."
+    }
+  ],
+  "warnings": [
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário."
+  ],
+  "metrics": {
+    "inventory_count": 29,
+    "sources_consulted": 3,
+    "pdf_count": 4,
+    "pages_available": 99,
+    "documents_without_local_pdf": 25,
+    "extraction_errors": 0,
+    "inventory_scope": "Fundos.NET ao vivo por CNPJ",
+    "pages_scope": "Páginas com texto disponíveis localmente; leitura dirigida das cláusulas citadas. Total de páginas não comprova leitura integral.",
+    "extractable_pages": 97,
+    "documents_with_incomplete_text": 2
+  },
+  "emissions_rows": [
+    {
+      "Fundo": "Desbrava Uno Artigos Esportivos",
+      "CNPJ": "63622842000103",
+      "Cota/Classe": "Sênior 1ª série",
+      "Tipo": "Sênior",
+      "Data deliberação": "Não localizado nas fontes consultadas",
+      "Data emissão / 1ª integralização": "Não localizado nas fontes consultadas",
+      "Data encerramento/oferta": "10/12/2025 (corpo do anúncio; referência índice09/12/2025)",
+      "Quantidade": "158.500 aprovado/distribuído",
+      "Volume": "R$ 158.500.000 aprovado/distribuído",
+      "VNU": "R$ 1.000",
+      "Remuneração": "Taxa fixa 14, 70% a.a.",
+      "Juros/remuneração": "Anual: 17/12/2026, 17/12/2027, 19/12/2028, 19/12/2029, 18/12/2030, 17/12/2031, 17/12/2032",
+      "Amortização principal": "17/12/2027: 16, 6667%; 19/12/2028: 20%; 19/12/2029: 25%; 18/12/2030: 33, 3333%; 17/12/2031: 50%; 17/12/2032: 100% sobre saldo",
+      "Status/evidência": "Fonte primária local por CNPJ; condição contratual não é saldo de emissão",
+      "Fonte": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplemento,pp67–68; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true; Fundos.NET ID1058151;data/raw/63622842000103/1058151_documentary_review.txt;pp1–2",
+      "Status curadoria": "Termos documentais identificados; confirmar execução e vigência"
+    },
+    {
+      "Fundo": "Desbrava Uno Artigos Esportivos",
+      "CNPJ": "63622842000103",
+      "Cota/Classe": "Subordinada",
+      "Tipo": "Subordinada",
+      "Data deliberação": "Não localizado nas fontes consultadas",
+      "Data emissão / 1ª integralização": "Não localizado nas fontes consultadas",
+      "Data encerramento/oferta": "10/12/2025 (corpo do anúncio; referência índice09/12/2025)",
+      "Quantidade": "158.500 aprovado; 158.477 distribuído",
+      "Volume": "R$ 158.500.000 aprovado; R$ 158.477.000 distribuído",
+      "VNU": "R$ 1.000",
+      "Remuneração": "Excedente patrimonial da carteira",
+      "Juros/remuneração": "Anual conforme suplemento; disponível se resultados permitirem",
+      "Amortização principal": "Principal 100% em 17/12/2032; extraordinária apenas por condições e excesso de subordinação",
+      "Status/evidência": "Fonte primária local por CNPJ; condição contratual não é saldo de emissão",
+      "Fonte": "Fundos.NET ID 1051646; referência 01/12/2025; data/raw/63622842000103/1051646_documentary_review.txt; Suplemento,pp71–72; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1051646&cvm=true; Fundos.NET ID1058151;data/raw/63622842000103/1058151_documentary_review.txt;pp1–2",
+      "Status curadoria": "Termos documentais identificados; confirmar execução e vigência"
+    }
+  ]
+}

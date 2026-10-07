@@ -1,0 +1,266 @@
+{
+  "cnpj": "48967719000122",
+  "label": "Soulpay",
+  "reviewed_at": "2026-10-07T16:56:22-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 785770,
+      "kind": "regulamento",
+      "date": "22/11/2024",
+      "path": "data/raw/48967719000122/785770_documentary_review.pdf",
+      "text_path": "data/raw/48967719000122/785770_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 119,
+      "extractable_pages": 119,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 785766,
+      "kind": "regulamento",
+      "date": "21/11/2024",
+      "path": "data/raw/48967719000122/785766_documentary_review.pdf",
+      "text_path": "data/raw/48967719000122/785766_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 2,
+      "extractable_pages": 2,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1337273,
+      "kind": "emissao",
+      "date": "01/10/2026",
+      "path": "data/raw/48967719000122/1337273_documentary_review.pdf",
+      "text_path": "data/raw/48967719000122/1337273_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis de cartão de crédito presencial, devidos à subcredenciadora",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 14",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Originador/endossante": {
+        "value": "Cedente Soulpay Soluções de Pagamentos, CNPJ 22.036.090/0001-03",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 8",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Devedor": {
+        "value": "Redecard; outra credenciadora exige assembleia e rating mínimo AAA",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 14",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Garantia": {
+        "value": "Sem garantia dos prestadores/cedente/FGC; titularidade das URs registrada",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 15,34",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Elegibilidade": {
+        "value": "Adimplentes, em reais; prazo individual ≤365 dias e médio ponderado ≤180 dias; até vencimento sênior",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 34-36",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Concentração": {
+        "value": "Mesmo devedor/coobrigado: 20% PL, ressalvadas exceções regulatórias",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 33",
+        "note": "A seção de riscos admite até 100% com única devedora (p.46). Não certificar limite efetivo sem reconciliar a exceção com o caso concreto."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Texto exige subordinadas ≥5% PL; índice de 105,26% contém inconsistência de definição",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 19,82",
+        "note": "Definição do índice na p.19 usa subordinadas/PL, incompatível com 105,26% da p.82. Preservada a proteção de 5% expressamente escrita, sem reconstruir a fórmula por suposição."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Resolução de cessão >1,20% PL; diluição >1,40%; inadimplência da devedora não sanada em 2 DU",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 89-90",
+        "note": "Diluição: cancelamentos+chargebacks/recebimento esperado dos últimos 30 dias, p.18-19; evento p.90 remete a PL, divergência de denominador. Não usar Over como teste jurídico."
+      },
+      "Reserva de caixa": {
+        "value": "Liquidez: 3 meses de despesas; caixa: próxima amortização sênior, constituída entre D-30 e D-5 DU",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 86",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos vedados",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 33",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "PDD": {
+        "value": "Manual do administrador e regulamentação; sem razão mínima de cobertura individualizada",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 86-87",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "DC/PL ≥80% após 390 dias de operação",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 32",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Pool/revolvência": {
+        "value": "Reinvestimento em novos créditos/ativos financeiros permitido",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 33",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada e indeterminada; profissionais; responsabilidade ilimitada",
+        "source": "data/raw/48967719000122/785766_documentary_review.pdf | Fundos.NET ID 785766 | 21/11/2024 | regulamento | p. 1-2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Cessão/recompra": {
+        "value": "Déficit de liquidação implica resolução da cessão; cedente paga em até 2 DU",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 37-38",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Coobrigação": {
+        "value": "Cessão definitiva sem coobrigação pela solvência; cedente responde por existência/validade/formalização",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 31",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Waterfall": {
+        "value": "Encargos e liquidez; amortizações/resgates sênior; reserva de caixa; novos créditos; subordinadas",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 88",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Seniores por série e subordinadas; condições específicas no suplemento",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 79-82",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Remuneração": {
+        "value": "Benchmark sênior remetido ao suplemento; spread final não localizado",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 7,80",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Volume/VNU": {
+        "value": "Anúncio declara R$ 30 milhões; 30 mil cotas a R$ 1 não conciliam; colocação 29.886,43 cotas",
+        "source": "data/raw/48967719000122/1337273_documentary_review.pdf | Fundos.NET ID 1337273 | 01/10/2026 | emissao | p. 1-2",
+        "note": "Inconsistência interna de quantidade/VNU/volume; volume efetivamente colocado não certificado. Não trocar R$ 1 por R$ 1 mil por inferência."
+      },
+      "Ofertas": {
+        "value": "Sênior 3, 1ª emissão; encerramento divulgado em 01/10/2026",
+        "source": "data/raw/48967719000122/1337273_documentary_review.pdf | Fundos.NET ID 1337273 | 01/10/2026 | emissao | p. 1-2",
+        "note": "Anúncio não individualiza a data civil efetiva do encerramento; 21/08/2026 é data do registro da oferta."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao suplemento; carência específica não localizada",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 80",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Juros/amortização": {
+        "value": "Cronograma fechado não identificado; definido por suplemento de série",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 80",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Vencimento": {
+        "value": "Prazo remetido ao suplemento; vencimento civil não localizado",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 80",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,35% a.a. PL; mínimo mensal de até R$ 18,5 mil; inclui custódia",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 69",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Gestão": {
+        "value": "0,25% a.a. PL; mínimo mensal de até R$ 10 mil",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 70",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Custódia": {
+        "value": "Incluída na taxa de administração; rateio não individualizado",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024 | regulamento | p. 69,76",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024; data/raw/48967719000122/785766_documentary_review.pdf | Fundos.NET ID 785766 | 21/11/2024; data/raw/48967719000122/1337273_documentary_review.pdf | Fundos.NET ID 1337273 | 01/10/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024; data/raw/48967719000122/785766_documentary_review.pdf | Fundos.NET ID 785766 | 21/11/2024; data/raw/48967719000122/1337273_documentary_review.pdf | Fundos.NET ID 1337273 | 01/10/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/48967719000122/785770_documentary_review.pdf | Fundos.NET ID 785770 | 22/11/2024; data/raw/48967719000122/785766_documentary_review.pdf | Fundos.NET ID 785766 | 21/11/2024; data/raw/48967719000122/1337273_documentary_review.pdf | Fundos.NET ID 1337273 | 01/10/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 48967719000122; revisão em 2026-10-07T16:56:22-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [
+    "ID 1298455: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+    "ID 1296293: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+    "Regulamento acessível de 22/11/2024; ata de 05/08/2026 e início da oferta de 21/08/2026 indisponíveis (HTTP 520). Condições atuais não certificadas por esses atos."
+  ],
+  "metrics": {
+    "inventory_count": 90,
+    "pdf_count": 3,
+    "pages_available": 124,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 87,
+    "extraction_errors": 0,
+    "access_errors": 2,
+    "sources_consulted": 3
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 3, 1ª emissão",
+      "Tipo": "Sênior",
+      "Data encerramento/oferta": "Anúncio divulgado 01/10/2026; registro 21/08/2026; data efetiva final não individualizada",
+      "Quantidade": "30.000 anunciadas; 29.886,43 na tabela de colocação",
+      "Volume": "R$ 30 milhões declarados; conciliação com quantidade/VNU pendente",
+      "VNU": "R$ 1 declarado; incompatível com quantidade/volume informados",
+      "Remuneração": "Spread final não localizado; suplemento específico não acessível",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Prazo remetido ao suplemento não localizado",
+      "Fonte": "data/raw/48967719000122/1337273_documentary_review.pdf | Fundos.NET ID 1337273 | 01/10/2026 | emissao | p. 1-2",
+      "Status/evidência": "Encerramento com divergência interna; não certificar volume colocado",
+      "Status curadoria": "Leitura dirigida; lacunas e divergências explícitas"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Recebíveis de cartão devidos pela Redecard e cedidos pela Soulpay."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinadas de 5% PL expressas no texto; fórmula do índice e denominador da diluição exigem correção documental."
+    },
+    {
+      "Tema": "Reservas",
+      "Conclusão": "Liquidez para 3 meses de despesas e caixa da próxima amortização; derivativos vedados."
+    },
+    {
+      "Tema": "Divergência",
+      "Conclusão": "Sênior 3: anúncio declara R$ 30 milhões; quantidade e VNU não conciliam; spread e calendário não localizados."
+    }
+  ]
+}

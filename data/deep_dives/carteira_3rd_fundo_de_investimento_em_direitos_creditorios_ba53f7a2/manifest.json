@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_3rd_fundo_de_investimento_em_direitos_creditorios_ba53f7a2",
+  "title": "Curadoria 3rd fundo de investimento em direitos creditorios",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "ba53f7a211814eea9e67d73924f0e380",
+  "portfolio_signature": "40975325000104",
+  "generated_at": "2026-10-07T16:29:59-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "40975325000104",
+      "name": "3RD - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "3RD"
+    }
+  ],
+  "comparison_columns": {
+    "3RD": "40975325000104"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Versão documental conforme ID/data citados; o nome comercial do cadastro não confirma cedente, devedor ou garantia.",
+      "Cronogramas e spreads dependem dos suplementos efetivamente preenchidos; metas não garantem pagamento.",
+      "Cláusulas7.2/7.3 chamam cálculo de mensal usando percentuais sem qualificar a.a.; não anualizar automaticamente. Custódia tem unidade a.a. explícita."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "31a952eb5faa3162d4e003e5d1c59063d6052f181fb12a299643a957e0af1088",
+    "rendering_sha256": "35f6467bdea5ef4fcfd07729030ef4ad50a3ffff078e384ad65ab311abbbc1dc",
+    "input_sha256": "7e62fefc13568d6406874b3ee39476e34b57456a269230d7a91d3adca3180b2b"
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "cnpj": "30035329000159",
+  "label": "Via Invest II",
+  "reviewed_at": "2026-10-07T16:18:13-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 998769,
+      "kind": "regulamento",
+      "date": "22/09/2025",
+      "path": "data/raw/30035329000159/998769_regulamento.pdf",
+      "text_path": "data/raw/30035329000159/998769_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 91,
+      "extractable_pages": 91,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1003989,
+      "kind": "emissao",
+      "date": "30/09/2025",
+      "path": "data/raw/30035329000159/1003989_emissao.pdf",
+      "text_path": "data/raw/30035329000159/1003989_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 4,
+      "extractable_pages": 4,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs de antecipação do saque-aniversário FGTS",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 46-49",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Originador/endossante": {
+        "value": "Endossante contratual ou QI SCD conforme cláusula8.1(v)",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 49",
+        "note": "A cláusula autoriza o endosso; não comprova composição econômica atual por originador."
+      },
+      "Devedor": {
+        "value": "Pessoa física aderente ao saque-aniversário; idade com divergência69/71 anos",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 49",
+        "note": "Cláusula8.2(a) traz69 numérico e setenta e um por extenso; confirmar administrador antes de parametrizar."
+      },
+      "Garantia": {
+        "value": "Cessão fiduciária integral do saque-aniversário, registrada com bloqueio no agente operador",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 49",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Elegibilidade": {
+        "value": "CCBs adimplentes, em reais; prazo15 dias–120 meses; FGTS bloqueado e aderência validada",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 48-49",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Índice de subordinação ≥15%; apuração diária",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 44",
+        "note": "Validar fórmula da subclasse e numerador; não presumir proteção idêntica a outros fundos Via."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Derivativos/hedge": {
+        "value": "Exclusivamente hedge da carteira",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 47",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "DC >50% PL em180 dias; melhores esforços para67% tributários",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 46",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Endosso irrevogável; vedado adquirir de endossante que recomprou >30% nos30 dias anteriores",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 46,49",
+        "note": "Percentual usa valor nominal dos créditos cedidos, não Recompras/Crédito do IME."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior; oferta encerrada2025",
+        "source": "data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025 | emissao | p. 2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nas cláusulas revisadas; requer suplemento ou ato específico",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Volume/VNU": {
+        "value": "R$ 100 milhões no anúncio de encerramento",
+        "source": "data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025 | emissao | p. 2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,15% a.a. PL; mínimo R$ 6 mil/mês, IPCA positivo anual",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 44-45",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Gestão": {
+        "value": "0,60% a.a. PL:0,50% gestor+0,10% cogestor; mínimo R$ 6,5 mil somente gestor",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 45",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Custódia": {
+        "value": "0,12% a.a. PL; mínimo R$ 6 mil/mês; cláusula6.5 diz incluída na administração",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025 | regulamento | p. 45",
+        "note": "Divergência de cobrança: não somar automaticamente0,12% à administração sem confirmar rateio e cláusula6.5."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/30035329000159/998769_regulamento.pdf | Fundos.NET ID 998769 | 22/09/2025; data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 30035329000159; revisão em 2026-10-07T16:18:13-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 152,
+    "pdf_count": 6,
+    "pages_available": 191,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 146,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior; oferta encerrada2025",
+      "Tipo": "Sênior",
+      "Volume": "R$ 100 milhões no anúncio de encerramento",
+      "Quantidade": "100.000",
+      "VNU": "R$ 1.000",
+      "Remuneração": "Spread final não localizado; requer suplemento aplicável",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Data encerramento/oferta": "Anúncio encerramento30/09/2025",
+      "Fonte": "data/raw/30035329000159/1003989_emissao.pdf | Fundos.NET ID 1003989 | 30/09/2025 | emissao | p. 2",
+      "Status/evidência": "Condições específicas do documento citado; não certifica vigência atual nem saldo vivo",
+      "Status curadoria": "Leitura dirigida com fonte por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Recebíveis",
+      "Conclusão": "CCBs FGTS com cessão fiduciária integral e bloqueio registrado junto ao agente operador."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinação mínima de15%; o fundo deve superar50% do PL em créditos após180 dias."
+    },
+    {
+      "Tema": "Elegibilidade",
+      "Conclusão": "A cláusula de idade diverge entre69 anos por número e71por extenso."
+    },
+    {
+      "Tema": "Custos",
+      "Conclusão": "Custódia aparece com taxa própria e como incluída na administração; o rateio exige confirmação."
+    }
+  ]
+}

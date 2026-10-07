@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_larca_72444257",
+  "title": "Curadoria Larca",
+  "subtitle": "Comparativos documentais, emissões e controles IME",
+  "portfolio_id": "724442574b924c569c56fdb358db87fa",
+  "portfolio_signature": "41114564000132|51326028000154|54634742000106|59602002000101|63168433000170|65327006000113",
+  "generated_at": "2026-10-07T16:50:54-03:00",
+  "source": "CVM/Fundos.NET e documentos locais identificados; revisão por CNPJ",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "51326028000154",
+      "name": "LARCA CONSIGNADO FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS RESPONSABILIDADE LIMITADA",
+      "short_name": "Larca Consignado"
+    },
+    {
+      "cnpj": "54634742000106",
+      "name": "LARCA CONSIGNADO II FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "LARCA CONSIGNADO II"
+    },
+    {
+      "cnpj": "59602002000101",
+      "name": "LARCA CONSIGNADO III FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS - RESPONSABILIDADE LIMITADA",
+      "short_name": "LARCA CONSIGNADO III"
+    },
+    {
+      "cnpj": "63168433000170",
+      "name": "LARCA AURORA FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "Larca Aurora"
+    },
+    {
+      "cnpj": "65327006000113",
+      "name": "LARCA V FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSIGNADO DE RESPONSABILIDADE LIMITADA",
+      "short_name": "Larca V"
+    },
+    {
+      "cnpj": "41114564000132",
+      "name": "LARCA MULTIPLICA CAPITAL FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",
+      "short_name": "Larca Multiplica Capital"
+    }
+  ],
+  "comparison_columns": {
+    "Larca Consignado": "51326028000154",
+    "LARCA CONSIGNADO II": "54634742000106",
+    "LARCA CONSIGNADO III": "59602002000101",
+    "Larca Aurora": "63168433000170",
+    "Larca V": "65327006000113",
+    "Larca Multiplica Capital": "41114564000132"
+  },
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome",
+      "kind": "source_table"
+    },
+    {
+      "id": "emissions",
+      "title": "Emissões e calendário",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "thresholds",
+      "title": "Critérios monitoráveis e qualitativos",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "document_coverage",
+      "title": "Cobertura e lacunas documentais por CNPJ",
+      "source_file": "evidence/document_coverage.csv",
+      "first_column": "Fundo",
+      "kind": "source_table"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema",
+      "kind": "source_table"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table",
+      "subtitle": "Referências por célula; observações comuns no rodapé"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "Leitura das fontes acessíveis indicadas por CNPJ; inventário completo não implica leitura integral de cada registro.",
+      "Competência IME e datas documentais devem ser conferidas separadamente; o nome da carteira não fixa a versão do regulamento.",
+      "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário.",
+      "ID 1316616: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+    ]
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "6af53245a09668c5643cc6ba89275eafa19d1dcd0c320af6277ba544fa0ccbbd",
+    "rendering_sha256": "ce55674384e1c0a648ce1aa4130ed0d1c294c30acebc6c85b3766c4e3006f102",
+    "input_sha256": "c5c105fb5ea2c89a74769e4a70bfee92eb884c8a5fe3ba3062a2c30968d576dd"
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "cnpj": "47151680000108",
+  "label": "FARM TECH IBBA I",
+  "reviewed_at": "2026-10-07T16:49:45-03:00",
+  "document_status": "Revisão documental dirigida com lacunas explícitas",
+  "scope_note": "Revisão dirigida das cláusulas materiais dos documentos acessíveis; texto integral extraído quando disponível. Não corresponde à leitura integral de todos os registros do inventário. Ata de 23/10/2025 recuperada via Poppler após falha pypdf: aprovou amortizações, sem comprovação de execução. Foram encontradas versões de 09/06 e 22/07/2025; fontes materiais da versão de julho e ata posterior. Ato constitutivo 360352 necessita OCR. O nome da carteira não fixa a vigência documental; cada fonte mantém sua própria data. Não foi carregada nova competência IME.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Agronegócio: vendas a prazo, duplicatas/notas fiscais, CPR-F e notas promissórias; admite créditos a performar",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 17–18, 67; Definições; 4.33 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Originador/endossante": {
+        "value": "Distribuidores de produtos agro e clientes; Farm Investimentos na gestão",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 57, 144; 4.4; Termo de adesão | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Devedor": {
+        "value": "Clientes e distribuidores de produtos da cadeia agro; contratação por cessão ou emissão direta",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 57; 4.4–4.4.2 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Garantia": {
+        "value": "Garantias e acessórios acompanham os direitos; constituição específica nos instrumentos de cessão/CPR-F/NP",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 17; Definição Direitos Creditórios | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Elegibilidade": {
+        "value": "Adimplentes; 30–360 dias, até 10% PL com 540 dias; emitidos distribuidor até 240 dias; prazo médio agro≤240 dias",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 61–62; 4.14(a)–(g) | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Concentração": {
+        "value": "Cliente: menor de R$ 5 mi/1% PL; distribuidor/grupo 5% com exceções; top 5 distribuidores 20% PL; originador/grupo 20% PL",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 62–63; 4.14(h)–(m) | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "MT 80%, RS 20%, PR/SP/MG/MS/GO 30% cada; demais 30% conjuntos. Limites contratuais individuais não são replicáveis no IME agregado."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "PL / cotas sênior≥125%; índice ponderado sênior≥1,00, fator específico remetido ao apêndice",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 29, 74, 100; Relação Mínima; 6.5–6.6; 9.3(i) | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Inadimplemento 91–360>10% ou 181–360>5%; resolução/PL>15%; renegociação/PL>10%",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 98–102; 9.3–9.3.3; 10.1 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Aging usa inadimplidos mais créditos liquidados com vencimentos na janela; não é Over 90/crédito. Não verifica índice se denominador<15% PL deduzido de provisões. Quantidade≥200 devedores, exceções sazonais."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas + meta de pagamentos do período de liquidez; piso 1% PL; reforço 12–18 meses antes de amortização esperada",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 97–98; 9.1–9.1.2 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Recomposição em março/abril/maio e julho/agosto/setembro. Requer calendário e fatores ponderados; caixa/PL isolado não valida a reserva."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção patrimonial: melhores esforços para proteger parcela preponderante; hedge não condiciona aquisição",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 66, 166–171; 4.29–4.29.1; Adendo VIII | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "PDD": {
+        "value": "Atraso 1–15/16–30/31–60/61–90/91–120/121–150/151–180/>180:0,5/1/3/10/30/50/70/100%",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 153; Adendo V | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Provisões mensais abrangem carteira; adimplentes usam perda esperada suavizada pelo prazo. Renegociação não autoriza reversão de provisão."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "50% PL em créditos elegíveis em 180 dias; meta tributária 67% da carteira perseguida discricionariamente",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 5, 65; Alocações; 4.17–4.18 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvência no período de investimento; ata de 23/10/2025 prioriza amortizações após reservas",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 66; 4.19; 4.27 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922; Fundos.NET ID 1023631 | 23/10/2025 | assembleia | p. 1–2; Deliberação5 | data/raw/47151680000108/1023631_documentary_review.pdf",
+        "note": "Estado posterior limitado à deliberação localizada; comprovação do pagamento efetivo não localizada."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada de prazo indeterminado; investidores qualificados; liquidação após amortização de todas as cotas",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 23, 55–56; Investidores Autorizados; 2.1–2.2; 3.1 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Cessão/recompra": {
+        "value": "Resolução nas hipóteses dos contratos; desenquadramento superveniente não gera regresso automático",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 64–66; 4.14.3; 4.21–4.23 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Coobrigação": {
+        "value": "Pode existir ou não, conforme contrato e decisão do gestor; cedentes respondem pela existência e formalização",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 67–69; 4.35; 4.38.1 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Waterfall": {
+        "value": "Despesas/reservas; sênior; mezanino; júnior; aquisições conforme regime pro rata/sequencial",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 87–90; 8.16.1–8.16.5 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, mezanino e júnior; sênior 1 com amortização integral aprovada",
+        "source": "Fundos.NET ID 1023631 | 23/10/2025 17:00 | assembleia | p. 1–2; Deliberação5 | data/raw/47151680000108/1023631_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023631",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Remuneração": {
+        "value": "Índice DI + sobretaxa remetida ao apêndice; spread final não localizado",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 147–151; Modelos de apêndice | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Modelos contém campos não preenchidos; documento constitutivo 360352 sem texto extraível/OCR necessário."
+      },
+      "Volume/VNU": {
+        "value": "Volume, quantidade e VNU finais não localizados; modelos de emissão sem valores preenchidos",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 147–151; Modelos de apêndice | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Ofertas": {
+        "value": "Oferta final individualizada não localizada; ato constitutivo 24/06/2022 exige OCR",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 147; Modelo de apêndice | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao apêndice; carência final não localizada",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 148; Modelo de apêndice | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Juros/amortização": {
+        "value": "Ata 23/10/2025: sênior 1 integral em até 3 DU; subordinadas com disponibilidades após reservas, em caixa",
+        "source": "Fundos.NET ID 1023631 | 23/10/2025 17:00 | assembleia | p. 1–2; Deliberações5(i)–(ii) | data/raw/47151680000108/1023631_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1023631",
+        "note": "Deliberação aprovada; pagamento efetivo não comprovado nas fontes revisadas."
+      },
+      "Vencimento": {
+        "value": "Cronograma fechado não identificado; amortização total esperada remetida ao apêndice",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 147–148; Modelo de apêndice | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas marginais:0,11% a.a. atéR$ 250 mi e 0,08% acima; mínimoR$ 18 mil/mês; IPCA",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 136, 138; 12.2(i); 12.2.1 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gestão": {
+        "value": "1% a.a. sobre PL; mínimoR$ 40 mil/mês; IPCA",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 138; 12.3–12.4 | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Custódia": {
+        "value": "0,07% a.a. atéR$ 250 mi e 0,06% acima; mínimoR$ 10 mil; controladoria mesma tabela, separada",
+        "source": "Fundos.NET ID 993922 | 22/07/2025 | regulamento | p. 137–138; 12.2(ii)–(iv) | data/raw/47151680000108/993922_documentary_review.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=993922",
+        "note": "EscrituraçãoR$ 2 mil e lastroR$ 5 mil/mês, implantaçãoR$ 7 mil; reajusteIPCA."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar ativo elegível, subclasses e fórmula contratual",
+        "source": "data/raw/47151680000108/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 47151680000108 em 07/10/2026; inventário completo com 91 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90 e PDD / crédito: indicadores agregados; gatilhos dependem de denominador e janela contratual",
+        "source": "data/raw/47151680000108/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 47151680000108 em 07/10/2026; inventário completo com 91 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração por devedor/grupo, lastro, prestadores e eventos: validação documental e operacional",
+        "source": "data/raw/47151680000108/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 47151680000108 em 07/10/2026; inventário completo com 91 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta revisão",
+        "source": "data/raw/47151680000108/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 47151680000108 em 07/10/2026; inventário completo com 91 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Recebíveis",
+      "Conclusão": "Crédito agro por vendas a prazo, CPR-F e notas promissórias; admite créditos a performar."
+    },
+    {
+      "Tema": "Amortizações",
+      "Conclusão": "Ata de 23/10/2025 aprovou amortização integral sênior 1 e das subordinadas com o caixa após reservas; execução não comprovada."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "PL/cotas sênior≥125%, com índice ponderado próprio; hedge por melhores esforços."
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Spread final e cronograma fechado permanecem pendentes dos apêndices preenchidos."
+    }
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1023631,
+      "kind": "assembleia",
+      "date": "23/10/2025 17:00",
+      "path": "data/raw/47151680000108/1023631_documentary_review.pdf",
+      "text_path": "data/raw/47151680000108/1023631_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no texto recuperado via Poppler após falha pypdf",
+      "extraction_method": "pdftotext -layout",
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "47151680000108",
+      "document_type": "AGE",
+      "reference_date": "23/10/2025 17:00",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 993922,
+      "kind": "regulamento",
+      "date": "22/07/2025",
+      "path": "data/raw/47151680000108/993922_documentary_review.pdf",
+      "text_path": "data/raw/47151680000108/993922_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 171,
+      "extractable_pages": 171,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "47151680000108",
+      "document_type": "",
+      "reference_date": "22/07/2025",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 927246,
+      "kind": "regulamento",
+      "date": "09/06/2025",
+      "path": "data/raw/47151680000108/927246_documentary_review.pdf",
+      "text_path": "data/raw/47151680000108/927246_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 172,
+      "extractable_pages": 172,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "47151680000108",
+      "document_type": "",
+      "reference_date": "09/06/2025",
+      "inventory_queried_at": "2026-10-07"
+    }
+  ],
+  "warnings": [
+    "ID 360352: PDF sem texto extraível / OCR necessário"
+  ],
+  "metrics": {
+    "inventory_count": 91,
+    "pdf_count": 4,
+    "pages_analyzed": 346,
+    "documents_without_local_pdf": 87,
+    "extraction_errors": 1,
+    "download_errors": 0,
+    "pdfs_without_extractable_text": 1,
+    "identity_exclusions": 0
+  }
+}

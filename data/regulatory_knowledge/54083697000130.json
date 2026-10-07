@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "fund_name": "PERNAMBUCANAS FIDC DE RESPONSABILIDADE LIMITADA",
+  "fund_cnpj": "54.083.697/0001-30",
+  "generated_at": "2026-10-07T16:25:00.389373-03:00",
+  "documents": [],
+  "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+      }
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Sem acesso documental nesta consulta; dado não certificado",
+      "amount_display": "Sem acesso documental nesta consulta; dado não certificado",
+      "remuneration": "Spread final não localizado; inventário e documentos inacessíveis",
+      "amortization_schedule": "Cronograma fechado não identificado; documentos inacessíveis",
+      "source_document": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "access_errors": [
+    "ProviderUnavailableError: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out"
+  ],
+  "curation_scope": "Inventário por CNPJ quando acessível; leitura dirigida dos documentos materiais citados no review. Documentos não citados não tiveram leitura integral certificada.",
+  "curation_review_file": "data/regulatory_profiles/documentary_comparisons/54083697000130.json",
+  "historical_heuristic_criteria": [],
+  "historical_heuristic_emissions": [],
+  "documentary_review": {
+    "cnpj": "54083697000130",
+    "label": "Pernambucanas",
+    "reviewed_at": "2026-10-07T16:32:19-03:00",
+    "scope_note": "Consulta exata por CNPJ e busca local sem obtenção de documentos; nenhuma leitura documental certificada. Timeout de acesso não significa inexistência de documentos.",
+    "document_status": "Sem acesso documental nesta consulta; inventário indisponível",
+    "sources_reviewed": [],
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Originador/endossante": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Devedor": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Garantia": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Elegibilidade": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Concentração": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Reserva de caixa": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Derivativos/hedge": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "PDD": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Pool/revolvência": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Duração/público-alvo": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Cessão/recompra": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Coobrigação": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Waterfall": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Remuneração": {
+          "value": "Spread final não localizado; inventário e documentos inacessíveis",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Volume/VNU": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Ofertas": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Juros/amortização": {
+          "value": "Cronograma fechado não identificado; documentos inacessíveis",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Vencimento": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Gestão": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Custódia": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Controles documentais": {
+          "value": "Sem acesso documental nesta consulta; dado não certificado",
+          "source": "CNPJ 54083697000130; inventário documental em data/regulatory_knowledge/54083697000130.json; acesso em data/raw/54083697000130/access_status_20261007.txt",
+          "note": "Consulta exata ao CNPJ retornou timeout/erro de provedor; nenhum PDF local foi encontrado para fundamentar a regra."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "warnings": [
+      "Consulta atual Fundos.NET: ProviderUnavailableError: Falha de rede ao acessar pesquisarGerenciadorDocumentosDados: The read operation timed out"
+    ],
+    "metrics": {
+      "inventory_count": "Inventário atual indisponível; registros locais preservados",
+      "pdf_count": 0,
+      "pages_available": 0,
+      "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+      "documents_without_local_pdf": "Inventário atual indisponível; quantidade não certificada",
+      "extraction_errors": 0,
+      "access_errors": 0,
+      "sources_consulted": 0
+    },
+    "emissions_rows": [],
+    "costs_rows": [],
+    "key_findings": [
+      {
+        "Tema": "Acesso",
+        "Conclusão": "Fundos.NET não respondeu à consulta por CNPJ após tentativas."
+      },
+      {
+        "Tema": "Identidade",
+        "Conclusão": "CNPJ 54.083.697/0001-30 preservado; nenhum fundo foi substituído."
+      },
+      {
+        "Tema": "Lacuna",
+        "Conclusão": "Regulamento, emissões, custos e calendário não puderam ser certificados nesta leitura."
+      }
+    ]
+  },
+  "reviewed_at": "2026-10-07T16:32:19-03:00",
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/54083697000130.json"
+}

@@ -1,0 +1,252 @@
+{
+  "cnpj": "51554551000138",
+  "label": "Crédito Nitro Agro",
+  "reviewed_at": "2026-10-07T16:29:09-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1261911,
+      "kind": "regulamento",
+      "date": "18/06/2026",
+      "path": "data/raw/51554551000138/1261911_regulamento.pdf",
+      "text_path": "data/raw/51554551000138/1261911_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 178,
+      "extractable_pages": 176,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1126481,
+      "kind": "emissao",
+      "date": "23/02/2026",
+      "path": "data/raw/51554551000138/1126481_emissao.pdf",
+      "text_path": "data/raw/51554551000138/1126481_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 7,
+      "extractable_pages": 7,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Créditos performados de insumos agro, comprovados por XML de NF-e",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 15",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Mezanino+júnior/PL ≥25%",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 71",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas previstas dos próximos 10 meses",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 78",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Derivativos/hedge": {
+        "value": "Exclusivamente proteção de posições detidas à vista",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 55",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "DC ≥50% PL",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 61",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "1ª emissão da 3ª série sênior",
+        "source": "data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026 | emissao | p. 5-6",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "3ª série sênior: DI + 1,85%; base composta de 252 DU",
+        "source": "data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026 | emissao | p. 5-6",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Volume/VNU": {
+        "value": "R$ 187,5 mi aprovados; VNU R$ 1 mil; mínimo de distribuição reduzido a R$ 70 mi",
+        "source": "data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026 | emissao | p. 1-2,5",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Dia 10 mensal, maio–nov/2026, ajustado para próximo DU; principal no desinvestimento",
+        "source": "data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026 | emissao | p. 6",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Vencimento": {
+        "value": "Resgate 10/11/2026; esperado 10/08/2026 no apêndice",
+        "source": "data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026 | emissao | p. 5-6",
+        "note": "Distinção entre data esperada e final; não afirmar pagamento efetivo."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,18% a.a. PL; mínimo R$ 18 mil/mês; implantação R$ 10 mil",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 154",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gestão": {
+        "value": "0,135% a.a. PL; mínimo R$ 15 mil/mês; flat fee R$ 40 mil",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 154",
+        "note": "Expressão por extenso diverge do percentual numérico. Frequência do flat fee não individualizada. Confirmar antes de parametrizar."
+      },
+      "Custódia": {
+        "value": "0,1% a.a. PL debitado da administração; lastro R$ 4.850/trimestre adicional",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026 | regulamento | p. 155",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/51554551000138/1261911_regulamento.pdf | Fundos.NET ID 1261911 | 18/06/2026; data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 51554551000138; revisão em 2026-10-07T16:29:09-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 90,
+    "pdf_count": 6,
+    "pages_available": 546,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 84,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "1ª emissão da 3ª série sênior",
+      "Tipo": "Sênior",
+      "Volume": "R$ 187,5 milhões aprovados; mínimo R$ 70 milhões",
+      "Quantidade": "187.500 aprovadas",
+      "VNU": "R$ 1.000",
+      "Remuneração": "DI + 1,85%; base de 252 DU",
+      "Juros/remuneração": "Dia10 maio–nov/2026, próximo DU se necessário; principal no desinvestimento; final10/11/2026",
+      "Amortização principal": "Dia10 maio–nov/2026, próximo DU se necessário; principal no desinvestimento; final10/11/2026",
+      "Data encerramento/oferta": "Ato de 23/02/2026; encerramento efetivo não localizado",
+      "Fonte": "data/raw/51554551000138/1126481_emissao.pdf | Fundos.NET ID 1126481 | 23/02/2026 | emissao | p. 5-6",
+      "Status/evidência": "Condições específicas do documento citado; não certifica vigência atual nem saldo vivo",
+      "Status curadoria": "Leitura dirigida com fonte por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Recebíveis performados de insumos agro com notas fiscais."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Mezanino+júnior de 25% PL e reserva de despesas de 10 meses."
+    },
+    {
+      "Tema": "Emissão",
+      "Conclusão": "3ª série: DI + 1,85%; montante aprovado de R$ 187,5 milhões, com mínimo reduzido a R$ 70 milhões."
+    },
+    {
+      "Tema": "Pagamentos",
+      "Conclusão": "Datas mensais de maio a novembro de 2026; resgate esperado em agosto e final em novembro."
+    }
+  ]
+}

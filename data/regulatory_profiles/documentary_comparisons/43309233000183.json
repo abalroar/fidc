@@ -1,0 +1,256 @@
+{
+  "cnpj": "43309233000183",
+  "label": "LIVERPOOL",
+  "reviewed_at": "2026-10-07T16:22:01-03:00",
+  "document_status": "Revisão documental dirigida com lacunas explícitas",
+  "scope_note": "Revisão dirigida das cláusulas materiais dos documentos acessíveis; texto integral extraído quando disponível. Não corresponde à leitura integral de todos os registros do inventário. Instrumento de emissão ID 211464 contém PDF sem texto extraível; OCR necessário para confirmar condições econômicas. O nome da carteira não fixa a vigência documental; cada fonte mantém sua própria data. Não foi carregada nova competência IME.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Agronegócio: CPR-F, CDCA, créditos Adama e de distribuidores de insumos",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 57–58; 4.3 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Devedor": {
+        "value": "Produtores rurais PF/PJ, cooperativas e distribuidores, aprovados pelo gestor",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 57–58; 4.3 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Concentração": {
+        "value": "Devedor/coobrigado≤20% do PL; aumento sujeito a condições legais/documentais",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 69; 4.40.1 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Proteção depende de índice ponderado e relação mínima; percentuais por subclasse não reconciliados nesta leitura",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 102; 10.1 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Avaliação quando índice sênior<0,98 ou relação mínima<115,3%; tais índices não equivalem à razão simples subordinadas/PL."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Avaliação: obrigação originador sem cura 5 DU e aquisições irregulares≥2% do PL; liquidação: remuneração sênior em atraso>2 DU",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 102,105; 10.1;10.6 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Reserva de caixa": {
+        "value": "Reserva de liquidez≥1% do PL; reforço para pagamentos desde 12–18 meses antes da data",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 97–98; 9.1–9.1.2 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos exclusivamente para proteção; opções de juros e outros instrumentos previstos na política",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 165–167; AdendoVIII | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "≥50% do PL em direitos elegíveis; alocação tributária≥67% da carteira",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 6; Definições | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Duração/público-alvo": {
+        "value": "Indeterminado; investidores profissionais",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 56–57; 2.2;3.1 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Remuneração": {
+        "value": "DI +sobretaxa por classe/série; modelos de apêndice sem spread final preenchido",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 153–156; Modelos apêndices | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Juros/amortização": {
+        "value": "Metas e datas remetidas ao apêndice; cronograma fechado não identificado",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 153–156; Modelos apêndices | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas PL 0,065% atéR$ 200 mi;0,06% entre 200–400 mi;0,05% acima 400 mi; mínimo específico não reconciliado",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 139; 12.2 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gestão": {
+        "value": "0,8% a.a. sobre PL; mínimoR$ 200 mil/mês",
+        "source": "Fundos.NET ID 943032 | 09/07/2025 | regulamento | p. 140; 12.3 | data/raw/43309233000183/943032_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=943032",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Custódia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar ativo elegível, subclasses e fórmula contratual",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90 e PDD / crédito: indicadores agregados; gatilhos dependem de denominador e janela contratual",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração por devedor/grupo, lastro, prestadores e eventos: validação documental e operacional",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta revisão",
+        "source": "data/raw/43309233000183/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 43309233000183 em 07/10/2026; inventário completo com 105 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "Agronegócio: CPR-F, CDCA, créditos Adama e de distribuidores de insumos"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Proteção depende de índice ponderado e relação mínima; percentuais por subclasse não reconciliados nesta leitura"
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "≥50% do PL em direitos elegíveis; alocação tributária≥67% da carteira"
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "DI +sobretaxa por classe/série; modelos de apêndice sem spread final preenchido"
+    }
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1134494,
+      "kind": "assembleia",
+      "date": "09/03/2026 17:00",
+      "path": "data/raw/43309233000183/1134494_assembleia_review_20261007.pdf",
+      "text_path": "data/raw/43309233000183/1134494_assembleia_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "43309233000183",
+      "document_type": "AGE",
+      "reference_date": "09/03/2026 17:00",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 943032,
+      "kind": "regulamento",
+      "date": "09/07/2025",
+      "path": "data/raw/43309233000183/943032_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/43309233000183/943032_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 169,
+      "extractable_pages": 169,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "43309233000183",
+      "document_type": "",
+      "reference_date": "09/07/2025",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 791922,
+      "kind": "regulamento",
+      "date": "27/11/2024",
+      "path": "data/raw/43309233000183/791922_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/43309233000183/791922_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 168,
+      "extractable_pages": 168,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "43309233000183",
+      "document_type": "",
+      "reference_date": "27/11/2024",
+      "inventory_queried_at": "2026-10-07"
+    }
+  ],
+  "warnings": [
+    "ID 211464: PDF sem texto extraível / OCR necessário"
+  ],
+  "metrics": {
+    "inventory_count": 105,
+    "pdf_count": 4,
+    "pages_analyzed": 340,
+    "documents_without_local_pdf": 101,
+    "extraction_errors": 1,
+    "download_errors": 0,
+    "pdfs_without_extractable_text": 1,
+    "identity_exclusions": 0
+  }
+}

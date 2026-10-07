@@ -1,0 +1,252 @@
+{
+  "cnpj": "55374251000128",
+  "label": "Blue II",
+  "reviewed_at": "2026-10-07T16:29:09-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 686750,
+      "kind": "regulamento",
+      "date": "25/06/2024",
+      "path": "data/raw/55374251000128/686750_regulamento.pdf",
+      "text_path": "data/raw/55374251000128/686750_regulamento.full.txt",
+      "identity_verified": false,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 83,
+      "extractable_pages": 83,
+      "identity_verification_note": "Documento vinculado ao CNPJ na consulta exata ao Fundos.NET; denominação no cabeçalho deve ser conferida na leitura dirigida.",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 686288,
+      "kind": "emissao",
+      "date": "24/06/2024",
+      "path": "data/raw/55374251000128/686288_emissao.pdf",
+      "text_path": "data/raw/55374251000128/686288_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "12ª emissão de debêntures da Azul; dívida corporativa",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 60",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Azul Linhas Aéreas Brasileiras S.A.; CNPJ 09.296.295/0001-60",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 60",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Garantia": {
+        "value": "Debêntures da espécie com garantia real e adicional fidejussória",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 60",
+        "note": "A cobertura e a eficácia das garantias dependem da escritura e seus aditamentos, não revisados integralmente."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior: subordinadas/PL ≥70%; mezz I: mezz II+júnior ≥40%; mezz II: júnior ≥5%",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 61",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas estimadas de 15 meses, limitada ao prazo remanescente",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 25-26",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Derivativos/hedge": {
+        "value": "Operações com derivativos vedadas",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 16",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior 1ª série; mezz I/II1ª série",
+        "source": "data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024 | emissao | p. 1-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nas cláusulas revisadas; requer suplemento ou ato específico",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Volume/VNU": {
+        "value": "Até R$ 180 mi/180 mi/210 mi; total R$ 570 mi",
+        "source": "data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024 | emissao | p. 1-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,1050% a.a. até R$ 300 mi +0,05250% no excedente; mínimo R$ 12.250/mês",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 11-12",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gestão": {
+        "value": "0,0450% a.a. até R$ 300 mi +0,02250% no excedente; mínimo R$ 5.250/mês",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 12-13",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Custódia": {
+        "value": "Incluída na administração; lastro R$ 5 mil/mês e escrituração R$ 2,5 mil/mês adicionais",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024 | regulamento | p. 12-13",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/55374251000128/686750_regulamento.pdf | Fundos.NET ID 686750 | 25/06/2024; data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 55374251000128; revisão em 2026-10-07T16:29:09-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 86,
+    "pdf_count": 6,
+    "pages_available": 188,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 80,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 1ª série; mezz I/II1ª série",
+      "Tipo": "Sênior/mezanino",
+      "Volume": "Até R$ 180 mi/180 mi/210 mi; total R$ 570 mi",
+      "Quantidade": "180.000/180.000/210.000",
+      "VNU": "R$ 1.000",
+      "Remuneração": "Spread final não localizado; requer suplemento aplicável",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Data encerramento/oferta": "Início 24/06/2024; liquidação 26/06/2024 prevista",
+      "Fonte": "data/raw/55374251000128/686288_emissao.pdf | Fundos.NET ID 686288 | 24/06/2024 | emissao | p. 1-3",
+      "Status/evidência": "Condições específicas do documento citado; não certifica vigência atual nem saldo vivo",
+      "Status curadoria": "Leitura dirigida com fonte por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Dívida corporativa concentrada na 12ª emissão de debêntures da Azul."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Proteção sênior de 70% PL; níveis adicionais para mezaninos."
+    },
+    {
+      "Tema": "Liquidez",
+      "Conclusão": "Reserva de despesas de até 15 meses; derivativos vedados."
+    },
+    {
+      "Tema": "Lacuna",
+      "Conclusão": "Escritura e aditamentos da debênture são necessários para validar garantias e eventos."
+    }
+  ]
+}

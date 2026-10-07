@@ -1,0 +1,237 @@
+{
+  "cnpj": "19388423000159",
+  "label": "IOX I",
+  "reviewed_at": "2026-10-07T16:18:13-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1230432,
+      "kind": "regulamento",
+      "date": "26/06/2026",
+      "path": "data/raw/19388423000159/1230432_regulamento.pdf",
+      "text_path": "data/raw/19388423000159/1230432_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 148,
+      "extractable_pages": 148,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1300032,
+      "kind": "emissao",
+      "date": "25/08/2026",
+      "path": "data/raw/19388423000159/1300032_emissao.pdf",
+      "text_path": "data/raw/19388423000159/1300032_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 33,
+      "extractable_pages": 33,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Multissetorial performado: duplicatas, cheques, CCBs, cartões e notas comerciais",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 61-62",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Originador/endossante": {
+        "value": "Cedentes PJ e instituições financeiras brasileiras; sem originador exclusivo",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 60,66",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Adimplente; desconto ≥1,20% a.m.; cheques ≤180d, duplicatas ≤365d, contratos ≤540d, CCB/NC ≤36m",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 66-68",
+        "note": "Desconto é taxa dos direitos creditórios; não é spread das cotas. Taxa média mínima de cessão: 200% da DI."
+      },
+      "Concentração": {
+        "value": "Devedor/grupo ≤4% PL; top10 ≤35%; cedente ≤3,5% (exceto CCB); top10 ≤30%",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 63-65",
+        "note": "Valor presente líquido de PDD; limites adicionais por instrumento e grupo econômico na tabela contratual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior: mezanino+júnior/PL ≥33%; mezanino: júnior/PL ≥18%",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 94",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Inadimplência contratual >5% por20 DU; liquidez <1 por30d; desenquadramentos com cura específica",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 92-96",
+        "note": "Inadimplência = média móvel3 meses de índice de atraso90 dias sobre vencimentos da coorte mensal, não Over90/Crédito."
+      },
+      "Reserva de caixa": {
+        "value": "1% PL; amortização integral reservada até D−5 DU, formação a partir de D−25 DU",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 90-91",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção patrimonial e troca de indexador, sem exposição a risco de capital",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 65",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvente durante prazo indeterminado",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 58",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada, indeterminada; qualificados; responsabilidade ilimitada",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 52-53,99",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Cessão/recompra": {
+        "value": "Substituição por vícios; recompra facultativa; índice30 dias/VP da carteira <10%",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 48,65",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Coobrigação": {
+        "value": "Cessões podem ter ou não coobrigação conforme contrato",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 43-44,60",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Waterfall": {
+        "value": "Despesas → caixa → sênior → mezanino → júnior → novas aquisições",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 89-90",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, mezanino e júnior; ofertas sênior 23–28 e mezaninoO–S encerradas em25/08/2026",
+        "source": "data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026 | emissao | p. 1-33",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "Meta por suplemento/apêndice; spread final não localizado nas fontes revisadas",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 49,58,86",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Volume/VNU": {
+        "value": "Teto ofertado: sênior 23 R$ 130 mi,24 R$ 100 mi,25 R$ 75 mi; VNU R$ 1.000",
+        "source": "data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026 | emissao | p. 1,4,7",
+        "note": "Cabeçalho reporta montante ofertado; não tratar teto como valor integralmente distribuído sem tabela final por série."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Calendário por suplemento; extraordinária e aceleração permitidas com reservas e subordinação",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 86-87",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas marginais PL:0,50%/0,40%/0,35%/0,30%/0,25%/0,20% a.a.; mínimo R$ 1 mil/mês",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 55-57",
+        "note": "Faixas até 20/50/100/150/200 mi e excedente; valores fixos reajustados pelo IGP-M positivo anual."
+      },
+      "Gestão": {
+        "value": "1% a.a. PL; mínimo R$ 3 mil/mês",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 57",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Custódia": {
+        "value": "Taxa máxima R$ 2 mil; periodicidade de pagamento mensal na cláusula4.2",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026 | regulamento | p. 57",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/19388423000159/1230432_regulamento.pdf | Fundos.NET ID 1230432 | 26/06/2026; data/raw/19388423000159/1300032_emissao.pdf | Fundos.NET ID 1300032 | 25/08/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 19388423000159; revisão em 2026-10-07T16:18:13-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 216,
+    "pdf_count": 6,
+    "pages_available": 365,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 210,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Carteira",
+      "Conclusão": "Direitos performados multissetoriais; a elegibilidade distingue prazo e instrumento."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinação mínima de33% para a sênior e18% para o mezanino, ambas sobre o PL."
+    },
+    {
+      "Tema": "Reservas",
+      "Conclusão": "Caixa de1% do PL e reserva de100% da próxima amortização até cinco dias úteis antes."
+    },
+    {
+      "Tema": "Séries",
+      "Conclusão": "Ofertas recentes individualizam séries, mas os spreads dependem dos suplementos não revisados."
+    }
+  ]
+}

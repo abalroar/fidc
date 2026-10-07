@@ -1,0 +1,270 @@
+{
+  "cnpj": "50059866000146",
+  "label": "Pagaleve",
+  "reviewed_at": "2026-10-07T16:56:22-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1337370,
+      "kind": "regulamento",
+      "date": "01/10/2026",
+      "path": "data/raw/50059866000146/1337370_documentary_review.pdf",
+      "text_path": "data/raw/50059866000146/1337370_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 71,
+      "extractable_pages": 71,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1337278,
+      "kind": "assembleia",
+      "date": "23/09/2026 15:00",
+      "path": "data/raw/50059866000146/1337278_documentary_review.pdf",
+      "text_path": "data/raw/50059866000146/1337278_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 81,
+      "extractable_pages": 81,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 909370,
+      "kind": "emissao",
+      "date": "21/05/2025",
+      "path": "data/raw/50059866000146/909370_documentary_review.pdf",
+      "text_path": "data/raw/50059866000146/909370_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Pagamentos parcelados no Sistema Pagaleve; créditos Pagaleve, Bancarizador e antecipação",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 36,40-41",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Originador/endossante": {
+        "value": "Cedentes Pagaleve, Bancarizador ou estabelecimentos, conforme modalidade",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 41",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Devedor": {
+        "value": "Pagaleve/Bancarizador: PF adulta; antecipação liquidada pela Pagaleve",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 41,43",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Garantia": {
+        "value": "Garantias do crédito conforme instrumento; sem garantia dos prestadores/FGC",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 34,42",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Elegibilidade": {
+        "value": "Crédito adimplente, em reais; PF ≥18 anos; prazos 50 dias Pagaleve e 370 dias demais modalidades",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 43-44",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Concentração": {
+        "value": "Top10/Top100 devedores: 2%/5% PL; antecipação ≤20% carteira",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 44",
+        "note": "Regras por devedor usam redação ambígua no agrupamento Top10/Top100; concentração do maior estabelecimento ≤15% carteira e Top5 ≤50% (p.19). Controle exige dados individuais."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Júnior/PL ≥15,79%; amortização extraordinária condicionada a júnior >20% PL",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 10,53,57",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Pagaleve: média ponderada de 4 meses >6%, ou índice >8% em 2 de 4 meses",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 10,63-64",
+        "note": "Índice usa parcelas vencidas no mês anterior e ainda não liquidadas, dividido pelos vencimentos daquele mês. Bancarizador tem regras Short/Long próprias, condicionadas à participação na carteira; caixa do conglomerado <R$ 1 milhão é evento documental (p.62)."
+      },
+      "Reserva de caixa": {
+        "value": "Encargos/operacionalização e remuneração sênior por 3 meses; amortização: 1% da próxima estimativa, limitada a R$ 250 mil",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 58",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Derivativos/hedge": {
+        "value": "Exclusivamente proteção; sem contraparte central, gestor/relacionadas ≤20% PL",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 35",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "PDD": {
+        "value": "PCLD por atraso: 2,5% em dia; 10% até 15 dias; 40% até 30; 60% até 90; 90% até 120; write-off >120",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 60",
+        "note": "Tabela contratual por aging não é índice de cobertura PDD mínimo; aplicar efeito vagão por devedor (p.9)."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "DC/PL ≥67% após 180 dias de operação",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 5,34",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisição de novos créditos prevista na ordem de alocação; suspensa em evento de avaliação",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 59,64",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Duração/público-alvo": {
+        "value": "Duração indeterminada; qualificados na classe; oferta-modelo sênior para profissionais",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 30,68",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Cessão/recompra": {
+        "value": "Vício/elegibilidade e média 3 meses de atraso >30 dias líquida de PCLD >4% PL exigem recompra em 5 DU",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 43",
+        "note": "Recompra por Pagaleve/Bancarizador ao preço de aquisição; não substitui obrigação de solvência universal."
+      },
+      "Coobrigação": {
+        "value": "Aquisição com ou sem coobrigação; existência é responsabilidade do cedente",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 40-41",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Waterfall": {
+        "value": "Encargos/derivativos; reservas; remuneração e principal sênior; extraordinária júnior; reinvestimento",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 59",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Seniores por série e júnior; modelos de apêndices não preenchidos",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 51,68-71",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Remuneração": {
+        "value": "Índice e spread não preenchidos no modelo; spread final não localizado",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 69",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Volume/VNU": {
+        "value": "Encerramento declara R$ 40 milhões/40 mil cotas; VNU R$ 1 incompatível com esse volume",
+        "source": "data/raw/50059866000146/909370_documentary_review.pdf | Fundos.NET ID 909370 | 21/05/2025 | emissao | p. 1-2",
+        "note": "Tabela soma 40 mil cotas subscritas por 3 investidores. Não corrigir VNU para R$ 1 mil por inferência."
+      },
+      "Ofertas": {
+        "value": "2ª série sênior, 1ª emissão; encerramento em 21/05/2025; profissionais",
+        "source": "data/raw/50059866000146/909370_documentary_review.pdf | Fundos.NET ID 909370 | 21/05/2025 | emissao | p. 1-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Prazo remetido ao apêndice; campos do modelo não preenchidos",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 69",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Juros/amortização": {
+        "value": "Cronograma fechado não identificado; modelo de apêndice não preenchido",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 69",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      },
+      "Vencimento": {
+        "value": "Última amortização conforme apêndice; vencimento civil não localizado",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 69",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas 0,30%/0,20%/0,10% a.a. PL (R$ 150/R$ 300 mi); mínimo R$ 20 mil/mês",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 32",
+        "note": "Confirmar aplicação de faixas; o texto não individualiza regra marginal. Reajuste IPCA positivo; R$ 770/h por assembleia (p.33)."
+      },
+      "Gestão": {
+        "value": "Faixas 0,21%/0,25%/0,30% a.a. PL (R$ 150/R$ 300 mi); mínimo R$ 10 mil/mês",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 33",
+        "note": "Comissão inicial R$ 50 mil; reajuste IPCA positivo; não inferir aplicação marginal das faixas."
+      },
+      "Custódia": {
+        "value": "VERT DTVM; taxa separada não individualizada nas cláusulas de remuneração",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026 | regulamento | p. 31-33",
+        "note": "Regra da versão citada; leitura dirigida. Validar documento vigente e controles por contrato."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026; data/raw/50059866000146/1337278_documentary_review.pdf | Fundos.NET ID 1337278 | 23/09/2026 15:00; data/raw/50059866000146/909370_documentary_review.pdf | Fundos.NET ID 909370 | 21/05/2025",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026; data/raw/50059866000146/1337278_documentary_review.pdf | Fundos.NET ID 1337278 | 23/09/2026 15:00; data/raw/50059866000146/909370_documentary_review.pdf | Fundos.NET ID 909370 | 21/05/2025",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/50059866000146/1337370_documentary_review.pdf | Fundos.NET ID 1337370 | 01/10/2026; data/raw/50059866000146/1337278_documentary_review.pdf | Fundos.NET ID 1337278 | 23/09/2026 15:00; data/raw/50059866000146/909370_documentary_review.pdf | Fundos.NET ID 909370 | 21/05/2025",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 50059866000146; revisão em 2026-10-07T16:56:22-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      },
+      "Troca de prestadores": {
+        "value": "Limine/Kanastra substituídas por VERT DTVM/VERT Gestora a partir de 01/10/2026",
+        "source": "data/raw/50059866000146/1337278_documentary_review.pdf | Fundos.NET ID 1337278 | 23/09/2026 15:00 | assembleia | p. 1-2",
+        "note": "AGE 23/09/2026; eficácia condicionada ao integral cumprimento dos procedimentos de transferência. Controle documental, não observável pelo IME agregado."
+      }
+    }
+  },
+  "warnings": [
+    "ID 1241048: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+    "ID 909437: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+  ],
+  "metrics": {
+    "inventory_count": 124,
+    "pdf_count": 3,
+    "pages_available": 155,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 121,
+    "extraction_errors": 0,
+    "access_errors": 2,
+    "sources_consulted": 3
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "2ª série sênior, 1ª emissão",
+      "Tipo": "Sênior",
+      "Data encerramento/oferta": "Encerramento 21/05/2025; registro 01/04/2025",
+      "Quantidade": "40.000 subscritas; 3 investidores",
+      "Volume": "R$ 40 milhões declarados; quantidade/VNU incompatíveis",
+      "VNU": "R$ 1 declarado; divergência interna não reconciliada",
+      "Remuneração": "Spread final não localizado; apêndice preenchido não acessível",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Prazo remetido ao apêndice não localizado",
+      "Fonte": "data/raw/50059866000146/909370_documentary_review.pdf | Fundos.NET ID 909370 | 21/05/2025 | emissao | p. 1-2",
+      "Status/evidência": "Encerramento; quantidade/VNU/volume sem conciliação",
+      "Status curadoria": "Leitura dirigida; fontes e divergências explícitas"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Créditos Pagaleve/Bancarizador e antecipação de pagamentos; elegibilidade e prazos distintos."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Alocação mínima de 67% PL; júnior de 15,79% PL; gatilhos usam vencimentos e médias móveis."
+    },
+    {
+      "Tema": "Prestadores",
+      "Conclusão": "Transferência para VERT aprovada com início em 01/10/2026, condicionada aos procedimentos da assembleia."
+    },
+    {
+      "Tema": "Divergência",
+      "Conclusão": "Encerramento da 2ª série informa R$ 40 milhões; quantidade/VNU não conciliam; spread e calendário não localizados."
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "cnpj": "50327909000127",
+  "label": "Tambasa",
+  "reviewed_at": "2026-10-07T16:29:59-03:00",
+  "document_status": "Leitura parcial da parte geral; anexo da classe e PDF pendentes",
+  "scope_note": "Cache textual da parte geral do regulamentoID1007241, referência06/10/2025. DownloadPDF não concluído; anexo da classe não acessível no texto consultado. Revisão parcial por cláusula, sem afirmar leitura integral ou paginação física. Assembleia ID1007239 e ato ID616065 acessíveis, consultados integralmente. O anexo consolidado do regulamento segue pendente.",
+  "sources_reviewed": [
+    {
+      "document_id": 1007241,
+      "date": "06/10/2025",
+      "kind": "regulamento",
+      "path": "data/raw/50327909000127/1007241_regulamento_cache_integral.txt",
+      "text_path": "data/raw/50327909000127/1007241_regulamento_cache_integral.txt",
+      "inventory_error": null,
+      "pdf_error": "Fundos.NET respondeu HTTP 502 em downloadDocumento.",
+      "pages": "Paginação física não preservada no cache textual",
+      "cache_origin": "outputs/fidc_director_deep_diagnostic_20260609/pdf_text_cache/50327909000127_1007241_regulamento_regulamento_1007241_2025-10-06_2025-10-06.txt",
+      "identity_verified": true,
+      "identity_verification_note": "CNPJ literal no texto",
+      "review_scope": "Leitura dirigida das cláusulas citadas; texto integral extraído disponível localmente."
+    },
+    {
+      "document_id": 1007239,
+      "date": "02/10/2025 10:00",
+      "kind": "assembleia",
+      "path": "data/raw/50327909000127/1007239_assembleia.pdf",
+      "text_path": "data/raw/50327909000127/1007239_assembleia.full.txt",
+      "pages": 2,
+      "identity_verified": true,
+      "review_scope": "Leitura das páginas do ato/suplemento citadas nas células; documento completo extraído disponível."
+    },
+    {
+      "document_id": 616065,
+      "date": "07/03/2024",
+      "kind": "emissao",
+      "path": "data/raw/50327909000127/616065_emissao.pdf",
+      "text_path": "data/raw/50327909000127/616065_emissao.full.txt",
+      "pages": 3,
+      "identity_verified": true,
+      "review_scope": "Leitura das páginas do ato/suplemento citadas nas células; documento completo extraído disponível."
+    }
+  ],
+  "warnings": [
+    "Versão documental conforme ID/data citados; o nome comercial do cadastro não confirma cedente, devedor ou garantia.",
+    "Cronogramas e spreads dependem dos suplementos efetivamente preenchidos; metas não garantem pagamento.",
+    "PDF não recuperado no Fundos.NET; cache da parte geral preservado para auditoria.",
+    "Natureza específica, elegibilidade, taxas e parâmetros da classe dependem do anexo não acessível."
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Originador/endossante": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Devedor": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Garantia": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Elegibilidade": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Concentração": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Reserva de caixa": {
+        "value": "Constituição prevista; valor/fórmula remetidos ao anexo não acessível.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; parte geral, 13.1",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Derivativos/hedge": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "PDD": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Pool/revolvência": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Duração/público-alvo": {
+        "value": "Fundo aberto, classe única; anexo da classe pendente.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; parte geral, 4.1",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Cessão/recompra": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Coobrigação": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Waterfall": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Parte geral declara classe sem divisão em subclasses.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; parte geral, 4.2",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nesta revisão; conferir suplemento preenchido.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; escopo e condições da revisão",
+        "note": "Taxas de prestadores não representam remuneração das cotas."
+      },
+      "Volume/VNU": {
+        "value": "1ª emissão júnior aprovada em 07/03/2024: R$ 100 mi, VNU R$ 1 mil.",
+        "source": "Fundos.NET ID 616065; 07/03/2024; data/raw/50327909000127/616065_emissao.full.txt; emissao; pp.2–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=616065&cvm=true",
+        "note": "Aprovação histórica; distribuição/integralização efetiva não comprovada."
+      },
+      "Ofertas": {
+        "value": "Júnior aprovada em 07/03/2024; saldo não colocado pode ser cancelado.",
+        "source": "Fundos.NET ID 616065; 07/03/2024; data/raw/50327909000127/616065_emissao.full.txt; emissao; p.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=616065&cvm=true",
+        "note": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      },
+      "Juros/amortização": {
+        "value": "Cronograma fechado não identificado nesta revisão; conferir série/suplemento.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; escopo e condições da revisão",
+        "note": "Data do regulamento não equivale a data de integralização."
+      },
+      "Vencimento": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Taxa remetida ao anexo; percentual/mínimo não localizados na parte geral.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; definição Taxa de Administração; capítulo3",
+        "note": "Regra documental; verificar versão, base e condições antes de monitorar."
+      },
+      "Gestão": {
+        "value": "0,26% a.a./PL; mínimo R$ 12 mil/mês, aprovado em 02/10/2025.",
+        "source": "Fundos.NET ID 1007239; 02/10/2025 10:00; data/raw/50327909000127/1007239_assembleia.full.txt; assembleia; p.1, deliberação I; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007239&cvm=true",
+        "note": "Condição documental; não confundir deliberação, oferta e integralização efetiva."
+      },
+      "Custódia": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e cotas por categoria/PL; validar regra e denominador.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; escopo e condições da revisão",
+        "note": "Proxy agregado; não comprova enquadramento diário nem prioridade por série."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD/crédito agregados; conciliar índice contratual.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; escopo e condições da revisão",
+        "note": "Proxy parcial; vintage, efeito vagão e defasagem não reproduzidos automaticamente."
+      },
+      "Controles documentais": {
+        "value": "Lastro, elegibilidade, concentração individual e prestadores exigem documentos.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true; escopo e condições da revisão",
+        "note": "IME público sem granularidade individual; não usar como prova de conformidade."
+      },
+      "Competência IME": {
+        "value": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica.",
+        "source": "Fundos.NET ID 1007241; 06/10/2025; data/raw/50327909000127/1007241_regulamento_cache_integral.txt; regulamento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1007241&cvm=true",
+        "note": "Lacuna desta revisão; não implica inexistência da regra no regulamento."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica."
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica."
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "Não confirmado na revisão dirigida; conferir documento ou cláusula específica."
+    }
+  ],
+  "metrics": {
+    "inventory_count": 44,
+    "inventory_scope": "Consulta Fundos.NET completa por CNPJ",
+    "pdf_count": 3,
+    "available_regulation_pages": 65,
+    "reviewed_source_documents": 3,
+    "full_inventory_human_reading_claim": false,
+    "sources_with_access_error": [
+      {
+        "document_id": 1007241,
+        "error": "Fundos.NET respondeu HTTP 502 em downloadDocumento."
+      }
+    ]
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Júnior — 1ª emissão",
+      "Tipo": "Subordinada Júnior",
+      "Data deliberação": "07/03/2024",
+      "Volume": "R$ 100.000.000,00 aprovados",
+      "VNU": "R$ 1.000,00",
+      "Remuneração": "Meta específica não localizada; não confundir com taxa de distribuição de 0,02%",
+      "Data emissão / 1ª integralização": "Emissão na integralização; data efetiva não identificada",
+      "Status/evidência": "Aprovação histórica; colocação efetiva não demonstrada",
+      "Fonte": "Fundos.NET ID 616065; 07/03/2024; data/raw/50327909000127/616065_emissao.full.txt; emissao; pp.2–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=616065&cvm=true",
+      "Status curadoria": "Leitura parcial da parte geral; anexo da classe e PDF pendentes"
+    }
+  ]
+}

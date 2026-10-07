@@ -1,0 +1,279 @@
+{
+  "cnpj": "53662209000187",
+  "label": "PneuCash",
+  "reviewed_at": "2026-10-07T16:48:43-03:00",
+  "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+  "scope_note": "Revisão dirigida das fontes identificadas abaixo por CNPJ, incluindo regras e atos materiais localizados. Não se afirma leitura integral de cada registro inventariado.",
+  "sources_reviewed": [
+    {
+      "document_id": 1239751,
+      "kind": "regulamento",
+      "date": "30/06/2026",
+      "path": "data/raw/53662209000187/1239751_documentary_review.pdf",
+      "text_path": "data/raw/53662209000187/1239751_documentary_review.txt",
+      "identity_verified": false,
+      "pages": 84,
+      "extractable_pages": 84,
+      "identity_verification_note": "ID obtido por consulta exata do CNPJ ou extração histórica indexada pelo CNPJ; identidade literal deve ser validada",
+      "review_scope": "Leitura dirigida das cláusulas e/ou termos do ato citados nos fatos; não se afirma leitura de todas as versões"
+    },
+    {
+      "document_id": 924981,
+      "kind": "emissao",
+      "date": "13/06/2025",
+      "path": "data/raw/53662209000187/924981_documentary_review.pdf",
+      "text_path": "data/raw/53662209000187/924981_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e/ou termos do ato citados nos fatos; não se afirma leitura de todas as versões"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis comerciais do varejo de pneus, vendas a prazo das cedentes.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.12,55, definição Operações a Prazo/7.23; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Devedor": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Elegibilidade": {
+        "value": "Sem parcelas vencidas; devedor adimplente; média≤120 dias; exceção 5%/PL até 300 dias.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.55–56,8.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Concentração": {
+        "value": "Grupo de devedores ≤2%/PL; regra específica de elegibilidade.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; p.55,8.1(vi); https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior 20%/PL; proteção mezanino A 12,25%/PL e B 10,77%/PL.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.48–49,5.1–5.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Aging 0–30/31–60/61–90/91–180 abaixo 5%/3%/2%/1,8%; basecrédito líquido de provisões.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.9–10, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Reserva de caixa": {
+        "value": "Maior entre 90 dias de despesas e 0,5%/PL; pagamentos 30% emD−20,100% emD−10.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.57–58,10.1–10.2.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Derivativos/hedge": {
+        "value": "Operações com derivativos vedadas.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; p.54,7.15; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Índice de cobertura": {
+        "value": "Sênior e mezaninos >1,00; VP dos créditos líquido de PDD ponderado e reservas deduzidas.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; p.49,5.4–5.6; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios >50%/PL até 180 dias; alocação tributária buscada discricionariamente.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.53–54,7.5–7.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvência livre observada a ordem de alocação.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; p.54,7.12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe única fechada, prazo indeterminado, profissionais, responsabilidade limitada.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.25,54,58; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão irrevogável; resolução contratual; pós-cessão sem regresso automático por desenquadramento.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.54,56,7.10/7.13/8.1.5; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Waterfall": {
+        "value": "Encargos → caixa → sênior → mezaninos A/B/C → júnior → reserva amortização → excesso → créditos.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.56–57,9.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "2ªemissão: sênior 2, mezaninoA.2 eB.2; júnior privada 2ªemissão.",
+        "source": "Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado; apêndices do regulamento em branco.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.73–83, modelos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Volume/VNU": {
+        "value": "Encerramento:R$ 165 mi/165 mil cotas de R$ 1 mil; extenso do total diverge.",
+        "source": "Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; pp.1–2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Vencimento": {
+        "value": "Cronograma fechado não identificado nos apêndices em branco.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.73–83, modelos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,20% a.a./PL; mínimo R$ 20 mil/mês; IGP-M; acréscimos de serviços e tributos.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.52–53,6.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gestão": {
+        "value": "0,19% a.a./PL; mínimo R$ 10 mil/mês; IGP-M.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; p.52,6.1.5–6.1.6; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Custódia": {
+        "value": "Integrada à administração; escrituraçãoR$ 2,5 mil/mês e lastroR$ 3 mil/trimestre adicionais.",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; pp.52–53,6.1.1/6.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Métricas padronizadas são proxies; data, unidade e denominador precisam coincidir com a regra jurídica."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "O IME não substitui bases por devedor, cedente, vintage ou fluxo de vencimentos."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais",
+        "source": "Fundos.NET ID 1239751; referência 30/06/2026; data/raw/53662209000187/1239751_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1239751&cvm=true; Fundos.NET ID 924981; referência 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true",
+        "note": "Controle documental separado de posições agregadas do IME; lacuna não deve produzir enquadramento presumido."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura; verificar cache na publicação",
+        "source": "data/raw/53662209000187/access_status_20261007.txt",
+        "note": "Curadoria documental preservada; esta etapa não consultou saldos IME ao vivo."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Vendas comerciais de pneus; devedor adimplente e média máxima 120 dias."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinação sênior 20%/PL; derivativos vedados; cobertura calculada com PDD e reservas."
+    },
+    {
+      "Tema": "Oferta",
+      "Conclusão": "2ªemissão encerrada 13/06/2025: R$ 165 mi; spread depende dos suplementos preenchidos."
+    },
+    {
+      "Tema": "Lacuna",
+      "Conclusão": "Ata de agosto não baixada por HTTP 502; alterações posteriores precisam ser verificadas."
+    }
+  ],
+  "warnings": [
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário.",
+    "ID 1239751: identidade por indexação/consulta exata; CNPJ literal não encontrado na extração.",
+    "Ata1317374 de28/08/2026 indisponível por HTTP502; revisão posterior pendente.",
+    "Texto registra ausência de limites gerais7.9, mas elegibilidade8.1(vi) fixa grupo2%/PL. Aplicação exige a regra específica.",
+    "Glosssário de índices de subordinação tem denominadores imprecisos; usar fórmulas5.1–5.3 e validar antes do alerta.",
+    "Paginação física do PDF; revisão dirigida das páginas e cláusulas citadas, sem leitura de todos os registros do inventário."
+  ],
+  "metrics": {
+    "inventory_count": 87,
+    "sources_consulted": 2,
+    "pdf_count": 4,
+    "pages_available": 170,
+    "documents_without_local_pdf": 83,
+    "extraction_errors": 1,
+    "inventory_scope": "Fundos.NET ao vivo por CNPJ"
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 2 — 2ªemissão",
+      "Tipo": "Sênior",
+      "Quantidade": "100.000",
+      "Volume": "R$ 100.000.000,00 distribuídos",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "13/06/2025",
+      "Remuneração": "Spread final não localizado; obter suplemento preenchido",
+      "Status/evidência": "Encerramento; total numéricoR$ 165 mi versus extenso cento e um milhões",
+      "Fonte": "Fundos.NET ID 924981; 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true"
+    },
+    {
+      "Cota/Classe": "Mezanino A.2 — 2ªemissão",
+      "Tipo": "Mezanino A",
+      "Quantidade": "55.000",
+      "Volume": "R$ 55.000.000,00 distribuídos",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "13/06/2025",
+      "Remuneração": "Spread final não localizado; obter suplemento preenchido",
+      "Status/evidência": "Encerramento; total numéricoR$ 165 mi versus extenso cento e um milhões",
+      "Fonte": "Fundos.NET ID 924981; 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true"
+    },
+    {
+      "Cota/Classe": "Mezanino B.2 — 2ªemissão",
+      "Tipo": "Mezanino B",
+      "Quantidade": "10.000",
+      "Volume": "R$ 10.000.000,00 distribuídos",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "13/06/2025",
+      "Remuneração": "Spread final não localizado; obter suplemento preenchido",
+      "Status/evidência": "Encerramento; total numéricoR$ 165 mi versus extenso cento e um milhões",
+      "Fonte": "Fundos.NET ID 924981; 13/06/2025; data/raw/53662209000187/924981_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=924981&cvm=true"
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "cnpj": "31570767000180",
+  "label": "Tradepay Varejo I",
+  "reviewed_at": "2026-10-07T16:31:11-03:00",
+  "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+  "scope_note": "Revisão dirigida das fontes identificadas abaixo por CNPJ, incluindo regras e atos materiais localizados. Não se afirma leitura integral de cada registro inventariado.",
+  "sources_reviewed": [
+    {
+      "document_id": 1203635,
+      "kind": "regulamento",
+      "date": "25/05/2026",
+      "path": "data/raw/31570767000180/1203635_documentary_review.pdf",
+      "text_path": "data/raw/31570767000180/1203635_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 80,
+      "extractable_pages": 80,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Anexo,5.2 e9.1",
+        "Anexo,definições e9",
+        "Anexo,definições e6",
+        "Anexo,5.1",
+        "Anexo,6.1",
+        "Anexo,5.2.1 e6.1",
+        "Anexo,13.1",
+        "Anexo,17–18",
+        "Anexo,5.17",
+        "Anexo,5.3",
+        "Anexo,5 e17–18",
+        "Anexo,2–3",
+        "Anexo,5.5 e17",
+        "Anexo,13 eapêndices",
+        "Anexo,modelos desuplemento",
+        "Anexo,apêndice sênior,1.9",
+        "Anexo,apêndices",
+        "Anexo,12.1",
+        "Anexo,12.2"
+      ],
+      "pages_available": 80
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Créditos comerciais performados originados em convênios",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5.2 e9.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Originador/endossante": {
+        "value": "Cedente e conveniados comerciais conforme contratos",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,definições e9; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Devedor": {
+        "value": "Devedores dos créditos comerciais cedidos",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,definições e6; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Garantia": {
+        "value": "Créditos> R$ 5 mi cobertos porseguro; crédito semseguro limitado a 50%",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Validar a base exata deaquisição; não generalizar cobertura atodos oscontratos."
+      },
+      "Elegibilidade": {
+        "value": "Performados; mínimo 200 devedores; prazo médio/cessão eformalização contratual",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,6.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Concentração": {
+        "value": "Convênio≤ 30%, um até 40%; devedor≤ 5% PL, cai a 4% apósPLR$ 800 mi; top 5≤ 15%",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5.2.1 e6.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Total subordinado≥ 20% PL; júnior≥ 5%; júnior+mezaninoA≥ 10%",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,13.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Recompra mensal> 10% carteira; NPL/média móvel e repasses; liquidação over 30> 15%, over 60> 12, 5%",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,17–18; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Indicadores NPL e média móvel têm fórmulas específicas; não equivalem automaticamente ao aging doIME."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos vedados",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5.17; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios≥ 50% PL ematé 180 dias",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisições sucessivas; suspensão nos eventos de avaliação/liquidação",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5 e17–18; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada, prazo indeterminado; público específico conforme suplemento",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,2–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão irrevogável; limites e eventos derecompra; contratação individual necessária",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,5.5 e17; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior; mezaninoA/B e júnior",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,13 eapêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Remuneração": {
+        "value": "Spread por série remetido aos suplementos; spread final não localizado nesta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,modelos desuplemento; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "DI + 6, 30% a.a. é taxa média mínima dos direitos creditórios; não usar como remuneração da cota."
+      },
+      "Volume/VNU": {
+        "value": "VNU sênior inicialR$ 1.000; volume atualizado por emissão",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,apêndice sênior,1.9; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Conforme série/suplemento; cronograma fechado não identificado nesta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,apêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Juros/amortização": {
+        "value": "Conforme suplementos; júnior sujeita asubordinação eeventos",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,13 eapêndices; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0, 22% a.a./PL +R$ 750/mês; tributos acrescidos",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,12.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gestão": {
+        "value": "0, 63% /0, 50% /0, 375% a.a. por faixas de PL",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,12.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Faixas: R$ 0–200 mi, R$ 200–500 mi eacima; fonte não autoriza assumir ausência demínimo."
+      },
+      "Custódia": {
+        "value": "Custódia/controladoria/escrituração no pacote de administração",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Anexo,12.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Métricas padronizadas são proxies; data, unidade e denominador precisam coincidir com a regra jurídica."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "O IME não substitui bases por devedor, cedente, vintage ou fluxo de vencimentos."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais",
+        "source": "Fundos.NET ID 1203635; referência 25/05/2026; data/raw/31570767000180/1203635_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1203635&cvm=true",
+        "note": "Controle documental separado de posições agregadas do IME; lacuna não deve produzir enquadramento presumido."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura; verificar cache na publicação",
+        "source": "data/raw/31570767000180/access_status_20261007.txt",
+        "note": "Curadoria documental preservada; esta etapa não consultou saldos IME ao vivo."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Recebíveis",
+      "Conclusão": "Créditos comerciais performados deconvênios, com seguro para exposições acima de R$ 5 milhões."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinadas de 20% doPL; júnior de 5%; júnior+mezaninoA de 10%."
+    },
+    {
+      "Tema": "Concentração",
+      "Conclusão": "Convênios limitados a 30%, com um admitido até 40%; devedor/grupo depende debase individual."
+    },
+    {
+      "Tema": "Taxas",
+      "Conclusão": "DI + 6, 30% a.a. rege oretorno médio mínimo dacarteira; spread dacota depende dosuplemento."
+    }
+  ],
+  "warnings": [
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário."
+  ],
+  "metrics": {
+    "inventory_count": 276,
+    "sources_consulted": 1,
+    "pdf_count": 5,
+    "pages_available": 172,
+    "documents_without_local_pdf": 271,
+    "extraction_errors": 0,
+    "inventory_scope": "Fundos.NET ao vivo por CNPJ",
+    "pages_scope": "Páginas com texto disponíveis localmente; leitura dirigida das cláusulas citadas. Total de páginas não comprova leitura integral.",
+    "extractable_pages": 172,
+    "documents_with_incomplete_text": 0
+  }
+}

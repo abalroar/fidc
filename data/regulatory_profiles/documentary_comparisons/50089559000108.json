@@ -1,0 +1,239 @@
+{
+  "cnpj": "50089559000108",
+  "label": "Agriconnection",
+  "reviewed_at": "2026-10-07T16:23:18-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 999633,
+      "kind": "regulamento",
+      "date": "26/09/2025",
+      "path": "data/raw/50089559000108/999633_regulamento.pdf",
+      "text_path": "data/raw/50089559000108/999633_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 64,
+      "extractable_pages": 64,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 998644,
+      "kind": "emissao",
+      "date": "23/09/2025",
+      "path": "data/raw/50089559000108/998644_emissao.pdf",
+      "text_path": "data/raw/50089559000108/998644_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 9,
+      "extractable_pages": 9,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Títulos de operações comerciais/financeiras e de serviços do agronegócio",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 7,12-13",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Performados e não vencidos; nominal≥R$ 100; prazo≤360 dias; cambial exige proteção",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 12",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Divergência:PL/sênior≥125% descrito como subordinadas≥25% PL e sênior≤75%",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 51",
+        "note": "Matematicamente125% PL/sênior equivale20% subordinadas/PL. Texto exige25% em outra passagem; obter confirmação antes de parametrizar."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas6 meses, piso1% PL; pagamento35% emD−60 e100% emD−30",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 51",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção de posições à vista; cambial≤50% PL comNDF obrigatório",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 10-11",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "DC ≥50% PL conforme definição de alocação mínima",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 43",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Remuneração": {
+        "value": "Suplemento sênior diverge 1,90% numérico/3,90% extenso; identificação usa CNPJ do administrador",
+        "source": "data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025 | emissao | p. 4-5",
+        "note": "Documento da consulta exata inclui CNPJ62.285.390/0001-40 no campo do fundo. Não certificar taxa final para este fundo sem retificação."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Calendário do suplemento termina30/11/2029; atribuição ao fundo pendente por CNPJ divergente",
+        "source": "data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025 | emissao | p. 4-7",
+        "note": "CNPJ do administrador foi usado no campo do fundo nos apêndices; não gerar calendário certificado por suposição."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,15% a.a. PL; mínimo R$ 15 mil/mês; inclui custódia/escrituração/controladoria",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 8",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "Gestão": {
+        "value": "0,10% a.a. PL; mínimo R$ 7,5 mil/mês",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 8",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      },
+      "Custódia": {
+        "value": "Incluída na administração; sem adicional individualizado",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025 | regulamento | p. 8",
+        "note": "Regra da versão documental citada; série e operação concreta dependem dos respectivos instrumentos."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/50089559000108/999633_regulamento.pdf | Fundos.NET ID 999633 | 26/09/2025; data/raw/50089559000108/998644_emissao.pdf | Fundos.NET ID 998644 | 23/09/2025",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 50089559000108; revisão em 2026-10-07T16:23:18-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [
+    "Suplementos998644/993030: CNPJ do fundo nos apêndices é62.285.390/0001-40 (administrador), distinto de50.089.559/0001-08. Spread sênior diverge1,90%/três inteiros e nove décimos; requer documento retificado."
+  ],
+  "metrics": {
+    "inventory_count": 99,
+    "pdf_count": 6,
+    "pages_available": 156,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 93,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Créditos comerciais/financeiros e de serviços do agronegócio."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Relação PL/sênior e percentual de subordinadas divergem no texto."
+    },
+    {
+      "Tema": "Liquidez",
+      "Conclusão": "Reserva de despesas de 6 meses com piso de 1% PL; reservas escalonadas para pagamentos."
+    },
+    {
+      "Tema": "Correção",
+      "Conclusão": "Suplementos usam CNPJ do administrador e spread sênior divergente; termos finais não certificados."
+    }
+  ]
+}

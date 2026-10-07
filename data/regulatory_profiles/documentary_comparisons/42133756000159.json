@@ -1,0 +1,269 @@
+{
+  "cnpj": "42133756000159",
+  "label": "NAGRO GHIA",
+  "reviewed_at": "2026-10-07T16:20:21-03:00",
+  "document_status": "Revisão documental dirigida com lacunas explícitas",
+  "scope_note": "Revisão dirigida das cláusulas materiais dos documentos acessíveis; texto integral extraído quando disponível. Não corresponde à leitura integral de todos os registros do inventário. As razões de garantia e alocação possuem divergências internas; não converter índices em subordinação econômica sem confirmação. O nome da carteira não fixa a vigência documental; cada fonte mantém sua própria data. Não foi carregada nova competência IME.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "FIAGRO: crédito produtor rural, giro e antecipação de recebíveis; CCB, CPR/CPR-F e CDA/WA",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 33; 6.1.2 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Devedor": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Elegibilidade": {
+        "value": "Devedor sem atraso na carteira; prazo mínimo>3 meses; lastro e parecer de crédito; condições específicas por operação",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 37–41; 7.1–7.2 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Concentração": {
+        "value": "Exposição>20% por devedor/coobrigado permitida sob condições de registro/auditoria; conciliar exceções por ativo",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 35–36; 6.3.2–6.3.3 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Razões de garantia: sênior≥35% e mezanino≥20% após 180 dias; fórmulas conflitantes no glossário",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 49,90; 8.8.1–8.8.2;definições | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Glossário define sênior como cotas seniores/PL e mezanino como mezanino+júnior/PL. Não traduzir 35/20% automaticamente em subordinação econômica; confirmar fórmula no administrador."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Avaliação: descumprimentos/prestadores; liquidação: PL médio<R$ 1 mi por 90 dias, entre outros eventos",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 59–61; 14.1–14.2 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Reserva de caixa": {
+        "value": "3 meses calendário de encargos estimados, recomposição diária",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 55; 11.1(ii) | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção patrimonial ou troca de indexador sem risco de capital; suplemento prevê opções de compra DI",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 36,84; 6.4.2;definição Contratos Opção DI | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "PDD": {
+        "value": "61–180 dias: provisionar 1/120 do valor presente por dia; após 180 dias 100%; efeito vagão",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 34; 6.1.11–6.1.12 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios>67% do PL em 180 dias; numeral diverge do extenso na cláusula",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 35; 6.3.1 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Cláusula usa 67% e escreve sessenta por cento; confirmar divergência documental. Prazo de prorrogação depende de CVM."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Waterfall": {
+        "value": "Encargos; reserva despesas; aquisições; sênior; mezanino; ativos financeiros; júnior",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 55; 11.1 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Remuneração": {
+        "value": "Benchmark sênior/mezanino remetido a apêndices; spread final não localizado",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 51; 9.3 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,30% a.a. sobre PL; mínimoR$ 20 mil/mês",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 15; 8.1 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gestão": {
+        "value": "0,70% a.a. sobre PL, pagamento mensal",
+        "source": "Fundos.NET ID 1000165 | 25/09/2025 | regulamento | p. 15; 8.2 | data/raw/42133756000159/1000165_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=1000165",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Custódia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar ativo elegível, subclasses e fórmula contratual",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90 e PDD / crédito: indicadores agregados; gatilhos dependem de denominador e janela contratual",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração por devedor/grupo, lastro, prestadores e eventos: validação documental e operacional",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta revisão",
+        "source": "data/raw/42133756000159/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 42133756000159 em 07/10/2026; inventário completo com 220 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "FIAGRO: crédito produtor rural, giro e antecipação de recebíveis; CCB, CPR/CPR-F e CDA/WA"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Razões de garantia: sênior≥35% e mezanino≥20% após 180 dias; fórmulas conflitantes no glossário"
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "Direitos creditórios>67% do PL em 180 dias; numeral diverge do extenso na cláusula"
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Benchmark sênior/mezanino remetido a apêndices; spread final não localizado"
+    }
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 1000165,
+      "kind": "regulamento",
+      "date": "25/09/2025",
+      "path": "data/raw/42133756000159/1000165_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/42133756000159/1000165_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 100,
+      "extractable_pages": 99,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "42133756000159",
+      "document_type": "",
+      "reference_date": "25/09/2025",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 998687,
+      "kind": "regulamento",
+      "date": "25/09/2025",
+      "path": "data/raw/42133756000159/998687_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/42133756000159/998687_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "42133756000159",
+      "document_type": "Instrumento Particular de Alteração do Regulamento",
+      "reference_date": "25/09/2025",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 975675,
+      "kind": "assembleia",
+      "date": "15/08/2025 23:59",
+      "path": "data/raw/42133756000159/975675_assembleia_review_20261007.pdf",
+      "text_path": "data/raw/42133756000159/975675_assembleia_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 1,
+      "extractable_pages": 1,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "42133756000159",
+      "document_type": "AGO",
+      "reference_date": "15/08/2025 23:59",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 623440,
+      "kind": "emissao",
+      "date": "20/03/2024",
+      "path": "data/raw/42133756000159/623440_emissao_review_20261007.pdf",
+      "text_path": "data/raw/42133756000159/623440_emissao_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 4,
+      "extractable_pages": 4,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "42133756000159",
+      "document_type": "Instrumento Particular de Emissão de Cotas",
+      "reference_date": "20/03/2024",
+      "inventory_queried_at": "2026-10-07"
+    }
+  ],
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 220,
+    "pdf_count": 4,
+    "pages_analyzed": 107,
+    "documents_without_local_pdf": 216,
+    "extraction_errors": 0,
+    "download_errors": 0,
+    "pdfs_without_extractable_text": 0,
+    "identity_exclusions": 0
+  }
+}

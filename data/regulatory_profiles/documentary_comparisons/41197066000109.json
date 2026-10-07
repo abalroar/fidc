@@ -1,0 +1,252 @@
+{
+  "cnpj": "41197066000109",
+  "label": "iFood Pago Crédito I",
+  "reviewed_at": "2026-10-07T16:21:18-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1337964,
+      "kind": "regulamento",
+      "date": "01/10/2026",
+      "path": "data/raw/41197066000109/1337964_regulamento.pdf",
+      "text_path": "data/raw/41197066000109/1337964_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 136,
+      "extractable_pages": 136,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 847509,
+      "kind": "emissao",
+      "date": "24/02/2025",
+      "path": "data/raw/41197066000109/847509_emissao.pdf",
+      "text_path": "data/raw/41197066000109/847509_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs originadas pelas plataformas; recebíveis iFood podem garantir operações",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 23,42",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior:25% PL, passando a35% quando júnior atinge20% PL",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 92",
+        "note": "Condição do salto de proteção precisa ser validada; o IME isolado não certifica a data de ativação."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas ordinárias estimadas dos próximos3 meses",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 72",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Derivativos/hedge": {
+        "value": "Proteção de posições à vista, até seu limite",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 34",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Endosso sem coobrigação; endossante responde por existência e formalização",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 41-42",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "6ª série sênior",
+        "source": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 2-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "6ª série sênior: DI + 3,39% a.a.; capitalização composta/252 DU",
+        "source": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Volume/VNU": {
+        "value": "6ª série: R$ 60 mi aprovados; 60 mil cotas; integralização não certificada",
+        "source": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "6ª série: principal até o 15º mês, inclusive",
+        "source": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Juros/amortização": {
+        "value": "10º DU mensal; 24 fatores de amortização após carência sobre remanescente",
+        "source": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 2-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Vencimento": {
+        "value": "6ª série: 39º Mês Completo de Alocação desde primeira integralização",
+        "source": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas marginais0,13%/0,10%/0,08% a.a. PL; mínimo R$ 45 mil/mês",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 18",
+        "note": "Até 500 mi/1bilhão e excedente; inclui controladoria/escrituração."
+      },
+      "Gestão": {
+        "value": "10% da taxa de administração, limitada a R$ 4 mil/mês e descontada dela",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 18",
+        "note": "Não é10% do PL nem taxa adicional de10% a.a."
+      },
+      "Custódia": {
+        "value": "0,02% a.a. PL ou R$ 10 mil/mês, o maior",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026 | regulamento | p. 18",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/41197066000109/1337964_regulamento.pdf | Fundos.NET ID 1337964 | 01/10/2026; data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 41197066000109; revisão em 2026-10-07T16:21:18-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 163,
+    "pdf_count": 6,
+    "pages_available": 282,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 157,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "6ª série sênior",
+      "Tipo": "Sênior",
+      "Volume": "R$ 60 milhões aprovados",
+      "Quantidade": "60.000",
+      "VNU": "VNU implícito não certificado; montante e quantidade explícitos",
+      "Remuneração": "DI + 3,39% a.a.",
+      "Juros/remuneração": "10º DU mensal; carência 15 meses; 24 fatores sobre remanescente; final 39º Mês Completo",
+      "Amortização principal": "10º DU mensal; carência 15 meses; 24 fatores sobre remanescente; final 39º Mês Completo",
+      "Data encerramento/oferta": "Ato de 24/02/2025; data civil de integralização não localizada",
+      "Fonte": "data/raw/41197066000109/847509_emissao.pdf | Fundos.NET ID 847509 | 24/02/2025 | emissao | p. 2-3",
+      "Status/evidência": "Condições específicas do documento citado; não certifica vigência atual nem saldo vivo",
+      "Status curadoria": "Leitura dirigida com fonte por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "CCBs de crédito; recebíveis iFood podem garantir as operações."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Piso sênior de 25% PL, com condição documental para elevação a 35%."
+    },
+    {
+      "Tema": "Emissão",
+      "Conclusão": "6ª série: DI + 3,39% a.a.; R$ 60 milhões aprovados."
+    },
+    {
+      "Tema": "Pagamentos",
+      "Conclusão": "Carência de 15 meses; pagamentos no 10º dia útil e final no 39º Mês Completo."
+    }
+  ]
+}

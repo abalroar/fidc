@@ -1,0 +1,251 @@
+{
+  "cnpj": "50536324000117",
+  "label": "Maqnelson",
+  "reviewed_at": "2026-10-07T16:48:43-03:00",
+  "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+  "scope_note": "Revisão dirigida das fontes identificadas abaixo por CNPJ, incluindo regras e atos materiais localizados. Não se afirma leitura integral de cada registro inventariado.",
+  "sources_reviewed": [
+    {
+      "document_id": 938955,
+      "kind": "emissao",
+      "date": "02/07/2025",
+      "path": "data/raw/50536324000117/938955_documentary_review.pdf",
+      "text_path": "data/raw/50536324000117/938955_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e/ou termos do ato citados nos fatos; não se afirma leitura de todas as versões"
+    },
+    {
+      "document_id": 918862,
+      "kind": "regulamento",
+      "date": "04/06/2025",
+      "path": "data/raw/50536324000117/918862_documentary_review.pdf",
+      "text_path": "data/raw/50536324000117/918862_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 145,
+      "extractable_pages": 145,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e/ou termos do ato citados nos fatos; não se afirma leitura de todas as versões"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Vendas performadas de tratores, máquinas, peças, implementos, irrigação e drones.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.94,99,133; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Devedor": {
+        "value": "Clientes das cedentes; adimplentes com o fundo na cessão.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.99,135; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Elegibilidade": {
+        "value": "Vincendos 15–720 dias; exceções 40%/PL até 1.440 e 10%/PL até 1.800 dias; média por devedora ≤37 meses.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.134–136, 5.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Concentração": {
+        "value": "Devedora 3%/PL; KA 5% nos primeiros 180 dias; Irrigação+Eleva ≤15%/PL.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; p.135,5.1(vi,x); https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas ≥50%/PL; amortização extraordinária exige pro forma ≥52%.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.109,111, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Cobertura <1 recorrente ou <0,98 pontual; falha de reserva/subordinação leva à desalavancagem.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.139–140,12.1–12.3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Reserva de caixa": {
+        "value": "Liquidez: 3 meses de despesas; próxima amortização/remuneração: 100% desde 30 dias antes.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.111–112; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Derivativos/hedge": {
+        "value": "Somente swaps DI ativo × pré passivo; proteger posições à vista, sem alavancagem/day trade.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.27–28,136; Anexo V; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios >67%/PL até 180 dias; tributária ≥67%.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.24,91, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisição revolvente; regimes de amortização pro rata e sequencial.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.47–48,133; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão inclui garantias; resolução/recompra nos eventos do contrato.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; p.133,4.2–4.2.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Coobrigação": {
+        "value": "Cedentes não respondem pela solvência; existência/formalização nos termos do contrato.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; p.27,3.11; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Waterfall": {
+        "value": "Encargos → reservas → sênior → subordinadas/excesso → créditos; sequencial interrompe revolvência.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.47–48,10.5; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior 2; encerramento em 02/07/2025; sem rating da oferta.",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nos anúncios; obter apêndice preenchido sênior 2.",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Volume/VNU": {
+        "value": "R$ 30 mi distribuídos; 30 mil cotas de R$ 1 mil.",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; p.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      },
+      "Juros/amortização": {
+        "value": "Pagamentos no dia 10 ou próximo DU; prazos e valores remetidos aos apêndices.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; p.98, glossário; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Lacuna desta revisão; ausência de extração não representa inexistência de regra contratual. Obter cláusula/anexo/suplemento antes de ativar controle."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,01875% a.a./PL; piso R$ 15 mil até PL R$ 50 mi, R$ 16,875 mil acima; IPCA.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.131–132,3.1; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gestão": {
+        "value": "Numérico 0,0625% a.a.; extenso divergente; piso R$ 5 mil/R$ 5,625 mil, corte PL R$ 50 mi.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; p.132,3.1(ii); https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Custódia": {
+        "value": "Incluída na administração; custos e tributos adicionais previstos.",
+        "source": "Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; pp.132–133; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Métricas padronizadas são proxies; data, unidade e denominador precisam coincidir com a regra jurídica."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "O IME não substitui bases por devedor, cedente, vintage ou fluxo de vencimentos."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais",
+        "source": "Fundos.NET ID 938955; referência 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true; Fundos.NET ID 918862; referência 04/06/2025; data/raw/50536324000117/918862_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=918862&cvm=true",
+        "note": "Controle documental separado de posições agregadas do IME; lacuna não deve produzir enquadramento presumido."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura; verificar cache na publicação",
+        "source": "data/raw/50536324000117/access_status_20261007.txt",
+        "note": "Curadoria documental preservada; esta etapa não consultou saldos IME ao vivo."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Recebíveis",
+      "Conclusão": "Vendas de máquinas e insumos; crédito vincendo com exceções de prazo até 1.800 dias."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinadas mínimas de 50%/PL e reserva para três meses de despesas."
+    },
+    {
+      "Tema": "Oferta",
+      "Conclusão": "Sênior 2: R$ 30 mi distribuídos; spread e calendário completo dependem do apêndice."
+    },
+    {
+      "Tema": "Lacuna",
+      "Conclusão": "Ata de setembro sem texto substantivo extraível; alterações posteriores ainda pendentes de OCR."
+    }
+  ],
+  "warnings": [
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário.",
+    "ID1313899 de 08/09/2026: PDF sem texto substantivo extraível / OCR necessário. Não confirmar vigência sem ler o ato.",
+    "Regime de distribuição: encerramento938955 garantia firme versus comunicado927920 melhores esforços; reconciliação pendente.",
+    "Gestão numeral0,0625% versus extenso seiscentos e vinte e cinco centésimos por cento; validar retificação.",
+    "Paginação física do PDF; revisão dirigida das páginas e cláusulas citadas, sem leitura de todos os registros do inventário."
+  ],
+  "metrics": {
+    "inventory_count": 81,
+    "sources_consulted": 2,
+    "pdf_count": 5,
+    "pages_available": 300,
+    "documents_without_local_pdf": 76,
+    "extraction_errors": 1,
+    "inventory_scope": "Fundos.NET ao vivo por CNPJ"
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 2",
+      "Tipo": "Sênior",
+      "Quantidade": "30.000",
+      "Volume": "R$ 30.000.000,00 distribuídos",
+      "VNU": "R$ 1.000,00",
+      "Data encerramento/oferta": "02/07/2025",
+      "Remuneração": "Spread final não localizado; obter apêndice da 2ª série",
+      "Status/evidência": "Encerramento declara garantia firme de colocação; comunicado anterior declara melhores esforços",
+      "Fonte": "Fundos.NET ID 938955; 02/07/2025; data/raw/50536324000117/938955_documentary_review.txt; pp.1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=938955&cvm=true"
+    }
+  ]
+}

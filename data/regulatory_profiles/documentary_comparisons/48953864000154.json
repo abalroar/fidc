@@ -1,0 +1,271 @@
+{
+  "cnpj": "48953864000154",
+  "label": "ASAAS II",
+  "reviewed_at": "2026-10-07T16:29:10-03:00",
+  "document_status": "Revisão documental dirigida com lacunas explícitas",
+  "scope_note": "Revisão dirigida das cláusulas materiais dos documentos acessíveis; texto integral extraído quando disponível. Não corresponde à leitura integral de todos os registros do inventário. Regulamento de 05/11/2024 é base histórica. Assembleia de 25/07/2025 aprova liquidação; a baixa definitiva não foi reconciliada. Não apresentar limites como vigentes para novas aquisições. O nome da carteira não fixa a vigência documental; cada fonte mantém sua própria data. Não foi carregada nova competência IME.",
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Histórico: recebíveis de cartões formalizados em unidades de recebíveis registradas",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 27; 3.1 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Devedor": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Garantia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Elegibilidade": {
+        "value": "UR onerada≤95%; adimplentes, prazo 3–365 dias e média≤180; antes do vencimento sênior",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 27–28; 3.1 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Concentração": {
+        "value": "Adyen≤20% PL; outras devedoras admitem exceção condicionada a requisitos auditados",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 26; 2.7 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Histórico: subordinadas / PL≥15%, apuração diária",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 33,107; 4.2.3;Definições | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Assembleia 25/07/2025 aprovou liquidação antecipada até 31/07/2025",
+        "source": "Fundos.NET ID 953821 | 25/07/2025 10:00 | assembleia | p. 1–3; Deliberações | data/raw/48953864000154/953821_assembleia_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+        "note": "Confirmar comprovante de encerramento/baixa; deliberação não comprova execução. Manter CNPJ na carteira."
+      },
+      "Reserva de caixa": {
+        "value": "Histórico:3 meses de despesas; próxima amortização formadaD-30 e integral emD-2",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 50; 12.1–12.2 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Derivativos/hedge": {
+        "value": "Histórico: operações com derivativos vedadas",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 25; 2.5 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "PDD": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Histórico: direitos creditórios≥80% PL após 180 dias",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 24; 2.2 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada; liquidação antecipada aprovada para julho 2025",
+        "source": "Fundos.NET ID 953821 | 25/07/2025 10:00 | assembleia | p. 1–3; Deliberações | data/raw/48953864000154/953821_assembleia_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Waterfall": {
+        "value": "Liquidação: despesas e encargos; resgate integral de subordinadas; provisão de despesas R$ 48 mil",
+        "source": "Fundos.NET ID 953821 | 25/07/2025 10:00 | assembleia | p. 2–3; Deliberação6(ii) | data/raw/48953864000154/953821_assembleia_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado; suplementos históricos requerem reconciliação após liquidação aprovada",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 31; 4.1.10 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      },
+      "Vencimento": {
+        "value": "Liquidação/amortização extraordinária aprovada para 31/07/2025; efetivação não verificada",
+        "source": "Fundos.NET ID 953821 | 25/07/2025 10:00 | assembleia | p. 2–3; Deliberação6(ii) | data/raw/48953864000154/953821_assembleia_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=953821",
+        "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Histórico:0,073% a.a. PL, mínimo R$ 7,25 mil/mês; numeral diverge do extenso",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 44; 7.1 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Confirmar taxa: extenso refere setenta e três centésimos, numeral 0,073%."
+      },
+      "Gestão": {
+        "value": "Histórico:0,074% a.a. PL, mínimo R$ 7,25 mil/mês; numeral diverge do extenso",
+        "source": "Fundos.NET ID 774314 | 05/11/2024 | regulamento | p. 45; 7.6 | data/raw/48953864000154/774314_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=774314",
+        "note": "Confirmar taxa: extenso refere setenta e quatro centésimos, numeral 0,074%."
+      },
+      "Custódia": {
+        "value": "Não localizado nas fontes acessíveis desta leitura",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar ativo elegível, subclasses e fórmula contratual",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over 30/60/90 e PDD / crédito: indicadores agregados; gatilhos dependem de denominador e janela contratual",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração por devedor/grupo, lastro, prestadores e eventos: validação documental e operacional",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      },
+      "Competência IME": {
+        "value": "Sem nova competência IME carregada nesta revisão",
+        "source": "data/raw/48953864000154/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 48953864000154 em 07/10/2026; inventário completo com 61 registros",
+        "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "Histórico: recebíveis de cartões formalizados em unidades de recebíveis registradas"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Histórico: subordinadas / PL≥15%, apuração diária"
+    },
+    {
+      "Tema": "Alocação mínima",
+      "Conclusão": "Histórico: direitos creditórios≥80% PL após 180 dias"
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Spread final não localizado; suplementos históricos requerem reconciliação após liquidação aprovada"
+    }
+  ],
+  "sources_reviewed": [
+    {
+      "document_id": 953821,
+      "kind": "assembleia",
+      "date": "25/07/2025 10:00",
+      "path": "data/raw/48953864000154/953821_assembleia_review_20261007.pdf",
+      "text_path": "data/raw/48953864000154/953821_assembleia_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 63,
+      "extractable_pages": 63,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "48953864000154",
+      "document_type": "AGO/E",
+      "reference_date": "25/07/2025 10:00",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 774314,
+      "kind": "regulamento",
+      "date": "05/11/2024",
+      "path": "data/raw/48953864000154/774314_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/48953864000154/774314_regulamento_review_20261007.full.txt",
+      "identity_verified": true,
+      "pages": 123,
+      "extractable_pages": 123,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "queried_cnpj": "48953864000154",
+      "document_type": "",
+      "reference_date": "05/11/2024",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 473796,
+      "kind": "regulamento",
+      "date": "01/06/2023",
+      "path": "data/raw/48953864000154/473796_regulamento_review_20261007.pdf",
+      "text_path": "data/raw/48953864000154/473796_regulamento_review_20261007.full.txt",
+      "identity_verified": false,
+      "pages": 101,
+      "extractable_pages": 101,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "identity_verification_note": "Documento selecionado por consulta Fundos.NET exclusivamente para este CNPJ; conferir identificação complementar no próprio texto.",
+      "queried_cnpj": "48953864000154",
+      "document_type": "",
+      "reference_date": "01/06/2023",
+      "inventory_queried_at": "2026-10-07"
+    },
+    {
+      "document_id": 395657,
+      "kind": "emissao",
+      "date": "21/12/2022",
+      "path": "data/raw/48953864000154/395657_emissao_review_20261007.pdf",
+      "text_path": "data/raw/48953864000154/395657_emissao_review_20261007.full.txt",
+      "identity_verified": false,
+      "pages": 33,
+      "extractable_pages": 33,
+      "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+      "identity_verification_note": "Documento selecionado por consulta Fundos.NET exclusivamente para este CNPJ; conferir identificação complementar no próprio texto.",
+      "queried_cnpj": "48953864000154",
+      "document_type": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "reference_date": "21/12/2022",
+      "inventory_queried_at": "2026-10-07"
+    }
+  ],
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 61,
+    "pdf_count": 4,
+    "pages_analyzed": 320,
+    "documents_without_local_pdf": 57,
+    "extraction_errors": 0,
+    "download_errors": 0,
+    "pdfs_without_extractable_text": 0,
+    "identity_exclusions": 0
+  }
+}

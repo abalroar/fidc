@@ -1,0 +1,224 @@
+{
+  "cnpj": "22175345000119",
+  "label": "Via Multicrédito FIC",
+  "reviewed_at": "2026-10-07T16:18:13-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1199304,
+      "kind": "regulamento",
+      "date": "19/05/2026",
+      "path": "data/raw/22175345000119/1199304_regulamento.pdf",
+      "text_path": "data/raw/22175345000119/1199304_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 46,
+      "extractable_pages": 46,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "FIC: cotas de fundos-alvo FIDC; exposição indireta aos direitos creditórios",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 10-12",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Concentração": {
+        "value": "Cotas sênior de um FIDC ≤20% PL; subordinadas limitadas ao PL subordinado do FIC",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 12",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Razão sênior ≥125%; mezanino ≥111,11%; validar definição contratual do numerador",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 43-44",
+        "note": "Razões de cobertura não devem ser expostas como125%/111,11% de cotas subordinadas/PL."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Falhas de prestadores; PL <R$ 1 mi após90 dias por90 dias; falta de cura da razão mínima",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 22-23",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos, ativos no exterior e day trade vedados",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 13",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Cotas de fundos-alvo ≥85% PL após180 dias",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 12",
+        "note": "Regra em cotas de FIDC; soma de DC do IME do FIC não substitui esse percentual."
+      },
+      "Pool/revolvência": {
+        "value": "Reinvestimento em cotas de FIDC ou amortização a critério do gestor",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 13",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Duração/público-alvo": {
+        "value": "Qualificados; resgates conforme subclasse",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 9,16",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior, mezanino e júnior",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 9,42-44",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "Sênior CDI +2,50%; mezanino CDI +3,50% nos apêndices",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 42,44",
+        "note": "Texto dos apêndices não explicita a unidade temporal junto à sobretaxa; confirmar base anual antes de calcular retorno. Meta sem garantia."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Apêndices: sem carência; resgate sênior/mezanino a partir do91ºdia após pedido",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 42,44,16",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Juros/amortização": {
+        "value": "Ganhos por resgate; sênior/mezanino D+91, dependentes de liquidez; júnior com condições próprias",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026 | regulamento | p. 9,16",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Gestão": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Custódia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/22175345000119/1199304_regulamento.pdf | Fundos.NET ID 1199304 | 19/05/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 22175345000119; revisão em 2026-10-07T16:18:13-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 231,
+    "pdf_count": 4,
+    "pages_available": 141,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 227,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 1
+  },
+  "emissions_rows": [],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Exposição",
+      "Conclusão": "O FIC investe em cotas de FIDC, com alocação mínima de85% do PL."
+    },
+    {
+      "Tema": "Concentração",
+      "Conclusão": "Cotas sênior de cada fundo-alvo ficam limitadas a20% do PL."
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Apêndices indicam CDI +2,50% para sênior e CDI +3,50% para mezanino; a base temporal exige confirmação."
+    },
+    {
+      "Tema": "Liquidez",
+      "Conclusão": "Resgates sênior e mezanino seguem pedido com91 dias e podem depender da liquidação dos ativos."
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "cnpj": "31739396000117",
+  "label": "Listo LF III",
+  "reviewed_at": "2026-10-07T16:18:13-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1146939,
+      "kind": "regulamento",
+      "date": "27/03/2026",
+      "path": "data/raw/31739396000117/1146939_regulamento.pdf",
+      "text_path": "data/raw/31739396000117/1146939_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 102,
+      "extractable_pages": 102,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1088682,
+      "kind": "emissao",
+      "date": "20/01/2026",
+      "path": "data/raw/31739396000117/1088682_emissao.pdf",
+      "text_path": "data/raw/31739396000117/1088682_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 5,
+      "extractable_pages": 5,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis de cartões devidos pelos emissores à credenciadora Listo",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 40-42",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Originador/endossante": {
+        "value": "Listo Instituição de Pagamento; CNPJ32.971.064/0001-26",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 6",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Devedor": {
+        "value": "Emissores dos instrumentos de pagamento, conforme limites individuais",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 36-37,40",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Reais; adimplentes e livres de ônus; prazo≤720 dias; transações presenciais chip+PIN",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 43-44",
+        "note": "Devedor sem atraso>3 DU perante o fundo; taxa mínima de cessão ligada ao custo ponderado das cotas e encargos."
+      },
+      "Concentração": {
+        "value": "Limites por emissor: bancos listados até 100% PL; PAN10% PL; Digio2,5% PL; outros usam cotas subordinadas",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 36-37",
+        "note": "Nu:15% das seniores+100% subordinadas; vários bancos usam saldo subordinado, não PL. Preservar denominadores."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Sênior: mezanino+júnior/PL ≥5%; mezanino1: (júnior+mezaninoC)/mezanino1 ≥33,33%",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 14",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Derivativos/hedge": {
+        "value": "Somente proteção de posições à vista, até seu limite",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 36",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "DC ≥50% PL em180 dias; melhores esforços para67% tributários",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 4,34-35",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Pool/revolvência": {
+        "value": "Revolvência permitida durante a duração do fundo",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 42",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão definitiva; índice de recompra ≤1,50% PL, verificação mensal",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 13,42",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Coobrigação": {
+        "value": "Sem regresso/coobrigação da Listo; responsabilidade pela existência e formalização do crédito",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 42",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "5ª série sênior; mezz B eC",
+        "source": "data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026 | emissao | p. 2-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nas cláusulas revisadas; requer suplemento ou ato específico",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Volume/VNU": {
+        "value": "R$ 525 mi sênior; R$ 50 mi mezz B; R$ 25 mi mezz C",
+        "source": "data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026 | emissao | p. 2-3",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas marginais:0,20%/0,17%/0,15%/0,13% a.a. PL; mínimo R$ 25 mil/mês",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 27-28",
+        "note": "Faixas até 500/700/1.000 mi e excedente; IGP-M positivo anual; inclui administração, gestão, custódia, controladoria e escrituração."
+      },
+      "Gestão": {
+        "value": "Parcela da taxa conjunta; rateio no Acordo Operacional não acessível",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 27",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Custódia": {
+        "value": "Incluída na taxa conjunta; eventos adicionais conforme suplementoA",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026 | regulamento | p. 27-28",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/31739396000117/1146939_regulamento.pdf | Fundos.NET ID 1146939 | 27/03/2026; data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 31739396000117; revisão em 2026-10-07T16:18:13-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 172,
+    "pdf_count": 6,
+    "pages_available": 221,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 166,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "5ª série sênior; mezz B eC",
+      "Tipo": "Sênior/mezanino",
+      "Volume": "R$ 525 mi sênior; R$ 50 mi mezz B; R$ 25 mi mezz C",
+      "Quantidade": "525.000/50.000/25.000",
+      "VNU": "R$ 1.000",
+      "Remuneração": "Spread final não localizado; requer suplemento aplicável",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Data encerramento/oferta": "Encerramento 20/01/2026",
+      "Fonte": "data/raw/31739396000117/1088682_emissao.pdf | Fundos.NET ID 1088682 | 20/01/2026 | emissao | p. 2-3",
+      "Status/evidência": "Condições específicas do documento citado; não certifica vigência atual nem saldo vivo",
+      "Status curadoria": "Leitura dirigida com fonte por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Recebíveis",
+      "Conclusão": "O lastro é formado por pagamentos de cartões devidos por emissores à Listo."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinação sênior mínima de5% do PL; mezanino1 possui razão própria de33,33%."
+    },
+    {
+      "Tema": "Cessão",
+      "Conclusão": "A Listo responde pela existência e formalização; a cessão não tem coobrigação de solvência."
+    },
+    {
+      "Tema": "Custos",
+      "Conclusão": "A taxa conjunta inclui gestão e custódia; o rateio está em acordo operacional não acessível."
+    }
+  ]
+}

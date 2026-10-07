@@ -1,0 +1,254 @@
+{
+  "cnpj": "52343195000176",
+  "label": "Farmtech Syngenta",
+  "reviewed_at": "2026-10-07T16:32:19-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Versão de 10/07/2024 acessível; regulamento posterior ID791944 indisponível; vigência não certificada",
+  "sources_reviewed": [
+    {
+      "document_id": 695723,
+      "kind": "regulamento",
+      "date": "10/07/2024",
+      "path": "data/raw/52343195000176/695723_regulamento.pdf",
+      "text_path": "data/raw/52343195000176/695723_regulamento.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 157,
+      "extractable_pages": 157,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 701245,
+      "kind": "emissao",
+      "date": "18/07/2024",
+      "path": "data/raw/52343195000176/701245_emissao.pdf",
+      "text_path": "data/raw/52343195000176/701245_emissao.full.txt",
+      "identity_verified": true,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ presente no texto integral extraído",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Crédito agro: compra a prazo e custeio; NF, confissão de dívida, CPR-F e NP; LF permitida",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 16-17",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "PL/seniores ≥115,29% inicialmente; ≥117,65% após 6 meses",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 29",
+        "note": "Fórmula PL/sênior não equivale ao percentual subordinadas/PL. Índices adicionais incorporam fatores de ponderação."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Atrasos 61–360 >15%, 91–360 >7,5%, 181–360 >3% acionam avaliação",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 83",
+        "note": "Validar denominador e composição da fórmula; IME Over agregado não replica automaticamente o contrato."
+      },
+      "Reserva de caixa": {
+        "value": "Despesas e meta de amortização durante períodos de liquidez de março–maio e julho–setembro",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 14,78",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Derivativos/hedge": {
+        "value": "Exclusivamente proteção das posições à vista, até o limite destas",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 12,15",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios elegíveis ≥50% PL",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 5",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior 1ª série",
+        "source": "data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024 | emissao | p. 1-2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nas cláusulas revisadas; requer suplemento ou ato específico",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Volume/VNU": {
+        "value": "Até R$ 170 milhões ofertados",
+        "source": "data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024 | emissao | p. 1-2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,20% a.a. PL; mínimo R$ 33 mil/mês, R$ 23 mil nos 3 primeiros meses; inclui custódia/controladoria",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 122-123",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gestão": {
+        "value": "0,80% a.a. PL; mínimo R$ 40 mil inicial e R$ 133 mil após 3 meses",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 123",
+        "note": "Até primeira integralização sênior não há mínimo. Após primeira integralização e até 3 meses R$ 40 mil; posteriormente R$ 133 mil."
+      },
+      "Custódia": {
+        "value": "Incluída na administração; escrituração R$ 2 mil/mês e lastro R$ 5 mil/mês adicionais",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024 | regulamento | p. 123",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/52343195000176/695723_regulamento.pdf | Fundos.NET ID 695723 | 10/07/2024; data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 52343195000176; revisão em 2026-10-07T16:32:19-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [
+    "ID 791944: ProviderUnavailableError: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+  ],
+  "metrics": {
+    "inventory_count": 51,
+    "pdf_count": 3,
+    "pages_available": 165,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 48,
+    "extraction_errors": 0,
+    "access_errors": 1,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "Sênior 1ª série",
+      "Tipo": "Sênior",
+      "Volume": "Até R$ 170 milhões ofertados",
+      "Quantidade": "170.000",
+      "VNU": "R$ 1.000",
+      "Remuneração": "Spread final não localizado; requer suplemento aplicável",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Data encerramento/oferta": "Início 18/07/2024; liquidação 19/07/2024 apenas prevista",
+      "Fonte": "data/raw/52343195000176/701245_emissao.pdf | Fundos.NET ID 701245 | 18/07/2024 | emissao | p. 1-2",
+      "Status/evidência": "Condições específicas do documento citado; não certifica vigência atual nem saldo vivo",
+      "Status curadoria": "Leitura dirigida com fonte por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Crédito agro por compra a prazo/custeio; também letras financeiras permitidas."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Relação PL/sênior aumenta de 115,29% para 117,65% após 6 meses."
+    },
+    {
+      "Tema": "Liquidez",
+      "Conclusão": "Reserva considera despesas e amortizações nos períodos sazonais definidos."
+    },
+    {
+      "Tema": "Lacuna",
+      "Conclusão": "Regulamento mais recente ficou inacessível; fatos usam versão de julho de 2024."
+    }
+  ]
+}

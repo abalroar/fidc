@@ -1,0 +1,32 @@
+Nome,Inclusão Crediária / SuperSim
+Recebíveis e elegibilidade · Natureza dos recebíveis,"CCB de crédito parcelado a pessoas físicas, via instituições financeiras parceiras"
+Recebíveis e elegibilidade · Originador/endossante,SuperSim como correspondente/cobrança; instituições parceiras como endossantes
+Recebíveis e elegibilidade · Devedor,Pessoa física com CPF; idade mínima 18 anos na emissão
+Recebíveis e elegibilidade · Garantia,Créditos representados por CCB; garantia específica por contrato não confirmada
+Recebíveis e elegibilidade · Elegibilidade,CCB 150–720 dias; principal R$ 1–3 mil; sem ágio; taxa mínima do crédito 8% a.m.
+Recebíveis e elegibilidade · Concentração,Devedor/coobrigado até 20% PL; Buffer limitado a 10% PL com limites por instituição
+"Subordinação, gatilhos e proteção · Subordinação mínima","Sênior 45% PL; mezaninos A 25%, B 19, 25%, C 12, 5%; step-up por rating"
+"Subordinação, gatilhos e proteção · Gatilhos de avaliação/liquidação",FPD/SPD por vintage suspendem aquisições; falência/recuperação ou interrupção material da SuperSim/endossantes
+"Subordinação, gatilhos e proteção · Reserva de caixa",3 meses de encargos; reserva de pagamento 50% conforme antecedência contratual
+"Subordinação, gatilhos e proteção · Derivativos/hedge",Operações com derivativos vedadas em qualquer circunstância
+"Subordinação, gatilhos e proteção · PDD",Não localizado nas fontes acessíveis desta leitura
+Alocação e mecânica contratual · Alocação mínima,Piso 50% PL; objetivo tributário 67% PL; ambos têm evento próprio por persistência
+Alocação e mecânica contratual · Pool/revolvência,"Revolvência permitida, sujeita a índices de performance e subordinação"
+Alocação e mecânica contratual · Duração/público-alvo,"Classe fechada, prazo indeterminado; séries para profissionais"
+Alocação e mecânica contratual · Cessão/recompra,Endosso sem coobrigação; desenquadramento posterior só gera regresso por culpa/dolo
+Alocação e mecânica contratual · Coobrigação,Sem coobrigação no contrato de promessa de endosso; vícios/culpa preservados
+Alocação e mecânica contratual · Waterfall,Encargos/reserva → sênior → mezaninos A/B/C → reserva de pagamento → júnior/aquisições
+Emissões e remuneração · Classes/séries,"Sênior, mezaninos A/B/C da 1ª série e júnior"
+Emissões e remuneração · Remuneração,"Desde 19/05/2026: CDI + 3, 25% sênior;+5, 25% A;+8, 00% B;+10, 00% C; step-up por rating"
+Emissões e remuneração · Volume/VNU,"Sênior R$ 99 mi; A R$ 36 mi; B R$ 10, 35 mi; C R$ 12, 15 mi; VNU R$ 1 mil sujeito a deságio"
+Emissões e remuneração · Ofertas,Sênior RCVM160 automático/melhores esforços; mínimo29.700 cotas; alterações em18/05/2026
+Amortização e calendário de pagamentos · Carência,Juros após 12 meses; principal nos últimos 6 meses de prazo 24 meses
+Amortização e calendário de pagamentos · Juros/amortização,"Juros mensais; principal 31/08, 30/09, 29/10, 30/11, 30/12/2027 e 31/01/2028"
+Amortização e calendário de pagamentos · Vencimento,31/01/2028 para sênior e mezaninos A/B/C da 1ª série
+Custos estruturais · Administração,"0, 20%/0, 19%/0, 18%/0, 17% a.a. por faixas; piso conjunto com gestão R$ 20 mil/6 meses, depois R$ 30 mil"
+Custos estruturais · Gestão,"0, 15%/0, 14%/0, 13%/0, 12% a.a. por faixas; mínimo conjunto com administração"
+Custos estruturais · Custódia,"Incluída na taxa de administração, com escrituração e controladoria"
+Monitoramento IME e controles documentais · Alocação/subordinação IME,Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar
+Monitoramento IME e controles documentais · Inadimplência/PDD IME,Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação
+Monitoramento IME e controles documentais · Controles documentais,"Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais"
+Monitoramento IME e controles documentais · Competência IME,Sem competência IME carregada em cache local

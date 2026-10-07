@@ -1,0 +1,256 @@
+{
+  "cnpj": "65873297000145",
+  "label": "ArcelorMittal Vértice",
+  "reviewed_at": "2026-10-07T16:32:19-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1226438,
+      "kind": "regulamento",
+      "date": "20/05/2026",
+      "path": "data/raw/65873297000145/1226438_regulamento.pdf",
+      "text_path": "data/raw/65873297000145/1226438_regulamento.full.txt",
+      "identity_verified": false,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 72,
+      "extractable_pages": 72,
+      "identity_verification_note": "Documento vinculado ao CNPJ na consulta exata ao Fundos.NET; denominação no cabeçalho deve ser conferida na leitura dirigida.",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1155908,
+      "kind": "emissao",
+      "date": "07/04/2026",
+      "path": "data/raw/65873297000145/1155908_emissao.pdf",
+      "text_path": "data/raw/65873297000145/1155908_emissao.full.txt",
+      "identity_verified": false,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "Anúncio ID 1155908 contém CNPJ 65.897.273/0001-45, diverso do CNPJ cadastrado 65.873.297/0001-45, e administrador 33.113.876/0001-91, diferente do 36.113.876/0001-91 no regulamento. Vínculo retornado pela consulta exata não resolve a divergência do documento; oferta não atribuída definitivamente ao fundo.",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Notas fiscais de fornecedores por vendas/serviços às devedoras",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 5",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Originador/endossante": {
+        "value": "Fornecedores que cedem os créditos",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 4",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Devedor": {
+        "value": "ArcelorMittal Brasil e subsidiárias, conforme relação contratual",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 5; definição de AMB em p. 3",
+        "note": "A denominação completa de AMB deve ser conferida na definição própria; não identificar só pelo nome da carteira."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Vincendos e performados; totalidade da NF-e; livres de ônus e disputa; cedente solvente",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 41-42",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas/PL ≥12%; verificação diária",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 34",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "MENOR entre despesas de 90 dias e 1% PL",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 42-43",
+        "note": "Redação usa menor, não maior; confirmar intenção jurídica antes de ativar limite de caixa."
+      },
+      "Derivativos/hedge": {
+        "value": "Derivativos vedados",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 38",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "67% PL para fins tributários após 180 dias",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 3,61",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Waterfall": {
+        "value": "Despesas → reserva → sênior → subordinada → novas aquisições",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 43",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Anúncio com CNPJ divergente: 1ª emissão sênior 1ª série",
+        "source": "data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026 | emissao | p. 1-2",
+        "note": "Anúncio ID 1155908 contém CNPJ 65.897.273/0001-45, diverso do CNPJ cadastrado 65.873.297/0001-45, e administrador 33.113.876/0001-91, diferente do 36.113.876/0001-91 no regulamento. Vínculo retornado pela consulta exata não resolve a divergência do documento; oferta não atribuída definitivamente ao fundo."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nas cláusulas revisadas; requer suplemento ou ato específico",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Volume/VNU": {
+        "value": "Anúncio com CNPJ divergente: Até R$ 128 milhões ofertados",
+        "source": "data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026 | emissao | p. 1-2",
+        "note": "Anúncio ID 1155908 contém CNPJ 65.897.273/0001-45, diverso do CNPJ cadastrado 65.873.297/0001-45, e administrador 33.113.876/0001-91, diferente do 36.113.876/0001-91 no regulamento. Vínculo retornado pela consulta exata não resolve a divergência do documento; oferta não atribuída definitivamente ao fundo."
+      },
+      "Ofertas": {
+        "value": "Anúncio com CNPJ divergente: Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Anúncio ID 1155908 contém CNPJ 65.897.273/0001-45, diverso do CNPJ cadastrado 65.873.297/0001-45, e administrador 33.113.876/0001-91, diferente do 36.113.876/0001-91 no regulamento. Vínculo retornado pela consulta exata não resolve a divergência do documento; oferta não atribuída definitivamente ao fundo."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,25% a.a. até R$ 200 mi +0,15% no excedente; mínimo R$ 20 mil/mês",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 35",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Gestão": {
+        "value": "0,05% a.a. até R$ 200 mi +0,03% no excedente; mínimo R$ 4 mil/mês; implantação R$ 25 mil",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 36",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      },
+      "Custódia": {
+        "value": "0,075% a.a. PL; mínimo R$ 6 mil/mês, subtraído da administração",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026 | regulamento | p. 36",
+        "note": "Regra da versão citada; contratos e séries exigem seus instrumentos próprios."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/65873297000145/1226438_regulamento.pdf | Fundos.NET ID 1226438 | 20/05/2026; data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 65873297000145; revisão em 2026-10-07T16:32:19-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [
+    "ID 1226432: ProviderUnavailableError: Fundos.NET respondeu HTTP 502 em downloadDocumento.",
+    "ID 1159272: ProviderUnavailableError: Fundos.NET respondeu HTTP 502 em downloadDocumento.",
+    "Anúncio ID 1155908 contém CNPJ 65.897.273/0001-45, diverso do CNPJ cadastrado 65.873.297/0001-45, e administrador 33.113.876/0001-91, diferente do 36.113.876/0001-91 no regulamento. Vínculo retornado pela consulta exata não resolve a divergência do documento; oferta não atribuída definitivamente ao fundo."
+  ],
+  "metrics": {
+    "inventory_count": 16,
+    "pdf_count": 4,
+    "pages_available": 150,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 12,
+    "extraction_errors": 0,
+    "access_errors": 2,
+    "sources_consulted": 2
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "1ª série sênior/1ª emissão; documento com CNPJ divergente",
+      "Tipo": "Sênior",
+      "Volume": "R$ 128 milhões declarados no anúncio; atribuição ao CNPJ da carteira pendente",
+      "Quantidade": "128.000 ofertadas no anúncio; atribuição pendente",
+      "VNU": "R$ 1.000 declarado no anúncio; atribuição pendente",
+      "Remuneração": "Spread final não localizado; requer suplemento aplicável",
+      "Juros/remuneração": "Cronograma fechado não identificado",
+      "Amortização principal": "Cronograma fechado não identificado",
+      "Data encerramento/oferta": "Início 07/04/2026; liquidação 08/04/2026 apenas prevista",
+      "Fonte": "data/raw/65873297000145/1155908_emissao.pdf | Fundos.NET ID 1155908 | 07/04/2026 | emissao | p. 1-2",
+      "Status/evidência": "Anúncio ID 1155908 contém CNPJ 65.897.273/0001-45, diverso do CNPJ cadastrado 65.873.297/0001-45, e administrador 33.113.876/0001-91, diferente do 36.113.876/0001-91 no regulamento. Vínculo retornado pela consulta exata não resolve a divergência do documento; oferta não atribuída definitivamente ao fundo.",
+      "Status curadoria": "Divergência de identidade; condições não atribuídas definitivamente ao fundo"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Créditos comerciais performados de fornecedores contra AMB e suas controladas."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Cotas subordinadas mínimas de 12% PL; derivativos vedados."
+    },
+    {
+      "Tema": "Liquidez",
+      "Conclusão": "Reserva usa o menor entre despesas de 90 dias e 1% PL; redação exige atenção."
+    },
+    {
+      "Tema": "Identidade documental",
+      "Conclusão": "Anúncio de R$ 128 milhões traz CNPJ diferente do cadastro; a atribuição da oferta requer documento corrigido."
+    }
+  ]
+}

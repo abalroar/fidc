@@ -1,0 +1,568 @@
+{
+  "schema_version": 1,
+  "cnpj": "61271310000135",
+  "fund_name": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+  "generated_at": "2026-10-07T16:37:25-03:00",
+  "documents": [
+    {
+      "id": 935448,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Constituição/Encerramento do Fundo",
+      "especie": "",
+      "data_referencia": "10/06/2025",
+      "data_entrega": "30/06/2025 14:12",
+      "nome_fundo": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+      "nome_arquivo": null,
+      "versao": 1,
+      "status": "AC",
+      "fundo_ou_classe": "Fundo",
+      "nome_administrador": null,
+      "nome_custodiante": null,
+      "nome_gestor": null,
+      "classification": "emissao",
+      "source_file": "data/raw/61271310000135/935448_emissao_review_20261007.pdf",
+      "extraction_file": "data/raw/61271310000135/935448_emissao_review_20261007.full.txt",
+      "pages_available": 3,
+      "extraction_error": ""
+    },
+    {
+      "id": 935449,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "data_referencia": "10/06/2025",
+      "data_entrega": "30/06/2025 14:12",
+      "nome_fundo": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+      "nome_arquivo": null,
+      "versao": 1,
+      "status": "AC",
+      "fundo_ou_classe": "Fundo",
+      "nome_administrador": null,
+      "nome_custodiante": null,
+      "nome_gestor": null,
+      "classification": "regulamento",
+      "source_file": "Documento inventariado sem PDF local"
+    },
+    {
+      "id": 994701,
+      "categoria": "Atos de Deliberação do Administrador",
+      "tipo": "Instrumento Particular de Alteração do Regulamento",
+      "especie": "",
+      "data_referencia": "19/09/2025",
+      "data_entrega": "19/09/2025 17:01",
+      "nome_fundo": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+      "nome_arquivo": null,
+      "versao": 1,
+      "status": "AC",
+      "fundo_ou_classe": "Classe",
+      "nome_administrador": null,
+      "nome_custodiante": null,
+      "nome_gestor": null,
+      "classification": "regulamento",
+      "source_file": "data/raw/61271310000135/994701_regulamento_review_20261007.pdf",
+      "extraction_file": "data/raw/61271310000135/994701_regulamento_review_20261007.full.txt",
+      "pages_available": 4,
+      "extraction_error": ""
+    },
+    {
+      "id": 994705,
+      "categoria": "Regulamento",
+      "tipo": "",
+      "especie": "",
+      "data_referencia": "19/09/2025",
+      "data_entrega": "19/09/2025 17:01",
+      "nome_fundo": "BAYER CROPCREDIT II FUNDO DE INVESTIMENTO NAS CADEIAS PRODUTIVAS DO AGRONEGÓCIO RESP LTDA",
+      "nome_arquivo": null,
+      "versao": 1,
+      "status": "AC",
+      "fundo_ou_classe": "Classe",
+      "nome_administrador": null,
+      "nome_custodiante": null,
+      "nome_gestor": null,
+      "classification": "regulamento",
+      "source_file": "data/raw/61271310000135/994705_regulamento_review_20261007.pdf",
+      "extraction_file": "data/raw/61271310000135/994705_regulamento_review_20261007.full.txt",
+      "pages_available": 99,
+      "extraction_error": ""
+    }
+  ],
+  "criteria": [
+    {
+      "name": "Natureza dos recebíveis",
+      "canonical_key": "documentary_natureza_dos_recebiveis",
+      "threshold_display": "Agronegócio: notas fiscais XML, CPR-F e títulos de crédito emitidos em favor da classe",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 15–16; 4.1 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle documental; IME público não replica a regra jurídica",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Originador/endossante",
+      "canonical_key": "documentary_originador_endossante",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Devedor",
+      "canonical_key": "documentary_devedor",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Garantia",
+      "canonical_key": "documentary_garantia",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Elegibilidade",
+      "canonical_key": "eligibility_criteria_text",
+      "threshold_display": "Devedor adimplente; ≥30 dias de prazo e vencimento ≥30 dias antes do resgate sênior; até 360 dias, exceção até 540",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 18; 4.16 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Controle individual de lastro, devedor e critérios contratuais",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Concentração",
+      "canonical_key": "concentration_limits",
+      "threshold_display": "Devedor ≤3% do PL, exceto especiais aprovados; créditos >360 dias ≤20%; ≥50 devedores",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 18–19,28; 4.16; 5.31 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Até 180 dias usa maior entre PL Base e vigente; após, PL vigente. Não igualar os limites iniciais a PL IME sem essa validação.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Sem granularidade pública por cedente/devedor/grupo econômico",
+        "rationale": "Até 180 dias usa maior entre PL Base e vigente; após, PL vigente. Não igualar os limites iniciais a PL IME sem essa validação."
+      }
+    },
+    {
+      "name": "Subordinação mínima",
+      "canonical_key": "subordination_ratio_min",
+      "threshold_display": "Subordinadas / PL ≥15%; júnior / PL ≥1,50%",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 27; 5.25–5.26 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "monitoravel com ressalva",
+        "ime_metric": "Cotas subordinadas e mezanino / PL; reconciliar subclasse e fórmula contratual",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Gatilhos de avaliação/liquidação",
+      "canonical_key": "documentary_evaluation_liquidation",
+      "threshold_display": "Atraso 90 <6%; atraso 180 <2%; indenização/resolução <3%; repasse <6%; cura conforme índice",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 28,39–40; 5.31; 10.30 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Os denominadores das definições próprias devem ser reconciliados antes de usar Over/Crédito do IME.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Aging e PDD agregados; eventos e denominadores precisam de controle documental",
+        "rationale": "Os denominadores das definições próprias devem ser reconciliados antes de usar Over/Crédito do IME."
+      }
+    },
+    {
+      "name": "Reserva de caixa",
+      "canonical_key": "minimum_cash_ratio",
+      "threshold_display": "Despesas: 9 meses; pagamentos de amortização/prêmio: 6 meses",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 27–28; 5.30; 5.28.1 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Disponibilidades; requer despesas futuras, cronograma e waterfall",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Derivativos/hedge",
+      "canonical_key": "permitted_hedges",
+      "threshold_display": "Proteção das posições à vista limitada a essas posições; política depende de assembleia",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 16; 4.6 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Posição agregada em derivativos; não comprova finalidade/elegibilidade",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "PDD",
+      "canonical_key": "pdd_coverage_min",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Alocação mínima",
+      "canonical_key": "credit_rights_allocation_min",
+      "threshold_display": "Direitos creditórios ≥50% do PL após 180 dias",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 16; 4.4 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "direto com validação",
+        "ime_metric": "Direitos creditórios / PL; validar ativo elegível, período e denominador",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Pool/revolvência",
+      "canonical_key": "documentary_pool_revolvencia",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Duração/público-alvo",
+      "canonical_key": "documentary_duracao_publico_alvo",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Cessão/recompra",
+      "canonical_key": "repurchase_indemnity",
+      "threshold_display": "Desenquadramento posterior não gera regresso, salvo culpa/dolo/má-fé; indenização segundo contratos",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 19; 4.16.2 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual.",
+      "monitoring_mapping": {
+        "status": "parcial",
+        "ime_metric": "Recompras / Crédito; motivo e indenização exigem contratos",
+        "rationale": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+      }
+    },
+    {
+      "name": "Coobrigação",
+      "canonical_key": "documentary_coobrigacao",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    },
+    {
+      "name": "Waterfall",
+      "canonical_key": "documentary_waterfall",
+      "threshold_display": "Não localizado nas fontes acessíveis desta leitura",
+      "source_document": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+      "notes": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento.",
+      "monitoring_mapping": {
+        "status": "nao_monitoravel",
+        "ime_metric": "Lacuna documental: obter regra antes de definir métrica ou alerta",
+        "rationale": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+      }
+    }
+  ],
+  "emissions": [
+    {
+      "date": "Não informado nas fontes consultadas",
+      "event": "Resumo documental; individualização por série não localizada nesta leitura",
+      "series_or_class": "Sênior, mezanino e júnior, primeiras séries/emissão de 29/09/2025",
+      "amount_display": "Sênior R$ 425 mi; mezanino R$ 67,5 mi; júnior R$ 7,5 mi; VNU R$ 1 mil",
+      "remuneration": "Sênior, mezanino e júnior: DI +1,60% a.a., conforme apêndices",
+      "amortization_schedule": "100% do principal e juros acumulados no resgate; antecipação sênior com comissão e break funding",
+      "source_document": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94–99; Apêndices B/C/D | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705; Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94,96,98; Meta de remuneração | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705; Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94,96,98; Montante/quantidade/VNU | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705; Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94–99; Prêmio e cronogramas | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+      "notes": "Não informado nas fontes consultadas"
+    }
+  ],
+  "warnings": [],
+  "documentary_review": {
+    "cnpj": "61271310000135",
+    "label": "BAYER CROPCREDIT II",
+    "reviewed_at": "2026-10-07T16:37:25-03:00",
+    "document_status": "Revisão documental dirigida com lacunas explícitas",
+    "scope_note": "Revisão dirigida das cláusulas materiais dos documentos acessíveis; texto integral extraído quando disponível. Não corresponde à leitura integral de todos os registros do inventário. Consulta recuperada na terceira tentativa após timeout/HTTP 520. Inventário atual tem 4 registros; custos mínimos parcialmente truncados no texto extraído. O nome da carteira não fixa a vigência documental; cada fonte mantém sua própria data. Não foi carregada nova competência IME.",
+    "facts": {
+      "comparison_eligibility": {
+        "Natureza dos recebíveis": {
+          "value": "Agronegócio: notas fiscais XML, CPR-F e títulos de crédito emitidos em favor da classe",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 15–16; 4.1 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Originador/endossante": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Devedor": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Garantia": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Elegibilidade": {
+          "value": "Devedor adimplente; ≥30 dias de prazo e vencimento ≥30 dias antes do resgate sênior; até 360 dias, exceção até 540",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 18; 4.16 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Concentração": {
+          "value": "Devedor ≤3% do PL, exceto especiais aprovados; créditos >360 dias ≤20%; ≥50 devedores",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 18–19,28; 4.16; 5.31 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Até 180 dias usa maior entre PL Base e vigente; após, PL vigente. Não igualar os limites iniciais a PL IME sem essa validação."
+        }
+      },
+      "comparison_protection": {
+        "Subordinação mínima": {
+          "value": "Subordinadas / PL ≥15%; júnior / PL ≥1,50%",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 27; 5.25–5.26 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Gatilhos de avaliação/liquidação": {
+          "value": "Atraso 90 <6%; atraso 180 <2%; indenização/resolução <3%; repasse <6%; cura conforme índice",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 28,39–40; 5.31; 10.30 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Os denominadores das definições próprias devem ser reconciliados antes de usar Over/Crédito do IME."
+        },
+        "Reserva de caixa": {
+          "value": "Despesas: 9 meses; pagamentos de amortização/prêmio: 6 meses",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 27–28; 5.30; 5.28.1 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Derivativos/hedge": {
+          "value": "Proteção das posições à vista limitada a essas posições; política depende de assembleia",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 16; 4.6 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "PDD": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        }
+      },
+      "comparison_mechanics": {
+        "Alocação mínima": {
+          "value": "Direitos creditórios ≥50% do PL após 180 dias",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 16; 4.4 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Pool/revolvência": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Duração/público-alvo": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Cessão/recompra": {
+          "value": "Desenquadramento posterior não gera regresso, salvo culpa/dolo/má-fé; indenização segundo contratos",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 19; 4.16.2 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Coobrigação": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Waterfall": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        }
+      },
+      "comparison_emissions": {
+        "Classes/séries": {
+          "value": "Sênior, mezanino e júnior, primeiras séries/emissão de 29/09/2025",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94–99; Apêndices B/C/D | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Remuneração": {
+          "value": "Sênior, mezanino e júnior: DI +1,60% a.a., conforme apêndices",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94,96,98; Meta de remuneração | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Volume/VNU": {
+          "value": "Sênior R$ 425 mi; mezanino R$ 67,5 mi; júnior R$ 7,5 mi; VNU R$ 1 mil",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94,96,98; Montante/quantidade/VNU | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Ofertas": {
+          "value": "Colocação privada para profissionais; emissões 29/09/2025",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94–99; Datas e distribuição | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        }
+      },
+      "comparison_payments": {
+        "Carência": {
+          "value": "Não localizado nas fontes acessíveis desta leitura",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Lacuna na revisão dirigida; obter cláusula específica antes de concluir ausência ou enquadramento."
+        },
+        "Juros/amortização": {
+          "value": "100% do principal e juros acumulados no resgate; antecipação sênior com comissão e break funding",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94–99; Prêmio e cronogramas | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Vencimento": {
+          "value": "28/09/2028 para as três subclasses",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 94,96,98; Data de Resgate | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        }
+      },
+      "comparison_costs": {
+        "Administração": {
+          "value": "Marginal 0,1125% a.a. PL atéR$ 100 mi +0,075% acima; mínimo R$ 14,25 mil/mês",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 52; 12.30 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Gestão": {
+          "value": "0,26% a.a. sobre PL; mínimo mensal não extraído de forma íntegra; confirmar documento",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 53; 12.32 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "Regra da versão indicada; resumo sujeito às condições completas da cláusula. IME agregado não comprova elegibilidade individual."
+        },
+        "Custódia": {
+          "value": "Marginal 0,0375% a.a. PL atéR$ 100 mi +0,025% acima; mínimo R$ 4,75 mil/mês +lastro R$ 2 mil",
+          "source": "Fundos.NET ID 994705 | 19/09/2025 | regulamento | p. 52; 12.31 | data/raw/61271310000135/994705_regulamento_review_20261007.pdf | https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=994705",
+          "note": "12.30 descreve administração incluindo custódia, mas 12.31 fixa remuneração própria; confirmar composição e evitar dupla contagem."
+        }
+      },
+      "comparison_monitoring": {
+        "Alocação/subordinação IME": {
+          "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar ativo elegível, subclasses e fórmula contratual",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+        },
+        "Inadimplência/PDD IME": {
+          "value": "Over 30/60/90 e PDD / crédito: indicadores agregados; gatilhos dependem de denominador e janela contratual",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+        },
+        "Controles documentais": {
+          "value": "Elegibilidade, concentração por devedor/grupo, lastro, prestadores e eventos: validação documental e operacional",
+          "source": "data/raw/61271310000135/access_status_20261007.txt | Consulta Fundos.NET por CNPJ 61271310000135 em 07/10/2026; inventário completo com 4 registros",
+          "note": "Avaliação metodológica do IME público; dados de cache e monitoramento ao vivo são apresentados separadamente."
+        },
+        "Competência IME": {
+          "value": "Sem competência IME carregada em cache local",
+          "source": "Inventário de .cache/fundonet em 2026-10-07",
+          "note": "Leitura documental preservada. Carregar competência no Monitoramento para avaliar enquadramento."
+        }
+      }
+    },
+    "key_findings": [
+      {
+        "Tema": "Natureza dos recebíveis",
+        "Conclusão": "Agronegócio: notas fiscais XML, CPR-F e títulos de crédito emitidos em favor da classe"
+      },
+      {
+        "Tema": "Subordinação mínima",
+        "Conclusão": "Subordinadas / PL ≥15%; júnior / PL ≥1,50%"
+      },
+      {
+        "Tema": "Alocação mínima",
+        "Conclusão": "Direitos creditórios ≥50% do PL após 180 dias"
+      },
+      {
+        "Tema": "Remuneração",
+        "Conclusão": "Sênior, mezanino e júnior: DI +1,60% a.a., conforme apêndices"
+      }
+    ],
+    "sources_reviewed": [
+      {
+        "document_id": 994705,
+        "kind": "regulamento",
+        "date": "19/09/2025",
+        "path": "data/raw/61271310000135/994705_regulamento_review_20261007.pdf",
+        "text_path": "data/raw/61271310000135/994705_regulamento_review_20261007.full.txt",
+        "identity_verified": false,
+        "pages": 99,
+        "extractable_pages": 99,
+        "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+        "identity_verification_note": "Documento selecionado por consulta Fundos.NET exclusivamente para este CNPJ; conferir identificação complementar no próprio texto.",
+        "queried_cnpj": "61271310000135",
+        "document_type": "",
+        "reference_date": "19/09/2025",
+        "inventory_queried_at": "2026-10-07"
+      },
+      {
+        "document_id": 994701,
+        "kind": "regulamento",
+        "date": "19/09/2025",
+        "path": "data/raw/61271310000135/994701_regulamento_review_20261007.pdf",
+        "text_path": "data/raw/61271310000135/994701_regulamento_review_20261007.full.txt",
+        "identity_verified": true,
+        "pages": 4,
+        "extractable_pages": 4,
+        "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+        "queried_cnpj": "61271310000135",
+        "document_type": "Instrumento Particular de Alteração do Regulamento",
+        "reference_date": "19/09/2025",
+        "inventory_queried_at": "2026-10-07"
+      },
+      {
+        "document_id": 935448,
+        "kind": "emissao",
+        "date": "10/06/2025",
+        "path": "data/raw/61271310000135/935448_emissao_review_20261007.pdf",
+        "text_path": "data/raw/61271310000135/935448_emissao_review_20261007.full.txt",
+        "identity_verified": false,
+        "pages": 3,
+        "extractable_pages": 3,
+        "review_scope": "Texto integral extraído; revisão dirigida de cláusulas materiais, sem afirmação de leitura integral de todo o inventário.",
+        "identity_verification_note": "Documento selecionado por consulta Fundos.NET exclusivamente para este CNPJ; conferir identificação complementar no próprio texto.",
+        "queried_cnpj": "61271310000135",
+        "document_type": "Instrumento Particular de Constituição/Encerramento do Fundo",
+        "reference_date": "10/06/2025",
+        "inventory_queried_at": "2026-10-07"
+      }
+    ],
+    "warnings": [],
+    "metrics": {
+      "inventory_count": 4,
+      "pdf_count": 3,
+      "pages_analyzed": 106,
+      "documents_without_local_pdf": 1,
+      "extraction_errors": 0,
+      "download_errors": 0,
+      "pdfs_without_extractable_text": 0,
+      "identity_exclusions": 0
+    }
+  },
+  "reviewed_at": "2026-10-07T16:37:25-03:00",
+  "historical_heuristic_criteria": [],
+  "historical_heuristic_emissions": [],
+  "documentary_review_file": "data/regulatory_profiles/documentary_comparisons/61271310000135.json"
+}

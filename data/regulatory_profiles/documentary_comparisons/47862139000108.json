@@ -1,0 +1,220 @@
+{
+  "cnpj": "47862139000108",
+  "label": "Blue Rocket",
+  "reviewed_at": "2026-10-07T16:21:18-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 867795,
+      "kind": "regulamento",
+      "date": "28/03/2025",
+      "path": "data/raw/47862139000108/867795_regulamento.pdf",
+      "text_path": "data/raw/47862139000108/867795_regulamento.full.txt",
+      "identity_verified": false,
+      "review_mode": "Leitura dirigida das cláusulas materiais do texto integral extraído",
+      "pages": 48,
+      "extractable_pages": 48,
+      "identity_verification_note": "Documento vinculado ao CNPJ na consulta exata ao Fundos.NET; denominação no cabeçalho deve ser conferida na leitura dirigida.",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "Recebíveis performados agro/indústria/comércio; não padronizados vedados",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 33",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Originador/endossante": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Devedor": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Mezanino+júnior ≥30% PL",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 28",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Reserva de caixa": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Derivativos/hedge": {
+        "value": "Somente proteção patrimonial; exige contraparte central",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 32",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão definitiva, irrevogável e irretratável, com garantias e acessórios",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 33",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Coobrigação": {
+        "value": "Cessões com ou sem coobrigação conforme instrumento",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 33",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Remuneração": {
+        "value": "Spread final não localizado nas cláusulas revisadas; requer suplemento ou ato específico",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Volume/VNU": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Ofertas": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Juros/amortização": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Vencimento": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0,24% do PL; mínimo até R$ 14,5 mil/mês; redação mensal exige confirmar base anual",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 29-30",
+        "note": "Cláusula7.1 chama taxa mensal e cláusula7.4 provisiona1/252. Não anualizar mecanicamente como0,24% a.m."
+      },
+      "Gestão": {
+        "value": "Faixas 1,20%/1,00%/0,90%/0,80%/0,60% a.a. PL; mínimo até R$ 15,5 mil/mês",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 29-31",
+        "note": "Faixas até 30/50/100/250 mi e excedente; adicional extraordinário de até R$ 500 mil/mês na cláusula7.9."
+      },
+      "Custódia": {
+        "value": "0,06% a.a. PL; mínimo R$ 7 mil/mês",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025 | regulamento | p. 30",
+        "note": "Regra da versão documental citada; demais contratos e séries exigem instrumento próprio."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/47862139000108/867795_regulamento.pdf | Fundos.NET ID 867795 | 28/03/2025",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 47862139000108; revisão em 2026-10-07T16:21:18-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [],
+  "metrics": {
+    "inventory_count": 96,
+    "pdf_count": 4,
+    "pages_available": 104,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 92,
+    "extraction_errors": 0,
+    "access_errors": 0,
+    "sources_consulted": 1
+  },
+  "emissions_rows": [],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Natureza dos recebíveis",
+      "Conclusão": "Recebíveis performados agro/indústria/comércio; não padronizados vedados"
+    },
+    {
+      "Tema": "Subordinação mínima",
+      "Conclusão": "Mezanino+júnior ≥30% PL"
+    },
+    {
+      "Tema": "Remuneração",
+      "Conclusão": "Não localizado nas cláusulas revisadas; requer documento aplicável"
+    }
+  ]
+}

@@ -1,0 +1,351 @@
+{
+  "cnpj": "37294759000134",
+  "label": "Galleria Home Equity",
+  "reviewed_at": "2026-10-07T16:44:38-03:00",
+  "document_status": "Leitura dirigida de regulamento/atos acessíveis; lacunas qualificadas",
+  "scope_note": "Revisão dirigida das fontes identificadas abaixo por CNPJ, incluindo regras e atos materiais localizados. Não se afirma leitura integral de cada registro inventariado.",
+  "sources_reviewed": [
+    {
+      "document_id": 1245602,
+      "kind": "regulamento",
+      "date": "10/07/2026",
+      "path": "data/raw/37294759000134/1245602_documentary_review.pdf",
+      "text_path": "data/raw/37294759000134/1245602_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 8,
+      "extractable_pages": 8,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Anexo I, p3",
+        "Meta de Indexação/Índice de Preços/Meta de Rentabilidade, pp4–5",
+        "Período de Carência, p8",
+        "Meta de Amortização/Período de Saída, pp5–8",
+        "Data de Resgate, p4; Período de Saída, p8",
+        "Parte Geral,4.4–4.5"
+      ],
+      "pages_available": 8
+    },
+    {
+      "document_id": 1243617,
+      "kind": "emissao",
+      "date": "10/07/2026",
+      "path": "data/raw/37294759000134/1243617_documentary_review.pdf",
+      "text_path": "data/raw/37294759000134/1243617_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Anúncio de início, pp1–3"
+      ],
+      "pages_available": 3
+    },
+    {
+      "document_id": 927443,
+      "kind": "regulamento",
+      "date": "09/06/2025",
+      "path": "data/raw/37294759000134/927443_documentary_review.pdf",
+      "text_path": "data/raw/37294759000134/927443_documentary_review.txt",
+      "pages": 136,
+      "extractable_pages": 136,
+      "identity_verified": true,
+      "identity_verification_note": "CNPJ literal e/ou ID obtido por consulta exata CNPJ",
+      "review_scope": "Leitura dirigida das cláusulas/atos citados; versões não consultadas permanecem lacunas.",
+      "reviewed_locators": [
+        "Anexo,4.1, pp34–38",
+        "Glossário Credor/Galleria Bank; Anexo,4",
+        "Glossário; Anexo,4.1–4.2",
+        "Anexo,4.2, pp35–38",
+        "Glossário Relação Mínima, p110; Anexo,6.8, p43",
+        "Anexo,10–11, pp57–64",
+        "Anexo,12.1, p64; Glossário Reserva de Amortização, p111",
+        "Anexo,3.10, p33",
+        "Política de provisão, p23",
+        "Glossário Alocação Mínima, p89, p89, p89",
+        "Anexo,9, pp52–56",
+        "Anexo,6; Suplementos",
+        "Anexo,5.8",
+        "Anexo,9.2, pp52–56",
+        "Parte Geral,4.1, p12",
+        "Parte Geral,4.3, p12",
+        "Parte Geral,3.4 e4.2, pp11–12"
+      ],
+      "pages_available": 136
+    },
+    {
+      "document_id": 1245765,
+      "kind": "emissao",
+      "date": "06/07/2026",
+      "path": "data/raw/37294759000134/1245765_documentary_review.pdf",
+      "text_path": "data/raw/37294759000134/1245765_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida do ato/anúncio nas páginas citadas nas linhas de emissão; não se afirma leitura de todo inventário.",
+      "reviewed_locators": [
+        "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Suplemento,pp3–8; Fundos.NET ID 1245765; referência 06/07/2026; data/raw/37294759000134/1245765_documentary_review.txt; Anúncio,pp1–2"
+      ]
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCB/CCI de home equity; Letras Financeiras e cotas subordinadas de securitizações admitidas",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,4.1, pp34–38; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Originador/endossante": {
+        "value": "Galleria Bank na estrutura de originação; Credores financeiros aprovados",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Glossário Credor/Galleria Bank; Anexo,4; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Devedor": {
+        "value": "Tomadores PF/PJ de home equity e emissores de Letras Financeiras",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Glossário; Anexo,4.1–4.2; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Garantia": {
+        "value": "Alienação fiduciária de imóveis; seguros MIP/DFI exigidos nas hipóteses",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,4.2, pp35–38; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Elegibilidade": {
+        "value": "Home equity: LTV ≤ 60% para apartamentos/condomínios, ≤ 50% demais; LTV médio ≤ 45%; prazo 36–240 meses",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,4.2, pp35–38; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Taxa mínima de originação IPCA + 0, 75% a.m. ou fixa 1, 25% a.m.; média mínima IPCA + 1, 25% a.m. ou fixa 2% a.m. São taxas dos recebíveis."
+      },
+      "Concentração": {
+        "value": "Devedor: menor de R$ 5 mi e 2% PL; ≥ 90% dos créditos com prazo ≤ 180 meses; LF ≤ 3 anos",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,4.2, pp35–38; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "PL/cotas seniores ≥ 105%; índices de cobertura sênior/mezanino ≥ 1, 00",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Glossário Relação Mínima, p110; Anexo,6.8, p43; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "A ponderação da carteira varia por ativo e série; a cobertura exige informações individuais. 75% no suplemento não é subordinação mínima."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Desenquadramentos, falhas de reserva, cobrança e prestadores geram eventos; prazos de cura específicos",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,10–11, pp57–64; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Reserva de caixa": {
+        "value": "3 meses de despesas; reserva de amortização: 30%/60%/100% a 15/10/5 dias úteis",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,12.1, p64; Glossário Reserva de Amortização, p111; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Derivativos/hedge": {
+        "value": "Operações com derivativos vedadas",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,3.10, p33; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "PDD": {
+        "value": "Escala por atraso: 0, 5% em 1–15 dias até 100% acima de 181 dias",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Política de provisão, p23; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Piso por faixa contratual; não equivale a índice agregado mínimo de cobertura."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Direitos creditórios ≥ 50% PL; alocação tributária e ativos elegíveis exigem reconciliação",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Glossário Alocação Mínima, p89, p89, p89; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Glossário Alocação Mínima, p 89: 50% PL. O valor não foi inferido de outros fundos."
+      },
+      "Pool/revolvência": {
+        "value": "Aquisições admitidas conforme fase e ordem de recursos; saída/amortização por suplemento",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,9, pp52–56; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Duração/público-alvo": {
+        "value": "Classe fechada; investidores autorizados conforme suplemento",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,6; Suplementos; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Cessão/recompra": {
+        "value": "Cessão definitiva; desenquadramento posterior não cria regresso automático, ressalvados culpa/fraude",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,5.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Coobrigação": {
+        "value": "Responsabilidade por vício/fraude conforme instrumentos; garantia de solvência não presumida",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,5.8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Waterfall": {
+        "value": "Encargos → reservas → sênior → mezanino → aquisições; sequência varia por fase",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Anexo,9.2, pp52–56; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "Sênior 9ª série; mezanino C em anúncio próprio",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Anexo I, p3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Remuneração": {
+        "value": "Sênior 9ª série: IPCA + 11, 70% a.a.",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Meta de Indexação/Índice de Preços/Meta de Rentabilidade, pp4–5; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true",
+        "note": "Taxa aplicada ao principal corrigido, com regra de IPCA negativo e defasagem n-2/n-3."
+      },
+      "Volume/VNU": {
+        "value": "9ª série: até R$ 7 mi; mínimo R$ 6 mi; 7 milhões de cotas",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Anexo I, p3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Ofertas": {
+        "value": "9ª série: profissionais, melhores esforços, RCVM160; anúncio mezanino C registra R$ 40 mi",
+        "source": "Fundos.NET ID 1243617; referência 10/07/2026; data/raw/37294759000134/1243617_documentary_review.txt; Anúncio de início, pp1–3; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1243617&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "9ª série: não aplicável",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Período de Carência, p8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Juros/amortização": {
+        "value": "Mensal; percentuais de principal dos meses 1–95; saída desde o 96º mês",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Meta de Amortização/Período de Saída, pp5–8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Vencimento": {
+        "value": "Resgate no 328º mês completo de alocação; saída no 96º mês; data fechada não localizada",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Data de Resgate, p4; Período de Saída, p8; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true",
+        "note": "Texto interno requer reconciliação; não substituir 328 por 96 por inferência."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "0, 25% a.a./PL; mínimo R$ 20 mil/mês; IPCA anual",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Parte Geral,4.1, p12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Gestão": {
+        "value": "0, 25% a.a./PL; mínimo R$ 10 mil/mês; IPCA anual",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Parte Geral,4.3, p12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Conclusão limitada à versão citada; inventário completo não equivale a leitura integral de todos os documentos."
+      },
+      "Custódia": {
+        "value": "Máxima 0, 03% a.a./PL; mínimo R$ 3 mil/mês; parcela adicional descrita em 4.2",
+        "source": "Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Parte Geral,3.4 e4.2, pp11–12; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Reconciliar redação de serviços incluídos antes de somar custos; cobrança extraordinária tem taxa própria."
+      },
+      "Cobrança extraordinária": {
+        "value": "0, 20% a.a./créditos home equity; mínimo R$ 20 mil/mês; recuperação pode ter 20% dos recebimentos",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Parte Geral,4.4–4.5",
+        "note": "Custo adicional ao pacote principal; base/periodicidade contratual preservadas. Validar versão e encargos tributários."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "Direitos creditórios / PL e cotas subordinadas / PL; validar fórmula contratual antes de comparar",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true; Fundos.NET ID 1243617; referência 10/07/2026; data/raw/37294759000134/1243617_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1243617&cvm=true; Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Métricas padronizadas são proxies; data, unidade e denominador precisam coincidir com a regra jurídica."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Aging e PDD agregados ajudam no alerta; índice contratual exige reconciliação",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true; Fundos.NET ID 1243617; referência 10/07/2026; data/raw/37294759000134/1243617_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1243617&cvm=true; Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "O IME não substitui bases por devedor, cedente, vintage ou fluxo de vencimentos."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, recompra jurídica e troca de prestadores exigem documentos individuais",
+        "source": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1245602&cvm=true; Fundos.NET ID 1243617; referência 10/07/2026; data/raw/37294759000134/1243617_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=1243617&cvm=true; Fundos.NET ID 927443; referência 09/06/2025; data/raw/37294759000134/927443_documentary_review.txt; Inventário das fontes consultadas; https://fnet.bmfbovespa.com.br/fnet/publico/exibirDocumento?id=927443&cvm=true",
+        "note": "Controle documental separado de posições agregadas do IME; lacuna não deve produzir enquadramento presumido."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura; verificar cache na publicação",
+        "source": "data/raw/37294759000134/access_status_20261007.txt",
+        "note": "Curadoria documental preservada; esta etapa não consultou saldos IME ao vivo."
+      }
+    }
+  },
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "Home equity com alienação fiduciária, seguros e limites de LTV; Letras Financeiras e securitizações também são admitidas."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Relação PL/sênior mínima de 105%, cobertura ponderada e reserva de 3 meses de despesas."
+    },
+    {
+      "Tema": "Emissão",
+      "Conclusão": "Sênior 9ª série: até R$ 7 mi, IPCA + 11, 70% a.a.; amortização mensal sem carência."
+    },
+    {
+      "Tema": "Calendário",
+      "Conclusão": "Suplemento combina saída no 96º mês e resgate no 328º mês; reconciliar essa diferença antes de usar data final."
+    }
+  ],
+  "warnings": [
+    "Revisão dirigida das cláusulas materiais nas fontes acessíveis; atos e suplementos não consultados permanecem lacunas. Não se afirma leitura integral de todos os registros do inventário."
+  ],
+  "metrics": {
+    "inventory_count": 212,
+    "sources_consulted": 4,
+    "pdf_count": 6,
+    "pages_available": 171,
+    "documents_without_local_pdf": 206,
+    "extraction_errors": 0,
+    "inventory_scope": "Fundos.NET ao vivo por CNPJ",
+    "pages_scope": "Páginas com texto disponíveis localmente; leitura dirigida das cláusulas citadas. Total de páginas não comprova leitura integral.",
+    "extractable_pages": 171,
+    "documents_with_incomplete_text": 0
+  },
+  "costs_rows": [
+    {
+      "Item": "Cobrança extraordinária",
+      "Percentual a.a.": "0, 20% a.a./créditos home equity; mínimo R$ 20 mil/mês; recuperação pode ter 20% dos recebimentos",
+      "Mínimo mensal": "Regra/mínimo na descrição documental; parcela percentual pode ter base distinta de PL",
+      "Fonte": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Parte Geral,4.4–4.5",
+      "Versão vigente / base documental": "10/07/2026",
+      "Mudanças relevantes": "Versões anteriores não reconciliadas para este item",
+      "Status curadoria": "Condição localizada; validar execução mensal"
+    }
+  ],
+  "emissions_rows": [
+    {
+      "Fundo": "Galleria Home Equity",
+      "CNPJ": "37294759000134",
+      "Cota/Classe": "Sênior9ªsérie/9ªemissão",
+      "Tipo": "Sênior",
+      "Data deliberação": "Suplemento10/07/2026; conciliar com anúncio06/07/2026",
+      "Data emissão / 1ª integralização": "Primeira integralização por chamadas; data efetiva não localizada",
+      "Data encerramento/oferta": "Início06/07/2026; subscrição07/07–07/09/2026; encerramento02/01/2027 estimado",
+      "Quantidade": "Até7.000.000; mínimo6.000.000",
+      "Volume": "Até R$7.000.000; mínimo R$6.000.000",
+      "VNU": "R$1,00 na data do anúncio; atualizado na integralização",
+      "Remuneração": "IPCA +11,70% a.a.; principal corrigido com regra de IPCA negativo/defasagem",
+      "Juros/remuneração": "Mensal em Data de Referência; sem carência",
+      "Amortização principal": "Percentuais do mês1 ao95; saída no96ºmês; data de resgate328ºmês no texto; reconciliar divergência",
+      "Status/evidência": "Melhores esforços, profissionais; datas do anúncio estimadas; final depende de primeira integralização",
+      "Fonte": "Fundos.NET ID 1245602; referência 10/07/2026; data/raw/37294759000134/1245602_documentary_review.txt; Suplemento,pp3–8; Fundos.NET ID 1245765; referência 06/07/2026; data/raw/37294759000134/1245765_documentary_review.txt; Anúncio,pp1–2",
+      "Status curadoria": "Termos primários identificados; conferir execução/vigência"
+    },
+    {
+      "Fundo": "Galleria Home Equity",
+      "CNPJ": "37294759000134",
+      "Cota/Classe": "Subordinada mezanino C",
+      "Tipo": "Mezanino",
+      "Data deliberação": "Não localizado nas fontes consultadas",
+      "Data emissão / 1ª integralização": "Não localizado nas fontes consultadas",
+      "Data encerramento/oferta": "Não localizado nas fontes consultadas",
+      "Quantidade": "Não localizado nas fontes consultadas",
+      "Volume": "R$40.000.000 no anúncio",
+      "VNU": "R$1 inicial no anúncio",
+      "Remuneração": "Spread final não localizado nas fontes consultadas desta subclasse",
+      "Juros/remuneração": "Calendário remetido ao suplemento da subclasse não localizado",
+      "Amortização principal": "Não localizado nas fontes consultadas",
+      "Status/evidência": "Volume aprovado/ofertado distinto do efetivamente distribuído",
+      "Fonte": "Fundos.NET ID 1243617; referência 10/07/2026; data/raw/37294759000134/1243617_documentary_review.txt; Anúncio de início,pp1–3",
+      "Status curadoria": "Termos primários identificados; conferir execução/vigência"
+    }
+  ]
+}

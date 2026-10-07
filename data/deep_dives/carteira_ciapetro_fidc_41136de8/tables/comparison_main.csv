@@ -1,39 +1,32 @@
-Nome,MF GROUP NÃO PADRONIZADOS
-Grupo,Ciapetro FIDC
-CNPJ,47.424.724/0001-26
-Páginas locais analisadas,169
-Última competência IME,—
-PL (R$ mm),—
-Direitos creditórios / PL,—
-Vencidos Over 30d / crédito,—
-Vencidos Over 60d / crédito,—
-Vencidos Over 90d / crédito,—
-Vencidos Over 180d / crédito,—
-Vencidos Over 360d / crédito,—
-PDD / crédito,—
-PDD / vencidos,—
-Cotas sênior / PL,—
-Cotas mezanino / PL,—
-Cotas subordinadas / PL,—
-Séries/classes emitidas identificadas,1
-Volume emitido identificado (R$ mm),10
-Primeira emissão identificada,28/07/2022
-Última emissão identificada,28/07/2022
-"Emissões detectadas (data, classe, preço e volume)",28/07/2022 · Classe/série não identificada: R$ 10 mm
-Remuneração-alvo por emissão detectada,—
-Amortização/vencimento por emissão detectada,—
-Regulamento-base dos thresholds,05/06/2025 · 917703_regulamento_regulamento_917703_2025-06-05.pdf
-Alocação mínima em DCs,>= 67%; 67%
-Subordinação mínima,—
-Evento de avaliação por atraso,—
-Liquidação/vencimento por atraso,—
-Cobertura mínima PDD,—
-Reserva/caixa mínimo,—
-Limite de recompra,—
-Limite de cancelamento,—
-Limite de chargeback/contestação,—
-Limites de concentração,>= 50%; <= 50%
-Hedges permitidos,texto; >=; Regra textual de derivativos/hedge; verificar observação e fonte.
-Cross default do cedente,—
-Troca de gestor/administrador,>=; texto
-Critérios de elegibilidade,>=
+Nome,MF Group (Ciapetro no cadastro)
+Recebíveis e elegibilidade · Natureza dos recebíveis,"Títulos de agro, indústria e comércio; não padronizados e não performados vedados."
+Recebíveis e elegibilidade · Originador/endossante,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Recebíveis e elegibilidade · Devedor,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Recebíveis e elegibilidade · Garantia,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Recebíveis e elegibilidade · Elegibilidade,Adimplentes; devedor sem atraso no fundo; lastro; vencimento mínimo 2 DU.
+Recebíveis e elegibilidade · Concentração,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+"Subordinação, gatilhos e proteção · Subordinação mínima",Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+"Subordinação, gatilhos e proteção · Gatilhos de avaliação/liquidação",Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+"Subordinação, gatilhos e proteção · Reserva de caixa",Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+"Subordinação, gatilhos e proteção · Derivativos/hedge",Somente proteção patrimonial com contraparte central.
+"Subordinação, gatilhos e proteção · PDD",Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Alocação e mecânica contratual · Alocação mínima,67%/PL em DC após 180 dias do início.
+Alocação e mecânica contratual · Pool/revolvência,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Alocação e mecânica contratual · Duração/público-alvo,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Alocação e mecânica contratual · Cessão/recompra,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Alocação e mecânica contratual · Coobrigação,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Alocação e mecânica contratual · Waterfall,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Emissões e remuneração · Classes/séries,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Emissões e remuneração · Remuneração,Spread final não localizado nesta revisão; conferir suplemento preenchido.
+Emissões e remuneração · Volume/VNU,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Emissões e remuneração · Ofertas,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Amortização e calendário de pagamentos · Carência,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Amortização e calendário de pagamentos · Juros/amortização,Cronograma fechado não identificado nesta revisão; conferir série/suplemento.
+Amortização e calendário de pagamentos · Vencimento,Não confirmado na revisão dirigida; conferir documento ou cláusula específica.
+Custos estruturais · Administração,"Percentual 0,04%/PL; mínimo R$ 13 mil/mês, IGP-M; periodicidade da taxa exige validação."
+Custos estruturais · Gestão,"Percentual 0,21%/PL; mínimo R$ 7 mil/mês, IGP-M; periodicidade da taxa exige validação."
+Custos estruturais · Custódia,"0,06% a.a./PL; mínimo R$ 7 mil/mês, IGP-M; inclui escrituração/controladoria."
+Monitoramento IME e controles documentais · Alocação/subordinação IME,DC/PL e cotas por categoria/PL; validar regra e denominador.
+Monitoramento IME e controles documentais · Inadimplência/PDD IME,Aging e PDD/crédito agregados; conciliar índice contratual.
+Monitoramento IME e controles documentais · Controles documentais,"Lastro, elegibilidade, concentração individual e prestadores exigem documentos."
+Monitoramento IME e controles documentais · Competência IME,Sem competência IME carregada em cache local

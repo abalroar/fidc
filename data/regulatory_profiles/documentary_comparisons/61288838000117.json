@@ -1,0 +1,267 @@
+{
+  "cnpj": "61288838000117",
+  "label": "iFood Pago Crédito III",
+  "reviewed_at": "2026-10-07T16:37:58-03:00",
+  "scope_note": "Leitura dirigida de cláusulas materiais dos textos integrais extraídos dos PDFs selecionados. Inventário integral de registros quando acessível; documentos não selecionados ou não revisados permanecem disponíveis para auditoria e não foram integralmente lidos.",
+  "document_status": "Leitura dirigida dos documentos materiais; lacunas explícitas",
+  "sources_reviewed": [
+    {
+      "document_id": 1240846,
+      "kind": "regulamento",
+      "date": "03/07/2026",
+      "path": "data/raw/61288838000117/1240846_documentary_review.pdf",
+      "text_path": "data/raw/61288838000117/1240846_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 158,
+      "extractable_pages": 158,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1240845,
+      "kind": "assembleia",
+      "date": "03/07/2026 10:00",
+      "path": "data/raw/61288838000117/1240845_documentary_review.pdf",
+      "text_path": "data/raw/61288838000117/1240845_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 6,
+      "extractable_pages": 6,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    },
+    {
+      "document_id": 1247950,
+      "kind": "emissao",
+      "date": "14/07/2026",
+      "path": "data/raw/61288838000117/1247950_documentary_review.pdf",
+      "text_path": "data/raw/61288838000117/1247950_documentary_review.txt",
+      "identity_verified": true,
+      "pages": 3,
+      "extractable_pages": 3,
+      "identity_verification_note": "CNPJ literal no documento",
+      "review_scope": "Leitura dirigida das cláusulas e páginas citadas; não certifica leitura integral de todo o inventário"
+    }
+  ],
+  "facts": {
+    "comparison_eligibility": {
+      "Natureza dos recebíveis": {
+        "value": "CCBs de crédito e recebíveis performados de cartão devidos à subcredenciadora",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 106",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Originador/endossante": {
+        "value": "Instituições financeiras parceiras originam CCB; MovilePay e parceiras endossam",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 107,114,124",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Devedor": {
+        "value": "CCB: PF/PJ com conta digital; cartão: credenciadora",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 105-106",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Garantia": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Elegibilidade": {
+        "value": "CCB até 48 meses com aval/devedor solidário; até 35 dias sem essas garantias",
+        "source": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 1",
+        "note": "AGE de 03/07/2026; não confundir esse prazo com o vencimento das cotas."
+      },
+      "Concentração": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_protection": {
+      "Subordinação mínima": {
+        "value": "Subordinadas/PL ≥25%; júnior/PL ≥15%",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 114",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Gatilhos de avaliação/liquidação": {
+        "value": "Limites de atraso >30/>90/>180 dias: 20%/15%/14%, conforme fórmula contratual",
+        "source": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 1",
+        "note": "Limites alterados na AGE; médias F30/F90/F180 são regras diferentes. Validar numerador/denominador, não usar Over isolado como enquadramento."
+      },
+      "Reserva de caixa": {
+        "value": "3 meses de despesas ordinárias; reserva de amortização 100% da próxima projeção",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 89-90",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Derivativos/hedge": {
+        "value": "Exclusivamente proteção de posições à vista; exposição ≤PL",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 51",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "PDD": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_mechanics": {
+      "Alocação mínima": {
+        "value": "Regulatória 50% PL; entidade de investimento 67% PL",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 97",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Pool/revolvência": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Duração/público-alvo": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Cessão/recompra": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      },
+      "Coobrigação": {
+        "value": "Endosso de CCB sem coobrigação do endossante",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 107",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      },
+      "Waterfall": {
+        "value": "Não localizado nas cláusulas revisadas; requer documento aplicável",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não individualizado nas cláusulas materiais revisadas; obter suplemento, contrato ou documento aplicável. Leitura dirigida não equivale à leitura integral do inventário."
+      }
+    },
+    "comparison_emissions": {
+      "Classes/séries": {
+        "value": "2ª série sênior da 2ª emissão; garantia firme; investidores profissionais",
+        "source": "data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026 | emissao | p. 1-2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Remuneração": {
+        "value": "2ª série sênior: DI + 2,50% a.a.; capitalização composta/252 DU",
+        "source": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 4-5",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Volume/VNU": {
+        "value": "R$ 600 mi subscritos; R$ 100 mi integralizados até 14/07/2026; VNU R$ 1 mil",
+        "source": "data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026 | emissao | p. 1-2",
+        "note": "600 mil cotas subscritas; apenas 100 mil integralizadas no encerramento. Volume subscrito não é saldo integralizado."
+      },
+      "Ofertas": {
+        "value": "Início 10/07/2026; encerramento 14/07/2026; garantia firme",
+        "source": "data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026 | emissao | p. 1-2",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      }
+    },
+    "comparison_payments": {
+      "Carência": {
+        "value": "Principal: até o 24º mês da emissão, inclusive",
+        "source": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 5",
+        "note": "Cláusula documental; confirmar versão aplicável e instrumento específico antes de ativar controle."
+      },
+      "Juros/amortização": {
+        "value": "Pagamentos no 10º DU mensal; após carência, tabela de 13 fatores sobre principal remanescente",
+        "source": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 4-5",
+        "note": "Fatores crescentes 7,6923% a 100%. Conciliação das datas-base emissão versus Mês Completo de Alocação necessária antes de calendário absoluto."
+      },
+      "Vencimento": {
+        "value": "36º Mês Completo de Alocação desde a 1ª integralização",
+        "source": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 4",
+        "note": "Data civil final depende da primeira integralização; não extrapolar a partir do encerramento da oferta."
+      }
+    },
+    "comparison_costs": {
+      "Administração": {
+        "value": "Faixas marginais 0,09%/0,0759%/0,0708% a.a. PL; mínimo escrito por extenso R$ 35 mil/mês",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 21",
+        "note": "Faixas R$ 500 mi/R$ 1 bi/excedente; numérico do mínimo R$ 35.0000,00 apresenta erro de formatação, confirmar. Inclui custódia/controladoria/escrituração."
+      },
+      "Gestão": {
+        "value": "Faixas 0,04%/0,03%/0,028% a.a. PL; mínimo R$ 15 mil/mês; implantação R$ 65 mil",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 22",
+        "note": "Faixas R$ 500 mi/R$ 1 bi/excedente; lastro R$ 0,36 por crédito é adicional."
+      },
+      "Custódia": {
+        "value": "0,003% PL incluída na administração; base temporal não explícita no item",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026 | regulamento | p. 21",
+        "note": "Regra da versão citada; instrumentos particulares e dados observados exigem validação própria."
+      }
+    },
+    "comparison_monitoring": {
+      "Alocação/subordinação IME": {
+        "value": "DC/PL e composição de cotas ajudam; validar numerador, denominador e versão contratual",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Proxy metodológica. FIC investe em cotas: não usar DC/PL como substituto da alocação em fundos-alvo. Nenhum saldo observado nesta revisão documental."
+      },
+      "Inadimplência/PDD IME": {
+        "value": "Over e PDD agregados são alertas; fórmulas contratuais exigem validação",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "Não reproduzem médias móveis, coortes, exposição individual, motivo de recompra, chargeback e perdas históricas sem dados adicionais."
+      },
+      "Controles documentais": {
+        "value": "Elegibilidade, concentração, lastro e eventos exigem controles por contrato",
+        "source": "data/raw/61288838000117/1240846_documentary_review.pdf | Fundos.NET ID 1240846 | 03/07/2026; data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026",
+        "note": "IME público agregado não certifica devedor/cedente/grupo nem alterações de prestadores e cross default."
+      },
+      "Competência IME": {
+        "value": "Sem competência IME carregada nesta leitura documental",
+        "source": "CNPJ 61288838000117; revisão em 2026-10-07T16:37:58-03:00",
+        "note": "O publicador concilia o cache existente separadamente; nenhum dado IME foi presumido."
+      }
+    }
+  },
+  "warnings": [
+    "ID 1307950: Fundos.NET respondeu HTTP 520 em downloadDocumento.",
+    "ID 1307951: Fundos.NET respondeu HTTP 520 em downloadDocumento."
+  ],
+  "metrics": {
+    "inventory_count": 39,
+    "pdf_count": 5,
+    "pages_available": 335,
+    "pages_analyzed": "Leitura dirigida; páginas citadas por critério, sem certificação de leitura integral",
+    "documents_without_local_pdf": 34,
+    "extraction_errors": 0,
+    "access_errors": 2,
+    "sources_consulted": 3
+  },
+  "emissions_rows": [
+    {
+      "Cota/Classe": "2ª série sênior da 2ª emissão",
+      "Tipo": "Sênior",
+      "Data deliberação": "03/07/2026",
+      "Data emissão / 1ª integralização": "Data civil não individualizada; emissão coincide com 1ª integralização",
+      "Data encerramento/oferta": "Início 10/07/2026; encerramento 14/07/2026",
+      "Quantidade": "600.000 subscritas; 100.000 integralizadas no encerramento",
+      "Volume": "R$ 600 milhões subscritos; R$ 100 milhões integralizados até 14/07/2026",
+      "VNU": "R$ 1.000",
+      "Remuneração": "DI + 2,50% a.a.",
+      "Juros/remuneração": "10º DU mensal; capitalização composta/252 DU",
+      "Amortização principal": "Carência até 24º mês; 13 fatores sobre remanescente; final 36º Mês Completo de Alocação, conciliar datas-base",
+      "Fonte": "data/raw/61288838000117/1240845_documentary_review.pdf | Fundos.NET ID 1240845 | 03/07/2026 10:00 | assembleia | p. 4-5; data/raw/61288838000117/1247950_documentary_review.pdf | Fundos.NET ID 1247950 | 14/07/2026 | emissao | p. 1-2",
+      "Status/evidência": "Apêndice preenchido e encerramento reconciliados; primeira integralização civil não localizada",
+      "Status curadoria": "Leitura dirigida com fontes por página"
+    }
+  ],
+  "costs_rows": [],
+  "key_findings": [
+    {
+      "Tema": "Lastro",
+      "Conclusão": "CCBs de crédito e recebíveis de cartão; estruturas e devedores distintos."
+    },
+    {
+      "Tema": "Proteção",
+      "Conclusão": "Subordinadas mínimas de 25% PL; júnior de 15% PL."
+    },
+    {
+      "Tema": "Emissão",
+      "Conclusão": "2ª série sênior: DI + 2,50% a.a.; R$ 600 milhões subscritos, R$ 100 milhões integralizados no encerramento."
+    },
+    {
+      "Tema": "Pagamentos",
+      "Conclusão": "Carência de principal até 24º mês; pagamento no 10º dia útil; data civil final depende da integralização."
+    }
+  ]
+}
