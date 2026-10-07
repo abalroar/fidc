@@ -3,11 +3,16 @@ from __future__ import annotations
 from datetime import datetime
 from io import BytesIO
 import re
+import textwrap
+from typing import TYPE_CHECKING, Sequence
 from zoneinfo import ZoneInfo
 
 import pandas as pd
 
 from services.deep_dive_models import DeepDiveManifest, DeepDiveTableSpec
+
+if TYPE_CHECKING:
+    from services.document_curation_comparison import DocumentComparisonPage
 
 
 SLIDE_W = 13.333
@@ -31,6 +36,241 @@ MID = "6B7280"
 HIGHLIGHT = "FFF2E8"
 RED_TEXT = "C8102E"
 FONT = "Calibri"
+
+DOCUMENT_LEFT = 0.48
+DOCUMENT_WIDTH = SLIDE_W - DOCUMENT_LEFT * 2
+DOCUMENT_TABLE_TOP = 1.02
+DOCUMENT_TABLE_BOTTOM = 6.83
+DOCUMENT_FONT_SIZE = 13.0
+DOCUMENT_LINE_HEIGHT = 0.205
+DOCUMENT_CELL_PADDING = 0.10
+DOCUMENT_MAX_FUNDS = 4
+
+
+def build_document_comparison_pptx_bytes(
+    manifest: DeepDiveManifest,
+    pages: Sequence[DocumentComparisonPage],
+) -> bytes:
+    """Render documentary comparisons as editable, source-cited slide tables.
+
+    Every fund stays in the export. Column groups repeat the criterion column,
+    and long content continues on subsequent slides without ellipses.
+    """
+    try:
+        from pptx import Presentation
+        from pptx.dml.color import RGBColor
+        from pptx.enum.text import MSO_AUTO_SIZE, MSO_ANCHOR, PP_ALIGN
+        from pptx.util import Inches, Pt
+    except Exception as exc:  # noqa: BLE001
+        raise RuntimeError("Dependência python-pptx não instalada.") from exc
+
+    from services.document_curation_comparison import comparison_column_chunks
+
+    prs = Presentation()
+    prs.slide_width = Inches(SLIDE_W)
+    prs.slide_height = Inches(SLIDE_H)
+    jobs = []
+    for page in pages:
+        frame = page.frame.copy()
+        if frame.empty or not len(frame.columns):
+            continue
+        frame = frame.map(_document_cell_text)
+        note_lines = [line for note in page.notes for line in textwrap.wrap(note, width=165) or [""]]
+        note_groups = [note_lines[start : start + 8] for start in range(0, len(note_lines), 8)] or [[]]
+        for selected in comparison_column_chunks(frame, max_funds=DOCUMENT_MAX_FUNDS):
+            widths = _document_column_widths(len(selected.columns))
+            header_height = max(0.43, _document_row_height(pd.Series(selected.columns), widths))
+            for visible_notes in note_groups:
+                notes_height = len(visible_notes) * 0.155 + 0.15 if visible_notes else 0
+                for segment, heights in _document_row_pages(selected, widths, header_height, notes_height=notes_height):
+                    jobs.append((page, segment, widths, header_height, heights, visible_notes, notes_height))
+
+    if not jobs:
+        raise ValueError("Não há tabelas documentais disponíveis para exportação.")
+
+    def rgb(value: str):  # noqa: ANN202
+        return RGBColor.from_string(value)
+
+    def text_box(slide, text: str, left: float, top: float, width: float, height: float, size: float, *, bold: bool = False, color: str = BLACK, align=PP_ALIGN.LEFT):  # noqa: ANN001, ANN202, PLR0913
+        shape = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
+        frame = shape.text_frame
+        frame.word_wrap = True
+        frame.auto_size = MSO_AUTO_SIZE.NONE
+        frame.margin_left = frame.margin_right = 0
+        frame.margin_top = frame.margin_bottom = 0
+        paragraph = frame.paragraphs[0]
+        paragraph.alignment = align
+        run = paragraph.add_run()
+        run.text = text
+        run.font.name = FONT
+        run.font.size = Pt(size)
+        run.font.bold = bold
+        run.font.color.rgb = rgb(color)
+        return shape
+
+    for index, (page, frame, widths, header_height, row_heights, visible_notes, notes_height) in enumerate(jobs, start=1):
+        slide = prs.slides.add_slide(prs.slide_layouts[6])
+        slide.background.fill.solid()
+        slide.background.fill.fore_color.rgb = rgb(WHITE)
+        title = f"{manifest.title} – {page.title}"
+        title_size = 23 if len(title) <= 95 else 20
+        text_box(slide, title, DOCUMENT_LEFT, 0.32, DOCUMENT_WIDTH, 0.61, title_size, bold=True, color=ORANGE)
+        height = header_height + sum(row_heights)
+        table = slide.shapes.add_table(
+            len(frame) + 1, len(frame.columns),
+            Inches(DOCUMENT_LEFT), Inches(DOCUMENT_TABLE_TOP),
+            Inches(DOCUMENT_WIDTH), Inches(height),
+        ).table
+        table.first_row = False
+        table.horz_banding = False
+        table.vert_banding = False
+        for col_index, width in enumerate(widths):
+            table.columns[col_index].width = Inches(width)
+        table.rows[0].height = Inches(header_height)
+        for row_index, row_height in enumerate(row_heights, start=1):
+            table.rows[row_index].height = Inches(row_height)
+        values = [list(frame.columns), *frame.values.tolist()]
+        for row_index, row in enumerate(values):
+            for col_index, value in enumerate(row):
+                cell = table.cell(row_index, col_index)
+                cell.text = "\n".join(_document_wrapped_lines(value, widths[col_index]))
+                cell.fill.solid()
+                cell.fill.fore_color.rgb = rgb(ORANGE if row_index == 0 else WHITE)
+                cell.margin_left = cell.margin_right = Inches(DOCUMENT_CELL_PADDING)
+                cell.margin_top = cell.margin_bottom = Inches(0.045)
+                cell.vertical_anchor = MSO_ANCHOR.MIDDLE
+                cell.text_frame.word_wrap = True
+                cell.text_frame.auto_size = MSO_AUTO_SIZE.NONE
+                for paragraph in cell.text_frame.paragraphs:
+                    paragraph.alignment = PP_ALIGN.LEFT if col_index == 0 else PP_ALIGN.CENTER
+                    paragraph.space_before = paragraph.space_after = Pt(0)
+                    paragraph.line_spacing = 1.0
+                    for run in paragraph.runs:
+                        run.font.name = FONT
+                        run.font.size = Pt(DOCUMENT_FONT_SIZE)
+                        run.font.bold = row_index == 0 or col_index == 0
+                        run.font.color.rgb = rgb(BLACK)
+                _document_cell_borders(cell, header=row_index == 0, last=row_index == len(frame))
+
+        if visible_notes:
+            text_box(slide, "\n".join(visible_notes), DOCUMENT_LEFT, DOCUMENT_TABLE_BOTTOM - notes_height + 0.1, DOCUMENT_WIDTH, notes_height, 10, color=MID)
+
+        reading_date = _document_reading_date(manifest.generated_at)
+        text_box(slide, f"Leitura documental: {reading_date}. Fontes e referências nas notas do slide.", DOCUMENT_LEFT, 7.03, DOCUMENT_WIDTH - 1, 0.18, 8.5, color=MID)
+        text_box(slide, f"{index}/{len(jobs)}", SLIDE_W - DOCUMENT_LEFT - 0.7, 7.03, 0.7, 0.18, 8.5, color=MID, align=PP_ALIGN.RIGHT)
+        notes = [page.title, f"Leitura documental: {manifest.generated_at or 'data não informada'}"]
+        notes.extend(f"{fund.get('short_name') or fund.get('name')}: CNPJ {fund.get('cnpj') or 'não localizado'}" for fund in manifest.funds)
+        if page.notes:
+            notes.extend(["Observações:", *page.notes])
+        notes.extend(["Fontes:", *(page.sources or (manifest.source or "Fonte documental não localizada",))])
+        slide.notes_slide.notes_text_frame.text = "\n".join(notes)
+
+    output = BytesIO()
+    prs.save(output)
+    return output.getvalue()
+
+
+def _document_cell_text(value: object) -> str:
+    if value is None or pd.isna(value) or not str(value).strip() or str(value).strip() in {"—", "-"}:
+        return "Não localizado"
+    return str(value).strip()
+
+
+def _document_reading_date(value: str) -> str:
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00")).strftime("%d/%m/%Y")
+    except (ValueError, AttributeError):
+        return "data não informada"
+
+
+def _document_column_widths(count: int) -> list[float]:
+    if count <= 1:
+        return [DOCUMENT_WIDTH]
+    criterion = 2.55
+    return [criterion, *[(DOCUMENT_WIDTH - criterion) / (count - 1)] * (count - 1)]
+
+
+def _document_wrapped_lines(value: object, width: float) -> list[str]:
+    # Conservative width at 13 pt: table columns retain readable typography.
+    capacity = max(12, int((width - DOCUMENT_CELL_PADDING * 2) * 72 / (DOCUMENT_FONT_SIZE * 0.53)))
+    output = []
+    for paragraph in str(value).split("\n"):
+        output.extend(textwrap.wrap(paragraph, width=capacity, break_long_words=True, break_on_hyphens=False) or [""])
+    return output
+
+
+def _document_row_height(row: pd.Series, widths: list[float]) -> float:
+    lines = max(len(_document_wrapped_lines(value, width)) for value, width in zip(row, widths, strict=True))
+    return max(0.265, lines * DOCUMENT_LINE_HEIGHT + 0.105)
+
+
+def _document_row_pages(frame: pd.DataFrame, widths: list[float], header_height: float, *, notes_height: float = 0) -> list[tuple[pd.DataFrame, list[float]]]:
+    available = DOCUMENT_TABLE_BOTTOM - DOCUMENT_TABLE_TOP - header_height - notes_height
+    max_lines = max(1, int((available - 0.105) / DOCUMENT_LINE_HEIGHT))
+    expanded = []
+    for _, row in frame.iterrows():
+        wrapped = [_document_wrapped_lines(value, width) for value, width in zip(row, widths, strict=True)]
+        if max(map(len, wrapped)) <= max_lines:
+            expanded.append(row.tolist())
+            continue
+        for offset in range(0, max(map(len, wrapped)), max_lines):
+            values = ["\n".join(lines[offset : offset + max_lines]) for lines in wrapped]
+            values[0] = str(row.iloc[0]) if offset == 0 else f"{row.iloc[0]} (continuação)"
+            expanded.append(values)
+    jobs = []
+    rows, heights = [], []
+    for values in expanded:
+        height = _document_row_height(pd.Series(values), widths)
+        if rows and sum(heights) + height > available:
+            jobs.append((pd.DataFrame(rows, columns=frame.columns), heights))
+            rows, heights = [], []
+        rows.append(values)
+        heights.append(min(height, available))
+    if rows:
+        jobs.append((pd.DataFrame(rows, columns=frame.columns), heights))
+    if len(jobs) > 1:
+        # Balance continuations so a full first slide does not leave two rows
+        # stranded on the next slide. The maximum readable height still wins.
+        row_heights = [_document_row_height(pd.Series(values), widths) for values in expanded]
+        remaining_height = sum(row_heights)
+        pages_left = len(jobs)
+        jobs, rows, heights = [], [], []
+        target = remaining_height / pages_left
+        for index, (values, height) in enumerate(zip(expanded, row_heights, strict=True)):
+            used = sum(heights)
+            balanced_break = pages_left > 1 and len(expanded) - index >= pages_left - 1 and abs(used - target) <= abs(used + height - target)
+            if rows and (used + height > available or balanced_break):
+                jobs.append((pd.DataFrame(rows, columns=frame.columns), heights))
+                remaining_height -= used
+                pages_left = max(1, pages_left - 1)
+                target = remaining_height / pages_left
+                rows, heights = [], []
+            rows.append(values)
+            heights.append(min(height, available))
+        if rows:
+            jobs.append((pd.DataFrame(rows, columns=frame.columns), heights))
+    return jobs
+
+
+def _document_cell_borders(cell, *, header: bool, last: bool) -> None:  # noqa: ANN001
+    from pptx.oxml.xmlchemy import OxmlElement
+
+    properties = cell._tc.get_or_add_tcPr()
+    for edge in ("L", "R", "T", "B"):
+        tag = f"a:ln{edge}"
+        for existing in list(properties.findall(f"{{http://schemas.openxmlformats.org/drawingml/2006/main}}ln{edge}")):
+            properties.remove(existing)
+        line = OxmlElement(tag)
+        if edge == "B" and (header or last):
+            line.set("w", "6350")
+            fill = OxmlElement("a:solidFill")
+            color = OxmlElement("a:srgbClr")
+            color.set("val", GRID)
+            fill.append(color)
+            line.append(fill)
+        else:
+            line.append(OxmlElement("a:noFill"))
+        properties.append(line)
 
 
 def build_deep_dive_pptx_bytes(

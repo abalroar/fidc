@@ -833,6 +833,13 @@ def _render_unified_portfolio_download(
         analytical_xlsx_bytes = None
         export_warnings.append(f"Estrutura, emissões e RDB: {exc}")
 
+    try:
+        documentary_deck = _build_documentary_portfolio_deck(selected_portfolio)
+        if documentary_deck is not None:
+            decks.append(documentary_deck)
+    except Exception as exc:  # noqa: BLE001
+        export_warnings.append(f"Curadoria documental: {exc}")
+
     file_token = _safe_file_token(selected_portfolio.name)
     if decks:
         try:
@@ -848,7 +855,7 @@ def _render_unified_portfolio_download(
                 key=f"portfolio_unified_pptx::{selected_portfolio.id}",
                 type="primary",
                 use_container_width=True,
-                help="Um único arquivo com os slides dos dois relatórios existentes, preservados como objetos editáveis.",
+                help="Slides comparativos da carteira e da curadoria documental disponível, com tabelas editáveis e fontes nas notas.",
             )
     elif not ppt_scope_consistent:
         st.warning("O PPT completo será habilitado quando todos os fundos estiverem consistentes nas duas fontes.")
@@ -897,6 +904,26 @@ def _render_unified_portfolio_download(
             )
         for warning in export_warnings:
             st.caption(f"Parte não incluída no PPT: {warning}")
+
+
+def _build_documentary_portfolio_deck(portfolio: PortfolioRecord) -> bytes | None:
+    from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
+    from services.deep_dive_store import deep_dive_portfolio_match_rank, list_deep_dives
+    from services.document_curation_comparison import build_document_comparison_pages
+
+    signature = portfolio_basket_signature(portfolio.funds)
+    matches = [
+        manifest for manifest in list_deep_dives()
+        if deep_dive_portfolio_match_rank(manifest, portfolio.id, signature) > 0
+    ]
+    if not matches:
+        return None
+    manifest = max(
+        matches,
+        key=lambda item: (deep_dive_portfolio_match_rank(item, portfolio.id, signature), item.generated_at or ""),
+    )
+    pages = build_document_comparison_pages(manifest)
+    return build_document_comparison_pptx_bytes(manifest, pages) if pages else None
 
 
 def _safe_file_token(value: object) -> str:

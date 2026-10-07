@@ -17,6 +17,10 @@ from services.deep_dive_store import (
     list_deep_dives,
     load_deep_dive_table,
 )
+from services.document_curation_comparison import (
+    build_document_comparison_pages,
+    comparison_column_chunks,
+)
 from services.portfolio_store import PortfolioRecord, portfolio_basket_signature
 from tabs.ime_portfolio_support import (
     build_portfolio_record_label_lookup,
@@ -358,27 +362,12 @@ def render_tab_deep_dive(
 
 def _render_document_curation(manifest: Any) -> None:
     reading_date = _format_reading_date(getattr(manifest, "generated_at", ""))
-    st.markdown("### Síntese dos documentos")
+    st.markdown("### Comparativos documentais")
     st.markdown(
         f"<div class='deepdive-curation-date'>Data da leitura: <strong>{escape(reading_date)}</strong></div>",
         unsafe_allow_html=True,
     )
-    st.markdown("\n".join(f"- {item}" for item in _curation_base_bullets(manifest)))
-    st.info(
-        "Use esta curadoria como apoio. Ela depende do prompt específico de atualização; "
-        "confirme limites, datas e condições nos documentos originais."
-    )
-
-    findings = _curated_key_findings(manifest)
-    if findings:
-        st.markdown("#### Destaques da carteira")
-        st.markdown(
-            "\n".join(
-                f"- **{escape(theme)}:** {escape(conclusion)}"
-                for theme, conclusion in findings
-            )
-        )
-
+    st.caption("CVM e Fundos.NET. Regras documentais por fundo. Lacunas e divergências permanecem explícitas.")
     _render_fund_reading(manifest)
 
     warnings = _useful_manifest_warnings(manifest)
@@ -440,36 +429,59 @@ def _curated_key_findings(manifest: Any, *, limit: int = 4) -> tuple[tuple[str, 
 
 
 def _render_fund_reading(manifest: Any) -> None:
-    funds = tuple(getattr(manifest, "funds", ()) or ())
-    if not funds:
+    pages = build_document_comparison_pages(manifest)
+    if not pages:
+        st.info("Comparativo documental não localizado neste pacote.")
         return
+    from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
 
-    st.markdown("#### Pontos essenciais por fundo")
-    if len(funds) == 1:
-        fund = funds[0]
-        st.markdown(f"**{escape(_fund_display_name(fund))}**")
-    else:
-        selected_cnpj = st.selectbox(
-            "Fundo",
-            options=[_digits(fund.get("cnpj")) for fund in funds],
-            format_func=lambda cnpj: _fund_display_name(
-                next((fund for fund in funds if _digits(fund.get("cnpj")) == cnpj), {})
-            ),
-            key=f"deep_dive_fund::{getattr(manifest, 'deep_dive_id', 'curation')}",
-        )
-        fund = next((item for item in funds if _digits(item.get("cnpj")) == selected_cnpj), funds[0])
+    st.download_button(
+        "Exportar comparativos documentais (PPTX)",
+        data=build_document_comparison_pptx_bytes(manifest, pages),
+        file_name=f"comparativos_documentais_{manifest.deep_dive_id}.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        key=f"document_comparisons_pptx::{manifest.deep_dive_id}",
+    )
+    for page_number, page in enumerate(pages, start=1):
+        for frame in comparison_column_chunks(page.frame):
+            st.markdown(_comparison_table_html(page.title, frame, page_number), unsafe_allow_html=True)
+        for note in page.notes:
+            st.caption(note)
+    sources = tuple(dict.fromkeys(source for page in pages for source in page.sources))
+    if sources:
+        with st.expander("Fontes documentais e bases de cálculo", expanded=False):
+            for source in sources:
+                st.markdown(escape(source))
 
-    st.caption(f"CNPJ {_format_cnpj(fund.get('cnpj'))}.")
 
-    facts = _build_fund_curation_facts(manifest, fund)
-    if not facts:
-        st.caption("Não há uma síntese documental confiável para este fundo neste pacote.")
-        return
-    st.markdown(
-        "\n".join(
-            f"- **{escape(label)}:** {escape(value)}"
-            for label, value in facts
-        )
+def _comparison_table_html(title: str, frame: pd.DataFrame, page_number: int) -> str:
+    """Semantic HTML table with the same short comparison cells as the deck."""
+    def cell(value: object) -> str:
+        text = "Não localizado" if pd.isna(value) else str(value).strip()
+        text = text or "Não localizado"
+        return escape(text).replace("\n", "<br>")
+
+    header = "".join(f"<th scope='col'>{cell(c)}</th>" for c in frame.columns)
+    rows = []
+    for _, row in frame.iterrows():
+        first, *values = [cell(row[c]) for c in frame.columns]
+        rows.append(f"<tr><th scope='row'>{first}</th>" + "".join(f"<td>{v}</td>" for v in values) + "</tr>")
+    return (
+        "<style>.document-comparison{margin:1.6rem 0 0.5rem;color:#202020;}"
+        ".document-comparison h4{color:#b95000;font-size:1.25rem;margin:0 0 0.8rem;}"
+        ".document-comparison-scroll{overflow-x:auto;}"
+        ".document-comparison table{width:100%;border-collapse:collapse;font-size:0.92rem;line-height:1.35;}"
+        ".document-comparison thead th{background:#ec7000;color:#171717;font-weight:700;padding:0.55rem 0.7rem;text-align:center;}"
+        ".document-comparison th:first-child{width:23%;text-align:left;}"
+        ".document-comparison tbody th{font-weight:600;}"
+        ".document-comparison tbody th,.document-comparison td{padding:0.6rem 0.7rem;border-bottom:1px solid #e4e4e4;vertical-align:middle;}"
+        ".document-comparison td{text-align:center;white-space:normal;overflow-wrap:anywhere;}"
+        ".document-comparison tbody tr:last-child>*{border-bottom:1px solid #bcbcbc;}"
+        "@media(max-width:700px){.document-comparison table{min-width:700px;}}"
+        "</style>"
+        f"<section class='document-comparison' aria-label='Comparativo {page_number}: {escape(title)}'>"
+        f"<h4>{escape(title)}</h4><div class='document-comparison-scroll'>"
+        f"<table><thead><tr>{header}</tr></thead><tbody>{''.join(rows)}</tbody></table></div></section>"
     )
 
 

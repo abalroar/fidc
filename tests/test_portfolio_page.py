@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from contextlib import nullcontext
+from io import BytesIO
 from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
@@ -178,6 +179,16 @@ class PortfolioPageTests(unittest.TestCase):
         ensure_data.assert_not_called()
 
     def test_complete_portfolio_ppt_forwards_cdi_and_benchmark_inputs(self) -> None:
+        from pptx import Presentation
+        from pptx.util import Inches
+
+        fixture_deck = Presentation()
+        fixture_deck.slide_width = Inches(13.333)
+        fixture_deck.slide_height = Inches(7.5)
+        fixture_deck.slides.add_slide(fixture_deck.slide_layouts[6])
+        fixture_buffer = BytesIO()
+        fixture_deck.save(fixture_buffer)
+        fixture_pptx = fixture_buffer.getvalue()
         cnpj = "12345678000199"
         outputs = SimpleNamespace(fund_monthly={cnpj: SimpleNamespace()})
         analysis = portfolio_page.PortfolioAnalysisData(
@@ -216,8 +227,11 @@ class PortfolioPageTests(unittest.TestCase):
             ) as resolve_inputs,
             patch(
                 "services.somatorio_fidcs_ppt_export.build_somatorio_fidcs_pptx_bytes",
-                return_value=b"pptx",
+                return_value=fixture_pptx,
             ) as build_pptx,
+            patch("services.fidc_analytical_slide.build_fidc_analytical_pptx_bytes", return_value=fixture_pptx),
+            patch("services.fidc_analytical_slide.build_fidc_analytical_xlsx_bytes", return_value=b"xlsx"),
+            patch("tabs.portfolio_page._build_documentary_portfolio_deck", return_value=None),
             patch("tabs.portfolio_page.build_consolidated_snapshot_excel_bytes", return_value=b"xlsx"),
             patch("tabs.portfolio_page.build_full_variable_excel_export_bytes", return_value=b"xlsx"),
             patch("tabs.portfolio_page.build_full_variable_csv_zip_bytes", return_value=b"zip"),
@@ -238,9 +252,9 @@ class PortfolioPageTests(unittest.TestCase):
             monthly_cdi_rates_by_fund=cdi_by_fund,
             benchmark_spreads_by_fund=benchmark_by_fund,
         )
-        self.assertTrue(
-            any(call.kwargs.get("data") == b"pptx" for call in download_button.call_args_list)
-        )
+        exported = next(call.kwargs["data"] for call in download_button.call_args_list
+                        if call.kwargs.get("mime") == "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+        self.assertEqual(len(Presentation(BytesIO(exported)).slides), 2)
 
     def test_transient_provider_failure_keeps_the_recoverable_cause(self) -> None:
         fund = PortfolioFund(cnpj="12345678000199", display_name="FIDC A")

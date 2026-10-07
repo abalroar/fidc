@@ -5,7 +5,7 @@
   "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
   "portfolio_id": "4529e4d690974f34b03d2dfc57643956",
   "portfolio_signature": "57532556000146|60598366000136|66929956000180",
-  "generated_at": "2026-10-07T11:08:04-03:00",
+  "generated_at": "2026-10-07T11:56:39-03:00",
   "source": "CVM/Fundos.NET e fonte primária complementar Angá/MZ; documentos locais extraídos e revisão dirigida dos temas materiais; sem competência IME carregada",
   "confidentiality": "Uso interno",
   "funds": [
@@ -63,6 +63,62 @@
       "kind": "source_table",
       "source_file": "tables/thresholds.csv",
       "first_column": "fundo"
+    },
+    {
+      "id": "comparison_eligibility",
+      "title": "Recebíveis e elegibilidade",
+      "source_file": "tables/comparison_eligibility.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_protection",
+      "title": "Subordinação, gatilhos e proteção",
+      "source_file": "tables/comparison_protection.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_mechanics",
+      "title": "Alocação e mecânica contratual",
+      "source_file": "tables/comparison_mechanics.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_emissions",
+      "title": "Emissões e remuneração",
+      "source_file": "tables/comparison_emissions.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_payments",
+      "title": "Amortização e calendário de pagamentos",
+      "source_file": "tables/comparison_payments.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_costs",
+      "title": "Custos estruturais",
+      "source_file": "tables/comparison_costs.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_monitoring",
+      "title": "Monitoramento IME e controles documentais",
+      "source_file": "tables/comparison_monitoring.csv",
+      "first_column": "Critério",
+      "kind": "document_comparison"
+    },
+    {
+      "id": "comparison_evidence",
+      "title": "Fontes e notas dos comparativos",
+      "source_file": "evidence/comparison_sources.csv",
+      "first_column": "Tabela",
+      "kind": "source_table"
     }
   ],
   "audit": {
@@ -70,8 +126,8 @@
       "BV Auto I e II: a definição de subordinação sênior contém numeral 15% e extenso dez por cento; limite requer confirmação documental e não deve gerar comparação automática via IME.",
       "Cronogramas fechados de valores e datas finais por integralização não localizados; regras de amortização em caixa, reservas e prioridades dependem de controles operacionais.",
       "BV Auto III: encerramento da oferta e distribuição efetiva não localizados; datas indicativas e volume máximo não comprovam integralização.",
-      "Rating posterior não localizado quando indicado como lacuna; ausência de documento não comprova ausência de rating.",
-      "Páginas locais foram extraídas e temas materiais revisados de forma dirigida; contagens podem conter documentos ou demonstrações financeiras sobrepostos. Sem competência IME carregada nesta leitura."
+      "Páginas locais foram extraídas e temas materiais revisados de forma dirigida; contagens podem conter documentos ou demonstrações financeiras sobrepostos. Sem competência IME carregada nesta leitura.",
+      "Auto IV da imagem é proposta sem CNPJ/documento de suporte; condições não verificadas e fora da carteira cadastrada."
     ]
   }
 }

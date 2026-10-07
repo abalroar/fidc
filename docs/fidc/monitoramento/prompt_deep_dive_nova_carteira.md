@@ -414,6 +414,9 @@ Os arquivos analíticos podem continuar completos para auditoria e processamento
 5. Não use em `key_findings.csv` contagens de linhas/páginas, nomes internos de tabelas, chaves de sistema, classificações de monitorabilidade ou status intermediários.
 6. Registre lacunas de acesso. Só afirme leitura integral para documentos efetivamente acessíveis na base local.
 7. Preserve fonte auditável nos arquivos internos, sem reproduzir extensas listas regulatórias na interface.
+8. Apresente as características em matrizes comparativas: primeira coluna `Critério`, uma coluna por fundo, redação curta e unidades explícitas. Use quadros por tema (elegibilidade, proteções, emissões, pagamentos, custos e monitoramento). Todos os fundos devem aparecer, com paginação de colunas quando necessário.
+9. Para quadros revisados, inclua em `manifest.tables` cada CSV com `kind: document_comparison` e `first_column: Critério`. Vincule fontes e ressalvas por meio da tabela `comparison_evidence`, com `source_file: evidence/comparison_sources.csv`, `first_column: Tabela` e colunas `Tabela`, `Critério`, `CNPJ`, `Valor`, `Fonte`, `Nota`. `Tabela` contém o ID do quadro. Uma nota comum pode usar `CNPJ: Carteira`.
+10. A tela e o PPTX devem usar os mesmos quadros. Evite dropdown de fundo, cortes de condições materiais e reticências. Mantenha fontes completas nas notas dos slides e ressalvas curtas abaixo das tabelas. O layout usa título e cabeçalho laranja, corpo branco, critérios à esquerda e valores comparáveis centralizados.
 
 Se `portfolios.json` tiver diff e o usuário não pediu alteração de carteira, reverta apenas a sua alteração nesse arquivo, preservando mudanças alheias.
 

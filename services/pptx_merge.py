@@ -8,7 +8,7 @@ pointing at the source package and produces a presentation PowerPoint repairs.
 
 Only presentations that use the same slide size and the same blank
 layout/master/theme chain are accepted. The decks generated for the Carteira
-page satisfy that contract. Speaker notes are intentionally omitted.
+page satisfy that contract. Speaker notes and their source citations are kept.
 """
 
 from __future__ import annotations
@@ -37,7 +37,7 @@ _SLIDE_REL_TYPE = f"{_R_NS}/slide"
 _SLIDE_LAYOUT_REL_TYPE = f"{_R_NS}/slideLayout"
 _SLIDE_MASTER_REL_TYPE = f"{_R_NS}/slideMaster"
 _THEME_REL_TYPE = f"{_R_NS}/theme"
-_NOTES_SLIDE_REL_TYPE = f"{_R_NS}/notesSlide"
+_NOTES_MASTER_REL_TYPE = f"{_R_NS}/notesMaster"
 
 _SLIDE_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.presentationml.slide+xml"
 
@@ -140,6 +140,7 @@ def merge_pptx_bytes(primary_pptx: bytes, *additional_pptx: bytes) -> bytes:
             deck_index=deck_index,
         )
 
+    _register_notes_masters(destination)
     destination[_CONTENT_TYPES_PATH] = destination_content_types.to_bytes()
     merged = _write_package(destination)
     _validate_openable_presentation(merged)
@@ -270,9 +271,6 @@ def _copy_part_with_relationships(
             owner_part=source_part,
             target=str(relationship.get("Target") or ""),
         )
-        if is_slide and relationship_type == _NOTES_SLIDE_REL_TYPE:
-            rels_root.remove(relationship)
-            continue
         if is_slide and relationship_type == _SLIDE_LAYOUT_REL_TYPE:
             destination_target = destination_layout
         else:
@@ -303,6 +301,39 @@ def _copy_part_with_relationships(
     destination[_relationships_path(destination_part)] = _serialize_xml(rels_root)
     used_part_names.add(_relationships_path(destination_part))
     return destination_part
+
+
+def _register_notes_masters(files: dict[str, bytes]) -> None:
+    """Register copied notes masters in the presentation as required by OOXML."""
+    masters = sorted(name for name in files if name.startswith("ppt/notesMasters/") and name.endswith(".xml"))
+    if not masters:
+        return
+    root = _xml(files, _PRESENTATION_PATH)
+    rels = _xml(files, _PRESENTATION_RELS_PATH)
+    relationships = rels.findall(f"{{{_REL_NS}}}Relationship")
+    known = {
+        _resolve_relationship_target(owner_part=_PRESENTATION_PATH, target=str(node.get("Target") or ""))
+        for node in relationships
+        if node.get("Type") == _NOTES_MASTER_REL_TYPE
+    }
+    used_ids = {str(node.get("Id") or "") for node in relationships}
+    id_list = root.find(f"{{{_P_NS}}}notesMasterIdLst")
+    if id_list is None:
+        id_list = etree.Element(f"{{{_P_NS}}}notesMasterIdLst")
+        slide_masters = root.find(f"{{{_P_NS}}}sldMasterIdLst")
+        root.insert(root.index(slide_masters) + 1 if slide_masters is not None else 0, id_list)
+    for master in masters:
+        if master in known:
+            continue
+        relationship_id = _allocate_relationship_id(used_ids, start=_next_relationship_number(used_ids))
+        relationship = etree.SubElement(rels, f"{{{_REL_NS}}}Relationship")
+        relationship.set("Id", relationship_id)
+        relationship.set("Type", _NOTES_MASTER_REL_TYPE)
+        relationship.set("Target", posixpath.relpath(master, posixpath.dirname(_PRESENTATION_PATH)))
+        master_id = etree.SubElement(id_list, f"{{{_P_NS}}}notesMasterId")
+        master_id.set(f"{{{_R_NS}}}id", relationship_id)
+    files[_PRESENTATION_PATH] = _serialize_xml(root)
+    files[_PRESENTATION_RELS_PATH] = _serialize_xml(rels)
 
 
 def _presentation_slide_paths(files: dict[str, bytes]) -> list[str]:
