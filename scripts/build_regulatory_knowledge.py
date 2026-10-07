@@ -145,8 +145,6 @@ def _prepare_documents(
             especie=doc.especie,
             nome_arquivo=doc.nome_arquivo or "",
         )
-        if classification == "informe_mensal" and not include_ime:
-            continue
         download = should_download_document(classification, include_ime=include_ime)
         rows.append(
             {

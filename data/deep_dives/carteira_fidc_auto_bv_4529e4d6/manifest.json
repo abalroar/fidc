@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "deep_dive_id": "carteira_fidc_auto_bv_4529e4d6",
+  "title": "Curadoria FIDC AUTO BV",
+  "subtitle": "Estrutura, emissões, gatilhos monitoráveis e métricas do Informe Mensal",
+  "portfolio_id": "4529e4d690974f34b03d2dfc57643956",
+  "portfolio_signature": "57532556000146|60598366000136|66929956000180",
+  "generated_at": "2026-10-07T11:08:04-03:00",
+  "source": "CVM/Fundos.NET e fonte primária complementar Angá/MZ; documentos locais extraídos e revisão dirigida dos temas materiais; sem competência IME carregada",
+  "confidentiality": "Uso interno",
+  "funds": [
+    {
+      "cnpj": "66.929.956/0001-80",
+      "name": "BV AUTO III SEGMENTO FINANCEIRO FIDC RESPONSABILIDADE LIMITADA",
+      "short_name": "BV AUTO III SEGMENTO FINANCEIRO FIDC"
+    },
+    {
+      "cnpj": "57.532.556/0001-46",
+      "name": "FIDC BV AUTO I SEGMENTO FINANCEIRO - RESPONSABILIDADE LIMITADA",
+      "short_name": "FIDC BV AUTO I SEGMENTO FINANCEIRO"
+    },
+    {
+      "cnpj": "60.598.366/0001-36",
+      "name": "FIDC BV AUTO II SEGMENTO FINANCEIRO - RESPONSABILIDADE LIMITADA",
+      "short_name": "FIDC BV AUTO II SEGMENTO FINANCEIRO"
+    }
+  ],
+  "tables": [
+    {
+      "id": "comparison_main",
+      "title": "Comparativo principal",
+      "subtitle": "Matriz FIDC x métrica, emissões e gatilhos monitoráveis",
+      "kind": "comparison_matrix",
+      "source_file": "tables/comparison_main.csv",
+      "first_column": "Nome"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "subtitle": "Conclusões materiais para consulta humana",
+      "kind": "source_table",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema"
+    },
+    {
+      "id": "structural_costs",
+      "title": "Custos estruturais",
+      "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
+      "kind": "source_table",
+      "source_file": "tables/structural_costs.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "emissions",
+      "title": "Cronograma de emissões",
+      "kind": "source_table",
+      "source_file": "tables/emissions.csv",
+      "first_column": "Fundo"
+    },
+    {
+      "id": "thresholds",
+      "title": "Regulamento mais recente",
+      "kind": "source_table",
+      "source_file": "tables/thresholds.csv",
+      "first_column": "fundo"
+    }
+  ],
+  "audit": {
+    "warnings": [
+      "BV Auto I e II: a definição de subordinação sênior contém numeral 15% e extenso dez por cento; limite requer confirmação documental e não deve gerar comparação automática via IME.",
+      "Cronogramas fechados de valores e datas finais por integralização não localizados; regras de amortização em caixa, reservas e prioridades dependem de controles operacionais.",
+      "BV Auto III: encerramento da oferta e distribuição efetiva não localizados; datas indicativas e volume máximo não comprovam integralização.",
+      "Rating posterior não localizado quando indicado como lacuna; ausência de documento não comprova ausência de rating.",
+      "Páginas locais foram extraídas e temas materiais revisados de forma dirigida; contagens podem conter documentos ou demonstrações financeiras sobrepostos. Sem competência IME carregada nesta leitura."
+    ]
+  }
+}

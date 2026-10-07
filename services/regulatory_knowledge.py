@@ -170,6 +170,12 @@ def _funds_from_rows(rows: list[dict[str, Any]]) -> list[FundConfig]:
 
 def classify_document(*, categoria: str = "", tipo: str = "", especie: str = "", nome_arquivo: str = "") -> str:
     text = " ".join(str(part or "") for part in (categoria, tipo, especie, nome_arquivo)).lower()
+    if any(token in text for token in ("informe trimestral", "informe estruturado trimestral", "trimestral estruturado")):
+        return "informe_trimestral"
+    if any(token in text for token in ("demonstrações financeiras", "demonstracoes financeiras", "demonstração financeira", "demonstracao financeira")):
+        return "demonstracoes_financeiras"
+    if any(token in text for token in ("rating", "classificação de risco", "classificacao de risco")):
+        return "rating"
     if any(token in text for token in ("informe mensal", "informe estruturado", "mensal estruturado")):
         return "informe_mensal"
     if any(token in text for token in ("regulamento", "aditamento", "alteração de regulamento", "alteracao de regulamento")):
@@ -205,7 +211,7 @@ def classify_document(*, categoria: str = "", tipo: str = "", especie: str = "",
 def should_download_document(classification: str, *, include_ime: bool = False) -> bool:
     if classification == "informe_mensal":
         return include_ime
-    return classification in {"regulamento", "assembleia", "emissao", "evento"}
+    return classification in {"regulamento", "assembleia", "emissao", "evento", "demonstracoes_financeiras", "rating"}
 
 
 def monitoring_hint_for_key(key: str | None) -> dict[str, str]:
@@ -243,14 +249,27 @@ def document_inventory_rows(knowledge: RegulatoryKnowledge) -> list[dict[str, An
     for doc in knowledge.payload.get("documents") or []:
         if not isinstance(doc, dict):
             continue
+        source_file = str(doc.get("source_file") or "")
+        source_path = Path(source_file) if source_file else None
+        if source_path is not None and not source_path.is_absolute():
+            source_path = Path(__file__).resolve().parents[1] / source_path
+        document_id = doc.get("id")
+        external_source = bool(doc.get("external_document_id") or doc.get("source_provenance"))
+        id_label = (
+            str(document_id)
+            if document_id not in (None, "")
+            else "ID CVM não localizado; fonte primária complementar Angá/MZ"
+            if external_source
+            else "ID CVM não informado no inventário"
+        )
         rows.append(
             {
                 "Data": doc.get("data_referencia") or doc.get("data_entrega") or "",
                 "Tipo": doc.get("classification") or "",
                 "Documento": doc.get("tipo") or doc.get("categoria") or "",
                 "Espécie": doc.get("especie") or "",
-                "Arquivo": doc.get("source_file") or doc.get("nome_arquivo") or "",
-                "ID CVM": doc.get("id") or "",
+                "Arquivo": source_file if source_path is not None and source_path.is_file() else "Documento inventariado sem PDF local",
+                "ID CVM": id_label,
             }
         )
     return rows

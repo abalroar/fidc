@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import time
 from typing import Any
+import unicodedata
 
 import pandas as pd
 import streamlit as st
@@ -750,7 +751,7 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
     emissions_df = _selected_emissions_df(selected, profile)
     inventory_df = pd.DataFrame(document_inventory_rows(selected)) if selected is not None else pd.DataFrame()
     timeline_df = (
-        inventory_df[inventory_df["Tipo"].isin(["regulamento", "assembleia", "emissao", "evento"])]
+        inventory_df[inventory_df["Tipo"].isin(["regulamento", "assembleia", "emissao", "evento", "demonstracoes_financeiras", "rating", "informe_trimestral"])]
         if not inventory_df.empty and "Tipo" in inventory_df
         else pd.DataFrame()
     )
@@ -773,7 +774,9 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
     else:
         if not emissions_df.empty:
             st.dataframe(_drop_selected_fund_columns(emissions_df), hide_index=True, use_container_width=True)
-        _ = calendar_df
+        if not calendar_df.empty:
+            st.caption("Calendário documental de pagamentos")
+            st.dataframe(calendar_df, hide_index=True, use_container_width=True)
 
     st.markdown("#### Critérios monitoráveis e qualitativos")
     extraction_errors = selected.payload.get("extraction_errors") if selected is not None else []
@@ -784,7 +787,11 @@ def _render_regulatory_base_tab(outputs: list[dict[str, Any]], *, compact: bool 
     else:
         st.dataframe(_drop_selected_fund_columns(criteria_df), hide_index=True, use_container_width=True)
 
-    _ = timeline_df, inventory_df
+    with st.expander("Timeline documental CVM", expanded=False):
+        if timeline_df.empty:
+            st.caption("Nenhum documento regulatório identificado no inventário processado.")
+        else:
+            st.dataframe(timeline_df, hide_index=True, use_container_width=True)
 
     if missing:
         with st.expander("Fundos sem base gerada", expanded=False):
@@ -865,7 +872,20 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
     current_value = "-"
 
     lowered_name = name.lower()
-    if _is_senior_coverage_rule(name, rule):
+    monitorability_key = " ".join(
+        unicodedata.normalize("NFKD", monitorability).encode("ascii", "ignore").decode("ascii").lower().replace("_", " ").split()
+    )
+    validated_modes = {"monitoravel", "direto", "direto validado"}
+    caveated_modes = {"monitoravel com ressalva", "direto com ressalva", "direto com validacao", "direto agregado"}
+    is_partial = monitorability_key.startswith("parcial")
+    can_calculate = monitorability_key in validated_modes | caveated_modes or is_partial
+    if not can_calculate:
+        current_value = "não comparável à regra via IME"
+        status = "Qualitativo — controle documental"
+    elif is_partial and (key == "subordination_ratio_min" or "subordinação" in lowered_name or "relação mínima" in lowered_name):
+        # O subordinado estrito não representa toda a proteção das séries sênior/mezanino.
+        current_value = "não comparável à regra via IME"
+    elif _is_senior_coverage_rule(name, rule):
         senior_pct = _metric_numeric(item, "Cotas SR / PL %", competencia)
         value = (10_000.0 / senior_pct) if senior_pct and senior_pct > 0 else None
         limit = _parse_percent_limit(rule)
@@ -876,7 +896,7 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "%")
         status = _limit_status(value, limit, higher_is_better=True)
-    elif key == "credit_rights_allocation_min" or "alocação mínima" in lowered_name:
+    elif key in {"credit_rights_allocation_min", "credit_rights_tax_allocation"} or "alocação mínima" in lowered_name:
         value = _metric_numeric(item, "Dir Cred / PL", competencia)
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "ratio")
@@ -895,7 +915,7 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "ratio")
         status = _limit_status((value * 100.0) if value is not None else None, limit, higher_is_better=True)
-    elif key == "recompras_max" or "recompra" in lowered_name:
+    elif key == "recompras_max" or "recompra" in lowered_name or (key == "repurchase_indemnity" and "recompra" in proxy.lower()):
         value = _metric_numeric(item, "Recompras / Crédito", competencia)
         limit = _parse_percent_limit(rule)
         current_value = _format_metric_value(value, "ratio")
@@ -913,11 +933,19 @@ def _evaluate_regulatory_criterion(item: dict[str, Any], competencia: str, crite
         status = "OK" if value is not None and value >= 1_000_000 else ("Sem dado" if value is None else "Alerta")
     elif key == "minimum_cash_ratio":
         caixa = _raw_variable_numeric(item, "APLIC_ATIVO/VL_DISPONIB", competencia)
-        pl = _metric_numeric(item, "PL (R$)", competencia)
-        current_value = _format_metric_value(_safe_ratio(caixa, pl), "ratio")
+        if is_partial:
+            current_value = _format_metric_value(caixa, "R$ bruto")
+        else:
+            pl = _metric_numeric(item, "PL (R$)", competencia)
+            current_value = _format_metric_value(_safe_ratio(caixa, pl), "ratio")
         status = "Qualitativo"
     elif "direto" not in monitorability.lower():
         status = "Qualitativo"
+
+    if is_partial:
+        status = "Proxy parcial — validação documental"
+    elif monitorability_key in caveated_modes:
+        status = "Proxy com ressalva — validação documental"
 
     return {
         "Critério": name,

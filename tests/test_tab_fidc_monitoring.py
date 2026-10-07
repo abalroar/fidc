@@ -55,11 +55,90 @@ class MonitoringTabReferenceCompetenciaTests(unittest.TestCase):
 
         checks = _build_regulatory_monitoring_checks(item, criteria_df)
 
-        self.assertEqual(["OK", "OK", "OK", "OK", "OK", "OK"], checks["Status"].tolist())
+        self.assertEqual(["Proxy com ressalva — validação documental"] * 6, checks["Status"].tolist())
         self.assertEqual("12,00%", checks.loc[0, "Valor IME"])
         self.assertEqual("72,00%", checks.loc[1, "Valor IME"])
+        self.assertEqual("R$ 0", checks.loc[2, "Valor IME"])
+        self.assertEqual("R$ 1,5 MM", checks.loc[3, "Valor IME"])
         self.assertEqual("125,00%", checks.loc[4, "Valor IME"])
         self.assertEqual("8,20%", checks.loc[5, "Valor IME"])
+
+    def test_partial_default_proxy_displays_value_without_contractual_status(self) -> None:
+        item = {"competencias": ["03/2026"]}
+        criteria = pd.DataFrame([{
+            "Critério": "Índice de Perdas 90",
+            "Chave": "default_rate_evaluation_event",
+            "Limite/regra": "CCBs com parcela superior a 90 dias: máximo de 5% do face adquirido",
+            "Métrica IME / proxy": "Over 90 / Crédito, somente como alerta preliminar",
+            "Monitorabilidade IME": "parcial",
+        }])
+        for value, formatted in [(0.02, "2,00%"), (0.08, "8,00%")]:
+            with self.subTest(value=value), patch("tabs.tab_fidc_monitoring._metric_numeric", return_value=value) as metric:
+                checks = _build_regulatory_monitoring_checks(item, criteria)
+            metric.assert_called_once_with(item, "Vencidos Over 90 d / Crédito", "03/2026")
+            self.assertEqual(formatted, checks.loc[0, "Valor IME"])
+            self.assertEqual("Proxy parcial — validação documental", checks.loc[0, "Status"])
+
+    def test_documentary_criteria_do_not_read_ime_metrics(self) -> None:
+        item = {"competencias": ["03/2026"]}
+        criteria = pd.DataFrame([
+            {"Critério": "Concentração", "Monitorabilidade IME": "nao_monitoravel"},
+            {"Critério": "Subordinação sênior", "Chave": "subordination_ratio_min", "Monitorabilidade IME": "não usar via IME"},
+        ])
+        with (
+            patch("tabs.tab_fidc_monitoring._metric_numeric") as metric,
+            patch("tabs.tab_fidc_monitoring._raw_variable_numeric") as raw_metric,
+        ):
+            checks = _build_regulatory_monitoring_checks(item, criteria)
+        metric.assert_not_called()
+        raw_metric.assert_not_called()
+        self.assertEqual(["Qualitativo — controle documental"] * 2, checks["Status"].tolist())
+        self.assertEqual(["não comparável à regra via IME"] * 2, checks["Valor IME"].tolist())
+
+    def test_validated_direct_criterion_keeps_contractual_status(self) -> None:
+        item = {"competencias": ["03/2026"]}
+        criteria = pd.DataFrame([{
+            "Critério": "Alocação mínima",
+            "Chave": "credit_rights_allocation_min",
+            "Limite/regra": "Direitos creditórios / PL >= 50%",
+            "Monitorabilidade IME": "direto validado",
+        }])
+        with patch("tabs.tab_fidc_monitoring._metric_numeric", return_value=0.72):
+            checks = _build_regulatory_monitoring_checks(item, criteria)
+        self.assertEqual("72,00%", checks.loc[0, "Valor IME"])
+        self.assertEqual("OK", checks.loc[0, "Status"])
+
+    def test_partial_subordination_does_not_use_junior_as_total_protection(self) -> None:
+        item = {"competencias": ["03/2026"]}
+        criteria = pd.DataFrame([{
+            "Critério": "Subordinação sênior",
+            "Chave": "subordination_ratio_min",
+            "Limite/regra": "Mezanino + Júnior / PL >= 15%",
+            "Monitorabilidade IME": "parcial",
+        }])
+        with patch("tabs.tab_fidc_monitoring._metric_numeric") as metric:
+            checks = _build_regulatory_monitoring_checks(item, criteria)
+        metric.assert_not_called()
+        self.assertEqual("não comparável à regra via IME", checks.loc[0, "Valor IME"])
+        self.assertEqual("Proxy parcial — validação documental", checks.loc[0, "Status"])
+
+    def test_partial_reserve_displays_absolute_cash_without_pl_ratio(self) -> None:
+        item = {"competencias": ["03/2026"]}
+        criteria = pd.DataFrame([{
+            "Critério": "Reserva de caixa",
+            "Chave": "minimum_cash_ratio",
+            "Limite/regra": "Três meses de despesas futuras estimadas",
+            "Monitorabilidade IME": "parcial",
+        }])
+        with (
+            patch("tabs.tab_fidc_monitoring._metric_numeric") as metric,
+            patch("tabs.tab_fidc_monitoring._raw_variable_numeric", return_value=200000) as raw_metric,
+        ):
+            checks = _build_regulatory_monitoring_checks(item, criteria)
+        metric.assert_not_called()
+        raw_metric.assert_called_once_with(item, "APLIC_ATIVO/VL_DISPONIB", "03/2026")
+        self.assertEqual("R$ 200,0 mil", checks.loc[0, "Valor IME"])
+        self.assertEqual("Proxy parcial — validação documental", checks.loc[0, "Status"])
 
     def test_main_page_monitoring_mode_does_not_render_duplicate_cockpit(self) -> None:
         portfolio = PortfolioRecord(
