@@ -190,6 +190,9 @@ _REVERSE_ENGINEERING_PROMPT = """Atualize a Curadoria de Leitura de uma única c
 7. Priorize elegibilidade, alocação, subordinação, gatilhos, reservas, concentração e derivativos.
 8. Não exponha contagens técnicas, nomes internos de tabelas ou classificações intermediárias.
 9. Preserve as fontes auditáveis nos artefatos internos e valide a leitura pelo app.
+10. Gere os sete quadros comparativos (elegibilidade, proteções, mecânica, emissões, pagamentos, custos e monitoramento), com `Critério` e uma coluna por fundo, sem dropdown.
+11. Registre fontes por célula em `evidence/comparison_sources.csv` e a correspondência coluna/CNPJ em `manifest.comparison_columns`.
+12. Execute `scripts/finalize_document_curation.py --portfolio-id <portfolio_id> --reading-at <data_hora_ISO_com_fuso>` após a revisão documental. O finalizador valida os quadros e gera `exports/documentary_comparison.pptx`, com tabelas editáveis e fontes nas notas, usando os mesmos dados da tela.
 """
 
 
@@ -312,7 +315,7 @@ def render_tab_deep_dive(
 
     if not manifests:
         st.info("Ainda não há curadoria documental disponível.")
-        _render_update_prompt()
+        _render_update_prompt(selected_portfolio=selected_portfolio)
         return
 
     if show_portfolio_selector:
@@ -344,7 +347,7 @@ def render_tab_deep_dive(
     )
     if not available:
         st.info("Ainda não há curadoria documental para esta carteira.")
-        _render_update_prompt()
+        _render_update_prompt(selected_portfolio=selected_portfolio)
         return
 
     manifest = available[0]
@@ -357,7 +360,7 @@ def render_tab_deep_dive(
         )
 
     _render_document_curation(manifest)
-    _render_update_prompt()
+    _render_update_prompt(selected_portfolio=selected_portfolio, manifest=manifest)
 
 
 def _render_document_curation(manifest: Any) -> None:
@@ -387,9 +390,38 @@ def _curation_base_bullets(manifest: Any) -> tuple[str, ...]:
     )
 
 
-def _render_update_prompt() -> None:
-    with st.expander("Prompt usado para atualizar este artefato", expanded=False):
-        st.code(_load_reverse_engineering_prompt(), language="markdown")
+def _prompt_for_portfolio(
+    selected_portfolio: PortfolioRecord | None = None,
+    manifest: Any = None,
+) -> str:
+    prompt = _load_reverse_engineering_prompt()
+    portfolio_id = selected_portfolio.id if selected_portfolio else str(getattr(manifest, "portfolio_id", "") or "")
+    if portfolio_id:
+        target = f"{selected_portfolio.name}\nID: {portfolio_id}" if selected_portfolio else portfolio_id
+        prompt = prompt.replace("[NOME_OU_ID_DA_CARTEIRA_EXISTENTE]", target)
+        prompt = prompt.replace("<portfolio_id>", portfolio_id)
+    return prompt
+
+
+def _render_update_prompt(
+    *,
+    selected_portfolio: PortfolioRecord | None = None,
+    manifest: Any = None,
+) -> None:
+    prompt = _prompt_for_portfolio(selected_portfolio, manifest)
+    portfolio_id = selected_portfolio.id if selected_portfolio else str(getattr(manifest, "portfolio_id", "") or "")
+    suffix = f"_{re.sub(r'[^A-Za-z0-9_-]', '', portfolio_id)[:32]}" if portfolio_id else ""
+    with st.expander("Prompt para gerar ou atualizar esta análise", expanded=False):
+        st.caption("Execute este prompt no Codex para atualizar a carteira, os quadros comparativos e o PPTX.")
+        st.download_button(
+            "Baixar prompt desta análise (.md)",
+            data=prompt,
+            file_name=f"prompt_curadoria{suffix}.md",
+            mime="text/markdown",
+            key=f"document_curation_prompt::{portfolio_id or 'template'}",
+            on_click="ignore",
+        )
+        st.code(prompt, language="markdown")
 
 
 def _format_reading_date(value: object) -> str:
@@ -436,11 +468,13 @@ def _render_fund_reading(manifest: Any) -> None:
     from services.deep_dive_ppt_export import build_document_comparison_pptx_bytes
 
     st.download_button(
-        "Exportar comparativos documentais (PPTX)",
+        "Baixar análise documental (PPTX)",
         data=build_document_comparison_pptx_bytes(manifest, pages),
         file_name=f"comparativos_documentais_{manifest.deep_dive_id}.pptx",
         mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
         key=f"document_comparisons_pptx::{manifest.deep_dive_id}",
+        help="Tabelas comparativas editáveis, com as mesmas informações da tela e fontes completas nas notas dos slides.",
+        on_click="ignore",
     )
     for page_number, page in enumerate(pages, start=1):
         for frame in comparison_column_chunks(page.frame):

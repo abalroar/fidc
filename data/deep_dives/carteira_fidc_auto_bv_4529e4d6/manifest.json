@@ -35,14 +35,6 @@
       "first_column": "Nome"
     },
     {
-      "id": "key_findings",
-      "title": "Destaques da carteira",
-      "subtitle": "Conclusões materiais para consulta humana",
-      "kind": "source_table",
-      "source_file": "tables/key_findings.csv",
-      "first_column": "Tema"
-    },
-    {
       "id": "structural_costs",
       "title": "Custos estruturais",
       "subtitle": "Taxas de administração/gestão, mínimos mensais e fonte documental vigente",
@@ -63,6 +55,14 @@
       "kind": "source_table",
       "source_file": "tables/thresholds.csv",
       "first_column": "fundo"
+    },
+    {
+      "id": "key_findings",
+      "title": "Destaques da carteira",
+      "subtitle": "Conclusões materiais para consulta humana",
+      "kind": "source_table",
+      "source_file": "tables/key_findings.csv",
+      "first_column": "Tema"
     },
     {
       "id": "comparison_eligibility",
@@ -129,5 +129,16 @@
       "Páginas locais foram extraídas e temas materiais revisados de forma dirigida; contagens podem conter documentos ou demonstrações financeiras sobrepostos. Sem competência IME carregada nesta leitura.",
       "Auto IV da imagem é proposta sem CNPJ/documento de suporte; condições não verificadas e fora da carteira cadastrada."
     ]
+  },
+  "comparison_columns": {
+    "FIDC Auto I": "57532556000146",
+    "FIDC Auto II": "60598366000136",
+    "FIDC Auto III": "66929956000180"
+  },
+  "documentary_export": {
+    "source_file": "exports/documentary_comparison.pptx",
+    "sha256": "84c8de75cdd02d6b9d018ba917be9f6a8251ac30fb4527fac5c401a68e40b8b3",
+    "rendering_sha256": "f704129ca0933e2e90654a27c3d7acbcc5b544a31ff8c6a859da4f02a173699c",
+    "input_sha256": "b100de662e88ba3cd43da4c4001be4fe0b4cac99ca31e9fd71d69ddff793be1e"
   }
 }

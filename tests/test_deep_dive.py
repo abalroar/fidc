@@ -268,12 +268,44 @@ def test_curadoria_always_exposes_the_refresh_prompt() -> None:
     with (
         patch("tabs.tab_deep_dive.st.expander", return_value=nullcontext()) as expander,
         patch("tabs.tab_deep_dive.st.code") as code,
+        patch("tabs.tab_deep_dive.st.caption"),
+        patch("tabs.tab_deep_dive.st.download_button") as download,
         patch("tabs.tab_deep_dive._load_reverse_engineering_prompt", return_value="PROMPT ATUAL"),
     ):
         tab_deep_dive._render_update_prompt()
 
-    expander.assert_called_once_with("Prompt usado para atualizar este artefato", expanded=False)
+    expander.assert_called_once_with("Prompt para gerar ou atualizar esta análise", expanded=False)
     code.assert_called_once_with("PROMPT ATUAL", language="markdown")
+    assert download.call_args.kwargs["data"] == "PROMPT ATUAL"
+    assert download.call_args.kwargs["on_click"] == "ignore"
+
+
+def test_curadoria_prompt_download_targets_selected_portfolio() -> None:
+    selected = SimpleNamespace(id="4529e4d690974f34b03d2dfc57643956", name="FIDC AUTO BV")
+    stale_manifest = SimpleNamespace(portfolio_id="outro-id")
+    template = "Carteira: [NOME_OU_ID_DA_CARTEIRA_EXISTENTE]\n--portfolio-id <portfolio_id>\n[PERIODO_OU_COMPETENCIA]"
+    with (
+        patch("tabs.tab_deep_dive.st.expander", return_value=nullcontext()),
+        patch("tabs.tab_deep_dive.st.caption"),
+        patch("tabs.tab_deep_dive.st.code") as code,
+        patch("tabs.tab_deep_dive.st.download_button") as download,
+        patch("tabs.tab_deep_dive._load_reverse_engineering_prompt", return_value=template),
+    ):
+        tab_deep_dive._render_update_prompt(selected_portfolio=selected, manifest=stale_manifest)
+    prompt = code.call_args.args[0]
+    assert "FIDC AUTO BV\nID: 4529e4d690974f34b03d2dfc57643956" in prompt
+    assert "--portfolio-id 4529e4d690974f34b03d2dfc57643956" in prompt
+    assert "outro-id" not in prompt and "[PERIODO_OU_COMPETENCIA]" in prompt
+    assert download.call_args.kwargs["data"] == prompt
+    assert download.call_args.kwargs["file_name"] == f"prompt_curadoria_{selected.id}.md"
+
+
+def test_curadoria_prompt_keeps_template_without_portfolio() -> None:
+    template = "[NOME_OU_ID_DA_CARTEIRA_EXISTENTE] <portfolio_id>"
+    with patch("tabs.tab_deep_dive._load_reverse_engineering_prompt", return_value=template):
+        assert tab_deep_dive._prompt_for_portfolio() == template
+        prompt = tab_deep_dive._prompt_for_portfolio(manifest=SimpleNamespace(portfolio_id="carteira-id"))
+    assert prompt == "carteira-id carteira-id"
 
 
 def test_curadoria_source_has_no_legacy_waterfall_or_black_table() -> None:

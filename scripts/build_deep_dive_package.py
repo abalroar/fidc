@@ -117,6 +117,7 @@ def build_all_portfolio_packages(args: argparse.Namespace) -> None:
 def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord) -> None:
     package_id = args.deep_dive_id if args.deep_dive_id != DEFAULT_PACKAGE_ID and not args.all_portfolios else portfolio_deep_dive_id(portfolio)
     package_dir = args.output_root / package_id
+    previous_manifest = read_existing_package_manifest(package_dir)
     (package_dir / "tables").mkdir(parents=True, exist_ok=True)
     (package_dir / "evidence").mkdir(parents=True, exist_ok=True)
     (package_dir / "notes").mkdir(parents=True, exist_ok=True)
@@ -148,8 +149,67 @@ def build_portfolio_package(args: argparse.Namespace, portfolio: PortfolioRecord
         comparison,
         structural_costs=structural_costs,
     )
+    preserved_curation = preserve_reviewed_document_curation(manifest, previous_manifest, portfolio)
     (package_dir / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Pacote criado em {package_dir.relative_to(ROOT)}")
+    if preserved_curation:
+        print("Data de leitura preservada; revise e finalize os comparativos após uma nova leitura documental.")
+
+
+def read_existing_package_manifest(package_dir: Path) -> dict[str, Any]:
+    try:
+        payload = json.loads((package_dir / "manifest.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def preserve_reviewed_document_curation(
+    manifest: dict[str, Any],
+    previous: dict[str, Any],
+    portfolio: PortfolioRecord,
+) -> bool:
+    """Keep the documentary review when rebuilding the same saved basket.
+
+    Rebuilding analytical inputs does not constitute a new documentary reading.
+    The finalizer validates revised matrices and publishes their actual reading
+    date separately.
+    """
+    expected_cnpjs = {normalize_cnpj(fund.cnpj) for fund in portfolio.funds}
+    previous_funds = previous.get("funds")
+    if not isinstance(previous_funds, list) or not all(isinstance(fund, dict) for fund in previous_funds):
+        return False
+    previous_cnpjs = [normalize_cnpj(fund.get("cnpj")) for fund in previous_funds]
+    if (
+        previous.get("portfolio_id") != portfolio.id
+        or previous.get("portfolio_signature") != portfolio_basket_signature(portfolio.funds)
+        or set(previous_cnpjs) != expected_cnpjs
+        or len(previous_cnpjs) != len(expected_cnpjs)
+    ):
+        return False
+
+    manifest["generated_at"] = previous.get("generated_at") or ""
+    previous_tables = previous.get("tables")
+    if not isinstance(previous_tables, list):
+        return True
+    reviewed = [table for table in previous_tables if isinstance(table, dict) and table.get("kind") == "document_comparison"]
+    if not reviewed:
+        return True
+    preserved_specs = {
+        table["id"]: table
+        for table in previous_tables
+        if isinstance(table, dict)
+        and table.get("id")
+        and (table.get("kind") == "document_comparison" or table.get("id") in {"comparison_evidence", "key_findings"})
+    }
+    tables = [preserved_specs.get(table["id"], table) for table in manifest["tables"]]
+    present_ids = {table["id"] for table in tables}
+    tables.extend(table for table_id, table in preserved_specs.items() if table_id not in present_ids)
+    manifest["tables"] = tables
+    for field in ("generated_at", "funds", "source", "audit", "warnings", "comparison_columns", "documentary_export"):
+        if field in previous:
+            manifest[field] = previous[field]
+    return True
 
 
 def parse_args() -> argparse.Namespace:

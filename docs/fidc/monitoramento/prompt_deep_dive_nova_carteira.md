@@ -2,6 +2,8 @@
 
 Use este prompt quando uma carteira já estiver cadastrada no `portfolios.json` e você precisar reler os documentos CVM/Fundos.NET, atualizar a curadoria por CNPJ e publicar a nova data de leitura na ferramenta Streamlit.
 
+O resultado padrão é uma sequência de tabelas comparativas por tema, exibida no site e exportada para PowerPoint editável. O botão do site permite copiar ou baixar este prompt com a carteira selecionada já preenchida. Execute o prompt no Codex para produzir e publicar a análise.
+
 Copie a partir da linha abaixo.
 
 ---
@@ -21,6 +23,7 @@ Fazer a curadoria documental completa de UMA CARTEIRA JÁ EXISTENTE no `portfoli
 - perfis curados em `data/regulatory_profiles`;
 - conhecimento regulatório por fundo em `data/regulatory_knowledge`;
 - pacote `data/deep_dives/<deep_dive_id>/`.
+- apresentação editável `data/deep_dives/<deep_dive_id>/exports/documentary_comparison.pptx`, disponível no download da análise documental e incorporada ao PPTX completo da carteira.
 
 Atue simultaneamente como:
 
@@ -391,6 +394,15 @@ Atualize apenas artefatos necessários para a carteira existente e para os CNPJs
 - `data/deep_dives/<deep_dive_id>/tables/emissions.csv`
 - `data/deep_dives/<deep_dive_id>/tables/thresholds.csv`
 - `data/deep_dives/<deep_dive_id>/tables/structural_costs.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_eligibility.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_protection.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_mechanics.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_emissions.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_payments.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_costs.csv`
+- `data/deep_dives/<deep_dive_id>/tables/comparison_monitoring.csv`
+- `data/deep_dives/<deep_dive_id>/evidence/comparison_sources.csv`
+- `data/deep_dives/<deep_dive_id>/exports/documentary_comparison.pptx`
 - `data/deep_dives/<deep_dive_id>/evidence/*.csv`
 - `data/deep_dives/index.json`
 
@@ -403,26 +415,45 @@ Não persista:
 - PDFs soltos fora de `data/raw/<cnpj>/`;
 - alterações em carteiras não relacionadas.
 
-## Contrato da curadoria visível
+## Contrato obrigatório das tabelas comparativas e do PPTX
 
-Os arquivos analíticos podem continuar completos para auditoria e processamento, mas a sub-aba visível deve permanecer curta. Ao atualizar o pacote:
+O formato padrão de toda execução é uma sequência de quadros comparativos. Mantenha a redação curta, objetiva e factual. Cada quadro tem primeira coluna `Critério` e uma coluna por fundo da carteira, sempre na mesma ordem. Inclua também os fundos sem documentos, com a lacuna escrita nas células. Mesmo uma carteira de um fundo deve usar tabela.
 
-1. Grave em `manifest.generated_at` a data e o horário efetivos da leitura desta carteira.
-2. Crie ou atualize `tables/key_findings.csv` com as colunas exatas `Tema` e `Conclusão` e com 3 a 5 conclusões materiais, escritas para consulta humana.
-3. Inclua em `manifest.tables` o item `id: key_findings`, `source_file: tables/key_findings.csv` e `first_column: Tema`.
-4. Priorize: natureza dos recebíveis, elegibilidade, alocação, subordinação, gatilhos, reservas, derivativos e uma lacuna ou correção material.
-5. Não use em `key_findings.csv` contagens de linhas/páginas, nomes internos de tabelas, chaves de sistema, classificações de monitorabilidade ou status intermediários.
-6. Registre lacunas de acesso. Só afirme leitura integral para documentos efetivamente acessíveis na base local.
-7. Preserve fonte auditável nos arquivos internos, sem reproduzir extensas listas regulatórias na interface.
-8. Apresente as características em matrizes comparativas: primeira coluna `Critério`, uma coluna por fundo, redação curta e unidades explícitas. Use quadros por tema (elegibilidade, proteções, emissões, pagamentos, custos e monitoramento). Todos os fundos devem aparecer, com paginação de colunas quando necessário.
-9. Para quadros revisados, inclua em `manifest.tables` cada CSV com `kind: document_comparison` e `first_column: Critério`. Vincule fontes e ressalvas por meio da tabela `comparison_evidence`, com `source_file: evidence/comparison_sources.csv`, `first_column: Tabela` e colunas `Tabela`, `Critério`, `CNPJ`, `Valor`, `Fonte`, `Nota`. `Tabela` contém o ID do quadro. Uma nota comum pode usar `CNPJ: Carteira`.
-10. A tela e o PPTX devem usar os mesmos quadros. Evite dropdown de fundo, cortes de condições materiais e reticências. Mantenha fontes completas nas notas dos slides e ressalvas curtas abaixo das tabelas. O layout usa título e cabeçalho laranja, corpo branco, critérios à esquerda e valores comparáveis centralizados.
+Gere os sete arquivos abaixo. O ID no manifesto corresponde ao nome do arquivo sem `.csv`. Os temas orientam a redação; use as regras efetivamente aplicáveis aos recebíveis de cada fundo.
+
+| Arquivo em `tables/` | Tema | Conteúdo mínimo quando aplicável |
+| --- | --- | --- |
+| `comparison_eligibility.csv` | Recebíveis e elegibilidade | Originador, recebível, devedor, garantia, ativos permitidos/vedados, LTV ou critério equivalente, adimplência, seasoning, renegociação, ticket e concentração. |
+| `comparison_protection.csv` | Subordinação, gatilhos e proteção | Subordinação por cota, índices de perda/atraso e suas bases, reservas, hedge, prazos para proteção, avaliação, liquidação e vencimento antecipado. |
+| `comparison_mechanics.csv` | Alocação e mecânica contratual | Alocação mínima, duração, pool/revolvência, cessão, recompra, substituição, indenização, coobrigação, waterfall e amortização extraordinária. |
+| `comparison_emissions.csv` | Emissões e remuneração | Classes/séries/subclasses, deliberação, datas e status da oferta, volumes aprovados/distribuídos, VNU, DI/CDI/IPCA + spread, taxa fixa e rating por série. |
+| `comparison_payments.csv` | Amortização e calendário de pagamentos | Primeira integralização, carência, juros, periodicidade, datas, amortização programada, vencimento final e condições do cronograma. |
+| `comparison_costs.csv` | Custos estruturais | Administração e Gestão obrigatórias; custódia/demais prestadores quando localizados; percentual, mínimo, base, faixas, reajuste e tributos. |
+| `comparison_monitoring.csv` | Monitoramento IME e controles documentais | Regra documental, métrica/proxy, diferença de conceito e controle manual necessário. Indique a competência IME disponível ou a lacuna. |
+
+Regras de redação e comparação:
+
+1. Compare o mesmo conceito em cada linha, com unidade, denominador, período e condição material explícitos. Exemplo: um índice de perdas contratual por valor de face histórico deve manter essa base; não o equipare ao `Over 90 / Crédito` do IME.
+2. Distinga proposta, aprovação, oferta e distribuição efetiva; indique classe/série e versão documental. Uma imagem ou tabela fornecida pelo usuário serve de referência visual e de hipótese a verificar. Valide cada afirmação contra os documentos integrais acessíveis do CNPJ e registre correção, divergência ou lacuna no próprio quadro.
+3. Escreva `não localizado`, `documento inacessível`, `não aplicável — motivo` ou outra lacuna específica. Não use campos vazios, travessão isolado ou zero para falta de informação. Escreva a lacuna de spread e calendário conforme as regras desta curadoria.
+4. Mostre todos os fundos sem dropdown de características ou de fundo. Para muitos fundos ou linhas longas, pagine as tabelas e repita os cabeçalhos, preservando todas as condições e séries. Não corte texto material nem use reticências.
+5. Use título e cabeçalho laranja (`#EC7000`), corpo branco, texto escuro, critérios à esquerda, valores centralizados, linhas discretas e espaçamento que permita leitura. Use tabelas nativas editáveis no PPTX.
+
+Fontes e registro do pacote:
+
+1. Em `manifest.comparison_columns`, grave a correspondência explícita entre cada cabeçalho curto e o CNPJ, por exemplo `{"FIDC Auto I": "57532556000146"}`. A correspondência deve conter exatamente os fundos da carteira; o CNPJ determina a identidade.
+2. Grave `evidence/comparison_sources.csv` com as colunas exatas `Tabela`, `Critério`, `CNPJ`, `Valor`, `Fonte`, `Nota`. Para cada célula, inclua uma linha com ID do quadro, critério, CNPJ e o mesmo valor da tabela. `Fonte` deve identificar documento, arquivo, ID, data e página/cláusula quando disponíveis. Para lacunas, descreva o corpus consultado e o que não foi localizado. Notas comuns podem usar `CNPJ: Carteira`, `Critério: Nota` e `Nota` preenchida; elas não substituem a fonte de cada célula.
+3. Registre os sete CSVs em `manifest.tables`, com `kind: document_comparison` e `first_column: Critério`. Registre `comparison_evidence`, com `source_file: evidence/comparison_sources.csv` e `first_column: Tabela`. O finalizador abaixo faz esse registro após validar os arquivos.
+4. Mantenha `tables/key_findings.csv` com colunas exatas `Tema` e `Conclusão`, 3 a 5 conclusões materiais para consulta humana e fontes nos arquivos internos. Evite contagens de linhas/páginas, nomes internos, chaves de sistema e status intermediários.
+5. Registre lacunas de acesso e revise as ressalvas do manifesto. Só afirme leitura integral para documentos efetivamente acessíveis. Marque a data e o horário reais de conclusão da leitura, com fuso, em `manifest.generated_at`. Reempacotar ou exportar uma análise existente deve preservar sua data de leitura.
+6. A tela e o PPTX usam `build_document_comparison_pages` e `build_document_comparison_pptx_bytes`. Mantenha os mesmos valores e ressalvas nos dois resultados, com fontes completas nas notas dos slides e notas curtas abaixo das tabelas. O download aparece em `Curadoria de Leitura (Documentos)` e os quadros também integram o PPTX completo da carteira.
+7. Execute o finalizador após revisar os sete quadros e suas evidências. Ele valida cobertura, fontes, correspondência de valores e carteira, registra os quadros e grava `exports/documentary_comparison.pptx`. Se a validação falhar, corrija a causa e execute novamente. Não entregue uma análise incompleta como finalizada.
 
 Se `portfolios.json` tiver diff e o usuário não pediu alteração de carteira, reverta apenas a sua alteração nesse arquivo, preservando mudanças alheias.
 
 ## Comandos esperados
 
-Use estes comandos como base, ajustando somente o ID/nome da carteira e o config temporário:
+Use estes comandos como base, ajustando o ID/nome da carteira, o config temporário e a data efetiva da leitura. O gerador prepara a base analítica; depois revise os sete comparativos e as evidências e execute o finalizador.
 
 ```bash
 ./.venv/bin/python scripts/build_regulatory_knowledge.py \
@@ -440,12 +471,30 @@ Use estes comandos como base, ajustando somente o ID/nome da carteira e o config
 ./.venv/bin/python scripts/build_deep_dive_package.py --portfolio-id <portfolio_id>
 ```
 
+Após a revisão documental e a gravação dos quadros/evidências:
+
+```bash
+./.venv/bin/python scripts/finalize_document_curation.py \
+  --portfolio-id <portfolio_id> \
+  --reading-at <data_hora_ISO_com_fuso>
+
+./.venv/bin/python scripts/finalize_document_curation.py \
+  --portfolio-id <portfolio_id> \
+  --check
+```
+
+Use uma data ISO real, por exemplo `AAAA-MM-DDTHH:MM:SS-03:00`. Para apenas reexportar quadros já revisados, omita `--reading-at` e preserve a data existente. Se alterar qualquer quadro após a finalização, execute o finalizador novamente. Nunca use `--all-portfolios` nesta execução.
+
 Se precisar criar ou corrigir extração/parsing, altere os scripts com escopo mínimo:
 
 - `services/regulatory_knowledge.py`
 - `scripts/build_regulatory_knowledge.py`
 - `scripts/build_curated_regulatory_profiles.py`
 - `scripts/build_deep_dive_package.py`
+- `services/document_curation_contract.py`
+- `scripts/finalize_document_curation.py`
+- `services/document_curation_comparison.py`
+- `services/deep_dive_ppt_export.py`
 - `tabs/tab_fidc_monitoring.py`, somente se a tela não estiver lendo corretamente dado já gerado
 - `tabs/tab_deep_dive.py`, somente se o pacote correto não estiver aparecendo
 
@@ -469,6 +518,9 @@ Antes de responder, valide:
 14. O Streamlit consegue enxergar o pacote pela sub-aba `Curadoria de Leitura (Documentos)`.
 15. A aba Monitoramento/Base regulatória consegue carregar Base Regulatória, Emissões, Critérios e Timeline para os CNPJs da carteira.
 16. `manifest.generated_at` corresponde à data desta leitura e `key_findings.csv` contém no máximo 5 conclusões úteis.
+17. Os sete quadros comparativos contêm todos os CNPJs, com cabeçalhos associados por `comparison_columns`, e cada célula tem valor correspondente e fonte em `comparison_sources.csv`.
+18. O finalizador com `--check` passa. Abra o PPTX gerado e confirme tabelas editáveis, todos os fundos, spreads, calendários, ressalvas e fontes nas notas. Inspecione o layout renderizado, sem sobreposição ou corte de condições.
+19. Compare o PPTX baixado no site com as tabelas exibidas. O download deve conservar a sub-aba aberta. Após publicação, confirme o pacote e o prompt atualizado em uma sessão nova do site.
 
 Rode:
 
@@ -478,12 +530,22 @@ Rode:
   scripts/build_regulatory_knowledge.py \
   scripts/build_curated_regulatory_profiles.py \
   scripts/build_deep_dive_package.py \
+  scripts/finalize_document_curation.py \
+  services/document_curation_contract.py \
   tabs/tab_deep_dive.py \
   tabs/tab_fidc_monitoring.py
 ```
 
 ```bash
 ./.venv/bin/python -m unittest tests.test_regulatory_profiles tests.test_deep_dive
+```
+
+```bash
+./.venv/bin/python -m pytest -q \
+  tests/test_document_curation_contract.py \
+  tests/test_deep_dive_curation_rebuild.py \
+  tests/test_document_curation_comparison.py \
+  tests/test_document_comparison_ppt.py
 ```
 
 ```bash
@@ -513,12 +575,15 @@ Responda em português, de forma objetiva, com:
 - CNPJs processados;
 - documentos baixados/inventariados por CNPJ;
 - pacote de curadoria atualizado;
+- sete temas comparativos produzidos e link/arquivo do PPTX editável;
 - quais seções do Streamlit passam a estar alimentadas;
 - principais emissões/spreads/calendários encontrados;
 - principais critérios monitoráveis e não monitoráveis;
 - lacunas relevantes;
 - arquivos alterados;
 - validações executadas.
+
+Quando commit/push/publicação estiverem autorizados na conversa, publique apenas os arquivos pertinentes e confirme separadamente o commit, o push no GitHub e o funcionamento do download em uma sessão nova do site. Preserve mudanças alheias e os pacotes de outras carteiras.
 
 Se algum CNPJ da carteira não puder ser processado, não substitua por outro. Informe:
 
