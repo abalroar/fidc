@@ -178,6 +178,31 @@ def test_sacado_display_curation_preserves_raw_text_and_rejects_chart_legend() -
     )
 
 
+def test_sacado_catalog_preserves_departed_fund_but_requires_current_raw_evidence() -> None:
+    curation = pd.DataFrame([
+        {"cnpj": "00000000000191", "sacado_exibicao": "Grupo documentado", "decisao": "MANTER_LITERAL", "racional": "Fonte literal"},
+        {"cnpj": "00000000000272", "sacado_exibicao": "Grupo anterior", "decisao": "MANTER_LITERAL", "racional": "Fundo saiu do ranking"},
+    ])
+    audit = pd.DataFrame([
+        {"bloco": "slides 10–17", "cnpj": "00000000000191", "sacado": "Grupo documentado"},
+    ])
+    result = apply_sacado_display_curation(audit, curation)
+    assert result.iloc[0]["sacado_exibicao"] == "Grupo documentado"
+    assert len(curation) == 2
+
+    current_without_text = pd.concat([
+        audit,
+        pd.DataFrame([{"bloco": "slides 10–17", "cnpj": "00000000000272", "sacado": "N/D"}]),
+    ], ignore_index=True)
+    with pytest.raises(ValueError, match="curadoria de sacado sem texto integral"):
+        apply_sacado_display_curation(current_without_text, curation)
+
+    missing_summary = audit.copy()
+    missing_summary["cnpj"] = "00000000000353"
+    with pytest.raises(ValueError, match="sacados preenchidos sem resumo"):
+        apply_sacado_display_curation(missing_summary, curation)
+
+
 def test_exact_cnpj14_join_keeps_legal_cedent_separate_from_originator() -> None:
     target = "12345678000190"
     sibling = "12345678000270"
@@ -690,8 +715,14 @@ def test_remuneration_allows_a_documentary_gap_on_one_page_but_not_globally() ->
     ]
 
 
-def test_originator_waiver_is_limited_to_outros_and_keeps_a_reason() -> None:
+@pytest.mark.parametrize("current_period", ["2026-06", "2026-08"])
+def test_originator_waiver_is_limited_to_verified_outros_cohorts_and_keeps_a_reason(
+    current_period: str,
+) -> None:
     before, after, ranking = _eight_page_frames()
+    for frame in (before, after):
+        frame["tabela"] = frame["tabela"].str.replace("2026-06", current_period, regex=False)
+    ranking["competencia"] = ranking["competencia"].replace("2026-06", current_period)
     after.loc[after["tabela"].str.startswith("Outros ·"), "originador"] = "N/D"
     coverage = build_emission_field_coverage(before, after, ranking)
 
@@ -700,13 +731,61 @@ def test_originator_waiver_is_limited_to_outros_and_keeps_a_reason() -> None:
         & coverage["campo"].eq("originador")
     ]
     assert outros_originator["depois_com_dado"].eq(0).all()
+    assert set(outros_originator["competencia"]) == {"2025-12", current_period}
     assert outros_originator["excecao_publicacao"].str.startswith(
         "documentos identificados"
     ).all()
     assert validate_emission_field_coverage(coverage.to_dict(orient="records")) == []
 
-    failed_table = "Fomento Mercantil · 2026-06"
+    failed_table = "Fomento Mercantil · 2025-12"
     after.loc[after["tabela"].eq(failed_table), "originador"] = "N/D"
     failed = build_emission_field_coverage(before, after, ranking)
     violations = validate_emission_field_coverage(failed.to_dict(orient="records"))
     assert any(failed_table in item and "originador: 0/15" in item for item in violations)
+
+
+@pytest.mark.parametrize("unverified_period", ["2026-05", "2026-07", "2026-09", "2027-01"])
+def test_outros_originator_waiver_cannot_be_carried_to_an_unverified_cohort(
+    unverified_period: str,
+) -> None:
+    before, after, ranking = _eight_page_frames()
+    after.loc[after["tabela"].str.startswith("Outros ·"), "originador"] = "N/D"
+    coverage = build_emission_field_coverage(before, after, ranking)
+    mask = coverage["tabela"].eq("Outros · 2026-06")
+    coverage.loc[mask, "tabela"] = f"Outros · {unverified_period}"
+    coverage.loc[mask, "competencia"] = unverified_period
+    # Keep the authentic gap reason and the old zero floor to exercise the
+    # validator against a carried-forward exception, not an arbitrary string.
+    violations = validate_emission_field_coverage(coverage.to_dict(orient="records"))
+    assert violations == [
+        f"Outros · {unverified_period} · originador: 0/15 (0.0%) abaixo do piso 1.0%"
+    ]
+
+
+def test_originator_gap_after_brf_leaves_fomento_ranking_is_explicit_and_month_limited() -> None:
+    before, after, ranking = _eight_page_frames()
+    for frame in (before, after):
+        frame["tabela"] = frame["tabela"].str.replace("2026-06", "2026-08", regex=False)
+    ranking["competencia"] = ranking["competencia"].replace("2026-06", "2026-08")
+    table = "Fomento Mercantil · 2026-08"
+    after.loc[after["tabela"].eq(table), "originador"] = "N/D"
+    coverage = build_emission_field_coverage(before, after, ranking)
+    row = coverage[coverage["tabela"].eq(table) & coverage["campo"].eq("originador")].iloc[0]
+    assert row["depois_com_dado"] == 0
+    assert row["nd_depois"] == 15
+    assert row["depois_cobertura_pct"] == 0.0
+    assert row["piso_publicacao_pct"] == 0.0
+    assert "52720932000102" in row["excecao_publicacao"]
+    assert "1140169" in row["excecao_publicacao"]
+    assert after.loc[after["tabela"].eq(table), "originador"].eq("N/D").all()
+    assert validate_emission_field_coverage(coverage.to_dict(orient="records")) == []
+
+    for key, replacement in (("tabela", "Fomento Mercantil · 2026-09"),
+                             ("tabela", "Financeiro · 2026-08"),
+                             ("campo", "sacado"),
+                             ("excecao_publicacao", "exceção arbitrária")):
+        forged = coverage.copy()
+        mask = forged["tabela"].eq(table) & forged["campo"].eq("originador")
+        forged.loc[mask, key] = replacement
+        violations = validate_emission_field_coverage(forged.to_dict(orient="records"))
+        assert any("0/15" in violation for violation in violations), (key, replacement, violations)

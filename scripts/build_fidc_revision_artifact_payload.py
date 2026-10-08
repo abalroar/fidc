@@ -26,6 +26,8 @@ if __package__ in {None, ""}:
 from services.fund_name_display import short_fund_name
 from services.industry_intelligence import canonical_provider
 from services.industry_closed_offers import build_closed_offers_payload
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import offer_periods
 from services.industry_closed_offer_placement_regime import (
     load_materialized_closed_offer_placement_regime,
 )
@@ -82,6 +84,7 @@ from services.industry_taxonomy_review import (
     build_historical_top20_taxonomy_review,
     build_taxonomy_review_queue,
     build_top20_by_anbima_type,
+    load_cvm_fund_registration_evidence,
     load_taxonomy_review_actions,
     taxonomy_review_audit_digest,
     taxonomy_review_ledger_digest,
@@ -107,6 +110,17 @@ TOP100_PLUS2_ADDITIONAL_CNPJS = (
     "44302112000172",  # Citi-Bayer Farmtech
     "61669748000176",  # Lavoro Farmtech
 )
+
+
+def _annual_growth_periods(latest_year: int) -> tuple[tuple[int, int, str, str], ...]:
+    historical = ANNUAL_GROWTH_PERIODS[:2]
+    yearly = tuple(
+        (year - 1, year,
+         f"{year} YTD" if year == latest_year else f"{year}/{str(year - 1)[-2:]}",
+         "ytd" if year == latest_year else "yoy")
+        for year in range(2022, latest_year + 1)
+    )
+    return historical + yearly
 
 def _digits(value: object) -> str:
     if value is None or (isinstance(value, float) and pd.isna(value)):
@@ -184,7 +198,7 @@ def _fold_text(value: object) -> str:
 
 
 def _offer_target_public_shares(offer_cohort: pd.DataFrame) -> pd.DataFrame:
-    periods = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"]
+    periods = list(dict.fromkeys(offer_cohort["period_label"].astype(str)))
     categories = ["Profissional", "Qualificado", "Público Geral", "N/D"]
     source_url = "https://dados.cvm.gov.br/dados/OFERTA/DISTRIB/DADOS/oferta_distribuicao.zip"
     rows: list[dict[str, Any]] = []
@@ -201,6 +215,9 @@ def _offer_target_public_shares(offer_cohort: pd.DataFrame) -> pd.DataFrame:
             rows.append(
                 {
                     "period_label": period,
+                    "period_start": str(frame["period_start"].iloc[0]),
+                    "period_end": str(frame["period_end"].iloc[0]),
+                    "is_full_year": bool(frame["is_full_year"].iloc[0]) if "is_full_year" in frame else str(frame["period_end"].iloc[0]).endswith("12-31"),
                     "target_public": category,
                     "offers": int(mask.sum()),
                     "registered_volume_brl": volume,
@@ -208,7 +225,11 @@ def _offer_target_public_shares(offer_cohort: pd.DataFrame) -> pd.DataFrame:
                     "period_registered_volume_brl": total,
                     "source": "CVM, Ofertas Públicas de Distribuição, campo Público_alvo",
                     "source_url": source_url,
-                    "source_as_of_date": "2026-07-24",
+                    "source_as_of_date": (
+                        str(frame["source_as_of_date"].dropna().iloc[0])
+                        if "source_as_of_date" in frame and frame["source_as_of_date"].notna().any()
+                        else "N/D"
+                    ),
                     "limitation": (
                         "Público-alvo é elegibilidade regulatória da oferta e não mede a alocação efetiva por pessoa física, "
                         "instituição ou gestora. Profissional e Qualificado incluem pessoas naturais e jurídicas previstas "
@@ -245,7 +266,7 @@ def _reclassification_exports(
     anbima["fonte"] = anbima["classification_source"].fillna(
         "ANBIMA Data — Fundos 175"
     )
-    anbima["data_referencia"] = "ANBIMA dez/25 aplicada à fotografia CVM jun/26"
+    anbima["data_referencia"] = f"ANBIMA dez/25 aplicada à fotografia CVM {latest}"
     anbima["limitacao"] = anbima["classification_warning"].fillna(
         "Classificação cadastral ANBIMA de dez/25; validar fundos novos e alterações posteriores."
     )
@@ -292,10 +313,13 @@ def _card_taxonomy_audit(
     acquiring_curation: pd.DataFrame,
     *,
     latest: str,
-    pl_reference: str = "2025-06",
+    pl_reference: str | None = None,
     card_curation: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, dict[str, Any]]:
     """List and reconcile every current fund with a Table-II card exposure."""
+
+    current_cut = ComparisonCut.from_competence(latest)
+    pl_reference = pl_reference or f"{current_cut.year - 1:04d}-{current_cut.month:02d}"
 
     current_vehicle = vehicle[vehicle["competencia"].astype(str).eq(latest)].copy()
     current_vehicle["cnpj_fundo"] = current_vehicle.get(
@@ -340,8 +364,8 @@ def _card_taxonomy_audit(
 
     prior = funds[funds["competencia"].astype(str).eq(pl_reference)].copy()
     prior["cnpj_fundo"] = prior["cnpj_fundo"].map(_digits)
-    prior["pl_jun25_brl"] = pd.to_numeric(prior["pl"], errors="coerce")
-    prior = prior.groupby("cnpj_fundo", as_index=False)["pl_jun25_brl"].sum(
+    prior["pl_comparavel_anterior_brl"] = pd.to_numeric(prior["pl"], errors="coerce")
+    prior = prior.groupby("cnpj_fundo", as_index=False)["pl_comparavel_anterior_brl"].sum(
         min_count=1
     )
     selected = selected.merge(prior, on="cnpj_fundo", how="left", validate="one_to_one")
@@ -431,7 +455,7 @@ def _card_taxonomy_audit(
     selected["categoria_tabela_ii"] = selected["segmento_principal"].replace(
         {"Cartao de credito": "Cartão de crédito", "Servicos": "Serviços"}
     )
-    selected["pl_jun25_observavel"] = selected["pl_jun25_brl"].notna()
+    selected["pl_comparavel_anterior_observavel"] = selected["pl_comparavel_anterior_brl"].notna()
     selected["ja_curado_como_adquirencia"] = selected["cnpj_fundo"].isin(curated)
 
     detailed = card_curation.copy() if card_curation is not None else pd.DataFrame()
@@ -505,6 +529,20 @@ def _card_taxonomy_audit(
                 else default
             )
 
+    pending_monthly_signal = (
+        selected["status_curadoria"].eq("Pendente")
+        & (selected["cartao_segmento_principal"] | selected["cartao_exposicao_positiva"])
+        & selected["fonte_url"].astype(str).str.strip().isin({"", "N/D"})
+    )
+    selected.loc[pending_monthly_signal, "fonte_url"] = (
+        "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/"
+        f"inf_mensal_fidc_{latest.replace('-', '')}.zip"
+    )
+    selected.loc[pending_monthly_signal, "fonte_documento"] = (
+        "CVM — Informe Mensal, Tabela II; curadoria documental pendente"
+    )
+    selected.loc[pending_monthly_signal, "fonte_data"] = latest
+
     selected["consistencia_decisao_reclassificacao"] = np.where(
         selected["ja_curado_como_adquirencia"].eq(
             selected["status_curadoria"].eq("Incluído em Adquirência")
@@ -524,8 +562,8 @@ def _card_taxonomy_audit(
         "criterio_inclusao",
         "categoria_tabela_ii",
         "valor_cartao_tabela_ii_brl",
-        "pl_jun25_brl",
-        "pl_jun25_observavel",
+        "pl_comparavel_anterior_brl",
+        "pl_comparavel_anterior_observavel",
         "pl_competencia_atual_brl",
         "pl_competencia_anterior_brl",
         "pl_referencia_brl",
@@ -584,9 +622,9 @@ def _card_taxonomy_audit(
             output["criterio_inclusao"].str.startswith("Exposição").sum()
         ),
         "fundos_total": int(len(output)),
-        "fundos_pl_observavel": int(output["pl_jun25_observavel"].sum()),
-        "pl_jun25_observado_brl": float(output["pl_jun25_brl"].sum(min_count=1)),
-        "valor_cartao_tabela_ii_jun26_brl": float(
+        "fundos_pl_observavel": int(output["pl_comparavel_anterior_observavel"].sum()),
+        "pl_comparavel_anterior_observado_brl": float(output["pl_comparavel_anterior_brl"].sum(min_count=1)),
+        "valor_cartao_tabela_ii_atual_brl": float(
             output["valor_cartao_tabela_ii_brl"].sum()
         ),
         "fundos_anbima_cartao_explicito": int(
@@ -884,8 +922,9 @@ def _load_emission_field_audit(
     top_audit = audit[audit["bloco"].eq("slides 10–17")]
     if top_audit.duplicated(["tabela", "cnpj"]).any():
         raise ValueError("auditoria dos slides 10–17 contém chave tabela/CNPJ duplicada")
+    comparison_cut = ComparisonCut.from_competence(latest)
     ranked = top20_taxonomy_review[
-        top20_taxonomy_review["competencia"].astype(str).isin((latest, "2025-12"))
+        top20_taxonomy_review["competencia"].astype(str).isin((latest, f"{comparison_cut.year - 1}-12"))
         & pd.to_numeric(top20_taxonomy_review["rank_tipo"], errors="coerce").le(15)
     ].copy()
     expected_top_keys = {
@@ -899,7 +938,7 @@ def _load_emission_field_audit(
     offer_audit = audit[audit["bloco"].eq("slides 21–22")]
     if offer_audit.duplicated(["tabela", "emissao_id"]).any():
         raise ValueError("auditoria dos slides 21–22 contém emissão duplicada")
-    period_labels = {"2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"}
+    period_labels = {str(row["period_label"]) for row in offer_periods(comparison_cut)}
     offers = closed_offer_top15[
         closed_offer_top15["period_label"].astype(str).isin(period_labels)
         & pd.to_numeric(closed_offer_top15["rank"], errors="coerce").le(15)
@@ -1664,8 +1703,9 @@ def _offer_ticket_concentration_2026(
     cohort: pd.DataFrame,
     *,
     threshold_brl: float = EXECUTIVE_OFFER_CONCENTRATION_THRESHOLD_BRL,
+    period_end: str | None = None,
 ) -> dict[str, Any]:
-    """Measure the explicit R$500m+ tail in the Jan-Jun 2026 offer cohort."""
+    """Measure the explicit R$500m+ tail in the current comparable offer cohort."""
 
     required = {
         "period_label",
@@ -1682,18 +1722,19 @@ def _offer_ticket_concentration_2026(
     if threshold_brl <= 0:
         raise ValueError("limiar de concentração de ofertas deve ser positivo")
 
-    scoped = cohort[cohort["period_end"].astype(str).eq("2026-06-30")].copy()
+    selected_end = period_end or str(cohort["period_end"].dropna().max())
+    scoped = cohort[cohort["period_end"].astype(str).eq(selected_end)].copy()
     if scoped.empty:
-        raise ValueError("coorte de ofertas jan-jun/26 ausente")
+        raise ValueError(f"coorte de ofertas até {selected_end} ausente")
     scoped["registered_volume_brl"] = pd.to_numeric(
         scoped["registered_volume_brl"], errors="coerce"
     )
     if scoped["registered_volume_brl"].isna().any() or scoped[
         "registered_volume_brl"
     ].le(0).any():
-        raise ValueError("coorte jan-jun/26 contém ticket ausente ou não positivo")
+        raise ValueError("coorte atual contém ticket ausente ou não positivo")
     if scoped["numero_requerimento"].astype(str).duplicated().any():
-        raise ValueError("coorte jan-jun/26 contém Numero_Requerimento duplicado")
+        raise ValueError("coorte atual contém Numero_Requerimento duplicado")
 
     large = scoped[scoped["registered_volume_brl"].ge(threshold_brl)].copy()
     universe_offers = int(scoped["numero_requerimento"].nunique())
@@ -1712,7 +1753,7 @@ def _offer_ticket_concentration_2026(
         values = scoped[column].dropna().unique().tolist()
         if len(values) > 1:
             raise ValueError(
-                f"metadado {column} divergente na coorte de ofertas jan-jun/26"
+                f"metadado {column} divergente na coorte atual de ofertas"
             )
         return _json_value(values[0]) if values else None
 
@@ -1768,295 +1809,90 @@ def _executive_conclusions(
     provider_historical_ranking: pd.DataFrame,
     qi_legacy_attribution: pd.DataFrame,
     reag_admin_summary: pd.DataFrame,
+    stock_snapshot: dict[str, Any] | None = None,
+    receivables_snapshot: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[str]]:
-    """Build concise audience-facing conclusions from published raw metrics."""
+    """Share five short conclusions across the site, deck and workbook.
 
+    Rounding belongs to this editorial layer. The audited metrics keep their
+    full precision and their own denominator in the payload.
+    """
     latest_period = pd.Period(latest, freq="M")
-    month_labels = (
-        "jan",
-        "fev",
-        "mar",
-        "abr",
-        "mai",
-        "jun",
-        "jul",
-        "ago",
-        "set",
-        "out",
-        "nov",
-        "dez",
-    )
-    latest_label = (
-        f"{month_labels[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
-    )
-    current_offer = next(
-        (row for row in closed_annual if int(row.get("year", 0)) == 2026), {}
-    )
-    comparable = {
-        int(row.get("year", 0)): row
-        for row in closed_jan_june
-        if row.get("year") is not None
-    }
-    offer_2024 = comparable.get(2024, {})
-    offer_2025 = comparable.get(2025, {})
-    offer_2026 = comparable.get(2026, current_offer)
+    month_labels = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
+    latest_label = f"{month_labels[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
 
-    def ratio(numerator: object, denominator: object) -> float | None:
-        top = pd.to_numeric(numerator, errors="coerce")
-        bottom = pd.to_numeric(denominator, errors="coerce")
-        if pd.isna(top) or pd.isna(bottom) or float(bottom) == 0:
-            return None
-        return float(top) / float(bottom)
+    def rounded_share(value: object) -> str:
+        parsed = pd.to_numeric(value, errors="coerce")
+        if pd.isna(parsed) or not 0 <= float(parsed) <= 1:
+            return "N/D"
+        return f"cerca de {_pt_number(round(float(parsed) * 100 / 5) * 5, 0)}%"
 
-    def provider_row(role: str, participant: str) -> dict[str, Any]:
-        if provider_historical_ranking.empty:
-            return {}
-        scoped = provider_historical_ranking[
-            provider_historical_ranking["competencia"].astype(str).eq(latest)
-            & provider_historical_ranking["papel"].astype(str).eq(role)
-            & provider_historical_ranking["participante"].map(_fold_text).eq(
-                _fold_text(participant)
-            )
-        ]
-        return (
-            {str(key): _json_value(value) for key, value in scoped.iloc[0].items()}
-            if not scoped.empty
-            else {}
+    stock = stock_snapshot or {}
+    pl_ex_fic = pd.to_numeric(stock.get("pl_ex_fic"), errors="coerce")
+    if pd.isna(pl_ex_fic) or float(pl_ex_fic) < 0:
+        scale_text = f"PL ex-FIC indisponível em {latest_label}."
+    else:
+        pl_rounded = round(float(pl_ex_fic) / 1e10) * 10
+        scale_text = f"O PL ex-FIC está em cerca de R$ {_pt_number(pl_rounded, 0)} bi em {latest_label}."
+
+    financial = next(
+        (row for row in (receivables_snapshot or []) if _fold_text(row.get("segmento")) == _fold_text("Financeiro")),
+        {},
+    )
+    financial_share = rounded_share(financial.get("share_reported"))
+    financial_text = (
+        f"Financeiro responde por {financial_share} da composição reportada na Tabela II em {latest_label}."
+        if financial_share != "N/D"
+        else f"Participação de Financeiro indisponível na Tabela II de {latest_label}."
+    )
+    account_share_value = pd.to_numeric(
+        conclusion_metrics.get("holder_ge_200m_share_fundos_ate_10_contas"),
+        errors="coerce",
+    )
+    account_share = rounded_share(account_share_value)
+    accounts_text = (
+        f"Entre os fundos com PL a partir de R$ 200 mi, {account_share} têm até dez contas em {latest_label}."
+        if account_share != "N/D"
+        else f"Cobertura de contas dos fundos maiores indisponível em {latest_label}."
+    )
+    if pd.notna(account_share_value) and 0.5 < float(account_share_value) < 0.6:
+        accounts_text = (
+            f"Mais da metade dos fundos de maior porte reporta até dez contas em {latest_label}."
         )
-
-    concentration = {
-        str(row.get("papel")): row
-        for row in provider_concentration_history
-        if str(row.get("competencia")) == latest
-    }
-    btg_manager = provider_row("gestor", "BTG Pactual")
-    ot_manager = provider_row("gestor", "Oliveira Trust")
-
-    qi_legacy = {}
-    if not qi_legacy_attribution.empty and "attribution" in qi_legacy_attribution:
-        scoped = qi_legacy_attribution[
-            qi_legacy_attribution["attribution"].astype(str).eq("legacy_singulare")
-        ]
-        qi_legacy = _single_record(scoped)
-    reag = _single_record(reag_admin_summary)
-    mean_ticket = current_offer.get("mean_registered_ticket_brl")
-    median_ticket = current_offer.get("median_registered_ticket_brl")
-    median_to_mean = ratio(median_ticket, mean_ticket)
-    pf_share = current_offer.get("natural_person_placed_volume_share")
-    current_volume = offer_2026.get("registered_volume_brl")
-    prior_volume = offer_2025.get("registered_volume_brl")
-    volume_2024 = offer_2024.get("registered_volume_brl")
-    growth_2025 = (
-        ratio(current_volume, prior_volume) - 1
-        if ratio(current_volume, prior_volume) is not None
-        else None
+    operational_share = rounded_share(conclusion_metrics.get("admin_custodia_juntas_share_pl"))
+    operational_text = (
+        f"Administração e custódia pertencem ao mesmo grupo em {operational_share} do PL ex-FIC em {latest_label}."
+        if operational_share != "N/D"
+        else f"Coincidência de administração e custódia indisponível em {latest_label}."
     )
-    growth_2024 = (
-        ratio(current_volume, volume_2024) - 1
-        if ratio(current_volume, volume_2024) is not None
-        else None
+    offer_share = rounded_share(offer_concentration.get("large_offer_registered_volume_share"))
+    offer_period = str(offer_concentration.get("period_label") or "N/D")
+    period_date = offer_concentration.get("period_end")
+    if period_date:
+        offer_period = ComparisonCut.from_competence(str(period_date)[:7]).period_label()
+    else:
+        period_match = re.fullmatch(r"(\d{4}) jan-([a-z]{3})", offer_period)
+        if period_match and period_match.group(2) in month_labels:
+            offer_period = ComparisonCut(int(period_match.group(1)), month_labels.index(period_match.group(2)) + 1).period_label()
+    offers_text = (
+        f"As grandes ofertas concentram {offer_share} do volume registrado das ofertas encerradas em {offer_period}."
+        if offer_share != "N/D"
+        else f"Concentração de ofertas indisponível em {offer_period}."
     )
-    largest_offer_name = _display_fund_name(
-        offer_concentration.get("largest_offer_issuer_name")
-    )
-    largest_offer_volume = offer_concentration.get(
-        "largest_offer_registered_volume_brl"
-    )
-    largest_offer_share = offer_concentration.get(
-        "largest_offer_registered_volume_share"
-    )
-    incremental_volume = (
-        float(current_volume) - float(prior_volume)
-        if pd.notna(pd.to_numeric(current_volume, errors="coerce"))
-        and pd.notna(pd.to_numeric(prior_volume, errors="coerce"))
-        else None
-    )
-    largest_offer_share_increment = ratio(largest_offer_volume, incremental_volume)
-    growth_ex_largest_offer = (
-        ratio(float(current_volume) - float(largest_offer_volume), prior_volume) - 1
-        if pd.notna(pd.to_numeric(current_volume, errors="coerce"))
-        and pd.notna(pd.to_numeric(largest_offer_volume, errors="coerce"))
-        and ratio(float(current_volume) - float(largest_offer_volume), prior_volume)
-        is not None
-        else None
-    )
-
-    cielo_share_migrated = ratio(
-        conclusion_metrics.get("admin_transition_2024_2025_cielo_pl_brl"),
-        conclusion_metrics.get("admin_transition_2024_2025_changed_pl_brl"),
-    )
-    admin_top10 = concentration.get("administrador", {}).get("top10_share")
-    manager_top10 = concentration.get("gestor", {}).get("top10_share")
-    custody_top10 = concentration.get("custodiante", {}).get("top10_share")
-    btg_cohort_combo_share_total = ratio(
-        conclusion_metrics.get("btg_bank_cohort_combo_pl_brl"),
-        conclusion_metrics.get("btg_combo_tres_funcoes_pl_brl"),
-    )
-
     conclusions = [
-        {
-            "order": 1,
-            "title": "Distribuição após a RCVM 175 segue institucional e concentrada",
-            "bullets": [
-                (
-                    f"A mediana foi de {_pt_brl_mi(median_ticket)}, apenas "
-                    f"{_pt_pct(median_to_mean, 0)} do ticket médio de "
-                    f"{_pt_brl_mi(mean_ticket)}; "
-                    f"{_pt_integer(offer_concentration.get('large_offer_closed_offers'))} "
-                    "ofertas de R$ 500 mi ou mais — "
-                    f"{_pt_pct(offer_concentration.get('large_offer_share'))} do total — "
-                    f"concentraram {_pt_pct(offer_concentration.get('large_offer_registered_volume_share'))} do volume."
-                ),
-                (
-                    f"Pessoas físicas responderam por apenas {_pt_pct(pf_share)} do volume "
-                    "colocado estimado; entre os fundos com PL ≥ R$ 200 mi, "
-                    f"{_pt_pct(conclusion_metrics.get('holder_ge_200m_share_fundos_ate_10_contas'))} "
-                    "têm até dez contas."
-                ),
-            ],
-        },
-        {
-            "order": 2,
-            "title": "Verticalização define o modelo operacional da indústria",
-            "bullets": [
-                (
-                    "Administração e custódia estão no mesmo conglomerado em "
-                    f"{_pt_pct(conclusion_metrics.get('admin_custodia_juntas_share_pl'))} do PL: "
-                    "nove em cada dez reais da indústria."
-                ),
-                (
-                    "Monoestruturas, com as três funções no mesmo grupo, já concentram "
-                    f"{_pt_pct(conclusion_metrics.get('monoestrutura_share_pl'))} do PL."
-                ),
-            ],
-        },
-        {
-            "order": 3,
-            "title": "Escala independente está concentrada em poucas plataformas",
-            "bullets": [
-                (
-                    "QI Tech lidera administração e está em empate técnico com o BTG em "
-                    "custódia; "
-                    f"{_pt_pct(qi_legacy.get('share_admin_group'), 0)} de sua base administrativa "
-                    "em dez/24 veio do legado Singulare."
-                ),
-                (
-                    "Oliveira Trust é a terceira maior gestora, com "
-                    f"{_pt_brl_bi(ot_manager.get('pl_brl'))}; na coorte CBSF/Reag, "
-                    f"{_pt_pct(reag.get('migrated_share_current'))} do PL continuante já havia "
-                    f"migrado de administrador até {latest_label}."
-                ),
-            ],
-        },
-        {
-            "order": 4,
-            "title": "Movimentação de administradores foi baixa e concentrada",
-            "bullets": [
-                (
-                    f"Apenas {_pt_pct(conclusion_metrics.get('admin_transition_2024_2025_changed_share_pl'))} "
-                    "do PL comparável trocou de administrador entre dez/24 e dez/25: "
-                    f"{_pt_brl_bi(conclusion_metrics.get('admin_transition_2024_2025_changed_pl_brl'))} "
-                    f"em {_pt_integer(conclusion_metrics.get('admin_transition_2024_2025_changed_funds'))} fundos."
-                ),
-                (
-                    "Os dois FIDCs Cielo responderam sozinhos por "
-                    f"{_pt_pct(cielo_share_migrated, 0)} do volume migrado, com "
-                    f"{_pt_brl_bi(conclusion_metrics.get('admin_transition_2024_2025_cielo_pl_brl'))} "
-                    "transferidos de Oliveira Trust para Bradesco."
-                ),
-            ],
-        },
-        {
-            "order": 5,
-            "title": "Gestão é a função mais pulverizada",
-            "bullets": [
-                (
-                    "As dez maiores gestoras reúnem apenas "
-                    f"{_pt_pct(manager_top10)} do PL ex-FIC; a líder, BTG, tem "
-                    f"{_pt_pct(btg_manager.get('share_pl'))}."
-                ),
-                (
-                    "Administração e custódia têm, respectivamente, "
-                    f"{_pt_pct(admin_top10)} e {_pt_pct(custody_top10)} do PL nos dez "
-                    "maiores grupos, praticamente o dobro da concentração em gestão."
-                ),
-            ],
-        },
-        {
-            "order": 6,
-            "title": "Coorte bancária explica dois terços do combo completo do BTG",
-            "bullets": [
-                (
-                    f"Dos {_pt_integer(conclusion_metrics.get('btg_bank_cohort_observed_funds'))} "
-                    "FIDCs observados na coorte BTG, "
-                    f"{_pt_integer(conclusion_metrics.get('btg_bank_cohort_combo_funds'))} "
-                    "concentram as três funções no grupo e representam "
-                    f"{_pt_pct(conclusion_metrics.get('btg_bank_cohort_combo_share_pl'), 0)} "
-                    f"do PL da coorte — {_pt_brl_bi(conclusion_metrics.get('btg_bank_cohort_combo_pl_brl'))}."
-                ),
-                (
-                    f"Os {_pt_brl_bi(conclusion_metrics.get('btg_bank_cohort_combo_pl_brl'))} "
-                    "da coorte equivalem a "
-                    f"{_pt_pct(btg_cohort_combo_share_total, 1)} dos "
-                    f"{_pt_brl_bi(conclusion_metrics.get('btg_combo_tres_funcoes_pl_brl'))} "
-                    "de PL ex-FIC atendidos pelo BTG nas três funções."
-                ),
-            ],
-        },
-        {
-            "order": 7,
-            "title": "Emissões aceleraram; a maior oferta explica dois terços do avanço",
-            "bullets": [
-                (
-                    f"As {_pt_integer(offer_2026.get('closed_offers'))} ofertas encerradas "
-                    f"em jan–jun/26 somaram {_pt_brl_bi(current_volume)}, avanço de "
-                    f"{_pt_pct(growth_2025, 0)} sobre jan–jun/25 e "
-                    f"{_pt_pct(growth_2024, 0)} sobre jan–jun/24."
-                ),
-                (
-                    f"A oferta {largest_offer_name}, de {_pt_brl_bi(largest_offer_volume)}, "
-                    f"representou {_pt_pct(largest_offer_share)} do volume e "
-                    f"{_pt_pct(largest_offer_share_increment)} do crescimento sobre jan–jun/25; "
-                    "na sensibilidade sem essa oferta, o mercado teria avançado "
-                    f"{_pt_pct(growth_ex_largest_offer)}."
-                ),
-            ],
-        },
+        {"order": 1, "title": "Escala da indústria", "bullets": [scale_text]},
+        {"order": 2, "title": "Composição dos recebíveis", "bullets": [financial_text]},
+        {"order": 3, "title": "Base de cotistas concentrada", "bullets": [accounts_text]},
+        {"order": 4, "title": "Administração e custódia no mesmo grupo", "bullets": [operational_text]},
+        {"order": 5, "title": "Concentração nas ofertas", "bullets": [offers_text]},
     ]
-
     notes = [
-        (
-            "PF: proxy de volume colocado com "
-            f"{_pt_pct(current_offer.get('placed_quantity_registered_volume_coverage'))} "
-            "de cobertura do valor registrado."
-        ),
-        (
-            "Contas: quantidade reportada por fundo/classe e agregada ao CNPJ legal; "
-            "não equivale a investidores únicos."
-        ),
-        (
-            "Verticalização: universo bruto de CNPJs legais em "
-            f"{latest_label}, incluindo FIC-FIDC; grupos econômicos normalizados."
-        ),
-        (
-            "Concentração por função: PL ex-FIC; FIDC Sistema Petrobras e TAPSO "
-            "excluídos dos três denominadores."
-        ),
-        (
-            "QI Tech: posição corrente consolidada por grupo; legado Singulare medido "
-            "pelos CNPJs legais na fotografia de dez/24."
-        ),
-        (
-            f"BTG: {_pt_integer(conclusion_metrics.get('btg_bank_cohort_listed_roots'))} "
-            "raízes listadas em FIDCs.xlsx e "
-            f"{_pt_integer(conclusion_metrics.get('btg_bank_cohort_observed_funds'))} "
-            f"observadas em {latest_label}; ausência não equivale a PL zero."
-        ),
-        (
-            "Ofertas: cotas primárias de FIDC com status CVM 'Oferta Encerrada', "
-            "Data_Encerramento até 30/06/2026 e Valor_Total_Registrado positivo; "
-            "uma oferta por Numero_Requerimento."
-        ),
+        f"Estoque: CVM, Informe Mensal FIDC de {latest_label}. Valores monetários arredondados a R$ 10 bi e percentuais a 5 pontos percentuais.",
+        "PL ex-FIC: exclui os fundos de cotas identificados na base. Valores exatos e critérios disponíveis no Excel.",
+        "Recebíveis: participação sobre a soma dos segmentos reportados na Tabela II. Essa soma pode divergir da carteira da Tabela I.",
+        "Contas: fundos de maior porte têm PL a partir de R$ 200 mi. Contas reportadas são agregadas ao CNPJ legal e admitem mais de uma conta por investidor.",
+        "Prestadores: PL ex-FIC elegível e grupos econômicos normalizados. Gestor e custodiante seguem a fotografia cadastral identificada nas fontes.",
+        f"Ofertas: recorte {offer_period}, cotas primárias encerradas, uma oferta por Numero_Requerimento. Grandes ofertas têm Valor_Total_Registrado a partir de R$ 500 mi.",
     ]
     return conclusions, notes
 
@@ -2096,7 +1932,7 @@ def _read_required_json(path: Path) -> dict[str, Any]:
 
 
 def _load_cedente_top500_emission_adapter(data_dir: Path) -> pd.DataFrame:
-    """Expose the jun/26 Top-500 legal cedents to the emission audit.
+    """Expose the latest consolidated Top-500 legal cedents to the emission audit.
 
     The emission enrichment service predates the multi-competence product and
     consumes a narrow normalized contract.  This adapter keeps that contract
@@ -2112,8 +1948,9 @@ def _load_cedente_top500_emission_adapter(data_dir: Path) -> pd.DataFrame:
     )
     if links.empty or gaps.empty:
         raise ValueError("triagem Top 500 multi-competência está vazia")
-    links = links.loc[links["Competência"].astype(str).eq("202606")].copy()
-    gaps = gaps.loc[gaps["Competência"].astype(str).eq("202606")].copy()
+    competence = ComparisonCut.from_data_dir(data_dir).competence.replace("-", "")
+    links = links.loc[links["Competência"].astype(str).eq(competence)].copy()
+    gaps = gaps.loc[gaps["Competência"].astype(str).eq(competence)].copy()
     real = ~links["Status do documento"].astype(str).isin(
         {"documento_ficticio", "documento_irregular", "ausente"}
     )
@@ -2146,7 +1983,7 @@ def _load_cedente_top500_emission_adapter(data_dir: Path) -> pd.DataFrame:
         raise ValueError("adaptador Top 500 contém CNPJ de fundo vazio")
     if output["cnpj_fundo"].nunique() != 500:
         raise ValueError(
-            "adaptador Top 500 de jun/26 não fecha 500 fundos: "
+            f"adaptador Top 500 de {competence} não fecha 500 fundos: "
             f"{output['cnpj_fundo'].nunique()}"
         )
     return output
@@ -2200,8 +2037,11 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
         cedente_dir / "fidc_cedentes_exclusoes_2023_2026.csv.gz",
         cnpj_columns=("cnpj_fundo",),
     )
+    cedente_repairs_path = cedente_dir / "fidc_cedentes_reparos_fonte_2023_2026.csv"
+    if not cedente_repairs_path.is_file():
+        raise FileNotFoundError(f"auditoria de reparos estruturais ausente: {cedente_repairs_path}")
     cedente_source_repairs = _read_optional(
-        cedente_dir / "fidc_cedentes_reparos_fonte_2023_2026.csv",
+        cedente_repairs_path,
         cnpj_columns=("documento_fundo",),
     )
     required_cedente_frames = (
@@ -2213,25 +2053,23 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
         ("cobertura Top 500", cedente_coverage),
         ("PL por segmento", cedente_segment_pl),
         ("cadastro mestre", cedente_cadastro),
-        ("reparos estruturais da fonte", cedente_source_repairs),
     )
     for label, frame in required_cedente_frames:
         if frame.empty:
             raise ValueError(f"triagem de cedentes · {label} está vazia")
-    if set(cedente_coverage["Competência"].astype(str)) != {
-        "202312",
-        "202412",
-        "202512",
-        "202606",
-    }:
-        raise ValueError("cobertura Top 500 não contém as quatro competências")
-    if not cedente_coverage["Fundos que identificam cedente"].astype(int).tolist() == [
-        181,
-        148,
-        205,
-        172,
-    ]:
-        raise ValueError("cobertura real de cedentes diverge dos checkpoints auditados")
+    if "competencia" not in cedente_source_repairs.columns:
+        raise ValueError("auditoria de reparos estruturais sem coluna de competência")
+    declared_competences = set(map(str, cedente_manifest.get("competences", [])))
+    current_competence = ComparisonCut.from_data_dir(data_dir).competence.replace("-", "")
+    if set(cedente_coverage["Competência"].astype(str)) != declared_competences or current_competence not in declared_competences:
+        raise ValueError("cobertura Top 500 diverge das competências do manifesto ou não cobre a atual")
+    for row in cedente_coverage.to_dict("records"):
+        competence = str(row["Competência"])
+        metrics = cedente_manifest.get("metrics", {}).get(competence, {})
+        real_count = int(row["Fundos que identificam cedente"])
+        gap_count = int(row["Fundos sem cedente"])
+        if real_count + gap_count != 500 or real_count != metrics.get("fundos_com_cedente_real") or gap_count != metrics.get("fundos_sem_cedente_real"):
+            raise ValueError(f"cobertura real de cedentes diverge do manifesto em {competence}")
     if int(cedente_manifest.get("cutoff_rank") or 0) != 500:
         raise ValueError("manifesto de cedentes não declara corte Top 500")
     repair_counts = {
@@ -2242,25 +2080,15 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
             .eq(competence)
             .sum()
         )
-        for competence in ("202312", "202412", "202512", "202606")
+        for competence in sorted(declared_competences)
     }
-    expected_repair_counts = {
-        "202312": 6,
-        "202412": 4,
-        "202512": 0,
-        "202606": 0,
-    }
-    if len(cedente_source_repairs) != 10 or repair_counts != expected_repair_counts:
-        raise ValueError(
-            "log de reparos da fonte deve conter 10 linhas: 6 em 202312 e 4 em 202412"
-        )
     manifest_repair_counts = {
         str(key): int(value or 0)
         for key, value in dict(
             cedente_manifest.get("source_repairs_summary") or {}
         ).items()
     }
-    if manifest_repair_counts != expected_repair_counts:
+    if manifest_repair_counts != repair_counts or sum(repair_counts.values()) != len(cedente_source_repairs):
         raise ValueError(
             "manifesto de cedentes não reconcilia os reparos estruturais da fonte"
         )
@@ -2277,16 +2105,10 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
         data_dir / "industry_taxonomy_outros_three_buckets_202606.csv",
         cnpj_columns=("cnpj_fundo",),
     )
-    taxonomy_impact = _read_optional(
-        data_dir / "industry_taxonomy_impact_summary_202606.csv"
-    )
-    taxonomy_issuance_impact = _read_optional(
-        data_dir / "industry_taxonomy_issuance_impact_202606.csv"
-    )
-    taxonomy_market_share_impact = _read_optional(
-        data_dir
-        / "industry_taxonomy_market_share_denominator_impact_202606.csv"
-    )
+    current_suffix = current_competence
+    taxonomy_impact = _read_optional(data_dir / f"industry_taxonomy_impact_summary_{current_suffix}.csv")
+    taxonomy_issuance_impact = _read_optional(data_dir / f"industry_taxonomy_issuance_impact_{current_suffix}.csv")
+    taxonomy_market_share_impact = _read_optional(data_dir / f"industry_taxonomy_market_share_denominator_impact_{current_suffix}.csv")
     expected_decisions = int(
         taxonomy_manifest.get("sheets", {}).get(
             "De-para reclassificação", 0
@@ -2421,6 +2243,7 @@ def _load_bundle_audit_supplements(data_dir: Path) -> dict[str, Any]:
             taxonomy_market_share_impact
         ),
         "taxonomy_audit_manifest": _json_value(taxonomy_manifest),
+        "taxonomy_impact_meta": {"current_competence": ComparisonCut.from_data_dir(data_dir).competence, "documentary_reference": reference_competence},
     }
 
 
@@ -2573,7 +2396,7 @@ def _pl_total_cagr_periods(annual_pl: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("série anual de PL sem colunas: " + ", ".join(missing))
     by_year = annual_pl.set_index("year", drop=False)
     rows: list[dict[str, Any]] = []
-    for start_year, end_year, period_label, growth_kind in ANNUAL_GROWTH_PERIODS:
+    for start_year, end_year, period_label, growth_kind in _annual_growth_periods(int(annual_pl["year"].max())):
         if start_year not in by_year.index or end_year not in by_year.index:
             raise ValueError(
                 f"série anual de PL não cobre CAGR {start_year}-{end_year}"
@@ -2619,7 +2442,7 @@ def _bcb_total_growth_periods(expanded_credit: pd.DataFrame) -> pd.DataFrame:
     scoped["year"] = scoped["competencia"].astype(str).str[:4].astype(int)
     by_year = scoped.set_index("year", drop=False)
     rows: list[dict[str, Any]] = []
-    for start_year, end_year, period_label, growth_kind in ANNUAL_GROWTH_PERIODS:
+    for start_year, end_year, period_label, growth_kind in _annual_growth_periods(int(scoped["year"].max())):
         if start_year not in by_year.index or end_year not in by_year.index:
             raise ValueError(
                 f"série BCB não cobre crescimento {start_year}-{end_year}"
@@ -2688,6 +2511,39 @@ def _investor_composition(
         )
     result["share"] = result["contas"] / result["contas"].sum()
     return result
+
+
+def _holder_vehicle_perimeter(
+    vehicle: pd.DataFrame,
+    funds: pd.DataFrame,
+    periods: list[str],
+) -> pd.DataFrame:
+    """Use the audited fund-month FIC perimeter for account distributions."""
+    output = vehicle[vehicle["competencia"].astype(str).isin(periods)].copy()
+    output["cnpj_fundo"] = output["cnpj_fundo"].map(_digits)
+    output["cnpj_fundo"] = output["cnpj_fundo"].where(
+        output["cnpj_fundo"].ne(""), output["cnpj"].map(_digits)
+    )
+    flags = funds[funds["competencia"].astype(str).isin(periods)].copy()
+    flags["cnpj_fundo"] = flags["cnpj_fundo"].map(_digits)
+    column = "is_fic" if "is_fic" in flags else "is_fic_fidc"
+    flags["holder_fic_audited"] = flags[column].astype(str).str.strip().str.casefold().map(
+        {"true": True, "1": True, "sim": True, "yes": True,
+         "false": False, "0": False, "não": False, "nao": False, "no": False}
+    )
+    keys = ["competencia", "cnpj_fundo"]
+    if flags.duplicated(keys).any() or flags["holder_fic_audited"].isna().any():
+        raise ValueError("perímetro FIC dos cotistas contém chave duplicada ou sinal ausente")
+    output = output.merge(
+        flags[keys + ["holder_fic_audited"]],
+        on=keys,
+        how="left",
+        validate="many_to_one",
+    )
+    if output["holder_fic_audited"].isna().any():
+        raise ValueError("veículo sem perímetro FIC auditado na distribuição de cotistas")
+    output["is_fic_fidc"] = output.pop("holder_fic_audited").astype(bool)
+    return output
 
 
 def _holder_distribution(vehicle: pd.DataFrame, latest: str) -> pd.DataFrame:
@@ -3606,7 +3462,7 @@ def _offers_ytd(offers: pd.DataFrame, *, as_of_date: str) -> pd.DataFrame:
     frame["year"] = frame["registration_date"].dt.year
     cutoff = pd.to_datetime(as_of_date, errors="coerce")
     if pd.isna(cutoff):
-        cutoff = pd.Timestamp(year=2026, month=7, day=15)
+        raise ValueError("Data de corte das ofertas não identificada")
     cutoff_month_day = (int(cutoff.month), int(cutoff.day))
     comparison_years = list(range(int(cutoff.year) - 2, int(cutoff.year) + 1))
     frame = frame[
@@ -3925,7 +3781,9 @@ def build_payload(
     revision_dir: Path,
     curation_path: Path,
     latest: str,
+    registration_archive: Path | None = None,
 ) -> dict[str, Any]:
+    comparison_cut = ComparisonCut.from_competence(latest)
     monthly = pd.read_csv(data_dir / "industry_monthly.csv", low_memory=False)
     fic_detection_audit = _read_optional(
         data_dir / "industry_fic_detection_audit.csv",
@@ -4180,8 +4038,8 @@ def build_payload(
     closed_offer_top15_summary = offer_rankings.summary.copy()
     closed_annual = closed_offers["annual"]["rows"]
     closed_monthly = closed_offers["monthly"]["rows"]
-    closed_jan_june = closed_offers["jan_june_2024_2026"]["rows"]
-    closed_originators = closed_offers["originators_2026_ytd"]["rows"]
+    closed_jan_june = closed_offers.get("ytd_comparable", closed_offers.get("jan_june_2024_2026", {}))["rows"]
+    closed_originators = closed_offers.get("originators_ytd", closed_offers.get("originators_2026_ytd", {}))["rows"]
     closed_source = closed_offers["annual"]["source"]
     card_taxonomy_audit, card_taxonomy_summary = _card_taxonomy_audit(
         vehicle,
@@ -4338,15 +4196,16 @@ def build_payload(
     ].copy()
 
     latest_month = monthly[monthly["competencia"].astype(str).eq(latest)].iloc[0]
-    offers_as_of = str(closed_source.get("latest_source_closing_date") or "2026-06-30")
-    offers_source_as_of = str(closed_source.get("as_of_date") or "2026-07-21")
+    offers_as_of = str(closed_source.get("latest_source_closing_date") or "N/D")
+    offers_source_as_of = str(closed_source.get("as_of_date") or "N/D")
     latest_period = pd.Period(latest, freq="M")
     latest_months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
     latest_label = f"{latest_months[latest_period.month - 1]}/{str(latest_period.year)[-2:]}"
     comparison_periods = [HISTORICAL_REFERENCE, latest]
-    type_mix_periods = ["2023-12", "2024-12", "2025-12", latest]
+    type_mix_periods = [f"{year}-12" for year in range(comparison_cut.year - 3, comparison_cut.year)] + [latest]
+    holder_vehicle = _holder_vehicle_perimeter(vehicle, funds, comparison_periods)
     holder_distribution_history, holder_distribution_meta_history = _holder_distribution_history(
-        vehicle, comparison_periods
+        holder_vehicle, comparison_periods
     )
     (
         type_mix_history,
@@ -4405,7 +4264,7 @@ def build_payload(
         segments, monthly, comparison_periods
     )
     provider_concentration_history = _provider_concentration_history(
-        funds, [PROVIDER_REFERENCE, latest]
+        funds, [f"{comparison_cut.year - 1}-12", latest]
     )
     type_mix = type_mix_history[type_mix_history["competencia"].eq(latest)].drop(
         columns="competencia"
@@ -4535,6 +4394,11 @@ def build_payload(
             document_inventory=document_inventory,
             card_curation=card_receivables_curation,
             document_review=taxonomy_document_review,
+            registration_evidence=(
+                load_cvm_fund_registration_evidence(registration_archive)
+                if registration_archive is not None and registration_archive.is_file()
+                else None
+            ),
         )
     )
     top20_taxonomy_review = build_historical_top20_taxonomy_review(
@@ -4654,14 +4518,15 @@ def build_payload(
         row for row in provider_concentration_history if row["competencia"] == latest
     ]
     conclusion_metrics = _conclusion_metrics(
-        vehicle,
+        holder_vehicle,
         funds,
         latest,
         mono=mono,
         bank_fidc_detail=bank_fidc_detail,
     )
     offer_ticket_concentration_2026 = _offer_ticket_concentration_2026(
-        offer_ticket_outputs.cohort
+        offer_ticket_outputs.cohort,
+        period_end=comparison_cut.period_end.isoformat(),
     )
     executive_conclusions, executive_conclusion_notes = _executive_conclusions(
         latest=latest,
@@ -4673,6 +4538,8 @@ def build_payload(
         provider_historical_ranking=provider_historical_ranking,
         qi_legacy_attribution=qi_legacy_attribution,
         reag_admin_summary=reag_admin_summary,
+        stock_snapshot=annual_pl[annual_pl["competencia"].astype(str).eq(latest)].iloc[0].to_dict(),
+        receivables_snapshot=_records(receivables_history[receivables_history["competencia"].astype(str).eq(latest)]),
     )
 
     output = {
@@ -5055,9 +4922,11 @@ def build_payload(
         "closed_offers": closed_offers,
         "closed_offers_annual": closed_annual,
         "closed_offers_monthly": closed_monthly,
+        "offers_comparison_meta": comparison_cut.to_meta(),
+        "closed_offers_ytd_comparable": closed_jan_june,
         "closed_offers_jan_june": closed_jan_june,
         # Compatibility alias for readers from the prior release.  Row labels
-        # and period_end remain authoritative and identify jan–jun.
+        # and period_end remain authoritative for the current comparison cut.
         "closed_offers_jan_may": closed_jan_june,
         "closed_offer_originators_2026": closed_originators,
         "closed_offer_ticket_distribution": _records(
@@ -5068,6 +4937,12 @@ def build_payload(
         ),
         "fixed_income_offer_comparison": _records(
             fixed_income_offer_comparison
+        ),
+        "anbima_market_offers_manifest": _read_required_json(
+            data_dir / "industry_anbima_market_offers_manifest.json"
+        ),
+        "anbima_rf_ranking_manifest": _read_required_json(
+            data_dir / "anbima_rf_ranking_manifest.json"
         ),
         "market_offer_reconciliation": _records(
             market_offer_reconciliation
@@ -5095,6 +4970,7 @@ def build_payload(
             closed_offer_top15_summary
         ),
         "offer_ticket_concentration_2026": offer_ticket_concentration_2026,
+        "offer_ticket_concentration_current": offer_ticket_concentration_2026,
         # Aliases mantidos apenas para leitores v2/v3; o renderer v4 usa os blocos acima.
         "offers_ytd": [
             {
@@ -5202,6 +5078,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="competência AAAA-MM; vazio usa a última marcada como completa",
     )
     parser.add_argument(
+        "--registration-archive",
+        type=Path,
+        default=ROOT / ".cache/cvm-industry-study/registro_fundo_classe.zip",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         default=ROOT / "data/industry_study/generated_revision/artifact_payload.json",
@@ -5230,6 +5111,7 @@ def main(argv: list[str] | None = None) -> None:
         revision_dir=args.revision_dir,
         curation_path=args.curation,
         latest=latest_complete,
+        registration_archive=args.registration_archive,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(

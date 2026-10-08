@@ -92,6 +92,12 @@ def apply_fic_perimeter_overrides(
     if cnpj_column not in frame.columns or flag_column not in frame.columns:
         return frame, PerimeterCorrection(0, 0, 0.0, ())
 
+    if "carteira_dc" in frame.columns:
+        assert_fic_overrides_have_no_direct_receivables(
+            frame, overrides, cnpj_column=cnpj_column,
+            competence_column=competence_column,
+        )
+
     corrected = frame.copy()
     keys = corrected[cnpj_column].map(normalize_cnpj)
     targets = set(overrides["cnpj_fundo"].map(normalize_cnpj))
@@ -140,3 +146,49 @@ def apply_fic_perimeter_overrides(
         pl_moved_last_competence_brl=moved_last,
         last_competence=last_competence,
     )
+
+
+def assert_fic_overrides_have_no_direct_receivables(
+    frame: pd.DataFrame,
+    overrides: pd.DataFrame,
+    *,
+    cnpj_column: str = "cnpj",
+    competence_column: str = "competencia",
+    receivables_column: str = "carteira_dc",
+) -> None:
+    """Reject quantitative feeder decisions contradicted by any observed month."""
+    if overrides.empty:
+        return
+    required = {cnpj_column, competence_column, receivables_column}
+    if missing := sorted(required.difference(frame.columns)):
+        raise ValueError("preflight FIC sem campos obrigatórios: " + ", ".join(missing))
+    keys = frame[cnpj_column].map(normalize_cnpj)
+    targets = set(overrides["cnpj_fundo"].map(normalize_cnpj))
+    positive = pd.to_numeric(frame[receivables_column], errors="coerce").gt(0)
+    contradictory = frame.loc[keys.isin(targets) & positive].copy()
+    if contradictory.empty:
+        return
+    contradictory[cnpj_column] = keys.loc[contradictory.index]
+    observations = "; ".join(
+        f"{row[cnpj_column]} · {row[competence_column]} · carteira_dc={row[receivables_column]}"
+        for row in contradictory.to_dict("records")[:10]
+    )
+    raise ValueError(
+        "override quantitativo FIC contradiz carteira de direitos creditórios positiva; "
+        "revise a curadoria antes de gerar a análise: " + observations
+    )
+
+
+def validate_fic_quantitative_overrides(data_dir: Path) -> None:
+    """Run the source-level quantitative perimeter guard before Office authorship."""
+    data_dir = Path(data_dir)
+    overrides = load_fic_perimeter_overrides(data_dir)
+    if overrides.empty:
+        return
+    vehicle = pd.read_csv(
+        data_dir / "vehicle_monthly.csv.gz",
+        usecols=["competencia", "cnpj", "carteira_dc"],
+        dtype=str,
+        keep_default_na=False,
+    )
+    assert_fic_overrides_have_no_direct_receivables(vehicle, overrides)

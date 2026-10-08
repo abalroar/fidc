@@ -1,0 +1,39 @@
+{
+  "schema": "anbima_market_offers.v2",
+  "comparison_meta": {
+    "current_year": 2026,
+    "current_period_start": "2026-01-01",
+    "current_period_end": "2026-08-31",
+    "previous_period_end": "2025-08-31",
+    "period_label": "jan–ago/26",
+    "previous_period_label": "jan–ago/25",
+    "current_period_id": "2026 jan-ago",
+    "previous_period_id": "2025 jan-ago",
+    "current_period_key": "ago26",
+    "previous_period_key": "ago25",
+    "month_count": 8
+  },
+  "cvm_latest_complete_meta": {
+    "current_year": 2026,
+    "current_period_start": "2026-01-01",
+    "current_period_end": "2026-08-31",
+    "previous_period_end": "2025-08-31",
+    "period_label": "jan–ago/26",
+    "previous_period_label": "jan–ago/25",
+    "current_period_id": "2026 jan-ago",
+    "previous_period_id": "2025 jan-ago",
+    "current_period_key": "ago26",
+    "previous_period_key": "ago25",
+    "month_count": 8
+  },
+  "source_lag_months": 0,
+  "source_reference_competence": "2026-08",
+  "source_url": "https://data-strapi.prd.anbima.com.br/uploads/Boletim_MK_Anexo_652e5f2862.xlsx",
+  "source_as_of_date": "2026-10-08",
+  "source_published_at": "",
+  "source_workbook_sha256": "056b1e1a8987c294574af84a958181bdd93f77e3cdfe412d729be8334b7e320e",
+  "source_path": ".cache/anbima/Boletim_MK_Anexo_652e5f2862.xlsx",
+  "source_sheet": "02-02-Vlr",
+  "row_count": 20,
+  "output_sha256": "bdf10ae1319248a7dc0d532730c4f209ceeee779fb4a30e820942447f866ea98"
+}

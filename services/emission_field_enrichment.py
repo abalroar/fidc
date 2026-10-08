@@ -43,20 +43,28 @@ DEFAULT_COVERAGE_FLOORS: Mapping[str, float] = {
     "sacado": 0.01,
 }
 
-# The two ``Outros`` pages contain broad multi-asset/NPL mandates.  The
-# available identified documents describe cedents and obligor classes but do
-# not name an economic originator for any line.  Keeping a named, auditable
-# waiver avoids converting a source gap into a party name merely to satisfy a
-# mechanical floor.  Every other page/field remains fail-closed.
-PAGE_COVERAGE_WAIVERS: Mapping[tuple[str, str], str] = {
-    (
-        "Outros",
-        "originador",
-    ): (
-        "documentos identificados não individualizam originador econômico; "
-        "cedentes legais permanecem em coluna separada"
+# These three documented ``Outros`` cohorts have no named economic originator.
+# The ledger preserves cedents separately.  An exception requires the exact
+# audited competence; it cannot carry forward to a new ranking automatically.
+_OUTROS_ORIGINATOR_GAP_REASON = (
+    "documentos identificados não individualizam originador econômico; "
+    "cedentes legais permanecem em coluna separada"
+)
+COHORT_COVERAGE_WAIVERS: Mapping[tuple[str, str, str], str] = {
+    ("Outros", "originador", "2025-12"): _OUTROS_ORIGINATOR_GAP_REASON,
+    ("Outros", "originador", "2026-06"): _OUTROS_ORIGINATOR_GAP_REASON,
+    ("Outros", "originador", "2026-08"): _OUTROS_ORIGINATOR_GAP_REASON,
+    ("Fomento Mercantil", "originador", "2026-08"): (
+        "0/15 originadores nomeados nos documentos identificados da coorte ago/26; "
+        "Clientes BRF II, CNPJ 52720932000102, saiu do Top 15 atual. A observação "
+        "BRF S.A. do rating 1140169, referência 31/12/2025, permanece em dez/25 "
+        "e no histórico documental; cedentes legais permanecem separados"
     ),
 }
+
+
+def _coverage_waiver(type_name: str, field: str, period: str) -> str:
+    return COHORT_COVERAGE_WAIVERS.get((type_name, field, period), "")
 
 DOCUMENT_CUTOFF = pd.Timestamp("2026-06-30")
 
@@ -815,7 +823,12 @@ def apply_sacado_display_curation(
             "sacados preenchidos sem resumo editorial por CNPJ: "
             + ", ".join(missing_curation)
         )
-    unused_curation = sorted(set(curated).difference(raw_cnpjs))
+    current_cnpjs = {
+        _digits(value) for value in output.loc[top_mask, "cnpj"]
+    }
+    # This is a reusable documentary catalog. A fund leaving the ranking does
+    # not invalidate its stored summary; a current fund still needs raw text.
+    unused_curation = sorted(set(curated).intersection(current_cnpjs).difference(raw_cnpjs))
     if unused_curation:
         raise ValueError(
             "curadoria de sacado sem texto integral no payload: "
@@ -1330,7 +1343,7 @@ def build_emission_field_coverage(
             after_mask = ~group_after[field].map(is_missing)
             before_pl = float(pl[before_mask.fillna(False)].sum())
             after_pl = float(pl[after_mask].sum())
-            waiver_reason = PAGE_COVERAGE_WAIVERS.get((type_name, field), "")
+            waiver_reason = _coverage_waiver(type_name, field, period)
             publication_floor = (
                 0.0 if waiver_reason else float(DEFAULT_COVERAGE_FLOORS[field])
             )
@@ -1376,15 +1389,13 @@ def validate_emission_field_coverage(
         field = str(row.get("campo") or "")
         table = str(row.get("tabela") or "")
         share = float(row.get("depois_cobertura_pct") or 0.0)
-        raw_floor = row.get("piso_publicacao_pct")
-        floor = float(
-            DEFAULT_COVERAGE_FLOORS.get(field, 1.0)
-            if raw_floor is None or str(raw_floor).strip() == ""
-            else raw_floor
-        )
         filled = int(row.get("depois_com_dado") or 0)
         waiver = str(row.get("excecao_publicacao") or "").strip()
-        waived = field == "originador" and table.startswith("Outros ·") and not is_missing(waiver)
+        type_name, _, period = table.rpartition(" · ")
+        expected_waiver = _coverage_waiver(type_name, field, period)
+        waived = bool(expected_waiver) and waiver == expected_waiver
+        # Floors come from the contract, never from an arbitrary payload row.
+        floor = 0.0 if waived else float(DEFAULT_COVERAGE_FLOORS.get(field, 1.0))
         if field not in FIELDS:
             violations.append(f"{table}: campo de cobertura desconhecido {field!r}")
         elif (share < floor or (floor > 0 and filled <= 0)) and not waived:

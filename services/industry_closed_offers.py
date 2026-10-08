@@ -8,6 +8,7 @@ from typing import Any, Iterable, Mapping
 
 import numpy as np
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut
 
 
 INDUSTRY_STUDY_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
@@ -348,12 +349,11 @@ def validate_closed_offers_annual(frame: pd.DataFrame) -> pd.DataFrame:
     )
     _assert_unique(result, ("year",), name="ofertas anuais")
     result = result.sort_values("year", kind="stable").reset_index(drop=True)
-    if tuple(result["year"]) != (2022, 2023, 2024, 2025, 2026):
-        raise ClosedOffersDataError("ofertas anuais: são esperados os anos de 2022 a 2026.")
-    if not result.loc[result["year"].lt(2026), "is_full_year"].all():
-        raise ClosedOffersDataError("ofertas anuais: 2022–2025 devem estar marcados como anos completos.")
-    if bool(result.loc[result["year"].eq(2026), "is_full_year"].iloc[0]):
-        raise ClosedOffersDataError("ofertas anuais: 2026 deve permanecer identificado como YTD.")
+    current_year = int(result["year"].max())
+    if tuple(result["year"]) != tuple(range(current_year-4, current_year+1)):
+        raise ClosedOffersDataError("ofertas anuais: são esperados cinco anos consecutivos.")
+    if not result.loc[result["year"].lt(current_year), "is_full_year"].all() or bool(result.loc[result["year"].eq(current_year), "is_full_year"].iloc[0]):
+        raise ClosedOffersDataError("ofertas anuais: anos históricos completos e último ano YTD são obrigatórios.")
     starts = pd.to_datetime(result["period_start"])
     if not (starts.dt.year.eq(result["year"]) & starts.dt.month.eq(1) & starts.dt.day.eq(1)).all():
         raise ClosedOffersDataError("ofertas anuais: period_start deve ser o primeiro dia do ano.")
@@ -426,7 +426,7 @@ def validate_closed_offer_originators(frame: pd.DataFrame) -> pd.DataFrame:
         raise ClosedOffersDataError("originadores 2026: ranking deve ser contínuo e começar em 1.")
     if not result["registered_volume_brl"].is_monotonic_decreasing:
         raise ClosedOffersDataError("originadores 2026: ranking não está ordenado pelo volume registrado.")
-    if not result["period_start"].eq("2026-01-01").all():
+    if result["period_start"].nunique()!=1 or not result["period_start"].astype(str).str.endswith("-01-01").all():
         raise ClosedOffersDataError("originadores 2026: period_start deve ser 2026-01-01.")
 
     expected_mean = result["registered_volume_brl"] / result["closed_offers"]
@@ -519,7 +519,7 @@ def _validate_cross_table_reconciliation(tables: ClosedOffersTables) -> None:
                 message=f"bases de ofertas: {column} não reconcilia em {year}.",
             )
 
-    annual_2026 = annual.loc[annual["year"].eq(2026)].iloc[0]
+    annual_2026 = annual.loc[annual["year"].eq(annual["year"].max())].iloc[0]
     if int(originators["universe_closed_offers"].iloc[0]) != int(annual_2026["closed_offers"]):
         raise ClosedOffersDataError("bases de ofertas: universo de originadores diverge das ofertas anuais de 2026.")
     _assert_close(
@@ -534,7 +534,7 @@ def load_closed_offers_tables(data_dir: str | Path = INDUSTRY_STUDY_DIR) -> Clos
     tables = ClosedOffersTables(
         annual=load_closed_offers_annual(root / ANNUAL_FILENAME),
         monthly=load_closed_offers_monthly(root / MONTHLY_FILENAME),
-        originators=load_closed_offer_originators(root / ORIGINATORS_FILENAME),
+        originators=load_closed_offer_originators(root / ("industry_closed_offer_originators_ytd.csv" if (root / "industry_closed_offer_originators_ytd.csv").is_file() else ORIGINATORS_FILENAME)),
     )
     _validate_cross_table_reconciliation(tables)
     return tables
@@ -624,12 +624,13 @@ def _safe_ratio(numerator: float, denominator: float) -> float:
     return float(numerator / denominator) if denominator else 0.0
 
 
-def build_jan_june_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]:
+def build_ytd_comparable_closed_offers_payload(monthly: pd.DataFrame, comparison_cut: ComparisonCut | None = None) -> dict[str, Any]:
     normalized = validate_closed_offers_monthly(monthly)
     rows: list[dict[str, Any]] = []
-    for year in JAN_JUNE_YEARS:
-        period = normalized.loc[normalized["year"].eq(year) & normalized["month"].between(1, 6)].copy()
-        if set(period["month"]) != {1, 2, 3, 4, 5, 6}:
+    cut = comparison_cut or ComparisonCut.from_competence(normalized["competence"].max())
+    for year in range(cut.year-2, cut.year+1):
+        period = normalized.loc[normalized["year"].eq(year) & normalized["month"].between(1, cut.month)].copy()
+        if set(period["month"]) != set(range(1, cut.month+1)):
             raise ClosedOffersDataError(f"recorte jan–jun: meses incompletos para {year}.")
         if not period["is_complete_month"].all():
             raise ClosedOffersDataError(f"recorte jan–jun: há mês parcial em {year}.")
@@ -669,9 +670,9 @@ def build_jan_june_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any
         rows.append(
             {
                 "year": year,
-                "period_label": f"jan–jun/{str(year)[-2:]}",
+                "period_label": cut.period_label(year),
                 "period_start": f"{year}-01-01",
-                "period_end": f"{year}-06-30",
+                "period_end": ComparisonCut(year, cut.month).period_end.isoformat(),
                 "closed_offers": closed_offers,
                 "registered_volume_brl": registered_volume,
                 "mean_registered_ticket_brl": _safe_ratio(registered_volume, closed_offers),
@@ -724,19 +725,24 @@ def build_jan_june_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any
 
     row_columns = list(rows[0])
     block = {
-        "schema": f"{PAYLOAD_SCHEMA_VERSION}.jan_june_2024_2026",
+        "schema": f"{PAYLOAD_SCHEMA_VERSION}.ytd_comparable",
         "columns": row_columns,
         "row_count": len(rows),
         "rows": rows,
         "source": {
             **_uniform_source(normalized, name="recorte jan–jun"),
-            "cohort": "Data_Encerramento entre 1º de janeiro e 30 de junho de cada ano",
+            "cohort": f"Data_Encerramento entre 1º de janeiro e o fim de {cut.month} meses de cada ano",
+            "comparison_meta": cut.to_meta(),
             "median_disclosure": "Medianas mensais não são agregadas; o recorte publica apenas médias recalculadas.",
         },
     }
     json.dumps(block, ensure_ascii=False, allow_nan=False)
     return block
 
+
+def build_jan_june_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]:
+    """Compatibility alias; row dates disclose the actual comparable cut."""
+    return build_ytd_comparable_closed_offers_payload(monthly)
 
 def build_jan_may_closed_offers_payload(monthly: pd.DataFrame) -> dict[str, Any]:
     """Compatibility alias; the current comparable period is January–June."""
@@ -751,14 +757,20 @@ def list_nominable_originators_2026_ytd(frame: pd.DataFrame) -> list[dict[str, A
 
 def build_closed_offers_payload(data_dir: str | Path = INDUSTRY_STUDY_DIR) -> dict[str, Any]:
     tables = load_closed_offers_tables(data_dir)
+    cut = ComparisonCut.from_competence(tables.annual["period_end"].max()[:7])
+    comparable = build_ytd_comparable_closed_offers_payload(tables.monthly, cut)
+    originators = build_closed_offer_originators_payload(tables.originators)
     payload = {
         "schema": PAYLOAD_SCHEMA_VERSION,
+        "comparison_meta": cut.to_meta(),
+        "ytd_comparable": comparable,
+        "originators_ytd": originators,
         "annual": build_closed_offers_annual_payload(tables.annual),
         "monthly": build_closed_offers_monthly_payload(tables.monthly),
-        "jan_june_2024_2026": build_jan_june_closed_offers_payload(tables.monthly),
+        "jan_june_2024_2026": comparable,
         # Retained for one release so older site/export readers do not reject
         # the payload.  The row labels and dates explicitly say jan–jun.
-        "jan_may_2024_2026": build_jan_june_closed_offers_payload(tables.monthly),
+        "jan_may_2024_2026": comparable,
         "originators_2026_ytd": build_closed_offer_originators_payload(tables.originators),
     }
     json.dumps(payload, ensure_ascii=False, allow_nan=False)
@@ -779,6 +791,7 @@ __all__ = [
     "build_closed_offers_annual_payload",
     "build_closed_offers_monthly_payload",
     "build_closed_offers_payload",
+    "build_ytd_comparable_closed_offers_payload",
     "build_jan_may_closed_offers_payload",
     "build_jan_june_closed_offers_payload",
     "list_nominable_originators_2026_ytd",

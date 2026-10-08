@@ -10,11 +10,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from datetime import date
 import math
 from typing import Any
 
 import numpy as np
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import resolve_offer_cut, cut_from_offer_frame, offer_periods, ticket_periods
+
 
 from services.industry_public_offers import (
     FIDC_CANONICAL,
@@ -27,7 +31,7 @@ from services.industry_public_offers import (
 INDUSTRY_STUDY_DIR = Path(__file__).resolve().parents[1] / "data" / "industry_study"
 
 SOURCE_DATASET = SOURCE_DATASET_LABEL
-SOURCE_AS_OF_DATE = "2026-07-21"
+SOURCE_AS_OF_DATE = date.today().isoformat()
 EXPECTED_SOURCE_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
@@ -45,7 +49,7 @@ DEDUPLICATION = (
 )
 METHODOLOGY = (
     "Coorte por Data_Encerramento; ticket = Valor_Total_Registrado. "
-    "2022 a 2025 usam o ano completo; 2026 usa 1 jan a 30 jun. "
+    "Anos históricos completos e YTD até a última competência consolidada. "
     "2022 é série parcial legada e não comparável ao rito automático. "
     "Os buckets são fechados à esquerda e abertos à direita, exceto o último."
 )
@@ -198,14 +202,14 @@ def _deduplicate_offers(frame: pd.DataFrame) -> pd.DataFrame:
     return frame.drop_duplicates("Numero_Requerimento", keep="first").copy()
 
 
-def _assign_period(frame: pd.DataFrame) -> pd.DataFrame:
+def _assign_period(frame: pd.DataFrame, comparison_cut: ComparisonCut | None = None) -> pd.DataFrame:
     result = frame.copy()
     result["period_order"] = pd.NA
     result["period_label"] = ""
     result["period_start"] = ""
     result["period_end"] = ""
     result["is_full_year"] = False
-    for order, label, start, end, full_year in PERIODS:
+    for order, label, start, end, full_year in ticket_periods(resolve_offer_cut(comparison_cut)):
         mask = result["data_encerramento"].between(start, end)
         result.loc[mask, "period_order"] = order
         result.loc[mask, "period_label"] = label
@@ -241,14 +245,16 @@ def load_closed_offer_ticket_cohort(
     archive_path: str | Path,
     *,
     source_as_of_date: str = SOURCE_AS_OF_DATE,
-    expected_archive_sha256: str | None = EXPECTED_SOURCE_ARCHIVE_SHA256,
+    expected_archive_sha256: str | None = None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> pd.DataFrame:
     """Read the official archive and return the three published cohorts."""
 
+    cut = resolve_offer_cut(comparison_cut)
     try:
         selected, archive_digest = load_public_primary_closed_offers(
             archive_path,
-            cutoff="2026-06-30",
+            cutoff=cut.period_end.isoformat(),
             expected_archive_sha256=expected_archive_sha256,
         )
     except PublicOffersError as exc:
@@ -280,7 +286,7 @@ def load_closed_offer_ticket_cohort(
             "source_dataset": selected["source_dataset"],
         }
     )
-    cohort = _assign_period(cohort)
+    cohort = _assign_period(cohort, cut)
     cohort = _assign_ticket_bucket(cohort)
     cohort["source_url"] = SOURCE_URL
     cohort["source_as_of_date"] = source_as_of_date
@@ -307,7 +313,7 @@ def validate_offer_ticket_cohort(frame: pd.DataFrame) -> pd.DataFrame:
         raise OfferTicketDataError("Coorte contém ticket ausente ou não positivo.")
     if result["numero_requerimento"].astype(str).duplicated().any():
         raise OfferTicketDataError("Coorte contém Numero_Requerimento duplicado.")
-    expected_periods = {period[1] for period in PERIODS}
+    expected_periods = {period[1] for period in ticket_periods(cut_from_offer_frame(result))}
     unexpected_periods = set(result["period_label"].astype(str)) - expected_periods
     if unexpected_periods:
         raise OfferTicketDataError(
@@ -323,7 +329,8 @@ def build_offer_ticket_distribution(cohort: pd.DataFrame) -> pd.DataFrame:
     """Aggregate a validated offer cohort into stable chart buckets."""
 
     validated = validate_offer_ticket_cohort(cohort)
-    expected_periods = {period[1] for period in DISTRIBUTION_PERIODS}
+    periods = ticket_periods(cut_from_offer_frame(validated))[1:]
+    expected_periods = {period[1] for period in periods}
     validated = validated[
         validated["period_label"].isin(expected_periods)
     ].copy()
@@ -340,7 +347,7 @@ def build_offer_ticket_distribution(cohort: pd.DataFrame) -> pd.DataFrame:
         "scope",
         "deduplication",
     ]
-    for order, label, start, end, full_year in DISTRIBUTION_PERIODS:
+    for order, label, start, end, full_year in periods:
         period = validated[validated["period_label"].eq(label)].copy()
         period_count = int(len(period))
         period_volume = float(period["registered_volume_brl"].sum())
@@ -420,7 +427,7 @@ def validate_offer_ticket_distribution(frame: pd.DataFrame) -> pd.DataFrame:
         result[column] = pd.to_numeric(result[column], errors="coerce")
     if result[numeric_columns].isna().any().any():
         raise OfferTicketDataError("Distribuição contém métrica numérica ausente.")
-    if len(result) != len(DISTRIBUTION_PERIODS) * len(TICKET_BUCKETS):
+    if len(result) != len(ticket_periods(cut_from_offer_frame(result))[1:]) * len(TICKET_BUCKETS):
         raise OfferTicketDataError("Distribuição deve conter 7 buckets por período.")
     for label, period in result.groupby("period_label", sort=False):
         if period["bucket_order"].nunique() != len(TICKET_BUCKETS):
@@ -483,12 +490,14 @@ def build_offer_ticket_outputs(
     archive_path: str | Path,
     *,
     source_as_of_date: str = SOURCE_AS_OF_DATE,
-    expected_archive_sha256: str | None = EXPECTED_SOURCE_ARCHIVE_SHA256,
+    expected_archive_sha256: str | None = None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> OfferTicketOutputs:
     cohort = load_closed_offer_ticket_cohort(
         archive_path,
         source_as_of_date=source_as_of_date,
         expected_archive_sha256=expected_archive_sha256,
+        comparison_cut=comparison_cut,
     )
     return OfferTicketOutputs(
         cohort=cohort,

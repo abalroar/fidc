@@ -1,7 +1,7 @@
 """Compare closed FIDC offerings with the eligible fixed-income universe.
 
 The comparison uses the official CVM public-offering dataset and keeps the
-same release cut-off used by the industry deck: 30 June 2026.  Rows are
+same consolidated monthly cut as the industry deck.  Rows are
 deduplicated by ``Numero_Requerimento`` before aggregation.
 
 The 2023 FIDC observation is the one point the CVM series cannot carry alone.
@@ -19,11 +19,15 @@ is charted.
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import date
 import math
 from typing import Any
 
 import numpy as np
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import resolve_offer_cut, cut_from_offer_frame, offer_periods, ticket_periods
+
 
 from services.industry_public_offers import (
     EXCLUDED_CANONICAL,
@@ -36,10 +40,11 @@ from services.industry_public_offers import (
 )
 
 SOURCE_DATASET = SOURCE_DATASET_LABEL
-SOURCE_AS_OF_DATE = "2026-07-24"
+SOURCE_AS_OF_DATE = date.today().isoformat()
 SOURCE_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
+# Historical release constant retained for imports; current functions derive their cut.
 RELEASE_CUTOFF = "2026-06-30"
 OUTPUT_FILENAME = "industry_fixed_income_offer_comparison.csv"
 
@@ -157,11 +162,13 @@ def _read_source(
     archive_path: str | Path,
     *,
     expected_archive_sha256: str | None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> tuple[pd.DataFrame, str]:
+    cut = resolve_offer_cut(comparison_cut)
     try:
         source, digest = load_public_primary_closed_offers(
             archive_path,
-            cutoff=RELEASE_CUTOFF,
+            cutoff=cut.period_end.isoformat(),
             expected_archive_sha256=expected_archive_sha256,
         )
     except PublicOffersError as exc:
@@ -194,16 +201,20 @@ def build_fixed_income_offer_comparison(
     archive_path: str | Path,
     *,
     source_as_of_date: str = SOURCE_AS_OF_DATE,
-    expected_archive_sha256: str | None = SOURCE_ARCHIVE_SHA256,
+    expected_archive_sha256: str | None = None,
     top_instruments: int = 4,
+    comparison_cut: ComparisonCut | None = None,
 ) -> pd.DataFrame:
     """Build the two requested views and their comparable YoY deltas."""
 
+    cut = resolve_offer_cut(comparison_cut)
+    periods = offer_periods(cut, include_previous=True)
     source, digest = _read_source(
         archive_path,
         expected_archive_sha256=expected_archive_sha256,
+        comparison_cut=cut,
     )
-    base_2025 = _period_scope(source, "2025-01-01", "2025-12-31")
+    base_2025 = _period_scope(source, f"{cut.year-1}-01-01", f"{cut.year-1}-12-31")
     ranking_2025 = (
         base_2025.loc[~base_2025["instrument_norm"].eq(FIDC_INSTRUMENT)]
         .groupby("instrument_norm", as_index=False)["registered_volume_brl"]
@@ -238,13 +249,13 @@ def build_fixed_income_offer_comparison(
     methodology = (
         "Rito automático: uma oferta = Numero_Requerimento. Ritos ordinários e "
         "legados: registro + emissor + data de encerramento + instrumento; "
-        "classes de FIDC do mesmo registro são somadas. 2024/2025 YoY compara "
-        "anos completos; 2026 compara jan-jun/26 com jan-jun/25. Os instrumentos "
-        "materiais são os quatro maiores tipos não FIDC por volume em 2025FY."
+        "classes de FIDC do mesmo registro são somadas. Anos históricos comparam "
+        f"anos completos; o YTD compara {cut.period_label()} com {cut.period_label(cut.year-1)}. "
+        f"Os instrumentos materiais são os quatro maiores tipos não FIDC por volume em {cut.year-1}FY."
     )
     rows: list[dict[str, Any]] = []
 
-    for period in PERIODS:
+    for period in periods:
         current = _period_scope(
             source, period["period_start"], period["period_end"]
         )
@@ -270,7 +281,7 @@ def build_fixed_income_offer_comparison(
             ),
             (
                 2,
-                "FIDCs vs instrumentos materiais de 2025",
+                f"FIDCs vs instrumentos materiais de {cut.year-1}",
                 tuple(
                     (
                         index + 1,
@@ -362,7 +373,7 @@ def build_fixed_income_offer_comparison(
                         "source_url": SOURCE_URL,
                         "source_as_of_date": source_as_of_date,
                         "source_archive_sha256": digest,
-                        "latest_source_closing_date": RELEASE_CUTOFF,
+                        "latest_source_closing_date": cut.period_end.isoformat(),
                         "scope": scope,
                         "excluded_instruments": exclusions,
                         "methodology": methodology,
@@ -388,7 +399,8 @@ def validate_fixed_income_offer_comparison(frame: pd.DataFrame) -> pd.DataFrame:
         raise FixedIncomeOfferComparisonError(
             "Comparativo contém chaves duplicadas."
         )
-    expected_periods = [period["period_label"] for period in PERIODS]
+    cut = cut_from_offer_frame(result)
+    expected_periods = [period["period_label"] for period in offer_periods(cut)]
     if (
         result.sort_values("period_order")["period_label"].drop_duplicates().tolist()
         != expected_periods
@@ -465,7 +477,7 @@ def validate_fixed_income_offer_comparison(frame: pd.DataFrame) -> pd.DataFrame:
                 "FIDCs e demais não reconciliam com o universo elegível."
             )
     view_b = result[
-        result["view"].eq("FIDCs vs instrumentos materiais de 2025")
+        result["view"].eq(f"FIDCs vs instrumentos materiais de {cut.year-1}")
     ]
     if view_b["series_label"].nunique() != 5:
         raise FixedIncomeOfferComparisonError(
@@ -530,6 +542,8 @@ def apply_anbima_2023_fidc_issuance_correction(
     """
 
     result = validate_fixed_income_offer_comparison(frame)
+    if not result["period_label"].eq(_CORRECTED_PERIOD).any():
+        return result
     anbima_row = anbima_market_offers[
         anbima_market_offers["instrument_label"].astype(str).eq(_CORRECTED_SERIES)
         & anbima_market_offers["period_label"].astype(str).eq(_CORRECTED_PERIOD)

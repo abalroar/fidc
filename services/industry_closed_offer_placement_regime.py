@@ -8,10 +8,14 @@ snapshot by ``Numero_Requerimento``.  No missing regime is imputed.
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import date
 import unicodedata
 
 import numpy as np
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import resolve_offer_cut, cut_from_offer_frame, offer_periods, ticket_periods
+
 
 from services.industry_public_offers import (
     FIDC_CANONICAL,
@@ -21,7 +25,7 @@ from services.industry_public_offers import (
 )
 
 SOURCE_DATASET = SOURCE_DATASET_LABEL
-SOURCE_AS_OF_DATE = "2026-07-24"
+SOURCE_AS_OF_DATE = date.today().isoformat()
 SOURCE_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
@@ -96,10 +100,12 @@ def _read_source(
     archive_path: str | Path,
     *,
     expected_archive_sha256: str | None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> tuple[pd.DataFrame, str]:
+    cut = resolve_offer_cut(comparison_cut)
     source, digest = load_public_primary_closed_offers(
         archive_path,
-        cutoff="2026-06-30",
+        cutoff=cut.period_end.isoformat(),
         expected_archive_sha256=expected_archive_sha256,
     )
     source = source[
@@ -113,7 +119,8 @@ def build_closed_offer_placement_regime(
     archive_path: str | Path,
     *,
     source_as_of_date: str = SOURCE_AS_OF_DATE,
-    expected_archive_sha256: str | None = SOURCE_ARCHIVE_SHA256,
+    expected_archive_sha256: str | None = None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> pd.DataFrame:
     """Build the three-period count and volume breakdown by placement regime."""
 
@@ -139,13 +146,15 @@ def build_closed_offer_placement_regime(
         raise ClosedOfferPlacementRegimeError(
             "Coorte sem colunas obrigatórias: " + ", ".join(missing)
         )
-    cohort = cohort[cohort["period_label"].isin(PERIODS)].copy()
+    cut = comparison_cut or cut_from_offer_frame(cohort)
+    periods = tuple(row["period_label"] for row in offer_periods(cut))
+    cohort = cohort[cohort["period_label"].isin(periods)].copy()
     observed_periods = tuple(
         cohort.sort_values("period_order")["period_label"].drop_duplicates()
     )
-    if observed_periods != PERIODS:
+    if observed_periods != periods:
         raise ClosedOfferPlacementRegimeError(
-            f"Períodos esperados {PERIODS}; observados {observed_periods}."
+            f"Períodos esperados {periods}; observados {observed_periods}."
         )
     cohort["offer_id"] = cohort["offer_id"].str.strip()
     cohort["registered_volume_brl"] = pd.to_numeric(
@@ -164,6 +173,7 @@ def build_closed_offer_placement_regime(
     source, digest = _read_source(
         archive_path,
         expected_archive_sha256=expected_archive_sha256,
+        comparison_cut=cut,
     )
     source_regime = source[
             [
@@ -209,7 +219,7 @@ def build_closed_offer_placement_regime(
         )
     comparable_ytd = joined[
         joined["data_encerramento"].between(
-            pd.Timestamp("2025-01-01"), pd.Timestamp("2025-06-30")
+            pd.Timestamp(f"{cut.year-1}-01-01"), pd.Timestamp(cut.previous_period_end)
         )
     ].copy()
 
@@ -221,10 +231,10 @@ def build_closed_offer_placement_regime(
         "Rito automático: uma oferta = Numero_Requerimento. Ritos ordinários "
         "e legados usam a chave reconciliada do estudo. Regime usa o campo "
         "oficial Regime_distribuicao quando disponível; ausência permanece "
-        "Não informado. 2024/2025 são anos completos; 2026 cobre janeiro a junho."
+        f"Não informado. Anos históricos são completos; YTD cobre {cut.period_label()}."
     )
     rows: list[dict[str, object]] = []
-    for period_label in PERIODS:
+    for period_label in periods:
         period = joined[joined["period_label"].eq(period_label)].copy()
         period_offers = int(period["offer_id"].nunique())
         period_volume = float(period["registered_volume_brl"].sum())
@@ -240,7 +250,7 @@ def build_closed_offer_placement_regime(
             comparison_volume = float(
                 comparable_group["registered_volume_brl"].sum()
             )
-            has_ytd_comparison = period_label == "2026 jan-jun"
+            has_ytd_comparison = period_label == cut.period_id()
             rows.append(
                 {
                     "period_order": int(template["period_order"]),
@@ -260,13 +270,13 @@ def build_closed_offer_placement_regime(
                         volume / period_volume if period_volume else 0.0
                     ),
                     "comparison_period_label": (
-                        "2025 jan-jun" if has_ytd_comparison else "N/D"
+                        cut.period_id(cut.year-1) if has_ytd_comparison else "N/D"
                     ),
                     "comparison_period_start": (
-                        "2025-01-01" if has_ytd_comparison else "N/D"
+                        f"{cut.year-1}-01-01" if has_ytd_comparison else "N/D"
                     ),
                     "comparison_period_end": (
-                        "2025-06-30" if has_ytd_comparison else "N/D"
+                        cut.previous_period_end.isoformat() if has_ytd_comparison else "N/D"
                     ),
                     "comparison_closed_offers": (
                         comparison_offers if has_ytd_comparison else np.nan
@@ -303,7 +313,9 @@ def validate_closed_offer_placement_regime(
             "Tabela de regime sem colunas: " + ", ".join(missing)
         )
     result = frame.loc[:, OUTPUT_COLUMNS].copy()
-    expected_rows = len(PERIODS) * len(REGIME_ORDER)
+    cut = cut_from_offer_frame(result)
+    periods = tuple(row["period_label"] for row in offer_periods(cut))
+    expected_rows = len(periods) * len(REGIME_ORDER)
     if len(result) != expected_rows:
         raise ClosedOfferPlacementRegimeError(
             f"Tabela deveria conter {expected_rows} linhas; contém {len(result)}."
@@ -315,7 +327,7 @@ def validate_closed_offer_placement_regime(
     observed_periods = tuple(
         result.sort_values("period_order")["period_label"].drop_duplicates()
     )
-    if observed_periods != PERIODS:
+    if observed_periods != periods:
         raise ClosedOfferPlacementRegimeError(
             "Tabela de regime contém períodos inesperados."
         )
@@ -349,7 +361,7 @@ def validate_closed_offer_placement_regime(
             raise ClosedOfferPlacementRegimeError(
                 f"Tabela de regime contém valor negativo em {column}."
             )
-    current = result["period_label"].eq("2026 jan-jun")
+    current = result["period_label"].eq(cut.period_id())
     for column in (
         "comparison_closed_offers",
         "comparison_registered_volume_brl",
@@ -369,7 +381,7 @@ def validate_closed_offer_placement_regime(
         )
     if not result.loc[~current, "comparison_period_label"].eq("N/D").all():
         raise ClosedOfferPlacementRegimeError(
-            "Comparável YTD deve ficar restrito ao período jan–jun/26."
+            f"Comparável YTD deve ficar restrito ao período {cut.period_label()}."
         )
     for period_label, period in result.groupby("period_label", sort=False):
         if int(period["closed_offers"].sum()) != int(
@@ -414,6 +426,7 @@ def _enrich_materialized_ytd_comparison(
     """Add the Jan-Jun/25 comparison to a pre-extension materialized table."""
 
     result = frame.copy()
+    cut = cut_from_offer_frame(result)
     cohort = cohort.copy()
     cohort["data_encerramento"] = pd.to_datetime(
         cohort["data_encerramento"], errors="coerce"
@@ -423,21 +436,21 @@ def _enrich_materialized_ytd_comparison(
     )
     comparison = cohort[
         cohort["data_encerramento"].between(
-            pd.Timestamp("2025-01-01"), pd.Timestamp("2025-06-30")
+            pd.Timestamp(f"{cut.year-1}-01-01"), pd.Timestamp(cut.previous_period_end)
         )
     ].copy()
     comparison["placement_regime"] = comparison["distribution_regime"].map(
         _regime_bucket
     )
-    current = result["period_label"].eq("2026 jan-jun")
+    current = result["period_label"].eq(cut.period_id())
     result["comparison_period_label"] = np.where(
-        current, "2025 jan-jun", "N/D"
+        current, cut.period_id(cut.year-1), "N/D"
     )
     result["comparison_period_start"] = np.where(
-        current, "2025-01-01", "N/D"
+        current, f"{cut.year-1}-01-01", "N/D"
     )
     result["comparison_period_end"] = np.where(
-        current, "2025-06-30", "N/D"
+        current, cut.previous_period_end.isoformat(), "N/D"
     )
     result["comparison_closed_offers"] = np.nan
     result["comparison_registered_volume_brl"] = np.nan

@@ -10,6 +10,7 @@ from zipfile import ZipFile
 
 import pandas as pd
 
+from services.industry_comparative_period import ComparisonCut
 
 COMPLETE_VEHICLE_RATIO = 0.85
 COMPLETE_PL_RATIO = 0.85
@@ -755,10 +756,10 @@ def build_stock_ranking_deltas(
 ) -> pd.DataFrame:
     if vehicle_monthly is None or vehicle_monthly.empty:
         return pd.DataFrame()
+    cut = ComparisonCut.from_competence(latest_competence)
     targets = target_competences or {
-        "2024": "2024-12",
-        "2025": "2025-12",
-        "2026YTD": latest_competence,
+        **{str(year): f"{year}-12" for year in range(cut.year - 2, cut.year)},
+        f"{cut.year}YTD": cut.competence,
     }
     frame = vehicle_monthly[vehicle_monthly["competencia"].isin(set(targets.values()))].copy()
     frame["period"] = frame["competencia"].map({value: key for key, value in targets.items()})

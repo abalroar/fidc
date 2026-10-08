@@ -323,6 +323,14 @@ def _text(value: object, *, default: str = TEXT_ND) -> str:
     return default if _is_missing_text(value) else str(value).strip()
 
 
+def _status_text(value: object) -> str:
+    """Preserve the reason attached to N/D rather than treating it as a value."""
+    if value is None or (isinstance(value, (float, np.floating)) and pd.isna(value)):
+        return TEXT_ND
+    text = str(value).strip()
+    return text if text and text.lower() != "nan" else TEXT_ND
+
+
 def _fold(value: object) -> str:
     text = unicodedata.normalize("NFKD", str(value or ""))
     unaccented = "".join(
@@ -959,7 +967,7 @@ def _portfolio_rows(
     rows["sub_pl_atual"] = current
     rows["status_sub_pl_atual"] = _series(
         source, "subordinacao_atual_status"
-    ).map(_text)
+    ).map(_status_text)
 
     rows["minimo_junior_literal"] = junior.where(nature.eq("junior_pl"))
     rows["minimo_junior_calculado"] = junior.where(
@@ -1124,7 +1132,7 @@ def _flagship_rows(
     rows["sub_pl_atual"] = current
     rows["status_sub_pl_atual"] = _series(
         source, "subordinacao_atual_status"
-    ).map(_text)
+    ).map(_status_text)
     rows["minimo_junior_literal"] = junior
     rows["minimo_junior_calculado"] = np.nan
     rows["minimo_junior_ajustado"] = np.nan

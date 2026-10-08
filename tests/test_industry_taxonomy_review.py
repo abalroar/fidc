@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+import hashlib
 import re
 import warnings
+from zipfile import ZipFile
 
 import pandas as pd
 import pytest
@@ -19,6 +21,7 @@ from services.industry_taxonomy_review import (
     build_unique_taxonomy_operational_queue,
     build_taxonomy_review_queue,
     build_top20_by_anbima_type,
+    load_cvm_fund_registration_evidence,
     commit_taxonomy_review_action,
     load_taxonomy_review_audit,
     load_taxonomy_review_actions,
@@ -124,6 +127,90 @@ def test_top20_by_type_has_four_groups_and_uses_slide_bucket() -> None:
     assert set(top20.groupby("tipo_exibicao")["rank_tipo"].max()) == {20}
     assert "FIDC N/D GRANDE" in set(top20.loc[top20["tipo_exibicao"].eq("Outros"), "denominacao"])
     assert coverage.loc[coverage["tipo_exibicao"].eq("Total"), "fundos"].item() == 80
+
+
+def test_top20_accepts_a_current_month_cadastral_entry_with_provenance(tmp_path: Path) -> None:
+    funds = _funds()
+    baseline, _ = build_top20_by_anbima_type(funds, latest="2026-06")
+    funds = funds[~(funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"))]
+    archive_path = tmp_path / "registro_fundo_classe.zip"
+    with ZipFile(archive_path, "w") as archive:
+        archive.writestr(
+            "registro_fundo.csv",
+            "CNPJ_Fundo;Data_Constituicao;Data_Registro\n1;2026-06-05;2026-06-05\n",
+        )
+    evidence = load_cvm_fund_registration_evidence(archive_path)
+
+    top20, coverage = build_top20_by_anbima_type(
+        funds, latest="2026-06", registration_evidence=evidence
+    )
+
+    entrant = top20[top20["cnpj_fundo"].eq("00000000000001")].iloc[0]
+    assert not entrant["pl_anterior_positivo"]
+    assert pd.isna(entrant["pl_anterior_brl"])
+    assert entrant["pl_anterior_status"] == "entrada_cadastral_no_mes"
+    assert entrant["data_constituicao_cadastral"] == "2026-06-05"
+    assert entrant["cadastro_registro_sha256"] == hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    assert entrant["cadastro_registro_fonte"].endswith("registro_fundo_classe.zip")
+    assert "constituição em 2026-06-05" in entrant["pl_anterior_origem"]
+    pd.testing.assert_frame_equal(
+        top20[["cnpj_fundo", "rank_tipo", "pl_tipo_brl", "share_tipo"]],
+        baseline[["cnpj_fundo", "rank_tipo", "pl_tipo_brl", "share_tipo"]],
+    )
+    total = coverage[coverage["tipo_exibicao"].eq("Total")].iloc[0]
+    assert total["fundos_pl_anterior_positivo"] == 79
+    assert total["fundos_entrantes_cadastrais"] == 1
+
+
+@pytest.mark.parametrize("previous_pl", [0.0, -10.0])
+def test_top20_preserves_reported_nonpositive_pl_for_a_return_to_positive(previous_pl: float) -> None:
+    funds = _funds()
+    funds.loc[funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"), "pl"] = previous_pl
+
+    top20, coverage = build_top20_by_anbima_type(funds, latest="2026-06")
+
+    resumed = top20[top20["cnpj_fundo"].eq("00000000000001")].iloc[0]
+    assert not resumed["pl_anterior_positivo"]
+    assert resumed["pl_anterior_brl"] == previous_pl
+    assert resumed["pl_anterior_status"].startswith("retomada_pl_positivo")
+    assert "2026-05" in resumed["pl_anterior_origem"]
+    total = coverage[coverage["tipo_exibicao"].eq("Total")].iloc[0]
+    assert total["fundos_retomada_pl_positivo"] == 1
+    assert total["fundos_entrantes_cadastrais"] == 0
+
+
+def test_top20_rejects_missing_previous_pl_without_registration_evidence() -> None:
+    funds = _funds()
+    funds = funds[~(funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"))]
+
+    with pytest.raises(ValueError, match="sem entrada cadastral comprovada"):
+        build_top20_by_anbima_type(funds, latest="2026-06")
+
+
+def test_top20_rejects_a_blank_previous_report_instead_of_treating_it_as_zero() -> None:
+    funds = _funds()
+    funds.loc[funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"), "pl"] = float("nan")
+
+    with pytest.raises(ValueError, match="sem entrada cadastral comprovada"):
+        build_top20_by_anbima_type(funds, latest="2026-06")
+
+
+def test_top20_rejects_a_registration_before_the_current_month(tmp_path: Path) -> None:
+    funds = _funds()
+    funds = funds[~(funds["competencia"].eq("2026-05") & funds["cnpj_fundo"].eq("1"))]
+    archive_path = tmp_path / "registro_fundo_classe.zip"
+    with ZipFile(archive_path, "w") as archive:
+        archive.writestr(
+            "registro_fundo.csv",
+            "CNPJ_Fundo;Data_Constituicao;Data_Registro\n1;2026-05-31;2026-06-05\n",
+        )
+
+    with pytest.raises(ValueError, match="sem entrada cadastral comprovada"):
+        build_top20_by_anbima_type(
+            funds,
+            latest="2026-06",
+            registration_evidence=load_cvm_fund_registration_evidence(archive_path),
+        )
 
 
 def test_top20_groups_by_approved_analytical_type_before_ranking() -> None:

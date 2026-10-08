@@ -239,6 +239,16 @@ def _document_fields(
         ].copy()
     if not emissions.empty:
         emissions = emissions[emissions["CNPJ"].map(_digits).eq(cnpj)].copy()
+        # Documentary packages exported in October use descriptive headers.
+        # The emission/first-payment date keeps its own meaning; deliberation
+        # and closing dates cannot replace a missing emission date.
+        for canonical, alternative in (
+            ("Preço/VNU", "VNU"),
+            ("Classe/Série", "Cota/Classe"),
+            ("Data", "Data emissão / 1ª integralização"),
+        ):
+            if canonical not in emissions and alternative in emissions:
+                emissions[canonical] = emissions[alternative]
 
     threshold_combined = thresholds.apply(
         lambda row: _row_text(
@@ -303,13 +313,17 @@ def _document_fields(
         if _text(row.get("Fonte"))
     ]
 
+    emission_dates = pd.to_datetime(
+        emissions.get("Data", pd.Series("", index=emissions.index, dtype=str)),
+        format="%d/%m/%Y",
+        errors="coerce",
+    )
     concrete = emissions[
-        emissions.get("Preço/VNU", pd.Series(dtype=str)).map(_is_concrete_price)
+        emissions.get("Preço/VNU", pd.Series("", index=emissions.index, dtype=str))
+        .map(_is_concrete_price)
     ].copy()
     if not concrete.empty:
-        concrete["_date"] = pd.to_datetime(
-            concrete.get("Data"), format="%d/%m/%Y", errors="coerce"
-        )
+        concrete["_date"] = emission_dates.loc[concrete.index]
         concrete["_type_priority"] = (
             concrete.get("Tipo", pd.Series("", index=concrete.index))
             .map(_fold)
@@ -325,7 +339,7 @@ def _document_fields(
         selected = (
             concrete[concrete["_date"].eq(selected_date)]
             if pd.notna(selected_date)
-            else concrete.head(1)
+            else concrete
         )
         price_values = sorted(
             {
@@ -341,7 +355,7 @@ def _document_fields(
         price_date = (
             selected_date.strftime("%d/%m/%Y")
             if pd.notna(selected_date)
-            else _text(selected.iloc[0].get("Data")) or "N/D"
+            else "N/D"
         )
     else:
         price_scalar = None
@@ -351,16 +365,13 @@ def _document_fields(
         price_date = "N/D"
 
     if not emissions.empty:
-        emission_dates = pd.to_datetime(
-            emissions.get("Data"), format="%d/%m/%Y", errors="coerce"
-        )
         if emission_dates.notna().any():
             latest_emission_date = emission_dates.max()
             latest_emission_rows = emissions.loc[emission_dates.eq(latest_emission_date)]
             emission_date = latest_emission_date.strftime("%d/%m/%Y")
             emission_source = _unique_join(latest_emission_rows["Fonte"].tolist()) or "N/D"
         else:
-            emission_date = _text(emissions.iloc[-1].get("Data")) or "N/D"
+            emission_date = "N/D"
             emission_source = _text(emissions.iloc[-1].get("Fonte")) or "N/D"
     else:
         emission_date = "N/D"
@@ -475,6 +486,29 @@ def _compact_values(values: list[str], *, limit: int = 2) -> str:
     return f"{len(unique)} valores; ver aba"
 
 
+def _subordination_observation_status(detail: pd.DataFrame, latest: str) -> np.ndarray:
+    """Keep an absent official PL distinct from reported zero/negative PL."""
+    return np.select(
+        [
+            detail["pl_atual_brl"].isna(),
+            detail["pl_atual_brl"].eq(0),
+            detail["pl_atual_brl"].lt(0),
+            detail["pl_classes_reportadas_brl"].isna(),
+            detail["pl_classes_reportadas_brl"].le(0),
+            detail["pl_reconciliacao_delta_pct"].gt(PL_RECONCILIATION_WARNING_PCT),
+        ],
+        [
+            f"PL oficial ausente em {latest}",
+            f"N/D — PL oficial reportado zero em {latest}; razão não calculável",
+            f"N/D — PL oficial reportado negativo em {latest}; razão não calculável",
+            f"classes de cotas ausentes em {latest}",
+            f"N/D — classes de cotas reportadas sem PL positivo em {latest}; razão não calculável",
+            "N/D — PL oficial diverge das classes acima de 0,5%",
+        ],
+        default="Calculado com classes reportadas e PL oficial reconciliado",
+    )
+
+
 def build_flagship_curation(
     *,
     scope_path: Path,
@@ -563,22 +597,7 @@ def build_flagship_curation(
             PL_RECONCILIATION_WARNING_PCT
         )
     )
-    detail["subordinacao_atual_status"] = np.select(
-        [
-            detail["pl_atual_brl"].isna() | detail["pl_atual_brl"].le(0),
-            detail["pl_classes_reportadas_brl"].isna()
-            | detail["pl_classes_reportadas_brl"].le(0),
-            detail["pl_reconciliacao_delta_pct"].gt(
-                PL_RECONCILIATION_WARNING_PCT
-            ),
-        ],
-        [
-            f"PL oficial ausente em {latest}",
-            f"classes de cotas ausentes em {latest}",
-            "N/D — PL oficial diverge das classes acima de 0,5%",
-        ],
-        default="Calculado com classes reportadas e PL oficial reconciliado",
-    )
+    detail["subordinacao_atual_status"] = _subordination_observation_status(detail, latest)
 
     document_rows: list[dict[str, object]] = []
     for row in detail.to_dict("records"):
@@ -1171,20 +1190,7 @@ def build_portfolio_curation(
         & detail["pl_classes_reportadas_brl"].gt(0)
         & detail["pl_reconciliacao_delta_pct"].le(PL_RECONCILIATION_WARNING_PCT)
     )
-    detail["subordinacao_atual_status"] = np.select(
-        [
-            detail["pl_atual_brl"].isna() | detail["pl_atual_brl"].le(0),
-            detail["pl_classes_reportadas_brl"].isna()
-            | detail["pl_classes_reportadas_brl"].le(0),
-            detail["pl_reconciliacao_delta_pct"].gt(PL_RECONCILIATION_WARNING_PCT),
-        ],
-        [
-            f"PL oficial ausente em {latest}",
-            f"classes de cotas ausentes em {latest}",
-            "N/D — PL oficial diverge das classes acima de 0,5%",
-        ],
-        default="Calculado com classes reportadas e PL oficial reconciliado",
-    )
+    detail["subordinacao_atual_status"] = _subordination_observation_status(detail, latest)
     detail["subordinacao_minima_junior_pct"] = pd.to_numeric(
         detail["subordinacao_minima_junior_pct"], errors="coerce"
     )

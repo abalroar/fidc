@@ -280,7 +280,9 @@ def test_provenance_relabel_preserves_the_full_fic_mask_and_pl() -> None:
         FIC_FIDC_PATTERN,
         na=False,
     )
-    assert len(vehicle) == 229_451
+    # All official archives consulted on 08/10/26, including annual historical
+    # rectifications (29 ZIPs changed); September remains preliminary.
+    assert len(vehicle) == 239_027
     assert reported_signal.equals(derived_signal)
 
     overrides = load_fic_perimeter_overrides(DATA_DIR)
@@ -302,7 +304,7 @@ def test_provenance_relabel_preserves_the_full_fic_mask_and_pl() -> None:
         for row in mask.itertuples(index=False)
     ).encode()
     assert hashlib.sha256(mask_blob).hexdigest() == (
-        "7c8a531b0b2d2daad47a36e8f55087dd3c7b55c9e46e4c5f7102d59ee40b65b5"
+        "4e6d18d06160e80ded670e5c76277268858478d8252a3385332b91fa94e5cca5"
     )
 
     annotated["pl_cents"] = (
@@ -325,25 +327,25 @@ def test_provenance_relabel_preserves_the_full_fic_mask_and_pl() -> None:
         )
     aggregate_blob = ("\n".join(lines) + "\n").encode()
     assert hashlib.sha256(aggregate_blob).hexdigest() == (
-        "7276fa1d0be2fe4ba8202a577842f912e97afe3f42da7077b70ac95081096648"
+        "b6f29bedb3f2272e11015cf3f2c1311df6ca10166c1205ed422b0947a7922d6c"
     )
 
-    current = annotated[annotated["competencia"].eq("2026-06")].copy()
+    current = annotated[annotated["competencia"].eq("2026-08")].copy()
     current_fics = current[current["is_fic"].astype(bool)]
-    assert len(current) == 4_252
-    assert len(current_fics) == 773
-    assert int(current["pl_cents"].sum()) == 96_148_603_788_865
-    assert int(current_fics["pl_cents"].sum()) == 14_012_447_860_420
+    assert len(current) == 4_400
+    assert len(current_fics) == 778
+    assert int(current["pl_cents"].sum()) == 98_951_765_702_011
+    assert int(current_fics["pl_cents"].sum()) == 14_511_307_549_722
     assert int(
         current.loc[~current["is_fic"].astype(bool), "pl_cents"].sum()
-    ) == 82_136_155_928_445
+    ) == 84_440_458_152_289
     assert current_fics["fic_detection_method"].value_counts().to_dict() == {
-        METHOD_LEGACY_NOMINAL: 451,
-        METHOD_INFORME: 322,
+        METHOD_LEGACY_NOMINAL: 461,
+        METHOD_INFORME: 317,
     }
     by_method = current_fics.groupby("fic_detection_method")["pl_cents"].sum()
-    assert int(by_method[METHOD_LEGACY_NOMINAL]) == 8_071_759_150_214
-    assert int(by_method[METHOD_INFORME]) == 5_940_688_710_206
+    assert int(by_method[METHOD_LEGACY_NOMINAL]) == 8_626_425_194_696
+    assert int(by_method[METHOD_INFORME]) == 5_884_882_355_026
 
 
 def test_a_decision_reaches_every_competence_of_the_cnpj() -> None:

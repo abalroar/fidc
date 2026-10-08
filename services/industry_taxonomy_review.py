@@ -19,6 +19,7 @@ import threading
 from typing import Mapping
 import unicodedata
 import uuid
+from zipfile import ZipFile
 
 import pandas as pd
 
@@ -1080,6 +1081,35 @@ def _originator_evidence(
     )
 
 
+def load_cvm_fund_registration_evidence(archive_path: Path) -> pd.DataFrame:
+    """Read legal-fund registration dates and preserve the official ZIP hash."""
+
+    archive_path = Path(archive_path)
+    with ZipFile(archive_path) as archive:
+        registered = pd.read_csv(
+            archive.open("registro_fundo.csv"),
+            sep=";",
+            encoding="latin1",
+            dtype=str,
+            keep_default_na=False,
+            usecols=["CNPJ_Fundo", "Data_Constituicao", "Data_Registro"],
+        )
+    registered = registered.rename(
+        columns={
+            "CNPJ_Fundo": "cnpj_fundo",
+            "Data_Constituicao": "data_constituicao",
+            "Data_Registro": "data_registro",
+        }
+    )
+    registered["cnpj_fundo"] = registered["cnpj_fundo"].map(normalize_cnpj)
+    registered = registered[registered["cnpj_fundo"].ne("")].drop_duplicates().copy()
+    registered["fonte_registro"] = (
+        "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip"
+    )
+    registered["registro_sha256"] = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+    return registered.reset_index(drop=True)
+
+
 def build_top20_by_anbima_type(
     funds: pd.DataFrame,
     *,
@@ -1090,6 +1120,7 @@ def build_top20_by_anbima_type(
     document_inventory: pd.DataFrame | None = None,
     card_curation: pd.DataFrame | None = None,
     document_review: pd.DataFrame | None = None,
+    registration_evidence: pd.DataFrame | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Return 20 funds for each of the four categories displayed on slide 8."""
 
@@ -1123,11 +1154,69 @@ def build_top20_by_anbima_type(
     ].copy()
     previous["pl"] = pd.to_numeric(previous["pl"], errors="coerce")
     previous["cnpj_fundo"] = previous["cnpj_fundo"].map(normalize_cnpj)
+    if previous.empty or previous["cnpj_fundo"].duplicated().any():
+        raise ValueError(f"base anterior de {previous_competence} ausente ou com CNPJ duplicado")
     previous_positive = set(previous.loc[previous["pl"].gt(0), "cnpj_fundo"])
     top["pl_anterior_positivo"] = top["cnpj_fundo"].isin(previous_positive)
-    if not top["pl_anterior_positivo"].all():
+    top["pl_anterior_brl"] = top["cnpj_fundo"].map(previous.set_index("cnpj_fundo")["pl"])
+    top["pl_anterior_status"] = "pl_positivo_reportado"
+    top["pl_anterior_origem"] = (
+        f"CVM, Informe Mensal FIDC, Tabela IV, {previous_competence}; classes agregadas ao CNPJ legal"
+    )
+    top["data_constituicao_cadastral"] = ""
+    top["cadastro_registro_fonte"] = ""
+    top["cadastro_registro_sha256"] = ""
+    reported_zero = top["pl_anterior_brl"].eq(0)
+    reported_negative = top["pl_anterior_brl"].lt(0)
+    top.loc[reported_zero, "pl_anterior_status"] = "retomada_pl_positivo_apos_zero_reportado"
+    top.loc[reported_negative, "pl_anterior_status"] = "retomada_pl_positivo_apos_pl_negativo_reportado"
+    verified_entry = pd.Series(False, index=top.index)
+    if registration_evidence is not None and not registration_evidence.empty:
+        required_evidence = {"cnpj_fundo", "data_constituicao", "fonte_registro", "registro_sha256"}
+        if missing := sorted(required_evidence.difference(registration_evidence.columns)):
+            raise ValueError("evidência cadastral sem campos obrigatórios: " + ", ".join(missing))
+        evidence = registration_evidence.copy()
+        evidence["cnpj_fundo"] = evidence["cnpj_fundo"].map(normalize_cnpj)
+        missing_previous = top.loc[top["pl_anterior_brl"].isna(), "cnpj_fundo"]
+        evidence = evidence[evidence["cnpj_fundo"].isin(missing_previous)].copy()
+        if evidence["cnpj_fundo"].duplicated().any():
+            raise ValueError("evidência cadastral ambígua para fundos sem PL anterior")
+        evidence = evidence.set_index("cnpj_fundo")
+        constitution = pd.to_datetime(
+            top["cnpj_fundo"].map(evidence["data_constituicao"]),
+            format="%Y-%m-%d",
+            errors="coerce",
+        )
+        observed_before = set(
+            funds.loc[funds["competencia"].astype(str).lt(latest), "cnpj_fundo"].map(normalize_cnpj)
+        )
+        latest_period = pd.Period(latest, freq="M")
+        source = top["cnpj_fundo"].map(evidence["fonte_registro"]).fillna("")
+        digest = top["cnpj_fundo"].map(evidence["registro_sha256"]).fillna("")
+        verified_entry = (
+            ~top["cnpj_fundo"].isin(set(previous["cnpj_fundo"]))
+            & ~top["cnpj_fundo"].isin(observed_before)
+            & constitution.between(latest_period.start_time, latest_period.end_time)
+            & source.ne("")
+            & digest.str.fullmatch(r"[0-9a-f]{64}", na=False)
+        )
+        top.loc[verified_entry, "pl_anterior_status"] = "entrada_cadastral_no_mes"
+        top.loc[verified_entry, "data_constituicao_cadastral"] = constitution.loc[
+            verified_entry
+        ].dt.strftime("%Y-%m-%d")
+        top.loc[verified_entry, "cadastro_registro_fonte"] = source.loc[verified_entry]
+        top.loc[verified_entry, "cadastro_registro_sha256"] = digest.loc[verified_entry]
+        top.loc[verified_entry, "pl_anterior_origem"] = (
+            "CVM, registro_fundo.csv; constituição em "
+            + top.loc[verified_entry, "data_constituicao_cadastral"]
+            + "; ausência no painel anterior; fonte e SHA-256 nos campos cadastrais"
+        )
+    accepted_previous = top["pl_anterior_positivo"] | reported_zero | reported_negative | verified_entry
+    if not accepted_previous.all():
+        unresolved = ", ".join(top.loc[~accepted_previous, "cnpj_fundo"])
         raise ValueError(
-            f"{latest} não possui cobertura integral após verificar {previous_competence}"
+            f"{latest}: fundos sem PL anterior reportado em {previous_competence} "
+            f"e sem entrada cadastral comprovada: {unresolved}"
         )
     top["pl_tipo_brl"] = top["tipo_exibicao"].map(type_totals)
     top["share_tipo"] = top["pl"] / top["pl_tipo_brl"]
@@ -1191,8 +1280,8 @@ def build_top20_by_anbima_type(
     top["gestor"] = top.get("gestor_nome", pd.Series("", index=top.index)).fillna("").map(_text).replace("", "N/D")
     top["custodiante"] = top.get("custodiante_nome", pd.Series("", index=top.index)).fillna("").map(_text).replace("", "N/D")
     top["administrador_source"] = f"CVM, Informe Mensal FIDC, Tabela I, {latest}"
-    top["gestor_source"] = "Cadastro vigente carregado em 21/jul/26; fotografia cadastral"
-    top["custodiante_source"] = "Cadastro vigente carregado em 21/jul/26; fotografia cadastral"
+    top["gestor_source"] = "Cadastro vigente CVM; fotografia cadastral, consulta e hash em metadata.json"
+    top["custodiante_source"] = "Cadastro vigente CVM; fotografia cadastral, consulta e hash em metadata.json"
     top["pl_source"] = f"CVM, Informe Mensal FIDC, Tabela IV, {latest}; CNPJ do fundo com classes agregadas"
     top["competencia_pl"] = latest
     top["cnpj_fundo_formatado"] = top["cnpj_fundo"].map(format_cnpj)
@@ -1209,6 +1298,12 @@ def build_top20_by_anbima_type(
         "share_tipo",
         "competencia_pl",
         "pl_anterior_positivo",
+        "pl_anterior_brl",
+        "pl_anterior_status",
+        "pl_anterior_origem",
+        "data_constituicao_cadastral",
+        "cadastro_registro_fonte",
+        "cadastro_registro_sha256",
         "pl_source",
         "anbima_tipo",
         "anbima_foco",
@@ -1273,7 +1368,13 @@ def build_top20_by_anbima_type(
                 "competencia_pl": latest,
                 "competencia_anterior_verificada": previous_competence,
                 "fundos_pl_anterior_positivo": int(scoped["pl_anterior_positivo"].sum()),
-                "criterio_competencia": "jun/26 é a competência completa mais recente e possui PL positivo para 80/80 fundos; mai/26 também cobre 80/80",
+                "fundos_retomada_pl_positivo": int(scoped["pl_anterior_status"].str.startswith("retomada_pl_positivo").sum()),
+                "fundos_entrantes_cadastrais": int(scoped["pl_anterior_status"].eq("entrada_cadastral_no_mes").sum()),
+                "criterio_competencia": (
+                    f"{latest}: {len(scoped)} fundos com PL positivo; "
+                    f"{int(scoped['pl_anterior_positivo'].sum())} com PL positivo em {previous_competence}; "
+                    "demais casos exigem PL anterior não positivo reportado ou constituição cadastral no mês atual"
+                ),
             }
         )
     return output, pd.DataFrame(coverage_rows)
@@ -2160,6 +2261,7 @@ __all__ = [
     "commit_taxonomy_review_action",
     "format_cnpj",
     "load_taxonomy_review_actions",
+    "load_cvm_fund_registration_evidence",
     "load_taxonomy_review_audit",
     "normalize_analytical_anbima_focus",
     "normalize_cnpj",

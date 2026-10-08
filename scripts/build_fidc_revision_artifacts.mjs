@@ -41,7 +41,7 @@ const {
 
 const INPUT_WORKBOOK =
   process.env.FIDC_INPUT_WORKBOOK ||
-  "/Users/matheusjprates/Downloads/Industria_FIDC_Dados_202607.xlsx";
+  path.join(ROOT, "data/industry_study/generated_revision/industry_data_revised.xlsx");
 const REVISION_DIR = path.resolve(
   process.env.FIDC_REVISION_DIR ||
     path.join(ROOT, "data/industry_study/generated_revision"),
@@ -60,11 +60,11 @@ const QA_DIR = path.resolve(
 );
 const OUTPUT_PPTX = path.resolve(
   process.env.FIDC_OUTPUT_PPTX ||
-    path.join(OUTPUT_DIR, "Industria_FIDC_Executivo_202607_revisado.pptx"),
+    path.join(OUTPUT_DIR, "industry_executive_revised.pptx"),
 );
 const OUTPUT_XLSX = path.resolve(
   process.env.FIDC_OUTPUT_XLSX ||
-    path.join(OUTPUT_DIR, "Industria_FIDC_Dados_202607_revisado.xlsx"),
+    path.join(OUTPUT_DIR, "industry_data_revised.xlsx"),
 );
 const OUTPUT_PORTFOLIO_XLSX = path.resolve(
   process.env.FIDC_OUTPUT_PORTFOLIO_XLSX ||
@@ -89,7 +89,7 @@ const EXPORT_MANIFEST_PATH = path.resolve(
   process.env.FIDC_EXPORT_MANIFEST ||
     path.join(REVISION_DIR, "industry_export_bundle.json"),
 );
-const RENDERER_VERSION = "industry_revision_artifacts_v48";
+const RENDERER_VERSION = "industry_revision_artifacts_v50";
 const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([
   { id: "structural_mvp_financeiro", group: "Financeiro", sourceGroups: ["Financeiro"] },
   { id: "structural_mvp_adquirencia", group: "Adquirência", sourceGroups: ["Adquirência"] },
@@ -140,115 +140,115 @@ const STRUCTURAL_ROWS_PER_SLIDE = Object.freeze({
 });
 const SLIDE_CONTRACT_V1 = Object.freeze([
   "cover", "industry_scale", "annual_issuance", "issuance_taxonomy_summary",
-  "issuance_taxonomy_detail", "analytical_taxonomy", "acquiring", "receivables",
-  "top20",
-  "top20_fomento_2026", "top20_fomento_2025",
-  "top20_agro_2026", "top20_agro_2025",
-  "top20_financeiro_2026", "top20_financeiro_2025",
-  "top20_outros_2026", "top20_outros_2025",
-  ...STRUCTURAL_MVP_SLIDE_SEQUENCE.map((entry) => entry.id),
-  "offers_volume_ticket",
-  "offers_ticket_distribution", "offers_placement_regime",
-  "top15_current_2026", "top15_current_2025",
-  "top15_history_2024_1_2", "top15_history_2024_2_2",
-  "top15_history_2023_1_2", "top15_history_2023_2_2", "conclusions",
+  "analytical_taxonomy", "acquiring", "receivables", "offers_volume_ticket",
+  "offers_ticket_distribution", "offers_placement_regime", "conclusions",
   "provider_history", "provider_ranking", "investor_base", "holder_distribution",
 ]);
 const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;
-const COVER_TITLE = "Indústria de FIDCs — ago-26";
-const EDITORIAL_HEADER_COPY = Object.freeze([
-  {
-    eyebrow: "OFERTAS ENCERRADAS · CVM E ANBIMA",
-    title: "Emissões | FIDCs seguem ganhando escala nas emissões",
-    subtitle: "No 1S26, FIDCs +14,6%; demais instrumentos −7,8%",
-  },
-  {
-    eyebrow: "TAXONOMIA ANALÍTICA · OUTROS ABERTO",
-    title: 'Abrir "Outros" revela que 63% do mercado é crédito financeiro',
-    subtitle: "Financeiro somado aos componentes de Outros, jun/26",
-  },
-  {
-    eyebrow: "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA",
-    title: "Adquirência é R$ 99 bi que a taxonomia oficial não mostra",
-    subtitle: "33 CNPJs reclassificados, 12,1% do PL",
-  },
-  {
-    eyebrow: "CARTEIRA POR TIPO DE RECEBÍVEL",
-    title: "Financeiro explicou 70% do crescimento da carteira",
-    subtitle: "Ganho de 17,5 p.p. de participação no período",
-  },
-  {
-    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
-    titleStartsWith: "Fomento Mercantil",
-    title: "Fomento Mercantil: crescimento marginal em seis meses",
-    subtitle: "Top 15 vai de R$ 30,4 bi a R$ 31,9 bi",
-  },
-  {
-    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
-    titleStartsWith: "Agro, Indústria e Comércio",
-    title: "Agro, Indústria e Comércio: o maior salto absoluto",
-    subtitle: "Top 15 sobe R$ 18,2 bi, para R$ 112,2 bi",
-  },
-  {
-    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
-    titleStartsWith: "Financeiro",
-    title: "Financeiro: o maior bloco, e ainda crescendo",
-    subtitle: "Top 15 vai a R$ 121,1 bi",
-  },
-  {
-    eyebrow: "RANKING · TOP FUNDOS E ORIGINADORES",
-    titleStartsWith: "Outros",
-    title: "Outros: o único bloco que encolheu",
-    subtitle: "Top 15 recua de R$ 60,9 bi para R$ 55,1 bi",
-  },
-  {
-    eyebrow: "CARTEIRA 1 · TAXONOMIA ANALÍTICA",
-    title: "A carteira lida com o mesmo critério do mercado",
-    subtitle: "R$ 55,3 bi de PL observado, composição reclassificada",
-  },
-  {
-    eyebrow: "OFERTAS ENCERRADAS · VOLUME E TICKET",
-    title: "Emissões crescem 15% no semestre",
-    subtitle: "R$ 65,5 bi em 771 ofertas no jan–jun/26",
-  },
-  {
-    eyebrow: "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
-    title: "22 ofertas concentram 42% de todo o volume",
-    subtitle: "Tickets acima de R$ 500 mi, jan–jun/26",
-  },
-  {
-    eyebrow: "TOP 15 · OFERTAS ENCERRADAS",
-    titleStartsWith: "IBBA participou de",
-    title: "IBBA esteve em 8 das 15 maiores ofertas do semestre",
-    subtitle: "Liderou 5 delas",
-  },
-  {
-    eyebrow: "TOP 15 · OFERTAS ENCERRADAS",
-    titleStartsWith: "As 15 maiores ofertas de 2025",
-    title: "As 15 maiores ofertas de 2025 mantêm a base anual de comparação",
-    subtitle: "2025FY · ofertas primárias encerradas",
-  },
-  {
-    eyebrow: "PRINCIPAIS CONCLUSÕES",
-    title: "O que muda a leitura do mercado",
-    subtitle: "Distribuição, prestadores, migração e ofertas",
-  },
-  {
-    eyebrow: "PRESTADORES · EVOLUÇÃO E RANKING",
-    title: "QI lidera administração; BTG lidera gestão e custódia",
-    subtitle: "Ranking geral de jun/26",
-  },
-  {
-    eyebrow: "PRESTADORES · LIDERANÇA EXPLICADA",
-    title: "A liderança some quando se olha o que a sustenta",
-    subtitle: "Singulare explica a escala da QI; sem a coorte bancária, BTG cai para #3 em gestão",
-  },
-  {
-    eyebrow: "BASE INVESTIDORA",
-    title: "Quase todo o volume vai para o investidor profissional",
-    subtitle: "Entre 93% e 97% ao ano; a classificação mede elegibilidade, não alocação efetiva",
-  },
-]);
+let editorialPayload = {};
+
+function comparativePeriod(payload) {
+  const end = String(payload.offers_as_of || "");
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(end);
+  if (!match) throw new Error("Ofertas sem data de corte válida");
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  if (year < 1900 || year > 9999 || month < 1 || month > 12 || Number(match[3]) !== new Date(Date.UTC(year, month, 0)).getUTCDate()) {
+    throw new Error("Ofertas devem encerrar no último dia da competência");
+  }
+  const span = month === 1 ? "jan" : `jan–${months[month - 1]}`;
+  const short = (value) => String(value % 100).padStart(2, "0");
+  const expected = {
+    current_year: year, month_count: month,
+    current_period_start: `${year}-01-01`, current_period_end: end,
+    previous_period_end: `${year - 1}-${match[2]}-${String(new Date(Date.UTC(year - 1, month, 0)).getUTCDate()).padStart(2, "0")}`,
+    period_label: `${span}/${short(year)}`, previous_period_label: `${span}/${short(year - 1)}`,
+    current_period_id: `${year} jan-${months[month - 1]}`, previous_period_id: `${year - 1} jan-${months[month - 1]}`,
+    current_period_key: `${months[month - 1]}${short(year)}`, previous_period_key: `${months[month - 1]}${short(year - 1)}`,
+  };
+  const supplied = payload.offers_comparison_meta;
+  if (supplied) {
+    for (const [key, value] of Object.entries(expected)) {
+      if (supplied[key] !== value) throw new Error(`Metadado de comparação divergente: ${key}`);
+    }
+    if (end.slice(0, 7) !== payload.latest_complete) throw new Error("Ofertas não acompanham a competência consolidada");
+  }
+  return { ...expected, annual_years: [year - 3, year - 2, year - 1] };
+}
+
+function offerPeriodDisplay(period, cut) {
+  return period === cut.current_period_id
+    ? `${cut.current_year} ${cut.period_label.split("/")[0]}`
+    : String(period).replace(" FY", "FY");
+}
+
+
+
+function secondaryComparativePeriod(payload, manifestKey = "anbima_market_offers_manifest") {
+  const primary = comparativePeriod(payload);
+  const manifest = payload[manifestKey];
+  if (!manifest && !payload.offers_comparison_meta) return primary;
+  if (!manifest?.comparison_meta || !manifest.cvm_latest_complete_meta) throw new Error(`${manifestKey}: janela própria ausente`);
+  const metadata = manifest.comparison_meta;
+  const competence = String(metadata.current_period_end || "").slice(0, 7);
+  const cut = comparativePeriod({ offers_as_of: metadata.current_period_end, latest_complete: competence, offers_comparison_meta: metadata });
+  if (Object.entries(manifest.cvm_latest_complete_meta).some(([key, value]) => primary[key] !== value)) throw new Error(`${manifestKey}: corte primário divergente`);
+  const source = String(manifest.source_reference_competence || "");
+  const expectedCompetence = [source, String(payload.latest_complete || "")].sort()[0];
+  if (competence !== expectedCompetence) throw new Error(`${manifestKey}: fontes com janelas diferentes`);
+  return cut;
+}
+
+// Titles identify the evidence. Periods and quantities come from the payload.
+function editorialHeaderCopy(eyebrow) {
+  const stock = competenceShortPt(editorialPayload.latest_complete).toLowerCase();
+  const offers = comparativePeriod(editorialPayload).period_label;
+  const headers = {
+    "ESCALA DA INDÚSTRIA": ["Escala da indústria", `PL ex-FIC e carteira de crédito privada ampliada, até ${stock}`],
+    "EMISSÕES POR SETOR": ["Emissões por setor", `Ofertas primárias encerradas, ${offers}`],
+    "OFERTAS ENCERRADAS · CVM E ANBIMA": ["Emissões de FIDCs e outros instrumentos", "CVM e ANBIMA, perímetros comparados"],
+    "TAXONOMIA ANALÍTICA · OUTROS ABERTO": ["Composição da indústria", `PL ex-FIC até ${stock}, classificação analítica`],
+    "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA": ["Adquirência na indústria de FIDCs", `Curadoria documental, estoque em ${stock}`],
+    "CARTEIRA POR TIPO DE RECEBÍVEL": ["Evolução dos recebíveis", `Dez/23 a ${stock}, abertura da Tabela II`],
+    "OFERTAS ENCERRADAS · VOLUME E TICKET": ["Volume e ticket das ofertas", `Ofertas primárias encerradas, ${offers}`],
+    "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET": ["Concentração das ofertas por ticket", `Distribuição do volume, ${offers}`],
+    "OFERTAS · VOLUME E REGIME": ["Regime de colocação das ofertas", `Garantia firme e melhores esforços, ${offers}`],
+    "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS": ["Distribuição por número de cotistas", `Fundos com PL a partir de R$ 200 mi, dez/23 a ${stock}`],
+    "PRINCIPAIS CONCLUSÕES": ["Principais conclusões", `Estoque em ${stock}, ofertas em ${offers}`],
+    "PRESTADORES · EVOLUÇÃO E RANKING": ["Ranking de prestadores", `PL ex-FIC (R$ bi), ${stock}: ranking geral e independentes`],
+    "BASE INVESTIDORA": ["Público-alvo e base investidora", `Ofertas até ${competenceShortPt(String(editorialPayload.offers_as_of || "").slice(0, 7)).toLowerCase()}; contas em ${stock}`],
+  };
+  const copy = headers[eyebrow];
+  return copy ? { title: copy[0], subtitle: copy[1] } : null;
+}
+
+function editorialFooterCopy(eyebrow, source) {
+  const cut = comparativePeriod(editorialPayload);
+  const anbimaCut = secondaryComparativePeriod(editorialPayload);
+  const stock = competenceShortPt(editorialPayload.latest_complete).toLowerCase();
+  const bcbStock = competenceShortPt((editorialPayload.bcb_expanded_credit || []).at(-1)?.competencia).toLowerCase();
+  const scaleSourcePeriods = bcbStock === stock ? `CVM e BCB, ${stock}` : `CVM, ${stock}; BCB, ${bcbStock}`;
+  const snapshot = dateShortPt(editorialPayload.offers_source_as_of || "N/D");
+  const providerBefore = historicalFrameCompetences(editorialPayload.provider_concentration_history || [], editorialPayload.latest_complete, 1)[0];
+  const offersSource = `Fonte: CVM/SRE, snapshot ${snapshot}. Primárias encerradas, ${cut.period_label}; volume registrado.`;
+  const sources = {
+    "ESCALA DA INDÚSTRIA": `Fontes: ${scaleSourcePeriods}. PL ex-FIC; crédito privado ampliado. Séries e perímetros no XLSX.`,
+    "OFERTAS ENCERRADAS · CVM E ANBIMA": `Fontes: CVM/SRE (${snapshot}), ${cut.period_label}; ANBIMA, ${anbimaCut.period_label}. Perímetros e método no XLSX.`,
+    "EMISSÕES POR SETOR": `Fontes: CVM/SRE, ${cut.period_label}, e ANBIMA (2023). Volume registrado; reconciliação no XLSX.`,
+    "TAXONOMIA ANALÍTICA · OUTROS ABERTO": `Fontes: ANBIMA (dez/25), CVM (${stock}) e ledger documental. PL ex-FIC; taxonomia oficial no XLSX.`,
+    "TAXONOMIA CVM · RECLASSIFICAÇÃO DE ADQUIRÊNCIA": `Fontes: CVM (${stock}) e FundosNet. Curadoria de 21/jul/26; categoria oficial no XLSX.`,
+    "CARTEIRA POR TIPO DE RECEBÍVEL": `Fonte: CVM, Tabela II, dez/23 e ${stock}. Percentuais sobre o total dos segmentos reportados.`,
+    "OFERTAS ENCERRADAS · VOLUME E TICKET": offersSource,
+    "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET": offersSource,
+    "OFERTAS · VOLUME E REGIME": `Fonte: CVM/SRE, snapshot ${snapshot}. ${cut.period_label}; regime declarado. Campo ausente = Não informado.`,
+    "PRESTADORES · EVOLUÇÃO E RANKING": `Fonte: CVM, ${stock}. Exclui Petrobras/TAPSO. Gestão/custódia reconstruídas; método no XLSX.`,
+    "PRESTADORES · RANKING E CONCENTRAÇÃO": `Fonte: CVM, ${competenceShortPt(providerBefore).toLowerCase()} e ${stock}. PL ex-FIC, sem Petrobras/TAPSO. Gestão/custódia reconstruídas.`,
+    "BASE INVESTIDORA": `Fontes: CVM/SRE, ${cut.period_label}; CVM, ${stock}. Público-alvo = elegibilidade; contas podem se repetir.`,
+    "DISTRIBUIÇÃO POR NÚMERO DE COTISTAS": `Fonte: CVM, dez/23 e ${stock}. PL ex-FIC ≥ R$ 200 mi; contas por classe/série.`,
+  };
+  return sources[eyebrow] || source;
+}
 const WORKBOOK_SHEETS_TO_REMOVE = [
   "Conflitos Tab IV",
   "Warnings",
@@ -478,7 +478,7 @@ function parseIsoDate(value) {
 }
 
 function parseCompetence(value) {
-  const match = String(value || "").match(/^(\d{4})-(\d{2})$/);
+  const match = String(value || "").match(/^(\d{4})-?(\d{2})$/);
   if (!match) return null;
   return { year: Number(match[1]), month: Number(match[2]) };
 }
@@ -997,14 +997,6 @@ function addRule(slide, left, top, width, color = C.line, thickness = 1) {
 
 let automaticPageNumber = 1;
 
-function editorialHeaderCopy(eyebrow, currentTitle) {
-  return EDITORIAL_HEADER_COPY.find(
-    (entry) =>
-      entry.eyebrow === eyebrow &&
-      (!entry.titleStartsWith || currentTitle.startsWith(entry.titleStartsWith)),
-  );
-}
-
 function addHeader(slide, eyebrow, title, source, _page) {
   automaticPageNumber += 1;
   slide.background.fill = C.white;
@@ -1053,7 +1045,7 @@ function addHeader(slide, eyebrow, title, source, _page) {
   addRule(slide, 60, 667, 1160, C.line, 1);
   addText(
     slide,
-    source,
+    editorialFooterCopy(eyebrow, source),
     { left: 60, top: 674, width: 1050, height: 18 },
     {
       fontSize: 10.5,
@@ -1069,11 +1061,13 @@ function addHeader(slide, eyebrow, title, source, _page) {
     { left: 1170, top: 673, width: 50, height: 18 },
     { fontSize: 10.5, color: C.note, alignment: "right", verticalAlignment: "middle" },
   );
+  slide.speakerNotes.text = `[Footer source]\n${source}\n[/Footer source]`;
 }
 
 function addSourceNotes(slide, sources) {
   const lines = Array.isArray(sources) ? sources.filter(Boolean) : [String(sources || "")];
   slide.speakerNotes.textFrame.setText([
+    slide.speakerNotes.text || "",
     "[Sources]",
     ...lines.map((source) => `- ${source}`),
     "[/Sources]",
@@ -1380,24 +1374,7 @@ function installPresentationTypography(presentation) {
 }
 
 function addLegend(slide, entries, position, columns = 4) {
-  const chart = slide.charts.add("line", {
-    ...chartBase(position),
-    categories: [""],
-    series: entries.map((entry) => ({
-      name: truncateWords(entry.label, 48),
-      values: [null],
-      line: { style: "solid", fill: entry.color, width: 3 },
-      marker: { symbol: "none" },
-    })),
-    hasLegend: true,
-    legend: {
-      position: "bottom",
-      textStyle: { fill: C.mid, fontSize: TYPOGRAPHY.legend },
-    },
-    xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
-    yAxis: { visible: false, majorGridlines: null, minorGridlines: null },
-  });
-  return chart;
+  return addShapeLegend(slide, entries, position, columns, { maxLabelLength: 48 });
 }
 
 function addShapeLegend(slide, entries, position, columns = 4, options = {}) {
@@ -1570,6 +1547,7 @@ async function writeExportBundleManifest(payload, payloadRaw) {
       sha256: pptxSha256,
       bytes: pptxStat.size,
       slides: EXPECTED_SLIDES,
+      slide_contract: SLIDE_CONTRACT_V1,
     },
     xlsx: {
       filename: path.basename(OUTPUT_XLSX),
@@ -1864,8 +1842,19 @@ function addMarketShareSlide(presentation, payload, role, focusRows, page, appen
   return slide;
 }
 
+
+function historicalFrameCompetences(rows, latest, count) {
+  const periods = [...new Set(rows.map((row) => String(row.competencia || "")))]
+    .filter((period) => period < latest && /^\d{4}-12$/.test(period))
+    .sort()
+    .slice(-count);
+  if (periods.length !== count) throw new Error(`Histórico sem ${count} encerramentos anuais anteriores a ${latest}`);
+  return periods;
+}
+
 function providerHistoricalRows(payload, role, limit = 6) {
   const all = (payload.provider_historical_ranking || []).filter((row) => row.papel === role);
+  const historical = historicalFrameCompetences(all, payload.latest_complete, 2);
   const latestAll = all
     .filter((row) => row.competencia === payload.latest_complete && row.participante !== "Não informado")
     .sort((a, b) => num(a.rank_periodo) - num(b.rank_periodo));
@@ -1881,8 +1870,8 @@ function providerHistoricalRows(payload, role, limit = 6) {
   return latest.map((current) => ({
     participante: current.participante,
     current,
-    before2024: lookup.get(`2024-12|${current.participante}`),
-    before2025: lookup.get(`2025-12|${current.participante}`),
+    before2024: lookup.get(`${historical[0]}|${current.participante}`),
+    before2025: lookup.get(`${historical[1]}|${current.participante}`),
   }));
 }
 
@@ -2000,6 +1989,7 @@ function btgBankCohortContext(payload) {
 }
 
 function addProviderHistoricalRankingSlide(presentation, payload, page) {
+  const historical = historicalFrameCompetences(payload.provider_historical_ranking || [], payload.latest_complete, 2);
   const slide = presentation.slides.add();
   const stockShort = competenceShortPt(payload.latest_complete);
   const btgScenario = new Map(
@@ -2047,7 +2037,7 @@ function addProviderHistoricalRankingSlide(presentation, payload, page) {
       top: top + 23,
       width: 690,
       height: 145,
-      headers: ["Participante", "Dez/24", "Dez/25", stockShort],
+      headers: ["Participante", ...historical.map(competenceShortPt), stockShort],
       rows: rows.map((row) => {
         const currentCell = providerRankPlCell(row.current);
         const scenario = btgScenario.get(role);
@@ -2111,6 +2101,7 @@ function independentProviderRows(payload, role, limit = 6) {
   const all = (payload.provider_independent_ranking || []).filter(
     (row) => row.papel === role,
   );
+  const historical = historicalFrameCompetences(all, payload.latest_complete, 2);
   const participant = (row) => row.participante || row.grupo_normalizado || row.grupo || "";
   const independentRank = (row) =>
     num(row.rank_independente || row.rank_independent || row.posicao_independentes, 9999);
@@ -2124,8 +2115,8 @@ function independentProviderRows(payload, role, limit = 6) {
   return latest.map((current) => ({
     participante: participant(current),
     current,
-    before2024: lookup.get(`2024-12|${participant(current)}`),
-    before2025: lookup.get(`2025-12|${participant(current)}`),
+    before2024: lookup.get(`${historical[0]}|${participant(current)}`),
+    before2025: lookup.get(`${historical[1]}|${participant(current)}`),
   }));
 }
 
@@ -2145,6 +2136,7 @@ function independentRankPlCell(row) {
 }
 
 function addIndependentProviderRankingSlide(presentation, payload, page) {
+  const historical = historicalFrameCompetences(payload.provider_independent_ranking || [], payload.latest_complete, 2);
   const slide = presentation.slides.add();
   const stockShort = competenceShortPt(payload.latest_complete);
   const currentAdmin = independentProviderRows(payload, "administrador", 6)[0];
@@ -2182,7 +2174,7 @@ function addIndependentProviderRankingSlide(presentation, payload, page) {
       top: top + 23,
       width: 690,
       height: 145,
-      headers: ["Participante", "Dez/24", "Dez/25", stockShort],
+      headers: ["Participante", ...historical.map(competenceShortPt), stockShort],
       rows: rows.map((row) => [
         providerShort(row.participante),
         independentRankPlCell(row.before2024),
@@ -2239,7 +2231,7 @@ function addCombinedProviderRankingSlide(presentation, payload, page) {
     slide,
     "PRESTADORES · EVOLUÇÃO E RANKING",
     `QI lidera administração; BTG lidera gestão e custódia no ranking geral de ${stockShort.toLowerCase()}`,
-    "Fonte: CVM, Informe Mensal e cadastro de prestadores, jun/26. Exclui Sistema Petrobras e TAPSO. *Independentes: grupos sem controlador bancário na curadoria; Singulare consolidada em QI Tech e Kanastra no Itaú.",
+    `Fonte: CVM, Informe Mensal e cadastro de prestadores, ${stockShort.toLowerCase()}. Exclui Sistema Petrobras e TAPSO. Gestão/custódia históricas reconstruídas com cadastro vigente.`,
     page,
   );
   addLegend(
@@ -2334,7 +2326,9 @@ function addCombinedProviderRankingSlide(presentation, payload, page) {
       },
       hasLegend: false,
       xAxis: {
-        visible: false,
+        visible: true,
+        textStyle: { fill: C.mid, fontSize: 10.1 },
+        line: { style: "solid", fill: C.line, width: 1 },
         majorGridlines: null,
         minorGridlines: null,
       },
@@ -2386,7 +2380,7 @@ function addBankFidcEvolutionSlide(presentation, payload, page) {
   const stockShort = competenceShortPt(payload.latest_complete);
   const stockShortLower = stockShort.toLowerCase();
   const rows = payload.bank_fidc_evolution || [];
-  const periods = ["2023-12", "2024-12", "2025-12", payload.latest_complete];
+  const periods = [...historicalFrameCompetences(rows, payload.latest_complete, 3), payload.latest_complete];
   const groups = ["BTG Pactual", "Itaú", "Santander", "Bradesco", "Banco do Brasil"];
   const lookup = new Map(
     rows.map((row) => [`${row.competencia}|${row.grupo_bancario || row.grupo}`, row]),
@@ -2965,17 +2959,24 @@ function addProviderTransitionSlide(presentation, payload, page, pngBytes, role 
     const coverage = (payload.provider_history_cvm_coverage || []).find(
       (row) => row.papel === role && String(row.data_referencia || "").includes("→"),
     ) || {};
+    const historicalDates = String(coverage.data_referencia || "").split("→").map((value) => value.trim());
+    const historicalPeriod = historicalDates.length === 2
+      ? historicalDates.map((value) => competenceShortPt(value.slice(0, 7)).toLowerCase()).join(" → ")
+      : "datas N/D";
+    const historicalCurrent = historicalDates.length === 2
+      ? competenceShortPt(historicalDates[1].slice(0, 7)).toLowerCase()
+      : "competência N/D";
     addHeader(
       slide,
       `PRESTADORES · MIGRAÇÃO EM ${roleLabel}`,
       `${integer(coverage.fundos_mudaram_grupo)} ${Math.round(num(coverage.fundos_mudaram_grupo)) === 1 ? "FIDC" : "FIDCs"} e ${bn(coverage.pl_mudou_grupo_mai26_brl, 2)} mudaram de grupo na amostra observável`,
-      `Fonte: CVM, cad_fi_hist.zip, recurso histórico identificado como ICVM 555. Coorte atual de mai/26; dez/24 → mai/26; largura = PL mai/26. Cobertura comparável: ${pct(coverage.cobertura_pl_resolvida, 2)} do PL. Amostra sem extrapolação para a indústria.`,
+      `Fonte: CVM, cad_fi_hist.zip, recurso histórico identificado como ICVM 555. ${historicalPeriod}; largura = PL ${historicalCurrent}. Cobertura comparável: ${pct(coverage.cobertura_pl_resolvida, 2)} do PL. Amostra sem extrapolação para a indústria.`,
       page,
     );
     addProviderFlowSnapshot(
       slide,
       pngBytes,
-      `Fluxos observados de ${roleLabel.toLowerCase()} entre dezembro de 2024 e maio de 2026 na amostra ICVM 555`,
+      `Fluxos observados de ${roleLabel.toLowerCase()} em ${historicalPeriod} na amostra ICVM 555`,
     );
     return slide;
   }
@@ -3107,118 +3108,21 @@ function addProviderMigrationEvidenceSlide(presentation, payload, page) {
   return slide;
 }
 
-function fallbackExecutiveConclusions(payload) {
-  const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
-  const metrics = payload.conclusion_metrics || {};
-  const bankCohort = btgBankCohortContext(payload);
-  const currentOfferYtd = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
-  const comparableOffers = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [];
-  const currentOffer = comparableOffers.find((row) => num(row.year) === 2026) || {};
-  const priorOffer = comparableOffers.find((row) => num(row.year) === 2025) || {};
-  const offer2024 = comparableOffers.find((row) => num(row.year) === 2024) || {};
-  const currentConcentration = Object.fromEntries(
-    (payload.provider_concentration_history || [])
-      .filter((row) => row.competencia === payload.latest_complete)
-      .map((row) => [row.papel, row]),
-  );
-  const provider = (role, name) => (payload.provider_historical_ranking || []).find(
-    (row) => row.competencia === payload.latest_complete
-      && row.papel === role
-      && normalizeProviderName(row.participante) === normalizeProviderName(name),
-  ) || {};
-  const qiAdmin = provider("administrador", "QI Tech");
-  const qiCustodian = provider("custodiante", "QI Tech");
-  const otManager = provider("gestor", "Oliveira Trust");
-  const reag = payload.reag_admin_summary || {};
-  const cloudwalk = (payload.closed_offer_originators_2026 || []).find(
-    (row) => normalizeProviderName(row.originator_group).includes("cloudwalk"),
-  ) || {};
-  const offerGrowth = num(priorOffer.registered_volume_brl)
-    ? num(currentOffer.registered_volume_brl) / num(priorOffer.registered_volume_brl) - 1
-    : 0;
-  const offerGrowth2024 = num(offer2024.registered_volume_brl)
-    ? num(currentOffer.registered_volume_brl) / num(offer2024.registered_volume_brl) - 1
-    : 0;
-  return [
-    {
-      order: 1,
-      title: "Distribuição após a RCVM 175 continua institucional",
-      bullets: [
-        `Ticket médio de ${mm(currentOfferYtd.mean_registered_ticket_brl, 1)} e mediano de ${mm(currentOfferYtd.median_registered_ticket_brl, 1)} em jan–jun/26.`,
-        `PF respondeu por ${pct(currentOfferYtd.natural_person_placed_volume_share, 1)} do volume colocado; ${pct(metrics.holder_ge_200m_share_fundos_ate_10_contas, 0)} dos fundos com PL ≥ R$ 200 mi têm até dez contas.`,
-      ],
-    },
-    {
-      order: 2,
-      title: "Prestação de serviços é verticalizada",
-      bullets: [
-        `Administração e custódia ficam no mesmo conglomerado em ${pct(metrics.admin_custodia_juntas_share_pl, 1)} do PL bruto, em ${integer(metrics.admin_custodia_juntas_fundos)} fundos.`,
-        `Monoestruturas reúnem ${pct(metrics.monoestrutura_share_pl, 1)} do PL.`,
-      ],
-    },
-    {
-      order: 3,
-      title: "Independentes precisam de escala",
-      bullets: [
-        `QI Tech lidera administração (${bn(qiAdmin.pl_brl, 1)}) e custódia (${bn(qiCustodian.pl_brl, 1)}); Oliveira Trust é a maior gestora independente (${bn(otManager.pl_brl, 1)}; 3ª geral).`,
-        `Na coorte CBSF/Reag, ${pct(reag.migrated_share_current, 1)} do PL continuante migrou de administrador.`,
-      ],
-    },
-    {
-      order: 4,
-      title: "Migração de administrador foi baixa",
-      bullets: [
-        `${integer(metrics.admin_transition_2024_2025_changed_funds)} FIDCs trocaram de administrador entre dez/24 e dez/25: ${bn(metrics.admin_transition_2024_2025_changed_pl_brl, 1)}, ou ${pct(metrics.admin_transition_2024_2025_changed_share_pl, 1)} do PL comparável.`,
-        `Oliveira Trust → Bradesco somou ${bn(metrics.admin_transition_2024_2025_cielo_pl_brl, 1)} em dois FIDCs Cielo.`,
-      ],
-    },
-    {
-      order: 5,
-      title: "Gestão é a função menos concentrada",
-      bullets: [
-        `O Top 10 reúne ${pct(currentConcentration.gestor?.top10_share, 1)} do PL ex-FIC em gestão, ante ${pct(currentConcentration.administrador?.top10_share, 1)} na administração e ${pct(currentConcentration.custodiante?.top10_share, 1)} na custódia.`,
-        "O recorte exclui Sistema Petrobras e TAPSO.",
-      ],
-    },
-    {
-      order: 6,
-      title: "Coorte bancária do BTG concentra o combo completo",
-      bullets: [
-        `A coorte bancária curada lista ${integer(bankCohort.listedRoots)} raízes do BTG; ${integer(bankCohort.observedFunds)} tinham PL observado em ${stockShortLower}, somando ${bn(bankCohort.cohortPl, 1)}.`,
-        `Dentro da coorte, ${integer(bankCohort.comboFunds)} FIDCs e ${bn(bankCohort.comboPl, 1)} concentram administração, gestão e custódia no BTG.`,
-      ],
-    },
-    {
-      order: 7,
-      title: "Ofertas encerradas em 2026",
-      bullets: [
-        `${integer(currentOfferYtd.closed_offers)} ofertas encerradas somaram ${bn(currentOfferYtd.registered_volume_brl, 1)} em jan–jun/26; alta de ${pct(offerGrowth, 0)} sobre jan–jun/25 e ${pct(offerGrowth2024, 0)} sobre jan–jun/24.`,
-        `Ofertas nomináveis da CloudWalk somaram ${bn(cloudwalk.registered_volume_brl, 1)}.`,
-      ],
-    },
-  ];
-}
-
 function executiveConclusions(payload) {
   const rows = payload.executive_conclusions;
-  if (!Array.isArray(rows) || rows.length !== 7) return fallbackExecutiveConclusions(payload);
+  if (!Array.isArray(rows) || rows.length !== 5) {
+    throw new Error("O deck executivo exige cinco conclusões atualizadas no payload.");
+  }
   const normalized = rows.map((row, index) => ({
     order: Math.round(num(row?.order, index + 1)),
     title: String(row?.title || "").trim(),
-    bullets: Array.isArray(row?.bullets)
-      ? row.bullets.map((bullet) => String(bullet || "").trim())
-      : [],
+    bullets: Array.isArray(row?.bullets) ? row.bullets.map((bullet) => String(bullet || "").trim()) : [],
   }));
-  const valid = normalized.every(
-    (row) => row.order >= 1
-      && row.order <= 7
-      && row.title
-      && row.bullets.length === 2
-      && row.bullets.every(Boolean),
-  ) && new Set(normalized.map((row) => row.order)).size === 7;
-  return valid
-    ? normalized.sort((a, b) => a.order - b.order)
-    : fallbackExecutiveConclusions(payload);
+  if (!normalized.every((row) => row.order >= 1 && row.order <= 5 && row.title && row.bullets.length >= 1 && row.bullets.length <= 2 && row.bullets.every(Boolean))
+    || new Set(normalized.map((row) => row.order)).size !== 5) {
+    throw new Error("Conclusões ausentes, duplicadas ou incompletas no payload.");
+  }
+  return normalized.sort((a, b) => a.order - b.order);
 }
 
 function executiveConclusionNotes(payload, fallback) {
@@ -3231,43 +3135,18 @@ function executiveConclusionNotes(payload, fallback) {
 function addConclusionsSlide(presentation, payload, page) {
   const slide = presentation.slides.add();
   const conclusions = executiveConclusions(payload);
-  const currentOffer = (payload.closed_offers_annual || []).find((row) => num(row.year) === 2026) || {};
-  const metrics = payload.conclusion_metrics || {};
-  const footer = [
-    "Fontes: CVM, ANBIMA e BCB; coorte bancária curada a partir dos conglomerados prudenciais.",
-    `PF: proxy com ${pct(currentOffer.placed_quantity_registered_volume_coverage, 1)} de cobertura; contas não equivalem a investidores únicos.`,
-    "Verticalização no universo elegível; Top 10 ex-Petrobras/TAPSO.",
-    `BTG: ${integer(metrics.btg_bank_cohort_observed_funds)}/${integer(metrics.btg_bank_cohort_listed_roots)} raízes observadas; ofertas CVM e ANBIMA até 30/jun/26.`,
-  ].join(" ");
-  addHeader(
-    slide,
-    "PRINCIPAIS CONCLUSÕES",
-    "Distribuição, prestadores, migração e ofertas",
-    footer,
-    page,
-  );
+  addHeader(slide, "PRINCIPAIS CONCLUSÕES", "Principais conclusões", "Fontes: CVM, Informe Mensal e ofertas públicas. PL ex-FIC. Perímetros e documentação no XLSX.", page);
   conclusions.forEach((item, index) => {
-    const column = index % 2;
-    const row = Math.floor(index / 2);
-    const left = column === 0 ? 60 : 660;
-    const top = 132 + row * 128;
-    const order = String(item.order).padStart(2, "0");
-    addText(slide, `${order} · ${item.title.toUpperCase()}`, { left, top, width: 540, height: 20 }, {
-      fontSize: 10.5,
-      bold: true,
-      color: C.orange,
-    });
-    addText(slide, item.bullets.map((bullet) => `• ${bullet}`).join("\n"), { left, top: top + 25, width: 540, height: 86 }, {
-      fontSize: 11.4,
-      color: C.charcoal,
-      lineSpacing: 1.02,
-    });
-    addRule(slide, left, top + 117, 540, C.line, 0.7);
+    const top = 142 + index * 98;
+    addText(slide, String(item.order).padStart(2, "0"), { left: 60, top, width: 55, height: 32 }, { fontSize: 22, bold: true, color: C.orange });
+    addText(slide, item.title, { left: 135, top, width: 1085, height: 30 }, { fontSize: 22, bold: true, color: C.black });
+    addText(slide, item.bullets.join(" "), { left: 135, top: top + 35, width: 1085, height: 48 }, { fontSize: 19, color: C.charcoal, lineSpacing: 1.02 });
+    if (index < conclusions.length - 1) addRule(slide, 135, top + 88, 1085, C.line, 0.7);
   });
   addSourceNotes(slide, [
-    "CVM/SRE — análises granulares de ofertas públicas primárias encerradas, todos os ritos disponíveis, volume registrado; 2026 = jan–jun: https://dados.cvm.gov.br/dataset/oferta-distrib",
-    "ANBIMA — Coletiva de Mercado de Capitais 1S26, valor encerrado, snapshot jun/26; 2026 = jan–jun: https://www.anbima.com.br/data/files/8E/86/DB/07/325AF91098D078F9692BA2A8/Apresentacao%20_%20coletiva%20Mercado%20de%20Capitais%20_%201S26.pdf",
-    "FundosNet/B3 — evidência documental de ratings; rating sem documento público verificável ou sem vínculo exato = N/D.",
+    "CVM, Informe Mensal de FIDC: https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal",
+    "CVM/SRE, ofertas públicas: https://dados.cvm.gov.br/dataset/oferta-distrib",
+    ...(payload.executive_conclusion_notes || []),
   ]);
   return slide;
 }
@@ -3315,6 +3194,7 @@ function top15SlideRows(rows, emissionAudit, { includeRating = false } = {}) {
 }
 
 function addHistoricalTop15Slide(presentation, payload, period, page, pages, slideNumber) {
+  const cut = comparativePeriod(payload);
   const slide = presentation.slides.add();
   const top15 = payload.closed_offer_top15 || [];
   const summaries = Object.fromEntries((payload.closed_offer_top15_summary || []).map((row) => [row.period_label, row]));
@@ -3330,7 +3210,7 @@ function addHistoricalTop15Slide(presentation, payload, period, page, pages, sli
     throw new Error(`Paginação histórica de ${period} inválida: ${page}/${pages}.`);
   }
   const summary = summaries[period] || {};
-  const display = (value) => value.replace(" FY", "FY").replace("2026 jan-jun", "jan–jun/26");
+  const display = (value) => offerPeriodDisplay(value, cut);
   const emissionAudit = (payload.emission_field_audit || []).filter((row) => row.bloco === "slides 21–22");
   addHeader(
     slide,
@@ -3371,6 +3251,7 @@ function addHistoricalTop15Slide(presentation, payload, period, page, pages, sli
 }
 
 function addCurrentTop15Slide(presentation, payload, period, slideNumber) {
+  const cut = comparativePeriod(payload);
   const slide = presentation.slides.add();
   const rows = [...(payload.closed_offer_top15 || [])]
     .filter((row) => row.period_label === period)
@@ -3383,10 +3264,10 @@ function addCurrentTop15Slide(presentation, payload, period, slideNumber) {
   const emissionAudit = (payload.emission_field_audit || []).filter(
     (row) => row.bloco === "slides 21–22",
   );
-  const display = period === "2026 jan-jun" ? "jan–jun/26" : "2025FY";
-  const title = period === "2026 jan-jun"
-    ? `IBBA participou de ${integer(summary.ibba_participation_offers_top15)} das 15 maiores em jan–jun/26; liderou ${integer(summary.ibba_lead_offers_top15)}`
-    : "As 15 maiores ofertas de 2025 mantêm a base anual de comparação";
+  const display = offerPeriodDisplay(period, cut);
+  const title = period === cut.current_period_id
+    ? `IBBA participou de ${integer(summary.ibba_participation_offers_top15)} das 15 maiores em ${cut.period_label}; liderou ${integer(summary.ibba_lead_offers_top15)}`
+    : `As 15 maiores ofertas de ${period.split(" ")[0]} mantêm a base anual de comparação`;
   addHeader(
     slide,
     "TOP 15 · OFERTAS ENCERRADAS",
@@ -3504,7 +3385,7 @@ function addRemunerationComparisonStrip(slide, payload, mode) {
       {
         left: 60,
         width: 1160,
-        title: "Prêmio de remuneração Mz.–Sr. · mesmo fundo e corte · base dos slides 10–17",
+        title: "Prêmio de remuneração Mz.–Sr. · mesmo fundo e corte · rankings por tipo",
         value: `N=${integer(tier.pairs)} fundo-corte · mediana +${integer(tier.median_bps)} bps · faixa +${integer(tier.min_bps)}–${integer(tier.max_bps)} bps`,
       },
     ],
@@ -3551,7 +3432,7 @@ function addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia)
     auditRows.map((row) => [`${row.tabela}::${cnpjDigits(row.cnpj)}`, row]),
   );
   const period = competencia === payload.latest_complete
-    ? { competencia, label: "jun/26 · Top 15", headerFill: C.orange }
+    ? { competencia, label: `${competenceShortPt(competencia).toLowerCase()} · Top 15`, headerFill: C.orange }
     : competencia === "2025-12"
       ? { competencia, label: "dez/25 · Top 15", headerFill: C.black }
       : null;
@@ -4823,8 +4704,11 @@ function addDelinquencyDispersionSlides(presentation, payload) {
   }
 }
 
-function buildPresentation(payload) {
+function buildPresentation(payload, payloadRaw) {
   automaticPageNumber = 1;
+  editorialPayload = payload;
+  const cut = comparativePeriod(payload);
+  const anbimaCut = secondaryComparativePeriod(payload);
   const presentation = installPresentationTypography(Presentation.create({ slideSize: SLIDE }));
   const latestCompetence = String(payload.latest_complete || "");
   const stockShort = competenceShortPt(latestCompetence);
@@ -4871,29 +4755,29 @@ function buildPresentation(payload) {
     const slide = presentation.slides.add();
     slide.background.fill = C.black;
     addRect(slide, { left: 60, top: 105, width: 88, height: 5 }, C.orange);
-    addText(slide, COVER_TITLE, { left: 60, top: 148, width: 900, height: 86 }, {
+    addText(slide, "Indústria de FIDCs", { left: 60, top: 148, width: 900, height: 86 }, {
       fontSize: 48,
       bold: true,
       color: C.white,
       verticalAlignment: "middle",
     });
     addRule(slide, 60, 530, 1160, "#4B4F53", 1);
-    addText(slide, `Dados de referência: jun-26 · fechamento em ${stockLong}`, { left: 60, top: 555, width: 720, height: 28 }, {
+    addText(slide, `Dados de referência: ${stockShortLower} · fechamento em ${stockLong}`, { left: 60, top: 555, width: 720, height: 28 }, {
       fontSize: 16,
       color: C.white,
     });
-    addText(slide, "Ofertas CVM e comparativo ANBIMA até 30 de junho de 2026", { left: 60, top: 589, width: 720, height: 28 }, {
+    addText(slide, `Ofertas CVM: ${cut.period_label}; ANBIMA: ${anbimaCut.period_label}. Extração CVM: ${offersSourceShort}`, { left: 60, top: 589, width: 720, height: 28 }, {
       fontSize: 16,
       color: C.light,
     });
-    addText(slide, "Itaú BBA · Agosto de 2026", { left: 60, top: 657, width: 500, height: 22 }, {
+    addText(slide, "Itaú BBA", { left: 60, top: 657, width: 500, height: 22 }, {
       fontSize: 12,
       bold: true,
       color: C.orange,
     });
     addSourceNotes(slide, [
       "CVM/SRE — Ofertas Públicas de Distribuição: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "ANBIMA Data — Boletim de Mercado de Capitais, corte em 30/jun/26: https://data.anbima.com.br/",
+      `ANBIMA Data — Boletim de Mercado de Capitais, corte em ${dateShortPt(anbimaCut.current_period_end)}: https://data.anbima.com.br/`,
     ]);
   }
 
@@ -4904,7 +4788,7 @@ function buildPresentation(payload) {
       slide,
       "GRANDES NÚMEROS",
       `${bn(latestHistory.pl_ex_fic, 0)} ex-FIC; a concentração aparece em fundos, prestadores e ajustes de qualidade`,
-      `Fonte: CVM, ANBIMA e FundosNet; ${stockShortLower}. Ofertas CVM e ANBIMA até jun/26.`,
+      `Fonte: CVM, ANBIMA e FundosNet; ${stockShortLower}. Ofertas CVM e ANBIMA até ${competenceShortPt(cut.current_period_end.slice(0, 7)).toLowerCase()}.`,
       2,
     );
     const qa = payload.qa_latest;
@@ -4953,8 +4837,8 @@ function buildPresentation(payload) {
     });
     addSourceNotes(slide, [
       "CVM — Informe Mensal de FIDC e cadastro de fundos para PL, cotistas e prestadores.",
-      "CVM/SRE — ofertas granulares até jun/26: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "ANBIMA — Coletiva de Mercado de Capitais 1S26, valor encerrado até jun/26: https://www.anbima.com.br/data/files/8E/86/DB/07/325AF91098D078F9692BA2A8/Apresentacao%20_%20coletiva%20Mercado%20de%20Capitais%20_%201S26.pdf",
+      `CVM/SRE — ofertas granulares até ${competenceShortPt(cut.current_period_end.slice(0, 7)).toLowerCase()}: https://dados.cvm.gov.br/dataset/oferta-distrib`,
+      `ANBIMA — Coletiva de Mercado de Capitais ${cut.period_label}, valor encerrado até ${competenceShortPt(cut.current_period_end.slice(0, 7)).toLowerCase()}: https://www.anbima.com.br/data/files/8E/86/DB/07/325AF91098D078F9692BA2A8/Apresentacao%20_%20coletiva%20Mercado%20de%20Capitais%20_%20${cut.period_label}.pdf`,
       "FundosNet/B3 — documentos públicos usados nas análises documentais.",
     ]);
   }
@@ -4965,6 +4849,7 @@ function buildPresentation(payload) {
     const history = payload.pl_history;
     const cagrPeriods = payload.pl_total_cagr_periods || [];
     const expandedCredit = payload.bcb_expanded_credit || [];
+    const bcbStockShortLower = competenceShortPt(expandedCredit.at(-1)?.competencia).toLowerCase();
     const expandedGrowth = payload.bcb_total_growth_periods || [];
     const growthSummary = (periods) => periods
       .map((period) => {
@@ -4976,7 +4861,7 @@ function buildPresentation(payload) {
       slide,
       "ESCALA DA INDÚSTRIA",
       `FIDCs ex-FIC somam ${bnRoundedLabel(latestHistory.pl_ex_fic)}; o crédito privado ampliado totaliza ${tn(expandedCredit.at(-1)?.private_expanded_credit_total_brl, 3)}`,
-      `Fontes: CVM, Informe Mensal de FIDC (${stockShortLower}); BCB, SGS 28183–28192 (último mês comum: ${stockShortLower}).`,
+      `Fontes: CVM, Informe Mensal de FIDC (${stockShortLower}); BCB, SGS 28183–28192 (último mês comum: ${bcbStockShortLower}).`,
       3,
     );
     const categories = history.map((row) =>
@@ -5104,7 +4989,7 @@ function buildPresentation(payload) {
   {
     const slide = presentation.slides.add();
     const comparison = payload.fixed_income_offer_comparison || [];
-    const periodOrder = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"];
+    const periodOrder = [...cut.annual_years.map((year) => `${year} FY`), cut.current_period_id];
     const seriesValues = (view, label) =>
       periodOrder.map((period) =>
         num(
@@ -5133,8 +5018,9 @@ function buildPresentation(payload) {
     const latestAnbimaSource = marketReconciliation.find(
       (row) => row.period_label === latestAnbimaPeriod,
     ) || {};
-    if (latestAnbimaPeriod !== "2026 jan-jun" || latestAnbimaSource.anbima_source_snapshot !== "jun/26") {
-      throw new Error("Slide 3 exige reconciliação ANBIMA 2026 jan-jun com snapshot jun/26.");
+    const anbimaSourceCompetence = payload.anbima_market_offers_manifest?.source_reference_competence || anbimaCut.current_period_end.slice(0, 7);
+    if (latestAnbimaPeriod !== anbimaCut.current_period_id || latestAnbimaSource.anbima_source_snapshot !== competenceShortPt(anbimaSourceCompetence).toLowerCase()) {
+      throw new Error(`Slide 3 exige reconciliação ANBIMA ${anbimaCut.current_period_id} com snapshot ${competenceShortPt(anbimaCut.current_period_end.slice(0, 7)).toLowerCase()}.`);
     }
     const instruments = [
       ["Debêntures", C.black],
@@ -5149,13 +5035,13 @@ function buildPresentation(payload) {
     const latestCvmFidcBrl = num(comparison.find(
       (row) => row.view === viewA
         && row.series_label === "FIDCs"
-        && row.period_label === "2026 jan-jun",
+        && row.period_label === cut.current_period_id,
     )?.registered_volume_brl);
     const latestAnbimaFidcBrl = num(marketReconciliation.find(
       (row) => row.period_label === latestAnbimaPeriod && row.instrument_label === "FIDCs",
     )?.anbima_closed_volume_brl);
     if (latestCvmFidcBrl <= 0 || latestAnbimaFidcBrl <= 0) {
-      throw new Error("Slide 3 sem valores positivos de FIDC para reconciliar CVM e ANBIMA em jan-jun/26.");
+      throw new Error(`Slide 3 sem valores positivos de FIDC para reconciliar CVM e ANBIMA em jan-${competenceShortPt(cut.current_period_end.slice(0, 7)).toLowerCase()}.`);
     }
     if (taxonomy.length !== 4 || taxonomyLong.length !== 20 || reconciliation.length !== 5) {
       throw new Error("Tabela Emissões por Categoria ANBIMA não fecha 4 categorias × 5 períodos.");
@@ -5164,7 +5050,7 @@ function buildPresentation(payload) {
       slide,
       "OFERTAS ENCERRADAS · CVM E ANBIMA",
       "Emissões | FIDCs seguem ganhando escala nas emissões",
-      `CVM/SRE: ${bn(latestCvmFidcBrl, 1)} registrado primário; ANBIMA: ${bn(latestAnbimaFidcBrl, 1)} encerrado. Perímetros distintos; jan–jun/26, snapshot jun/26.`,
+      `CVM/SRE: ${bn(latestCvmFidcBrl, 1)} registrado primário; ANBIMA: ${bn(latestAnbimaFidcBrl, 1)} encerrado. Perímetros distintos; ${cut.period_label}, snapshot ${competenceShortPt(cut.current_period_end.slice(0, 7)).toLowerCase()}.`,
       4,
     );
     addSectionLabel(slide, "FIDCs E DEMAIS INSTRUMENTOS ELEGÍVEIS · R$ BI", {
@@ -5175,7 +5061,7 @@ function buildPresentation(payload) {
     });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 160, width: 550, height: 245 }),
-      categories: ["2023FY", "2024FY", "2025FY", "2026 jan–jun"],
+      categories: periodOrder.map((period) => offerPeriodDisplay(period, cut)),
       series: [
         {
           name: "FIDCs",
@@ -5211,10 +5097,10 @@ function buildPresentation(payload) {
       },
     });
     const latestTaxonomy = taxonomyLong
-      .filter((row) => row.period_key === "jun26")
+      .filter((row) => row.period_key === cut.current_period_key)
       .map((row) => {
         const before = taxonomyLong.find(
-          (candidate) => candidate.period_key === "jun25" && candidate.categoria === row.categoria,
+          (candidate) => candidate.period_key === cut.previous_period_key && candidate.categoria === row.categoria,
         );
         return { ...row, delta_brl: num(row.volume_brl) - num(before?.volume_brl) };
       })
@@ -5227,14 +5113,14 @@ function buildPresentation(payload) {
     });
     slide.charts.add("bar", {
       ...chartBase({ left: 670, top: 160, width: 550, height: 245 }),
-      categories: anbimaPeriods.map((period) => period.replace("2026 jan-jun", "2026 jan–jun")),
+      categories: anbimaPeriods.map((period) => offerPeriodDisplay(period, anbimaCut)),
       series: instruments.map(([instrument, color]) => ({
         name: instrument,
         values: anbimaPeriods.map((period) => marketValue(period, instrument)),
         valuesFormatCode: "0.0",
         fill: color,
         dataLabels: {
-          showValue: ["Debêntures", "FIDCs"].includes(instrument),
+          showValue: instrument === "Debêntures",
           position: "outEnd",
           textStyle: { fill: C.black, fontSize: TYPOGRAPHY.dataLabel, bold: true },
         },
@@ -5253,10 +5139,10 @@ function buildPresentation(payload) {
 
     const growthRow = (label, sourceLabel, view) => {
       const row2025 = comparison.find(
-        (row) => row.view === view && row.series_label === sourceLabel && row.period_label === "2025 FY",
+        (row) => row.view === view && row.series_label === sourceLabel && row.period_label === `${cut.current_year - 1} FY`,
       ) || {};
       const row2026 = comparison.find(
-        (row) => row.view === view && row.series_label === sourceLabel && row.period_label === "2026 jan-jun",
+        (row) => row.view === view && row.series_label === sourceLabel && row.period_label === cut.current_period_id,
       ) || {};
       const growthLabel = (value) => {
         const parsed = num(value);
@@ -5268,10 +5154,10 @@ function buildPresentation(payload) {
     const growthRows = [
       growthRow("FIDC", "FIDCs", viewA),
       growthRow("Demais Instr.", "Demais elegíveis", viewA),
-      growthRow("Debêntures", "Debêntures", "FIDCs vs instrumentos materiais de 2025"),
-      growthRow("CRI", "CRI", "FIDCs vs instrumentos materiais de 2025"),
-      growthRow("Notas comerciais", "Notas comerciais", "FIDCs vs instrumentos materiais de 2025"),
-      growthRow("CRA", "CRA", "FIDCs vs instrumentos materiais de 2025"),
+      growthRow("Debêntures", "Debêntures", `FIDCs vs instrumentos materiais de ${cut.current_year - 1}`),
+      growthRow("CRI", "CRI", `FIDCs vs instrumentos materiais de ${cut.current_year - 1}`),
+      growthRow("Notas comerciais", "Notas comerciais", `FIDCs vs instrumentos materiais de ${cut.current_year - 1}`),
+      growthRow("CRA", "CRA", `FIDCs vs instrumentos materiais de ${cut.current_year - 1}`),
     ];
     addSectionLabel(slide, "CRESCIMENTO POR INSTRUMENTO", {
       left: 300, top: 425, width: 680, height: 20,
@@ -5281,7 +5167,7 @@ function buildPresentation(payload) {
       top: 450,
       width: 680,
       height: 183,
-      headers: ["Emissões por instrumento", "2025 YoY %", "1S26 YTD YoY"],
+      headers: ["Emissões por instrumento", `${cut.current_year - 1} YoY %`, `${cut.period_label} YoY`],
       rows: growthRows,
       columnWidths: [360, 160, 160],
       aligns: ["left", "right", "right"],
@@ -5290,8 +5176,10 @@ function buildPresentation(payload) {
       headerHeight: 28,
       rowHighlights: new Set([0, 1]),
     });
-    [[1, 1, "#007A3D"], [1, 2, "#007A3D"], [2, 2, "#7A1F3D"], [6, 2, "#7A1F3D"]]
-      .forEach(([row, column, color]) => {
+    [[1, 1], [1, 2], [2, 2], [6, 2]]
+      .forEach(([row, column]) => {
+        const value = String(growthRows[row - 1]?.[column] || "");
+        const color = value.startsWith("-") ? "#7A1F3D" : value.startsWith("+") ? "#007A3D" : C.charcoal;
         const cell = growthTable.cells.block({ row, column, rowCount: 1, columnCount: 1 });
         cell.textStyle.bold = true;
         cell.textStyle.color = color;
@@ -5302,19 +5190,19 @@ function buildPresentation(payload) {
 
     const tableColumns = [
       ["Categoria", null, "left"],
-      ["2023\nR$ bi", "2023 (R$ bi)", "right"],
-      ["2023\n%", "2023 (%)", "right"],
-      ["2024\nR$ bi", "2024 (R$ bi)", "right"],
-      ["2024\n%", "2024 (%)", "right"],
-      ["Δ 23→24\nR$ bi", "Delta 2023→2024 (R$ bi)", "right"],
-      ["2025\nR$ bi", "2025 (R$ bi)", "right"],
-      ["2025\n%", "2025 (%)", "right"],
-      ["Δ 24→25\nR$ bi", "Delta 2024→2025 (R$ bi)", "right"],
-      ["jan–jun/25\nR$ bi", "jan–jun/25 (R$ bi)", "right"],
-      ["jan–jun/25\n%", "jan–jun/25 (%)", "right"],
-      ["jan–jun/26\nR$ bi", "jan–jun/26 (R$ bi)", "right"],
-      ["jan–jun/26\n%", "jan–jun/26 (%)", "right"],
-      ["Δ 1S25→1S26\nR$ bi", "Delta jan–jun/25→jan–jun/26 (R$ bi)", "right"],
+      [`${cut.current_year - 3}\nR$ bi`, `${cut.current_year - 3} (R$ bi)`, "right"],
+      [`${cut.current_year - 3}\n%`, `${cut.current_year - 3} (%)`, "right"],
+      [`${cut.current_year - 2}\nR$ bi`, `${cut.current_year - 2} (R$ bi)`, "right"],
+      [`${cut.current_year - 2}\n%`, `${cut.current_year - 2} (%)`, "right"],
+      ["Δ 23→24\nR$ bi", `Delta ${cut.current_year - 3}→${cut.current_year - 2} (R$ bi)`, "right"],
+      [`${cut.current_year - 1}\nR$ bi`, `${cut.current_year - 1} (R$ bi)`, "right"],
+      [`${cut.current_year - 1}\n%`, `${cut.current_year - 1} (%)`, "right"],
+      ["Δ 24→25\nR$ bi", `Delta ${cut.current_year - 2}→${cut.current_year - 1} (R$ bi)`, "right"],
+      [`${cut.previous_period_label}\nR$ bi`, `${cut.previous_period_label} (R$ bi)`, "right"],
+      [`${cut.previous_period_label}\n%`, `${cut.previous_period_label} (%)`, "right"],
+      [`${cut.period_label}\nR$ bi`, `${cut.period_label} (R$ bi)`, "right"],
+      [`${cut.period_label}\n%`, `${cut.period_label} (%)`, "right"],
+      [`Δ ${cut.previous_period_label}→${cut.period_label}\nR$ bi`, `Delta ${cut.previous_period_label}→${cut.period_label} (R$ bi)`, "right"],
     ];
     const biCell = (value) => num(value).toLocaleString("pt-BR", {
       minimumFractionDigits: 1,
@@ -5329,18 +5217,18 @@ function buildPresentation(payload) {
       totals[key] = key.endsWith("(%)") ? 1 : taxonomy.reduce((sum, row) => sum + num(row[key]), 0);
     });
     const byPeriod = Object.fromEntries(reconciliation.map((row) => [row.period_key, row]));
-    const periodKeys = ["2023", "2024", "2025", "jun25", "jun26"];
-    const volumeKeys = ["2023 (R$ bi)", "2024 (R$ bi)", "2025 (R$ bi)", "jan–jun/25 (R$ bi)", "jan–jun/26 (R$ bi)"];
-    const shareKeys = ["2023 (%)", "2024 (%)", "2025 (%)", "jan–jun/25 (%)", "jan–jun/26 (%)"];
+    const periodKeys = [String(cut.current_year - 3), String(cut.current_year - 2), String(cut.current_year - 1), cut.previous_period_key, cut.current_period_key];
+    const volumeKeys = [`${cut.current_year - 3} (R$ bi)`, `${cut.current_year - 2} (R$ bi)`, `${cut.current_year - 1} (R$ bi)`, `${cut.previous_period_label} (R$ bi)`, `${cut.period_label} (R$ bi)`];
+    const shareKeys = [`${cut.current_year - 3} (%)`, `${cut.current_year - 2} (%)`, `${cut.current_year - 1} (%)`, `${cut.previous_period_label} (%)`, `${cut.period_label} (%)`];
     const bridgeRow = (label, field) => {
       const row = { Categoria: label };
       periodKeys.forEach((periodKey, index) => {
         row[volumeKeys[index]] = num(byPeriod[periodKey]?.[field]) / 1e9;
         row[shareKeys[index]] = null;
       });
-      row["Delta 2023→2024 (R$ bi)"] = row[volumeKeys[1]] - row[volumeKeys[0]];
-      row["Delta 2024→2025 (R$ bi)"] = row[volumeKeys[2]] - row[volumeKeys[1]];
-      row["Delta jan–jun/25→jan–jun/26 (R$ bi)"] = row[volumeKeys[4]] - row[volumeKeys[3]];
+      row[`Delta ${cut.current_year - 3}→${cut.current_year - 2} (R$ bi)`] = row[volumeKeys[1]] - row[volumeKeys[0]];
+      row[`Delta ${cut.current_year - 2}→${cut.current_year - 1} (R$ bi)`] = row[volumeKeys[2]] - row[volumeKeys[1]];
+      row[`Delta ${cut.previous_period_label}→${cut.period_label} (R$ bi)`] = row[volumeKeys[4]] - row[volumeKeys[3]];
       return row;
     };
     const bridgeDisplay = (row) => tableColumns.map(([_, key]) => {
@@ -5357,7 +5245,7 @@ function buildPresentation(payload) {
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       `${latestAnbimaSource.anbima_source_name}, snapshot ${latestAnbimaSource.anbima_source_snapshot}, ${latestAnbimaSource.anbima_source_sheet}, ${latestAnbimaSource.anbima_source_range}: ${latestAnbimaSource.anbima_source_url}`,
-      `Perímetros: CVM/SRE mede valor registrado de ofertas primárias encerradas (${bn(latestCvmFidcBrl, 1)} em FIDCs); ANBIMA mede valor encerrado (${bn(latestAnbimaFidcBrl, 1)}). Ambos cobrem jan–jun/26.`,
+      `Perímetros: CVM/SRE mede valor registrado de ofertas primárias encerradas (${bn(latestCvmFidcBrl, 1)} em FIDCs); ANBIMA mede valor encerrado (${bn(latestAnbimaFidcBrl, 1)}). CVM cobre ${cut.period_label}; ANBIMA cobre ${anbimaCut.period_label}. A reconciliação por instrumento recorta a CVM à janela da ANBIMA.`,
       "FIDCs 2023 no gráfico CVM: valor encerrado ANBIMA; a correção é idempotente e preserva bundles anteriores à republicação.",
     ]);
   }
@@ -5369,11 +5257,9 @@ function buildPresentation(payload) {
     const taxonomyReconciliation = payload.issuance_taxonomy_reconciliation || [];
     const taxonomyCategories = ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"];
     const taxonomyPeriods = [
-      ["2023", "2023"],
-      ["2024", "2024"],
-      ["2025", "2025"],
-      ["jun25", "jan–jun/25"],
-      ["jun26", "jan–jun/26"],
+      ...cut.annual_years.map((year) => [String(year), String(year)]),
+      [cut.previous_period_key, `${cut.previous_period_label}`],
+      [cut.current_period_key, `${cut.period_label}`],
     ];
     const taxonomyColors = {
       "Fomento Mercantil": C.mid,
@@ -5412,16 +5298,15 @@ function buildPresentation(payload) {
       (row) => row.period_label === period && row.instrument_label === instrument,
     ) || {};
     const value = (period, instrument, field) => num(rowFor(period, instrument)[field]);
-    const deb2025 = rowFor("2025 FY", "Debêntures");
+    const deb2025 = rowFor(`${cut.current_year - 1} FY`, "Debêntures");
     const deb2026 = rowFor(latestMarketPeriod, "Debêntures");
-    const fidc2025 = rowFor("2025 FY", "FIDCs");
-    const cri2025 = rowFor("2025 FY", "CRI");
+    const fidc2025 = rowFor(`${cut.current_year - 1} FY`, "FIDCs");
+    const cri2025 = rowFor(`${cut.current_year - 1} FY`, "CRI");
     const cri2026 = rowFor(latestMarketPeriod, "CRI");
     const note2026 = rowFor(latestMarketPeriod, "Notas comerciais");
-    const cra2023 = rowFor("2023 FY", "CRA");
+    const cra2023 = rowFor(`${cut.current_year - 3} FY`, "CRA");
 
-    // 4. Síntese de estoque e emissões, com Outros aberto no estoque e
-    // preservado como categoria positiva no fluxo de novas emissões.
+    // 4. Emissões por setor; a composição do estoque fica no slide seguinte.
     {
       const summarySlide = presentation.slides.add();
       const stockHistory = [...(payload.type_mix_history || [])].sort(
@@ -5477,106 +5362,65 @@ function buildPresentation(payload) {
           throw new Error(`Abertura de Outros não reconcilia em ${period.competencia}; zero não é imputado.`);
         }
       });
-      const stockSeries = (field, percent = false) => stockCategories.map((category, seriesIndex) => {
-        const values = stockPeriods.map((period) => percent
-          ? stockValue(period, category, field)
-          : stockValue(period, category, field) / 1e9);
+      const issuanceAxisMax = Math.ceil(Math.max(...taxonomyPeriods.map(([periodKey]) => taxonomyCategories.reduce((sum, category) => sum + num(taxonomyRow(periodKey, category).volume_brl) / 1e9, 0))) / 50) * 50;
+      const issuanceSeries = (percent = false) => taxonomyCategories.map((category) => {
+        const values = taxonomyPeriods.map(([periodKey]) => percent ? num(taxonomyRow(periodKey, category).share) : num(taxonomyRow(periodKey, category).volume_brl) / 1e9);
         return {
-          name: display[category] || category,
+          name: category,
           values,
           valuesFormatCode: percent ? "0.0%" : "0.0",
-          fill: colors[category],
+          fill: taxonomyColors[category],
           dataLabelOverrides: values.map((value, idx) => ({
             idx,
-            showValue: percent ? value >= 0.035 : value >= 15,
+            showValue: value >= 0.08 * (percent ? 1 : issuanceAxisMax),
             position: "center",
-            textStyle: { fill: seriesIndex <= 4 ? C.white : C.black, fontSize: TYPOGRAPHY.dataLabel, bold: true },
+            textStyle: { fill: ["Fomento Mercantil", "Agro, Indústria e Comércio"].includes(category) ? C.white : C.black, fontSize: TYPOGRAPHY.dataLabel },
           })),
         };
       });
-      const latestIssuanceOutros = taxonomyRow("jun26", "Outros");
       addHeader(
         summarySlide,
-        "SALDO E TIPOS DE FIDCS",
-        "Saldo e Tipos de FIDCs | Financeiros dominam saldo e novas emissões",
-        `Fontes: CVM, Informe Mensal (${stockShortLower}) e CVM/SRE, ofertas encerradas jan–jun/26. Outros emitidos: ${bn(latestIssuanceOutros.volume_brl, 1)} (${pct(latestIssuanceOutros.share, 1)}).`,
+        "EMISSÕES POR SETOR",
+        "Emissões por setor",
+        `Fontes: CVM/SRE, ofertas encerradas até ${offersAsOf}, snapshot ${offersSourceShort}; ANBIMA para 2023. Volume registrado, tipos ANBIMA e reconciliação no XLSX.`,
         4,
       );
-      addSectionLabel(summarySlide, "SALDO EX-FIC · R$ BI", { left: 60, top: 132, width: 550, height: 20 });
+      addSectionLabel(summarySlide, "VOLUME EMITIDO · R$ BI", { left: 60, top: 145, width: 550, height: 24 });
       summarySlide.charts.add("bar", {
-        ...chartBase({ left: 60, top: 157, width: 550, height: 205 }),
-        categories: stockPeriods.map((row) => row.label),
-        series: stockSeries("pl"),
-        barOptions: { direction: "column", grouping: "stacked", gapWidth: 48, overlap: 100 },
-        hasLegend: false,
-        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 8 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-        yAxis: { ...chartAxis(7.5, "0"), min: 0 },
-        dataLabels: { showValue: true, position: "center" },
-      });
-      addSectionLabel(summarySlide, "PARTICIPAÇÃO NO SALDO", { left: 670, top: 132, width: 550, height: 20 });
-      summarySlide.charts.add("bar", {
-        ...chartBase({ left: 670, top: 157, width: 550, height: 205 }),
-        categories: stockPeriods.map((row) => row.label),
-        series: stockSeries("share", true),
-        barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 48, overlap: 100 },
-        hasLegend: false,
-        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 8 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-        yAxis: { ...chartAxis(7.5, "0%"), min: 0, max: 1, majorUnit: 0.25 },
-        dataLabels: { showValue: true, position: "center" },
-      });
-      addShapeLegend(
-        summarySlide,
-        stockCategories.map((category) => ({ label: display[category] || category, color: colors[category] })),
-        { left: 80, top: 365, width: 1120, height: 28 },
-        4,
-        { fontSize: 6.7, swatchSize: 7 },
-      );
-      addSectionLabel(summarySlide, "NOVAS EMISSÕES POR SETOR · R$ BI", { left: 60, top: 402, width: 550, height: 20 });
-      summarySlide.charts.add("bar", {
-        ...chartBase({ left: 60, top: 427, width: 550, height: 190 }),
+        ...chartBase({ left: 60, top: 185, width: 550, height: 355 }),
         categories: taxonomyPeriods.map(([, label]) => label),
-        series: taxonomyCategories.map((category) => ({
-          name: category,
-          values: taxonomyPeriods.map(([periodKey]) => num(taxonomyRow(periodKey, category).volume_brl) / 1e9),
-          valuesFormatCode: "0.0",
-          fill: taxonomyColors[category],
-        })),
+        series: issuanceSeries(),
         barOptions: { direction: "column", grouping: "stacked", gapWidth: 45, overlap: 100 },
-        hasLegend: true,
-        legend: { position: "bottom", overlay: false, textStyle: { fill: C.mid, fontSize: 7 } },
-        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 7.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-        yAxis: { ...chartAxis(7.2, "0"), min: 0 },
-        dataLabels: { showValue: true, position: "center", textStyle: { fill: C.black, fontSize: 5.2 } },
+        hasLegend: false,
+        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+        yAxis: { ...chartAxis(10, "0"), min: 0, max: issuanceAxisMax },
+        dataLabels: { showValue: true, position: "center" },
       });
-      addSectionLabel(summarySlide, "NOVAS EMISSÕES POR SETOR · %", { left: 670, top: 402, width: 550, height: 20 });
+      addSectionLabel(summarySlide, "PARTICIPAÇÃO NO VOLUME EMITIDO · %", { left: 670, top: 145, width: 550, height: 24 });
       summarySlide.charts.add("bar", {
-        ...chartBase({ left: 670, top: 427, width: 550, height: 190 }),
+        ...chartBase({ left: 670, top: 185, width: 550, height: 355 }),
         categories: taxonomyPeriods.map(([, label]) => label),
-        series: taxonomyCategories.map((category) => ({
-          name: category,
-          values: taxonomyPeriods.map(([periodKey]) => num(taxonomyRow(periodKey, category).share)),
-          valuesFormatCode: "0.0%",
-          fill: taxonomyColors[category],
-        })),
+        series: issuanceSeries(true),
         barOptions: { direction: "column", grouping: "percentStacked", gapWidth: 45, overlap: 100 },
-        hasLegend: true,
-        legend: { position: "bottom", overlay: false, textStyle: { fill: C.mid, fontSize: 7 } },
-        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 7.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
-        yAxis: { ...chartAxis(7.2, "0%"), min: 0, max: 1, majorUnit: 0.25 },
-        dataLabels: { showValue: true, position: "center", textStyle: { fill: C.black, fontSize: 5.0 } },
+        hasLegend: false,
+        xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+        yAxis: { ...chartAxis(10, "0%"), min: 0, max: 1, majorUnit: 0.25 },
+        dataLabels: { showValue: true, position: "center" },
       });
+      addShapeLegend(summarySlide, taxonomyCategories.map((category) => ({ label: category, color: taxonomyColors[category] })), { left: 90, top: 555, width: 1100, height: 30 }, 4);
       addSourceNotes(summarySlide, [
-        "Saldo: classificação analítica por CNPJ; Outros é aberto em Precatórios/Ações, Multicedente/Multisacado, Recuperação/NP e N/D.",
         "Emissões: quatro tipos ANBIMA reconciliados com FIC-FIDC e total emitido; ausência permanece N/D e não vira zero.",
+        "Rótulos dos segmentos menores que 8% da escala do eixo ficam ocultos; os valores e as séries são preservados no gráfico nativo e no XLSX.",
       ]);
     }
 
-    // 5. Detalhamento das emissões por setor.
+    // A tabela detalhada por setor permanece no XLSX.
+    if (SLIDE_CONTRACT_V1.includes("issuance_taxonomy_detail")) {
     const slide = presentation.slides.add();
     addHeader(
       slide,
       "EMISSÕES POR CATEGORIA ANBIMA",
-      `Emissões por setor | Financeiro respondeu por ${pct(taxonomyRow("jun26", "Financeiro").share, 1)} do volume no 1S26`,
+      `Emissões por setor | Financeiro respondeu por ${pct(taxonomyRow(cut.current_period_key, "Financeiro").share, 1)} do volume no ${cut.period_label}`,
       "Fonte: CVM/SRE; FIDCs 2023 corrigidos pelo valor encerrado ANBIMA. Quatro tipos + FIC-FIDC reconciliam com o volume emitido.",
       5,
     );
@@ -5611,7 +5455,7 @@ function buildPresentation(payload) {
     const findings = [
       [
         "DEBÊNTURES · PONTE TAXONÔMICA",
-        `2025: CVM ${bn(deb2025.cvm_registered_volume_brl, 1)} + ${bn(deb2025.cvm_harmonization_volume_brl, 1)} em Outros títulos de securitização = ${bn(deb2025.cvm_harmonized_volume_brl, 1)}, ante ${bn(deb2025.anbima_closed_volume_brl, 1)} na ANBIMA. Jan–jun/26: ${bn(deb2026.cvm_harmonized_volume_brl, 1)} ante ${bn(deb2026.anbima_closed_volume_brl, 1)}.`,
+        `2025: CVM ${bn(deb2025.cvm_registered_volume_brl, 1)} + ${bn(deb2025.cvm_harmonization_volume_brl, 1)} em Outros títulos de securitização = ${bn(deb2025.cvm_harmonized_volume_brl, 1)}, ante ${bn(deb2025.anbima_closed_volume_brl, 1)} na ANBIMA. ${cut.period_label}: ${bn(deb2026.cvm_harmonized_volume_brl, 1)} ante ${bn(deb2026.anbima_closed_volume_brl, 1)}.`,
       ],
       [
         "FIDCS · MÉTRICA E COBERTURA",
@@ -5619,11 +5463,11 @@ function buildPresentation(payload) {
       ],
       [
         "CRI E NOTAS COMERCIAIS",
-        `CRI: CVM ${pct(cri2025.raw_gap_pct, 1)} em 2025 e ${pct(cri2026.raw_gap_pct, 1)} em jan–jun/26 versus ANBIMA. Notas comerciais: ${pct(note2026.raw_gap_pct, 1)} em jan–jun/26. O residual pode refletir métrica, rito, retificações e data do snapshot.`,
+        `CRI: CVM ${pct(cri2025.raw_gap_pct, 1)} em 2025 e ${pct(cri2026.raw_gap_pct, 1)} em ${cut.period_label} versus ANBIMA. Notas comerciais: ${pct(note2026.raw_gap_pct, 1)} em ${cut.period_label}. O residual pode refletir métrica, rito, retificações e data do snapshot.`,
       ],
       [
         "CRA · PONTO PENDENTE",
-        `A CVM ficou ${pct(cra2023.raw_gap_pct, 1)} acima da ANBIMA em 2023. De 2024 a jan–jun/26, o desvio ficou em até 2,7%. A causa de 2023 permanece sem comprovação oferta a oferta.`,
+        `A CVM ficou ${pct(cra2023.raw_gap_pct, 1)} acima da ANBIMA em 2023. De 2024 a ${cut.period_label}, o desvio ficou em até 2,7%. A causa de 2023 permanece sem comprovação oferta a oferta.`,
       ],
     ];
     addSectionLabel(slide, "EMISSÕES POR SETOR · % DO TOTAL", {
@@ -5660,13 +5504,13 @@ function buildPresentation(payload) {
     });
     const tableHeaders = [
       "Categoria",
-      "2023\nR$ bi",
-      "2024\nR$ bi",
-      "2025\nR$ bi",
-      "1S25\nR$ bi",
-      "1S26\nR$ bi",
-      "1S26\n%",
-      "1S26 YoY",
+      `${cut.current_year - 3}\nR$ bi`,
+      `${cut.current_year - 2}\nR$ bi`,
+      `${cut.current_year - 1}\nR$ bi`,
+      `${cut.previous_period_label}\nR$ bi`,
+      `${cut.period_label}\nR$ bi`,
+      `${cut.period_label}\n%`,
+      `${cut.period_label} YoY`,
     ];
     const byTaxonomyPeriod = Object.fromEntries(
       taxonomyReconciliation.map((row) => [row.period_key, row]),
@@ -5680,13 +5524,13 @@ function buildPresentation(payload) {
       const row = (periodKey) => taxonomyRow(periodKey, category);
       return [
         category,
-        biCell(num(row("2023").volume_brl) / 1e9),
-        biCell(num(row("2024").volume_brl) / 1e9),
-        biCell(num(row("2025").volume_brl) / 1e9),
-        biCell(num(row("jun25").volume_brl) / 1e9),
-        biCell(num(row("jun26").volume_brl) / 1e9),
-        pct(row("jun26").share, 1),
-        growthLabel(row("jun26").volume_brl, row("jun25").volume_brl),
+        biCell(num(row(String(cut.current_year - 3)).volume_brl) / 1e9),
+        biCell(num(row(String(cut.current_year - 2)).volume_brl) / 1e9),
+        biCell(num(row(String(cut.current_year - 1)).volume_brl) / 1e9),
+        biCell(num(row(cut.previous_period_key).volume_brl) / 1e9),
+        biCell(num(row(cut.current_period_key).volume_brl) / 1e9),
+        pct(row(cut.current_period_key).share, 1),
+        growthLabel(row(cut.current_period_key).volume_brl, row(cut.previous_period_key).volume_brl),
       ];
     });
     const totalRow = (periodKey) => num(byTaxonomyPeriod[periodKey]?.emitted_volume_brl);
@@ -5694,13 +5538,13 @@ function buildPresentation(payload) {
       ...categoryRows,
       [
         "Total emitido",
-        biCell(totalRow("2023") / 1e9),
-        biCell(totalRow("2024") / 1e9),
-        biCell(totalRow("2025") / 1e9),
-        biCell(totalRow("jun25") / 1e9),
-        biCell(totalRow("jun26") / 1e9),
+        biCell(totalRow(String(cut.current_year - 3)) / 1e9),
+        biCell(totalRow(String(cut.current_year - 2)) / 1e9),
+        biCell(totalRow(String(cut.current_year - 1)) / 1e9),
+        biCell(totalRow(cut.previous_period_key) / 1e9),
+        biCell(totalRow(cut.current_period_key) / 1e9),
         "100,0%",
-        growthLabel(totalRow("jun26"), totalRow("jun25")),
+        growthLabel(totalRow(cut.current_period_key), totalRow(cut.previous_period_key)),
       ],
     ];
     addSectionLabel(slide, "EMISSÕES POR CATEGORIA ANBIMA", {
@@ -5721,8 +5565,8 @@ function buildPresentation(payload) {
       rowHighlights: new Set([4]),
     });
     taxonomyCategories.forEach((category, rowIndex) => {
-      const current = num(taxonomyRow("jun26", category).volume_brl);
-      const prior = num(taxonomyRow("jun25", category).volume_brl);
+      const current = num(taxonomyRow(cut.current_period_key, category).volume_brl);
+      const prior = num(taxonomyRow(cut.previous_period_key, category).volume_brl);
       if (!prior) return;
       const change = current / prior - 1;
       const cell = taxonomyTable.cells.block({ row: rowIndex + 1, column: 7, rowCount: 1, columnCount: 1 });
@@ -5738,16 +5582,18 @@ function buildPresentation(payload) {
     addRect(slide, { left: 60, top: 620, width: 1160, height: 36 }, C.pale);
     addText(
       slide,
-      `CARTEIRA I · ${integer(officialPortfolioOutros.length)} CNPJs oficiais em Outros somam ${bn(officialPortfolioOutros.reduce((sum, row) => sum + num(row.pl_atual_brl), 0), 1)}; o ledger os redistribui em 5 Agro e 1 Financeiro. Nas emissões, Outros permanece positivo: ${bn(taxonomyRow("jun26", "Outros").volume_brl, 1)} no 1S26.`,
+      `CARTEIRA I · ${integer(officialPortfolioOutros.length)} CNPJs oficiais em Outros somam ${bn(officialPortfolioOutros.reduce((sum, row) => sum + num(row.pl_atual_brl), 0), 1)}; o ledger os redistribui em 5 Agro e 1 Financeiro. Nas emissões, Outros permanece positivo: ${bn(taxonomyRow(cut.current_period_key, "Outros").volume_brl, 1)} no ${cut.period_label}.`,
       { left: 74, top: 626, width: 1132, height: 24 },
       { fontSize: 9.1, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle", wrap: "none" },
     );
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "FIDCs 2023: valor encerrado ANBIMA, preservado da série histórica; composição não observada escalada pela composição CVM. Snapshot vigente: jun/26.",
+      `FIDCs 2023: valor encerrado ANBIMA, preservado da série histórica; composição não observada escalada pela composição CVM. Snapshot vigente: ${competenceShortPt(cut.current_period_end.slice(0, 7)).toLowerCase()}.`,
       "Destaque: variação relativa da participação versus o período comparável anterior; verde > +2%, vinho < −2%, sem destaque dentro de ±2%.",
     ]);
   }
+
+    }
 
   // 5. Base investidora
   const addInvestorBaseSlide = () => {
@@ -5755,7 +5601,7 @@ function buildPresentation(payload) {
     const history = payload.investor_base_history;
     const composition = payload.investor_composition;
     const targetHistory = payload.offer_target_public_shares || [];
-    const targetPeriods = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"];
+    const targetPeriods = [...cut.annual_years.map((year) => `${year} FY`), cut.current_period_id];
     const targetValue = (period, category) => num(
       targetHistory.find((row) => row.period_label === period && row.target_public === category)?.share_registered_volume,
     );
@@ -5763,7 +5609,7 @@ function buildPresentation(payload) {
       slide,
       "BASE INVESTIDORA",
       `Entre 92,8% e 96,8% do volume anual foi destinado ao público profissional; a classificação mede elegibilidade, não alocação final`,
-      "Fonte: CVM/SRE, dois arquivos de ofertas; 24/jul/26. Primárias encerradas, todos os ritos. Definições: RCVM 30.",
+      `Fonte: CVM/SRE, snapshot ${offersSourceShort}. Primárias encerradas, volume registrado. Público-alvo mede elegibilidade. Contas podem repetir investidores.`,
       4,
     );
     addSectionLabel(slide, "CONTAS DE COTISTAS", { left: 60, top: 140, width: 690, height: 24 });
@@ -5786,7 +5632,7 @@ function buildPresentation(payload) {
     addSectionLabel(slide, "% DO VOLUME EMITIDO POR PÚBLICO-ALVO CVM", { left: 60, top: 382, width: 690, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 417, width: 690, height: 190 }),
-      categories: ["2023FY", "2024FY", "2025FY", "Jan–jun/26"],
+      categories: targetPeriods.map((period) => offerPeriodDisplay(period, cut)),
       series: [
         {
           name: "Profissional",
@@ -5842,20 +5688,20 @@ function buildPresentation(payload) {
       ],
       barOptions: { direction: "bar", grouping: "clustered", gapWidth: 42 },
       hasLegend: false,
-      xAxis: { visible: false, majorGridlines: null },
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 10.1 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 11 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
       dataLabels: { showValue: true, position: "outEnd", textStyle: { fill: C.black, fontSize: 11, bold: true } },
     });
     addText(
       slide,
-      `A emissão é majoritariamente elegível a investidores profissionais, padrão compatível com demanda institucional/gestoras. A base de público-alvo não separa pessoa física de pessoa jurídica; Público Geral foi 0,0% em 2024 e 0,5% em jan–jun/26. N/D: 1,1% em 2023 e 0,5% em 2025.`,
+      "A maioria do volume emitido admite investidores profissionais. Público-alvo mede elegibilidade; contas podem repetir investidores.",
       { left: 795, top: 535, width: 425, height: 70 },
       { fontSize: 10.2, color: C.note },
     );
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
       "Resolução CVM 30 — categorias de investidor profissional e qualificado: https://conteudo.cvm.gov.br/legislacao/resolucoes/resolucao030.html",
-      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado positivo e data de encerramento no período; 2026 = jan–jun.",
+      `Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado positivo e data de encerramento no período; ${cut.current_year} = ${cut.period_label}.`,
       "Limitação: público-alvo mede elegibilidade e não alocação final; não separa pessoa física de pessoa jurídica. Campo ausente em registros legados = N/D.",
     ]);
   };
@@ -6052,6 +5898,8 @@ function buildPresentation(payload) {
         return sum + num(outrosRow?.[field === "pl" ? "pl_brl" : "share_total"]);
       }, 0);
     };
+    const maxTotalBn = Math.max(...periods.map((period) => categories.reduce((sum, category) => sum + valueFor(period, category, "pl") / 1e9, 0)));
+    const plAxisMax = Math.ceil(maxTotalBn / 100) * 100;
     const volumeSeries = categories.map((category, seriesIndex) => ({
       name: outrosDisplay[category] || category,
       values: periods.map((period) => valueFor(period, category, "pl") / 1e9),
@@ -6059,7 +5907,7 @@ function buildPresentation(payload) {
       fill: colors[category],
       dataLabelOverrides: periods.map((_, idx) => ({
         idx,
-        showValue: !["Recuperação", "N/D"].includes(category),
+        showValue: !["Recuperação", "N/D"].includes(category) && valueFor(periods[idx], category, "pl") / 1e9 >= 0.08 * plAxisMax,
         position: "center",
         textStyle: {
           fill: [0, 1, 2, 3, 4].includes(seriesIndex) ? C.white : C.black,
@@ -6075,7 +5923,7 @@ function buildPresentation(payload) {
       fill: colors[category],
       dataLabelOverrides: periods.map((_, idx) => ({
         idx,
-        showValue: !["Recuperação", "N/D"].includes(category),
+        showValue: !["Recuperação", "N/D"].includes(category) && valueFor(periods[idx], category, "share") >= 0.08,
         position: "center",
         textStyle: {
           fill: [0, 1, 2, 3, 4].includes(seriesIndex) ? C.white : C.black,
@@ -6095,14 +5943,6 @@ function buildPresentation(payload) {
     const approvedReduction = num(taxonomySummary.reducao_aprovada_brl);
     const approvedOutflows = integer(taxonomySummary.decisoes_aprovadas_com_saida);
     const hasAnalyticalOverlay = approvedReduction > 0 || approvedOutflows > 0;
-    const maxTotalBn = Math.max(
-      ...periods.map((period) =>
-        categories.reduce(
-          (sum, category) => sum + valueFor(period, category, "pl") / 1e9,
-          0,
-        ),
-      ),
-    );
     addHeader(
       slide,
       "TAXONOMIA ANALÍTICA · OUTROS ABERTO",
@@ -6128,7 +5968,7 @@ function buildPresentation(payload) {
       yAxis: {
         ...chartAxis(10.5, "0"),
         min: 0,
-        max: Math.ceil(maxTotalBn / 100) * 100,
+        max: plAxisMax,
       },
       dataLabels: { showValue: true, position: "center" },
     });
@@ -6165,12 +6005,10 @@ function buildPresentation(payload) {
       { left: 120, top: 596, width: 1040, height: 22 },
       { fontSize: 10.5, bold: true, color: C.charcoal, alignment: "center", verticalAlignment: "middle" },
     );
-    addText(
-      slide,
-      `Rótulos de exibição: Poder Público → Precatórios e/ou Ações Judiciais; Multicarteira Outros e Multicedente/Multissacado → Multicedente/Multisacado; Recuperação → Recuperação / FIDCs NP. Recuperação e N/D ficam detalhados no workbook para evitar sobreposição.`,
-      { left: 70, top: 620, width: 1140, height: 34 },
-      { fontSize: 8.7, color: C.note, alignment: "center", verticalAlignment: "middle" },
-    );
+    addSourceNotes(slide, [
+      "Rótulos de exibição: Poder Público → Precatórios e/ou Ações Judiciais; Multicarteira Outros e Multicedente/Multissacado → Multicedente/Multisacado; Recuperação → Recuperação / FIDCs NP. A taxonomia oficial e os valores integrais ficam preservados no XLSX.",
+      "Rótulos dos segmentos menores que 8% da escala do eixo ficam ocultos; os valores são preservados no gráfico nativo.",
+    ]);
   }
 
   // Adquirência
@@ -6260,15 +6098,16 @@ function buildPresentation(payload) {
     const slide = presentation.slides.add();
     const providers = payload.provider_concentration_history;
     const roleOrder = ["administrador", "gestor", "custodiante"];
-    const beforePeriod = "2025-12";
+    const beforePeriod = historicalFrameCompetences(providers, payload.latest_complete, 1)[0];
+    const beforeShort = competenceShortPt(beforePeriod);
     const afterPeriod = payload.latest_complete;
     const before = roleOrder.map((role) => providers.find((row) => row.competencia === beforePeriod && row.papel === role));
     const after = roleOrder.map((role) => providers.find((row) => row.competencia === afterPeriod && row.papel === role));
     addHeader(
       slide,
       "PRESTADORES · RANKING E CONCENTRAÇÃO",
-      `Top 10 mantém cerca de 72% em administração e custódia; gestão subiu a ${pct(after[1]?.top10_share, 1)}`,
-      `Fonte: CVM, dez/25 e ${stockShortLower}. PL ex-FIC; Sistema Petrobras e TAPSO excluídos do numerador e denominador. Administração observada; gestão/custódia históricas reconstruídas com cadastro vigente.`,
+      "Concentração de prestadores",
+      `Fonte: CVM, ${beforeShort.toLowerCase()} e ${stockShortLower}. PL ex-FIC; Sistema Petrobras e TAPSO excluídos do numerador e denominador. Administração observada; gestão/custódia históricas reconstruídas com cadastro vigente.`,
       10,
     );
     addSectionLabel(slide, "TOP 10 · % DO PL EX-FIC", { left: 60, top: 155, width: 540, height: 24 });
@@ -6276,13 +6115,13 @@ function buildPresentation(payload) {
       ...chartBase({ left: 60, top: 195, width: 540, height: 315 }),
       categories: ["Admin.", "Gestão", "Custódia"],
       series: [
-        { name: "Dez/25", values: before.map((row) => num(row?.top10_share)), valuesFormatCode: "0.0%", fill: C.mid },
+        { name: beforeShort, values: before.map((row) => num(row?.top10_share)), valuesFormatCode: "0.0%", fill: C.mid },
         { name: stockShort, values: after.map((row) => num(row?.top10_share)), valuesFormatCode: "0.0%", fill: C.orange },
       ],
       barOptions: { direction: "bar", grouping: "clustered", gapWidth: 44 },
       hasLegend: false,
-      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
-      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null, minorGridlines: null },
+      yAxis: { visible: false, min: 0, max: 1, majorGridlines: null, minorGridlines: null },
       dataLabels: { showValue: true, position: "inEnd", fill: "none", line: { style: "solid", fill: "none", width: 0 }, textStyle: { fill: C.white, fontSize: 10, bold: false } },
     });
     addRect(slide, { left: 60, top: 486, width: 540, height: 35 }, C.white);
@@ -6291,25 +6130,25 @@ function buildPresentation(payload) {
       ...chartBase({ left: 680, top: 195, width: 540, height: 315 }),
       categories: ["Admin.", "Gestão", "Custódia"],
       series: [
-        { name: "Dez/25", values: before.map((row) => num(row?.top5_share)), valuesFormatCode: "0.0%", fill: C.mid },
+        { name: beforeShort, values: before.map((row) => num(row?.top5_share)), valuesFormatCode: "0.0%", fill: C.mid },
         { name: stockShort, values: after.map((row) => num(row?.top5_share)), valuesFormatCode: "0.0%", fill: C.orange },
       ],
       barOptions: { direction: "bar", grouping: "clustered", gapWidth: 44 },
       hasLegend: false,
-      xAxis: { visible: false, majorGridlines: null, minorGridlines: null },
-      yAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null },
+      xAxis: { visible: true, textStyle: { fill: C.mid, fontSize: 12.5 }, line: { style: "solid", fill: C.line, width: 1 }, majorGridlines: null, minorGridlines: null },
+      yAxis: { visible: false, min: 0, max: 1, majorGridlines: null, minorGridlines: null },
       dataLabels: { showValue: true, position: "inEnd", fill: "none", line: { style: "solid", fill: "none", width: 0 }, textStyle: { fill: C.white, fontSize: 10, bold: false } },
     });
     addRect(slide, { left: 680, top: 486, width: 540, height: 35 }, C.white);
     addRule(slide, 60, 545, 1160, C.line, 1);
     addText(
       slide,
-      `Cobertura de PL, dez/25 → ${stockShort}: administração ${pct(before[0]?.coverage_pl, 1)} → ${pct(after[0]?.coverage_pl, 1)}; gestão ${pct(before[1]?.coverage_pl, 1)} → ${pct(after[1]?.coverage_pl, 1)}; custódia ${pct(before[2]?.coverage_pl, 1)} → ${pct(after[2]?.coverage_pl, 1)}.`,
+      `Cobertura de PL, ${beforeShort.toLowerCase()} → ${stockShort}: administração ${pct(before[0]?.coverage_pl, 1)} → ${pct(after[0]?.coverage_pl, 1)}; gestão ${pct(before[1]?.coverage_pl, 1)} → ${pct(after[1]?.coverage_pl, 1)}; custódia ${pct(before[2]?.coverage_pl, 1)} → ${pct(after[2]?.coverage_pl, 1)}.`,
       { left: 60, top: 570, width: 1160, height: 42 },
       { fontSize: 12, color: C.mid, alignment: "center", verticalAlignment: "middle" },
     );
     addShapeLegend(slide, [
-      { label: "Dez/25", color: C.mid },
+      { label: beforeShort, color: C.mid },
       { label: stockShort, color: C.orange },
     ], { left: 970, top: 128, width: 250, height: 22 }, 2, { fontSize: 8.5 });
   };
@@ -6319,8 +6158,8 @@ function buildPresentation(payload) {
 
   const providerInsightOffset = 0;
 
-  // 18. Top 20 FIDCs
-  {
+  // Rankings detalhados permanecem no XLSX.
+  if (SLIDE_CONTRACT_V1.includes("top20")) {
     const slide = presentation.slides.add();
     const top20 = payload.top20_fidcs;
     const partyLabel = top20PartyLookup(payload);
@@ -6364,13 +6203,13 @@ function buildPresentation(payload) {
     );
   }
 
-  ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"]
+  if (SLIDE_CONTRACT_V1.includes("type_rankings")) ["Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"]
     .forEach((typeName) => {
       [payload.latest_complete, "2025-12"].forEach((competencia) => {
         addTop20ByAnbimaTypeSlide(presentation, payload, typeName, competencia);
       });
     });
-  addStructuralMvpSlides(presentation, payload);
+  if (SLIDE_CONTRACT_V1.includes("structural_mvp")) addStructuralMvpSlides(presentation, payload);
 
   // 20. Modelo de prestação
   if (SLIDE_CONTRACT_V1.includes("service_model")) {
@@ -6506,14 +6345,14 @@ function buildPresentation(payload) {
     });
   }
 
-  // 28. Ofertas encerradas: volume, ritmo e ticket em seis meses fechados.
+  // Ofertas encerradas: volume, ritmo e ticket até o corte consolidado.
   {
     const slide = presentation.slides.add();
     const annual = [...(payload.closed_offers_annual || [])]
       .sort((a, b) => num(a.year) - num(b.year));
     const monthly = payload.closed_offers_monthly || [];
-    const janJune = payload.closed_offers_jan_june || payload.closed_offers_jan_may || [2024, 2025, 2026].map((year) => {
-      const scoped = monthly.filter((row) => num(row.year) === year && num(row.month) <= 6);
+    const janJune = payload.closed_offers_ytd_comparable || payload.closed_offers_jan_june || payload.closed_offers_jan_may || [cut.current_year - 2, cut.current_year - 1, cut.current_year].map((year) => {
+      const scoped = monthly.filter((row) => num(row.year) === year && num(row.month) <= cut.month_count);
       const volume = scoped.reduce((sum, row) => sum + num(row.registered_volume_brl), 0);
       const offers = scoped.reduce((sum, row) => sum + num(row.closed_offers), 0);
       return {
@@ -6524,11 +6363,11 @@ function buildPresentation(payload) {
       };
     });
     const current = annual.find((row) => num(row.year) === currentOfferYear) || {};
-    const annualComparison = [2024, 2025, 2026]
+    const annualComparison = [cut.current_year - 2, cut.current_year - 1, cut.current_year]
       .map((year) => annual.find((row) => num(row.year) === year))
       .filter(Boolean);
-    const currentComparable = janJune.find((row) => num(row.year) === 2026) || {};
-    const priorComparable = janJune.find((row) => num(row.year) === 2025) || {};
+    const currentComparable = janJune.find((row) => num(row.year) === cut.current_year) || {};
+    const priorComparable = janJune.find((row) => num(row.year) === cut.current_year - 1) || {};
     const yoy = num(priorComparable.registered_volume_brl)
       ? num(currentComparable.registered_volume_brl) / num(priorComparable.registered_volume_brl) - 1
       : 0;
@@ -6541,14 +6380,15 @@ function buildPresentation(payload) {
         : "N/D"
     );
     const cumulative = (year) => {
-      const maxMonth = year === currentOfferYear ? 6 : 12;
+      const maxMonth = year === currentOfferYear ? cut.month_count : 12;
       const byMonth = new Map(
         monthly
           .filter((row) => num(row.year) === year && num(row.month) <= maxMonth)
           .map((row) => [num(row.month), row]),
       );
       let running = 0;
-      return Array.from({ length: maxMonth }, (_, index) => {
+      return Array.from({ length: 12 }, (_, index) => {
+        if (index >= maxMonth) return null;
         running += num(byMonth.get(index + 1)?.registered_volume_brl);
         return running / 1e9;
       });
@@ -6556,14 +6396,14 @@ function buildPresentation(payload) {
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · VOLUME E TICKET",
-      `Jan–jun/26 somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre jan–jun/25`,
+      `${cut.period_label} somou ${bn(currentComparable.registered_volume_brl, 1)} em ${integer(currentComparable.closed_offers)} ofertas, alta de ${pct(yoy, 1)} sobre ${cut.previous_period_label}`,
       `Fonte: CVM/SRE, dois arquivos de ofertas, snapshot ${dateShortPt(payload.offers_source_as_of || offersAsOf)}. Primárias encerradas, todos os ritos; volume registrado.`,
       27,
     );
     addSectionLabel(slide, "VOLUME REGISTRADO E TICKET · FY / YTD", { left: 60, top: 145, width: 550, height: 24 });
     slide.charts.add("bar", {
       ...chartBase({ left: 60, top: 180, width: 550, height: 245 }),
-      categories: annualComparison.map((row) => num(row.year) === 2026 ? "2026YTD" : `${row.year}FY`),
+      categories: annualComparison.map((row) => num(row.year) === cut.current_year ? `${cut.current_year}YTD` : `${row.year}FY`),
       series: [
         {
           name: "Volume registrado",
@@ -6602,9 +6442,9 @@ function buildPresentation(payload) {
       position: { left: 670, top: 180, width: 550, height: 245 },
       categories: MONTHS_SHORT_PT.map((month) => month[0].toUpperCase() + month.slice(1)),
       series: [
-        { name: "2024", values: cumulative(2024), valuesFormatCode: "0.0", line: { style: "solid", fill: C.note, width: 2 } },
-        { name: "2025", values: cumulative(2025), valuesFormatCode: "0.0", line: { style: "solid", fill: C.charcoal, width: 2.2 } },
-        { name: "2026", values: cumulative(2026), valuesFormatCode: "0.0", line: { style: "solid", fill: C.orange, width: 3 } },
+        { name: String(cut.current_year - 2), values: cumulative(cut.current_year - 2), valuesFormatCode: "0.0", line: { style: "solid", fill: C.note, width: 2 } },
+        { name: String(cut.current_year - 1), values: cumulative(cut.current_year - 1), valuesFormatCode: "0.0", line: { style: "solid", fill: C.charcoal, width: 2.2 } },
+        { name: String(cut.current_year), values: cumulative(cut.current_year), valuesFormatCode: "0.0", line: { style: "solid", fill: C.orange, width: 3 } },
       ],
       yAxis: { ...chartAxis(9, "0"), min: 0 },
       labelIndices: [0, 2, 4, 5, 7, 9, 11],
@@ -6612,16 +6452,10 @@ function buildPresentation(payload) {
       displayBlanksAs: "gap",
     });
     addLegend(slide, [
-      { label: "2024", color: C.note },
-      { label: "2025", color: C.charcoal },
-      { label: "2026", color: C.orange },
+      { label: String(cut.current_year - 2), color: C.note },
+      { label: String(cut.current_year - 1), color: C.charcoal },
+      { label: String(cut.current_year), color: C.orange },
     ], { left: 810, top: 420, width: 410, height: 22 }, 3);
-    addText(
-      slide,
-      "2026 encerra em jun/26; as curvas de 2024 e 2025 seguem até dezembro.",
-      { left: 670, top: 443, width: 550, height: 16 },
-      { fontSize: 8.5, color: C.note, alignment: "right" },
-    );
     addNativeEditorialTable(slide, {
       left: 60,
       top: 450,
@@ -6652,7 +6486,7 @@ function buildPresentation(payload) {
     );
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado positivo e data de encerramento no período; 2026 = jan–jun.",
+      `Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado positivo e data de encerramento no período; ${cut.current_year} = ${cut.period_label}.`,
       "Métrica: volume = Valor_Total_Registrado; ticket = volume registrado por oferta deduplicada. PF usa quantidade colocada e depende da cobertura do campo.",
       "Limitação: valor registrado pode diferir do valor encerrado informado à ANBIMA.",
     ]);
@@ -6662,6 +6496,7 @@ function buildPresentation(payload) {
   {
     const slide = presentation.slides.add();
     const distribution = [...(payload.closed_offer_ticket_distribution || [])]
+      .filter((row) => [`${cut.current_year - 2} FY`, `${cut.current_year - 1} FY`, cut.current_period_id].includes(row.period_label))
       .sort((a, b) => num(a.period_order) - num(b.period_order) || num(a.bucket_order) - num(b.bucket_order));
     const periodLabels = [...new Set(distribution.map((row) => row.period_label))];
     const buckets = [...new Set(distribution.map((row) => row.ticket_bucket))];
@@ -6681,8 +6516,8 @@ function buildPresentation(payload) {
     addHeader(
       slide,
       "OFERTAS ENCERRADAS · DISTRIBUIÇÃO DO TICKET",
-      `${integer(over500.closed_offers)} ofertas ≥ R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume em jan–jun/26`,
-      "Fonte: CVM/SRE, dois arquivos de ofertas; mesma coorte primária encerrada do slide anterior. 2026 = jan–jun.",
+      `${integer(over500.closed_offers)} ofertas ≥ R$ 500 mi concentram ${pct(over500.registered_volume_share, 1)} do volume em ${cut.period_label}`,
+      `Fonte: CVM/SRE, dois arquivos de ofertas; mesma coorte primária encerrada do slide anterior. ${cut.current_year} = ${cut.period_label}.`,
       28,
     );
 
@@ -6699,15 +6534,24 @@ function buildPresentation(payload) {
         ...chartBase({ left, top: 183, width, height: 390 }),
         categories: compactBuckets,
         series: periodLabels.map((period, index) => ({
-          name: period === "2026 jan-jun" ? "Jan–jun/26" : period.replace(" FY", ""),
+          name: period === cut.current_period_id ? `${cut.period_label}` : period.replace(" FY", ""),
           values: buckets.map((bucket) => num(rowFor(period, bucket)[valueKey])),
           valuesFormatCode: formatCode,
           fill: [C.note, C.charcoal, C.orange][index] || C.charcoal,
           dataLabels: {
-            showValue: index === periodLabels.length - 1,
+            showValue: index === periodLabels.length - 1 && valueKey === "offer_share",
             position: "outEnd",
             textStyle: { fill: C.black, fontSize: TYPOGRAPHY.dataLabel, bold: true },
           },
+          dataLabelOverrides: buckets.map((bucket, idx) => ({
+            idx,
+            showValue: index === periodLabels.length - 1 && (
+              valueKey === "offer_share"
+              || (valueKey === "registered_volume_share" && String(bucket).startsWith("≥"))
+            ),
+            position: "outEnd",
+            textStyle: { fill: C.black, fontSize: TYPOGRAPHY.dataLabel, bold: true },
+          })),
         })),
         barOptions: { direction: "column", grouping: "clustered", gapWidth: 48 },
         hasLegend: false,
@@ -6746,9 +6590,9 @@ function buildPresentation(payload) {
       yAxisFormat: "0.0,,,",
     });
     addLegend(slide, [
-      { label: "2024FY", color: C.note },
-      { label: "2025FY", color: C.charcoal },
-      { label: "2026 jan–jun", color: C.orange },
+      { label: `${cut.current_year - 2}FY`, color: C.note },
+      { label: `${cut.current_year - 1}FY`, color: C.charcoal },
+      { label: `${cut.current_year} ${cut.period_label.split("/")[0]}`, color: C.orange },
     ], { left: 425, top: 576, width: 430, height: 22 }, 3);
     addText(
       slide,
@@ -6757,8 +6601,8 @@ function buildPresentation(payload) {
       { fontSize: 8.2, color: C.note, alignment: "center", verticalAlignment: "middle" },
     );
     summaries.forEach((summary, index) => {
-      const label = summary.period_label === "2026 jan-jun"
-        ? "2026 YTD"
+      const label = summary.period_label === cut.current_period_id
+        ? `${cut.current_year} YTD`
         : String(summary.period_label).replace(" FY", "FY");
       const left = 60 + index * 390;
       addText(
@@ -6777,7 +6621,7 @@ function buildPresentation(payload) {
     });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; 2024/2025 = FY e 2026 = jan–jun.",
+      `Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; ${cut.current_year - 2}/${cut.current_year - 1} = FY e ${cut.current_year} = ${cut.period_label}.`,
       "Limitação: faixas e participações usam o valor registrado, que pode diferir do valor encerrado informado à ANBIMA.",
     ]);
   }
@@ -6786,6 +6630,7 @@ function buildPresentation(payload) {
   {
     const slide = presentation.slides.add();
     const regimeRows = [...(payload.closed_offer_placement_regime || [])]
+      .filter((row) => [`${cut.current_year - 2} FY`, `${cut.current_year - 1} FY`, cut.current_period_id].includes(row.period_label))
       .sort(
         (a, b) =>
           num(a.period_order) - num(b.period_order)
@@ -6795,11 +6640,7 @@ function buildPresentation(payload) {
       ...new Set(regimeRows.map((row) => row.period_label)),
     ];
     const periodColors = [C.note, C.charcoal, C.orange];
-    const periodDisplay = {
-      "2024 FY": "2024FY",
-      "2025 FY": "2025FY",
-      "2026 jan-jun": "2026 jan–jun",
-    };
+    const periodDisplay = Object.fromEntries(periodLabels.map((period) => [period, offerPeriodDisplay(period, cut)]));
     const regimeLabels = regimeRows
       .sort((a, b) => num(a.regime_order) - num(b.regime_order))
       .map((row) => row.placement_regime)
@@ -6813,22 +6654,22 @@ function buildPresentation(payload) {
     const periodTotal = (period) =>
       regimeRows.find((row) => row.period_label === period) || {};
     const currentBestEfforts = rowFor(
-      "2026 jan-jun",
+      cut.current_period_id,
       "Melhores esforços",
     );
-    const currentGuarantee = rowFor("2026 jan-jun", "Garantia firme");
+    const currentGuarantee = rowFor(cut.current_period_id, "Garantia firme");
     const guaranteeGrowth = num(currentGuarantee.registered_volume_yoy_ytd);
     const guaranteeDirection = guaranteeGrowth >= 0 ? "cresceu" : "caiu";
     addHeader(
       slide,
       "OFERTAS · VOLUME E REGIME",
       `Emissões | Garantia firme ${guaranteeDirection} ${pct(Math.abs(guaranteeGrowth), 0)} YoY YTD, de ${bn(currentGuarantee.comparison_registered_volume_brl, 1)} para ${bn(currentGuarantee.registered_volume_brl, 1)}`,
-      "Fonte: CVM/SRE, dois arquivos de ofertas, snapshot 24/jul/26. Regime declarado; campo ausente = Não informado.",
+      `Fonte: CVM/SRE, dois arquivos de ofertas, snapshot ${dateShortPt(payload.offers_source_as_of || "N/D")}. ${cut.period_label}; regime declarado; campo ausente = Não informado.`,
       30,
     );
     addText(
       slide,
-      `Melhores esforços repr. ${pct(currentBestEfforts.registered_volume_share, 1)} do volume em 2026`,
+      `Melhores esforços repr. ${pct(currentBestEfforts.registered_volume_share, 1)} do volume em ${cut.current_year}`,
       { left: 60, top: 113, width: 1160, height: 20 },
       { fontSize: 11.5, color: C.mid, verticalAlignment: "middle" },
     );
@@ -6963,19 +6804,22 @@ function buildPresentation(payload) {
     });
     addSourceNotes(slide, [
       "CVM/SRE — oferta_resolucao_160.csv e oferta_distribuicao.csv: https://dados.cvm.gov.br/dataset/oferta-distrib",
-      "Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; 2026 = jan–jun.",
+      `Universo: Cotas de FIDC, ofertas públicas primárias encerradas, todos os ritos disponíveis, Valor_Total_Registrado positivo e data de encerramento no período; ${cut.current_year} = ${cut.period_label}.`,
       "Métrica: participação no volume = volume registrado da categoria / volume registrado total do período; inclui Não informado e fecha 100%, salvo arredondamento.",
-      `Comparação YTD: garantia firme ${bn(currentGuarantee.comparison_registered_volume_brl, 1)} em jan–jun/25 e ${bn(currentGuarantee.registered_volume_brl, 1)} em jan–jun/26; variação ${pct(guaranteeGrowth, 1)}. Melhores esforços representam ${pct(currentBestEfforts.registered_volume_share, 1)} do volume atual.`,
+      `Comparação YTD: garantia firme ${bn(currentGuarantee.comparison_registered_volume_brl, 1)} em ${cut.previous_period_label} e ${bn(currentGuarantee.registered_volume_brl, 1)} em ${cut.period_label}; variação ${pct(guaranteeGrowth, 1)}. Melhores esforços representam ${pct(currentBestEfforts.registered_volume_share, 1)} do volume atual.`,
       "Limitação: volume registrado pode diferir do valor encerrado informado à ANBIMA.",
     ]);
   }
 
-  addCurrentTop15Slide(presentation, payload, "2026 jan-jun", 0);
-  addCurrentTop15Slide(presentation, payload, "2025 FY", 0);
-  addHistoricalTop15Slide(presentation, payload, "2024 FY", 1, 2, 0);
-  addHistoricalTop15Slide(presentation, payload, "2024 FY", 2, 2, 0);
-  addHistoricalTop15Slide(presentation, payload, "2023 FY", 1, 2, 0);
-  addHistoricalTop15Slide(presentation, payload, "2023 FY", 2, 2, 0);
+  // Ofertas nominadas e rankings históricos permanecem no XLSX.
+  if (SLIDE_CONTRACT_V1.includes("offer_rankings")) {
+    addCurrentTop15Slide(presentation, payload, cut.current_period_id, 0);
+    addCurrentTop15Slide(presentation, payload, `${cut.current_year - 1} FY`, 0);
+    addHistoricalTop15Slide(presentation, payload, `${cut.current_year - 2} FY`, 1, 2, 0);
+    addHistoricalTop15Slide(presentation, payload, `${cut.current_year - 2} FY`, 2, 2, 0);
+    addHistoricalTop15Slide(presentation, payload, `${cut.current_year - 3} FY`, 1, 2, 0);
+    addHistoricalTop15Slide(presentation, payload, `${cut.current_year - 3} FY`, 2, 2, 0);
+  }
 
   addConclusionsSlide(presentation, payload, 32);
 
@@ -6991,7 +6835,19 @@ function buildPresentation(payload) {
 
   addInvestorBaseSlide();
   addHolderDistributionSlide();
-
+  if (presentation.slides.items.length !== SLIDE_CONTRACT_V1.length) {
+    throw new Error("Sequência compacta incompleta.");
+  }
+  presentation.slides.items.forEach((slide, index) => {
+    const contract = {
+      id: SLIDE_CONTRACT_V1[index],
+      latest_complete: payload.latest_complete,
+      offers_as_of: payload.offers_as_of,
+      executive_conclusions: 5,
+      source_signature: createHash("sha256").update(payloadRaw).digest("hex"),
+    };
+    slide.speakerNotes.text = `${slide.speakerNotes.text || ""}\n[Industry contract] ${JSON.stringify(contract)}`;
+  });
   return presentation;
 }
 
@@ -7621,7 +7477,7 @@ async function addTop20Sheets(workbook, payload) {
     const candidateShareExpandedOutros = num(currentOutrosBucket.pl)
       ? num(summary.candidate_pl_brl) / num(currentOutrosBucket.pl)
       : 0;
-    setHeaderBand(sheet, "Top 20 Outros · regulamentos", `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)}: ${pct(summary.candidate_share_of_outros, 1)} do Tipo literal Outros e ${pct(candidateShareExpandedOutros, 1)} do bucket Outros do slide 8, que inclui N/D. Nenhuma mudança taxonômica foi aplicada; todos os candidatos requerem validação manual.`, headers, rows.length, { freezeColumns: 3, wrapText: true });
+    setHeaderBand(sheet, "Top 20 Outros · regulamentos", `${integer(summary.candidate_funds)} candidatos somam ${bn(summary.candidate_pl_brl, 1)}: ${pct(summary.candidate_share_of_outros, 1)} do Tipo literal Outros e ${pct(candidateShareExpandedOutros, 1)} do bucket analítico Outros, que inclui N/D. Nenhuma mudança taxonômica foi aplicada; todos os candidatos requerem validação manual.`, headers, rows.length, { freezeColumns: 3, wrapText: true });
     await writeRowsInChunks(sheet, 4, headers, rows);
     applyColumnWidths(sheet, [70, 120, 340, 120, 90, 90, 360, 420, 110, 95, 360, 220, 160, 390, 390, 390], rows.length);
     applyFormatsByHeader(sheet, headers, rows.length);
@@ -7888,7 +7744,7 @@ async function addHistoricalComparisonsSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Comparativos históricos",
-    "Bases dos slides 3, 5, 6, 7 e 10. PL direto e saldo FIC reconciliam o total; recebíveis fecham sobre a soma segmentada da Tabela II.",
+    "Bases dos gráficos executivos. PL direto e saldo FIC reconciliam o total; recebíveis fecham sobre a soma segmentada da Tabela II.",
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
@@ -8243,7 +8099,7 @@ async function addTop20ByTypeSheets(workbook, payload) {
     ["PL", "pl"],
     ["% do bucket", "share_tipo"],
     ["Competência", "competencia_pl"],
-    ["Mai/26 disponível", "pl_anterior_positivo"],
+    ["Competência anterior disponível", "pl_anterior_positivo"],
     ["Fonte PL", "pl_source"],
     ["Tipo ANBIMA original", "anbima_tipo"],
     ["Foco ANBIMA", "anbima_foco"],
@@ -8275,7 +8131,7 @@ async function addTop20ByTypeSheets(workbook, payload) {
   setHeaderBand(
     sheet,
     "Top 20 FIDCs por Tipo ANBIMA",
-    "Jun/26 foi escolhida por ser a competência completa mais recente: 80/80 fundos possuem PL positivo em mai/26 e jun/26. O bucket Outros incorpora N/D como no slide 8. Campos sem leitura documental concluída permanecem N/D.",
+    `Rankings em ${competenceShortPt(payload.latest_complete).toLowerCase()} e nas datas de comparação indicadas por linha. Novas entradas e a cobertura anterior seguem explícitas. O bucket Outros inclui N/D. Campos sem leitura documental permanecem N/D.`,
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -8836,10 +8692,11 @@ async function addDelinquencyDispersionSheet(workbook, payload) {
 }
 
 async function addClosedOffersSheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const rows = [];
   (payload.closed_offers_annual || []).forEach((row) => rows.push({ "Painel": "Ano / YTD", ...row }));
-  (payload.closed_offers_jan_june || payload.closed_offers_jan_may || [])
-    .forEach((row) => rows.push({ "Painel": "Jan–jun", ...row }));
+  (payload.closed_offers_ytd_comparable || payload.closed_offers_jan_june || payload.closed_offers_jan_may || [])
+    .forEach((row) => rows.push({ "Painel": cut.period_label, ...row }));
   (payload.closed_offers_monthly || []).forEach((row) => rows.push({ "Painel": "Mensal", ...row }));
   const headers = [
     "Painel", "year", "month", "competence", "period_label", "period_start", "period_end",
@@ -8851,7 +8708,7 @@ async function addClosedOffersSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Ofertas encerradas de cotas de FIDC",
-    "CVM/SRE, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot 24/jul/26. Ofertas públicas primárias encerradas, todos os ritos disponíveis, data de encerramento no período e valor registrado positivo.",
+    `CVM/SRE, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot ${dateShortPt(payload.offers_source_as_of || "N/D")}. Ofertas públicas primárias encerradas, todos os ritos disponíveis, data de encerramento no período e valor registrado positivo.`,
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -8870,12 +8727,13 @@ async function addClosedOffersSheet(workbook, payload) {
 }
 
 async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const columns = [
     ["Visão", "view"],
     ["Ordem série", "series_order"],
     ["Série", "series_label"],
     ["Instrumento oficial", "instrument_official"],
-    ["Rank 2025", "selected_2025_rank"],
+    [`Rank ${cut.current_year - 1}`, "selected_2025_rank"],
     ["Ordem período", "period_order"],
     ["Período", "period_label"],
     ["Início", "period_start"],
@@ -8902,7 +8760,7 @@ async function addFixedIncomeOfferComparisonSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "FIDCs versus demais emissões de renda fixa",
-    "CVM/SRE, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot 24/jul/26. Ofertas públicas primárias encerradas, todos os ritos disponíveis, volume registrado; 2026 compara jan–jun com jan–jun/25.",
+    `CVM/SRE, oferta_resolucao_160.csv + oferta_distribuicao.csv, snapshot ${dateShortPt(payload.offers_source_as_of || "N/D")}. Ofertas públicas primárias encerradas, todos os ritos disponíveis, volume registrado; ${cut.current_year} compara ${cut.period_label} com ${cut.previous_period_label}.`,
     headers,
     rows.length,
     { freezeColumns: 3, wrapText: true, bodyFontSize: 8.5 },
@@ -8974,6 +8832,7 @@ async function addBcbExpandedCreditSheet(workbook, payload) {
 }
 
 async function addClosedOfferPlacementRegimeSheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const columns = [
     ["Ordem período", "period_order"],
     ["Período", "period_label"],
@@ -9025,6 +8884,7 @@ async function addClosedOfferPlacementRegimeSheet(workbook, payload) {
 }
 
 async function addOfferTicketDistributionSheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const columns = [
     ["Ordem período", "period_order"],
     ["Período", "period_label"],
@@ -9055,7 +8915,7 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Distribuição do valor registrado das ofertas encerradas",
-    "2024 e 2025 usam o ano completo; 2026 usa jan–jun. Ticket = volume registrado por oferta reconciliada; classes do mesmo FIDC são somadas nos ritos ordinários/legados.",
+    `Anos anteriores usam o ano completo; ${cut.current_year} usa ${cut.period_label}. Ticket = volume registrado por oferta reconciliada; classes do mesmo FIDC são somadas nos ritos ordinários/legados.`,
     headers,
     rows.length,
     { freezeColumns: 7, wrapText: true, bodyFontSize: 8 },
@@ -9072,11 +8932,12 @@ async function addOfferTicketDistributionSheet(workbook, payload) {
 }
 
 async function addConclusionsSheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
   const conclusions = executiveConclusions(payload);
   const notes = executiveConclusionNotes(
     payload,
-    `Fontes: CVM, ANBIMA e BCB; coorte bancária dos conglomerados prudenciais. PL em ${stockShortLower}; ofertas encerradas até 30/jun/26.`,
+    `Fontes: CVM, ANBIMA e BCB; coorte bancária dos conglomerados prudenciais. PL em ${stockShortLower}; ofertas encerradas até ${dateShortPt(cut.current_period_end)}.`,
   );
   const rows = conclusions.map((item) => [
     item.order,
@@ -9089,7 +8950,7 @@ async function addConclusionsSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Principais conclusões",
-    `Leitura executiva reconciliada ao fechamento de ${stockShortLower}; ofertas em jan–jun/26.`,
+    `Leitura executiva reconciliada ao fechamento de ${stockShortLower}; ofertas em ${cut.period_label}.`,
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 9 },
@@ -9108,6 +8969,7 @@ async function addConclusionsSheet(workbook, payload) {
 }
 
 async function addOriginators2026Sheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const columns = [
     ["Posição", "rank"],
     ["Originador", "originator_group"],
@@ -9128,7 +8990,7 @@ async function addOriginators2026Sheet(workbook, payload) {
   const sheet = resetSheet(workbook, "Originadores 2026");
   setHeaderBand(
     sheet,
-    "Originadores nomináveis nas ofertas encerradas de 2026",
+    `Originadores nomináveis nas ofertas encerradas · ${cut.period_label}`,
     "Primeiro match nominal auditável em emissor, ativos-alvo, descrição do lastro ou identificação de devedores/coobrigados. O residual não identificado permanece fora do ranking e dentro do denominador.",
     headers,
     rows.length,
@@ -9149,6 +9011,7 @@ async function addOriginators2026Sheet(workbook, payload) {
 }
 
 async function addClosedOfferTop15Sheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const columns = [
     ["Período", "period_label"],
     ["Posição", "rank"],
@@ -9215,13 +9078,13 @@ async function addClosedOfferTop15Sheet(workbook, payload) {
   const orderedSummaries = (payload.closed_offer_top15_summary || [])
     .slice()
     .sort((a, b) => num(a.period_order) - num(b.period_order));
-  const summary2023 = summaries["2023 FY"] || {};
-  const summary2024 = summaries["2024 FY"] || {};
+  const summary2023 = summaries[`${cut.current_year - 3} FY`] || {};
+  const summary2024 = summaries[`${cut.current_year - 2} FY`] || {};
   const sheet = resetSheet(workbook, "Top 15 ofertas");
   setHeaderBand(
     sheet,
     "Top 15 ofertas encerradas por período",
-    `2024FY: ${bn(summary2024.top15_registered_volume_brl, 2)} (${pct(summary2024.top15_share_of_period_volume, 1)} do período), ante ${bn(summary2023.top15_registered_volume_brl, 2)} em 2023FY. 2022 possui sete observações legadas e é parcial, sem comparabilidade anual.`,
+    `Comparativo até ${cut.period_label}; ranking por valor registrado em cada janela. O histórico de 2022 é parcial e permanece identificado na tabela.`,
     headers,
     rows.length,
     { freezeColumns: 8, wrapText: true, bodyFontSize: 8 },
@@ -9394,7 +9257,7 @@ async function addProviderTransitionSheet(workbook, payload) {
     "PL origem",
     "PL destino",
     "PL comparável",
-    "Share PL comparável",
+    "Share PL",
     "Mudou grupo",
     "Mudou entidade legal",
     "Fonte / limitação",
@@ -9419,7 +9282,7 @@ async function addProviderTransitionSheet(workbook, payload) {
       "PL origem": row.pl_origem_brl,
       "PL destino": row.pl_destino_brl,
       "PL comparável": row.pl_comparavel_brl,
-      "Share PL comparável": row.share_pl_comparavel,
+      "Share PL": row.share_pl_comparavel,
       "Mudou grupo": true,
       "Fonte / limitação": "Administrador observado no Informe Mensal",
     });
@@ -9454,8 +9317,8 @@ async function addProviderTransitionSheet(workbook, payload) {
       "Competência destino": String(row.data_referencia || "").split("→")[1]?.trim(),
       "Fundos": row.fundos_resolvidos_unicos,
       "PL destino": row.pl_resolvido_unico_brl,
-      "Share PL comparável": row.cobertura_pl_resolvida,
-      "Fonte / limitação": `${row.escopo_fonte || ""} · ${row.fonte_url || ""}`,
+      "Share PL": row.cobertura_pl_resolvida,
+      "Fonte / limitação": `Cobertura = PL comparável / PL total da coorte. ${row.escopo_fonte || ""} · ${row.fonte_url || ""}`,
     });
   });
   (payload.provider_history_cvm_links || []).filter((row) => row.mudou_grupo).forEach((row) => {
@@ -9468,7 +9331,7 @@ async function addProviderTransitionSheet(workbook, payload) {
       "Grupo destino": row.destino_prestador_grupo,
       "Fundos": row.fundos,
       "PL comparável": row.pl_mai26_brl,
-      "Share PL comparável": row.share_pl_comparavel,
+      "Share PL": row.share_pl_comparavel,
       "Mudou grupo": true,
       "Fonte / limitação": `${row.escopo_fonte || ""} · ${row.fonte_url || ""}`,
     });
@@ -9495,10 +9358,25 @@ async function addProviderTransitionSheet(workbook, payload) {
   });
   const sheet = resetSheet(workbook, "Fluxos prestadores");
   const stockShortLower = competenceShortPt(payload.latest_complete).toLowerCase();
+  const historicalCoverageNotes = ["gestor", "custodiante"].map((role) => {
+    const coverage = (payload.provider_history_cvm_coverage || []).find(
+      (row) => row.papel === role && String(row.data_referencia || "").includes("→"),
+    );
+    if (!coverage) return `${roleLabel(role)}: datas e cobertura N/D`;
+    const period = String(coverage.data_referencia).split("→")
+      .map((value) => competenceShortPt(value.trim().slice(0, 7)).toLowerCase()).join(" → ");
+    const coverageLabel = coverage.cobertura_pl_resolvida !== null
+      && coverage.cobertura_pl_resolvida !== undefined
+      && coverage.cobertura_pl_resolvida !== ""
+      && Number.isFinite(Number(coverage.cobertura_pl_resolvida))
+      ? pct(coverage.cobertura_pl_resolvida, 1)
+      : "N/D";
+    return `${roleLabel(role)}: ${period}, ${coverageLabel} do PL da coorte`;
+  }).join("; ");
   setHeaderBand(
     sheet,
     `Fluxos de prestadores · dez/24 → ${stockShortLower}`,
-    `Administração: coorte atual, administrador observado nas duas datas e largura = PL ${stockShortLower}. Gestão e custódia: amostra histórica ICVM 555 encerrada em mai/26, com cobertura explícita e sem extrapolação. Sistema Petrobras/TAPSO excluídos.`,
+    `Administração: coorte atual, administrador observado nas duas datas e largura = PL ${stockShortLower}. Amostra histórica ICVM 555 · ${historicalCoverageNotes}. Sem extrapolação para a indústria. Sistema Petrobras/TAPSO excluídos.`,
     headers,
     rows.length,
     { freezeColumns: 6, wrapText: true, bodyFontSize: 8 },
@@ -9720,6 +9598,7 @@ async function addAtlanticoHistorySheet(workbook, payload) {
 }
 
 async function addChecksSheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const sheet = resetSheet(workbook, "Checks revisão");
   const headers = ["Teste", "Fórmula / valor", "Esperado", "Status"];
   const focusRows = payload.market_share
@@ -9741,10 +9620,10 @@ async function addChecksSheet(workbook, payload) {
     ["Tipos únicos publicados", (payload.delinquency_single_receivable || []).length, 10, '=IF(B17=C17,"OK","ERRO")'],
     ["Prestadores independentes materializados", (payload.provider_independent_ranking || []).length > 0 ? 1 : 0, 1, '=IF(B18=C18,"OK","ERRO")'],
     ["Coorte bancária: quatro períodos × seis linhas", (payload.bank_fidc_evolution || []).length, 24, '=IF(B19=C19,"OK","ERRO")'],
-    ["Ofertas anuais 2022–2026", (payload.closed_offers_annual || []).length, 5, '=IF(B20=C20,"OK","ERRO")'],
-    ["Originadores nomináveis 2026", (payload.closed_offer_originators_2026 || []).length, 17, '=IF(B21=C21,"OK","ERRO")'],
+    [`Ofertas anuais 2022–${cut.current_year}`, (payload.closed_offers_annual || []).length, cut.current_year - 2021, '=IF(B20=C20,"OK","ERRO")'],
+    ["Originadores: ranks contínuos", (payload.closed_offer_originators_2026 || []).every((row, index) => Number(row.rank) === index + 1) ? 1 : 0, 1, '=IF(B21=C21,"OK","ERRO")'],
     ["Comparativo renda fixa", (payload.fixed_income_offer_comparison || []).length, 28, '=IF(B22=C22,"OK","ERRO")'],
-    ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, 12, '=IF(B23=C23,"OK","ERRO")'],
+    ["Regime de colocação", (payload.closed_offer_placement_regime || []).length, payload.offers_comparison_meta ? 16 : 12, '=IF(B23=C23,"OK","ERRO")'],
     ["Reconciliação CVM x ANBIMA", (payload.market_offer_reconciliation || []).length, 20, '=IF(B24=C24,"OK","ERRO")'],
     ["Auditoria de emissões", (payload.emission_field_audit || []).length, 180, '=IF(B25=C25,"OK","ERRO")'],
     ["Emissões por categoria: 4 tipos × 5 períodos", (payload.issuance_taxonomy || []).length, 20, '=IF(B26=C26,"OK","ERRO")'],
@@ -9766,6 +9645,7 @@ async function addChecksSheet(workbook, payload) {
 }
 
 async function addOfferValidationSheet(workbook, payload) {
+  const cut = secondaryComparativePeriod(payload);
   const columns = [
     ["Período", "period_label"],
     ["Instrumento", "instrument_label"],
@@ -9795,7 +9675,7 @@ async function addOfferValidationSheet(workbook, payload) {
   setHeaderBand(
     sheet,
     "Reconciliação CVM x ANBIMA por instrumento",
-    "CVM: ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado. ANBIMA: ofertas públicas encerradas, Valor Encerrado; 2026 = jan–jun. A ponte taxonômica soma Outros títulos de securitização somente a debêntures.",
+    `CVM: ofertas públicas primárias encerradas, todos os ritos disponíveis, valor registrado. ANBIMA: ofertas públicas encerradas, Valor Encerrado; ${cut.current_year} = ${cut.period_label}. A ponte taxonômica soma Outros títulos de securitização somente a debêntures.`,
     headers,
     rows.length,
     { freezeColumns: 2, wrapText: true, bodyFontSize: 8.5 },
@@ -9813,6 +9693,7 @@ async function addOfferValidationSheet(workbook, payload) {
 }
 
 async function addIssuanceTaxonomySheet(workbook, payload) {
+  const cut = comparativePeriod(payload);
   const table = payload.issuance_taxonomy_table || [];
   const reconciliation = payload.issuance_taxonomy_reconciliation || [];
   if (table.length !== 4 || reconciliation.length !== 5) {
@@ -9820,19 +9701,19 @@ async function addIssuanceTaxonomySheet(workbook, payload) {
   }
   const headers = [
     "Categoria",
-    "2023 (R$ bi)",
-    "2023 (%)",
-    "2024 (R$ bi)",
-    "2024 (%)",
-    "Delta 2023→2024 (R$ bi)",
-    "2025 (R$ bi)",
-    "2025 (%)",
-    "Delta 2024→2025 (R$ bi)",
-    "jan–jun/25 (R$ bi)",
-    "jan–jun/25 (%)",
-    "jan–jun/26 (R$ bi)",
-    "jan–jun/26 (%)",
-    "Delta jan–jun/25→jan–jun/26 (R$ bi)",
+    `${cut.current_year - 3} (R$ bi)`,
+    `${cut.current_year - 3} (%)`,
+    `${cut.current_year - 2} (R$ bi)`,
+    `${cut.current_year - 2} (%)`,
+    `Delta ${cut.current_year - 3}→${cut.current_year - 2} (R$ bi)`,
+    `${cut.current_year - 1} (R$ bi)`,
+    `${cut.current_year - 1} (%)`,
+    `Delta ${cut.current_year - 2}→${cut.current_year - 1} (R$ bi)`,
+    `${cut.previous_period_label} (R$ bi)`,
+    `${cut.previous_period_label} (%)`,
+    `${cut.period_label} (R$ bi)`,
+    `${cut.period_label} (%)`,
+    `Delta ${cut.previous_period_label}→${cut.period_label} (R$ bi)`,
   ];
   const total = { Categoria: "Total (quatro tipos ANBIMA)" };
   headers.slice(1).forEach((header) => {
@@ -9841,23 +9722,29 @@ async function addIssuanceTaxonomySheet(workbook, payload) {
       : table.reduce((sum, row) => sum + num(row[header]), 0);
   });
   const byPeriod = Object.fromEntries(reconciliation.map((row) => [row.period_key, row]));
-  const periodKeys = ["2023", "2024", "2025", "jun25", "jun26"];
+  const periodKeys = [String(cut.current_year - 3), String(cut.current_year - 2), String(cut.current_year - 1), cut.previous_period_key, cut.current_period_key];
   const volumeKeys = [
-    "2023 (R$ bi)", "2024 (R$ bi)", "2025 (R$ bi)",
-    "jan–jun/25 (R$ bi)", "jan–jun/26 (R$ bi)",
+    `${cut.current_year - 3} (R$ bi)`, `${cut.current_year - 2} (R$ bi)`, `${cut.current_year - 1} (R$ bi)`,
+    `${cut.previous_period_label} (R$ bi)`, `${cut.period_label} (R$ bi)`,
   ];
   const shareKeys = [
-    "2023 (%)", "2024 (%)", "2025 (%)", "jan–jun/25 (%)", "jan–jun/26 (%)",
+    `${cut.current_year - 3} (%)`, `${cut.current_year - 2} (%)`, `${cut.current_year - 1} (%)`, `${cut.previous_period_label} (%)`, `${cut.period_label} (%)`,
   ];
+  if (reconciliation.length !== periodKeys.length || Object.keys(byPeriod).length !== periodKeys.length || periodKeys.some(key => !byPeriod[key])) {
+    throw new Error("Taxonomia de emissões contém corte ausente, duplicado ou desatualizado");
+  }
+  if (table.some(row => [...volumeKeys, ...shareKeys].some(key => row[key] === null || row[key] === undefined || !Number.isFinite(Number(row[key]))))) {
+    throw new Error("Tabela de emissões sem valores para os períodos publicados");
+  }
   const bridge = (label, field) => {
     const row = { Categoria: label };
     periodKeys.forEach((periodKey, index) => {
       row[volumeKeys[index]] = num(byPeriod[periodKey]?.[field]) / 1e9;
       row[shareKeys[index]] = null;
     });
-    row["Delta 2023→2024 (R$ bi)"] = row[volumeKeys[1]] - row[volumeKeys[0]];
-    row["Delta 2024→2025 (R$ bi)"] = row[volumeKeys[2]] - row[volumeKeys[1]];
-    row["Delta jan–jun/25→jan–jun/26 (R$ bi)"] = row[volumeKeys[4]] - row[volumeKeys[3]];
+    row[`Delta ${cut.current_year - 3}→${cut.current_year - 2} (R$ bi)`] = row[volumeKeys[1]] - row[volumeKeys[0]];
+    row[`Delta ${cut.current_year - 2}→${cut.current_year - 1} (R$ bi)`] = row[volumeKeys[2]] - row[volumeKeys[1]];
+    row[`Delta ${cut.previous_period_label}→${cut.period_label} (R$ bi)`] = row[volumeKeys[4]] - row[volumeKeys[3]];
     return row;
   };
   const materialized = [
@@ -9923,7 +9810,10 @@ async function addOfferTargetPublicSheet(workbook, payload) {
 
 async function addEmissionFieldAuditSheet(workbook, payload) {
   const columns = [
-    ["Bloco do deck", "bloco"],
+    ["Conjunto", "bloco", (value) => ({
+      "slides 10–17": "Rankings de fundos por tipo",
+      "slides 21–22": "Rankings de ofertas",
+    }[value] || value)],
     ["Tabela / período", "tabela"],
     ["CNPJ", "cnpj", (value) => formatCnpj(value)],
     ["ID da emissão", "emissao_id", (value) => String(value).startsWith("N/D") ? value : `E ${value}`],
@@ -10015,8 +9905,8 @@ async function addEmissionFieldAuditSheet(workbook, payload) {
   const sheet = resetSheet(workbook, "Auditoria emissões");
   setHeaderBand(
     sheet,
-    "Auditoria dos campos documentais exibidos nos slides 10–17 e 21–22",
-    "Uma linha por fundo/período nos slides 10–17 e por emissão nos slides 21–22. Remuneração-alvo registra benchmark + spread da cota/série; preço unitário/VNU permanece em coluna própria para o contrato legado. Originador, cedente e sacado brutos permanecem separados. As colunas de exibição registram a compactação usada no deck, sem substituir o dado integral. Cedente usa a Tabela I da CVM quando declarado; o Informe Mensal não identifica sacado. * = complemento manual. Múltiplas séries e a natureza do mínimo são descritas na própria célula.",
+    "Auditoria documental dos rankings e das maiores ofertas",
+    "Uma linha por fundo/período nos rankings por tipo e por emissão nas maiores ofertas. Remuneração-alvo registra benchmark + spread da cota/série; preço unitário/VNU permanece em coluna própria. Originador, cedente e sacado brutos permanecem separados. As colunas de exibição apresentam a síntese editorial, e os dados integrais seguem disponíveis. Cedente usa a Tabela I da CVM quando declarado; o Informe Mensal não identifica sacado. * = complemento manual. Múltiplas séries e a natureza do mínimo são descritas na própria célula.",
     headers,
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 7.5 },
@@ -10127,7 +10017,7 @@ async function addEmissionRemunerationEvidenceSheet(workbook, payload) {
   await addAuditablePayloadSheet(workbook, {
     name: "Remuneração-alvo",
     title: "Remuneração-alvo por CNPJ, cota / série e documento",
-    subtitle: "Trilha normalizada das evidências de benchmark + spread. O status documental e a data de corte governam a seleção do valor exibido nos slides 10–17; VNU, quantidade, taxa da carteira e preço unitário permanecem fora desta aba.",
+    subtitle: "Trilha normalizada das evidências de benchmark + spread. O status documental e a data de corte governam a seleção do valor exibido nos rankings documentais; VNU, quantidade, taxa da carteira e preço unitário permanecem fora desta aba.",
     columns: EMISSION_REMUNERATION_EVIDENCE_COLUMNS,
     rows: evidence,
     freezeColumns: 5,
@@ -10141,7 +10031,7 @@ async function addEmissionFieldCoverageSheets(workbook, payload) {
   const profiles = payload.emission_field_profile_mapping || [];
   const coverageSheet = await addAuditablePayloadSheet(workbook, {
     name: "Cobertura emissões",
-    title: "Cobertura dos campos dos slides 10–17",
+    title: "Cobertura dos campos dos rankings documentais",
     subtitle: "Cobertura por página e campo, antes e depois do encadeamento documental. Os percentuais de PL usam o PL das 15 linhas de cada página; o piso é o bloqueio mínimo de publicação, não uma meta de completude.",
     columns: EMISSION_FIELD_COVERAGE_COLUMNS,
     rows: coverage,
@@ -11011,10 +10901,7 @@ const CEDENTE_PRESENCE_HISTORY_COLUMNS = Object.freeze([
   cedenteColumn("Competências", 95, "#,##0"),
   cedenteColumn("Presente em", 190),
   cedenteColumn("Situação", 150),
-  cedenteColumn("PL dez/23 (R$)", 145, "R$ #,##0.00"),
-  cedenteColumn("PL dez/24 (R$)", 145, "R$ #,##0.00"),
-  cedenteColumn("PL dez/25 (R$)", 145, "R$ #,##0.00"),
-  cedenteColumn("PL jun/26 (R$)", 145, "R$ #,##0.00"),
+
 ]);
 
 const CEDENTE_TOP500_COVERAGE_HISTORY_COLUMNS = Object.freeze([
@@ -11144,15 +11031,14 @@ function addCedenteReadmeSheet(workbook, payload) {
   sheet.getRange("A1:H1").format.rowHeightPx = 34;
   sheet.getRange("A2:H2").merge();
   sheet.getRange("A2").values = [[
-    `Top ${manifest.cutoff_rank || 500} recalculado em dez/23, dez/24, dez/25 e jun/26. Cadastro: ${(source.registry || {}).role || "snapshot auditado"}.`,
+    `Top ${manifest.cutoff_rank || 500} recalculado em ${(manifest.competences || []).map(competenceShortPt).join(", ")}. Cadastro: ${(source.registry || {}).role || "snapshot auditado"}.`,
   ]];
   sheet.getRange("A2:H2").format.font = { name: "Arial", size: 10, color: C.mid };
   sheet.getRange("A2:H2").format.wrapText = true;
   sheet.getRange("A2:H2").format.rowHeightPx = 34;
 
-  const labels = { 202312: "dez/23", 202412: "dez/24", 202512: "dez/25", 202606: "jun/26" };
   const summaryRows = Object.entries(metrics).map(([competence, row]) => [
-    labels[competence] || competence,
+    competenceShortPt(competence),
     row.fundos_industria,
     row.pl_industria_reais,
     row.pl_top500_reais,
@@ -11205,12 +11091,14 @@ function addCedenteReadmeSheet(workbook, payload) {
 }
 
 async function addCedenteAuditSheets(workbook, payload) {
+  const presenceColumns = [...CEDENTE_PRESENCE_HISTORY_COLUMNS, ...(payload.cedente_triage_manifest?.competences || []).map((competence) =>
+    cedenteColumn(`PL ${competenceShortPt(competence).toLowerCase()} (R$)`, 145, "R$ #,##0.00"))];
   const specs = [
     ["Cedentes · Top 500", "Cedentes · Top 500 por fundo", "Tabela I nas quatro competências; documentos fictícios e reparos de zero ficam visíveis.", "cedente_top500_detail", CEDENTE_TOP500_DETAIL_COLUMNS, 4, 46],
     ["Cedentes · competência", "Cedentes · cadastro por competência", "Uma linha por cedente e competência, com PL alcançado para priorização.", "cedente_registry_by_competence", CEDENTE_REGISTRY_BY_COMPETENCE_COLUMNS, 3, 38],
     ["Cedentes · sem cedente", "Fundos do Top 500 sem cedente real", "Inclui campos vazios, documentos fictícios e documentos irregulares com o motivo explícito.", "cedente_funds_without_cedent", CEDENTE_FUNDS_WITHOUT_CEDENT_COLUMNS, 3, 38],
     ["Cedentes · evolução", "Cedentes · evolução por segmento", "PL alcançado identifica fundos citantes e não mede exposição econômica ao cedente.", "cedente_evolution_by_segment", CEDENTE_EVOLUTION_BY_SEGMENT_COLUMNS, 3, 34],
-    ["Cedentes · presença", "Cedentes · presença no tempo", "Presença do cedente nos Top 500 recalculados em cada competência.", "cedente_presence_history", CEDENTE_PRESENCE_HISTORY_COLUMNS, 3, 34],
+    ["Cedentes · presença", "Cedentes · presença no tempo", "Presença do cedente nos Top 500 recalculados em cada competência.", "cedente_presence_history", presenceColumns, 3, 34],
     ["Cedentes · cobertura", "Cobertura do Top 500", "O denominador é o PL total da indústria; fundos sem cedente permanecem no Top 500.", "cedente_top500_coverage_history", CEDENTE_TOP500_COVERAGE_HISTORY_COLUMNS, 2, 34],
     ["Cedentes · PL segmento", "PL por segmento do cedente dominante", "PL integral do fundo atribuído ao cedente dominante; percentuais declarados não rateiam PL.", "cedente_segment_mix_history", CEDENTE_SEGMENT_MIX_HISTORY_COLUMNS, 3, 34],
     ["Cedentes · cadastro", "Cadastro mestre dos cedentes", "CNAE, natureza, porte, capital, Simples/MEI e classificação analítica auditável.", "cedente_registry_master", CEDENTE_REGISTRY_MASTER_COLUMNS, 3, 36],
@@ -11227,7 +11115,9 @@ async function addCedenteAuditSheets(workbook, payload) {
     await addAuditablePayloadSheet(workbook, {
       name,
       title,
-      subtitle,
+      subtitle: key === "cedente_source_repairs" && rows.length === 0
+        ? "0 reparos estruturais nas competências publicadas; arquivos oficiais retificados e schema preservado."
+        : subtitle,
       columns,
       rows,
       freezeColumns,
@@ -11739,7 +11629,7 @@ async function buildTop100Workbook(payload) {
   setHeaderBand(
     sheet,
     "Top 100 + 2 FIDCs · partes, lastro, estrutura e taxonomias",
-    "Ranking por PL ex-FIC em jun/26, com duas inclusões 2026 explicitamente identificadas. Lacunas permanecem N/D; perfis de devedor não são convertidos em nomes de sacados.",
+    `Ranking por PL ex-FIC em ${competenceShortPt(payload.latest_complete)}, com duas inclusões documentais explicitamente identificadas. Lacunas permanecem N/D; perfis de devedor não são convertidos em nomes de sacados.`,
     TOP100_EXPORT_COLUMNS.map((column) => column.header),
     rows.length,
     { freezeColumns: 4, wrapText: true, bodyFontSize: 8.5 },
@@ -11824,7 +11714,9 @@ async function buildPortfolioWorkbook(payload) {
 }
 
 async function buildWorkbook(payload) {
-  const workbook = await SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK));
+  const workbook = await withWorkbookProgress("importWorkbook", async () =>
+    SpreadsheetFile.importXlsx(await FileBlob.load(INPUT_WORKBOOK)),
+  )();
   const ficAudit = await readCsv(path.join(DATA_DIR, "industry_fic_detection_audit.csv"));
   patchLegacyPlSheets(workbook, csvRowsAsObjects(ficAudit));
   await addQaSheet(workbook);
@@ -12061,13 +11953,103 @@ async function exportTop100Workbook(workbook) {
   await xlsx.save(OUTPUT_TOP100_XLSX);
 }
 
+// Private diagnostics: preserve every workbook operation and record its duration.
+function withWorkbookProgress(name, operation) {
+  return async function (...args) {
+    const started = Date.now();
+    const logPath = path.join(OUTPUT_DIR, "workbook_build_progress.log");
+    await fs.appendFile(logPath, `${new Date().toISOString()} START ${name}\n`);
+    let outcome = "ok";
+    try {
+      return await operation.apply(this, args);
+    } catch (error) {
+      outcome = "error";
+      throw error;
+    } finally {
+      await fs.appendFile(logPath, `${new Date().toISOString()} END ${name} ${Date.now() - started}ms ${outcome}\n`);
+    }
+  };
+}
+
+// Trace all workbook builders and nested sheet additions without changing results.
+addCsvAuditSheet = withWorkbookProgress("addCsvAuditSheet", addCsvAuditSheet);
+addPerimeterAuditSheets = withWorkbookProgress("addPerimeterAuditSheets", addPerimeterAuditSheets);
+addQaSheet = withWorkbookProgress("addQaSheet", addQaSheet);
+addVehicleCompetenceSheet = withWorkbookProgress("addVehicleCompetenceSheet", addVehicleCompetenceSheet);
+addFundBaseSheet = withWorkbookProgress("addFundBaseSheet", addFundBaseSheet);
+addMonoConcentrationSheet = withWorkbookProgress("addMonoConcentrationSheet", addMonoConcentrationSheet);
+addMarketShareSheet = withWorkbookProgress("addMarketShareSheet", addMarketShareSheet);
+addTop20Sheets = withWorkbookProgress("addTop20Sheets", addTop20Sheets);
+addCurationSheet = withWorkbookProgress("addCurationSheet", addCurationSheet);
+addReceivablesReconciliationSheet = withWorkbookProgress("addReceivablesReconciliationSheet", addReceivablesReconciliationSheet);
+addHistoricalComparisonsSheet = withWorkbookProgress("addHistoricalComparisonsSheet", addHistoricalComparisonsSheet);
+addProviderHistorySheet = withWorkbookProgress("addProviderHistorySheet", addProviderHistorySheet);
+addSingleReceivableDelinquencySheet = withWorkbookProgress("addSingleReceivableDelinquencySheet", addSingleReceivableDelinquencySheet);
+addFrozenDelinquencyHistorySheet = withWorkbookProgress("addFrozenDelinquencyHistorySheet", addFrozenDelinquencyHistorySheet);
+addIndependentProviderSheet = withWorkbookProgress("addIndependentProviderSheet", addIndependentProviderSheet);
+addBankFidcSheet = withWorkbookProgress("addBankFidcSheet", addBankFidcSheet);
+addBankFidcDetailSheet = withWorkbookProgress("addBankFidcDetailSheet", addBankFidcDetailSheet);
+addAcquiringReclassificationSheet = withWorkbookProgress("addAcquiringReclassificationSheet", addAcquiringReclassificationSheet);
+addCardReceivablesCurationSheet = withWorkbookProgress("addCardReceivablesCurationSheet", addCardReceivablesCurationSheet);
+addTop20ByTypeSheets = withWorkbookProgress("addTop20ByTypeSheets", addTop20ByTypeSheets);
+addTaxonomyLevelSheet = withWorkbookProgress("addTaxonomyLevelSheet", addTaxonomyLevelSheet);
+addFlagshipCurationSheet = withWorkbookProgress("addFlagshipCurationSheet", addFlagshipCurationSheet);
+addCarteira1CurationSheet = withWorkbookProgress("addCarteira1CurationSheet", addCarteira1CurationSheet);
+addCarteira1TaxonomySheet = withWorkbookProgress("addCarteira1TaxonomySheet", addCarteira1TaxonomySheet);
+addCarteira1FlagshipComparisonSheet = withWorkbookProgress("addCarteira1FlagshipComparisonSheet", addCarteira1FlagshipComparisonSheet);
+addStructuralRiskSheets = withWorkbookProgress("addStructuralRiskSheets", addStructuralRiskSheets);
+addTop100OutrosSheet = withWorkbookProgress("addTop100OutrosSheet", addTop100OutrosSheet);
+addDelinquencyDispersionSheet = withWorkbookProgress("addDelinquencyDispersionSheet", addDelinquencyDispersionSheet);
+addClosedOffersSheet = withWorkbookProgress("addClosedOffersSheet", addClosedOffersSheet);
+addFixedIncomeOfferComparisonSheet = withWorkbookProgress("addFixedIncomeOfferComparisonSheet", addFixedIncomeOfferComparisonSheet);
+addBcbExpandedCreditSheet = withWorkbookProgress("addBcbExpandedCreditSheet", addBcbExpandedCreditSheet);
+addClosedOfferPlacementRegimeSheet = withWorkbookProgress("addClosedOfferPlacementRegimeSheet", addClosedOfferPlacementRegimeSheet);
+addOfferTicketDistributionSheet = withWorkbookProgress("addOfferTicketDistributionSheet", addOfferTicketDistributionSheet);
+addConclusionsSheet = withWorkbookProgress("addConclusionsSheet", addConclusionsSheet);
+addOriginators2026Sheet = withWorkbookProgress("addOriginators2026Sheet", addOriginators2026Sheet);
+addClosedOfferTop15Sheet = withWorkbookProgress("addClosedOfferTop15Sheet", addClosedOfferTop15Sheet);
+addProviderAttributionSheet = withWorkbookProgress("addProviderAttributionSheet", addProviderAttributionSheet);
+addProviderTransitionSheet = withWorkbookProgress("addProviderTransitionSheet", addProviderTransitionSheet);
+addReagMigrationSheet = withWorkbookProgress("addReagMigrationSheet", addReagMigrationSheet);
+addAcquiringTaxonomySheet = withWorkbookProgress("addAcquiringTaxonomySheet", addAcquiringTaxonomySheet);
+addAtlanticoSheet = withWorkbookProgress("addAtlanticoSheet", addAtlanticoSheet);
+addAtlanticoHistorySheet = withWorkbookProgress("addAtlanticoHistorySheet", addAtlanticoHistorySheet);
+addChecksSheet = withWorkbookProgress("addChecksSheet", addChecksSheet);
+addOfferValidationSheet = withWorkbookProgress("addOfferValidationSheet", addOfferValidationSheet);
+addIssuanceTaxonomySheet = withWorkbookProgress("addIssuanceTaxonomySheet", addIssuanceTaxonomySheet);
+addOfferTargetPublicSheet = withWorkbookProgress("addOfferTargetPublicSheet", addOfferTargetPublicSheet);
+addEmissionFieldAuditSheet = withWorkbookProgress("addEmissionFieldAuditSheet", addEmissionFieldAuditSheet);
+addEmissionRemunerationEvidenceSheet = withWorkbookProgress("addEmissionRemunerationEvidenceSheet", addEmissionRemunerationEvidenceSheet);
+addEmissionFieldCoverageSheets = withWorkbookProgress("addEmissionFieldCoverageSheets", addEmissionFieldCoverageSheets);
+addPortfolioDataSheet = withWorkbookProgress("addPortfolioDataSheet", addPortfolioDataSheet);
+addPortfolioCoverageAndGapsSheet = withWorkbookProgress("addPortfolioCoverageAndGapsSheet", addPortfolioCoverageAndGapsSheet);
+addPortfolioDictionarySheet = withWorkbookProgress("addPortfolioDictionarySheet", addPortfolioDictionarySheet);
+addPortfolioManualSourcesSheet = withWorkbookProgress("addPortfolioManualSourcesSheet", addPortfolioManualSourcesSheet);
+addPortfolioAuxiliarySheet = withWorkbookProgress("addPortfolioAuxiliarySheet", addPortfolioAuxiliarySheet);
+addAuditablePayloadSheet = withWorkbookProgress("addAuditablePayloadSheet", addAuditablePayloadSheet);
+addCedenteAuditSheets = withWorkbookProgress("addCedenteAuditSheets", addCedenteAuditSheets);
+addTaxonomyAuditSheets = withWorkbookProgress("addTaxonomyAuditSheets", addTaxonomyAuditSheets);
+addTaxonomyImpactSheet = withWorkbookProgress("addTaxonomyImpactSheet", addTaxonomyImpactSheet);
+addPortfolioPriceSheet = withWorkbookProgress("addPortfolioPriceSheet", addPortfolioPriceSheet);
+addPortfolioDocumentAuditSheet = withWorkbookProgress("addPortfolioDocumentAuditSheet", addPortfolioDocumentAuditSheet);
+addPortfolioDocumentEvidenceSheet = withWorkbookProgress("addPortfolioDocumentEvidenceSheet", addPortfolioDocumentEvidenceSheet);
+addPortfolioDocumentCoverageSheet = withWorkbookProgress("addPortfolioDocumentCoverageSheet", addPortfolioDocumentCoverageSheet);
+addPortfolioPayloadDictionarySheet = withWorkbookProgress("addPortfolioPayloadDictionarySheet", addPortfolioPayloadDictionarySheet);
+addPortfolioEditableNamesSheet = withWorkbookProgress("addPortfolioEditableNamesSheet", addPortfolioEditableNamesSheet);
+buildTop100Workbook = withWorkbookProgress("buildTop100Workbook", buildTop100Workbook);
+buildPortfolioWorkbook = withWorkbookProgress("buildPortfolioWorkbook", buildPortfolioWorkbook);
+buildWorkbook = withWorkbookProgress("buildWorkbook", buildWorkbook);
+exportWorkbook = withWorkbookProgress("exportWorkbook", exportWorkbook);
+exportPortfolioWorkbook = withWorkbookProgress("exportPortfolioWorkbook", exportPortfolioWorkbook);
+exportTop100Workbook = withWorkbookProgress("exportTop100Workbook", exportTop100Workbook);
+
 async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   const payloadRaw = await fs.readFile(PAYLOAD_PATH);
   const payload = JSON.parse(payloadRaw.toString("utf8"));
   await generateProviderFlowHtml();
   if (process.env.FIDC_SKIP_PRESENTATION !== "1") {
-    const presentation = buildPresentation(payload);
+    const presentation = buildPresentation(payload, payloadRaw);
     if (presentation.slides.items.length !== EXPECTED_SLIDES) {
       throw new Error(`Deck deveria ter ${EXPECTED_SLIDES} slides; gerou ${presentation.slides.items.length}.`);
     }

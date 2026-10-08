@@ -28,6 +28,7 @@ import pandas as pd
 import streamlit as st
 
 from services.dashboard_ui import diagnostics_enabled, render_context_strip, render_page_header
+from services.industry_comparative_period import ComparisonCut
 from services.industry_executive_pack import (
     ANBIMA_FIC,
     ANBIMA_FOCUS_BY_TYPE,
@@ -155,13 +156,6 @@ INDUSTRY_STRUCTURE_CHARTS = (
     "industry-holder-histogram-pl",
 )
 INDUSTRY_HOLDER_PL_CUTS_MM = (0, 100, 300, 1000)
-_CEDENTE_COMPETENCES = ("202312", "202412", "202512", "202606")
-_CEDENTE_COMPETENCE_LABELS = {
-    "202312": "dez/23",
-    "202412": "dez/24",
-    "202512": "dez/25",
-    "202606": "jun/26",
-}
 _INDUSTRY_EXECUTIVE_PACK_INPUTS = (
     "vehicle_monthly.csv.gz",
     "industry_competence_status.csv",
@@ -9473,13 +9467,13 @@ def _load_industry_revision_payload(signature: str) -> dict[str, object]:
     comparable_offer_key = next(
         (
             key
-            for key in ("closed_offers_jan_june", "closed_offers_jan_may")
+            for key in ("closed_offers_ytd_comparable", "closed_offers_jan_june", "closed_offers_jan_may")
             if isinstance(payload.get(key), list) and bool(payload.get(key))
         ),
         None,
     )
     if schema_version >= 4 and comparable_offer_key is None:
-        missing.append("closed_offers_jan_june")
+        missing.append("closed_offers_ytd_comparable")
     if missing:
         raise ValueError(
             "payload revisado incompleto: " + ", ".join(sorted(set(missing)))
@@ -9960,58 +9954,16 @@ def _industry_export_payloads(
     that built, and the reason for the ones that did not.
     """
 
-    from services.anbima_executive_export import build_anbima_deck_bytes
     from services.industry_case_studies_export import build_case_studies_deck_bytes
-    from services.industry_ppt_export import build_industry_pptx_bytes, build_industry_xlsx_bytes
+    from services.industry_ppt_export import build_industry_xlsx_bytes
     from services.industry_revision_export import (
+        build_revision_pptx_bytes,
         build_revision_html_bytes,
         build_revision_portfolio_xlsx_bytes,
         build_revision_top100_xlsx_bytes,
     )
 
     del signature  # the value participates in Streamlit's cache key
-
-    def industry_deck_with_anbima(data_dir):
-        """The standard deck, with the carteira slides swapped in and ANBIMA appended.
-
-        The two decks do not share a layout/master/theme chain, so a
-        package-level merge is refused.  The ranking slides are instead built
-        straight into the standard presentation, which keeps every native table
-        and chart wired to the file that is served.
-
-        The six structural-risk slides are replaced in the same pass, and for
-        the same reason: the published bundle is a validated binary, so the
-        substitution happens on the presentation being served rather than on
-        the file on disk.  The Top 100 review tables and the stress test
-        close the deck.
-        """
-
-        from io import BytesIO
-
-        from pptx import Presentation
-
-        from services.anbima_executive_export import append_anbima_slides
-        from services.carteira_deck import replace_structural_slides
-        from services.carteira_estresse_deck import append_stress_slide
-        from services.deck_layout import move_slides, renumber_pages
-        from services.top100_middle_deck import append_top100_slides
-
-        standard = Presentation(BytesIO(build_industry_pptx_bytes(data_dir)))
-        replace_structural_slides(standard, data_dir)
-        append_anbima_slides(standard, data_dir)
-        append_top100_slides(standard, data_dir)
-        append_stress_slide(standard, data_dir)
-        # Os Top 15 por categoria viram anexo, logo antes do Top 100.  A
-        # reordenação vem por último: as seções anteriores endereçam lâminas por
-        # posição, e mexer na ordem antes delas quebraria esses índices.  Se o
-        # deck base vier menor do que o esperado, o passo é pulado — perder a
-        # ordem preferida é melhor do que perder o arquivo inteiro.
-        if len(standard.slides._sldIdLst) >= RANKING_POR_CATEGORIA[1]:
-            move_slides(standard, *RANKING_POR_CATEGORIA, ANEXO_TOP100)
-        renumber_pages(standard)
-        buffer = BytesIO()
-        standard.save(buffer)
-        return buffer.getvalue()
 
     from services.middle_market_exports import (
         build_agro_auditoria_csv_bytes,
@@ -10024,7 +9976,7 @@ def _industry_export_payloads(
     )
 
     builders = {
-        "pptx": industry_deck_with_anbima,
+        "pptx": build_revision_pptx_bytes,
         "case_studies": build_case_studies_deck_bytes,
         "xlsx": build_industry_xlsx_bytes,
         "portfolio": build_revision_portfolio_xlsx_bytes,
@@ -10203,17 +10155,11 @@ def _industry_holder_histogram_frames(
 GRUPO_PACOTE = "Pacote executivo"
 GRUPO_BASES = "Bases analíticas"
 
-#: O bloco de Top 15 por categoria ANBIMA, movido para o anexo.
-RANKING_POR_CATEGORIA = (9, 17)
-#: A lâmina em que o anexo do Top 100 começa — o bloco entra logo antes dela.
-ANEXO_TOP100 = 52
-
-
 _INDUSTRY_EXPORT_BUTTONS: tuple[dict[str, str], ...] = (
     {
         "key": "pptx",
         "group": GRUPO_PACOTE,
-        "label": "PPTX",
+        "label": "PPT executivo",
         "file_name": "Industria_FIDC_Executivo_{period}.pptx",
         "mime": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
         "icon": ":material/slideshow:",
@@ -10374,15 +10320,10 @@ def _render_requested_revision_exports(*, suffix: str) -> None:
         load_requested_revision_downloads,
     )
 
-    st.subheader("Revisão da Diretoria · 01/09/2026 · v3")
+    st.subheader("Revisão da Diretoria · arquivo de setembro/26")
     st.caption(
-        "PPTX executivo de 29 slides: bloco ANBIMA/IBBA preservado, com visão por "
-        "produto, destaque de FIDC e gráficos nativos compatíveis com PowerPoint. "
-        "Base jun/26. Slides 4–6 com Multicarteira Pulverizado PF/PJ: 24 fundos, "
-        "R$ 7,1 bi de PL e exposição efetiva N/D; Sólido e BizCapital permanecem "
-        "em Financeiro. Cenário sem TAPSO/Petrobras; emissões cruzadas pelas mesmas "
-        "listas de CNPJ; Top 5 + Itaú e Kanastra separados. Revisão visual com títulos "
-        "em caixa mista, rodapés à esquerda e menos linhas separadoras."
+        "Versão v3 de 01/09/2026, com base jun/26. "
+        "A apresentação atual está no botão PPT executivo."
     )
     try:
         payloads = load_requested_revision_downloads(_DATA_DIR)
@@ -10409,7 +10350,6 @@ def _render_requested_revision_exports(*, suffix: str) -> None:
 
 
 def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
-    _render_requested_revision_exports(suffix=suffix)
     try:
         payloads, failures = _industry_export_payloads(_industry_export_signature())
     except Exception as exc:  # noqa: BLE001
@@ -10422,38 +10362,38 @@ def _render_industry_exports(*, suffix: str, as_of_date: str) -> None:
         }
 
     file_period = str(as_of_date).replace("-", "")[:6] or "atual"
-    grupos: dict[str, list[dict[str, str]]] = {}
-    for spec in _INDUSTRY_EXPORT_BUTTONS:
-        grupos.setdefault(spec.get("group", GRUPO_PACOTE), []).append(spec)
+    def render_downloads(specs: list[dict[str, str]]) -> None:
+        for offset in range(0, len(specs), 3):
+            row = specs[offset : offset + 3]
+            for column, spec in zip(st.columns([1] * len(row)), row):
+                key = spec["key"]
+                with column:
+                    if key in payloads:
+                        st.download_button(
+                            spec["label"],
+                            data=payloads[key],
+                            file_name=spec["file_name"].format(period=file_period),
+                            mime=spec["mime"],
+                            icon=spec["icon"],
+                            help=spec["help"],
+                            width="stretch",
+                            key=f"{spec['widget']}-{suffix}",
+                        )
+                    else:
+                        st.button(
+                            spec["label"],
+                            icon=spec["icon"],
+                            help=f"Indisponível — {failures.get(key, 'erro desconhecido')}",
+                            width="stretch",
+                            disabled=True,
+                            key=f"{spec['widget']}-{suffix}-indisponivel",
+                        )
 
-    pares: list[tuple[object, dict[str, str]]] = []
-    for titulo, specs in grupos.items():
-        st.caption(titulo)
-        pares.extend(zip(st.columns([1] * len(specs)), specs))
-
-    for column, spec in pares:
-        key = spec["key"]
-        with column:
-            if key in payloads:
-                st.download_button(
-                    spec["label"],
-                    data=payloads[key],
-                    file_name=spec["file_name"].format(period=file_period),
-                    mime=spec["mime"],
-                    icon=spec["icon"],
-                    help=spec["help"],
-                    width="stretch",
-                    key=f"{spec['widget']}-{suffix}",
-                )
-            else:
-                st.button(
-                    spec["label"],
-                    icon=spec["icon"],
-                    help=f"Indisponível — {failures.get(key, 'erro desconhecido')}",
-                    width="stretch",
-                    disabled=True,
-                    key=f"{spec['widget']}-{suffix}-indisponivel",
-                )
+    render_downloads([spec for spec in _INDUSTRY_EXPORT_BUTTONS if spec["key"] in {"pptx", "xlsx"}])
+    with st.expander("Outras apresentações e bases analíticas", expanded=False):
+        render_downloads([spec for spec in _INDUSTRY_EXPORT_BUTTONS if spec["key"] not in {"pptx", "xlsx"}])
+    with st.expander("Versão anterior · revisão da Diretoria", expanded=False):
+        _render_requested_revision_exports(suffix=suffix)
     if failures:
         st.warning(
             "Exportação indisponível: "
@@ -11352,8 +11292,22 @@ def _cedente_competence_key(value: object) -> str:
     return digits[:6] if len(digits) >= 6 else str(value)
 
 
+def _revision_cedente_competences(payload: dict[str, object]) -> tuple[str, ...]:
+    available: set[str] = set()
+    latest = _cedente_competence_key(payload.get("latest_complete") or "")
+    for key in ("cedente_top500_detail", "cedente_segment_mix_history",
+                "cedente_top500_coverage_history", "cedente_registry_by_competence"):
+        frame = _revision_frame(payload, key)
+        column = _frame_column(frame, "competencia", "Competência")
+        if column:
+            available.update(frame[column].map(_cedente_competence_key))
+    return tuple(sorted(value for value in available
+                        if re.fullmatch(r"\d{4}(0[1-9]|1[0-2])", value)
+                        and (not latest or value <= latest)))
+
+
 def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
-    """Render the four-period Top 500 cedent view from the published payload."""
+    """Render available complete Top 500 cedent periods from the payload."""
 
     detail = _revision_frame(payload, "cedente_top500_detail")
     mix = _revision_frame(payload, "cedente_segment_mix_history")
@@ -11363,13 +11317,15 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
         registry = detail.copy()
     if detail.empty and mix.empty and coverage.empty and registry.empty:
         return
+    competences = _revision_cedente_competences(payload)
+    competence_labels = {value: _short_competence_label(value).lower() for value in competences}
 
     st.markdown(
         "<h2>Cedentes do Top 500 · segmento e cobertura</h2>",
         unsafe_allow_html=True,
     )
     st.caption(
-        "Quatro competências comparáveis: dez/23, dez/24, dez/25 e jun/26. "
+        f"Competências disponíveis: {', '.join(competence_labels.values()) or 'N/D'}. "
         "O mix usa o cedente dominante de cada fundo, sem ratear o PL pelos "
         "percentuais declarados na Tabela I."
     )
@@ -11397,10 +11353,10 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
                 _cedente_competence_key
             )
             mix_view = mix_view[
-                mix_view["competencia_key"].isin(_CEDENTE_COMPETENCES)
+                mix_view["competencia_key"].isin(competences)
             ].copy()
             mix_view["Período"] = mix_view["competencia_key"].map(
-                _CEDENTE_COMPETENCE_LABELS
+                competence_labels
             )
             mix_view["Segmento"] = mix_view[segment_col].astype(str)
             mix_view["PL dominante (R$ bi)"] = pd.to_numeric(
@@ -11461,8 +11417,8 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
                     [_GRAY_LIGHT] * (len(segment_order) - len(color_range))
                 )
             period_order = [
-                _CEDENTE_COMPETENCE_LABELS[item]
-                for item in _CEDENTE_COMPETENCES
+                competence_labels[item]
+                for item in competences
                 if item in set(mix_view["competencia_key"])
             ]
             chart = (
@@ -11546,10 +11502,10 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
                 _cedente_competence_key
             )
             coverage_view = coverage_view[
-                coverage_view["competencia_key"].isin(_CEDENTE_COMPETENCES)
+                coverage_view["competencia_key"].isin(competences)
             ].copy()
             coverage_view["Período"] = coverage_view["competencia_key"].map(
-                _CEDENTE_COMPETENCE_LABELS
+                competence_labels
             )
             coverage_view["Cobertura"] = pd.to_numeric(
                 coverage_view[share_col], errors="coerce"
@@ -11565,8 +11521,8 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
                     coverage_view[industry_pl_col], errors="coerce"
                 ) / 1e9
             period_order = [
-                _CEDENTE_COMPETENCE_LABELS[item]
-                for item in _CEDENTE_COMPETENCES
+                competence_labels[item]
+                for item in competences
                 if item in set(coverage_view["competencia_key"])
             ]
             tooltip: list[alt.Tooltip] = [
@@ -11645,6 +11601,8 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
         registry_view["Competência"] = registry_view[competence_col].map(
             _cedente_competence_key
         )
+    if "Competência" in registry_view:
+        registry_view = registry_view[registry_view["Competência"].isin(competences)].copy()
     filters = st.columns(5)
 
     def _filter_options(column: str | None) -> list[str]:
@@ -11661,9 +11619,9 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
     with filters[0]:
         selected_competences = st.multiselect(
             "Competência",
-            options=list(_CEDENTE_COMPETENCES),
+            options=list(competences),
             default=[],
-            format_func=lambda value: _CEDENTE_COMPETENCE_LABELS.get(value, value),
+            format_func=lambda value: competence_labels.get(value, value),
             key="industry-revision-cedente-filter-competence",
         )
     with filters[1]:
@@ -11709,7 +11667,7 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
             ]
     if "Competência" in registry_view:
         registry_view["Competência"] = registry_view["Competência"].map(
-            lambda value: _CEDENTE_COMPETENCE_LABELS.get(str(value), str(value))
+            lambda value: competence_labels.get(str(value), str(value))
         )
 
     visible_specs = (
@@ -11773,36 +11731,72 @@ def _render_revision_cedente_segments(payload: dict[str, object]) -> None:
 
 
 def _revision_offer_comparable_frame(payload: dict[str, object]) -> pd.DataFrame:
-    """Return the current Jan–Jun comparison, with the prior key as fallback."""
+    """Prefer the published YTD comparison; retain prior schema aliases."""
+    for key in ("closed_offers_ytd_comparable", "closed_offers_jan_june", "closed_offers_jan_may"):
+        frame = _revision_frame(payload, key)
+        if not frame.empty:
+            return frame
+    return pd.DataFrame()
 
-    frame = _revision_frame(payload, "closed_offers_jan_june")
-    if frame.empty:
-        frame = _revision_frame(payload, "closed_offers_jan_may")
-    return frame
+
+def _revision_offer_comparison_meta(payload: dict[str, object]) -> dict[str, object]:
+    declared = dict(payload.get("offers_comparison_meta") or {})
+    frame = _revision_offer_comparable_frame(payload)
+    cutoff = declared.get("current_period_end")
+    if not cutoff and not frame.empty and "period_end" in frame:
+        dates = pd.to_datetime(frame["period_end"], errors="coerce").dropna()
+        if not dates.empty:
+            cutoff = dates.max().strftime("%Y-%m-%d")
+    cutoff = cutoff or payload.get("offers_as_of")
+    try:
+        cut = ComparisonCut.from_competence(str(cutoff)[:7])
+    except ValueError:
+        metadata: dict[str, object] = {}
+        years = pd.to_numeric(frame.get("year", pd.Series(dtype=float)), errors="coerce").dropna()
+        if not years.empty:
+            metadata["current_year"] = int(years.max())
+    else:
+        metadata = cut.to_meta()
+        exact_cutoff = pd.to_datetime(cutoff, errors="coerce")
+        if pd.notna(exact_cutoff):
+            metadata["current_period_end"] = exact_cutoff.strftime("%Y-%m-%d")
+            previous_cutoff = exact_cutoff - pd.DateOffset(years=1)
+            metadata["previous_period_end"] = previous_cutoff.strftime("%Y-%m-%d")
+    metadata.update({key: value for key, value in declared.items() if value not in (None, "")})
+    return metadata
+
+
+def _revision_offer_period_display(value: object, meta: dict[str, object]) -> str:
+    if str(value) == str(meta.get("current_period_id") or ""):
+        return str(meta.get("period_label") or value)
+    if str(value) == str(meta.get("previous_period_id") or ""):
+        return str(meta.get("previous_period_label") or value)
+    return str(value).replace(" FY", "FY").replace("jan-", "jan–")
 
 
 def _revision_offer_current_row(
     payload: dict[str, object],
     annual: pd.DataFrame | None = None,
 ) -> pd.Series:
-    """Merge the 2026 annual metrics with the authoritative comparable cutoff."""
+    """Merge current-year annual metrics with the published comparable window."""
 
     annual_frame = annual.copy() if annual is not None else _revision_frame(
         payload, "closed_offers_annual"
     )
     current = pd.Series(dtype=object)
+    current_year = _revision_offer_comparison_meta(payload).get("current_year")
     if not annual_frame.empty and "year" in annual_frame:
         annual_frame["year"] = pd.to_numeric(annual_frame["year"], errors="coerce")
-        annual_2026 = annual_frame[annual_frame["year"].eq(2026)]
-        source = annual_2026 if not annual_2026.empty else annual_frame
+        annual_current = annual_frame[annual_frame["year"].eq(current_year)]
+        source = annual_current if not annual_current.empty else annual_frame
         current = source.sort_values("year").iloc[-1].copy()
 
     comparable = _revision_offer_comparable_frame(payload)
     if not comparable.empty and "year" in comparable:
         comparable = comparable.copy()
         comparable["year"] = pd.to_numeric(comparable["year"], errors="coerce")
-        comparable_2026 = comparable[comparable["year"].eq(2026)]
-        source = comparable_2026 if not comparable_2026.empty else comparable
+        comparable_current_year = comparable[comparable["year"].eq(current_year)]
+        source = comparable_current_year if not comparable_current_year.empty else comparable
         comparable_current = source.sort_values("year").iloc[-1]
         for key, value in comparable_current.items():
             if pd.notna(value):
@@ -11813,14 +11807,7 @@ def _revision_offer_current_row(
 def _revision_offers_cutoff(payload: dict[str, object]) -> str:
     """Return the audited comparable cutoff used by every offers view."""
 
-    comparable = _revision_offer_comparable_frame(payload)
-    if not comparable.empty and "period_end" in comparable:
-        years = pd.to_numeric(comparable.get("year"), errors="coerce")
-        current = comparable.loc[years.eq(2026), "period_end"]
-        parsed = pd.to_datetime(current, errors="coerce").dropna()
-        if not parsed.empty:
-            return parsed.max().strftime("%Y-%m-%d")
-    return "2026-06-30"
+    return str(_revision_offer_comparison_meta(payload).get("current_period_end") or "N/D")
 
 
 def _revision_holder_distribution_frame(frame: pd.DataFrame) -> pd.DataFrame:
@@ -11878,6 +11865,15 @@ def _revision_period_encoding(frame: pd.DataFrame) -> tuple[list[str], list[str]
         return [], []
     colors = [_GRAY] * max(len(order) - 1, 0) + [_ORANGE]
     return order, colors
+
+
+def _revision_competence_items(frame: pd.DataFrame, latest: str) -> list[tuple[str, str]]:
+    """Use only the historical dates actually present in the published block."""
+    if frame.empty or "competencia" not in frame:
+        return []
+    dates = frame["competencia"].dropna().astype(str).drop_duplicates()
+    return [(date, _short_competence_label(date))
+            for date in sorted(dates) if not latest or date <= latest]
 
 
 def _revision_comparison_color(frame: pd.DataFrame, *, show_legend: bool = True) -> alt.Color:
@@ -12053,317 +12049,156 @@ def _render_revision_atlantico(payload: dict[str, object]) -> None:
                 st.markdown(str(item))
 
 
-def _render_revision_conclusions(payload: dict[str, object]) -> None:
-    """Mirror the executive conclusion slide with values from the revision payload."""
+def _revision_conclusion_items(payload: dict[str, object]) -> list[tuple[str, str]]:
+    """Use the five editorial conclusions, with a concise data-backed fallback."""
 
-    metrics = dict(payload.get("conclusion_metrics") or {})
-    annual = _revision_frame(payload, "closed_offers_annual")
-    latest_period = str(payload.get("latest_complete") or "2026-06")
-    latest_stock_label = _short_competence_label(latest_period).lower()
-    offers_cutoff = _revision_offers_cutoff(payload)
-    holder_history = _revision_history_frame(payload, "holder_distribution_history")
-    concentration = _revision_history_frame(
-        payload,
-        "provider_concentration_history",
-        fallback_key="provider_concentration",
-    )
-    ranking = _revision_frame(payload, "provider_historical_ranking")
-    service_model = _revision_frame(payload, "service_model")
-    originators = _revision_frame(payload, "closed_offer_originators_2026")
-    ticket_distribution = _revision_frame(payload, "closed_offer_ticket_distribution")
-    qa = dict(payload.get("qa_latest") or {})
-    reag = dict(payload.get("reag_admin_summary") or {})
-    leadership = dict(payload.get("provider_leadership_attribution") or {})
+    editorial = payload.get("executive_conclusions")
+    if isinstance(editorial, list):
+        def order(row: dict[str, object]) -> float:
+            value = pd.to_numeric(row.get("order"), errors="coerce")
+            return float(value) if pd.notna(value) else 0.0
 
-    current_offer = _revision_offer_current_row(payload, annual)
-    holder_latest = (
-        holder_history[
-            holder_history["competencia"].eq(latest_period)
-        ]
-        if not holder_history.empty
-        else pd.DataFrame()
-    )
-    share_funds_up_to_10 = float(
-        metrics.get("holder_ge_200m_share_fundos_ate_10_contas")
-        or (
-            holder_latest[
-                holder_latest["bucket"].astype(str).isin(["0", "1", "2–3", "4–5", "6–10"])
-            ]["share_fundos"].sum()
-            if not holder_latest.empty
-            else 0.0
-        )
-    )
-    concentration_latest = pd.DataFrame()
-    if not concentration.empty:
-        concentration_latest = concentration[
-            concentration["competencia"].eq(latest_period)
-        ].set_index("papel")
-
-    def top10(role: str) -> float:
-        if concentration_latest.empty or role not in concentration_latest.index:
-            return 0.0
-        return float(concentration_latest.loc[role, "top10_share"])
-
-    current_ranking = (
-        ranking[ranking["competencia"].eq(latest_period)].copy()
-        if not ranking.empty
-        else pd.DataFrame()
-    )
-
-    def provider_pl(role: str, participant: str) -> float:
-        if current_ranking.empty:
-            return 0.0
-        match = current_ranking[
-            current_ranking["papel"].eq(role)
-            & current_ranking["participante"].astype(str).str.casefold().eq(participant.casefold())
-        ]
-        return float(match.iloc[0]["pl_brl"]) if not match.empty else 0.0
-
-    mono = service_model[service_model["modelo_prestacao"].eq("Monoestrutura")]
-    same_admin_custody = service_model[
-        service_model["modelo_prestacao"].isin(
-            ["Monoestrutura", "Administração + Custódia"]
-        )
-    ]
-    same_admin_custody_funds = int(
-        metrics.get("admin_custodia_juntas_fundos")
-        or same_admin_custody.get("fundos", pd.Series(dtype=float)).sum()
-    )
-    same_admin_custody_share = float(
-        metrics.get("admin_custodia_juntas_share_pl")
-        or same_admin_custody.get("share_pl", pd.Series(dtype=float)).sum()
-    )
-    mono_share = float(
-        metrics.get("monoestrutura_share_pl")
-        or (mono.iloc[0]["share_pl"] if not mono.empty else 0.0)
-    )
-
-    cloudwalk = (
-        originators[
-            originators["originator_group"].astype(str).str.casefold().eq("cloudwalk")
-        ]
-        if not originators.empty
-        else pd.DataFrame()
-    )
-    cloudwalk_volume = (
-        float(cloudwalk.iloc[0]["registered_volume_brl"])
-        if not cloudwalk.empty
-        else 0.0
-    )
-
-    ticket_mean = float(current_offer.get("mean_registered_ticket_brl", 0.0))
-    ticket_median = float(current_offer.get("median_registered_ticket_brl", 0.0))
-    pf_share = float(current_offer.get("natural_person_placed_volume_share", 0.0))
-    pf_coverage = float(
-        current_offer.get("placed_quantity_registered_volume_coverage", 0.0)
-    )
-    offers_count = int(current_offer.get("closed_offers", 0))
-    offers_volume = float(current_offer.get("registered_volume_brl", 0.0))
-
-    jan_june = _revision_offer_comparable_frame(payload)
-    jan_june_lookup = (
-        jan_june.set_index("year")["registered_volume_brl"].to_dict()
-        if not jan_june.empty
-        else {}
-    )
-    jan_june_2026 = float(jan_june_lookup.get(2026, 0.0))
-
-    def comparable_growth(year: int) -> float:
-        prior = float(jan_june_lookup.get(year, 0.0))
-        return jan_june_2026 / prior - 1 if prior else 0.0
-
-    growth_2025 = comparable_growth(2025)
-    growth_2024 = comparable_growth(2024)
-    btg_roots = int(metrics.get("btg_bank_cohort_listed_roots", 0))
-    btg_observed = int(metrics.get("btg_bank_cohort_observed_funds", 0))
-    btg_observed_pl = float(metrics.get("btg_bank_cohort_pl_brl", 0))
-    btg_combo_funds = int(metrics.get("btg_bank_cohort_combo_funds", 0))
-    btg_combo_pl = float(metrics.get("btg_bank_cohort_combo_pl_brl", 0))
-
-    large_offer_bucket = pd.DataFrame()
-    if not ticket_distribution.empty:
-        large_offer_bucket = ticket_distribution[
-            ticket_distribution["period_label"].astype(str).eq("2026 jan–jun")
-            & pd.to_numeric(
-                ticket_distribution.get("ticket_floor_brl"), errors="coerce"
-            ).ge(500_000_000)
-        ]
-    large_offer_count = int(
-        large_offer_bucket.iloc[0].get("closed_offers", 0)
-        if not large_offer_bucket.empty
-        else 0
-    )
-    large_offer_share = float(
-        large_offer_bucket.iloc[0].get("offer_share", 0.0)
-        if not large_offer_bucket.empty
-        else 0.0
-    )
-    large_offer_volume_share = float(
-        large_offer_bucket.iloc[0].get("registered_volume_share", 0.0)
-        if not large_offer_bucket.empty
-        else 0.0
-    )
-    qi_legacy_share = float(
-        dict(leadership.get("qi") or {}).get("legacy_share_2024", 0.0)
-    )
-    cielo_share_migrated = (
-        float(metrics.get("admin_transition_2024_2025_cielo_pl_brl", 0.0))
-        / float(metrics.get("admin_transition_2024_2025_changed_pl_brl", 0.0))
-        if float(metrics.get("admin_transition_2024_2025_changed_pl_brl", 0.0))
-        else 0.0
-    )
-    btg_combo_share = (
-        btg_combo_pl / float(metrics.get("btg_combo_tres_funcoes_pl_brl", 0.0))
-        if float(metrics.get("btg_combo_tres_funcoes_pl_brl", 0.0))
-        else 0.0
-    )
-    cloudwalk_share = cloudwalk_volume / offers_volume if offers_volume else 0.0
-    offer_growth_brl = jan_june_2026 - float(jan_june_lookup.get(2025, 0.0))
-    cloudwalk_growth_share = (
-        cloudwalk_volume / offer_growth_brl if offer_growth_brl else 0.0
-    )
-    growth_2025_ex_cloudwalk = (
-        (jan_june_2026 - cloudwalk_volume)
-        / float(jan_june_lookup.get(2025, 0.0))
-        - 1
-        if float(jan_june_lookup.get(2025, 0.0))
-        else 0.0
-    )
-
-    conclusions = [
-        (
-            "01 · Distribuição após a RCVM 175 segue institucional e concentrada",
-            [
-                f"A mediana equivale a {_fmt_pct(ticket_median / ticket_mean if ticket_mean else 0)} da média ({_fmt_mi(ticket_median)} versus {_fmt_mi(ticket_mean)}); {_fmt_int(large_offer_count)} ofertas ({_fmt_pct(large_offer_share)}) ≥ R$ 500 mi concentraram {_fmt_pct(large_offer_volume_share)} do volume.",
-                f"Pessoas físicas responderam por apenas {_fmt_pct(pf_share)} do volume colocado estimado; {_fmt_pct(share_funds_up_to_10)} dos fundos com PL ≥ R$ 200 mi têm até dez contas.",
-            ],
-        ),
-        (
-            "02 · Verticalização define o modelo operacional da indústria",
-            [
-                f"Administração e custódia estão no mesmo conglomerado em {_fmt_pct(same_admin_custody_share)} do PL — nove em cada dez reais da indústria.",
-                f"Monoestruturas, com as três funções no mesmo grupo, já concentram {_fmt_pct(mono_share)} do PL.",
-            ],
-        ),
-        (
-            "03 · Escala independente está concentrada em poucas plataformas",
-            [
-                f"QI Tech lidera administração e praticamente empata com o BTG em custódia; {_fmt_pct(qi_legacy_share, 0)} de sua base administrativa em dez/24 veio do legado Singulare.",
-                f"Oliveira Trust é a 3ª maior gestora, com {_fmt_bi(provider_pl('gestor', 'Oliveira Trust'), 1)}; na coorte CBSF/Reag, {_fmt_pct(float(reag.get('migrated_share_current', 0)))} do PL continuante já havia migrado até {latest_stock_label}.",
-            ],
-        ),
-        (
-            "04 · Trocas de administrador são pontuais e concentradas",
-            [
-                f"Apenas {_fmt_pct(float(metrics.get('admin_transition_2024_2025_changed_share_pl', 0)))} do PL comparável trocou de administrador entre dez/24 e dez/25: {_fmt_bi(float(metrics.get('admin_transition_2024_2025_changed_pl_brl', 0)), 1)} em {_fmt_int(metrics.get('admin_transition_2024_2025_changed_funds', 0))} fundos.",
-                f"Dois FIDCs Cielo responderam por {_fmt_pct(cielo_share_migrated, 0)} do fluxo, com {_fmt_bi(float(metrics.get('admin_transition_2024_2025_cielo_pl_brl', 0)), 1)} migrando de Oliveira Trust para Bradesco.",
-            ],
-        ),
-        (
-            "05 · Gestão preserva o maior espaço competitivo",
-            [
-                f"As dez maiores gestoras reúnem apenas {_fmt_pct(top10('gestor'))} do PL ex-FIC, cerca da metade da fatia dos Top 10 de administração e custódia.",
-                "A concentração menor deixa uma parcela maior do mercado acessível a gestoras independentes.",
-            ],
-        ),
-        (
-            "06 · Coorte bancária explica dois terços do combo completo do BTG",
-            [
-                f"Dos {_fmt_int(btg_observed)} FIDCs observados na coorte, {_fmt_int(btg_combo_funds)} concentram as três funções no BTG e representam {_fmt_pct(float(metrics.get('btg_bank_cohort_combo_share_pl', 0)))} do PL da coorte — {_fmt_bi(btg_combo_pl, 1)}.",
-                f"Essa carteira responde por {_fmt_pct(btg_combo_share, 0)} de todo o PL atendido pelo BTG no combo completo.",
-            ],
-        ),
-        (
-            "07 · Emissões aceleraram; a maior oferta explica dois terços do avanço",
-            [
-                f"As {_fmt_int(offers_count)} ofertas encerradas em jan–jun/26 somaram {_fmt_bi(offers_volume, 1)}, avanço de {_fmt_pct(growth_2025, 0)} sobre 2025 e {_fmt_pct(growth_2024, 0)} sobre 2024.",
-                f"CloudWalk Bela respondeu por {_fmt_pct(cloudwalk_share, 0)} do volume e {_fmt_pct(cloudwalk_growth_share, 0)} do crescimento; numa sensibilidade sem essa oferta, o avanço seria {_fmt_pct(growth_2025_ex_cloudwalk, 0)}.",
-            ],
-        ),
-    ]
-
-    editorial_conclusions = payload.get("executive_conclusions")
-    if isinstance(editorial_conclusions, list):
-        materialized_conclusions: list[tuple[str, list[str]]] = []
-        for row in sorted(
-            (item for item in editorial_conclusions if isinstance(item, dict)),
-            key=lambda item: int(item.get("order") or 0),
-        ):
+        items: list[tuple[str, str]] = []
+        rows = [row for row in editorial if isinstance(row, dict)]
+        rows.sort(key=order)
+        for row in rows:
             title = str(row.get("title") or "").strip()
-            bullets = [
-                str(item).strip()
-                for item in row.get("bullets", [])
-                if str(item).strip()
-            ]
-            if title and bullets:
-                materialized_conclusions.append((title, bullets))
-        if len(materialized_conclusions) == 7:
-            conclusions = materialized_conclusions
+            bullets = row.get("bullets")
+            if not isinstance(bullets, (list, tuple)):
+                continue
+            text = next((str(item).strip() for item in bullets if str(item).strip()), "")
+            if title and text:
+                items.append((title, text))
+        if len(items) >= 5:
+            return items[:5]
 
+    def number(value: object) -> float | None:
+        parsed = pd.to_numeric(value, errors="coerce")
+        if pd.isna(parsed) or parsed in (float("inf"), float("-inf")):
+            return None
+        return float(parsed)
+
+    def rounded_share(value: object) -> float | None:
+        parsed = number(value)
+        return round(parsed * 20) / 20 if parsed is not None and 0 <= parsed <= 1 else None
+
+    latest = str(payload.get("latest_complete") or "")
+    pl = _revision_frame(payload, "pl_history")
+    current_pl = (
+        pl[pl["competencia"].astype(str).eq(latest)].tail(1)
+        if not pl.empty and "competencia" in pl
+        else pd.DataFrame()
+    )
+    stock = number(current_pl.iloc[0].get("pl_ex_fic")) if not current_pl.empty else None
+    stock = round(stock / 1e10) * 1e10 if stock is not None and stock >= 0 else None
+    metrics = dict(payload.get("conclusion_metrics") or {})
+    if metrics.get("competencia") and str(metrics["competencia"]) != latest:
+        metrics = {}
+    holder_share_raw = number(metrics.get("holder_ge_200m_share_fundos_ate_10_contas"))
+    holder_share = rounded_share(holder_share_raw)
+    vertical_share = rounded_share(metrics.get("admin_custodia_juntas_share_pl"))
+    if vertical_share is None:
+        service_model = _revision_frame(payload, "service_model")
+        if "competencia" in service_model:
+            service_model = service_model[service_model["competencia"].astype(str).eq(latest)]
+        if not service_model.empty and {"modelo_prestacao", "share_pl"}.issubset(service_model):
+            same_group = service_model[
+                service_model["modelo_prestacao"].isin(["Monoestrutura", "Administração + Custódia"])
+            ]
+            values = pd.to_numeric(same_group["share_pl"], errors="coerce")
+            vertical_share = rounded_share(values.sum(min_count=1))
+    receivables = _revision_frame(payload, "receivables_history")
+    financial = (
+        receivables[
+            receivables["competencia"].astype(str).eq(latest)
+            & receivables["segmento"].astype(str).str.casefold().eq("financeiro")
+        ]
+        if not receivables.empty and {"competencia", "segmento"}.issubset(receivables)
+        else pd.DataFrame()
+    )
+    financial_share = rounded_share(financial.iloc[0].get("share_reported")) if not financial.empty else None
+    tickets = _revision_frame(payload, "closed_offer_ticket_distribution")
+    large_offers = (
+        tickets[
+            tickets["period_end"].astype(str).eq(_revision_offers_cutoff(payload))
+            & pd.to_numeric(tickets["ticket_floor_brl"], errors="coerce").ge(500_000_000)
+        ]
+        if not tickets.empty and {"period_end", "ticket_floor_brl"}.issubset(tickets)
+        else pd.DataFrame()
+    )
+    volume_shares = pd.to_numeric(
+        large_offers.get("registered_volume_share", pd.Series(dtype=float)), errors="coerce"
+    )
+    large_offer_share = rounded_share(volume_shares.sum(min_count=1))
+    return [
+        (
+            "Escala da indústria",
+            f"O PL ex-FIC soma cerca de {_fmt_bi(stock, 0)}."
+            if stock is not None else "PL ex-FIC: N/D para a competência publicada.",
+        ),
+        (
+            "Composição da carteira",
+            f"Recebíveis financeiros representam cerca de {_fmt_pct(financial_share, 0)} da carteira informada na Tabela II."
+            if financial_share is not None else "Recebíveis financeiros: N/D para a competência publicada.",
+        ),
+        (
+            "Concentração da base investidora",
+            "Mais da metade dos fundos de maior porte reporta até dez contas."
+            if holder_share_raw is not None and 0.5 < holder_share_raw < 0.6 else
+            f"Cerca de {_fmt_pct(holder_share, 0)} dos fundos de maior porte têm até dez contas reportadas."
+            if holder_share is not None else "Concentração de contas nos fundos de maior porte: N/D.",
+        ),
+        (
+            "Verticalização dos serviços",
+            f"Administração e custódia estão no mesmo conglomerado em cerca de {_fmt_pct(vertical_share, 0)} do PL analisado."
+            if vertical_share is not None else "Participação de administração e custódia no mesmo grupo: N/D.",
+        ),
+        (
+            "Ofertas encerradas",
+            f"As ofertas de maior porte concentram cerca de {_fmt_pct(large_offer_share, 0)} do volume registrado."
+            if large_offer_share is not None else "Participação das ofertas de maior porte: N/D no recorte publicado.",
+        ),
+    ]
+
+
+def _render_revision_conclusions(payload: dict[str, object]) -> None:
+    """Keep the opening view focused on five conclusions and their source dates."""
+
+    conclusions = _revision_conclusion_items(payload)
     st.markdown("<h2>Principais conclusões</h2>", unsafe_allow_html=True)
     st.markdown(
         '<div class="industry-conclusions">'
         + "".join(
-            f'<article class="industry-conclusion"><h3>{html.escape(title)}</h3><ul>'
-            + "".join(f"<li>{html.escape(item)}</li>" for item in items)
-            + "</ul></article>"
-            for title, items in conclusions
+            f'<article class="industry-conclusion"><h3>{html.escape(title)}</h3>'
+            f'<p>{html.escape(text)}</p></article>'
+            for title, text in conclusions
         )
         + "</div>",
         unsafe_allow_html=True,
     )
+    latest = _short_competence_label(payload.get("latest_complete") or "").lower()
+    cutoff = _date_label(_revision_offers_cutoff(payload))
+    st.caption(f"CVM · estoque em {latest or 'N/D'} · ofertas encerradas até {cutoff}.")
     editorial_notes = payload.get("executive_conclusion_notes")
-    if isinstance(editorial_notes, list) and editorial_notes:
-        st.caption(" · ".join(str(note).strip() for note in editorial_notes if str(note).strip()))
-    else:
-        st.caption(
-            f"Fontes: CVM, ANBIMA, FundosNet e BCB; coorte bancária curada a partir dos conglomerados prudenciais. Estoque em {latest_stock_label}; "
-            f"ofertas até {_date_label(offers_cutoff)}; proxy colocado com {_fmt_pct(pf_coverage)} de cobertura."
-        )
-
-    st.markdown("<h2>Grandes números</h2>", unsafe_allow_html=True)
-    pl = _revision_frame(payload, "pl_history")
-    latest = pl.iloc[-1] if not pl.empty else pd.Series(dtype=object)
-    first = pl.iloc[0] if not pl.empty else pd.Series(dtype=object)
-    latest_pl = float(latest.get("pl_ex_fic", 0))
-    first_pl = float(first.get("pl_ex_fic", 0))
-    growth_multiple = latest_pl / first_pl if first_pl else 0.0
-    growth_multiple_label = f"{growth_multiple:.1f}".replace(".", ",")
-    summary_rows = [
-        (
-            _fmt_bi(latest_pl, 0),
-            f"PL ex-FIC em {latest_stock_label}",
-            f"{growth_multiple_label}× 2015; FIC-FIDC: {_fmt_bi(float(latest.get('pl_fic_componente', 0)), 1)}.",
-        ),
-        (
-            _fmt_pct(share_funds_up_to_10, 0),
-            "dos fundos ≥ R$ 200 mi têm até 10 contas",
-            f"{_fmt_pct(float(metrics.get('holder_ge_200m_share_pl_ate_10_contas', 0)))} do PL do recorte.",
-        ),
-        (
-            _fmt_int(qa.get("casos_inad_supera_carteira", 0)),
-            "veículos acima da carteira",
-            f"Cap: {_fmt_bi(float(qa.get('excesso_removido_brl', 0)), 1)}.",
-        ),
-        (
-            _fmt_pct(mono_share),
-            "do PL em monoestruturas",
-            "Três funções no mesmo conglomerado.",
-        ),
-    ]
-    st.markdown(
-        '<div class="industry-summary">'
-        + "".join(
-            '<div class="industry-summary-row">'
-            f'<div class="industry-summary-value">{value}</div>'
-            f'<div class="industry-summary-copy"><h3>{title}</h3><p>{detail}</p></div>'
-            "</div>"
-            for value, title, detail in summary_rows
-        )
-        + "</div>",
-        unsafe_allow_html=True,
-    )
-    st.caption("Mesmas fontes e datas-base da seção anterior.")
+    with st.expander("Fontes e limites das conclusões", expanded=False):
+        if isinstance(editorial_notes, list) and editorial_notes:
+            for note in editorial_notes:
+                if str(note).strip():
+                    st.markdown(f"- {str(note).strip()}")
+        else:
+            current = _revision_offer_current_row(payload)
+            coverage = pd.to_numeric(
+                current.get("placed_quantity_registered_volume_coverage"), errors="coerce"
+            )
+            coverage_label = _fmt_pct(float(coverage), 0) if pd.notna(coverage) else "N/D"
+            st.markdown(
+                "Fontes: CVM, ANBIMA, FundosNet e BCB. "
+                f"PF usa proxy de volume colocado, com cobertura de {coverage_label}. "
+                "Contas reportadas não equivalem a investidores únicos. "
+                "Fundos de maior porte têm PL a partir de R$ 200 mi; ofertas de maior porte, "
+                "volume registrado a partir de R$ 500 mi. "
+                + str(dict(payload.get("conclusion_metrics") or {}).get("service_model_definition") or "")
+            )
 
 
 def _render_revision_overview(payload: dict[str, object]) -> None:
@@ -12400,7 +12235,7 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
         _industry_kpi(
             "Monoestruturas",
             _fmt_pct(mono_share),
-            "do PL bruto dos fundos",
+            "do PL do recorte de prestadores",
         ),
     ]
     st.markdown(f'<div class="industry-kpi-grid">{"".join(kpis)}</div>', unsafe_allow_html=True)
@@ -12450,7 +12285,8 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                     f"{getattr(row, 'period_label', int(row.end_year))}: {_fmt_pct(float(row.cagr))}"
                     for row in pl_cagr_periods.itertuples(index=False)
                 ]
-                st.caption("Crescimento do PL ex-FIC · " + " · ".join(cagr_parts))
+                with st.expander("Crescimento do PL ex-FIC", expanded=False):
+                    st.caption(" · ".join(cagr_parts))
             st.caption(
                 "Fonte: CVM, Informe Mensal de FIDC. Variações dezembro contra dezembro; "
                 f"último ponto em {latest_label.lower()}."
@@ -12469,10 +12305,8 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
             if bcb_latest and latest_competence and bcb_latest != latest_competence:
                 st.warning(
                     f"O PL usa {_short_competence_label(latest_competence).lower()} e a "
-                    f"carteira ampliada para em {_short_competence_label(bcb_latest).lower()}: "
-                    "o BCB ainda não publicou a série de crédito ampliado para a "
-                    "competência mais recente da CVM. Rode "
-                    "`scripts/build_fidc_bcb_expanded_credit.py` quando ela sair.",
+                    f"carteira ampliada usa {_short_competence_label(bcb_latest).lower()}. "
+                    "As fontes têm cortes distintos.",
                     icon=":material/schedule:",
                 )
             if not bcb_credit.empty:
@@ -12562,23 +12396,23 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
                         f"{getattr(row, 'period_label', int(row.end_year))}: {_fmt_pct(float(row.cagr))}"
                         for row in bcb_growth_periods.itertuples(index=False)
                     ]
-                    st.caption(
-                        "Crescimento da Carteira de Crédito Privada Ampliada · "
-                        + " · ".join(growth_parts)
-                    )
+                    with st.expander("Crescimento da carteira ampliada", expanded=False):
+                        st.caption(" · ".join(growth_parts))
                 st.caption(
-                    "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada, "
-                    "excluídos títulos públicos. As securitizações são abertas entre (i) "
-                    "FIDCs e (ii) demais securitizações, correspondentes a CRIs e CRAs. "
-                    "A carteira de FIDCs é reconstruída sobre o universo elegível, "
-                    "depois da exclusão de FICs, e o último ponto acompanha a mesma "
-                    "competência do gráfico de PL à esquerda."
+                    "Fonte: Banco Central do Brasil. Crédito ampliado sem títulos públicos."
                     + (
-                        f" Último mês comum com a CVM: {_short_competence_label(str(bcb_latest)).lower()}."
+                        f" Corte BCB: {_short_competence_label(str(bcb_latest)).lower()}."
                         if bcb_latest
                         else ""
                     )
                 )
+                with st.expander("Como ler a carteira ampliada", expanded=False):
+                    st.markdown(
+                        "A série reúne empréstimos, títulos privados, securitizações e dívida externa. "
+                        "A parcela de FIDCs usa a carteira de direitos creditórios da CVM, "
+                        "com exclusão de FICs. Outras securitizações correspondem ao residual "
+                        "da série de securitização do BCB. Os cortes CVM e BCB aparecem nos gráficos."
+                    )
 
     st.markdown(
         "<h2>Classificação ANBIMA · evolução do PL ex-FIC</h2>",
@@ -12915,10 +12749,12 @@ def _render_revision_overview(payload: dict[str, object]) -> None:
 
 
 def _render_revision_card_breakdown(payload: dict[str, object]) -> None:
-    stock_competence = str(payload.get("latest_complete") or "")
-    stock_label_lower = _short_competence_label(stock_competence).lower()
     card_audit = _revision_frame(payload, "card_taxonomy_audit")
     card_summary = dict(payload.get("card_taxonomy_summary") or {})
+    stock_competence = str(card_summary.get("competencia_pl_atual") or payload.get("latest_complete") or "")
+    stock_label_lower = _short_competence_label(stock_competence).lower()
+    fallback_label = _short_competence_label(card_summary.get("competencia_pl_fallback") or "").lower() or "N/D"
+    file_period = stock_competence.replace("-", "") or "atual"
     if card_audit.empty:
         st.info("A curadoria do bucket Cartão de crédito não está disponível no payload publicado.")
         return
@@ -12946,7 +12782,7 @@ def _render_revision_card_breakdown(payload: dict[str, object]) -> None:
         _industry_kpi(
             f"PL em {stock_label_lower}",
             f"{_fmt_int(card_summary.get('fundos_pl_atual_observavel', 0))}/{_fmt_int(total_card)}",
-            f"fallback mai/26: {_fmt_int(card_summary.get('fundos_pl_fallback_usado', 0))}",
+            f"fallback {fallback_label}: {_fmt_int(card_summary.get('fundos_pl_fallback_usado', 0))}",
         ),
     ]
     st.markdown(
@@ -12995,14 +12831,14 @@ def _render_revision_card_breakdown(payload: dict[str, object]) -> None:
         height=620,
         column_config={
             "Fonte": st.column_config.LinkColumn(
-                "Fonte", display_text="Documento primário"
+                "Fonte", display_text="Abrir fonte"
             )
         },
     )
     st.download_button(
         "Baixar curadoria em CSV",
         data=_ptbr_csv_bytes(visible),
-        file_name="fidcs_cartao_credito_curadoria_202606.csv",
+        file_name=f"fidcs_cartao_credito_curadoria_{file_period}.csv",
         mime="text/csv",
         key="industry-revision-card-taxonomy-download",
     )
@@ -13042,7 +12878,7 @@ def _render_revision_card_breakdown(payload: dict[str, object]) -> None:
         st.download_button(
             "Baixar revisão ANBIMA em CSV",
             data=_ptbr_csv_bytes(anbima_review),
-            file_name="fidcs_adquirencia_revisao_anbima_202606.csv",
+            file_name=f"fidcs_adquirencia_revisao_anbima_{file_period}.csv",
             mime="text/csv",
             key="industry-revision-acquiring-anbima-download",
         )
@@ -13565,12 +13401,14 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
             _industry_kpi("Inad. ajustada", _fmt_pct(float(qa.get("inadimplencia_ajustada_pct", 0))), f"ex-NP {_fmt_pct(float(qa.get('inadimplencia_ajustada_ex_np_pct', 0)))}"),
         ]
         st.markdown(f'<div class="industry-kpi-grid">{"".join(cards)}</div>', unsafe_allow_html=True)
-        st.caption(
-            f"O ajuste remove {_fmt_bi(float(qa.get('excesso_removido_brl', 0)), 2)}. "
-            f"Top 1/5/10 concentram {_fmt_pct(float(qa.get('excesso_top1_share', 0)))} / "
-            f"{_fmt_pct(float(qa.get('excesso_top5_share', 0)))} / {_fmt_pct(float(qa.get('excesso_top10_share', 0)))} do valor removido. "
-            f"Excluindo integralmente esses casos, a métrica seria {_fmt_pct(float(qa.get('sensibilidade_ex_casos_acima_carteira_pct', 0)))}."
-        )
+        st.caption("O ajuste limita a inadimplência reportada ao valor da carteira.")
+        with st.expander("Detalhes do ajuste da inadimplência", expanded=False):
+            st.caption(
+                f"O ajuste remove {_fmt_bi(float(qa.get('excesso_removido_brl', 0)), 2)}. "
+                f"Top 1/5/10 concentram {_fmt_pct(float(qa.get('excesso_top1_share', 0)))} / "
+                f"{_fmt_pct(float(qa.get('excesso_top5_share', 0)))} / {_fmt_pct(float(qa.get('excesso_top10_share', 0)))} do valor removido. "
+                f"Excluindo integralmente esses casos, a métrica seria {_fmt_pct(float(qa.get('sensibilidade_ex_casos_acima_carteira_pct', 0)))}."
+            )
         if bool(qa.get("inadimplencia_ex_360d_publicavel")):
             st.caption(
                 f"A visão ajustada ex-vencidos acima de 360 dias é "
@@ -13647,18 +13485,20 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 hide_index=True,
                 width="stretch",
             )
-            st.caption(
-                f"Incluídos: {_fmt_int(single_summary.get('fundos_incluidos', 0))} fundos e "
-                f"{_fmt_bi(float(single_summary.get('pl_incluido_brl', 0)), 1)}, equivalentes a "
-                f"{_fmt_pct(float(single_summary.get('cobertura_pl', 0)))} do PL ex-FIC positivo. "
-                f"Excluídos {_fmt_int(single_summary.get('fundos_multitipo_excluidos', 0))} fundos com mais de um tipo "
-                f"({_fmt_bi(float(single_summary.get('pl_multitipo_excluido_brl', 0)), 1)}), "
-                f"{_fmt_int(single_summary.get('fundos_inad_supera_carteira_excluidos', 0))} acima da carteira "
-                f"({_fmt_bi(float(single_summary.get('pl_inad_supera_carteira_excluido_brl', 0)), 1)}) e "
-                f"{_fmt_int(single_summary.get('fundos_sem_tipo_excluidos', 0))} sem tipo "
-                f"({_fmt_bi(float(single_summary.get('pl_sem_tipo_excluido_brl', 0)), 1)}). "
-                "O numerador é a inadimplência reportada e o denominador é o PL total dos fundos incluídos."
-            )
+            st.caption("Indicador sobre PL dos fundos com único tipo reportado; exclui multitipo e casos acima da carteira.")
+            with st.expander("Cobertura e exclusões do recorte", expanded=False):
+                st.caption(
+                    f"Incluídos: {_fmt_int(single_summary.get('fundos_incluidos', 0))} fundos e "
+                    f"{_fmt_bi(float(single_summary.get('pl_incluido_brl', 0)), 1)}, equivalentes a "
+                    f"{_fmt_pct(float(single_summary.get('cobertura_pl', 0)))} do PL ex-FIC positivo. "
+                    f"Excluídos {_fmt_int(single_summary.get('fundos_multitipo_excluidos', 0))} fundos com mais de um tipo "
+                    f"({_fmt_bi(float(single_summary.get('pl_multitipo_excluido_brl', 0)), 1)}), "
+                    f"{_fmt_int(single_summary.get('fundos_inad_supera_carteira_excluidos', 0))} acima da carteira "
+                    f"({_fmt_bi(float(single_summary.get('pl_inad_supera_carteira_excluido_brl', 0)), 1)}) e "
+                    f"{_fmt_int(single_summary.get('fundos_sem_tipo_excluidos', 0))} sem tipo "
+                    f"({_fmt_bi(float(single_summary.get('pl_sem_tipo_excluido_brl', 0)), 1)}). "
+                    "O numerador é a inadimplência reportada e o denominador é o PL total dos fundos incluídos."
+                )
         dispersion = _revision_frame(payload, "delinquency_dispersion")
         dispersion_summary = dict(payload.get("delinquency_dispersion_summary") or {})
         if not dispersion.empty:
@@ -13720,13 +13560,15 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                 }
             )
             st.dataframe(dispersion_display, hide_index=True, width="stretch")
-            st.caption(
-                f"Amostra positiva: {_fmt_int(dispersion_summary.get('fundos_reportantes_inadimplencia_positiva', 0))} fundos e "
-                f"{_fmt_bi(float(dispersion_summary.get('pl_reportantes_inadimplencia_positiva_brl', 0)), 1)}; "
-                f"universo ex-FIC com PL positivo: {_fmt_int(dispersion_summary.get('fundos_universo_ex_fic_pl_positivo', 0))} fundos e "
-                f"{_fmt_bi(float(dispersion_summary.get('pl_universo_ex_fic_positivo_brl', 0)), 1)}. "
-                "Zeros, ausências de reporte e inconsistências ficam fora da dispersão. HHI e Gini medem concentração do valor reportado e não causalidade."
-            )
+            st.caption("Dispersão entre valores positivos reportados; zeros, ausências e inconsistências ficam fora da amostra.")
+            with st.expander("Amostra da dispersão", expanded=False):
+                st.caption(
+                    f"Amostra positiva: {_fmt_int(dispersion_summary.get('fundos_reportantes_inadimplencia_positiva', 0))} fundos e "
+                    f"{_fmt_bi(float(dispersion_summary.get('pl_reportantes_inadimplencia_positiva_brl', 0)), 1)}; "
+                    f"universo ex-FIC com PL positivo: {_fmt_int(dispersion_summary.get('fundos_universo_ex_fic_pl_positivo', 0))} fundos e "
+                    f"{_fmt_bi(float(dispersion_summary.get('pl_universo_ex_fic_positivo_brl', 0)), 1)}. "
+                    "Zeros, ausências de reporte e inconsistências ficam fora da dispersão. HHI e Gini medem concentração do valor reportado e não causalidade."
+                )
     with history_tab:
         frozen = _revision_frame(payload, "delinquency_frozen_cohort_history")
         frozen_summary = _revision_frame(payload, "delinquency_frozen_cohort_summary")
@@ -13976,15 +13818,17 @@ def _render_revision_credit(payload: dict[str, object]) -> None:
                         f"{subtype}: {_fmt_int(fund_count)} {'fundo' if fund_count == 1 else 'fundos'} e "
                         f"{_fmt_bi(float(item.get('pl_incluido_brl', 0)), 1)}"
                     )
-            st.caption(
-                f"Fonte: CVM, Informe Mensal, Tabelas I, II e IV. Coorte e subtipo definidos em {stock_label_lower}; "
-                "entram CNPJs ex-FIC com PL positivo, campos reportados e inadimplência até a carteira. "
-                "A linha laranja mostra o consolidado ajustado de mercado. "
-                f"A coorte fixa reúne {_fmt_int(latest_frozen.get('fundos_coorte', 0))} fundos e "
-                f"{_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)} de PL; há viés de sobrevivência. "
-                + ("Baixa representatividade em " + "; ".join(small_subtypes) + ". " if small_subtypes else "")
-                + f"Consolidado ajustado de mercado: {_fmt_pct(float(qa.get('inadimplencia_ajustada_pct', 0)))}."
-            )
+            st.caption(f"Coorte fixa em {stock_label_lower}; há viés de sobrevivência. A linha laranja mostra o mercado ajustado.")
+            with st.expander("Fonte e representatividade da coorte", expanded=False):
+                st.caption(
+                    f"Fonte: CVM, Informe Mensal, Tabelas I, II e IV. Coorte e subtipo definidos em {stock_label_lower}; "
+                    "entram CNPJs ex-FIC com PL positivo, campos reportados e inadimplência até a carteira. "
+                    "A linha laranja mostra o consolidado ajustado de mercado. "
+                    f"A coorte fixa reúne {_fmt_int(latest_frozen.get('fundos_coorte', 0))} fundos e "
+                    f"{_fmt_bi(float(latest_frozen.get('pl_coorte_referencia_brl', 0)), 1)} de PL; há viés de sobrevivência. "
+                    + ("Baixa representatividade em " + "; ".join(small_subtypes) + ". " if small_subtypes else "")
+                    + f"Consolidado ajustado de mercado: {_fmt_pct(float(qa.get('inadimplencia_ajustada_pct', 0)))}."
+                )
     with series_break_tab:
         series = _revision_frame(payload, "qa_series")
         if not series.empty:
@@ -14154,18 +13998,21 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 if adjusted_universe
                 else "bundle v2: Sistema Petrobras/TAPSO ainda incluídos"
             )
-            st.caption(
-                f"Fonte: CVM, dez/25 e {stock_label_lower}. "
-                f"Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador; {universe_note}. "
-                + "Cobertura identificada: "
-                + "; ".join(coverage_parts)
-                + ". Administração é histórica por competência; gestão e custódia em dez/25 usam o cadastro vigente e não são uma série like-for-like."
-            )
+            st.caption("PL ex-FIC. Administração é observada; gestão e custódia históricas usam o cadastro vigente.")
+            with st.expander("Cobertura e reconstrução dos prestadores", expanded=False):
+                st.caption(
+                    f"Fonte: CVM, dez/25 e {stock_label_lower}. "
+                    f"Concentração sobre o PL ex-FIC, com prestador não informado mantido no denominador; {universe_note}. "
+                    + "Cobertura identificada: "
+                    + "; ".join(coverage_parts)
+                    + ". Administração é histórica por competência; gestão e custódia em dez/25 usam o cadastro vigente e não são uma série like-for-like."
+                )
 
         ranking_history = _revision_frame(payload, "provider_historical_ranking")
         if not ranking_history.empty:
             latest_period = stock_competence
             latest_label = _short_competence_label(latest_period)
+            ranking_period_items = _revision_competence_items(ranking_history, latest_period)
             btg_scenario = _revision_frame(
                 payload, "btg_provider_ex_controlled_scenario"
             )
@@ -14216,11 +14063,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     rows = []
                     for participant in participants:
                         row = {"Participante": participant}
-                        for period, period_label in (
-                            ("2024-12", "Dez/24"),
-                            ("2025-12", "Dez/25"),
-                            (latest_period, latest_label),
-                        ):
+                        for period, period_label in ranking_period_items:
                             if (period, participant) not in lookup.index:
                                 row[period_label] = "—"
                                 continue
@@ -14328,16 +14171,20 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 btg_exclusion_note = (
                     "Exclusão da coorte por função: " + "; ".join(exclusion_parts) + ". "
                 )
-            st.caption(
-                "Fonte: CVM e coorte bancária curada a partir dos conglomerados prudenciais do BCB; "
-                f"{_fmt_int(conclusion_metrics.get('btg_bank_cohort_listed_roots', 0))} raízes listadas e "
-                f"{_fmt_int(conclusion_metrics.get('btg_bank_cohort_observed_funds', 0))} observadas em {stock_label_lower}. "
-                + btg_exclusion_note
-                + f"Posição · PL em R$ bi; linhas ordenadas pelo PL observado de {latest_label.lower()}. "
-                "Na célula do BTG, a segunda linha mostra o cenário ex-coorte; as barras mostram o PL observado. "
-                "PL ex-FIC, sem Sistema Petrobras e TAPSO. "
-                "Administração é observada; gestão e custódia de dez/24 e dez/25 são reconstruídas com o cadastro vigente."
-            )
+            st.caption("PL ex-FIC, sem Sistema Petrobras e TAPSO. Gestão e custódia históricas são reconstruções com cadastro vigente.")
+            with st.expander("Como ler o ranking de prestadores", expanded=False):
+                st.caption(
+                    "Fonte: CVM e coorte bancária curada a partir dos conglomerados prudenciais do BCB; "
+                    f"{_fmt_int(conclusion_metrics.get('btg_bank_cohort_listed_roots', 0))} raízes listadas e "
+                    f"{_fmt_int(conclusion_metrics.get('btg_bank_cohort_observed_funds', 0))} observadas em {stock_label_lower}. "
+                    + btg_exclusion_note
+                    + f"Posição · PL em R$ bi; linhas ordenadas pelo PL observado de {latest_label.lower()}. "
+                    "Na célula do BTG, a segunda linha mostra o cenário ex-coorte; as barras mostram o PL observado. "
+                    "PL ex-FIC, sem Sistema Petrobras e TAPSO. "
+                    "Administração é observada; gestão e custódia de "
+                    + " e ".join(label.lower() for period, label in ranking_period_items if period != latest_period)
+                    + " são reconstruídas com o cadastro vigente."
+                )
 
             if not btg_scenario.empty:
                 scenario = btg_scenario.copy()
@@ -14386,15 +14233,18 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     hide_index=True,
                     width="stretch",
                 )
-                st.caption(
-                    "Posição · PL em R$ bi. Cada função exclui somente os fundos da coorte que têm o BTG naquele papel. "
-                    "A lista delimita a coorte bancária atual; controle, consolidação contábil e propriedade ficam fora do escopo."
-                )
+                st.caption("O cenário BTG exclui a coorte bancária em cada função.")
+                with st.expander("Definição do cenário BTG", expanded=False):
+                    st.caption(
+                        "Posição · PL em R$ bi. Cada função exclui somente os fundos da coorte que têm o BTG naquele papel. "
+                        "A lista delimita a coorte bancária atual; controle, consolidação contábil e propriedade ficam fora do escopo."
+                    )
 
         independent = _revision_frame(payload, "provider_independent_ranking")
         if not independent.empty:
             st.markdown("<h2>Prestadores independentes</h2>", unsafe_allow_html=True)
             latest_period = stock_competence
+            independent_period_items = _revision_competence_items(independent, latest_period)
             qi_latest = independent[
                 independent["competencia"].eq(latest_period)
                 & independent["participante"].astype(str).str.casefold().eq("qi tech")
@@ -14426,11 +14276,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     table_rows = []
                     for participant in participants:
                         output = {"Participante": participant}
-                        for period, period_label in (
-                            ("2024-12", "Dez/24"),
-                            ("2025-12", "Dez/25"),
-                            (latest_period, _short_competence_label(latest_period)),
-                        ):
+                        for period, period_label in independent_period_items:
                             if (period, participant) not in lookup.index:
                                 output[period_label] = "—"
                                 continue
@@ -14502,7 +14348,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                 alt.Chart(groups)
                 .mark_bar()
                 .encode(
-                    x=alt.X("Período:N", title=None, sort=[_short_competence_label(value) for value in ["2023-12", "2024-12", "2025-12", payload.get("latest_complete")]]),
+                    x=alt.X("Período:N", title=None, sort=[label for _period, label in _revision_competence_items(groups, stock_competence)]),
                     y=alt.Y("PL (R$ bi):Q", title="PL bruto (R$ bi)", stack="zero", axis=alt.Axis(gridColor=_GRAY_LIGHT)),
                     color=alt.Color(
                         "grupo_bancario:N",
@@ -14581,12 +14427,14 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                             "O fundo reaparece em 2026 sob registro por classe; a série trata o movimento como quebra de reporte, "
                             "sem inferir liquidação econômica."
                         )
-            st.caption(
-                "Coorte fixa dos FIDCs listados nos conglomerados prudenciais dos cinco bancos no site do BCB, consulta em jul/26. "
-                "A leitura retroativa acompanha somente os CNPJs presentes nessa fotografia atual. Fundos que integravam o conglomerado "
-                "em datas passadas e foram depois liquidados, descontinuados ou retirados da consolidação não podem ser recuperados por essa fonte. "
-                "Ausência de reporte permanece vazia; datas societárias não são inferidas."
-            )
+            st.caption("Coorte bancária fixada em jul/26; a leitura retroativa acompanha os CNPJs dessa fotografia.")
+            with st.expander("Limites da coorte bancária", expanded=False):
+                st.caption(
+                    "Coorte fixa dos FIDCs listados nos conglomerados prudenciais dos cinco bancos no site do BCB, consulta em jul/26. "
+                    "A leitura retroativa acompanha somente os CNPJs presentes nessa fotografia atual. Fundos que integravam o conglomerado "
+                    "em datas passadas e foram depois liquidados, descontinuados ou retirados da consolidação não podem ser recuperados por essa fonte. "
+                    "Ausência de reporte permanece vazia; datas societárias não são inferidas."
+                )
 
         from services.industry_revision_export import get_revision_export_status
 
@@ -14706,7 +14554,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             long_model = pd.concat(
                 [
                     model.assign(Série="% dos fundos", Participação=model["share_fundos"]),
-                    model.assign(Série="% do PL bruto", Participação=model["share_pl"]),
+                    model.assign(Série="% do PL do recorte", Participação=model["share_pl"]),
                 ],
                 ignore_index=True,
             )
@@ -14720,11 +14568,11 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     "Fundos",
                     "% dos fundos",
                     "PL",
-                    "% do PL bruto",
+                    "% do PL do recorte",
                 ]
                 display["PL"] = display["PL"].map(lambda value: _fmt_bi(value, 1))
                 display["% dos fundos"] = display["% dos fundos"].map(_fmt_pct)
-                display["% do PL bruto"] = display["% do PL bruto"].map(_fmt_pct)
+                display["% do PL do recorte"] = display["% do PL do recorte"].map(_fmt_pct)
                 st.dataframe(display, hide_index=True, width="stretch")
             with right:
                 bars = (
@@ -14742,13 +14590,13 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                             sort=model_order,
                         ),
                         yOffset=alt.YOffset(
-                            "Série:N", sort=["% dos fundos", "% do PL bruto"]
+                            "Série:N", sort=["% dos fundos", "% do PL do recorte"]
                         ),
                         color=alt.Color(
                             "Série:N",
                             title=None,
                             scale=alt.Scale(
-                                domain=["% dos fundos", "% do PL bruto"],
+                                domain=["% dos fundos", "% do PL do recorte"],
                                 range=[_GRAY_LIGHT, _ORANGE],
                             ),
                             legend=alt.Legend(orient="bottom"),
@@ -14775,7 +14623,7 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                         x=alt.X("Participação:Q"),
                         y=alt.Y("modelo_prestacao:N", sort=model_order),
                         yOffset=alt.YOffset(
-                            "Série:N", sort=["% dos fundos", "% do PL bruto"]
+                            "Série:N", sort=["% dos fundos", "% do PL do recorte"]
                         ),
                         text=alt.Text("Participação:Q", format=".1%"),
                     )
@@ -14785,10 +14633,10 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
                     width="stretch",
                     key="industry-revision-service-model-shares",
                 )
-            st.caption(
-                f"Fonte: CVM, cadastro vigente em {stock_label_lower}. Universo bruto de {_fmt_int(model['fundos'].sum())} fundos, incluindo FIC-FIDCs. "
-                "A classificação usa o mesmo conglomerado econômico normalizado para administração, gestão e custódia; campos ausentes permanecem em Dados incompletos."
-            )
+            st.caption(f"Fonte: CVM, cadastro vigente em {stock_label_lower}. Modelo por conglomerado econômico.")
+            with st.expander("Universo e definição do modelo de prestação", expanded=False):
+                st.markdown(str(conclusion_metrics.get("service_model_definition") or "Universo descrito no payload publicado."))
+                st.markdown("Campos ausentes permanecem em Dados incompletos.")
         mono = _revision_frame(payload, "monostructure_concentration")
         if not mono.empty:
             display = mono.head(10)[
@@ -14820,13 +14668,13 @@ def _render_revision_providers(payload: dict[str, object]) -> None:
             for column in ("% maior", "% Top 3", "% Top 10"):
                 display[column] = display[column].map(_fmt_pct)
             st.dataframe(display, hide_index=True, width="stretch")
-            st.caption("PL mono usa o universo bruto dos fundos, incluindo FIC-FIDCs; o cruzamento Top 20 usa o ranking ex-FIC.")
+            st.caption("Concentração das monoestruturas e cruzamento com o Top 20 sobre o universo ex-FIC.")
             bb = mono[mono["grupo_economico"].eq("Banco do Brasil")]
             oliveira = mono[mono["grupo_economico"].eq("Oliveira Trust")]
             if not bb.empty and not oliveira.empty:
                 st.info(
                     f"No Banco do Brasil, {bb.iloc[0]['maior_fundo']} representa {_fmt_pct(bb.iloc[0]['maior_fundo_share'])} do PL mono. "
-                    f"Na Oliveira Trust, TAPSO representa {_fmt_pct(oliveira.iloc[0]['maior_fundo_share'])}."
+                    f"Na Oliveira Trust, {oliveira.iloc[0]['maior_fundo']} representa {_fmt_pct(oliveira.iloc[0]['maior_fundo_share'])}."
                 )
 
 
@@ -15186,7 +15034,7 @@ def _render_current_outros_taxonomy_review(payload: dict[str, object]) -> None:
         st.success(flash)
     st.markdown("<h2>Fila de reclassificação de Outros</h2>", unsafe_allow_html=True)
     st.caption(
-        "A fila contém os 100 maiores FIDCs do mesmo bucket exibido no slide 8: Outros literal e N/D incorporado. "
+        "A fila reúne os 100 maiores FIDCs de Outros, com N/D incorporado. "
         "Tipo/Foco ANBIMA e Tabela II reportados permanecem preservados; somente decisões aprovadas alimentam a camada analítica do próximo bundle."
     )
     cards = [
@@ -15553,7 +15401,7 @@ def _render_current_outros_taxonomy_review(payload: dict[str, object]) -> None:
             )
             with st.expander("Comando de publicação"):
                 st.code(
-                    ".venv/bin/python scripts/publish_fidc_revision_bundle.py --input-workbook /caminho/para/Industria_FIDC_Dados_202607.xlsx",
+                    ".venv/bin/python scripts/publish_fidc_revision_bundle.py --input-workbook /caminho/para/workbook-base.xlsx",
                     language="bash",
                 )
         else:
@@ -15591,6 +15439,7 @@ def _render_revision_offer_ticket_distribution(
     )
     if ticket_distribution.empty:
         return
+    meta = _revision_offer_comparison_meta(payload)
 
     ticket_distribution["% das ofertas"] = pd.to_numeric(
         ticket_distribution["offer_share"], errors="coerce"
@@ -15639,6 +15488,8 @@ def _render_revision_offer_ticket_distribution(
         .drop_duplicates()
         .tolist()
     )
+    period_display = {period: _revision_offer_period_display(period, meta) for period in period_order}
+    ticket_distribution["Período"] = ticket_distribution["period_label"].map(period_display)
     def _chart(
         *,
         field: str,
@@ -15674,12 +15525,14 @@ def _render_revision_offer_ticket_distribution(
                     sort=period_order,
                     scale=alt.Scale(
                         domain=period_order,
-                        range=[_GRAY, _BLACK, _ORANGE],
+                        range=[_ORANGE if period == meta.get("current_period_id") else
+                               _BLACK if index == len(period_order) - 2 else _GRAY
+                               for index, period in enumerate(period_order)],
                     ),
-                    legend=alt.Legend(orient="bottom"),
+                    legend=alt.Legend(orient="bottom", labelExpr=f"{json.dumps(period_display, ensure_ascii=False)}[datum.label]"),
                 ),
                 tooltip=[
-                    alt.Tooltip("period_label:N", title="Período"),
+                    alt.Tooltip("Período:N", title="Período"),
                     alt.Tooltip("ticket_bucket:N", title="Faixa"),
                     alt.Tooltip("closed_offers:Q", title="Ofertas", format=",.0f"),
                     alt.Tooltip("% das ofertas:Q", format=".1%"),
@@ -15766,11 +15619,7 @@ def _render_revision_offer_ticket_distribution(
         )
     summary_cards = []
     for row in summary_rows.itertuples(index=False):
-        period_label = (
-            "2026 YTD"
-            if row.period_label == "2026 jan-jun"
-            else str(row.period_label).replace(" FY", "FY")
-        )
+        period_label = _revision_offer_period_display(row.period_label, meta)
         summary_cards.append(
             _industry_kpi(
                 f"{period_label} · > R$ 100 mi",
@@ -15785,7 +15634,8 @@ def _render_revision_offer_ticket_distribution(
         unsafe_allow_html=True,
     )
     st.caption(
-        f"2024 e 2025 = ano completo; 2026 = jan–jun até {_date_label(offers_cutoff)}. "
+        f"Anos anteriores completos; janela corrente: {meta.get('period_label', 'N/D')} "
+        f"até {_date_label(offers_cutoff)}. "
         "Faixas por Valor Total Registrado; os gráficos de quantidade e volume "
         "fecham 100% em cada período."
     )
@@ -15808,13 +15658,19 @@ def _render_revision_fixed_income_offer_comparison(
     comparison["Rótulo"] = comparison["Volume (R$ bi)"].map(
         lambda value: f"{float(value):.0f}".replace(".", ",")
     )
-    period_order = ["2023 FY", "2024 FY", "2025 FY", "2026 jan-jun"]
+    meta = _revision_offer_comparison_meta(payload)
+    current_year = int(meta.get("current_year") or pd.to_datetime(comparison["period_end"]).max().year)
+    selection_year = current_year - 1
+    period_order = comparison.sort_values("period_order")["period_label"].drop_duplicates().tolist()
+    comparison["Período"] = comparison["period_label"].map(lambda value: _revision_offer_period_display(value, meta))
+    chart_period_order = [_revision_offer_period_display(period, meta) for period in period_order]
 
     st.markdown(
         "<h2>FIDCs versus demais emissões de renda fixa</h2>",
         unsafe_allow_html=True,
     )
-    if not _issuance_correction_applied(comparison):
+    includes_2023 = comparison["period_label"].eq("2023 FY").any()
+    if includes_2023 and not _issuance_correction_applied(comparison):
         st.warning(
             "O nível de 2023 de FIDCs não pôde ser corrigido pelo valor "
             "encerrado da ANBIMA e está exibindo o volume registrado na CVM, "
@@ -15823,15 +15679,16 @@ def _render_revision_fixed_income_offer_comparison(
             "presente e íntegro.",
             icon=":material/warning:",
         )
+    current_rows = comparison[comparison["period_label"].eq(meta.get("current_period_id"))]
+    def growth(series: str) -> str:
+        values = current_rows.loc[current_rows["series_label"].eq(series), "yoy_growth"].dropna()
+        return _fmt_pct(float(values.iloc[0]), 0) if not values.empty else "N/D"
     st.markdown(
         '<div class="industry-note">'
-        "FIDCs cresceram <b>21,9%</b> em 2025 e <b>14,6%</b> no 1S26. "
-        "O conjunto dos demais instrumentos elegíveis cresceu 4,0% em 2025 "
-        "e recuou 7,8% no 1S26. O nível de 2023 de FIDCs usa o valor "
-        "encerrado ANBIMA: a série CVM/SRE só captura o universo "
-        "integralmente a partir de 2024."
-        "</div>",
-        unsafe_allow_html=True,
+        f"Em {html.escape(str(meta.get('period_label') or 'N/D'))}, a variação sobre "
+        f"a mesma janela do ano anterior foi <b>{growth('FIDCs')}</b> em FIDCs "
+        f"e <b>{growth('Demais elegíveis')}</b> nos demais instrumentos elegíveis."
+        "</div>", unsafe_allow_html=True,
     )
 
     def _comparison_chart(
@@ -15847,9 +15704,9 @@ def _render_revision_fixed_income_offer_comparison(
             .mark_bar()
             .encode(
                 x=alt.X(
-                    "period_label:N",
+                    "Período:N",
                     title=None,
-                    sort=period_order,
+                    sort=chart_period_order,
                     axis=alt.Axis(labelAngle=0, grid=False),
                 ),
                 xOffset=alt.XOffset(
@@ -15869,7 +15726,7 @@ def _render_revision_fixed_income_offer_comparison(
                     legend=alt.Legend(orient="bottom"),
                 ),
                 tooltip=[
-                    alt.Tooltip("period_label:N", title="Período"),
+                    alt.Tooltip("Período:N", title="Período"),
                     alt.Tooltip("series_label:N", title="Instrumento"),
                     alt.Tooltip(
                         "Volume (R$ bi):Q",
@@ -15894,7 +15751,7 @@ def _render_revision_fixed_income_offer_comparison(
                 fontWeight=700,
             )
             .encode(
-                x=alt.X("period_label:N", sort=period_order),
+                x=alt.X("Período:N", sort=chart_period_order),
                 xOffset=alt.XOffset("series_label:N", sort=series_order),
                 y=alt.Y("Volume (R$ bi):Q"),
                 text="Rótulo:N",
@@ -15920,13 +15777,11 @@ def _render_revision_fixed_income_offer_comparison(
         )
     with right:
         view_b = comparison[
-            comparison["view"].eq(
-                "FIDCs vs instrumentos materiais de 2025"
-            )
+            comparison["view"].astype(str).str.startswith("FIDCs vs instrumentos materiais")
         ]
         _comparison_chart(
             view_b,
-            title="FIDCs e instrumentos mais emitidos em 2025",
+            title=f"FIDCs e instrumentos mais emitidos em {selection_year}",
             series_order=[
                 "FIDCs",
                 "Debêntures",
@@ -15970,9 +15825,11 @@ def _render_revision_fixed_income_offer_comparison(
         .reindex(columns=period_order)
         .reset_index()
     )
-    yoy = yoy.drop(columns=["2023 FY"])
-    yoy.columns = ["Instrumento", "2024", "2025", "1S26"]
-    for column in ("2024", "2025", "1S26"):
+    yoy = yoy.drop(columns=[column for column in period_order if yoy[column].isna().all()])
+    yoy = yoy.rename(columns={"series_label": "Instrumento", **{
+        column: _revision_offer_period_display(column, meta) for column in period_order
+    }})
+    for column in yoy.columns[1:]:
         yoy[column] = yoy[column].map(
             lambda value: _fmt_pct(float(value)) if pd.notna(value) else "N/D"
         )
@@ -15981,22 +15838,24 @@ def _render_revision_fixed_income_offer_comparison(
     st.caption(
         "Fonte: [CVM — Sistema de Registro de Ofertas (SRE)]"
         "(https://dados.cvm.gov.br/dataset/oferta-distrib). Ofertas primárias "
-        "encerradas, todos os ritos, com volume registrado positivo. 2026 compara "
-        "jan–jun/26 com jan–jun/25. Instrumentos materiais = quatro maiores tipos "
-        f"não FIDC em 2025FY. Exclusões: {exclusions}."
+        "encerradas, todos os ritos, com volume registrado positivo. "
+        f"Compara {meta.get('period_label', 'N/D')} com {meta.get('previous_period_label', 'N/D')}. "
+        f"Instrumentos materiais = quatro maiores tipos não FIDC em {selection_year}FY. "
+        f"Exclusões: {exclusions}."
     )
-    st.caption(
-        "Correção 2023: o ponto de FIDCs em 2023 usa o valor encerrado do "
-        "[Boletim de Mercado de Capitais da ANBIMA]"
-        "(https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais)"
-        " (snapshot mai/26, aba 02-02-Vlr), porque o volume registrado na CVM "
-        "subestima 2023 — primeiro ano da Resolução CVM 160 — em cerca de 40%. "
-        "O YoY de 2024 de FIDCs é calculado sobre a base ANBIMA; o gap por "
-        "instrumento está em `industry_market_offer_reconciliation.csv`."
-    )
+    if includes_2023:
+        st.caption(
+            "Correção 2023: o ponto de FIDCs em 2023 usa o valor encerrado do "
+            "[Boletim de Mercado de Capitais da ANBIMA]"
+            "(https://data.anbima.com.br/publicacoes/boletim-de-mercado-de-capitais)"
+            " (snapshot mai/26, aba 02-02-Vlr), porque o volume registrado na CVM "
+            "subestima 2023 — primeiro ano da Resolução CVM 160 — em cerca de 40%. "
+            "O YoY de 2024 de FIDCs é calculado sobre a base ANBIMA; o gap por "
+            "instrumento está em `industry_market_offer_reconciliation.csv`."
+        )
 
 
-def _render_revision_issuance_taxonomy() -> None:
+def _render_revision_issuance_taxonomy(payload: dict[str, object]) -> None:
     """Show which sectors the issuance went into, year by year.
 
     Reads the materialized decomposition rather than the payload, so the table
@@ -16010,8 +15869,9 @@ def _render_revision_issuance_taxonomy() -> None:
         load_issuance_taxonomy,
     )
 
+    meta = _revision_offer_comparison_meta(payload)
     st.markdown(
-        "<h2>Emissões por categoria ANBIMA · 2023 a jun/26</h2>",
+        f"<h2>Emissões por categoria ANBIMA · até {html.escape(str(meta.get('period_label') or 'N/D'))}</h2>",
         unsafe_allow_html=True,
     )
     try:
@@ -16051,8 +15911,11 @@ def _render_revision_issuance_taxonomy() -> None:
     display = pd.concat([display, pd.DataFrame([total_row])], ignore_index=True)
     st.dataframe(display, hide_index=True, width="stretch")
 
-    latest = long_frame[long_frame["period_key"].eq("jun26")].set_index("categoria")
-    previous = long_frame[long_frame["period_key"].eq("jun25")].set_index("categoria")
+    latest = long_frame[long_frame["period_key"].eq(meta.get("current_period_key"))].set_index("categoria")
+    previous = long_frame[long_frame["period_key"].eq(meta.get("previous_period_key"))].set_index("categoria")
+    if latest.empty or previous.empty:
+        st.info("Comparativo por taxonomia indisponível para a janela publicada.")
+        return
     deltas = (
         (latest["volume_brl"] - previous["volume_brl"])
         .reindex(DISPLAY_CATEGORIES)
@@ -16062,10 +15925,10 @@ def _render_revision_issuance_taxonomy() -> None:
     laggard = deltas.index[-1]
     st.markdown(
         '<div class="industry-note">'
-        f"No primeiro semestre, <b>{html.escape(str(leader))}</b> avançou "
-        f"{_fmt_bi(float(deltas.iloc[0]), 1)} sobre jan–jun/25 e responde por "
+        f"Em {html.escape(str(meta.get('period_label') or 'N/D'))}, <b>{html.escape(str(leader))}</b> variou "
+        f"{_fmt_bi(float(deltas.iloc[0]), 1)} sobre {meta.get('previous_period_label', 'N/D')} e responde por "
         f"{_fmt_pct(float(latest.loc[leader, 'share']))} das emissões; "
-        f"{html.escape(str(laggard))} recuou {_fmt_bi(abs(float(deltas.iloc[-1])), 1)}."
+        f"{html.escape(str(laggard))} variou {_fmt_bi(float(deltas.iloc[-1]), 1)}."
         "</div>",
         unsafe_allow_html=True,
     )
@@ -16078,11 +15941,12 @@ def _render_revision_issuance_taxonomy() -> None:
         "cotas — contá-lo somaria o mesmo dinheiro duas vezes. O total dos "
         "quatro tipos mais os FIC-FIDCs reproduz o volume do gráfico acima."
     )
-    st.caption(
+    correction_note = (
         "2023 usa o valor encerrado da ANBIMA: a base granular da CVM observa "
-        "parte do ano, e o não observado é distribuído com a composição do "
-        "observado. jan–jun/26 é comparado a jan–jun/25 porque 2026 não fechou."
+        "parte do ano, e o não observado é distribuído com a composição do observado. "
+        if long_frame["period_key"].eq("2023").any() else ""
     )
+    st.caption(correction_note + f"{meta.get('period_label', 'N/D')} é comparado à mesma janela do ano anterior.")
 
 
 def _render_revision_closed_offer_placement_regime(
@@ -16109,16 +15973,11 @@ def _render_revision_closed_offer_placement_regime(
         kind="stable",
     )
     period_order = regime["period_label"].drop_duplicates().tolist()
-    period_display = {
-        "2024 FY": "2024FY",
-        "2025 FY": "2025FY",
-        "2026 jan-jun": "2026 jan–jun",
-    }
-    period_colors = {
-        "2024 FY": _GRAY,
-        "2025 FY": _BLACK,
-        "2026 jan-jun": _ORANGE,
-    }
+    meta = _revision_offer_comparison_meta(payload)
+    period_display = {period: _revision_offer_period_display(period, meta) for period in period_order}
+    period_colors = {period: (_ORANGE if period == meta.get("current_period_id")
+                             else _BLACK if index == len(period_order) - 2 else _GRAY)
+                     for index, period in enumerate(period_order)}
     regime_order = (
         regime.loc[~regime["placement_regime"].eq("Não informado")]
         .sort_values("regime_order")["placement_regime"]
@@ -16148,7 +16007,7 @@ def _render_revision_closed_offer_placement_regime(
     )
 
     current = regime[
-        regime["period_label"].eq(period_order[-1])
+        regime["period_label"].eq(meta.get("current_period_id"))
         & regime["placement_regime"].eq("Melhores esforços")
     ]
     st.markdown(
@@ -16159,7 +16018,7 @@ def _render_revision_closed_offer_placement_regime(
         current_row = current.iloc[0]
         st.markdown(
             '<div class="industry-note">'
-            f'Em jan–jun/26, melhores esforços responderam por '
+            f"Em {html.escape(str(meta.get('period_label') or 'N/D'))}, melhores esforços responderam por "
             f'<b>{_fmt_pct(float(current_row["closed_offers_share"]), 0)}</b> '
             f'das ofertas encerradas e '
             f'<b>{_fmt_pct(float(current_row["registered_volume_share"]), 0)}</b> '
@@ -16295,14 +16154,7 @@ def _render_revision_closed_offer_placement_regime(
                         domain=period_order,
                         range=[period_colors[period] for period in period_order],
                     ),
-                    legend=alt.Legend(
-                        orient="bottom",
-                        labelExpr=(
-                            "datum.label == '2024 FY' ? '2024FY' : "
-                            "datum.label == '2025 FY' ? '2025FY' : "
-                            "'2026 jan–jun'"
-                        ),
-                    ),
+                    legend=alt.Legend(orient="bottom", labelExpr=f"{json.dumps(period_display)}[datum.label] || datum.label"),
                 ),
                 tooltip=[
                     alt.Tooltip("placement_regime:N", title="Regime"),
@@ -16360,7 +16212,7 @@ def _render_revision_closed_offer_placement_regime(
         "(https://dados.cvm.gov.br/dataset/oferta-distrib). Cotas de FIDC, ofertas "
         "primárias encerradas, todos os ritos, com volume registrado positivo. "
         "Regime conforme informado; ritos sem abertura permanecem em Não informado. "
-        "2024/2025 são anos completos; 2026 cobre janeiro a junho."
+        f"Anos anteriores completos; janela corrente: {meta.get('period_label', 'N/D')}."
     )
 
 
@@ -16573,10 +16425,8 @@ def _render_carteira(payload: dict[str, object]) -> None:
     del payload
     st.subheader("Subordinação atual v. mínimo exigido")
     st.caption(
-        "Cada fundo entra com a sua própria competência mais recente no Informe "
-        "Mensal. Quando julho chega para parte da carteira e junho é o que existe "
-        "para o resto, o gráfico usa o dado mais novo de cada fundo — a coluna "
-        "*Competência* na tabela diz qual foi usada."
+        "Cada fundo usa seu Informe Mensal mais recente; a coluna Competência "
+        "identifica a data de cada posição."
     )
 
     registry = load_registry(_DATA_DIR)
@@ -16737,23 +16587,26 @@ def _render_carteira(payload: dict[str, object]) -> None:
 def _render_revision_offers(payload: dict[str, object]) -> None:
     annual = _revision_frame(payload, "closed_offers_annual")
     monthly = _revision_frame(payload, "closed_offers_monthly")
-    jan_june = _revision_offer_comparable_frame(payload)
     current = _revision_offer_current_row(payload, annual)
     offers_cutoff = _revision_offers_cutoff(payload)
     source_as_of = _date_label(payload.get("offers_source_as_of", "n/d"))
+    meta = _revision_offer_comparison_meta(payload)
+    current_year_value = pd.to_numeric(meta.get("current_year", current.get("year")), errors="coerce")
+    current_year = int(current_year_value) if pd.notna(current_year_value) else None
+    period_label = str(meta.get("period_label") or "N/D")
 
     st.markdown("<h2>Ofertas encerradas e ticket de emissão</h2>", unsafe_allow_html=True)
     if not current.empty:
         cards = [
             _industry_kpi(
-                "Ofertas encerradas 2026",
+                f"Ofertas encerradas {current_year or 'N/D'}",
                 _fmt_int(current.get("closed_offers", 0)),
                 f"até {_date_label(offers_cutoff)}",
             ),
             _industry_kpi(
                 "Volume registrado",
                 _fmt_bi(float(current.get("registered_volume_brl", 0)), 1),
-                "jan–jun/26",
+                period_label,
             ),
             _industry_kpi(
                 "Ticket médio",
@@ -16790,7 +16643,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         )
 
     _render_revision_fixed_income_offer_comparison(payload)
-    _render_revision_issuance_taxonomy()
+    _render_revision_issuance_taxonomy(payload)
 
     if not annual.empty and not monthly.empty and not current.empty:
         annual_comparison = annual.copy()
@@ -16798,8 +16651,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             annual_comparison["year"], errors="coerce"
         ).astype("Int64")
         annual_comparison = annual_comparison[
-            annual_comparison["year"].isin([2024, 2025])
-        ]
+            annual_comparison["year"].lt(current_year)
+        ].sort_values("year").tail(2)
         annual_comparison = pd.concat(
             [annual_comparison, current.to_frame().T],
             ignore_index=True,
@@ -16808,7 +16661,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             annual_comparison["year"], errors="coerce"
         ).astype("Int64")
         annual_comparison["Período"] = annual_comparison["year"].map(
-            lambda value: "2026 YTD" if int(value) == 2026 else f"{int(value)}FY"
+            lambda value: period_label if int(value) == current_year else f"{int(value)}FY"
         )
         annual_comparison["Volume (R$ bi)"] = pd.to_numeric(
             annual_comparison["registered_volume_brl"], errors="coerce"
@@ -16816,7 +16669,6 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
         annual_comparison["Ticket médio (R$ mi)"] = pd.to_numeric(
             annual_comparison["mean_registered_ticket_brl"], errors="coerce"
         ) / 1e6
-        current_year = 2026
         left, right = st.columns(2)
         with left:
             chart = (
@@ -16853,18 +16705,18 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             st.altair_chart(
                 chart + labels,
                 width="stretch",
-                key="industry-revision-closed-offers-jan-june",
+                key="industry-revision-closed-offers-ytd-comparable",
             )
         with right:
             monthly["year"] = pd.to_numeric(monthly["year"], errors="coerce").astype("Int64")
             monthly["month"] = pd.to_numeric(monthly["month"], errors="coerce").astype("Int64")
-            monthly = monthly[
-                monthly["year"].isin([2024, 2025, 2026])
-                & (
-                    monthly["year"].isin([2024, 2025])
-                    | monthly["month"].le(6)
-                )
-            ].sort_values(["year", "month"])
+            current_month = int(meta.get("month_count") or monthly.loc[monthly["year"].eq(current_year), "month"].max())
+            years = sorted(set(annual_comparison["year"].dropna().astype(int)))
+            year_colors = [_ORANGE if year == current_year else _BLACK if year == current_year - 1 else _GRAY
+                           for year in years]
+            monthly = monthly[monthly["year"].isin(years) &
+                              (monthly["year"].lt(current_year) | monthly["month"].le(current_month))
+                              ].sort_values(["year", "month"])
             monthly["Volume acumulado (R$ bi)"] = (
                 pd.to_numeric(monthly["registered_volume_brl"], errors="coerce")
                 .groupby(monthly["year"])
@@ -16894,7 +16746,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     color=alt.Color(
                         "year:N",
                         title=None,
-                        scale=alt.Scale(domain=[2024, 2025, 2026], range=[_GRAY, _BLACK, _ORANGE]),
+                        scale=alt.Scale(domain=years, range=year_colors),
                     ),
                     tooltip=["year:N", "Mês:N", alt.Tooltip("Volume acumulado (R$ bi):Q", format=",.1f")],
                 )
@@ -16918,8 +16770,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                     color=alt.Color(
                         "year:N",
                         scale=alt.Scale(
-                            domain=[2024, 2025, 2026],
-                            range=[_GRAY, _BLACK, _ORANGE],
+                            domain=years,
+                            range=year_colors,
                         ),
                         legend=None,
                     ),
@@ -16932,7 +16784,8 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 key="industry-revision-closed-offers-cumulative",
             )
             st.caption(
-                "2026 encerra em jun/26; as curvas de 2024 e 2025 seguem até dezembro."
+                f"{current_year} encerra em {_short_competence_label(offers_cutoff[:7]).lower()}; "
+                "as curvas dos anos anteriores seguem até dezembro."
             )
 
     _render_revision_offer_ticket_distribution(
@@ -16950,7 +16803,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
                 annual_display_source["year"], errors="coerce"
             )
             annual_display_source = annual_display_source[
-                ~annual_display_source["year"].eq(2026)
+                ~annual_display_source["year"].eq(current_year)
             ]
         annual_display_source = pd.concat(
             [annual_display_source, current.to_frame().T], ignore_index=True
@@ -16977,7 +16830,7 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             annual_display["Ano"]
             .astype(int)
             .astype(str)
-            .replace({"2026": "2026 jan–jun"})
+            .replace({str(current_year): period_label})
         )
         for column in ("Volume registrado", "Ticket médio", "Ticket mediano"):
             annual_display[column] = annual_display[column].map(
@@ -17007,20 +16860,17 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             top15["investor_count"], errors="coerce"
         )
         summary_by_period = top15_summary.set_index("period_label")
-        summary_2025 = summary_by_period.loc["2025 FY"]
-        summary_2026 = summary_by_period.loc["2026 jan-jun"]
-        st.markdown(
-            '<div class="industry-note">'
-            f'O Itaú BBA liderou <b>{_fmt_int(summary_2026["ibba_lead_offers_top15"])}</b> '
-            f'das 15 maiores ofertas em jan–jun/26 '
-            f'({_fmt_bi(float(summary_2026["ibba_lead_volume_top15_brl"]), 1)}), '
-            f'ante <b>{_fmt_int(summary_2025["ibba_lead_offers_top15"])}</b> em 2025FY '
-            f'({_fmt_bi(float(summary_2025["ibba_lead_volume_top15_brl"]), 1)}). '
-            f'Como participante, esteve em <b>{_fmt_int(summary_2026["ibba_participation_offers_top15"])}</b> '
-            "das 15 maiores em jan–jun/26."
-            "</div>",
-            unsafe_allow_html=True,
-        )
+        current_period_id = meta.get("current_period_id")
+        if current_period_id in summary_by_period.index:
+            summary_current = summary_by_period.loc[current_period_id]
+            st.markdown(
+                '<div class="industry-note">'
+                f"Em {html.escape(period_label)}, Itaú BBA liderou "
+                f"<b>{_fmt_int(summary_current['ibba_lead_offers_top15'])}</b> entre as "
+                f"{_fmt_int(summary_current['top15_offers'])} maiores ofertas; participou de "
+                f"<b>{_fmt_int(summary_current['ibba_participation_offers_top15'])}</b>."
+                "</div>", unsafe_allow_html=True,
+            )
 
         def _top15_display(period_label: str) -> pd.DataFrame:
             frame = top15[top15["period_label"].eq(period_label)].sort_values(
@@ -17066,16 +16916,10 @@ def _render_revision_offers(payload: dict[str, object]) -> None:
             ]
             return frame
 
-        period_tabs = st.tabs(
-            ["2026 jan–jun", "2025FY", "2024FY", "2023FY", "2022 parcial"]
-        )
-        for period_tab, period_label, heading in (
-            (period_tabs[0], "2026 jan-jun", "Jan–jun/26"),
-            (period_tabs[1], "2025 FY", "2025FY"),
-            (period_tabs[2], "2024 FY", "2024FY"),
-            (period_tabs[3], "2023 FY", "2023FY"),
-            (period_tabs[4], "2022 FY parcial", "2022 · base parcial"),
-        ):
+        period_ids = top15_summary.sort_values("period_order", ascending=False)["period_label"].drop_duplicates().tolist()
+        period_items = [(period, _revision_offer_period_display(period, meta)) for period in period_ids]
+        period_tabs = st.tabs([heading for _period, heading in period_items])
+        for period_tab, (period_label, heading) in zip(period_tabs, period_items, strict=True):
             summary = summary_by_period.loc[period_label]
             with period_tab:
                 count = int(summary["top15_offers"])
@@ -17147,30 +16991,23 @@ def _render_revision_data_exports(
     )
     ledger_synced = current_ledger_digest == published_ledger_digest
     st.markdown(
-        "<h2>Apresentação, workbook e explorador revisados</h2>",
+        "<h2>Apresentação e bases</h2>",
         unsafe_allow_html=True,
     )
     if export_status.bundle_valid and ledger_synced:
-        st.success(
-            f"Bundle {export_status.bundle_id} validado para {export_status.latest_complete}: "
-            "PPTX, XLSX principal, XLSX da Carteira 101/Flagships, XLSX Top 100 + 2 e HTML "
-            "reconciliados pelo mesmo payload e por hashes."
-        )
+        st.caption(f"Arquivos validados · estoque em {_short_competence_label(export_status.latest_complete).lower()}.")
         # O bundle é coerente consigo mesmo, mas foi publicado antes da correção
         # de 2023: os arquivos Office trazem o volume registrado na CVM, que
         # subestima o ano. O painel corrige na leitura; o Office só depois de
         # republicado. Dizer isso é mais útil do que bloquear o download.
         if _bundle_predates_issuance_correction():
             st.warning(
-                "Os arquivos Office deste bundle foram gerados antes da correção "
-                "de 2023 e trazem o volume registrado na CVM para as emissões de "
-                "FIDCs daquele ano, não o valor encerrado da ANBIMA. Os gráficos "
-                "desta página já usam o número corrigido. Republique o bundle "
-                "(`python3 scripts/publish_fidc_revision_bundle.py`) para "
-                "sincronizar PPTX e XLSX.",
+                "As emissões de 2023 foram corrigidas no site. O PPTX e o XLSX ainda "
+                "usam o volume registrado na CVM e precisam ser atualizados com o "
+                "valor encerrado da ANBIMA.",
                 icon=":material/sync_problem:",
             )
-        _render_industry_exports(suffix="revision", as_of_date=str(payload.get("offers_as_of") or ""))
+        _render_industry_exports(suffix="revision", as_of_date=str(payload.get("latest_complete") or ""))
     elif not ledger_synced:
         st.error(
             "Exportação revisada bloqueada: o ledger de taxonomia foi alterado após a publicação do bundle. Republique PPTX, os três workbooks e HTML para sincronizar a decisão."
@@ -17181,7 +17018,6 @@ def _render_revision_data_exports(
             + (export_status.validation_error or "bundle publicado indisponível")
         )
 
-    st.markdown("<h2>Escopo, fontes e limitações</h2>", unsafe_allow_html=True)
     qa = dict(payload.get("qa_latest") or {})
     coverage = _revision_frame(payload, "classification_coverage")
     sources = dict(payload.get("sources") or {})
@@ -17189,7 +17025,13 @@ def _render_revision_data_exports(
     cedente_coverage_history = _revision_frame(
         payload, "cedente_top500_coverage_history"
     )
-    cedente_coverage_text = "Top 500 em quatro competências; o campo não identifica sacado"
+    cedente_competences = _revision_cedente_competences(payload)
+    cedente_coverage_text = f"Top 500 em {len(cedente_competences)} competências; o campo não identifica sacado"
+    cedente_range = (
+        f"{_short_competence_label(cedente_competences[0]).lower()} a "
+        f"{_short_competence_label(cedente_competences[-1]).lower()}"
+        if cedente_competences else "N/D"
+    )
     manifest_coverage = dict(
         cedente_manifest.get("latest_coverage")
         or cedente_manifest.get("coverage")
@@ -17199,7 +17041,8 @@ def _render_revision_data_exports(
     if manifest_identified is not None:
         cedente_coverage_text = (
             f"{_fmt_int(manifest_identified)} de 500 fundos identificam cedente em "
-            "jun/26; o campo não identifica sacado"
+            f"{_short_competence_label(cedente_competences[-1]).lower() if cedente_competences else 'N/D'}; "
+            "o campo não identifica sacado"
         )
     if not cedente_coverage_history.empty:
         competence_col = _frame_column(
@@ -17217,11 +17060,14 @@ def _render_revision_data_exports(
             latest_cedente["competencia_key"] = latest_cedente[competence_col].map(
                 _cedente_competence_key
             )
-            latest_cedente = latest_cedente.sort_values("competencia_key").tail(1)
+            latest_cedente = latest_cedente[latest_cedente["competencia_key"].isin(cedente_competences)].sort_values("competencia_key").tail(1)
             if not latest_cedente.empty:
+                latest_cedente_label = _short_competence_label(latest_cedente.iloc[0]["competencia_key"]).lower()
+                earliest_cedente = min(cedente_competences)
+                cedente_range = f"{_short_competence_label(earliest_cedente).lower()} a {latest_cedente_label}"
                 cedente_coverage_text = (
                     f"{_fmt_int(latest_cedente.iloc[0][identified_col])} de 500 fundos "
-                    "identificam cedente em jun/26; o campo não identifica sacado"
+                    f"identificam cedente em {latest_cedente_label}; o campo não identifica sacado"
                 )
     profiles = _revision_frame(payload, "profiles")
     curation_date = (
@@ -17229,39 +17075,46 @@ def _render_revision_data_exports(
         if not profiles.empty and "data_consulta" in profiles
         else "n/d"
     )
+    bcb = _revision_frame(payload, "bcb_expanded_credit")
+    bcb_cutoff = (
+        _short_competence_label(bcb["competencia"].astype(str).max()).lower()
+        if not bcb.empty and "competencia" in bcb
+        else "N/D"
+    )
     source_table = pd.DataFrame(
         [
             ["Estoque, cotistas e carteira", "CVM — Informe Mensal FIDC", payload.get("latest_complete"), f"{_fmt_int(qa.get('veiculos_total', 0))} veículos / {_fmt_int(qa.get('fundos_total', 0))} fundos"],
             ["Tipo e Foco ANBIMA", "ANBIMA Data + evidência documental + proxy CVM", sources.get("anbima", payload.get("latest_complete")), f"{_fmt_pct(float(coverage.loc[coverage['categoria'].eq('Oficial ANBIMA'), 'share'].sum()))} do PL oficial" if not coverage.empty else "n/d"],
-            ["Ofertas", "CVM — ofertas públicas primárias, todos os ritos", payload.get("offers_as_of"), "encerramento no período; volume registrado positivo"],
-            ["Público-alvo das ofertas", "CVM — campo Público_alvo; Resolução CVM 30", "24/jul/26", "mede elegibilidade; não identifica alocação final PF/PJ"],
+            ["Ofertas", "CVM — ofertas públicas primárias, todos os ritos", _revision_offers_cutoff(payload), f"consulta em {_date_label(payload.get('offers_source_as_of', 'n/d'))}; volume registrado positivo"],
+            ["Público-alvo das ofertas", "CVM — campo Público_alvo; Resolução CVM 30", payload.get("offers_source_as_of", "N/D"), "mede elegibilidade; não identifica alocação final PF/PJ"],
             ["Ratings Top 15", "CVM/SRE e FundosNet", "24/jul/26", "documento mais recente aplicável; ausência de vínculo exato = N/D"],
-            ["Reclassificação ANBIMA", "ANBIMA Data — Fundos 175", "dez/25 sobre PL jun/26", "Outros; ex-FIC, PL positivo; validar alterações posteriores"],
-            ["Reclassificação CVM", "CVM — Informe Mensal, Tabela II", "jun/26", "Financeiro: Outros; ex-FIC, PL positivo; fundos multitipo exigem revisão"],
-            ["Crédito Privado Ampliado", "BCB — SGS 28183–28192, excluídos títulos públicos", "mai/26", "Securitizações abertas entre FIDCs e CRIs/CRAs"],
+            ["Reclassificação ANBIMA", "ANBIMA Data — Fundos 175", f"dez/25 sobre PL {_short_competence_label(payload.get('latest_complete', '')).lower()}", "Outros; ex-FIC, PL positivo; validar alterações posteriores"],
+            ["Tipo de recebível CVM", "CVM — Informe Mensal, Tabela II", payload.get("latest_complete"), "Carteira informada por tipo; fundos multitipo exigem revisão"],
+            ["Decisões de taxonomia", "Auditoria documental e decisões de classificação", "jun/26", "De-para aplicado ao estoque publicado; decisões preservam fonte e data"],
+            ["Crédito Privado Ampliado", "BCB — SGS 28183–28192, excluídos títulos públicos", bcb_cutoff, "FIDCs CVM e residual das demais securitizações"],
             ["Curadoria Top 20", "CVM, FundosNet e documentos de emissão", curation_date, "lacunas marcadas como não identificado"],
             [
                 "Cedentes por fundo",
                 "CVM — Informe Mensal FIDC, Tabela I",
-                "dez/23 a jun/26",
+                cedente_range,
                 cedente_coverage_text,
             ],
         ],
         columns=["Dimensão", "Fonte", "Data-base", "Cobertura/regra"],
     )
-    st.dataframe(source_table, hide_index=True, width="stretch")
     limitations = [
         "Gestor e custodiante de 2024/2025 são reconstruções com cadastro vigente; não formam série histórica comparável.",
         "Market share usa Top 10 geral fixo por função e separa Outros identificados de prestador não informado.",
-        "Monoestrutura usa conglomerado econômico normalizado e PL bruto dos fundos; não permite inferir preço ou contrato.",
+        str(dict(payload.get("conclusion_metrics") or {}).get("service_model_definition") or "Monoestrutura usa conglomerado econômico normalizado.") + " O recorte não permite inferir preço ou contrato.",
         "Tabela I identifica cedente, sem campo de sacado. Porte da Receita e capital social não comprovam faturamento entre R$ 30 mi e R$ 500 mi.",
     ]
     if str(qa.get("aging_publication_status") or "").startswith("bloqueado"):
-        limitations.insert(
-            0,
+        st.warning(
             "Inadimplência ex-360 dias permanece bloqueada porque os buckets não reconciliam a Tabela I.",
         )
-    st.markdown("\n".join(f"- {item}" for item in limitations))
+    with st.expander("Escopo, fontes e limitações", expanded=False):
+        st.dataframe(source_table, hide_index=True, width="stretch")
+        st.markdown("\n".join(f"- {item}" for item in limitations))
 
     with st.expander("Bases revisadas para download", expanded=False):
         top20_by_type_export = _revision_frame(payload, "top20_by_anbima_type")
@@ -17284,6 +17137,21 @@ def _render_revision_data_exports(
                 key="industry-revision-top100-outros-csv",
                 width="stretch",
             )
+        offers_extraction = _date_label(payload.get("offers_source_as_of") or "N/D")
+        impact_meta = dict(payload.get("taxonomy_impact_meta") or {})
+        try:
+            impact_cut = ComparisonCut.from_competence(str(impact_meta.get("current_competence") or ""))
+        except ValueError:
+            current_impact_files = {}
+        else:
+            impact_suffix = impact_cut.competence.replace("-", "")
+            impact_label = _short_competence_label(impact_cut.competence).lower()
+            current_impact_files = {
+                f"Impacto corrente da taxonomia {impact_label} · resumo por Tipo": f"../industry_taxonomy_impact_summary_{impact_suffix}.csv",
+                f"Impacto corrente da taxonomia {impact_label} · fluxos por CNPJ": f"../industry_taxonomy_impact_flows_{impact_suffix}.csv",
+                f"Impacto corrente da taxonomia {impact_label} · emissões": f"../industry_taxonomy_issuance_impact_{impact_suffix}.csv",
+                f"Impacto corrente da taxonomia {impact_label} · denominadores de market share": f"../industry_taxonomy_market_share_denominator_impact_{impact_suffix}.csv",
+            }
         files = {
             "Excel — estudo, taxonomia e triagem de cedentes": "industry_data_revised.xlsx",
             "Excel — Carteira 101 e Flagships": "carteira_101_flagships.xlsx",
@@ -17298,14 +17166,15 @@ def _render_revision_data_exports(
             "Top 20 Outros": "top20_outros.csv",
             "Top 20 Outros · regulamentos": "../industry_top20_outros_regulation_review.csv",
             "Ledger de decisões de taxonomia": "../taxonomy_review_actions.csv",
+            **current_impact_files,
             "Auditoria de taxonomia jun/26 · de-para": "../industry_taxonomy_audited_decisions_202606.csv",
             "Auditoria de taxonomia jun/26 · Outros em 3 baldes": "../industry_taxonomy_outros_three_buckets_202606.csv",
             "Auditoria de taxonomia jun/26 · adquirência": "../industry_taxonomy_acquiring_202606.csv",
-            "Impacto da taxonomia · resumo por Tipo": "../industry_taxonomy_impact_summary_202606.csv",
-            "Impacto da taxonomia · fluxos por CNPJ": "../industry_taxonomy_impact_flows_202606.csv",
-            "Impacto da taxonomia · emissões": "../industry_taxonomy_issuance_impact_202606.csv",
-            "Impacto da taxonomia · denominadores de market share": "../industry_taxonomy_market_share_denominator_impact_202606.csv",
-            "Cedentes · Top 500 · quatro competências (CSV.GZ)": "../cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
+            "Impacto da taxonomia jun/26 · resumo por Tipo": "../industry_taxonomy_impact_summary_202606.csv",
+            "Impacto da taxonomia jun/26 · fluxos por CNPJ": "../industry_taxonomy_impact_flows_202606.csv",
+            "Impacto da taxonomia jun/26 · emissões": "../industry_taxonomy_issuance_impact_202606.csv",
+            "Impacto da taxonomia jun/26 · denominadores de market share": "../industry_taxonomy_market_share_denominator_impact_202606.csv",
+            "Cedentes · Top 500 por competência (CSV.GZ)": "../cedente_triage/fidc_cedentes_top500_2023_2026.csv.gz",
             "Cedentes · cadastro por competência (CSV.GZ)": "../cedente_triage/fidc_cedentes_por_competencia_2023_2026.csv.gz",
             "Cedentes · fundos sem cedente (CSV.GZ)": "../cedente_triage/fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
             "Cedentes · evolução por segmento": "../cedente_triage/fidc_cedentes_evolucao_segmento_2023_2026.csv",
@@ -17322,9 +17191,12 @@ def _render_revision_data_exports(
             "Detalhe da coorte bancária": "bancos_fidcs_detalhe.csv",
             "BTG ex-coorte bancária": "btg_prestadores_ex_controlados.csv",
             "Histórico CVM de prestadores": "prestadores_historico_cvm_transicoes_links.csv",
+            f"Ofertas CVM: base atualizada · extração {offers_extraction}": "../industry_offers.csv.gz",
+            f"Ofertas CVM · totais anuais · extração {offers_extraction}": "../industry_offers_annual.csv",
+            f"Ofertas CVM · ranking · extração {offers_extraction}": "../industry_offer_rankings.csv.gz",
             "Histograma das ofertas": "../industry_closed_offer_ticket_distribution.csv",
             "Carteira de Crédito Privada Ampliada": "../industry_bcb_expanded_credit.csv",
-            "Curadoria documental das 67 ofertas": "../industry_offer_document_curation.csv",
+            "Curadoria documental das ofertas": "../industry_offer_document_curation.csv",
             "Curadoria de ratings por oferta": "../industry_offer_rating_by_offer.csv",
             "Curadoria-base de ratings por fundo": "../industry_offer_rating_review.csv",
             "Manifest analítico": "revision_manifest.json",
@@ -17353,18 +17225,15 @@ def _render_revision_data_exports(
                 )
     with st.expander("Atualização reproduzível por analista", expanded=False):
         st.code(
-            ".venv/bin/python scripts/update_fidc_industry_offers.py\n"
-            ".venv/bin/python scripts/publish_fidc_revision_bundle.py "
-            "--input-workbook /caminho/para/Industria_FIDC_Dados_202607.xlsx "
-            "--refresh-source-presence --presence-months all",
+            ".venv/bin/python scripts/update_fidc_industry.py --check-only\n"
+            ".venv/bin/python scripts/update_fidc_industry.py --apply",
             language="bash",
         )
         st.caption(
-            "O primeiro comando baixa o ZIP oficial da CVM, reconcilia os ritos "
-            "automático, ordinário e legado, atualiza ofertas, tickets, regimes, "
-            "participantes/documentos e séries BCB. O segundo publica PPTX, workbook "
-            "geral, workbook específico da Carteira 101/Flagships e HTML depois "
-            "das validações do bundle."
+            "Verifica publicações e retificações oficiais da CVM e da ANBIMA. "
+            "A atualização reconstrói as bases, usa a última competência completa "
+            "e compara a mesma janela do ano anterior. Os arquivos são publicados "
+            "após validação; fontes sem alteração preservam o pacote existente."
         )
 
 
@@ -17450,23 +17319,32 @@ def render_tab_industry_study() -> None:
             f"Detalhe: {exc}"
         )
         st.code(
-            "FIDC_INPUT_WORKBOOK=/caminho/Industria_FIDC_Dados_202607.xlsx "
+            "FIDC_INPUT_WORKBOOK=/caminho/workbook-base.xlsx "
             "python scripts/publish_fidc_revision_bundle.py"
         )
         return
     payload_latest = str(revision_payload.get("latest_complete") or latest_complete)
-    offers_as_of = str(revision_payload.get("offers_as_of") or "n/d")
     qa = dict(revision_payload.get("qa_latest") or {})
     coverage = f"{_fmt_int(qa.get('veiculos_total', 0))} veículos / {_fmt_int(qa.get('fundos_total', 0))} fundos"
     render_page_header(
         "Dados da Indústria",
-        "Escala, base investidora, qualidade do dado, prestadores e fundos que explicam a concentração.",
+        "Principais conclusões e evolução dos FIDCs.",
     )
     render_context_strip(
         source="CVM e ANBIMA",
-        base_until=f"{_competence_label(payload_latest)} (estoque) | {_date_label(offers_as_of)} (ofertas)",
+        base_until=f"Estoque: {_short_competence_label(payload_latest).lower()} · ofertas: {_date_label(_revision_offers_cutoff(revision_payload))}",
         coverage=coverage,
     )
+    preliminary = status[
+        status["publication_status"].eq("preliminar")
+        & status["competencia"].astype(str).gt(payload_latest)
+    ].sort_values("competencia")
+    if not preliminary.empty:
+        preliminary_label = _short_competence_label(preliminary.iloc[-1]["competencia"]).lower()
+        st.caption(
+            f"CVM: {preliminary_label} é preliminar; a leitura consolidada usa "
+            f"{_short_competence_label(payload_latest).lower()}."
+        )
     if revision_payload.get("schema_version") == "fidc_revision_artifact_payload_v2":
         st.warning(
             "Bundle analítico v2 carregado durante a atualização. O conteúdo permanece disponível, "

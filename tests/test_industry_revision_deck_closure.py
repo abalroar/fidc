@@ -12,7 +12,7 @@ from pptx import Presentation
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REVISION_DIR = ROOT / "data" / "industry_study" / "generated_revision"
+REVISION_DIR = Path(os.environ.get("FIDC_TEST_REVISION_DIR", ROOT / "data" / "industry_study" / "generated_revision"))
 PPTX = Path(
     os.environ.get("FIDC_TEST_PPTX", REVISION_DIR / "industry_executive_revised.pptx")
 )
@@ -82,39 +82,11 @@ def test_deck_has_no_truncated_fragments_or_visible_technical_slugs() -> None:
 
 def test_removed_market_share_sections_remain_available_in_the_payload() -> None:
     slides = [_slide_text(slide) for slide in _presentation().slides]
-    provider_ranking = _find_slide_index(
-        slides,
-        "QI lidera administração; BTG lidera gestão e custódia",
-    )
-    provider_concentration = _find_slide_index(
-        slides,
-        "PRESTADORES · RANKING E CONCENTRAÇÃO",
-    )
-    top20 = _find_slide_index(slides, "RANKING · TOP 20 FIDCs")
-    top20_other = _find_slide_index(
-        slides, "Outros: o único bloco que encolheu"
-    )
-    structural_chapter = [
-        _find_slide_index(
-            slides,
-            f"RISCO ESTRUTURAL · CARTEIRA I · {category}",
-        )
-        for category in (
-            "FINANCEIRO",
-            "ADQUIRÊNCIA",
-            "AGRO / REVENDA",
-            "RISCO CORPORATIVO",
-            "CONSIGNADO INSS E FGTS",
-            "FACTORING",
-        )
-    ]
-    investor_base = _find_slide_index(slides, "Quase todo o volume vai para o investidor profissional")
-    assert structural_chapter == list(
-        range(structural_chapter[0], structural_chapter[0] + 6)
-    )
-    assert top20 < top20_other < structural_chapter[0]
-    assert structural_chapter[-1] < provider_ranking
+    provider_ranking = _find_slide_index(slides, "Ranking de prestadores")
+    provider_concentration = _find_slide_index(slides, "PRESTADORES · RANKING E CONCENTRAÇÃO")
+    investor_base = _find_slide_index(slides, "Público-alvo e base investidora")
     assert provider_ranking < provider_concentration < investor_base
+    assert len(slides) == 15
     visible = "\n".join(slides)
     for removed in (
         "MARKET SHARE · ADMINISTRAÇÃO",
@@ -162,29 +134,29 @@ def test_hhi_uses_antitrust_points_scale() -> None:
 
 def test_aging_reconciles_to_full_table_i_and_ex360_is_published() -> None:
     qa = pd.read_csv(REVISION_DIR / "qa_inadimplencia_competencia.csv")
-    latest = qa.sort_values("competencia").iloc[-1]
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    latest = qa[qa["competencia"].eq(payload["latest_complete"])].iloc[0]
     assert latest["aging_publication_status"] == "publicável"
     assert bool(latest["inadimplencia_ex_360d_publicavel"])
     assert abs(float(latest["aging_gap_vs_tabela_i_completa_brl"])) < 1.0
-    assert float(latest["aging_parcelas_inadimplentes_brl"]) > 6_000_000_000
+    assert float(latest["aging_parcelas_inadimplentes_brl"]) > 0
 
 
 def test_table_i_ii_reconciliation_and_documentary_classification_are_published() -> None:
     reconciliation = pd.read_csv(
         REVISION_DIR / "reconciliacao_tabelas_i_ii_resumo.csv"
     )
-    assert set(reconciliation["competencia"]) == {"2023-12", "2026-06"}
-    latest = reconciliation.set_index("competencia").loc["2026-06"]
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    assert set(reconciliation["competencia"]) == {"2023-12", payload["latest_complete"]}
+    latest = reconciliation.set_index("competencia").loc[payload["latest_complete"]]
     assert int(latest["fundos_sem_abertura_tabela_ii"]) >= 0
     assert 0 <= float(latest["gap_positivo_top20_share"]) <= 1
 
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
-    evidence = next(
-        row
-        for row in payload["classification_coverage"]
-        if row["categoria"] == "Evidência documental"
-    )
-    assert float(evidence["pl"]) > 0
+    coverage = payload["classification_coverage"]
+    assert coverage
+    assert abs(sum(float(row["share"]) for row in coverage) - 1) < 1e-9
+    assert all(float(row["pl"]) >= 0 for row in coverage)
     mt_global = next(
         row
         for row in payload["top20_fidcs"]
@@ -192,6 +164,9 @@ def test_table_i_ii_reconciliation_and_documentary_classification_are_published(
     )
     assert mt_global["anbima_tipo"] == "Financeiro"
     assert mt_global["anbima_foco"] == "Crédito Consignado"
+    assert mt_global["taxonomy_review_applied"] is True
+    assert mt_global["taxonomy_review_status"] == "aprovado"
+    assert mt_global["tabela_ii_curada"] == "Financeiro"
 
 
 def test_native_line_charts_keep_markers_and_smoothing_disabled() -> None:

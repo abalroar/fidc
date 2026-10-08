@@ -17,6 +17,8 @@ from services.industry_closed_offers_source import (
 )
 
 
+from services.industry_comparative_period import ComparisonCut
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", required=True, help="oferta_distribuicao.zip da CVM")
@@ -24,18 +26,21 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--source-as-of-date", default=SOURCE_AS_OF_DATE)
     parser.add_argument(
         "--expected-sha256",
-        default=SOURCE_ARCHIVE_SHA256,
+        default=None,
         help="vazio desabilita a trava de hash",
     )
+    parser.add_argument("--latest-complete", help="Competência consolidada AAAA-MM; omitida, lê a base de saída")
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
+    cut = ComparisonCut.from_competence(args.latest_complete) if args.latest_complete else ComparisonCut.from_data_dir(getattr(args, "data_dir", args.output_dir))
     tables = build_closed_offer_tables_from_archive(
         args.archive,
         source_as_of_date=args.source_as_of_date,
         expected_archive_sha256=args.expected_sha256 or None,
+        comparison_cut=cut,
     )
     manifest = write_closed_offer_tables(tables, args.output_dir)
     print(

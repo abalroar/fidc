@@ -27,14 +27,16 @@ from typing import Any
 
 import pandas as pd
 
-from services.industry_anbima import ANBIMA_TYPES
+from services.industry_anbima import ANBIMA_TYPES, ANBIMA_FOCUS_BY_TYPE
 from services.industry_taxonomy_review import (
     TAXONOMY_REVIEW_COLUMNS,
     apply_taxonomy_review_overlay,
     build_curated_type_mix,
     normalize_cnpj,
 )
-from services.industry_revision_analysis import build_market_share_by_subtype
+from services.industry_revision_analysis import (
+    build_market_share_by_subtype, exclude_market_share_funds, _canonical_fic_mask,
+)
 
 
 REFERENCE_COMPETENCE = "2026-06"
@@ -294,7 +296,7 @@ def build_gross_source_impact(
     return pd.DataFrame(summary_rows), pd.DataFrame(flow_rows)
 
 
-def _current_photo(fund_base: pd.DataFrame) -> pd.DataFrame:
+def _current_photo(fund_base: pd.DataFrame, reference_competence: str = REFERENCE_COMPETENCE) -> pd.DataFrame:
     required = {
         "competencia",
         "cnpj_fundo",
@@ -309,12 +311,14 @@ def _current_photo(fund_base: pd.DataFrame) -> pd.DataFrame:
             "base corrente sem colunas: " + ", ".join(sorted(missing))
         )
     photo = fund_base[
-        fund_base["competencia"].astype(str).eq(REFERENCE_COMPETENCE)
+        fund_base["competencia"].astype(str).eq(reference_competence)
     ].copy()
     photo["cnpj_fundo"] = photo["cnpj_fundo"].map(normalize_cnpj)
     photo["pl"] = pd.to_numeric(photo["pl"], errors="coerce")
+    if photo.empty:
+        raise TaxonomyImpactError(f"base corrente sem fundos na competência {reference_competence}")
     if photo["cnpj_fundo"].duplicated().any():
-        raise TaxonomyImpactError("base corrente tem mais de uma linha por fundo em 2026-06")
+        raise TaxonomyImpactError(f"base corrente tem mais de uma linha por fundo em {reference_competence}")
     return photo
 
 
@@ -334,16 +338,18 @@ def build_incremental_current_impact(
     *,
     baseline_label: str,
     current_label: str,
+    reference_competence: str = REFERENCE_COMPETENCE,
+    fixed_current_focus_cohort: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Hold the June fund photo fixed and change only the analytical ledger."""
+    """Hold the selected fund photo fixed and change only the analytical ledger."""
 
-    photo = _current_photo(fund_base)
+    photo = _current_photo(fund_base, reference_competence)
     before_effective = _effective_photo(photo, baseline_actions)
     after_effective = _effective_photo(photo, current_actions)
     before_mix = build_curated_type_mix(
-        photo, baseline_actions, latest=REFERENCE_COMPETENCE
+        photo, baseline_actions, latest=reference_competence
     )
-    after_mix = build_curated_type_mix(photo, current_actions, latest=REFERENCE_COMPETENCE)
+    after_mix = build_curated_type_mix(photo, current_actions, latest=reference_competence)
     before_mix = before_mix.set_index("anbima_tipo").reindex(DISPLAY_TYPES)
     after_mix = after_mix.set_index("anbima_tipo").reindex(DISPLAY_TYPES)
     before_total = float(before_mix["pl"].sum())
@@ -361,7 +367,7 @@ def build_incremental_current_impact(
         summary_rows.append(
             {
                 "view": "current_bundle_incremental_stock_type",
-                "competence": REFERENCE_COMPETENCE,
+                "competence": reference_competence,
                 "universe": "mesma base corrente de fundos, ex-FIC; varia somente o ledger",
                 "dimension": "tipo_anbima_exibido",
                 "category": category,
@@ -376,7 +382,7 @@ def build_incremental_current_impact(
                 "delta_pp": delta / before_total * 100.0 if before_total else pd.NA,
                 "source": f"antes={baseline_label}; depois={current_label}",
                 "note": (
-                    "Campos oficiais e PL de 2026-06 são idênticos nas duas fotos; "
+                    f"Campos oficiais e PL de {reference_competence} são idênticos nas duas fotos; "
                     "N/D segue a regra de exibição em Outros."
                 ),
             }
@@ -425,7 +431,7 @@ def build_incremental_current_impact(
             flow_rows.append(
                 {
                     "view": "current_bundle_incremental_flow",
-                    "competence": REFERENCE_COMPETENCE,
+                    "competence": reference_competence,
                     "effect": effect,
                     "from_type": from_type,
                     "from_focus": from_focus,
@@ -436,21 +442,85 @@ def build_incremental_current_impact(
                     "cnpjs": " | ".join(sorted(rows["cnpj_fundo"].astype(str))),
                     "source": f"antes={baseline_label}; depois={current_label}",
                     "note": (
-                        "Efeito incremental no PL observado em 2026-06; decisões "
+                        f"Efeito incremental no PL observado em {reference_competence}; decisões "
                         "já presentes no baseline não reaparecem."
                     ),
                 }
             )
 
-    before_market, _ = build_market_share_by_subtype(before_effective)
-    after_market, _ = build_market_share_by_subtype(after_effective)
+    if fixed_current_focus_cohort:
+        before_market, after_market = _fixed_current_focus_market_photos(
+            before_effective, after_effective
+        )
+    else:
+        before_market, _ = build_market_share_by_subtype(
+            before_effective, competence=reference_competence
+        )
+        after_market, _ = build_market_share_by_subtype(
+            after_effective, competence=reference_competence
+        )
     market_impact = build_market_share_denominator_impact(
         before_market,
         after_market,
         baseline_label=baseline_label,
         current_label=current_label,
+        reference_competence=reference_competence,
     )
+    if fixed_current_focus_cohort:
+        market_impact["scope_definition"] = "CNPJs elegíveis nos 14 focos oficiais da fotografia atual; mesma coorte antes/depois"
+        market_impact["note"] += (
+            " Coorte fixada pelos 14 focos oficiais atuais; a categoria anterior N/D "
+            "permanece explícita. Exclusões auditadas de market share são idênticas "
+            "às da análise; PL fora dessa coorte não entra neste quadro."
+        )
     return pd.DataFrame(summary_rows), pd.DataFrame(flow_rows), market_impact
+
+
+
+def _fixed_current_focus_market_photos(
+    before: pd.DataFrame, after: pd.DataFrame
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Measure taxonomy effects on the same current 14-focus CNPJ cohort.
+
+    The prior category can be N/D. It remains a separate row, preserving the
+    observed PL and preventing classification coverage from changing the total.
+    """
+    eligible = exclude_market_share_funds(after.loc[~_canonical_fic_mask(after)])
+    valid_pairs = {(kind, focus) for kind, focuses in ANBIMA_FOCUS_BY_TYPE.items() for focus in focuses}
+    in_scope = pd.Series(
+        [(kind, focus) in valid_pairs for kind, focus in zip(eligible["anbima_tipo"], eligible["anbima_foco"])],
+        index=eligible.index, dtype=bool,
+    )
+    cohort = set(eligible.loc[in_scope, "cnpj_fundo"].astype(str))
+    if not cohort:
+        raise TaxonomyImpactError("coorte corrente dos 14 focos sem fundos")
+
+    def measure(photo: pd.DataFrame) -> pd.DataFrame:
+        scoped = photo[photo["cnpj_fundo"].astype(str).isin(cohort)].copy()
+        if len(scoped) != len(cohort) or scoped["cnpj_fundo"].duplicated().any():
+            raise TaxonomyImpactError("coorte de market share diverge entre fotografias")
+        scoped["pl"] = pd.to_numeric(scoped["pl"], errors="coerce")
+        for column in ("anbima_tipo", "anbima_foco"):
+            scoped[column] = scoped[column].fillna("N/D").replace("", "N/D")
+        rows = []
+        for (kind, focus), group in scoped.groupby(["anbima_tipo", "anbima_foco"], dropna=False):
+            denominator = group["pl"].sum(min_count=1)
+            if pd.isna(denominator):
+                raise TaxonomyImpactError(f"PL ausente em toda a categoria {kind}/{focus} da coorte corrente")
+            # An empty positive subset means no reported nonnegative PL, so zero
+            # here describes the publication perimeter rather than an imputation.
+            positive = group.loc[group["pl"].ge(0), "pl"]
+            positive_denominator = positive.sum() if not positive.empty else 0.0
+            for role in ("administrador", "gestor", "custodiante"):
+                rows.append({
+                    "papel": role, "tipo_anbima": kind, "foco_anbima": focus,
+                    "denominador_pl_subtipo_brl": float(denominator),
+                    "denominador_publicacao_pl_positivo_brl": float(positive_denominator),
+                    "fundos_subtipo": int(group["cnpj_fundo"].nunique()),
+                })
+        return pd.DataFrame(rows)
+
+    return measure(before), measure(after)
 
 
 def _market_denominators(frame: pd.DataFrame, side: str) -> pd.DataFrame:
@@ -498,6 +568,7 @@ def build_market_share_denominator_impact(
     *,
     baseline_label: str,
     current_label: str,
+    reference_competence: str = REFERENCE_COMPETENCE,
 ) -> pd.DataFrame:
     before = _market_denominators(before_market, "antes").add_prefix("before_")
     after = _market_denominators(after_market, "depois").add_prefix("after_")
@@ -548,7 +619,7 @@ def build_market_share_denominator_impact(
     )
     output = pd.DataFrame(
         {
-            "competence": REFERENCE_COMPETENCE,
+            "competence": reference_competence,
             "tipo_anbima": merged["tipo_anbima"],
             "foco_anbima": merged["foco_anbima"],
             "before_denominator_brl": merged["before_denominador_pl_subtipo_brl"],
@@ -710,15 +781,15 @@ def build_taxonomy_impact_report(
 
 
 def materialize_taxonomy_impact(
-    report: TaxonomyImpactReport, data_dir: Path
+    report: TaxonomyImpactReport, data_dir: Path, reference_competence: str = REFERENCE_COMPETENCE
 ) -> dict[str, Path]:
     data_dir = Path(data_dir)
     data_dir.mkdir(parents=True, exist_ok=True)
     outputs = {
-        "summary": data_dir / SUMMARY_FILENAME,
-        "flows": data_dir / FLOWS_FILENAME,
-        "issuance": data_dir / ISSUANCE_FILENAME,
-        "market_share": data_dir / MARKET_SHARE_FILENAME,
+        "summary": data_dir / SUMMARY_FILENAME.replace("202606", reference_competence.replace("-", "")),
+        "flows": data_dir / FLOWS_FILENAME.replace("202606", reference_competence.replace("-", "")),
+        "issuance": data_dir / ISSUANCE_FILENAME.replace("202606", reference_competence.replace("-", "")),
+        "market_share": data_dir / MARKET_SHARE_FILENAME.replace("202606", reference_competence.replace("-", "")),
     }
     frames = {
         "summary": report.summary,

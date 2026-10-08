@@ -1246,7 +1246,8 @@ def build_cedente_top500(
             {"competencia": competencia, "tabela": table, **repair}
             for table, frame in (("Tabela IV", tab_iv), ("Tabela I", tab_i))
             for repair in frame.attrs.get("source_repairs", [])
-        ]
+        ],
+        columns=["competencia", "tabela", "fonte", "linha_fisica", "acao", "documento_fundo", "denominacao_reparada", "data_referencia"],
     )
     universe, top = rank_top500(tab_iv, competencia=competencia, cutoff_rank=cutoff_rank)
     links = melt_table_i(tab_i, top, competencia=competencia)

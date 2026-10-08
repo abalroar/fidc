@@ -66,10 +66,11 @@ def _download_series(
     code: int,
     *,
     start: str = "01/01/2015",
-    end: str = "31/12/2026",
+    end: str | None = None,
     timeout: int = 60,
     attempts: int = _DOWNLOAD_ATTEMPTS,
 ) -> pd.DataFrame:
+    end = end or pd.Timestamp.today().strftime("%d/%m/%Y")
     rows: object = None
     last_error = ""
     for attempt in range(attempts):
@@ -116,8 +117,9 @@ def build_expanded_credit_history(
     industry_monthly: pd.DataFrame,
     *,
     series_frames: dict[str, pd.DataFrame] | None = None,
+    latest_complete: str | None = None,
 ) -> pd.DataFrame:
-    """Return December observations plus the latest common 2026 competence."""
+    """Return December observations and the latest common month within the cut."""
 
     required = {"competencia", "carteira_dc"}
     missing = sorted(required.difference(industry_monthly.columns))
@@ -125,8 +127,16 @@ def build_expanded_credit_history(
         raise ExpandedCreditError(
             "industry_monthly sem colunas: " + ", ".join(missing)
         )
+    comparison_end = latest_complete or industry_monthly["competencia"].astype(str).max()
+    try:
+        comparison_period = pd.Period(comparison_end, freq="M")
+    except (TypeError, ValueError) as exc:
+        raise ExpandedCreditError("Competência limite BCB/CVM inválida.") from exc
+    if pd.isna(comparison_period) or str(comparison_period) != comparison_end:
+        raise ExpandedCreditError("Competência limite BCB/CVM inválida.")
+    download_end = comparison_period.end_time.strftime("%d/%m/%Y")
     frames = series_frames or {
-        name: _download_series(code) for name, code in BCB_SERIES.items()
+        name: _download_series(code, end=download_end) for name, code in BCB_SERIES.items()
     }
     wide: pd.DataFrame | None = None
     for name, code in BCB_SERIES.items():
@@ -144,14 +154,13 @@ def build_expanded_credit_history(
     cvm["carteira_dc"] = pd.to_numeric(cvm["carteira_dc"], errors="coerce")
     joined = wide.merge(cvm, on="competencia", how="inner", validate="one_to_one")
     joined = joined[joined["competencia"].str[:4].astype(int).ge(2015)].copy()
-    latest_2026 = joined.loc[
-        joined["competencia"].str.startswith("2026-"), "competencia"
-    ].max()
-    if not latest_2026:
-        raise ExpandedCreditError("Não há competência comum BCB/CVM em 2026.")
+    joined = joined.loc[joined["competencia"].le(str(comparison_period))].copy()
+    latest_common = joined["competencia"].max()
+    if pd.isna(latest_common):
+        raise ExpandedCreditError("Não há competência comum BCB/CVM até o corte informado.")
     selected = joined[
         joined["competencia"].str.endswith("-12")
-        | joined["competencia"].eq(latest_2026)
+        | joined["competencia"].eq(latest_common)
     ].sort_values("competencia").reset_index(drop=True)
     selected["other_securitization"] = (
         selected["securitization"] - selected["carteira_dc"]
@@ -202,11 +211,11 @@ def build_expanded_credit_history(
             "period_label": selected["competencia"].map(
                 lambda value: (
                     f"{value[5:7]}/{value[:4][2:]}"
-                    if value == latest_2026
+                    if value == latest_common
                     else value[:4]
                 )
             ),
-            "is_latest": selected["competencia"].eq(latest_2026),
+            "is_latest": selected["competencia"].eq(latest_common),
             "expanded_credit_total_brl": selected["expanded_credit_total"],
             "private_expanded_credit_total_brl": (
                 selected["expanded_credit_total"] - selected["public_debt"]

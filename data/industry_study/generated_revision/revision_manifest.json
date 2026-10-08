@@ -3,21 +3,21 @@
     "acquiring_reclassified_rows": 24,
     "bank_fidc_detail_rows": 260,
     "bank_fidc_evolution_rows": 24,
-    "blocked_market_share_combinations": 6,
+    "blocked_market_share_combinations": 3,
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
-    "frozen_single_receivable_funds": 2066,
-    "independent_provider_rows": 68,
+    "frozen_single_receivable_funds": 2014,
+    "independent_provider_rows": 59,
     "latest_aging_publication_status": "publicável",
-    "latest_funds": 4247,
+    "latest_funds": 4393,
     "latest_presence_exact": true,
-    "latest_vehicles": 4252,
+    "latest_vehicles": 4400,
     "market_share_foci": 18,
     "market_share_roles": 3,
-    "provider_transition_changed_funds": 348,
-    "provider_transition_continuing_funds": 2170,
-    "reag_cohort_exited_funds": 36,
-    "single_receivable_funds": 2066,
+    "provider_transition_changed_funds": 402,
+    "provider_transition_continuing_funds": 2124,
+    "reag_cohort_exited_funds": 58,
+    "single_receivable_funds": 2014,
     "single_receivable_rows": 10,
     "top20_fidcs_rows": 20,
     "top20_outros_rows": 20
@@ -37,7 +37,7 @@
     "monostructure": "mesmo conglomerado econômico normalizado para administração, gestão e custódia",
     "provider_transition_flow": "CNPJs ex-FIC com PL positivo em dez/24 e dez/25; PL comparável = min(PL_dez24, PL_dez25) por CNPJ",
     "provider_transition_roles": "somente administrador é observado por competência; gestor e custodiante históricos são indisponíveis por overlay cadastral vigente",
-    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-06",
+    "reag_cbsf_cohort": "CNPJ administrador 34.829.992/0001-86 em dez/25, ex-FIC e PL positivo; destino ativo exige PL positivo em 2026-08",
     "single_receivable_delinquency": "ex-FIC com PL positivo e exatamente um dos 11 campos superiores da Tabela II não zero; casos com inadimplência acima da carteira são excluídos; numerador = inadimplência reportada e denominador = PL",
     "vehicle": "CNPJ reportante do Informe Mensal (fundo ou classe, conforme regime)"
   },
@@ -56,11 +56,11 @@
     },
     "base_competencia_cnpj.csv.gz": {
       "columns": 120,
-      "rows": 229451
+      "rows": 239027
     },
     "base_fundo_cnpj.csv.gz": {
       "columns": 70,
-      "rows": 229420
+      "rows": 238978
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
       "columns": 26,
@@ -84,19 +84,19 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14320
+      "rows": 14384
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
-      "rows": 1505
+      "rows": 1525
     },
     "inadimplencia_coorte_atual_membros.csv.gz": {
       "columns": 8,
-      "rows": 2066
+      "rows": 2014
     },
     "inadimplencia_coorte_atual_resumo.csv": {
       "columns": 25,
-      "rows": 162
+      "rows": 164
     },
     "inadimplencia_coorte_revisao_resumo.csv": {
       "columns": 15,
@@ -104,11 +104,11 @@
     },
     "inadimplencia_coorte_revisao_sensibilidade.csv": {
       "columns": 13,
-      "rows": 1505
+      "rows": 1525
     },
     "inadimplencia_coorte_revisao_transicoes.csv": {
       "columns": 8,
-      "rows": 17
+      "rows": 20
     },
     "inadimplencia_dispersao_resumo.csv": {
       "columns": 13,
@@ -132,7 +132,7 @@
     },
     "market_share_por_subtipo.csv": {
       "columns": 21,
-      "rows": 756
+      "rows": 684
     },
     "market_share_top10_fixo.csv": {
       "columns": 6,
@@ -140,15 +140,15 @@
     },
     "monoestrutura_concentracao.csv": {
       "columns": 14,
-      "rows": 17
+      "rows": 18
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 83,
-      "rows": 3474
+      "rows": 3615
     },
     "prestadores_independentes_ranking.csv": {
       "columns": 19,
-      "rows": 68
+      "rows": 59
     },
     "prestadores_lideranca_atribuicao.csv": {
       "columns": 18,
@@ -156,11 +156,11 @@
     },
     "prestadores_ranking_historico.csv": {
       "columns": 10,
-      "rows": 1488
+      "rows": 1520
     },
     "prestadores_transicoes_detalhe.csv": {
       "columns": 22,
-      "rows": 2170
+      "rows": 2124
     },
     "prestadores_transicoes_disponibilidade.csv": {
       "columns": 5,
@@ -168,7 +168,7 @@
     },
     "prestadores_transicoes_links.csv": {
       "columns": 10,
-      "rows": 135
+      "rows": 154
     },
     "prestadores_transicoes_resumo.csv": {
       "columns": 16,
@@ -176,11 +176,11 @@
     },
     "qa_inadimplencia_casos_latest.csv": {
       "columns": 16,
-      "rows": 178
+      "rows": 214
     },
     "qa_inadimplencia_competencia.csv": {
       "columns": 56,
-      "rows": 162
+      "rows": 165
     },
     "qi_atribuicao_cnpjs_legados.csv": {
       "columns": 12,
@@ -188,7 +188,7 @@
     },
     "reag_cbsf_coorte_detalhe.csv": {
       "columns": 31,
-      "rows": 126
+      "rows": 127
     },
     "reag_cbsf_coorte_links.csv": {
       "columns": 8,
@@ -200,7 +200,7 @@
     },
     "reconciliacao_tabelas_i_ii_detalhe.csv": {
       "columns": 14,
-      "rows": 6651
+      "rows": 6797
     },
     "reconciliacao_tabelas_i_ii_resumo.csv": {
       "columns": 19,
@@ -208,11 +208,11 @@
     },
     "reconciliacao_veiculo_fundo_latest.csv": {
       "columns": 8,
-      "rows": 4247
+      "rows": 4393
     },
     "source_presence_overlay.csv.gz": {
       "columns": 49,
-      "rows": 229475
+      "rows": 239027
     },
     "top20_fidcs.csv": {
       "columns": 85,
@@ -223,8 +223,8 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-08-05T00:31:14+00:00",
-  "latest_complete": "2026-06",
+  "generated_at_utc": "2026-10-08T20:10:36+00:00",
+  "latest_complete": "2026-08",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",
     "Buckets de aging e a sensibilidade ex-360 usam os campos brutos das Tabelas V/VI e a soma dos créditos inadimplentes com as parcelas inadimplentes dos créditos a vencer na Tabela I.",

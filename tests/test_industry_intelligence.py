@@ -192,11 +192,11 @@ def test_industry_exports_are_valid_office_files() -> None:
     assert len(presentation.slides) == EXPECTED_SLIDES == len(
         EXPECTED_SLIDE_SEQUENCE
     )
-    assert EXPECTED_SLIDES == 37
-    assert len(TYPE_RANKING_SLIDE_SEQUENCE) == 8
-    assert len(STRUCTURAL_MVP_SLIDE_SEQUENCE) == 6
-    assert len(CURRENT_TOP15_SLIDE_SEQUENCE) == 2
-    assert len(HISTORICAL_TOP15_SLIDE_SEQUENCE) == 4
+    assert EXPECTED_SLIDES == 15
+    assert not TYPE_RANKING_SLIDE_SEQUENCE
+    assert not STRUCTURAL_MVP_SLIDE_SEQUENCE
+    assert not CURRENT_TOP15_SLIDE_SEQUENCE
+    assert not HISTORICAL_TOP15_SLIDE_SEQUENCE
     slide_texts: list[str] = []
     for slide in presentation.slides:
         visible_parts: list[str] = []
@@ -208,26 +208,16 @@ def test_industry_exports_are_valid_office_files() -> None:
         slide_texts.append("\n".join(visible_parts))
     visible_text = "\n".join(slide_texts)
     for expected in (
-        "Indústria de FIDCs — ago-26",
-        "Dados de referência: jun-26",
-        "ESCALA DA INDÚSTRIA",
-        "Emissões | FIDCs seguem ganhando escala nas emissões",
-        "Saldo e Tipos de FIDCs | Financeiros dominam saldo e novas emissões",
-        "EMISSÕES POR CATEGORIA ANBIMA",
-        "Quase todo o volume vai para o investidor profissional",
-        "Precatórios e/ou Ações Judiciais",
-        "PRESTADORES · RANKING E CONCENTRAÇÃO",
-        "QI lidera administração; BTG lidera gestão e custódia",
-        "Emissões crescem 15% no semestre",
-        "22 ofertas concentram 42% de todo o volume",
-        "OFERTAS · VOLUME E REGIME",
-        "IBBA esteve em 8 das 15 maiores ofertas do semestre",
-        "As 15 maiores ofertas de 2025 mantêm a base anual de comparação",
-        "TOP 15 · HISTÓRICO",
-        "O que muda a leitura do mercado",
-        "RANKING · TOP 20 FIDCs",
+        "Indústria de FIDCs", "Escala da indústria",
+        "Emissões de FIDCs e outros instrumentos", "Composição da indústria",
+        "Adquirência na indústria de FIDCs", "Evolução dos recebíveis",
+        "Volume e ticket das ofertas", "Concentração das ofertas por ticket",
+        "Principais conclusões", "Ranking de prestadores",
+        "Público-alvo e base investidora", "PRESTADORES · RANKING E CONCENTRAÇÃO",
     ):
         assert expected in visible_text
+    for removed in ("TOP 15 · HISTÓRICO", "RANKING · TOP 20 FIDCs", "RISCO ESTRUTURAL · CARTEIRA I"):
+        assert removed not in visible_text
     assert "APÊNDICE · CURADORIA TOP 20" not in visible_text
     assert "OBSERVABILIDADE DA INADIMPLÊNCIA" not in visible_text
 

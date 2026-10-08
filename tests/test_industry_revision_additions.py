@@ -213,6 +213,33 @@ def test_fixed_bank_cohort_emits_each_bank_and_reconciled_total() -> None:
     assert total_2025["publication_status"] == "partial_fixed_cohort"
 
 
+def test_fixed_bank_cohort_rolls_annual_dates_preserving_documentary_membership() -> None:
+    from services.industry_revision_analysis import annual_comparison_competences
+
+    funds = _cohort_fund_base()
+    funds["competencia"] = funds["competencia"].replace({"2024-12": "2025-12", "2025-12": "2026-12"})
+    current = funds[funds["competencia"].eq("2026-12")].copy()
+    current["competencia"] = "2027-03"
+    current["pl"] *= 2
+    first_year = _cohort_fund_base().loc[lambda frame: frame.competencia.eq("2024-12")].copy()
+    funds = pd.concat([first_year, funds, current], ignore_index=True)
+    funds["denominacao"] = "Fundo " + funds["cnpj_fundo"]
+    curation = _bank_curation()
+    original_curation = curation.copy(deep=True)
+    periods = annual_comparison_competences("2027-03")
+
+    result = build_fixed_bank_fidc_cohort_history(funds, curation, periods=periods)
+    assert periods == ("2024-12", "2025-12", "2026-12", "2027-03")
+    totals = result[result["is_total_5_banks"]].set_index("competencia")
+    assert totals.at["2025-12", "pl_brl"] == 150.0
+    assert totals.at["2026-12", "pl_brl"] == 280.0
+    assert totals.at["2027-03", "pl_brl"] == 560.0
+    assert totals.at["2027-03", "publication_status"] == "partial_fixed_cohort"
+    detail = build_fixed_bank_fidc_cohort_detail(funds, curation, periods=periods)
+    assert set(detail["competencia"]) == set(periods)
+    pd.testing.assert_frame_equal(curation, original_curation)
+
+
 def test_fixed_bank_cohort_rejects_duplicate_monthly_fund() -> None:
     funds = _cohort_fund_base()
     funds = pd.concat([funds, funds.iloc[[0]]], ignore_index=True)

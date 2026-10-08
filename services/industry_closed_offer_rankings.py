@@ -13,6 +13,9 @@ from pathlib import Path
 import unicodedata
 
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import resolve_offer_cut, cut_from_offer_frame, offer_periods, ticket_periods
+
 
 
 COHORT_FILENAME = "industry_closed_offer_ticket_cohort.csv.gz"
@@ -153,19 +156,22 @@ def build_closed_offer_top15(
     *,
     top_n: int = 15,
     include_ratings: bool = True,
+    comparison_cut: ComparisonCut | None = None,
 ) -> ClosedOfferRankingOutputs:
     """Build offer-level rankings from the materialized closed-offer cohort."""
 
     if top_n <= 0:
         raise ClosedOfferRankingError("top_n deve ser positivo")
     cohort, offers = _read_inputs(data_dir)
-    cohort = cohort[cohort["period_label"].isin(TOP_PERIODS)].copy()
+    cut = comparison_cut or cut_from_offer_frame(cohort)
+    periods = tuple(period[1] for period in ticket_periods(cut))
+    cohort = cohort[cohort["period_label"].isin(periods)].copy()
     period_labels = tuple(
         cohort.sort_values("period_order")["period_label"].drop_duplicates()
     )
-    if period_labels != TOP_PERIODS:
+    if period_labels != periods:
         raise ClosedOfferRankingError(
-            f"períodos esperados {TOP_PERIODS}; observados {period_labels}"
+            f"períodos esperados {periods}; observados {period_labels}"
         )
 
     metadata_columns = [
@@ -435,8 +441,7 @@ def build_closed_offer_top15(
         joined["rating_limitation"] = joined["rating_limitation"].map(
             lambda value: _clean_text(
                 value,
-                "Nenhum Relatório de Agência de Rating localizado no "
-                "FundosNet em 27/07/2026.",
+                "Nenhum Relatório de Agência de Rating comprovado para esta oferta na curadoria disponível.",
             )
         )
     else:
@@ -458,7 +463,7 @@ def build_closed_offer_top15(
 
     ranking_parts: list[pd.DataFrame] = []
     summary_rows: list[dict[str, object]] = []
-    for period_label in TOP_PERIODS:
+    for period_label in periods:
         period = joined[joined["period_label"].eq(period_label)].copy()
         period = period.sort_values(
             ["registered_volume_brl", "offer_id"],

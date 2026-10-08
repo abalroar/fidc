@@ -31,20 +31,20 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
             0.7545072776960997,
         ),
         "2025 FY": (
-            1_473,
-            116_921_319_054.77,
-            79_376_319.79278342,
+            1_476,
+            116_941_319_054.77,
+            79_228_535.94496612,
             25_000_000.0,
             81_769_067_300.87,
-            0.6993512215044935,
+            0.6992316142985618,
         ),
-        "2026 jan-jun": (
-            771,
-            65_488_118_983.56,
-            84_939_194.53120622,
-            22_500_000.0,
-            47_729_752_363.73,
-            0.7288307116549183,
+        "2026 jan-ago": (
+            1034,
+            91_917_778_632.26,
+            88_895_337.16852999,
+            23_499_903.715,
+            67_974_174_330.36,
+            0.7395106294105259,
         ),
     }
     for label, (
@@ -78,8 +78,13 @@ def test_materialized_ticket_distribution_reconciles_published_cohorts() -> None
             abs_tol=1e-12,
         )
 
-    assert len(outputs.cohort) == 3_610
-    assert outputs.cohort["numero_requerimento"].nunique() == 3_610
+    # CVM archive consulted on 08/10/26 includes five late historical records:
+    # 18460/18461/18462 (2025, R$20m) and 23074/25577 (1S26, R$208m).
+    assert len(outputs.cohort) == 3_876
+    assert outputs.cohort["numero_requerimento"].nunique() == 3_876
+    assert set(outputs.cohort["numero_requerimento"].astype(str)).issuperset(
+        {"18460", "18461", "18462", "23074", "25577"}
+    )
 
 
 def test_published_bucket_counts_are_stable() -> None:
@@ -88,8 +93,8 @@ def test_published_bucket_counts_are_stable() -> None:
         index="bucket_order", columns="period_label", values="closed_offers"
     ).sort_index()
     assert pivot["2024 FY"].tolist() == [231, 237, 175, 158, 94, 83, 31]
-    assert pivot["2025 FY"].tolist() == [350, 375, 240, 232, 140, 100, 36]
-    assert pivot["2026 jan-jun"].tolist() == [185, 207, 118, 121, 72, 46, 22]
+    assert pivot["2025 FY"].tolist() == [352, 376, 240, 232, 140, 100, 36]
+    assert pivot["2026 jan-ago"].tolist() == [236, 284, 159, 162, 97, 61, 35]
 
 
 def _write_source_zip(path: Path, rows: list[dict[str, str]]) -> None:
@@ -195,3 +200,19 @@ def test_distribution_validation_rejects_missing_bucket() -> None:
 def test_materialized_filenames_are_present() -> None:
     assert (INDUSTRY_STUDY_DIR / COHORT_FILENAME).is_file()
     assert (INDUSTRY_STUDY_DIR / DISTRIBUTION_FILENAME).is_file()
+
+@pytest.mark.parametrize('year,month', [(2026,8),(2027,3)])
+def test_cohort_advances_with_cut_and_excludes_later_closings(tmp_path: Path, year: int, month: int) -> None:
+    from services.industry_comparative_period import ComparisonCut
+    cut = ComparisonCut(year,month)
+    rows = [
+        {'Numero_Requerimento':str(index),'Data_Encerramento':date,'Status_Requerimento':'Oferta Encerrada','Valor_Mobiliario':'Cotas de FIDC','Tipo_Oferta':'PRIMARIA','CNPJ_Emissor':'12.345.678/0001-90','Nome_Emissor':'FIDC TESTE','Valor_Total_Registrado':'10000000'}
+        for index,date in enumerate([f'{year-3}-01-02',f'{year-2}-01-02',f'{year-1}-01-02',cut.period_end.isoformat(),f'{year}-{month+1:02d}-01'],start=1)
+    ]
+    archive=tmp_path/'current.zip'
+    _write_source_zip(archive,rows)
+    cohort=load_closed_offer_ticket_cohort(archive,expected_archive_sha256=None,source_as_of_date=f'{year}-12-31',comparison_cut=cut)
+    assert set(cohort.numero_requerimento)=={'1','2','3','4'}
+    distribution=build_offer_ticket_distribution(cohort)
+    assert distribution.period_label.drop_duplicates().tolist()==[f'{year-3} FY',f'{year-2} FY',f'{year-1} FY',cut.period_id()]
+    assert cohort.loc[cohort.numero_requerimento.eq('4'),'period_end'].iloc[0]==cut.period_end.isoformat()

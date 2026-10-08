@@ -40,6 +40,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from services.industry_comparative_period import ComparisonCut, MONTH_LABELS
+
 from services.anbima_fixed_income_ranking import (  # noqa: E402
     FIDC_CLASS,
     METHODOLOGY_URL,
@@ -163,19 +165,24 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--cache-dir", type=Path, default=DEFAULT_CACHE_DIR)
     parser.add_argument(
         "--period-start",
-        default="2026-01-01",
-        help="Início do período apurado (default: 2026-01-01).",
+        default=None,
+        help="Início do período; omitido, usa janeiro do ano corrente.",
     )
     parser.add_argument(
         "--period-end",
-        default="2026-06-30",
-        help="Data-corte do período apurado (default: 2026-06-30).",
+        default=None,
+        help="Data-corte; omitida, usa a última competência consolidada.",
     )
     parser.add_argument(
         "--skip-cvm",
         action="store_true",
         help="Não produzir a reconciliação contra a base CVM.",
     )
+    parser.add_argument("--data-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
+    parser.add_argument("--latest-complete")
+    parser.add_argument("--ranking-source-url")
+    parser.add_argument("--annex-source-url")
+    parser.add_argument("--source-as-of-date", default=datetime.now(timezone.utc).date().isoformat())
     return parser.parse_args()
 
 
@@ -422,8 +429,21 @@ def build_cvm_comparison(
     return pd.DataFrame(rows), digest
 
 
+def workbook_reference_cut(workbook: Path) -> ComparisonCut:
+    """Read the declared reference month rather than infer it from a filename."""
+    first_rows = pd.read_excel(workbook, sheet_name=0, header=None, nrows=12).fillna("")
+    tokens = " ".join(str(value) for value in first_rows.to_numpy().ravel()).casefold()
+    month_names = ("janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
+    match = re.search(r"(" + "|".join(month_names) + r")\s*(?:/|de|-)\s*(20\d{2})", tokens)
+    if match is None:
+        raise ValueError("Workbook ANBIMA sem competência explícita")
+    return ComparisonCut(int(match[2]), month_names.index(match[1]) + 1)
+
+
 def main() -> None:
     args = parse_args()
+    cut = ComparisonCut.from_competence(args.latest_complete) if args.latest_complete else ComparisonCut.from_data_dir(args.data_dir)
     output_dir = args.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
     cache_dir = args.cache_dir
@@ -447,6 +467,17 @@ def main() -> None:
                 cache_dir / annex_document["file_name"],  # type: ignore[index]
             )
 
+    # Aggregate YTD values need the actual source competence, including the annex.
+    ranking_cut = workbook_reference_cut(ranking_path)
+    annex_cut = workbook_reference_cut(annex_path)
+    if ranking_cut != annex_cut:
+        raise ValueError("Ranking e anexo ANBIMA têm competências diferentes")
+    args.period_start = args.period_start or f"{ranking_cut.year}-01-01"
+    args.period_end = args.period_end or ranking_cut.period_end.isoformat()
+    if args.period_start != f"{ranking_cut.year}-01-01" or args.period_end != ranking_cut.period_end.isoformat():
+        raise ValueError("Comparação CVM deve usar a janela YTD exata do ranking ANBIMA")
+    ranking_url = args.ranking_source_url or (publication["ranking"]["url"] if publication else "")
+    annex_url = args.annex_source_url or (publication["annex"]["url"] if publication else "")
     official = parse_ranking_workbook(ranking_path)
     annex = parse_annex_workbook(annex_path)
 
@@ -499,15 +530,22 @@ def main() -> None:
         "schema_version": "anbima-rf-ranking-manifest/v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
         "period": {"start": args.period_start, "end": args.period_end},
+        "comparison_meta": ranking_cut.to_meta(),
+        "cvm_latest_complete_meta": cut.to_meta(),
+        "source_lag_months": max(0, (cut.year - ranking_cut.year) * 12 + cut.month - ranking_cut.month),
+        "source_reference_competence": ranking_cut.competence,
+        "source_as_of_date": args.source_as_of_date,
         "sources": {
             "publication_page": PUBLICATION_PAGE,
             "publication_api": PUBLICATION_API,
             "methodology_url": METHODOLOGY_URL,
             "ranking_workbook": {
+                "url": ranking_url,
                 "path": str(ranking_path),
                 "sha256": workbook_sha256(ranking_path),
             },
             "annex_workbook": {
+                "url": annex_url,
                 "path": str(annex_path),
                 "sha256": workbook_sha256(annex_path),
             },
@@ -529,6 +567,8 @@ def main() -> None:
         },
         "notes": [
             "Valores das planilhas ANBIMA vêm em R$ mil e são convertidos para BRL.",
+            f"Ranking e comparação CVM usam a janela própria {ranking_cut.period_label()}; "
+            f"última competência consolidada do estudo CVM: {cut.competence}.",
             "A soma do anexo reproduz o ranking publicado ao centavo por participante.",
             "A contagem de operações do bloco consolidado tem resíduo de até 3 "
             "operações por participante: o anexo não expõe o identificador "

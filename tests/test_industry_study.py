@@ -17,11 +17,19 @@ from build_fidc_industry_study import (  # noqa: E402
     _strip_digits,
     aggregate_month,
     build_universe_snapshot,
+    consolidated_snapshot_month,
     deduplicate_tab4_records,
     load_tab4,
     month_range,
     prefer_class_rows,
 )
+
+
+def test_cadastral_snapshot_keeps_a_tail_with_eighty_percent_coverage_preliminary():
+    for current_count, current_pl in ((800, 99), (990, 80)):
+        industry = pd.DataFrame({"competencia": ["202608", "202609"], "n_veiculos": [1000, current_count], "pl_total": [100, current_pl]})
+        assert consolidated_snapshot_month(industry) == "202608"
+    assert consolidated_snapshot_month(pd.DataFrame({"competencia": ["202612", "202701"], "n_veiculos": [1000, 1020], "pl_total": [100, 110]})) == "202701"
 from services.industry_study import (  # noqa: E402
     CEDENTE_REVIEW_COLUMNS,
     CRITERIA_REVIEW_COLUMNS,

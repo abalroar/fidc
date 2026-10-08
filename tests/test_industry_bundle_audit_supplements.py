@@ -3,7 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 import re
 
+import pandas as pd
+
 import pytest
+
+from services.industry_comparative_period import ComparisonCut
 
 from scripts.build_fidc_revision_artifact_payload import (
     _load_bundle_audit_supplements,
@@ -28,41 +32,25 @@ def test_normalized_cedent_and_taxonomy_blocks_enter_the_payload() -> None:
     outros = blocks["taxonomy_audit_outros_three_buckets"]
 
     assert top
+    cut = ComparisonCut.from_data_dir(DATA_DIR)
+    declared = list(manifest["competences"])
     assert len(coverage) == 4
-    assert [row["Fundos que identificam cedente"] for row in coverage] == [
-        181,
-        148,
-        205,
-        172,
-    ]
-    assert [row["Fundos na indústria"] for row in coverage] == [
-        2_404,
-        3_140,
-        4_008,
-        4_311,
-    ]
-    assert [row["% do PL total"] for row in coverage] == pytest.approx(
-        [
-            0.8395464326020662,
-            0.7946176676596972,
-            0.7349500587764943,
-            0.7255622598775591,
-        ]
-    )
+    assert [str(row["Competência"]) for row in coverage] == declared
+    assert declared[-1] == cut.competence.replace("-", "")
+    assert manifest["current_competence"] == declared[-1]
     assert registry
-    assert len(gaps) == 1_294
-    assert len(repairs) == 10
-    assert {
-        competence: sum(str(row["competencia"]) == competence for row in repairs)
-        for competence in ("202312", "202412", "202512", "202606")
-    } == {"202312": 6, "202412": 4, "202512": 0, "202606": 0}
+    assert len(gaps) == sum(int(row["Fundos sem cedente"]) for row in coverage)
+    for row in coverage:
+        competence = str(row["Competência"])
+        metric = manifest["metrics"][competence]
+        assert int(row["Fundos que identificam cedente"]) + int(row["Fundos sem cedente"]) == 500
+        assert row["Fundos que identificam cedente"] == metric["fundos_com_cedente_real"]
+        assert row["Fundos na indústria"] == metric["fundos_industria"]
+        assert row["% do PL total"] == pytest.approx(metric["pl_top500_reais"] / metric["pl_industria_reais"])
+    repair_counts = {competence: sum(str(row["competencia"]) == competence for row in repairs) for competence in declared}
     assert manifest["schema_version"] == "fidc-cedente-top500/v2"
-    assert manifest["source_repairs_summary"] == {
-        "202312": 6,
-        "202412": 4,
-        "202512": 0,
-        "202606": 0,
-    }
+    assert manifest["source_repairs_summary"] == repair_counts
+    assert manifest["outputs"]["fidc_cedentes_reparos_fonte_2023_2026.csv"]["rows"] == len(repairs)
     assert "fidc_cedentes_receita_targets.csv" in manifest["outputs"]
     assert {
         "CNPJ/CPF do cedente",
@@ -87,28 +75,27 @@ def test_normalized_cedent_and_taxonomy_blocks_enter_the_payload() -> None:
         str(row.get("CNAE (cód.)") or "").startswith("0") for row in top
     )
 
-    assert len(blocks["taxonomy_audit_impact_summary"]) == 11
+    assert {row["category"] for row in blocks["taxonomy_audit_impact_summary"]} == {"Fomento Mercantil", "Agro, Indústria e Comércio", "Financeiro", "Outros"}
     assert len(blocks["taxonomy_audit_issuance_impact"]) == 20
-    assert len(blocks["taxonomy_audit_market_share_impact"]) == 22
-    assert {
-        row["view"] for row in blocks["taxonomy_audit_impact_summary"]
-    } == {
-        "source_decision_summary",
-        "source_gross_stock_type",
-        "current_bundle_incremental_stock_type",
-    }
+    assert blocks["taxonomy_audit_market_share_impact"]
+    assert {row["view"] for row in blocks["taxonomy_audit_impact_summary"]} == {"current_bundle_incremental_stock_type"}
+    assert {row["competence"] for row in blocks["taxonomy_audit_impact_summary"]} == {cut.competence}
+    assert blocks["taxonomy_impact_meta"] == {"current_competence": cut.competence, "documentary_reference": "2026-06"}
 
 
-def test_stock_impact_keeps_gross_and_incremental_perimeters_separate() -> None:
+def test_stock_impact_uses_the_current_ex_fic_denominator_and_preserves_documentary_date() -> None:
     blocks = _load_bundle_audit_supplements(DATA_DIR)
-    stock_rows = [
-        row
-        for row in blocks["taxonomy_audit_impact_summary"]
-        if row["dimension"] == "tipo_anbima_exibido"
-    ]
-    denominators = {round(float(row["denominator_brl"]), 2) for row in stock_rows}
-
-    assert denominators == {821_361_559_284.45, 880_375_346_502.31}
+    cut = ComparisonCut.from_data_dir(DATA_DIR)
+    stock_rows = [row for row in blocks["taxonomy_audit_impact_summary"] if row["dimension"] == "tipo_anbima_exibido"]
+    current = pd.read_csv(DATA_DIR / "generated_revision" / "base_fundo_cnpj.csv.gz", low_memory=False)
+    current = current[current["competencia"].astype(str).eq(cut.competence)]
+    fic_column = "is_fic" if "is_fic" in current else "is_fic_fidc"
+    fic = current[fic_column].astype(str).str.lower().isin(("true", "1", "sim"))
+    denominator = pd.to_numeric(current.loc[~fic, "pl"]).sum()
+    assert all(float(row["denominator_brl"]) == pytest.approx(denominator) for row in stock_rows)
+    assert sum(float(row["before_brl"]) for row in stock_rows) == pytest.approx(denominator)
+    assert sum(float(row["after_brl"]) for row in stock_rows) == pytest.approx(denominator)
+    assert blocks["taxonomy_impact_meta"]["documentary_reference"] == "2026-06"
     assert all(row["source"] and row["note"] for row in stock_rows)
 
 
@@ -205,7 +192,15 @@ def test_cedent_sheet_schemas_are_explicit_complete_and_keep_identifiers_as_text
         assert match is not None, schema_name
         schema_keys = re.findall(r'cedenteColumn\("([^"]+)"', match.group(1))
         assert len(schema_keys) == len(set(schema_keys)), schema_name
-        assert set(schema_keys) == set(blocks[payload_key][0]), schema_name
+        if payload_key == "cedente_presence_history":
+            month_names = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
+            schema_keys += [f"PL {month_names[int(competence[4:]) - 1]}/{competence[2:4]} (R$)" for competence in blocks["cedente_triage_manifest"]["competences"]]
+        if blocks[payload_key]:
+            assert set(schema_keys) == set(blocks[payload_key][0]), schema_name
+        else:
+            assert payload_key == "cedente_source_repairs"
+            repairs_path = DATA_DIR / "cedente_triage" / "fidc_cedentes_reparos_fonte_2023_2026.csv"
+            assert set(schema_keys) == set(pd.read_csv(repairs_path).columns), schema_name
 
     text_branch = source.index('if (column.format === "@")')
     numeric_branch = source.index(

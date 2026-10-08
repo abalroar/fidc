@@ -3,10 +3,16 @@
 from __future__ import annotations
 
 from pathlib import Path
+from datetime import date
 from typing import Any
 
 import numpy as np
 import pandas as pd
+import re
+import json
+from hashlib import sha256
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import resolve_offer_cut, cut_from_offer_frame, offer_periods
 
 from services.industry_public_offers import (
     FIDC_CANONICAL,
@@ -33,7 +39,7 @@ ANBIMA_JUNE_SOURCE_URL = (
 ANBIMA_JUNE_SOURCE_SHA256 = (
     "2d61cc13256c48e1427166c4b8a400d873c9be50a402ebba3c53b1616e9096a2"
 )
-CVM_SOURCE_AS_OF_DATE = "2026-07-24"
+CVM_SOURCE_AS_OF_DATE = date.today().isoformat()
 CVM_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
@@ -206,7 +212,9 @@ def validate_anbima_market_offers(frame: pd.DataFrame) -> pd.DataFrame:
             "Snapshot ANBIMA sem colunas: " + ", ".join(missing)
         )
     result = frame.loc[:, ANBIMA_COLUMNS].copy()
-    if len(result) != len(PERIODS) * len(INSTRUMENTS):
+    cut = cut_from_offer_frame(result)
+    periods = offer_periods(cut)
+    if len(result) != 4 * len(INSTRUMENTS):
         raise MarketOfferReconciliationError(
             f"Snapshot ANBIMA deveria conter 20 linhas; contém {len(result)}."
         )
@@ -230,31 +238,17 @@ def validate_anbima_market_offers(frame: pd.DataFrame) -> pd.DataFrame:
         raise MarketOfferReconciliationError("Snapshot ANBIMA contém chave duplicada.")
     expected = {
         (period["period_label"], instrument["instrument_label"])
-        for period in PERIODS
+        for period in periods
         for instrument in INSTRUMENTS
     }
     if set(map(tuple, result[key].to_numpy())) != expected:
         raise MarketOfferReconciliationError(
             "Snapshot ANBIMA não cobre todos os períodos e instrumentos."
         )
-    historical = result[~result["period_label"].eq("2026 jan-jun")]
-    current = result[result["period_label"].eq("2026 jan-jun")]
-    if set(historical["source_workbook_sha256"]) != {ANBIMA_WORKBOOK_SHA256}:
-        raise MarketOfferReconciliationError(
-            "SHA-256 do workbook histórico ANBIMA diverge."
-        )
-    if set(historical["source_url"]) != {ANBIMA_SOURCE_URL}:
-        raise MarketOfferReconciliationError(
-            "URL do workbook histórico ANBIMA diverge."
-        )
-    if set(current["source_workbook_sha256"]) != {ANBIMA_JUNE_SOURCE_SHA256}:
-        raise MarketOfferReconciliationError(
-            "SHA-256 da apresentação ANBIMA de jun/26 diverge."
-        )
-    if set(current["source_url"]) != {ANBIMA_JUNE_SOURCE_URL}:
-        raise MarketOfferReconciliationError(
-            "URL da apresentação ANBIMA de jun/26 diverge."
-        )
+    if not result["source_url"].astype(str).str.startswith(("https://data-strapi.prd.anbima.com.br/", "https://www.anbima.com.br/")).all():
+        raise MarketOfferReconciliationError("URL do documento ANBIMA não pertence à fonte oficial")
+    if not result["source_workbook_sha256"].astype(str).str.fullmatch(r"[0-9a-f]{64}").all():
+        raise MarketOfferReconciliationError("SHA-256 do documento ANBIMA inválido")
     return result.sort_values(
         ["period_order", "instrument_order"], kind="stable"
     ).reset_index(drop=True)
@@ -264,7 +258,15 @@ def load_anbima_market_offers(data_dir: str | Path) -> pd.DataFrame:
     path = Path(data_dir) / ANBIMA_FILENAME
     if not path.is_file():
         raise FileNotFoundError(f"Snapshot ANBIMA ausente: {path}")
-    return validate_anbima_market_offers(pd.read_csv(path, low_memory=False))
+    frame=validate_anbima_market_offers(pd.read_csv(path, low_memory=False))
+    manifest_path=Path(data_dir)/"industry_anbima_market_offers_manifest.json"
+    if manifest_path.is_file():
+        manifest=json.loads(manifest_path.read_text())
+        if manifest.get("output_sha256") != sha256(path.read_bytes()).hexdigest():
+            raise MarketOfferReconciliationError("CSV ANBIMA diverge do manifesto de fonte")
+        if not frame["source_workbook_sha256"].eq(manifest["source_workbook_sha256"]).all() or not frame["source_url"].eq(manifest["source_url"]).all():
+            raise MarketOfferReconciliationError("Fonte ANBIMA diverge do manifesto")
+    return frame
 
 
 def build_market_offer_reconciliation(
@@ -272,16 +274,21 @@ def build_market_offer_reconciliation(
     anbima: pd.DataFrame,
     *,
     cvm_source_as_of_date: str = CVM_SOURCE_AS_OF_DATE,
-    expected_cvm_archive_sha256: str | None = CVM_ARCHIVE_SHA256,
+    expected_cvm_archive_sha256: str | None = None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> pd.DataFrame:
     anbima = validate_anbima_market_offers(anbima)
+    cut = comparison_cut or cut_from_offer_frame(anbima)
+    if cut_from_offer_frame(anbima) != cut:
+        raise MarketOfferReconciliationError("Corte CVM diverge da coorte ANBIMA")
+    periods = offer_periods(cut)
     cvm, digest = load_public_primary_closed_offers(
         archive_path,
-        cutoff="2026-06-30",
+        cutoff=cut.period_end.isoformat(),
         expected_archive_sha256=expected_cvm_archive_sha256,
     )
     rows: list[dict[str, Any]] = []
-    for period in PERIODS:
+    for period in periods:
         period_cvm = cvm[cvm["closing_date"].between(
             period["period_start"], period["period_end"]
         )]
@@ -362,7 +369,7 @@ def validate_market_offer_reconciliation(frame: pd.DataFrame) -> pd.DataFrame:
             "Reconciliação sem colunas: " + ", ".join(missing)
         )
     result = frame.loc[:, OUTPUT_COLUMNS].copy()
-    if len(result) != len(PERIODS) * len(INSTRUMENTS):
+    if len(result) != 4 * len(INSTRUMENTS):
         raise MarketOfferReconciliationError(
             f"Reconciliação deveria conter 20 linhas; contém {len(result)}."
         )

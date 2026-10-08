@@ -742,9 +742,20 @@ def test_revision_payload_loader_requires_a_comparable_offers_block(
 
     with pytest.raises(
         ValueError,
-        match=r"payload revisado incompleto:.*closed_offers_jan_june",
+        match=r"payload revisado incompleto:.*closed_offers_ytd_comparable",
     ):
         _load_payload(tmp_path, monkeypatch)
+
+
+def test_revision_payload_loader_accepts_generic_comparable_without_legacy_aliases(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    payload = _payload_for_schema(SCHEMA_V11)
+    payload["closed_offers_ytd_comparable"] = payload.pop("closed_offers_jan_may")
+    _write_payload(tmp_path, payload)
+
+    assert _load_payload(tmp_path, monkeypatch) == payload
 
 
 def test_revision_payload_loader_requires_102_top100_plus2_rows_in_v10(

@@ -21,6 +21,9 @@ import pandas as pd
 
 from services.industry_taxonomy_impact import (
     build_taxonomy_impact_report,
+    build_incremental_current_impact,
+    build_issuance_impact,
+    TaxonomyImpactReport,
     file_sha256,
     git_blob_text,
     git_ref_commit,
@@ -28,7 +31,9 @@ from services.industry_taxonomy_impact import (
     materialize_taxonomy_impact,
     taxonomy_actions_from_csv_text,
 )
-from services.industry_taxonomy_review import load_taxonomy_review_actions
+from services.industry_taxonomy_review import load_taxonomy_review_actions, TAXONOMY_REVIEW_COLUMNS
+from services.industry_comparative_period import ComparisonCut
+from services.industry_issuance_taxonomy import build_issuance_taxonomy
 
 
 DECISIONS_RELATIVE = Path(
@@ -49,13 +54,14 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--audit-workbook",
         type=Path,
-        required=True,
+        required=False,
         help="Industria_FIDC_202606_auditada.xlsx used as source of truth",
     )
     parser.add_argument("--baseline-ref", default="origin/main")
     parser.add_argument(
         "--data-dir", type=Path, default=Path("data/industry_study")
     )
+    parser.add_argument("--latest-complete")
     return parser.parse_args(argv)
 
 
@@ -67,6 +73,24 @@ def main(argv: list[str] | None = None) -> int:
         if args.data_dir.is_absolute()
         else repo_dir / args.data_dir
     )
+    if args.audit_workbook is None:
+        cut = ComparisonCut.from_competence(args.latest_complete) if args.latest_complete else ComparisonCut.from_data_dir(data_dir)
+        fund_path = data_dir / "generated_revision/base_fundo_cnpj.csv.gz"
+        ledger_path = data_dir / "taxonomy_review_actions.csv"
+        fund_base = pd.read_csv(fund_path, low_memory=False)
+        current_actions = load_taxonomy_review_actions(ledger_path)
+        baseline_actions = pd.DataFrame(columns=TAXONOMY_REVIEW_COLUMNS)
+        source_label = f"campos oficiais CVM na mesma base {cut.competence}; sha256={file_sha256(fund_path)}"
+        current_label = f"ledger auditado sha256={file_sha256(ledger_path)}; base={cut.competence}"
+        summary, flows, market = build_incremental_current_impact(fund_base, baseline_actions, current_actions, baseline_label=source_label, current_label=current_label, reference_competence=cut.competence, fixed_current_focus_cohort=True)
+        before_issuance, _ = build_issuance_taxonomy(data_dir, cut, baseline_actions)
+        after_issuance, _ = build_issuance_taxonomy(data_dir, cut, current_actions)
+        issuance = build_issuance_impact(before_issuance, after_issuance, baseline_label=source_label, current_label=current_label)
+        report = TaxonomyImpactReport(summary=summary, flows=flows, issuance=issuance, market_share_denominators=market)
+        paths = materialize_taxonomy_impact(report, data_dir, cut.competence)
+        for name, path in paths.items():
+            print(f"[ok] {name}: {path}")
+        return 0
     workbook = args.audit_workbook.resolve()
     baseline_commit = git_ref_commit(repo_dir, args.baseline_ref)
 

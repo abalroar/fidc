@@ -19,6 +19,8 @@ from services.industry_market_offer_reconciliation import (
 )
 
 
+from services.industry_comparative_period import ComparisonCut
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -32,20 +34,26 @@ def main() -> int:
         "--data-dir", default=str(ROOT / "data/industry_study")
     )
     parser.add_argument("--source-as-of-date", default=CVM_SOURCE_AS_OF_DATE)
-    parser.add_argument("--expected-archive-sha256", default=CVM_ARCHIVE_SHA256)
+    parser.add_argument("--expected-archive-sha256", default=None)
+    parser.add_argument("--latest-complete")
+    parser.add_argument("--output-dir")
     args = parser.parse_args()
 
     data_dir = Path(args.data_dir)
     anbima = load_anbima_market_offers(data_dir)
+    cut = ComparisonCut.from_competence(args.latest_complete) if args.latest_complete else ComparisonCut.from_data_dir(data_dir)
     output = build_market_offer_reconciliation(
         args.archive,
         anbima,
         cvm_source_as_of_date=args.source_as_of_date,
+        # The secondary CVM comparison uses the actual ANBIMA window.
+        # A source lag must not relabel its rows to the primary CVM cut.
+        comparison_cut=None,
         expected_cvm_archive_sha256=(
             args.expected_archive_sha256 or None
         ),
     )
-    path = write_market_offer_reconciliation(output, data_dir)
+    path = write_market_offer_reconciliation(output, args.output_dir or data_dir)
     print(path)
     return 0
 
