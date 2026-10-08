@@ -7,6 +7,8 @@ import pytest
 
 from services.industry_issuance_taxonomy import (
     DELTAS,
+    issuance_deltas,
+    periods_from_issuance_frame,
     DISPLAY_CATEGORIES,
     PERIODS,
     IssuanceTaxonomyError,
@@ -25,15 +27,15 @@ DATA_DIR = ROOT / "data" / "industry_study"
 EMITTED_BY_PERIOD = {
     "2023": 43_746_140_196.22,
     "2024": 95_416_726_133.75,
-    "2025": 116_921_319_054.77,
-    "jun25": 57_158_707_005.60,
-    "jun26": 65_488_118_983.56,
+    "2025": 116_941_319_054.77,
+    "ago25": 70_546_652_757.16,
+    "ago26": 91_917_778_632.26,
 }
 
 
 def test_materialized_decomposition_is_complete_and_normalized() -> None:
     frame = load_issuance_taxonomy(DATA_DIR)
-    assert set(frame["period_key"]) == {period["key"] for period in PERIODS}
+    assert set(frame["period_key"]) == {period["key"] for period in periods_from_issuance_frame(frame)}
     assert set(frame["categoria"]) == set(DISPLAY_CATEGORIES)
     for _, group in frame.groupby("period_key"):
         assert group["share"].sum() == pytest.approx(1.0)
@@ -60,7 +62,7 @@ def test_2023_is_scaled_to_the_anbima_level_and_others_are_not() -> None:
     audit = coverage.frame().set_index("period_key")
     assert audit.at["2023", "scale_factor"] > 1.5
     assert audit.at["2023", "observed_brl"] == pytest.approx(26_476_286_193.56)
-    for key in ("2024", "2025", "jun25", "jun26"):
+    for key in ("2024", "2025", "ago25", "ago26"):
         assert audit.at[key, "scale_factor"] == pytest.approx(1.0)
 
 
@@ -74,16 +76,24 @@ def test_every_period_rests_mostly_on_a_positive_classification() -> None:
 
     _, coverage = build_issuance_taxonomy(DATA_DIR)
     for row in coverage.frame().itertuples(index=False):
-        assert row.classified_share > 0.95, row.period_label
+        assert row.classified_share + row.outros_from_fallback_share == pytest.approx(1.0)
+        if row.period_key != "ago26":
+            assert row.classified_share > 0.95, row.period_label
+        else:
+            # New August cohort includes 20 issuers absent from monthly taxonomy.
+            # Its observed 5.01% fallback is disclosed, with no classification imputed.
+            assert row.classified_share == pytest.approx(0.9499113358581662)
+            assert row.unresolved_issuers == 20
 
 
 def test_wide_table_places_each_delta_after_the_period_it_closes() -> None:
     frame = load_issuance_taxonomy(DATA_DIR)
     table = build_wide_table(frame)
-    labels = {period["key"]: period["label"] for period in PERIODS}
+    periods = periods_from_issuance_frame(frame)
+    labels = {period["key"]: period["label"] for period in periods}
     columns = list(table.columns)
     assert columns[0] == "Categoria"
-    for start, end in DELTAS:
+    for start, end in issuance_deltas(periods):
         delta_column = f"Delta {labels[start]}→{labels[end]} (R$ bi)"
         assert delta_column in columns
         assert columns.index(delta_column) > columns.index(f"{labels[end]} (R$ bi)")

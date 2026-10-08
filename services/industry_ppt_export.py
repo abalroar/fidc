@@ -1418,7 +1418,7 @@ def _build_legacy_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> byte
 
 
 def build_industry_pptx_bytes(data_dir: Path = DEFAULT_DATA_DIR) -> bytes:
-    """Return the audited 42-slide deck used by the Industry Data surface.
+    """Return the audited compact deck used by the Industry Data surface.
 
     The reviewed presentation is generated with ``@oai/artifact-tool`` from
     the same versioned payload consumed by the application.  A visually

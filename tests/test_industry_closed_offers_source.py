@@ -8,6 +8,8 @@ from zipfile import ZIP_DEFLATED, ZipFile
 import pandas as pd
 import pytest
 
+from services.industry_comparative_period import ComparisonCut
+
 from services.industry_closed_offers_source import (
     ClosedOffersSourceError,
     RELEASE_CUTOFF,
@@ -130,6 +132,7 @@ def test_source_scopes_primary_closed_fidc_through_june_and_deduplicates(
     source, _ = load_closed_offer_source(
         archive_path,
         expected_archive_sha256=None,
+        comparison_cut=ComparisonCut(2026,6),
     )
 
     assert source["Numero_Requerimento"].tolist() == ["REQ-VALID"]

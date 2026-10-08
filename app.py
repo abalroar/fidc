@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import streamlit as st
 
-# Deployment marker: validated comparative curation and editable PPTX (2026-10-07).
+# Deployment marker: August CVM data, concise conclusions and 15-slide PPTX (2026-10-08).
 
 from services.dashboard_ui import dashboard_page, diagnostics_enabled, render_page_header
 from tabs.tab_fidc_book import render_tab_fidc_book

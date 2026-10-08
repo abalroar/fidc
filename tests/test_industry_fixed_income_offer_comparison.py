@@ -34,8 +34,8 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     expected = {
         "2023 FY": (ANBIMA_FIDC_2023, 353_447_879_570.30),
         "2024 FY": (95_416_726_133.75, 628_733_342_247.23),
-        "2025 FY": (116_921_319_054.77, 656_094_670_634.27),
-        "2026 jan-jun": (65_488_118_983.56, 246_828_872_386.94),
+        "2025 FY": (116_941_319_054.77, 656_336_670_634.27),
+        "2026 jan-ago": (91_917_778_632.26, 315_702_778_457.94),
     }
     for period, (fidc_volume, rest_volume) in expected.items():
         scoped = view_a[view_a["period_label"].eq(period)].set_index(
@@ -52,13 +52,13 @@ def test_materialized_comparison_reconciles_fidc_and_rest() -> None:
     assert yoy.loc[("2024 FY", "FIDCs")] == pytest.approx(
         95_416_726_133.75 / ANBIMA_FIDC_2023 - 1
     )
-    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2253755059)
+    assert yoy.loc[("2025 FY", "FIDCs")] == pytest.approx(0.2255851127280135)
     assert yoy.loc[("2025 FY", "Demais elegíveis")] == pytest.approx(
-        0.0435181762
+        0.043903077079354
     )
-    assert yoy.loc[("2026 jan-jun", "FIDCs")] == pytest.approx(0.1457242904)
-    assert yoy.loc[("2026 jan-jun", "Demais elegíveis")] == pytest.approx(
-        -0.0779777184
+    assert yoy.loc[("2026 jan-ago", "FIDCs")] == pytest.approx(0.3029360719446889)
+    assert yoy.loc[("2026 jan-ago", "Demais elegíveis")] == pytest.approx(
+        -0.1445473534593437
     )
 
 
@@ -224,3 +224,19 @@ def test_conflicting_requirement_is_blocked(tmp_path: Path) -> None:
             archive,
             expected_archive_sha256=None,
         )
+
+
+def test_anbima_2023_correction_is_inactive_when_year_rolls_out(tmp_path: Path) -> None:
+    from services.industry_comparative_period import ComparisonCut
+    instruments = ("Cotas de FIDC", "Debêntures", "Certificados de Recebíveis Imobiliários",
+                   "Notas Comerciais", "Certificados de Recebíveis do Agronegócio")
+    rows = [_row(str(index * 5 + rank), f"{year}-{3 if year == 2027 else 12:02d}-15", instrument, float(10_000 - rank))
+            for index, year in enumerate(range(2024, 2028))
+            for rank, instrument in enumerate(instruments)]
+    archive = _write_archive(tmp_path / "offers-2027.zip", rows)
+    frame = build_fixed_income_offer_comparison(archive, comparison_cut=ComparisonCut(2027, 3))
+    assert set(frame["period_label"]) == {"2024 FY", "2025 FY", "2026 FY", "2027 jan-mar"}
+    anbima = load_anbima_market_offers(DATA_DIR)
+    anbima = anbima[~anbima["period_label"].eq("2023 FY")].copy()
+    corrected = apply_anbima_2023_fidc_issuance_correction(frame, anbima)
+    pd.testing.assert_frame_equal(frame, corrected)

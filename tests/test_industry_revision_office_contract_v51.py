@@ -27,6 +27,7 @@ from services.industry_revision_export import (
     CEDENTE_TOP500_WORKBOOK_SHEETS,
     CURRENT_TOP15_SLIDE_SEQUENCE,
     EXPECTED_SLIDE_SEQUENCE,
+    EXPECTED_SLIDE_IDS,
     EXPECTED_SLIDES,
     HISTORICAL_TOP15_SLIDE_SEQUENCE,
     HISTORICAL_TOP15_TABLE_DIMENSIONS,
@@ -81,29 +82,13 @@ def test_blocked_palette_detector_only_reads_color_elements() -> None:
     assert _contains_blocked_rgb_color([system_fallback], "172A3A")
 
 
-def test_current_top15_contract_and_renderer_distinguish_1s26_from_2025() -> None:
-    assert CURRENT_TOP15_SLIDE_SEQUENCE == (
-        (
-            "top 15",
-            "ibba esteve em 8 das 15 maiores ofertas do semestre",
-            "liderou 5 delas",
-            "jan–jun/26",
-        ),
-        (
-            "top 15",
-            "as 15 maiores ofertas de 2025 mantem a base anual de comparacao",
-            "2025fy",
-        ),
-    )
-    renderer = (
-        ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
-    ).read_text(encoding="utf-8")
-    assert 'titleStartsWith: "IBBA participou de"' in renderer
-    assert 'titleStartsWith: "As 15 maiores ofertas de 2025"' in renderer
-    assert (
-        'title: "As 15 maiores ofertas de 2025 mantêm a base anual de comparação"'
-        in renderer
-    )
+def test_detailed_top15_rankings_remain_in_workbook_outside_compact_deck() -> None:
+    assert CURRENT_TOP15_SLIDE_SEQUENCE == ()
+    assert HISTORICAL_TOP15_SLIDE_SEQUENCE == ()
+    assert "Top 15 ofertas" in REQUIRED_WORKBOOK_SHEETS_V51
+    renderer = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(encoding="utf-8")
+    assert 'SLIDE_CONTRACT_V1.includes("offer_rankings")' in renderer
+    assert "async function addClosedOfferTop15Sheet(" in renderer
 
 
 def test_portfolio_workbook_validator_accepts_the_full_101_and_47_contract() -> None:
@@ -236,13 +221,7 @@ def test_top100_workbook_validator_rejects_incomplete_or_invalid_data(
         validate_revision_top100_xlsx(_top100_workbook_bytes(**kwargs))
 
 
-PAYLOAD = (
-    ROOT
-    / "data"
-    / "industry_study"
-    / "generated_revision"
-    / "artifact_payload.json"
-)
+PAYLOAD = Path(os.environ.get("FIDC_TEST_PAYLOAD", XLSX.parent / "artifact_payload.json"))
 
 TARGET_SLIDES = EXPECTED_SLIDES
 
@@ -349,6 +328,18 @@ def _revision_workbook_bytes(
     for sheet_name in sorted(REQUIRED_WORKBOOK_SHEETS):
         workbook.create_sheet(sheet_name)
 
+    operational = workbook["Base competência-CNPJ"]
+    for address, value in {
+        "G4": "Carteira DC", "H4": "Inadimplência reportada",
+        "AC4": "Ajustado (fórmula)", "AD4": "Excesso (fórmula)",
+        "A5": "2026-08", "B5": "00.000.000/0001-00", "G5": 100, "H5": 20,
+        "AC5": '=IF(AND(G5<>"",H5<>""),MIN(MAX(H5,0),MAX(G5,0)),"")',
+        "AD5": '=IF(AC5="","",MAX(H5-AC5,0))',
+    }.items():
+        operational[address] = value
+    operational.column_dimensions["AC"].width = 26
+    operational.column_dimensions["AD"].width = 26
+
     audit = workbook["Auditoria emissões"]
     headers = sorted(REVISION_EMISSION_AUDIT_REQUIRED_HEADERS)
     if missing_audit_header:
@@ -418,7 +409,9 @@ def _revision_workbook_bytes(
     payload = BytesIO()
     workbook.save(payload)
     workbook.close()
-    return payload.getvalue()
+    from scripts.patch_industry_workbook_operational_cache import patch_workbook_bytes
+
+    return patch_workbook_bytes(payload.getvalue())
 
 
 def _top100_workbook_bytes(
@@ -544,88 +537,17 @@ def _sequence_slide_numbers(
 
 
 STRUCTURAL_MVP_SLIDES = _sequence_slide_numbers(STRUCTURAL_MVP_SLIDE_SEQUENCE)
-SLIDE_OFFERS_VOLUME = _contract_slide_number("emissoes crescem 15%")
-SLIDE_OFFER_TICKETS = _contract_slide_number("22 ofertas concentram")
-SLIDE_OFFER_REGIME = _contract_slide_number("garantia firme", "yoy ytd")
+SLIDE_OFFERS_VOLUME = _contract_slide_number("volume e ticket")
+SLIDE_OFFER_TICKETS = _contract_slide_number("concentracao das ofertas")
+SLIDE_OFFER_REGIME = _contract_slide_number("garantia firme", "melhores esforcos")
 SLIDES_TOP15_CURRENT = _sequence_slide_numbers(CURRENT_TOP15_SLIDE_SEQUENCE)
 SLIDES_TOP15_HISTORY = _sequence_slide_numbers(HISTORICAL_TOP15_SLIDE_SEQUENCE)
-SLIDE_PROVIDER_HISTORY = _contract_slide_number("qi lidera administracao")
+SLIDE_PROVIDER_HISTORY = _contract_slide_number("ranking de prestadores")
 SLIDE_PROVIDER_RANKING = _contract_slide_number("prestadores", "ranking e concentracao")
 SLIDE_HOLDER_DISTRIBUTION = _contract_slide_number("distribuicao por numero")
 SLIDES_TYPE_RANKING = _sequence_slide_numbers(TYPE_RANKING_SLIDE_SEQUENCE)
 
-SLIDE_TOKENS = {
-    1: ("Indústria de FIDCs — ago-26", "Dados de referência: jun-26"),
-    2: (
-        "ESCALA DA INDÚSTRIA",
-        "R$ 821,0 BI",
-        "R$ 13,780 TRI",
-        "CAGR 2015–18",
-        "2020/19",
-        "2022/21",
-        "2026 YTD",
-    ),
-    3: (
-        "Emissões | FIDCs seguem ganhando escala nas emissões",
-        "CVM/SRE:",
-        "ANBIMA:",
-        "snapshot jun/26",
-        "FIDCs e demais instrumentos elegíveis · R$ bi",
-        "Valor encerrado por instrumento · R$ bi",
-        "Emissões por instrumento",
-        "2025 YoY %",
-        "1S26 YTD YoY",
-    ),
-    4: (
-        "SALDO E TIPOS DE FIDCS",
-        "Financeiros dominam saldo e novas emissões",
-        "Saldo ex-FIC · R$ bi",
-        "Participação no saldo",
-        "Novas emissões por setor · R$ bi",
-        "Novas emissões por setor · %",
-    ),
-    5: ("EMISSÕES POR CATEGORIA ANBIMA", "Emissões por setor", "Total emitido"),
-    6: (
-        'Abrir "Outros" revela que 63% do mercado é crédito financeiro',
-        "PRECATÓRIOS E/OU AÇÕES JUDICIAIS",
-        "MULTICEDENTE/MULTISACADO",
-        "RECUPERAÇÃO / FIDCS NP",
-    ),
-    7: (
-        "Adquirência é R$ 99 bi que a taxonomia oficial não mostra",
-        "33 CNPJs reclassificados, 12,1% do PL",
-    ),
-    8: ("Financeiro explicou 70% do crescimento da carteira",),
-    9: ("RANKING · TOP 20 FIDCs",),
-    SLIDE_OFFERS_VOLUME: ("Emissões crescem 15% no semestre", "jan–dez", "R$ 65,5 bi em 771 ofertas no jan–jun/26"),
-    SLIDE_OFFER_TICKETS: ("22 ofertas concentram 42% de todo o volume", "> R$ 100 mi"),
-    SLIDE_OFFER_REGIME: (
-        "OFERTAS · VOLUME E REGIME",
-        "Emissões | Garantia firme",
-        "YoY YTD",
-        "Melhores esforços repr. 69,2% do volume em 2026",
-        "Regime de colocação · participação no volume",
-        "% do total",
-    ),
-    _contract_slide_number("o que muda"): (
-        "O que muda a leitura do mercado",
-        "RCVM 175",
-        "771 OFERTAS",
-        "R$ 65,5 BI",
-        "R$ 32,4 BI",
-        "DOIS FIDCS CIELO",
-    ),
-    SLIDE_PROVIDER_HISTORY: ("QI lidera administração; BTG lidera gestão e custódia",),
-    SLIDE_PROVIDER_RANKING: ("PRESTADORES · RANKING E CONCENTRAÇÃO",),
-    _contract_slide_number("quase todo o volume"): ("Quase todo o volume vai para o investidor profissional",),
-    SLIDE_HOLDER_DISTRIBUTION: ("DISTRIBUIÇÃO POR NÚMERO DE COTISTAS",),
-}
-
-for slide_number, contract_tokens in enumerate(
-    EXPECTED_SLIDE_SEQUENCE,
-    start=1,
-):
-    SLIDE_TOKENS.setdefault(slide_number, contract_tokens)
+SLIDE_TOKENS = dict(enumerate(EXPECTED_SLIDE_SEQUENCE, start=1))
 
 REQUIRED_WORKBOOK_SHEETS_V51 = {
     "QA Inadimplência",
@@ -789,95 +711,20 @@ def _sheet_names(archive: ZipFile) -> set[str]:
 
 
 def test_export_and_renderer_declare_dynamic_slide_contract() -> None:
-    export_source = (ROOT / "services" / "industry_revision_export.py").read_text(
-        encoding="utf-8"
-    )
-    renderer_source = (
-        ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
-    ).read_text(encoding="utf-8")
-
-    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE)
-    assert EXPECTED_SLIDES == 37
-    assert len(TYPE_RANKING_SLIDE_SEQUENCE) == 8
-    assert STRUCTURAL_MVP_SLIDE_SEQUENCE == (
-        ("risco estrutural", "financeiro", "carteira i"),
-        ("risco estrutural", "adquirencia", "carteira i"),
-        ("risco estrutural", "agro / revenda", "carteira i"),
-        ("risco estrutural", "risco corporativo", "carteira i"),
-        ("risco estrutural", "consignado inss e fgts", "carteira i"),
-        ("risco estrutural", "factoring", "carteira i"),
-    )
-    assert len(STRUCTURAL_MVP_SLIDE_SEQUENCE) == len(STRUCTURAL_MVP_SLIDES) == 6
-    assert len(CURRENT_TOP15_SLIDE_SEQUENCE) == 2
-    assert len(HISTORICAL_TOP15_SLIDE_SEQUENCE) == 4
-    assert HISTORICAL_TOP15_SLIDE_SEQUENCE == (
-        (
-            "top 15",
-            "historico",
-            "maiores ofertas de 2024",
-            "1/2",
-            "agencia",
-            "rating",
-        ),
-        (
-            "top 15",
-            "historico",
-            "maiores ofertas de 2024",
-            "2/2",
-            "agencia",
-            "rating",
-        ),
-        (
-            "top 15",
-            "historico",
-            "maiores ofertas de 2023",
-            "1/2",
-            "agencia",
-            "rating",
-        ),
-        (
-            "top 15",
-            "historico",
-            "maiores ofertas de 2023",
-            "2/2",
-            "agencia",
-            "rating",
-        ),
-    )
-    assert HISTORICAL_TOP15_TABLE_DIMENSIONS == (
-        (9, 12),
-        (8, 12),
-        (9, 12),
-        (8, 12),
-    )
-    assert sum(rows - 1 for rows, _ in HISTORICAL_TOP15_TABLE_DIMENSIONS[:2]) == 15
-    assert sum(rows - 1 for rows, _ in HISTORICAL_TOP15_TABLE_DIMENSIONS[2:]) == 15
+    export_source = (ROOT / "services" / "industry_revision_export.py").read_text(encoding="utf-8")
+    renderer_source = (ROOT / "scripts" / "build_fidc_revision_artifacts.mjs").read_text(encoding="utf-8")
+    assert EXPECTED_SLIDES == len(EXPECTED_SLIDE_SEQUENCE) == len(EXPECTED_SLIDE_IDS) == 15
+    assert not TYPE_RANKING_SLIDE_SEQUENCE
+    assert not STRUCTURAL_MVP_SLIDE_SEQUENCE
+    assert not CURRENT_TOP15_SLIDE_SEQUENCE
+    assert not HISTORICAL_TOP15_SLIDE_SEQUENCE
+    assert not HISTORICAL_TOP15_TABLE_DIMENSIONS
+    contract_source = renderer_source.split("const SLIDE_CONTRACT_V1 = Object.freeze([", 1)[1].split("]);", 1)[0]
+    assert tuple(re.findall(r'"([^"\n]+)"', contract_source)) == EXPECTED_SLIDE_IDS
     assert "EXPECTED_SLIDES = len(EXPECTED_SLIDE_SEQUENCE)" in export_source
-    assert "const SLIDE_CONTRACT_V1 = Object.freeze([" in renderer_source
-    assert "const STRUCTURAL_MVP_SLIDE_SEQUENCE = Object.freeze([" in renderer_source
-    assert "...STRUCTURAL_MVP_SLIDE_SEQUENCE.map((entry) => entry.id)" in renderer_source
     assert "const EXPECTED_SLIDES = SLIDE_CONTRACT_V1.length;" in renderer_source
-    assert re.search(r"EXPECTED_SLIDES\s*!==\s*\d+", renderer_source) is None
-    for slide_id in (
-        "top20_fomento_2026",
-        "top20_fomento_2025",
-        "top20_agro_2026",
-        "top20_agro_2025",
-        "top20_financeiro_2026",
-        "top20_financeiro_2025",
-        "top20_outros_2026",
-        "top20_outros_2025",
-        "top15_current_2026",
-        "top15_current_2025",
-        "top15_history_2024_1_2",
-        "top15_history_2024_2_2",
-        "top15_history_2023_1_2",
-        "top15_history_2023_2_2",
-    ):
-        assert f'"{slide_id}"' in renderer_source
-    assert "function addTop20ByAnbimaTypeSlide(" in renderer_source
-    assert "function addCurrentTop15Slide(" in renderer_source
-    assert "function addHistoricalTop15Slide(" in renderer_source
+    assert "[Industry contract]" in renderer_source
+    assert "fallbackExecutiveConclusions" not in renderer_source
     for sheet_name in REQUIRED_WORKBOOK_SHEETS_V51:
         assert f'"{sheet_name}"' in export_source
 
@@ -1078,8 +925,11 @@ def test_scale_slide_uses_only_ex_fic_pl_and_explicit_brazilian_labels() -> None
         text = _slide_text(archive, 2)
 
     assert "FIDCs ex-FIC" in text
-    assert "R$ 821,0 bi" in text
-    assert "crédito privado ampliado totaliza R$ 13,780 tri" in text
+    payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
+    competence = payload["latest_complete"]
+    label = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")[int(competence[-2:]) - 1] + "/" + competence[2:4]
+    assert label in text
+    assert "Carteira de crédito privada ampliada" in text
     assert "saldo FIC" not in text
 
 
@@ -1107,7 +957,7 @@ def test_ex_fic_pl_chart_has_native_value_labels_for_every_data_point() -> None:
     points = series.findall(
         f"{{{CHART}}}val/{{{CHART}}}numLit/{{{CHART}}}pt"
     )
-    assert len(points) == 12
+    assert len(points) == len(json.loads(PAYLOAD.read_text(encoding="utf-8"))["pl_history"])
 
 
 def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> None:
@@ -1126,7 +976,7 @@ def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> No
     }
     with ZipFile(PPTX) as archive:
         charts = []
-        for path in _slide_chart_paths(archive, 6):
+        for path in _slide_chart_paths(archive, 5):
             root = ET.fromstring(archive.read(path))
             bar = root.find(f".//{{{CHART}}}barChart")
             if bar is not None:
@@ -1151,7 +1001,7 @@ def test_analytical_taxonomy_uses_only_bba_colors_and_labels_all_periods() -> No
             )
             item_labels = item.find(f"{{{CHART}}}dLbls")
             assert item_labels is not None
-            assert len(item_labels.findall(f"{{{CHART}}}dLbl")) == len(values) == 4
+            assert len(item_labels.findall(f"{{{CHART}}}dLbl")) == len(values) == len(json.loads(PAYLOAD.read_text(encoding="utf-8"))["type_mix_meta"]["periods"])
 
 
 def test_all_native_chart_data_labels_respect_ten_point_floor() -> None:
@@ -1178,49 +1028,23 @@ def test_all_native_chart_data_labels_respect_ten_point_floor() -> None:
     assert not violations, violations
 
 
-def test_annual_issuance_slide_contains_the_consolidated_anbima_taxonomy_table() -> None:
+def test_detailed_issuance_table_remains_in_workbook_outside_compact_deck() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        slide = ET.fromstring(archive.read("ppt/slides/slide5.xml"))
-        text = _slide_text(archive, 5)
-    tables = slide.findall(f".//{{{DML}}}tbl")
-    assert len(tables) == 1
-    assert (
-        len(tables[0].findall(f"{{{DML}}}tr")),
-        len(tables[0].findall(f"{{{DML}}}tblGrid/{{{DML}}}gridCol")),
-    ) == ISSUANCE_TAXONOMY_TABLE_DIMENSIONS[0]
-    for token in (
-        "EMISSÕES POR CATEGORIA ANBIMA",
-        "Fomento Mercantil",
-        "Agro, Indústria e Comércio",
-        "Financeiro",
-        "Outros",
-        "Total emitido",
-    ):
-        assert token in text
+        assert _native_table_count(archive, 4) == 0
+        assert _native_table_count(archive, 5) == 0
+        assert len(_slide_chart_paths(archive, 4)) == 2
+    assert "Emissões por categoria" in REQUIRED_WORKBOOK_SHEETS_V51
+    assert ISSUANCE_TAXONOMY_TABLE_DIMENSIONS == ()
 
 
-def test_structural_chapter_uses_six_mvp_slides_and_keeps_workbook_audit() -> None:
+def test_structural_detail_stays_in_workbook_outside_compact_deck() -> None:
     _require(PPTX)
     with ZipFile(PPTX) as archive:
-        for slide_number, contract_tokens in zip(
-            STRUCTURAL_MVP_SLIDES,
-            STRUCTURAL_MVP_SLIDE_SEQUENCE,
-            strict=True,
-        ):
-            text = _slide_text(archive, slide_number)
-            folded_text = _fold(text)
-            assert all(_fold(token) in folded_text for token in contract_tokens)
-
-    assert {"Risco estrutural ativos", "Risco estrutural taxonomia"}.issubset(
-        REQUIRED_WORKBOOK_SHEETS_V51
-    )
-    renderer_source = (
-        ROOT / "scripts" / "build_fidc_revision_artifacts.mjs"
-    ).read_text(encoding="utf-8")
-    assert "STRUCTURAL_MVP_SLIDE_SEQUENCE" in renderer_source
-    assert "payload.portfolio_export_carteira_101 || []" in renderer_source
-    assert "payload.portfolio_export_flagships || []" in renderer_source
+        text = " ".join(_slide_text(archive, number) for number in range(1, EXPECTED_SLIDES + 1))
+    assert "RISCO ESTRUTURAL · CARTEIRA I" not in text
+    assert STRUCTURAL_MVP_SLIDE_SEQUENCE == ()
+    assert {"Risco estrutural ativos", "Risco estrutural taxonomia"}.issubset(REQUIRED_WORKBOOK_SHEETS_V51)
 
 
 def test_native_chart_series_titles_use_schema_supported_forms() -> None:
@@ -1294,9 +1118,10 @@ def test_combined_provider_ranking_uses_six_native_charts_and_no_tables() -> Non
     ("slide_number", "minimum_charts", "minimum_tables"),
     [
         (3, 2, 1),  # séries CVM e ANBIMA e tabela de crescimento
-        (4, 4, 0),  # saldos, participações e emissões em R$ bi e %
-        (5, 2, 1),  # taxonomia em R$ bi, % e tabela
-        (9, 0, 2),  # Top 20 FIDCs em tabelas nativas
+        (4, 2, 0),  # emissões por setor em R$ bi e %, sem repetir estoque
+        (5, 2, 0),  # composição analítica em R$ bi e %
+        (6, 2, 0),  # adquirência reclassificada
+        (7, 2, 0),  # recebíveis por segmento
         (SLIDE_OFFERS_VOLUME, 2, 1),  # volume/ticket FY/YTD e acumulado mensal
     ]
     + [
@@ -1313,71 +1138,10 @@ def test_new_analytical_slides_use_native_office_structures(
         assert _native_table_count(archive, slide_number) >= minimum_tables
 
 
-def test_top_type_slides_split_each_type_and_period_with_readable_documentary_fields() -> None:
-    _require(PPTX)
+def test_top_type_documentary_fields_remain_in_payload_outside_compact_deck() -> None:
     _require(PAYLOAD)
-    with ZipFile(PPTX) as archive:
-        slide_texts = [
-            _slide_text(archive, slide_number)
-            for slide_number in SLIDES_TYPE_RANKING
-        ]
-        assert all(
-            _native_table_count(archive, slide_number) == 1
-            for slide_number in SLIDES_TYPE_RANKING
-        )
-    assert len(slide_texts) == 8
-    for text in slide_texts:
-        assert "Top 15" in text
-        assert any(period in text for period in ("jun/26", "dez/25"))
-        assert "Cedente / originador" in text
-        assert "Remuneração-alvo" in text
-        assert "Preço por cota" not in text
-        assert "* = complemento manual" in text
-    for type_name in (
-        "Fomento Mercantil",
-        "Agro, Indústria e Comércio",
-        "Financeiro",
-        "Outros",
-    ):
-        assert sum(type_name in text for text in slide_texts) == 2
-    for current_slide, comparison_slide in zip(
-        slide_texts[::2],
-        slide_texts[1::2],
-        strict=True,
-    ):
-        assert "jun/26 · Top 15" in current_slide
-        assert "dez/25 · Top 15" in comparison_slide
-
-    all_text = "\n".join(slide_texts)
-    assert sum("Prêmio de remuneração Mz.–Sr." in text for text in slide_texts) == 1
-    assert sum("N=20 fundo-corte" in text for text in slide_texts) == 1
-    assert sum("Movimento semestral" in text for text in slide_texts) == 1
-    assert sum("N=22 fundo-classe" in text for text in slide_texts) == 1
-    assert re.search(r"\+\d+\*", all_text) is None
-    assert "BRF S .A." not in all_text
-    for fragment in (
-        "1 sacado 2 sacado 3",
-        "os devedores dos",
-        "pessoas físicas e/ou",
-        "as Cooperativas, os",
-        "(i) o Itaú Unibanco",
-        "Emissores e",
-        "Pessoas físicas,",
-        "Pessoas jurídicas às",
-        "Contrapartes compradoras nos",
-        "sociedades que compõem",
-        "Stone, Pagar.me e",
-        "Cielo, como",
-        "PagSeguro, como",
-        "PicPay, responsável",
-        "o MERCADO PAGO",
-        "Pessoas físicas ou",
-        "União, estados,",
-        "Entes públicos e",
-        "Clientes/sacados das",
-    ):
-        assert fragment not in all_text
-
+    assert TYPE_RANKING_SLIDE_SEQUENCE == ()
+    assert {"Top 20 por Tipo ANBIMA", "Auditoria Top 20 Tipo", "Auditoria emissões"}.issubset(REQUIRED_WORKBOOK_SHEETS_V51)
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     tier = payload["emission_remuneration_tier_summary"]
     assert tier["pairs"] == 20
@@ -1476,7 +1240,7 @@ def test_top15_offer_slides_use_only_on_canvas_native_tables(
         assert overlapping_shapes == []
 
 
-def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
+def test_ytd_offer_slide_uses_straight_markerless_native_line_chart() -> None:
     _require(PPTX)
     payload = json.loads(PAYLOAD.read_text(encoding="utf-8"))
     with ZipFile(PPTX) as archive:
@@ -1504,7 +1268,10 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
         str(item.findtext(f"{{{CHART}}}tx/{{{CHART}}}v") or ""): item
         for item in series
     }
-    assert set(series_by_name) == {"2024", "2025", "2026"}
+    metadata = payload.get("offers_comparison_meta") or {}
+    year = int(metadata.get("current_year") or str(payload["offers_as_of"])[:4])
+    month_count = int(metadata.get("month_count") or str(payload["offers_as_of"])[5:7])
+    assert set(series_by_name) == {str(value) for value in range(year - 2, year + 1)}
     for item in series:
         symbol = item.find(f".//{{{CHART}}}marker/{{{CHART}}}symbol")
         assert symbol is not None and symbol.attrib.get("val") == "none"
@@ -1525,15 +1292,12 @@ def test_june_offer_slide_uses_straight_markerless_native_line_chart() -> None:
             for point in points
         }
 
-    assert point_indices["2024"] == list(range(12))
-    assert point_indices["2025"] == list(range(12))
-    assert point_indices["2026"] == list(range(6))
-    expected_june_2026 = sum(
-        float(row["registered_volume_brl"])
-        for row in payload["closed_offers_monthly"]
-        if int(row["year"]) == 2026 and int(row["month"]) <= 6
-    ) / 1e9
-    assert point_values["2026"][5] == pytest.approx(expected_june_2026)
+    for name in series_by_name:
+        reported_months = month_count if int(name) == year else 12
+        assert point_indices[name] == list(range(reported_months))
+        for index in range(reported_months):
+            cumulative = sum(float(row["registered_volume_brl"]) for row in payload["closed_offers_monthly"] if int(row["year"]) == int(name) and int(row["month"]) <= index + 1) / 1e9
+            assert point_values[name][index] == pytest.approx(cumulative)
 
 
 def test_workbook_exposes_the_v63_analysis_tabs() -> None:
@@ -1553,7 +1317,7 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
     sheet = workbook["Auditoria emissões"]
     headers = [sheet.cell(4, column).value for column in range(1, 28)]
     assert headers == [
-        "Bloco do deck",
+        "Conjunto",
         "Tabela / período",
         "CNPJ",
         "ID da emissão",
@@ -1585,8 +1349,9 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         sheet.iter_rows(min_row=5, max_row=184, min_col=1, max_col=27, values_only=True)
     )
     assert len(rows) == 180
-    assert sum(row[0] == "slides 10–17" for row in rows) == 120
-    assert sum(row[0] == "slides 21–22" for row in rows) == 60
+    assert sum(row[0] == "Rankings de fundos por tipo" for row in rows) == 120
+    assert sum(row[0] == "Rankings de ofertas" for row in rows) == 60
+    assert not any("slides " in str(row[0]).lower() for row in rows)
     assert all(value not in {None, ""} for row in rows for value in row)
     assert all(
         re.fullmatch(r"\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}", str(row[2]))
@@ -1607,7 +1372,19 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
     assert all("R$" not in str(row[remuneration_index]) for row in remuneration_rows)
     assert all(row[remuneration_source_index] != "N/D" for row in remuneration_rows)
 
-    top15_rows = [row for row in rows if row[0] == "slides 10–17"]
+    top15_rows = [row for row in rows if row[0] == "Rankings de fundos por tipo"]
+    payload_path = Path(os.environ.get("FIDC_TEST_PAYLOAD", XLSX.parent / "artifact_payload.json"))
+    source_rows = [
+        row for row in json.loads(payload_path.read_text(encoding="utf-8"))["emission_field_audit"]
+        if row["bloco"] == "slides 10–17"
+    ]
+    source_fields = {
+        "Originador": "originador",
+        "Cedente": "cedente",
+        "Subordinação mínima": "subordinacao_minima",
+        "Remuneração-alvo": "remuneracao_por_tipo_cota",
+        "Sacado": "sacado",
+    }
     assert {
         "Originador": sum(row[header_index["Originador"]] != "N/D" for row in top15_rows),
         "Cedente": sum(row[header_index["Cedente"]] != "N/D" for row in top15_rows),
@@ -1620,19 +1397,19 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         ),
         "Sacado": sum(row[header_index["Sacado"]] != "N/D" for row in top15_rows),
     } == {
-        "Originador": 34,
-        "Cedente": 66,
-        "Subordinação mínima": 19,
-        "Remuneração-alvo": 32,
-        "Sacado": 44,
+        label: sum(row[field] != "N/D" for row in source_rows)
+        for label, field in source_fields.items()
     }
 
     combined_index = header_index["Cedente / originador · exibição"]
     sacado_display_index = header_index["Sacado · exibição"]
     sacado_rule_index = header_index["Regra exibição sacado"]
-    assert sum(row[sacado_display_index] != "N/D" for row in top15_rows) == 42
+    assert sum(row[sacado_display_index] != "N/D" for row in top15_rows) == sum(
+        str(row.get("sacado_exibicao") or "N/D").strip() != "N/D" for row in source_rows
+    )
     multiplica_rows = [row for row in top15_rows if "MULTIPLICA" in str(row[4]).upper()]
-    assert len(multiplica_rows) == 2
+    assert len(multiplica_rows) == sum("MULTIPLICA" in str(row["fundo"]).upper() for row in source_rows)
+    assert multiplica_rows
     assert all(row[sacado_display_index] == "N/D" for row in multiplica_rows)
     assert all("legenda" in str(row[sacado_rule_index]).lower() for row in multiplica_rows)
 
@@ -1642,8 +1419,16 @@ def test_emission_audit_sheet_materializes_180_sourced_rows_and_preserves_nd() -
         if row[header_index["Originador"]] != "N/D"
         and row[header_index["Cedente"]] != "N/D"
     ]
-    assert len(rows_with_both_parties) == 30
-    assert sum("· O:" not in str(row[combined_index]) for row in rows_with_both_parties) == 15
+    assert len(rows_with_both_parties) == sum(
+        row["originador"] != "N/D" and row["cedente"] != "N/D" for row in source_rows
+    )
+    assert all(str(row[combined_index]).startswith("C:") for row in rows_with_both_parties)
+    same_party_rows = [
+        row for row in rows_with_both_parties
+        if _fold(row[header_index["Originador"]]) == _fold(row[header_index["Cedente"]])
+    ]
+    assert same_party_rows
+    assert all("· O:" not in str(row[combined_index]) for row in same_party_rows)
 
     coverage = workbook["Cobertura emissões"]
     coverage_headers = [coverage.cell(4, column).value for column in range(1, 17)]
@@ -1715,7 +1500,17 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     assert len(rows) == 47
     assert len({row[4] for row in rows}) == 47
     assert all(isinstance(row[6], (int, float)) and row[6] > 0 for row in rows)
-    assert all(isinstance(row[8], (int, float)) and 0 <= row[8] <= 1 for row in rows)
+    assert sum(isinstance(row[8], (int, float)) for row in rows) == payload["flagship_curation_summary"]["cnpjs_com_subordinacao_atual"]
+    canonical_flagships = {record["cnpj_fundo_formatado"]: record for record in payload["flagship_curation"]}
+    assert all(
+        isinstance(row[8], (int, float)) and 0 <= row[8] <= 1 + 1e-9
+        or row[8] is None
+        and row[9] == canonical_flagships[row[4]]["faixa_subordinacao_atual"] == "N/D"
+        and row[12] == canonical_flagships[row[4]]["subordinacao_atual_status"]
+        and str(row[12]).startswith("N/D — ")
+        and "subordinação atual não calculável" in str(row[37])
+        for row in rows
+    )
     assert all(row[13] is None or row[13] > 0 for row in rows)
     assert all(row[17] is None or row[17] > 0 for row in rows)
     assert any(row[13] is None and row[14] == "N/D" for row in rows)
@@ -1736,12 +1531,20 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
     carteira_rows = [row for row in carteira_rows if row[0] not in {None, ""}]
     assert len(carteira_rows) == 101
     assert len({row[7] for row in carteira_rows}) == 101
-    assert sum(row[9] is not None for row in carteira_rows) == 78
-    assert sum(row[11] is not None for row in carteira_rows) == 68
-    assert sum(row[14] is not None for row in carteira_rows) == 83
-    assert sum(row[19] != "N/D" for row in carteira_rows) == 97
-    assert sum(str(row[31]).startswith("fora do perímetro FIDC") for row in carteira_rows) == 1
-    assert all(row[9] is None or row[9] > 0 for row in carteira_rows)
+    carteira_summary = payload["carteira_1_curation_summary"]
+    canonical_carteira = {record["cnpj_fundo_formatado"]: record for record in payload["carteira_1_curation"]}
+    assert sum(row[9] is not None for row in carteira_rows) == sum(record["pl_atual_brl"] is not None for record in canonical_carteira.values())
+    assert sum(row[11] is not None for row in carteira_rows) == carteira_summary["cnpjs_com_subordinacao_atual"]
+    assert sum(row[14] is not None for row in carteira_rows) == carteira_summary["cnpjs_com_minimo_junior"]
+    assert sum(row[19] != "N/D" for row in carteira_rows) == carteira_summary["cnpjs_com_data_emissao"]
+    assert sum(str(row[31]).startswith("fora do perímetro FIDC") for row in carteira_rows) == carteira_summary["cnpjs_fora_base_fidc"]
+    for row in carteira_rows:
+        canonical = canonical_carteira[row[7]]
+        assert row[9] == canonical["pl_atual_brl"]
+        if row[9] is not None and row[9] <= 0:
+            assert row[11] is None and row[12] == "N/D"
+            assert row[13] == canonical["subordinacao_atual_status"]
+            assert "PL oficial reportado zero" in row[13] or "PL oficial reportado negativo" in row[13]
     assert all(row[14] is None or row[14] > 0 for row in carteira_rows)
 
     structural = workbook["Risco estrutural ativos"]
@@ -1765,7 +1568,14 @@ def test_workbook_preserves_taxonomy_levels_and_flagship_documentary_gaps() -> N
         row[junior] is not None or row[total_support] is not None
         for row in structural_rows
     ) == 99
-    assert sum(row[headroom] is not None for row in structural_rows) == 23
+    canonical_structural = {record["ordem"]: record for record in payload["carteira_1_structural_assets"]}
+    assert sum(row[headroom] is not None for row in structural_rows) == sum(record["folga_pp"] is not None for record in canonical_structural.values())
+    for row in structural_rows:
+        expected_headroom = canonical_structural[row[0]]["folga_pp"]
+        if expected_headroom is None:
+            assert row[headroom] is None
+        else:
+            assert row[headroom] == pytest.approx(expected_headroom)
 
 
 def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:
@@ -1779,9 +1589,9 @@ def test_top20_type_workbook_keeps_rank_share_date_and_coverage_typed() -> None:
     assert isinstance(sheet["F5"].value, (int, float))
     assert sheet["F5"].number_format == "0.0%"
     assert sheet["G4"].value == "Competência"
-    assert sheet["G5"].value == "2026-06"
+    assert sheet["G5"].value == json.loads(PAYLOAD.read_text(encoding="utf-8"))["latest_complete"]
     assert "R$" not in sheet["G5"].number_format
-    assert sheet["H4"].value == "Mai/26 disponível"
+    assert sheet["H4"].value == "Competência anterior disponível"
     assert isinstance(sheet["H5"].value, bool)
     assert "R$" not in sheet["H5"].number_format
 
@@ -1814,3 +1624,18 @@ def test_offer_workbook_uses_counts_billions_and_millions_consistently() -> None
     banks = workbook["FIDCs por banco"]
     assert banks["J4"].value == "Raízes de CNPJ listadas"
     assert banks["M4"].value == "Referências"
+
+
+def test_revision_workbook_accepts_schema_only_source_repairs_with_explicit_zero() -> None:
+    from openpyxl import load_workbook
+    source = _revision_workbook_bytes(source_repair_rows=0)
+    workbook = load_workbook(BytesIO(source))
+    sheet = workbook["Cedentes · reparos fonte"]
+    sheet["A2"] = "0 reparos estruturais nas competências publicadas; arquivos retificados e schema preservado."
+    buffer = BytesIO()
+    workbook.save(buffer)
+    workbook.close()
+    from scripts.patch_industry_workbook_operational_cache import patch_workbook_bytes
+    validate_revision_xlsx(patch_workbook_bytes(buffer.getvalue()))
+    with pytest.raises(RevisionExportUnavailable, match="Cedentes · reparos fonte está vazia"):
+        validate_revision_xlsx(source)

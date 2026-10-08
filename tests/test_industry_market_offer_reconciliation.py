@@ -25,24 +25,24 @@ def test_materialized_reconciliation_matches_official_snapshot() -> None:
     indexed = frame.set_index(["period_label", "instrument_label"])
     debentures_2025 = indexed.loc[("2025 FY", "Debêntures")]
     assert debentures_2025["cvm_registered_volume_brl"] == pytest.approx(
-        453_665_574_708.05
+        453_875_574_708.05
     )
     assert debentures_2025["cvm_harmonization_volume_brl"] == pytest.approx(
         38_753_636_501.0
     )
     assert debentures_2025["cvm_harmonized_volume_brl"] == pytest.approx(
-        492_419_211_209.05
+        492_629_211_209.05
     )
     assert debentures_2025["anbima_closed_volume_brl"] == pytest.approx(
-        493_390_073_108.00165
+        493_275_073_108.0017
     )
-    debentures_2026 = indexed.loc[("2026 jan-jun", "Debêntures")]
+    debentures_2026 = indexed.loc[("2026 jan-ago", "Debêntures")]
     assert debentures_2026["anbima_closed_volume_brl"] == pytest.approx(
-        169_800_000_000.0
+        229_742_461_953.6112
     )
-    assert debentures_2026["raw_gap_pct"] == pytest.approx(-0.1282180)
+    assert debentures_2026["raw_gap_pct"] == pytest.approx(-0.1827619656312785)
     assert debentures_2026["harmonized_gap_pct"] == pytest.approx(
-        0.0448646
+        0.0140311706446311
     )
 
 

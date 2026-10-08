@@ -31,6 +31,8 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut, MONTH_LABELS
+from services.industry_offer_periods import cut_from_offer_frame
 
 from services.industry_taxonomy_review import (
     apply_taxonomy_review_overlay,
@@ -87,6 +89,24 @@ DELTAS: tuple[tuple[str, str], ...] = (
     ("jun25", "jun26"),
 )
 
+def issuance_periods(cut: ComparisonCut) -> tuple[dict[str, Any], ...]:
+    years = tuple({"key":str(year),"label":str(year),"year":year,"months":12,"anbima_scaled":year==2023} for year in range(cut.year-3, cut.year))
+    return (*years, *({"key":cut.period_key(year),"label":cut.period_label(year),"year":year,"months":cut.month,"anbima_scaled":False} for year in (cut.year-1, cut.year)))
+
+def issuance_deltas(periods: tuple[dict[str, Any], ...]) -> tuple[tuple[str, str], ...]:
+    return ((periods[0]["key"],periods[1]["key"]),(periods[1]["key"],periods[2]["key"]),(periods[3]["key"],periods[4]["key"]))
+
+def periods_from_issuance_frame(frame: pd.DataFrame) -> tuple[dict[str, Any], ...]:
+    labels = frame[["period_key","period_label"]].drop_duplicates()
+    current = labels[~labels["period_key"].astype(str).str.fullmatch(r"\d{4}")].sort_values("period_label")
+    if len(current)!=2:
+        raise IssuanceTaxonomyError("decomposição exige duas janelas YTD comparáveis")
+    key = str(current.iloc[-1]["period_key"])
+    if key[:3] not in MONTH_LABELS or not key[3:].isdigit():
+        raise IssuanceTaxonomyError("chave YTD inválida")
+    year = 2000 + int(key[3:])
+    return issuance_periods(ComparisonCut(year, MONTH_LABELS.index(key[:3])+1))
+
 _TRUE_VALUES = {"true", "1", "sim", "t", "yes"}
 
 
@@ -115,7 +135,7 @@ def _truthy(values: pd.Series) -> pd.Series:
     return values.astype(str).str.strip().str.casefold().isin(_TRUE_VALUES)
 
 
-def _load_taxonomy_photo(data_dir: Path) -> pd.DataFrame:
+def _load_taxonomy_photo(data_dir: Path, taxonomy_actions: pd.DataFrame | None = None) -> pd.DataFrame:
     """One row per fund: the latest snapshot under the analytical overlay."""
 
     base = pd.read_csv(
@@ -133,7 +153,7 @@ def _load_taxonomy_photo(data_dir: Path) -> pd.DataFrame:
     for column in ("cnpj_fundo", "cnpj_classe"):
         base[column] = base[column].astype(str).map(normalize_cnpj)
     photo = base.sort_values("competencia").drop_duplicates("cnpj_fundo", keep="last")
-    actions = load_taxonomy_review_actions(data_dir / LEDGER_FILENAME)
+    actions = taxonomy_actions if taxonomy_actions is not None else load_taxonomy_review_actions(data_dir / LEDGER_FILENAME)
     return apply_taxonomy_review_overlay(photo.copy(), actions)
 
 
@@ -208,7 +228,7 @@ def _period_slice(offers: pd.DataFrame, period: dict[str, Any]) -> pd.DataFrame:
     return scoped
 
 
-def build_issuance_taxonomy(data_dir: Path) -> tuple[pd.DataFrame, CoverageAudit]:
+def build_issuance_taxonomy(data_dir: Path, comparison_cut: ComparisonCut | None = None, taxonomy_actions: pd.DataFrame | None = None) -> tuple[pd.DataFrame, CoverageAudit]:
     """Return the long-form decomposition and the audit of what it rests on."""
 
     data_dir = Path(data_dir)
@@ -226,27 +246,29 @@ def build_issuance_taxonomy(data_dir: Path) -> tuple[pd.DataFrame, CoverageAudit
             "período não pode ser construído"
         )
 
-    photo = _load_taxonomy_photo(data_dir)
+    photo = _load_taxonomy_photo(data_dir, taxonomy_actions)
     offers = _resolve_issuers(cohort, photo, data_dir)
     offers["is_fic"] = _truthy(offers["is_fic_fidc"].fillna(False))
     offers["categoria"] = offers.apply(_display_category, axis=1)
 
+    cut = comparison_cut or cut_from_offer_frame(cohort)
+    periods = issuance_periods(cut)
     anbima = pd.read_csv(data_dir / ANBIMA_OFFERS_FILENAME)
     anbima_2023 = anbima[
         anbima["instrument_label"].eq("FIDCs") & anbima["period_label"].eq("2023 FY")
     ]
-    if len(anbima_2023) != 1:
+    if any(period["anbima_scaled"] for period in periods) and len(anbima_2023) != 1:
         raise IssuanceTaxonomyError(
             "snapshot ANBIMA sem a observação de FIDCs em 2023 FY; o nível do "
             "ano não pode ser corrigido"
         )
-    anbima_2023_brl = float(anbima_2023["closed_volume_brl"].iloc[0])
+    anbima_2023_brl = float(anbima_2023["closed_volume_brl"].iloc[0]) if len(anbima_2023)==1 else None
 
     records: list[dict[str, Any]] = []
     audit_rows: list[dict[str, Any]] = []
     unresolved: set[str] = set()
 
-    for period in PERIODS:
+    for period in periods:
         scoped = _period_slice(offers, period)
         observed = float(scoped["registered_volume_brl"].sum())
         if observed <= 0:
@@ -273,6 +295,8 @@ def build_issuance_taxonomy(data_dir: Path) -> tuple[pd.DataFrame, CoverageAudit
                 {
                     "period_key": period["key"],
                     "period_label": period["label"],
+                    "period_start": f"{period['year']}-01-01",
+                    "period_end": ComparisonCut(period["year"], period["months"]).period_end.isoformat(),
                     "categoria": categoria,
                     "volume_brl": float(volume),
                     "share": float(volume) / total if total else 0.0,
@@ -337,12 +361,13 @@ def build_wide_table(long_frame: pd.DataFrame) -> pd.DataFrame:
     shares = long_frame.pivot(
         index="categoria", columns="period_key", values="share"
     ).reindex(DISPLAY_CATEGORIES)
-    labels = {period["key"]: period["label"] for period in PERIODS}
+    periods = periods_from_issuance_frame(long_frame)
+    labels = {period["key"]: period["label"] for period in periods}
 
     # O delta é emitido depois do período que o fecha, não do que o abre: a
     # coluna tem de ser lida logo após os dois valores que ela compara.
-    delta_after = {end: (start, end) for start, end in DELTAS}
-    for period in PERIODS:
+    delta_after = {end: (start, end) for start, end in issuance_deltas(periods)}
+    for period in periods:
         key, label = period["key"], period["label"]
         table[f"{label} (R$ bi)"] = (values[key] / 1e9).to_numpy()
         table[f"{label} (%)"] = shares[key].to_numpy()
@@ -357,7 +382,8 @@ def build_wide_table(long_frame: pd.DataFrame) -> pd.DataFrame:
 def validate_issuance_taxonomy(frame: pd.DataFrame) -> pd.DataFrame:
     """Fail on a decomposition that cannot be read as complete."""
 
-    expected = {period["key"] for period in PERIODS}
+    periods = periods_from_issuance_frame(frame)
+    expected = {period["key"] for period in periods}
     if set(frame["period_key"]) != expected:
         raise IssuanceTaxonomyError("decomposição com períodos inesperados")
     if len(frame) != len(expected) * len(DISPLAY_CATEGORIES):
@@ -391,6 +417,9 @@ def load_issuance_taxonomy(data_dir: Path) -> pd.DataFrame:
 
 __all__ = [
     "DELTAS",
+    "issuance_periods",
+    "issuance_deltas",
+    "periods_from_issuance_frame",
     "DISPLAY_CATEGORIES",
     "FIC_RECONCILIATION_LABEL",
     "OUTPUT_FILENAME",

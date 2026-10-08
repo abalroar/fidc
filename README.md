@@ -96,6 +96,20 @@ python scripts/build_fidc_industry_study.py --report
   (com secao "Por que os numeros nao batem?" reconciliando CVM x ANBIMA x Uqbar).
 - `--report-only` re-renderiza o relatorio a partir dos CSVs ja gerados.
 
+A atualização corrente, incluindo retificações de competências antigas e
+ofertas encerradas, usa:
+
+```bash
+python scripts/update_fidc_industry.py --check-only
+python scripts/update_fidc_industry.py --apply
+```
+
+O primeiro comando verifica os arquivos oficiais. O segundo só reconstrói o
+pacote quando há mudança de fonte. Os comparativos usam a última competência
+consolidada e o mesmo intervalo nos anos anteriores; competências preliminares
+continuam identificadas. O pacote anterior é preservado até a validação do
+novo Excel e PowerPoint. Veja [o fluxo de atualização](docs/industry_automatic_update.md).
+
 ## Pipeline Fundos.NET (CVM)
 
 Para automatizar download de **Informes Mensais Estruturados (FIDC)** via endpoint público do Fundos.NET:

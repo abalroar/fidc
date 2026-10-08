@@ -122,6 +122,35 @@ def test_user_facing_workbook_snapshot_blocks_one_stale_inherited_tab() -> None:
         )
 
 
+def test_workbook_separates_partial_month_without_promoting_it(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from openpyxl import load_workbook
+    from services import industry_ppt_export
+
+    workbook = load_workbook(BytesIO(_snapshot_workbook_bytes("2026-08")))
+    for name in ("Competências", "Indústria mensal"):
+        workbook[name].append(["2026-09", 0.0])
+    raw = BytesIO()
+    workbook.save(raw)
+    workbook.close()
+    monkeypatch.setattr(industry_ppt_export, "_build_legacy_industry_xlsx_bytes", lambda _: raw.getvalue())
+    status_path = tmp_path / "industry_competence_status.csv"
+    status_path.write_text("competencia,publication_status\n2026-08,completa\n2026-09,preliminar\n")
+    output = revision_publisher.materialize_current_workbook_base(
+        tmp_path, tmp_path / "current.xlsx", "2026-08"
+    )
+    result = load_workbook(output, data_only=True)
+    assert result["Indústria mensal"].max_row == 3
+    assert result["Indústria preliminar"]["A2"].value == "2026-09"
+    assert result["Indústria preliminar"]["B2"].value == 0
+    assert result["Indústria preliminar"]["C2"].value == "preliminar"
+    result.close()
+    status_path.write_text("competencia,publication_status\n2026-08,completa\n2026-09,completa\n")
+    with pytest.raises(RevisionBundlePublishError, match="sem status preliminar"):
+        revision_publisher.materialize_current_workbook_base(tmp_path, output, "2026-08")
+
+
 def _write_gzip_csv(path: Path, text: str) -> None:
     import gzip
 
@@ -218,8 +247,8 @@ def _card_taxonomy_rows() -> list[dict[str, object]]:
                 "criterio_inclusao": "Cartão de crédito é o segmento principal da Tabela II",
                 "categoria_tabela_ii": "Cartão de crédito",
                 "valor_cartao_tabela_ii_brl": float(45 - rank),
-                "pl_jun25_brl": float(45 - rank),
-                "pl_jun25_observavel": True,
+                "pl_comparavel_anterior_brl": float(45 - rank),
+                "pl_comparavel_anterior_observavel": True,
                 "pl_referencia_brl": float(45 - rank),
                 "pl_referencia_competencia": "2026-06",
                 "status_curadoria": status,
@@ -420,8 +449,8 @@ def _issuance_taxonomy_fixture() -> tuple[
     wide_rows = [
         {
             "Categoria": category,
-            "2023 (R$ bi)": 0.2 / 1e9,
-            "2023 (%)": 0.25,
+            **{f"{label} (R$ bi)": 0.2 / 1e9 for _, label in periods},
+            **{f"{label} (%)": 0.25 for _, label in periods},
         }
         for category in categories
     ]
@@ -685,7 +714,17 @@ def _cedente_top500_payload_fixture() -> dict[str, object]:
             "schema_version": "fidc-cedente-top500/v2",
             "cutoff_rank": 500,
             "competences": list(competences),
-            "metrics": {competence: {} for competence in competences},
+            "metrics": {
+                row["Competência"]: {
+                    "fundos_com_cedente_real": row["Fundos que identificam cedente"],
+                    "fundos_sem_cedente_real": row["Fundos sem cedente"],
+                    "fundos_industria": row["Fundos na indústria"],
+                    "pl_top500_reais": row["PL do Top 500 (R$)"],
+                    "pl_industria_reais": row["PL total da indústria (R$)"],
+                    "pl_sem_cedente_real_reais": row["PL sem cedente (R$)"],
+                    "pl_top500_sobre_industria_pct": row["% do PL total"],
+                } for row in coverage
+            },
             "outputs": {
                 name: {
                     "rows": (
@@ -826,7 +865,7 @@ def _payload() -> dict[str, object]:
     return {
         "schema_version": PAYLOAD_SCHEMA,
         "latest_complete": "2026-05",
-        "offers_as_of": "2026-07-15",
+        "offers_as_of": "2026-06-30",
         "top20_fidcs": [{}] * 20,
         "top20_outros": [{}] * 20,
         "profiles": [{}] * 20,
@@ -1650,7 +1689,7 @@ def test_payload_rejects_cedent_source_repairs_outside_audited_distribution() ->
 
     with pytest.raises(
         RevisionBundlePublishError,
-        match="10 reparos auditados",
+        match="reparos auditados",
     ):
         validate_artifact_payload(payload, "2026-05")
 
@@ -1697,12 +1736,15 @@ def test_payload_rejects_all_nd_emission_field_column_even_with_waiver_text() ->
         validate_artifact_payload(payload, "2026-05")
 
 
-def _payload_with_approved_outros_originator_exceptions() -> dict[str, object]:
+def _payload_with_approved_outros_originator_exceptions(
+    current_period: str = "2026-06",
+) -> dict[str, object]:
     payload = deepcopy(_payload())
+    current_table = f"Outros · {current_period}"
     for audit_row in payload["emission_field_audit"]:
         if audit_row.get("tabela") == "Outros · 2026-05":
-            audit_row["tabela"] = "Outros · 2026-06"
-        if audit_row.get("tabela") in {"Outros · 2025-12", "Outros · 2026-06"}:
+            audit_row["tabela"] = current_table
+        if audit_row.get("tabela") in {"Outros · 2025-12", current_table}:
             audit_row["originador"] = "N/D"
     reason = (
         "documentos identificados não individualizam originador econômico; "
@@ -1710,9 +1752,9 @@ def _payload_with_approved_outros_originator_exceptions() -> dict[str, object]:
     )
     for row in payload["emission_field_coverage"]:
         if row.get("tabela") == "Outros · 2026-05":
-            row["tabela"] = "Outros · 2026-06"
-            row["competencia"] = "2026-06"
-        if row.get("tabela") in {"Outros · 2025-12", "Outros · 2026-06"} and row.get(
+            row["tabela"] = current_table
+            row["competencia"] = current_period
+        if row.get("tabela") in {"Outros · 2025-12", current_table} and row.get(
             "campo"
         ) == "originador":
             row.update(
@@ -1728,10 +1770,23 @@ def _payload_with_approved_outros_originator_exceptions() -> dict[str, object]:
     return payload
 
 
-def test_payload_accepts_only_the_two_documented_outros_originator_exceptions() -> None:
-    payload = _payload_with_approved_outros_originator_exceptions()
+@pytest.mark.parametrize("current_period", ["2026-06", "2026-08"])
+def test_payload_accepts_the_three_verified_outros_originator_cohorts(
+    current_period: str,
+) -> None:
+    payload = _payload_with_approved_outros_originator_exceptions(current_period)
 
     validate_artifact_payload(payload, "2026-05")
+
+
+@pytest.mark.parametrize("unverified_period", ["2026-05", "2026-07", "2026-09", "2027-01"])
+def test_payload_rejects_outros_originator_exception_for_unverified_cohort(
+    unverified_period: str,
+) -> None:
+    payload = _payload_with_approved_outros_originator_exceptions(unverified_period)
+
+    with pytest.raises(RevisionBundlePublishError, match="piso inválido"):
+        validate_artifact_payload(payload, "2026-05")
 
 
 def test_payload_rejects_outros_originator_exception_with_different_reason() -> None:
@@ -2369,7 +2424,7 @@ def _minimal_live_input_snapshot(
     builder = tmp_path / "builder.py"
     builder.write_text("VALUE = 'initial'\n", encoding="utf-8")
 
-    monkeypatch.setattr(revision_publisher, "REQUIRED_DATA_INPUTS", ("required.csv",))
+    monkeypatch.setattr(revision_publisher, "required_data_inputs", lambda data_dir: ("required.csv",))
     monkeypatch.setattr(revision_publisher, "OPTIONAL_DATA_INPUTS", ("optional.csv",))
     monkeypatch.setattr(revision_publisher, "BUILDER_SOURCES", (builder,))
     captured = revision_publisher.collect_input_hashes(
@@ -2395,6 +2450,22 @@ def test_input_hashes_include_top20_curation(
     captured, _ = _minimal_live_input_snapshot(tmp_path, monkeypatch)
 
     assert "curation/top20.csv" in captured
+
+
+def test_source_zip_changes_block_publication_commit_marker(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    captured, paths = _minimal_live_input_snapshot(tmp_path, monkeypatch)
+    archive = tmp_path / "registro.zip"
+    archive.write_bytes(b"official source snapshot")
+    captured["source/registro.zip"] = revision_publisher._sha256_file(archive)
+    args = dict(data_dir=paths["data_dir"], curation_path=paths["curation"],
+                input_workbook=paths["workbook"], artifact_script=paths["builder"],
+                source_inputs={"source/registro.zip": archive})
+    revision_publisher.validate_live_input_hashes_unchanged(captured, **args)
+    archive.write_bytes(b"new official revision")
+    with pytest.raises(RevisionBundlePublishError, match="source/registro.zip"):
+        revision_publisher.validate_live_input_hashes_unchanged(captured, **args)
 
 
 @pytest.mark.parametrize(
@@ -2810,3 +2881,35 @@ def test_revision_analysis_accepts_validated_presence_overlay_reuse() -> None:
 
     assert args.refresh_source_presence is False
     assert args.source_presence_overlay == "source_presence_overlay.csv.gz"
+
+
+def test_payload_accepts_no_source_repairs_only_when_manifest_declares_zero() -> None:
+    payload = deepcopy(_payload())
+    payload["cedente_source_repairs"] = []
+    manifest = payload["cedente_triage_manifest"]
+    manifest["source_repairs_summary"] = {competence: 0 for competence in manifest["competences"]}
+    manifest["outputs"]["fidc_cedentes_reparos_fonte_2023_2026.csv"]["rows"] = 0
+    validate_artifact_payload(payload, "2026-05")
+    manifest["source_repairs_summary"]["202312"] = 1
+    with pytest.raises(RevisionBundlePublishError, match="sem cedente_source_repairs"):
+        validate_artifact_payload(payload, "2026-05")
+
+
+@pytest.mark.parametrize("competence", ["2027-01", "2028-02"])
+def test_top15_guard_rolls_four_full_years_and_removes_2022_partial(competence: str) -> None:
+    from services.industry_comparative_period import ComparisonCut
+    from scripts.publish_fidc_revision_bundle import _validate_closed_offer_top15
+    from services.industry_offer_periods import ticket_periods
+    cut = ComparisonCut.from_competence(competence)
+    payload = deepcopy(_payload())
+    template_rows = [row for row in payload["closed_offer_top15"] if row["period_label"] == "2025 FY"]
+    template_summary = next(row for row in payload["closed_offer_top15_summary"] if row["period_label"] == "2025 FY")
+    periods = ticket_periods(cut)
+    payload.update(offers_as_of=cut.period_end.isoformat(), latest_complete=cut.competence, offers_comparison_meta=cut.to_meta())
+    payload["closed_offer_top15"] = [{**deepcopy(row), "period_order": order, "period_label": label} for order, label, _, _, _ in periods for row in template_rows]
+    payload["closed_offer_top15_summary"] = [{**deepcopy(template_summary), "period_label": label} for _, label, _, _, _ in periods]
+    assert len(payload["closed_offer_top15"]) == 75
+    _validate_closed_offer_top15(payload)
+    payload["closed_offer_top15_summary"][0]["period_label"] = "2022 FY parcial"
+    with pytest.raises(RevisionBundlePublishError, match="períodos incompatíveis"):
+        _validate_closed_offer_top15(payload)

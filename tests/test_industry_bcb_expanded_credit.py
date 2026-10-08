@@ -5,6 +5,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
+from services import industry_bcb_expanded_credit as bcb
 from services.industry_bcb_expanded_credit import (
     BCB_SERIES,
     ExpandedCreditError,
@@ -89,3 +90,113 @@ def test_materialized_bcb_history_has_all_required_series() -> None:
     assert bool(latest["is_latest"])
     assert latest["competencia"] >= "2026-06"
     assert latest["expanded_credit_total_brl"] > 20_000_000_000_000
+
+
+def _frames_for_months(months: tuple[str, ...]) -> dict[str, pd.DataFrame]:
+    """Declared mocks preserve the BCB identities; source values are not inferred."""
+    return {
+        name: pd.DataFrame(
+            {"competencia": months, "value_brl": frame["value_brl"].iloc[-1]}
+        )
+        for name, frame in _frames().items()
+    }
+
+
+def _monthly_for_months(months: tuple[str, ...]) -> pd.DataFrame:
+    return pd.DataFrame({"competencia": months, "carteira_dc": 80.0})
+
+
+def test_august_cut_preserves_values_schema_and_labels() -> None:
+    months = ("2025-12", "2026-08")
+    result = build_expanded_credit_history(
+        _monthly_for_months(months),
+        series_frames=_frames_for_months(months),
+        latest_complete="2026-08",
+    )
+    assert result["competencia"].tolist() == list(months)
+    assert result["period_label"].tolist() == ["2025", "08/26"]
+    assert result["is_latest"].tolist() == [False, True]
+    assert result["private_expanded_credit_total_brl"].tolist() == [890.0, 890.0]
+    assert result["fidc_receivables_brl"].tolist() == [80.0, 80.0]
+    assert result["other_securitization_brl"].tolist() == [30.0, 30.0]
+    assert tuple(result.columns) == bcb.OUTPUT_COLUMNS
+
+
+def test_rollover_selects_current_month_and_previous_decembers() -> None:
+    months = ("2025-12", "2026-08", "2026-12", "2027-02", "2027-03")
+    result = build_expanded_credit_history(
+        _monthly_for_months(months),
+        series_frames=_frames_for_months(months),
+        latest_complete="2027-03",
+    )
+    assert result["competencia"].tolist() == ["2025-12", "2026-12", "2027-03"]
+    assert result["period_label"].tolist() == ["2025", "2026", "03/27"]
+    assert result["is_latest"].tolist() == [False, False, True]
+
+
+def test_secondary_lag_keeps_last_common_month_explicit() -> None:
+    months = ("2025-12", "2026-12", "2027-02", "2027-03")
+    frames = _frames_for_months(months)
+    frames["external_debt"] = frames["external_debt"].iloc[:-1].copy()
+    result = build_expanded_credit_history(
+        _monthly_for_months(months), series_frames=frames, latest_complete="2027-03"
+    )
+    assert result.iloc[-1]["competencia"] == "2027-02"
+    assert result.iloc[-1]["period_label"] == "02/27"
+    assert bool(result.iloc[-1]["is_latest"])
+
+
+def test_later_preliminary_month_does_not_enter_comparison() -> None:
+    months = ("2025-12", "2026-12", "2027-03", "2027-04")
+    result = build_expanded_credit_history(
+        _monthly_for_months(months),
+        series_frames=_frames_for_months(months),
+        latest_complete="2027-03",
+    )
+    assert result.iloc[-1]["competencia"] == "2027-03"
+    assert not result["competencia"].eq("2027-04").any()
+
+
+def test_download_end_uses_explicit_consolidated_cut(monkeypatch) -> None:
+    months = ("2026-12", "2027-03")
+    frames = _frames_for_months(months)
+    requested_ends: list[str] = []
+
+    def fetch(code: int, **kwargs) -> pd.DataFrame:
+        requested_ends.append(kwargs["end"])
+        name = next(name for name, value in BCB_SERIES.items() if value == code)
+        return frames[name]
+
+    monkeypatch.setattr(bcb, "_download_series", fetch)
+    build_expanded_credit_history(_monthly_for_months(months), latest_complete="2027-03")
+    assert requested_ends == ["31/03/2027"] * len(BCB_SERIES)
+
+
+def test_standalone_download_default_end_uses_current_date(monkeypatch) -> None:
+    requested_params: list[dict] = []
+
+    class Response:
+        def raise_for_status(self) -> None:
+            pass
+
+        def json(self) -> list[dict[str, str]]:
+            return [{"data": "31/08/2026", "valor": "1,23"}]
+
+    def fetch(*args, **kwargs) -> Response:
+        requested_params.append(kwargs["params"])
+        return Response()
+
+    monkeypatch.setattr(bcb.requests, "get", fetch)
+    result = bcb._download_series(28183)
+    assert requested_params[0]["dataFinal"] == pd.Timestamp.today().strftime("%d/%m/%Y")
+    assert result["value_brl"].iloc[0] == 1_230_000.0
+
+
+def test_no_common_month_within_cut_fails() -> None:
+    months = ("2027-03",)
+    with pytest.raises(ExpandedCreditError, match="competência comum"):
+        build_expanded_credit_history(
+            _monthly_for_months(months),
+            series_frames=_frames_for_months(months),
+            latest_complete="2026-12",
+        )

@@ -22,6 +22,43 @@ const COMPACT_FIELDS = Object.freeze({
   cohortDetail: ["fund", "cnpj", "target", "status", "pl0", "pl1", "flow", "manager", "custodian"],
 });
 
+
+function comparativePeriod(payload) {
+  const end = String(payload.offers_as_of || "");
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(end);
+  if (!match) throw new Error("Ofertas sem data de corte válida");
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+  if (year < 1900 || year > 9999 || month < 1 || month > 12 || Number(match[3]) !== new Date(Date.UTC(year, month, 0)).getUTCDate()) {
+    throw new Error("Ofertas devem encerrar no último dia da competência");
+  }
+  const span = month === 1 ? "jan" : `jan–${months[month - 1]}`;
+  const short = (value) => String(value % 100).padStart(2, "0");
+  const expected = {
+    current_year: year, month_count: month,
+    current_period_start: `${year}-01-01`, current_period_end: end,
+    previous_period_end: `${year - 1}-${match[2]}-${String(new Date(Date.UTC(year - 1, month, 0)).getUTCDate()).padStart(2, "0")}`,
+    period_label: `${span}/${short(year)}`, previous_period_label: `${span}/${short(year - 1)}`,
+    current_period_id: `${year} jan-${months[month - 1]}`, previous_period_id: `${year - 1} jan-${months[month - 1]}`,
+    current_period_key: `${months[month - 1]}${short(year)}`, previous_period_key: `${months[month - 1]}${short(year - 1)}`,
+  };
+  const supplied = payload.offers_comparison_meta;
+  if (supplied) {
+    for (const [key, value] of Object.entries(expected)) {
+      if (supplied[key] !== value) throw new Error(`Metadado de comparação divergente: ${key}`);
+    }
+    if (end.slice(0, 7) !== payload.latest_complete) throw new Error("Ofertas não acompanham a competência consolidada");
+  }
+  return { ...expected, annual_years: [year - 3, year - 2, year - 1] };
+}
+
+function offerPeriodDisplay(period, cut) {
+  return period === cut.current_period_id
+    ? `${cut.current_year} ${cut.period_label.split("/")[0]}`
+    : String(period).replace(" FY", "FY");
+}
+
 function argsFrom(argv) {
   const args = {};
   for (let index = 0; index < argv.length; index += 1) {
@@ -572,6 +609,9 @@ function flagshipModels(payload) {
       subordinate: canonicalNumber("pl_subordinado_atual_brl", "pl_subordinado_atual_brl"),
       ratio,
       currentStatus: canonicalText("status_sub_pl_atual", "subordinacao_atual_status"),
+      currentAbsenceReason: ratio === null && nullableNumber(legacy.subordinacao_atual_pct) === null
+        ? canonicalText("motivo_sub_pl_atual", "subordinacao_atual_status")
+        : canonicalText("motivo_sub_pl_atual", "", "N/D"),
       range: rangeFromRatio(ratio),
       minJuniorLiteral: canonicalNumber("minimo_junior_literal", "subordinacao_minima_junior_pct"),
       minJuniorCalculated: canonicalNumber("minimo_junior_calculado", ""),
@@ -633,6 +673,7 @@ function flagshipModels(payload) {
       competence: String(summary.competencia || payload.latest_complete || "N/D"),
       families: Math.round(number(summary.familias)),
       cnpjs: Math.round(number(summary.cnpjs)),
+      currentPl: Math.round(number(summary.cnpjs_com_pl_atual)),
       current: Math.round(number(summary.cnpjs_com_subordinacao_atual)),
       documented: Math.round(number(summary.cnpjs_com_pacote_documental)),
       reviewed: Math.round(number(summary.cnpjs_com_regulamento_lido)),
@@ -657,7 +698,7 @@ const FLAGSHIP_FIELDS = Object.freeze({
   ],
   detail: [
     "order", "category", "family", "representative", "fund", "cnpj", "pl",
-    "dataRef", "subordinate", "ratio", "currentStatus", "range",
+    "dataRef", "subordinate", "ratio", "currentStatus", "currentAbsenceReason", "range",
     "minJuniorLiteral", "minJuniorCalculated", "minJuniorAdjusted",
     "supportTotal", "supportCombined", "structuralMinimum", "structuralDisplay",
     "structuralNature", "structuralFormula", "structuralComparable",
@@ -731,8 +772,36 @@ function validateFlagships(data) {
   ) {
     throw new Error("Resumo das famílias flagship diverge do conjunto canônico de CNPJs");
   }
-  if (data.details.some((row) => row.pl === null || row.ratio === null)) {
-    throw new Error("Curadoria flagship contém PL ou subordinação atual ausente");
+  const observedPl = data.details.filter((row) => row.pl !== null).length;
+  const observedRatio = data.details.filter((row) => row.ratio !== null).length;
+  const documentedAbsence = (row) => [row.currentAbsenceReason, row.currentStatus]
+    .some((value) => /^N\/D\s*[—–-]\s*\S.+$/i.test(String(value || "").trim()));
+  if (data.details.some((row) => (
+    (row.pl === null || row.ratio === null) && !documentedAbsence(row)
+  ))) {
+    throw new Error("Curadoria flagship contém PL ou subordinação atual ausente sem motivo N/D explícito");
+  }
+  if (data.details.some((row) => (
+    (row.pl !== null && !Number.isFinite(row.pl))
+    || (row.pl === 0 && !/PL oficial reportado zero/i.test(`${row.currentStatus} ${row.currentAbsenceReason}`))
+    || (row.pl !== null && row.pl < 0 && !/PL oficial reportado negativo/i.test(`${row.currentStatus} ${row.currentAbsenceReason}`))
+    || (row.ratio !== null && (!Number.isFinite(row.ratio) || row.ratio < 0 || row.ratio > 1 + 1e-9 || row.pl === null))
+    || (row.ratio !== null && row.pl <= 0)
+    || (row.ratio !== null && /^N\/D(?:\s|$)/i.test(String(row.currentStatus || "")))
+    || (row.ratio === null && row.range !== "N/D")
+  ))) {
+    throw new Error("Curadoria flagship contém valor atual ou faixa incompatível com a disponibilidade");
+  }
+  if ((observedPl < data.details.length || observedRatio < data.details.length)
+    && (!String(data.summary.currentSource || "").trim() || /^N\/D$/i.test(data.summary.currentSource))) {
+    throw new Error("Curadoria flagship com lacuna atual sem fonte da reconciliação");
+  }
+  const byCnpj = new Map(data.details.map((row) => [row.cnpj, row]));
+  if (data.families.some((family) => {
+    const members = String(family.cnpjs || "").split(";").map((cnpj) => byCnpj.get(formatCnpj(cnpj)));
+    return members.some((row) => row.ratio === null) && (family.ratio !== null || family.range !== "N/D");
+  })) {
+    throw new Error("Família flagship com subordinação incompleta deve permanecer N/D");
   }
   if (data.families.reduce((total, row) => total + row.funds, 0) !== data.details.length) {
     throw new Error("Curadoria flagship não reconcilia famílias e CNPJs");
@@ -740,7 +809,8 @@ function validateFlagships(data) {
   if (
     data.summary.families !== data.families.length
     || data.summary.cnpjs !== data.details.length
-    || data.summary.current !== data.details.length
+    || data.summary.currentPl !== observedPl
+    || data.summary.current !== observedRatio
   ) {
     throw new Error("Resumo da curadoria flagship não reconcilia com o detalhe");
   }
@@ -994,8 +1064,17 @@ function validateCarteira1(data) {
   if (data.ranges.reduce((total, row) => total + row.funds, 0) !== 101) {
     throw new Error("Faixas da Carteira 1 não reconciliam 101 CNPJs");
   }
-  if (data.details.some((row) => row.pl === 0 && row.currentStatus.includes("ausente"))) {
-    throw new Error("Curadoria da Carteira 1 converteu PL ausente em zero");
+  if (data.details.some((row) => row.pl === 0 && !/PL oficial reportado zero/i.test(row.currentStatus))) {
+    throw new Error("Curadoria da Carteira 1 contém PL zero sem status de zero reportado");
+  }
+  if (data.details.some((row) => row.pl !== null && row.pl < 0 && !/PL oficial reportado negativo/i.test(row.currentStatus))) {
+    throw new Error("Curadoria da Carteira 1 contém PL negativo sem status de negativo reportado");
+  }
+  if (data.details.some((row) => row.pl === null && !/ausente|fora da base/i.test(row.currentStatus))) {
+    throw new Error("Curadoria da Carteira 1 contém PL ausente sem motivo explícito");
+  }
+  if (data.details.some((row) => row.ratio !== null && (row.pl === null || row.pl <= 0))) {
+    throw new Error("Curadoria da Carteira 1 calculou razão com PL ausente ou não positivo");
   }
   if (data.summary.minJunior !== 83 || data.summary.minStructural !== 99) {
     throw new Error(
@@ -1157,6 +1236,7 @@ function validateTaxonomy(rows) {
 }
 
 function issuanceTaxonomyModels(payload) {
+  const cut = comparativePeriod(payload);
   const rows = [...(payload.issuance_taxonomy_table || [])];
   const reconciliation = [...(payload.issuance_taxonomy_reconciliation || [])];
   if (rows.length !== 4 || reconciliation.length !== 5) {
@@ -1170,27 +1250,36 @@ function issuanceTaxonomyModels(payload) {
       : rows.reduce((sum, row) => sum + number(row[header]), 0);
   });
   const byPeriod = Object.fromEntries(reconciliation.map((row) => [row.period_key, row]));
-  const periodKeys = ["2023", "2024", "2025", "jun25", "jun26"];
+  const periodKeys = [String(cut.current_year - 3), String(cut.current_year - 2), String(cut.current_year - 1), cut.previous_period_key, cut.current_period_key];
   const volumeKeys = [
-    "2023 (R$ bi)", "2024 (R$ bi)", "2025 (R$ bi)",
-    "jan–jun/25 (R$ bi)", "jan–jun/26 (R$ bi)",
+    `${cut.current_year - 3} (R$ bi)`, `${cut.current_year - 2} (R$ bi)`, `${cut.current_year - 1} (R$ bi)`,
+    `${cut.previous_period_label} (R$ bi)`, `${cut.period_label} (R$ bi)`,
   ];
   const shareKeys = [
-    "2023 (%)", "2024 (%)", "2025 (%)", "jan–jun/25 (%)", "jan–jun/26 (%)",
+    `${cut.current_year - 3} (%)`, `${cut.current_year - 2} (%)`, `${cut.current_year - 1} (%)`, `${cut.previous_period_label} (%)`, `${cut.period_label} (%)`,
   ];
+  if (reconciliation.length !== periodKeys.length || Object.keys(byPeriod).length !== periodKeys.length || periodKeys.some(key => !byPeriod[key])) {
+    throw new Error("Taxonomia de emissões contém corte ausente, duplicado ou desatualizado");
+  }
+  for (const row of rows) {
+    if ([...volumeKeys, ...shareKeys].some(key => row[key] === null || row[key] === undefined || !Number.isFinite(Number(row[key])))) {
+      throw new Error("Tabela de emissões sem valores para os períodos publicados");
+    }
+  }
   const bridge = (label, field) => {
     const row = { Categoria: label };
     periodKeys.forEach((periodKey, index) => {
       row[volumeKeys[index]] = number(byPeriod[periodKey]?.[field]) / 1e9;
       row[shareKeys[index]] = null;
     });
-    row["Delta 2023→2024 (R$ bi)"] = row[volumeKeys[1]] - row[volumeKeys[0]];
-    row["Delta 2024→2025 (R$ bi)"] = row[volumeKeys[2]] - row[volumeKeys[1]];
-    row["Delta jan–jun/25→jan–jun/26 (R$ bi)"] = row[volumeKeys[4]] - row[volumeKeys[3]];
+    row[`Delta ${cut.current_year - 3}→${cut.current_year - 2} (R$ bi)`] = row[volumeKeys[1]] - row[volumeKeys[0]];
+    row[`Delta ${cut.current_year - 2}→${cut.current_year - 1} (R$ bi)`] = row[volumeKeys[2]] - row[volumeKeys[1]];
+    row[`Delta ${cut.previous_period_label}→${cut.period_label} (R$ bi)`] = row[volumeKeys[4]] - row[volumeKeys[3]];
     return row;
   };
   return {
     schemaVersion: "issuance_taxonomy_table_v1",
+    comparisonMeta: payload.offers_comparison_meta || null,
     headers,
     rows: [
       ...rows,
@@ -1380,6 +1469,7 @@ function flagshipApp(DATA) {
   const ranges = [
     ["< 10%", "#ECEEEF"], ["10%–15%", "#D7DADD"], ["15%–20%", "#BEC2C5"],
     ["20%–35%", "#E8BE9D"], ["35%–60%", "#F29A52"], ["≥ 60%", "#EC7000"],
+    ["N/D", "#ECEEEF"],
   ];
   const categories = [...new Set(DATA.families.map(row => row.category))];
   category.innerHTML = `<option value="all">Todas as categorias</option>` + categories.map(value => `<option value="${esc(value)}">${esc(value)}</option>`).join("");
@@ -1453,13 +1543,14 @@ function flagshipApp(DATA) {
     const pages = Math.max(1, Math.ceil(rows.length / 10));
     state.page = Math.min(state.page, pages - 1);
     const current = rows.slice(state.page * 10, state.page * 10 + 10);
-    caption.textContent = `${rows.length} CNPJs canônicos no filtro · competência ${DATA.summary.competence}.`;
+    const observed = rows.filter(row => n(row.ratio) !== null).length;
+    caption.textContent = `${rows.length} CNPJs no filtro · subordinação calculável em ${observed}/${rows.length}; ${rows.length - observed} N/D · competência ${DATA.summary.competence}.`;
     tbody.innerHTML = current.map(row => `<tr>
       <td><strong>${esc(row.fund)}</strong><br><small>${esc(row.cnpj)} · ${esc(row.family)}</small></td>
       <td>${esc(row.category)}</td>
       <td>${parties(row)}</td>
       <td>${debtorReceivable(row)}</td>
-      <td class="num">${money(row.pl)}<br><small>Sub. ${pct(row.ratio)} · ${esc(row.range)}</small></td>
+      <td class="num">${money(row.pl)}<br><small>Sub. ${pct(row.ratio)} · ${esc(row.range)}</small>${n(row.pl) === null || n(row.ratio) === null ? `<br><small>${esc(row.currentAbsenceReason || row.currentStatus)}</small>` : ""}</td>
       <td>${minima(row)}</td>
       <td class="num">${headroom(row)}</td>
       <td>${price(row)}</td>
@@ -1472,8 +1563,8 @@ function flagshipApp(DATA) {
   };
   const render = () => { renderGrid(); renderTable(); };
   const downloadCsv = () => {
-    const headers = ["ordem","categoria","familia_flagship","cnpj","fundo_oficial_cvm","data_ref","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","status_sub_pl_atual","faixa_subordinacao_atual","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","minimo_estrutural_natureza","minimo_estrutural_formula","comparavel_flag","comparabilidade_motivo","excecao_asterisco_flag","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco_flag","status_identidade","status_complemento_manual","observacao_complemento_manual","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url"];
-    const rows = filteredDetails().map(row => [row.order,row.category,row.family,row.cnpj,row.fund,row.dataRef,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.pl,row.subordinate,row.ratio,row.currentStatus,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.structuralComparable,row.structuralComparableReason,row.exceptionAsterisk,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.identityStatus,row.manualStatus,row.manualNote,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,row.fundosnetUrl]);
+    const headers = ["ordem","categoria","familia_flagship","cnpj","fundo_oficial_cvm","data_ref","originador","cedente","cedente_originador_literal","papel_literal","sacado_devedor","tipo_recebivel","fonte_partes_recebivel","pl_atual_brl","pl_subordinado_atual_brl","sub_pl_atual","status_sub_pl_atual","faixa_subordinacao_atual","minimo_junior_literal","minimo_junior_calculado","minimo_junior_ajustado","suporte_total","suporte_combinado_junior_mezanino","minimo_estrutural_usado","minimo_estrutural_display","minimo_estrutural_natureza","minimo_estrutural_formula","comparavel_flag","comparabilidade_motivo","excecao_asterisco_flag","folga_pp","capacidade_ate_gatilho","situacao_regulatoria","preco_cota_brl","preco_cota_display","preco_cota_natureza","preco_cota_classe_serie","preco_cota_documento_data","preco_cota_documento_id","preco_cota_fonte","preco_cota_status","preco_cota_excecao_asterisco_flag","status_identidade","status_complemento_manual","observacao_complemento_manual","status_preenchimento","campos_nao_preenchidos","status_curadoria_documental","documento_id","documento_data","pagina_clausula","fonte_documental","texto_minimo","fundosnet_url","motivo_sub_pl_atual"];
+    const rows = filteredDetails().map(row => [row.order,row.category,row.family,row.cnpj,row.fund,row.dataRef,row.originator,row.cedente,row.cedenteOriginator,row.partyRole,row.debtor,row.receivable,row.partiesSource,row.pl,row.subordinate,row.ratio,row.currentStatus,row.range,row.minJuniorLiteral,row.minJuniorCalculated,row.minJuniorAdjusted,row.supportTotal,row.supportCombined,row.structuralMinimum,row.structuralDisplay,row.structuralNature,row.structuralFormula,row.structuralComparable,row.structuralComparableReason,row.exceptionAsterisk,row.structuralHeadroom,row.lossAbsorption,row.regulatoryStatus,row.priceBrl,row.priceDisplay,row.priceNature,row.priceClassSeries,row.priceDocumentDate,row.priceDocumentId,row.priceSource,row.priceStatus,row.priceExceptionAsterisk,row.identityStatus,row.manualStatus,row.manualNote,row.completionStatus,row.gaps,row.curationStatus,row.documentId,row.documentDate,row.page,row.documentarySource,row.minimumText,row.fundosnetUrl,row.currentAbsenceReason]);
     const quote = value => '"' + String(value ?? "").replaceAll('"','""') + '"';
     const csv = [headers, ...rows].map(row => row.map(quote).join(";")).join("\n");
     const blob = new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"});
@@ -1882,6 +1973,7 @@ function fragmentHtml(data, standalone = false) {
     <div class="flag-metric"><strong>${data.flagships.summary.minJunior}</strong><span>mínimos júnior localizados</span></div>
     <div class="flag-metric"><strong>${data.flagships.summary.price}</strong><span>preços unitários localizados</span></div>
   </div>
+  <p class="flag-caption">PL disponível em ${data.flagships.summary.currentPl}/${data.flagships.summary.cnpjs} CNPJs; subordinação calculável em ${data.flagships.summary.current}/${data.flagships.summary.cnpjs}. As lacunas permanecem N/D com o motivo na linha; famílias com algum CNPJ sem subordinação calculável ficam em N/D.</p>
   <div class="flag-controls">
     <label>Categoria<select data-flag-category aria-label="Categoria flagship"></select></label>
     <label class="flag-search">Buscar fundo, família, CNPJ, parte ou recebível<input data-flag-search type="search" placeholder="Ex.: Cloudwalk Bela, 62.393.679/0001-83, FGTS"></label>

@@ -973,10 +973,15 @@ def test_card_taxonomy_audit_keeps_secondary_exposure_and_missing_prior_pl() -> 
     assert summary["fundos_exposicao_secundaria"] == 1
     assert summary["fundos_anbima_cartao_explicito"] == 1
     assert summary["fundos_pl_observavel"] == 1
-    assert summary["pl_jun25_observado_brl"] == 90.0
+    assert summary["pl_comparavel_anterior_observado_brl"] == 90.0
     avanti = audit[audit["denominacao"].eq("AVANTI FIDC")].iloc[0]
-    assert not bool(avanti["pl_jun25_observavel"])
+    assert not bool(avanti["pl_comparavel_anterior_observavel"])
     assert avanti["criterio_inclusao"].startswith("Exposição")
+    assert avanti["status_curadoria"] == "Pendente"
+    assert avanti["fonte_url"].endswith("inf_mensal_fidc_202606.zip")
+    assert "Tabela II; curadoria documental pendente" in avanti["fonte_documento"]
+    assert avanti["cedente_originador"] == "N/D"
+    assert avanti["instrumento"] == "N/D"
 
 
 def test_provider_transition_uses_current_pl_and_marks_overlay_roles_as_samples() -> None:

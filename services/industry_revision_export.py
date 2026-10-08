@@ -10,19 +10,23 @@ hashes match its manifest.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 import hashlib
 from io import BytesIO
 import json
+import math
 import os
 from pathlib import Path
 import posixpath
 import re
 import shutil
-from typing import Callable, Iterable
+from threading import RLock
+from typing import Callable, Iterable, Mapping
 import unicodedata
 import zipfile
 from xml.etree import ElementTree
 
+from scripts.patch_industry_workbook_operational_cache import validate_workbook_caches
 from services.industry_taxonomy_review import (
     assert_taxonomy_review_ledger_matches_audit,
     taxonomy_review_audit_digest,
@@ -42,130 +46,43 @@ MATERIALIZED_HTML_NAME = "provider_flows_explorer.html"
 BUNDLE_SCHEMA = "fidc_revision_export_bundle_v5"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v11"
 TOP100_PLUS2_ADDITIONAL_CNPJS = {"44302112000172", "61669748000176"}
-ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ((6, 8),)
-STRUCTURAL_MVP_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    ("risco estrutural", "financeiro", "carteira i"),
-    ("risco estrutural", "adquirencia", "carteira i"),
-    ("risco estrutural", "agro / revenda", "carteira i"),
-    ("risco estrutural", "risco corporativo", "carteira i"),
-    ("risco estrutural", "consignado inss e fgts", "carteira i"),
-    ("risco estrutural", "factoring", "carteira i"),
-)
-TYPE_RANKING_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    ("fomento mercantil", "crescimento marginal em seis meses", "jun/26", "top 15"),
-    ("fomento mercantil", "crescimento marginal em seis meses", "dez/25", "top 15"),
-    ("agro, industria e comercio", "maior salto absoluto", "jun/26", "top 15"),
-    ("agro, industria e comercio", "maior salto absoluto", "dez/25", "top 15"),
-    ("financeiro", "maior bloco", "ainda crescendo", "jun/26", "top 15"),
-    ("financeiro", "maior bloco", "ainda crescendo", "dez/25", "top 15"),
-    ("outros", "unico bloco que encolheu", "jun/26", "top 15"),
-    ("outros", "unico bloco que encolheu", "dez/25", "top 15"),
-)
-CURRENT_TOP15_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    (
-        "top 15",
-        "ibba esteve em 8 das 15 maiores ofertas do semestre",
-        "liderou 5 delas",
-        "jan–jun/26",
-    ),
-    (
-        "top 15",
-        "as 15 maiores ofertas de 2025 mantem a base anual de comparacao",
-        "2025fy",
-    ),
-)
-HISTORICAL_TOP15_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    (
-        "top 15",
-        "historico",
-        "maiores ofertas de 2024",
-        "1/2",
-        "agencia",
-        "rating",
-    ),
-    (
-        "top 15",
-        "historico",
-        "maiores ofertas de 2024",
-        "2/2",
-        "agencia",
-        "rating",
-    ),
-    (
-        "top 15",
-        "historico",
-        "maiores ofertas de 2023",
-        "1/2",
-        "agencia",
-        "rating",
-    ),
-    (
-        "top 15",
-        "historico",
-        "maiores ofertas de 2023",
-        "2/2",
-        "agencia",
-        "rating",
-    ),
-)
-HISTORICAL_TOP15_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = (
-    (9, 12),
-    (8, 12),
-    (9, 12),
-    (8, 12),
+# The executive deck carries a stable topic order. Documentary rankings and
+# structural detail remain in the audited workbooks, outside this contract.
+ISSUANCE_TAXONOMY_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ()
+STRUCTURAL_MVP_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = ()
+TYPE_RANKING_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = ()
+CURRENT_TOP15_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = ()
+HISTORICAL_TOP15_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = ()
+HISTORICAL_TOP15_TABLE_DIMENSIONS: tuple[tuple[int, int], ...] = ()
+CURRENT_TOP15_SLIDE_NUMBERS: tuple[int, ...] = ()
+HISTORICAL_TOP15_SLIDE_NUMBERS: tuple[int, ...] = ()
+EXPECTED_SLIDE_IDS: tuple[str, ...] = (
+    "cover", "industry_scale", "annual_issuance", "issuance_taxonomy_summary",
+    "analytical_taxonomy", "acquiring", "receivables", "offers_volume_ticket",
+    "offers_ticket_distribution", "offers_placement_regime", "conclusions",
+    "provider_history", "provider_ranking", "investor_base", "holder_distribution",
 )
 EXPECTED_SLIDE_SEQUENCE: tuple[tuple[str, ...], ...] = (
-    ("industria de fidcs", "ago-26", "dados de referencia: jun-26"),
-    ("escala da industria", "r$ 821,0 bi", "r$ 13,780 tri"),
-    ("emissoes", "fidcs seguem ganhando escala nas emissoes", "1s26 ytd yoy"),
-    ("saldo e tipos de fidcs", "financeiros dominam saldo e novas emissoes"),
-    ("emissoes por categoria anbima", "emissoes por setor", "total emitido"),
-    ("abrir", "outros", "revela que 63% do mercado e credito financeiro"),
-    ("adquirencia e r$ 99 bi", "33 cnpjs reclassificados"),
-    ("financeiro explicou 70% do crescimento da carteira",),
-    ("ranking", "top 20 fidcs"),
-    *TYPE_RANKING_SLIDE_SEQUENCE,
-    *STRUCTURAL_MVP_SLIDE_SEQUENCE,
-    ("emissoes crescem 15% no semestre",),
-    ("22 ofertas concentram 42% de todo o volume",),
-    ("garantia firme", "yoy ytd", "melhores esforcos repr."),
-    *CURRENT_TOP15_SLIDE_SEQUENCE,
-    *HISTORICAL_TOP15_SLIDE_SEQUENCE,
-    ("o que muda a leitura do mercado",),
-    ("qi lidera administracao", "btg lidera gestao e custodia"),
+    ("industria de fidcs", "dados de referencia"),
+    ("escala da industria",),
+    ("emissoes de fidcs e outros instrumentos", "yoy"),
+    ("emissoes por setor",),
+    ("composicao da industria", "pl ex-fic"),
+    ("adquirencia na industria de fidcs",),
+    ("evolucao dos recebiveis", "tabela ii"),
+    ("volume e ticket das ofertas",),
+    ("concentracao das ofertas por ticket",),
+    ("garantia firme", "melhores esforcos"),
+    ("principais conclusoes",),
+    ("ranking de prestadores", "ranking geral"),
     ("prestadores", "ranking e concentracao"),
-    ("quase todo o volume vai para o investidor profissional",),
+    ("publico-alvo e base investidora",),
     ("distribuicao por numero de cotistas",),
 )
 EXPECTED_SLIDES = len(EXPECTED_SLIDE_SEQUENCE)
+if len(EXPECTED_SLIDE_IDS) != EXPECTED_SLIDES:
+    raise RuntimeError("contrato compacto de slides inconsistente")
 
-
-def _contract_slide_numbers(
-    sequence: tuple[tuple[str, ...], ...],
-) -> tuple[int, ...]:
-    """Resolve ordinal positions from the shared editorial contract."""
-
-    return tuple(EXPECTED_SLIDE_SEQUENCE.index(tokens) + 1 for tokens in sequence)
-
-
-CURRENT_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
-    CURRENT_TOP15_SLIDE_SEQUENCE
-)
-HISTORICAL_TOP15_SLIDE_NUMBERS = _contract_slide_numbers(
-    HISTORICAL_TOP15_SLIDE_SEQUENCE
-)
-if len(STRUCTURAL_MVP_SLIDE_SEQUENCE) != 6:
-    raise RuntimeError("capítulo MVP de risco estrutural deve conter seis slides")
-if len(HISTORICAL_TOP15_TABLE_DIMENSIONS) != len(
-    HISTORICAL_TOP15_SLIDE_SEQUENCE
-) or any(
-    sum(rows - 1 for rows, _ in year_dimensions) != 15
-    for year_dimensions in (
-        HISTORICAL_TOP15_TABLE_DIMENSIONS[:2],
-        HISTORICAL_TOP15_TABLE_DIMENSIONS[2:],
-    )
-):
-    raise RuntimeError("contrato das tabelas históricas Top 15 está inconsistente")
 BLOCKED_PPTX_AUDIENCE_COPY: tuple[str, ...] = (
     "clique para inserir",
     "click to add",
@@ -809,214 +726,258 @@ def _contains_blocked_rgb_color(
     return False
 
 
-def validate_revision_pptx(payload: bytes) -> None:
-    """Validate the visual contract directly in the exported OOXML."""
+def _slide_contract_metadata(
+    archive: zipfile.ZipFile, slide_path: str
+) -> dict[str, object]:
+    rels_path = posixpath.join(
+        posixpath.dirname(slide_path), "_rels", posixpath.basename(slide_path) + ".rels"
+    )
+    try:
+        rels = ElementTree.fromstring(archive.read(rels_path))
+    except (KeyError, ElementTree.ParseError) as exc:
+        raise RevisionExportUnavailable("slide sem relações Office válidas") from exc
+    notes = []
+    for relationship in rels:
+        if not relationship.attrib.get("Type", "").endswith("/notesSlide"):
+            continue
+        target = relationship.attrib.get("Target", "")
+        notes_path = target.lstrip("/") if target.startswith("/") else posixpath.normpath(
+            posixpath.join(posixpath.dirname(slide_path), target)
+        )
+        try:
+            root = ElementTree.fromstring(archive.read(notes_path))
+        except (KeyError, ElementTree.ParseError) as exc:
+            raise RevisionExportUnavailable("PPTX sem notas válidas para o contrato editorial") from exc
+        notes.append(" ".join(node.text or "" for node in root.iter(f"{{{_DML}}}t")))
+    matches = re.findall(r"\[Industry contract\]\s*(\{[^{}]+\})", " ".join(notes))
+    if len(matches) != 1:
+        raise RevisionExportUnavailable("slide sem contrato editorial único nas notas")
+    try:
+        metadata = json.loads(matches[0])
+    except json.JSONDecodeError as exc:
+        raise RevisionExportUnavailable("contrato editorial do slide inválido") from exc
+    if not isinstance(metadata, dict):
+        raise RevisionExportUnavailable("contrato editorial do slide inválido")
+    return metadata
+
+
+def validate_revision_pptx(
+    payload: bytes, *, expected_payload: dict[str, object] | None = None,
+    expected_signature: str | None = None,
+) -> None:
+    """Validate compact order, periods, native evidence and Office integrity."""
 
     if not _valid_zip(payload, "ppt/presentation.xml"):
         raise RevisionExportUnavailable("PPTX revisado inválido ou corrompido")
     with zipfile.ZipFile(BytesIO(payload)) as archive:
         _validate_no_mojibake_office_archive(archive, "PPTX revisado")
-        slides = [
-            name
-            for name in archive.namelist()
-            if name.startswith("ppt/slides/slide")
-            and name.endswith(".xml")
-            and "/_rels/" not in name
-        ]
-        if len(slides) != EXPECTED_SLIDES:
-            raise RevisionExportUnavailable(
-                f"PPTX revisado deveria conter {EXPECTED_SLIDES} slides; contém {len(slides)}"
-            )
         ordered_slides = _ordered_slide_parts(archive)
         if len(ordered_slides) != EXPECTED_SLIDES:
             raise RevisionExportUnavailable(
-                f"sequência do PPTX deveria conter {EXPECTED_SLIDES} slides; contém {len(ordered_slides)}"
+                f"PPTX revisado deveria conter {EXPECTED_SLIDES} slides; contém {len(ordered_slides)}"
             )
         _validate_no_blocked_audience_copy(archive)
-        for slide_number, (slide_path, expected_tokens) in enumerate(
-            zip(ordered_slides, EXPECTED_SLIDE_SEQUENCE, strict=True),
-            start=1,
+        metadata_rows = []
+        for slide_number, (slide_path, expected_id, expected_tokens) in enumerate(
+            zip(ordered_slides, EXPECTED_SLIDE_IDS, EXPECTED_SLIDE_SEQUENCE, strict=True), start=1
         ):
             slide_text = _normalized_slide_text(archive.read(slide_path))
-            missing_tokens = [
-                token for token in expected_tokens if token not in slide_text
-            ]
-            if missing_tokens:
+            missing = [token for token in expected_tokens if token not in slide_text]
+            if missing:
                 raise RevisionExportUnavailable(
-                    f"slide {slide_number} viola o contrato ordinal: "
-                    + ", ".join(missing_tokens)
+                    f"slide {slide_number} viola o contrato ordinal: " + ", ".join(missing)
                 )
-        scale_slide = _slide_xml_containing(archive, "ESCALA DA INDÚSTRIA")
-        if scale_slide.count(b"<c:chart") < 2:
-            raise RevisionExportUnavailable(
-                "slide de escala deve conter dois gráficos nativos do Office"
-            )
-        if "saldo fic" in _normalized_slide_text(scale_slide):
-            raise RevisionExportUnavailable(
-                "slide de escala voltou a exibir FIC no gráfico de PL"
-            )
-        scale_slide_root = ElementTree.fromstring(scale_slide)
-        if str(scale_slide_root.attrib.get("show", "1")).casefold() in {"0", "false"}:
-            raise RevisionExportUnavailable("slide de escala está oculto")
-        presentation = ElementTree.fromstring(archive.read("ppt/presentation.xml"))
-        slide_size = presentation.find(f"{{{_PML}}}sldSz")
-        if slide_size is None:
-            raise RevisionExportUnavailable("PPTX revisado sem dimensão de slide")
-        canvas = (int(slide_size.attrib["cx"]), int(slide_size.attrib["cy"]))
-        _validate_native_table_slide(
-            archive,
-            3,
-            expected_dimensions=((7, 3),),
-            canvas=canvas,
-        )
-        _validate_native_table_slide(
-            archive,
-            5,
-            expected_dimensions=ISSUANCE_TAXONOMY_TABLE_DIMENSIONS,
-            canvas=canvas,
-        )
-        for ranking_slide_number in range(10, 18):
-            _validate_native_table_slide(
-                archive,
-                ranking_slide_number,
-                expected_dimensions=((16, 8),),
-                canvas=canvas,
-            )
-            ranking_text = _normalized_slide_text(
-                archive.read(ordered_slides[ranking_slide_number - 1])
-            )
-            if "remuneracao-alvo" not in ranking_text:
-                raise RevisionExportUnavailable(
-                    f"slide {ranking_slide_number} deve exibir Remuneração-alvo"
-                )
-            if "preco por cota" in ranking_text:
-                raise RevisionExportUnavailable(
-                    f"slide {ranking_slide_number} ainda usa Preço por cota "
-                    "como rótulo da rentabilidade-alvo"
-                )
-        for slide_number in CURRENT_TOP15_SLIDE_NUMBERS:
-            _validate_native_table_slide(
-                archive,
-                slide_number,
-                expected_dimensions=((16, 10),),
-                canvas=canvas,
-            )
-        for slide_number, dimensions in zip(
-            HISTORICAL_TOP15_SLIDE_NUMBERS,
-            HISTORICAL_TOP15_TABLE_DIMENSIONS,
-            strict=True,
+            metadata = _slide_contract_metadata(archive, slide_path)
+            if metadata.get("id") != expected_id:
+                raise RevisionExportUnavailable(f"slide {slide_number} tem identidade editorial incorreta")
+            if metadata.get("executive_conclusions") != 5:
+                raise RevisionExportUnavailable("deck sem cinco conclusões atualizadas")
+            metadata_rows.append(metadata)
+        signatures = {str(row.get("source_signature", "")) for row in metadata_rows}
+        if len(signatures) != 1 or not re.fullmatch(r"[0-9a-f]{64}", next(iter(signatures))):
+            raise RevisionExportUnavailable("PPTX sem assinatura única do payload")
+        if expected_signature is not None and signatures != {expected_signature}:
+            raise RevisionExportUnavailable("PPTX desatualizado em relação à assinatura do payload")
+        period_pairs = {
+            (str(row.get("latest_complete", "")), str(row.get("offers_as_of", "")))
+            for row in metadata_rows
+        }
+        if len(period_pairs) != 1:
+            raise RevisionExportUnavailable("PPTX contém competências divergentes entre slides")
+        competence, offers_as_of = next(iter(period_pairs))
+        if not re.fullmatch(r"20\d{2}-(0[1-9]|1[0-2])", competence) or not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", offers_as_of):
+            raise RevisionExportUnavailable("PPTX sem períodos de referência válidos")
+        if expected_payload is not None and (
+            competence != expected_payload.get("latest_complete")
+            or offers_as_of != expected_payload.get("offers_as_of")
         ):
-            _validate_native_table_slide(
-                archive,
-                slide_number,
-                expected_dimensions=(dimensions,),
-                canvas=canvas,
-            )
-        office_xml_parts = [
-            archive.read(name)
-            for name in archive.namelist()
-            if name.endswith(".xml") and (
-                name.startswith("ppt/slides/")
-                or name.startswith("ppt/theme/")
-                or "/charts/chart" in name
-            )
-        ]
-        if _contains_blocked_rgb_color(office_xml_parts, "172A3A"):
+            raise RevisionExportUnavailable("PPTX desatualizado em relação ao payload")
+        from services.industry_comparative_period import ComparisonCut
+
+        try:
+            offer_cut = ComparisonCut.from_competence(offers_as_of[:7])
+        except ValueError as exc:
+            raise RevisionExportUnavailable("PPTX sem corte mensal válido para ofertas") from exc
+        if offers_as_of != offer_cut.period_end.isoformat():
+            raise RevisionExportUnavailable("PPTX sem fechamento mensal para ofertas")
+        if expected_payload is not None and expected_payload.get("offers_comparison_meta") is not None:
+            metadata = expected_payload["offers_comparison_meta"]
+            if (
+                not isinstance(metadata, Mapping)
+                or any(metadata.get(key) != value for key, value in offer_cut.to_meta().items())
+                or offer_cut.competence != competence
+            ):
+                raise RevisionExportUnavailable("corte comparativo não acompanha a competência consolidada")
+        for number in (1, 3, 4, 8, 9, 10, 11, 14):
+            if offer_cut.period_label() not in _normalized_slide_text(archive.read(ordered_slides[number - 1])):
+                raise RevisionExportUnavailable(f"slide {number} sem corte atual de ofertas")
+        months = ("jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez")
+        stock_label = f"{months[int(competence[-2:]) - 1]}/{competence[2:4]}"
+        for number in (1, 2, 5, 6, 7, 12, 13, 14, 15):
+            if stock_label not in _normalized_slide_text(archive.read(ordered_slides[number - 1])):
+                raise RevisionExportUnavailable(f"slide {number} sem competência atual do estoque")
+        presentation = ElementTree.fromstring(archive.read("ppt/presentation.xml"))
+        size = presentation.find(f"{{{_PML}}}sldSz")
+        if size is None:
+            raise RevisionExportUnavailable("PPTX revisado sem dimensão de slide")
+        canvas = (int(size.attrib["cx"]), int(size.attrib["cy"]))
+        _validate_native_table_slide(archive, 3, expected_dimensions=((7, 3),), canvas=canvas)
+        # Preserve editable native charts on every retained evidence slide.
+        chart_minimums = {2: 2, 3: 2, 4: 2, 5: 2, 6: 2, 7: 2, 8: 2, 9: 3, 10: 1, 12: 6, 13: 2, 14: 2, 15: 4}
+        for number, minimum in chart_minimums.items():
+            root = ElementTree.fromstring(archive.read(ordered_slides[number - 1]))
+            count = len(root.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/chart}chart"))
+            if count < minimum:
+                raise RevisionExportUnavailable(f"slide {number} sem os gráficos nativos esperados")
+        for number in (1, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15):
+            if b"<a:tbl>" in archive.read(ordered_slides[number - 1]):
+                raise RevisionExportUnavailable(f"slide {number} contém tabela fora do contrato compacto")
+        scale_text = _normalized_slide_text(archive.read(ordered_slides[1]))
+        if "saldo fic" in scale_text:
+            raise RevisionExportUnavailable("slide de escala voltou a exibir FIC no gráfico de PL")
+        office_xml = [archive.read(name) for name in archive.namelist() if name.endswith(".xml") and (name.startswith("ppt/slides/") or name.startswith("ppt/theme/") or "/charts/chart" in name)]
+        if _contains_blocked_rgb_color(office_xml, "172A3A"):
             raise RevisionExportUnavailable("PPTX revisado contém a cor navy bloqueada")
         chart_xml = b"".join(archive.read(name) for name in _chart_members(archive))
+        chart_namespace = "http://schemas.openxmlformats.org/drawingml/2006/chart"
+        for name in _chart_members(archive):
+            root = ElementTree.fromstring(archive.read(name))
+            for labels in root.findall(f".//{{{chart_namespace}}}dLbls"):
+                for scope in [labels, *labels.findall(f"{{{chart_namespace}}}dLbl")]:
+                    for flag in ("showLegendKey", "showCatName", "showSerName", "showPercent", "showBubbleSize"):
+                        value = scope.find(f"{{{chart_namespace}}}{flag}")
+                        if value is None or value.attrib.get("val") not in {"0", "false"}:
+                            raise RevisionExportUnavailable("PPTX revisado contém rótulos nativos ambíguos")
+            for value in root.findall(f".//{{{chart_namespace}}}val//{{{chart_namespace}}}pt/{{{chart_namespace}}}v"):
+                if value.text in {None, ""}:
+                    continue
+                try:
+                    finite = math.isfinite(float(value.text))
+                except ValueError:
+                    finite = False
+                if not finite:
+                    raise RevisionExportUnavailable("PPTX revisado contém valor não finito em gráfico nativo")
         if b'<c:smooth val="1"' in chart_xml or b'<c:smooth val="true"' in chart_xml:
             raise RevisionExportUnavailable("PPTX revisado contém linha suavizada")
-        marker_tokens = chart_xml.replace(b" />", b"/>").split(b"<c:marker>")[1:]
-        for token in marker_tokens:
-            marker = token.split(b"</c:marker>", 1)[0]
-            if b'<c:symbol val="none"' not in marker:
+        for token in chart_xml.replace(b" />", b"/>").split(b"<c:marker>")[1:]:
+            if b'<c:symbol val="none"' not in token.split(b"</c:marker>", 1)[0]:
                 raise RevisionExportUnavailable("PPTX revisado contém marker ativo")
-        ranking_slide = _slide_xml_containing(
-            archive, "QI LIDERA ADMINISTRAÇÃO", "BTG LIDERA GESTÃO E CUSTÓDIA"
-        )
-        if ranking_slide.count(b"<a:tbl>") != 0:
-            raise RevisionExportUnavailable(
-                "slide combinado de prestadores deve conter apenas gráficos"
-            )
-        if ranking_slide.count(b"<c:chart") < 6:
-            raise RevisionExportUnavailable(
-                "slide combinado de prestadores deve conter ao menos seis gráficos nativos do Office"
-            )
-        offers_slide = _slide_xml_containing(
-            archive, "22 OFERTAS CONCENTRAM 42% DE TODO O VOLUME"
-        )
-        if offers_slide.count(b"<c:chart") < 3:
-            raise RevisionExportUnavailable(
-                "slide de distribuição de ofertas deve conter três gráficos nativos do Office"
-            )
-        placement_slide = _slide_xml_containing(
-            archive,
-            "GARANTIA FIRME",
-            "MELHORES ESFORÇOS REPR.",
-        )
-        if placement_slide.count(b"<c:chart") != 1:
-            raise RevisionExportUnavailable(
-                "slide de regime deve conter somente o gráfico de participação do volume"
-            )
-        combined_market_slide = _slide_xml_containing(
-            archive, "FIDCS SEGUEM GANHANDO ESCALA NAS EMISSÕES"
-        )
-        if combined_market_slide.count(b"<c:chart") != 2:
-            raise RevisionExportUnavailable(
-                "slide conjunto CVM e ANBIMA deve conter dois gráficos nativos do Office"
-            )
-        if combined_market_slide.count(b"<a:tbl>") != 1:
-            raise RevisionExportUnavailable(
-                "slide conjunto CVM e ANBIMA deve conter uma tabela nativa"
-            )
-        stock_and_types_slide = _slide_xml_containing(
-            archive,
-            "SALDO E TIPOS DE FIDCS",
-            "FINANCEIROS DOMINAM SALDO E NOVAS EMISSÕES",
-        )
-        if stock_and_types_slide.count(b"<c:chart") != 4:
-            raise RevisionExportUnavailable(
-                "slide de saldo e tipos deve conter quatro gráficos nativos do Office"
-            )
-        if stock_and_types_slide.count(b"<a:tbl>") != 0:
-            raise RevisionExportUnavailable(
-                "slide de saldo e tipos não deve conter tabela nativa"
-            )
-        taxonomy_market_slide = _slide_xml_containing(
-            archive, "EMISSÕES POR CATEGORIA ANBIMA"
-        )
-        if taxonomy_market_slide.count(b"<c:chart") != 2:
-            raise RevisionExportUnavailable(
-                "slide de emissões por categoria deve conter dois gráficos nativos do Office"
-            )
-        if taxonomy_market_slide.count(b"<a:tbl>") != 1:
-            raise RevisionExportUnavailable(
-                "slide de emissões por categoria deve conter uma tabela nativa"
-            )
-        for slide_number in CURRENT_TOP15_SLIDE_NUMBERS:
-            top15_offers_slide = archive.read(ordered_slides[slide_number - 1])
-            if top15_offers_slide.count(b"<a:tbl>") != 1:
-                raise RevisionExportUnavailable(
-                    f"slide {slide_number} de maiores ofertas deve conter uma tabela nativa do Office"
-                )
-        provider_concentration_slide = _slide_xml_containing(
-            archive,
-            "PRESTADORES",
-            "RANKING E CONCENTRAÇÃO",
-        )
-        if provider_concentration_slide.count(b"<c:chart") != 2:
-            raise RevisionExportUnavailable(
-                "slide de concentração de prestadores deve conter "
-                "dois gráficos nativos do Office"
-            )
-        if provider_concentration_slide.count(b"<a:tbl>") != 0:
-            raise RevisionExportUnavailable(
-                "slide de concentração de prestadores não deve conter tabela nativa"
-            )
-        _slide_xml_containing(archive, "O QUE MUDA A LEITURA DO MERCADO")
 
 
-def validate_revision_xlsx(payload: bytes) -> None:
+def _validate_workbook_offer_periods(workbook, expected_payload: Mapping[str, object]) -> None:
+    """Validate the authored data blocks, separately from captions and summaries."""
+    from services.industry_comparative_period import ComparisonCut
+
+    try:
+        offer_cut = ComparisonCut.from_competence(str(expected_payload["latest_complete"]))
+    except (KeyError, ValueError) as exc:
+        raise RevisionExportUnavailable("XLSX sem competência comparativa válida") from exc
+    metadata = expected_payload.get("offers_comparison_meta") or {}
+    if any(metadata.get(key) != value for key, value in offer_cut.to_meta().items()):
+        raise RevisionExportUnavailable("XLSX usa metadados comparativos desatualizados")
+    specs = (
+        ("Comparativo renda fixa", "fixed_income_offer_comparison"),
+        ("Regime de colocação", "closed_offer_placement_regime"),
+        ("Histograma ofertas", "closed_offer_ticket_distribution"),
+        ("Top 15 ofertas", "closed_offer_top15"),
+        ("Validação emissões", "market_offer_reconciliation"),
+        ("Público-alvo ofertas", "offer_target_public_shares"),
+    )
+    for sheet_name, source_key in specs:
+        sheet = workbook[sheet_name]
+        headers = [str(cell.value or "").strip() for cell in next(sheet.iter_rows(min_row=4, max_row=4), ())]
+        if "Período" not in headers:
+            raise RevisionExportUnavailable(f"{sheet_name} sem período comparativo")
+        column = headers.index("Período")
+        source_rows = expected_payload.get(source_key) or []
+        if not source_rows:
+            raise RevisionExportUnavailable(f"{sheet_name} sem linhas comparativas")
+        last_data_row = 4 + len(source_rows)
+        periods = [str(row[column].value or "") for row in sheet.iter_rows(min_row=5, max_row=last_data_row, max_col=len(headers))]
+        source_periods = [str(row.get("period_label") or "") for row in source_rows]
+        source_cut = offer_cut
+        if source_key == "market_offer_reconciliation":
+            secondary = (expected_payload.get("anbima_market_offers_manifest") or {}).get("comparison_meta") or {}
+            try:
+                source_cut = ComparisonCut.from_competence(str(secondary.get("current_period_end") or "")[:7])
+            except ValueError as exc:
+                raise RevisionExportUnavailable("Validação emissões sem corte ANBIMA válido") from exc
+        if periods != source_periods or source_cut.period_id() not in periods:
+            raise RevisionExportUnavailable(f"{sheet_name} usa período divergente do payload")
+        if source_key != "closed_offer_top15":
+            for row in sheet.iter_rows(min_row=last_data_row + 1, max_col=len(headers)):
+                if re.match(r"^\d{4}\s+(?:FY|jan-)", str(row[column].value or "")):
+                    raise RevisionExportUnavailable(f"{sheet_name} contém linhas comparativas extras")
+
+    sheet = workbook["Top 15 ofertas"]
+    summary = sorted(expected_payload.get("closed_offer_top15_summary") or [], key=lambda row: int(row.get("period_order") or 0))
+    if len(summary) != 5 or len({row.get("period_label") for row in summary}) != 5:
+        raise RevisionExportUnavailable("Top 15 ofertas deve conter cinco períodos de resumo")
+    summary_specs = (
+        ("Período", "period_label"),
+        ("Ofertas no período", "period_closed_offers"),
+        ("Volume do período", "period_registered_volume_brl"),
+        ("Subtotal Top 15", "top15_registered_volume_brl"),
+        ("% do total", "top15_share_of_period_volume"),
+        ("IBBA líder · ofertas", "ibba_lead_offers_top15"),
+        ("IBBA líder · volume", "ibba_lead_volume_top15_brl"),
+        ("Garantia firme · ofertas", "firm_commitment_offers_top15"),
+        ("Garantia firme · volume", "firm_commitment_volume_top15_brl"),
+        ("% rito automático · volume", "automatic_rite_registered_volume_share"),
+        ("Comparabilidade", "comparability_status"),
+    )
+    summary_row = len(expected_payload["closed_offer_top15"]) + 7
+    headers = [cell.value for cell in next(sheet.iter_rows(min_row=summary_row, max_row=summary_row, max_col=len(summary_specs)))]
+    if headers != [header for header, _ in summary_specs]:
+        raise RevisionExportUnavailable("Top 15 ofertas sem cabeçalhos do resumo")
+    for index, source_row in enumerate(summary, start=summary_row + 1):
+        actual = next(sheet.iter_rows(min_row=index, max_row=index, max_col=len(summary_specs), values_only=True))
+        for value, (header, key) in zip(actual, summary_specs):
+            expected = source_row.get(key)
+            if isinstance(expected, (int, float)) and not isinstance(expected, bool):
+                tolerance = 0.01 if key.endswith("_brl") else 1e-12
+                valid = isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value) and math.isclose(value, expected, rel_tol=1e-13, abs_tol=tolerance)
+            else:
+                valid = value == expected
+            if not valid:
+                raise RevisionExportUnavailable(f"Top 15 ofertas: resumo divergente em {header}, linha {index}")
+    expected_periods = {row["period_label"] for row in summary}
+    for row in sheet.iter_rows(min_row=summary_row + len(summary) + 1, max_col=1, values_only=True):
+        if row[0] in expected_periods:
+            raise RevisionExportUnavailable("Top 15 ofertas contém períodos de resumo extras")
+
+    taxonomy = workbook["Emissões por categoria"]
+    taxonomy_headers = {str(cell.value or "").strip() for cell in next(taxonomy.iter_rows(min_row=4, max_row=4), ())}
+    expected_headers = set((expected_payload.get("issuance_taxonomy_table") or [{}])[0])
+    if not expected_headers.issubset(taxonomy_headers):
+        raise RevisionExportUnavailable("Emissões por categoria usa cabeçalhos desatualizados")
+    presence_headers = {str(cell.value or "").strip() for cell in next(workbook["Cedentes · presença"].iter_rows(min_row=4, max_row=4), ())}
+    current_pl_header = f"PL {offer_cut.period_key()[:-2]}/{str(offer_cut.year)[-2:]} (R$)"
+    if current_pl_header not in presence_headers:
+        raise RevisionExportUnavailable("Cedentes · presença sem PL na competência atual")
+
+
+def validate_revision_xlsx(payload: bytes, *, expected_payload: Mapping[str, object] | None = None) -> None:
     if not _valid_zip(payload, "xl/workbook.xml"):
         raise RevisionExportUnavailable("XLSX revisado inválido ou corrompido")
     try:
@@ -1073,6 +1034,29 @@ def validate_revision_xlsx(payload: bytes) -> None:
                 "Cobertura emissões ainda trata VNU como rentabilidade-alvo"
             )
 
+        from services.industry_comparative_period import ComparisonCut
+        coverage = workbook["Cedentes · cobertura"]
+        coverage_headers = [str(cell.value or "").strip() for cell in next(coverage.iter_rows(min_row=4, max_row=4), ())]
+        if "Competência" not in coverage_headers:
+            raise RevisionExportUnavailable("Cedentes · cobertura sem competência")
+        coverage_column = coverage_headers.index("Competência")
+        coverage_competences = {
+            re.sub(r"\D", "", str(row[coverage_column].value or ""))
+            for row in coverage.iter_rows(min_row=5, max_col=len(coverage_headers))
+            if row[coverage_column].value not in (None, "")
+        }
+        try:
+            cut = ComparisonCut.from_competence(max(coverage_competences))
+        except (ValueError, TypeError) as exc:
+            raise RevisionExportUnavailable("Cedentes · cobertura sem corte mensal válido") from exc
+        expected_competences = {*(f"{year}12" for year in range(cut.year - 3, cut.year)), cut.competence.replace("-", "")}
+        if expected_payload and expected_payload.get("offers_comparison_meta"):
+            published_cut = ComparisonCut.from_competence(str(expected_payload.get("latest_complete") or ""))
+            if cut != published_cut:
+                raise RevisionExportUnavailable("corte de cedentes diverge da competência consolidada")
+        if coverage_competences != expected_competences:
+            raise RevisionExportUnavailable("cedentes devem cobrir três encerramentos anuais e a competência atual")
+        sparse_keys = {"Cedentes · exclusões": "cedente_exclusions", "Cedentes · reparos fonte": "cedente_source_repairs"}
         for sheet_name, contract in CEDENTE_TOP500_WORKBOOK_SHEETS.items():
             sheet = workbook[sheet_name]
             header_cells = tuple(
@@ -1096,8 +1080,13 @@ def validate_revision_xlsx(payload: bytes) -> None:
                 for row in sheet.iter_rows(min_row=5, max_col=len(headers))
                 if any(cell.value not in (None, "") for cell in row)
             ]
-            if not rows:
+            empty_repairs = sheet_name == "Cedentes · reparos fonte" and str(sheet["A2"].value or "").startswith("0 reparos estruturais")
+            if not rows and not empty_repairs:
                 raise RevisionExportUnavailable(f"{sheet_name} está vazia")
+            if empty_repairs and expected_payload:
+                summary = (expected_payload.get("cedente_triage_manifest") or {}).get("source_repairs_summary")
+                if not isinstance(summary, Mapping) or any(value != 0 for value in summary.values()) or expected_payload.get("cedente_source_repairs") != []:
+                    raise RevisionExportUnavailable("zero reparos não reconcilia com o manifesto publicado")
 
             competence_header = contract["competence_header"]
             if competence_header:
@@ -1106,20 +1095,28 @@ def validate_revision_xlsx(payload: bytes) -> None:
                     re.sub(r"\D", "", str(row[competence_column].value or ""))
                     for row in rows
                 }
-                expected_competences = contract.get(
-                    "expected_competences", CEDENTE_TOP500_COMPETENCES
-                )
-                if competences != expected_competences:
+                required_competences = expected_competences
+                if sheet_name in sparse_keys:
+                    if expected_payload:
+                        source_rows = expected_payload.get(sparse_keys[sheet_name]) or []
+                        required_competences = {
+                            re.sub(r"\D", "", str(row.get("competencia") or "")) for row in source_rows
+                        }
+                    else:
+                        required_competences = competences
+                    if not competences.issubset(expected_competences):
+                        raise RevisionExportUnavailable(f"{sheet_name} contém competência fora do corte")
+                if competences != required_competences:
                     raise RevisionExportUnavailable(
-                        f"{sheet_name} contém competências divergentes do contrato; "
-                        f"contém {sorted(competences)}"
+                        f"{sheet_name} contém competências divergentes do contrato; contém {sorted(competences)}"
                     )
 
-            expected_rows = contract.get("expected_rows")
+            expected_rows = 0 if empty_repairs else contract.get("expected_rows")
+            if sheet_name in sparse_keys and expected_payload:
+                expected_rows = len(expected_payload.get(sparse_keys[sheet_name]) or [])
             if expected_rows is not None and len(rows) != expected_rows:
                 raise RevisionExportUnavailable(
-                    f"{sheet_name} deveria conter {expected_rows} linhas; contém "
-                    f"{len(rows)}"
+                    f"{sheet_name} deveria conter {expected_rows} linhas; contém {len(rows)}"
                 )
 
             for identifier_header, identifier_pattern in contract[
@@ -1143,6 +1140,14 @@ def validate_revision_xlsx(payload: bytes) -> None:
                         + ", ".join(invalid_identifiers)
                     )
 
+        if expected_payload and expected_payload.get("offers_comparison_meta") is not None:
+            _validate_workbook_offer_periods(workbook, expected_payload)
+        try:
+            validate_workbook_caches(payload)
+        except (ValueError, KeyError, IndexError, ElementTree.ParseError) as exc:
+            raise RevisionExportUnavailable(
+                "XLSX revisado com cache operacional inválido: " + str(exc)
+            ) from exc
     finally:
         workbook.close()
 
@@ -1386,7 +1391,7 @@ def validate_revision_top100_xlsx(payload: bytes) -> None:
         workbook.close()
 
 
-def validate_revision_html(payload: bytes) -> None:
+def validate_revision_html(payload: bytes, *, expected_payload: Mapping[str, object] | None = None) -> None:
     """Validate the self-contained provider-flow explorer served by the app."""
 
     if not payload:
@@ -1425,6 +1430,18 @@ def validate_revision_html(payload: bytes) -> None:
         raise RevisionExportUnavailable(
             "HTML interativo de fluxos incompleto: " + ", ".join(missing)
         )
+    if expected_payload and expected_payload.get("offers_comparison_meta") is not None:
+        try:
+            match = re.search(r'<script type="application/json" id="provider-flow-data">(.*?)</script>', document, flags=re.DOTALL)
+            data = json.loads(match.group(1)) if match else {}
+            taxonomy = data.get("issuanceTaxonomy") or {}
+            if taxonomy.get("comparisonMeta") != expected_payload["offers_comparison_meta"]:
+                raise ValueError("metadados divergentes")
+            for row in expected_payload.get("issuance_taxonomy_table") or []:
+                if row not in taxonomy.get("rows", []):
+                    raise ValueError("tabela difere do payload publicado")
+        except (ValueError, TypeError, AttributeError) as exc:
+            raise RevisionExportUnavailable("HTML de emissões não acompanha o corte comparativo publicado") from exc
     if "fetch(" in document:
         raise RevisionExportUnavailable(
             "HTML interativo de fluxos depende de carregamento externo"
@@ -1625,7 +1642,127 @@ def _matching_candidate(
     raise RevisionExportUnavailable("arquivo publicado não corresponde ao hash do bundle")
 
 
+def _read_cache_metadata(path: Path) -> tuple[str, dict[str, object]]:
+    try:
+        raw = path.read_bytes()
+    except FileNotFoundError:
+        return "missing", {}
+    except OSError as exc:
+        raise RevisionExportUnavailable(f"bundle revisado ilegível: {exc}") from exc
+    try:
+        metadata = json.loads(raw)
+    except (ValueError, UnicodeDecodeError):
+        metadata = {}
+    return _sha256(raw), metadata if isinstance(metadata, dict) else {}
+
+
+def _signed_cache_input_paths(data_dir: Path, manifest: dict[str, object]) -> set[Path]:
+    """Track published inputs available on this host, including missing paths.
+
+    The manifest uses logical labels rather than absolute workstation paths.
+    Data and analysis labels resolve directly; source ZIPs and builders retain
+    both project-local and configured-runtime candidates. Staging-only inputs
+    remain covered by the manifest digest and their materialized artifacts.
+    """
+    paths: set[Path] = set()
+    roots = {ROOT.resolve(), data_dir.parent.parent.resolve()}
+    inputs = manifest.get("inputs")
+    for label in inputs if isinstance(inputs, dict) else ():
+        kind, separator, name = str(label).partition("/")
+        relative = Path(name)
+        if not separator or not name or relative.is_absolute() or ".." in relative.parts:
+            continue
+        if kind == "data":
+            paths.add(data_dir / relative)
+        elif kind == "analysis":
+            paths.add(revision_dir(data_dir) / relative)
+        elif kind == "builder":
+            for root in roots:
+                paths.update((root / "scripts" / relative, root / "services" / relative))
+        elif kind == "source":
+            for root in roots:
+                paths.update((root / ".cache" / "cvm-industry-study" / relative,
+                              root / ".cache" / "cvm-cadastro" / relative))
+        elif kind == "curation" and name == "top20.csv":
+            for root in roots:
+                paths.add(root / "outputs" / "analysis" / "top20_fidcs_curadoria.csv")
+        elif kind == "workbook" and name == "input.xlsx":
+            configured = os.environ.get("FIDC_INPUT_WORKBOOK", "").strip()
+            if configured:
+                paths.add(Path(configured).expanduser())
+    # A manifest may also preserve the exact locations of custom source files.
+    locations = manifest.get("input_paths")
+    if isinstance(locations, dict):
+        for label, location in locations.items():
+            if isinstance(inputs, dict) and label in inputs and isinstance(location, str) and location.strip():
+                path = Path(location).expanduser()
+                paths.add(path if path.is_absolute() else data_dir / path)
+    return paths
+
+
+def _bundle_cache_fingerprint(data_dir: Path) -> tuple[object, ...]:
+    manifest_path = revision_bundle_manifest_path(data_dir)
+    payload_path = revision_payload_path(data_dir)
+    manifest_digest, manifest = _read_cache_metadata(manifest_path)
+    payload_digest, payload = _read_cache_metadata(payload_path)
+    ledger_path = _taxonomy_review_ledger_path(data_dir, payload)
+    audit_path = _taxonomy_review_audit_path(data_dir, payload)
+    ledger_digest, _ = _read_cache_metadata(ledger_path)
+    audit_digest, _ = _read_cache_metadata(audit_path)
+    paths = {
+        manifest_path, payload_path, ledger_path, audit_path,
+        revision_dir(data_dir) / "revision_manifest.json",
+        *_signed_cache_input_paths(data_dir, manifest),
+    }
+    candidate_groups = (
+        revision_pptx_candidates(data_dir), revision_xlsx_candidates(data_dir),
+        revision_portfolio_xlsx_candidates(data_dir), revision_top100_xlsx_candidates(data_dir),
+        revision_html_candidates(data_dir),
+    )
+    records: list[tuple[object, ...]] = []
+    for group in candidate_groups:
+        # Candidate order is part of the key, including environment overrides.
+        records.append(("candidate_order", *(str(path) for path in group)))
+        paths.update(group)
+    for path in sorted(paths, key=str):
+        resolved = path.resolve()
+        try:
+            stat = resolved.stat()
+        except FileNotFoundError:
+            records.append((str(path), str(resolved), "missing"))
+            continue
+        except OSError as exc:
+            raise RevisionExportUnavailable(f"assinatura do bundle indisponível: {exc}") from exc
+        records.append((str(path), str(resolved), stat.st_size, stat.st_mtime_ns,
+                        stat.st_ctime_ns, stat.st_ino, stat.st_mode))
+    return (manifest_digest, payload_digest, ledger_digest, audit_digest, tuple(records))
+
+
+_BUNDLE_CACHE_LOCK = RLock()
+
+
+@lru_cache(maxsize=2)
+def _cached_validated_bundle(data_dir: str, fingerprint: tuple[object, ...]) -> _ValidatedBundle:
+    path = Path(data_dir)
+    bundle = _validate_bundle_uncached(path)
+    if _bundle_cache_fingerprint(path) != fingerprint:
+        raise RevisionExportUnavailable("arquivos ou fontes do bundle mudaram durante a validação")
+    return bundle
+
+
 def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundle:
+    data_dir = Path(data_dir).resolve()
+    # Coalesce simultaneous cold requests; exceptions never enter the LRU.
+    with _BUNDLE_CACHE_LOCK:
+        fingerprint = _bundle_cache_fingerprint(data_dir)
+        bundle = _cached_validated_bundle(str(data_dir), fingerprint)
+        if _bundle_cache_fingerprint(data_dir) != fingerprint:
+            _cached_validated_bundle.cache_clear()
+            raise RevisionExportUnavailable("arquivos ou fontes do bundle mudaram durante a leitura")
+        return bundle
+
+
+def _validate_bundle_uncached(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundle:
     data_dir = Path(data_dir).resolve()
     payload_path = revision_payload_path(data_dir)
     manifest_path = revision_bundle_manifest_path(data_dir)
@@ -1650,6 +1787,10 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
         raise RevisionExportUnavailable("schema do payload diverge do bundle")
     if payload.get("schema_version") != PAYLOAD_SCHEMA:
         raise RevisionExportUnavailable("schema do payload revisado incompatível")
+    renderer_version = str(manifest.get("renderer_version") or "")
+    renderer_match = re.fullmatch(r"industry_revision_artifacts_v(\d+)", renderer_version)
+    if renderer_match and int(renderer_match.group(1)) >= 50 and payload.get("offers_comparison_meta") is None:
+        raise RevisionExportUnavailable("bundle atual sem corte comparativo dinâmico")
     if manifest.get("latest_complete") != payload.get("latest_complete"):
         raise RevisionExportUnavailable("competência do bundle diverge do payload")
     taxonomy_meta = dict(payload.get("taxonomy_review_meta") or {})
@@ -1689,12 +1830,12 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
     pptx_path, pptx_bytes = _matching_candidate(
         revision_pptx_candidates(data_dir),
         dict(manifest.get("pptx") or {}),
-        validate_revision_pptx,
+        lambda data: validate_revision_pptx(data, expected_payload=payload, expected_signature=payload_hash),
     )
     xlsx_path, xlsx_bytes = _matching_candidate(
         revision_xlsx_candidates(data_dir),
         dict(manifest.get("xlsx") or {}),
-        validate_revision_xlsx,
+        lambda data: validate_revision_xlsx(data, expected_payload=payload),
     )
     portfolio_xlsx_path, portfolio_xlsx_bytes = _matching_candidate(
         revision_portfolio_xlsx_candidates(data_dir),
@@ -1709,7 +1850,7 @@ def _load_validated_bundle(data_dir: Path = DEFAULT_DATA_DIR) -> _ValidatedBundl
     html_path, html_bytes = _matching_candidate(
         revision_html_candidates(data_dir),
         dict(manifest.get("html") or {}),
-        validate_revision_html,
+        lambda data: validate_revision_html(data, expected_payload=payload),
     )
     return _ValidatedBundle(
         manifest=manifest,
@@ -1831,6 +1972,7 @@ __all__ = [
     "BUNDLE_SCHEMA",
     "CURRENT_TOP15_SLIDE_SEQUENCE",
     "EXPECTED_SLIDE_SEQUENCE",
+    "EXPECTED_SLIDE_IDS",
     "EXPECTED_SLIDES",
     "HISTORICAL_TOP15_SLIDE_SEQUENCE",
     "HISTORICAL_TOP15_TABLE_DIMENSIONS",

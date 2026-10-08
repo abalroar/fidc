@@ -54,6 +54,9 @@ from pathlib import Path
 
 import pandas as pd
 
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 BASE_MONTHLY_URL = "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS"
 BASE_HIST_URL = f"{BASE_MONTHLY_URL}/HIST"
 REGISTRO_URL = "https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip"
@@ -1208,6 +1211,15 @@ def build_concentration(admin_monthly: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows).sort_values("competencia")
 
 
+def consolidated_snapshot_month(industry: pd.DataFrame) -> str:
+    """Use the same coverage threshold as current comparisons and publication."""
+    from services.industry_intelligence import build_competence_status, latest_complete_competence
+    latest = latest_complete_competence(build_competence_status(industry))
+    if not latest:
+        raise ValueError("Nenhuma competência consolidada para a fotografia cadastral")
+    return latest.replace("-", "")
+
+
 def run_pipeline(args: argparse.Namespace) -> None:
     raw_dir = Path(args.raw_dir)
     output_dir = Path(args.output_dir)
@@ -1317,11 +1329,7 @@ def run_pipeline(args: argparse.Namespace) -> None:
 
     # Foto do universo: ultima competencia "cheia" (a mais recente pode estar em
     # carga no dataset da CVM e viria com PL muito abaixo do mes anterior).
-    last_month = args.snapshot_month or processed[-1]
-    if not args.snapshot_month and len(industry) >= 2:
-        tail = industry.tail(2)["pl_total"].tolist()
-        if tail[-1] < 0.7 * tail[-2]:
-            last_month = processed[-2]
+    last_month = args.snapshot_month or consolidated_snapshot_month(industry)
     universe = build_universe_snapshot(store, last_month, classe_map)
     universe.to_csv(output_dir / "universe_latest.csv", index=False)
     build_prestadores_ranking(universe).to_csv(
@@ -1714,7 +1722,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--revision-publish-timeout",
         type=int,
-        default=1800,
+        default=7200,
         help="timeout em segundos do renderer Office offline",
     )
     return parser.parse_args(argv)

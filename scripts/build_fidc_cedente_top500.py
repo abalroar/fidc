@@ -19,6 +19,7 @@ import hashlib
 import json
 import re
 import sys
+import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -27,6 +28,8 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+from services.industry_comparative_period import ComparisonCut, MONTH_LABELS
 
 from services.industry_cedente_top500 import (  # noqa: E402
     DEFAULT_COMPETENCES,
@@ -53,6 +56,17 @@ CVM_SOURCE_URLS = {
 
 REFERENCE_REGISTRY_SHEET = "Cedentes · por competência"
 
+
+def competence_label(competence: str) -> str:
+    cut = ComparisonCut.from_competence(competence)
+    return f"{MONTH_LABELS[cut.month-1]}/{cut.year%100:02d}"
+
+def current_competences(cut: ComparisonCut) -> tuple[str, ...]:
+    return (*tuple(f"{year}12" for year in range(cut.year-3,cut.year)), cut.competence.replace("-", ""))
+
+def cvm_source_url(path: Path, competence: str) -> str:
+    base = "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/"
+    return base + ("HIST/" if len(path.stem.rsplit("_",1)[-1])==4 else "DADOS/") + path.name
 
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -103,7 +117,12 @@ def _write_json(value: object, path: Path) -> None:
 
 
 def _read_registry_csv(path: Path) -> pd.DataFrame:
-    return pd.read_csv(path, dtype=str, keep_default_na=False)
+    frame = pd.read_csv(path, dtype=str, keep_default_na=False)
+    if "CNPJ/CPF" not in frame and "documento" not in frame:
+        raise ValueError("Cadastro de cedentes sem CNPJ/CPF ou documento")
+    if "cadastro_master" in path.name or "audited-registry" in path.name:
+        frame.attrs["audited_bootstrap"] = True
+    return frame
 
 
 def _read_reference_registry(path: Path) -> pd.DataFrame:
@@ -205,7 +224,7 @@ def _human_links(frames: dict[str, pd.DataFrame]) -> pd.DataFrame:
         _format_document(_digits(document), str(kind))
         for document, kind in zip(links["cedente_documento"], links["cedente_tipo"])
     ]
-    links["Data"] = links["competencia"].map(COMPETENCE_LABELS)
+    links["Data"] = links["competencia"].map(competence_label)
     links["Simples"] = links.get("simples", "")
     links["MEI"] = links.get("mei", "")
     links["Documento fictício?"] = links["cedente_documento_ficticio_flag"].map(
@@ -270,7 +289,7 @@ def _human_gaps(frame: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(
         {
             "Competência": frame["competencia"],
-            "Data": frame["competencia"].map(COMPETENCE_LABELS),
+            "Data": frame["competencia"].map(competence_label),
             "Rank PL": frame["rank_pl"],
             "CNPJ do fundo": frame["cnpj_fundo"].map(
                 lambda value: _format_document(_digits(value).zfill(14), "CNPJ")
@@ -353,7 +372,7 @@ def _human_coverage(frame: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(
         {
             "Competência": frame["competencia"],
-            "Data": frame["competencia"].map(COMPETENCE_LABELS),
+            "Data": frame["competencia"].map(competence_label),
             "Fundos na indústria": frame["fundos_industria"],
             "PL total da indústria (R$)": frame["pl_industria_reais"],
             "PL do Top 500 (R$)": frame["pl_top500_reais"],
@@ -378,7 +397,7 @@ def _human_segment_pl(frame: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(
         {
             "Competência": frame["competencia"],
-            "Data": frame["competencia"].map(COMPETENCE_LABELS),
+            "Data": frame["competencia"].map(competence_label),
             "Segmento": frame["segmento"],
             "PL dominante (R$)": frame["pl_dominante_reais"],
             "% do Top 500": frame["pl_sobre_top500_pct"],
@@ -393,17 +412,17 @@ def _human_segment_pl(frame: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def _presence_history(registry: pd.DataFrame) -> pd.DataFrame:
+def _presence_history(registry: pd.DataFrame, competences: tuple[str, ...] = DEFAULT_COMPETENCES) -> pd.DataFrame:
     if registry.empty:
         return registry.copy()
     rows: list[dict[str, object]] = []
-    labels = [COMPETENCE_LABELS[item] for item in DEFAULT_COMPETENCES]
+    labels = [competence_label(item) for item in competences]
     for document, group in registry.groupby("CNPJ/CPF", sort=True, dropna=False):
         first = group.iloc[0]
         by_comp = group.set_index("Competência")["PL alcançado (R$)"].to_dict()
         present = [
-            COMPETENCE_LABELS[item]
-            for item in DEFAULT_COMPETENCES
+            competence_label(item)
+            for item in competences
             if item in set(group["Competência"].astype(str))
         ]
         rows.append(
@@ -417,13 +436,13 @@ def _presence_history(registry: pd.DataFrame) -> pd.DataFrame:
                 "UF": first["UF"],
                 **{
                     f"PL {label} (R$)": by_comp.get(competence, pd.NA)
-                    for competence, label in zip(DEFAULT_COMPETENCES, labels)
+                    for competence, label in zip(competences, labels)
                 },
                 "Competências": len(present),
                 "Presente em": " · ".join(present),
                 "Situação": (
-                    "Presente em jun/26"
-                    if "jun/26" in present
+                    f"Presente em {competence_label(competences[-1])}"
+                    if competence_label(competences[-1]) in present
                     else "Saiu do Top 500"
                 ),
             }
@@ -538,9 +557,10 @@ def materialize(
     output_dir: Path,
     registry: pd.DataFrame,
     registry_source: Path,
+    competences: tuple[str, ...] = DEFAULT_COMPETENCES,
 ) -> dict[str, object]:
     sources: dict[str, tuple[Path, Path]] = {}
-    for competence in DEFAULT_COMPETENCES:
+    for competence in competences:
         path = _resolve_cvm_source(cvm_dir, competence)
         sources[competence] = (path, path)
     frames = build_multi_competence_top500(
@@ -555,11 +575,14 @@ def materialize(
     gaps = _human_gaps(frames["fundos_sem_cedente"])
     segment_pl = _human_segment_pl(frames["pl_por_segmento"])
     evolution = _add_segment_denominator(_segment_evolution(links), coverage)
-    presence = _presence_history(registry_by_comp)
+    presence = _presence_history(registry_by_comp, competences)
     cadastro_master = _cadastro_master(registry_by_comp)
     receita_targets = _receita_targets(links)
     exclusions = frames["exclusoes"].copy()
     source_repairs = frames["reparos_fonte"].copy()
+    if "competencia" not in source_repairs:
+        source_repairs = pd.DataFrame(columns=["competencia", "tabela", "fonte", "linha_fisica", "acao", "documento_fundo", "denominacao_reparada", "data_referencia"])
+        frames["reparos_fonte"] = source_repairs
 
     output_dir.mkdir(parents=True, exist_ok=True)
     output_specs = {
@@ -578,7 +601,7 @@ def materialize(
     for filename, (frame, compressed) in output_specs.items():
         _write_csv(frame, output_dir / filename, compressed=compressed)
 
-    for competence in DEFAULT_COMPETENCES:
+    for competence in competences:
         competence_dir = output_dir / competence
         competence_dir.mkdir(parents=True, exist_ok=True)
         filters = {
@@ -611,14 +634,14 @@ def materialize(
         for _, row in coverage.iterrows()
     }
     generated_at = datetime.now(timezone.utc).isoformat()
-    registry_is_bootstrap = registry_source.suffix.lower() in {".xlsx", ".xls"}
+    registry_is_bootstrap = registry_source.suffix.lower() in {".xlsx", ".xls"} or bool(registry.attrs.get("audited_bootstrap"))
     registry_role = (
         "gabarito auditado fornecido pelo usuário; bootstrap temporário, sem consulta BrasilAPI"
         if registry_is_bootstrap
         else "recorte cadastral local produzido pelo processamento em massa da Receita Federal"
     )
     per_competence_manifest_paths: list[Path] = []
-    for competence in DEFAULT_COMPETENCES:
+    for competence in competences:
         competence_dir = output_dir / competence
         data_paths = sorted(
             path
@@ -639,7 +662,7 @@ def materialize(
             "source": _source_descriptor(
                 source_path,
                 role="Informe Mensal FIDC da CVM",
-                url=CVM_SOURCE_URLS[competence],
+                url=cvm_source_url(sources[competence][0], competence),
             ),
             "source_repairs": repair_rows.to_dict(orient="records"),
             "outputs": {
@@ -655,16 +678,18 @@ def materialize(
     manifest: dict[str, object] = {
         "schema_version": SCHEMA_VERSION,
         "generated_at": generated_at,
-        "competences": list(DEFAULT_COMPETENCES),
+        "competences": list(competences),
+        "current_competence": competences[-1],
+        "registry_source_cut": "Fotografia cadastral auditada; campos novos sem fonte permanecem N/D",
         "cutoff_rank": DEFAULT_CUTOFF_RANK,
         "sources": {
             "cvm": [
                 _source_descriptor(
                     sources[competence][0],
                     role="Informe Mensal FIDC da CVM",
-                    url=CVM_SOURCE_URLS[competence],
+                    url=cvm_source_url(sources[competence][0], competence),
                 )
-                for competence in DEFAULT_COMPETENCES
+                for competence in competences
             ],
             "registry": {
                 **_source_descriptor(registry_source, role=registry_role),
@@ -677,7 +702,7 @@ def materialize(
             competence: int(
                 source_repairs["competencia"].astype(str).eq(competence).sum()
             )
-            for competence in DEFAULT_COMPETENCES
+            for competence in competences
         },
         "rules": {
             "table_iv": "Fundo primeiro; Classe apenas na ausência de Fundo; sem soma",
@@ -725,6 +750,8 @@ def parse_args() -> argparse.Namespace:
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--registry-csv", type=Path)
     source.add_argument("--reference-workbook", type=Path)
+    parser.add_argument("--data-dir", type=Path, default=ROOT / "data" / "industry_study")
+    parser.add_argument("--latest-complete", help="Última competência consolidada AAAA-MM")
     return parser.parse_args()
 
 
@@ -738,11 +765,20 @@ def main() -> int:
         if args.registry_csv
         else _read_reference_registry(args.reference_workbook)
     )
+    cut = ComparisonCut.from_competence(args.latest_complete) if args.latest_complete else ComparisonCut.from_data_dir(args.data_dir)
+    # Preserve the exact registry input even when the generated master is its source.
+    if args.registry_csv:
+        frozen_registry = ROOT / ".cache" / "cedentes-registry" / f"audited-registry-{_sha256(registry_source)}{''.join(registry_source.suffixes)}"
+        frozen_registry.parent.mkdir(parents=True, exist_ok=True)
+        if not frozen_registry.exists():
+            shutil.copy2(registry_source, frozen_registry)
+        registry_source = frozen_registry
     manifest = materialize(
         cvm_dir=args.cvm_dir,
         output_dir=args.output_dir,
         registry=registry,
         registry_source=registry_source,
+        competences=current_competences(cut),
     )
     print(
         json.dumps(

@@ -8,6 +8,8 @@ from pathlib import Path
 import re
 import subprocess
 
+import pytest
+
 from services.industry_revision_export import validate_revision_html
 
 
@@ -19,7 +21,9 @@ PAYLOAD_PATH = Path(
     )
 )
 BUILDER_PATH = ROOT / "scripts" / "build_provider_flow_explorer.mjs"
-MAX_COMPACT_HTML_BYTES = 480_000
+# August has 517 observed administrator changes versus 348 in the previous
+# snapshot. Keep a bounded compact HTML budget while preserving every row.
+MAX_COMPACT_HTML_BYTES = 640_000
 EXPECTED_PAYLOAD_KEYS = {
     "carteira_1_flagship_comparison",
     "carteira_1_flagship_comparison_summary",
@@ -35,6 +39,8 @@ EXPECTED_PAYLOAD_KEYS = {
     "issuance_taxonomy_reconciliation",
     "issuance_taxonomy_table",
     "latest_complete",
+    "offers_as_of",
+    "offers_comparison_meta",
     "portfolio_export_carteira_101",
     "portfolio_export_flagships",
     "provider_history_cvm_coverage",
@@ -154,6 +160,7 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
         "curationStatus",
         "documentarySource",
         "minimumText",
+        "currentAbsenceReason",
     } <= set(flagship_fields)
     assert {
         "quantidade_cotas",
@@ -190,6 +197,17 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
         assert compact_row[flagship_pl_index] == source_row["pl_atual_brl"]
         assert compact_row[flagship_ratio_index] == source_row["sub_pl_atual"]
         assert compact_row[flagship_originator_index] == source_row["originador"]
+    assert compact["flagships"]["summary"]["current"] == sum(
+        row["sub_pl_atual"] is not None for row in canonical_flagship_rows.values()
+    )
+    assert compact["flagships"]["summary"]["currentPl"] == sum(
+        row["pl_atual_brl"] is not None for row in canonical_flagship_rows.values()
+    )
+    reason_index = flagship_fields.index("currentAbsenceReason")
+    missing_ratios = [row for row in compact_flagship_rows.values() if row[flagship_ratio_index] is None]
+    assert all(str(row[reason_index]).startswith("N/D — ") for row in missing_ratios)
+    assert '["N/D", "#ECEEEF"]' in document
+    assert "subordinação calculável em" in document
     assert len(compact["carteira1"]["ranges"]) == 7
     assert len(compact["carteira1"]["details"]) == 101
     assert compact["carteira1"]["summary"]["minJunior"] == 83
@@ -253,15 +271,16 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     fields = compact["fields"]
     views = compact["views"]
     assert set(views) == {"admin", "gestor", "custodiante", "reag"}
-    assert {
-        view: (len(data["links"]), len(data["details"]))
-        for view, data in views.items()
-    } == {
-        "admin": (135, 348),
-        "gestor": (2, 3),
-        "custodiante": (0, 0),
-        "reag": (9, 126),
-    }
+    assert len(views["admin"]["details"]) == source_payload["provider_transition_summary"]["changed_funds"]
+    assert len(views["reag"]["details"]) == len(source_payload["reag_admin_detail"])
+    for role in ("gestor", "custodiante"):
+        coverage = next(
+            row for row in source_payload["provider_history_cvm_coverage"]
+            if row["papel"] == role and "→" in row["data_referencia"]
+        )
+        assert len(views[role]["details"]) == coverage["fundos_mudaram_grupo"]
+        assert views[role]["summary"]["primary"] == coverage["pl_mudou_grupo_mai26_brl"]
+        assert views[role]["summary"]["tertiary"] == coverage["cobertura_pl_resolvida"]
 
     # Custody is an observed zero under limited coverage.  It remains numeric.
     assert views["custodiante"]["summary"]["primary"] == 0
@@ -273,8 +292,17 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
         row[current_pl_index]
         for row in views["reag"]["details"]
     ]
-    assert current_values.count(None) == 36
-    assert current_values.count(0) == 0
+    expected_current_values = {
+        row["cnpj_fundo_formatado"]: row.get("pl_destino_brl")
+        if row.get("pl_destino_brl") is not None else row.get("pl_destino_observado_brl")
+        for row in source_payload["reag_admin_detail"]
+    }
+    cnpj_index = cohort_fields.index("cnpj")
+    assert {
+        row[cnpj_index]: row[current_pl_index] for row in views["reag"]["details"]
+    } == expected_current_values
+    assert current_values.count(None) == sum(value is None for value in expected_current_values.values())
+    assert current_values.count(0) == sum(value == 0 for value in expected_current_values.values())
     cohort_link_fields = fields["cohortLink"]
     target_index = cohort_link_fields.index("target")
     link_current_index = cohort_link_fields.index("current")
@@ -305,6 +333,81 @@ def test_compact_provider_flow_html_preserves_values_and_absence(
     assert "data-c1-mvp-category" in document
     assert "data-c1-eligibility" in document
     assert "quantidade_cotas" not in document
+
+
+@pytest.mark.parametrize(
+    ("violation", "message"),
+    [
+        ("missing_reason", "sem motivo N/D explícito"),
+        ("incorrect_coverage", "Resumo da curadoria flagship não reconcilia"),
+        ("missing_source", "sem fonte da reconciliação"),
+        ("incomplete_family", "Família flagship com subordinação incompleta"),
+        ("imputed_zero", "valor atual ou faixa incompatível"),
+    ],
+)
+def test_flagship_guard_rejects_unexplained_or_inconsistent_absence(
+    tmp_path: Path, violation: str, message: str,
+) -> None:
+    payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    canonical = next(row for row in payload["portfolio_export_flagships"] if row["sub_pl_atual"] is not None)
+    cnpj = canonical["cnpj_formatado"]
+    canonical["sub_pl_atual"] = None
+    canonical["status_sub_pl_atual"] = "N/D"
+    legacy = next(row for row in payload["flagship_curation"] if row["cnpj_fundo_formatado"] == cnpj)
+    legacy["subordinacao_atual_pct"] = None
+    legacy["subordinacao_atual_status"] = "N/D — PL oficial diverge das classes acima de 0,5%"
+    family = next(row for row in payload["flagship_families"] if cnpj in [value.strip() for value in row["cnpjs"].split(";")])
+    family["subordinacao_atual_pct"] = None
+    family["faixa_subordinacao_atual"] = "N/D"
+    summary = payload["flagship_curation_summary"]
+    summary["cnpjs_com_subordinacao_atual"] = sum(row["sub_pl_atual"] is not None for row in payload["portfolio_export_flagships"])
+    if violation == "missing_reason":
+        legacy["subordinacao_atual_status"] = "N/D"
+        canonical.pop("motivo_sub_pl_atual", None)
+    elif violation == "incorrect_coverage":
+        summary["cnpjs_com_subordinacao_atual"] += 1
+    elif violation == "missing_source":
+        summary["fonte_pl_subordinacao"] = "N/D"
+    elif violation == "incomplete_family":
+        family["subordinacao_atual_pct"] = 0.2
+        family["faixa_subordinacao_atual"] = "20%–35%"
+    elif violation == "imputed_zero":
+        canonical["sub_pl_atual"] = 0.0
+        summary["cnpjs_com_subordinacao_atual"] += 1
+    input_path = tmp_path / "mutated_payload.json"
+    input_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+    completed = subprocess.run(
+        ["node", str(BUILDER_PATH), "--payload", str(input_path), "--html", str(tmp_path / "output.html")],
+        check=False, capture_output=True, text=True,
+    )
+    assert completed.returncode != 0
+    assert message in completed.stderr
+
+
+@pytest.mark.parametrize("status", ["PL oficial ausente", "N/D", "N/D — PL oficial reportado zero; razão não calculável"])
+def test_carteira_zero_requires_an_explicit_reported_zero_status(tmp_path: Path, status: str) -> None:
+    payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    row = next((row for row in payload["portfolio_export_carteira_101"] if row["pl_atual_brl"] == 0), payload["portfolio_export_carteira_101"][0])
+    row["pl_atual_brl"] = 0.0
+    row["sub_pl_atual"] = None
+    row["status_sub_pl_atual"] = status
+    input_path = tmp_path / "zero_payload.json"
+    input_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+    output_path = tmp_path / "output.html"
+    completed = subprocess.run(
+        ["node", str(BUILDER_PATH), "--payload", str(input_path), "--html", str(output_path)],
+        check=False, capture_output=True, text=True,
+    )
+    if "reportado zero" in status:
+        assert completed.returncode == 0, completed.stderr
+        compact = _embedded_data(output_path.read_text(encoding="utf-8"))["carteira1"]
+        fields = compact["fields"]["detail"]
+        result = next(result for result in compact["details"] if result[fields.index("cnpj")] == row["cnpj_formatado"])
+        assert result[fields.index("pl")] == 0
+        assert result[fields.index("ratio")] is None
+    else:
+        assert completed.returncode != 0
+        assert "PL zero sem status de zero reportado" in completed.stderr
 
 
 def test_flagship_detail_prefers_the_canonical_export_by_cnpj(

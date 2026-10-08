@@ -12,6 +12,7 @@ from services.industry_taxonomy_impact import (
     MARKET_SHARE_FILENAME,
     SUMMARY_FILENAME,
     TaxonomyImpactReport,
+    TaxonomyImpactError,
     build_gross_source_impact,
     build_incremental_current_impact,
     build_issuance_impact,
@@ -177,8 +178,10 @@ def test_gross_source_impact_reconciles_19_type_and_18_focus_decisions() -> None
     }
 
 
-def test_incremental_current_impact_holds_universe_fixed_and_changes_one_fund() -> None:
+@pytest.mark.parametrize("competence", ("2026-06", "2026-08", "2027-03"))
+def test_incremental_current_impact_holds_universe_fixed_and_changes_one_fund(competence: str) -> None:
     fund_base = _fund_base()
+    fund_base["competencia"] = competence
     current_actions = _action(_cnpj(2))
     summary, flows, market = build_incremental_current_impact(
         fund_base,
@@ -186,7 +189,11 @@ def test_incremental_current_impact_holds_universe_fixed_and_changes_one_fund() 
         current_actions,
         baseline_label="origin/main",
         current_label="current",
+        reference_competence=competence,
     )
+    assert market["competence"].eq(competence).all()
+    assert market["scope_total_before_brl"].eq(1_000.0).all()
+    assert market["scope_total_after_brl"].eq(1_000.0).all()
     stock = summary.set_index("category")
     assert stock.at["Agro, Indústria e Comércio", "delta_brl"] == -200.0
     assert stock.at["Financeiro", "delta_brl"] == 200.0
@@ -278,3 +285,42 @@ def test_materialized_csvs_are_byte_deterministic(tmp_path: Path) -> None:
         ISSUANCE_FILENAME,
         MARKET_SHARE_FILENAME,
     }
+
+
+def test_current_impact_rejects_missing_month_instead_of_zero_denominators() -> None:
+    with pytest.raises(TaxonomyImpactError, match="sem fundos.*2026-08"):
+        build_incremental_current_impact(
+            _fund_base(), pd.DataFrame(columns=TAXONOMY_REVIEW_COLUMNS), _action(_cnpj(2)),
+            baseline_label="before", current_label="after", reference_competence="2026-08",
+        )
+
+
+@pytest.mark.parametrize("competence", ("2026-08", "2027-03"))
+def test_current_focus_impact_keeps_prior_nd_and_excludes_outside_current_cohort(competence: str) -> None:
+    funds = _fund_base()
+    funds["competencia"] = competence
+    funds.loc[1, ["anbima_tipo", "anbima_foco", "anbima_tipo_oficial", "anbima_foco_oficial"]] = "N/D"
+    extra = funds.iloc[[3]].copy()
+    extra["cnpj_fundo"] = _cnpj(5)
+    extra[["anbima_foco", "anbima_foco_oficial"]] = "Foco documental fora dos 14"
+    extra["pl"] = 50.0
+    fic = funds.iloc[[0]].copy()
+    fic["cnpj_fundo"] = _cnpj(6)
+    fic[["is_fic", "is_fic_fidc"]] = True
+    fic["pl"] = 500.0
+    funds = pd.concat([funds, extra, fic], ignore_index=True)
+    actions = _action(_cnpj(2))
+    actions["foco_analitico"] = "Crédito Consignado"
+    _, _, market = build_incremental_current_impact(
+        funds, pd.DataFrame(columns=TAXONOMY_REVIEW_COLUMNS), actions,
+        baseline_label="CVM", current_label="ledger", reference_competence=competence,
+        fixed_current_focus_cohort=True,
+    )
+    assert market["scope_total_before_brl"].eq(1_000.0).all()
+    assert market["scope_total_after_brl"].eq(1_000.0).all()
+    assert market["before_funds"].sum() == market["after_funds"].sum() == 4
+    prior_nd = market[market["tipo_anbima"].eq("N/D")].iloc[0]
+    assert prior_nd["before_denominator_brl"] == 200.0
+    assert prior_nd["after_denominator_brl"] == 0.0
+    assert "N/D" in prior_nd["note"]
+    assert not market["foco_anbima"].eq("Foco documental fora dos 14").any()

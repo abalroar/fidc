@@ -127,6 +127,23 @@ def _validate_no_fic_in_products(outputs: object, excluded: list[str]) -> None:
                 break
 
 
+def select_source_presence_months(
+    vehicle: pd.DataFrame, requested: str
+) -> list[str]:
+    """Audit every source month, including a later preliminary competence.
+
+    Source observability covers the full stored panel. Its range does not
+    determine the consolidated competence used in published comparisons.
+    """
+    tokens = [item.strip() for item in requested.split(",") if item.strip()]
+    if not any(item.casefold() == "all" for item in tokens):
+        return tokens
+    if vehicle.empty or "competencia" not in vehicle:
+        raise ValueError("base mensal sem competências para auditoria de presença")
+    months = pd.PeriodIndex(vehicle["competencia"].astype(str).str[:7], freq="M")
+    return [str(month) for month in pd.period_range(months.min(), months.max(), freq="M")]
+
+
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     data_dir = Path(args.data_dir)
@@ -257,21 +274,7 @@ def main(argv: list[str] | None = None) -> None:
     # silenciosamente o universo publicado.
     raw_table_ii_frames: list[pd.DataFrame] = [latest_table_ii]
     previous_complete = str(pd.Period(latest_complete, freq="M") - 1)
-    presence_tokens = [
-        item.strip() for item in args.presence_months.split(",") if item.strip()
-    ]
-    if any(item.casefold() == "all" for item in presence_tokens):
-        start_complete = str(vehicle["competencia"].astype(str).str[:7].min())
-        requested_months = [
-            str(period)
-            for period in pd.period_range(
-                start=start_complete,
-                end=latest_complete,
-                freq="M",
-            )
-        ]
-    else:
-        requested_months = presence_tokens
+    requested_months = select_source_presence_months(vehicle, args.presence_months)
     months_to_read = list(requested_months) if args.refresh_source_presence else []
     if previous_complete not in months_to_read:
         months_to_read.append(previous_complete)

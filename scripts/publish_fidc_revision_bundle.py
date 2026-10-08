@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
 import gzip
@@ -26,9 +27,11 @@ import shutil
 import subprocess
 import sys
 import tempfile
-from typing import Callable, Iterable, Mapping
+from typing import Callable, Iterable, Iterator, Mapping
 import unicodedata
 import zipfile
+
+import pandas as pd
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -36,6 +39,8 @@ if __package__ in {None, ""}:
 from scripts.build_fidc_revision_analysis import main as build_revision_analysis
 from scripts.build_fidc_revision_artifact_payload import build_payload
 from scripts.build_fidc_provider_history import main as build_provider_history
+from scripts.patch_industry_workbook_operational_cache import patch_workbook_bytes
+from services.industry_comparative_period import ComparisonCut
 from services.industry_revision_export import (
     BUNDLE_MANIFEST_NAME,
     BUNDLE_SCHEMA,
@@ -55,6 +60,10 @@ from services.industry_issuance_taxonomy import (
     build_issuance_taxonomy,
     write_issuance_taxonomy,
 )
+from services.emission_field_enrichment import (
+    COHORT_COVERAGE_WAIVERS,
+)
+from services.fic_perimeter import validate_fic_quantitative_overrides
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,7 +75,7 @@ PAYLOAD_NAME = "artifact_payload.json"
 ANALYSIS_MANIFEST_NAME = "revision_manifest.json"
 PAYLOAD_SCHEMA = "fidc_revision_artifact_payload_v11"
 DEFAULT_CURATION = ROOT / "outputs" / "analysis" / "top20_fidcs_curadoria.csv"
-DEFAULT_TIMEOUT_SECONDS = 30 * 60
+DEFAULT_TIMEOUT_SECONDS = 120 * 60
 CEDENTE_TOP500_COMPETENCES = ("202312", "202412", "202512", "202606")
 CEDENTE_TOP500_COMBINED_OUTPUTS = frozenset(
     {
@@ -187,6 +196,8 @@ OPTIONAL_DATA_INPUTS = (
     "industry_large_fund_classification.csv",
     "anbima_documentary_overrides.csv",
     "fic_perimeter_overrides.csv",
+    "fic_perimeter_overrides_history.csv",
+    "industry_fic_perimeter_review.csv",
     # Auditoria da exclusão de FICs e cross-check da taxonomia: viajam com o
     # bundle para que o Excel exportado reproduza o que os gráficos mostram e
     # diga por que cada fundo saiu do universo.
@@ -201,7 +212,11 @@ WORKBOOK_AUDIT_DATA_INPUTS = (
     "taxonomy_review_actions.csv",
 )
 BUILDER_SOURCES = (
+    ROOT / "scripts" / "publish_fidc_revision_bundle.py",
     ROOT / "scripts" / "build_fidc_revision_analysis.py",
+    ROOT / "scripts" / "build_fic_detection_audit.py",
+    ROOT / "scripts" / "build_anbima_market_offers.py",
+    ROOT / "scripts" / "build_anbima_fixed_income_ranking.py",
     ROOT / "scripts" / "build_fidc_revision_artifact_payload.py",
     ROOT / "scripts" / "scan_carteira_101_documents.py",
     ROOT / "scripts" / "build_fidc_top20_taxonomy_document_conclusions.py",
@@ -226,6 +241,7 @@ BUILDER_SOURCES = (
     ROOT / "scripts" / "build_fidc_provider_history.py",
     ROOT / "scripts" / "patch_pptx_native_market_charts.py",
     ROOT / "scripts" / "patch_portfolio_workbook_charts.py",
+    ROOT / "scripts" / "patch_industry_workbook_operational_cache.py",
     ROOT / "services" / "industry_revision_analysis.py",
     ROOT / "services" / "industry_revision_additions.py",
     ROOT / "services" / "industry_closed_offers.py",
@@ -233,6 +249,10 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_executive_pack.py",
     ROOT / "services" / "industry_ppt_export.py",
     ROOT / "services" / "industry_revision_export.py",
+    ROOT / "services" / "industry_comparative_period.py",
+    ROOT / "services" / "industry_offer_periods.py",
+    ROOT / "services" / "industry_anbima_market_source.py",
+    ROOT / "services" / "fic_detection.py",
     ROOT / "services" / "industry_portfolio_export.py",
     ROOT / "services" / "carteira_101_document_audit.py",
     ROOT / "services" / "emission_field_enrichment.py",
@@ -256,6 +276,7 @@ BUILDER_SOURCES = (
     ROOT / "services" / "industry_bcb_expanded_credit.py",
     ROOT / "services" / "industry_offer_document_curation.py",
     ROOT / "services" / "industry_top20_outros_regulations.py",
+    ROOT / "services" / "fic_perimeter.py",
 )
 REQUIRED_ANALYSIS_FILES = {
     "base_competencia_cnpj.csv.gz",
@@ -790,6 +811,97 @@ def _validate_card_taxonomy_contract(payload: Mapping[str, object]) -> None:
         )
 
 
+
+def _offer_comparison_cut(payload: Mapping[str, object]) -> ComparisonCut:
+    end = str(payload.get("offers_as_of") or "")
+    try:
+        cut = ComparisonCut.from_competence(end[:7])
+    except ValueError as exc:
+        raise RevisionBundlePublishError("ofertas sem corte mensal válido") from exc
+    if end != cut.period_end.isoformat():
+        raise RevisionBundlePublishError("corte de ofertas deve ser o último dia da competência")
+    metadata = payload.get("offers_comparison_meta")
+    if metadata is not None:
+        if not isinstance(metadata, Mapping) or any(metadata.get(key) != value for key, value in cut.to_meta().items()):
+            raise RevisionBundlePublishError("metadados do corte comparativo divergentes")
+        if cut.competence != payload.get("latest_complete"):
+            raise RevisionBundlePublishError("ofertas não acompanham a última competência consolidada")
+    return cut
+
+
+
+def _secondary_offer_comparison_cut(payload: Mapping[str, object], manifest_key: str) -> ComparisonCut:
+    primary = _offer_comparison_cut(payload)
+    manifest = payload.get(manifest_key)
+    if manifest is None and payload.get("offers_comparison_meta") is None:
+        return primary
+    if not isinstance(manifest, Mapping) or not isinstance(manifest.get("comparison_meta"), Mapping):
+        raise RevisionBundlePublishError(f"{manifest_key} sem janela de comparação própria")
+    metadata = manifest["comparison_meta"]
+    try:
+        cut = ComparisonCut.from_competence(str(metadata.get("current_period_end") or "")[:7])
+        source = ComparisonCut.from_competence(str(manifest.get("source_reference_competence") or ""))
+    except ValueError as exc:
+        raise RevisionBundlePublishError(f"{manifest_key} sem competência válida") from exc
+    if any(metadata.get(key) != value for key, value in cut.to_meta().items()):
+        raise RevisionBundlePublishError(f"{manifest_key} contém metadados de janela divergentes")
+    if manifest.get("cvm_latest_complete_meta") != primary.to_meta():
+        raise RevisionBundlePublishError(f"{manifest_key} usa competência primária desatualizada")
+    expected_end = min(primary.period_end, source.period_end)
+    if cut.period_end != expected_end:
+        raise RevisionBundlePublishError(f"{manifest_key} não compara CVM e fonte na mesma janela disponível")
+    lag = max(0, (primary.year - source.year) * 12 + primary.month - source.month)
+    if manifest.get("source_lag_months") != lag:
+        raise RevisionBundlePublishError(f"{manifest_key} contém atraso da fonte divergente")
+    return cut
+
+
+def _comparable_offers(payload: Mapping[str, object]) -> list[Mapping[str, object]]:
+    return list(payload.get("closed_offers_ytd_comparable") or payload.get("closed_offers_jan_june") or [])
+
+
+def _validate_offer_comparison_cut(payload: Mapping[str, object]) -> None:
+    cut = _offer_comparison_cut(payload)
+    if payload.get("offers_comparison_meta") is None:
+        return  # Earlier bundles retain their explicitly signed historical cutoff.
+    comparable = _comparable_offers(payload)
+    expected_years = {cut.year - 2, cut.year - 1, cut.year}
+    if len(comparable) != 3 or {int(row.get("year") or 0) for row in comparable} != expected_years:
+        raise RevisionBundlePublishError("janela comparável deve conter os mesmos meses em três anos")
+    for row in comparable:
+        year = int(row.get("year") or 0)
+        year_cut = ComparisonCut(year, cut.month)
+        if row.get("period_start") != f"{year}-01-01" or row.get("period_end") != year_cut.period_end.isoformat():
+            raise RevisionBundlePublishError("janela YTD contém datas divergentes do corte consolidado")
+    monthly = payload.get("closed_offers_monthly")
+    if not isinstance(monthly, list) or not monthly:
+        raise RevisionBundlePublishError("ofertas comparáveis sem série mensal de origem")
+    month_keys = [(int(row.get("year") or 0), int(row.get("month") or 0)) for row in monthly]
+    if len(month_keys) != len(set(month_keys)) or any(year > cut.year or month not in range(1, 13) or year == cut.year and month > cut.month for year, month in month_keys):
+        raise RevisionBundlePublishError("série mensal de ofertas contém duplicação ou mês fora do corte")
+    for row in comparable:
+        year = int(row["year"])
+        months = [item for item in monthly if int(item.get("year") or 0) == year and int(item.get("month") or 0) <= cut.month]
+        if {int(item["month"]) for item in months} != set(range(1, cut.month + 1)):
+            raise RevisionBundlePublishError("janela YTD sem todos os meses comparáveis")
+        _require_payload_amount_close(row.get("registered_volume_brl"), sum(_finite_payload_number(item.get("registered_volume_brl"), "volume mensal de ofertas") for item in months), "volume da janela YTD")
+        _require_payload_amount_close(row.get("closed_offers"), sum(_integer_payload_number(item.get("closed_offers"), "número mensal de ofertas") for item in months), "número de ofertas da janela YTD")
+    for key in ("closed_offer_ticket_distribution", "closed_offer_placement_regime", "closed_offer_top15_summary", "fixed_income_offer_comparison", "offer_target_public_shares", "closed_offer_originators_2026"):
+        rows = payload.get(key) or []
+        current = [row for row in rows if isinstance(row, Mapping) and row.get("period_label") == cut.period_id()]
+        if not current:
+            raise RevisionBundlePublishError(f"{key} sem período atual do corte consolidado")
+        for row in current:
+            if row.get("period_start") != f"{cut.year}-01-01" or row.get("period_end") != cut.period_end.isoformat():
+                raise RevisionBundlePublishError(f"{key} contém datas desatualizadas no período atual")
+            for date_key in ("comparison_period_end", "previous_period_end"):
+                if row.get(date_key) not in (None, "N/D", "", cut.previous_period_end.isoformat()):
+                    raise RevisionBundlePublishError(f"{key} compara meses diferentes entre os anos")
+    concentration = payload.get("offer_ticket_concentration_2026") or {}
+    if concentration.get("period_end") != cut.period_end.isoformat() or concentration.get("period_label") != cut.period_id():
+        raise RevisionBundlePublishError("concentração de ofertas usa corte divergente")
+
+
 def _validate_closed_offer_originator_order(payload: Mapping[str, object]) -> None:
     rows = payload.get("closed_offer_originators_2026")
     if not isinstance(rows, list) or not rows:
@@ -840,24 +952,18 @@ def _validate_closed_offer_originator_order(payload: Mapping[str, object]) -> No
 
 
 def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
+    cut = _offer_comparison_cut(payload)
     rows = payload.get("closed_offer_top15")
     summaries = payload.get("closed_offer_top15_summary")
-    if not isinstance(rows, list) or len(rows) != 67:
-        raise RevisionBundlePublishError(
-            "closed_offer_top15 deve conter sete linhas em 2022 e 15 nos demais períodos"
-        )
-    if not isinstance(summaries, list) or len(summaries) != 5:
-        raise RevisionBundlePublishError(
-            "closed_offer_top15_summary deve conter cinco períodos"
-        )
-
     expected_periods = (
-        "2022 FY parcial",
-        "2023 FY",
-        "2024 FY",
-        "2025 FY",
-        "2026 jan-jun",
+        *("2022 FY parcial" if year == 2022 else f"{year} FY" for year in range(cut.year - 4, cut.year)),
+        cut.period_id(),
     )
+    expected_count = sum(7 if period == "2022 FY parcial" else 15 for period in expected_periods)
+    if not isinstance(rows, list) or len(rows) != expected_count:
+        raise RevisionBundlePublishError(f"closed_offer_top15 deve conter {expected_count} linhas nos cinco períodos publicados")
+    if not isinstance(summaries, list) or len(summaries) != len(expected_periods):
+        raise RevisionBundlePublishError("closed_offer_top15_summary deve conter cinco períodos")
     summary_by_period = {
         str(row.get("period_label") or ""): row
         for row in summaries
@@ -988,16 +1094,15 @@ def _validate_closed_offer_top15(payload: Mapping[str, object]) -> None:
 def _validate_fixed_income_offer_comparison(
     payload: Mapping[str, object],
 ) -> None:
+    cut = _offer_comparison_cut(payload)
     rows = payload.get("fixed_income_offer_comparison")
     if not isinstance(rows, list) or len(rows) != 28:
         raise RevisionBundlePublishError(
             "fixed_income_offer_comparison deve conter 28 linhas"
         )
     expected_periods = (
-        "2023 FY",
-        "2024 FY",
-        "2025 FY",
-        "2026 jan-jun",
+        *(f"{year} FY" for year in range(cut.year - 3, cut.year)),
+        cut.period_id(),
     )
     view_a = [
         row
@@ -1009,7 +1114,7 @@ def _validate_fixed_income_offer_comparison(
         row
         for row in rows
         if isinstance(row, Mapping)
-        and row.get("view") == "FIDCs vs instrumentos materiais de 2025"
+        and row.get("view") == f"FIDCs vs instrumentos materiais de {cut.year - 1}"
     ]
     if len(view_a) != 8 or len(view_b) != 20:
         raise RevisionBundlePublishError(
@@ -1041,12 +1146,12 @@ def _validate_fixed_income_offer_comparison(
             raise RevisionBundlePublishError(
                 f"comparativo de renda fixa não fecha o universo em {period_label}"
             )
-    series_2025 = [
+    series_prior_year = [
         str(row.get("series_label") or "")
         for row in view_b
-        if row.get("period_label") == "2025 FY"
+        if row.get("period_label") == f"{cut.year - 1} FY"
     ]
-    if series_2025 != [
+    if series_prior_year != [
         "FIDCs",
         "Debêntures",
         "CRI",
@@ -1054,15 +1159,15 @@ def _validate_fixed_income_offer_comparison(
         "CRA",
     ]:
         raise RevisionBundlePublishError(
-            "instrumentos materiais de 2025 divergentes no comparativo"
+            f"instrumentos materiais de {cut.year - 1} divergentes no comparativo"
         )
     if any(
         row.get("yoy_growth") is not None
         for row in rows
-        if isinstance(row, Mapping) and row.get("period_label") == "2023 FY"
+        if isinstance(row, Mapping) and row.get("period_label") == expected_periods[0]
     ):
         raise RevisionBundlePublishError(
-            "2023 deve permanecer sem YoY no comparativo de renda fixa"
+            f"{cut.year - 3} deve permanecer sem YoY no comparativo de renda fixa"
         )
     fidc_by_period = {
         str(row.get("period_label") or ""): _finite_payload_number(
@@ -1079,33 +1184,36 @@ def _validate_fixed_income_offer_comparison(
         )
         for row in payload.get("closed_offers_annual") or []
         if isinstance(row, Mapping)
-        and str(row.get("period_label") or "") in expected_periods[1:3]
+        and str(row.get("period_label") or "") in expected_periods[:3]
     }
-    anbima_2023_rows = [
-        row
-        for row in payload.get("market_offer_reconciliation") or []
-        if isinstance(row, Mapping)
-        and str(row.get("period_label") or "") == "2023 FY"
-        and str(row.get("instrument_label") or "") == "FIDCs"
-    ]
-    if len(anbima_2023_rows) != 1:
-        raise RevisionBundlePublishError(
-            "reconciliação ANBIMA de FIDCs em 2023 FY deve ser única"
+    if "2023 FY" in expected_periods:
+        anbima_2023_rows = [
+            row
+            for row in payload.get("market_offer_reconciliation") or []
+            if isinstance(row, Mapping)
+            and str(row.get("period_label") or "") == "2023 FY"
+            and str(row.get("instrument_label") or "") == "FIDCs"
+        ]
+        if len(anbima_2023_rows) != 1:
+            raise RevisionBundlePublishError(
+                "reconciliação ANBIMA de FIDCs em 2023 FY deve ser única"
+            )
+        official_fidc["2023 FY"] = _finite_payload_number(
+            anbima_2023_rows[0].get("anbima_closed_volume_brl"),
+            "market_offer_reconciliation[2023 FY/FIDCs].anbima_closed_volume_brl",
         )
-    official_fidc["2023 FY"] = _finite_payload_number(
-        anbima_2023_rows[0].get("anbima_closed_volume_brl"),
-        "market_offer_reconciliation[2023 FY/FIDCs].anbima_closed_volume_brl",
-    )
     official_fidc.update(
         {
-            "2026 jan-jun": _finite_payload_number(
+            cut.period_id(): _finite_payload_number(
                 row.get("registered_volume_brl"),
                 "closed_offers_jan_june.registered_volume_brl",
             )
-            for row in payload.get("closed_offers_jan_june") or []
-            if isinstance(row, Mapping) and int(row.get("year") or 0) == 2026
+            for row in _comparable_offers(payload)
+            if isinstance(row, Mapping) and int(row.get("year") or 0) == cut.year
         }
     )
+    if set(official_fidc) != set(expected_periods):
+        raise RevisionBundlePublishError("comparativo de FIDCs sem fonte oficial para cada período")
     for period_label, expected in official_fidc.items():
         observed = fidc_by_period.get(period_label)
         _require_payload_amount_close(
@@ -1118,12 +1226,13 @@ def _validate_fixed_income_offer_comparison(
 def _validate_closed_offer_placement_regime(
     payload: Mapping[str, object],
 ) -> None:
+    cut = _offer_comparison_cut(payload)
     rows = payload.get("closed_offer_placement_regime")
-    if not isinstance(rows, list) or len(rows) != 12:
-        raise RevisionBundlePublishError(
-            "closed_offer_placement_regime deve conter 12 linhas"
-        )
-    expected_periods = ("2024 FY", "2025 FY", "2026 jan-jun")
+    annual_count = 3 if payload.get("offers_comparison_meta") is not None else 2
+    expected_count = (annual_count + 1) * 4
+    if not isinstance(rows, list) or len(rows) != expected_count:
+        raise RevisionBundlePublishError(f"closed_offer_placement_regime deve conter {expected_count} linhas")
+    expected_periods = (*(f"{year} FY" for year in range(cut.year - annual_count, cut.year)), cut.period_id())
     expected_regimes = (
         "Melhores esforços",
         "Garantia firme",
@@ -1143,11 +1252,11 @@ def _validate_closed_offer_placement_regime(
         )
         for row in payload.get("closed_offers_annual") or []
         if isinstance(row, Mapping)
-        and str(row.get("period_label") or "") in expected_periods[:2]
+        and str(row.get("period_label") or "") in expected_periods[:-1]
     }
-    for row in payload.get("closed_offers_jan_june") or []:
-        if isinstance(row, Mapping) and int(row.get("year") or 0) == 2026:
-            official_totals["2026 jan-jun"] = (
+    for row in _comparable_offers(payload):
+        if isinstance(row, Mapping) and int(row.get("year") or 0) == cut.year:
+            official_totals[cut.period_id()] = (
                 _finite_payload_number(
                     row.get("closed_offers"),
                     "closed_offers_jan_june.closed_offers",
@@ -1197,16 +1306,15 @@ def _validate_closed_offer_placement_regime(
 def _validate_market_offer_reconciliation(
     payload: Mapping[str, object],
 ) -> None:
+    cut = _secondary_offer_comparison_cut(payload, "anbima_market_offers_manifest")
     rows = payload.get("market_offer_reconciliation")
     if not isinstance(rows, list) or len(rows) != 20:
         raise RevisionBundlePublishError(
             "market_offer_reconciliation deve conter 20 linhas"
         )
     expected_periods = (
-        "2023 FY",
-        "2024 FY",
-        "2025 FY",
-        "2026 jan-jun",
+        *(f"{year} FY" for year in range(cut.year - 3, cut.year)),
+        cut.period_id(),
     )
     expected_instruments = (
         "Debêntures",
@@ -1228,6 +1336,9 @@ def _validate_market_offer_reconciliation(
                 f"reconciliação de mercado incompleta em {period_label}"
             )
         for row in period:
+            if payload.get("offers_comparison_meta") is not None and period_label == cut.period_id():
+                if row.get("period_start") != f"{cut.year}-01-01" or row.get("period_end") != cut.period_end.isoformat():
+                    raise RevisionBundlePublishError("reconciliação ANBIMA compara janelas diferentes")
             cvm = _finite_payload_number(
                 row.get("cvm_registered_volume_brl"),
                 "market_offer_reconciliation.cvm_registered_volume_brl",
@@ -1593,14 +1704,6 @@ def _validate_portfolio_export_payload(payload: Mapping[str, object]) -> None:
 def _validate_emission_field_coverage(payload: Mapping[str, object]) -> None:
     """Block publication when a Top 15 page regresses below its declared floor."""
 
-    originator_exception_reason = (
-        "documentos identificados não individualizam originador econômico; "
-        "cedentes legais permanecem em coluna separada"
-    )
-    originator_exception_tables = {
-        "Outros · 2025-12",
-        "Outros · 2026-06",
-    }
     expected_fields = {
         "originador",
         "cedente",
@@ -1708,14 +1811,18 @@ def _validate_emission_field_coverage(payload: Mapping[str, object]) -> None:
             raise RevisionBundlePublishError(
                 f"emission_field_coverage diverge da contagem em {table} · {field}"
             )
+        type_name, _, period = table.rpartition(" · ")
+        approved_reason = COHORT_COVERAGE_WAIVERS.get(
+            (type_name, field, period), ""
+        )
         allowed_originator_exception = (
-            table in originator_exception_tables
+            bool(approved_reason)
             and field == "originador"
             and filled == 0
             and share == 0.0
             and floor == 0.0
             and str(row.get("excecao_publicacao") or "").strip()
-            == originator_exception_reason
+            == approved_reason
         )
         target_remuneration = field == "remuneracao_por_tipo_cota"
         if target_remuneration:
@@ -1806,12 +1913,81 @@ def _validate_emission_field_coverage(payload: Mapping[str, object]) -> None:
         )
 
 
+
+def _validate_current_history_windows(payload: Mapping[str, object]) -> None:
+    if payload.get("offers_comparison_meta") is None:
+        return
+    cut = ComparisonCut.from_competence(str(payload.get("latest_complete") or ""))
+    for key, count in (("provider_historical_ranking", 2), ("provider_independent_ranking", 2), ("provider_concentration_history", 1), ("bank_fidc_evolution", 3), ("bank_fidc_detail", 3)):
+        expected = {*(f"{year}-12" for year in range(cut.year - count, cut.year)), cut.competence}
+        observed = {str(row.get("competencia") or "") for row in payload.get(key) or [] if isinstance(row, Mapping)}
+        if observed != expected:
+            raise RevisionBundlePublishError(f"{key} sem encerramentos anuais anteriores à competência atual")
+
+
+def _validate_current_taxonomy_impacts(payload: Mapping[str, object]) -> None:
+    if payload.get("offers_comparison_meta") is None:
+        return
+    cut = _offer_comparison_cut(payload)
+    for key in ("taxonomy_audit_impact_summary", "taxonomy_audit_market_share_impact"):
+        rows = payload.get(key)
+        if not isinstance(rows, list) or not rows or any(row.get("competence") != cut.competence for row in rows):
+            raise RevisionBundlePublishError(f"{key} não acompanha a competência corrente")
+    market = payload["taxonomy_audit_market_share_impact"]
+    pairs = {(row.get("tipo_anbima"), row.get("foco_anbima")) for row in market}
+    if len(pairs) != len(market):
+        raise RevisionBundlePublishError("impacto de market share contém subtipo duplicado")
+    total_before = sum(_finite_payload_number(row.get("before_denominator_brl"), "denominador antes") for row in market)
+    total_after = sum(_finite_payload_number(row.get("after_denominator_brl"), "denominador depois") for row in market)
+    if total_before <= 0 or total_after <= 0:
+        raise RevisionBundlePublishError("impacto de market share sem denominador positivo no escopo")
+    _require_payload_amount_close(total_before, total_after, "escopo total de market share antes/depois")
+    for row in market:
+        _require_payload_amount_close(row.get("scope_total_before_brl"), total_before, "escopo antes de market share")
+        _require_payload_amount_close(row.get("scope_total_after_brl"), total_after, "escopo depois de market share")
+        _require_payload_amount_close(row.get("delta_denominator_brl"), float(row["after_denominator_brl"]) - float(row["before_denominator_brl"]), "delta do denominador de market share")
+    scope = payload.get("market_share_scope_summary") or []
+    if {row.get("papel") for row in scope} != {"administrador", "gestor", "custodiante"}:
+        raise RevisionBundlePublishError("impacto de market share sem os três escopos reconciliados")
+    for row in scope:
+        if row.get("competencia") != cut.competence:
+            raise RevisionBundlePublishError("escopo de market share usa competência desatualizada")
+        _require_payload_amount_close(row.get("pl_nos_14_focos_brl"), total_after, "denominador do impacto vs escopo publicado")
+    issuance = payload.get("taxonomy_audit_issuance_impact") or []
+    expected = {(str(row.get("period_key")), str(row.get("categoria"))): row for row in payload.get("issuance_taxonomy") or []}
+    actual = {(str(row.get("period_key")), str(row.get("categoria"))): row for row in issuance}
+    if len(actual) != len(issuance) or set(actual) != set(expected):
+        raise RevisionBundlePublishError("impacto das emissões contém períodos ou categorias divergentes")
+    for key, row in actual.items():
+        _require_payload_amount_close(row.get("after_volume_brl"), expected[key].get("volume_brl"), "impacto das emissões vs volume publicado")
+
+
 def _cedente_competence(value: object) -> str:
     return re.sub(r"\D", "", str(value or ""))
 
 
+def _cedente_expected_competences(payload: Mapping[str, object]) -> set[str]:
+    if payload.get("offers_comparison_meta"):
+        cut = ComparisonCut.from_competence(str(payload.get("latest_complete") or ""))
+        return {*(f"{year}12" for year in range(cut.year - 3, cut.year)), cut.competence.replace("-", "")}
+    manifest = payload.get("cedente_triage_manifest") or {}
+    return {_cedente_competence(value) for value in manifest.get("competences", CEDENTE_TOP500_COMPETENCES)}
+
+
 def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
-    expected_competences = set(CEDENTE_TOP500_COMPETENCES)
+    expected_competences = _cedente_expected_competences(payload)
+    manifest = payload.get("cedente_triage_manifest")
+    if not isinstance(manifest, Mapping):
+        raise RevisionBundlePublishError("payload sem cedente_triage_manifest")
+    metrics = manifest.get("metrics")
+    if not isinstance(metrics, Mapping) or set(metrics) != expected_competences:
+        raise RevisionBundlePublishError("métricas Top 500 não cobrem as competências publicadas")
+    repair_summary = manifest.get("source_repairs_summary")
+    if not isinstance(repair_summary, Mapping) or set(repair_summary) != expected_competences:
+        raise RevisionBundlePublishError("reparos Top 500 não cobrem as competências publicadas")
+    expected_repairs = {str(key): int(value) for key, value in repair_summary.items()}
+    if any(count < 0 for count in expected_repairs.values()):
+        raise RevisionBundlePublishError("contagem de reparos Top 500 deve ser não negativa")
     required_columns: dict[str, set[str]] = {
         "cedente_top500_detail": {
             "Competência",
@@ -1891,7 +2067,8 @@ def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
     rows_by_key: dict[str, list[Mapping[str, object]]] = {}
     for key, columns in required_columns.items():
         raw_rows = payload.get(key)
-        if not isinstance(raw_rows, list) or not raw_rows:
+        empty_repairs = key == "cedente_source_repairs" and sum(expected_repairs.values()) == 0
+        if not isinstance(raw_rows, list) or not raw_rows and not empty_repairs:
             raise RevisionBundlePublishError(f"payload editorial sem {key}")
         rows: list[Mapping[str, object]] = []
         for index, row in enumerate(raw_rows, start=1):
@@ -1932,12 +2109,6 @@ def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
         raise RevisionBundlePublishError(
             "cedente_top500_coverage_history deve conter quatro linhas"
         )
-    coverage_checkpoints = {
-        "202312": (181, 2404, 0.8395464326020662),
-        "202412": (148, 3140, 0.7946176676596972),
-        "202512": (205, 4008, 0.7349500587764943),
-        "202606": (172, 4311, 0.7255622598775591),
-    }
     for row in coverage_rows:
         competence = _cedente_competence(row.get("Competência"))
         identified = int(row.get("Fundos que identificam cedente") or 0)
@@ -1951,21 +2122,27 @@ def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
             raise RevisionBundlePublishError(
                 "cobertura de cedentes contém PL do Top 500 ausente"
             )
-        expected_identified, expected_industry, expected_coverage = (
-            coverage_checkpoints[competence]
-        )
-        if (
-            identified != expected_identified
-            or int(row.get("Fundos na indústria") or 0) != expected_industry
-            or not math.isclose(
-                float(row.get("% do PL total") or 0.0),
-                expected_coverage,
-                abs_tol=1e-12,
-            )
+        expected = metrics[competence]
+        fields = {
+            "Fundos que identificam cedente": "fundos_com_cedente_real",
+            "Fundos sem cedente": "fundos_sem_cedente_real",
+            "Fundos na indústria": "fundos_industria",
+            "PL do Top 500 (R$)": "pl_top500_reais",
+            "PL total da indústria (R$)": "pl_industria_reais",
+            "PL sem cedente (R$)": "pl_sem_cedente_real_reais",
+            "% do PL total": "pl_top500_sobre_industria_pct",
+        }
+        if not isinstance(expected, Mapping) or any(
+            field not in row or metric not in expected
+            or not math.isclose(float(row[field]), float(expected[metric]), rel_tol=1e-12, abs_tol=1e-8)
+            for field, metric in fields.items()
         ):
-            raise RevisionBundlePublishError(
-                f"checkpoint Top 500 diverge em {competence}"
-            )
+            raise RevisionBundlePublishError(f"checkpoint Top 500 diverge do manifesto em {competence}")
+        industry_pl = float(row["PL total da indústria (R$)"])
+        if industry_pl <= 0 or not math.isclose(
+            float(row["% do PL total"]), float(row["PL do Top 500 (R$)"]) / industry_pl, abs_tol=1e-12
+        ):
+            raise RevisionBundlePublishError(f"denominador de cobertura Top 500 diverge em {competence}")
 
     source_repairs = rows_by_key["cedente_source_repairs"]
     repairs_by_competence = {
@@ -1973,13 +2150,12 @@ def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
             _cedente_competence(row.get("competencia")) == competence
             for row in source_repairs
         )
-        for competence in CEDENTE_TOP500_COMPETENCES
+        for competence in expected_competences
     }
-    expected_repairs = {"202312": 6, "202412": 4, "202512": 0, "202606": 0}
-    if len(source_repairs) != 10 or repairs_by_competence != expected_repairs:
+    if len(source_repairs) != sum(expected_repairs.values()) or repairs_by_competence != expected_repairs:
         raise RevisionBundlePublishError(
-            "cedente_source_repairs deve conter os 10 reparos auditados "
-            "(6 em 202312 e 4 em 202412)"
+            "cedente_source_repairs deve reconciliar os reparos auditados "
+            "por competência declarada no manifesto"
         )
 
     for key, column in (
@@ -2037,16 +2213,18 @@ def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
             raise RevisionBundlePublishError(
                 f"manifesto de cedentes sem metadados de {name}"
             )
-        if int(metadata.get("rows") or 0) <= 0 or not re.fullmatch(
+        row_count = _integer_payload_number(metadata.get("rows"), f"cedente_triage_manifest.outputs[{name}].rows")
+        allow_empty = name == "fidc_cedentes_reparos_fonte_2023_2026.csv" and sum(expected_repairs.values()) == 0
+        if row_count < 0 or row_count == 0 and not allow_empty or not re.fullmatch(
             r"[0-9a-f]{64}", str(metadata.get("sha256") or "")
         ):
             raise RevisionBundlePublishError(
                 f"manifesto de cedentes contém metadados inválidos de {name}"
             )
     repair_output = outputs["fidc_cedentes_reparos_fonte_2023_2026.csv"]
-    if int(repair_output.get("rows") or 0) != 10:
+    if int(repair_output.get("rows") or 0) != sum(expected_repairs.values()):
         raise RevisionBundlePublishError(
-            "manifesto de cedentes deve registrar os 10 reparos estruturais da fonte"
+            "manifesto de cedentes deve registrar os reparos estruturais da fonte"
         )
     repairs_summary = manifest.get("source_repairs_summary")
     if not isinstance(repairs_summary, Mapping) or {
@@ -2054,7 +2232,7 @@ def _validate_cedente_top500_payload(payload: Mapping[str, object]) -> None:
         for key, value in repairs_summary.items()
     } != expected_repairs:
         raise RevisionBundlePublishError(
-            "manifesto de cedentes deve reconciliar os 10 reparos por competência"
+            "manifesto de cedentes deve reconciliar os reparos por competência"
         )
     competence_manifests = manifest.get("competence_manifests")
     if not isinstance(competence_manifests, Mapping) or {
@@ -2363,8 +2541,8 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "criterio_inclusao",
             "categoria_tabela_ii",
             "valor_cartao_tabela_ii_brl",
-            "pl_jun25_brl",
-            "pl_jun25_observavel",
+            "pl_comparavel_anterior_brl",
+            "pl_comparavel_anterior_observavel",
             "pl_referencia_brl",
             "pl_referencia_competencia",
             "status_curadoria",
@@ -2788,20 +2966,34 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
         for row in list(payload.get("issuance_taxonomy_reconciliation") or [])
         if isinstance(row, Mapping)
     }
-    expected_issuance_periods = {"2023", "2024", "2025", "jun25", "jun26"}
+    cut = _offer_comparison_cut(payload)
+    expected_issuance_periods = {*(str(year) for year in range(cut.year - 3, cut.year)), cut.period_key(cut.year - 1), cut.period_key()}
     expected_issuance_categories = {
         "Fomento Mercantil",
         "Agro, Indústria e Comércio",
         "Financeiro",
         "Outros",
     }
-    if set(issuance_reconciliation) != expected_issuance_periods:
+    if len(payload.get("issuance_taxonomy_reconciliation") or []) != 5 or set(issuance_reconciliation) != expected_issuance_periods:
         raise RevisionBundlePublishError(
             "emissões por taxonomia devem conter cinco períodos reconciliados"
         )
     issuance_by_period: dict[str, list[Mapping[str, object]]] = {}
     for row in issuance_rows:
         issuance_by_period.setdefault(str(row.get("period_key") or ""), []).append(row)
+    if set(issuance_by_period) != expected_issuance_periods:
+        raise RevisionBundlePublishError("taxonomia de emissões contém período fora do corte")
+    wide_rows = payload.get("issuance_taxonomy_table") or []
+    wide_by_category = {str(row.get("Categoria") or ""): row for row in wide_rows}
+    if len(wide_rows) != 4 or set(wide_by_category) != expected_issuance_categories:
+        raise RevisionBundlePublishError("tabela de emissões deve conter quatro categorias únicas")
+    for row in issuance_rows:
+        period_key = str(row["period_key"])
+        label = (cut.period_label() if period_key == cut.period_key() else cut.period_label(cut.year - 1) if period_key == cut.period_key(cut.year - 1) else period_key)
+        wide = wide_by_category[str(row["categoria"])]
+        for header, expected in ((f"{label} (R$ bi)", float(row["volume_brl"]) / 1e9), (f"{label} (%)", float(row["share"]))):
+            if header not in wide or wide[header] is None or not math.isclose(float(wide[header]), expected, rel_tol=1e-12, abs_tol=1e-12):
+                raise RevisionBundlePublishError(f"tabela de emissões não reconcilia {header}")
     for period_key in expected_issuance_periods:
         period_rows = issuance_by_period.get(period_key, [])
         if len(period_rows) != 4:
@@ -3069,7 +3261,7 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             "payload delinquency_single_receivable_summary sem campos obrigatórios: "
             + ", ".join(missing_summary)
         )
-    if len(payload.get("closed_offers_annual") or []) != 5:
+    if {int(row.get("year") or 0) for row in payload.get("closed_offers_annual") or []} != set(range(2022, cut.year + 1)) or len(payload.get("closed_offers_annual") or []) != cut.year - 2021:
         raise RevisionBundlePublishError(
             "payload editorial deve conter ofertas anuais de 2022 a 2026"
         )
@@ -3102,6 +3294,9 @@ def validate_artifact_payload(payload: Mapping[str, object], latest_complete: st
             + ", ".join(missing)
         )
     _validate_card_taxonomy_contract(payload)
+    _validate_offer_comparison_cut(payload)
+    _validate_current_history_windows(payload)
+    _validate_current_taxonomy_impacts(payload)
     _validate_closed_offer_originator_order(payload)
     _validate_closed_offer_top15(payload)
     _validate_fixed_income_offer_comparison(payload)
@@ -3177,6 +3372,26 @@ def validate_deck_snapshot(payload: bytes, latest_complete: str) -> None:
         )
 
 
+def required_data_inputs(data_dir: Path) -> tuple[str, ...]:
+    cut = ComparisonCut.from_data_dir(data_dir)
+    latest = cut.competence.replace("-", "")
+    names = [name for name in REQUIRED_DATA_INPUTS if not (
+        re.match(r"cedente_triage/\d{6}/", name)
+        or re.match(r"industry_taxonomy_(?:impact_summary|impact_flows|issuance_impact|market_share_denominator_impact)_\d{6}\.csv$", name)
+    )]
+    names.extend(f"industry_taxonomy_{kind}_{latest}.csv" for kind in (
+        "impact_summary", "impact_flows", "issuance_impact", "market_share_denominator_impact"
+    ))
+    competences = [*(f"{year}12" for year in range(cut.year - 3, cut.year)), latest]
+    for competence in competences:
+        names.extend(f"cedente_triage/{competence}/fidc_cedentes_{kind}_{competence}.{extension}" for kind, extension in (
+            ("top500", "csv.gz"), ("vinculos", "csv.gz"), ("fundos_sem_cedente", "csv.gz"),
+            ("cobertura", "csv.gz"), ("pl_por_segmento", "csv.gz"), ("exclusoes", "csv.gz"),
+            ("reparos_fonte", "csv.gz"), ("manifest", "json")
+        ))
+    return tuple(names)
+
+
 def collect_input_hashes(
     *,
     data_dir: Path,
@@ -3188,7 +3403,7 @@ def collect_input_hashes(
 
     data_dir = Path(data_dir)
     paths: list[tuple[str, Path]] = []
-    for name in REQUIRED_DATA_INPUTS:
+    for name in required_data_inputs(data_dir):
         path = data_dir / name
         if not path.exists():
             raise RevisionBundlePublishError(f"input obrigatório ausente: {path}")
@@ -3223,6 +3438,7 @@ def validate_live_input_hashes_unchanged(
     curation_path: Path,
     input_workbook: Path,
     artifact_script: Path = ARTIFACT_SCRIPT,
+    source_inputs: Mapping[str, Path] | None = None,
 ) -> None:
     """Fail if any initially captured live input changed during the build."""
 
@@ -3233,6 +3449,11 @@ def validate_live_input_hashes_unchanged(
             input_workbook=input_workbook,
             artifact_script=artifact_script,
         )
+        current_hashes.update({
+            label: _sha256_file(path)
+            for label, path in (source_inputs or {}).items()
+            if path.is_file()
+        })
     except (OSError, EOFError, RevisionBundlePublishError) as exc:
         raise RevisionBundlePublishError(
             "inputs vivos não puderam ser revalidados antes do commit marker"
@@ -3294,9 +3515,16 @@ def build_bundle_manifest(
     html_bytes: bytes = b"",
     portfolio_xlsx_bytes: bytes = b"",
     top100_xlsx_bytes: bytes = b"",
+    input_paths: Mapping[str, str | Path] | None = None,
 ) -> dict[str, object]:
     """Build the content-addressed manifest consumed by the application."""
 
+    durable_paths = {str(label): str(location) for label, location in (input_paths or {}).items()}
+    allowed_locations = {"source/cad_fi_hist.zip", "source/registro_fundo_classe.zip", "workbook/input.xlsx"}
+    for label, location in durable_paths.items():
+        path = Path(location)
+        if label not in allowed_locations or label not in input_hashes or not location.strip() or any(part.startswith(".fidc-revision-publish-") for part in path.parts):
+            raise RevisionBundlePublishError("manifesto contém caminho de input não durável ou não assinado")
     payload_hash = _sha256_bytes(payload_bytes)
     pptx_hash = _sha256_bytes(pptx_bytes)
     xlsx_hash = _sha256_bytes(xlsx_bytes)
@@ -3320,6 +3548,7 @@ def build_bundle_manifest(
         "source_signature": payload_hash,
         "input_signature": input_signature,
         "inputs": dict(input_hashes),
+        "input_paths": durable_paths,
         "renderer": dict(renderer),
         "renderer_version": str(renderer.get("renderer_version") or ""),
         "renderer_sha256": str(renderer.get("renderer_sha256") or ""),
@@ -3736,12 +3965,74 @@ def materialize_current_workbook_base(
     """Build the inherited workbook tabs from the same current source snapshot."""
 
     from services.industry_ppt_export import _build_legacy_industry_xlsx_bytes
+    from openpyxl import load_workbook
 
     payload = _build_legacy_industry_xlsx_bytes(Path(data_dir))
+    # Keep partial CVM observations in explicitly named sheets. Analytical
+    # stock tabs retain the consolidated cut checked below.
+    status = pd.read_csv(
+        Path(data_dir) / "industry_competence_status.csv", dtype=str
+    ).set_index("competencia")["publication_status"].to_dict()
+    workbook = load_workbook(BytesIO(payload))
+    changed = False
+    for sheet_name, preliminary_name in (
+        ("Competências", "Competências preliminares"),
+        ("Indústria mensal", "Indústria preliminar"),
+    ):
+        sheet = workbook[sheet_name]
+        headers = [str(cell.value or "").strip().casefold() for cell in sheet[1]]
+        competence_index = headers.index("competencia")
+        future_rows = [
+            (index, tuple(cell.value for cell in row))
+            for index, row in enumerate(sheet.iter_rows(min_row=2), start=2)
+            if re.fullmatch(r"\d{4}-\d{2}", str(row[competence_index].value or ""))
+            and str(row[competence_index].value) > latest_complete
+        ]
+        if not future_rows:
+            continue
+        if any(status.get(str(row[competence_index])) != "preliminar" for _, row in future_rows):
+            raise RevisionBundlePublishError(
+                f"{sheet_name} contém competência posterior sem status preliminar"
+            )
+        preliminary = workbook.create_sheet(preliminary_name)
+        source_headers = [cell.value for cell in sheet[1]]
+        add_status = "publication_status" not in headers
+        preliminary.append(source_headers + (["publication_status"] if add_status else []))
+        for _, row in future_rows:
+            preliminary.append(list(row) + (["preliminar"] if add_status else []))
+        preliminary.freeze_panes = "A2"
+        for index, _ in reversed(future_rows):
+            sheet.delete_rows(index)
+        changed = True
+    if changed:
+        buffer = BytesIO()
+        workbook.save(buffer)
+        payload = buffer.getvalue()
+    workbook.close()
     validate_user_facing_workbook_snapshot(payload, latest_complete)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_bytes(payload)
     return output_path
+
+
+@contextmanager
+def _publication_staging_directory(parent: Path) -> Iterator[Path]:
+    """Keep complete diagnostic artifacts after failure; remove a successful stage."""
+    stage = Path(tempfile.mkdtemp(prefix=".fidc-revision-publish-", dir=parent))
+    try:
+        yield stage
+    except BaseException as exc:
+        try:
+            (stage / "publication_failure.json").write_text(
+                json.dumps({"error_type": type(exc).__name__, "error": str(exc)}, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+        except OSError:
+            pass
+        print(f"[erro] etapa preservada para diagnóstico: {stage}", file=sys.stderr)
+        raise
+    else:
+        shutil.rmtree(stage)
 
 
 def publish_revision_bundle(
@@ -3774,6 +4065,10 @@ def publish_revision_bundle(
     )
     latest_complete = latest_complete or discover_latest_complete(data_dir)
     _validate_input_workbook(input_workbook)
+    try:
+        validate_fic_quantitative_overrides(data_dir)
+    except ValueError as exc:
+        raise RevisionBundlePublishError(str(exc)) from exc
     validate_fic_detection_audit_provenance(data_dir)
     # This file is a derived input to the editorial payload. Rebuild it from
     # the current ledger before capturing hashes so the whole publication is
@@ -3804,6 +4099,15 @@ def publish_revision_bundle(
     input_hashes[f"builder/{PROVIDER_FLOW_BUILDER.name}"] = _sha256_bytes(
         provider_flow_builder_bytes
     )
+    captured_source_paths = {
+        label: path
+        for label, path in {
+            "source/cad_fi_hist.zip": provider_history_archive,
+            "source/registro_fundo_classe.zip": raw_dir / "registro_fundo_classe.zip",
+        }.items()
+        if path.is_file()
+    }
+    input_hashes.update({label: _sha256_file(path) for label, path in captured_source_paths.items()})
     captured_live_input_hashes = dict(input_hashes)
     node_text = shutil.which("node")
     if not node_text:
@@ -3813,11 +4117,7 @@ def publish_revision_bundle(
     published_at = _generated_at(generated_at_utc)
 
     publish_dir.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(
-        prefix=".fidc-revision-publish-",
-        dir=publish_dir.parent,
-    ) as tmp_text:
-        stage = Path(tmp_text)
+    with _publication_staging_directory(publish_dir.parent) as stage:
         stage_revision = stage / "revision"
         stage_exports = stage / "exports"
         stage_revision.mkdir(parents=True)
@@ -3924,6 +4224,8 @@ def publish_revision_bundle(
             str(provider_history_archive),
             "--latest-competence",
             latest_complete,
+            "--to-date",
+            str(pd.Period(latest_complete, freq="M").end_time.date()),
         ]
         if skip_download:
             provider_history_args.append("--skip-download")
@@ -3967,7 +4269,13 @@ def publish_revision_bundle(
             revision_dir=stage_revision,
             curation_path=curation_path,
             latest=latest_complete,
+            registration_archive=raw_dir / "registro_fundo_classe.zip",
         )
+        registration_archive = raw_dir / "registro_fundo_classe.zip"
+        if registration_archive.is_file():
+            input_hashes["source/registro_fundo_classe.zip"] = _sha256_file(
+                registration_archive
+            )
         taxonomy_ledger = data_dir / "taxonomy_review_actions.csv"
         taxonomy_audit = data_dir / "taxonomy_review_audit.csv"
         if _sha256_semantic_file(taxonomy_ledger) != input_hashes.get(
@@ -3983,6 +4291,8 @@ def publish_revision_bundle(
                 "auditoria de taxonomia mudou durante a publicação; execute novamente para preservar atomicidade"
             )
         payload["generated_at"] = published_at
+        if payload.get("offers_comparison_meta") is None:
+            raise RevisionBundlePublishError("nova publicação exige corte comparativo dinâmico")
         validate_artifact_payload(payload, latest_complete)
         payload_bytes = json.dumps(
             payload,
@@ -4047,16 +4357,25 @@ def publish_revision_bundle(
             html_bytes=html_bytes,
             renderer_sha256=str(renderer["renderer_sha256"]),
         )
+        # Keep the renderer's provenance check over its original bytes, then
+        # reconcile the operational formula caches before signing the bundle.
+        # Numeric zeros must remain available to readers that do not recalc.
+        xlsx_bytes = patch_workbook_bytes(xlsx_bytes)
+        staged_xlsx.write_bytes(xlsx_bytes)
         renderer = {
             **renderer,
             "renderer_version": str(renderer_manifest.get("renderer_version") or ""),
         }
-        validate_revision_pptx(pptx_bytes)
-        validate_revision_xlsx(xlsx_bytes)
+        validate_revision_pptx(
+            pptx_bytes,
+            expected_payload=payload,
+            expected_signature=_sha256_bytes(payload_bytes),
+        )
+        validate_revision_xlsx(xlsx_bytes, expected_payload=payload)
         validate_revision_portfolio_xlsx(portfolio_xlsx_bytes)
         validate_revision_top100_xlsx(top100_xlsx_bytes)
         validate_user_facing_workbook_snapshot(xlsx_bytes, latest_complete)
-        validate_revision_html(html_bytes)
+        validate_revision_html(html_bytes, expected_payload=payload)
         validate_deck_snapshot(pptx_bytes, latest_complete)
 
         manifest = build_bundle_manifest(
@@ -4069,6 +4388,7 @@ def publish_revision_bundle(
             top100_xlsx_bytes=top100_xlsx_bytes,
             html_bytes=html_bytes,
             input_hashes=input_hashes,
+            input_paths={**captured_source_paths, "workbook/input.xlsx": input_workbook},
             renderer=renderer,
             generated_at_utc=published_at,
         )
@@ -4094,6 +4414,7 @@ def publish_revision_bundle(
             data_dir=data_dir,
             curation_path=curation_path,
             input_workbook=input_workbook,
+            source_inputs=captured_source_paths,
         )
 
         target_pptx, target_xlsx, target_manifest = publish_staged_bundle(
@@ -4122,11 +4443,15 @@ def publish_revision_bundle(
         top100_xlsx_bytes=target_top100_xlsx.read_bytes(),
         html_bytes=(publish_dir / MATERIALIZED_HTML_NAME).read_bytes(),
     )
-    validate_revision_pptx(target_pptx.read_bytes())
-    validate_revision_xlsx(target_xlsx.read_bytes())
+    validate_revision_pptx(
+        target_pptx.read_bytes(),
+        expected_payload=json.loads(committed_payload.read_text(encoding="utf-8")),
+        expected_signature=_sha256_file(committed_payload),
+    )
+    validate_revision_xlsx(target_xlsx.read_bytes(), expected_payload=json.loads(committed_payload.read_text(encoding="utf-8")))
     validate_revision_portfolio_xlsx(target_portfolio_xlsx.read_bytes())
     validate_revision_top100_xlsx(target_top100_xlsx.read_bytes())
-    validate_revision_html((publish_dir / MATERIALIZED_HTML_NAME).read_bytes())
+    validate_revision_html((publish_dir / MATERIALIZED_HTML_NAME).read_bytes(), expected_payload=json.loads(committed_payload.read_text(encoding="utf-8")))
     return PublishedRevisionBundle(
         bundle_id=str(manifest["bundle_id"]),
         latest_complete=latest_complete,

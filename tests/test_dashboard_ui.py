@@ -30,7 +30,7 @@ from tabs.tab_industry_study import (
     INDUSTRY_HOLDER_PL_CUTS_MM,
     INDUSTRY_STRUCTURE_CHARTS,
     INDUSTRY_VIEW_TABS,
-    _CEDENTE_COMPETENCES,
+    _revision_cedente_competences,
     _INDUSTRY_EXECUTIVE_PACK_INPUTS,
     _INDUSTRY_EXPORT_INPUTS,
     _industry_anbima_coverage_note,
@@ -406,18 +406,13 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
     source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
     revision_source = source[source.index("def _render_revision_conclusions") :]
 
+    assert 'payload.get("executive_conclusions")' in source
     assert "python scripts/publish_fidc_revision_bundle.py" in source
     assert "python scripts/build_fidc_revision_analysis.py &&" not in source
 
     required_text = (
         "Principais conclusões",
-        'payload.get("executive_conclusions")',
         'payload.get("executive_conclusion_notes")',
-        "Grandes números",
-        "growth_multiple_label",
-        "holder_ge_200m_share_pl_ate_10_contas",
-        "btg_bank_cohort_observed_funds",
-        "btg_bank_cohort_combo_funds",
         "FIDCs e Carteira de Crédito Privada Ampliada",
         "Contas e veículos reportantes",
         "Distribuição por número de contas: dez/23 e {stock_label_lower}",
@@ -475,7 +470,7 @@ def test_industry_revision_exposes_selected_deck_views_with_labels_and_notes() -
         "industry-revision-placement-total-volume",
         "industry-revision-placement-regime-offers",
         "industry-revision-placement-regime-volume",
-        "industry-revision-closed-offers-jan-june",
+        "industry-revision-closed-offers-ytd-comparable",
     )
     for key in required_chart_keys:
         assert key in revision_source
@@ -498,11 +493,11 @@ def test_industry_revision_preserves_slide_specific_sources_and_caveats() -> Non
         "Fontes: CVM, ANBIMA, FundosNet e BCB",
         "Fonte: CVM, Informe Mensal de FIDC. Variações dezembro contra dezembro",
         "Crescimento do PL ex-FIC",
-        "Fonte: Banco Central do Brasil. Série de carteira de crédito ampliada",
+        "Fonte: Banco Central do Brasil. Crédito ampliado sem títulos públicos.",
         "Fonte: CVM, Informe Mensal de FIDC, {stock_label_lower}",
         "Fonte: CVM, dez/23 e {stock_label_lower}",
         "Fonte: CVM, Informe Mensal e documentos primários",
-        "fallback mai/26",
+        "competencia_pl_fallback",
         "transações do arranjo e da cadeia de pagamentos entram em Adquirência",
         "crédito a PF/PJ ou CCB permanece fora",
         "Fonte: CVM, dez/25 e {stock_label_lower}",
@@ -571,10 +566,10 @@ def test_industry_revision_offers_use_jan_june_cutoff_with_legacy_fallback() -> 
 
     legacy = {"closed_offers_jan_may": payload["closed_offers_jan_may"]}
     assert int(_revision_offer_comparable_frame(legacy).iloc[0]["closed_offers"]) == 554
-    assert _revision_offers_cutoff(legacy) == "2026-06-30"
+    assert _revision_offers_cutoff(legacy) == "N/D"
 
 
-def test_industry_revision_offers_show_full_year_history_and_stop_2026_at_june() -> None:
+def test_industry_revision_offers_show_full_year_history_and_stop_at_the_published_month() -> None:
     source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
     offers_source = source[
         source.index("def _render_revision_offers") : source.index(
@@ -582,12 +577,12 @@ def test_industry_revision_offers_show_full_year_history_and_stop_2026_at_june()
         )
     ]
 
-    assert 'key="industry-revision-closed-offers-jan-june"' in offers_source
+    assert 'key="industry-revision-closed-offers-ytd-comparable"' in offers_source
     assert 'title="Volume registrado e ticket · FY / YTD"' in offers_source
     assert 'title="Volume acumulado · janeiro a dezembro"' in offers_source
-    assert 'monthly["month"].le(6)' in offers_source
+    assert 'monthly["month"].le(current_month)' in offers_source
     assert "ofertas primárias encerradas até" in offers_source
-    assert "as curvas de 2024 e 2025 seguem até dezembro" in offers_source
+    assert "as curvas dos anos anteriores seguem até dezembro" in offers_source
     assert "Jan–mai" not in offers_source
     assert "jan–mai" not in offers_source
     assert "17/jul/26" not in offers_source
@@ -784,7 +779,10 @@ def test_industry_overview_exposes_top500_cedente_segment_block() -> None:
         )
     ]
 
-    assert _CEDENTE_COMPETENCES == ("202312", "202412", "202512", "202606")
+    assert _revision_cedente_competences({
+        "latest_complete": "2026-08",
+        "cedente_top500_detail": [{"competencia": "2026-08"}, {"competencia": "2026-09"}],
+    }) == ("202608",)
     for payload_key in (
         "cedente_top500_detail",
         "cedente_segment_mix_history",
@@ -986,28 +984,24 @@ def test_industry_holder_histogram_frames_apply_same_cut_and_anbima_filters() ->
 def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
     """A broken builder must not empty the whole export section."""
 
-    from io import BytesIO
-
-    from pptx import Presentation
-
-    import services.anbima_executive_export as anbima_export
-    import services.carteira_deck as carteira_deck
+    import services.industry_case_studies_export as case_exports
     import services.industry_ppt_export as ppt_export
     import services.industry_revision_export as revision_export
+    import services.middle_market_exports as middle_exports
     from tabs.tab_industry_study import _industry_export_payloads
 
-    # The standard export is now parsed, rewritten and appended to, so the stub
-    # has to be a real presentation rather than arbitrary bytes — and the two
-    # steps that need the published deck's slide layout are stubbed out with it.
-    empty = BytesIO()
-    Presentation().save(empty)
+    compact_bytes = b"validated compact presentation"
     monkeypatch.setattr(
-        ppt_export, "build_industry_pptx_bytes", lambda *_: empty.getvalue()
+        revision_export, "build_revision_pptx_bytes", lambda *_: compact_bytes
     )
-    monkeypatch.setattr(anbima_export, "append_anbima_slides", lambda *a, **k: None)
-    monkeypatch.setattr(
-        carteira_deck, "replace_structural_slides", lambda *a, **k: 0
-    )
+    monkeypatch.setattr(case_exports, "build_case_studies_deck_bytes", lambda *_: b"cases")
+    for builder in (
+        "build_agro_auditoria_csv_bytes", "build_apuracao_xlsx_bytes",
+        "build_carteira101_subordinacao_xlsx_bytes", "build_cedentes_triagem_csv_bytes",
+        "build_revalidacao_secoes_csv_bytes", "build_top100_middle_xlsx_bytes",
+        "build_validacao_analistas_xlsx_bytes",
+    ):
+        monkeypatch.setattr(middle_exports, builder, lambda *_: b"base")
     monkeypatch.setattr(ppt_export, "build_industry_xlsx_bytes", lambda *_: b"xlsx")
     monkeypatch.setattr(
         revision_export, "build_revision_portfolio_xlsx_bytes", lambda *_: b"portfolio"
@@ -1025,6 +1019,7 @@ def test_one_failing_export_keeps_the_other_downloads(monkeypatch) -> None:
 
     payloads, failures = _industry_export_payloads.__wrapped__("assinatura")
 
+    assert payloads["pptx"] is compact_bytes
     assert "top100" not in payloads
     assert set(failures) == {"top100"}
     assert "openpyxl ausente" in failures["top100"]
@@ -1048,8 +1043,9 @@ def test_director_revision_downloads_use_validated_materialized_bytes(monkeypatc
     assert [label for label, _ in rendered] == ["PPTX completo revisado", "Duas lâminas revisadas", "Pacote com relatório e bases"]
     assert [kwargs["data"] for _, kwargs in rendered] == list(payloads.values())
     assert all(kwargs["on_click"] == "ignore" for _, kwargs in rendered)
-    assert "R$ 7,1 bi de PL" in captions[0]
-    assert "exposição efetiva N/D" in captions[0]
+    assert "01/09/2026" in captions[0]
+    assert "base jun/26" in captions[0]
+    assert len(captions[0]) < 150
 
 
 def test_invalid_director_revision_does_not_expose_downloads(monkeypatch):
@@ -1099,20 +1095,17 @@ def test_every_export_button_is_declared_with_a_payload_key() -> None:
     assert len({spec["widget"] for spec in _INDUSTRY_EXPORT_BUTTONS}) == len(keys)
 
 
-def test_the_anbima_deck_is_appended_to_the_standard_export() -> None:
+def test_the_standard_ppt_download_uses_the_validated_compact_bundle() -> None:
     source = (ROOT / "tabs/tab_industry_study.py").read_text(encoding="utf-8")
-    download_source = source[
-        source.index("_INDUSTRY_EXPORT_BUTTONS") : source.index(
-            "def _stock_delta_display"
-        )
+    payload_source = source[
+        source.index("def _industry_export_payloads") : source.index("def _industry_provider_flow_html")
     ]
-
-    # The ranking is no longer its own button: it is appended to the standard
-    # deck, so a single export carries both.
-    assert "Ranking ANBIMA" not in download_source
-    assert "industry-anbima-pptx" not in download_source
-    assert "build_anbima_deck_bytes" in source
-    assert "append_anbima_slides" in source
+    assert '"pptx": build_revision_pptx_bytes' in payload_source
+    assert "append_anbima_slides" not in payload_source
+    assert "append_top100_slides" not in payload_source
+    assert "append_stress_slide" not in payload_source
+    assert "replace_structural_slides" not in payload_source
+    assert '"label": "PPT executivo"' in source
 
 
 def test_the_anbima_source_workbooks_drive_the_export_cache_key() -> None:

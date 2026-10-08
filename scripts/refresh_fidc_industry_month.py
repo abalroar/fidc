@@ -415,6 +415,7 @@ def main() -> None:
                 print(f"[warn] snapshot de {month} não promovido: {promotion_reason}", file=sys.stderr)
 
         metadata["competencia_final"] = str(industry.sort_values("competencia").iloc[-1]["competencia"]).replace("-", "")
+        metadata["n_competencias"] = int(industry["competencia"].nunique())
         metadata["competencia_snapshot"] = published_snapshot
         metadata["gerado_em_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         metadata["ultima_atualizacao_status"] = {

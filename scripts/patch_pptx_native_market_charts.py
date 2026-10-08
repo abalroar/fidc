@@ -11,6 +11,7 @@ inclui uma série de linha invisível com totais em uma sequência válida de
 from __future__ import annotations
 
 import os
+import math
 import posixpath
 import sys
 import tempfile
@@ -288,6 +289,22 @@ def _text_properties(font_size: int = 1200, *, bold: bool = True) -> ET.Element:
     return tx_pr
 
 
+def _select_scale_total_labels(series: ET.Element, category_count: int) -> None:
+    """Keep spaced total labels and the current total on narrow annual columns."""
+    labels = series.find(_c("dLbls"))
+    if labels is None:
+        raise RuntimeError("série Total sem rótulos nativos")
+    for label in list(labels.findall(_c("dLbl"))):
+        labels.remove(label)
+    shown = set(range(0, max(category_count - 2, 0), 2)) | {category_count - 1}
+    for index in range(category_count):
+        label = ET.Element(_c("dLbl"))
+        ET.SubElement(label, _c("idx"), {"val": str(index)})
+        ET.SubElement(label, _c("showVal"), {"val": "1" if index in shown else "0"})
+        labels.insert(index, label)
+    labels.find(_c("showVal")).set("val", "0")
+
+
 def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     """Add an invisible auxiliary line series with native total labels."""
 
@@ -304,6 +321,9 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
         )
     ]
     if len(existing_total_series) == 1:
+        total_series = existing_total_series[0]
+        category_count = max(_series_values(total_series), default=-1) + 1
+        _select_scale_total_labels(total_series, category_count)
         _set_arial_12(root)
         return ET.tostring(root, encoding="UTF-8", xml_declaration=True), True
     if len(existing_total_series) > 1:
@@ -374,6 +394,7 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     for index, value in enumerate(totals):
         point = ET.SubElement(literal, _c("pt"), {"idx": str(index)})
         ET.SubElement(point, _c("v")).text = f"{value:.12g}"
+    _select_scale_total_labels(aux, category_count)
     ET.SubElement(aux, _c("smooth"), {"val": "0"})
     for axis_id in bar_chart.findall(_c("axId")):
         line_chart.append(deepcopy(axis_id))
@@ -381,6 +402,60 @@ def _patch_scale_chart(payload: bytes) -> tuple[bytes, bool]:
     plot_area.insert(insert_at, line_chart)
     _set_arial_12(root)
     return ET.tostring(root, encoding="UTF-8", xml_declaration=True), True
+
+
+def _normalize_native_data_labels(payload: bytes) -> bytes:
+    """Make value-only labels explicit in series scopes and point overrides.
+
+    Point overrides do not reliably inherit series flags in native PowerPoint.
+    Keep each showVal and numFmt, and disable unrelated content explicitly.
+    """
+    root = ET.fromstring(payload)
+    flags = ("showLegendKey", "showVal", "showCatName", "showSerName", "showPercent", "showBubbleSize")
+    for labels in root.findall(f".//{_c('dLbls')}"):
+        inherited = labels.find(_c("showVal"))
+        inherited_value = inherited.get("val") if inherited is not None else (
+            "1" if any(point.find(_c("showVal")) is not None and point.find(_c("showVal")).get("val") in {"1", "true"} for point in labels.findall(_c("dLbl"))) else "0"
+        )
+        for scope in [labels, *labels.findall(_c("dLbl"))]:
+            existing_value = scope.find(_c("showVal"))
+            show_value = existing_value.get("val") if existing_value is not None else inherited_value
+            for flag in flags:
+                for node in list(scope.findall(_c(flag))):
+                    scope.remove(node)
+            successors = {_c(tag) for tag in ("separator", "showLeaderLines", "leaderLines", "extLst")}
+            insertion = next((index for index, child in enumerate(scope) if child.tag in successors), len(scope))
+            for flag in flags:
+                scope.insert(insertion, ET.Element(_c(flag), {"val": show_value if flag == "showVal" else "0"}))
+                insertion += 1
+    return ET.tostring(root, encoding="UTF-8", xml_declaration=True)
+
+
+def _normalize_line_chart_gaps(payload: bytes) -> bytes:
+    """Encode absent native points as sparse caches, preserving the category count.
+
+    Artifact Tool emits null as NaN. OOXML line charts instead represent a gap
+    by omitting that point from the numeric cache and using dispBlanksAs=gap.
+    Finite values, including a reported zero, remain untouched.
+    """
+    root = ET.fromstring(payload)
+    gap = root.find(f".//{_c('dispBlanksAs')}")
+    changed = False
+    for chart in root.findall(f".//{_c('plotArea')}/*"):
+        for series in chart.findall(_c("ser")):
+            for container in series.findall(f"{_c('val')}/{_c('numLit')}") + series.findall(f"{_c('val')}/{_c('numRef')}/{_c('numCache')}"):
+                for point in list(container.findall(_c("pt"))):
+                    value = point.find(_c("v"))
+                    if value is None or value.text in {None, ""}:
+                        continue
+                    parsed = float(value.text)
+                    if math.isfinite(parsed):
+                        continue
+                    if not math.isnan(parsed) or chart.tag != _c("lineChart") or gap is None or gap.get("val") != "gap":
+                        raise RuntimeError("valor não finito fora de lacuna explícita em gráfico de linha")
+                    container.remove(point)
+                    changed = True
+    return ET.tostring(root, encoding="UTF-8", xml_declaration=True) if changed else payload
 
 
 def patch_pptx(path: Path) -> None:
@@ -413,6 +488,8 @@ def patch_pptx(path: Path) -> None:
                             or info.filename.startswith("ppt/slides/charts/chart")
                         )
                     ):
+                        data = _normalize_line_chart_gaps(data)
+                        data = _normalize_native_data_labels(data)
                         data = _set_chart_language_ptbr(data)
                     if (
                         info.filename.endswith(".xml")

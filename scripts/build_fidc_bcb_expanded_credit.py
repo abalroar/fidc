@@ -12,6 +12,7 @@ if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from services.fic_detection import exclude_fics_from_fidc_universe
+from services.industry_comparative_period import ComparisonCut
 from services.industry_bcb_expanded_credit import (
     build_expanded_credit_history,
     write_expanded_credit_history,
@@ -21,6 +22,7 @@ from services.industry_bcb_expanded_credit import (
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", default="data/industry_study")
+    parser.add_argument("--latest-complete")
     return parser.parse_args(argv)
 
 
@@ -59,6 +61,8 @@ def _eligible_receivables(data_dir: Path) -> pd.DataFrame | None:
 def main(argv: list[str] | None = None) -> None:
     args = parse_args(argv)
     data_dir = Path(args.data_dir)
+    cut = (ComparisonCut.from_competence(args.latest_complete)
+           if args.latest_complete else ComparisonCut.from_data_dir(data_dir))
     monthly = _eligible_receivables(data_dir)
     if monthly is None:
         print(
@@ -67,7 +71,7 @@ def main(argv: list[str] | None = None) -> None:
         )
         monthly = pd.read_csv(data_dir / "industry_monthly.csv")
     output = write_expanded_credit_history(
-        build_expanded_credit_history(monthly),
+        build_expanded_credit_history(monthly, latest_complete=cut.competence),
         data_dir,
     )
     print(f"[ok] Carteira de Crédito Ampliada materializada: {output}")

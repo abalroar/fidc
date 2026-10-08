@@ -22,6 +22,7 @@ import numpy as np
 import pandas as pd
 
 from services.industry_anbima import ANBIMA_FOCUS_BY_TYPE
+from services.industry_comparative_period import ComparisonCut
 from services.industry_executive_pack import apply_anbima_classification
 from services.industry_intelligence import canonical_provider
 from services.industry_revision_additions import (
@@ -3367,6 +3368,14 @@ class RevisionOutputs:
     qi_legacy_attribution: pd.DataFrame
 
 
+def annual_comparison_competences(
+    latest_complete: str, *, previous_years: int = 3
+) -> tuple[str, ...]:
+    """Prior December snapshots followed by the consolidated current snapshot."""
+    cut = ComparisonCut.from_competence(latest_complete)
+    return tuple(f"{year}-12" for year in range(cut.year - previous_years, cut.year)) + (cut.competence,)
+
+
 def build_revision_outputs(
     *,
     vehicle_monthly: pd.DataFrame,
@@ -3469,7 +3478,7 @@ def build_revision_outputs(
     )
     provider_historical_ranking = build_provider_historical_ranking(
         fund_base,
-        periods=("2024-12", "2025-12", latest_complete),
+        periods=annual_comparison_competences(latest_complete, previous_years=2),
     )
     provider_independent_ranking = (
         build_independent_provider_historical_ranking(
@@ -3486,7 +3495,7 @@ def build_revision_outputs(
         build_fixed_bank_fidc_cohort_history(
             fund_base,
             bank_fidc_curation,
-            periods=("2023-12", "2024-12", "2025-12", latest_complete),
+            periods=annual_comparison_competences(latest_complete),
         )
         if bank_fidc_curation is not None and not bank_fidc_curation.empty
         else pd.DataFrame()
@@ -3495,7 +3504,7 @@ def build_revision_outputs(
         build_fixed_bank_fidc_cohort_detail(
             fund_base,
             bank_fidc_curation,
-            periods=("2023-12", "2024-12", "2025-12", latest_complete),
+            periods=annual_comparison_competences(latest_complete),
         )
         if bank_fidc_curation is not None and not bank_fidc_curation.empty
         else pd.DataFrame()
@@ -4075,6 +4084,7 @@ __all__ = [
     "RevisionOutputs",
     "TABLE_II_RECEIVABLE_COLUMNS",
     "add_reporting_flags",
+    "annual_comparison_competences",
     "build_base_by_vehicle",
     "build_break_bridge",
     "build_delinquency_cases",

@@ -23,6 +23,8 @@ import pandas as pd
 
 from services.industry_issuance_taxonomy import (
     DELTAS,
+    issuance_deltas,
+    periods_from_issuance_frame,
     DISPLAY_CATEGORIES,
     PERIODS,
     build_issuance_taxonomy,
@@ -37,6 +39,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data-dir", type=Path, default=Path("data/industry_study"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs/analysis"))
+    parser.add_argument("--csv-only", action="store_true", help="Materializar dados analíticos sem autoria Office")
     return parser.parse_args(argv)
 
 
@@ -126,8 +129,9 @@ def write_workbook(
     bold = Font(name="Arial", size=11, bold=True)
     small = Font(name="Arial", size=9)
 
+    periods = periods_from_issuance_frame(long_frame)
     sheet["A1"] = (
-        "Emissões de FIDCs por categoria ANBIMA — 2023 a jun/26 (R$ bilhões)"
+        f"Emissões de FIDCs por categoria ANBIMA — {periods[0]['label']} a {periods[-1]['label']} (R$ bilhões)"
     )
     sheet["A1"].font = bold
 
@@ -234,17 +238,16 @@ def write_workbook(
     total_row = emitted_row
 
     notes = [
-        "Fonte: CVM/SRE — ofertas públicas primárias encerradas (snapshot 24/jul/26), "
+        "Fonte: CVM/SRE — ofertas públicas primárias encerradas; consulta e hash no manifesto da base, "
         "com a taxonomia ANBIMA sob a reclassificação analítica do projeto "
         "(taxonomy_review_actions.csv). Mesma regra da aba Escala e taxonomia.",
         "Aberturas pela reclassificação analítica final: fundos sem tipo ANBIMA "
         "nomeado entram em Outros, como a aba faz com N/D. FIC-FIDCs ficam fora "
         "dos quatro tipos — são fundos de cotas e contá-los somaria o mesmo "
         "dinheiro duas vezes.",
-        "2023 foi o primeiro ano da Resolução CVM 160 e a base granular da CVM "
-        "observa parte do ano; o não observado é distribuído com a composição do "
-        "observado. O fator aplicado está na aba Cobertura.",
-        "jan–jun/26 é comparado a jan–jun/25 porque 2026 ainda não fechou.",
+        "O ajuste de escala de 2023, quando presente na janela, usa o total ANBIMA "
+        "e a composição da parte observada pela CVM. O fator está na aba Cobertura.",
+        f"{periods[-1]['label']} é comparado a {periods[-2]['label']} na mesma janela de meses.",
     ]
     for offset, note in enumerate(notes):
         sheet.cell(row=total_row + 2 + offset, column=1, value=note).font = small
@@ -304,7 +307,14 @@ def main(argv: list[str] | None = None) -> None:
     analytical_path = write_issuance_taxonomy(long_frame, args.data_dir)
     table = build_wide_table(long_frame)
     audit = coverage.frame()
-    csv_path, xlsx_path = write_workbook(table, audit, long_frame, args.output_dir)
+    if args.csv_only:
+        args.output_dir.mkdir(parents=True, exist_ok=True)
+        csv_path = args.output_dir / f"{OUTPUT_BASENAME}.csv"
+        table.to_csv(csv_path, index=False)
+        audit.to_csv(args.output_dir / "industry_issuance_taxonomy_coverage.csv", index=False)
+        xlsx_path = None
+    else:
+        csv_path, xlsx_path = write_workbook(table, audit, long_frame, args.output_dir)
 
     print(f"[ok] série analítica: {analytical_path}")
     print(f"[ok] tabela: {csv_path}")
@@ -321,8 +331,9 @@ def main(argv: list[str] | None = None) -> None:
             f"  emissores sem correspondência em base alguma: "
             f"{len(coverage.unresolved_cnpjs)}"
         )
-    for start, end in DELTAS:
-        labels = {period["key"]: period["label"] for period in PERIODS}
+    periods = periods_from_issuance_frame(long_frame)
+    for start, end in issuance_deltas(periods):
+        labels = {period["key"]: period["label"] for period in periods}
         pivot = long_frame.pivot(
             index="categoria", columns="period_key", values="volume_brl"
         ).reindex(DISPLAY_CATEGORIES)

@@ -1,19 +1,21 @@
 """Materialize the closed-offer tables from the official CVM archive.
 
-The published offer universe is deliberately frozen at 30 June 2026.  The
-archive can contain later closings; those rows remain outside this release so
-the three-year comparison uses six complete months in every year.
+The analytical universe follows the latest consolidated CVM month. Source
+extraction dates remain separate from the comparable reporting window.
 """
 
 from __future__ import annotations
 
 from hashlib import sha256
 from pathlib import Path
+from datetime import date
 import unicodedata
 from typing import Any
 from zipfile import ZipFile
 
 import pandas as pd
+from services.industry_comparative_period import ComparisonCut
+from services.industry_offer_periods import resolve_offer_cut
 
 from services.industry_closed_offers import (
     ANNUAL_COLUMNS,
@@ -37,10 +39,11 @@ from services.industry_public_offers import (
 
 
 SOURCE_DATASET = SOURCE_DATASET_LABEL
-SOURCE_AS_OF_DATE = "2026-07-24"
+SOURCE_AS_OF_DATE = date.today().isoformat()
 SOURCE_ARCHIVE_SHA256 = (
     "46a5a3c35e500dd4560a5a4b286a7a302311ea02b397c1a67821bc197514b4e5"
 )
+# Historical release constant retained for imports; current functions derive their cut.
 RELEASE_CUTOFF = "2026-06-30"
 
 SCOPE = (
@@ -127,14 +130,15 @@ def _safe_ratio(numerator: float, denominator: float) -> float:
     return float(numerator / denominator) if denominator else 0.0
 
 
-def _source_metadata(*, source_as_of_date: str, archive_digest: str) -> dict[str, str]:
+def _source_metadata(*, source_as_of_date: str, archive_digest: str, comparison_cut: ComparisonCut | None = None) -> dict[str, str]:
+    cut = resolve_offer_cut(comparison_cut)
     return {
         "source_dataset": SOURCE_DATASET,
         "source_url": SOURCE_URL,
         "source_as_of_date": source_as_of_date,
         "source_archive_sha256": archive_digest,
-        "latest_source_closing_date": RELEASE_CUTOFF,
-        "scope": SCOPE,
+        "latest_source_closing_date": cut.period_end.isoformat(),
+        "scope": "Cotas de FIDC | oferta pública primária encerrada | todos os ritos CVM | " + f"data de encerramento até {cut.period_end.strftime('%d/%m/%Y')} | volume registrado positivo",
         "methodology": METHODOLOGY,
     }
 
@@ -143,21 +147,23 @@ def load_closed_offer_source(
     archive_path: str | Path,
     *,
     source_as_of_date: str = SOURCE_AS_OF_DATE,
-    expected_archive_sha256: str | None = SOURCE_ARCHIVE_SHA256,
+    expected_archive_sha256: str | None = None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> tuple[pd.DataFrame, str]:
     """Read, scope, deduplicate and enrich the official offer records."""
 
+    cut = resolve_offer_cut(comparison_cut)
     try:
         selected, digest = load_public_primary_closed_offers(
             archive_path,
-            cutoff=RELEASE_CUTOFF,
+            cutoff=cut.period_end.isoformat(),
             expected_archive_sha256=expected_archive_sha256,
         )
     except PublicOffersError as exc:
         raise ClosedOffersSourceError(str(exc)) from exc
     selected = selected[
         selected["canonical_instrument"].eq(FIDC_CANONICAL)
-        & selected["closing_date"].ge(pd.Timestamp("2022-01-01"))
+        & selected["closing_date"].ge(pd.Timestamp(f"{cut.year-4}-01-01"))
     ].copy()
     selected["data_encerramento"] = selected["closing_date"]
     selected["Numero_Requerimento"] = selected["offer_id"]
@@ -297,22 +303,23 @@ def _offer_metrics(frame: pd.DataFrame) -> dict[str, Any]:
 
 
 def build_closed_offer_annual(
-    source: pd.DataFrame, *, source_as_of_date: str, archive_digest: str
+    source: pd.DataFrame, *, source_as_of_date: str, archive_digest: str, comparison_cut: ComparisonCut | None = None
 ) -> pd.DataFrame:
+    cut = resolve_offer_cut(comparison_cut)
     rows: list[dict[str, Any]] = []
     metadata = _source_metadata(
-        source_as_of_date=source_as_of_date, archive_digest=archive_digest
+        source_as_of_date=source_as_of_date, archive_digest=archive_digest, comparison_cut=cut
     )
-    for year in (2022, 2023, 2024, 2025, 2026):
-        end = f"{year}-12-31" if year < 2026 else RELEASE_CUTOFF
+    for year in range(cut.year-4, cut.year+1):
+        end = f"{year}-12-31" if year < cut.year else cut.period_end.isoformat()
         period = source.loc[source["data_encerramento"].between(f"{year}-01-01", end)]
         rows.append(
             {
                 "year": year,
-                "period_label": f"{year} FY" if year < 2026 else "2026 YTD",
+                "period_label": f"{year} FY" if year < cut.year else f"{cut.year} YTD",
                 "period_start": f"{year}-01-01",
                 "period_end": end,
-                "is_full_year": year < 2026,
+                "is_full_year": year < cut.year,
                 **_offer_metrics(period),
                 **metadata,
             }
@@ -321,16 +328,17 @@ def build_closed_offer_annual(
 
 
 def build_closed_offer_monthly(
-    source: pd.DataFrame, *, source_as_of_date: str, archive_digest: str
+    source: pd.DataFrame, *, source_as_of_date: str, archive_digest: str, comparison_cut: ComparisonCut | None = None
 ) -> pd.DataFrame:
+    cut = resolve_offer_cut(comparison_cut)
     rows: list[dict[str, Any]] = []
     metadata = _source_metadata(
-        source_as_of_date=source_as_of_date, archive_digest=archive_digest
+        source_as_of_date=source_as_of_date, archive_digest=archive_digest, comparison_cut=cut
     )
     source_month = pd.Period(source_as_of_date, freq="M")
     for competence, period in source.groupby(source["data_encerramento"].dt.to_period("M")):
         start = competence.start_time.date().isoformat()
-        end = min(competence.end_time.date(), pd.Timestamp(RELEASE_CUTOFF).date()).isoformat()
+        end = min(competence.end_time.date(), cut.period_end).isoformat()
         rows.append(
             {
                 "year": competence.year,
@@ -347,9 +355,10 @@ def build_closed_offer_monthly(
 
 
 def build_closed_offer_originators(
-    source: pd.DataFrame, *, source_as_of_date: str, archive_digest: str
+    source: pd.DataFrame, *, source_as_of_date: str, archive_digest: str, comparison_cut: ComparisonCut | None = None
 ) -> pd.DataFrame:
-    period = source.loc[source["data_encerramento"].between("2026-01-01", RELEASE_CUTOFF)].copy()
+    cut = resolve_offer_cut(comparison_cut)
+    period = source.loc[source["data_encerramento"].between(f"{cut.year}-01-01", cut.period_end.isoformat())].copy()
     period["originator_group"] = ""
     period["originator_source_fields"] = ""
     period["originator_evidence_sample"] = ""
@@ -373,7 +382,7 @@ def build_closed_offer_originators(
     universe_volume = float(period["registered_volume_brl"].sum())
     identified_volume = float(identified["registered_volume_brl"].sum())
     metadata = _source_metadata(
-        source_as_of_date=source_as_of_date, archive_digest=archive_digest
+        source_as_of_date=source_as_of_date, archive_digest=archive_digest, comparison_cut=cut
     )
     rows: list[dict[str, Any]] = []
     for group, group_frame in identified.groupby("originator_group", sort=False):
@@ -383,9 +392,9 @@ def build_closed_offer_originators(
         placed_volume = float(placed.sum())
         rows.append(
             {
-                "period_label": "2026 jan–jun",
-                "period_start": "2026-01-01",
-                "period_end": RELEASE_CUTOFF,
+                "period_label": cut.period_id(),
+                "period_start": f"{cut.year}-01-01",
+                "period_end": cut.period_end.isoformat(),
                 "originator_group": group,
                 "closed_offers": int(len(group_frame)),
                 "issuer_cnpjs": int(group_frame.loc[group_frame["cnpj_emissor"].ne(""), "cnpj_emissor"].nunique()),
@@ -427,22 +436,25 @@ def build_closed_offer_tables_from_archive(
     archive_path: str | Path,
     *,
     source_as_of_date: str = SOURCE_AS_OF_DATE,
-    expected_archive_sha256: str | None = SOURCE_ARCHIVE_SHA256,
+    expected_archive_sha256: str | None = None,
+    comparison_cut: ComparisonCut | None = None,
 ) -> ClosedOffersTables:
+    cut = resolve_offer_cut(comparison_cut)
     source, digest = load_closed_offer_source(
         archive_path,
         source_as_of_date=source_as_of_date,
         expected_archive_sha256=expected_archive_sha256,
+        comparison_cut=cut,
     )
     return ClosedOffersTables(
         annual=build_closed_offer_annual(
-            source, source_as_of_date=source_as_of_date, archive_digest=digest
+            source, source_as_of_date=source_as_of_date, archive_digest=digest, comparison_cut=cut
         ),
         monthly=build_closed_offer_monthly(
-            source, source_as_of_date=source_as_of_date, archive_digest=digest
+            source, source_as_of_date=source_as_of_date, archive_digest=digest, comparison_cut=cut
         ),
         originators=build_closed_offer_originators(
-            source, source_as_of_date=source_as_of_date, archive_digest=digest
+            source, source_as_of_date=source_as_of_date, archive_digest=digest, comparison_cut=cut
         ),
     )
 
@@ -458,6 +470,7 @@ def write_closed_offer_tables(
     annual.to_csv(root / ANNUAL_FILENAME, index=False)
     monthly.to_csv(root / MONTHLY_FILENAME, index=False)
     originators.to_csv(root / ORIGINATORS_FILENAME, index=False)
+    originators.to_csv(root / "industry_closed_offer_originators_ytd.csv", index=False)
     return {
         "annual_path": str(root / ANNUAL_FILENAME),
         "monthly_path": str(root / MONTHLY_FILENAME),
