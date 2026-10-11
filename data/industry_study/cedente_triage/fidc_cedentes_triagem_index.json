@@ -3,22 +3,22 @@
     "202312": {
       "bytes": 2442,
       "name": "fidc_cedentes_manifest_202312.json",
-      "sha256": "c0f793a294377e62470aa860738f920f057998a155b3987e3ecf423bbb414c18"
+      "sha256": "2691f8d82ded0394dcabc32877f86ca59552a42da8795e4c0bd3df691fa7f928"
     },
     "202412": {
       "bytes": 2445,
       "name": "fidc_cedentes_manifest_202412.json",
-      "sha256": "edeafd8585607878e24301fb724004376828495cf9debb3673e1a28c7f067769"
+      "sha256": "db57a815d560f6d5596c69af4c470827f4e4bf34df058f2ca0d236a2ed0c0f8e"
     },
     "202512": {
       "bytes": 2449,
       "name": "fidc_cedentes_manifest_202512.json",
-      "sha256": "86a9bd20c65e66329ca1df17ba48cff4ef48a7b01f68e4c19722b6054328ddd2"
+      "sha256": "4957eef8ca0894af7378bfdc98abce450eee90b426afc8673be46fc75d3aebe3"
     },
     "202608": {
       "bytes": 2445,
       "name": "fidc_cedentes_manifest_202608.json",
-      "sha256": "dc62f6b007a9eb792ea0b08ad10924800993c770ad5b4d25a3f3421f47a50b87"
+      "sha256": "d6ea60e039f673c3478774ee91a70db4886a88fc45803b34a9366c2ce595cefc"
     }
   },
   "competences": [
@@ -29,7 +29,7 @@
   ],
   "current_competence": "202608",
   "cutoff_rank": 500,
-  "generated_at": "2026-10-08T18:34:12.501595+00:00",
+  "generated_at": "2026-10-11T00:05:28.905153+00:00",
   "limitations": [
     "A Tabela I identifica cedente e não identifica sacado.",
     "Porte Receita separa ME, EPP e Demais e não confirma faturamento.",
@@ -108,7 +108,7 @@
       "bytes": 52602,
       "name": "fidc_cedentes_fundos_sem_cedente_2023_2026.csv.gz",
       "rows": 1283,
-      "sha256": "2acc7cd5a3bb6662c8f0e987360d3f6284419aded294ae625a83e8ee2cfdc525"
+      "sha256": "8da7ea72c907392d08435bcbf4d84c4a01b91a96612e8f64c9fe66df79c87049"
     },
     "fidc_cedentes_pl_segmento_2023_2026.csv": {
       "bytes": 3479,
@@ -141,10 +141,10 @@
       "sha256": "3deca277b2b882a15bdb9ce21177167def9a41cf207245f582c6c7ce283dc79b"
     },
     "fidc_cedentes_top500_2023_2026.csv.gz": {
-      "bytes": 111530,
+      "bytes": 111532,
       "name": "fidc_cedentes_top500_2023_2026.csv.gz",
       "rows": 2167,
-      "sha256": "3efcd90d2f37c1f2c8cbc198ba96e351f8522d4171301240f83cec54234b9f34"
+      "sha256": "a651ed523dc1df86fbff26cd9ec434d07d4a219aaa67b14dfa506854810dcca4"
     }
   },
   "registry_source_cut": "Fotografia cadastral auditada; campos novos sem fonte permanecem N/D",
@@ -182,27 +182,27 @@
         "sha256": "d524616aa78532eddc0a8ac9072b0d15ca7f7fa377f2082b644dc3f0ea239862"
       },
       {
-        "bytes": 3271347,
+        "bytes": 3271216,
         "name": "inf_mensal_fidc_202512.zip",
         "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202512.zip",
         "role": "Informe Mensal FIDC da CVM",
-        "sha256": "7c154cd2786f5e5dd233f2d7f1a4af752052a2b5166f68bb53c886c0d726e9f8"
+        "sha256": "05f6a54c9d5c6e57abb5ef5864ed5346b3cfa9bdd8aefb68895aa70b78cd8bf9"
       },
       {
-        "bytes": 3575464,
+        "bytes": 3575759,
         "name": "inf_mensal_fidc_202608.zip",
         "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202608.zip",
         "role": "Informe Mensal FIDC da CVM",
-        "sha256": "dce9a173f513f811b82cb1b60684429377d38e3587adfed13cbda3744d65e517"
+        "sha256": "43bb7c12cbed29b74e1302872dd0791655b6c36bce0ce7cd3863ed267bea7280"
       }
     ],
     "registry": {
-      "bytes": 25780,
+      "bytes": 25279,
       "mode": "bootstrap_reference_workbook",
-      "name": "audited-registry-a80fd24362d6a2c50d180c328bcbe1056cd492b60a98a645016b3c89f9c3b2d1.csv.gz",
+      "name": "audited-registry-2be75916f96c3f527e5d05111529d139d12eb8d4303b7d6c06fa1891e77b04c5.csv.gz",
       "role": "gabarito auditado fornecido pelo usuário; bootstrap temporário, sem consulta BrasilAPI",
-      "rows": 482,
-      "sha256": "a80fd24362d6a2c50d180c328bcbe1056cd492b60a98a645016b3c89f9c3b2d1"
+      "rows": 502,
+      "sha256": "2be75916f96c3f527e5d05111529d139d12eb8d4303b7d6c06fa1891e77b04c5"
     }
   }
 }

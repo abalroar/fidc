@@ -179,7 +179,9 @@ def test_revoked_decisions_preserve_old_evidence_and_current_source_observations
         dtype=str,
         keep_default_na=False,
     )
-    revoked_ids = {"54519672000137", "43140980000130", "64780387000129"}
+    revoked_ids = {
+        "54519672000137", "43140980000130", "64780387000129", "62339639000153",
+    }
     assert set(history["cnpj_fundo"]) == revoked_ids
     assert set(load_fic_perimeter_overrides(DATA_DIR)["cnpj_fundo"]).isdisjoint(revoked_ids)
     source = pd.read_csv(
@@ -203,3 +205,16 @@ def test_revoked_decisions_preserve_old_evidence_and_current_source_observations
             assert float(observation["pl"]) == raw["pl"]
             assert official_sources[month]["url"].startswith("https://dados.cvm.gov.br/")
             assert len(official_sources[month]["sha256"]) == 64
+
+    m_sky = history.set_index("cnpj_fundo").loc["62339639000153"]
+    assert m_sky["revisao_data"] == "2026-10-10"
+    original = json.loads(m_sky["registro_revisao_original"])[0]
+    assert original["informe_documento_id"] == "1249840"
+    assert original["informe_competencia"] == "2026-06"
+    assert json.loads(m_sky["observacoes_dc_positiva"]) == [
+        {"competencia": "2026-09", "carteira_dc": "3041970.81", "pl": "5507182.59"}
+    ]
+    assert json.loads(m_sky["fontes_brutas"])["2026-09"] == {
+        "url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip",
+        "sha256": "cf1f5030dd1a0575d4bcfc3aea35587881c6e738abccf5c18df87316d8de2e82",
+    }

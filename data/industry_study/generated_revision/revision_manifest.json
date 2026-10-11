@@ -7,7 +7,7 @@
     "btg_controlled_fidcs_reconciled": 6,
     "btg_provider_ex_controlled_roles": 3,
     "frozen_single_receivable_funds": 2014,
-    "independent_provider_rows": 59,
+    "independent_provider_rows": 56,
     "latest_aging_publication_status": "publicável",
     "latest_funds": 4393,
     "latest_presence_exact": true,
@@ -56,11 +56,11 @@
     },
     "base_competencia_cnpj.csv.gz": {
       "columns": 120,
-      "rows": 239027
+      "rows": 239960
     },
     "base_fundo_cnpj.csv.gz": {
       "columns": 70,
-      "rows": 238978
+      "rows": 239911
     },
     "bridge_inadimplencia_2024-06_2024-07_detalhe.csv": {
       "columns": 26,
@@ -84,7 +84,7 @@
     },
     "deck_workbook_payload.json": {
       "columns": "schema por bloco",
-      "rows": 14384
+      "rows": 14380
     },
     "inadimplencia_coorte_atual_historico.csv": {
       "columns": 24,
@@ -140,15 +140,15 @@
     },
     "monoestrutura_concentracao.csv": {
       "columns": 14,
-      "rows": 18
+      "rows": 17
     },
     "monoestrutura_por_fundo.csv": {
       "columns": 83,
-      "rows": 3615
+      "rows": 3616
     },
     "prestadores_independentes_ranking.csv": {
       "columns": 19,
-      "rows": 59
+      "rows": 56
     },
     "prestadores_lideranca_atribuicao.csv": {
       "columns": 18,
@@ -156,7 +156,7 @@
     },
     "prestadores_ranking_historico.csv": {
       "columns": 10,
-      "rows": 1520
+      "rows": 1519
     },
     "prestadores_transicoes_detalhe.csv": {
       "columns": 22,
@@ -212,7 +212,7 @@
     },
     "source_presence_overlay.csv.gz": {
       "columns": 49,
-      "rows": 239027
+      "rows": 239960
     },
     "top20_fidcs.csv": {
       "columns": 85,
@@ -223,7 +223,7 @@
       "rows": 20
     }
   },
-  "generated_at_utc": "2026-10-08T20:10:36+00:00",
+  "generated_at_utc": "2026-10-11T00:06:54+00:00",
   "latest_complete": "2026-08",
   "limitations": [
     "Materializações antigas de vehicle_monthly converteram vazios em zero; nesses meses, presença por campo é um limite superior inferido da linha da Tabela I.",

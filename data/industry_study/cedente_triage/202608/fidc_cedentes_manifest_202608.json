@@ -1,7 +1,7 @@
 {
   "competence": "202608",
   "cutoff_rank": 500,
-  "generated_at": "2026-10-08T18:34:12.501595+00:00",
+  "generated_at": "2026-10-11T00:05:28.905153+00:00",
   "metrics": {
     "fundos_com_cedente_real": 183,
     "fundos_industria": 4400,
@@ -24,9 +24,9 @@
       "sha256": "20f24b3e5a4c9622577504c811ce8bdf779a4724d2bf052549e21d88dbc3acd5"
     },
     "fidc_cedentes_fundos_sem_cedente_202608.csv.gz": {
-      "bytes": 21764,
+      "bytes": 21765,
       "name": "fidc_cedentes_fundos_sem_cedente_202608.csv.gz",
-      "sha256": "17518432571387ee21a1094cc90a723e1dce350965f1a78854bf004561064893"
+      "sha256": "b4e0bd57059842948a1463a9efefbab0408fc940eebb5a39774dc3426377476c"
     },
     "fidc_cedentes_pl_por_segmento_202608.csv.gz": {
       "bytes": 485,
@@ -39,24 +39,24 @@
       "sha256": "3e550c885a0acbf4bf2ce641343c48f1fc2fbe3b721b2cc5e4fedb93368a3b25"
     },
     "fidc_cedentes_top500_202608.csv.gz": {
-      "bytes": 40325,
+      "bytes": 40326,
       "name": "fidc_cedentes_top500_202608.csv.gz",
-      "sha256": "f1186e56d4859cf47154a85ab7e06280d85f9af48f1813aa55f540ada7327192"
+      "sha256": "a13c48e72a107b9bc14aa84324e01d379644fbb2ca1ba46b174765ff5132fbde"
     },
     "fidc_cedentes_vinculos_202608.csv.gz": {
-      "bytes": 26458,
+      "bytes": 26450,
       "name": "fidc_cedentes_vinculos_202608.csv.gz",
-      "sha256": "80fc218dab8b5996b81e3e94f4b4443ef225fde899122f607e38914557c1aceb"
+      "sha256": "b5108846b9f101b568c0f9968b43e17bd0caba4786213d6ed3eec96cac686721"
     }
   },
   "parent_manifest": "../fidc_cedentes_triagem_index.json",
   "schema_version": "fidc-cedente-top500/v2",
   "source": {
-    "bytes": 3575464,
+    "bytes": 3575759,
     "name": "inf_mensal_fidc_202608.zip",
     "official_url": "https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202608.zip",
     "role": "Informe Mensal FIDC da CVM",
-    "sha256": "dce9a173f513f811b82cb1b60684429377d38e3587adfed13cbda3744d65e517"
+    "sha256": "43bb7c12cbed29b74e1302872dd0791655b6c36bce0ce7cd3863ed267bea7280"
   },
   "source_repairs": []
 }
