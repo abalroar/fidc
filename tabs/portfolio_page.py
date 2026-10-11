@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+from contextlib import nullcontext
 from html import escape
 from typing import Any, Callable
 
@@ -8,7 +9,8 @@ import pandas as pd
 import streamlit as st
 
 from services.cvm_cadastro import fetch_fidc_reporting_statuses
-from services.dashboard_ui import diagnostics_enabled
+from services.dashboard_ui import analytical_components_css, analysis_context_html, diagnostics_enabled
+from services.portfolio_structure_ui import structure_pilot_enabled
 from services.fund_name_display import short_fund_name
 from services.fundonet_dashboard import filter_dashboard_to_competencias
 from services.fundonet_portfolio_dashboard import PortfolioDashboardBundle, build_portfolio_dashboard_bundle
@@ -404,7 +406,7 @@ def _render_portfolio_analysis_surface(
     calculation_outputs = analysis.outputs
     display_outputs = somatorio_tab._render_loaded_period_window(
         calculation_outputs,
-        show_caption=True,
+        show_caption=not structure_pilot_enabled(selected_portfolio),
         control_label="Filtro visual de toda a análise",
     )
     analysis = _filter_analysis_dashboards_to_outputs(analysis, display_outputs)
@@ -447,7 +449,7 @@ def _render_portfolio_analysis_surface(
         )
         return False
 
-    structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = st.tabs(PORTFOLIO_VIEW_TABS)
+    structure_tab, credit_term_tab, delinquency_tab, returns_tab, curation_tab = _render_portfolio_view_tabs(selected_portfolio)
     with curation_tab:
         deep_dive_tab.render_tab_deep_dive(
             selected_portfolio=selected_portfolio,
@@ -540,6 +542,15 @@ def _render_portfolio_context_header(
     selected_sections: tuple[str, ...],
 ) -> None:
     _ = selected_sections
+    if structure_pilot_enabled(selected_portfolio):
+        with st.container(key="portfolio_structure_context"):
+            st.html(analytical_components_css("portfolio_structure_context"))
+            st.html(analysis_context_html((
+                ("Carteira", selected_portfolio.name),
+                ("Período solicitado", period.label),
+                ("Cesta", f"{len(selected_portfolio.funds)} fundos"),
+            )))
+        return
     st.markdown(
         f"""
 <div class="portfolio-center-header">
@@ -745,7 +756,19 @@ def _render_analysis_coverage_alert(
             and str(competence_coverage.iloc[-1].get("status") or "") != "Completa"
         )
         if latest_incomplete or analysis.aggregate_bundle.fund_scope_df["elegivel_competencia"].eq("Não").any():
-            st.warning(analysis.aggregate_bundle.competence_note)
+            if structure_pilot_enabled(selected_portfolio):
+                latest = competence_coverage.iloc[-1] if not competence_coverage.empty else {}
+                st.warning(
+                    f"O consolidado usa a competência comum {analysis.aggregate_bundle.dashboard.latest_competencia}. "
+                    f"Na última observada ({latest.get('competencia', 'N/D')}), "
+                    f"{latest.get('fundos_reportantes', 'N/D')}/{latest.get('fundos_elegiveis', 'N/D')} fundos elegíveis reportaram. "
+                    "Consulte os fundos ausentes e excluídos abaixo."
+                )
+                with st.expander("Cobertura por fundo e obrigações de reporte", expanded=False):
+                    st.caption(analysis.aggregate_bundle.competence_note)
+                    st.dataframe(analysis.aggregate_bundle.fund_scope_df, hide_index=True, width="stretch")
+            else:
+                st.warning(analysis.aggregate_bundle.competence_note)
     if analysis.load_errors:
         st.warning(
             "A análise está parcial: um ou mais fundos da seleção não foram carregados. "
@@ -762,11 +785,290 @@ def _render_analysis_coverage_alert(
     if dashboard_cnpjs != output_cnpjs:
         st.warning(
             "As fontes carregadas não cobrem o mesmo conjunto de fundos. "
-            "O PPT completo fica bloqueado para evitar combinar escopos diferentes."
+            + (
+                "A apresentação pode conter apenas as partes disponíveis; confira as ressalvas do arquivo preparado."
+                if structure_pilot_enabled(selected_portfolio)
+                else "O PPT completo fica bloqueado para evitar combinar escopos diferentes."
+            )
         )
 
 
 def _render_unified_portfolio_download(
+    *,
+    analysis: PortfolioAnalysisData,
+    selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+) -> None:
+    from services.portfolio_structure_ui import structure_pilot_enabled
+
+    if not structure_pilot_enabled(selected_portfolio):
+        _render_legacy_portfolio_download(
+            analysis=analysis, selected_portfolio=selected_portfolio, period=period,
+        )
+        return
+
+    from services.on_demand_download import (
+        current_download_store, download_context_signature, render_on_demand_download,
+    )
+
+    if analysis.monitor_outputs is None or analysis.research_outputs is None:
+        st.warning("Os dados avançados ainda não estão prontos para a exportação completa.")
+        return
+
+    signature = _portfolio_download_context_signature(
+        analysis=analysis, selected_portfolio=selected_portfolio, period=period,
+    )
+    namespace = f"portfolio::{selected_portfolio.id}"
+    store = current_download_store(st.session_state, namespace=namespace, signature=signature)
+    # Rentabilidade uses this same cached resolver. Its realized CDI rates and
+    # documentary benchmark values are part of the PPT context, even when the
+    # loaded IME frames themselves remain unchanged after a source correction.
+    ppt_namespace = f"{namespace}::pptx"
+    ppt_state_key = f"prepared_downloads::{ppt_namespace}"
+    previous_ppt = st.session_state.get(ppt_state_key, {})
+    return_inputs, return_inputs_error = (
+        _portfolio_ppt_return_inputs(analysis)
+        if previous_ppt.get("files", {}).get("complete_pptx") is not None else (None, None)
+    )
+    ppt_signature = download_context_signature(signature, return_inputs, return_inputs_error)
+    ppt_store = current_download_store(
+        st.session_state, namespace=ppt_namespace, signature=ppt_signature,
+    )
+    store.pop("complete_pptx", None)  # Migrate files prepared before separate PPT contexts.
+    file_token = _safe_file_token(selected_portfolio.name)
+
+    st.caption(
+        f"Downloads da carteira completa · {len(selected_portfolio.funds)} fundos. "
+        "A janela visual da análise é aplicada aos dados mensais. A escolha de escopos "
+        "abaixo controla a tela; os arquivos mantêm a cesta completa. "
+        "Estrutura, emissões e documentos conservam seus cortes próprios, indicados nos arquivos."
+    )
+
+    def prepare_current_pptx():
+        nonlocal return_inputs, return_inputs_error
+        if return_inputs is None and return_inputs_error is None:
+            return_inputs, return_inputs_error = _portfolio_ppt_return_inputs(analysis)
+        return _prepare_complete_portfolio_pptx(
+            analysis=analysis, selected_portfolio=selected_portfolio, period=period,
+            return_inputs=return_inputs, return_inputs_error=return_inputs_error,
+        )
+
+    render_on_demand_download(
+        store=ppt_store, namespace=namespace, artifact="complete_pptx",
+        label="Apresentação da carteira (PPTX)",
+        file_name=f"carteira_completa_{file_token}.pptx",
+        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        producer=prepare_current_pptx,
+        primary=True,
+        help_text="Tabelas editáveis e fontes nas notas. Partes indisponíveis são informadas após a preparação.",
+    )
+    if ppt_store.get("complete_pptx") is not None:
+        # The first request resolves the cached inputs inside its producer.
+        # Store that resulting context so that later reruns can validate the
+        # file, without fetching CDI for an as-yet unrequested presentation.
+        st.session_state[ppt_state_key]["signature"] = download_context_signature(
+            signature, return_inputs, return_inputs_error,
+        )
+    if return_inputs_error is not None:
+        st.caption(
+            "Os insumos de rentabilidade não puderam ser conferidos nesta execução. "
+            "A apresentação informa a parte indisponível; os downloads de dados permanecem disponíveis."
+        )
+    with st.expander(
+        "Downloads de dados editáveis", expanded=False,
+        key=f"portfolio_download_data::{selected_portfolio.id}",
+    ):
+        for artifact, label, name, mime, producer in (
+            (
+                "snapshot_excel", "Resumo histórico da carteira (Excel)",
+                f"carteira_resumo_{file_token}.xlsx",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                lambda: build_consolidated_snapshot_excel_bytes(
+                    analysis.outputs,
+                    export_context=_portfolio_snapshot_export_context(
+                        analysis=analysis, selected_portfolio=selected_portfolio, period=period,
+                    ),
+                ),
+            ),
+            (
+                "full_excel", "Base completa e rentabilidade por série (Excel)",
+                f"carteira_base_completa_{file_token}.xlsx",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                lambda: build_full_variable_excel_export_bytes(
+                    analysis.outputs, monitor_outputs=analysis.monitor_outputs,
+                ),
+            ),
+            (
+                "full_csv", "Base completa (CSV)",
+                f"carteira_base_completa_{file_token}.zip", "application/zip",
+                lambda: build_full_variable_csv_zip_bytes(analysis.outputs),
+            ),
+            (
+                "analytical_excel", "Estrutura, emissões e RDB (Excel auditável)",
+                f"carteira_estrutura_emissoes_rdb_{file_token}.xlsx",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                lambda: _prepare_analytical_portfolio_xlsx(selected_portfolio),
+            ),
+        ):
+            render_on_demand_download(
+                store=store, namespace=namespace, artifact=artifact, label=label,
+                file_name=name, mime=mime, producer=producer,
+                help_text=(
+                    "Soma mensal com cobertura variável; a posição comum do dashboard é identificada na tela. "
+                    "A aba Contexto da exportação registra competências, fonte, consulta e CNPJs."
+                    if artifact == "snapshot_excel" else None
+                ),
+            )
+
+
+def _portfolio_snapshot_export_context(
+    *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+) -> dict[str, Any]:
+    from datetime import datetime, timezone
+
+    monthly = getattr(analysis.outputs, "consolidated_monthly", pd.DataFrame())
+    competencias = (
+        monthly["competencia"].dropna().astype(str).drop_duplicates().tolist()
+        if isinstance(monthly, pd.DataFrame) and "competencia" in monthly.columns else []
+    )
+    bundle = analysis.aggregate_bundle
+    common_competencia = getattr(getattr(bundle, "dashboard", None), "latest_competencia", "N/D")
+    coverage = []
+    if isinstance(monthly, pd.DataFrame) and "competencia" in monthly.columns:
+        for _, row in monthly.iterrows():
+            present = row.get("funds_present_count")
+            expected = row.get("funds_expected_count")
+            present_text = "N/D" if pd.isna(present) or present is None else str(int(present))
+            expected_text = "N/D" if pd.isna(expected) or expected is None else str(int(expected))
+            coverage.append(f"{row['competencia']}: {present_text}/{expected_text} fundos")
+    return {
+        "Carteira": selected_portfolio.name,
+        "Identificador da carteira": selected_portfolio.id,
+        "Data e hora da consulta (UTC)": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "Fonte": "Informe Mensal CVM/Fundos.NET — dados mensais carregados na análise",
+        "Período solicitado": period.label,
+        "Janela visual exportada": f"{competencias[0]} a {competencias[-1]}" if competencias else "N/D",
+        "Competências exportadas": "; ".join(competencias) or "N/D",
+        "Posição comum do dashboard": common_competencia,
+        "Critério do resumo histórico": (
+            "Soma mensal dos fundos com dados em cada competência; cobertura variável. "
+            "Este histórico pode ter universo diferente da posição comum do dashboard."
+        ),
+        "Critério da posição comum": getattr(bundle, "temporal_rule", "N/D"),
+        "Cobertura por competência": "; ".join(coverage) or "N/D",
+        "Unidades": "Valores monetários em R$; percentuais em células numéricas com formato percentual",
+        "Fundos solicitados": len(selected_portfolio.funds),
+        "CNPJs da cesta solicitada": "; ".join(fund.cnpj for fund in selected_portfolio.funds),
+        "CNPJs carregados no histórico": "; ".join(sorted(getattr(analysis.outputs, "fund_monthly", {}))) or "N/D",
+        "Escopos escolhidos na tela": "Filtro visual; os arquivos conservam a cesta completa",
+        "Ausências": "Dados ausentes preservados conforme o produtor; ausência não implica zero",
+    }
+
+
+def _portfolio_download_context_signature(
+    *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection,
+) -> str:
+    from pathlib import Path
+    from services.on_demand_download import download_context_signature
+
+    root = Path(__file__).resolve().parents[1]
+    source_paths = {
+        root / "data/industry_study/vehicle_monthly.csv.gz",
+        root / "data/regulatory_profiles/meutudo_ago26_rdb_evidence.csv",
+    }
+    for directory in ("data/regulatory_profiles", "data/regulatory_knowledge", "data/deep_dives"):
+        source_paths.update(path for path in (root / directory).rglob("*") if path.is_file())
+    return download_context_signature(
+        selected_portfolio, getattr(period, "cache_key", period.label),
+        analysis.outputs, analysis.monitor_outputs, analysis.research_outputs,
+        analysis.aggregate_bundle, analysis.scopes, analysis.load_errors,
+        source_paths=tuple(source_paths),
+    )
+
+
+def _prepare_analytical_portfolio_xlsx(portfolio: PortfolioRecord) -> bytes:
+    from services.fidc_analytical_slide import build_fidc_analytical_xlsx_bytes
+
+    return build_fidc_analytical_xlsx_bytes(portfolio.funds, portfolio_name=portfolio.name)
+
+
+def _portfolio_ppt_return_inputs(analysis: PortfolioAnalysisData) -> tuple[Any, str | None]:
+    dashboard_cnpjs = {scope.cnpj for scope in analysis.scopes if scope.kind == "fund"}
+    output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
+    if dashboard_cnpjs != output_cnpjs or analysis.load_errors:
+        return None, None
+    try:
+        return credit_tab.resolve_fund_return_export_inputs(
+            outputs=analysis.outputs, cnpjs=sorted(output_cnpjs),
+        ), None
+    except Exception as exc:  # noqa: BLE001 — Excel and the analysis remain usable.
+        return None, f"{type(exc).__name__}: {exc}"
+
+
+def _prepare_complete_portfolio_pptx(
+    *, analysis: PortfolioAnalysisData, selected_portfolio: PortfolioRecord,
+    period: ImePeriodSelection, return_inputs: Any = None,
+    return_inputs_error: str | None = None,
+):
+    """Preserve the existing deck composition and producer inputs on request."""
+    from services.fundonet_ppt_export import build_dashboard_pptx_bytes
+    from services.fidc_analytical_slide import build_fidc_analytical_pptx_bytes
+    from services.pptx_merge import merge_pptx_bytes
+    from services.somatorio_fidcs_ppt_export import build_somatorio_fidcs_pptx_bytes
+    from services.on_demand_download import PreparedDownload
+
+    dashboard_cnpjs = {scope.cnpj for scope in analysis.scopes if scope.kind == "fund"}
+    output_cnpjs = set(getattr(analysis.outputs, "fund_monthly", {}) or {})
+    ppt_scope_consistent = dashboard_cnpjs == output_cnpjs and not analysis.load_errors
+    decks: list[bytes] = []
+    warnings: list[str] = []
+    if analysis.aggregate_bundle is not None and ppt_scope_consistent:
+        try:
+            decks.append(build_dashboard_pptx_bytes(
+                analysis.aggregate_bundle.dashboard, requested_period_label=period.label,
+            ))
+        except Exception as exc:  # noqa: BLE001
+            warnings.append(f"Visão Fundos.NET: {exc}")
+    if ppt_scope_consistent:
+        try:
+            if return_inputs_error is not None:
+                raise RuntimeError(return_inputs_error)
+            if return_inputs is None:
+                return_inputs = credit_tab.resolve_fund_return_export_inputs(
+                    outputs=analysis.outputs, cnpjs=sorted(output_cnpjs),
+                )
+            monthly_cdi_rates_by_fund, benchmark_spreads_by_fund = return_inputs
+            decks.append(build_somatorio_fidcs_pptx_bytes(
+                outputs=analysis.outputs, monitor_outputs=analysis.monitor_outputs,
+                research_outputs=analysis.research_outputs,
+                monthly_cdi_rates_by_fund=monthly_cdi_rates_by_fund,
+                benchmark_spreads_by_fund=benchmark_spreads_by_fund,
+            ))
+        except Exception as exc:  # noqa: BLE001
+            warnings.append(f"Base analítica: {exc}")
+    else:
+        warnings.append("Visões Fundos.NET e base mensal: fundos inconsistentes entre as fontes carregadas.")
+    try:
+        decks.append(build_fidc_analytical_pptx_bytes(
+            selected_portfolio.funds, portfolio_name=selected_portfolio.name,
+        ))
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(f"Estrutura, emissões e RDB: {exc}")
+    try:
+        documentary_deck = _build_documentary_portfolio_deck(selected_portfolio)
+        if documentary_deck is not None:
+            decks.append(documentary_deck)
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(f"Curadoria documental: {exc}")
+    if not decks:
+        raise ValueError("Nenhuma parte da apresentação pôde ser preparada.")
+    data = decks[0] if len(decks) == 1 else merge_pptx_bytes(decks[0], *decks[1:])
+    return PreparedDownload(data=data, warnings=tuple(warnings))
+
+
+def _render_legacy_portfolio_download(
     *,
     analysis: PortfolioAnalysisData,
     selected_portfolio: PortfolioRecord,
@@ -972,24 +1274,59 @@ def _render_scope_selector(
     return tuple(scope for scope in scopes if scope.value in selected)
 
 
+def _render_stateful_tabs(labels: tuple[str, ...], *, key: str):
+    """Keep the active label through reruns and temporarily hidden navigation."""
+    selection_key = f"{key}::selection"
+    selected = st.session_state.get(key, st.session_state.get(selection_key))
+    if selected not in labels:
+        selected = labels[0]
+    # A separate, non-widget value survives Streamlit's widget cleanup when
+    # the analyst leaves this page or the scope selector removes a tab.
+    if st.session_state.get(key) != selected:
+        st.session_state[key] = selected
+    containers = st.tabs(labels, key=key, on_change="rerun")
+    st.session_state[selection_key] = st.session_state[key]
+    return containers
+
+
+def _render_portfolio_view_tabs(selected_portfolio: PortfolioRecord):
+    if structure_pilot_enabled(selected_portfolio):
+        return _render_stateful_tabs(
+            PORTFOLIO_VIEW_TABS,
+            key=f"portfolio_analysis_view::{selected_portfolio.id}",
+        )
+    return st.tabs(PORTFOLIO_VIEW_TABS)
+
+
 def _render_scoped_views(
     selected_scopes: tuple[PortfolioAnalysisScope, ...],
     renderer: Callable[[PortfolioAnalysisScope], None],
+    *,
+    key: str | None = None,
 ) -> None:
     if len(selected_scopes) == 1:
+        if key is not None:
+            # No tab widget is needed, but remember the remaining valid scope.
+            st.session_state[f"{key}::selection"] = selected_scopes[0].label
         renderer(selected_scopes[0])
         return
-    scope_tabs = st.tabs([scope.label for scope in selected_scopes])
+    labels = tuple(scope.label for scope in selected_scopes)
+    scope_tabs = _render_stateful_tabs(labels, key=key) if key is not None else st.tabs(list(labels))
     for scope_tab, scope in zip(scope_tabs, selected_scopes, strict=False):
         with scope_tab:
             renderer(scope)
 
 
-def _render_scope_header(scope: PortfolioAnalysisScope) -> None:
+def _render_scope_header(scope: PortfolioAnalysisScope, *, structure_pilot: bool = False) -> None:
     if scope.kind == "consolidated":
-        detail = "Soma de todos os fundos carregados na seleção"
+        detail = (
+            "Consolidado dos fundos elegíveis na competência comum"
+            if structure_pilot else "Soma de todos os fundos carregados na seleção"
+        )
     else:
         detail = f"Fundo individual · CNPJ {scope.cnpj}"
+    if structure_pilot:
+        detail += f" · Competência {scope.dashboard.latest_competencia}"
     st.markdown(
         f"""
 <div class="portfolio-scope-current">
@@ -1038,54 +1375,72 @@ def _render_structure_tab(
     selected_portfolio: PortfolioRecord,
     period: ImePeriodSelection,
 ) -> None:
-    st.markdown("### Estrutura da carteira")
-    st.caption(
-        "Posição mais recente, PL por tipo de cota e base analítica histórica. "
-        "Use as abas abaixo para alternar entre o consolidado e cada fundo."
-    )
-    cockpit_cnpjs = None
-    if not any(scope.kind == "consolidated" for scope in selected_scopes):
-        cockpit_cnpjs = {scope.cnpj for scope in selected_scopes if scope.kind == "fund"}
-    monitoring_tab.render_portfolio_cockpit_snapshot(
-        period=period,
-        selected_portfolio=selected_portfolio,
-        selected_cnpjs=cockpit_cnpjs,
-    )
-    base_scope_by_value = _base_scope_lookup(
-        analysis=analysis,
-        selected_portfolio=selected_portfolio,
-    )
-
-    def render_scope(scope: PortfolioAnalysisScope) -> None:
-        _render_scope_header(scope)
-        ime_tab._render_financial_snapshot_cards(scope.dashboard)
-        ime_tab._render_structural_risk_section(
-            scope.dashboard,
-            slot_key=f"portfolio_structure::{selected_portfolio.id}::{scope.value}",
-            show_return_section=False,
+    pilot = structure_pilot_enabled(selected_portfolio)
+    surface = st.container(key="portfolio_structure_pilot") if pilot else nullcontext()
+    with surface:
+        if pilot:
+            st.html(analytical_components_css("portfolio_structure_pilot"))
+        st.markdown("### Estrutura da carteira")
+        st.caption(
+            "Posição mais recente, PL por tipo de cota e base analítica histórica. "
+            "Use as abas abaixo para alternar entre o consolidado e cada fundo."
         )
-        base_scope = base_scope_by_value.get(scope.value)
-        st.markdown("#### Base analítica")
-        if base_scope is None:
-            st.caption("Base analítica não disponível para este escopo.")
-        else:
-            st.markdown(
-                somatorio_tab._render_wide_table_html(
-                    somatorio_tab._display_wide_table(base_scope.wide_df, compact=True)
-                ),
-                unsafe_allow_html=True,
+        cockpit_cnpjs = None
+        if not any(scope.kind == "consolidated" for scope in selected_scopes):
+            cockpit_cnpjs = {scope.cnpj for scope in selected_scopes if scope.kind == "fund"}
+        context_items = None
+        if pilot:
+            metadata = getattr(analysis.outputs, "metadata", {})
+            context_items = (
+                ("Fonte", "Informe Mensal · CVM/Fundos.NET"),
+                ("Janela histórica visual", metadata.get("display_period_label") or metadata.get("period_label") or period.label),
             )
-        with st.expander("Memória de cálculo e auditoria da estrutura", expanded=False):
-            ime_tab._render_calculation_memory_section(
-                scope.dashboard,
-                slot_key=f"portfolio_structure_memory::{selected_portfolio.id}::{scope.value}",
-            )
+        monitoring_tab.render_portfolio_cockpit_snapshot(
+            period=period,
+            selected_portfolio=selected_portfolio,
+            selected_cnpjs=cockpit_cnpjs,
+            **({"context_items": context_items} if pilot else {}),
+        )
+        base_scope_by_value = _base_scope_lookup(
+            analysis=analysis,
+            selected_portfolio=selected_portfolio,
+        )
 
-    _render_scoped_views(selected_scopes, render_scope)
-    if analysis.dashboard_errors:
-        with st.expander("Fundos não incluídos por falha no dashboard base", expanded=False):
-            for cnpj, message in analysis.dashboard_errors.items():
-                st.caption(f"{cnpj} — {message}")
+        def render_scope(scope: PortfolioAnalysisScope) -> None:
+            _render_scope_header(scope, **({"structure_pilot": True} if pilot else {}))
+            ime_tab._render_financial_snapshot_cards(scope.dashboard, **({"interactive_help": True} if pilot else {}))
+            ime_tab._render_structural_risk_section(
+                scope.dashboard,
+                slot_key=f"portfolio_structure::{selected_portfolio.id}::{scope.value}",
+                show_return_section=False,
+                **({"responsive_labels": True} if pilot else {}),
+            )
+            base_scope = base_scope_by_value.get(scope.value)
+            st.markdown("#### Base analítica")
+            if base_scope is None:
+                st.caption("Base analítica não disponível para este escopo.")
+            else:
+                st.markdown(
+                    somatorio_tab._render_wide_table_html(
+                        somatorio_tab._display_wide_table(base_scope.wide_df, compact=True),
+                        **({"accessible": True} if pilot else {}),
+                    ),
+                    unsafe_allow_html=True,
+                )
+            with st.expander("Memória de cálculo e auditoria da estrutura", expanded=False):
+                ime_tab._render_calculation_memory_section(
+                    scope.dashboard,
+                    slot_key=f"portfolio_structure_memory::{selected_portfolio.id}::{scope.value}",
+                )
+
+        _render_scoped_views(
+            selected_scopes, render_scope,
+            **({"key": f"portfolio_structure_scope::{selected_portfolio.id}"} if pilot else {}),
+        )
+        if analysis.dashboard_errors:
+            with st.expander("Fundos não incluídos por falha no dashboard base", expanded=False):
+                for cnpj, message in analysis.dashboard_errors.items():
+                    st.caption(f"{cnpj} — {message}")
 
 
 def _render_credit_term_tab(

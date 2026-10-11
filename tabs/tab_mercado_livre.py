@@ -1409,14 +1409,16 @@ def _build_mercado_livre_guide_markdown() -> str:
     return _build_somatorio_fidcs_guide_markdown()
 
 
-def _render_wide_table_html(df_wide: pd.DataFrame) -> str:
+def _render_wide_table_html(df_wide: pd.DataFrame, *, accessible: bool = False) -> str:
     if df_wide.empty:
         return "<p class='chart-subtitle'>Sem dados para a base analítica consolidada.</p>"
     period_columns = order_period_columns_desc(df_wide.columns)
     table_min_width = max(620 + 96 * len(period_columns), 920)
     colgroup = _wide_table_colgroup(period_columns)
     html: list[str] = []
-    html.append(f"<div class='wide-table-wrapper' style='min-width: 100%; --wide-table-min-width: {table_min_width}px;'>")
+    region = " tabindex='0' role='region' aria-label='Base analítica histórica; use as setas para rolar'" if accessible else ""
+    wrapper_class = "wide-table-wrapper financial-table-region" if accessible else "wide-table-wrapper"
+    html.append(f"<div class='{wrapper_class}'{region} style='min-width: 100%; --wide-table-min-width: {table_min_width}px;'>")
     current_block = ""
     section_rows: list[pd.Series] = []
 
