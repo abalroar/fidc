@@ -1579,6 +1579,7 @@ def _render_structural_risk_section(
     slot_key: str = "slot0",
     return_months: int = 12,
     show_return_section: bool = True,
+    responsive_labels: bool = False,
 ) -> None:
     _render_fidc_section("Estrutura")
     latest_subordination_match = (
@@ -1622,6 +1623,8 @@ def _render_structural_risk_section(
                 round_percent_labels=True,
                 show_segment_labels=show_pl_segment_labels,
                 smart_label_placement=False,
+                allow_outside_labels=not responsive_labels,
+                responsive_labels=responsive_labels,
             ),
             width="stretch",
         )
@@ -1638,6 +1641,8 @@ def _render_structural_risk_section(
                 show_total_labels=(pl_periods <= 9),
                 show_segment_labels=show_pl_segment_labels,
                 smart_label_placement=False,
+                allow_outside_labels=not responsive_labels,
+                responsive_labels=responsive_labels,
             ),
             width="stretch",
         )
@@ -1930,10 +1935,15 @@ def _render_over_denominator_audit_note(container, dashboard: FundonetDashboardD
     container.caption(f"Denominador Over: {denom_label} (total canônico de DCs).")
 
 
-def _render_financial_snapshot_cards(dashboard: FundonetDashboardData) -> None:
+def _render_financial_snapshot_cards(dashboard: FundonetDashboardData, *, interactive_help: bool = False) -> None:
     summary = dashboard.summary
 
     def _card(label: str, value: object) -> str:
+        help_html = ""
+        if interactive_help:
+            from services.portfolio_structure_ui import structural_snapshot_help_html
+
+            help_html = structural_snapshot_help_html(label, dashboard)
         if label in {"Subordinação reportada", "Cobertura de provisão"}:
             val_str = _format_percent(value)
         else:
@@ -1942,6 +1952,7 @@ def _render_financial_snapshot_cards(dashboard: FundonetDashboardData) -> None:
             f'<div class="fidc-snapshot-card">'
             f'<div class="fidc-snapshot-card__label">{escape(label)}</div>'
             f'<div class="fidc-snapshot-card__value">{escape(val_str)}</div>'
+            f'{help_html}'
             f'</div>'
         )
 
@@ -4579,6 +4590,7 @@ def _stacked_history_bar_chart(
     legend_series_order: list[str] | None = None,
     show_segment_labels: bool = True,
     max_segment_labels_per_competencia: int | None = None,
+    responsive_labels: bool = False,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["ordem", "serie"])
@@ -4643,6 +4655,9 @@ def _stacked_history_bar_chart(
     category_count = chart_df["competencia"].nunique()
     resolved_bar_size = bar_size or _single_series_bar_size(category_count)
     mark_kwargs: dict[str, Any] = {"size": resolved_bar_size}
+    if responsive_labels:
+        # Keep the desktop cap and fit each bar inside its available band.
+        mark_kwargs["size"] = alt.ExprRef(expr=f"min({resolved_bar_size}, bandwidth('x') * 0.8)")
     if category_count >= 18 or resolved_bar_size <= 16:
         mark_kwargs.update({"stroke": "#f8fafc", "strokeWidth": 1.4})
     chart = (
@@ -4753,9 +4768,12 @@ def _stacked_history_bar_chart(
                     lambda rank: outer_offsets[rank] if rank < len(outer_offsets) else outer_offsets[-1]
                 )
         if not inner_labels_df.empty:
+            label_mark_kwargs: dict[str, Any] = {}
+            if responsive_labels:
+                label_mark_kwargs["opacity"] = alt.ExprRef(expr="width >= 520 ? 1 : 0")
             segment_labels = (
                 alt.Chart(inner_labels_df)
-                .mark_text(fontSize=label_font_size, fontWeight=700, clip=False)
+                .mark_text(fontSize=label_font_size, fontWeight=700, clip=False, **label_mark_kwargs)
                 .encode(
                     x=x_encoding,
                     y=alt.Y(f"{resolved_value_column}:Q", title=y_title, stack="center"),
@@ -4834,7 +4852,7 @@ def _stacked_history_bar_chart(
                     )
                 )
                 layered = layered + outside_labels
-    if show_total_labels:
+    if show_total_labels or responsive_labels:
         totals_df = (
             chart_df.groupby("competencia", as_index=False, dropna=False)[resolved_value_column]
             .sum()
@@ -4852,9 +4870,24 @@ def _stacked_history_bar_chart(
             if "%" in y_title
             else totals_df["valor_total"].abs().max() * 0.045 if pd.notna(totals_df["valor_total"].abs().max()) else 1.0
         )
+        total_mark_kwargs: dict[str, Any] = {}
+        if responsive_labels:
+            # Only text visibility changes; preserve the original summed values.
+            # A valid zero remains visible, while an entirely missing position
+            # cannot acquire a zero label from pandas' empty sum convention.
+            totals_df["_total_has_value"] = totals_df["competencia"].map(
+                chart_df.groupby("competencia", dropna=False)[resolved_value_column].count().gt(0)
+            )
+            latest_competencia = json.dumps(x_sort[-1], ensure_ascii=False)
+            visible = (
+                f"(width >= 520 || datum.competencia === {latest_competencia})"
+                if show_total_labels
+                else f"(width < 520 && datum.competencia === {latest_competencia})"
+            )
+            total_mark_kwargs["opacity"] = alt.ExprRef(expr=f"datum._total_has_value && {visible} ? 1 : 0")
         total_labels = (
             alt.Chart(totals_df)
-            .mark_text(dy=-4, fontSize=max(14, label_font_size + 4), fontWeight=800, color="#111111", clip=False)
+            .mark_text(dy=-4, fontSize=max(14, label_font_size + 4), fontWeight=800, color="#111111", clip=False, **total_mark_kwargs)
             .encode(
                 x=alt.X("competencia:N", title="Competência", sort=x_sort),
                 y=alt.Y("label_y:Q", title=y_title),

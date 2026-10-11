@@ -16,6 +16,9 @@ import pandas as pd
 import streamlit as st
 
 from services.cvm_cadastro import fetch_fidc_reporting_statuses
+from services.dashboard_ui import analysis_context_html
+from services.fund_name_display import short_fund_name
+from services.identifier_utils import format_cnpj
 from services.fundonet_dashboard import build_dashboard_data
 from services.ime_loader import load_or_extract_informe, missing_competence_refresh_reason, peek_cached_informe
 from services.ime_period import (
@@ -335,6 +338,7 @@ def render_portfolio_cockpit_snapshot(
     period: ImePeriodSelection | None,
     selected_portfolio: PortfolioRecord,
     selected_cnpjs: set[str] | None = None,
+    context_items: tuple[tuple[str, object], ...] | None = None,
 ) -> bool:
     """Render the compact per-fund monitoring snapshot inside another page section."""
     _render_monitoring_css()
@@ -353,7 +357,10 @@ def render_portfolio_cockpit_snapshot(
     if not success_outputs:
         st.caption("Sem indicadores por fundo para a competência de referência.")
         return False
-    _render_cockpit_tab(success_outputs)
+    if context_items is None:
+        _render_cockpit_tab(success_outputs)
+    else:
+        _render_cockpit_tab(success_outputs, context_items=context_items)
     return True
 
 
@@ -670,7 +677,11 @@ def _available_competencias_from_wide(wide_df: pd.DataFrame) -> list[str]:
     return available or competencias
 
 
-def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
+def _render_cockpit_tab(
+    outputs: list[dict[str, Any]],
+    *,
+    context_items: tuple[tuple[str, object], ...] | None = None,
+) -> None:
     reporting_statuses = fetch_fidc_reporting_statuses(
         {str(item.get("cnpj") or "") for item in outputs}
     )
@@ -690,12 +701,25 @@ def _render_cockpit_tab(outputs: list[dict[str, Any]]) -> None:
         st.warning(assessment.note)
         return
     if assessment.latest_observed_competence != reference or assessment.excluded_cnpjs:
-        st.warning(assessment.note)
+        if context_items is None:
+            st.warning(assessment.note)
+        else:
+            with st.expander("Critério da competência do comparativo", expanded=False):
+                st.caption(assessment.note)
     eligible = set(assessment.eligible_cnpjs)
+    if context_items is not None:
+        latest_coverage = assessment.coverage_df.iloc[-1]
+        st.html(analysis_context_html((*context_items,
+            ("Posição do comparativo", _format_competencia_label(reference)),
+            ("Cobertura na posição", f"{len(eligible)}/{len(eligible)} fundos elegíveis"),
+            ("Última observada", _format_competencia_label(assessment.latest_observed_competence)),
+            ("Cobertura na última", f"{latest_coverage['fundos_reportantes']}/{latest_coverage['fundos_elegiveis']} fundos elegíveis"),
+        )))
     st.markdown(
         _render_cockpit_table_html(
             [item for item in outputs if str(item.get("cnpj") or "") in eligible],
             reference,
+            compact_identity=context_items is not None,
         ),
         unsafe_allow_html=True,
     )
@@ -1016,10 +1040,17 @@ def _limit_status(value: float | None, limit: float | None, *, higher_is_better:
     return "OK" if value <= limit else "Alerta"
 
 
-def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> str:
+def _render_cockpit_table_html(
+    outputs: list[dict[str, Any]], latest: str, *, compact_identity: bool = False,
+) -> str:
     fund_width = 172
     min_width = max(460 + fund_width * (len(outputs) + 1), 980)
-    html = [f"<div class='monitor-wide-wrapper' style='min-width: 100%; --monitor-table-min-width: {min_width}px;'>"]
+    accessibility = (
+        " tabindex='0' role='region' aria-label='Comparativo de estrutura por fundo; use as setas para rolar'"
+        " class='monitor-wide-wrapper financial-table-region'"
+        if compact_identity else " class='monitor-wide-wrapper'"
+    )
+    html = [f"<div{accessibility} style='min-width: 100%; --monitor-table-min-width: {min_width}px;'>"]
     by_section: dict[str, list[CockpitMetric]] = {}
     for metric in _COCKPIT_METRICS:
         by_section.setdefault(metric.section, []).append(metric)
@@ -1032,7 +1063,16 @@ def _render_cockpit_table_html(outputs: list[dict[str, Any]], latest: str) -> st
         html.extend(f"<col style='width: {fund_width}px;'>" for _ in outputs)
         html.append("</colgroup><thead><tr><th class='label-col'>Nome</th><th>Consolidado</th>")
         for item in outputs:
-            html.append(f"<th>{escape(str(item['display_name']))}</th>")
+            full_name = str(item['display_name'])
+            if compact_identity:
+                name = short_fund_name(full_name)
+                html.append(
+                    f"<th><details class='financial-fund-identity'><summary aria-label='Identificação de {escape(full_name, quote=True)}'>{escape(name)}</summary>"
+                    f"<span>{escape(full_name)}</span></details>"
+                    f"<small>{escape(format_cnpj(item.get('cnpj') or ''))}</small></th>"
+                )
+            else:
+                html.append(f"<th>{escape(full_name)}</th>")
         html.append("</tr></thead><tbody>")
         for metric in metrics:
             row_class = "destaque" if metric.indicator in {"PL (R$)", "Vencidos Over 90 d / Crédito", "PDD / Venc > 90 d"} else ""

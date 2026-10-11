@@ -17,6 +17,7 @@ from openpyxl import Workbook
 from openpyxl.chart import BarChart, LineChart, Reference
 from openpyxl.chart.label import DataLabelList
 from openpyxl.worksheet.table import Table, TableStyleInfo
+from openpyxl.worksheet.views import Pane, Selection
 
 from services.export_chart_labels import choose_export_label_policy, should_enable_excel_data_labels
 from services.fund_return_matrix import (
@@ -840,12 +841,27 @@ def build_full_variable_export_matrix(monthly_df: pd.DataFrame, *, period_labels
     return pd.DataFrame(rows)
 
 
-def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> bytes:
+def build_consolidated_snapshot_excel_bytes(
+    outputs: MercadoLivreOutputs, *, export_context: dict[str, Any] | None = None,
+) -> bytes:
     workbook = Workbook()
     summary_ws = workbook.active
     summary_ws.title = "Resumo exibido"
     data_ws = workbook.create_sheet("Dados gráficos")
     charts_ws = workbook.create_sheet("Gráficos")
+    if export_context is not None:
+        context_ws = workbook.create_sheet("Contexto da exportação")
+        context_ws.append(["Campo", "Valor"])
+        for label, value in export_context.items():
+            if isinstance(value, (list, tuple, dict)):
+                value = json.dumps(value, ensure_ascii=False)
+            context_ws.append([label, value])
+        _style_plain_sheet(context_ws)
+        context_ws.column_dimensions["A"].width = 36
+        context_ws.column_dimensions["B"].width = 100
+        for row in context_ws.iter_rows(min_row=2):
+            for cell in row:
+                cell.alignment = Alignment(vertical="top", wrap_text=True)
 
     monthly = outputs.consolidated_monthly.copy()
     if monthly.empty:
@@ -865,6 +881,19 @@ def build_consolidated_snapshot_excel_bytes(outputs: MercadoLivreOutputs) -> byt
     _style_plain_sheet(data_ws)
     charts_ws.sheet_view.showGridLines = False
     charts_ws.column_dimensions["A"].width = 2
+    if export_context is not None:
+        # The legacy style changes B2 to A2 after a two-axis freeze, leaving
+        # duplicate/orphaned selections in openpyxl's view XML. Normalize the
+        # pilot's view explicitly while retaining its fixed metric column.
+        for worksheet in (summary_ws, data_ws):
+            worksheet.sheet_view.pane = Pane(
+                xSplit=1, ySplit=1, topLeftCell="B2", activePane="bottomRight", state="frozen",
+            )
+            worksheet.sheet_view.selection = [
+                Selection(pane="topRight", activeCell="B1", sqref="B1"),
+                Selection(pane="bottomLeft", activeCell="A2", sqref="A2"),
+                Selection(pane="bottomRight", activeCell="B2", sqref="B2"),
+            ]
 
     buffer = BytesIO()
     workbook.save(buffer)

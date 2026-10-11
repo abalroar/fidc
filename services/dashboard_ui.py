@@ -181,6 +181,119 @@ def render_context_strip(*, source: str, base_until: str, coverage: str) -> None
     st.markdown(html, unsafe_allow_html=True)
 
 
+def analysis_context_html(items: Sequence[tuple[str, object]]) -> str:
+    """A compact, reusable context; callers supply the financial interpretation."""
+    content = "".join(
+        f'<div><dt>{escape(label)}</dt><dd>{escape(str(value))}</dd></div>'
+        for label, value in items
+        if value is not None and str(value).strip()
+    )
+    return f'<dl class="dashboard-analysis-context" aria-label="Contexto da análise">{content}</dl>'
+
+
+def indicator_help_html(label: str, items: Sequence[tuple[str, object]], *, glossary_page: str = "") -> str:
+    """Native disclosure supports click, touch and Enter/Space without a rerun."""
+    content = "".join(
+        f'<p><b>{escape(title)}:</b> {escape(str(value))}</p>'
+        for title, value in items
+        if value is not None and str(value).strip()
+    )
+    if glossary_page:
+        from urllib.parse import quote
+
+        content += (
+            '<a target="_blank" rel="noopener" href="?section=glossario&amp;book_page='
+            f'{quote(glossary_page, safe="")}">Abrir no glossário</a>'
+        )
+    return (
+        '<details class="dashboard-indicator-help">'
+        f'<summary aria-label="Sobre {escape(label, quote=True)}"><span aria-hidden="true">i</span></summary>'
+        f'<div class="dashboard-indicator-help-body">{content}</div></details>'
+    )
+
+
+def analytical_components_css(scope: str) -> str:
+    """Opt-in styles for context, native help and wide financial comparisons."""
+    selector = f".st-key-{_safe_scope(scope)}"
+    return f"""<style>
+{selector} .dashboard-analysis-context {{
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: .55rem 1rem; padding: .7rem .8rem; margin: .3rem 0 .75rem;
+    background: #f7f5f2; border: 1px solid {GRID}; border-radius: 4px;
+}}
+{selector} .dashboard-analysis-context div {{ min-width: 0; }}
+{selector} .dashboard-analysis-context dt {{ color: {MUTED}; font-size: .73rem; line-height: 1.4; }}
+{selector} .dashboard-analysis-context dd {{ margin: .1rem 0 0; color: {INK}; font-size: .85rem; line-height: 1.4; overflow-wrap: anywhere; }}
+{selector} .fidc-snapshot-card {{ position: relative; background: #fff; border: 1px solid {GRID}; padding: .7rem; }}
+{selector} .fidc-snapshot-card__label {{ padding-right: 34px; line-height: 1.35; }}
+{selector} .fidc-snapshot-card__value {{ font-variant-numeric: tabular-nums; }}
+{selector} .dashboard-indicator-help summary {{
+    position: absolute; top: 0; right: 0; display: flex; align-items: center; justify-content: center;
+    width: 44px; min-height: 44px; list-style: none; cursor: pointer; color: {MUTED};
+}}
+{selector} .dashboard-indicator-help summary::-webkit-details-marker {{ display: none; }}
+{selector} .dashboard-indicator-help summary span {{
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 19px; height: 19px; border: 1px solid #cfd4da; border-radius: 50%; font-size: 12px;
+}}
+{selector} .dashboard-indicator-help summary:focus-visible,
+{selector} .financial-table-region:focus-visible {{ outline: 2px solid {ACCENT}; outline-offset: -2px; }}
+{selector} .dashboard-indicator-help[open] summary {{ color: {ACCENT}; }}
+{selector} .dashboard-indicator-help-body {{
+    position: absolute; top: calc(100% + 4px); right: 0; z-index: 10;
+    width: min(340px, calc(100vw - 80px)); max-height: min(460px, 70vh); overflow: auto;
+    background: #fff; border: 1px solid {GRID}; border-radius: 4px;
+    padding: .75rem; box-shadow: 0 4px 16px rgba(32, 40, 50, .08);
+}}
+{selector} .fidc-snapshot-card:nth-child(-n+2) .dashboard-indicator-help-body {{ left: 0; right: auto; }}
+{selector} .dashboard-indicator-help-body p {{ font-size: .78rem; line-height: 1.45; margin: 0 0 .4rem; }}
+{selector} .dashboard-indicator-help-body a {{ color: #a94100; font-size: .78rem; }}
+{selector} .monitor-wide-wrapper {{ max-height: 620px; overflow: auto; border: 1px solid {GRID}; border-radius: 4px; }}
+{selector} .monitor-wide-section {{ margin-bottom: 0; }}
+{selector} .monitor-wide-section summary {{
+    background: #f7f5f2; color: {INK}; font-weight: 500; min-height: 44px;
+    border-bottom: 1px solid {GRID}; padding: .65rem .75rem;
+}}
+{selector} .monitor-wide-section > summary,
+{selector} .wide-section > summary {{ position: sticky; left: 0; width: min(1436px, calc(100vw - 4rem)); box-sizing: border-box; }}
+{selector} .monitor-wide-table {{ font-size: 13px; font-variant-numeric: tabular-nums; }}
+{selector} .monitor-wide-table th {{ border-bottom: 1px solid {GRID}; padding: .6rem .65rem; vertical-align: bottom; }}
+{selector} .monitor-wide-table td {{ padding: .45rem .65rem; }}
+{selector} .monitor-wide-table th.label-col,
+{selector} .monitor-wide-table td.label {{ position: sticky; left: 0; background: #fff; z-index: 3; box-shadow: 1px 0 {GRID}; }}
+{selector} .monitor-wide-table th.label-col {{ z-index: 4; }}
+{selector} .monitor-wide-table tr.destaque td {{ font-weight: 600; }}
+{selector} .monitor-wide-table small {{ color: {MUTED}; display: block; font-size: 10px; font-weight: 400; margin-top: .3rem; }}
+{selector} .financial-fund-identity summary {{ background: #fff; border: 0; padding: .3rem 0; font-size: 13px; min-height: 44px; }}
+{selector} .financial-fund-identity summary:focus-visible {{ outline: 2px solid {ACCENT}; }}
+{selector} .financial-fund-identity span {{ font-size: 11px; font-weight: 400; line-height: 1.4; }}
+{selector} .wide-table-wrapper {{ max-width: 100%; max-height: 620px; overflow: auto; border: 1px solid {GRID}; border-radius: 4px; }}
+{selector} .wide-section summary {{ background: #f7f5f2; color: {INK}; border-bottom: 1px solid {GRID}; font-weight: 500; min-height: 44px; padding: .65rem .75rem; }}
+{selector} .wide-section summary::marker {{ color: {MUTED}; }}
+{selector} .wide-table {{ font-size: 13px; font-variant-numeric: tabular-nums; }}
+{selector} .wide-table th.label-col, {selector} .wide-table td.label {{ position: sticky; left: 0; background: #fff; z-index: 3; box-shadow: 1px 0 {GRID}; }}
+{selector} .wide-table th.label-col {{ z-index: 4; }}
+{selector} .wide-table td {{ padding: .45rem .65rem; }}
+{selector} .fidc-snapshot-row {{ align-items: start; }}
+@media (min-width: 641px) and (max-width: 960px) {{
+    {selector} .dashboard-indicator-help-body {{ left: 0; right: auto; }}
+    {selector} .fidc-snapshot-card:nth-child(4n) .dashboard-indicator-help-body,
+    {selector} .fidc-snapshot-card:nth-child(6) .dashboard-indicator-help-body {{ left: auto; right: 0; }}
+}}
+@media (max-width: 640px) {{
+    {selector} .dashboard-analysis-context {{ grid-template-columns: 1fr 1fr; gap: .55rem .75rem; padding: .65rem; }}
+    {selector} .monitor-wide-table th.label-col, {selector} .monitor-wide-table td.label {{ max-width: 140px; }}
+    {selector} .monitor-wide-table col:first-child, {selector} .wide-table col:first-child {{ width: 140px !important; }}
+    {selector} .monitor-wide-section > summary, {selector} .wide-section > summary {{ width: calc(100vw - 2rem); }}
+    {selector} .fidc-snapshot-row {{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }}
+    {selector} .fidc-snapshot-card {{ min-width: 0; }}
+    {selector} .fidc-snapshot-card:nth-child(odd) .dashboard-indicator-help-body {{ left: 0; right: auto; }}
+    {selector} .fidc-snapshot-card:nth-child(even) .dashboard-indicator-help-body {{ left: auto; right: 0; }}
+}}
+@media (max-width: 360px) {{ {selector} .dashboard-analysis-context {{ grid-template-columns: 1fr; }} }}
+</style>"""
+
+
 def _safe_scope(value: str) -> str:
     return re.sub(r"[^a-z0-9_]+", "_", value.strip().lower()).strip("_") or "page"
 
