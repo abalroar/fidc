@@ -931,6 +931,21 @@ def _render_unified_portfolio_download(
             "Os insumos de rentabilidade não puderam ser conferidos nesta execução. "
             "A apresentação informa a parte indisponível; os downloads de dados permanecem disponíveis."
         )
+    def add_export_context(payload: bytes, *, csv_zip: bool = False, structure: bool = False) -> bytes:
+        if not compact:
+            return payload
+        from services.portfolio_export_metadata import with_csv_export_context, with_xlsx_export_context
+        context = _portfolio_snapshot_export_context(
+            analysis=analysis, selected_portfolio=selected_portfolio, period=period,
+        )
+        if structure:
+            context.update({
+                "Fonte": "CVM · vehicle_monthly; perfis regulatórios curados · Fundos.NET/B3; cadastro documental RDB",
+                "Corte deste arquivo": "Última competência disponível por CNPJ; emissões e documentos conservam suas próprias datas",
+                "Unidades": "PL e volumes em R$ milhões; razões e percentuais conforme os cabeçalhos originais",
+            })
+        return with_csv_export_context(payload, context) if csv_zip else with_xlsx_export_context(payload, context)
+
     with st.expander(
         "Downloads de dados editáveis", expanded=False,
         key=f"portfolio_download_data::{selected_portfolio.id}",
@@ -953,20 +968,20 @@ def _render_unified_portfolio_download(
                 "full_excel", "Base completa e rentabilidade por série (Excel)",
                 f"carteira_base_completa_{file_token}.xlsx",
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                lambda: build_full_variable_excel_export_bytes(
+                lambda: add_export_context(build_full_variable_excel_export_bytes(
                     analysis.outputs, monitor_outputs=analysis.monitor_outputs,
-                ),
+                )),
             ),
             (
                 "full_csv", "Base completa (CSV)",
                 f"carteira_base_completa_{file_token}.zip", "application/zip",
-                lambda: build_full_variable_csv_zip_bytes(analysis.outputs),
+                lambda: add_export_context(build_full_variable_csv_zip_bytes(analysis.outputs), csv_zip=True),
             ),
             (
                 "analytical_excel", "Estrutura, emissões e RDB (Excel auditável)",
                 f"carteira_estrutura_emissoes_rdb_{file_token}.xlsx",
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                lambda: _prepare_analytical_portfolio_xlsx(selected_portfolio),
+                lambda: add_export_context(_prepare_analytical_portfolio_xlsx(selected_portfolio), structure=True),
             ),
         ):
             render_download = render_native_deferred_download if compact else render_on_demand_download
@@ -993,7 +1008,7 @@ def _portfolio_snapshot_export_context(
         if isinstance(monthly, pd.DataFrame) and "competencia" in monthly.columns else []
     )
     bundle = analysis.aggregate_bundle
-    common_competencia = getattr(getattr(bundle, "dashboard", None), "latest_competencia", "N/D")
+    common_competencia = analysis.reference_context.common_position if analysis.reference_context is not None else getattr(getattr(bundle, "dashboard", None), "latest_competencia", "N/D")
     coverage = []
     if isinstance(monthly, pd.DataFrame) and "competencia" in monthly.columns:
         for _, row in monthly.iterrows():
@@ -1043,6 +1058,7 @@ def _portfolio_download_context_signature(
         "services/fidc_analytical_slide.py", "services/deep_dive_ppt_export.py",
         "services/portfolio_presentation_context.py", "services/pptx_merge.py",
         "services/portfolio_ppt_presentation.py", "services/portfolio_document_display.py",
+        "services/portfolio_presentation_state.py", "services/portfolio_export_metadata.py",
     ))
     for directory in ("data/regulatory_profiles", "data/regulatory_knowledge", "data/deep_dives"):
         source_paths.update(path for path in (root / directory).rglob("*") if path.is_file())
