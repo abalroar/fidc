@@ -1461,24 +1461,44 @@ def _render_over_transparency_notes(st_ctx: object, over_history_df: pd.DataFram
         )
 
 
-def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
+def _render_credit_risk_section(
+    dashboard: FundonetDashboardData, *, portfolio_mode: bool = False,
+) -> None:
     _render_fidc_section("Crédito")
     default_pct_chart_df = _default_ratio_chart_frame(dashboard.default_history_df)
     cobertura_df = _default_cobertura_chart_frame(dashboard.default_history_df)
     default_pct_chart_df = _latest_competencia_window(default_pct_chart_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
     cobertura_df = _latest_competencia_window(cobertura_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
-    _render_chart_heading(st, "Inadimplência, PDD e cobertura")
-    st.caption(
-        "Barras: inadimplência e PDD sobre direitos creditórios. À direita: cobertura PDD / vencidos; 100% indica paridade."
+    note_history = (
+        _latest_competencia_window(dashboard.default_history_df, max_periods=CREDIT_RISK_VISUAL_MONTHS)
+        if portfolio_mode else dashboard.default_history_df
     )
+    _render_chart_heading(st, "Inadimplência, PDD e cobertura")
+    if not portfolio_mode:
+        st.caption(
+            "Barras: inadimplência e PDD sobre direitos creditórios. À direita: cobertura PDD / vencidos; 100% indica paridade."
+        )
+    else:
+        with st.popover("Como ler", type="tertiary"):
+            st.caption(
+                "Inadimplência e PDD: % dos direitos creditórios. "
+                "Cobertura: PDD / vencidos; 100% indica paridade."
+            )
     _credit_chart_all_zero = (
         default_pct_chart_df.empty
-        or (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
+        or (
+            pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").eq(0).all()
+            if portfolio_mode else
+            (pd.to_numeric(default_pct_chart_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
+        )
     )
     credit_col, coverage_col = st.columns([0.62, 0.38])
     with credit_col:
         if _credit_chart_all_zero:
-            st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
+            if portfolio_mode:
+                st.caption(_portfolio_credit_zero_note(note_history))
+            else:
+                st.caption("Sem dados de inadimplência ou provisão nos informes do período.")
         else:
             credit_bar_size = _executive_grouped_bar_size(
                 default_pct_chart_df["competencia"].nunique(),
@@ -1499,12 +1519,15 @@ def _render_credit_risk_section(dashboard: FundonetDashboardData) -> None:
                 width="stretch",
             )
     with coverage_col:
-        coverage_all_zero = (
-            cobertura_df.empty
-            or (pd.to_numeric(cobertura_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
+        coverage_all_zero = cobertura_df.empty or (
+            not portfolio_mode
+            and (pd.to_numeric(cobertura_df["valor"], errors="coerce").abs().fillna(0) < 0.001).all()
         )
         if coverage_all_zero:
-            st.caption("Cobertura não disponível para o período selecionado.")
+            st.caption(
+                _portfolio_coverage_unavailable_note(note_history)
+                if portfolio_mode else "Cobertura não disponível para o período selecionado."
+            )
         else:
             st.altair_chart(
                 _line_history_chart(
@@ -1580,6 +1603,7 @@ def _render_structural_risk_section(
     return_months: int = 12,
     show_return_section: bool = True,
     responsive_labels: bool = False,
+    portfolio_mode: bool = False,
 ) -> None:
     _render_fidc_section("Estrutura")
     latest_subordination_match = (
@@ -1610,11 +1634,30 @@ def _render_structural_risk_section(
     pl_periods = dashboard.quota_pl_history_df["competencia"].nunique()
     pl_bar_size = _executive_quota_bar_size(pl_periods)
     # Segment labels only when bars are wide enough (few periods) to avoid overlap
-    show_pl_segment_labels = pl_periods <= 6
-    if pl_view == "% do total por competência":
+    show_pl_segment_labels = pl_periods <= 6 and not portfolio_mode
+    portfolio_chart_options: dict[str, Any] = {}
+    if portfolio_mode:
+        series_order, colors = _portfolio_quota_series_style(dashboard.quota_pl_history_df)
+        portfolio_chart_options = {
+            "legend_series_order": series_order,
+            "color_range": colors,
+            "x_label_angle": 0 if pl_periods <= 6 else -45,
+        }
+    plot_frame = (
+        _quota_pl_share_chart_frame(dashboard.quota_pl_history_df)
+        if pl_view == "% do total por competência" else _quota_pl_chart_frame(dashboard.quota_pl_history_df)
+    )
+    if portfolio_mode:
+        plot_frame = _portfolio_order_quota_frame(plot_frame)
+    if portfolio_mode and plot_frame.empty:
+        st.caption(
+            _portfolio_pl_percentage_unavailable_note(dashboard.quota_pl_history_df)
+            if pl_view == "% do total por competência" else "PL por cota N/D — sem dados no período."
+        )
+    elif pl_view == "% do total por competência":
         st.altair_chart(
             _stacked_history_bar_chart(
-                _quota_pl_share_chart_frame(dashboard.quota_pl_history_df),
+                plot_frame,
                 title=None,
                 y_title="% do total",
                 value_column="percentual",
@@ -1625,6 +1668,7 @@ def _render_structural_risk_section(
                 smart_label_placement=False,
                 allow_outside_labels=not responsive_labels,
                 responsive_labels=responsive_labels,
+                **portfolio_chart_options,
             ),
             width="stretch",
         )
@@ -1632,7 +1676,7 @@ def _render_structural_risk_section(
         # For R$ view: total labels only when bars are wide enough to avoid collision
         st.altair_chart(
             _stacked_history_bar_chart(
-                _quota_pl_chart_frame(dashboard.quota_pl_history_df),
+                plot_frame,
                 title=None,
                 y_title="R$",
                 value_column="valor",
@@ -1643,9 +1687,19 @@ def _render_structural_risk_section(
                 smart_label_placement=False,
                 allow_outside_labels=not responsive_labels,
                 responsive_labels=responsive_labels,
+                **portfolio_chart_options,
             ),
             width="stretch",
         )
+
+    if portfolio_mode:
+        position = _format_competencia_label(dashboard.latest_competencia)
+        shown = _portfolio_observed_window(dashboard.quota_pl_history_df)
+        subordination = _format_percent(
+            latest_subordination_row.get("subordinacao_pct")
+            if latest_subordination_row is not None else None
+        )
+        st.caption(f"{shown} · Subordinação reportada {subordination} em {position}.")
 
     if not show_return_section:
         return
@@ -1935,7 +1989,117 @@ def _render_over_denominator_audit_note(container, dashboard: FundonetDashboardD
     container.caption(f"Denominador Over: {denom_label} (total canônico de DCs).")
 
 
-def _render_financial_snapshot_cards(dashboard: FundonetDashboardData, *, interactive_help: bool = False) -> None:
+def _portfolio_snapshot_support_values(summary: dict[str, Any]) -> tuple[tuple[str, str], ...]:
+    """Format supplied snapshot values without replacing zero or deriving metrics."""
+    coverage = summary.get("cobertura_pct")
+    overdue = summary.get("inadimplencia_total")
+    coverage_number = pd.to_numeric(pd.Series([coverage]), errors="coerce").iloc[0]
+    overdue_number = pd.to_numeric(pd.Series([overdue]), errors="coerce").iloc[0]
+    coverage_label = _format_percent(coverage_number)
+    if pd.isna(coverage_number) and pd.notna(overdue_number):
+        if float(overdue_number) == 0:
+            coverage_label = "não calculável (vencidos zero)"
+        elif float(overdue_number) < 0:
+            coverage_label = "não calculável (vencidos não positivos)"
+    return (
+        ("Ativo", _format_brl_compact(summary.get("ativos_totais"))),
+        ("Vencidos", _format_brl_compact(overdue)),
+        ("Cobertura", coverage_label),
+    )
+
+
+def _portfolio_credit_zero_note(history: pd.DataFrame) -> str:
+    """Describe the observed zero rows and retain missing coverage explicitly."""
+    if history.empty:
+        return "N/D — inadimplência e PDD sem dados no período."
+    parts = []
+    observed = False
+    for column, label in (("inadimplencia_pct", "Inadimplência"), ("provisao_pct_direitos", "PDD")):
+        values = pd.to_numeric(history.get(column, pd.Series(dtype=float)), errors="coerce")
+        valid = values.dropna()
+        observed = observed or not valid.empty
+        if valid.empty:
+            parts.append(f"{label} N/D")
+        elif valid.eq(0).all():
+            suffix = f" ({len(valid)}/{len(history)} competências com dado)" if len(valid) < len(history) else ""
+            parts.append(f"{label} 0,00%{suffix}")
+    if not observed:
+        return "N/D — inadimplência e PDD sem dados no período."
+    return " · ".join(parts) + ". Gráfico dispensado: as séries disponíveis são zero."
+
+
+def _portfolio_coverage_unavailable_note(history: pd.DataFrame) -> str:
+    """Explain an absent coverage curve only from the reported denominator."""
+    if history.empty or "inadimplencia_total" not in history:
+        return "Cobertura N/D — sem dados no período."
+    denominators = pd.to_numeric(history["inadimplencia_total"], errors="coerce")
+    known = denominators.dropna()
+    if len(known) == len(history) and known.eq(0).all():
+        return "Cobertura não calculável — vencidos reportados zero."
+    if len(known) == len(history) and known.le(0).all():
+        return "Cobertura não calculável — vencidos reportados não positivos."
+    zero_count = int(denominators.eq(0).sum())
+    if zero_count:
+        return f"Cobertura N/D — vencidos zero em {zero_count}/{len(history)} competências; demais sem cobertura disponível."
+    return "Cobertura N/D — sem dados suficientes no período."
+
+
+_PORTFOLIO_QUOTA_ORDER = ("Sênior", "Mezzanino", "Subordinada", "PL não reconciliado")
+_PORTFOLIO_QUOTA_COLORS = {
+    "Sênior": "#6e6e6e", "Mezzanino": "#ff5a00",
+    "Subordinada": "#111111", "PL não reconciliado": "#b8b8b8",
+}
+
+
+def _portfolio_order_quota_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    """Give the existing plotted values a stable stack order, without aggregation."""
+    result = frame.copy()
+    if result.empty or "serie" not in result:
+        return result
+    unknown = sorted(set(result["serie"].dropna().astype(str)) - set(_PORTFOLIO_QUOTA_ORDER))
+    order = {label: index for index, label in enumerate((*_PORTFOLIO_QUOTA_ORDER, *unknown))}
+    result["ordem"] = result["serie"].map(order)
+    return result
+
+
+def _portfolio_quota_series_style(history: pd.DataFrame) -> tuple[list[str], list[str]]:
+    if history.empty:
+        return [], []
+    labels = set(history[_quota_macro_label_column(history)].dropna().astype(str))
+    order = [label for label in _PORTFOLIO_QUOTA_ORDER if label in labels]
+    unknown = sorted(labels - set(order))
+    order.extend(unknown)
+    colors = [_PORTFOLIO_QUOTA_COLORS.get(label, "#c9864a") for label in order]
+    return order, colors
+
+
+def _portfolio_observed_window(history: pd.DataFrame) -> str:
+    if history.empty or "competencia" not in history:
+        return "Histórico N/D"
+    frame = _sort_competencia_display_frame(history.copy())
+    labels = frame["competencia"].dropna().astype(str).drop_duplicates().tolist()
+    if not labels:
+        return "Histórico N/D"
+    start, end = _format_competencia_label(labels[0]), _format_competencia_label(labels[-1])
+    span = start if len(labels) == 1 else f"{start} → {end}"
+    return f"Histórico {span} ({len(labels)} competência{'s' if len(labels) != 1 else ''})"
+
+
+def _portfolio_pl_percentage_unavailable_note(history: pd.DataFrame) -> str:
+    if history.empty or "pl" not in history:
+        return "Participação por cota N/D — PL sem dados no período."
+    values = pd.to_numeric(history["pl"], errors="coerce").dropna()
+    if values.empty:
+        return "Participação por cota N/D — PL sem dados no período."
+    if values.eq(0).all():
+        return "Participação por cota não calculável — PL reportado zero."
+    return "Participação por cota não calculável — total por competência não positivo."
+
+
+def _render_financial_snapshot_cards(
+    dashboard: FundonetDashboardData, *, interactive_help: bool = False,
+    portfolio_mode: bool = False, slot_key: str = "slot0",
+) -> None:
     summary = dashboard.summary
 
     def _card(label: str, value: object) -> str:
@@ -1956,20 +2120,56 @@ def _render_financial_snapshot_cards(dashboard: FundonetDashboardData, *, intera
             f'</div>'
         )
 
-    cards: list[str] = [
-        _card("Ativo total", summary.get("ativos_totais")),
-        _card("DCs totais", summary.get("direitos_creditorios") or summary.get("inadimplencia_denominador")),
-        _card("PL total", summary.get("pl_total")),
-        _card("Vencidos", summary.get("inadimplencia_total")),
-        _card("Cobertura de provisão", summary.get("cobertura_pct")),
-        _card("Subordinação reportada", summary.get("subordinacao_pct")),
-    ]
+    if portfolio_mode:
+        dc_value = summary.get("direitos_creditorios")
+        if _is_missing_value(dc_value):
+            dc_value = summary.get("inadimplencia_denominador")
+        cards = [
+            _card("PL total", summary.get("pl_total")),
+            _card("DCs totais", dc_value),
+            _card("Subordinação reportada", summary.get("subordinacao_pct")),
+        ]
+    else:
+        cards = [
+            _card("Ativo total", summary.get("ativos_totais")),
+            _card("DCs totais", summary.get("direitos_creditorios") or summary.get("inadimplencia_denominador")),
+            _card("PL total", summary.get("pl_total")),
+            _card("Vencidos", summary.get("inadimplencia_total")),
+            _card("Cobertura de provisão", summary.get("cobertura_pct")),
+            _card("Subordinação reportada", summary.get("subordinacao_pct")),
+        ]
 
     cards_html = "\n".join(cards)
     st.markdown(
         f'<div class="fidc-snapshot-row">{cards_html}</div>',
         unsafe_allow_html=True,
     )
+    if portfolio_mode:
+        st.caption(" · ".join(
+            f"{label} {value}" for label, value in _portfolio_snapshot_support_values(summary)
+        ))
+        if interactive_help:
+            from services.portfolio_structure_ui import structural_snapshot_help_html
+
+            with st.popover(
+                "Ativo, vencidos e cobertura", type="tertiary",
+                key=f"portfolio_snapshot_support::{slot_key}",
+                help="Definições, fórmulas e fontes dos indicadores da linha acima.",
+            ):
+                help_blocks = []
+                for label in ("Ativo total", "Vencidos", "Cobertura de provisão"):
+                    block = structural_snapshot_help_html(label, dashboard)
+                    block = block.replace('<details class="dashboard-indicator-help">', '<details open class="portfolio-snapshot-help">')
+                    block = block.replace('<span aria-hidden="true">i</span>', escape(label))
+                    block = block.replace('class="dashboard-indicator-help-body"', 'class="portfolio-snapshot-help-body"')
+                    help_blocks.append(block)
+                st.html(
+                    '<style>.portfolio-snapshot-help{margin:.4rem 0 1rem;}'
+                    '.portfolio-snapshot-help summary{font-size:.86rem;font-weight:600;cursor:pointer;}'
+                    '.portfolio-snapshot-help-body p{font-size:.8rem;line-height:1.45;margin:.35rem 0;}'
+                    '.portfolio-snapshot-help-body a{color:#a94100;font-size:.8rem;}</style>'
+                    + "".join(help_blocks)
+                )
 
 
 def _render_dashboard_header(dashboard: FundonetDashboardData) -> None:
@@ -4591,6 +4791,7 @@ def _stacked_history_bar_chart(
     show_segment_labels: bool = True,
     max_segment_labels_per_competencia: int | None = None,
     responsive_labels: bool = False,
+    x_label_angle: int | None = None,
 ) -> alt.Chart:
     chart_df = _altair_compatible_df(chart_df.copy())
     chart_df = _sort_competencia_display_frame(chart_df, extra_columns=["ordem", "serie"])
@@ -4615,6 +4816,8 @@ def _stacked_history_bar_chart(
             else (lambda value: _format_value_label(value, y_title))
         )
     x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort)
+    if x_label_angle is not None:
+        x_encoding = alt.X("competencia:N", title="Competência", sort=x_sort, axis=alt.Axis(labelAngle=x_label_angle))
     y_axis = alt.Axis(labelExpr=_brl_axis_label_expr()) if y_title == "R$" else alt.Axis()
     totals_for_scale = chart_df.groupby("competencia", dropna=False)[resolved_value_column].sum()
     y_encoding = alt.Y(
