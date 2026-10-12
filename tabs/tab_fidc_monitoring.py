@@ -359,7 +359,10 @@ def render_portfolio_cockpit_snapshot(
         st.caption("Sem indicadores por fundo para a competência de referência.")
         return False
     if context_items is None:
-        _render_cockpit_tab(success_outputs)
+        if portfolio_mode:
+            _render_cockpit_tab(success_outputs, portfolio_mode=True)
+        else:
+            _render_cockpit_tab(success_outputs)
     else:
         _render_cockpit_tab(success_outputs, context_items=context_items, portfolio_mode=portfolio_mode)
     return True

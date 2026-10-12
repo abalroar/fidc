@@ -1358,7 +1358,7 @@ def _render_scope_header(scope: PortfolioAnalysisScope, *, structure_pilot: bool
     identity = ""
     if scope.kind == "fund":
         info = getattr(scope.dashboard, "fund_info", {}) or {}
-        legal_name = info.get("nome_fundo") or info.get("denominacao") or scope.label
+        legal_name = info.get("nome_fundo") or info.get("nome_classe") or info.get("denominacao") or scope.label
         identity = (
             "<details class='portfolio-scope-identity'><summary>Identificação</summary>"
             f"{escape(str(legal_name))}<br>CNPJ {escape(scope.cnpj)}</details>"
@@ -1496,6 +1496,7 @@ def _render_credit_term_tab(
         credit_tab._chart_title(
             "Carteira Bruta ex-360 e crescimento YoY",
             credit_tab.PORTFOLIO_GROWTH_NOTES,
+            interactive_help=True,
         )
         st.altair_chart(portfolio_growth_chart(monitor), use_container_width=True)
 
@@ -1541,9 +1542,9 @@ def _render_delinquency_tab(
             st.caption("Monitor de inadimplência indisponível para este escopo.")
             return
 
-        credit_tab._chart_title("NPL ex-360 por severidade", credit_tab.NPL_SEVERITY_NOTES)
+        credit_tab._chart_title("NPL ex-360 por severidade", credit_tab.NPL_SEVERITY_NOTES, interactive_help=True)
         st.altair_chart(npl_severity_chart(monitor), use_container_width=True)
-        credit_tab._chart_title("Roll rates", credit_tab.ROLL_RATES_NOTES)
+        credit_tab._chart_title("Roll rates", credit_tab.ROLL_RATES_NOTES, interactive_help=True)
         st.altair_chart(roll_rates_chart(monitor), use_container_width=True)
 
         research_key = (
@@ -1559,9 +1560,10 @@ def _render_delinquency_tab(
             credit_tab._render_research_roll_charts(
                 roll_df,
                 key=f"portfolio_delinquency_roll::{selected_portfolio.id}::{scope.value}",
+                interactive_help=True,
             )
 
-        credit_tab._chart_title("Cohorts recentes", credit_tab._cohort_notes())
+        credit_tab._chart_title("Cohorts recentes", credit_tab._cohort_notes(), interactive_help=True)
         st.altair_chart(cohort_chart(_scope_cohorts(analysis, scope)), use_container_width=True)
 
     _render_scoped_views(selected_scopes, render_scope)
@@ -1619,7 +1621,7 @@ def _render_returns_tab(
     else:
         st.markdown(f"**{escape(labels[selected_cnpj])}**")
 
-    credit_tab._render_fund_return_table(outputs=analysis.outputs, cnpj=selected_cnpj)
+    credit_tab._render_fund_return_table(outputs=analysis.outputs, cnpj=selected_cnpj, compact=True)
     if selected_scope is not None:
         ime_tab._render_quota_return_section(
             selected_scope.dashboard,
